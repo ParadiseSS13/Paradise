@@ -421,7 +421,7 @@
 		new /datum/data/mining_equipment("Brute First-Aid Kit",			/obj/item/storage/firstaid/brute,									600),
 		new /datum/data/mining_equipment("Tracking Implant Kit", 		/obj/item/storage/box/minertracker,									600),
 		new /datum/data/mining_equipment("Jaunter",						/obj/item/wormhole_jaunter,											750),
-		new /datum/data/mining_equipment("Kinetic Crusher",				/obj/item/twohanded/required/kinetic_crusher,						750),
+		new /datum/data/mining_equipment("Kinetic Crusher",				/obj/item/twohanded/kinetic_crusher,								750),
 		new /datum/data/mining_equipment("Kinetic Accelerator",			/obj/item/gun/energy/kinetic_accelerator,							750),
 		new /datum/data/mining_equipment("Advanced Scanner",			/obj/item/t_scanner/adv_mining_scanner,								800),
 		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												800),
@@ -625,7 +625,7 @@
 //			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/required/kinetic_crusher(drop_location)
+			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
@@ -1149,102 +1149,3 @@
 	C.preserved = 1
 	to_chat(user, "<span class='notice'>You inject the hivelord core with the stabilizer. It will no longer go inert.</span>")
 	qdel(src)
-
-/*********************Mining Hammer****************/
-/obj/item/twohanded/required/kinetic_crusher
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "mining_hammer1"
-	item_state = "mining_hammer1"
-	name = "proto-kinetic crusher"
-	desc = "An early design of the proto-kinetic accelerator, it is little more than an combination of various mining tools cobbled together, forming a high-tech club.\
-	  While it is an effective mining tool, it did little to aid any but the most skilled and/or suicidal miners against local fauna. \
-	 \n<span class='info'>Mark a mob with the destabilizing force, then hit them in melee to activate it for extra damage. Extra damage if backstabbed in this fashion. \
-	 This weapon is only particularly effective against large creatures.</span>"
-	force = 20 //As much as a bone spear, but this is significantly more annoying to carry around due to requiring the use of both hands at all times
-	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
-	force_unwielded = 20 //It's never not wielded so these are the same
-	force_wielded = 20
-	throwforce = 5
-	throw_speed = 4
-	light_range = 4
-	armour_penetration = 10
-	materials = list(MAT_METAL=1150, MAT_GLASS=2075)
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("smashes", "crushes", "cleaves", "chops", "pulps")
-	sharp = 1
-	var/charged = 1
-	var/charge_time = 16
-	var/atom/mark = null
-	var/marked_image = null
-
-/obj/item/projectile/destabilizer
-	name = "destabilizing force"
-	icon_state = "pulse1"
-	damage = 0 //We're just here to mark people. This is still a melee weapon.
-	damage_type = BRUTE
-	flag = "bomb"
-	range = 6
-	var/obj/item/twohanded/required/kinetic_crusher/hammer_synced =  null
-
-/obj/item/projectile/destabilizer/on_hit(atom/target, blocked = 0, hit_zone)
-	if(hammer_synced)
-		if(hammer_synced.mark == target)
-			return ..()
-		if(isliving(target))
-			if(hammer_synced.mark && hammer_synced.marked_image)
-				hammer_synced.mark.underlays -= hammer_synced.marked_image
-				hammer_synced.marked_image = null
-			var/mob/living/L = target
-			if(L.mob_size >= MOB_SIZE_LARGE)
-				hammer_synced.mark = L
-				var/image/I = image('icons/effects/effects.dmi', loc = L, icon_state = "shield2",pixel_y = (-L.pixel_y),pixel_x = (-L.pixel_x))
-				L.underlays += I
-				hammer_synced.marked_image = I
-		var/target_turf = get_turf(target)
-		if(istype(target_turf, /turf/simulated/mineral))
-			var/turf/simulated/mineral/M = target_turf
-			new /obj/effect/temp_visual/kinetic_blast(M)
-			M.gets_drilled(firer)
-	..()
-
-/obj/item/twohanded/required/kinetic_crusher/afterattack(atom/target, mob/user, proximity_flag)
-	if(!proximity_flag && charged)//Mark a target, or mine a tile.
-		var/turf/proj_turf = get_turf(src)
-		if(!istype(proj_turf, /turf))
-			return
-		var/datum/gas_mixture/environment = proj_turf.return_air()
-		var/pressure = environment.return_pressure()
-		if(pressure > 50)
-			playsound(user, 'sound/weapons/empty.ogg', 100, 1)
-			return
-		var/obj/item/projectile/destabilizer/D = new /obj/item/projectile/destabilizer(user.loc)
-		D.preparePixelProjectile(target,get_turf(target), user)
-		D.hammer_synced = src
-		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
-		D.fire()
-		charged = 0
-		icon_state = "mining_hammer1_uncharged"
-		spawn(charge_time)
-			Recharge()
-		return
-	if(proximity_flag && target == mark && isliving(target))
-		var/mob/living/L = target
-		new /obj/effect/temp_visual/kinetic_blast(get_turf(L))
-		mark = 0
-		if(L.mob_size >= MOB_SIZE_LARGE)
-			L.underlays -= marked_image
-			QDEL_NULL(marked_image)
-			var/backstab = check_target_facings(user, L)
-			var/def_check = L.getarmor(type = "bomb")
-			if(backstab == FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR || backstab == FACING_SAME_DIR)
-				L.apply_damage(80, BRUTE, blocked = def_check)
-				playsound(user, 'sound/weapons/kenetic_accel.ogg', 100, 1) //Seriously who spelled it wrong
-			else
-				L.apply_damage(50, BRUTE, blocked = def_check)
-
-/obj/item/twohanded/required/kinetic_crusher/proc/Recharge()
-	if(!charged)
-		charged = 1
-		icon_state = "mining_hammer1"
-		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
