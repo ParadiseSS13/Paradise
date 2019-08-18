@@ -516,6 +516,7 @@ About the new airlock wires panel:
 		else
 			to_chat(user, "There's a [note.name] pinned to the front...")
 			note.examine(user)
+			to_chat(user, "<span class='notice'>Use an empty hand on the airlock on grab mode to remove [note.name].</span>")
 
 	if(panel_open)
 		switch(security_level)
