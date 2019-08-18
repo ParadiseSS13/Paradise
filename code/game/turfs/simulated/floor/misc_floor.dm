@@ -43,7 +43,7 @@
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
 
-/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)	
+/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
 /turf/simulated/floor/beach/sand
@@ -79,7 +79,7 @@
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
-		return 
+		return
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
@@ -107,6 +107,11 @@
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
 
+/turf/simulated/floor/noslip/lavaland
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"
@@ -124,7 +129,7 @@
 		new /obj/effect/temp_visual/ratvar/beam(src)
 		realappearence = new /obj/effect/clockwork/overlay/floor(src)
 		realappearence.linked = src
-	
+
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)
 		QDEL_NULL(realappearence)
