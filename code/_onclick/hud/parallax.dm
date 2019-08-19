@@ -8,6 +8,7 @@
 	var/last_parallax_shift //world.time of last update
 	var/parallax_throttle = 0 //ds between updates
 	var/parallax_movedir = 0
+	var/new_parallax_movedir = 0
 	var/parallax_layers_max = 3
 	var/parallax_animate_timer
 
@@ -154,7 +155,7 @@
 	var/area/areaobj = posobj.loc
 
 	// Update the movement direction of the parallax if necessary (for shuttles)
-	set_parallax_movedir(areaobj.parallax_movedir)
+	set_parallax_movedir(C.new_parallax_movedir)
 
 	var/force
 	if(!C.previous_turf || (C.previous_turf.z != posobj.z))
