@@ -11754,6 +11754,7 @@
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
+/obj/machinery/power/grounding_rod,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -11769,6 +11770,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
+/obj/machinery/power/grounding_rod,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "caution"
