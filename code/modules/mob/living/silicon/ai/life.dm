@@ -107,6 +107,8 @@
 							aiRestorePowerRoutine = 0
 							update_blind_effects()
 							update_sight()
+							to_chat(src, "Here are your current laws:")
+							src.show_laws()
 							return
 
 						switch(PRP)
@@ -126,8 +128,6 @@
 								theAPC.attack_ai(src)
 								apc_override = 0
 								aiRestorePowerRoutine = 3
-								to_chat(src, "Here are your current laws:")
-								src.show_laws() //WHY THE FUCK IS THIS HERE
 						sleep(50)
 						theAPC = null
 
