@@ -210,8 +210,10 @@
 	var/list/shuttle_areas
 
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
+	var/last_timer_length
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
 	var/callTime = 50				//time spent in transit (deciseconds)
+	var/ignitionTime = 50			// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
@@ -325,30 +327,29 @@
 	switch(mode)
 		if(SHUTTLE_CALL)
 			if(S == destination)
-				if(world.time <= timer)
-					timer = world.time
+				if(timeLeft(1) < callTime)
+					setTimer(callTime)
 			else
 				destination = S
-				timer = world.time
+				setTimer(callTime)
 		if(SHUTTLE_RECALL)
 			if(S == destination)
-				timer = world.time - timeLeft(1)
+				setTimer(callTime - timeLeft(1))
 			else
 				destination = S
-				timer = world.time
+				setTimer(callTime)
 			mode = SHUTTLE_CALL
-		else
+		if(SHUTTLE_IDLE, SHUTTLE_IGNITING)
 			destination = S
-			mode = SHUTTLE_CALL
-			timer = world.time
-			enterTransit()		//hyperspace
+			mode = SHUTTLE_IGNITING
+			setTimer(ignitionTime)
 
 //recall the shuttle to where it was previously
 /obj/docking_port/mobile/proc/cancel()
 	if(mode != SHUTTLE_CALL)
 		return
 
-	timer = world.time - timeLeft(1)
+	invertTimer()
 	mode = SHUTTLE_RECALL
 
 /obj/docking_port/mobile/proc/enterTransit()
@@ -630,6 +631,11 @@
 				if(dock(previous))
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
 					return
+			if(SHUTTLE_IGNITING)
+				mode = SHUTTLE_CALL
+				setTimer(callTime)
+				enterTransit()
+				return
 		mode = SHUTTLE_IDLE
 		timer = 0
 		destination = null
@@ -642,9 +648,24 @@
 				create_ripples(destination)
 
 /obj/docking_port/mobile/proc/setTimer(wait)
-	if(timer <= 0)
-		timer = world.time
-	timer += wait - timeLeft(1)
+	timer = world.time + wait
+	last_timer_length = wait
+
+/obj/docking_port/mobile/proc/modTimer(multiple)
+	var/time_remaining = timer - world.time
+	if(time_remaining < 0 || !last_timer_length)
+		return
+	time_remaining *= multiple
+	last_timer_length *= multiple
+	setTimer(time_remaining)
+
+/obj/docking_port/mobile/proc/invertTimer()
+	if(!last_timer_length)
+		return
+	var/time_remaining = timer - world.time
+	if(time_remaining > 0)
+		var/time_passed = last_timer_length - time_remaining
+		setTimer(time_passed)
 
 //returns timeLeft
 /obj/docking_port/mobile/proc/timeLeft(divisor)
@@ -787,7 +808,7 @@
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
-				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+				atom_say("Shuttle departing! Please stand away from the doors.")
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
