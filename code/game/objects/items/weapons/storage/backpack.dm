@@ -18,7 +18,8 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
+		"Vox" = 'icons/mob/species/vox/back.dmi',
+		"Grey" = 'icons/mob/species/grey/back.dmi'
 		)
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)

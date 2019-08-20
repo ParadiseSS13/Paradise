@@ -63,6 +63,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
@@ -90,6 +91,14 @@
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
+
+/obj/item/clothing/glasses/hud/security/chameleon
+	name = "Chameleon Security HUD"
+	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Toggle to disguise the HUD. Provides flash protection."
+	flash_protect = 1
+
+/obj/item/clothing/glasses/hud/security/chameleon/attack_self(mob/user)
+	chameleon(user)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
 	name = "augmented shades"
@@ -138,6 +147,7 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
@@ -176,7 +186,9 @@
 	up = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self()
