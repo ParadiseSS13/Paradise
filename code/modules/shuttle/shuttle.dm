@@ -215,7 +215,6 @@
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
-	var/list/parallax_mobs = list()	//mobs to unparallax
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -493,9 +492,10 @@
 			var/turf/simulated/Ts1 = T1
 			Ts1.copy_air_with_tile(T0)
 
+		areaInstance.moving = TRUE
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation, travelDir)
+			AM.onShuttleMove(T0, T1, rotation)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
@@ -513,19 +513,12 @@
 		T0.CalculateAdjacentTurfs()
 		SSair.add_to_active(T0,1)
 
+	areaInstance.moving = transit
 	for(var/A1 in L1)
 		var/turf/T1 = A1
 		T1.postDock(S1)
 		for(var/atom/movable/M in T1)
-			M.postDock(S1, transit, parallax_mobs)
-
-	// For mobs who move away from a transiting shuttle for whatever reason (teleportation, jumping, etc) so that they don't get stuck parallaxing
-	if(!transit)
-		for(var/mob/M in parallax_mobs)
-			if(M.client && M.client.new_parallax_movedir)
-				M.client.new_parallax_movedir = 0
-				M.update_parallax_contents()
-		parallax_mobs = list()
+			M.postDock(S1)
 
 	loc = S1.loc
 	dir = S1.dir
