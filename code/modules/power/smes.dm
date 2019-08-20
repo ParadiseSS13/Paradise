@@ -77,6 +77,9 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
+/obj/machinery/power/smes/start_processing()
+	START_DEFERRED_PROCESSING(SSmachines, src)
+
 /obj/machinery/power/smes/RefreshParts()
 	var/IO = 0
 	var/C = 0
@@ -87,6 +90,7 @@
 	for(var/obj/item/stock_parts/cell/PC in component_parts)
 		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
+
 
 /obj/machinery/power/smes/update_icon()
 	overlays.Cut()

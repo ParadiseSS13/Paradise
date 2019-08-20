@@ -19,7 +19,8 @@
 
 #define NEW_SS_GLOBAL(varname) if(varname != src){if(istype(varname)){Recover();qdel(varname);}varname = src;}
 
-#define START_PROCESSING(Processor, Datum) if (!Datum.isprocessing) {Datum.isprocessing = TRUE;if(is_battery(Datum)){Processor.processing.Insert(1,Datum)}else{Processor.processing += Datum}}
+#define START_DEFERRED_PROCESSING(Processor, Datum) if (!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing.Insert(1,Datum)} // Allows battery objects to take consume powernet last
+#define START_PROCESSING(Processor, Datum) if (!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing += Datum}
 #define STOP_PROCESSING(Processor, Datum) Datum.isprocessing = FALSE;Processor.processing -= Datum
 
 //SubSystem flags (Please design any new flags so that the default is off, to make adding flags to subsystems easier)

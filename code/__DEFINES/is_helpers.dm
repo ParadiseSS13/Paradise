@@ -15,8 +15,6 @@
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
-#define is_battery(A) (istype(A, /obj/machinery/power/smes)) // If something needs to be last in line to get power from the powernet
-
 #define ismecha(A) (istype(A, /obj/mecha))
 
 #define iseffect(A) (istype(A, /obj/effect))

@@ -129,11 +129,14 @@ Class Procs:
 	if(use_power)
 		myArea = get_area(src)
 	if(!speed_process)
-		START_PROCESSING(SSmachines, src)
+		start_processing()
 	else
 		START_PROCESSING(SSfastprocess, src)
 
 	power_change()
+
+/obj/machinery/proc/start_processing()
+	START_PROCESSING(SSmachines, src)
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
