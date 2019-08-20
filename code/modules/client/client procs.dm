@@ -433,6 +433,9 @@
 		GLOB.admins -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	if(movingmob)
+		movingmob.client_mobs_in_contents -= mob
+		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
 	return ..()
 

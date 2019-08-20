@@ -268,6 +268,7 @@ CREATE TABLE `SS13_player` (
   `fuid` bigint(20) NULL DEFAULT NULL,
   `fupdate` smallint(4) NULL DEFAULT '0',
   `afk_watch` tinyint(1) NOT NULL DEFAULT '0',
+  `parallax` tinyint(1) DEFAULT '8',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;

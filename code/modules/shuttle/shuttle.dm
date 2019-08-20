@@ -189,7 +189,7 @@
 /obj/docking_port/stationary/transit
 	name = "In transit"
 	turf_type = /turf/space/transit
-
+	var/area/shuttle/transit/assigned_area
 	lock_shuttle_doors = 1
 
 /obj/docking_port/stationary/transit/register()
@@ -215,6 +215,7 @@
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
+	var/list/parallax_mobs = list()	//mobs to unparallax
 
 	var/obj/docking_port/stationary/destination
 	var/obj/docking_port/stationary/previous
@@ -358,7 +359,7 @@
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1))
+		if(dock(S1, , TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
@@ -429,7 +430,7 @@
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
-/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
+/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(S1.get_docked() == src)
 		remove_ripples()
@@ -494,7 +495,7 @@
 
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
-			AM.onShuttleMove(T0, T1, rotation)
+			AM.onShuttleMove(T0, T1, rotation, travelDir)
 
 		if(rotation)
 			T1.shuttleRotate(rotation)
@@ -516,7 +517,15 @@
 		var/turf/T1 = A1
 		T1.postDock(S1)
 		for(var/atom/movable/M in T1)
-			M.postDock(S1)
+			M.postDock(S1, transit, parallax_mobs)
+
+	// For mobs who move away from a transiting shuttle for whatever reason (teleportation, jumping, etc) so that they don't get stuck parallaxing
+	if(!transit)
+		for(var/mob/M in parallax_mobs)
+			if(M.client && M.client.new_parallax_movedir)
+				M.client.new_parallax_movedir = 0
+				M.update_parallax_contents()
+		parallax_mobs = list()
 
 	loc = S1.loc
 	dir = S1.dir
