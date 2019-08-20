@@ -161,9 +161,6 @@
 	icon_state = "combatknife"
 	item_state = "knife"
 	desc = "A military combat utility survival knife."
-	embedded_pain_multiplier = 4
-	embed_chance = 65
-	embedded_fall_chance = 10
 	force = 20
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
@@ -173,9 +170,6 @@
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
 	icon_state = "survivalknife"
-	embedded_pain_multiplier = 4
-	embed_chance = 35
-	embedded_fall_chance = 10
 	desc = "A hunting grade survival knife."
 	force = 15
 	throwforce = 15
