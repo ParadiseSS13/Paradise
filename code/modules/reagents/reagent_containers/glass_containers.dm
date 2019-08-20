@@ -81,7 +81,7 @@
 
 			reagents.reaction(M, TOUCH)
 			reagents.clear_reagents()
-		else 
+		else
 			if(M != user)
 				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
 							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
@@ -347,6 +347,13 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_HEAD
 	container_type = OPENCONTAINER
+
+/obj/item/reagent_containers/glass/bucket/wooden
+	name = "wooden bucket"
+	icon_state = "woodbucket"
+	item_state = "woodbucket"
+	materials = null
+	burn_state = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
     ..()
