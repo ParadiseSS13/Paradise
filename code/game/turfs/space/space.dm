@@ -106,12 +106,6 @@
 	..()
 	if((!(A) || !(src in A.locs)))
 		return
-	
-	if(ismob(A))
-		var/mob/M = A
-		if(M && M.client && M.client.new_parallax_movedir)
-			M.client.new_parallax_movedir = 0
-			M.update_parallax_contents()
 
 	if(destination_z && destination_x && destination_y)
 		A.forceMove(locate(destination_x, destination_y, destination_z))

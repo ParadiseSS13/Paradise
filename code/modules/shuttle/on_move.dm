@@ -30,7 +30,7 @@
 	if(id_tag == "s_docking_airlock")
 		INVOKE_ASYNC(src, .proc/lock)
 
-/mob/onShuttleMove(turf/oldT, turf/T1, rotation, travelDir)
+/mob/onShuttleMove(turf/oldT, turf/T1, rotation)
     if(!move_on_shuttle)
         return 0
     . = ..()
@@ -44,7 +44,6 @@
     else
         shake_camera(src, 7, 1)
 
-    client.new_parallax_movedir = travelDir ? WEST : NORTH
     update_parallax_contents()
 
 /mob/living/carbon/onShuttleMove()
@@ -59,14 +58,8 @@
 	if(smooth)
 		queue_smooth(src)
 
-/mob/postDock(obj/docking_port/S1, transit, list/parallax_mobs)
-    if(!client)
-        return
-    if(transit)
-        parallax_mobs.Add(src)
-        return
-    client.new_parallax_movedir = 0
-    update_parallax_contents()
+/mob/postDock()
+	update_parallax_contents()
 
 /obj/machinery/door/airlock/postDock(obj/docking_port/stationary/S1)
 	. = ..()

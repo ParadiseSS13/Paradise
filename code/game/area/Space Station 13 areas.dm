@@ -100,6 +100,7 @@ var/list/ghostteleportlocs = list()
 	requires_power = FALSE
 	valid_territory = FALSE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	parallax_movedir = NORTH
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
@@ -247,6 +248,7 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/specops
 	name = "\improper Special Ops Shuttle"
 	icon_state = "shuttlered"
+	parallax_movedir = EAST
 
 /area/shuttle/specops/centcom
 	name = "\improper Special Ops Shuttle"
