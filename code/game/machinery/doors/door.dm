@@ -20,7 +20,7 @@
 	var/welded = FALSE
 	var/normalspeed = 1
 	var/auto_close_time = 150
-	var/auto_close_time_dangerous = 15
+	var/auto_close_time_dangerous = 5
 	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
 	var/damage_deflection = 10
