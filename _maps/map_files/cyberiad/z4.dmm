@@ -2571,6 +2571,7 @@
 	req_access_txt = "0";
 	req_one_access_txt = "10;24"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/engiestation)
 "gs" = (
