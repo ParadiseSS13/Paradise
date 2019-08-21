@@ -42,6 +42,8 @@
 	switch(mode)
 		if(SHUTTLE_IDLE)
 			. = "idle"
+		if(SHUTTLE_IGNITING)
+			. = "engines charging"
 		if(SHUTTLE_RECALL)
 			. = "recalled"
 		if(SHUTTLE_CALL)

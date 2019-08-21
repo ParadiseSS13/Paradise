@@ -543,3 +543,28 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_tim
 	if(!C || !C.prefs.windowflashing)
 		return
 	winset(C, "mainwindow", "flash=5")
+
+/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
+	if(SSticker.current_state == GAME_STATE_PLAYING)
+		var/ailist[] = list()
+		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
+			ailist += A
+		if(ailist.len)
+			var/mob/living/silicon/ai/announcer = pick(ailist)
+			if(character.mind)
+				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
+					if(character.mind.role_alt_title)
+						rank = character.mind.role_alt_title
+					var/arrivalmessage = announcer.arrivalmsg
+					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
+					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
+					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
+					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
+					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
+					announcer.say(";[arrivalmessage]")
+		else
+			if(character.mind)
+				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
+					if(character.mind.role_alt_title)
+						rank = character.mind.role_alt_title
+					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")

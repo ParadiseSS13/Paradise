@@ -15,7 +15,7 @@
 	callTime = 1200
 
 	dir = 8
-	travelDir = 90
+	port_angle = 90
 	width = 12
 	dwidth = 5
 	height = 7

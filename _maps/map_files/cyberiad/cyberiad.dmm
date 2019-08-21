@@ -308,6 +308,8 @@
 	height = 35;
 	id = "whiteship";
 	name = "NT Medical Ship";
+	port_angle = 0;
+	preferred_direction = 8;
 	roundstart_move = "whiteship_away";
 	width = 21
 	},
@@ -3111,6 +3113,7 @@
 	height = 18;
 	id = "skipjack";
 	name = "Vox Skipjack";
+	port_angle = 0;
 	roundstart_move = "skipjack_away";
 	width = 19
 	},
@@ -12833,7 +12836,9 @@
 /obj/docking_port/mobile/pod{
 	dir = 4;
 	id = "pod3";
-	name = "escape pod 3"
+	name = "escape pod 3";
+	port_angle = 0;
+	preferred_direction = 8
 	},
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
@@ -14515,6 +14520,7 @@
 	height = 5;
 	id = "laborcamp";
 	name = "labor camp shuttle";
+	port_angle = 90;
 	rebuildable = 1;
 	width = 9
 	},
@@ -17104,6 +17110,7 @@
 	height = 5;
 	id = "sst";
 	name = "SST shuttle";
+	port_angle = 90;
 	roundstart_move = "sst_away";
 	width = 11
 	},
@@ -22129,7 +22136,8 @@
 "aNt" = (
 /obj/docking_port/mobile/pod{
 	id = "pod1";
-	name = "escape pod 1"
+	name = "escape pod 1";
+	port_angle = 180
 	},
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
@@ -22156,7 +22164,8 @@
 "aNy" = (
 /obj/docking_port/mobile/pod{
 	id = "pod2";
-	name = "escape pod 2"
+	name = "escape pod 2";
+	port_angle = 180
 	},
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
@@ -23887,6 +23896,7 @@
 	height = 11;
 	id = "trade_sol";
 	name = "sol trade shuttle";
+	port_angle = 90;
 	roundstart_move = "trade_sol_base";
 	width = 9
 	},
@@ -28123,9 +28133,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aYZ" = (
-/obj/effect/landmark{
-	name = "JoinLate"
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -37936,6 +37943,7 @@
 	dir = 4;
 	dwidth = 11;
 	height = 13;
+	port_angle = 270;
 	width = 24
 	},
 /obj/docking_port/stationary{
@@ -39564,6 +39572,7 @@
 	height = 12;
 	id = "ferry";
 	name = "ferry shuttle";
+	port_angle = 90;
 	roundstart_move = "ferry_away";
 	width = 5
 	},
@@ -43159,6 +43168,7 @@
 	height = 11;
 	id = "specops";
 	name = "ert shuttle";
+	port_angle = 90;
 	roundstart_move = "specops_away";
 	width = 5
 	},
@@ -50717,6 +50727,7 @@
 	height = 15;
 	id = "admin";
 	name = "administration shuttle";
+	port_angle = 0;
 	roundstart_move = "admin_away";
 	timid = 1;
 	width = 18
@@ -63441,6 +63452,7 @@
 	height = 5;
 	id = "mining";
 	name = "mining shuttle";
+	port_angle = 90;
 	rebuildable = 1;
 	width = 7
 	},
@@ -90627,6 +90639,7 @@
 	height = 5;
 	id = "engineering";
 	name = "engineering shuttle";
+	port_angle = 90;
 	rebuildable = 1;
 	roundstart_move = "engineering_away";
 	width = 7
@@ -95190,7 +95203,9 @@
 /obj/docking_port/mobile/pod{
 	dir = 4;
 	id = "pod4";
-	name = "escape pod 4"
+	name = "escape pod 4";
+	port_angle = 0;
+	preferred_direction = 8
 	},
 /obj/machinery/door/airlock/shuttle{
 	id_tag = "s_docking_airlock";
@@ -96427,6 +96442,25 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"grK" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 4;
+	icon_state = "propulsion"
+	},
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 3;
+	height = 15;
+	id = "arrivals_stationary";
+	name = "arrivals";
+	width = 7
+	},
+/obj/docking_port/mobile/arrivals{
+	dir = 4;
+	port_angle = 0
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/arrival/station)
 "gMZ" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 6
@@ -108652,7 +108686,7 @@ aUZ
 aVW
 aXn
 aYT
-aYT
+grK
 aYT
 bey
 bge

@@ -220,6 +220,11 @@
 			if(M && M.client && M.hud_used && length(M.client.parallax_layers))
 				M.hud_used.update_parallax()
 
+/mob/proc/update_parallax_teleport()	//used for arrivals shuttle
+	if(client && client.eye && hud_used && length(client.parallax_layers))
+		var/area/areaobj = get_area(client.eye)
+		hud_used.set_parallax_movedir(areaobj.parallax_movedir, TRUE)
+		
 /obj/screen/parallax_layer
 	icon = 'icons/effects/parallax.dmi'
 	var/speed = 1

@@ -83,8 +83,20 @@
 	icon_state = "black"
 	dir = SOUTH
 
+/turf/space/transit/south
+	dir = SOUTH
+
+/turf/space/transit/north
+	dir = NORTH
+
 /turf/space/transit/horizontal
 	dir = WEST
+
+/turf/space/transit/west
+	dir = WEST
+
+/turf/space/transit/east
+	dir = EAST
 
 /turf/space/transit/Entered(atom/movable/AM, atom/OldLoc, ignoreRest = 0)
 	if(!AM)

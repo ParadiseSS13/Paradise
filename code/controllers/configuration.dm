@@ -242,6 +242,10 @@
 	// Lavaland
 	var/lavaland_budget = 60
 
+	//	Arrivals ferry
+	var/arrivals_shuttle_dock_window = 55	//Time from when a player late joins on the arrivals shuttle to when the shuttle docks on the station
+	var/arrivals_shuttle_require_safe_latejoin = FALSE	//Require the arrivals shuttle to be operational in order for latejoiners to join
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -782,6 +786,10 @@
 					config.enable_night_shifts = TRUE
 				if("lavaland_budget")
 					config.lavaland_budget = text2num(value)
+				if("arrivals_shuttle_dock_window")
+					config.arrivals_shuttle_dock_window = max(PARALLAX_LOOP_TIME, text2num(value))
+				if("arrivals_shuttle_require_safe_latejoin")
+					config.arrivals_shuttle_require_safe_latejoin = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

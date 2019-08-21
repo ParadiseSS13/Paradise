@@ -104,7 +104,7 @@ var/list/ghostteleportlocs = list()
 
 /area/shuttle/arrival
 	name = "\improper Arrival Shuttle"
-	parallax_movedir = EAST
+	parallax_movedir = WEST
 
 /area/shuttle/arrival/pre_game
 	icon_state = "shuttle2"
@@ -410,7 +410,8 @@ var/list/ghostteleportlocs = list()
 /area/shuttle/abandoned
 	name = "Abandoned Ship"
 	icon_state = "shuttle"
-
+	parallax_movedir = WEST
+	
 /area/shuttle/syndicate
 	name = "Syndicate Nuclear Team Shuttle"
 	icon_state = "shuttle"

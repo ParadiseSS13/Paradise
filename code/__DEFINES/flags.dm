@@ -106,6 +106,7 @@
 #define NOJAUNT		1
 #define NO_LAVA_GEN	2 //Blocks lava rivers being generated on the turf
 #define NO_RUINS 	4
+#define UNUSED_TRANSIT_TURF 8
 
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_OCLOTHING 1

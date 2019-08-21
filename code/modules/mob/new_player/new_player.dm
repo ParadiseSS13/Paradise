@@ -244,7 +244,7 @@
 				to_chat(src, alert("You are currently not whitelisted to play [client.prefs.species]."))
 				return 0
 
-		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
+		AttemptLateSpawn(href_list["SelectedJob"])
 		return
 
 	if(!ready && href_list["preference"])
@@ -314,6 +314,11 @@
 	if(thisjob.barred_by_disability(client))
 		to_chat(src, alert("[rank] is not available due to your character's disability. Please try another."))
 		return 0
+	if(SSshuttle.arrivals)
+		if(SSshuttle.arrivals.damaged && config.arrivals_shuttle_require_safe_latejoin)
+			to_chat(src, alert("The arrivals shuttle is currently malfunctioning! You cannot join."))
+			return 0
+		SSshuttle.arrivals.RequireUndocked(src)
 
 	SSjobs.AssignRole(src, rank, 1)
 
@@ -335,7 +340,6 @@
 	//Find our spawning point.
 	var/join_message
 	var/datum/spawnpoint/S
-
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
 			character.loc = pick(ertdirector)
@@ -344,21 +348,31 @@
 		else
 			character.forceMove(pick(aroomwarp))
 		join_message = "has arrived"
+	if(spawning_at)
+		S = spawntypes[spawning_at]
+		if(S.check_job_spawning(rank))
+			character.forceMove(pick(S.turfs))
+			join_message = S.msg
 	else
-		if(spawning_at)
-			S = spawntypes[spawning_at]
-		if(S && istype(S))
-			if(S.check_job_spawning(rank))
-				character.forceMove(pick(S.turfs))
-				join_message = S.msg
-			else
-				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-				character.forceMove(pick(latejoin))
-				join_message = "has arrived on the station"
-		else
-			character.forceMove(pick(latejoin))
-			join_message = "has arrived on the station"
+		var/D = get_turf(pick(latejoin))
+		if(!D)
+			for(var/turf/T in get_area_turfs(/area/shuttle/arrival))
+				if(!T.density)
+					var/clear = 1
+					for(var/obj/O in T)
+						if(O.density)
+							clear = 0
+							break
+					if(clear)
+						D = T
+						continue
+		character.forceMove(D)
+		join_message = "has arrived on the station"
+	character.update_parallax_teleport()
 
+	var/atom/movable/chair = locate(/obj/structure/chair) in character.loc
+	if(chair)
+		chair.buckle_mob(character)
 	character.lastarea = get_area(loc)
 	// Moving wheelchair if they have one
 	if(character.buckled && istype(character.buckled, /obj/structure/chair/wheelchair))
@@ -376,38 +390,15 @@
 		data_core.manifest_inject(character)
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		if(!IsAdminJob(rank))
-			AnnounceArrival(character, rank, join_message)
+			if(SSshuttle.arrivals)
+				SSshuttle.arrivals.QueueAnnounce(character, rank, join_message)
+			else
+				AnnounceArrival(character, rank, join_message)
 			AddEmploymentContract(character)
 
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
-
-
-/mob/new_player/proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank, var/join_message)
-	if(SSticker.current_state == GAME_STATE_PLAYING)
-		var/ailist[] = list()
-		for(var/mob/living/silicon/ai/A in GLOB.living_mob_list)
-			ailist += A
-		if(ailist.len)
-			var/mob/living/silicon/ai/announcer = pick(ailist)
-			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
-					if(character.mind.role_alt_title)
-						rank = character.mind.role_alt_title
-					var/arrivalmessage = announcer.arrivalmsg
-					arrivalmessage = replacetext(arrivalmessage,"$name",character.real_name)
-					arrivalmessage = replacetext(arrivalmessage,"$rank",rank ? "[rank]" : "visitor")
-					arrivalmessage = replacetext(arrivalmessage,"$species",character.dna.species.name)
-					arrivalmessage = replacetext(arrivalmessage,"$age",num2text(character.age))
-					arrivalmessage = replacetext(arrivalmessage,"$gender",character.gender == FEMALE ? "Female" : "Male")
-					announcer.say(";[arrivalmessage]")
-		else
-			if(character.mind)
-				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
-					if(character.mind.role_alt_title)
-						rank = character.mind.role_alt_title
-					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
