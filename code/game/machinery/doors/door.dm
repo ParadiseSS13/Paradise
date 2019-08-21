@@ -14,14 +14,13 @@
 	var/visible = 1
 	var/operating = FALSE
 	var/autoclose = 0
-	var/autoclose_timer
 	var/safe = TRUE //whether the door detects things and mobs in its way and reopen or crushes them.
 	var/locked = FALSE //whether the door is bolted or not.
 	var/glass = FALSE
 	var/welded = FALSE
 	var/normalspeed = 1
 	var/auto_close_time = 150
-	var/auto_close_time_dangerous = 5
+	var/auto_close_time_dangerous = 15
 	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
 	var/damage_deflection = 10
@@ -77,9 +76,6 @@
 	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
-	if(autoclose_timer)
-		deltimer(autoclose_timer)
-		autoclose_timer = 0
 	QDEL_NULL(spark_system)
 	return ..()
 
@@ -187,7 +183,7 @@
 
 /obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
 	return get_dir(src, M) & unres_sides
-	
+
 /obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
 	return
 
@@ -282,11 +278,8 @@
 	operating = FALSE
 	air_update_turf(1)
 	update_freelook_sight()
-
-	// The `addtimer` system has the advantage of being cancelable
 	if(autoclose)
-		autoclose_timer = addtimer(CALLBACK(src, .proc/autoclose), normalspeed ? auto_close_time : auto_close_time_dangerous, TIMER_UNIQUE | TIMER_STOPPABLE)
-
+		addtimer(CALLBACK(src, .proc/close), autoclose)
 	return TRUE
 
 /obj/machinery/door/proc/close()
@@ -295,17 +288,14 @@
 	if(operating || welded)
 		return
 	if(safe)
-		for(var/atom/movable/M in get_turf(src))
-			if(M.density && M != src) //something is blocking the door
-				if(autoclose)
-					addtimer(CALLBACK(src, .proc/autoclose), 60)
-				return
+		for(var/turf/turf in locs)
+			for(var/atom/movable/M in turf)
+				if(M.density && M != src) //something is blocking the door
+					if(autoclose)
+						autoclose_in(60)
+					return
 
 	operating = TRUE
-
-	if(autoclose_timer)
-		deltimer(autoclose_timer)
-		autoclose_timer = 0
 
 	do_animate("closing")
 	layer = closingLayer
@@ -354,9 +344,11 @@
 	return !(stat & NOPOWER)
 
 /obj/machinery/door/proc/autoclose()
-	autoclose_timer = 0
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
 		close()
+
+/obj/machinery/door/proc/autoclose_in(wait)
+	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && cameranet)
