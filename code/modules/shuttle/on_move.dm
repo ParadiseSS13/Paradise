@@ -16,6 +16,15 @@
     // Stationary ports shouldn't move, mobile ones move themselves
     return 0
 
+/obj/machinery/door/onShuttleMove()
+	. = ..()
+	if(!.)
+		return
+	INVOKE_ASYNC(src, .proc/close)
+	// Close any attached airlocks as well
+	for(var/obj/machinery/door/D in orange(1, src))
+		INVOKE_ASYNC(src, .proc/close)
+
 /obj/machinery/door/airlock/onShuttleMove()
 	. = ..()
 	if(!.)
