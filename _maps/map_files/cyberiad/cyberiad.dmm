@@ -57046,7 +57046,7 @@
 	name = "Biohazard Shutter Control";
 	pixel_x = -4;
 	pixel_y = 6;
-	req_access_txt = "47"
+	req_access_txt = "30"
 	},
 /obj/item/folder/white{
 	pixel_x = 4
@@ -57062,7 +57062,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -4;
 	pixel_y = -4;
-	req_access_txt = "20"
+	req_access_txt = "30"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
