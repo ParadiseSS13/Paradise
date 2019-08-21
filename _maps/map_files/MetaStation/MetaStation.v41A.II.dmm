@@ -11722,6 +11722,7 @@
 	name = "Labor Camp Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -14760,6 +14761,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Labor Shuttle Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -14769,6 +14771,7 @@
 	id_tag = "laborcamp_home";
 	name = "Labor Camp Shuttle Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15638,6 +15641,7 @@
 	pixel_y = -25;
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17546,6 +17550,7 @@
 	name = "mining shuttle bay";
 	width = 7
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/plating,
 /area/shuttle/mining)
 "aEJ" = (
@@ -17554,6 +17559,7 @@
 	req_access = null;
 	req_access_txt = "0"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock{
 	name = "\improper Mining Office"
@@ -17568,6 +17574,7 @@
 	name = "Mining Dock";
 	req_access_txt = "48"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock{
 	name = "\improper Mining Office"
@@ -17814,6 +17821,7 @@
 	id_tag = "s_docking_airlock";
 	name = "Labor Shuttle Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)
 "aFe" = (
@@ -17821,6 +17829,7 @@
 	id_tag = "laborcamp_home";
 	name = "Labor Camp Shuttle Airlock"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
