@@ -273,6 +273,8 @@ REAGENT SCANNER
 		user.show_message("<span class='notice'>Subject's genes are stable.</span>")
 	add_fingerprint(user)
 
+/obj/item/healthanalyzer/attack_self(mob/user)
+	toggle_mode()
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Switch Verbosity"
