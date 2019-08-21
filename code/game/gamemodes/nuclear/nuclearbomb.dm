@@ -79,7 +79,7 @@ var/bomb_set
 	
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
-			if(!user.unEquip(O))
+			if(!user.drop_item())
 				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand!</span>")
 				return
 			O.forceMove(src)
