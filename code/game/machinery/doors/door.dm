@@ -279,7 +279,7 @@
 	air_update_turf(1)
 	update_freelook_sight()
 	if(autoclose)
-		addtimer(CALLBACK(src, .proc/close), autoclose)
+		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
 	return TRUE
 
 /obj/machinery/door/proc/close()
