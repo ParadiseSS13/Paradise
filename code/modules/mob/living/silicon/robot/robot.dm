@@ -885,6 +885,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
 		wires.Interact(user)
+	else
+		..() //this calls the /mob/living/attack_ghost proc for the ghost health/cyborg analyzer
 
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob

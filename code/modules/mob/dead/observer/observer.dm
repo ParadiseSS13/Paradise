@@ -29,6 +29,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/seedarkness = TRUE
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
+	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -540,6 +541,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/add_memory()
 	set hidden = 1
 	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
+
+
+/mob/dead/observer/verb/toggle_health_scan()
+	set name = "Toggle Health Scan"
+	set desc = "Toggles whether you health-scan living beings on click"
+	set category = "Ghost"
+
+	if(health_scan) //remove old huds
+		to_chat(src, "<span class='notice'>Health scan disabled.</span>")
+		health_scan = FALSE
+	else
+		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
+		health_scan = TRUE
 
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
