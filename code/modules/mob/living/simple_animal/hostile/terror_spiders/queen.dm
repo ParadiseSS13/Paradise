@@ -22,9 +22,9 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	ventcrawler = 1
-	ai_break_lights = 0
-	ai_spins_webs = 0
-	ai_ventcrawls = 0
+	ai_break_lights = FALSE
+	ai_spins_webs = FALSE
+	ai_ventcrawls = FALSE
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 	ranged = 1
@@ -35,13 +35,13 @@
 	spider_tier = TS_TIER_4
 	spider_opens_doors = 2
 	web_type = /obj/structure/spider/terrorweb/queen
-	var/spider_spawnfrequency = 1200 // 120 seconds
-	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on ai spiders once nest setup is complete.
+	var/spider_spawnfrequency = 1200 // 120 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
+	var/spider_spawnfrequency_stable = 1200 // 120 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
 	var/nestfrequency = 300 // 30 seconds
 	var/lastnestsetup = 0
 	var/neststep = 0
-	var/hasnested = 0
+	var/hasnested = FALSE
 	var/spider_max_per_nest = 35 // above this, AI queens become stable
 	var/canlay = 4 // main counter for egg-laying ability! # = num uses, incremented at intervals
 	var/eggslaid = 0
@@ -111,11 +111,11 @@
 		switch(neststep)
 			if(0)
 				// No nest. If current location is eligible for nesting, advance to step 1.
-				var/ok_to_nest = 1
+				var/ok_to_nest = TRUE
 				var/area/new_area = get_area(loc)
 				if(new_area)
 					if(findtext(new_area.name, "hall"))
-						ok_to_nest = 0
+						ok_to_nest = FALSE
 						// nesting in a hallway would be very stupid - crew would find and kill you almost instantly
 				var/numhostiles = 0
 				for(var/mob/living/H in oview(10, src))
@@ -124,7 +124,7 @@
 							numhostiles += 1
 							// nesting RIGHT NEXT TO SOMEONE is even worse
 				if(numhostiles > 0)
-					ok_to_nest = 0
+					ok_to_nest = FALSE
 				var/vdistance = 99
 				for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(10, src))
 					if(!v.welded)
@@ -132,7 +132,7 @@
 							entry_vent = v
 							vdistance = get_dist(src, v)
 				if(!entry_vent)
-					ok_to_nest = 0
+					ok_to_nest = FALSE
 					// don't nest somewhere with no vent - your brood won't be able to get out!
 				if(ok_to_nest && entry_vent)
 					nest_vent = entry_vent
@@ -159,7 +159,7 @@
 					DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/purple, 4)
 					neststep = 3
 			if(3)
-				// Create spiders (random T1 types) until nest is full.
+				// Create spiders (random types) until nest is full.
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20))
 						if(ai_nest_is_full())
@@ -171,7 +171,7 @@
 							var/spiders_left_to_spawn = Clamp( (spider_max_per_nest - CountSpiders()), 1, 10)
 							DoLayTerrorEggs(pick(spider_types_standard), spiders_left_to_spawn)
 			if(4)
-				// Nest should be full. If so, pulse attack command. Otherwise, start replenishing nest (stage 5).
+				// Nest should be full. Otherwise, start replenishing nest (stage 5).
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
 					if(prob(20) && !ai_nest_is_full())
 						neststep = 5
@@ -208,7 +208,7 @@
 	queensense_action = new()
 	queensense_action.Grant(src)
 	queennest_action.Remove(src)
-	hasnested = 1
+	hasnested = TRUE
 	ventcrawler = 0
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
