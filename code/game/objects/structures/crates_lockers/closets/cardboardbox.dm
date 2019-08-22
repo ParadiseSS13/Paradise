@@ -18,12 +18,14 @@
 /obj/structure/closet/cardboard/relaymove(mob/user, direction)
 	if(opened || move_delay || user.stat || user.stunned || user.weakened || user.paralysis || !isturf(loc) || !has_gravity(loc))
 		return
-	move_delay = 1
-	if(step(src, direction))
+	move_delay = TRUE
+	var/oldloc = loc
+	step(src, direction)
+	if(oldloc != loc)
 		spawn(config.walk_speed)
-			move_delay = 0
+			move_delay = FALSE
 	else
-		move_delay = 0
+		move_delay = FALSE
 
 /obj/structure/closet/cardboard/open()
 	if(opened || !can_open())
