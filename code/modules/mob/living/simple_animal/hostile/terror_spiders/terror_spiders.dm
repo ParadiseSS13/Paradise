@@ -98,7 +98,7 @@ var/global/list/ts_spiderling_list = list()
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_MOBS
 
-	ai_wake_ignores_distance = TRUE
+	ai_uses_z_off = FALSE
 
 	// AI aggression settings
 	var/ai_type = TS_AI_AGGRESSIVE // 0 = aggressive to everyone, 1 = defends self only

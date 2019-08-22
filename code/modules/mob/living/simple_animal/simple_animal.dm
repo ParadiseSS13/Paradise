@@ -82,8 +82,7 @@
 	var/AIStatus = AI_ON //The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever)
 	var/can_have_ai = TRUE //once we have become sentient, we can never go back
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
-	var/ai_wake_ignores_distance = FALSE // If set to true, AI will never sleep as long as any living player is on the same zlevel as them
-
+	var/ai_uses_z_off = TRUE // If true, AI will go AI_Z_OFF if there are no living mob players on their zlevel. If false, it remains active.
 
 /mob/living/simple_animal/Initialize()
 	..()
