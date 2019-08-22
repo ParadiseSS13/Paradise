@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Add fulton extract packs to the mining vendor; rescue precious valuable or dead miners!"
