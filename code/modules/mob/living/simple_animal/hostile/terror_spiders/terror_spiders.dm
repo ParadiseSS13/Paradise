@@ -98,8 +98,6 @@ var/global/list/ts_spiderling_list = list()
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_MOBS
 
-	ai_uses_z_off = FALSE
-
 	// AI aggression settings
 	var/ai_target_method = TS_DAMAGE_SIMPLE
 
@@ -118,7 +116,7 @@ var/global/list/ts_spiderling_list = list()
 	var/freq_cocoon_object = 1200 // two minutes between each attempt
 	var/last_cocoon_object = 0 // leave this, changed by procs.
 
-	var/prob_ai_hides_in_vents = 15 // probabily of a gray spider hiding in a vent
+	var/prob_ai_hides_in_vents = 50 // probabily of a gray spider hiding in a vent
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")

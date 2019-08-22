@@ -427,11 +427,11 @@
 	if(!T)
 		return
 
-	if(ai_uses_z_off && !length(SSmobs.clients_by_zlevel[T.z])) // It's fine to use .len here but doesn't compile on 511
+	if(!length(SSmobs.clients_by_zlevel[T.z])) // It's fine to use .len here but doesn't compile on 511
 		toggle_ai(AI_Z_OFF)
 		return
 
-	var/cheap_search = ai_uses_z_off && isturf(T) && !is_station_level(T.z)
+	var/cheap_search = isturf(T) && !is_station_level(T.z)
 	if(cheap_search)
 		tlist = ListTargetsLazy(T.z)
 	else

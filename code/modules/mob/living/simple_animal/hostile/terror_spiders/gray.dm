@@ -78,8 +78,7 @@
 	vision_range = 9
 	idle_vision_range = 9
 	move_to_delay = 5
-	prob_ai_hides_in_vents = 10
-
+	prob_ai_hides_in_vents = 25
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_special_action()
 	if(prob(prob_ai_hides_in_vents))
@@ -116,7 +115,7 @@
 							GrayCloak()
 						else
 							// otherwise, pick one of the valid turfs with no web to create a web there.
-							new /obj/structure/spider/terrorweb(pick(g_turfs_valid))
+							new web_type(pick(g_turfs_valid))
 							visible_message("<span class='notice'>[src] spins a web.</span>")
 			else
 				if(invisibility == SEE_INVISIBLE_LEVEL_ONE)
