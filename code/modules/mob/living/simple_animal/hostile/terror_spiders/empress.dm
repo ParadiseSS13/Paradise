@@ -39,7 +39,7 @@
 	empresserase_action = new()
 	empresserase_action.Grant(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/handle_automated_action()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/spider_special_action()
 	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/NestMode()

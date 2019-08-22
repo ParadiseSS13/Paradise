@@ -22,6 +22,9 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	ventcrawler = 1
+	ai_break_lights = 0
+	ai_spins_webs = 0
+	ai_ventcrawls = 0
 	idle_ventcrawl_chance = 0
 	force_threshold = 18 // outright immune to anything of force under 18, this means welders can't hurt it, only guns can
 	ranged = 1
@@ -104,9 +107,8 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/handle_automated_action()
-	..()
-	if(!stat && !ckey && AIStatus != AI_OFF && !target && !path_to_vent)
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/spider_special_action()
+	if(!stat && !ckey)
 		switch(neststep)
 			if(0)
 				// No nest. If current location is eligible for nesting, advance to step 1.
