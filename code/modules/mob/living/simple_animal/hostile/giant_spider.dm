@@ -61,8 +61,6 @@
 	melee_damage_upper = 10
 	venom_per_bite = 30
 
-	ai_wake_ignores_distance = TRUE
-
 	var/atom/cocoon_target
 	var/fed = 0
 
@@ -79,18 +77,17 @@
 	venom_per_bite = 10
 	move_to_delay = 5
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_action()
-	if(!..()) //AIStatus is off
-		return
-	if(AIStatus == AI_IDLE)
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_movement()
+	if(AIStatus == AI_IDLE && !busy)
 		//1% chance to skitter madly away
-		if(!busy && prob(1))
+		if(prob(50))
 			stop_automated_movement = 1
 			Goto(pick(orange(20, src)), move_to_delay)
-			spawn(50)
+			spawn(1)
 				stop_automated_movement = 0
 				walk(src,0)
-		return 1
+		else
+			..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(var/C)
 	spawn(100)
@@ -100,8 +97,8 @@
 			busy = 0
 			stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
-	if(..())
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement()
+	if(AIStatus == AI_IDLE)
 		var/list/can_see = view(src, 10)
 		if(!busy && prob(30))	//30% chance to stop wandering and do something
 		//first, check for potential food nearby to cocoon
@@ -126,18 +123,16 @@
 					for(var/obj/O in can_see)
 						if(O.anchored)
 							continue
-							if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
-								cocoon_target = O
-								busy = MOVING_TO_TARGET
-								stop_automated_movement = 1
-								Goto(O, move_to_delay)
-								//give up if we can't reach them after 10 seconds
-								GiveUp(O)
-
+						if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
+							cocoon_target = O
+							busy = MOVING_TO_TARGET
+							stop_automated_movement = 1
+							Goto(O, move_to_delay)
+							//give up if we can't reach them after 10 seconds
+							GiveUp(O)
 		else if(busy == MOVING_TO_TARGET && cocoon_target)
 			if(get_dist(src, cocoon_target) <= 1)
 				Wrap()
-
 	else
 		busy = 0
 		stop_automated_movement = 0
