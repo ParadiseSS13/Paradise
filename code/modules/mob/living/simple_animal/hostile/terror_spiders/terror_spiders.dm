@@ -56,7 +56,7 @@ var/global/list/ts_spiderling_list = list()
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
 	var/ai_ventcrawls = 1
-	var/idle_ventcrawl_chance = 3 // default 3% chance to ventcrawl when not in combat to a random exit vent
+	var/idle_ventcrawl_chance = 15
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
@@ -101,7 +101,6 @@ var/global/list/ts_spiderling_list = list()
 	ai_uses_z_off = FALSE
 
 	// AI aggression settings
-	var/ai_type = TS_AI_AGGRESSIVE // 0 = aggressive to everyone, 1 = defends self only
 	var/ai_target_method = TS_DAMAGE_SIMPLE
 
 	// AI player control by ghosts

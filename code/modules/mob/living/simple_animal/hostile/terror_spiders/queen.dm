@@ -85,7 +85,6 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/death(gibbed)
 	if(can_die() && !hasdied)
-		SetHiveCommand(0, 15) // Hive becomes very aggressive.
 		if(spider_uo71)
 			UnlockBlastDoors("UO71_Caves")
 		// When a queen dies, so do her player-controlled purple-type guardians. Intended as a motivator for purples to ensure they guard her.
@@ -174,11 +173,8 @@
 			if(4)
 				// Nest should be full. If so, pulse attack command. Otherwise, start replenishing nest (stage 5).
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))
-					if(prob(20))
-						if(ai_nest_is_full())
-							SetHiveCommand(0, 15) // AI=0 (attack everyone), ventcrawl=15%/tick
-						else
-							neststep = 5
+					if(prob(20) && !ai_nest_is_full())
+						neststep = 5
 			if(5)
 				// If already replenished, go idle (stage 4). Otherwise, replenish nest.
 				if(world.time > (spider_lastspawn + spider_spawnfrequency))

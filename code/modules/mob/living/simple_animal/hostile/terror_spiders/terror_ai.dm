@@ -13,8 +13,6 @@
 			continue
 		if(H.stat == UNCONSCIOUS && !stat_attack)
 			continue
-		if(ai_type == TS_AI_DEFENSIVE && !(H in enemies))
-			continue
 		if(isterrorspider(H))
 			if(H in enemies)
 				targets3 += H
