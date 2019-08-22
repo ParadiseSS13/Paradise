@@ -407,7 +407,7 @@
 			if(prob(95))
 				head = /obj/item/clothing/head/helmet/gladiator
 			else
-				head = /obj/item/clothing/head/skullhelmet
+				head = /obj/item/clothing/head/helmet/skull
 				suit = /obj/item/clothing/suit/armor/bone
 			if(prob(5))
 				back = pickweight(list(/obj/item/twohanded/spear/bonespear = 3, /obj/item/twohanded/fireaxe/boneaxe = 2))

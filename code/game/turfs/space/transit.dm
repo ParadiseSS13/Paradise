@@ -1,5 +1,6 @@
 /turf/space/transit
 	var/pushdirection // push things that get caught in the transit tile this direction
+	plane = PLANE_SPACE
 
 //Overwrite because we dont want people building rods in space.
 /turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
@@ -151,3 +152,9 @@
 
 	icon_state = "speedspace_ns_[state]"
 	transform = turn(matrix(), angle)
+
+/turf/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = SPACE_ICON_STATE
+	underlay_appearance.plane = PLANE_SPACE
+	return TRUE

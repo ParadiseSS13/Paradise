@@ -1,0 +1,4 @@
+author: "Shadow-Quill"
+delete-after: True
+changes: 
+  - tweak: "Using a health analyzer in-hand will switch the verbosity."

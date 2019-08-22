@@ -2225,6 +2225,7 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "aeG" = (
@@ -11418,20 +11419,12 @@
 	id_tag = "secmaintdorm1";
 	name = "Room 1"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "ats" = (
 /obj/machinery/door/airlock{
 	id_tag = "secmaintdorm2";
 	name = "Room 2"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -12166,6 +12159,7 @@
 	name = "Labor Camp Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
 "auz" = (
@@ -12174,6 +12168,7 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -13181,16 +13176,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/lobby)
-"avU" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "avV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -13213,10 +13198,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
 	level = 1
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
@@ -14352,16 +14333,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/security/prison/cell_block/A)
-"axN" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "axO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -14558,6 +14529,7 @@
 	name = "fore bay 1";
 	width = 9
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)
 "ayi" = (
@@ -17788,10 +17760,6 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -19009,13 +18977,6 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
-"aGv" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint)
 "aGw" = (
 /obj/structure/disposalpipe/junction{
 	dir = 1;
@@ -20068,10 +20029,6 @@
 	name = "Magistrate's Office";
 	req_access_txt = "74"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";
@@ -20159,10 +20116,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
@@ -20743,16 +20696,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
-"aKp" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "aKq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -20825,10 +20768,6 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
@@ -21150,10 +21089,6 @@
 	req_access = null;
 	req_access_txt = "4"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -21191,10 +21126,6 @@
 "aLk" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
@@ -21234,10 +21165,6 @@
 	req_access_txt = "12"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/wood{
 	tag = "icon-wood-broken3";
 	icon_state = "wood-broken3"
@@ -22079,16 +22006,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/courtroom)
-"aNe" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "aNf" = (
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -22464,10 +22381,6 @@
 	name = "Courtroom Privacy Shutters";
 	opacity = 0
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
 "aNT" = (
@@ -22567,16 +22480,6 @@
 	icon_state = "barber"
 	},
 /area/civilian/barber)
-"aOa" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "aOb" = (
 /obj/machinery/prize_counter,
 /obj/machinery/light{
@@ -22895,10 +22798,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aOO" = (
@@ -22925,10 +22824,6 @@
 	layer = 3.21;
 	name = "Courtroom Privacy Shutters";
 	opacity = 0
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/courtroom)
@@ -23025,10 +22920,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPc" = (
@@ -23103,10 +22994,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -23418,10 +23305,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPQ" = (
@@ -23476,10 +23359,6 @@
 	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
 "aPV" = (
@@ -25238,10 +25117,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "aTt" = (
@@ -26043,7 +25918,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aVc" = (
@@ -26512,10 +26386,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aVM" = (
@@ -27629,13 +27499,6 @@
 /obj/machinery/lapvend,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
-"aXT" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres,
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "aXU" = (
 /obj/item/flag/mime,
 /obj/machinery/power/apc{
@@ -29493,16 +29356,6 @@
 	dir = 2
 	},
 /area/crew_quarters/dorms)
-"bbx" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fpmaint2)
 "bby" = (
 /obj/machinery/camera{
 	c_tag = "Medbay Morgue";
@@ -30064,10 +29917,6 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -31207,10 +31056,6 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "bex" = (
@@ -31510,10 +31355,6 @@
 	name = "Mime's Office";
 	req_access_txt = "46"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "tranquillite";
 	dir = 4;
@@ -31584,10 +31425,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "bfg" = (
@@ -33841,7 +33678,6 @@
 	name = "Clown's Office";
 	req_access_txt = "46"
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "bjf" = (
@@ -33855,10 +33691,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bjh" = (
@@ -33872,10 +33704,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "bji" = (
@@ -37143,7 +36971,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bpF" = (
@@ -37423,10 +37250,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bqk" = (
@@ -40030,10 +39853,6 @@
 	name = "Chapel Office";
 	req_access_txt = "22"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -40309,10 +40128,6 @@
 /obj/machinery/door/airlock{
 	name = "Bar Office";
 	req_access_txt = "25"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -40716,10 +40531,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bwY" = (
@@ -41513,10 +41324,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "byt" = (
@@ -43420,10 +43227,6 @@
 "bCq" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
@@ -48798,20 +48601,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"bMz" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/glass{
-	name = "Chapel Office";
-	req_access_txt = "22"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/chapel/office)
 "bMA" = (
 /obj/machinery/mineral/ore_redemption,
 /turf/simulated/floor/plasteel,
@@ -48856,10 +48645,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -49725,7 +49510,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bNQ" = (
@@ -50007,7 +49791,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bOo" = (
@@ -50668,7 +50451,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/storage/emergency2)
 "bPs" = (
@@ -50727,10 +50509,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bPy" = (
@@ -50924,10 +50702,6 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen";
 	req_access_txt = "28"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -52143,10 +51917,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bRI" = (
@@ -52629,7 +52399,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -52654,10 +52423,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
@@ -54252,10 +54017,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bVl" = (
@@ -54269,10 +54030,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
@@ -54541,10 +54298,6 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Delivery Office";
 	req_access_txt = "50"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -55259,10 +55012,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bWP" = (
@@ -55483,7 +55232,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "bXj" = (
@@ -57302,7 +57050,7 @@
 	name = "Biohazard Shutter Control";
 	pixel_x = -4;
 	pixel_y = 6;
-	req_access_txt = "47"
+	req_access_txt = "30"
 	},
 /obj/item/folder/white{
 	pixel_x = 4
@@ -57318,7 +57066,7 @@
 	normaldoorcontrol = 1;
 	pixel_x = -4;
 	pixel_y = -4;
-	req_access_txt = "20"
+	req_access_txt = "30"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -58284,10 +58032,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
 	icon_state = "whitebluefull"
@@ -58365,10 +58109,6 @@
 	name = "Medical Supplies";
 	req_access_txt = "5"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluefull";
 	icon_state = "whitebluefull"
@@ -58385,10 +58125,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -63283,10 +63019,6 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cjB" = (
@@ -63338,7 +63070,6 @@
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cjE" = (
@@ -63725,6 +63456,7 @@
 	name = "mining shuttle bay";
 	width = 7
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
 "ckl" = (
@@ -63733,6 +63465,7 @@
 	name = "Mining Dock Airlock";
 	req_access_txt = "48"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
 "ckm" = (
@@ -63741,6 +63474,7 @@
 	name = "Mining Dock Airlock";
 	req_access_txt = "48"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "ckn" = (
@@ -64003,7 +63737,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/blueshield)
 "ckJ" = (
@@ -64047,7 +63780,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ckO" = (
@@ -64063,7 +63795,6 @@
 	req_access_txt = "26"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "ckQ" = (
@@ -64097,7 +63828,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "ckU" = (
@@ -64185,7 +63915,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "clb" = (
@@ -64960,10 +64689,6 @@
 "cmt" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -66667,10 +66392,6 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cpl" = (
@@ -67408,10 +67129,6 @@
 /obj/machinery/holosign/surgery{
 	id = "surgery1"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67595,10 +67312,6 @@
 /obj/machinery/holosign/surgery{
 	id = "surgery2"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -67680,7 +67393,6 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqG" = (
@@ -69558,13 +69270,6 @@
 /area/medical/research{
 	name = "Research Division"
 	})
-"ctD" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "ctE" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -69648,16 +69353,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/engine/controlroom)
-"ctK" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "ctL" = (
 /obj/machinery/light{
 	dir = 4;
@@ -71699,10 +71394,6 @@
 	req_access_txt = "5";
 	req_one_access_txt = "0"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -72356,16 +72047,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
-"cyu" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint)
 "cyv" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
@@ -72501,10 +72182,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance";
 	req_access_txt = "5"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
@@ -72643,10 +72320,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -72952,10 +72625,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
@@ -73657,10 +73326,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "cAH" = (
@@ -74102,10 +73767,6 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -74704,16 +74365,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"cCF" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/apmaint)
 "cCG" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -74751,10 +74402,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -75213,7 +74860,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -76075,10 +75721,6 @@
 	name = "Alternate Construction Area";
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cFf" = (
@@ -76612,10 +76254,6 @@
 	name = "Alternate Construction Area";
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/consarea)
 "cFU" = (
@@ -77113,7 +76751,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "cGM" = (
@@ -77620,10 +77257,6 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cHF" = (
@@ -77776,10 +77409,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cHS" = (
@@ -79005,10 +78634,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -80228,10 +79853,6 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cMr" = (
@@ -81301,7 +80922,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cOt" = (
@@ -84373,10 +83993,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -88570,7 +88186,6 @@
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dbi" = (
@@ -88636,7 +88251,6 @@
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "dbq" = (
@@ -89107,10 +88721,6 @@
 /area/maintenance/asmaint)
 "dci" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 4
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "dcj" = (
@@ -89447,6 +89057,7 @@
 	req_access_txt = "0";
 	req_one_access_txt = "10;24"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/maintenance/engi_shuttle)
 "dcV" = (
@@ -89963,7 +89574,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/engi_shuttle)
 "ddX" = (
@@ -89979,13 +89589,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"ddY" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres,
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "ddZ" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/structure/cable{
@@ -90159,10 +89762,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dep" = (
@@ -90173,7 +89772,6 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "deq" = (
@@ -90574,10 +90172,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -91015,16 +90609,6 @@
 "dfV" = (
 /turf/simulated/floor/plating,
 /area/storage/secure)
-"dfW" = (
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
 "dfX" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -91063,6 +90647,7 @@
 	name = "engineering dock";
 	width = 7
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/constructionsite)
 "dga" = (
@@ -91095,15 +90680,10 @@
 	req_access_txt = "12"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "dgf" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/effect/mapping_helpers/airlock/unres{
-	icon_state = "airlock_unres_helper";
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dgg" = (
@@ -114520,7 +114100,7 @@ aaa
 cng
 coL
 coL
-ctK
+cqF
 coL
 cvk
 cwx
@@ -115241,7 +114821,7 @@ aGn
 aGn
 aGn
 aGn
-bbx
+aLk
 aGn
 aGn
 aUy
@@ -115291,7 +114871,7 @@ aaa
 cng
 coL
 coL
-ctK
+cqF
 coL
 coL
 cwx
@@ -117095,7 +116675,7 @@ ctU
 cgQ
 cgQ
 cgQ
-cCF
+cqF
 cgQ
 cgQ
 cgQ
@@ -118377,7 +117957,7 @@ cam
 aab
 cgQ
 ctU
-ctK
+cqF
 coL
 coL
 coL
@@ -121982,7 +121562,7 @@ czN
 cyg
 cCH
 coL
-ctK
+cqF
 cEQ
 cGj
 cJZ
@@ -126808,7 +126388,7 @@ avq
 avq
 avq
 avq
-axN
+aHp
 aRx
 aUw
 aDN
@@ -128911,7 +128491,7 @@ cPd
 cos
 cPd
 cqY
-ctD
+cmt
 csL
 csL
 cvI
@@ -130712,7 +130292,7 @@ csL
 cqD
 csL
 chf
-cyu
+cmt
 chf
 chf
 chf
@@ -132960,7 +132540,7 @@ aIq
 avq
 aAc
 aBt
-aGv
+aHp
 aCh
 aEw
 aFI
@@ -133725,7 +133305,7 @@ ajb
 awl
 arR
 awl
-avU
+aHp
 aqc
 aya
 awl
@@ -135271,7 +134851,7 @@ avb
 aAQ
 awF
 aye
-axN
+aHp
 avq
 aAS
 atG
@@ -137342,7 +136922,7 @@ aFJ
 aPq
 aRv
 aTb
-aXT
+aMn
 aGY
 aGY
 aGY
@@ -139906,7 +139486,7 @@ aGX
 aHc
 aIv
 aGX
-aOa
+aMn
 aGX
 aGX
 aGX
@@ -140419,10 +139999,10 @@ aCy
 aMf
 aNf
 aGY
-aNe
+aMn
 aGY
 aGY
-aNe
+aMn
 aGY
 aGY
 aPK
@@ -140935,7 +140515,7 @@ aJI
 aGY
 aGX
 aGX
-aKp
+aMn
 aGX
 aGX
 aGY
@@ -142472,14 +142052,14 @@ aab
 aAf
 aAf
 aAf
-aKp
+aMn
 aAf
 aHb
 aMz
 aMz
 aIE
 aGX
-aKp
+aMn
 aMz
 aGX
 aOG
@@ -143522,7 +143102,7 @@ bcu
 ber
 bga
 bis
-bMz
+bvN
 bcD
 bld
 blw
@@ -147196,7 +146776,7 @@ bGH
 bGG
 dgy
 bGG
-dfW
+cjA
 dia
 cuQ
 djQ
@@ -148472,7 +148052,7 @@ aab
 bGH
 bGG
 bGG
-ddY
+cjA
 bGG
 dcJ
 ddJ
@@ -148737,7 +148317,7 @@ cuQ
 dfc
 bGG
 bGG
-ddY
+cjA
 bGG
 bGG
 bGH

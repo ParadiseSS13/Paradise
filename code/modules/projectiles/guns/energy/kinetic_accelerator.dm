@@ -16,6 +16,9 @@
 	var/holds_charge = FALSE
 	var/unique_frequency = FALSE // modified by KA modkits
 	var/overheat = FALSE
+	can_bayonet = TRUE
+	knife_x_offset = 20
+	knife_y_offset = 12
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
@@ -148,6 +151,8 @@
 		if(gun_light.on)
 			iconF = "flight_on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+	if(bayonet && can_bayonet)
+		overlays += knife_overlay
 
 
 /obj/item/gun/energy/kinetic_accelerator/experimental
