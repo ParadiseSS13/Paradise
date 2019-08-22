@@ -22927,6 +22927,9 @@
 /turf/simulated/wall,
 /area/maintenance/fpmaint2)
 "aPd" = (
+/obj/machinery/light_switch{
+	pixel_y = 27
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -74735,6 +74738,10 @@
 /obj/machinery/light_switch{
 	pixel_y = 27
 	},
+/obj/machinery/alarm{
+	frequency = 1439;
+	pixel_y = 23
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -81707,12 +81714,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"cPR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "cPS" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4;
@@ -81824,14 +81825,6 @@
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
-"cQd" = (
-/obj/machinery/alarm{
-	frequency = 1439;
-	pixel_y = 23
-	},
-/obj/machinery/pipedispenser,
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "cQe" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4;
@@ -82241,10 +82234,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
-"cQQ" = (
-/obj/machinery/pipedispenser/disposal,
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "cQR" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -83066,10 +83055,6 @@
 	},
 /area/toxins/xenobiology)
 "cSd" = (
-/turf/simulated/floor/plasteel,
-/area/atmos)
-"cSe" = (
-/obj/structure/closet/wardrobe/atmospherics_yellow,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cSf" = (
@@ -86427,7 +86412,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/suit_storage_unit/atmos,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "cXP" = (
@@ -96313,19 +96297,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
-/obj/structure/table,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/glasses/welding,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/item/clothing/gloves/color/black,
-/obj/machinery/alarm{
-	dir = 4;
-	icon_state = "alarm0";
-	pixel_x = -22
-	},
-/obj/item/pipe_painter,
-/obj/item/pipe_painter,
+/obj/structure/closet/wardrobe/atmospherics_yellow,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "dtk" = (
@@ -96550,6 +96522,14 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"lLC" = (
+/obj/machinery/alarm{
+	dir = 4;
+	icon_state = "alarm0";
+	pixel_x = -22
+	},
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "mMw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -96677,6 +96657,17 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/constructionsite)
+"wOS" = (
+/obj/structure/table,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/clothing/gloves/color/black,
+/obj/item/pipe_painter,
+/obj/item/pipe_painter,
+/obj/item/clothing/glasses/welding,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/plasteel,
+/area/atmos)
 "wVD" = (
 /obj/effect/landmark/start{
 	name = "Shaft Miner"
@@ -129032,7 +129023,7 @@ cSd
 cOF
 cTk
 dfF
-dtn
+wOS
 dcq
 dcq
 dcq
@@ -129289,8 +129280,8 @@ cSd
 cSd
 cWT
 cXQ
-dtn
-dtn
+cSd
+lLC
 cXO
 dbK
 dct
@@ -129798,7 +129789,7 @@ cGK
 cDi
 cSd
 cSd
-cPR
+cPT
 cQS
 cEr
 cTq
@@ -130052,10 +130043,10 @@ cJc
 cJN
 csK
 cZS
-cQd
-cQQ
-cSe
-cPT
+dtn
+dtn
+dtn
+dtn
 cFG
 cVJ
 cWO
