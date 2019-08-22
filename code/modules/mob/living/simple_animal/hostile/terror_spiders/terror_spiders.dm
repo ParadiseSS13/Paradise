@@ -55,7 +55,7 @@ var/global/list/ts_spiderling_list = list()
 
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
-	var/ai_ventcrawls = 1
+	var/ai_ventcrawls = TRUE
 	var/idle_ventcrawl_chance = 15
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
@@ -106,11 +106,11 @@ var/global/list/ts_spiderling_list = list()
 	// AI player control by ghosts
 	var/ai_playercontrol_allowtype = 1 // if 0, this specific class of spider is not player-controllable. Default set in code for each class, cannot be changed.
 
-	var/ai_break_lights = 1 // AI lightbreaking behavior
+	var/ai_break_lights = TRUE // AI lightbreaking behavior
 	var/freq_break_light = 600
 	var/last_break_light = 0 // leave this, changed by procs.
 
-	var/ai_spins_webs = 1 // AI web-spinning behavior
+	var/ai_spins_webs = TRUE // AI web-spinning behavior
 	var/freq_spins_webs = 600
 	var/last_spins_webs = 0 // leave this, changed by procs.
 	var/delay_web = 40 // delay between starting to spin web, and finishing
@@ -272,12 +272,12 @@ var/global/list/ts_spiderling_list = list()
 		spider_awaymission = 1
 		ts_count_alive_awaymission++
 		if(spider_tier >= 3)
-			ai_ventcrawls = 0 // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
+			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
 		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
 			spider_uo71 = 1
 			if(world.time < 600)
 				// these are static spiders, specifically for the UO71 away mission, make them stay in place
-				ai_ventcrawls = 0
+				ai_ventcrawls = FALSE
 				spider_placed = 1
 	else
 		ts_count_alive_station++

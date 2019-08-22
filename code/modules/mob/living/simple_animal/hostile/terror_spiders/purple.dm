@@ -25,7 +25,7 @@
 	speed = 0 // '0' (also the default for human mobs) converts to 2.5 total delay, or 4 tiles/sec.
 	spider_opens_doors = 2
 	ventcrawler = 0
-	ai_ventcrawls = 0
+	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	web_type = /obj/structure/spider/terrorweb/purple

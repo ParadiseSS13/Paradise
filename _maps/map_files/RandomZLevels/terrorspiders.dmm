@@ -5645,7 +5645,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /mob/living/simple_animal/hostile/poison/terror_spider/red{
-	ai_ventcrawls = 0;
 	wander = 0
 	},
 /turf/simulated/floor/plasteel{

@@ -210,7 +210,7 @@
 	queennest_action.Remove(src)
 	hasnested = 1
 	ventcrawler = 0
-	ai_ventcrawls = 0
+	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
 	MassFlicker()

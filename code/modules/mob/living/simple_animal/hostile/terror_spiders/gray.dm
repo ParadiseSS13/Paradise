@@ -103,9 +103,9 @@
 							if(g_turfs_visible.len >= 12)
 								// So long as the room isn't tiny, and it has no queen in it, sure, settle there
 								// since we are settled now, disable most AI behaviors so we don't waste CPU.
-								ai_ventcrawls = 0
-								ai_spins_webs = 0
-								ai_break_lights = 0
+								ai_ventcrawls = FALSE
+								ai_spins_webs = FALSE
+								ai_break_lights = FALSE
 								prob_ai_hides_in_vents = 3
 								visible_message("<span class='notice'>[src] finishes setting up its trap in [get_area(src)].</span>")
 					else

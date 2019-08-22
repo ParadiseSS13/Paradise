@@ -22,7 +22,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	ventcrawler = 0
-	ai_ventcrawls = 0
+	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
