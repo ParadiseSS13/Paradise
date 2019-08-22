@@ -81,7 +81,7 @@
 			unfastened = !unfastened
 		return TRUE
 
-	else if(iswelder(C) && unfastened)
+	else if(iswelder(C))
 		var/obj/item/weldingtool/welder = C
 		if(welder.isOn())
 			if(!welder.remove_fuel(0, user))
@@ -96,7 +96,7 @@
 				burnt = FALSE
 				broken = FALSE
 				update_icon()
-			else
+			if(unfastened)
 				to_chat(user, "<span class='notice'>You start removing [src].</span>")
 				playsound(src, welder.usesound, 100, 1)
 				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())
