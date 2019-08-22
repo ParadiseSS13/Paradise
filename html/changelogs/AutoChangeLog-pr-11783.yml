@@ -1,0 +1,5 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "hit effects!"
+  - imageadd: "hit effect sprites for lasers, bullet hole and dent decals for walls"

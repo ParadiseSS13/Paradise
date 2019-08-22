@@ -236,6 +236,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
+	update_parallax_contents()
 	following = null
 	setDir(direct)
 	ghostimage.setDir(dir)
@@ -417,6 +418,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	forceMove(pick(L))
+	update_parallax_contents()
 	following = null
 
 /mob/dead/observer/verb/follow()
@@ -511,6 +513,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
 		A.forceMove(T)
+		M.update_parallax_contents()
+		following = null
 		return
 	to_chat(A, "This mob is not located in the game world.")
 

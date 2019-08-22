@@ -207,6 +207,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	job = list("Mime")
 
+/datum/uplink_item/jobspecific/pressure_mod
+	name = "Kinetic Accelerator Pressure Mod"
+	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
+	reference = "KPM"
+	item = /obj/item/borg/upgrade/modkit/indoors
+	cost = 5 //you need two for full damage, so total of 10 for maximum damage
+	job = list("Shaft Miner")
+
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
 	name = "Chef Excellence's Special Sauce"

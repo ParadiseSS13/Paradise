@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes walking on lavaland sounding like walking on metal plating"

@@ -1,0 +1,5 @@
+author: "TheSardele"
+delete-after: True
+changes: 
+  - rscadd: "All-In-one Grinders can now be constructed and upgraded"
+  - rscadd: "All-In-one Grinders now produce more reagents when upgraded."

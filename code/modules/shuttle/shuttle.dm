@@ -189,7 +189,7 @@
 /obj/docking_port/stationary/transit
 	name = "In transit"
 	turf_type = /turf/space/transit
-
+	var/area/shuttle/transit/assigned_area
 	lock_shuttle_doors = 1
 
 /obj/docking_port/stationary/transit/register()
@@ -358,7 +358,7 @@
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1))
+		if(dock(S1, , TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
@@ -429,7 +429,7 @@
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
-/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
+/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(S1.get_docked() == src)
 		remove_ripples()
@@ -492,6 +492,7 @@
 			var/turf/simulated/Ts1 = T1
 			Ts1.copy_air_with_tile(T0)
 
+		areaInstance.moving = TRUE
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
 			AM.onShuttleMove(T0, T1, rotation)
@@ -512,6 +513,7 @@
 		T0.CalculateAdjacentTurfs()
 		SSair.add_to_active(T0,1)
 
+	areaInstance.moving = transit
 	for(var/A1 in L1)
 		var/turf/T1 = A1
 		T1.postDock(S1)
