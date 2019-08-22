@@ -60,7 +60,6 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	venom_per_bite = 30
-
 	var/atom/cocoon_target
 	var/fed = 0
 
@@ -80,10 +79,10 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_movement()
 	if(AIStatus == AI_IDLE && !busy)
 		//1% chance to skitter madly away
-		if(prob(50))
+		if(prob(1))
 			stop_automated_movement = 1
 			Goto(pick(orange(20, src)), move_to_delay)
-			spawn(1)
+			spawn(50)
 				stop_automated_movement = 0
 				walk(src,0)
 		else
