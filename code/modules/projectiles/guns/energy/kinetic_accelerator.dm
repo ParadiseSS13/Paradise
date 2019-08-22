@@ -479,6 +479,45 @@
 			return
 		new /obj/effect/temp_visual/resonance(target_turf, K.firer, null, 30)
 
+/obj/item/borg/upgrade/modkit/bounty
+	name = "death syphon"
+	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
+	denied_type = /obj/item/borg/upgrade/modkit/bounty
+	modifier = 1.25
+	cost = 30
+	var/maximum_bounty = 25
+	var/list/bounties_reaped = list()
+
+/obj/item/borg/upgrade/modkit/bounty/projectile_prehit(obj/item/projectile/kinetic/K, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	if(isliving(target))
+		var/mob/living/L = target
+		var/list/existing_marks = L.has_status_effect_list(STATUS_EFFECT_SYPHONMARK)
+		for(var/i in existing_marks)
+			var/datum/status_effect/syphon_mark/SM = i
+			if(SM.reward_target == src) //we want to allow multiple people with bounty modkits to use them, but we need to replace our own marks so we don't multi-reward
+				SM.reward_target = null
+				qdel(SM)
+		L.apply_status_effect(STATUS_EFFECT_SYPHONMARK, src)
+
+/obj/item/borg/upgrade/modkit/bounty/projectile_strike(obj/item/projectile/kinetic/K, turf/target_turf, atom/target, obj/item/gun/energy/kinetic_accelerator/KA)
+	if(isliving(target))
+		var/mob/living/L = target
+		if(bounties_reaped[L.type])
+			var/kill_modifier = 1
+			if(K.pressure_decrease_active)
+				kill_modifier *= K.pressure_decrease
+			var/armor = L.run_armor_check(K.def_zone, K.flag, "", "", K.armour_penetration)
+			L.apply_damage(bounties_reaped[L.type]*kill_modifier, K.damage_type, K.def_zone, armor)
+
+/obj/item/borg/upgrade/modkit/bounty/proc/get_kill(mob/living/L)
+	var/bonus_mod = 1
+	if(ismegafauna(L)) //megafauna reward
+		bonus_mod = 4
+	if(!bounties_reaped[L.type])
+		bounties_reaped[L.type] = min(modifier * bonus_mod, maximum_bounty)
+	else
+		bounties_reaped[L.type] = min(bounties_reaped[L.type] + (modifier * bonus_mod), maximum_bounty)
+
 //Indoors
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"

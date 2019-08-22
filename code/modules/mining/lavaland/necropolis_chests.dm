@@ -57,7 +57,10 @@
 		if(15)
 			new /obj/item/guardiancreator(src)
 		if(16)
-			new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
+			if(prob(50))
+				new /obj/item/disk/design_disk/modkit_disc/mob_and_turf_aoe(src)
+			else
+				new /obj/item/disk/design_disk/modkit_disc/bounty(src)
 		if(17)
 			new /obj/item/warp_cube/red(src)
 		if(18)
@@ -118,6 +121,10 @@
 	name = "Resonator Blast Mod Disk"
 	modkit_design = /datum/design/unique_modkit/resonator_blast
 
+/obj/item/disk/design_disk/modkit_disc/bounty
+	name = "Death Syphon Mod Disk"
+	modkit_design = /datum/design/unique_modkit/bounty
+
 /datum/design/unique_modkit
 	category = list("Mining", "Cyborg Upgrade Modules") //can't be normally obtained
 	build_type = PROTOLATHE | MECHFAB
@@ -142,3 +149,11 @@
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
+
+/datum/design/unique_modkit/bounty
+	name = "Kinetic Accelerator Death Syphon Mod"
+	desc = "A device which causes kinetic accelerators to permanently gain damage against creature types killed with it."
+	id = "bountymod"
+	materials = list(MAT_METAL = 4000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_BLUESPACE = 4000)
+	reagents_list = list("blood" = 40)
+	build_path = /obj/item/borg/upgrade/modkit/bounty
