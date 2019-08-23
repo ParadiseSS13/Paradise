@@ -1,0 +1,4 @@
+author: "Citinited"
+delete-after: True
+changes: 
+  - rscdel: "Removes the big pipe dispensers from atmospherics, you can still find them elsewhere."
