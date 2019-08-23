@@ -1,4 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "Added SlimeHUD when playing as a slime. This means slimes will have their own unique health doll and pull icon."

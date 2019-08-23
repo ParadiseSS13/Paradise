@@ -1,5 +1,0 @@
-author: "AffectedArc07, Keekenox, Floyd/Qustinnus"
-delete-after: True
-changes: 
-  - rscadd: "P A R A L L A X (That fancy space thing)"
-  - imageadd: "Adds a new Parallax layer that resembles Lavaland (Lava Planet), it spawns on a random location near the station. You need your parallax on high to see it."

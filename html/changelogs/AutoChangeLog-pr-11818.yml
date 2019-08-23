@@ -1,5 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - rscadd: "You can now homerun things thrown at you with a baseball bat!"
-  - tweak: "new baseball hit noise, new baseball sprite"

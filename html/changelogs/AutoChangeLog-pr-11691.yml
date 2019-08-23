@@ -1,6 +1,0 @@
-author: "TDSSS"
-delete-after: True
-changes: 
-  - rscadd: "syndicate fax machine to lavaland syndie base."
-  - tweak: "syndicate lavaland base self destruct now requires syndie access."
-  - tweak: "moved headsets in lavaland syndie base."

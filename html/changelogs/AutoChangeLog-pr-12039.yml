@@ -1,7 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Adds a number of primal recipes: rake (cultivator), wooden bucket, firebrand (long burning match), and bone bracers (armored arm protection that goes on your glove slot)"
-  - rscadd: "Can attach bayonets to C20rs, bolt action rifles, security auto-rifles, and kinetic accelerator; harm intent to stab with them"
-  - rscadd: "can craft ore boxes out of wood"
-  - bugfix: "Skull helmets are now proper helmets"
