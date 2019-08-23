@@ -1,5 +1,0 @@
-author: "Shadow-Quill"
-delete-after: True
-changes: 
-  - bugfix: "The RD's office door can now be opened by the RD, instead of by just the Captain."
-  - tweak: "Science lockdown can now only be (de)activated by the RD, instead of any scientist."

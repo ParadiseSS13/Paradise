@@ -1,7 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Survival autoinjectors tweaked"
-  - rscadd: "Survival autoinjectors have 15 units of teporone in them"
-  - tweak: "Survival autoinjectors have double the epinpehrine and weak omnizine instead of saline glucose."
-  - tweak: "lavaland extract altered; it no longer heals tox or oxy, and heals slightly less brute and burn, but has nearly halved the metabolization rate and has a less harsh overdose"

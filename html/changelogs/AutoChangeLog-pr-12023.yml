@@ -1,4 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - rscadd: "Adds a new verb named \"Toggle Health Scan\" to the ghost tab. While toggled on, ghosts can perform health scans on humanoids and cyborgs by left clicking on them"

@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Tightening the bolts of a falsewall now works properly."
-  - tweak: "Deconstructing plating now requires it to be unfastened using a screwdriver first, in order to prevent it from being accidentally deconstructed with a welder."
