@@ -46,10 +46,12 @@
 /obj/effect/mob_spawn/human/clown/corpse
 	roundstart = TRUE
 	instant = TRUE
+	has_id = FALSE
 
 /obj/effect/mob_spawn/human/mime/corpse
 	roundstart = TRUE
 	instant = TRUE
+	has_id = FALSE
 
 /obj/effect/mob_spawn/human/corpse/pirate
 	name = "Pirate"
