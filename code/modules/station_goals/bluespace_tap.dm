@@ -97,8 +97,11 @@
 //WIP machine that consumes enormous amounts of power
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace mining tap"
-	icon = 'icons/obj/machines/field_generator.dmi'//TODO
-	icon_state = "Field_Gen"	//just picked an existing icon for now, do this later
+	icon = 'icons/obj/machines/bluespace_tap.dmi'
+	icon_state = "bluespace_tap"	//sprites by Ionward
+	pixel_x = -32	//shamelessly stolen off of dna vault code, hope this works
+	pixel_y = -64
+	var/list/obj/structure/fillers = list()
 	use_power = NO_POWER_USE	//don't pull automatic power
 	active_power_usage = 500//value that will be multiplied with mining level to generate actual power use
 	var/input_level = 0	//the level the machine is set to mine at. 0 means off
@@ -107,8 +110,9 @@
 	var/total_points = 0	//total amount of points ever earned, for tracking station goal
 	density = 1
 	interact_offline = 1
-	var/max_level = 20	//max power input level
-	var/static/product_list = list(	//list of items the bluespace tap can produce
+	luminosity = 1
+	var/max_level = 20	//max power input level, I don't expect this to be ever reached
+	var/static/product_list = list(	//list of items the bluespace tap can produce, lots of discussion needed
 	new /datum/data/bluespace_tap_product("Metal", /obj/item/stack/sheet/metal/fifty, 100),
 	new /datum/data/bluespace_tap_product("Glass", /obj/item/stack/sheet/glass/fifty, 150),
 	new /datum/data/bluespace_tap_product("Diamond", /obj/item/stack/sheet/mineral/diamond/fifty, 15000),
@@ -123,8 +127,28 @@
 
 /obj/machinery/power/bluespace_tap/New()
 	..()
+	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
+	//TODO: Replace this,bsa and gravgen with some big machinery datum
+	var/list/occupied = list()
+	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
+		occupied += get_step(src,direct)
+	occupied += locate(x+1,y-2,z)
+	occupied += locate(x-1,y-2,z)
+
+	for(var/T in occupied)
+		var/obj/structure/filler/F = new(T)
+		F.parent = src
+		fillers += F
 	if(!powernet)
 		connect_to_network()
+
+/obj/machinery/power/bluespace_tap/Destroy()
+	for(var/V in fillers)
+		var/obj/structure/filler/filler = V
+		filler.parent = null
+		qdel(filler)
+	fillers.Cut()
+	. = ..()
 
 /obj/machinery/power/bluespace_tap/proc/increase_level()
 	if(input_level < max_level)
@@ -148,6 +172,7 @@
 //stuff that happens regularily, ie power use and point generation
 /obj/machinery/power/bluespace_tap/process()
 	if(input_level == 0)
+		actual_power_usage = 0
 		return
 	actual_power_usage = (10 ** input_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
 	if(surplus() < actual_power_usage)
@@ -160,7 +185,8 @@
 		total_points += points_to_add
 		if(prob(input_level - 7 + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0, so only occurs if input level > 7
 			event_announcement.Announce("Unexpected power spike during Bluespace Tap Operation. Extra-dimensional intruder alert. Expected location: [get_area(src).name].", "Bluespace Tap Malfunction")
-			input_level = 0	//as hilarious as it would be for the tap to spawn in even more nasties because you can't get to it to turn it off, that might be too much for now
+			if(!emagged)
+				input_level = 0	//as hilarious as it would be for the tap to spawn in even more nasties because you can't get to it to turn it off, that might be too much for now. Unless sabotage is involved
 			for(var/i = 1, i <= rand(1, 3), i++)	//freaky shit here, 1-3 freaky portals
 				var/mob/living/simple_animal/hostile/spawner/nether/bluespace_tap/portal = new(src)
 				portal.forceMove(get_turf(src))
@@ -206,11 +232,12 @@
 	if(!A)	//if called with a bogus key or something, just return
 		message_admins("Yo you fucked up, no product for key [key]")	//debugging, weeeee
 		return
-	A.amount_bought++	//why am I tracking this again?
+	if(A.product_cost > points)
+		return
 	points -= A.product_cost
 	A.product_cost *= 1.2
+	playsound(src, 'sound/magic/blink.ogg', 50)
 	new A.product_path(get_turf(src))	//creates product
-	//TODO figur eout how to make fancy sound at this point
 
 
 
@@ -253,7 +280,7 @@
 		if(user)
 			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")
 
-
+//a modifcation of the usual spawner for my purposes, spawns faster, has more health, spawns less total monsters
 /mob/living/simple_animal/hostile/spawner/nether/bluespace_tap
 	spawn_time = 300	//30 seconds, same as necropolis tendrils
 	max_mobs = 5		//Dont' want them overrunning the station
