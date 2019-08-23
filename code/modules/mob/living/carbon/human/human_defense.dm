@@ -141,19 +141,19 @@ emp_act
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
 		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
-		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(r_hand && !istype(r_hand, /obj/item/clothing))
 		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
-		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(w_uniform)
 		var/final_block_chance = w_uniform.block_chance - (Clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	return 0
 
@@ -311,39 +311,6 @@ emp_act
 		throwpower = I.throwforce
 		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
-	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
-		var/obj/item/melee/baseball_bat/B
-		if(l_hand && istype(l_hand, /obj/item/melee/baseball_bat))
-			B = l_hand
-		else if(r_hand && istype(r_hand, /obj/item/melee/baseball_bat))
-			B = r_hand
-		if(B && B.deflectmode)
-			if(prob(10))
-				visible_message("<span class='boldwarning'>[src] Deflects the [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
-				playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)				
-				I.throw_at(I.thrownby, 20, 20, src)
-				B.deflectmode = FALSE
-				if(!istype(I, /obj/item/beach_ball))
-					B.lastdeflect = world.time + 3000
-				return TRUE				
-			else if(prob(30))
-				visible_message("<span class='warning'>[src] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				do_attack_animation(get_step(src,pick(alldirs)), ATTACK_EFFECT_DISARM)			
-				B.deflectmode = FALSE
-				if(!istype(I, /obj/item/beach_ball))
-					B.lastdeflect = world.time + 3000
-				return ..()
-			else
-				visible_message("<span class='warning'>[src] swings and deflects the [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
-				playsound(get_turf(src), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)					
-				I.throw_at(get_edge_target_turf(src,pick(alldirs)), rand(8,10), 14, src)
-				B.deflectmode = FALSE
-				if(!istype(I, /obj/item/beach_ball))
-					B.lastdeflect = world.time + 3000
-				return TRUE
 	if(check_shields(throwpower, "\the [AM.name]", AM, THROWN_PROJECTILE_ATTACK))
 		hitpush = 0
 		skipcatch = 1
