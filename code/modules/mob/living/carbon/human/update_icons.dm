@@ -586,7 +586,8 @@ var/global/list/damage_icon_parts = list()
 					standing.overlays += image("icon" = A.sprite_sheets[dna.species.name], "icon_state" = "[A.icon_state]")
 				else
 					standing.overlays += image("icon" = 'icons/mob/ties.dmi', "icon_state" = "[tie_color]")
-
+		standing.alpha = w_uniform.alpha
+		standing.color = w_uniform.color
 		overlays_standing[UNIFORM_LAYER] = standing
 	else
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
@@ -769,6 +770,8 @@ var/global/list/damage_icon_parts = list()
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "shoeblood")
 			bloodsies.color = shoes.blood_color
 			standing.overlays += bloodsies
+		standing.alpha = shoes.alpha
+		standing.color = shoes.color
 		overlays_standing[SHOES_LAYER] = standing
 	else
 		if(feet_blood_DNA)
@@ -819,6 +822,8 @@ var/global/list/damage_icon_parts = list()
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "helmetblood")
 			bloodsies.color = head.blood_color
 			standing.overlays += bloodsies
+		standing.alpha = head.alpha
+		standing.color = head.color
 		overlays_standing[HEAD_LAYER] = standing
 	apply_overlay(HEAD_LAYER)
 
@@ -886,6 +891,8 @@ var/global/list/damage_icon_parts = list()
 			bloodsies.color = wear_suit.blood_color
 			standing.overlays += bloodsies
 
+		standing.alpha = wear_suit.alpha
+		standing.color = wear_suit.color
 		overlays_standing[SUIT_LAYER] = standing
 
 	apply_overlay(SUIT_LAYER)
@@ -951,6 +958,8 @@ var/global/list/damage_icon_parts = list()
 			var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")
 			bloodsies.color = wear_mask.blood_color
 			standing.overlays += bloodsies
+		standing.alpha = wear_mask.alpha
+		standing.color = wear_mask.color
 		overlays_standing[FACEMASK_LAYER] = standing
 	apply_overlay(FACEMASK_LAYER)
 
@@ -973,6 +982,8 @@ var/global/list/damage_icon_parts = list()
 			standing = mutable_appearance('icons/mob/back.dmi', "[back.icon_state]", layer = -BACK_LAYER)
 
 		//create the image
+		standing.alpha = back.alpha
+		standing.color = back.color
 		overlays_standing[BACK_LAYER] = standing
 	apply_overlay(BACK_LAYER)
 

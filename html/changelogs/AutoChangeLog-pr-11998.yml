@@ -1,0 +1,4 @@
+author: "Tayyyyyyy"
+delete-after: True
+changes: 
+  - tweak: "message window links added to PM send receipt"

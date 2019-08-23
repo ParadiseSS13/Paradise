@@ -1,0 +1,4 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - tweak: "mice now have a very low chance of chewing through wires, this kills them if the wire is powered"

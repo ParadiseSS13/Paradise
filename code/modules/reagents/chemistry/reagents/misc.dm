@@ -457,6 +457,7 @@
 			C.AdjustDizzy(volume)
 	C.AddComponent(/datum/component/jestosterone, mind_type)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
+	C.AddComponent(/datum/component/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
 	if(!istype(M))
@@ -493,8 +494,10 @@
 	..()
 	GET_COMPONENT_FROM(remove_fun, /datum/component/jestosterone, M)
 	GET_COMPONENT_FROM(squeaking, /datum/component/squeak, M)
+	GET_COMPONENT_FROM(waddling, /datum/component/waddling, M)
 	remove_fun.Destroy()
 	squeaking.Destroy()
+	waddling.Destroy()
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"

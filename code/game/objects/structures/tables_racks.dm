@@ -377,7 +377,7 @@
 		qdel(i)
 	. = ..()
 
-/obj/structure/table/glass/Crossed(atom/movable/AM)
+/obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(!can_deconstruct)
 		return

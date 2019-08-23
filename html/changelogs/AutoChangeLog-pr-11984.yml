@@ -1,0 +1,5 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - tweak: "Players now have thirty seconds instead of just five seconds to select if they want to be somebody's butler through a die of fate roll."
+  - bugfix: "The Netherworld portal is now properly destroyed upon being killed. In addition, its max health is now equal to its starting health."

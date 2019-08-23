@@ -1,0 +1,16 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Majorly updates lavaland"
+  - rscadd: "Miner starting equipment altered. They now start with a kinetic accelerator"
+  - rscadd: "Miners start off with a mini pickaxe"
+  - rscadd: "Adds in the boxed implant kit, regular shelter capsule, and mining drone passthrough upgrade to the mining equipment vendor"
+  - tweak: "re-ordered the equipment vendor, so things are grouped together more logically"
+  - rscadd: "Added a number of new kinetic accelerator upgrades acquirable through tendril chests"
+  - tweak: "Mining bot now uses an actual kinetic accelerator as opposed to a \"Look alike\"; you can upgrade its internal gun with various kinetic accelerator modkits."
+  - tweak: "Sentient mining bot nerfed; you can no longer apply the armor or melee buff to them; offset by the fact you can upgrade their kinetic gun."
+  - tweak: "Indoor pressure mod removed from R&D and made into a miner traitor item"
+  - tweak: "Resonators have an increased amount of fields and do more damage in low pressure. Additionally, if you place a field on a tile that already has a field, it'll cause it to detonate early"
+  - tweak: "Plasmacutter no longer does increased damage in low pressure, Advanced plasma cutter does slightly more base damage but has a bit less range. Price has been cut at R&D"
+  - rscdel: "removed the AoE Mob+Turf upgrade for mining pods"
+  - bugfix: "Fixes ripleys being slow on lavaland"

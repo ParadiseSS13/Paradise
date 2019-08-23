@@ -1941,7 +1941,7 @@
 	},
 /area/awaymission/research)
 "ff" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -1952,7 +1952,7 @@
 	},
 /area/awaymission/syndishuttle)
 "fg" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -2381,7 +2381,7 @@
 	},
 /area/awaymission/arrivalblock)
 "gc" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -4196,7 +4196,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
 "kO" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -4204,13 +4204,13 @@
 	},
 /area/awaymission/arrivalblock)
 "kP" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/awaymission/arrivalblock)
 "kQ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{

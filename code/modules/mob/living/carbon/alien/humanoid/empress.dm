@@ -48,29 +48,26 @@
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
-/mob/living/carbon/alien/humanoid/empress
+/mob/living/carbon/alien/humanoid/empress/handle_hud_icons_health()
+	..() //-Yvarov
 
-	handle_regular_hud_updates()
-
-		..() //-Yvarov
-
-		if(src.healths)
-			if(src.stat != DEAD)
-				switch(health)
-					if(250 to INFINITY)
-						src.healths.icon_state = "health0"
-					if(175 to 250)
-						src.healths.icon_state = "health1"
-					if(100 to 175)
-						src.healths.icon_state = "health2"
-					if(50 to 100)
-						src.healths.icon_state = "health3"
-					if(0 to 50)
-						src.healths.icon_state = "health4"
-					else
-						src.healths.icon_state = "health5"
-			else
-				src.healths.icon_state = "health6"
+	if(healths)
+		if(stat != DEAD)
+			switch(health)
+				if(250 to INFINITY)
+					healths.icon_state = "health0"
+				if(175 to 250)
+					healths.icon_state = "health1"
+				if(100 to 175)
+					healths.icon_state = "health2"
+				if(50 to 100)
+					healths.icon_state = "health3"
+				if(0 to 50)
+					healths.icon_state = "health4"
+				else
+					healths.icon_state = "health5"
+		else
+			healths.icon_state = "health6"
 
 /mob/living/carbon/alien/humanoid/empress/verb/lay_egg()
 	set name = "Lay Egg (250)"

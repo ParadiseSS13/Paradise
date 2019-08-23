@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds in kinetic crusher trophies"
+  - tweak: "Kinetic crusher can be wielded/unwielded (but you can't attack with it unwielded)"
+  - rscadd: "Adds the HECK suit as Bubblegum loot"
+  - rscadd: "Adds the kinetic accelerator bounty mod as Tendril loot"

@@ -455,6 +455,7 @@
 	colour = "alien"
 	key = "y"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/wryn/check_special_condition(mob/other)
 	var/mob/living/carbon/M = other
@@ -485,7 +486,7 @@
 	colour = "alien"
 	key = "a"
 	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	follow = TRUE
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
@@ -496,7 +497,7 @@
 	colour = "terrorspider"
 	key = "ts"
 	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	follow = TRUE
 
 /datum/language/ling
 	name = "Changeling"
@@ -505,10 +506,11 @@
 	colour = "changeling"
 	key = "g"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.changeling)
-		..(speaker,message,speaker.mind.changeling.changelingID)
+		..(speaker, message, speaker.mind.changeling.changelingID)
 	else if(speaker.mind && speaker.mind.linglink)
 		..()
 	else
@@ -521,6 +523,7 @@
 	colour = "shadowling"
 	key = "8"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
@@ -539,6 +542,7 @@
 	colour = "abductor"
 	key = "zw" //doesn't matter, this is their default and only language
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/abductor/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
@@ -567,6 +571,7 @@
 	colour = "alien"
 	key = "bo"
 	flags = RESTRICTED | HIVEMIND
+	follow = TRUE
 
 /datum/language/corticalborer/broadcast(mob/living/speaker, message, speaker_mask)
 	var/mob/living/simple_animal/borer/B
@@ -590,7 +595,7 @@
 	exclaim_verb = "declares"
 	key = "b"
 	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	follow = TRUE
 	var/drone_only
 
 /datum/language/binary/broadcast(mob/living/speaker, message, speaker_mask)
@@ -636,8 +641,8 @@
 	colour = "say_quote"
 	key = "d"
 	flags = RESTRICTED | HIVEMIND
-	drone_only = 1
-	follow = 1
+	drone_only = TRUE
+	follow = TRUE
 
 /datum/language/drone
 	name = "Drone"
@@ -647,7 +652,7 @@
 	exclaim_verb = "declares"
 	key = "]"
 	flags = RESTRICTED
-	follow = 1
+	follow = TRUE
 	syllables = list ("beep", "boop")
 
 /datum/language/swarmer
@@ -659,7 +664,7 @@
 	colour = "say_quote"
 	key = "z"//Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	follow = TRUE
 
 // Language handling.
 /mob/proc/add_language(language)
