@@ -15,6 +15,21 @@
 		update_canmove()
 	return 1
 
+/mob/living/proc/SoftCrit(updating = 1)
+	if(stat == DEAD)
+		log_runtime(EXCEPTION("SoftCrit called on a dead mob."), src)
+		return FALSE
+	else if(stat == SOFT_CRIT)
+		return FALSE
+	create_attack_log("<font color='red'>Fell into soft crit at [atom_loc_line(get_turf(src))]</font>")
+	log_game("[key_name(src)] soft crit at [atom_loc_line(get_turf(src))]")
+	stat = SOFT_CRIT
+	if(updating)
+		update_sight()
+		update_blind_effects()
+		update_canmove()
+	return TRUE
+
 /mob/living/proc/WakeUp(updating = 1)
 	if(stat == DEAD)
 		log_runtime(EXCEPTION("WakeUp called on a dead mob."), src)
