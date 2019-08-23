@@ -27867,11 +27867,6 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"bat" = (
-/obj/machinery/pipedispenser,
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "bau" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -28740,11 +28735,6 @@
 "bbT" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/atmos)
-"bbU" = (
-/obj/machinery/pipedispenser/disposal,
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bbV" = (
@@ -142588,9 +142578,9 @@ aUd
 aVM
 aXq
 aYI
-bat
-bbU
-bat
+bhp
+bhp
+bhp
 beO
 aXn
 bhk
