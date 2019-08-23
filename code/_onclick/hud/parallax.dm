@@ -21,6 +21,7 @@
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_1(null, C.view)
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_2(null, C.view)
 		C.parallax_layers_cached += new /obj/screen/parallax_layer/planet(null, C.view)
+		C.parallax_layers_cached += new /obj/screen/parallax_layer/layer_3(null, C.view)
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
@@ -69,7 +70,7 @@
 	update_parallax()
 
 // This sets which way the current shuttle is moving (returns true if the shuttle has stopped moving so the caller can append their animation)
-// Well, it would if our shuttle code had dynamic areas 
+// Well, it would if our shuttle code had dynamic areas
 /datum/hud/proc/set_parallax_movedir(new_parallax_movedir, skip_windups)
 	. = FALSE
 	var/client/C = mymob.client
@@ -185,7 +186,7 @@
 		L.update_status(mymob)
 		if(L.view_sized != C.view)
 			L.update_o(C.view)
-		
+
 		var/change_x
 		var/change_y
 
@@ -268,6 +269,11 @@
 	speed = 1
 	layer = 2
 
+/obj/screen/parallax_layer/layer_3
+	icon_state = "layer3"
+	speed = 1.4
+	layer = 3
+
 /obj/screen/parallax_layer/planet
 	icon_state = "planet"
 	blend_mode = BLEND_OVERLAY
@@ -308,4 +314,4 @@
 #undef LOOP_NONE
 #undef LOOP_NORMAL
 #undef LOOP_REVERSE
-#undef LOOP_TIME 
+#undef LOOP_TIME
