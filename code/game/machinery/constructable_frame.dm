@@ -330,6 +330,14 @@ to destroy them and players will be able to make replacements.
 			name = "circuit board (Freezer)"
 			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
 
+/obj/item/circuitboard/recharger
+	name = "circuit board (Recharger)"
+	build_path = /obj/machinery/recharger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	frame_desc = "Requires 1 Capacitor"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
+
 /obj/item/circuitboard/snow_machine
 	name = "circuit board (snow machine)"
 	build_path = /obj/machinery/snow_machine

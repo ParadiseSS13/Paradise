@@ -11,6 +11,7 @@
 	broken_icon = "mwb"
 	dirty_icon = "mwbloody"
 	open_icon = "mw-o"
+	pass_flags = PASSTABLE
 
 // see code/modules/food/recipes_microwave.dm for recipes
 

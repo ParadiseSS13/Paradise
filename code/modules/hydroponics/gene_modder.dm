@@ -2,6 +2,7 @@
 	name = "plant DNA manipulator"
 	desc = "An advanced device designed to manipulate plant genetic makeup."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
+	pass_flags = PASSTABLE
 	icon_state = "dnamod"
 	density = 1
 	anchored = 1

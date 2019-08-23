@@ -10,6 +10,7 @@ var/global/list/fax_blacklist = list()
 	icon = 'icons/obj/library.dmi'
 	icon_state = "fax"
 	insert_anim = "faxsend"
+	pass_flags = PASSTABLE
 	var/fax_network = "Local Fax Network"
 	var/syndie_restricted = FALSE //is it a syndicate base fax restricted from contacting NT assets?
 
