@@ -1794,7 +1794,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					)
 	containername = "bluespace artillery parts crate"
 
-
 /datum/supply_packs/misc/station_goal/bluespace_tap
 	name = "Bluespace Tap Parts"
 	cost = 150

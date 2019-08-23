@@ -1,5 +1,32 @@
+//Station goal stuff goes here
+/datum/station_goal/bluespace_tap
+	name = "Bluespace Tap"
+	var/goal = 500000
 
+/datum/station_goal/bluespace_tap/get_report()
+	return {"<b>Bluespace Mining Tap Experiment</b><br>
+	Our search for new resources to exploit is nearing a tremendous break-through. One of our research stations in a nearby sector has recently finished a prototype for a device called a Bluespace Tap.
+	It reaches through bluespace into other dimensions to mine them for rare and valuable resources, though the process is very energy intensive.<br>
+	Due to unforseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.
+	Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.
+	<br><br>
+	Be advised that the device is experimental and might act in slightly unforseen ways if sufficiently powered.
+	<br>
+	Nanotrasen Science Directorate"}
 
+/datum/station_goal/bluespace_tap/on_report()
+	var/datum/supply_packs/misc/bluespace_tap/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/bluespace_tap]"]
+	P.special_enabled = TRUE
+
+/datum/station_goal/bluespace_tap/check_completion()
+	if(..())
+		return TRUE
+	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
+		if(T.total_points >= goal)
+			return TRUE
+	return FALSE
+
+//needed for the vending part of it
 /datum/data/bluespace_tap_product
 	var/product_name = "generic"
 	var/product_path = null
@@ -14,12 +41,13 @@
 	product_cost = cost
 	base_cost = cost
 
+//circuit board for building it
 /obj/item/circuitboard/machine/bluespace_tap
 	name = "Bluespace Tap (Machine Board)"
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,//TODo think about this some more
+							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
 							/obj/item/stack/ore/bluespace_crystal = 5)
 
 /obj/effect/spawner/lootdrop/bluespace_tap
