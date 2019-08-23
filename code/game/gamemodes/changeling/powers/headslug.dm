@@ -1,4 +1,4 @@
-/datum/action/changeling/headcrab
+/datum/action/changeling/headslug
 	name = "Last Resort"
 	desc = "We sacrifice our current body in a moment of need, placing us in control of a vessel that can plant our likeness in a new host. Costs 20 chemicals."
 	helptext = "We will be placed in control of a small, fragile creature. We may attack a corpse like this to plant an egg which will slowly mature into a new form for us."
@@ -7,12 +7,12 @@
 	dna_cost = 1
 	req_human = 1
 
-/datum/action/changeling/headcrab/try_to_sting(mob/user, mob/target)
+/datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
     if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No")=="No")
         return
     ..()
 
-/datum/action/changeling/headcrab/sting_action(mob/user)
+/datum/action/changeling/headslug/sting_action(mob/user)
 	var/datum/mind/M = user.mind
 	var/list/organs = user.get_organs_zone("head", 1)
 
@@ -33,7 +33,7 @@
 		S.Weaken(3)
 	var/new_location = user.drop_location()
 	spawn(5) // So it's not killed in explosion
-		var/mob/living/simple_animal/hostile/headcrab/crab = new(new_location)
+		var/mob/living/simple_animal/hostile/headslug/crab = new(new_location)
 		for(var/obj/item/organ/internal/I in organs)
 			I.loc = crab
 		crab.origin = M
