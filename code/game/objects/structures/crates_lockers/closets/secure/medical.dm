@@ -110,6 +110,7 @@
 /obj/item/storage/pill_bottle/psychiatrist
 	name = "psychiatrist's pill bottle"
 	desc = "Contains various pills to calm or sedate patients."
+	wrapper_color = COLOR_PALE_BTL_GREEN
 
 /obj/item/storage/pill_bottle/psychiatrist/New()
 	..()
@@ -193,6 +194,7 @@
 	new /obj/item/organ/internal/cyberimp/eyes/hud/medical(src)
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
+	new /obj/item/clothing/accessory/medal/medical(src)
 
 
 /obj/structure/closet/secure_closet/animal

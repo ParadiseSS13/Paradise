@@ -1,5 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - rscadd: "You can ctrl-click any action button to lock/unlock its position"
-  - tweak: "All actions buttons now start with their position locked"

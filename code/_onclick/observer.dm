@@ -17,6 +17,7 @@
 	else
 		following = null
 		forceMove(get_turf(A))
+		update_parallax_contents()
 
 /mob/dead/observer/ClickOn(var/atom/A, var/params)
 	if(client.click_intercept)
@@ -57,6 +58,14 @@
 
 /atom/proc/attack_ghost(mob/user as mob)
 	return
+
+// health + cyborg analyzer for ghosts
+/mob/living/attack_ghost(mob/dead/observer/user)
+	if(user.client && user.health_scan)
+		if(issilicon(src) || ismachine(src))
+			robot_healthscan(user, src)
+		else if(ishuman(src))
+			healthscan(user, src, 1, TRUE)
 
 // ---------------------------------------
 // And here are some good things for free:

@@ -9,8 +9,9 @@
 	active_power_usage = 100
 	pass_flags = PASSTABLE
 	var/operating = 0
-	var/obj/item/reagent_containers/beaker = null
-	var/limit = 10
+	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
+	var/limit = null
+	var/efficiency = null
 
 	//IMPORTANT NOTE! A negative number is a multiplier, a positive number is a flat amount to add. 0 means equal to the amount of the original reagent
 	var/list/blend_items = list (
@@ -88,10 +89,28 @@
 
 	var/list/holdingitems = list()
 
+/obj/machinery/reagentgrinder/empty
+	icon_state = "juicer0"
+	beaker = null
+
 /obj/machinery/reagentgrinder/New()
 	..()
-	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
-	return
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/reagentgrinder(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	RefreshParts()
+
+/obj/machinery/reagentgrinder/RefreshParts()
+	var/H
+	var/T
+	for(var/obj/item/stock_parts/matter_bin/M in component_parts)
+		H += M.rating
+	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+		T += M.rating
+	limit = 10*H
+	efficiency = 0.8+T*0.1
 
 /obj/machinery/reagentgrinder/Destroy()
 	QDEL_NULL(beaker)
@@ -112,16 +131,29 @@
 		if(default_unfasten_wrench(user, I))
 				return
 
+		if(exchange_parts(user, I))
+				return
+
+		if(anchored && !beaker)
+				if(default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I))
+						return
+
+				if(panel_open && istype(I, /obj/item/crowbar))
+						default_deconstruction_crowbar(I)
+						return
+
 		if (istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
-				if (!beaker)
+				if(beaker)
+						to_chat(user, "<span class='warning'>There's already a container inside.</span>")
+				else if(panel_open)
+						to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+				else
 						if(!user.drop_item())
 								return 1
 						beaker =  I
 						beaker.loc = src
 						update_icon()
 						src.updateUsrDialog()
-				else
-						to_chat(user, "<span class='warning'>There's already a container inside.</span>")
 				return 1 //no afterattack
 
 		if(is_type_in_list(I, dried_items))
@@ -331,7 +363,7 @@
 						var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 						var/amount = get_juice_amount(O)
 
-						beaker.reagents.add_reagent(r_id, min(amount, space))
+						beaker.reagents.add_reagent(r_id, min(amount*efficiency, space))
 
 						if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
@@ -371,17 +403,17 @@
 						if(amount <= 0)
 								if(amount == 0)
 										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
-												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment"), space))
+												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment")*efficiency, space))
 												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
 										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
-												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter"), space))
+												beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter")*efficiency, space))
 												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 								else
 										if (O.reagents != null && O.reagents.has_reagent("nutriment"))
-												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment")*abs(amount)), space))
+												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment")*abs(amount)*efficiency), space))
 												O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
 										if (O.reagents != null && O.reagents.has_reagent("plantmatter"))
-												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)), space))
+												beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter")*abs(amount)*efficiency), space))
 												O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
 
 
@@ -403,7 +435,7 @@
 						for (var/r_id in allowed)
 								var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 								var/amount = allowed[r_id]
-								beaker.reagents.add_reagent(r_id,min(amount, space))
+								beaker.reagents.add_reagent(r_id,min(amount*efficiency, space))
 								if (space < amount)
 										break
 						if (i == round(O.amount, 1))
@@ -419,9 +451,9 @@
 						var/amount = allowed[r_id]
 						if (amount == 0)
 								if (O.reagents != null && O.reagents.has_reagent(r_id))
-										beaker.reagents.add_reagent(r_id,min(O.reagents.get_reagent_amount(r_id), space))
+										beaker.reagents.add_reagent(r_id,min(O.reagents.get_reagent_amount(r_id)*efficiency, space))
 						else
-								beaker.reagents.add_reagent(r_id,min(amount, space))
+								beaker.reagents.add_reagent(r_id,min(amount*efficiency, space))
 
 						if (beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 								break
@@ -436,7 +468,7 @@
 						var/amount = O.reagents.total_volume
 						O.reagents.trans_to(beaker, min(amount, space))
 				if (O.Uses > 0)
-						beaker.reagents.add_reagent("slimejelly",min(20, space))
+						beaker.reagents.add_reagent("slimejelly",min(20*efficiency, space))
 				remove_object(O)
 
 		//Everything else - Transfers reagents from it into beaker

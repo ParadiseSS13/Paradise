@@ -48,6 +48,13 @@
 	setDir(angle2dir(rotation + dir2angle(dir)))
 	queue_smooth(src)
 
+/turf/simulated/mineral/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	if(turf_type)
+		underlay_appearance.icon = initial(turf_type.icon)
+		underlay_appearance.icon_state = initial(turf_type.icon_state)
+		return TRUE
+	return ..()
+
 /turf/simulated/mineral/attackby(var/obj/item/pickaxe/P as obj, mob/user as mob, params)
 	if(!user.IsAdvancedToolUser())
 		to_chat(usr, "<span class='warning'>You don't have the dexterity to do this!</span>")
