@@ -10954,14 +10954,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
-"xW" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)";
-	icon_state = "propulsion";
-	dir = 1
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/syndicate_cargo)
 "xX" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -11622,45 +11614,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"Bb" = (
-/obj/machinery/computer/shuttle/syncargo,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
 "BB" = (
 /obj/structure/falsewall,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating/airless,
 /area/syndicate_depot/outer)
-"BO" = (
-/turf/simulated/shuttle/wall{
-	icon_state = "wall3"
-	},
-/area/shuttle/syndicate_cargo)
-"BQ" = (
-/obj/structure/window/reinforced,
-/obj/structure/shuttle/engine/heater{
-	tag = "icon-heater (NORTH)";
-	icon_state = "heater";
-	dir = 1
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/syndicate_cargo)
-"CV" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_r (NORTH)";
-	icon_state = "propulsion_r";
-	dir = 1
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/syndicate_cargo)
-"Df" = (
-/turf/simulated/shuttle/wall{
-	dir = 4;
-	icon_state = "wall3"
-	},
-/area/shuttle/syndicate_cargo)
 "DH" = (
 /obj/machinery/light{
 	dir = 1;
@@ -11675,42 +11633,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
-"DK" = (
-/obj/structure/chair,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"Ex" = (
-/obj/structure/table,
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/glass/fifty{
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/metal/fifty,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"Gn" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion_l (NORTH)";
-	icon_state = "propulsion_l";
-	dir = 1
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/syndicate_cargo)
 "GF" = (
 /obj/item/flag/chameleon{
 	icon_state = "syndiflag";
@@ -11733,64 +11655,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
-"Ir" = (
-/obj/structure/table,
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 50
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 50
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 50
-	},
-/obj/item/stack/sheet/mineral/plastitanium{
-	amount = 50
-	},
-/obj/item/stack/sheet/plastitaniumglass{
-	amount = 50;
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/plastitaniumglass{
-	amount = 50;
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/plastitaniumglass{
-	amount = 50;
-	pixel_x = 5
-	},
-/obj/item/stack/sheet/plastitaniumglass{
-	amount = 50;
-	pixel_x = 5
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"JM" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
-	},
-/obj/machinery/door_control{
-	id = "syndicate_cargo";
-	name = "Blast Doors";
-	pixel_x = -25;
-	pixel_y = 0;
-	req_access_txt = "150"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndicate_cargo";
-	name = "Front Hull Door";
-	opacity = 0;
-	req_access_txt = "150"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/shuttle/plating,
-/area/shuttle/syndicate_cargo)
 "KK" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
@@ -11801,18 +11665,6 @@
 	name = "plating"
 	},
 /area/syndicate_depot/outer)
-"KQ" = (
-/obj/structure/table,
-/obj/item/stock_parts/cell/bluespace,
-/obj/item/stock_parts/cell/bluespace,
-/obj/item/stock_parts/cell/bluespace,
-/obj/item/stock_parts/cell/bluespace,
-/obj/item/rpd,
-/obj/item/rcd/combat,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
 "Mc" = (
 /obj/machinery/door/poddoor{
 	id_tag = "syndi_depot_rear";
@@ -11827,14 +11679,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
-"Oa" = (
-/obj/machinery/sleeper/syndie{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
 "OV" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "sst_away";
@@ -11848,106 +11692,10 @@
 "OX" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/outer)
-"Pa" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"Pr" = (
-/obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"Rj" = (
-/obj/structure/table,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
-/obj/item/clothing/gloves/combat,
-/obj/item/storage/belt/utility/full/multitool,
-/obj/item/storage/belt/utility/full/multitool,
-/obj/item/storage/belt/utility/full/multitool,
-/obj/item/storage/belt/utility/full/multitool,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"Si" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "s_docking_airlock";
-	name = "Shuttle Airlock";
-	req_access_txt = "150"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "syndicate_cargo";
-	name = "Side Hull Door";
-	opacity = 0;
-	req_access_txt = "150"
-	},
-/obj/docking_port/mobile{
-	dir = 4;
-	dwidth = 7;
-	height = 5;
-	id = "syncargo";
-	name = "Syndicate Cargo shuttle";
-	roundstart_move = "syncargo_away";
-	width = 11
-	},
-/obj/structure/fans/tiny,
-/obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 7;
-	height = 5;
-	id = "syncargo_depot";
-	name = "Syndicate Depot";
-	width = 11
-	},
-/turf/simulated/shuttle/plating,
-/area/shuttle/syndicate_cargo)
 "Sv" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/syndicate_depot/outer)
-"SM" = (
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"SO" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/machinery/light/spot{
-	tag = "icon-tube1 (WEST)";
-	icon_state = "tube1";
-	dir = 8
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"Tj" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
-"Tx" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/syncargo,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
 "UB" = (
 /obj/item/candle,
 /obj/structure/table,
@@ -11967,48 +11715,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/outer)
-"Vy" = (
-/obj/structure/table,
-/obj/item/airlock_electronics,
-/obj/item/airlock_electronics,
-/obj/item/airlock_electronics,
-/obj/item/airlock_electronics,
-/obj/item/apc_electronics{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/apc_electronics{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/apc_electronics{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/apc_electronics{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/item/airalarm_electronics{
-	pixel_x = 5;
-	pixel_y = -5
-	},
-/obj/item/airalarm_electronics{
-	pixel_x = 5;
-	pixel_y = -5
-	},
-/obj/item/airalarm_electronics{
-	pixel_x = 5;
-	pixel_y = -5
-	},
-/obj/item/airalarm_electronics{
-	pixel_x = 5;
-	pixel_y = -5
-	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate_cargo)
 "Yh" = (
 /obj/machinery/light{
 	dir = 1;
@@ -64144,17 +63850,17 @@ lH
 lI
 lI
 lI
-Df
-Df
-Df
-Df
-Df
-Df
-Df
-Si
-Df
-Df
-Df
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 OX
 Hg
 lX
@@ -64401,17 +64107,17 @@ lI
 lI
 lI
 lI
-CV
-BQ
-Oa
-SO
-Tj
-Tj
-Pr
-SM
-DK
-Tx
-BO
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 OX
 Yh
 lX
@@ -64658,18 +64364,18 @@ lH
 lI
 lI
 lI
-xW
-BQ
-SM
-SM
-SM
-SM
-SM
-SM
-SM
-SM
-JM
-KK
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+OX
 lX
 lX
 lX
@@ -64915,17 +64621,17 @@ lI
 lI
 lI
 lI
-Gn
-BQ
-KQ
-Ex
-Ir
-Vy
-Rj
-Pa
-DK
-Bb
-BO
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 OX
 GF
 lX
@@ -65172,17 +64878,17 @@ lI
 lI
 lI
 lI
-Df
-Df
-Df
-Df
-Df
-Df
-Df
-Df
-Df
-Df
-Df
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 OX
 OX
 GH

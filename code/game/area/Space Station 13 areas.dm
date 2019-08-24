@@ -282,11 +282,6 @@ var/list/ghostteleportlocs = list()
 	nad_allowed = TRUE
 	parallax_movedir = SOUTH
 
-/area/shuttle/syndicate_cargo
-	name = "\improper Syndicate Cargo Shuttle"
-	icon_state = "shuttlered"
-	nad_allowed = TRUE
-
 /area/shuttle/assault_pod
 	name = "Steel Rain"
 	icon_state = "shuttle"

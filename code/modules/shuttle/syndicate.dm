@@ -61,18 +61,6 @@
 	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
 	resistance_flags = INDESTRUCTIBLE
 
-/obj/machinery/computer/shuttle/syncargo
-	name = "Syndicate Cargo Shuttle Console"
-	desc = "Used to call and send the Syndicate Cargo shuttle."
-	icon_keyboard = "syndie_key"
-	icon_screen = "syndishuttle"
-	shuttleId = "syncargo"
-	possible_destinations = "syncargo_depot;syncargo_lavaland;syncargo_custom"
-	resistance_flags = INDESTRUCTIBLE
-
-/obj/machinery/computer/shuttle/syncargo/admin
-	possible_destinations = "syncargo_away;syncargo_depot;syncargo_lavaland;syncargo_custom"
-
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
 	desc = "Used to designate a precise transit location for the syndicate shuttle."
@@ -103,15 +91,5 @@
 	view_range = 13
 	x_offset = 0
 	y_offset = 0
-
-/obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/syncargo
-	name = "Syndie Cargo shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the syndicate cargo shuttle."
-	shuttleId = "syncargo"
-	shuttlePortId = "syncargo_custom"
-	view_range = 13
-	x_offset = 0
-	y_offset = 0
-	access_derelict = TRUE
 
 #undef SYNDICATE_CHALLENGE_TIMER
