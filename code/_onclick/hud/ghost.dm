@@ -59,3 +59,8 @@
 	using = new /obj/screen/ghost/teleport()
 	using.screen_loc = ui_ghost_teleport
 	static_inventory += using
+
+/datum/hud/ghost/show_hud()
+	mymob.client.screen = list()
+	mymob.client.screen += static_inventory
+	..()

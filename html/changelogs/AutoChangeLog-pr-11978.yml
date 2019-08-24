@@ -1,0 +1,9 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - imageadd: "Adds sprites for all Vox & Armalis earwear."
+  - imageadd: "Adds sprites for Armalis default backpack, nitrogen tank (old-style back & new-style belt) & all breath mask variations."
+  - rscadd: "You can now species-fit in-hand icons: Use a single .dmi file and suffix the icon states with _l or _r."
+  - bugfix: "Fixes an issue preventing Vox Armalis from being rendered with the proper in-hand icons for their massive noise cannons."
+  - bugfix: "Fixes an issue preventing the species-fitting of earwear."
+  - bugfix: "Fixes an issue preventing Vox Armalis from wearing the 'Vox' breath mask."

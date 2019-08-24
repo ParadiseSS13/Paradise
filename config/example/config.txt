@@ -85,6 +85,8 @@ LOG_WORLD_OUTPUT
 ## log admin warning messages
 LOG_ADMINWARN
 
+## Amount of minutes that a person has to be AFK before he'll be listed on the "List AFK players" verb
+#LIST_AFK_MINIMUM 5
 
 ## Amount of minutes that a person has to be AFK before he will be warned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
 WARN_AFK_MINIMUM 0
@@ -118,12 +120,6 @@ PROBABILITY NUCLEAR 3
 PROBABILITY ABDUCTION 0
 PROBABILITY DEVIL 0
 PROBABILITY DEVILAGENTS 0
-
-## Probability in % for Free Golems to spawn at roundstart, set to 0 for no golems
-PROB_FREE_GOLEMS 75
-
-## Uncomment to allow free golems on all roundtypes. Otherwise, disabled on cult, wiz, raging mages, blob, and nuclear.
-#UNRESTRICTED_FREE_GOLEMS
 
 ## Maximum cycles shadowlings can remain unhatched before they take damage. 1800 = 60 minutes, 900 = 30 minutes, 0 = feature disabled.
 SHADOWLING_MAX_AGE 0

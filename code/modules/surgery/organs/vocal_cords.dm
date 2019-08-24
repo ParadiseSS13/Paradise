@@ -125,6 +125,9 @@ var/static/regex/multispin_words = regex("like a record baby")
 		return
 	owner.say(".x[command]")
 
+/obj/item/organ/internal/vocal_cords/colossus/prepare_eat()
+	return
+	
 /obj/item/organ/internal/vocal_cords/colossus/can_speak_with()
 	if(world.time < next_command)
 		to_chat(owner, "<span class='notice'>You must wait [(next_command - world.time)/10] seconds before Speaking again.</span>")

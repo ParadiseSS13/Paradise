@@ -6,7 +6,6 @@
 	icon_state = "mirror"
 	density = 0
 	anchored = 1
-	var/shattered = 0
 	var/list/ui_users = list()
 
 /obj/structure/mirror/New(turf/T, newdir = SOUTH, building = FALSE)
@@ -23,7 +22,7 @@
 				pixel_x = 32
 
 /obj/structure/mirror/attack_hand(mob/user)
-	if(shattered)
+	if(broken)
 		return
 
 	if(ishuman(user))
@@ -36,9 +35,9 @@
 		AC.ui_interact(user)
 
 /obj/structure/mirror/proc/shatter()
-	if(shattered)
+	if(broken)
 		return
-	shattered = 1
+	broken = TRUE
 	icon_state = "mirror_broke"
 	playsound(src, "shatter", 70, 1)
 	desc = "Oh no, seven years of bad luck!"
@@ -46,7 +45,7 @@
 
 /obj/structure/mirror/bullet_act(obj/item/projectile/Proj)
 	if(prob(Proj.damage * 2))
-		if(!shattered)
+		if(!broken)
 			shatter()
 		else
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
@@ -58,7 +57,7 @@
 	if(isscrewdriver(I))
 		user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
 		if(do_after(user, 30 * I.toolspeed, target = src))
-			if(shattered)
+			if(broken)
 				user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
 				new /obj/item/shard(get_turf(user))
 			else
@@ -68,7 +67,7 @@
 			return
 
 	user.do_attack_animation(src)
-	if(shattered)
+	if(broken)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 		return
 
@@ -85,7 +84,7 @@
 	if(islarva(user))
 		return
 	user.do_attack_animation(src)
-	if(shattered)
+	if(broken)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 		return
 	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
@@ -100,7 +99,7 @@
 	if(M.melee_damage_upper <= 0)
 		return
 	M.do_attack_animation(src)
-	if(shattered)
+	if(broken)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 		return
 	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
@@ -113,7 +112,7 @@
 	if(!S.is_adult)
 		return
 	user.do_attack_animation(src)
-	if(shattered)
+	if(broken)
 		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 		return
 	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
@@ -136,7 +135,7 @@
 	icon_state = "magic_mirror"
 
 /obj/structure/mirror/magic/attack_hand(mob/user)
-	if(!ishuman(user))
+	if(!ishuman(user) || broken)
 		return
 
 	var/mob/living/carbon/human/H = user
@@ -154,6 +153,9 @@
 				H.dna.real_name = newname
 			if(H.mind)
 				H.mind.name = newname
+		
+			if(newname)
+				curse(user)
 
 		if("Body")
 			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
@@ -172,6 +174,7 @@
 				AC.whitelist = race_list
 				ui_users[user] = AC
 			AC.ui_interact(user)
+
 		if("Voice")
 			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Chav")
 			var/voice_mutation
@@ -192,8 +195,17 @@
 					H.dna.SetSEState(voice_mutation, TRUE)
 					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
 
+			if(voice_choice)
+				curse(user)
+			
+/obj/structure/mirror/magic/on_ui_close(mob/user)
+	curse(user)
+
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
 	return
 
 /obj/structure/mirror/magic/shatter()
 	return //can't be broken. it's magic, i ain't gotta explain shit
+
+/obj/structure/mirror/magic/proc/curse(mob/living/user)
+	return
