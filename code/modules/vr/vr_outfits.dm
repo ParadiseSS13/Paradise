@@ -1,12 +1,12 @@
 //place all the outfits for your levels in here.
 
 /datum/outfit/vr/vr_basic
-	name = "basic vr"
+	name = "Basic Virtual Reality"
 	uniform = /obj/item/clothing/under/psysuit
 	shoes = /obj/item/clothing/shoes/black
 
 /datum/outfit/vr/roman
-	name = "roman"
+	name = "Roman"
 	uniform = /obj/item/clothing/under/roman
 	shoes = /obj/item/clothing/shoes/roman
 	l_hand = /obj/item/shield/riot/roman
