@@ -849,6 +849,7 @@
 #include "code\game\objects\items\devices\autopsy.dm"
 #include "code\game\objects\items\devices\camera_bug.dm"
 #include "code\game\objects\items\devices\chameleonproj.dm"
+#include "code\game\objects\items\devices\enginepicker.dm"
 #include "code\game\objects\items\devices\flash.dm"
 #include "code\game\objects\items\devices\flashlight.dm"
 #include "code\game\objects\items\devices\floor_painter.dm"

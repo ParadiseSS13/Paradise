@@ -492,3 +492,8 @@
 #define PARALLAX_DELAY_MED		1
 #define PARALLAX_DELAY_LOW		2
 #define PARALLAX_LOOP_TIME		25
+
+// Engine types
+#define ENGTYPE_SING 		"Singularity"
+#define ENGTYPE_SM		"Supermatter"
+#define ENGTYPE_TESLA		"Tesla"
