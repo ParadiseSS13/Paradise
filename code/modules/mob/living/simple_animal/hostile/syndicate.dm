@@ -141,7 +141,7 @@
 			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
 			LoseTarget()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_movement()
 	if(seen_enemy)
 		aggro_cycles++
 		if(alert_on_timeout && !raised_alert && aggro_cycles >= 60)
