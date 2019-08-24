@@ -402,7 +402,14 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 		if(T.density)
 			return
-	vamp_burn(1)
+	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
+		to_chat(owner, "<span class='warning'>The starlight saps your strength!</span>")
+		bloodusable -= 10
+		vamp_burn(10)
+	else		//You're in trouble, get out of the sun NOW
+		to_chat(owner, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		owner.adjustCloneLoss(10)	//I'm melting!
+		vamp_burn(85)
 
 /datum/vampire/proc/handle_vampire()
 	if(owner.hud_used)
@@ -419,7 +426,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(owner.loc, /turf/space))
 		check_sun()
 	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
-		vamp_burn(0)
+		vamp_burn(7)
 	nullified = max(0, nullified - 1)
 
 /datum/vampire/proc/handle_vampire_cloak()
@@ -442,8 +449,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	else
 		owner.alpha = round((255 * 0.80))
 
-/datum/vampire/proc/vamp_burn(severe_burn)
-	var/burn_chance = severe_burn ? 35 : 8
+/datum/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.health >= 50)
 		switch(owner.health)
 			if(75 to 100)
