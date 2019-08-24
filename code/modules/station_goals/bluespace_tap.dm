@@ -6,7 +6,7 @@
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Mining Tap Experiment</b><br>
 	Our search for new resources to exploit is nearing a tremendous break-through. One of our research stations in a nearby sector has recently finished a prototype for a device called a Bluespace Tap.
-	It reaches through bluespace into other dimensions to mine them for rare and valuable resources, though the process is very energy intensive.<br>
+	It reaches through bluespace into other dimensions to shift through them for interesting objects.<br>
 	Due to unforseen circumstances the large-scale test of the prototype could not be completed on the original research station. It will instead be carried out on your station.
 	Acquire the circuit board, construct the device over a wire knot and feed it enough power to generate [goal] mining points by shift end.
 	<br><br>
@@ -23,6 +23,8 @@
 		return TRUE
 	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
 		if(T.total_points >= goal)
+			to_chat(world, "<b>Bluespace Tap Highscore</b> : <span class='greenannounce'>[T.total_points]</span>")	
+			//if multiple taps were built this only reports the points of the first tap to reach the goal but eh. I don't think people will try and build multiples
 			return TRUE
 	return FALSE
 
@@ -55,19 +57,67 @@
 	lootcount = 1
 	color = "#00FFFF"
 
+/obj/effect/spawner/lootdrop/bluespace_tap/hat
+	name = "a head covering"
+	loot = list(
+			/obj/item/clothing/head/collectable/chef,	//same weighing on all of them
+			/obj/item/clothing/head/collectable/paper,
+			/obj/item/clothing/head/collectable/tophat,
+			/obj/item/clothing/head/collectable/captain,
+			/obj/item/clothing/head/collectable/beret,
+			/obj/item/clothing/head/collectable/welding,
+			/obj/item/clothing/head/collectable/flatcap,
+			/obj/item/clothing/head/collectable/pirate,
+			/obj/item/clothing/head/collectable/kitty,
+			/obj/item/clothing/head/crown/fancy,
+			/obj/item/clothing/head/collectable/rabbitears,
+			/obj/item/clothing/head/collectable/wizard,
+			/obj/item/clothing/head/collectable/hardhat,
+			/obj/item/clothing/head/collectable/HoS,
+			/obj/item/clothing/head/collectable/thunderdome,
+			/obj/item/clothing/head/collectable/swat,
+			/obj/item/clothing/head/collectable/slime,
+			/obj/item/clothing/head/collectable/police,
+			/obj/item/clothing/head/collectable/slime,
+			/obj/item/clothing/head/collectable/xenom,
+			/obj/item/clothing/head/collectable/petehat
+	)
+
+
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural
 	name = "cultural artifacts"
 	loot = list(
 		/obj/vehicle/space/speedbike/red = 10,
 		/obj/item/grenade/clusterbuster/honk = 10,
-		/obj/item/clothing/head/collectable/tophat = 10,
-		/obj/item/clothing/head/crown/fancy = 10,
-		/obj/item/clothing/head/collectable/rabbitears = 10,
-		/obj/item/toy/katana = 20,
-		/obj/item/storage/belt/champion = 15,
-		/obj/item/stack/tile/brass/fifty = 30,
-		/obj/item/stack/sheet/mineral/abductor/fifty = 30,
-		/obj/item/voodoo = 5
+		/obj/item/toy/katana = 10,
+		/obj/item/stack/tile/brass/fifty = 20,
+		/obj/item/stack/sheet/mineral/abductor/fifty = 20,
+		/obj/item/sord = 20,
+		/obj/item/toy/syndicateballoon = 15,
+		/obj/item/lighter/zippo/gonzofist = 5,
+		/obj/item/lighter/zippo/engraved = 5,
+		/obj/item/lighter/zippo/nt_rep = 5,
+		/obj/item/gun/projectile/automatic/c20r/toy = 1,
+		/obj/item/gun/projectile/automatic/l6_saw/toy = 1,
+		/obj/item/gun/projectile/automatic/toy/pistol = 2,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 1,
+		/obj/item/gun/projectile/shotgun/toy = 1,
+		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
+		/obj/item/gun/projectile/shotgun/toy/tommygun = 1,
+		/obj/item/gun/projectile/automatic/sniper_rifle/toy = 1,
+		/obj/item/twohanded/dualsaber/toy = 5,
+		/obj/machinery/snow_machine = 10,
+		/obj/item/clothing/head/kitty = 5,
+		/obj/item/coin/antagtoken = 5,
+		/obj/item/toy/prizeball/figure = 15,
+		/obj/item/toy/prizeball/therapy = 10,
+		/obj/item/bedsheet/patriot = 2,
+		/obj/item/bedsheet/rainbow = 2,
+		/obj/item/bedsheet/captain = 2,
+		/obj/item/bedsheet/centcom = 1, //mythic rare rarity
+		/obj/item/bedsheet/syndie = 2,
+		/obj/item/bedsheet/cult = 2,
+		/obj/item/bedsheet/wiz = 2
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -75,23 +125,49 @@
 	loot = list(
 		/obj/item/seeds/random/labelled = 50,
 		/obj/item/guardiancreator/biological = 5,
-		/obj/item/organ/internal/heart/gland/heals = 10,
-		/obj/item/organ/internal/heart/gland/ventcrawling = 10,
-		/obj/item/organ/internal/heart/gland/emp = 10,
 		/obj/item/organ/internal/vocal_cords/adamantine = 15,
 		/obj/item/storage/pill_bottle/random_meds/labelled = 25,
 		/obj/item/reagent_containers/glass/bottle/reagent/omnizine = 15,
-		/obj/item/dnainjector/xraymut = 10,
-		/mob/living/simple_animal/pet/corgi = 15
+		/obj/item/dnainjector/xraymut = 5,
+		/obj/item/dnainjector/telemut = 5,
+		/obj/item/dnainjector/midgit = 5,
+		/obj/item/dnainjector/morph = 5,
+		/obj/item/dnainjector/regenerate = 5,
+		/mob/living/simple_animal/pet/corgi = 5,
+		/mob/living/simple_animal/pet/cat = 5,
+		/mob/living/simple_animal/pet/fox = 5,
+		/mob/living/simple_animal/pet/penguin = 5,
+		/mob/living/simple_animal/pig = 5,
+		/obj/item/slimepotion/sentience = 5,
+		/obj/item/clothing/mask/cigarette/cigar/havana = 3
 	)
 
-/obj/effect/spawner/lootdrop/bluespace_tap/eldritch
-	name = "things man was not meant to see"
+/obj/effect/spawner/lootdrop/bluespace_tap/food
+	name = "fancy food"
+	lootcount = 3
 	loot = list(
-		/obj/item/clothing/mask/cursedclown = 20
-		//TODO Talk to maints/heads what this should actually do
-
+		/obj/item/reagent_containers/food/snacks/wingfangchu,
+		/obj/item/reagent_containers/food/snacks/hotdog,
+		/obj/item/reagent_containers/food/snacks/sliceable/turkey,
+		/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit,
+		/obj/item/reagent_containers/food/snacks/appletart,
+		/obj/item/reagent_containers/food/snacks/sliceable/cheesecake,
+		/obj/item/reagent_containers/food/snacks/sliceable/bananacake,
+		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
+		/obj/item/reagent_containers/food/snacks/meatballsoup,
+		/obj/item/reagent_containers/food/snacks/mysterysoup,
+		/obj/item/reagent_containers/food/snacks/stew,
+		/obj/item/reagent_containers/food/snacks/hotchili,
+		/obj/item/reagent_containers/food/snacks/burrito,
+		/obj/item/reagent_containers/food/snacks/fishburger,
+		/obj/item/reagent_containers/food/snacks/cubancarp,
+		/obj/item/reagent_containers/food/snacks/fishandchips,
+		/obj/item/reagent_containers/food/snacks/meatpie,
+		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
+		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
+
+
 
 
 //WIP machine that consumes enormous amounts of power
@@ -113,16 +189,10 @@
 	luminosity = 1
 	var/max_level = 20	//max power input level, I don't expect this to be ever reached
 	var/static/product_list = list(	//list of items the bluespace tap can produce, lots of discussion needed
-	new /datum/data/bluespace_tap_product("Metal", /obj/item/stack/sheet/metal/fifty, 100),
-	new /datum/data/bluespace_tap_product("Glass", /obj/item/stack/sheet/glass/fifty, 150),
-	new /datum/data/bluespace_tap_product("Diamond", /obj/item/stack/sheet/mineral/diamond/fifty, 15000),
-	new /datum/data/bluespace_tap_product("Plasma", /obj/item/stack/sheet/mineral/plasma/fifty, 10000),
-	new /datum/data/bluespace_tap_product("Unknown Organic Material", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 20000),
+	new /datum/data/bluespace_tap_product("Unknown Head Cover", /obj/effect/spawner/lootdrop/bluespace_tap/hat, 10000),
+	new /datum/data/bluespace_tap_product("Unknown Snack", /obj/effect/spawner/lootdrop/bluespace_tap/food, 15000),
 	new /datum/data/bluespace_tap_product("Unknown Cultural Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/cultural, 25000),
-	new /datum/data/bluespace_tap_product("Bananium", /obj/item/stack/sheet/mineral/bananium/fifty, 300000),
-	new /datum/data/bluespace_tap_product("Tranquillite", /obj/item/stack/sheet/mineral/tranquillite/fifty, 300000),
-	new /datum/data/bluespace_tap_product("Anomaly Core", /obj/item/assembly/signaler/anomaly/random, 5000000),
-	new /datum/data/bluespace_tap_product("Unknown $&ER*OR!&", /obj/effect/spawner/lootdrop/bluespace_tap/eldritch, 6660000)
+	new /datum/data/bluespace_tap_product("Unknown Biological Artifact", /obj/effect/spawner/lootdrop/bluespace_tap/organic, 25000)
 	)
 
 /obj/machinery/power/bluespace_tap/New()
@@ -174,13 +244,13 @@
 	if(input_level == 0)
 		actual_power_usage = 0
 		return
-	actual_power_usage = (10 ** input_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
+	actual_power_usage = (5 ** input_level) * active_power_usage	//each level takes one order of magnitude more power than the previous one
 	if(surplus() < actual_power_usage)
 		decrease_level()	//turn down a level when lacking power, don't want to suck the powernet dry
 		return
 	else
 		add_load(actual_power_usage)
-		var/points_to_add = (input_level + emagged) * 10
+		var/points_to_add = (input_level + emagged) * 4
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 		if(prob(input_level - 7 + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0, so only occurs if input level > 7
@@ -188,10 +258,10 @@
 			if(!emagged)
 				input_level = 0	//as hilarious as it would be for the tap to spawn in even more nasties because you can't get to it to turn it off, that might be too much for now. Unless sabotage is involved
 			for(var/i = 1, i <= rand(1, 3), i++)	//freaky shit here, 1-3 freaky portals
+				var/turf/location = locate(x + rand(-5,5), y + rand(-5,5), z)
 				var/mob/living/simple_animal/hostile/spawner/nether/bluespace_tap/portal = new(src)
-				portal.forceMove(get_turf(src))
-				for(var/j = 1, j <= rand(2, 4), j++)
-					step(portal, pick(NORTH, WEST, SOUTH, EAST))
+				portal.forceMove(location)
+
 
 
 /obj/machinery/power/bluespace_tap/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
