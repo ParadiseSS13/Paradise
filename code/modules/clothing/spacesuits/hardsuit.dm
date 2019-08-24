@@ -100,7 +100,7 @@
 
 	//Component/device holders.
 	var/obj/item/stock_parts/gloves = null     // Basic capacitor allows insulation, upgrades allow shock gloves etc.
-
+	var/obj/item/tank/jetpack/suit/jetpack = null
 	var/attached_boots = 1                            // Can't wear boots if some are attached
 	var/obj/item/clothing/shoes/magboots/boots = null // Deployable boots, if any.
 	var/attached_helmet = 1                           // Can't wear a helmet if one is deployable.
@@ -110,6 +110,19 @@
 	var/list/can_mount = null                         // Types of device that can be hardpoint mounted.
 	var/list/mounted_devices = null                   // Holder for the above device.
 	var/obj/item/active_device = null                 // Currently deployed device, if any.
+
+/obj/item/clothing/suit/space/hardsuit/Initialize()
+	MakeHelmet()
+	if(jetpack && ispath(jetpack))
+		jetpack = new jetpack(src)
+	. = ..()
+
+/obj/item/clothing/suit/space/hardsuit/proc/MakeHelmet()
+	if(!helmettype)
+		return
+	if(!helmet)
+		var/obj/item/clothing/head/helmet/space/hardsuit/W = new helmettype(src)
+		helmet = W
 
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/M)
 	..()
@@ -140,6 +153,10 @@
 				boots.forceMove(H)
 				H.equip_to_slot(boots, slot_shoes)
 				boots.flags |= NODROP
+		if(jetpack)
+			for(var/X in jetpack.actions)
+				var/datum/action/A = X
+				A.Grant(H)
 
 /obj/item/clothing/suit/space/hardsuit/dropped()
 	..()
@@ -161,6 +178,11 @@
 				boots.flags &= ~NODROP
 				H.unEquip(boots)
 				boots.forceMove(src)
+
+	if(jetpack)
+		for(var/X in jetpack.actions)
+			var/datum/action/A = X
+			A.Remove(H)
 
 /obj/item/clothing/suit/space/hardsuit/ui_action_click()
 	..()
@@ -204,8 +226,17 @@
 /obj/item/clothing/suit/space/hardsuit/attackby(obj/item/W, mob/user, params)
 	if(!isliving(user))
 		return
-
-	if(istype(W,/obj/item/screwdriver) && can_modify(user))
+	if(istype(W, /obj/item/tank/jetpack/suit) && can_modify(user))
+		if(jetpack)
+			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
+			return
+		else
+			user.drop_item()
+			W.loc = src
+			jetpack = W
+			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
+			return
+	else if(istype(W,/obj/item/screwdriver) && can_modify(user))
 		if(!helmet)
 			to_chat(user, "\The [src] does not have a helmet installed.")
 		else
@@ -222,6 +253,14 @@
 			to_chat(user, "You detach \the [boots] from \the [src]'s boot mounts.")
 			boots.loc = get_turf(src)
 			boots = null
+		if(!jetpack)
+			to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
+			return
+		else
+			jetpack.turn_off(user)
+			jetpack.forceMove(drop_location())
+			jetpack = null
+			to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
 		return
 
 	else if(istype(W,/obj/item/clothing/head/helmet/space) && can_modify(user))

@@ -189,3 +189,70 @@
 	T.assume_air(removed)
 
 	return 1
+
+/obj/item/tank/jetpack/suit
+	name = "hardsuit jetpack upgrade"
+	desc = "A modular, compact set of thrusters designed to integrate with a hardsuit. It is fueled by a tank inserted into the suit's storage compartment."
+	icon_state = "jetpack-mining"
+	item_state = "jetpack-black"
+	w_class = WEIGHT_CLASS_NORMAL
+	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
+	volume = 1
+	slot_flags = null
+	var/datum/gas_mixture/temp_air_contents
+	var/obj/item/tank/tank = null
+	var/mob/living/carbon/human/cur_user
+
+/obj/item/tank/jetpack/suit/Initialize()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+	temp_air_contents = air_contents
+
+/obj/item/tank/jetpack/suit/attack_self()
+	return
+
+/obj/item/tank/jetpack/suit/cycle(mob/user)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
+		to_chat(user, "<span class='warning'>\The [src] must be connected to a hardsuit!</span>")
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!istype(H.s_store, /obj/item/tank))
+		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
+		return
+	..()
+
+/obj/item/tank/jetpack/suit/turn_on(mob/user)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
+		return
+	var/mob/living/carbon/human/H = user
+	tank = H.s_store
+	air_contents = tank.air_contents
+	START_PROCESSING(SSobj, src)
+	cur_user = user
+	..()
+
+/obj/item/tank/jetpack/suit/turn_off(mob/user)
+	tank = null
+	air_contents = temp_air_contents
+	STOP_PROCESSING(SSobj, src)
+	cur_user = null
+	..()
+
+/obj/item/tank/jetpack/suit/process()
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
+		turn_off(cur_user)
+		return
+	var/mob/living/carbon/human/H = loc.loc
+	if(!tank || tank != H.s_store)
+		turn_off(cur_user)
+		return
+	..()
+
+/obj/item/tank/jetpack/suit/ui_action_click(mob/user, actiontype)
+	if(actiontype == /datum/action/item_action/toggle_jetpack)
+		cycle(user)
+	else if(actiontype == /datum/action/item_action/jetpack_stabilization)
+		toggle_stabilization(user)
+	else
+		toggle_internals(user)
