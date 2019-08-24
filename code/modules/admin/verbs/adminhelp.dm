@@ -11,20 +11,20 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(prefs.muted & MUTE_ADMINHELP)
 		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>")
 		return
-	//
+
+	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
+
 	if(isnewplayer(mob))
 		var/mob/new_player/M = mob
 		if(M.challenge_phrase == TRUE)
 			to_chat(src, "<span class='danger'>You must provide the hidden phrase embedded within the rules that let us know you have read them in full before you are able to continue!</span>")
 			return
-
-	adminhelped = 1 //Determines if they get the message to reply by clicking the name.
-
+	
 	var/msg
 	var/list/type = list("Mentorhelp","Adminhelp")
 	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
 	if(selected_type)
-		msg = input("Please enter your message.", "Admin Help", null, null) as text|null
+		msg = clean_input("Please enter your message.", "Admin Help", null)
 
 	//clean the input msg
 	if(!msg)
@@ -32,8 +32,8 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
-	
-	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+
+	msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
 	var/original_msg = msg
 
