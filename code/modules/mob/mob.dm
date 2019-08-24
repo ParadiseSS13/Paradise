@@ -194,11 +194,7 @@
 
 	if(istype(W))
 		if(istype(W, /obj/item/clothing))
-			var/obj/item/clothing/C = W
-			if(C.hardsuit_restrict_helmet)
-				to_chat(src, "<span class='warning'>You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)</span>")// Stop eva helms equipping.
-			else
-				equip_to_slot_if_possible(C, slot)
+			equip_to_slot_if_possible(W, slot)
 		else
 			equip_to_slot_if_possible(W, slot)
 	else if(!restrained())
@@ -693,7 +689,7 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-	
+
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)

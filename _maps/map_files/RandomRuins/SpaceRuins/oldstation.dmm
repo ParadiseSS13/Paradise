@@ -4168,7 +4168,6 @@
 "jB" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/space/hardsuit/ancient,
-/obj/item/clothing/head/helmet/space/hardsuit/ancient,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

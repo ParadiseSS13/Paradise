@@ -1096,15 +1096,6 @@
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
 
-/obj/item/storage/box/mininghardsuit
-	name = "Boxed Mining Hardsuit"
-	desc = "Contains a mining hardsuit and helmet. For mining."
-
-/obj/item/storage/box/mininghardsuit/New()
-	..()
-	new /obj/item/clothing/suit/space/hardsuit/mining(src)
-	new /obj/item/clothing/head/helmet/space/hardsuit/mining(src)
-
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."

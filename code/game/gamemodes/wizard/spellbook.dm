@@ -383,7 +383,6 @@
 	if(.)
 		new /obj/item/clothing/shoes/magboots/wizard(get_turf(user))
 		new /obj/item/clothing/gloves/color/purple(get_turf(user))//To complete the outfit
-		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"

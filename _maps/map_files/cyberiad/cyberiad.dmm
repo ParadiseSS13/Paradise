@@ -547,7 +547,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -70883,7 +70882,6 @@
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /obj/machinery/door/window/westright{
 	name = "Emergency Hardsuits";
 	req_access_txt = "40"
@@ -70965,7 +70963,6 @@
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /obj/machinery/door/window/westleft{
 	name = "Emergency Hardsuits";
 	req_access_txt = "40"

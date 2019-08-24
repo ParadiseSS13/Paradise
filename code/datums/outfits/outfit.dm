@@ -19,6 +19,8 @@
 	var/suit_store = null
 	var/l_hand = null
 	var/r_hand = null
+	/// Should the toggle helmet proc be called on the helmet during equip
+	var/toggle_helmet = TRUE
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
@@ -113,6 +115,10 @@
 			var/obj/item/organ/internal/O = new path(H)
 			O.insert(H)
 
+	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
+		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
+		HS.ToggleHelmet()
+
 	post_equip(H, visualsOnly)
 
 	if(!visualsOnly)
@@ -180,7 +186,7 @@
 	var/stored_data = get_json_data()
 	var/json = json_encode(stored_data)
 	// Kinda annoying but as far as I can tell you need to make actual file.
-	var/f = file("data/TempOutfitUpload") 
+	var/f = file("data/TempOutfitUpload")
 	fdel(f)
 	WRITE_FILE(f, json)
 	admin << ftp(f, "[name].json")
@@ -190,6 +196,7 @@
 	name = outfit_data["name"]
 	uniform = text2path(outfit_data["uniform"])
 	suit = text2path(outfit_data["suit"])
+	toggle_helmet = text2path(outfit_data["toggle_helmet"])
 	back = text2path(outfit_data["back"])
 	belt = text2path(outfit_data["belt"])
 	gloves = text2path(outfit_data["gloves"])
