@@ -1070,6 +1070,17 @@
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /turf/simulated/floor/plating/airless,
 /area/AIsattele)
+"AW" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 10;
+	height = 35;
+	id = "whiteship_away";
+	name = "Deep Space";
+	width = 21
+	},
+/turf/space,
+/area/space)
 
 (1,1,1) = {"
 aa
@@ -23491,7 +23502,7 @@ aa
 aa
 aa
 aa
-aa
+AW
 aa
 aa
 aa

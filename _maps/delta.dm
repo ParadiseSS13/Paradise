@@ -16,13 +16,13 @@ Lovingly ported by Purpose2 to Paradise
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\delta\delta.dmm"
-	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\cyberiad\z3.dmm"
-	#include "map_files\cyberiad\z4.dmm"
-	#include "map_files\generic\z5.dmm"
-	#include "map_files\cyberiad\z6.dmm"
-	#include "map_files\generic\z7.dmm"
+	#include "map_files\DeltaStation\delta.dmm"
+	#include "map_files\generic\admin-centcomm.dmm"
+	#include "map_files\generic\tcommsat-blown.dmm"
+	#include "map_files\generic\construction-site.dmm"
+	#include "map_files\generic\lavaland.dmm"
+	#include "map_files\generic\derelict.dmm"
+	#include "map_files\generic\space.dmm"
 
 	#define MAP_FILE "delta.dmm"
 	#define MAP_NAME "Kerberos"

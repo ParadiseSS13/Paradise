@@ -154,7 +154,7 @@
 
 /obj/docking_port/stationary
 	name = "dock"
-
+	var/ignore_bounds = 0 // Do we ignore docking port clearances. USE WITH CAUTION!
 	var/turf_type = /turf/space
 	var/area_type = /area/space
 
@@ -280,15 +280,7 @@
 		return SHUTTLE_NOT_A_DOCKING_PORT
 	if(istype(S, /obj/docking_port/stationary/transit))
 		return SHUTTLE_CAN_DOCK
-	//check dock is big enough to contain us
-	if(dwidth > S.dwidth)
-		return SHUTTLE_DWIDTH_TOO_LARGE
-	if(width-dwidth > S.width-S.dwidth)
-		return SHUTTLE_WIDTH_TOO_LARGE
-	if(dheight > S.dheight)
-		return SHUTTLE_DHEIGHT_TOO_LARGE
-	if(height-dheight > S.height-S.dheight)
-		return SHUTTLE_HEIGHT_TOO_LARGE
+
 	//check the dock isn't occupied
 	var/currently_docked = S.get_docked()
 	if(currently_docked)
@@ -299,6 +291,20 @@
 		// This isn't an error, per se, but we can't let the shuttle code
 		// attempt to move us where we currently are, it will get weird.
 			return SHUTTLE_ALREADY_DOCKED
+
+	if(S.ignore_bounds == 1) // Does the port ignore size bounds
+		return SHUTTLE_CAN_DOCK
+
+	//check dock is big enough to contain us
+	if(dwidth > S.dwidth)
+		return SHUTTLE_DWIDTH_TOO_LARGE
+	if(width-dwidth > S.width-S.dwidth)
+		return SHUTTLE_WIDTH_TOO_LARGE
+	if(dheight > S.dheight)
+		return SHUTTLE_DHEIGHT_TOO_LARGE
+	if(height-dheight > S.height-S.dheight)
+		return SHUTTLE_HEIGHT_TOO_LARGE
+
 	return SHUTTLE_CAN_DOCK
 
 /obj/docking_port/mobile/proc/check_dock(obj/docking_port/stationary/S)

@@ -13,13 +13,13 @@ z7 = empty
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\cyberiad\cyberiad.dmm"
-	#include "map_files\cyberiad\z2.dmm"
-	#include "map_files\cyberiad\z3.dmm"
-	#include "map_files\cyberiad\z4.dmm"
-	#include "map_files\generic\Lavaland.dmm"
-	#include "map_files\cyberiad\z6.dmm"
-	#include "map_files\generic\z7.dmm"
+	#include "map_files\Cyberiad\cyberiad.dmm"
+	#include "map_files\generic\admin-centcomm.dmm"
+	#include "map_files\generic\tcommsat-blown.dmm"
+	#include "map_files\generic\construction-site.dmm"
+	#include "map_files\generic\lavaland.dmm"
+	#include "map_files\generic\derelict.dmm"
+	#include "map_files\generic\space.dmm"
 
 	#define MINETYPE "lavaland"
 	#define MAP_TRANSITION_CONFIG list(\
