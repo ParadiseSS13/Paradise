@@ -71499,7 +71499,10 @@
 	dir = 2;
 	network = list("SS13")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
 /area/atmos)
 "cOC" = (
 /obj/structure/rack{
@@ -73021,7 +73024,10 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "yellow"
+	},
 /area/atmos)
 "cVe" = (
 /obj/machinery/door/poddoor{
@@ -80925,6 +80931,9 @@
 	initialize_directions = 11;
 	level = 2
 	},
+/obj/effect/turf_decal/box/corners{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Tesla and Singularity Engine"
@@ -82684,6 +82693,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
+"gyZ" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/engine/supermatter{
+	name = "\improper Tesla and Singularity Engine"
+	})
 "gzd" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/alarm{
@@ -84126,6 +84143,14 @@
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
+"hMY" = (
+/obj/effect/turf_decal/box/corners{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/engine/supermatter{
+	name = "\improper Tesla and Singularity Engine"
+	})
 "hOL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/wall/r_wall/coated,
@@ -84443,7 +84468,10 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
 /area/atmos)
 "iin" = (
 /obj/structure/cable{
@@ -84535,6 +84563,8 @@
 	initialize_directions = 11;
 	level = 2
 	},
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Tesla and Singularity Engine"
@@ -85893,7 +85923,10 @@
 	dir = 2;
 	network = list("SS13")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
 /area/atmos)
 "jLT" = (
 /obj/structure/sign/securearea{
@@ -86956,13 +86989,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
-"kJt" = (
-/obj/machinery/light{
-	dir = 4;
-	icon_state = "tube1"
-	},
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "kJO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -87205,7 +87231,10 @@
 	dir = 2;
 	network = list("SS13")
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "yellow"
+	},
 /area/atmos)
 "kUH" = (
 /obj/machinery/clonepod/upgraded,
@@ -87323,7 +87352,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/turbine)
 "lbE" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/box,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "lbV" = (
@@ -90086,6 +90115,15 @@
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel,
 /area/maintenance/aft)
+"nJa" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "yellow"
+	},
+/area/atmos)
 "nJc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1;
@@ -92886,6 +92924,12 @@
 /area/engine/supermatter{
 	name = "\improper Tesla and Singularity Engine"
 	})
+"qmS" = (
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 8
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "qng" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel,
@@ -93854,6 +93898,12 @@
 	icon_state = "darkred"
 	},
 /area/maintenance/aft)
+"rtM" = (
+/obj/effect/turf_decal/loading_area{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "rtO" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	name = "standard air scrubber";
@@ -95876,6 +95926,16 @@
 	icon_state = "wood-broken"
 	},
 /area/maintenance/aft)
+"tDi" = (
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6;
+	initialize_directions = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "yellow"
+	},
+/area/atmos)
 "tDW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -96547,7 +96607,10 @@
 	})
 "utm" = (
 /obj/machinery/light,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "yellow"
+	},
 /area/atmos)
 "utr" = (
 /obj/machinery/conveyor/west{
@@ -97591,6 +97654,12 @@
 	dir = 2
 	},
 /area/shuttle/constructionsite)
+"vAO" = (
+/obj/effect/turf_decal/box/corners,
+/turf/simulated/floor/plating,
+/area/engine/supermatter{
+	name = "\improper Tesla and Singularity Engine"
+	})
 "vBe" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -98342,6 +98411,8 @@
 	frequency = 1379;
 	id_tag = "engineering_east_pump"
 	},
+/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plating,
 /area/engine/supermatter{
 	name = "\improper Tesla and Singularity Engine"
@@ -99828,6 +99899,10 @@
 	icon_state = "neutral"
 	},
 /area/atmos)
+"yax" = (
+/obj/effect/turf_decal/loading_area,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "ybw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -122566,11 +122641,11 @@ amh
 amh
 amh
 amh
+rtM
 amh
+qmS
 amh
-amh
-amh
-amh
+yax
 amh
 amh
 amh
@@ -122823,11 +122898,11 @@ amh
 amh
 amh
 amh
-amh
+rtM
 amh
 bqG
 amh
-amh
+yax
 amh
 amh
 amh
@@ -123093,9 +123168,9 @@ faf
 rZa
 xTD
 faf
+hMY
 iOB
-iOB
-iOB
+gyZ
 faf
 aaa
 aaa
@@ -123609,7 +123684,7 @@ nFq
 imq
 eRw
 tgf
-iOB
+vAO
 faf
 aaa
 aaa
@@ -126456,7 +126531,7 @@ olx
 olx
 olx
 abP
-atM
+brC
 bKD
 aaa
 aaa
@@ -127471,7 +127546,7 @@ dVa
 cUM
 cSd
 cUL
-cSd
+dVa
 oYX
 cSd
 sBf
@@ -127985,7 +128060,7 @@ mbt
 tsb
 cSd
 cUL
-xqT
+tDi
 nCX
 cSd
 wuD
@@ -128512,7 +128587,7 @@ olx
 olx
 olx
 abP
-atM
+alw
 bKD
 aaa
 aaa
@@ -128769,7 +128844,7 @@ khv
 khv
 olx
 aaa
-atM
+alw
 bKD
 aaa
 aaa
@@ -129026,7 +129101,7 @@ fqI
 qVa
 olx
 aaa
-atM
+alw
 bKD
 aaa
 aaa
@@ -129527,7 +129602,7 @@ cSd
 oYX
 cUL
 cUL
-kJt
+ozY
 oYX
 dkh
 sBf
@@ -129783,7 +129858,7 @@ sXn
 cSd
 oYX
 cUM
-cUL
+nJa
 xBn
 cOA
 dkh
@@ -130311,7 +130386,7 @@ pGE
 qVA
 olx
 aaa
-alw
+atM
 bKD
 aaa
 aaa
@@ -130568,7 +130643,7 @@ olx
 olx
 olx
 abP
-alw
+atM
 bKD
 aaa
 aaa
@@ -130825,7 +130900,7 @@ uck
 uck
 olx
 aaa
-alw
+brC
 bKD
 aaa
 aaa
@@ -131583,7 +131658,7 @@ cUI
 tsb
 oYX
 cSd
-cSd
+dVa
 cSd
 dkh
 sBf
@@ -132097,7 +132172,7 @@ cUI
 tsb
 oYX
 cSd
-cSd
+kkF
 vFz
 dkh
 wuD
@@ -132367,7 +132442,7 @@ mif
 wca
 olx
 aaa
-atM
+brC
 bKD
 aaa
 aaa
