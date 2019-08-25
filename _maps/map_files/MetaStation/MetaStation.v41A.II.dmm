@@ -37921,7 +37921,7 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots/advance,
-/obj/item/clothing/suit/space/hardsuit/elite,
+/obj/item/clothing/suit/space/hardsuit/engine/elite,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
