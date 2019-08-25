@@ -42,6 +42,11 @@
 	typepath = /obj/item/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
 
+/datum/theft_objective/bsrevolver
+	name = "the blueshield's advanced stun revolver"
+	typepath = /obj/item/gun/energy/gun/blueshield
+	protected_jobs = list("Blueshield")
+
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
 	typepath = /obj/item/hand_tele
@@ -89,22 +94,35 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	typepath = /obj/item/clothing/suit/space/nasavoid
 	protected_jobs = list("Research Director")
 
-/datum/theft_objective/slime_extract
-	name = "a sample of unused slime extract"
-	typepath = /obj/item/slime_extract
-	protected_jobs = list("Research Director","Scientist")
-	location_override = "Xenobiology"
-
-/datum/theft_objective/slime_extract/check_special_completion(var/obj/item/slime_extract/E)
-	if(..())
-		if(E.Uses > 0)
-			return 1
-	return 0
-
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
 	typepath = /obj/item/clothing/accessory/medal/gold/captain
 	protected_jobs = list("Captain")
+
+/datum/theft_objective/secmedal
+	name = "the robust security medal"
+	typepath = /obj/item/clothing/accessory/medal/security
+	protected_jobs = list("Head Of Security")
+
+/datum/theft_objective/medmedal
+	name = "magnificient medical medal"
+	typepath = /obj/item/clothing/accessory/medal/medical
+	protected_jobs = list("Chief Medical Officer")
+
+/datum/theft_objective/engmedal
+	name = "the excellent engineering medal"
+	typepath = /obj/item/clothing/accessory/medal/engineering
+	protected_jobs = list("Chief Engineer")
+
+/datum/theft_objective/scimedal
+	name = "the smart science medal"
+	typepath = /obj/item/clothing/accessory/medal/science
+	protected_jobs = list("Research Director")
+
+/datum/theft_objective/sermedal
+	name = "the superior service medal"
+	typepath = /obj/item/clothing/accessory/medal/service
+	protected_jobs = list("Head of Personnel")
 
 /datum/theft_objective/nukedisc
 	name = "the nuclear authentication disk"
@@ -134,6 +152,11 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	name = "the warden's krav maga martial arts gloves"
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
 	protected_jobs = list("Head Of Security", "Warden")
+
+/datum/theft_objective/forensics
+	name = "the detective's advanced forensics gloves"
+	typepath = /obj/item/clothing/gloves/color/black/forensics
+	protected_jobs = list("Head Of Security", "Detective")
 
 /datum/theft_objective/number
 	var/min=0
@@ -165,17 +188,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 
 /datum/theft_objective/number/proc/getAmountStolen(var/obj/item/I)
 	return I:amount
-
-/datum/theft_objective/number/plasma_gas
-	name = "moles of plasma (full tank)"
-	typepath = /obj/item/tank
-	min=28
-	max=28
-	protected_jobs = list("Chief Engineer", "Station Engineer", "Scientist", "Research Director", "Life Support Specialist")
-	location_override = "Engineering or Toxin Mixing"
-
-/datum/theft_objective/number/plasma_gas/getAmountStolen(var/obj/item/I)
-	return I:air_contents:toxins
 
 /datum/theft_objective/unique
 	flags = THEFT_FLAG_UNIQUE
