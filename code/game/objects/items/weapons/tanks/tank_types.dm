@@ -59,6 +59,28 @@ obj/item/tank/oxygen/empty/New()
 
 	air_contents.trace_gases += trace_gas
 
+/obj/item/tank/anesthetic/vox
+	name = "vox anesthetic tank"
+	desc = "A tank with an N2O/N2 gas mix."
+	icon_state = "anesthetic"
+	item_state = "an_tank"
+
+/obj/item/tank/anesthetic/vox/New()
+	..()
+	air_contents.oxygen = 0
+	air_contents.nitrogen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+
+/obj/item/tank/anesthetic/plasmaman
+	name = "plasmaman anesthetic tank"
+	desc = "A tank with an N2O/Plasma gas mix."
+	icon_state = "anesthetic"
+	item_state = "an_tank"
+
+/obj/item/tank/anesthetic/plasmaman/New()
+	..()
+	air_contents.oxygen = 0
+	air_contents.toxins = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C) * O2STANDARD
+
 /*
  * Air
  */

@@ -5,7 +5,9 @@
 // partname is the name of a body part
 // amount is a num from 1 to 100
 /mob/living/carbon/human/proc/pain(partname, amount)
-	if(stat >= UNCONSCIOUS)
+	if(stat == DEAD || status_flags & FAKEDEATH)
+		return
+	if(stat == UNCONSCIOUS && paralysis)
 		return
 	if(reagents.has_reagent("sal_acid"))
 		return
@@ -31,9 +33,10 @@
 
 // message is the custom message to be displayed
 mob/living/carbon/human/proc/custom_pain(message)
-	if(stat >= UNCONSCIOUS)
+	if(stat == DEAD || status_flags & FAKEDEATH)
 		return
-
+	if(stat == UNCONSCIOUS && paralysis)
+		return
 	if(NO_PAIN in dna.species.species_traits)
 		return
 	if(reagents.has_reagent("morphine"))
@@ -41,6 +44,9 @@ mob/living/carbon/human/proc/custom_pain(message)
 	if(reagents.has_reagent("hydrocodone"))
 		return
 
+	if(sleeping)
+		SetSleeping(0)
+		to_chat(src, "<span class='userdanger'>Pain wakes you up!</span>")
 	var/msg = "<span class='userdanger'>[message]</span>"
 
 	// Anti message spam checks

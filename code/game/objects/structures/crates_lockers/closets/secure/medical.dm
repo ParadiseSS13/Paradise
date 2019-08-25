@@ -45,6 +45,8 @@
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
 	new /obj/item/clothing/mask/breath/medical(src)
+	new /obj/item/tank/anesthetic/vox(src)
+	new /obj/item/tank/anesthetic/plasmaman(src)
 
 
 /obj/structure/closet/secure_closet/medical3
