@@ -110,15 +110,31 @@ obj/item/tank/oxygen/empty/New()
 	air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/plasma/plasmaman
-	desc = "The lifeblood of plasmamen.  Warning:  Extremely flammable, do not inhale (unless you're a plasman)."
-	icon_state = "plasma_fr"
-	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	name = "plasma internals tank"
+	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
+	icon_state = "plasmaman_tank"
+	item_state = "plasmaman_tank"
+	force = 10
+	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/plasma/plasmaman/examine(mob/user)
 	if(..(user, 0))
 		if(air_contents.toxins < 0.2 && loc==usr)
 			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of plasma!</span>"))
 			user << sound('sound/effects/alert.ogg')
+
+
+/obj/item/tank/plasma/plasmaman/belt
+	icon_state = "plasmaman_tank_belt"
+	item_state = "plasmaman_tank_belt"
+	slot_flags = SLOT_BELT
+	force = 5
+	volume = 25
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/tank/plasma/plasmaman/belt/full/New()
+	..()
+	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
 
 /*
  * Emergency Oxygen
