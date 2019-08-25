@@ -11639,7 +11639,7 @@
 /area/admin)
 "AL" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/syndi/elite,
+/obj/item/clothing/suit/space/hardsuit/syndi,
 /obj/item/clothing/suit/space/hardsuit/syndi/elite{
 	pixel_x = -6;
 	pixel_y = 6
