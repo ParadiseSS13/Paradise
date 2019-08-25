@@ -273,7 +273,6 @@
 	new /obj/item/key/ambulance(src)
 	new /obj/item/pinpointer/crew(src)
 	new /obj/item/clothing/shoes/magboots(src)
-	new /obj/item/handheld_defibrillator(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
