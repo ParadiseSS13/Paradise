@@ -3248,8 +3248,6 @@
 /area/shuttle/assault_pod)
 "iw" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/eva/plasmaman/wizard,
-/obj/item/clothing/head/helmet/space/eva/plasmaman/wizard,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/mask/breath/vox,
 /obj/item/tank/plasma/plasmaman,
