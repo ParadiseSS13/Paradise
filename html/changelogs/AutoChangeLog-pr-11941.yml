@@ -1,0 +1,10 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - rscadd: "Adds tip text to the examine text of the ambulance trolley about how to attach it"
+  - rscadd: "Adds tip text to the nuke when trying to use the NAD before deploying it"
+  - rscadd: "Adds tip text to the fire axe cabinet about how to lock/unlock it"
+  - rscadd: "Adds tip text to airlocks if they have a note on them about how to remove the note"
+  - bugfix: "Can't put the NAD in the nuke now when it has the NODROP flag"
+  - bugfix: "Locking a fire axe cabinet is less weird now. No odd 5 seconds sleep"
+  - bugfix: "Can't put a nodrop fire axe in fire axe cabinets now. Duping them"

@@ -6,203 +6,194 @@
 	icon_state = "fireaxe1000"
 	icon_closed = "fireaxe1000"
 	icon_opened = "fireaxe1100"
-	anchored = 1
-	density = 0
+	anchored = TRUE
+	density = FALSE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 10, bio = 100, rad = 100)
-	var/localopened = 0 //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
-	opened = 1
-	var/hitstaken = 0
-	locked = 1
-	var/smashed = 0
+	var/localopened = FALSE //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
+	opened = TRUE
+	var/hitstaken = FALSE
+	locked = TRUE
+	var/smashed = FALSE
 
-	attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
-		//..() //That's very useful, Erro
+/obj/structure/closet/fireaxecabinet/examine(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>Use a multitool to lock/unlock it.</span>")
 
-		var/hasaxe = 0       //gonna come in handy later~
-		if(fireaxe)
-			hasaxe = 1
-
-		if(isrobot(user) || src.locked)
-			if(istype(O, /obj/item/multitool))
-				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
-				playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
-				if(do_after(user, 20 * O.toolspeed, target = src))
-					src.locked = 0
-					to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
-					update_icon()
-				return
-			else if(istype(O, /obj/item))
-				user.changeNext_move(CLICK_CD_MELEE)
-				var/obj/item/W = O
-				if(src.smashed || src.localopened)
-					if(localopened)
-						localopened = 0
-						icon_state = text("fireaxe[][][][]closing",hasaxe,src.localopened,src.hitstaken,src.smashed)
-						spawn(10) update_icon()
-					return
-				else
-					user.do_attack_animation(src)
-					playsound(user, 'sound/effects/Glasshit.ogg', 100, 1) //We don't want this playing every time
-				if(W.force < 15)
-					to_chat(user, "<span class='notice'>The cabinet's protective glass glances off the hit.</span>")
-				else
-					src.hitstaken++
-					if(src.hitstaken == 4)
-						playsound(user, 'sound/effects/glassbr3.ogg', 100, 1) //Break cabinet, receive goodies. Cabinet's fucked for life after that.
-						src.smashed = 1
-						src.locked = 0
-						src.localopened = 1
+/obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
+	if(isrobot(user) || locked)
+		if(istype(O, /obj/item/multitool))
+			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
+			playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
+			if(do_after(user, 20 * O.toolspeed, target = src))
+				locked = FALSE
+				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
 				update_icon()
 			return
-		if(istype(O, /obj/item/twohanded/fireaxe) && src.localopened)
-			if(!fireaxe)
-				if(O:wielded)
-					to_chat(user, "<span class='warning'>Unwield the axe first.</span>")
-					return
-				fireaxe = O
-				user.drop_item(O)
-				src.contents += O
-				to_chat(user, "<span class='notice'>You place the fire axe back in the [src.name].</span>")
-				update_icon()
-			else
-				if(src.smashed)
-					return
-				else
-					localopened = !localopened
-					if(localopened)
-						icon_state = text("fireaxe[][][][]opening",hasaxe,src.localopened,src.hitstaken,src.smashed)
-						spawn(10) update_icon()
-					else
-						icon_state = text("fireaxe[][][][]closing",hasaxe,src.localopened,src.hitstaken,src.smashed)
-						spawn(10) update_icon()
-		else
-			if(src.smashed)
-				return
-			if(istype(O, /obj/item/multitool))
+		else if(istype(O, /obj/item))
+			user.changeNext_move(CLICK_CD_MELEE)
+			var/obj/item/W = O
+			if(smashed || localopened)
 				if(localopened)
-					localopened = 0
-					icon_state = text("fireaxe[][][][]closing",hasaxe,src.localopened,src.hitstaken,src.smashed)
-					spawn(10) update_icon()
-					return
-				else
-					to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
-					sleep(50)
-					src.locked = 1
-					to_chat(user, "<span class='notice'>You re-enable the locking modules.</span>")
-					playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
-					if(do_after(user, 20 * O.toolspeed, target = src))
-						src.locked = 1
-						to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
-					return
+					localopened = FALSE
+					update_icon_closing()
+				return
+			else
+				user.do_attack_animation(src)
+				playsound(user, 'sound/effects/Glasshit.ogg', 100, 1) //We don't want this playing every time
+			if(W.force < 15)
+				to_chat(user, "<span class='notice'>The cabinet's protective glass glances off the hit.</span>")
+			else
+				hitstaken++
+				if(hitstaken == 4)
+					playsound(user, 'sound/effects/glassbr3.ogg', 100, 1) //Break cabinet, receive goodies. Cabinet's fucked for life after that.
+					smashed = TRUE
+					locked = FALSE
+					localopened = TRUE
+			update_icon()
+		return
+	if(istype(O, /obj/item/twohanded/fireaxe) && localopened)
+		if(!fireaxe)
+			var/obj/item/twohanded/fireaxe/F = O
+			if(F.wielded)
+				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
+				return
+			if(!user.unEquip(F, FALSE))
+				to_chat(user, "<span class='warning'>\The [F] stays stuck to your hands!</span>")
+				return
+			fireaxe = F
+			contents += F
+			to_chat(user, "<span class='notice'>You place \the [F] back in the [name].</span>")
+			update_icon()
+		else
+			if(smashed)
+				return
 			else
 				localopened = !localopened
 				if(localopened)
-					icon_state = text("fireaxe[][][][]opening",hasaxe,src.localopened,src.hitstaken,src.smashed)
-					spawn(10) update_icon()
+					update_icon_opening()
 				else
-					icon_state = text("fireaxe[][][][]closing",hasaxe,src.localopened,src.hitstaken,src.smashed)
-					spawn(10) update_icon()
-
-
-
-
-	attack_hand(mob/user as mob)
-
-		var/hasaxe = 0
-		if(fireaxe)
-			hasaxe = 1
-
-		if(src.locked)
-			to_chat(user, "<span class='warning'>The cabinet won't budge!</span>")
+					update_icon_closing()
+	else
+		if(smashed)
 			return
-		if(localopened)
-			if(fireaxe)
-				user.put_in_hands(fireaxe)
-				fireaxe = null
-				to_chat(user, "<span class='notice'>You take the fire axe from the [name].</span>")
-				src.add_fingerprint(user)
-				update_icon()
-			else
-				if(src.smashed)
-					return
-				else
-					localopened = !localopened
-					if(localopened)
-						src.icon_state = text("fireaxe[][][][]opening",hasaxe,src.localopened,src.hitstaken,src.smashed)
-						spawn(10) update_icon()
-					else
-						src.icon_state = text("fireaxe[][][][]closing",hasaxe,src.localopened,src.hitstaken,src.smashed)
-						spawn(10) update_icon()
-
-		else
-			localopened = !localopened //I'm pretty sure we don't need an if(src.smashed) in here. In case I'm wrong and it fucks up teh cabinet, **MARKER**. -Agouri
+		if(istype(O, /obj/item/multitool))
 			if(localopened)
-				src.icon_state = text("fireaxe[][][][]opening",hasaxe,src.localopened,src.hitstaken,src.smashed)
-				spawn(10) update_icon()
+				localopened = FALSE
+				update_icon_closing()
+				return
 			else
-				src.icon_state = text("fireaxe[][][][]closing",hasaxe,src.localopened,src.hitstaken,src.smashed)
-				spawn(10) update_icon()
-
-	attack_tk(mob/user as mob)
-		if(localopened && fireaxe)
-			fireaxe.forceMove(loc)
-			to_chat(user, "<span class='notice'>You telekinetically remove the fire axe.</span>")
-			fireaxe = null
-			update_icon()
-			return
-		attack_hand(user)
-
-	verb/toggle_openness() //nice name, huh? HUH?! -Erro //YEAH -Agouri
-		set name = "Open/Close"
-		set category = "Object"
-
-		if(isrobot(usr) || src.locked || src.smashed)
-			if(src.locked)
-				to_chat(usr, "<span class='warning'>The cabinet won't budge!</span>")
-			else if(src.smashed)
-				to_chat(usr, "<span class='notice'>The protective glass is broken!</span>")
-			return
-
-		localopened = !localopened
-		update_icon()
-
-	verb/remove_fire_axe()
-		set name = "Remove Fire Axe"
-		set category = "Object"
-
-		if(isrobot(usr))
-			return
-
-		if(localopened)
-			if(fireaxe)
-				usr.put_in_hands(fireaxe)
-				fireaxe = null
-				to_chat(usr, "<span class='notice'>You take the Fire axe from the [name].</span>")
-			else
-				to_chat(usr, "<span class='notice'>The [src.name] is empty.</span>")
+				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
+				playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
+				if(do_after(user, 20 * O.toolspeed, target = src))
+					locked = TRUE
+					to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
+				return
 		else
-			to_chat(usr, "<span class='notice'>The [src.name] is closed.</span>")
-		update_icon()
-
-	attack_ai(mob/user as mob)
-		if(src.smashed)
-			to_chat(user, "<span class='warning'>The security of the cabinet is compromised.</span>")
-			return
-		else
-			locked = !locked
-			if(locked)
-				to_chat(user, "<span class='warning'>Cabinet locked.</span>")
+			localopened = !localopened
+			if(localopened)
+				update_icon_opening()
 			else
-				to_chat(user, "<span class='notice'>Cabinet unlocked.</span>")
+				update_icon_closing()
 
-	update_icon() //Template: fireaxe[has fireaxe][is opened][hits taken][is smashed]. If you want the opening or closing animations, add "opening" or "closing" right after the numbers
-		var/hasaxe = 0
+/obj/structure/closet/fireaxecabinet/attack_hand(mob/user as mob)
+	if(locked)
+		to_chat(user, "<span class='warning'>The cabinet won't budge!</span>")
+		return
+	if(localopened)
 		if(fireaxe)
-			hasaxe = 1
-		icon_state = text("fireaxe[][][][]",hasaxe,src.localopened,src.hitstaken,src.smashed)
+			user.put_in_hands(fireaxe)
+			to_chat(user, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
+			fireaxe = null
+			
+			add_fingerprint(user)
+			update_icon()
+		else
+			if(smashed)
+				return
+			else
+				localopened = !localopened
+				if(localopened)
+					update_icon_opening()
+				else
+					update_icon_closing()
 
-	open()
+	else
+		localopened = !localopened //I'm pretty sure we don't need an if(smashed) in here. In case I'm wrong and it fucks up teh cabinet, **MARKER**. -Agouri
+		if(localopened)
+			update_icon_opening()
+		else
+			update_icon_closing()
+
+/obj/structure/closet/fireaxecabinet/attack_tk(mob/user as mob)
+	if(localopened && fireaxe)
+		fireaxe.forceMove(loc)
+		to_chat(user, "<span class='notice'>You telekinetically remove \the [fireaxe].</span>")
+		fireaxe = null
+		update_icon()
+		return
+	attack_hand(user)
+
+/obj/structure/closet/fireaxecabinet/verb/toggle_openness() //nice name, huh? HUH?! -Erro //YEAH -Agouri
+	set name = "Open/Close"
+	set category = "Object"
+
+	if(isrobot(usr) || locked || smashed)
+		if(locked)
+			to_chat(usr, "<span class='warning'>The cabinet won't budge!</span>")
+		else if(smashed)
+			to_chat(usr, "<span class='notice'>The protective glass is broken!</span>")
 		return
 
-	close()
+	localopened = !localopened
+	update_icon()
+
+/obj/structure/closet/fireaxecabinet/verb/remove_fire_axe()
+	set name = "Remove Fire Axe"
+	set category = "Object"
+
+	if(isrobot(usr))
 		return
+
+	if(localopened)
+		if(fireaxe)
+			usr.put_in_hands(fireaxe)
+			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
+			fireaxe = null
+		else
+			to_chat(usr, "<span class='notice'>The [src] is empty.</span>")
+	else
+		to_chat(usr, "<span class='notice'>The [src] is closed.</span>")
+	update_icon()
+
+/obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)
+	if(smashed)
+		to_chat(user, "<span class='warning'>The security of the cabinet is compromised.</span>")
+		return
+	else
+		locked = !locked
+		if(locked)
+			to_chat(user, "<span class='warning'>Cabinet locked.</span>")
+		else
+			to_chat(user, "<span class='notice'>Cabinet unlocked.</span>")
+
+/obj/structure/closet/fireaxecabinet/proc/update_icon_opening()
+	var/hasaxe = fireaxe != null
+	icon_state = "fireaxe[hasaxe][localopened][hitstaken][smashed]opening"
+	spawn(10) 
+		update_icon()
+
+/obj/structure/closet/fireaxecabinet/proc/update_icon_closing()
+	var/hasaxe = fireaxe != null
+	icon_state = "fireaxe[hasaxe][localopened][hitstaken][smashed]closing"
+	spawn(10) 
+		update_icon()
+
+/obj/structure/closet/fireaxecabinet/update_icon() //Template: fireaxe[has fireaxe][is opened][hits taken][is smashed]. If you want the opening or closing animations, add "opening" or "closing" right after the numbers
+	var/hasaxe = fireaxe != null
+	icon_state = "fireaxe[hasaxe][localopened][hitstaken][smashed]"
+
+/obj/structure/closet/fireaxecabinet/open()
+	return
+
+/obj/structure/closet/fireaxecabinet/close()
+	return
