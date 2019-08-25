@@ -115,7 +115,6 @@
 	..()
 
 /obj/item/gun/projectile/revolver/detective/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/screwdriver))
 		if(magazine.caliber == "38")
 			to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
@@ -143,6 +142,8 @@
 				magazine.caliber = "38"
 				desc = initial(desc)
 				to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "\improper finger gun"
@@ -347,7 +348,6 @@
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
 	if(istype(A, /obj/item/melee/energy))
@@ -356,6 +356,8 @@
 			sawoff(user)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
@@ -394,7 +396,6 @@
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
@@ -406,6 +407,8 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
 			return
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
@@ -450,9 +453,10 @@
 	return
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/stack/cable_coil))
 		return
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
 	var/f_name = "\a [src]."

@@ -1,4 +1,5 @@
 /obj/item/paper/talisman
+	icon = 'icons/obj/paper.dmi'
 	icon_state = "paper_talisman"
 	var/cultist_name = "talisman"
 	var/cultist_desc = "A basic talisman. It serves no purpose."
@@ -6,6 +7,9 @@
 	info = "<center><img src='talisman.png'></center><br/><br/>"
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the talisman
+
+/obj/item/paper/talisman/update_icon()//overriding this so the update_icon doesn't turn them into normal looking paper
+	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /obj/item/paper/talisman/examine(mob/user)
 	if(iscultist(user) || user.stat == DEAD)
@@ -49,6 +53,7 @@
 //Supply Talisman: Has a few unique effects. Granted only to starter cultists.
 /obj/item/paper/talisman/supply
 	cultist_name = "Supply Talisman"
+	icon_state = "supply"
 	cultist_desc = "A multi-use talisman that can create various objects. Intended to increase the cult's strength early on."
 	invocation = null
 	uses = 3
@@ -117,6 +122,7 @@
 //Rite of Translocation: Same as rune
 /obj/item/paper/talisman/teleport
 	cultist_name = "Talisman of Teleportation"
+	icon_state = "teleport"
 	cultist_desc = "A single-use talisman that will teleport a user to a random rune of the same keyword."
 	invocation = "Sas'so c'arta forbici!"
 	health_cost = 5
@@ -159,6 +165,7 @@
 
 /obj/item/paper/talisman/summon_tome
 	cultist_name = "Talisman of Tome Summoning"
+	icon_state = "tome"
 	cultist_desc = "A one-use talisman that will call an untranslated tome from the archives of a cult."
 	invocation = "N'ath reth sh'yro eth d'raggathnor!"
 	health_cost = 1
@@ -173,6 +180,7 @@
 
 /obj/item/paper/talisman/true_sight
 	cultist_name = "Talisman of Veiling"
+	icon_state = "veil"
 	cultist_desc = "A multi-use talisman that hides nearby runes. On its second use, will reveal nearby runes."
 	invocation = "Kla'atu barada nikt'o!"
 	health_cost = 1
@@ -197,6 +205,7 @@
 //Rite of False Truths: Same as rune
 /obj/item/paper/talisman/make_runes_fake
 	cultist_name = "Talisman of Disguising"
+	icon_state = "disguising"
 	cultist_desc = "A talisman that will make nearby runes appear fake."
 	invocation = "By'o nar'nar!"
 
@@ -212,6 +221,7 @@
 //Rite of Disruption: Weaker than rune
 /obj/item/paper/talisman/emp
 	cultist_name = "Talisman of Electromagnetic Pulse"
+	icon_state = "emp"
 	cultist_desc = "A talisman that will cause a moderately-sized electromagnetic pulse."
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 	health_cost = 5
@@ -226,6 +236,7 @@
 //Rite of Disorientation: Stuns and inhibit speech on a single target for quite some time
 /obj/item/paper/talisman/stun
 	cultist_name = "Talisman of Stunning"
+	icon_state = "stunning"
 	cultist_desc = "A talisman that will stun and inhibit speech on a single target. To use, attack target directly."
 	invocation = "Dream sign:Evil sealing talisman!"
 	health_cost = 10
@@ -271,6 +282,7 @@
 //Rite of Arming: Equips cultist armor on the user, where available
 /obj/item/paper/talisman/armor
 	cultist_name = "Talisman of Arming"
+	icon_state = "arming"
 	cultist_desc = "A talisman that will equip the invoker with cultist equipment if there is a slot to equip it to."
 	invocation = "N'ath reth sh'yro eth draggathnor!"
 
@@ -298,6 +310,7 @@
 //Talisman of Horrors: Breaks the mind of the victim with nightmarish hallucinations
 /obj/item/paper/talisman/horror
 	cultist_name = "Talisman of Horrors"
+	icon_state = "horror"
 	cultist_desc = "A talisman that will break the mind of the victim with nightmarish hallucinations."
 	invocation = "Lo'Nab Na'Dm!"
 
@@ -313,6 +326,7 @@
 //Talisman of Fabrication: Creates a construct shell out of 25 metal sheets.
 /obj/item/paper/talisman/construction
 	cultist_name = "Talisman of Construction"
+	icon_state = "construction"
 	cultist_desc = "Use this talisman on at least twenty-five metal sheets to create an empty construct shell or on plasteel to make runed metal"
 	invocation = "Ethra p'ni dedol!"
 	uses = 25
@@ -357,6 +371,7 @@
 //Talisman of Shackling: Applies special cuffs directly from the talisman
 /obj/item/paper/talisman/shackle
 	cultist_name = "Talisman of Shackling"
+	icon_state = "shackling"
 	cultist_desc = "Use this talisman on a victim to handcuff them with dark bindings."
 	invocation = "In'totum Lig'abis!"
 	uses = 4

@@ -72,6 +72,16 @@
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/cultivator/rake
+	name = "rake"
+	icon_state = "rake"
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("slashed", "sliced", "bashed", "clawed")
+	hitsound = null
+	materials = null
+	flags = NONE
+	burn_state = FLAMMABLE
+
 /obj/item/hatchet
 	name = "hatchet"
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."

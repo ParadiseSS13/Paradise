@@ -576,109 +576,79 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(!check_rights(R_EVENT))
 		return
 
-	if(!ishuman(M))
+	if(!ishuman(M) && !isobserver(M))
 		alert("Invalid mob")
 		return
 
-	var/list/choices = list(
-		"strip",
-		"as job...",
-		"emergency response team member",
-		"emergency response team leader"
+	var/dresscode = robust_dress_shop()
+
+	if(!dresscode)
+		return
+
+	var/delete_pocket
+	var/mob/living/carbon/human/H
+	if(isobserver(M))
+		H = M.change_mob_type(/mob/living/carbon/human, null, null, TRUE)
+	else
+		H = M
+		if(H.l_store || H.r_store || H.s_store) //saves a lot of time for admins and coders alike
+			if(alert("Should the items in their pockets be dropped? Selecting \"No\" will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
+				delete_pocket = TRUE
+
+	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
+		qdel(I)
+	if(dresscode != "Naked")
+		H.equipOutfit(dresscode)
+
+	H.regenerate_icons()
+
+	feedback_add_details("admin_verb", "SE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
+	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
+
+/client/proc/robust_dress_shop()
+	var/list/outfits = list(
+		"Naked",
+		"As Job...",
+		"Custom..."
 	)
 
-	var/admin_outfits = subtypesof(/datum/outfit/admin)
-	for(var/type in admin_outfits)
-		var/datum/outfit/O = type
-		var/name = initial(O.name)
-		if(name != "Naked")
-			choices[initial(O.name)] = type
+	var/list/paths = subtypesof(/datum/outfit) - typesof(/datum/outfit/job)
+	for(var/path in paths)
+		var/datum/outfit/O = path //not much to initalize here but whatever
+		if(initial(O.can_be_admin_equipped))
+			outfits[initial(O.name)] = path
 
-	var/dostrip = 0
-	switch(alert("Strip [M] before dressing?", "Strip?", "Yes", "No", "Cancel"))
-		if("Yes")
-			dostrip = 1
-		if("Cancel")
-			return
-
-	var/dresscode = input("Select dress for [M]", "Robust quick dress shop") as null|anything in choices
+	var/dresscode = input("Select outfit", "Robust quick dress shop") as null|anything in outfits
 	if(isnull(dresscode))
 		return
 
-	var/datum/outfit/O
-	if(!(dresscode in list("strip", "as job...", "emergency response team member", "emergency response team leader")))
-		O = choices[dresscode]
+	if(outfits[dresscode])
+		dresscode = outfits[dresscode]
 
-	var/datum/job/jobdatum
-	if(dresscode == "as job...")
-		var/jobname = input("Select job", "Robust quick dress shop") as null|anything in get_all_jobs()
-		jobdatum = SSjobs.GetJob(jobname)
+	if(dresscode == "As Job...")
+		var/list/job_paths = subtypesof(/datum/outfit/job)
+		var/list/job_outfits = list()
+		for(var/path in job_paths)
+			var/datum/outfit/O = path
+			if(initial(O.can_be_admin_equipped))
+				job_outfits[initial(O.name)] = path
 
-	feedback_add_details("admin_verb", "SEQ") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	if(dostrip)
-		for(var/obj/item/I in M)
-			if(istype(I, /obj/item/implant))
-				continue
-			if(istype(I, /obj/item/organ))
-				continue
-			qdel(I)
+		dresscode = input("Select job equipment", "Robust quick dress shop") as null|anything in job_outfits
+		dresscode = job_outfits[dresscode]
+		if(isnull(dresscode))
+			return
 
+	if(dresscode == "Custom...")
+		var/list/custom_names = list()
+		for(var/datum/outfit/D in GLOB.custom_outfits)
+			custom_names[D.name] = D
+		var/selected_name = input("Select outfit", "Robust quick dress shop") as null|anything in custom_names
+		dresscode = custom_names[selected_name]
+		if(isnull(dresscode))
+			return
 
-	switch(dresscode)
-		if("strip")
-			//do nothing
-
-		// god is dead
-		if("as job...")
-			if(jobdatum)
-				dresscode = "[jobdatum.title]"
-				jobdatum.equip(M)
-
-		if("emergency response team member", "emergency response team leader")
-			var/datum/response_team/equip_team = null
-			switch(alert("Level", "Emergency Response Team", "Amber", "Red", "Gamma"))
-				if("Amber")
-					equip_team = new /datum/response_team/amber
-				if("Red")
-					equip_team = new /datum/response_team/red
-				if("Gamma")
-					equip_team = new /datum/response_team/gamma
-			if(!equip_team)
-				return
-			if(dresscode == "emergency response team leader")
-				equip_team.equip_officer("Commander", M)
-			else
-				var/list/ert_outfits = list("Security", "Engineer", "Medic", "Janitor", "Paranormal")
-				var/echoice = input("Loadout Type", "Emergency Response Team") as null|anything in ert_outfits
-				if(!echoice)
-					return
-				switch(echoice)
-					if("Commander")
-						equip_team.equip_officer("Commander", M)
-					if("Security")
-						equip_team.equip_officer("Security", M)
-					if("Engineer")
-						equip_team.equip_officer("Engineer", M)
-					if("Medic")
-						equip_team.equip_officer("Medic", M)
-					if("Janitor")
-						equip_team.equip_officer("Janitor", M)
-					if("Paranormal")
-						equip_team.equip_officer("Paranormal", M)
-					else
-						to_chat(src, "Invalid ERT Loadout selected")
-
-
-		else // outfit datum
-			if(O)
-				M.equipOutfit(O, FALSE)
-
-	M.regenerate_icons()
-
-	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
-	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
-	return
-
+	return dresscode
 
 /client/proc/startSinglo()
 	set category = "Debug"

@@ -125,6 +125,10 @@
 	throwforce = 2
 	slot_flags = SLOT_EARS
 	burn_state = FIRE_PROOF
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		) //We read you loud and skree-er.
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -660,38 +664,45 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
 	if(istype(A))
-		. = 1
+		. = TRUE
 	else
-		return 0
+		return FALSE
+
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/AC in accessories)
 			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				return 0
+				return FALSE
 			if(!A.allow_duplicates && AC.type == A.type)
-				return 0
+				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
-		var/obj/item/clothing/accessory/A = I
-		if(can_attach_accessory(A))
-			user.unEquip(I) // Make absolutely sure this accessory is removed from hands
-			accessories += A
-			A.on_attached(src, user)
-
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				H.update_inv_w_uniform()
-
-			return
-		else
-			to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
+		attach_accessory(I, user, TRUE)
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attackby(I, user, params)
-		return
+		return TRUE
 
-	..()
+	. = ..()
+
+/obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
+	if(can_attach_accessory(A))
+		if(unequip && !user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
+			return FALSE
+
+		accessories += A
+		A.on_attached(src, user)
+
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			H.update_inv_w_uniform()
+
+		return TRUE
+	else
+		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
+
+	return FALSE
 
 /obj/item/clothing/under/examine(mob/user)
 	..(user)

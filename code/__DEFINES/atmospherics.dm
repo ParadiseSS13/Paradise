@@ -129,3 +129,6 @@
 #define ATMOS_ALARM_NONE					0
 #define ATMOS_ALARM_WARNING					1
 #define ATMOS_ALARM_DANGER					2
+
+//LAVALAND
+#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
