@@ -108,7 +108,7 @@
 							update_blind_effects()
 							update_sight()
 							to_chat(src, "Here are your current laws:")
-							src.show_laws()
+							show_laws()
 							return
 
 						switch(PRP)
