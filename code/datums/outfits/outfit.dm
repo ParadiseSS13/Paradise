@@ -252,6 +252,7 @@
 	.["name"] = name
 	.["uniform"] = uniform
 	.["suit"] = suit
+	.["toggle_helmet"] = toggle_helmet
 	.["back"] = back
 	.["belt"] = belt
 	.["gloves"] = gloves
