@@ -8553,11 +8553,6 @@
 /area/admin)
 "uJ" = (
 /obj/structure/rack,
-/obj/item/clothing/head/helmet/space/hardsuit/wizard{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/head/helmet/space/hardsuit/syndi,
 /obj/item/clothing/head/helmet/space/santahat{
 	pixel_x = 3;
 	pixel_y = -3
@@ -11642,8 +11637,8 @@
 /area/admin)
 "AL" = (
 /obj/structure/rack,
-/obj/item/storage/box/syndie_kit/hardsuit,
-/obj/item/storage/box/syndie_kit/elite_hardsuit{
+/obj/item/clothing/suit/space/hardsuit/syndi,
+/obj/item/clothing/suit/space/hardsuit/syndi/elite{
 	pixel_x = -6;
 	pixel_y = 6
 	},

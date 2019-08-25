@@ -1887,7 +1887,6 @@
 	network = list("SS13")
 	},
 /obj/item/clothing/suit/space/hardsuit/security,
-/obj/item/clothing/head/helmet/space/hardsuit/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4310,7 +4309,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/security,
 /obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/head/helmet/space/hardsuit/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5439,7 +5437,6 @@
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/suit/space/hardsuit/security,
 /obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/head/helmet/space/hardsuit/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 4
@@ -5657,7 +5654,6 @@
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/suit/space/hardsuit/security,
 /obj/item/clothing/mask/gas/sechailer,
-/obj/item/clothing/head/helmet/space/hardsuit/security,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 1
@@ -18917,9 +18913,8 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/item/clothing/suit/space/hardsuit/engineering,
+/obj/item/clothing/suit/space/hardsuit/engine,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/engineering,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -19707,9 +19702,8 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/item/clothing/suit/space/hardsuit/engineering,
+/obj/item/clothing/suit/space/hardsuit/engine,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/engineering,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -29963,9 +29957,8 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/item/clothing/suit/space/hardsuit/engineering,
+/obj/item/clothing/suit/space/hardsuit/engine,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/engineering,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -30859,9 +30852,8 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/item/clothing/suit/space/hardsuit/engineering,
+/obj/item/clothing/suit/space/hardsuit/engine,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/engineering,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
@@ -37929,9 +37921,8 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots/advance,
-/obj/item/clothing/suit/space/hardsuit/elite,
+/obj/item/clothing/suit/space/hardsuit/engine/elite,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/elite,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -59967,8 +59958,7 @@
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/suit/space/hardsuit/atmos,
-/obj/item/clothing/head/helmet/space/hardsuit/atmos,
+/obj/item/clothing/suit/space/hardsuit/engine/atmos,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -62056,8 +62046,7 @@
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/suit/space/hardsuit/atmos,
-/obj/item/clothing/head/helmet/space/hardsuit/atmos,
+/obj/item/clothing/suit/space/hardsuit/engine/atmos,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"
@@ -62070,8 +62059,7 @@
 /obj/structure/rack,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/suit/space/hardsuit/atmos,
-/obj/item/clothing/head/helmet/space/hardsuit/atmos,
+/obj/item/clothing/suit/space/hardsuit/engine/atmos,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
@@ -79079,7 +79067,6 @@
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /obj/item/radio/intercom{
 	dir = 1;
 	name = "Station Intercom (General)";

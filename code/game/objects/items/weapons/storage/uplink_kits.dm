@@ -136,36 +136,14 @@
 
 /obj/item/storage/box/syndie_kit/hardsuit
 	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/clothing/head/helmet/space/hardsuit/syndi, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/emergency_oxygen/syndi, /obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/hardsuit/New()
 	..()
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
-	new /obj/item/clothing/head/helmet/space/hardsuit/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/emergency_oxygen/syndi(src)
-	return
-
-/obj/item/storage/box/syndie_kit/elite_hardsuit
-	name = "Boxed Elite Syndicate Hardsuit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi/elite, /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite)
-	max_w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/box/syndie_kit/elite_hardsuit/New()
-	..()
-	new /obj/item/clothing/suit/space/hardsuit/syndi/elite(src)
-	new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite(src)
-
-/obj/item/storage/box/syndie_kit/shielded_hardsuit
-	name = "Boxed Shielded Syndicate Hardsuit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/shielded/syndi, /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi)
-	max_w_class = WEIGHT_CLASS_BULKY
-
-/obj/item/storage/box/syndie_kit/shielded_hardsuit/New()
-	..()
-	new /obj/item/clothing/suit/space/hardsuit/shielded/syndi(src)
-	new /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi(src)
 
 /obj/item/storage/box/syndie_kit/conversion
 	name = "box (CK)"
