@@ -179,7 +179,7 @@
 				return 
 		
 		to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
-		playsound(src.loc, C.usesound, 50, 1)
+		playsound(loc, C.usesound, 50, 1)
 
 		if(do_after(user, 50, target = src))
 			if(!terminal && panel_open)
