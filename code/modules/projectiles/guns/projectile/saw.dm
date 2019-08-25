@@ -57,8 +57,8 @@
 			if(!cover_open)
 				to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
 				return
-	else
-		return ..()
+			else
+				return ..()
 
 //ammo//
 
