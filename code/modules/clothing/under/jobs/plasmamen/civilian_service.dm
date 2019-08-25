@@ -84,3 +84,24 @@
 			H.ExtinguishMob()
 			new /obj/effect/particle_effect/foam(loc) //Truely terrifying.
 	return FALSE
+
+/obj/item/clothing/under/plasmaman/hop
+	name = "head of personnel envirosuit"
+	desc = "An envirosuit designed for plasmamen employed as the head of personnel."
+	icon_state = "hop_envirosuit"
+	item_state = "hop_envirosuit"
+	item_color = "hop_envirosuit"
+
+/obj/item/clothing/under/plasmaman/captain
+	name = "captain envirosuit"
+	desc = "An envirosuit designed for plasmamen employed as the captain."
+	icon_state = "cap_envirosuit"
+	item_state = "cap_envirosuit"
+	item_color = "cap_envirosuit"
+
+/obj/item/clothing/under/plasmaman/blueshield
+	name = "blueshield envirosuit"
+	desc = "An envirosuit designed for plasmamen employed as the blueshield."
+	icon_state = "bs_envirosuit"
+	item_state = "bs_envirosuit"
+	item_color = "bs_envirosuit"

@@ -5,12 +5,26 @@
 	item_state = "doctor_envirosuit"
 	item_color = "doctor_envirosuit"
 
+/obj/item/clothing/under/plasmaman/cmo
+	name = "cmo plasma envirosuit"
+	desc = "A suit designed for the station's more plasma-based chief medical officer."
+	icon_state = "cmo_envirosuit"
+	item_state = "cmo_envirosuit"
+	item_color = "cmo_envirosuit"
+
 /obj/item/clothing/under/plasmaman/science
 	name = "science plasma envirosuit"
 	desc = "A plasmaman envirosuit designed for scientists."
 	icon_state = "scientist_envirosuit"
 	item_state = "scientist_envirosuit"
 	item_color = "scientist_envirosuit"
+
+/obj/item/clothing/under/plasmaman/rd
+	name = "science plasma envirosuit"
+	desc = "A plasmaman envirosuit designed for the research director."
+	icon_state = "rd_envirosuit"
+	item_state = "rd_envirosuit"
+	item_color = "rd_envirosuit"
 
 /obj/item/clothing/under/plasmaman/robotics
 	name = "robotics plasma envirosuit"

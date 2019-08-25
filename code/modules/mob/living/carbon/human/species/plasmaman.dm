@@ -62,13 +62,13 @@
 		if("Botanist")
 			O = new /datum/outfit/plasmaman/botany
 
-		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer", "Head of Personnel", "Captain", "Blueshield")
+		if("Bartender", "Internal Affairs Agent", "Magistrate", "Nanotrasen Representative", "Nanotrasen Navy Officer")
 			O = new /datum/outfit/plasmaman/bar
 
 		if("Chef")
 			O = new /datum/outfit/plasmaman/chef
 
-		if("Security Officer", "Security Pod Pilot", "Head of Security", "Special Operations Officer")
+		if("Security Officer", "Security Pod Pilot", "Special Operations Officer")
 			O = new /datum/outfit/plasmaman/security
 
 		if("Detective")
@@ -77,14 +77,20 @@
 		if("Warden")
 			O = new /datum/outfit/plasmaman/warden
 
+		if("Head of Security")
+			O = new /datum/outfit/plasmaman/hos
+
 		if("Cargo Technician", "Quartermaster")
 			O = new /datum/outfit/plasmaman/cargo
 
 		if("Shaft Miner")
 			O = new /datum/outfit/plasmaman/mining
 
-		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner", "Chief Medical Officer")
+		if("Medical Doctor", "Brig Physician", "Paramedic", "Coroner")
 			O = new /datum/outfit/plasmaman/medical
+
+		if("Chief Medical Officer")
+			O = new /datum/outfit/plasmaman/cmo
 
 		if("Chemist")
 			O = new /datum/outfit/plasmaman/chemist
@@ -98,11 +104,17 @@
 		if("Virologist")
 			O = new /datum/outfit/plasmaman/viro
 
-		if("Scientist", "Research Director")
+		if("Scientist")
 			O = new /datum/outfit/plasmaman/science
 
-		if("Station Engineer", "Mechanic", "Chief Engineer")
+		if("Research Director")
+			O = new /datum/outfit/plasmaman/rd
+
+		if("Station Engineer", "Mechanic")
 			O = new /datum/outfit/plasmaman/engineering
+
+		if("Chief Engineer")
+			O = new /datum/outfit/plasmaman/ce
 
 		if("Atmospheric Technician")
 			O = new /datum/outfit/plasmaman/atmospherics
@@ -112,6 +124,15 @@
 
 		if("Clown")
 			O = new /datum/outfit/plasmaman/clown
+
+		if("Head of Personnel")
+			O = new /datum/outfit/plasmaman/hop
+
+		if("Captain")
+			O = new /datum/outfit/plasmaman/captain
+
+		if("Blueshield")
+			O = new /datum/outfit/plasmaman/blueshield
 
 	H.equipOutfit(O, visualsOnly)
 	H.internal = H.r_hand
