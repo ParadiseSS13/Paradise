@@ -4,6 +4,7 @@
 	desc = "A helmet worn by members of the Nanotrasen Emergency Response Team. Armoured and space ready."
 	icon_state = "hardsuit0-ert_commander"
 	item_state = "helm-command"
+	item_color = "ert_commander"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
@@ -197,7 +198,6 @@
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	sprite_sheets = null
-	actions_types = list()
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/New()

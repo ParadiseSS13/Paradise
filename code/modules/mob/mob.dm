@@ -193,10 +193,7 @@
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
-		if(istype(W, /obj/item/clothing))
-			equip_to_slot_if_possible(W, slot)
-		else
-			equip_to_slot_if_possible(W, slot)
+		equip_to_slot_if_possible(W, slot)
 	else if(!restrained())
 		W = get_item_by_slot(slot)
 		if(W)
