@@ -41,7 +41,7 @@
 	var/inject_target = pick("chest","head")
 	L.attack_animal(src)
 	if(L.stunned || L.paralysis || L.can_inject(null, 0, inject_target, 0))
-		if(!IsTSInfected(L))
+		if(!IsTSInfected(L) && ishuman(L))
 			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
 			if(!ckey)
