@@ -460,6 +460,12 @@
 	desc = "Here's your chance, do your dance at the Space Jam."
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
 
+/obj/item/beach_ball/holoball/baseball
+	icon_state = "baseball"
+	name = "baseball"
+	item_state = "baseball"
+	desc = "Take me out to the ball game."
+
 /obj/structure/holohoop
 	name = "basketball hoop"
 	desc = "Boom, Shakalaka!"

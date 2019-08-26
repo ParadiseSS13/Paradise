@@ -16,6 +16,7 @@
 	icon_state = "ash"
 	anchored = TRUE
 	scoop_reagents = list("ash" = 10)
+	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
@@ -97,7 +98,8 @@
 	gender = NEUTER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
-
+	mergeable_decal = FALSE
+	
 /obj/effect/decal/cleanable/molten_object/large
 	name = "big gooey grey mass"
 	icon_state = "big_molten"

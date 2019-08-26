@@ -1,0 +1,13 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Plasmamen dramatically overhauled."
+  - rscadd: "Plasmamen can be cloned without burning to death in the clonepod"
+  - rscdel: "Plasmamen no longer start with spacesuits"
+  - rscadd: "Plasmamen start off with jumpsuits that seal to protect against oxygen. This allows for you to customize their appearance more"
+  - tweak: "Plasmamen helmets now allow you to see a Plasmaman's actual face; should be able to see their eye color and mouth color now"
+  - tweak: "Plasmamen take 50% extra brute and burn"
+  - rscadd: "Plasmamen are immune to radiation"
+  - tweak: "Plasmamen start out with a small tank that can fit on a belt or in a pocket; it should be enough to last an entire shift"
+  - rscadd: "Plasmaman helmets now have built in welding goggles"
+  - tweak: "Plasmaman karma cost lowered from 100 to 45"

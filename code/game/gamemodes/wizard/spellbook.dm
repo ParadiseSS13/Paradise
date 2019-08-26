@@ -446,7 +446,6 @@
 	if(.)
 		new /obj/item/clothing/shoes/magboots/wizard(get_turf(user))
 		new /obj/item/clothing/gloves/color/purple(get_turf(user)) // To complete the outfit
-		new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(user))
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
@@ -934,7 +933,7 @@
 	if(istype(user, /mob/living/carbon/human))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP		//curses!
+		magichead.flags |= NODROP | DROPDEL	//curses!
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = 1	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))

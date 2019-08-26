@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - bugfix: "Symptoms are now correctly generated for level 7 biohazards"
