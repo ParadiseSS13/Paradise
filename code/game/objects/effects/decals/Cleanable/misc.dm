@@ -31,8 +31,8 @@
 	smooth = SMOOTH_MORE
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize()
-	..()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
+	. = ..()
 	icon_state = ""
 
 /obj/effect/decal/cleanable/dirt/blackpowder
@@ -56,7 +56,7 @@
 	desc = "It's foam."
 	color = "#EBEBEB"
 
-/obj/effect/decal/cleanable/flour/foam/Initialize()
+/obj/effect/decal/cleanable/flour/foam/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 15 SECONDS)
 
@@ -99,7 +99,7 @@
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
 	mergeable_decal = FALSE
-	
+
 /obj/effect/decal/cleanable/molten_object/large
 	name = "big gooey grey mass"
 	icon_state = "big_molten"

@@ -33,7 +33,7 @@ var/global/list/image/splatter_cache = list()
 	return ..()
 
 
-/obj/effect/decal/cleanable/blood/Initialize()
+/obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
 	update_icon()
 	if(GAMEMODE_IS_CULT)
@@ -137,7 +137,7 @@ var/global/list/image/splatter_cache = list()
 	amount = 0
 	var/message
 
-/obj/effect/decal/cleanable/blood/writing/Initialize()
+/obj/effect/decal/cleanable/blood/writing/Initialize(mapload)
 	. = ..()
 	if(random_icon_states.len)
 		for(var/obj/effect/decal/cleanable/blood/writing/W in loc)
@@ -210,7 +210,7 @@ var/global/list/image/splatter_cache = list()
 			break
 
 
-/obj/effect/decal/cleanable/blood/old/Initialize()
+/obj/effect/decal/cleanable/blood/old/Initialize(mapload)
 	. = ..()
 	bloodiness = 0
 	dry()
@@ -218,7 +218,7 @@ var/global/list/image/splatter_cache = list()
 /obj/effect/decal/cleanable/blood/old/can_bloodcrawl_in()
 	return FALSE
 
-/obj/effect/decal/cleanable/blood/gibs/old/Initialize()
+/obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload)
 	. = ..()
 	bloodiness = 0
 	dry()
