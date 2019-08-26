@@ -48,38 +48,38 @@
 		return
 
 	if(!on)
-		turn_on()
+		turn_on(user)
 		to_chat(user, "<span class='notice'>You turn the jetpack on.</span>")
 	else
-		turn_off()
+		turn_off(user)
 		to_chat(user, "<span class='notice'>You turn the jetpack off.</span>")
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
 
-/obj/item/tank/jetpack/proc/turn_on()
+/obj/item/tank/jetpack/proc/turn_on(mob/user)
 	on = TRUE
 	icon_state = "[initial(icon_state)]-on"
 	ion_trail.start()
 
-/obj/item/tank/jetpack/proc/turn_off()
+/obj/item/tank/jetpack/proc/turn_off(mob/user)
 	on = FALSE
 	stabilizers = FALSE
 	icon_state = initial(icon_state)
 	ion_trail.stop()
 
 
-/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user as mob)
+/obj/item/tank/jetpack/proc/allow_thrust(num, mob/living/user)
 	if(!on)
 		return 0
 	if((num < 0.005 || air_contents.total_moles() < num))
-		turn_off()
+		turn_off(user)
 		return 0
 
 	var/datum/gas_mixture/removed = air_contents.remove(num)
 	if(removed.total_moles() < 0.005)
-		turn_off()
+		turn_off(user)
 		return 0
 
 	var/turf/T = get_turf(user)
@@ -163,15 +163,65 @@
 		to_chat(user, "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>")
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
-/obj/item/tank/jetpack/carbondioxide/mining
-	name = "mining jetpack"
+/obj/item/tank/jetpack/suit
+	name = "hardsuit jetpack upgrade"
+	desc = "A modular, compact set of thrusters designed to integrate with a hardsuit. It is fueled by a tank inserted into the suit's storage compartment."
 	icon_state = "jetpack-mining"
-	item_state = "jetpack-mining"
+	item_state = "jetpack-black"
 	origin_tech = "materials=4;magnets=4;engineering=5"
-	desc = "A tank of compressed carbon dioxide for miners to use as propulsion in local space. The compact size allows for easy storage at the cost of capacity."
-	volume = 40
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL //same as syndie harness
+	w_class = WEIGHT_CLASS_NORMAL
+	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
+	volume = 1
+	slot_flags = null
+	var/datum/gas_mixture/temp_air_contents
+	var/obj/item/tank/tank = null
+	var/mob/living/carbon/human/cur_user
+
+/obj/item/tank/jetpack/suit/New()
+	..()
+	STOP_PROCESSING(SSobj, src)
+	temp_air_contents = air_contents
+
+/obj/item/tank/jetpack/suit/attack_self()
+	return
+
+/obj/item/tank/jetpack/suit/cycle(mob/user)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit))
+		to_chat(user, "<span class='warning'>[src] must be connected to a hardsuit!</span>")
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!istype(H.s_store, /obj/item/tank))
+		to_chat(user, "<span class='warning'>You need a tank in your suit storage!</span>")
+		return
+	..()
+
+/obj/item/tank/jetpack/suit/turn_on(mob/user)
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc) || loc.loc != user)
+		return
+	var/mob/living/carbon/human/H = user
+	tank = H.s_store
+	air_contents = tank.air_contents
+	START_PROCESSING(SSobj, src)
+	cur_user = user
+	..()
+
+/obj/item/tank/jetpack/suit/turn_off(mob/user)
+	tank = null
+	air_contents = temp_air_contents
+	STOP_PROCESSING(SSobj, src)
+	cur_user = null
+	..()
+
+/obj/item/tank/jetpack/suit/process()
+	if(!istype(loc, /obj/item/clothing/suit/space/hardsuit) || !ishuman(loc.loc))
+		turn_off(cur_user)
+		return
+	var/mob/living/carbon/human/H = loc.loc
+	if(!tank || tank != H.s_store)
+		turn_off(cur_user)
+		return
+	..()
 
 /obj/item/tank/jetpack/rig
 	name = "jetpack"
@@ -182,7 +232,7 @@
 	to_chat(usr, "It's a jetpack. If you can see this, report it on the bug tracker.")
 	return 0
 
-/obj/item/tank/jetpack/rig/allow_thrust(num, mob/living/user as mob)
+/obj/item/tank/jetpack/rig/allow_thrust(num, mob/living/user)
 	if(!on)
 		return 0
 
@@ -191,7 +241,7 @@
 
 	var/datum/gas_mixture/removed = holder.air_supply.air_contents.remove(num)
 	if(removed.total_moles() < 0.005)
-		turn_off()
+		turn_off(user)
 		return 0
 
 	var/turf/T = get_turf(user)
