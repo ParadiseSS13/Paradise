@@ -1,4 +1,5 @@
 /datum/gear/donor
+	donator_tier = 2
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
 
@@ -29,10 +30,6 @@
 /datum/gear/donor/green
 	display_name = "Spiky Green-tinted Shades"
 	path = /obj/item/clothing/glasses/fluff/kamina/green
-
-/datum/gear/donor/hipster
-	display_name = "Hipster Glasses"
-	path = /obj/item/clothing/glasses/regular/hipster
 
 /datum/gear/donor/threedglasses
 	display_name = "Threed Glasses"
