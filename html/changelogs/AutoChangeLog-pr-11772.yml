@@ -1,0 +1,6 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "Rechargers can now be crafted from science using one capacitor and a recharger board
+tweak:Smaller machines like microwaves and cell chargers can now be placed on tables(Fax machines included)
+tweak:can screwdriver open rechargers and then apply a crowbar to deconstruct them"

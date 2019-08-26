@@ -37,6 +37,7 @@ Difficulty: Medium
 	ranged = 1
 	ranged_cooldown_time = 16
 	pixel_x = -16
+	crusher_loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator, /obj/item/crusher_trophy/miner_eye)
 	loot = list(/obj/item/melee/energy/cleaving_saw, /obj/item/gun/energy/kinetic_accelerator)
 	wander = FALSE
 	del_on_death = TRUE
@@ -48,7 +49,7 @@ Difficulty: Medium
 	var/guidance = FALSE
 	deathmessage = "falls to the ground, decaying into glowing particles."
 	death_sound = "bodyfall"
-    
+
 /obj/item/gps/internal/miner
 	icon_state = null
 	gpstag = "Resonant Signal"

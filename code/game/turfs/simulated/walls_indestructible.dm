@@ -70,3 +70,7 @@
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
 	icon_state = "hierophant"
 	smooth = SMOOTH_TRUE
+
+/turf/simulated/wall/indestructible/uranium
+	icon = 'icons/turf/walls/uranium_wall.dmi'
+	icon_state = "uranium"

@@ -93,6 +93,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
+	var/afk_watch = FALSE  				// If the player wants to be kept track of by the AFK system
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -200,6 +201,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	//Gear stuff
 	var/list/gear = list()
 	var/gear_tab = "General"
+	// Parallax
+	var/parallax = PARALLAX_HIGH
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -439,6 +442,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(afk_watch) ? "Yes" : "No"]</a><br>"
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
 			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
@@ -460,6 +464,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
+			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
+			switch (parallax)
+				if(PARALLAX_LOW)
+					dat += "Low"
+				if(PARALLAX_MED)
+					dat += "Medium"
+				if(PARALLAX_INSANE)
+					dat += "Insane"
+				if(PARALLAX_DISABLE)
+					dat += "Disabled"
+				else
+					dat += "High"
+			dat += "</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
@@ -1261,7 +1278,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -1977,6 +1994,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("winflash")
 					windowflashing = !windowflashing
 
+				if("afk_watch")
+					afk_watch = !afk_watch
+
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
 					if(!UI_style_color_new) return
@@ -2067,6 +2087,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
+
 				if("ambientocclusion")
 					toggles ^= AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
@@ -2074,6 +2095,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						PM.filters -= FILTER_AMBIENT_OCCLUSION
 						if(toggles & AMBIENT_OCCLUSION)
 							PM.filters += FILTER_AMBIENT_OCCLUSION
+
+				if("parallax")
+					var/parallax_styles = list(
+						"Off" = PARALLAX_DISABLE,
+						"Low" = PARALLAX_LOW,
+						"Medium" = PARALLAX_MED,
+						"High" = PARALLAX_HIGH,
+						"Insane" = PARALLAX_INSANE
+					)
+					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]	
+					if(parent && parent.mob && parent.mob.hud_used)
+						parent.mob.hud_used.update_parallax_pref()
+
 
 	ShowChoices(user)
 	return 1

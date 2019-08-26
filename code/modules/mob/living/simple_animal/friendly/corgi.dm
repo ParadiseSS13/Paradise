@@ -165,7 +165,7 @@
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/armor/vest/blueshield,
 						/obj/item/clothing/suit/space/deathsquad,
-						/obj/item/clothing/suit/space/hardsuit/engineering,
+						/obj/item/clothing/suit/space/hardsuit/engine,
 						/obj/item/radio,
 						/obj/item/radio/off,
 						/obj/item/clothing/suit/cardborg,
@@ -356,7 +356,7 @@
 				desc = "That's not red paint. That's real corgi blood."
 				valid = 1
 
-			if(/obj/item/clothing/head/helmet/space/hardsuit/engineering)
+			if(/obj/item/clothing/suit/space/hardsuit/engine)
 				name = "Space Explorer [real_name]"
 				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
