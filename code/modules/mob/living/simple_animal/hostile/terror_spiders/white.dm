@@ -64,7 +64,7 @@
 
 /obj/structure/spider/terrorweb/white/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
-		if(!IsTSInfected(C))
+		if(!IsTSInfected(C) && ishuman(C))
 			var/inject_target = pick("chest","head")
 			if(C.can_inject(null, 0, inject_target, 0))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
