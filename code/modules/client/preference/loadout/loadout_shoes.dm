@@ -28,23 +28,23 @@
 /datum/gear/shoes/cowboyboots
 	display_name = "cowboy boots, brown"
 	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots
+	path = /obj/item/clothing/shoes/cowboy
 
 /datum/gear/shoes/cowboyboots_black
 	display_name = "cowboy boots, black"
 	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots/black
+	path = /obj/item/clothing/shoes/cowboy/black
 
 /datum/gear/shoes/cowboyboots/white
 	display_name = "cowboy boots, white"
 	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots/white
+	path = /obj/item/clothing/shoes/cowboy/white
 
 /datum/gear/shoes/cowboyboots/pink
 	display_name = "cowboy boots, pink"
 	cost = 1
-	path = /obj/item/clothing/shoes/cowboyboots/pink
-	
+	path = /obj/item/clothing/shoes/cowboy/pink
+
 /datum/gear/shoes/laceup
 	display_name = "laceup shoes"
 	cost = 1

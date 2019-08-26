@@ -265,9 +265,11 @@
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/sunglasses/fake
+/obj/item/clothing/glasses/sunglasses_fake
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	name = "cheap sunglasses"
+	icon_state = "sun"
+	item_state = "sunglasses"
 	see_in_dark = 0
 	flash_protect = 0
 	tint = 0

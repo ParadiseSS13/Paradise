@@ -29,4 +29,4 @@
 
 /datum/gear/sunglasses
 	display_name = "cheap sunglasses"
-	path = /obj/item/clothing/glasses/sunglasses/fake
+	path = /obj/item/clothing/glasses/sunglasses_fake

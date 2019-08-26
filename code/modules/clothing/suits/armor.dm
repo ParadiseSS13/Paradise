@@ -209,6 +209,15 @@
 	allowed = list(/obj/item/nullrod/claymore)
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0)
 
+/obj/item/clothing/suit/armor/vest/durathread
+	name = "durathread vest"
+	desc = "A vest made of durathread with strips of leather acting as trauma plates."
+	icon_state = "durathread"
+	item_state = "durathread"
+	strip_delay = 60
+	burn_state = FLAMMABLE
+	armor = list(melee = 20, bullet = 10, laser = 30, energy = 5, bomb = 15, bio = 0, rad = 0)
+
 /obj/item/clothing/suit/armor/bulletproof
 	name = "Bulletproof Vest"
 	desc = "A bulletproof vest that excels in protecting the wearer against traditional projectile weaponry and explosives to a minor extent."
@@ -529,13 +538,3 @@
 	blood_overlay_type = "armor"
 	armor = list(melee = 35, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
-
-/obj/item/clothing/head/helmet/skull
-	name = "skull helmet"
-	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 10, bio = 5, rad = 20)
-	icon_state = "skull"
-	item_state = "skull"
-	strip_delay = 100

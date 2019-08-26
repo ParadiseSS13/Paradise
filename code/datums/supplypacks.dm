@@ -1173,6 +1173,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
 	contains = list(/obj/item/seeds/chili,
+					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
 					/obj/item/seeds/eggplant,
