@@ -116,7 +116,7 @@
 		if("Chief Engineer")
 			O = new /datum/outfit/plasmaman/ce
 
-		if("Atmospheric Technician")
+		if("Life Support Specialist")
 			O = new /datum/outfit/plasmaman/atmospherics
 
 		if("Mime")
