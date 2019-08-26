@@ -44,7 +44,7 @@ var/global/list/image/fluidtrack_cache = list()
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
-			if (!(entered_dirs & H.dir))
+			if(!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
 				update_icon()
 		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet //This will need to be changed.
@@ -52,7 +52,7 @@ var/global/list/image/fluidtrack_cache = list()
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
-			if (!(entered_dirs & H.dir))
+			if(!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
 				update_icon()
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
@@ -70,7 +70,7 @@ var/global/list/image/fluidtrack_cache = list()
 			if(!S.blood_DNA)
 				S.blood_DNA = list()
 			S.blood_DNA |= blood_DNA.Copy()
-			if (!(exited_dirs & H.dir))
+			if(!(exited_dirs & H.dir))
 				exited_dirs |= H.dir
 				update_icon()
 		else if(hasfeet && H.bloody_feet[blood_state] && H.feet_blood_color == basecolor)//Or feet
@@ -78,7 +78,7 @@ var/global/list/image/fluidtrack_cache = list()
 			if(!H.feet_blood_DNA)
 				H.feet_blood_DNA = list()
 			H.feet_blood_DNA |= blood_DNA.Copy()
-			if (!(exited_dirs & H.dir))
+			if(!(exited_dirs & H.dir))
 				exited_dirs |= H.dir
 				update_icon()
 

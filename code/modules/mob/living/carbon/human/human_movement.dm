@@ -63,7 +63,7 @@
 			else
 				//No oldFP or it's a different kind of blood
 				S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
-				if (S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
+				if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
 					createFootprintsFrom(shoes, dir, T)
 				update_inv_shoes()
 	else if(hasfeet)
@@ -73,7 +73,7 @@
 				return
 			else
 				bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
-				if (bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
+				if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 					createFootprintsFrom(src, dir, T)
 				update_inv_shoes()
 	//End bloody footprints

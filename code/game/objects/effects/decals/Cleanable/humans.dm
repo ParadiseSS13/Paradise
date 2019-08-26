@@ -27,8 +27,8 @@ var/global/list/image/splatter_cache = list()
 /obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
 	if(C.blood_DNA)
 		blood_DNA |= C.blood_DNA.Copy()
-	if (bloodiness)
-		if (C.bloodiness < MAX_SHOE_BLOODINESS)
+	if(bloodiness)
+		if(C.bloodiness < MAX_SHOE_BLOODINESS)
 			C.bloodiness += bloodiness
 	return ..()
 
