@@ -1,5 +1,4 @@
 /datum/gear/donor
-	donator_tier = 2
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
 
@@ -18,12 +17,10 @@
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
 	path = /obj/item/clothing/suit/furcape
-	cost = 2
 
 /datum/gear/donor/furcoat
 	display_name = "Fur Coat"
 	path = /obj/item/clothing/suit/furcoat
-	cost = 2
 
 /datum/gear/donor/kamina
 	display_name = "Spiky Orange-tinted Shades"
