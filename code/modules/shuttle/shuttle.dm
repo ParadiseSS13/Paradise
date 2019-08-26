@@ -189,7 +189,7 @@
 /obj/docking_port/stationary/transit
 	name = "In transit"
 	turf_type = /turf/space/transit
-
+	var/area/shuttle/transit/assigned_area
 	lock_shuttle_doors = 1
 
 /obj/docking_port/stationary/transit/register()
@@ -210,8 +210,10 @@
 	var/list/shuttle_areas
 
 	var/timer						//used as a timer (if you want time left to complete move, use timeLeft proc)
+	var/last_timer_length
 	var/mode = SHUTTLE_IDLE			//current shuttle mode (see global defines)
 	var/callTime = 50				//time spent in transit (deciseconds)
+	var/ignitionTime = 30			// time spent "starting the engines". Also rate limits how often we try to reserve transit space if its ever full of transiting shuttles.
 	var/roundstart_move				//id of port to send shuttle to at roundstart
 	var/travelDir = 0				//direction the shuttle would travel in
 	var/rebuildable = 0				//can build new shuttle consoles for this one
@@ -325,30 +327,29 @@
 	switch(mode)
 		if(SHUTTLE_CALL)
 			if(S == destination)
-				if(world.time <= timer)
-					timer = world.time
+				if(timeLeft(1) < callTime)
+					setTimer(callTime)
 			else
 				destination = S
-				timer = world.time
+				setTimer(callTime)
 		if(SHUTTLE_RECALL)
 			if(S == destination)
-				timer = world.time - timeLeft(1)
+				setTimer(callTime - timeLeft(1))
 			else
 				destination = S
-				timer = world.time
+				setTimer(callTime)
 			mode = SHUTTLE_CALL
-		else
+		if(SHUTTLE_IDLE, SHUTTLE_IGNITING)
 			destination = S
-			mode = SHUTTLE_CALL
-			timer = world.time
-			enterTransit()		//hyperspace
+			mode = SHUTTLE_IGNITING
+			setTimer(ignitionTime)
 
 //recall the shuttle to where it was previously
 /obj/docking_port/mobile/proc/cancel()
 	if(mode != SHUTTLE_CALL)
 		return
 
-	timer = world.time - timeLeft(1)
+	invertTimer()
 	mode = SHUTTLE_RECALL
 
 /obj/docking_port/mobile/proc/enterTransit()
@@ -358,7 +359,7 @@
 	var/obj/docking_port/stationary/S0 = get_docked()
 	var/obj/docking_port/stationary/S1 = findTransitDock()
 	if(S1)
-		if(dock(S1))
+		if(dock(S1, , TRUE))
 			WARNING("shuttle \"[id]\" could not enter transit space. Docked at [S0 ? S0.id : "null"]. Transit dock [S1 ? S1.id : "null"].")
 		else
 			previous = S0
@@ -429,7 +430,7 @@
 
 //this is the main proc. It instantly moves our mobile port to stationary port S1
 //it handles all the generic behaviour, such as sanity checks, closing doors on the shuttle, stunning mobs, etc
-/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE)
+/obj/docking_port/mobile/proc/dock(obj/docking_port/stationary/S1, force=FALSE, transit=FALSE)
 	// Crashing this ship with NO SURVIVORS
 	if(S1.get_docked() == src)
 		remove_ripples()
@@ -492,6 +493,7 @@
 			var/turf/simulated/Ts1 = T1
 			Ts1.copy_air_with_tile(T0)
 
+		areaInstance.moving = TRUE
 		//move mobile to new location
 		for(var/atom/movable/AM in T0)
 			AM.onShuttleMove(T0, T1, rotation)
@@ -503,7 +505,7 @@
 		SSair.remove_from_active(T1)
 		T1.CalculateAdjacentTurfs()
 		SSair.add_to_active(T1,1)
-		
+
 		T1.lighting_build_overlay()
 
 		T0.ChangeTurf(turf_type)
@@ -512,6 +514,7 @@
 		T0.CalculateAdjacentTurfs()
 		SSair.add_to_active(T0,1)
 
+	areaInstance.moving = transit
 	for(var/A1 in L1)
 		var/turf/T1 = A1
 		T1.postDock(S1)
@@ -630,6 +633,11 @@
 				if(dock(previous))
 					setTimer(20)	//can't dock for some reason, try again in 2 seconds
 					return
+			if(SHUTTLE_IGNITING)
+				mode = SHUTTLE_CALL
+				setTimer(callTime)
+				enterTransit()
+				return
 		mode = SHUTTLE_IDLE
 		timer = 0
 		destination = null
@@ -642,9 +650,24 @@
 				create_ripples(destination)
 
 /obj/docking_port/mobile/proc/setTimer(wait)
-	if(timer <= 0)
-		timer = world.time
-	timer += wait - timeLeft(1)
+	timer = world.time + wait
+	last_timer_length = wait
+
+/obj/docking_port/mobile/proc/modTimer(multiple)
+	var/time_remaining = timer - world.time
+	if(time_remaining < 0 || !last_timer_length)
+		return
+	time_remaining *= multiple
+	last_timer_length *= multiple
+	setTimer(time_remaining)
+
+/obj/docking_port/mobile/proc/invertTimer()
+	if(!last_timer_length)
+		return
+	var/time_remaining = timer - world.time
+	if(time_remaining > 0)
+		var/time_passed = last_timer_length - time_remaining
+		setTimer(time_passed)
 
 //returns timeLeft
 /obj/docking_port/mobile/proc/timeLeft(divisor)
@@ -787,7 +810,7 @@
 			return
 		switch(SSshuttle.moveShuttle(shuttleId, href_list["move"], 1))
 			if(0)
-				to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+				atom_say("Shuttle departing! Please stand away from the doors.")
 			if(1)
 				to_chat(usr, "<span class='warning'>Invalid shuttle requested.</span>")
 			else
@@ -836,20 +859,6 @@
 	shuttleId = "whiteship"
 	possible_destinations = "whiteship_away;whiteship_home;whiteship_z4"
 
-/obj/machinery/computer/shuttle/golem_ship
-	name = "Golem Ship Console"
-	desc = "Used to control the Golem Ship."
-	circuit = /obj/item/circuitboard/golem_ship
-	shuttleId = "freegolem"
-	possible_destinations = "freegolem_z3;freegolem_z5;freegolem_z1;freegolem_z6"
-	resistance_flags = INDESTRUCTIBLE
-
-/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
-	if(!isgolem(user))
-		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
-		return
-	..()
-
 /obj/machinery/computer/shuttle/engineering
 	name = "Engineering Shuttle Console"
 	desc = "Used to call and send the engineering shuttle."
@@ -892,6 +901,25 @@
 	req_access = list(access_trade_sol)
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
+
+/obj/machinery/computer/shuttle/golem_ship
+	name = "Golem Ship Console"
+	desc = "Used to control the Golem Ship."
+	circuit = /obj/item/circuitboard/shuttle/golem_ship
+	shuttleId = "freegolem"
+	possible_destinations = "freegolem_lavaland;freegolem_z5;freegolem_z4;freegolem_z6"
+
+/obj/machinery/computer/shuttle/golem_ship/attack_hand(mob/user)
+	if(!isgolem(user) && !isobserver(user))
+		to_chat(user, "<span class='notice'>The console is unresponsive. Seems only golems can use it.</span>")
+		return
+	..()
+
+/obj/machinery/computer/shuttle/golem_ship/recall
+	name = "golem ship recall terminal"
+	desc = "Used to recall the Golem Ship."
+	possible_destinations = "freegolem_lavaland"
+	resistance_flags = INDESTRUCTIBLE
 
 //#undef DOCKING_PORT_HIGHLIGHT
 

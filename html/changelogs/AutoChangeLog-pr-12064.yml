@@ -1,0 +1,5 @@
+author: "Fox McCloud and FullOfSkittles"
+delete-after: True
+changes: 
+  - tweak: "Tweaks the gummy worm, gummy bear, jeallybean, toffee, and bacon sprites"
+  - bugfix: "Fixes telebacon not properly acting as...well, a bacon beacon"
