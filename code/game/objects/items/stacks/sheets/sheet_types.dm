@@ -218,6 +218,7 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("rag", /obj/item/reagent_containers/glass/rag, 1), \
 	new/datum/stack_recipe("bedsheet", /obj/item/bedsheet, 3), \
+	new/datum/stack_recipe("empty sandbag", /obj/item/emptysandbag, 4), \
 	null, \
 	new/datum/stack_recipe("fingerless gloves", /obj/item/clothing/gloves/fingerless, 1), \
 	new/datum/stack_recipe("black gloves", /obj/item/clothing/gloves/color/black, 3), \
