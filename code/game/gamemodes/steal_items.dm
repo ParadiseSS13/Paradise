@@ -37,15 +37,15 @@
 	typepath = /obj/item/tank/jetpack/oxygen/captain
 	protected_jobs = list("Captain")
 
+/datum/theft_objective/captains_rapier
+	name = "the captain's rapier"
+	typepath = /obj/item/melee/rapier
+	protected_jobs = list("Captain")
+
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
 	typepath = /obj/item/gun/energy/gun/hos
 	protected_jobs = list("Head Of Security")
-
-/datum/theft_objective/bsrevolver
-	name = "the blueshield's advanced stun revolver"
-	typepath = /obj/item/gun/energy/gun/blueshield
-	protected_jobs = list("Blueshield")
 
 /datum/theft_objective/hand_tele
 	name = "a hand teleporter"
@@ -98,31 +98,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	name = "the medal of captaincy"
 	typepath = /obj/item/clothing/accessory/medal/gold/captain
 	protected_jobs = list("Captain")
-
-/datum/theft_objective/secmedal
-	name = "the robust security medal"
-	typepath = /obj/item/clothing/accessory/medal/security
-	protected_jobs = list("Head Of Security")
-
-/datum/theft_objective/medmedal
-	name = "magnificient medical medal"
-	typepath = /obj/item/clothing/accessory/medal/medical
-	protected_jobs = list("Chief Medical Officer")
-
-/datum/theft_objective/engmedal
-	name = "the excellent engineering medal"
-	typepath = /obj/item/clothing/accessory/medal/engineering
-	protected_jobs = list("Chief Engineer")
-
-/datum/theft_objective/scimedal
-	name = "the smart science medal"
-	typepath = /obj/item/clothing/accessory/medal/science
-	protected_jobs = list("Research Director")
-
-/datum/theft_objective/sermedal
-	name = "the superior service medal"
-	typepath = /obj/item/clothing/accessory/medal/service
-	protected_jobs = list("Head of Personnel")
 
 /datum/theft_objective/nukedisc
 	name = "the nuclear authentication disk"
