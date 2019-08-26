@@ -900,6 +900,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 10
 
+/datum/uplink_item/stealthy_weapons/false_briefcase
+	name = "False Bottomed Briefcase"
+	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
+	reference = "FBBC"
+	item = /obj/item/storage/briefcase/false_bottomed
+	cost = 3
+
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. You can also drop it underfoot to slip people."
