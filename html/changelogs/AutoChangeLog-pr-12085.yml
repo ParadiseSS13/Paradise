@@ -1,0 +1,5 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - rscdel: "Removed one of the high capacity tanks in hydroponics"
+  - rscadd: "Added a disk compartmentalizer to hydroponics"
