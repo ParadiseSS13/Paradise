@@ -444,7 +444,8 @@ BLIND     // can't see anything
 	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi'
+		"Vox" = 'icons/mob/species/vox/shoes.dmi',
+		"Drask" = 'icons/mob/species/drask/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
