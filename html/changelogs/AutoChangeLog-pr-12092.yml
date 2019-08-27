@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "loadout costs for most things cut from 2 to 1"
+  - rscadd: "Adds fingerless gloves, eyepatch, prescription glasses, black shoes, brown shoes, white shoes, and ian's shirt to the loadout"
+  - tweak: "moved hipster glasses from donator to general glasses"
