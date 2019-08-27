@@ -76,36 +76,36 @@
 /area/ruin/powered/snow_biodome)
 "aq" = (
 /turf/simulated/wall/mineral/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "ar" = (
 /obj/machinery/door/airlock/wood,
 /turf/simulated/floor/plating,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "as" = (
 /obj/structure/fans,
 /turf/simulated/wall/mineral/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "at" = (
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "au" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "av" = (
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aw" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "ax" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/beans,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "ay" = (
 /obj/structure/closet/crate/trashcart,
 /obj/item/trash/semki,
@@ -121,7 +121,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aB" = (
 /obj/structure/flora/rock/pile/icy,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -133,26 +133,26 @@
 "aD" = (
 /obj/machinery/door/airlock/wood,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aE" = (
 /obj/structure/extinguisher_cabinet,
 /turf/simulated/wall/mineral/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aF" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/h_chocolate,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aG" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aH" = (
 /mob/living/simple_animal/hostile/skeleton/eskimo,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aI" = (
 /obj/structure/flora/bush,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
@@ -165,18 +165,18 @@
 /obj/structure/table/wood,
 /obj/item/key/snowmobile,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aL" = (
 /obj/structure/displaycase/lavaland_winter,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aM" = (
 /turf/simulated/floor/carpet,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aN" = (
 /obj/structure/bed/dogbed,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "aO" = (
 /obj/machinery/door/airlock/multi_tile/glass,
 /obj/structure/fans/tiny,
@@ -194,6 +194,10 @@
 /obj/structure/flora/tree/pine/xmas,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
+"bi" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_cabin)
 "bl" = (
 /turf/simulated/floor/wood/cold,
 /area/ruin/powered/snow_biodome)
@@ -208,13 +212,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "bx" = (
 /obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "by" = (
 /obj/machinery/light{
 	dir = 8
@@ -224,7 +228,7 @@
 "bz" = (
 /obj/machinery/light,
 /turf/simulated/floor/wood,
-/area/ruin/powered/snow_biodome)
+/area/ruin/powered/snow_cabin)
 "bB" = (
 /obj/machinery/light{
 	dir = 4
@@ -288,6 +292,11 @@
 "tl" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/powered/snow_biodome)
+"vf" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_cabin)
 "xU" = (
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/pod/dark,
@@ -851,7 +860,7 @@ at
 at
 aH
 aM
-aO
+vf
 ap
 ak
 ak
@@ -883,7 +892,7 @@ aA
 aA
 at
 aM
-aP
+bi
 ak
 ak
 aQ

@@ -1153,6 +1153,13 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/noslip/lavaland,
 /area/ruin/powered/clownplanet)
+"VH" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/wall/r_wall,
+/area/ruin/powered/clownplanet)
 "Xm" = (
 /obj/item/clothing/head/cone,
 /obj/effect/mapping_helpers/no_lava,
@@ -1287,9 +1294,9 @@ cc
 ye
 ye
 ye
-ad
+ab
 aA
-ad
+ab
 aA
 ye
 cc
@@ -1320,8 +1327,8 @@ cc
 ye
 ye
 ab
-au
-aE
+ch
+VH
 aH
 ay
 aS
