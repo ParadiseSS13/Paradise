@@ -41,6 +41,7 @@
 #define SHUTTLE_STRANDED 4
 #define SHUTTLE_ESCAPE 5
 #define SHUTTLE_ENDGAME 6
+#define SHUTTLE_IGNITING 7
 
 // Shuttle return values
 #define SHUTTLE_CAN_DOCK "can_dock"

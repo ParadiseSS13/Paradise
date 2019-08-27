@@ -140,6 +140,8 @@
 		if(gun_light.on)
 			iconF = "flight_on"
 		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+	if(bayonet && can_bayonet)
+		overlays += knife_overlay
 	if(itemState)
 		itemState += "[ratio]"
 		item_state = itemState

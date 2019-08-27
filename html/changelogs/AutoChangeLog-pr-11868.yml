@@ -1,0 +1,6 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - bugfix: "You can no longer spam dismantle a SMES terminal and get 10 cable for every progress bar"
+  - bugfix: "The game will properly remove 10 cable from your stack after building a SMES terminal, instead of removing 0"
+  - rscadd: "A cable adding sound gets played when you add wires to create a terminal for a SMES"

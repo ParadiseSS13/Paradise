@@ -1,4 +1,0 @@
-author: "kazboo"
-delete-after: True
-changes: 
-  - bugfix: "adjusts the hierophant blast layer to make for it to always be below the effect. this should be the case already due to mouse_opacity, though for some unknown reason, it just doesn't work sometimes, so this should fix it."

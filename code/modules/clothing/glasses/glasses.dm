@@ -30,6 +30,21 @@
 			return
 	return ..()
 
+/obj/item/clothing/glasses/visor_toggling()
+	..()
+	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
+		vision_flags ^= initial(vision_flags)
+	if(visor_vars_to_toggle & VISOR_DARKNESSVIEW)
+		see_in_dark ^= initial(see_in_dark)
+	if(visor_vars_to_toggle & VISOR_INVISVIEW)
+		invis_view ^= initial(invis_view)
+
+/obj/item/clothing/glasses/weldingvisortoggle(mob/user)
+	. = ..()
+	if(. && user)
+		user.update_sight()
+		user.update_inv_glasses()
+
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
 	desc = "Used for seeing walls, floors, and stuff through anything."
@@ -43,7 +58,8 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/meson/night
@@ -91,7 +107,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
@@ -140,7 +157,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/monocle
@@ -196,7 +214,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/regular/hipster
@@ -213,7 +232,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/gglasses
@@ -224,7 +244,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 	prescription_upgradable = 1
 
@@ -324,40 +345,15 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = 2
 	tint = 2
-
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/welding/attack_self()
-	toggle()
-
-/obj/item/clothing/glasses/welding/proc/toggle()
-	if(up)
-		up = !up
-		flags_cover |= GLASSESCOVERSEYES
-		flags_inv |= HIDEEYES
-		icon_state = initial(icon_state)
-		to_chat(usr, "You flip the [src] down to protect your eyes.")
-		flash_protect = 2
-		tint = initial(tint) //better than istype
-	else
-		up = !up
-		flags_cover &= ~GLASSESCOVERSEYES
-		flags_inv &= ~HIDEEYES
-		icon_state = "[initial(icon_state)]up"
-		to_chat(usr, "You push the [src] up out of your face.")
-		flash_protect = 0
-		tint = 0
-	var/mob/living/carbon/user = usr
-	user.update_tint()
-	user.update_inv_glasses()
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+/obj/item/clothing/glasses/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/glasses/welding/superior
 	name = "superior welding goggles"
@@ -397,7 +393,8 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/thermal/emp_act(severity)
@@ -438,6 +435,7 @@
 	item_state = "eyepatch"
 	flags = NODROP
 
+
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"
 	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
@@ -449,6 +447,12 @@
 	flags = NODROP
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
@@ -475,7 +479,9 @@
 	tint = 0
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/tajblind/eng

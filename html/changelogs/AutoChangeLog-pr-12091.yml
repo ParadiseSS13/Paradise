@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes random singularity releases from the grid check event"

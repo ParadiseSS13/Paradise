@@ -1,0 +1,4 @@
+author: "Shadow-Quill"
+delete-after: True
+changes: 
+  - bugfix: "Fixed being able to talk in OOC under certain circumstances if it's disabled."

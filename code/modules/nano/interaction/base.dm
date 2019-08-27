@@ -24,6 +24,8 @@
 	return STATUS_UPDATE						// Ghosts can view updates
 
 /mob/living/silicon/ai/shared_nano_interaction()
+	if(apc_override)
+		return STATUS_INTERACTIVE
 	if(lacks_power())
 		return STATUS_CLOSE
 	if(check_unable(1, 0))

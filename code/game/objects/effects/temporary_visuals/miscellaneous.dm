@@ -140,6 +140,20 @@
 	..()
 	animate(src, alpha = 0, time = duration)
 
+/obj/effect/temp_visual/fire
+	icon = 'icons/goonstation/effects/fire.dmi'
+	icon_state = "3"
+	light_range = LIGHT_RANGE_FIRE
+	light_color = LIGHT_COLOR_FIRE
+	duration = 10
+	layer = MASSIVE_OBJ_LAYER
+	alpha = 250
+	blend_mode = BLEND_ADD
+
+/obj/effect/temp_visual/fire/New(loc)
+	color = heat2color(FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	..()
+
 /obj/effect/temp_visual/revenant
 	name = "spooky lights"
 	icon_state = "purplesparkles"

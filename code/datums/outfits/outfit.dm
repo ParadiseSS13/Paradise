@@ -19,13 +19,19 @@
 	var/suit_store = null
 	var/l_hand = null
 	var/r_hand = null
+	/// Should the toggle helmet proc be called on the helmet during equip
+	var/toggle_helmet = TRUE
 	var/pda = null
 	var/internals_slot = null //ID of slot containing a gas tank
 	var/list/backpack_contents = list() // In the list(path=count,otherpath=count) format
-	var/list/implants = null
-	var/list/cybernetic_implants = null
+	var/box // Internals box. Will be inserted at the start of backpack_contents
+	var/list/implants = list()
+	var/list/cybernetic_implants = list()
+	var/list/accessories = list()
 
 	var/list/chameleon_extras //extra types for chameleon outfit changes, mostly guns
+
+	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
 
 /datum/outfit/proc/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for customization depending on client prefs,species etc
@@ -82,11 +88,23 @@
 	if(pda)
 		equip_item(H, pda, slot_wear_pda)
 
+	if(uniform)
+		for(var/path in accessories)
+			var/obj/item/clothing/accessory/A = new path()
+			var/obj/item/clothing/under/U = uniform
+			U.attach_accessory(A, H)
+
 	if(!visualsOnly) // Items in pockets or backpack don't show up on mob's icon.
 		if(l_pocket)
 			equip_item(H, l_pocket, slot_l_store)
 		if(r_pocket)
 			equip_item(H, r_pocket, slot_r_store)
+
+		if(box)
+			if(!backpack_contents)
+				backpack_contents = list()
+			backpack_contents.Insert(1, box)
+			backpack_contents[box] = 1
 
 		for(var/path in backpack_contents)
 			var/number = backpack_contents[path]
@@ -96,6 +114,10 @@
 		for(var/path in cybernetic_implants)
 			var/obj/item/organ/internal/O = new path(H)
 			O.insert(H)
+
+	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
+		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
+		HS.ToggleHelmet()
 
 	post_equip(H, visualsOnly)
 
@@ -159,3 +181,97 @@
 	types += chameleon_extras
 	listclearnulls(types)
 	return types
+
+/datum/outfit/proc/save_to_file(mob/admin)
+	var/stored_data = get_json_data()
+	var/json = json_encode(stored_data)
+	// Kinda annoying but as far as I can tell you need to make actual file.
+	var/f = file("data/TempOutfitUpload")
+	fdel(f)
+	WRITE_FILE(f, json)
+	admin << ftp(f, "[name].json")
+
+/datum/outfit/proc/load_from(list/outfit_data)
+	// This could probably use more strict validation.
+	name = outfit_data["name"]
+	uniform = text2path(outfit_data["uniform"])
+	suit = text2path(outfit_data["suit"])
+	toggle_helmet = text2path(outfit_data["toggle_helmet"])
+	back = text2path(outfit_data["back"])
+	belt = text2path(outfit_data["belt"])
+	gloves = text2path(outfit_data["gloves"])
+	shoes = text2path(outfit_data["shoes"])
+	head = text2path(outfit_data["head"])
+	mask = text2path(outfit_data["mask"])
+	l_ear = text2path(outfit_data["l_ear"])
+	r_ear = text2path(outfit_data["r_ear"])
+	glasses = text2path(outfit_data["glasses"])
+	id = text2path(outfit_data["id"])
+	pda = text2path(outfit_data["pda"])
+	l_pocket = text2path(outfit_data["l_pocket"])
+	r_pocket = text2path(outfit_data["r_pocket"])
+	suit_store = text2path(outfit_data["suit_store"])
+	r_hand = text2path(outfit_data["r_hand"])
+	l_hand = text2path(outfit_data["l_hand"])
+	internals_slot = text2path(outfit_data["internals_slot"])
+
+	var/list/backpack = outfit_data["backpack_contents"]
+	backpack_contents = list()
+	for(var/item in backpack)
+		var/itype = text2path(item)
+		if(itype)
+			backpack_contents[itype] = backpack[item]
+	box = text2path(outfit_data["box"])
+
+	var/list/impl = outfit_data["implants"]
+	implants = list()
+	for(var/I in impl)
+		var/imptype = text2path(I)
+		if(imptype)
+			implants += imptype
+
+	var/list/cybernetic_impl = outfit_data["cybernetic_implants"]
+	cybernetic_implants = list()
+	for(var/I in cybernetic_impl)
+		var/cybtype = text2path(I)
+		if(cybtype)
+			cybernetic_implants += cybtype
+
+	var/list/accessories = outfit_data["accessories"]
+	accessories = list()
+	for(var/A in accessories)
+		var/accessorytype = text2path(A)
+		if(accessorytype)
+			accessories += accessorytype
+
+	return TRUE
+
+/datum/outfit/proc/get_json_data()
+	. = list()
+	.["outfit_type"] = type
+	.["name"] = name
+	.["uniform"] = uniform
+	.["suit"] = suit
+	.["toggle_helmet"] = toggle_helmet
+	.["back"] = back
+	.["belt"] = belt
+	.["gloves"] = gloves
+	.["shoes"] = shoes
+	.["head"] = head
+	.["mask"] = mask
+	.["l_ear"] = l_ear
+	.["r_ear"] = r_ear
+	.["glasses"] = glasses
+	.["id"] = id
+	.["pda"] = pda
+	.["l_pocket"] = l_pocket
+	.["r_pocket"] = r_pocket
+	.["suit_store"] = suit_store
+	.["r_hand"] = r_hand
+	.["l_hand"] = l_hand
+	.["internals_slot"] = internals_slot
+	.["backpack_contents"] = backpack_contents
+	.["box"] = box
+	.["implants"] = implants
+	.["cybernetic_implants"] = cybernetic_implants
+	.["accessories"] = accessories

@@ -1,0 +1,10 @@
+author: "Shadow-Quill"
+delete-after: True
+changes: 
+  - rscadd: "[Meta] Added buckshot and slugs to armoury."
+  - rscadd: "[Meta] Added surgical tools, robotic first aid kits, and a photocopier to Robotics."
+  - bugfix: "[Meta] R&D doors now has proper access requirements."
+  - rscadd: "[Meta] Added RCS and telepad to cargo."
+  - bugfix: "[Meta] Disposals sheet stacker and conveyor belts now works properly."
+  - rscadd: "[Meta] One-way airlocks added in Medbay/Brig."
+  - tweak: "[Meta] Disposals sheet stacker disposals chute leads directly to the mailroom."
