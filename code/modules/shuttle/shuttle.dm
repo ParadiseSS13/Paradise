@@ -349,7 +349,7 @@
 	if(mode != SHUTTLE_CALL)
 		return
 
-	invertTimer()
+	timer = world.time - timeLeft(1)
 	mode = SHUTTLE_RECALL
 
 /obj/docking_port/mobile/proc/enterTransit()
@@ -650,8 +650,9 @@
 				create_ripples(destination)
 
 /obj/docking_port/mobile/proc/setTimer(wait)
-	timer = world.time + wait
-	last_timer_length = wait
+	if(timer <= 0)
+		timer = world.time
+	timer += wait - timeLeft(1)
 
 /obj/docking_port/mobile/proc/modTimer(multiple)
 	var/time_remaining = timer - world.time
