@@ -8,9 +8,9 @@ var/global/list/body_accessory_by_name = list("None" = null)
 
 	if(body_accessory_by_name.len)
 		if(initialize_body_accessory_by_species())
-			return 1
+			return TRUE
 
-	return 0 //fail if no bodies are found
+	return FALSE //fail if no bodies are found
 
 var/global/list/body_accessory_by_species = list("None" = null)
 
@@ -24,10 +24,10 @@ var/global/list/body_accessory_by_species = list("None" = null)
 			body_accessory_by_species["[species]"] += accessory
 
 	if(body_accessory_by_species.len)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
-/proc/__init_body_accessory(var/ba_path)
+/proc/__init_body_accessory(ba_path)
 	if(ispath(ba_path))
 		var/_added_counter = 0
 
@@ -38,9 +38,8 @@ var/global/list/body_accessory_by_species = list("None" = null)
 				++_added_counter
 
 		if(_added_counter)
-			return 1
-	return 0
-
+			return TRUE
+	return FALSE
 
 /datum/body_accessory
 	var/name = "default"
@@ -58,8 +57,8 @@ var/global/list/body_accessory_by_species = list("None" = null)
 
 	var/list/allowed_species = list()
 
-/datum/body_accessory/proc/try_restrictions(var/mob/living/carbon/human/H)
-	return 1
+/datum/body_accessory/proc/try_restrictions(mob/living/carbon/human/H)
+	return TRUE
 
 /datum/body_accessory/proc/get_animated_icon() //return animated if it has it, return static if it does not.
 	if(animated_icon)
@@ -87,7 +86,6 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	pixel_x_offset = -16
 
 
-
 //Tails
 /datum/body_accessory/tail
 	icon = 'icons/mob/body_accessory.dmi'
@@ -96,10 +94,10 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	icon_state = "null"
 	animated_icon_state = "null"
 
-/datum/body_accessory/tail/try_restrictions(var/mob/living/carbon/human/H)
+/datum/body_accessory/tail/try_restrictions(mob/living/carbon/human/H)
 	if(!H.wear_suit || !(H.wear_suit.flags_inv & HIDETAIL))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 
 /datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
@@ -109,34 +107,33 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	animated_icon_state = "winglertail_a"
 	allowed_species = list("Tajaran")
 
+/datum/body_accessory/tail/tiny //Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
+	name = "Tiny Tail"
+	icon_state = "tiny"
+	animated_icon_state = "tiny_a"
+	allowed_species = list("Vulpkanin", "Tajaran")
+
+/datum/body_accessory/tail/short //Same as above.
+	name = "Short Tail"
+	icon_state = "short"
+	animated_icon_state = "short_a"
+	allowed_species = list("Vulpkanin", "Tajaran")
 
 //Vulpkanin
-/datum/body_accessory/tail/vulpkanin_2
-	name = "Vulpkanin Alt 1 (Bushy)"
-	icon_state = "vulptail2"
-	animated_icon_state = "vulptail2_a"
+/datum/body_accessory/tail/bushy
+	name = "Bushy Tail"
+	icon_state = "bushy"
+	animated_icon_state = "bushy_a"
 	allowed_species = list("Vulpkanin")
 
-/datum/body_accessory/tail/vulpkanin_3
-	name = "Vulpkanin Alt 2 (Straight)"
-	icon_state = "vulptail3"
-	animated_icon_state = "vulptail3_a"
+/datum/body_accessory/tail/straight
+	name = "Straight Tail"
+	icon_state = "straight"
+	animated_icon_state = "straight_a"
 	allowed_species = list("Vulpkanin")
 
-/datum/body_accessory/tail/vulpkanin_4
-	name = "Vulpkanin Alt 3 (Tiny)"
-	icon_state = "vulptail4"
-	animated_icon_state = "vulptail4_a"
-	allowed_species = list("Vulpkanin")
-
-/datum/body_accessory/tail/vulpkanin_5
-	name = "Vulpkanin Alt 4 (Short)"
-	icon_state = "vulptail5"
-	animated_icon_state = "vulptail5_a"
-	allowed_species = list("Vulpkanin")
-
-/datum/body_accessory/tail/vulpkanin_6
-	name = "Vulpkanin Alt 5 (Straight Bushy)"
-	icon_state = "vulptail6"
-	animated_icon_state = "vulptail6_a"
+/datum/body_accessory/tail/straight_bushy
+	name = "Straight Bushy Tail"
+	icon_state = "straightbushy"
+	animated_icon_state = "straightbushy_a"
 	allowed_species = list("Vulpkanin")
