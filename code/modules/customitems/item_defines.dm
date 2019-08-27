@@ -1212,16 +1212,16 @@
 
 //////////// Sets ////////////
 // Fox P McCloud: Fox McCloud
-/obj/item/clothing/suit/jacket/fluff/fox
+/obj/item/clothing/suit/storage/fox
 	name = "Aeronautics Jacket"
 	desc = "An aviator styled jacket made from a peculiar material; this one seems very old."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
-	ignore_suitadjust = TRUE
-	actions_types = list()
-	adjust_flavour = null
-	sprite_sheets = null
+	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/revolver/detective)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"
@@ -1231,6 +1231,12 @@
 	item_state = "g_suit"
 	item_color = "fox_suit"
 	displays_id = FALSE //still appears on examine; this is pure fluff.
+
+/obj/item/clothing/suit/storage/fox/miljacket_desert
+	name = "rugged military jacket"
+	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
+	icon_state = "fox_coat"
+	item_color = "fox_coat"
 
 /obj/item/toy/plushie/fluff/fox
 	name = "orange fox plushie"
@@ -1262,12 +1268,6 @@
 /obj/item/toy/plushie/fluff/fox/ui_action_click()
 	change_color()
 
-/obj/item/clothing/suit/jacket/miljacket/desert/fox
-	name = "rugged military jacket"
-	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fox_coat"
-	item_color = "fox_coat"
 
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit
