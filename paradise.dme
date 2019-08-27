@@ -2023,6 +2023,7 @@
 #include "code\modules\mob\new_player\sprite_accessories\kidan\kidan_head_accessories.dm"
 #include "code\modules\mob\new_player\sprite_accessories\kidan\kidan_head_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\nucleation\nucleation_face.dm"
+#include "code\modules\mob\new_player\sprite_accessories\shared\shared_tail_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\skrell\skrell_face.dm"
 #include "code\modules\mob\new_player\sprite_accessories\tajaran\tajaran_body_markings.dm"
 #include "code\modules\mob\new_player\sprite_accessories\tajaran\tajaran_facial_hair.dm"
