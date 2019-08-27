@@ -20,7 +20,8 @@
 					clientfps,
 					atklog,
 					fuid,
-					afk_watch
+					afk_watch,
+					parallax
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -54,6 +55,7 @@
 		atklog = text2num(query.item[18])
 		fuid = text2num(query.item[19])
 		afk_watch = text2num(query.item[20])
+		parallax = text2num(query.item[21])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -75,6 +77,7 @@
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	afk_watch = sanitize_integer(afk_watch, 0, 1, initial(afk_watch))
+	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -105,7 +108,8 @@
 					ghost_anonsay='[ghost_anonsay]',
 					clientfps='[clientfps]',
 					atklog='[atklog]',
-					afk_watch='[afk_watch]'
+					afk_watch='[afk_watch]',
+					parallax='[parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)
 

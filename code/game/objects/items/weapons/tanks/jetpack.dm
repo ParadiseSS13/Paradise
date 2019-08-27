@@ -163,6 +163,15 @@
 		to_chat(user, "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>")
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
+/obj/item/tank/jetpack/carbondioxide/mining
+	name = "mining jetpack"
+	icon_state = "jetpack-mining"
+	item_state = "jetpack-mining"
+	origin_tech = "materials=4;magnets=4;engineering=5"
+	desc = "A tank of compressed carbon dioxide for miners to use as propulsion in local space. The compact size allows for easy storage at the cost of capacity."
+	volume = 40
+	throw_range = 7
+	w_class = WEIGHT_CLASS_NORMAL //same as syndie harness
 
 /obj/item/tank/jetpack/rig
 	name = "jetpack"

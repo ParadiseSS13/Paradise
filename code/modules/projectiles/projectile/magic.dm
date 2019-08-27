@@ -184,8 +184,10 @@
 		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
 		switch(randomize)
 			if("robot")
+				var/path
 				if(prob(30))
-					new_mob = new /mob/living/silicon/robot/syndicate(M.loc)
+					path = pick(typesof(/mob/living/silicon/robot/syndicate))
+					new_mob = new path(M.loc)
 				else
 					new_mob = new /mob/living/silicon/robot(M.loc)
 				new_mob.gender = M.gender
@@ -193,6 +195,10 @@
 				new_mob.job = "Cyborg"
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.mmi = new /obj/item/mmi(new_mob)
+				Robot.lawupdate = FALSE
+				Robot.connected_ai = null
+				Robot.clear_inherent_laws()
+				Robot.clear_zeroth_law()
 				if(ishuman(M))
 					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("slime")

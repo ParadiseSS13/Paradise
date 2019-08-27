@@ -694,7 +694,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -3304,7 +3303,6 @@
 /obj/item/tank/oxygen,
 /obj/item/clothing/suit/space/hardsuit/security,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/security,
 /obj/item/clothing/shoes/magboots,
 /obj/item/tank/jetpack/oxygen,
 /obj/item/radio/intercom{
@@ -27867,11 +27865,6 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"bat" = (
-/obj/machinery/pipedispenser,
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/atmos)
 "bau" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -28740,11 +28733,6 @@
 "bbT" = (
 /obj/machinery/suit_storage_unit/atmos,
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/atmos)
-"bbU" = (
-/obj/machinery/pipedispenser/disposal,
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "bbV" = (
@@ -31407,6 +31395,7 @@
 	id_tag = "s_docking_airlock";
 	req_access_txt = "48"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
 "bgZ" = (
@@ -31431,6 +31420,7 @@
 	name = "mining shuttle bay";
 	width = 7
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
 "bha" = (
@@ -34038,6 +34028,7 @@
 	name = "Mining Dock Airlock";
 	req_access_txt = "48"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "blH" = (
@@ -38843,6 +38834,7 @@
 	name = "Labor Shuttle Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -38864,6 +38856,7 @@
 	name = "Labor Camp Airlock";
 	req_access_txt = "2"
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "btT" = (
@@ -41958,6 +41951,7 @@
 	name = "fore bay 1";
 	width = 9
 	},
+/obj/structure/fans/tiny,
 /turf/simulated/shuttle/floor,
 /area/shuttle/siberia)
 "bzg" = (
@@ -142582,9 +142576,9 @@ aUd
 aVM
 aXq
 aYI
-bat
-bbU
-bat
+bhp
+bhp
+bhp
 beO
 aXn
 bhk

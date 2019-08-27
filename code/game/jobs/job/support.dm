@@ -175,23 +175,24 @@
 	name = "Shaft Miner"
 	jobtype = /datum/job/mining
 
-	uniform = /obj/item/clothing/under/rank/miner/lavaland
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/workboots/mining
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
-	id = /obj/item/card/id/supply
+	shoes = /obj/item/clothing/shoes/workboots/mining
+	gloves = /obj/item/clothing/gloves/color/black
+	uniform = /obj/item/clothing/under/rank/miner/lavaland
 	l_pocket = /obj/item/reagent_containers/hypospray/autoinjector/survival
-	r_pocket = /obj/item/flashlight/seclite
+	r_pocket = /obj/item/storage/bag/ore
+	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/shaftminer
 	backpack_contents = list(
-		/obj/item/storage/bag/ore=1,\
+		/obj/item/flashlight/seclite=1,\
 		/obj/item/kitchen/knife/combat/survival=1,\
 		/obj/item/mining_voucher=1,\
 		/obj/item/stack/marker_beacon/ten=1
 	)
-	
+
 	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	box = /obj/item/storage/box/survival_mining
 
 /datum/outfit/job/mining/equipped
 	name = "Shaft Miner"
@@ -209,9 +210,6 @@
 		/obj/item/gun/energy/kinetic_accelerator=1,\
 		/obj/item/stack/marker_beacon/ten=1
 	)
-
-	backpack = /obj/item/storage/backpack/explorer
-	satchel = /obj/item/storage/backpack/explorer
 
 /datum/outfit/job/miner/equipped/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

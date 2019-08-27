@@ -291,11 +291,9 @@ proc/issyndicate(mob/living/M as mob)
 
 			if("Plasmaman")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/nuclear(synd_mob), slot_wear_suit)
-				synd_mob.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear(synd_mob), slot_head)
 				synd_mob.equip_or_collect(new /obj/item/tank/plasma/plasmaman(synd_mob), slot_s_store)
-				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
-				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
 				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
 				synd_mob.update_action_buttons_icon()
 

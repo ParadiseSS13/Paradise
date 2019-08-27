@@ -527,14 +527,15 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor = list("melee" = 35, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+	armor = list(melee = 35, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 
-/obj/item/clothing/head/skullhelmet
+/obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
 	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
-	flags = BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list("melee" = 25, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 10, "bio" = 5, "rad" = 20, "fire" = 40, "acid" = 20)
+	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 10, bio = 5, rad = 20)
 	icon_state = "skull"
 	item_state = "skull"
+	strip_delay = 100

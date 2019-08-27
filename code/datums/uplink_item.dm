@@ -207,6 +207,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 	job = list("Mime")
 
+/datum/uplink_item/jobspecific/pressure_mod
+	name = "Kinetic Accelerator Pressure Mod"
+	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
+	reference = "KPM"
+	item = /obj/item/borg/upgrade/modkit/indoors
+	cost = 5 //you need two for full damage, so total of 10 for maximum damage
+	job = list("Shaft Miner")
+
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
 	name = "Chef Excellence's Special Sauce"
@@ -892,6 +900,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 10
 
+/datum/uplink_item/stealthy_weapons/false_briefcase
+	name = "False Bottomed Briefcase"
+	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
+	reference = "FBBC"
+	item = /obj/item/storage/briefcase/false_bottomed
+	cost = 3
+
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. You can also drop it underfoot to slip people."
@@ -1107,10 +1122,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 
 /datum/uplink_item/stealthy_tools/thermal
-	name = "Thermal Imaging Glasses"
-	desc = "These glasses are thermals disguised as engineers' optical meson scanners. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
+	name = "Thermal Chameleon Glasses"
+	desc = "These glasses are thermals with Syndicate chameleon technology built into them. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	reference = "THIG"
-	item = /obj/item/clothing/glasses/thermal/syndi
+	item = /obj/item/clothing/glasses/chameleon/thermal
 	cost = 6
 
 /datum/uplink_item/stealthy_tools/traitor_belt
@@ -1305,7 +1320,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
 	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
-	item = /obj/item/storage/box/syndie_kit/elite_hardsuit
+	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	cost = 8
 	reference = "ESHS"
 	excludefrom = list()
@@ -1314,7 +1329,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/shielded
 	name = "Shielded Hardsuit"
 	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
-	item = /obj/item/storage/box/syndie_kit/shielded_hardsuit
+	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndi
 	cost = 30
 	reference = "SHS"
 	excludefrom = list()
