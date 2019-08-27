@@ -42,6 +42,7 @@ GLOBAL_LIST_INIT(global_radios, list())				//list of all radios, across all z-le
 GLOBAL_LIST_INIT(meteor_list, list())				//list of all meteors
 GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/follow
 GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jammers
+GLOBAL_LIST_EMPTY(ladders)
 
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 

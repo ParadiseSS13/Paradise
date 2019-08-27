@@ -65,3 +65,11 @@
 	. = ..()
 	if(!S1.lock_shuttle_doors && id_tag == "s_docking_airlock")
 		INVOKE_ASYNC(src, .proc/unlock)
+
+/obj/structure/ladder/onShuttleMove()
+	if(resistance_flags & INDESTRUCTIBLE)
+		// simply don't be moved
+		return FALSE
+	disconnect()
+	LateInitialize()
+	return ..()
