@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - bugfix: "Items with NODROP that are dropped now lose the flag if they didn't get created with it"

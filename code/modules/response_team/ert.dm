@@ -240,32 +240,21 @@ var/ert_request_answered = FALSE
 	switch(officer_type)
 		if("Engineer")
 			M.equipOutfit(engineering_outfit)
-			M.job = "ERT Engineering"
 
 		if("Security")
 			M.equipOutfit(security_outfit)
-			M.job = "ERT Security"
 
 		if("Medic")
 			M.equipOutfit(medical_outfit)
-			M.job = "ERT Medical"
 
 		if("Janitor")
 			M.equipOutfit(janitor_outfit)
-			M.job = "ERT Janitor"
 
 		if("Paranormal")
 			M.equipOutfit(paranormal_outfit)
-			M.job = "ERT Paranormal"
-			M.mind.isholy = TRUE
 
 		if("Commander")
-			// Override name and age for the commander
-			M.rename_character(null, "[pick("Lieutenant", "Captain", "Major")] [pick(GLOB.last_names)]")
-			M.age = rand(35,45)
-
 			M.equipOutfit(command_outfit)
-			M.job = "ERT Commander"
 
 /datum/response_team/proc/cannot_send_team()
 	event_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
@@ -317,6 +306,7 @@ var/ert_request_answered = FALSE
 	name = "Response team"
 	var/rt_assignment = "Emergency Response Team Member"
 	var/rt_job = "This is a bug"
+	var/rt_mob_job = "This is a bug" // The job set on the actual mob.
 	allow_backbag_choice = FALSE
 	allow_loadout = FALSE
 	pda = /obj/item/pda/heads/ert

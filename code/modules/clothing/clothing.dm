@@ -2,7 +2,6 @@
 	name = "clothing"
 	burn_state = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
-	var/hardsuit_restrict_helmet = 0 // Stops the user from equipping a hardsuit helmet without attaching it to the suit first.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 
 	/*
@@ -18,8 +17,10 @@
 	var/flash_protect = 0		//What level of bright light protection item has. 1 = Flashers, Flashes, & Flashbangs | 2 = Welding | -1 = OH GOD WELDING BURNT OUT MY RETINAS
 	var/tint = 0				//Sets the item's level of visual impairment tint, normally set to the same as flash_protect
 	var/up = 0					//but seperated to allow items to protect but not impair vision, like space helmets
+
 	var/visor_flags = 0			//flags that are added/removed when an item is adjusted up/down
 	var/visor_flags_inv = 0		//same as visor_flags, but for flags_inv
+	var/visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT | VISOR_VISIONFLAGS | VISOR_DARKNESSVIEW | VISOR_INVISVIEW //what to toggle when toggled with weldingvisortoggle()
 
 	var/toggle_message = null
 	var/alt_toggle_message = null
@@ -29,6 +30,39 @@
 	var/cooldown = 0
 	var/species_disguise = null
 	var/magical = FALSE
+
+/obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
+	if(!can_use(user))
+		return FALSE
+
+	visor_toggling()
+
+	to_chat(user, "<span class='notice'>You adjust \the [src] [up ? "up" : "down"].</span>")
+
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.head_update(src, forced = 1)
+	for(var/X in actions)
+		var/datum/action/A = X
+		A.UpdateButtonIcon()
+	return TRUE
+
+/obj/item/clothing/proc/visor_toggling() //handles all the actual toggling of flags
+	up = !up
+	flags ^= visor_flags
+	flags_inv ^= visor_flags_inv
+	flags_cover ^= initial(flags_cover)
+	icon_state = "[initial(icon_state)][up ? "up" : ""]"
+	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
+		flash_protect ^= initial(flash_protect)
+	if(visor_vars_to_toggle & VISOR_TINT)
+		tint ^= initial(tint)
+
+/obj/item/clothing/proc/can_use(mob/user)
+	if(user && ismob(user))
+		if(!user.incapacitated())
+			return TRUE
+	return FALSE
 
 //BS12: Species-restricted clothing check.
 /obj/item/clothing/mob_can_equip(M as mob, slot)
@@ -90,6 +124,10 @@
 	throwforce = 2
 	slot_flags = SLOT_EARS
 	burn_state = FIRE_PROOF
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		) //We read you loud and skree-er.
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -406,7 +444,8 @@ BLIND     // can't see anything
 	slowdown = SHOES_SLOWDOWN
 
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/shoes.dmi'
+		"Vox" = 'icons/mob/species/vox/shoes.dmi',
+		"Drask" = 'icons/mob/species/drask/shoes.dmi'
 		)
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
@@ -469,6 +508,7 @@ BLIND     // can't see anything
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
+	var/suittoggled = FALSE
 	var/suit_adjusted = 0
 	var/ignore_suitadjust = 1
 	var/adjust_flavour = null
@@ -625,38 +665,45 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/proc/can_attach_accessory(obj/item/clothing/accessory/A)
 	if(istype(A))
-		. = 1
+		. = TRUE
 	else
-		return 0
+		return FALSE
+
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/AC in accessories)
 			if((A.slot in list(ACCESSORY_SLOT_UTILITY, ACCESSORY_SLOT_ARMBAND)) && AC.slot == A.slot)
-				return 0
+				return FALSE
 			if(!A.allow_duplicates && AC.type == A.type)
-				return 0
+				return FALSE
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clothing/accessory))
-		var/obj/item/clothing/accessory/A = I
-		if(can_attach_accessory(A))
-			user.unEquip(I) // Make absolutely sure this accessory is removed from hands
-			accessories += A
-			A.on_attached(src, user)
-
-			if(istype(loc, /mob/living/carbon/human))
-				var/mob/living/carbon/human/H = loc
-				H.update_inv_w_uniform()
-
-			return
-		else
-			to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
+		attach_accessory(I, user, TRUE)
 
 	if(accessories.len)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attackby(I, user, params)
-		return
+		return TRUE
 
-	..()
+	. = ..()
+
+/obj/item/clothing/under/proc/attach_accessory(obj/item/clothing/accessory/A, mob/user, unequip = FALSE)
+	if(can_attach_accessory(A))
+		if(unequip && !user.unEquip(A)) // Make absolutely sure this accessory is removed from hands
+			return FALSE
+
+		accessories += A
+		A.on_attached(src, user)
+
+		if(ishuman(loc))
+			var/mob/living/carbon/human/H = loc
+			H.update_inv_w_uniform()
+
+		return TRUE
+	else
+		to_chat(user, "<span class='notice'>You cannot attach more accessories of this type to [src].</span>")
+
+	return FALSE
 
 /obj/item/clothing/under/examine(mob/user)
 	..(user)

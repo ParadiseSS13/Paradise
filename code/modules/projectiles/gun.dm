@@ -184,7 +184,7 @@
 		return 0
 	return 1
 
-obj/item/gun/proc/newshot()
+/obj/item/gun/proc/newshot()
 	return
 
 /obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)

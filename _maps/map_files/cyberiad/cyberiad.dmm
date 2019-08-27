@@ -547,7 +547,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -27822,6 +27821,9 @@
 /obj/item/storage/fancy/cigarettes,
 /obj/item/lighter/zippo,
 /obj/item/pen/multi,
+/obj/item/enginepicker{
+	layer = 3.1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -32862,8 +32864,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/reagent_dispensers/watertank/high,
-/obj/item/reagent_containers/glass/bucket,
+/obj/structure/table,
+/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36336,6 +36338,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar)
 "bou" = (
+/obj/item/reagent_containers/glass/bucket,
 /obj/structure/sink{
 	icon_state = "sink";
 	dir = 8;
@@ -70880,7 +70883,6 @@
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /obj/machinery/door/window/westright{
 	name = "Emergency Hardsuits";
 	req_access_txt = "40"
@@ -70962,7 +70964,6 @@
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/gas,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /obj/machinery/door/window/westleft{
 	name = "Emergency Hardsuits";
 	req_access_txt = "40"
@@ -93259,20 +93260,15 @@
 	name = "\improper AI Satellite Service"
 	})
 "dle" = (
-/obj/machinery/the_singularitygen{
-	anchored = 1
-	},
 /obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
-"dlf" = (
 /obj/item/wrench,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"dlf" = (
+/obj/item/radio/beacon/engine/tesling,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "dlg" = (
-/obj/machinery/the_singularitygen/tesla{
-	anchored = 1
-	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)

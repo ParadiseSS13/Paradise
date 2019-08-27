@@ -24,6 +24,7 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	actions_types = list(/datum/action/item_action/toggle)
+	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	burn_state = FIRE_PROOF
 
 	sprite_sheets = list(
@@ -33,6 +34,9 @@
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)
+
+/obj/item/clothing/head/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/head/welding/flamedecal
 	name = "flame decal welding helmet"

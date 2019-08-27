@@ -1,0 +1,11 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Ores can be destroyed by devastating explosions"
+  - tweak: "silver, gold, and diamond pickaxes do a bit more damage and mine faster than before"
+  - tweak: "drills slightly slower, but diamond drills slightly faster"
+  - tweak: "Spade is the same speed as a shovel"
+  - tweak: "Hivelord stabilizer will now make a hivelord core/legion soul stabilize and be preserved, even if it was previously inert"
+  - tweak: "can use a hivelord core in your active hand to apply it to yourself"
+  - rscadd: "soulstone in the abandoned locked crates can now be used by anyone"
+  - rscadd: "Adds firelemon seeds to the abandoned locked crates as potential loot"
