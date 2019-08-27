@@ -53,7 +53,7 @@
 				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
 	return make_plating()
 
-/turf/simulated/floor/wood/asteroid
+/turf/simulated/floor/wood/cold
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180

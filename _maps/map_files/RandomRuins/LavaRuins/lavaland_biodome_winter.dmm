@@ -195,9 +195,7 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "bl" = (
-/turf/simulated/floor/wood/asteroid{
-	name = "bridge"
-	},
+/turf/simulated/floor/wood/cold,
 /area/ruin/powered/snow_biodome)
 "bv" = (
 /obj/machinery/light{
@@ -209,13 +207,13 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/wood/asteroid,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_biodome)
 "bx" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/wood/asteroid,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_biodome)
 "by" = (
 /obj/machinery/light{
@@ -225,7 +223,7 @@
 /area/ruin/powered/snow_biodome)
 "bz" = (
 /obj/machinery/light,
-/turf/simulated/floor/wood/asteroid,
+/turf/simulated/floor/wood,
 /area/ruin/powered/snow_biodome)
 "bB" = (
 /obj/machinery/light{

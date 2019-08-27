@@ -7,7 +7,7 @@
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
 
-	var/unfastened = FALSE 
+	var/unfastened = FALSE
 
 	footstep_sounds = list(
 	"human" = list('sound/effects/footstep/plating_human.ogg'),
@@ -349,7 +349,7 @@
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
 
-/turf/simulated/floor/plating/ice/Initialize()
+/turf/simulated/floor/plating/ice/Initialize(mapload)
 	. = ..()
 	MakeSlippery(TURF_WET_PERMAFROST, TRUE)
 

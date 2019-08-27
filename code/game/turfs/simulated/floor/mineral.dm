@@ -173,6 +173,14 @@
 	nitrogen = 0.01
 	temperature = TCMB
 
+
+/turf/simulated/floor/mineral/bananium/lubed/Initialize(mapload)
+	. = ..()
+	MakeSlippery(TURF_WET_LUBE, TRUE)
+
+/turf/simulated/floor/mineral/bananium/lubed/pry_tile() //I want to get off Mr Honk's Wild Ride
+	return
+
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"

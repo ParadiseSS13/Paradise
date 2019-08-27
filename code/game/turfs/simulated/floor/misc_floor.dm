@@ -112,6 +112,14 @@
 	nitrogen = 23
 	temperature = 300
 
+/turf/simulated/floor/lubed
+	name = "slippery floor"
+	icon_state = "floor"
+
+/turf/simulated/floor/lubed/Initialize(mapload)
+	. = ..()
+	MakeSlippery(TURF_WET_LUBE, TRUE)
+
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"

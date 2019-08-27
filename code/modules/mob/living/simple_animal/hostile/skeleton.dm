@@ -26,6 +26,7 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 	faction = list("skeleton")
 	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "collapses into a pile of bones!"
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
