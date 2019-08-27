@@ -25,7 +25,8 @@
 	if(blob_nodes.len)
 		var/list/nodes = list()
 		for(var/i = 1; i <= blob_nodes.len; i++)
-			nodes["Blob Node #[i]"] = blob_nodes[i]
+			var/obj/structure/blob/node/B = blob_nodes[i]
+			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
 		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
 		var/obj/structure/blob/node/chosen_node = nodes[node_name]
 		if(chosen_node)
@@ -207,7 +208,7 @@
 
 /mob/camera/blob/verb/create_blobbernaut()
 	set category = "Blob"
-	set name = "Create Blobbernaut (20)"
+	set name = "Create Blobbernaut (60)"
 	set desc = "Create a powerful blob-being, a Blobbernaut"
 
 	var/turf/T = get_turf(src)
@@ -224,7 +225,7 @@
 		to_chat(src, "Unable to use this blob, find a factory blob.")
 		return
 
-	if(!can_buy(20))
+	if(!can_buy(60))
 		return
 
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
@@ -233,6 +234,14 @@
 	blobber.color = blob_reagent_datum.complementary_color
 	blobber.overmind = src
 	blob_mobs.Add(blobber)
+	spawn()
+		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1, 150)
+		if(candidates.len)
+			var/mob/C = pick(candidates)
+			if(C)
+				blobber.key = C.key
+				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
+				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
 	return
 
 
@@ -388,7 +397,7 @@
 	set name = "Blob Broadcast"
 	set desc = "Speak with your blob spores and blobbernauts as your mouthpieces. This action is free."
 
-	var/speak_text = input(usr, "What would you like to say with your minions?", "Blob Broadcast", null) as text
+	var/speak_text = clean_input("What would you like to say with your minions?", "Blob Broadcast", null)
 
 	if(!speak_text)
 		return

@@ -266,7 +266,7 @@
 /obj/item/reagent_containers/food/snacks/candy/gummybear/wtf
 	name = "gummy bear"
 	desc = "A small bear. Wait... what?"
-	icon_state = "gbear_wtf"
+	icon_state = "gbear_rainbow"
 	filling_color = "#60A584"
 	list_reagents = list("sugar" = 10, "space_drugs" = 2)
 
@@ -326,7 +326,7 @@
 /obj/item/reagent_containers/food/snacks/candy/gummyworm/wtf
 	name = "gummy worm"
 	desc = "An edible worm. Did it just move?"
-	icon_state = "gworm_wtf"
+	icon_state = "gworm_rainbow"
 	filling_color = "#60A584"
 	list_reagents = list("sugar" = 10, "space_drugs" = 2)
 
@@ -421,7 +421,7 @@
 /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf
 	name = "jelly bean"
 	desc = "A candy bean, guarenteed to not give you gas. You aren't sure what color it is."
-	icon_state = "jbean_wtf"
+	icon_state = "jbean_rainbow"
 	filling_color = "#60A584"
 	list_reagents = list("sugar" = 10, "space_drugs" = 2)
 

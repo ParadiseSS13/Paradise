@@ -15,8 +15,8 @@
 	},
 /area/djstation/solars)
 "ad" = (
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/space/nearstation)
 "ae" = (
 /obj/structure/lattice,
@@ -76,8 +76,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation/solars)
 "ao" = (
 /obj/structure/grille{
@@ -93,8 +93,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation/solars)
 "aq" = (
 /obj/structure/cable{
@@ -125,8 +125,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation)
 "at" = (
 /obj/structure/lattice,
@@ -312,8 +312,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation)
 "aR" = (
 /obj/structure/cable{
@@ -331,8 +331,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation/solars)
 "aS" = (
 /obj/structure/cable{
@@ -340,8 +340,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation/solars)
 "aT" = (
 /obj/structure/cable{
@@ -359,8 +359,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation/solars)
 "aU" = (
 /obj/item/storage/toolbox/mechanical{
@@ -386,8 +386,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/djstation)
 "aW" = (
 /turf/simulated/floor/plasteel{
@@ -4602,8 +4602,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "jL" = (
 /obj/structure/table/wood,
@@ -6021,7 +6021,7 @@
 /area/space/nearstation)
 "nh" = (
 /obj/item/shard,
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -6263,7 +6263,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -6693,8 +6693,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "oT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -7118,13 +7118,13 @@
 	},
 /area/derelict/arrival)
 "pV" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	icon_state = "remains";
 	name = "Human remains"
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -7569,7 +7569,7 @@
 	},
 /area/derelict/arrival)
 "qT" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -7577,7 +7577,7 @@
 	},
 /area/derelict/arrival)
 "qU" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -7751,8 +7751,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "rn" = (
 /obj/structure/cable{
@@ -7765,8 +7765,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "ro" = (
 /obj/structure/window/reinforced,
@@ -7817,9 +7817,7 @@
 	dir = 1
 	},
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "floorscorched2"
-	},
+/turf/simulated/shuttle/plating,
 /area/derelict/arrival)
 "rt" = (
 /obj/structure/window/reinforced,
@@ -7993,8 +7991,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "rG" = (
 /obj/structure/closet/crate/secure/loot,
@@ -8029,8 +8027,8 @@
 /turf/space,
 /area/derelict/crew_quarters)
 "rJ" = (
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "rK" = (
 /obj/machinery/power/tracker,
@@ -8272,8 +8270,8 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "si" = (
 /obj/structure/cable{
@@ -8333,11 +8331,11 @@
 	},
 /area/derelict/crew_quarters)
 "sl" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -9006,8 +9004,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "tF" = (
 /obj/structure/sign/greencross,
@@ -9040,8 +9038,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "tI" = (
 /obj/structure/cable{
@@ -9563,8 +9561,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "uJ" = (
 /turf/space,
@@ -9895,8 +9893,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "vn" = (
 /obj/item/shard{
@@ -10462,8 +10460,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "wm" = (
 /obj/structure/cable{
@@ -10476,8 +10474,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "wn" = (
 /obj/structure/closet/jcloset,
@@ -10502,8 +10500,8 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "wp" = (
 /obj/structure/cable{
@@ -10521,8 +10519,8 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "wq" = (
 /obj/structure/cable{
@@ -10540,8 +10538,8 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/derelict/solar_control)
 "wr" = (
 /obj/docking_port/stationary{
@@ -53934,7 +53932,7 @@ aa
 aa
 aa
 aa
-wr
+aa
 aa
 aa
 aa
@@ -54190,7 +54188,7 @@ aa
 aa
 aa
 aa
-aa
+wr
 aa
 aa
 aa

@@ -123,8 +123,12 @@
 #define TANK_RUPTURE_PRESSURE				(40.*ONE_ATMOSPHERE)	//Tank spills all contents into atmosphere
 #define TANK_FRAGMENT_PRESSURE				(50.*ONE_ATMOSPHERE)	//Boom 3x3 base explosion
 #define TANK_FRAGMENT_SCALE	    			(10.*ONE_ATMOSPHERE)	//+1 for each SCALE kPa aboe threshold
+#define TANK_DEFAULT_RELEASE_PRESSURE 		16
 
 // Atmos alarm defines
 #define ATMOS_ALARM_NONE					0
 #define ATMOS_ALARM_WARNING					1
 #define ATMOS_ALARM_DANGER					2
+
+//LAVALAND
+#define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland

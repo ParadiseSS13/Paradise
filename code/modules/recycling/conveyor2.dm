@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	else if(still_stuff_to_move && !speed_process)
 		makeSpeedProcess()
 
-/obj/machinery/conveyor/Crossed(atom/movable/AM)
+/obj/machinery/conveyor/Crossed(atom/movable/AM, oldloc)
 	if(!speed_process && !AM.anchored)
 		makeSpeedProcess()
 	..()

@@ -45,86 +45,15 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/AttackingTarget()
 	OpenFire()
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/spawn_crusher_loot()
+	loot += crusher_loot //we don't butcher
+
 /mob/living/simple_animal/hostile/asteroid/hivelord/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
 	mouse_opacity = MOUSE_OPACITY_ICON
-
-/obj/item/organ/internal/hivelord_core
-	name = "hivelord remains"
-	desc = "All that remains of a hivelord, it seems to be what allows it to break pieces of itself off without being hurt... its healing properties will soon become inert if not used quickly."
-	icon_state = "roro core 2"
-	flags = NOBLUDGEON
-	slot = "hivecore"
-	force = 0
-	actions_types = list(/datum/action/item_action/organ_action/use)
-	var/inert = 0
-	var/preserved = 0
-
-/obj/item/organ/internal/hivelord_core/New()
-	..()
-	addtimer(CALLBACK(src, .proc/inert_check), 2400)
-
-/obj/item/organ/internal/hivelord_core/proc/inert_check()
-	if(owner)
-		preserved(implanted = 1)
-	else if(preserved)
-		preserved()
-	else
-		go_inert()
-
-/obj/item/organ/internal/hivelord_core/proc/preserved(implanted = 0)
-	inert = FALSE
-	preserved = TRUE
-	update_icon()
-
-	if(implanted)
-		feedback_add_details("hivelord_core", "[type]|implanted")
-	else
-		feedback_add_details("hivelord_core", "[type]|stabilizer")
-
-
-/obj/item/organ/internal/hivelord_core/proc/go_inert()
-	inert = TRUE
-	desc = "The remains of a hivelord that have become useless, having been left alone too long after being harvested."
-	feedback_add_details("hivelord_core", "[src.type]|inert")
-	update_icon()
-
-/obj/item/organ/internal/hivelord_core/ui_action_click()
-	owner.revive()
-	qdel(src)
-
-/obj/item/organ/internal/hivelord_core/on_life()
-	..()
-	if(owner.health < HEALTH_THRESHOLD_CRIT)
-		ui_action_click()
-
-/obj/item/organ/internal/hivelord_core/afterattack(atom/target, mob/user, proximity_flag)
-	if(proximity_flag && ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if(inert)
-			to_chat(user, "<span class='notice'>[src] has become inert, its healing properties are no more.</span>")
-			return
-		else
-			if(H.stat == DEAD)
-				to_chat(user, "<span class='notice'>[src] are useless on the dead.</span>")
-				return
-			if(H != user)
-				H.visible_message("[user] forces [H] to apply [src]... They quickly regenerate all injuries!")
-				feedback_add_details("hivelord_core","[src.type]|used|other")
-			else
-				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. It feels and smells disgusting, but you feel amazingly refreshed in mere moments.</span>")
-				feedback_add_details("hivelord_core","[src.type]|used|self")
-			playsound(src.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-			H.revive()
-			user.drop_item()
-			qdel(src)
-	..()
-
-/obj/item/organ/internal/hivelord_core/prepare_eat()
-	return null
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	name = "hivelord brood"
@@ -231,6 +160,7 @@
 	speak_emote = list("echoes")
 	attack_sound = 'sound/weapons/pierce.ogg'
 	throw_message = "bounces harmlessly off of"
+	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/hivelord_core/legion)
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = 1
@@ -322,34 +252,6 @@
 	H.forceMove(L)
 	qdel(src)
 
-/obj/item/organ/internal/hivelord_core/legion
-	name = "legion's soul"
-	desc = "A strange rock that still crackles with power... its \
-		healing properties will soon become inert if not used quickly."
-	icon_state = "legion_soul"
-
-/obj/item/organ/internal/hivelord_core/legion/New()
-	..()
-	update_icon()
-
-/obj/item/organ/internal/hivelord_core/legion/update_icon()
-	icon_state = inert ? "legion_soul_inert" : "legion_soul"
-	overlays.Cut()
-	if(!inert && !preserved)
-		overlays += image(icon, "legion_soul_crackle")
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/organ/internal/hivelord_core/legion/go_inert()
-	. = ..()
-	desc = "[src] has become inert, it crackles no more and is useless for \
-		healing injuries."
-
-/obj/item/organ/internal/hivelord_core/legion/preserved(implanted = 0)
-	..()
-	desc = "[src] has been stabilized. It no longer crackles with power, but it's healing properties are preserved indefinitely."
-
 /obj/item/legion_skull
 	name = "legion's head"
 	desc = "The once living, now empty eyes of the former human's skull cut deep into your soul."
@@ -403,7 +305,7 @@
 			if(prob(95))
 				head = /obj/item/clothing/head/helmet/gladiator
 			else
-				head = /obj/item/clothing/head/skullhelmet
+				head = /obj/item/clothing/head/helmet/skull
 				suit = /obj/item/clothing/suit/armor/bone
 			if(prob(5))
 				back = pickweight(list(/obj/item/twohanded/spear/bonespear = 3, /obj/item/twohanded/fireaxe/boneaxe = 2))

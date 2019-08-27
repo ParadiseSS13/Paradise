@@ -43,7 +43,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ai" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -57,14 +57,6 @@
 "ak" = (
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/noslip,
-/area/shuttle/escape)
-"al" = (
-/obj/structure/chair{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
 /area/shuttle/escape)
 "am" = (
 /obj/item/toy/snappop/phoenix,
@@ -80,11 +72,11 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = -28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -95,11 +87,11 @@
 	},
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/structure/closet/walllocker/emerglocker{
 	pixel_x = 28
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
 	},
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
@@ -114,7 +106,7 @@
 /turf/simulated/floor/noslip,
 /area/shuttle/escape)
 "at" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -129,7 +121,7 @@
 	},
 /area/shuttle/escape)
 "av" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -675,7 +667,7 @@ bt
 ab
 ae
 ah
-al
+ai
 am
 au
 ax
@@ -727,7 +719,7 @@ aa
 ad
 ag
 aj
-al
+ai
 ap
 au
 ax

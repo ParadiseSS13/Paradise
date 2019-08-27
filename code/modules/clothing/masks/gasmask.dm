@@ -33,34 +33,12 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSEYES
+	visor_flags_inv = HIDEEYES
 
-/obj/item/clothing/mask/gas/welding/attack_self()
-	toggle()
-
-/obj/item/clothing/mask/gas/welding/proc/toggle()
-	if(up)
-		up = !src.up
-		flags_cover |= (MASKCOVERSEYES)
-		flags_inv |= (HIDEEYES)
-		icon_state = initial(icon_state)
-		to_chat(usr, "You flip the [src] down to protect your eyes.")
-		flash_protect = 2
-		tint = 2
-	else
-		up = !up
-		flags_cover &= ~(MASKCOVERSEYES)
-		flags_inv &= ~(HIDEEYES)
-		icon_state = "[initial(icon_state)]up"
-		to_chat(usr, "You push the [src] up out of your face.")
-		flash_protect = 0
-		tint = 0
-	var/mob/living/carbon/user = usr
-	user.update_tint()
-	user.update_inv_wear_mask()	//so our mob-overlays update
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+/obj/item/clothing/mask/gas/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
