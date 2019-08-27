@@ -13,7 +13,7 @@
 /turf/unsimulated/beach/water/deep/rock_wall,
 /area/awaymission/undersea)
 "ae" = (
-/obj/structure/ladder/dive_point/anchor{
+/obj/structure/ladder/unbreakable/dive_point/anchor{
 	id = "pirate"
 	},
 /turf/unsimulated/beach/water/deep/sand_floor,
@@ -217,7 +217,7 @@
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aU" = (
-/obj/structure/ladder/dive_point/anchor,
+/obj/structure/ladder/unbreakable/dive_point/anchor,
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aV" = (
@@ -1113,7 +1113,7 @@
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/beach)
 "dv" = (
-/obj/structure/ladder/dive_point/buoy,
+/obj/structure/ladder/unbreakable/dive_point/buoy,
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/beach)
 "dw" = (
@@ -1306,7 +1306,7 @@
 	},
 /area/awaymission/beach)
 "dW" = (
-/obj/structure/ladder/dive_point/buoy{
+/obj/structure/ladder/unbreakable/dive_point/buoy{
 	id = "pirate"
 	},
 /turf/unsimulated/beach/water,

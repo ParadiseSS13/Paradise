@@ -7,6 +7,7 @@
 	anchored = TRUE
 	var/obj/structure/ladder/down   //the ladder below this one
 	var/obj/structure/ladder/up     //the ladder above this one
+	var/use_verb = "climb"
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	. = ..()
@@ -91,7 +92,7 @@
 		return
 
 	if(up && down)
-		var/result = alert("Go up or down [src]?", "Ladder", "Up", "Down", "Cancel")
+		var/result = alert("Go up or down [src]?", "[name]", "Up", "Down", "Cancel")
 		if (!is_ghost && !in_range(src, user))
 			return  // nice try
 		switch(result)
@@ -127,9 +128,9 @@
 
 /obj/structure/ladder/proc/show_fluff_message(going_up, mob/user)
 	if(going_up)
-		user.visible_message("[user] climbs up [src].","<span class='notice'>You climb up [src].</span>")
+		user.visible_message("[user] climbs up [src].","<span class='notice'>You [use_verb] up [src].</span>")
 	else
-		user.visible_message("[user] climbs down [src].","<span class='notice'>You climb down [src].</span>")
+		user.visible_message("[user] climbs down [src].","<span class='notice'>You [use_verb] down [src].</span>")
 
 
 // Indestructible away mission ladders which link based on a mapped ID and height value rather than X/Y/Z.
@@ -173,3 +174,29 @@
 				break  // break if both our connections are filled
 
 	update_icon()
+
+/obj/structure/ladder/unbreakable/dive_point/buoy
+	name = "diving point buoy"
+	desc = "A buoy marking the location of an underwater dive area."
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "buoy"
+	id = "dive"
+	height = 2
+	use_verb = "swim"
+	layer = MOB_LAYER + 0.2		//0.1 higher than the water overlay, this also means people can "swim" behind/under it
+
+/obj/structure/ladder/unbreakable/dive_point/anchor
+	name = "diving point anchor"
+	desc = "An anchor tethered to the buoy at the surface, to keep the dive area marked."
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "anchor"
+	id = "dive"
+	height = 1
+	light_range = 5
+
+/obj/structure/ladder/dive_point/Initialize(mapload)
+	. = ..()
+	set_light(light_range, light_power)		//magical glowing anchor
+
+/obj/structure/ladder/dive_point/update_icon()
+	return
