@@ -261,7 +261,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "aH" = (
-/obj/structure/ladder{
+/obj/structure/ladder/unbreakable{
 	height = 1;
 	id = "example"
 	},
@@ -782,7 +782,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/example)
 "ca" = (
-/obj/structure/ladder{
+/obj/structure/ladder/unbreakable{
 	id = "example"
 	},
 /turf/simulated/floor/plating,

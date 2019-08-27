@@ -540,7 +540,7 @@
 	requires_power = 0
 	})
 "aZ" = (
-/obj/structure/ladder/dive_point/anchor{
+/obj/structure/ladder/unbreakable/dive_point/anchor{
 	id = "weirddive";
 	layer = 4.5
 	},
@@ -1996,7 +1996,7 @@
 	requires_power = 0
 	})
 "dA" = (
-/obj/structure/ladder/dive_point/anchor{
+/obj/structure/ladder/unbreakable/dive_point/anchor{
 	layer = 4.5
 	},
 /turf/unsimulated/beach/water/deep/wood_floor{
@@ -2721,8 +2721,8 @@
 /turf/unsimulated/beach/water/drop,
 /area/awaymission/spacehotel)
 "fC" = (
-/obj/structure/ladder/dive_point/buoy,
-/obj/structure/ladder/dive_point/buoy{
+/obj/structure/ladder/unbreakable/dive_point/buoy,
+/obj/structure/ladder/unbreakable/dive_point/buoy{
 	id = "weirddive";
 	invisibility = 101
 	},
@@ -3465,7 +3465,7 @@
 	},
 /area/awaymission/spacehotel)
 "hG" = (
-/obj/structure/ladder{
+/obj/structure/ladder/unbreakable{
 	height = 1;
 	icon_state = "ladder10";
 	id = "service"
@@ -3525,7 +3525,7 @@
 /area/awaymission/spacehotel)
 "hN" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/ladder{
+/obj/structure/ladder/unbreakable{
 	height = 2;
 	icon_state = "ladder01";
 	id = "service"
