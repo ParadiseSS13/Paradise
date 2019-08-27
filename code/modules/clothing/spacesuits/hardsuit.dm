@@ -14,7 +14,7 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 	//Species-specific stuff.
-	species_restricted = list("exclude","Diona","Wryn")
+	species_restricted = list("exclude","Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
@@ -93,9 +93,10 @@
 	var/obj/item/clothing/head/helmet/space/hardsuit/helmet
 	actions_types = list(/datum/action/item_action/toggle_helmet)
 	var/helmettype = /obj/item/clothing/head/helmet/space/hardsuit
+	var/obj/item/tank/jetpack/suit/jetpack = null
 
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
-	species_restricted = list("exclude","Diona","Wryn")
+	species_restricted = list("exclude", "Wryn")
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
@@ -112,9 +113,58 @@
 		"Vulpkanin" = 'icons/obj/clothing/species/vulpkanin/suits.dmi'
 		)
 
+/obj/item/clothing/suit/space/hardsuit/New()
+	if(jetpack && ispath(jetpack))
+		jetpack = new jetpack(src)
+	..()
+
 /obj/item/clothing/suit/space/hardsuit/attack_self(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	..()
+
+/obj/item/clothing/suit/space/hardsuit/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/tank/jetpack/suit))
+		if(jetpack)
+			to_chat(user, "<span class='warning'>[src] already has a jetpack installed.</span>")
+			return
+		if(src == user.get_item_by_slot(slot_wear_suit)) //Make sure the player is not wearing the suit before applying the upgrade.
+			to_chat(user, "<span class='warning'>You cannot install the upgrade to [src] while wearing it.</span>")
+			return
+
+		if(user.unEquip(I))
+			I.forceMove(src)
+			jetpack = I
+			to_chat(user, "<span class='notice'>You successfully install the jetpack into [src].</span>")
+			return
+	else if(isscrewdriver(I))
+		if(!jetpack)
+			to_chat(user, "<span class='warning'>[src] has no jetpack installed.</span>")
+			return
+		if(src == user.get_item_by_slot(slot_wear_suit))
+			to_chat(user, "<span class='warning'>You cannot remove the jetpack from [src] while wearing it.</span>")
+			return
+
+		jetpack.turn_off(user)
+		jetpack.forceMove(drop_location())
+		jetpack = null
+		to_chat(user, "<span class='notice'>You successfully remove the jetpack from [src].</span>")
+		return
+	return ..()
+
+/obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
+	..()
+	if(jetpack)
+		if(slot == slot_wear_suit)
+			for(var/X in jetpack.actions)
+				var/datum/action/A = X
+				A.Grant(user)
+
+/obj/item/clothing/suit/space/hardsuit/dropped(mob/user)
+	..()
+	if(jetpack)
+		for(var/X in jetpack.actions)
+			var/datum/action/A = X
+			A.Remove(user)
 
 /obj/item/clothing/suit/space/hardsuit/item_action_slot_check(slot)
 	if(slot == slot_wear_suit) //we only give the mob the ability to toggle the helmet if he's wearing the hardsuit.
@@ -178,6 +228,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
+	jetpack = /obj/item/tank/jetpack/suit
 
 //Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -291,6 +342,7 @@
 	armor = list(melee = 40, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 50)
 	allowed = list(/obj/item/gun, /obj/item/ammo_box,/obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword, /obj/item/restraints/handcuffs, /obj/item/tank)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/syndi
+	jetpack = /obj/item/tank/jetpack/suit
 
 /obj/item/clothing/suit/space/hardsuit/syndi/update_icon()
 	icon_state = "hardsuit[on]-[item_color]"
@@ -438,6 +490,7 @@
 	icon_state = "hardsuit-hos"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
+	jetpack = /obj/item/tank/jetpack/suit
 	sprite_sheets = null
 
 //Singuloth armor
@@ -522,6 +575,7 @@
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/melee/energy/sword/saber,/obj/item/restraints/handcuffs,/obj/item/tank)
 	slowdown = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
+	jetpack = /obj/item/tank/jetpack/suit
 	sprite_sheets = list(
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',

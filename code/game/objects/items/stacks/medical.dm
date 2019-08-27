@@ -123,6 +123,19 @@
 	origin_tech = "biotech=2"
 	stop_bleeding = 1800
 
+/obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
+		if(get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
+			return
+		new /obj/item/stack/sheet/cloth(user.drop_location())
+		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		use(2)
+	else
+		return ..()
+
 /obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
 	if(..())
 		return 1

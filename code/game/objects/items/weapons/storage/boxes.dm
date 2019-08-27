@@ -1059,6 +1059,15 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 
+/obj/item/storage/box/emptysandbags
+	name = "box of empty sandbags"
+
+/obj/item/storage/box/emptysandbags/New()
+	..()
+	contents = list()
+	for(var/i in 1 to 7)
+		new /obj/item/emptysandbag(src)
+
 /obj/item/storage/box/rndboards
 	name = "the Liberator's legacy"
 	desc = "A box containing a gift for worthy golems."

@@ -758,6 +758,7 @@
 	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 	actions_types = list(/datum/action/item_action/zipper)
 	adjust_flavour = "unzip"
 

@@ -65,7 +65,6 @@
 	if(smooth)
 		queue_smooth(src)
 		queue_smooth_neighbors(src)
-	..()
 
 /obj/effect/decal/cleanable/Destroy()
 	if(smooth)

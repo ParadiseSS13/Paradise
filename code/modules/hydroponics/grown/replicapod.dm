@@ -88,7 +88,7 @@
 		make_podman = 0
 
 	if(make_podman)	//all conditions met!
-		var/mob/living/carbon/human/diona/podman = new /mob/living/carbon/human/diona(parent.loc)
+		var/mob/living/carbon/human/pod_diona/podman = new /mob/living/carbon/human/pod_diona(parent.loc)
 		if(realName)
 			podman.real_name = realName
 		mind.transfer_to(podman)

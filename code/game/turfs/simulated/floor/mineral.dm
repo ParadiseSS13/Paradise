@@ -173,6 +173,18 @@
 	nitrogen = 0.01
 	temperature = TCMB
 
+
+/turf/simulated/floor/mineral/bananium/lubed/Initialize(mapload)
+	. = ..()
+	MakeSlippery(TURF_WET_LUBE, TRUE)
+
+/turf/simulated/floor/mineral/bananium/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
+		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+	return
+
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
 	name = "silent floor"

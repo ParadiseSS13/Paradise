@@ -988,10 +988,10 @@
 			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.dna.species.species_traits) //plantmen take a LOT of damage
-				H.adjustToxLoss(50)
+			if(IS_PLANT in H.dna.species.species_traits) //plantmen take extra damage
+				H.adjustToxLoss(3)
 				..()
-	else if(istype(M, /mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
+	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
 		var/mob/living/simple_animal/diona/D = M
 		D.adjustHealth(100)
 		..()

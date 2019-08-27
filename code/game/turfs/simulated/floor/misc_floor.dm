@@ -43,7 +43,7 @@
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
 
-/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)	
+/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
 /turf/simulated/floor/beach/sand
@@ -79,7 +79,7 @@
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
-		return 
+		return
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
@@ -107,6 +107,26 @@
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
 
+/turf/simulated/floor/noslip/lavaland
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/floor/lubed
+	name = "slippery floor"
+	icon_state = "floor"
+
+/turf/simulated/floor/lubed/Initialize(mapload)
+	. = ..()
+	MakeSlippery(TURF_WET_LUBE, TRUE)
+
+/turf/simulated/floor/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
+		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+	return
+
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"
@@ -124,7 +144,7 @@
 		new /obj/effect/temp_visual/ratvar/beam(src)
 		realappearence = new /obj/effect/clockwork/overlay/floor(src)
 		realappearence.linked = src
-	
+
 /turf/simulated/floor/clockwork/Destroy()
 	if(uses_overlay && realappearence)
 		QDEL_NULL(realappearence)
