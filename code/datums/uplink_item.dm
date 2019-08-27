@@ -1,6 +1,6 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
-/proc/get_uplink_items(var/datum/game_mode/gamemode = null, var/job = null)
+/proc/get_uplink_items(datum/game_mode/gamemode = null, job = null)
 	var/list/uplink_items = list()
 	var/list/sales_items = list()
 	var/newreference = 1
