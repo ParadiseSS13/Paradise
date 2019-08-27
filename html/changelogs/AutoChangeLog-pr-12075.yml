@@ -1,0 +1,4 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - tweak: "IV bags are able to transfer their contents to other containers by clicking on them with the bag"
