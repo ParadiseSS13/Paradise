@@ -4795,10 +4795,10 @@
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_y = 29
 	},
-/obj/machinery/deployable/barrier,
-/obj/machinery/deployable/barrier,
-/obj/machinery/deployable/barrier,
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
 /turf/simulated/floor/plasteel{
 	tag = "icon-vault (WEST)";
 	icon_state = "vault";

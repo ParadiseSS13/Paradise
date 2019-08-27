@@ -49652,8 +49652,8 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
-/obj/machinery/deployable/barrier,
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
@@ -49673,8 +49673,8 @@
 	},
 /area/security/armoury)
 "bLK" = (
-/obj/machinery/deployable/barrier,
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8

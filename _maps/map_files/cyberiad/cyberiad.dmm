@@ -4055,7 +4055,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
 "ahH" = (
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -4155,7 +4155,7 @@
 	},
 /area/security/brig)
 "ahR" = (
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -4324,7 +4324,7 @@
 	},
 /area/security/brig)
 "aif" = (
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -4370,7 +4370,7 @@
 	},
 /area/security/brig)
 "aij" = (
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
