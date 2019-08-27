@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds jetpack hardsuit upgrades: get yours at mining for 2000 points"
+  - rscdel: "Removes mining carbon dioxide jetpack"
+  - tweak: "Can no longer use jetpacks in your suit storage slot"
+  - rscadd: "Chief Engineer's hardsuit, Syndicate Hardsuit (normal and elite), and Shielded Syndicate Hardsuit all have built in jetpacks"
