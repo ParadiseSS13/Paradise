@@ -1360,6 +1360,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Surgery 2"
 	icon_state = "surgery2"
 
+/area/medical/surgery3
+	name = "\improper Surgery 3"
+	icon_state = "surgery3"
+
 /area/medical/surgeryobs
 	name = "\improper Surgery Observation"
 	icon_state = "surgery"
