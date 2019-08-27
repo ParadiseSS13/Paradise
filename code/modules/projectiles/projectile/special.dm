@@ -143,7 +143,6 @@
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
 				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-			if(prob(35))
 				if(prob(80))
 					randmutb(M)
 					domutcheck(M,null)

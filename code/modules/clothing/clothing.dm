@@ -596,7 +596,7 @@ BLIND     // can't see anything
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_restricted = list("exclude","Vox","Wryn")
 	flash_protect = 2
 	strip_delay = 50
 	put_on_delay = 50
@@ -624,7 +624,7 @@ BLIND     // can't see anything
 	put_on_delay = 80
 	burn_state = FIRE_PROOF
 	hide_tail_by_species = null
-	species_restricted = list("exclude","Diona","Vox","Wryn")
+	species_restricted = list("exclude","Vox","Wryn")
 
 //Under clothing
 /obj/item/clothing/under
