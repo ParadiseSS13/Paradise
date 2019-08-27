@@ -66,6 +66,12 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
 
+/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	var/datum/martial_art/cqc/under_siege/justacook = new
+	justacook.teach(H)
 
 
 /datum/job/hydro
