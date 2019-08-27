@@ -19,6 +19,8 @@
 
 	// Lavaland Ruins
 	#include "map_files\RandomRuins\LavaRuins\lavaland_biodome_beach.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_biodome_clown_planet.dmm"
+	#include "map_files\RandomRuins\LavaRuins\lavaland_biodome_winter.dmm"
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_animal_hospital.dmm"
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_ash_walker1.dmm"
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_blooddrunk1.dmm"
@@ -44,7 +46,7 @@
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_syndicate_base1.dmm"
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_ufo_crash.dmm"
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_xeno_nest.dmm"
-	
+
 
 	// Space Ruins
 	#include "map_files\RandomRuins\SpaceRuins\abandonedzoo.dmm"
