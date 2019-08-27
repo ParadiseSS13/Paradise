@@ -180,6 +180,7 @@
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	var/selectingplayer = FALSE
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
@@ -189,6 +190,11 @@
 		else
 			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
 			adjustFireLoss(0.2)
+	if(selectingplayer == TRUE)
+		AIStatus = AI_OFF
+		LoseTarget()
+	else
+		AIStatus = AI_ON
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
 	return

@@ -234,14 +234,16 @@
 	blobber.color = blob_reagent_datum.complementary_color
 	blobber.overmind = src
 	blob_mobs.Add(blobber)
+	blobber.selectingplayer = TRUE
 	spawn()
-		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1, 150)
+		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1, 100)
 		if(candidates.len)
 			var/mob/C = pick(candidates)
 			if(C)
 				blobber.key = C.key
 				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
 				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
+		blobber.selectingplayer = FALSE
 	return
 
 
