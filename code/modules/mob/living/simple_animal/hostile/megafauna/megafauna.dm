@@ -31,6 +31,7 @@
 	/obj/structure/barricade,
 	/obj/machinery/field,
 	/obj/machinery/power/emitter)
+	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
 	var/elimination = 0
@@ -43,6 +44,10 @@
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
 
+/mob/living/simple_animal/hostile/megafauna/New()
+	..()
+	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
 	. = ..()
@@ -53,10 +58,16 @@
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
-		feedback_set_details("megafauna_kills","[initial(name)]")
+		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
+			spawn_crusher_loot()
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			grant_achievement(medal_type,score_type)
+			feedback_set_details("megafauna_kills","[initial(name)]")
 	return ..()
+
+/mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
+	loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
 	..()

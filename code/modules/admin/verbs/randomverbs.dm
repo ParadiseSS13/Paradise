@@ -58,6 +58,9 @@
 
 	if(!msg)
 		return
+
+	msg = admin_pencode_to_html(msg)
+
 	if(usr)
 		if(usr.client)
 			if(usr.client.holder)
@@ -136,7 +139,7 @@
 
 	if( !msg )
 		return
-	msg = pencode_to_html(msg)
+	msg = admin_pencode_to_html(msg)
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
@@ -613,7 +616,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
 	if(!input)
 		return
-	input = html_encode(input)
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 		if("Yes")
