@@ -68,6 +68,9 @@
 		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
 		if(hitsound)
 			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+			animate(M, pixel_z = 4)
+			animate(transform = turn(matrix(), user.dir == WEST ? -20 : 20), pixel_z = 0, time = 2)
+			animate(transform = matrix(), time=0)
 
 	user.lastattacked = M
 	M.lastattacker = user
