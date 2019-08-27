@@ -12,7 +12,7 @@
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 
-/datum/spellbook_entry/proc/IsAvailible() // For config prefs / gamemode restrictions - these are round applied
+/datum/spellbook_entry/proc/IsSpellAvailable() // For config prefs / gamemode restrictions - these are round applied
 	return 1
 /datum/spellbook_entry/proc/CanBuy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
@@ -201,7 +201,7 @@
 	log_name = "LD"
 	category = "Defensive"
 
-/datum/spellbook_entry/lichdom/IsAvailible()
+/datum/spellbook_entry/lichdom/IsSpellAvailable()
 	if(SSticker.mode.name == "ragin' mages")
 		return FALSE
 	else
@@ -308,7 +308,7 @@
 	cost = 0
 	log_name = "SGH"
 
-/datum/spellbook_entry/summon/ghosts/IsAvailible()
+/datum/spellbook_entry/summon/ghosts/IsSpellAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(SSticker.mode.name == "ragin' mages")
@@ -329,7 +329,7 @@
 	cost = 0
 	log_name = "SG"
 
-/datum/spellbook_entry/summon/guns/IsAvailible()
+/datum/spellbook_entry/summon/guns/IsSpellAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(SSticker.mode.name == "ragin' mages")
@@ -351,7 +351,7 @@
 	cost = 0
 	log_name = "SU"
 
-/datum/spellbook_entry/summon/magic/IsAvailible()
+/datum/spellbook_entry/summon/magic/IsSpellAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
 		return FALSE
 	if(SSticker.mode.name == "ragin' mages")
@@ -580,7 +580,7 @@
 	var/entry_types = subtypesof(/datum/spellbook_entry) - /datum/spellbook_entry/item - /datum/spellbook_entry/summon
 	for(var/T in entry_types)
 		var/datum/spellbook_entry/E = new T
-		if(E.IsAvailible())
+		if(E.IsSpellAvailable())
 			entries |= E
 			categories |= E.category
 		else
