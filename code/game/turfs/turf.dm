@@ -516,6 +516,5 @@
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/water_act(volume, temperature, source)
-	for(var/mob/living/carbon/slime/M in src)
-		M.apply_water()
+/turf/proc/water_act(volume, temperature, source)	
+ 	return FALSE
