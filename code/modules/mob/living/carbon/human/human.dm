@@ -168,10 +168,11 @@
 	show_stat_emergency_shuttle_eta()
 
 	if(client.statpanel == "Status")
-		if(locate(/obj/item/gps) in GetAllContents())
+		var/total_user_contents = GetAllContents() // cache it
+		if(locate(/obj/item/gps) in total_user_contents)
 			var/turf/T = get_turf(src)
 			stat(null, "GPS: [COORD(T)]")
-		if(locate(/obj/item/assembly/health) in src)
+		if(locate(/obj/item/assembly/health) in total_user_contents)
 			stat(null, "Health: [health]")
 		if(internal)
 			if(!internal.air_contents)
