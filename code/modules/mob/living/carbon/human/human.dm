@@ -168,6 +168,9 @@
 	show_stat_emergency_shuttle_eta()
 
 	if(client.statpanel == "Status")
+		if(locate(/obj/item/gps) in GetAllContents())
+			var/turf/T = get_turf(src)
+			stat(null, "GPS: [COORD(T)]")
 		if(locate(/obj/item/assembly/health) in src)
 			stat(null, "Health: [health]")
 		if(internal)
@@ -852,7 +855,7 @@
 				return
 			var/read = 0
 			var/perpname = get_visible_name(TRUE)
-			
+
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
