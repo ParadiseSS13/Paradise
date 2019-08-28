@@ -302,7 +302,7 @@
 	if(martial_art && martial_art.deflection_chance) //Some martial arts users can deflect projectiles!
 		if(!prob(martial_art.deflection_chance))
 			return ..()
-		if(!(mobility_flags & MOBILITY_STAND) && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
+		if((mobility_flags & MOBILITY_STAND) && !(HULK in mutations)) //But only if they're not lying down, and hulks can't do it
 			visible_message("<span class='danger'>[src] deflects the projectile; [p_they()] can't be hit with ranged weapons!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
 			return 0
 	..()
