@@ -1,0 +1,11 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds in a loom, craft one out of 10 wood"
+  - rscadd: "Adds in cotton and durathread cotton to botany to grow"
+  - rscadd: "Adds in a number of expanded items to create out of cloth, such as improvised gauze, beanies,  and softcaps"
+  - rscadd: "Adds the ability to use personal crafting to make durathread jumpsuits, bandanas, armor, helmets, beanies and berets. Aside from the bandana, these all have minor armor on them"
+  - rscadd: "Adds a number of new items to personally craft, related to clothing: ability to make health, sec, diagnotic, and reagent sunglasses."
+  - rscadd: "Can  additionally craft cowboy boots, lizardskin cowboy boots, fannypacks, and a spooky ghost disguise"
+  - rscadd: "adds a whole range of beanies, find them in the clothing vendor or make them yourself"
+  - tweak: "Updates the cowboy boots sprites"
