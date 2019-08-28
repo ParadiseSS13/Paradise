@@ -6,7 +6,8 @@
 	anchored = 1
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
-	active_power_usage = 250
+	active_power_usage = 200
+	pass_flags = PASSTABLE
 	var/obj/item/charging = null
 	var/using_power = FALSE
 	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer)
@@ -14,6 +15,18 @@
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
 	var/icon_state_idle = "recharger0"
+	var/recharge_coeff = 1
+
+/obj/machinery/recharger/New()
+	..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/recharger(null)
+	component_parts += new /obj/item/stock_parts/capacitor(null)
+	RefreshParts()
+
+/obj/machinery/recharger/RefreshParts()
+	for(var/obj/item/stock_parts/capacitor/C in component_parts)
+		recharge_coeff = C.rating
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
 	if(iswrench(G))
@@ -54,8 +67,16 @@
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
-	else
-		return ..()
+		
+	if(anchored && !charging)
+		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
+			return
+
+		if(panel_open && istype(G, /obj/item/crowbar))
+			default_deconstruction_crowbar(G)
+			return
+
+	return ..()
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
@@ -87,10 +108,11 @@
 		if(istype(charging, /obj/item/gun/energy))
 			var/obj/item/gun/energy/E = charging
 			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(E.power_supply.chargerate)
+				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
 				E.on_recharge()
 				use_power(250)
 				using_power = TRUE
+
 
 		if(istype(charging, /obj/item/melee/baton))
 			var/obj/item/melee/baton/B = charging

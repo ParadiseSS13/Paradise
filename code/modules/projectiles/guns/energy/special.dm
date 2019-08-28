@@ -177,7 +177,7 @@
 		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
-		..()
+		return ..()
 
 /obj/item/gun/energy/plasmacutter/update_icon()
 	return

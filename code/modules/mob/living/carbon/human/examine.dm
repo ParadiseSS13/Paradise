@@ -338,17 +338,8 @@
 		msg += "[p_they(TRUE)] [p_are()] mostly dessicated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user,"security"))
-		var/perpname = "wot"
+		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
-
-		if(wear_id)
-			var/obj/item/card/id/I = wear_id.GetID()
-			if(I)
-				perpname = I.registered_name
-			else
-				perpname = name
-		else
-			perpname = name
 
 		if(perpname)
 			for(var/datum/data/record/E in data_core.general)
@@ -361,17 +352,8 @@
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user,"medical"))
-		var/perpname = "wot"
+		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
-
-		if(wear_id)
-			if(istype(wear_id,/obj/item/card/id))
-				perpname = wear_id:registered_name
-			else if(istype(wear_id,/obj/item/pda))
-				var/obj/item/pda/tempPda = wear_id
-				perpname = tempPda.owner
-		else
-			perpname = src.name
 
 		for(var/datum/data/record/E in data_core.general)
 			if(E.fields["name"] == perpname)

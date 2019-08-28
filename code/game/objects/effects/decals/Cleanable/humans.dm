@@ -17,13 +17,23 @@ var/global/list/image/splatter_cache = list()
 	blood_DNA = list()
 	var/base_icon = 'icons/effects/blood.dmi'
 	var/blood_state = BLOOD_STATE_HUMAN
-	var/bloodiness = MAX_SHOE_BLOODINESS
+	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/basecolor = "#A10808" // Color when wet.
 	var/amount = 5
 	var/dry_timer = 0
 	var/off_floor = FALSE
 
-/obj/effect/decal/cleanable/blood/Initialize()
+
+/obj/effect/decal/cleanable/blood/replace_decal(obj/effect/decal/cleanable/blood/C)
+	if(C.blood_DNA)
+		blood_DNA |= C.blood_DNA.Copy()
+	if(bloodiness)
+		if(C.bloodiness < MAX_SHOE_BLOODINESS)
+			C.bloodiness += bloodiness
+	return ..()
+
+
+/obj/effect/decal/cleanable/blood/Initialize(mapload)
 	. = ..()
 	update_icon()
 	if(GAMEMODE_IS_CULT)
@@ -87,46 +97,6 @@ var/global/list/image/splatter_cache = list()
 /obj/effect/decal/cleanable/blood/can_bloodcrawl_in()
 	return TRUE
 
-//Add "bloodiness" of this blood's type, to the human's shoes
-/obj/effect/decal/cleanable/blood/Crossed(atom/movable/O)
-	if(!off_floor && ishuman(O))
-		var/mob/living/carbon/human/H = O
-		var/obj/item/organ/external/l_foot = H.get_organ("l_foot")
-		var/obj/item/organ/external/r_foot = H.get_organ("r_foot")
-		var/hasfeet = TRUE
-		if(!l_foot && !r_foot)
-			hasfeet = FALSE
-		if(H.shoes && blood_state && bloodiness)
-			var/obj/item/clothing/shoes/S = H.shoes
-			var/add_blood = 0
-			if(bloodiness >= BLOOD_GAIN_PER_STEP)
-				add_blood = BLOOD_GAIN_PER_STEP
-			else
-				add_blood = bloodiness
-			bloodiness -= add_blood
-			S.bloody_shoes[blood_state] = min(MAX_SHOE_BLOODINESS, S.bloody_shoes[blood_state] + add_blood)
-			if(blood_DNA && blood_DNA.len)
-				S.add_blood(H.blood_DNA, basecolor)
-			S.blood_state = blood_state
-			S.blood_color = basecolor
-			update_icon()
-			H.update_inv_shoes()
-		else if(hasfeet && blood_state && bloodiness)//Or feet
-			var/add_blood = 0
-			if(bloodiness >= BLOOD_GAIN_PER_STEP)
-				add_blood = BLOOD_GAIN_PER_STEP
-			else
-				add_blood = bloodiness
-			bloodiness -= add_blood
-			H.bloody_feet[blood_state] = min(MAX_SHOE_BLOODINESS, H.bloody_feet[blood_state] + add_blood)
-			if(!H.feet_blood_DNA)
-				H.feet_blood_DNA = list()
-			H.blood_state = blood_state
-			H.feet_blood_DNA |= blood_DNA.Copy()
-			H.feet_blood_color = basecolor
-			update_icon()
-			H.update_inv_shoes()
-
 /obj/effect/decal/cleanable/blood/splatter
 	random_icon_states = list("mgibbl1", "mgibbl2", "mgibbl3", "mgibbl4", "mgibbl5")
 	amount = 2
@@ -167,7 +137,7 @@ var/global/list/image/splatter_cache = list()
 	amount = 0
 	var/message
 
-/obj/effect/decal/cleanable/blood/writing/Initialize()
+/obj/effect/decal/cleanable/blood/writing/Initialize(mapload)
 	. = ..()
 	if(random_icon_states.len)
 		for(var/obj/effect/decal/cleanable/blood/writing/W in loc)
@@ -191,6 +161,8 @@ var/global/list/image/splatter_cache = list()
 	icon_state = "gibbl5"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
+	mergeable_decal = FALSE
+
 	var/fleshcolor = "#FFFFFF"
 
 /obj/effect/decal/cleanable/blood/gibs/update_icon()
@@ -238,7 +210,7 @@ var/global/list/image/splatter_cache = list()
 			break
 
 
-/obj/effect/decal/cleanable/blood/old/Initialize()
+/obj/effect/decal/cleanable/blood/old/Initialize(mapload)
 	. = ..()
 	bloodiness = 0
 	dry()
@@ -246,7 +218,7 @@ var/global/list/image/splatter_cache = list()
 /obj/effect/decal/cleanable/blood/old/can_bloodcrawl_in()
 	return FALSE
 
-/obj/effect/decal/cleanable/blood/gibs/old/Initialize()
+/obj/effect/decal/cleanable/blood/gibs/old/Initialize(mapload)
 	. = ..()
 	bloodiness = 0
 	dry()

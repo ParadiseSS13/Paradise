@@ -107,13 +107,19 @@
 #define ui_healthdoll "EAST-1:28,CENTER-1:15"
 #define ui_health "EAST-1:28,CENTER:17"
 #define ui_internal "EAST-1:28,CENTER+1:19"
-									//borgs
+
+//borgs
 #define ui_borg_health "EAST-1:28,CENTER-1:15" //borgs have the health display where humans have the pressure damage indicator.
+
+//aliens
 #define ui_alien_health "EAST-1:28,CENTER-1:15" //aliens have the health display where humans have the pressure damage indicator.
 
-
+//constructs
 #define ui_construct_pull "EAST-1:28,SOUTH+1:10" //above the zone_sel icon
 #define ui_construct_health "EAST,CENTER:15" //same height as humans, hugging the right border
+
+//slimes
+#define ui_slime_health "EAST,CENTER:15"  //same as borgs, constructs and humans
 
 //Pop-up inventory
 #define ui_shoes "WEST+1:8,SOUTH:5"
