@@ -47,6 +47,11 @@
 		if(C.can_inject(null, 0, inject_target, 0))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
 
+/mob/living/simple_animal/hostile/poison/giant_spider/New()
+	..()
+	if(!faction.len)
+		faction = list("spiders")
+
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes."
@@ -144,6 +149,9 @@
 	set category = "Spider"
 	set desc = "Spread a sticky web to slow down prey."
 
+	if(stat == DEAD)
+		return
+
 	var/T = src.loc
 
 	if(busy != SPINNING_WEB)
@@ -161,6 +169,9 @@
 	set name = "Wrap"
 	set category = "Spider"
 	set desc = "Wrap up prey to feast upon and objects for safe keeping."
+
+	if(stat == DEAD)
+		return
 
 	if(!cocoon_target)
 		var/list/choices = list()
@@ -217,6 +228,9 @@
 	set name = "Lay Eggs"
 	set category = "Spider"
 	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
+
+	if(stat == DEAD)
+		return
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
