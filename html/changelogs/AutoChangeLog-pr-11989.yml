@@ -1,0 +1,15 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Reworks Diona"
+  - rscadd: "Diona bleed (call it chlorophy; it's green)"
+  - rscadd: "Diona Breathe (plants do need to exchange gas after all)"
+  - rscdel: "Rad Immunity Removed"
+  - tweak: "Diona regenerate 1 OXY, 1 BURN, 1 BRUTE, and 1 TOX if they are in a bright area; this effect does not kick in if they're in crit"
+  - rscdel: "Diona no longer have unbreakable bones (wood can crack ya know!)"
+  - rscdel: "Diona are no longer space proof"
+  - tweak: "Diona are more vulnerable to fire and heat damage"
+  - tweak: "Diona weakness to weedkiller dramatically nerfed"
+  - rscadd: "Diona now use Newcrit"
+  - tweak: "Diona are no longer slow"
+  - rscadd: "Diona can wear spacesuits"

@@ -1,0 +1,9 @@
+author: "EmanTheAlmighty"
+delete-after: True
+changes: 
+  - rscadd: "Blobbernauts can now be controlled by players through a prompt which appears when they are spawned by blobs."
+  - rscadd: "Blobbernauts and blobs can now communicate with each other."
+  - rscadd: "Blobbernauts now regenerate health overtime when standing on blob structures."
+  - rscadd: "Blobbernauts will slowly lose health if they are not standing on blob structures while not at full health.
+balance: Blobbernauts have been nerfed, they now have less health, deal less damage and cannot break walls anymore.
+balance: Blob's \"Produce Blobbernaut\" ability has been made more expensive to use, now costing 60 resources instead of 20."

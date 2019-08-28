@@ -1,0 +1,9 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - rscadd: "A new outfit manager has been added for admins (under debug). It lets them save and load custom outfits on their computer and use these to equip players."
+  - rscadd: "Upon transforming players into humans or reincarnating them through the player panel, admins will now directly be able to select their equipment."
+  - rscadd: "The select equipment verb now works on observers: it'll create a human with the given equipment under the ghost."
+  - rscadd: "A \"Copy Outfit\" button has been added to the View Variables dropdown, which lets admins instantly copy an outfit."
+  - rscadd: "Outfits now support accessories and internal boxes."
+  - rscdel: "The separate option to equip ERT members has been removed. It's been integrated into their regular outfits."

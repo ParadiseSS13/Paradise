@@ -1,0 +1,4 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "mining shuttle warning message and delay before launching"

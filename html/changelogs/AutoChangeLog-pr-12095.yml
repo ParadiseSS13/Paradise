@@ -1,0 +1,5 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - imageadd: "Drask crewmembers now have properly fitting shoes."
+  - imageadd: "Fixed some minor issues in Drasks uniforms"

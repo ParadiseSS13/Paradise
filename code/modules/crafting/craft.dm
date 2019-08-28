@@ -1,7 +1,7 @@
 /datum/personal_crafting
 	var/busy
 	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
-	var/list/categories = list(CAT_WEAPON,CAT_AMMO,CAT_ROBOT,CAT_FOOD,CAT_MISC,CAT_PRIMAL)
+	var/list/categories = list(CAT_WEAPON,CAT_AMMO,CAT_ROBOT,CAT_FOOD,CAT_CLOTHING,CAT_MISC,CAT_PRIMAL)
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
 

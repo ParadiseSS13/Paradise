@@ -243,7 +243,6 @@
 /obj/item/stack/sheet/mineral/silver{
 	amount = 20
 	},
-/obj/item/clothing/head/helmet/space/hardsuit/wizard,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aM" = (

@@ -532,7 +532,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -3900,7 +3899,13 @@
 /turf/simulated/floor/plasteel,
 /area/security/armoury)
 "ahH" = (
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -3998,7 +4003,13 @@
 	},
 /area/security/brig)
 "ahR" = (
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -4151,13 +4162,22 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "aif" = (
-/obj/machinery/deployable/barrier,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = -32
+	},
+/obj/item/grenade/barrier,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/machinery/status_display{
+	density = 0;
+	layer = 4;
+	pixel_x = -32;
+	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -4194,7 +4214,7 @@
 	},
 /area/security/brig)
 "aij" = (
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -31421,8 +31441,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/reagent_dispensers/watertank/high,
-/obj/item/reagent_containers/glass/bucket,
+/obj/structure/table,
+/obj/machinery/smartfridge/disks,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32668,17 +32688,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
-"bkl" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/port)
 "bkm" = (
 /obj/item/radio/intercom{
 	pixel_y = -28
@@ -33782,25 +33791,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
-"bmv" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/primary/port)
 "bmw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -34722,6 +34712,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
+/obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36677,6 +36668,13 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/fishtank/bowl,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
 /turf/simulated/floor/wood,
 /area/civilian/pet_store)
 "bsS" = (
@@ -77029,7 +77027,15 @@
 	icon_state = "intact";
 	dir = 8
 	},
-/turf/simulated/wall/r_wall,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Engineering";
+	name = "Engineering Security Doors";
+	opacity = 0
+	},
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
 /area/engine/supermatter)
 "djC" = (
 /obj/machinery/camera{
@@ -77748,12 +77754,12 @@
 /area/engine/supermatter)
 "dlY" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9;
+	level = 1
 	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
@@ -79460,7 +79466,6 @@
 	name = "Engineering External Access";
 	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "dtz" = (
@@ -90512,7 +90517,15 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced/plasma,
+/obj/machinery/door/poddoor{
+	density = 0;
+	icon_state = "open";
+	id_tag = "Engineering";
+	name = "Engineering Security Doors";
+	opacity = 0
+	},
+/turf/simulated/floor/plating,
 /area/engine/supermatter)
 "nZw" = (
 /obj/structure/table/reinforced,
@@ -122422,8 +122435,8 @@ aaa
 aaa
 beS
 bgA
-bmv
-bkl
+biJ
+bkg
 blQ
 bnE
 blQ
@@ -122679,8 +122692,8 @@ aSu
 aSu
 aSu
 bgE
-bmf
-bkr
+biG
+bkg
 blQ
 blQ
 blQ

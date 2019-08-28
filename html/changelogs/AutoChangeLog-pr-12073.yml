@@ -1,0 +1,11 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Hardsuits have an integrated helmet; you no longer have to attach helmets"
+  - tweak: "Toggling up/down helmets is now done with an action button"
+  - rscdel: "can no longer attach magboots to a hardsuit"
+  - tweak: "Hardsuit base melee armor increased from 10 to 30"
+  - tweak: "Security and HoS hardsuit melee armor increased by 5"
+  - tweak: "HoS hardsuit helmet armor matches his hardsuit"
+  - tweak: "CE's hardsuit helmet armor for rads increased by 10 (should be fully rad proof now)"
+  - tweak: "Elite syndicate suits can't be acided"

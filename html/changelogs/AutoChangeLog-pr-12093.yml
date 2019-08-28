@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds in sandbags. Use them to deploy destructable barriers; miners start off with a few"
+  - rscdel: "Removes access based security barriers"
+  - rscadd: "Adds in security barrier grenade. When it goes off, it will deploy up to 3 barriers that will lock into place; should find 4 of these in the armory"
+  - rscadd: "can tear up bedsheet and gauze to get cloth--requires a sharp object"

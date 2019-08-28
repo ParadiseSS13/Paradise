@@ -85,7 +85,7 @@
 
 	holder = item
 
-	holder.flags |= NODROP | DROPDEL
+	holder.flags |= NODROP
 	holder.unacidable = 1
 	holder.slot_flags = null
 	holder.w_class = WEIGHT_CLASS_HUGE
