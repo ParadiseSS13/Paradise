@@ -100,6 +100,12 @@ var/global/list/body_accessory_by_species = list("None" = null)
 	return FALSE
 
 
+/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
+	name = "Striped Tail"
+	icon_state = "winglertail"
+	animated_icon_state = "winglertail_a"
+	allowed_species = list("Tajaran")
+
 /datum/body_accessory/tail/tiny //Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
 	name = "Tiny Tail"
 	icon_state = "tiny"
