@@ -515,3 +515,6 @@
 
 /turf/AllowDrop()
 	return TRUE
+
+/turf/proc/water_act(volume, temperature, source)	
+ 	return FALSE
