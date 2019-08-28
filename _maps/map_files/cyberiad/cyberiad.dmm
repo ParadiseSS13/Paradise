@@ -3906,12 +3906,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -4004,12 +3998,6 @@
 /area/security/brig)
 "ahR" = (
 /obj/item/grenade/barrier,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -4170,15 +4158,6 @@
 	pixel_x = -32
 	},
 /obj/item/grenade/barrier,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/status_display{
-	density = 0;
-	layer = 4;
-	pixel_x = -32;
-	pixel_y = 0
-	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "red"
@@ -16500,9 +16479,6 @@
 	tag = "icon-tube1 (WEST)";
 	icon_state = "tube1";
 	dir = 8
-	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -87520,7 +87496,8 @@
 /area/maintenance/asmaint)
 "lkX" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
-/turf/simulated/wall/r_wall,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/maintenance/turbine)
 "llL" = (
 /obj/structure/reagent_dispensers/fueltank,
