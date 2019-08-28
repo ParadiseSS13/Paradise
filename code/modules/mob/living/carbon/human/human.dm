@@ -849,7 +849,7 @@
 				return
 			var/read = 0
 			var/perpname = get_visible_name(TRUE)
-			
+
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
@@ -1470,12 +1470,12 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
-		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', dna.species.eyes)
+		var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', dna.species.eyes)
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
 			eyes_icon = eyes.generate_icon()
-		else
+		else //Error 404: Eyes not found!
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon
@@ -1484,8 +1484,8 @@
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1)
-	MA.plane = LIGHTING_PLANE
+	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
+	MA.plane = ABOVE_LIGHTING_PLANE
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
 
 /*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
