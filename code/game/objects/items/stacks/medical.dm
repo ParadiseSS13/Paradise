@@ -158,6 +158,11 @@
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than a bandage!</span>")
 
+/obj/item/stack/medical/bruise_pack/improvised
+	name = "improvised gauze"
+	singular_name = "improvised gauze"
+	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
+	stop_bleeding = 900
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
