@@ -30,7 +30,7 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
-//Botonist
+//Botanist
 /obj/item/clothing/suit/apron
 	name = "apron"
 	desc = "A basic blue apron."
@@ -364,6 +364,9 @@
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/suspenders/nodrop
+	flags = NODROP
+
 // Surgeon
 /obj/item/clothing/suit/apron/surgical
 	name = "surgical apron"
@@ -371,7 +374,7 @@
 	icon_state = "surgical"
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
-	
+
 //Research Director
 /obj/item/clothing/suit/mantle/labcoat
 	name = "research director's mantle"
