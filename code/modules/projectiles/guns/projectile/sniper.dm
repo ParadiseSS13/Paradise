@@ -4,7 +4,7 @@
 	icon_state = "sniper"
 	item_state = "sniper"
 	recoil = 2
-	weapon_weight = WEAPON_MEDIUM
+	weapon_weight = WEAPON_HEAVY
 	mag_type = /obj/item/ammo_box/magazine/sniper_rounds
 	fire_sound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'

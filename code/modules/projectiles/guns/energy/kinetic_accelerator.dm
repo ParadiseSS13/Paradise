@@ -134,6 +134,7 @@
 
 /obj/item/gun/energy/kinetic_accelerator/proc/reload()
 	power_supply.give(500)
+	on_recharge()
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else if(isliving(loc))
