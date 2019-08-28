@@ -2,7 +2,7 @@
 	name = "Mime Malaise"
 	desc = "A spell popular with theater nerd wizards and contrarian pranksters, this spell will put on a mime costume on the target, \
 		stun them so that they may contemplate Art, and silence them. \
-		Warning : Effects may be permanent on non-wizards."
+		Warning : Effects are permanent on non-wizards."
 	hand_path = /obj/item/melee/touch_attack/mime_malaise
 	school = "transmutation"
 

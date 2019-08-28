@@ -2,7 +2,7 @@
 	name = "Banana Touch"
 	desc = "A spell popular at wizard birthday parties, this spell will put on a clown costume on the target, \
 		stun them with a loud HONK, and mutate them to make them more entertaining! \
-		Warning : Effects may be permanent on non-wizards."
+		Warning : Effects are permanent on non-wizards."
 	hand_path = /obj/item/melee/touch_attack/banana
 	school = "transmutation"
 
