@@ -671,9 +671,9 @@
 			if(!restrained())
 				var/t1 = round(text2num(param))
 				if(isnum(t1))
-					if(t1 <= 5 && (!r_hand || !l_hand))
+					if(t1 <= 5 && t1 >= 1 && (!r_hand || !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
-					else if(t1 <= 10 && (!r_hand && !l_hand))
+					else if(t1 <= 10 && t1 >= 1 && (!r_hand && !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 			m_type = 1
 
@@ -946,9 +946,13 @@
  // Maybe some people are okay with that.
 
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || istype(M, /mob/new_player))
-				continue //skip monkeys, leavers and new players
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+			if(!M.client)
+				continue 
+
+			if(isnewplayer(M))
+				continue
+
+			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(m_type)

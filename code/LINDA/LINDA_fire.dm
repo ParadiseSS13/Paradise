@@ -189,7 +189,7 @@
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/Crossed(mob/living/L)
+/obj/effect/hotspot/Crossed(mob/living/L, oldloc)
 	..()
 	if(isliving(L))
 		L.fire_act()

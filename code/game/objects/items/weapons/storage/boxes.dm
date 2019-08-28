@@ -113,7 +113,7 @@
 	New()
 		..()
 		contents = list()
-		new /obj/item/clothing/mask/breath(src)
+		new /obj/item/clothing/mask/gas/explorer(src)
 		new /obj/item/tank/emergency_oxygen/engi(src)
 		new /obj/item/crowbar/red(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
@@ -371,6 +371,20 @@
 		new /obj/item/implanter(src)
 		new /obj/item/implantpad(src)
 		new /obj/item/locator(src)
+
+/obj/item/storage/box/minertracker
+	name = "boxed tracking implant kit"
+	desc = "For finding those who have died on the accursed lavaworld."
+	icon_state = "implant"
+
+/obj/item/storage/box/minertracker/New()
+	..()
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implanter(src)
+	new /obj/item/implantpad(src)
+	new /obj/item/locator(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"

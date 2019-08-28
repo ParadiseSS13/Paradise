@@ -5,6 +5,7 @@
 	alwayslog = TRUE
 	damage_type = BURN
 	nodamage = 1
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/ion
 	flag = "energy"
 
 /obj/item/projectile/ion/on_hit(var/atom/target, var/blocked = 0)
@@ -129,6 +130,7 @@
 	damage = 0
 	damage_type = TOX
 	nodamage = 1
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	flag = "energy"
 
 /obj/item/projectile/energy/floramut/on_hit(var/atom/target, var/blocked = 0)
@@ -244,18 +246,7 @@
 	damage = 5
 	range = 3
 	dismemberment = 20
-
-/obj/item/projectile/plasma/New()
-	var/turf/proj_turf = get_turf(src)
-	if(!istype(proj_turf, /turf))
-		return
-	var/datum/gas_mixture/environment = proj_turf.return_air()
-	if(environment)
-		var/pressure = environment.return_pressure()
-		if(pressure < 30)
-			name = "full strength plasma blast"
-			damage *= 3
-	..()
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
 /obj/item/projectile/plasma/on_hit(atom/target)
 	. = ..()
@@ -267,7 +258,8 @@
 		forcedodge = 0
 
 /obj/item/projectile/plasma/adv
-	range = 6
+	damage = 7
+	range = 5
 
 /obj/item/projectile/plasma/adv/mech
 	damage = 10

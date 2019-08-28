@@ -307,11 +307,6 @@
 		qdel(src)
 		return
 
-	// Change the way they should download resources.
-	if(config.resource_urls)
-		preload_rsc = pick(config.resource_urls)
-	else preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
-
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 
@@ -413,6 +408,16 @@
 
 	Master.UpdateTickRate()
 
+	// Check total playercount
+	var/playercount = 0
+	for(var/mob/M in GLOB.player_list)
+		if(M.client)
+			playercount += 1
+	
+	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
+		GLOB.panic_bunker_enabled = 1
+		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
+
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
 	if(!isnull(address) && address in localhost_addresses)
@@ -428,6 +433,9 @@
 		GLOB.admins -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	if(movingmob)
+		movingmob.client_mobs_in_contents -= mob
+		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
 	return ..()
 
@@ -538,6 +546,14 @@
 			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
 	else
 		//New player!! Need to insert all the stuff
+
+		// Check new peeps for panic bunker
+		if(GLOB.panic_bunker_enabled)
+			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
+			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
+			del(src)
+			return // Dont insert or they can just go in again
+		
 		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		if(!query_insert.Execute())
 			var/err = query_insert.ErrorMsg()
@@ -755,6 +771,11 @@
 
 //Send resources to the client.
 /client/proc/send_resources()
+	// Change the way they should download resources.
+	if(config.resource_urls)
+		preload_rsc = pick(config.resource_urls)
+	else 
+		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
 		'html/search.js', // Used in various non-NanoUI HTML windows for search functionality

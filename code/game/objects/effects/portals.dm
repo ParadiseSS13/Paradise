@@ -3,7 +3,6 @@
 	desc = "Looks unstable. Best to test it with the clown."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
-	density = TRUE
 	unacidable = TRUE
 	anchored = TRUE
 
@@ -16,9 +15,6 @@
 	var/precision = TRUE // how close to the portal you will teleport. FALSE = on the portal, TRUE = adjacent
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
-
-/obj/effect/portal/Bumped(mob/M as mob|obj)
-	teleport(M)
 
 /obj/effect/portal/New(loc, turf/target, creator = null, lifespan = 300)
 	..()
@@ -49,8 +45,11 @@
 /obj/effect/portal/singularity_act()
 	return
 
-/obj/effect/portal/Crossed(atom/movable/AM)
+/obj/effect/portal/Crossed(atom/movable/AM, oldloc)
 	if(isobserver(AM))
+		return ..()
+
+	if(target && (get_turf(oldloc) == get_turf(target)))
 		return ..()
 
 	if(!teleport(AM))

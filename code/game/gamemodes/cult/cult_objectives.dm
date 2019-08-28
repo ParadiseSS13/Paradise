@@ -163,6 +163,16 @@
 				possible_sac_targets += player.mind
 	return possible_sac_targets
 
+// Handles the updating of sacrifice objectives after the sacrifice target goes to cryo and ghosts
+/datum/game_mode/cult/proc/update_sac_objective(previous_target, previous_role)
+	for(var/datum/mind/cult_mind in cult)
+		if(cult_mind)
+			var/updated_memory = cult_mind.memory
+			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
+			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
+			cult_mind.memory = updated_memory
+			
+
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()
 

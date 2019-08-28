@@ -1,8 +1,0 @@
-author: "Quantum-M"
-delete-after: True
-changes: 
-  - rscadd: "New sprites for vampires being \"hungry\"."
-  - rscadd: "New sprite for vampire usable blood count."
-  - rscadd: "New sprites for the safety muzzle."
-  - tweak: "Safety muzzle (aka the anti-bitting one) can no longer be resisted out of."
-  - tweak: "Vampires can now suck blood from monkey mobs (e.g. monkeys, stoks, etc.) for sustenance but do not get blood power points."

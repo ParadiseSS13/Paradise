@@ -25,7 +25,8 @@
 	if(blob_nodes.len)
 		var/list/nodes = list()
 		for(var/i = 1; i <= blob_nodes.len; i++)
-			nodes["Blob Node #[i]"] = blob_nodes[i]
+			var/obj/structure/blob/node/B = blob_nodes[i]
+			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
 		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
 		var/obj/structure/blob/node/chosen_node = nodes[node_name]
 		if(chosen_node)
@@ -388,7 +389,7 @@
 	set name = "Blob Broadcast"
 	set desc = "Speak with your blob spores and blobbernauts as your mouthpieces. This action is free."
 
-	var/speak_text = input(usr, "What would you like to say with your minions?", "Blob Broadcast", null) as text
+	var/speak_text = clean_input("What would you like to say with your minions?", "Blob Broadcast", null)
 
 	if(!speak_text)
 		return

@@ -19,6 +19,8 @@
 	if(select == 1)
 		overlays += "[initial(icon_state)]burst"
 	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	if(bayonet && can_bayonet)
+		overlays += knife_overlay
 
 /obj/item/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
 	. = ..()
@@ -96,6 +98,9 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	fire_delay = 2
 	burst_size = 2
+	can_bayonet = TRUE
+	knife_x_offset = 26
+	knife_y_offset = 12
 
 /obj/item/gun/projectile/automatic/c20r/New()
 	..()
@@ -123,6 +128,9 @@
 	can_suppress = 0
 	burst_size = 1
 	actions_types = list()
+	can_bayonet = TRUE
+	knife_x_offset = 25
+	knife_y_offset = 12
 
 /obj/item/gun/projectile/automatic/wt550/update_icon()
 	..()
@@ -172,7 +180,7 @@
 			underbarrel.attack_self()
 			underbarrel.attackby(A, user, params)
 	else
-		..()
+		return ..()
 
 /obj/item/gun/projectile/automatic/m90/update_icon()
 	..()

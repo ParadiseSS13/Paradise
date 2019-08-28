@@ -73,7 +73,11 @@
 		stat = CONSCIOUS
 		return
 	health = maxHealth - getOxyLoss() - getFireLoss() - getBruteLoss() - getCloneLoss()
+
 	update_stat("updatehealth([reason])")
+	med_hud_set_health()
+	med_hud_set_status()
+	handle_hud_icons_health()
 
 /mob/living/carbon/alien/handle_environment(var/datum/gas_mixture/environment)
 

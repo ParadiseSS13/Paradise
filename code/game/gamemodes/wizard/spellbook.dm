@@ -863,7 +863,7 @@
 	if(istype(user, /mob/living/carbon/human))
 		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-		magichead.flags |= NODROP		//curses!
+		magichead.flags |= NODROP | DROPDEL	//curses!
 		magichead.flags_inv = null	//so you can still see their face
 		magichead.voicechange = 1	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
@@ -906,3 +906,13 @@
 	spellname = "sacred flame"
 	icon_state ="booksacredflame"
 	desc = "Become one with the flames that burn within... and invite others to do so as well."
+
+/obj/item/spellbook/oneuse/random
+	icon_state = "random_book"
+
+/obj/item/spellbook/oneuse/random/initialize()
+	. = ..()
+	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall)
+	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
+	new real_type(loc)
+	qdel(src)

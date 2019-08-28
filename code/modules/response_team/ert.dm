@@ -63,7 +63,7 @@ var/ert_request_answered = FALSE
 	active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 	send_emergency_team = TRUE
-	var/list/ert_candidates = pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT])
+	var/list/ert_candidates = shuffle(pollCandidates("Join the Emergency Response Team?",, responseteam_age, 600, 1, role_playtime_requirements[ROLE_ERT]))
 	if(!ert_candidates.len)
 		active_team.cannot_send_team()
 		send_emergency_team = FALSE
@@ -95,8 +95,8 @@ var/ert_request_answered = FALSE
 	for(var/datum/async_input/A in ert_gender_prefs)
 		A.close()
 	for(var/mob/M in response_team_members)
-		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (15 seconds):", active_team.get_slot_list()))
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 150)
+		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", active_team.get_slot_list()))
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
 
 /proc/dispatch_response_team(list/response_team_members, list/ert_gender_prefs, list/ert_role_prefs)
 	var/spawn_index = 1

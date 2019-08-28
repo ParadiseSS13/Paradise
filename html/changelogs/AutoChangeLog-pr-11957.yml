@@ -1,0 +1,5 @@
+author: "FreeStylaLT"
+delete-after: True
+changes: 
+  - rscadd: "Added an Engine Picker, which uses new engine beacons."
+  - tweak: "Replaced the current two engine generators with one engine beacon."

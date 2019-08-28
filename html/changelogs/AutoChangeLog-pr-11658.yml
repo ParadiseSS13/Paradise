@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - rscadd: "Plating can now be removed (exposing the baseturf) using a welder."

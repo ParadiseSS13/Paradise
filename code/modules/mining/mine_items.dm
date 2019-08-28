@@ -20,32 +20,17 @@
 	..()
 	contents = list()
 	new /obj/item/storage/backpack/duffel(src)
-	new /obj/item/storage/backpack/industrial(src)
-	new /obj/item/storage/backpack/satchel_eng(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/under/rank/miner(src)
-	new /obj/item/clothing/shoes/workboots(src)
-	new /obj/item/clothing/shoes/workboots(src)
-	new /obj/item/clothing/shoes/workboots(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-
-/obj/structure/closet/wardrobe/miner/lavaland
-
-/obj/structure/closet/wardrobe/miner/lavaland/New()
-	..()
-	contents = list()
-	new /obj/item/storage/backpack/duffel(src)
 	new /obj/item/storage/backpack/explorer(src)
-	new /obj/item/storage/backpack/explorer(src)
+	new /obj/item/storage/backpack/satchel/explorer(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
 	new /obj/item/clothing/shoes/workboots/mining(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/clothing/gloves/color/black(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
@@ -59,14 +44,18 @@
 
 /obj/structure/closet/secure_closet/miner/New()
 	..()
+//	new /obj/item/stack/sheet/mineral/sandbags(src, 5)
+//	new /obj/item/storage/box/emptysandbags(src)
 	new /obj/item/shovel(src)
-	new /obj/item/pickaxe(src)
+	new /obj/item/pickaxe/mini(src)
 	new /obj/item/radio/headset/headset_cargo/mining(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/storage/bag/plants(src)
 	new /obj/item/storage/bag/ore(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/survivalcapsule(src)
-	new /obj/item/stack/marker_beacon/ten
 
 /**********************Shuttle Computer**************************/
 
@@ -121,6 +110,15 @@
 	force = 1
 	throwforce = 1
 	attack_verb = list("ineffectively hit")
+
+/obj/item/pickaxe/mini
+	name = "compact pickaxe"
+	desc = "A smaller, compact version of the standard pickaxe."
+	icon_state = "minipick"
+	force = 10
+	throwforce = 7
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 1000)
 
 /obj/item/pickaxe/silver
 	name = "silver-plated pickaxe"

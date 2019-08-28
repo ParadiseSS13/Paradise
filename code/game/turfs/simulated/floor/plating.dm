@@ -7,6 +7,8 @@
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
 
+	var/unfastened = FALSE 
+
 	footstep_sounds = list(
 	"human" = list('sound/effects/footstep/plating_human.ogg'),
 	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
@@ -17,11 +19,25 @@
 	icon_plating = icon_state
 	update_icon()
 
+/turf/simulated/floor/plating/damaged/New()
+	..()
+	break_tile()
+
+/turf/simulated/floor/plating/burnt/New()
+	..()
+	burn_tile()
+
 /turf/simulated/floor/plating/update_icon()
 	if(!..())
 		return
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
+
+/turf/simulated/floor/plating/examine(mob/user)
+	. = ..()
+
+	if(unfastened)
+		to_chat(user, "<span class='warning'>It has been unfastened.</span>")
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
@@ -56,6 +72,15 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
+	else if(isscrewdriver(C))
+		var/obj/item/screwdriver/screwdriver = C
+		to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
+		playsound(src, screwdriver.usesound, 50, 1)
+		if(do_after(user, 20 * screwdriver.toolspeed, target = src) && screwdriver)
+			to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+			unfastened = !unfastened
+		return TRUE
+
 	else if(iswelder(C))
 		var/obj/item/weldingtool/welder = C
 		if(welder.isOn())
@@ -71,7 +96,7 @@
 				burnt = FALSE
 				broken = FALSE
 				update_icon()
-			else
+			if(unfastened)
 				to_chat(user, "<span class='notice'>You start removing [src].</span>")
 				playsound(src, welder.usesound, 100, 1)
 				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())

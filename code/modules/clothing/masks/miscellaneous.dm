@@ -214,7 +214,8 @@
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 
@@ -233,7 +234,8 @@
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
 		)
 
 /obj/item/clothing/mask/fakemoustache/attack_self(mob/user)
@@ -308,7 +310,8 @@
 	var/originalname = ""
 
 	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
 	)
 
 /obj/item/clothing/mask/horsehead/equipped(mob/user, slot)
@@ -420,7 +423,8 @@
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
 		)
 	actions_types = list(/datum/action/item_action/adjust)
 

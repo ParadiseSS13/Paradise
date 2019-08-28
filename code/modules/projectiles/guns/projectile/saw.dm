@@ -50,14 +50,15 @@
 		to_chat(user, "<span class='notice'>You remove the magazine from [src].</span>")
 
 
-/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)	
+/obj/item/gun/projectile/automatic/l6_saw/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
 			if(!cover_open)
 				to_chat(user, "<span class='warning'>[src]'s cover is closed! You can't insert a new mag.</span>")
 				return
-	..()
+	else
+		return ..()
 
 //ammo//
 

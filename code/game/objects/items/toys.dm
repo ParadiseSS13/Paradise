@@ -208,6 +208,7 @@
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
+	sharp_when_wielded = FALSE // It's a toy
 
 /obj/item/twohanded/dualsaber/toy/hit_reaction()
 	return 0
@@ -283,7 +284,7 @@
 	..()
 	pop_burst()
 
-/obj/item/toy/snappop/Crossed(H as mob|obj)
+/obj/item/toy/snappop/Crossed(H as mob|obj, oldloc)
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
 		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
