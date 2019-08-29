@@ -99,6 +99,8 @@
 			itemcount++
 
 	for(var/mob/M in loc)
+		if(M.mob_size <= MOB_SIZE_LARGE) // No more stuffing xeno empresses into lockers
+			return FALSE
 		if(itemcount >= storage_capacity)
 			break
 		if(istype(M, /mob/dead/observer))
