@@ -60,7 +60,7 @@
 			//create new thing to remove the phrase
 			var/DBQuery/new_query = dbcon.NewQuery("UPDATE [format_table_name("ban")] SET challenge = 0  WHERE ckey = '[src.ckey]'")
 			new_query.Execute()
-			to_chat(src, "<span class='danger'>Correct phrase. Functions unlocked. Welcome back to Paradise.</span>") //tell user they won
+			to_chat(src, "<span class='danger'>Correct phrase. Functions unlocked.</span>") //tell user they won
 			return TRUE //allow for new_player_panel to continue 
 		else
 			to_chat(src, "<span class='danger'>Incorrect phrase. Please completely read all of the rules, it is a set of words that let us know you have read the rules in full.</span>") //tell user to redo
