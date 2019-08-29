@@ -1,0 +1,4 @@
+author: "Ty-Omaha"
+delete-after: True
+changes: 
+  - bugfix: "Fixed a bug where hotwiring solar panels would allow for the station to remain powered in the Grid Check power failure event."

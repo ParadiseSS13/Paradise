@@ -1,4 +1,0 @@
-author: "Crazylemon64"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a bug that would cause ghosts to teleport their bodies sometimes"

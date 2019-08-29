@@ -38,6 +38,21 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	burn_state = FIRE_PROOF
 
+/obj/item/clothing/gloves/bracer
+	name = "bone bracers"
+	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
+	icon_state = "bracers"
+	item_state = "bracers"
+	item_color = null	//So they don't wash.
+	transfer_prints = TRUE
+	strip_delay = 40
+	body_parts_covered = ARMS
+	cold_protection = ARMS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list(melee = 15, bullet = 25, laser = 15, energy = 15, bomb = 20, bio = 10, rad = 0)
+
 /obj/item/clothing/gloves/botanic_leather
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
 	name = "botanist's leather gloves"

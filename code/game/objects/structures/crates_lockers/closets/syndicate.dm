@@ -23,7 +23,6 @@
 
 /obj/structure/closet/syndicate/suits/New()
 	..()
-	new /obj/item/clothing/head/helmet/space/hardsuit/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/tank/jetpack/oxygen/harness(src)
@@ -61,7 +60,6 @@
 	new /obj/item/clothing/glasses/thermal(src)
 	new /obj/item/clothing/shoes/magboots/syndie/advance(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst(src)
 	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src)
 
 /obj/structure/closet/syndicate/resources/

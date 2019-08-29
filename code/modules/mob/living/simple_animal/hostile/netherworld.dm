@@ -69,6 +69,7 @@
 	desc = null //see examine()
 	icon_state = "nether"
 	health = 50
+	maxHealth = 50
 	spawn_time = 600 //1 minute
 	max_mobs = 15
 	icon = 'icons/mob/nest.dmi'
@@ -76,9 +77,9 @@
 	mob_types = list(/mob/living/simple_animal/hostile/netherworld/migo, /mob/living/simple_animal/hostile/netherworld, /mob/living/simple_animal/hostile/netherworld/blankbody)
 	faction = list("nether")
 
-/mob/living/simple_animal/hostile/spawner/nether/Initialize()
-	.=..()
-	START_PROCESSING(SSprocessing, src)
+/mob/living/simple_animal/hostile/spawner/nether/death()
+	. = ..()
+	qdel(src)
 
 /mob/living/simple_animal/hostile/spawner/nether/examine(mob/user)
 	..()
@@ -96,7 +97,8 @@
 							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
 		contents.Add(user)
 
-/mob/living/simple_animal/hostile/spawner/nether/process()
+/mob/living/simple_animal/hostile/spawner/nether/Life()
+	. = ..()
 	for(var/mob/living/M in contents)
 		if(M)
 			playsound(src, 'sound/magic/demon_consume.ogg', 50, 1)

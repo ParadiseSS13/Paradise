@@ -1,0 +1,5 @@
+author: "Terilia"
+delete-after: True
+changes: 
+  - rscadd: "added headcrabs"
+  - tweak: "adjusted the path's for headslugs. They are not called headcrab anymore"

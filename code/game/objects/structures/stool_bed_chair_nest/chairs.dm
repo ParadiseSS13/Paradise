@@ -64,6 +64,12 @@
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 			return
+		if(!usr.has_right_hand() && !usr.has_left_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but you are missing both of your hands!</span>")
+			return
+		if(usr.get_active_hand() && usr.get_inactive_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but your hands are already full!</span>")
+			return
 		if(!ishuman(usr))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")

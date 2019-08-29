@@ -210,6 +210,7 @@
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.owner = S.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
+	KillDaCrew.completed = TRUE
 	S.mind.objectives += KillDaCrew
 	to_chat(S, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(S, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
@@ -219,7 +220,8 @@
 	desc = "A magically infused bottle of clown love, distilled from \
 		countless hugging attacks. Used in funny rituals to attract \
 		adorable creatures."
-	color = "#FF69B4" // HOT PINK
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "vialtickles"
 	veil_msg = "<span class='warning'>You sense an adorable presence \
 		lurking just beyond the veil...</span>"
 	objective_verb = "Hug and tickle"
@@ -278,6 +280,7 @@
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.owner = M.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	KillDaCrew.completed = TRUE
 	M.mind.objectives += KillDaCrew
 	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
 	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")

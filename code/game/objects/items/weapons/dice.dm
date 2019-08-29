@@ -4,6 +4,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
+	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/dice/New()
 	..()

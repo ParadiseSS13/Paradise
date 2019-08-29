@@ -297,23 +297,23 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			to_chat(owner, "<span class='warning'>They've got no blood left to give.</span>")
 			break
 		if(H.stat < DEAD)
-			if(!issmall(H) || H.ckey)
+			if(H.ckey || H.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, H.blood_volume)	// if they have less than 20 blood, give them the remnant else they get 20 blood
 				bloodtotal += blood / 2	//divide by 2 to counted the double suction since removing cloneloss -Melandor0
 				bloodusable += blood / 2
 		else
-			if(!issmall(H) || H.ckey)
+			if(H.ckey || H.player_ghosted)
 				blood = min(5, H.blood_volume)	// The dead only give 5 blood
 				bloodtotal += blood
 		if(old_bloodtotal != bloodtotal)
-			if(!issmall(H) || H.ckey) // not small OR has a ckey, monkeys with ckeys can be sucked, humanized monkeys can be sucked monkeys without ckeys cannot be sucked
+			if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
 				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		if(ishuman(owner))
 			var/mob/living/carbon/human/V = owner
-			if(issmall(H) && !H.ckey)
-				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your hunger, but you get no usable blood from it.</b></span>")
+			if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
+				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
 				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5)
 			else
 				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
@@ -402,7 +402,14 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 
 		if(T.density)
 			return
-	vamp_burn(1)
+	if(bloodusable >= 10)	//burn through your blood to tank the light for a little while
+		to_chat(owner, "<span class='warning'>The starlight saps your strength!</span>")
+		bloodusable -= 10
+		vamp_burn(10)
+	else		//You're in trouble, get out of the sun NOW
+		to_chat(owner, "<span class='userdanger'>Your body is turning to ash, get out of the light now!</span>")
+		owner.adjustCloneLoss(10)	//I'm melting!
+		vamp_burn(85)
 
 /datum/vampire/proc/handle_vampire()
 	if(owner.hud_used)
@@ -419,7 +426,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	if(istype(owner.loc, /turf/space))
 		check_sun()
 	if(istype(owner.loc.loc, /area/chapel) && !get_ability(/datum/vampire_passive/full))
-		vamp_burn(0)
+		vamp_burn(7)
 	nullified = max(0, nullified - 1)
 
 /datum/vampire/proc/handle_vampire_cloak()
@@ -442,8 +449,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 	else
 		owner.alpha = round((255 * 0.80))
 
-/datum/vampire/proc/vamp_burn(severe_burn)
-	var/burn_chance = severe_burn ? 35 : 8
+/datum/vampire/proc/vamp_burn(burn_chance)
 	if(prob(burn_chance) && owner.health >= 50)
 		switch(owner.health)
 			if(75 to 100)

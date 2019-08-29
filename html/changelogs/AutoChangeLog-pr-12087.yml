@@ -1,0 +1,4 @@
+author: "KasparoVy"
+delete-after: True
+changes: 
+  - bugfix: "Picking up uniforms no longer renders a default grey jumpsuit on Vox."

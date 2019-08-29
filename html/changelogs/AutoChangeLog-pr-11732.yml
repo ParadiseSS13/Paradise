@@ -1,4 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - rscadd: "Adds the AFK auto cryo system. By default it won't affect players unless they activate it themselves by setting the preference in their game preferences tab."

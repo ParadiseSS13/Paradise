@@ -146,7 +146,7 @@
 	var/backpack = /obj/item/storage/backpack
 	var/satchel = /obj/item/storage/backpack/satchel_norm
 	var/dufflebag = /obj/item/storage/backpack/duffel
-	var/box = /obj/item/storage/box/survival
+	box = /obj/item/storage/box/survival
 
 	var/tmp/list/gear_leftovers = list()
 
@@ -168,12 +168,8 @@
 			else
 				back = backpack //Department backpack
 
-	if(box)
-		var/spawnbox = box
-		if(H.dna.species.speciesbox)
-			spawnbox = H.dna.species.speciesbox
-		backpack_contents.Insert(1, spawnbox) // Box always takes a first slot in backpack
-		backpack_contents[spawnbox] = 1
+	if(box && H.dna.species.speciesbox)
+		box = H.dna.species.speciesbox
 
 	if(allow_loadout && H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
 		for(var/gear in H.client.prefs.gear)

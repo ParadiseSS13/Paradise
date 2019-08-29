@@ -54,8 +54,6 @@
 
 /obj/item/paper/update_icon()
 	..()
-	if(icon_state == "paper_talisman")
-		return
 	if(info)
 		icon_state = "paper_words"
 		return
