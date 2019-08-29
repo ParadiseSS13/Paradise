@@ -1,0 +1,4 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - imageadd: "non-humans now have proper sprites for durathread goods"
