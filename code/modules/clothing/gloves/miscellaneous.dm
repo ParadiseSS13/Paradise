@@ -168,3 +168,9 @@
 	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	click_speed_modifier = 0
 	siemens_coefficient = 0
+
+/obj/item/clothing/gloves/fingerless/rapid/headpat
+	name = "Gloves of Headpats"
+	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
+	accepted_intents = list(INTENT_HELP)
+	click_speed_modifier = 0 // That's some serious headpatting
