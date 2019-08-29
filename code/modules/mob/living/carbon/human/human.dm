@@ -852,7 +852,7 @@
 				return
 			var/read = 0
 			var/perpname = get_visible_name(TRUE)
-			
+
 			for(var/datum/data/record/E in data_core.general)
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in data_core.medical)
@@ -1099,17 +1099,22 @@
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/external/O = new limb_path(temp_holder)
 			if(H.get_limb_by_name(O.name)) //Check to see if the user already has an limb with the same name as the 'missing limb'. If they do, skip regrowth.
-				continue					 //In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
-											 //while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
+				continue					//In an example, this will prevent duplication of the mob's right arm if the mob is a Human and they have a Diona right arm, since,
+											//while the limb with the name 'right_arm' the mob has may not be listed in their species' bodyparts definition, it is still viable and has the appropriate limb name.
 			else
 				O = new limb_path(H) //Create the limb on the player.
 				O.owner = H
 				H.bodyparts |= H.bodyparts_by_name[O.limb_name]
+				if(O.body_part == HEAD) //They're sprouting a fresh head so lets hook them up with their genetic stuff so their new head looks like the original.
+					H.UpdateAppearance()
 
 	//Replacing lost organs with the species default.
 	temp_holder = new /mob/living/carbon/human()
-	for(var/index in H.dna.species.has_organ)
-		var/organ = H.dna.species.has_organ[index]
+	var/list/species_organs = H.dna.species.has_organ.Copy() //Compile a list of species organs and tack on the mutantears afterward.
+	if(H.dna.species.mutantears)
+		species_organs["ears"] = H.dna.species.mutantears
+	for(var/index in species_organs)
+		var/organ = species_organs[index]
 		if(!(organ in types_of_int_organs)) //If the mob is missing this particular organ...
 			var/obj/item/organ/internal/I = new organ(temp_holder) //Create the organ inside our holder so we can check it before implantation.
 			if(H.get_organ_slot(I.slot)) //Check to see if the user already has an organ in the slot the 'missing organ' belongs to. If they do, skip implantation.
@@ -1473,12 +1478,12 @@
 	var/obj/item/organ/internal/eyes/eyes = get_int_organ(/obj/item/organ/internal/eyes)
 	var/obj/item/organ/internal/cyberimp/eyes/eye_implant = get_int_organ(/obj/item/organ/internal/cyberimp/eyes)
 	if(istype(dna.species) && dna.species.eyes)
-		var/icon/eyes_icon = new/icon('icons/mob/human_face.dmi', dna.species.eyes)
+		var/icon/eyes_icon = new /icon('icons/mob/human_face.dmi', dna.species.eyes)
 		if(eye_implant) //Eye implants override native DNA eye colo(u)r
 			eyes_icon = eye_implant.generate_icon()
 		else if(eyes)
 			eyes_icon = eyes.generate_icon()
-		else
+		else //Error 404: Eyes not found!
 			eyes_icon.Blend("#800000", ICON_ADD)
 
 		return eyes_icon
@@ -1487,8 +1492,8 @@
 	var/obj/item/organ/external/head/head_organ = get_organ("head")
 	var/datum/sprite_accessory/hair/hair_style = GLOB.hair_styles_full_list[head_organ.h_style]
 	var/icon/hair = new /icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
-	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = LIGHTING_LAYER + 1)
-	MA.plane = LIGHTING_PLANE
+	var/mutable_appearance/MA = mutable_appearance(get_icon_difference(get_eyecon(), hair), layer = ABOVE_LIGHTING_LAYER)
+	MA.plane = ABOVE_LIGHTING_PLANE
 	return MA //Cut the hair's pixels from the eyes icon so eyes covered by bangs stay hidden even while on a higher layer.
 
 /*Used to check if eyes should shine in the dark. Returns the image of the eyes on the layer where they will appear to shine.
