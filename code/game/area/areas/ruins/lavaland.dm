@@ -85,3 +85,8 @@
 //ash walker nest
 /area/ruin/unpowered/ash_walkers
 	icon_state = "red"
+
+//netherworld
+
+/area/ruin/unpowered/nether
+	icon_state = "red"

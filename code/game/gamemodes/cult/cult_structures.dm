@@ -206,7 +206,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	if(last_heal <= world.time)
 		last_heal = world.time + heal_delay
 		for(var/mob/living/L in range(5, src))
-			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
+			if(iscultist(L) || istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct) || istype(L, /mob/living/simple_animal/hostile/netherworld))
 				if(L.health != L.maxHealth)
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))

@@ -205,3 +205,11 @@ datum/map_template/ruin/lavaland/ash_walker
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
+
+/datum/map_template/ruin/lavaland/nether
+	name = "Netherworld Passageway"
+	id = "nether"
+	description = "Some cultists went to great lenghts to ensure their victory. Some even summoned creatures from other dimensions!"
+	suffix = "lavaland_surface_nether.dmm"
+	allow_duplicates = FALSE
+	cost = 10

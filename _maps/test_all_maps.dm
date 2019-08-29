@@ -44,7 +44,8 @@
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_syndicate_base1.dmm"
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_ufo_crash.dmm"
 	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_xeno_nest.dmm"
-	
+	#include "map_files\RandomRuins\LavaRuins\lavaland_surface_nether.dmm"
+
 
 	// Space Ruins
 	#include "map_files\RandomRuins\SpaceRuins\abandonedzoo.dmm"

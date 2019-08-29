@@ -1,0 +1,49 @@
+"a" = (/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"b" = (/turf/simulated/mineral/volcanic/lava_land_surface,/area/lavaland/surface/outdoors)
+"c" = (/mob/living/simple_animal/hostile/netherworld,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"d" = (/mob/living/simple_animal/hostile/netherworld/blankbody,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"e" = (/turf/simulated/wall/cult,/area/ruin/unpowered/nether)
+"f" = (/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"g" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"h" = (/obj/item/melee/cultblade/dagger,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"i" = (/turf/simulated/wall/cult/artificer,/area/ruin/unpowered/nether)
+"j" = (/obj/structure/constructshell,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"k" = (/obj/structure/cult/functional/pylon,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"l" = (/mob/living/simple_animal/hostile/spawner/nether,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"m" = (/obj/item/soulstone,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"n" = (/obj/structure/cult/functional/tome,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"o" = (/obj/structure/cult/functional/talisman,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"q" = (/mob/living/simple_animal/hostile/netherworld/migo,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"r" = (/obj/machinery/door/airlock/cult/friendly,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"s" = (/obj/effect/baseturf_helper/lava_land/surface,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+"t" = (/obj/effect/decal/cleanable/blood,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"u" = (/obj/effect/decal/cleanable/blood,/mob/living/simple_animal/hostile/netherworld/blankbody,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"v" = (/obj/effect/rune/convert,/turf/simulated/floor/engine/cult,/area/ruin/unpowered/nether)
+
+(1,1,1) = {"
+bbbbaaaaabbbbbaaaaaaabbbb
+bbbbbbataabbbbbaaaabaaaaa
+bbbbbbbtaaabbbbbbaaaabbba
+aaaabbbbaaabbbbbbbbbaaaaa
+aaaabaabbabbbbabbbbbbbbbb
+aaaaaaaabbbbbaaabbbbbbbbb
+aaaaaaataaabbataaabbbbbbb
+attcaaaaaaaaaaaadaaaaaabb
+aaaaaaeeeeeeeeeeeeeeeaaaa
+aadaaaefgfffffffffgfeaaaa
+aaaaaaefgfiiiiiiifggeaaaa
+abbataegffifngofifffeaaaa
+bbbaabefiiikglgkiiifeaaca
+bbaaabegijfffgfffjifeaaaa
+baaaaaegijmfhsfgmjifeaaaa
+aaabbaefijfgvfggfjifeataa
+aaaabaefffffffffffgfeataa
+baaaaaeeeeeeereeeeeeeaaab
+baaaaataaaaaaaaaaaaaaaabb
+baacaataaaaaaqaaaaaauaabb
+baaaaaataaaaaaataabaaaabb
+baaaaaaaabbaaatabbbbacabb
+bbaadababbbbbbbbbbbbaaaab
+bbaaaabaabbbbbbbbbbbaaaaa
+bbbbbbbbaabbbbbbbbbbbaaaa
+"}
