@@ -166,6 +166,8 @@
 							A.playsound_local(A, AM.unlock_sound, 50, 0)
 					else //Adding uses to an existing module
 						action.uses += initial(action.uses)
+						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
+						action.UpdateButtonIcon()
 						temp = "Additional use[action.uses > 1 ? "s" : ""] added to [action.name]!"
 			processing_time -= AM.cost
 
@@ -460,16 +462,25 @@
 	desc = "Overheats a machine, causing a small explosion after a short time."
 	button_icon_state = "overload_machine"
 	uses = 2
+	auto_use_uses = FALSE
+
+/datum/action/innate/ai/overload_machine/New()
+	..()
+	desc = "[desc] It has [uses] use\s remaining."
+	button.desc = desc
 
 /datum/action/innate/ai/overload_machine/Activate()
 	var/select = input("Choose a device to overload", "Overload Machine", null, null) as null|anything in GLOB.machines
 	if(!select)
-		uses++
 		return
 
 	var/obj/machinery/M = select
 	if(istype(M, /obj/machinery))
 		if(uses > 0)
+			adjust_uses(-1)
+			if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
+				desc = "[initial(desc)] It has [uses] use\s remaining."
+				UpdateButtonIcon()
 			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
 			to_chat(owner, "<span class='warning'>Overloading machine circuitry...</span>")
 			spawn(50)
@@ -480,7 +491,6 @@
 			to_chat(owner, "<span class='notice'>Out of uses.</span>")
 	else
 		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
-		uses++
 		return
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
@@ -497,20 +507,28 @@
 	desc = "Animates a targeted machine, causing it to attack anyone nearby."
 	button_icon_state = "override_machine"
 	uses = 4
+	auto_use_uses = FALSE
+
+/datum/action/innate/ai/override_machine/New()
+	..()
+	desc = "[desc] It has [uses] use\s remaining."
+	button.desc = desc
 
 /datum/action/innate/ai/override_machine/Activate()
 	var/select = input("Choose a device to override", "Override Machine", null, null) as null|anything in GLOB.machines
 	if(!select)
-		uses++
 		return
 
 	var/obj/machinery/M = select
 	if(istype(M, /obj/machinery))
 		if(!M.can_be_overridden())
 			to_chat(owner, "Can't override this device.")
-			uses++
 			return
 		else if(uses > 0)
+			adjust_uses(-1)
+			if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
+				desc = "[initial(desc)] It has [uses] use\s remaining."
+				UpdateButtonIcon()
 			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
 			to_chat(owner, "<span class='warning'>Reprogramming machine behaviour...</span>")
 			spawn(50)
@@ -520,7 +538,6 @@
 			to_chat(owner, "<span class='notice'>Out of uses.</span>")
 	else
 		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
-		uses++
 		return
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
@@ -608,9 +625,15 @@
 
 /datum/action/innate/ai/blackout
 	name = "Blackout"
-	desc = "Overloads lights across the station."
+	desc = "Overloads random lights across the station."
 	button_icon_state = "blackout"
 	uses = 3
+	auto_use_uses = FALSE
+
+/datum/action/innate/ai/blackout/New()
+	..()
+	desc = "[desc] It has [uses] use\s remaining."
+	button.desc = desc
 
 /datum/action/innate/ai/blackout/Activate()
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
@@ -620,6 +643,10 @@
 			apc.overload++
 	to_chat(owner, "<span class='notice'>Overcurrent applied to the powernet.</span>")
 	owner.playsound_local(owner, "sparks", 50, 0)
+	adjust_uses(-1)
+	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
+		desc = "[initial(desc)] It has [uses] use\s remaining."
+		UpdateButtonIcon()
 
 //Reactivate Camera Network: Reactivates up to 30 cameras across the station.
 /datum/AI_Module/small/reactivate_cameras
@@ -641,7 +668,7 @@
 
 /datum/action/innate/ai/reactivate_cameras/New()
 	..()
-	desc = "[desc] There are 30 reactivations remaining."
+	desc = "[desc] It has [uses] use\s remaining."
 	button.desc = desc
 
 /datum/action/innate/ai/reactivate_cameras/Activate()
@@ -659,8 +686,8 @@
 	owner.playsound_local(owner, 'sound/items/wirecutter.ogg', 50, 0)
 	adjust_uses(0, TRUE) //Checks the uses remaining
 	if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
-		desc = "[initial(desc)] There are [uses] reactivations remaining."
-		owner_AI.update_action_buttons()
+		desc = "[initial(desc)] It has [uses] use\s remaining."
+		UpdateButtonIcon()
 
 //Upgrade Camera Network: EMP-proofs all cameras, in addition to giving them X-ray vision.
 /datum/AI_Module/large/upgrade_cameras
