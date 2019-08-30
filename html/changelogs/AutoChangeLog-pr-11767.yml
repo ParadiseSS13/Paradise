@@ -1,6 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - imageadd: "Added colored pillbottles"
-  - rscadd: "Added an option to change color of the pillbottles to ChemMaster3000"
-  - rscadd: "Added new description to patch packs"

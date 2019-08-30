@@ -1,4 +1,0 @@
-author: "dovydas12345"
-delete-after: True
-changes: 
-  - bugfix: "Fixes being able to pick up chairs and stools when you have items in both hand or when you don't have hands."

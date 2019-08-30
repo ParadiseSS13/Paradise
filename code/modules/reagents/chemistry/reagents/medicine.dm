@@ -668,6 +668,7 @@
 	color = "#A0E85E"
 	metabolization_rate = 0.2
 	taste_message = "life"
+	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -680,13 +681,14 @@
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
-	if(isanimal(M))
-		if(method == TOUCH)
-			var/mob/living/simple_animal/SM = M
-			if(SM.stat == DEAD)
-				SM.revive()
-				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
-				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+	if(isanimal(M) && method == TOUCH)
+		var/mob/living/simple_animal/SM = M
+		if(SM.sentience_type != revive_type) // No reviving Ash Drakes for you
+			return
+		if(SM.stat == DEAD)
+			SM.revive()
+			SM.loot.Cut() //no abusing strange reagent for farming unlimited resources
+			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
 		if(method == INGEST || (method == TOUCH && prob(25)))
@@ -1149,24 +1151,19 @@
 	id = "lavaland_extract"
 	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	metabolization_rate = 0.7 //VERY strong chemical
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	can_synth = FALSE
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustOxyLoss(-3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustBruteLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(-6*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustBruteLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(-5*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract/overdose_process(mob/living/M) // This WILL be brutal
 	var/update_flags = STATUS_UPDATE_NONE
 	M.AdjustConfused(5)
-	update_flags |= M.adjustBruteLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustToxLoss(10*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.Stun(7, FALSE)
-	update_flags |= M.Weaken(7, FALSE)
+	update_flags |= M.adjustBruteLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustFireLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(3*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags

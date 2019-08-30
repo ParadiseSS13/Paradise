@@ -1,5 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - bugfix: "Wizard rounds now end if all wizards and apprentices are either dead, inside cyborgs, or in MMIs"
-  - tweak: "Re-enabled the wizard's hud. Wizards can now see their own antag icon along with seeing other wizard's and apprentice's icons"

@@ -18,8 +18,10 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
-		)
+		"Vox" = 'icons/mob/species/vox/back.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/back.dmi',
+		"Grey" = 'icons/mob/species/grey/back.dmi'
+		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)

@@ -12,6 +12,19 @@
 	Comes with a rustic wooden bar and suicidal bartender."
 	suffix = "lavaland_biodome_beach.dmm"
 
+/datum/map_template/ruin/lavaland/biodome/winter
+	name = "Biodome Winter"
+	id = "biodome-winter"
+	description = "For those getaways where you want to get back to nature, but you don't want to leave the fortified military compound where you spend your days. \
+	Includes a unique(*) laser pistol display case, and the recently introduced I.C.E(tm)."
+	suffix = "lavaland_biodome_winter.dmm"
+
+/datum/map_template/ruin/lavaland/biodome/clown
+	name = "Biodome Clown Planet"
+	id = "biodome-clown"
+	description = "WELCOME TO CLOWN PLANET! HONK HONK HONK etc.!"
+	suffix = "lavaland_biodome_clown_planet.dmm"
+
 /datum/map_template/ruin/lavaland/cube
 	name = "The Wishgranter Cube"
 	id = "wishgranter-cube"

@@ -600,7 +600,7 @@
 				wateract = (W.wash(user, src))
 				busy = 0
 				if(wateract)
-					W.water_act(20, 310.15, src)
+					W.water_act(20, COLD_WATER_TEMPERATURE, src)
 			if("Disconnect")
 				user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
 				if(do_after(user, 40 * O.toolspeed, target = src))
@@ -633,7 +633,7 @@
 	wateract = (O.wash(user, src))
 	busy = 0
 	if(wateract)
-		O.water_act(20, 310.15, src)
+		O.water_act(20, COLD_WATER_TEMPERATURE, src)
 
 /obj/structure/sink/update_icon()
 	..()

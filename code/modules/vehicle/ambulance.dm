@@ -102,6 +102,10 @@
 	anchored = FALSE
 	throw_pressure_limit = INFINITY //Throwing an ambulance trolley can kill the process scheduler.
 
+/obj/structure/bed/amb_trolley/examine(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>")
+
 /obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()
 	if(istype(over_object, /obj/vehicle/ambulance))

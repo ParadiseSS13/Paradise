@@ -406,7 +406,6 @@
 /area/awaymission/spacebattle/syndicate3)
 "bg" = (
 /obj/structure/table/reinforced,
-/obj/item/clothing/head/helmet/space/hardsuit/syndi,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -2261,7 +2260,6 @@
 "hl" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit,
-/obj/item/clothing/head/helmet/space/hardsuit,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
 "hn" = (
