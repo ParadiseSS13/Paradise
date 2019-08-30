@@ -862,7 +862,7 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 
 /obj/item/paranormal_scanner
 	name = "paranormal scanner"
-	desc = "A device used to deep-scan a person to identify anomalous elements. Spots vampires and their thralls, Nar'Sie cultists, and wizards. Must be used next to the target, and takes a while to scan."
+	desc = "A device used to deep-scan a person to identify anomalous elements. Spots vampires and their thralls, Nar'Sie cultists, wizards and devils. Must be used next to the target, and takes a while to scan."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "spectrometer"
 	item_state = "analyzer"
@@ -890,6 +890,8 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 				to_chat(user, "<span class='notice'>Scan result : </span><span class='danger'>NAR'SIE CULTIST</span>")
 			else if(iswizard(H) || (H.mind && H.mind.special_role == SPECIAL_ROLE_WIZARD_APPRENTICE))
 				to_chat(user, "<span class='notice'>Scan result : </span><span class='userdanger'>WIZARD</span>")
+			else if(H.mind && H.mind.devilinfo)
+				to_chat(user, "<span class='notice'>Scan result : </span><span class='userdanger'>DEVIL</span>")
 			else
 				to_chat(user, "<span class='notice'>Scan result : Ordinary</span>")
 	else
