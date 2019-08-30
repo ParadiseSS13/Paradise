@@ -19,7 +19,6 @@
 	maxbodytemp = INFINITY
 	move_resist = INFINITY
 	anchored = TRUE
-	mob_size = MOB_SIZE_LARGE
 	loot = list(/obj/effect/collapse, /obj/structure/closet/crate/necropolis/tendril)
 	del_on_death = 1
 	var/gps = null
