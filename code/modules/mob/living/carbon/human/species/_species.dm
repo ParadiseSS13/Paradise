@@ -50,6 +50,7 @@
 	var/oxy_mod = 1		 // Oxy damage reduction/amplification
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
+	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
