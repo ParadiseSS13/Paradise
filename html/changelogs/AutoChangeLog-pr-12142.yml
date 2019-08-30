@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes blood drunk buff"
-  - bugfix: "Fixes using a crusher on a trophy to equip it causing you to drop the crusher"

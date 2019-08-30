@@ -1,4 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - bugfix: "Delaying round start actually delays round start again"
