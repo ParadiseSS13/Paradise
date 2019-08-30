@@ -70,10 +70,7 @@
 			wander = 1
 		else if(prob(5))
 			emote("snuffles")
-
-/mob/living/simple_animal/mouse/Life()
-	..()
-	if(prob(0.5) && !ckey)
+	else if(prob(0.5) && !ckey && stat == CONSCIOUS)
 		stat = UNCONSCIOUS
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
@@ -109,7 +106,7 @@
 
 /mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
-		if(!stat)
+		if(stat == CONSCIOUS)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
