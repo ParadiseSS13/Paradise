@@ -209,7 +209,7 @@
 		if(istype(T, denied_type) || istype(src, T.denied_type))
 			to_chat(user, "<span class='warning'>You can't seem to attach [src] to [H]. Maybe remove a few trophies?</span>")
 			return FALSE
-	if(!user.drop_item())
+	if(!user.unEquip(src))
 		return
 	forceMove(H)
 	H.trophies += src
