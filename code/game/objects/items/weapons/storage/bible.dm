@@ -14,6 +14,14 @@
 	user.dust()
 	return OBLITERATION
 
+/obj/item/storage/bible/fart_act(mob/living/M)
+	M.visible_message("<span class='danger'>[M] farts on the Bible!</span>")
+	var/image/cross = image('icons/obj/storage.dmi', "bible")
+	var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(M, 1)] ([ADMIN_QUE(M,"?")]) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_SM(M,"SM")]) ([admin_jump_link(M)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[M.UID()]'>SMITE</A>):</b>"
+	for(var/client/X in GLOB.admins)
+		if(check_rights(R_EVENT, 0, X.mob))
+			to_chat(X, adminbfmessage)
+	return TRUE // Don't run the fart emote
 
 /obj/item/storage/bible/booze
 	name = "bible"
