@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Adds the Book of Babel  as tendril loot"
+  - rscadd: "Adds Jacbo's Ladder as tendril loot"
