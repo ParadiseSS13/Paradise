@@ -1,5 +1,0 @@
-author: "Emanthealmighty"
-delete-after: True
-changes: 
-  - tweak: "The poll to play as a blobbernaut now lasts 10 seconds from 15."
-  - tweak: "Blobbernauts no longer chase after people while players are being polled to play as one."

@@ -1,6 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Resolves an issue causing shining eyes to be rendered darker than intended."
-  - bugfix: "Resolves an issue preventing appearance features (hair, eyes, etc.) from rendering on disembodied heads."
-  - bugfix: "Resolves an issue preventing Admin-revived decapitated bodies from having appearance features or ears."

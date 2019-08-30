@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Non-shining eyes render the proper colour again."

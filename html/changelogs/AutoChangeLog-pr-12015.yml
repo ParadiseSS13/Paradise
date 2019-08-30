@@ -1,8 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - rscadd: "Rapid pipe dispensers can now place disposal sorting pipes"
-  - tweak: "When changing the sort location of a disposal sorting pipe, the name of the pipe now also changes to the desired destination"
-  - rscadd: "Added a destination tagger to the atmosheric technician locker"
-  - tweak: "Added atmospherics access to Engi-Vend's and Engineering checkpoint airlocks"
-  - tweak: "Removed some random grey pixels from disposal sorting junction pipe sprites, and certain normal disposal junction pipe sprites"

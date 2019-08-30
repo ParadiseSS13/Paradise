@@ -1,8 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - rscadd: "Added ashstorm immunity to titanium and plastitanium golems."
-  - rscadd: "Added lava immunity to plastitanium golems."
-  - rscadd: "Bananium golems now slowly waddle around."
-  - bugfix: "Uranium golems now properly irradiate nearby mobs that arent rad immune."
-  - bugfix: "Tranquillite golems now properly get their miming powers."
