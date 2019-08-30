@@ -6,7 +6,10 @@ HEALTH ANALYZER
 GAS ANALYZER
 PLANT ANALYZER
 REAGENT SCANNER
+BODY ANALYZER
+PARANORMAL SCANNER
 */
+
 /obj/item/t_scanner
 	name = "T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
@@ -862,13 +865,13 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 	desc = "A device able to deep-scan a person to identify anomalous elements. Able to spot vampires and their thralls, Nar'Sie cultists, and wizards. Must be used next to the target, and takes a while to scan."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "spectrometer"
+	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = SLOT_BELT
 	var/scan_time = 20 SECONDS
 
 /obj/item/paranormal_scanner/advanced
 	name = "advanced paranormal scanner"
-	icon = 'icons/obj/device.dmi'
 	icon_state = "adv_spectrometer"
 	scan_time = 10 SECONDS
 
