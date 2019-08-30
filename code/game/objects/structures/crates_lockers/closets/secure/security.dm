@@ -244,6 +244,7 @@
 	new /obj/item/storage/briefcase(src)
 	new	/obj/item/storage/firstaid/adv(src)
 	new /obj/item/pinpointer/crew(src)
+	new /obj/item/sensor_device/command(src)
 	new /obj/item/storage/belt/security/sec(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/flash(src)

@@ -20,3 +20,11 @@
 
 /obj/item/sensor_device/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	crew_monitor.ui_interact(user, ui_key, ui, force_open)
+
+/obj/item/sensor_device/command
+	name = "command crew monitor"
+	desc = "A handheld crew monitor programmed to only track Command personnel and Nanotrasen VIPs, usually carried by Blueshields."
+
+/obj/item/sensor_device/command/New()
+	..()
+	crew_monitor.command = TRUE

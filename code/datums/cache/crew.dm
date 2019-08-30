@@ -1,4 +1,5 @@
 var/global/datum/repository/crew/crew_repository = new()
+var/global/datum/repository/crew/command/command_repository = new()
 
 /datum/repository/crew/New()
 	cache_data = list()
@@ -63,5 +64,14 @@ var/global/datum/repository/crew/crew_repository = new()
 		if(istype(H.w_uniform, /obj/item/clothing/under))
 			var/obj/item/clothing/under/C = H.w_uniform
 			if(C.has_sensor)
+				tracked |= C
+	return tracked
+
+/datum/repository/crew/command/scan()
+	var/list/tracked = list()
+	for(var/mob/living/carbon/human/H in GLOB.mob_list)
+		if(istype(H.w_uniform, /obj/item/clothing/under))
+			var/obj/item/clothing/under/C = H.w_uniform
+			if(C.has_sensor && (H.get_assignment() in GLOB.command_and_vips))
 				tracked |= C
 	return tracked

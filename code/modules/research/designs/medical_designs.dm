@@ -92,6 +92,12 @@
 	build_path = /obj/item/sensor_device
 	category = list("Medical")
 
+/datum/design/sensor_device/command
+	name = "Command Crew Monitor"
+	desc = "A handheld crew monitor programmed to only track Command personnel and Nanotrasen VIPs."
+	id = "sensor_device_command"
+	build_path = /obj/item/sensor_device/command
+
 /datum/design/mmi
 	name = "Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity."

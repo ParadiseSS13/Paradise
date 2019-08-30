@@ -64,7 +64,8 @@
 		/obj/item/clothing/mask/gas/sechailer = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
+		/obj/item/sensor_device/command = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/red
@@ -84,7 +85,8 @@
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots = 1,
-		/obj/item/storage/lockbox/mindshield = 1
+		/obj/item/storage/lockbox/mindshield = 1,
+		/obj/item/sensor_device/command = 1
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
@@ -101,7 +103,8 @@
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/ammo_box/magazine/enforcer/lethal = 2
+		/obj/item/ammo_box/magazine/enforcer/lethal = 2,
+		/obj/item/sensor_device/command = 1
 		)
 
 	cybernetic_implants = list(

@@ -58,4 +58,10 @@ GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN =
 
 GLOBAL_LIST(station_level_space_turfs)
 
+GLOBAL_LIST_INIT(command_and_vips, list("Captain", "Acting Captain", "Head of Personnel", "Head of Security", "Chief Medical Officer", "Chief Engineer",
+						"Research Director", "Magistrate", "Nanotrasen Representative", "Blueshield", "Nanotrasen Navy Officer", "Special Operations Officer",
+						"Nanotrasen Navy Captain", "Nanotrasen Diplomat", "Emergency Response Team Leader", "Emergency Response Team Officer",
+						"Emergency Response Team Engineer","Emergency Response Team Medic", "Emergency Response Team Inquisitor",
+						"Emergency Response Team Janitor", "HONKsquad"))
+
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
