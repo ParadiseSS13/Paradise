@@ -642,7 +642,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			continue
 		var/available_in_playtime = job.available_in_playtime(user.client)
 		if(available_in_playtime)
-			HTML += "<del>[rank]</del></td><td> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</td></tr>"
+			HTML += "<del><font color=red>[rank]</font></del></td><td><font color=red> \[ " + get_exp_format(available_in_playtime) + " as " + job.get_exp_req_type()  + " \]</font></td></tr>"
 			continue
 		if(job.barred_by_disability(user.client))
 			HTML += "<del>[rank]</del></td><td> \[ DISABILITY \]</td></tr>"
