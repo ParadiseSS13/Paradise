@@ -416,6 +416,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	suit_store = /obj/item/gun/energy/gun
 	r_pocket = /obj/item/nullrod/ert
+	l_pocket = /obj/item/paranormal_scanner
 	glasses = /obj/item/clothing/glasses/sunglasses
 
 	cybernetic_implants = list(
@@ -429,8 +430,9 @@
 	suit_store = /obj/item/gun/energy/gun/nuclear
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	glasses = /obj/item/clothing/glasses/night
 	r_pocket = /obj/item/nullrod/ert
+	l_pocket = /obj/item/paranormal_scanner/advanced
+	glasses = /obj/item/clothing/glasses/night
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
