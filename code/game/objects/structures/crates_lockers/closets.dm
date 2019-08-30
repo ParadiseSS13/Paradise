@@ -19,6 +19,7 @@
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
+	var/mob_size = MOB_SIZE_LARGE
 
 /obj/structure/closet/New()
 	..()
@@ -99,15 +100,13 @@
 			itemcount++
 
 	for(var/mob/M in loc)
-		if(M.mob_size <= MOB_SIZE_LARGE) // No more stuffing xeno empresses into lockers
-			return FALSE
 		if(itemcount >= storage_capacity)
 			break
 		if(istype(M, /mob/dead/observer))
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
-		if(M.buckled)
+		if(M.buckled || M.anchored)
 			continue
 
 		M.forceMove(src)
