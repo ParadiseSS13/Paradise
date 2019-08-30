@@ -862,7 +862,7 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 
 /obj/item/paranormal_scanner
 	name = "paranormal scanner"
-	desc = "A device able to deep-scan a person to identify anomalous elements. Able to spot vampires and their thralls, Nar'Sie cultists, and wizards. Must be used next to the target, and takes a while to scan."
+	desc = "A device used to deep-scan a person to identify anomalous elements. Spots vampires and their thralls, Nar'Sie cultists, and wizards. Must be used next to the target, and takes a while to scan."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "spectrometer"
 	item_state = "analyzer"
