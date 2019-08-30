@@ -103,6 +103,7 @@ var/global/list/limb_icon_cache = list()
 	if(dna.species.has_organ["eyes"])
 		var/icon/eyes_icon = owner.get_eyecon()
 		if(eyes_icon)
+			mob_icon.Blend(eyes_icon, ICON_OVERLAY) //This is required since update_icons.dm relies on this proc to render non-shining eyes.
 			add_overlay(eyes_icon)
 
 	if(owner.lip_style && (LIPS in dna.species.species_traits))
