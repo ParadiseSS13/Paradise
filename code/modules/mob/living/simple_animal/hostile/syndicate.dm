@@ -207,8 +207,8 @@
 	alert_on_death = TRUE
 	melee_block_chance = 60
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/Initialize()
-	..()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/Initialize(mapload)
+	. = ..()
 	if(prob(50))
 		ranged = 1
 		rapid = 1
