@@ -46,7 +46,6 @@ Difficulty: Medium
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	elimination = 1
-	idle_vision_range = 13
 	appearance_flags = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = 1 // Overriden from /tg/ - otherwise Legion starts chasing its minions

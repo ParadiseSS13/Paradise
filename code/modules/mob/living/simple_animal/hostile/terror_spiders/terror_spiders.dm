@@ -92,7 +92,7 @@ var/global/list/ts_spiderling_list = list()
 	var/degenerate = 0 // if 1, they slowly degen until they all die off. Used by high-level abilities only.
 
 	// Vision
-	idle_vision_range = 10
+	vision_range = 10
 	aggro_vision_range = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

@@ -18,19 +18,8 @@
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
+	vision_range = 5
 	aggro_vision_range = 18
-	idle_vision_range = 5
-	environment_target_typecache = list(
-	/obj/machinery/door/window,
-	/obj/structure/window,
-	/obj/structure/closet,
-	/obj/structure/table,
-	/obj/structure/grille,
-	/obj/structure/girder,
-	/obj/structure/rack,
-	/obj/structure/barricade,
-	/obj/machinery/field,
-	/obj/machinery/power/emitter)
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE

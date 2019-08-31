@@ -56,7 +56,7 @@
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
-	..()			
+	..()
 	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << squeak_sound
@@ -73,7 +73,7 @@
 
 /mob/living/simple_animal/mouse/Life()
 	..()
-	if(prob(0.5) && !ckey)
+	if(!stat && prob(0.5) && !ckey)
 		stat = UNCONSCIOUS
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
@@ -119,7 +119,7 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/death(gibbed)	
+/mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
 	playsound(src, squeak_sound, 40, 1)
 	. = ..(gibbed)
