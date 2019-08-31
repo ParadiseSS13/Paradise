@@ -155,7 +155,6 @@
 	var/pda = -1
 	var/backpack_contents = -1
 	var/suit_store = -1
-	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
 	var/hair_style
 	var/facial_hair_style
@@ -207,6 +206,7 @@
 			if(!isnum(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
+		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)
