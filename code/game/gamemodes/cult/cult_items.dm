@@ -344,21 +344,6 @@
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
 
-/obj/item/clothing/suit/space/eva/plasmaman/cultist
-	name = "plasmaman cultist armor"
-	icon_state = "plasmaman_cult"
-	item_state = "plasmaman_cult"
-	desc = "A bulky suit of armour, menacing with red energy. It looks like it would fit a plasmaman."
-	slowdown = 1
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
-
-/obj/item/clothing/head/helmet/space/eva/plasmaman/cultist
-	name = "plasmaman cultist helmet"
-	icon_state = "plasmamanCult_helmet0"
-	base_state = "plasmamanCult_helmet"
-	desc = "A helmet designed by cultists. It glows menacingly with unearthly flames."
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
-
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 15

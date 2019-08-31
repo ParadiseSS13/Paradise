@@ -97,12 +97,9 @@
 	else
 		icon_state = "fwall_open"
 
-/obj/structure/falsewall/proc/ChangeToWall(delete = 1)
+/obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)
-	if(!walltype || walltype == "metal")
-		T.ChangeTurf(/turf/simulated/wall)
-	else
-		T.ChangeTurf(text2path("/turf/simulated/wall/mineral/[walltype]"))
+	T.ChangeTurf(walltype)
 	if(delete)
 		qdel(src)
 	return T

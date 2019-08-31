@@ -10,7 +10,7 @@
 /obj/effect/step_trigger/proc/Trigger(var/atom/movable/A)
 	return FALSE
 
-/obj/effect/step_trigger/Crossed(var/H)
+/obj/effect/step_trigger/Crossed(var/H, oldloc)
 	. = ..()
 	if(!H)
 		return

@@ -284,7 +284,7 @@
 	..()
 	pop_burst()
 
-/obj/item/toy/snappop/Crossed(H as mob|obj)
+/obj/item/toy/snappop/Crossed(H as mob|obj, oldloc)
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
 		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
@@ -299,7 +299,7 @@
 /obj/effect/decal/cleanable/ash/snappop_phoenix
 	var/respawn_time = 300
 
-/obj/effect/decal/cleanable/ash/snappop_phoenix/New()
+/obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
 

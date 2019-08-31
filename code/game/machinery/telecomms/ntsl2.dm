@@ -409,10 +409,10 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	// 	if(href_list["table"] && href_list["table"] in tables)
 	// 		if(requires_unlock[href_list["table"]] && !source.unlocked)
 	// 			return
-	// 		var/new_key = input(user, "Provide a key for the new row.", "New Row") as text|null
+	// 		var/new_key = clean_input(user, "Provide a key for the new row.", "New Row")
 	// 		if(!new_key)
 	// 			return
-	// 		var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
+	// 		var/new_value = clean_input(user, "Provide a new value for the key [new_key]", "New Row")
 	// 		if(new_value == null)
 	// 			return
 	// 		if(word_blacklist.Find(new_value)) //uh oh, they tried to be naughty
@@ -439,7 +439,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		if(href_list["array"] && href_list["array"] in arrays)
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
-			var/new_value = input(user, "Provide a value for the new index.", "New Index") as text|null
+			var/new_value = clean_input(user, "Provide a value for the new index.", "New Index")
 			if(new_value == null) 
 				return
 			var/list/array = vars[href_list["array"]]

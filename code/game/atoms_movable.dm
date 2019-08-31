@@ -26,7 +26,7 @@
 	var/inertia_move_delay = 5
 
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
-
+	var/list/client_mobs_in_contents
 	var/area/areaMaster
 
 /atom/movable/New()
@@ -215,11 +215,13 @@
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
+	if(length(client_mobs_in_contents))
+		update_parallax_contents()
 	return TRUE
 
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
-/atom/movable/Crossed(atom/movable/AM)
+/atom/movable/Crossed(atom/movable/AM, oldloc)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
 
 /atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
@@ -245,7 +247,9 @@
 	if(destination)
 		destination.Entered(src)
 		for(var/atom/movable/AM in destination)
-			AM.Crossed(src)
+			if(AM == src)
+				continue
+			AM.Crossed(src, old_loc)
 		var/turf/oldturf = get_turf(old_loc)
 		var/turf/destturf = get_turf(destination)
 		var/old_z = (oldturf ? oldturf.z : null)

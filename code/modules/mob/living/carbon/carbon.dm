@@ -1128,6 +1128,7 @@ so that different stomachs can handle things in different ways VB*/
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
 			update_tint()
+		update_sight()
 	if(I.flags_inv & HIDEMASK || forced)
 		update_inv_wear_mask()
 	update_inv_head()

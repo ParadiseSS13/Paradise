@@ -1611,15 +1611,6 @@
 	pixel_x = 1;
 	pixel_y = -1
 	},
-/obj/item/radio/headset/syndicate/alt{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/radio/headset/syndicate/alt,
-/obj/item/radio/headset/syndicate/alt{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
@@ -3538,6 +3529,10 @@
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
+/obj/item/radio/headset/syndicate/alt{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "hN" = (
@@ -3562,6 +3557,10 @@
 /obj/item/ammo_box/magazine/m10mm,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
+	},
+/obj/item/radio/headset/syndicate/alt{
+	pixel_x = -3;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
@@ -4480,6 +4479,10 @@
 /obj/structure/table/wood,
 /obj/item/ammo_box/magazine/m10mm,
 /obj/item/ammo_box/magazine/sniper_rounds,
+/obj/item/radio/headset/syndicate/alt{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "jB" = (
@@ -6068,6 +6071,13 @@
 /obj/structure/sign/fire,
 /turf/simulated/wall/mineral/plastitanium/coated,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
+"ng" = (
+/obj/structure/table,
+/obj/machinery/photocopier/faxmachine/longrange/syndie{
+	department = "Syndicate Bioweapon Research Outpost"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/unpowered/syndicate_lava_base/telecomms)
 "nh" = (
 /obj/machinery/telecomms/relay/preset/ruskie{
 	use_power = 0
@@ -7337,7 +7347,7 @@ ab
 ab
 ab
 mp
-mP
+ng
 nk
 nI
 oi

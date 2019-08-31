@@ -64,6 +64,12 @@
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 			return
+		if(!usr.has_right_hand() && !usr.has_left_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but you are missing both of your hands!</span>")
+			return
+		if(usr.get_active_hand() && usr.get_inactive_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but your hands are already full!</span>")
+			return
 		if(!ishuman(usr))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
@@ -151,35 +157,38 @@
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
-	color = rgb(255,255,255)
+	color = rgb(255, 255, 255)
 	burn_state = FLAMMABLE
 	burntime = 30
 	buildstackamount = 2
 	item_chair = null
 	var/image/armrest = null
 
-/obj/structure/chair/comfy/New()
-	armrest = image("icons/obj/chairs.dmi", "comfychair_armrest")
+/obj/structure/chair/comfy/Initialize(mapload)
+	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
+
+/obj/structure/chair/comfy/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)
 	return ..()
 
 /obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays += armrest
-	else
-		overlays -= armrest
+	. = ..()
+	update_armrest()
 
 /obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays -= armrest
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/comfy/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
 	else
-		overlays += armrest
+		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
 	color = rgb(141,70,0)
@@ -213,6 +222,14 @@
 	movable = TRUE
 	item_chair = null
 	buildstackamount = 5
+
+/obj/structure/chair/comfy/shuttle
+	name = "shuttle seat"
+	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
+	icon_state = "shuttle_chair"
+
+/obj/structure/chair/comfy/shuttle/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
