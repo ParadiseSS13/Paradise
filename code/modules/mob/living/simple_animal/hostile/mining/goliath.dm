@@ -11,7 +11,6 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 40
 	ranged = TRUE
-	ranged_cooldown = 2 //By default, start the Goliath with his cooldown off so that people can run away quickly on first sight
 	ranged_cooldown_time = 120
 	friendly = "wails at"
 	speak_emote = list("bellows")
@@ -190,4 +189,4 @@
 /obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
-	timerid = QDEL_IN(src, 5)
+	timerid = QDEL_IN(src, 7)
