@@ -18,8 +18,10 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
-		)
+		"Vox" = 'icons/mob/species/vox/back.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/back.dmi',
+		"Grey" = 'icons/mob/species/grey/back.dmi'
+		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
@@ -357,6 +359,21 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
+/obj/item/storage/backpack/duffel/mining_conscript/noid
+	name = "mining conscription kit"
+	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
+
+/obj/item/storage/backpack/duffel/mining_conscript/noid/New()
+	..()
+	new /obj/item/pickaxe(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/storage/bag/ore(src)
+	new /obj/item/clothing/under/rank/miner/lavaland(src)
+	new /obj/item/encryptionkey/headset_cargo(src)
+	new /obj/item/clothing/mask/gas(src)
+
+
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
 	desc = "A large duffel bag, packed to the brim with C-20r magazines."
 
@@ -383,7 +400,7 @@
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/clothing/glasses/thermal/syndi(src)
+	new /obj/item/clothing/glasses/chameleon/thermal(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
 	desc = "A large duffel bag containing a tactical medkit, a Donksoft machine gun and a big jumbo box of riot darts."

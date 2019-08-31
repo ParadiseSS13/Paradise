@@ -24,9 +24,6 @@
 "af" = (
 /obj/structure/table,
 /obj/item/clothing/mask/gas,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/item/clothing/glasses/sunglasses/big,
 /obj/item/clothing/glasses/sunglasses/big,
 /obj/item/clothing/glasses/sunglasses/big,
@@ -34,6 +31,9 @@
 /area/ruin/powered/beach)
 "ag" = (
 /obj/structure/reagent_dispensers/fueltank,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "ah" = (
@@ -207,8 +207,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aN" = (
-/obj/machinery/vending/cola,
 /obj/effect/turf_decal/sand,
+/obj/machinery/vending/cola/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "aO" = (
@@ -235,8 +235,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aT" = (
-/obj/machinery/vending/snack,
 /obj/effect/turf_decal/sand,
+/obj/machinery/vending/snack/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "aU" = (
@@ -438,6 +438,10 @@
 /obj/item/storage/backpack/duffel,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
+"bL" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/simulated/floor/beach/water,
+/area/ruin/powered/beach)
 "bM" = (
 /turf/simulated/floor/plasteel/stairs/old,
 /area/ruin/powered/beach)
@@ -476,12 +480,6 @@
 /area/ruin/powered/beach)
 "bW" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/powered/beach)
-"cd" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/turf/simulated/wall/mineral/sandstone,
 /area/ruin/powered/beach)
 "cs" = (
 /obj/effect/overlay/palmtree_l,
@@ -566,6 +564,14 @@
 	name = "Beach Access"
 	},
 /turf/simulated/floor/pod,
+/area/ruin/powered/beach)
+"Ei" = (
+/obj/effect/turf_decal/sand,
+/obj/machinery/light/small{
+	light_power = 3;
+	dir = 8
+	},
+/turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "Gc" = (
 /turf/simulated/floor/pod/light,
@@ -1054,7 +1060,7 @@ aa
 (15,1,1) = {"
 aa
 bW
-cd
+aj
 aj
 aj
 aF
@@ -1087,7 +1093,7 @@ aa
 aa
 bW
 ak
-ar
+Ei
 aj
 aE
 aC
@@ -1335,7 +1341,7 @@ bU
 bU
 bU
 bU
-bU
+bL
 bW
 aa
 "}

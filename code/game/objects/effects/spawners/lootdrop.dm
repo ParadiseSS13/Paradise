@@ -242,7 +242,8 @@
 				/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 50,
 				/obj/item/gun/projectile/shotgun/toy = 50,
 				/obj/item/gun/projectile/shotgun/toy/crossbow = 50,
-				/obj/item/gun/projectile/shotgun/toy/tommygun = 50
+				/obj/item/gun/projectile/shotgun/toy/tommygun = 50,
+				/obj/item/gun/projectile/automatic/sniper_rifle/toy = 50
 				)
 
 

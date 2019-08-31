@@ -145,6 +145,12 @@
 	name = "\improper RADIOACTIVE AREA"
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'."
 
+/obj/structure/sign/xeno_warning_mining
+	name = "DANGEROUS ALIEN LIFE"
+	desc = "A sign that warns would be travellers of hostile alien life in the vicinity."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "xeno_warning"
+
 /obj/structure/sign/redcross
 	name = "medbay"
 	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
@@ -210,7 +216,7 @@
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
-/obj/structure/sign/science	
+/obj/structure/sign/science
 	name = "\improper SCIENCE!"
 	desc = "A warning sign which reads 'SCIENCE!'"
 	icon_state = "science1"

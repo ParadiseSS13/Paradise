@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Lighting now respects color blindness again."
-  - bugfix: "pAI flashlights now work properly."

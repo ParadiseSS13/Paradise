@@ -812,7 +812,7 @@
 	name = "UO45 Central Hall"
 	})
 "by" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},
@@ -1841,7 +1841,7 @@
 	name = "UO45 Central Hall"
 	})
 "do" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 2;
 	pixel_x = 0;
 	pixel_y = 24
@@ -2133,7 +2133,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 2;
 	pixel_x = 0;
 	pixel_y = 24
@@ -3590,7 +3590,7 @@
 	name = "UO45 Central Hall"
 	})
 "fW" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -4205,7 +4205,7 @@
 	name = "UO45 Research"
 	})
 "gZ" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 2;
 	pixel_x = 0;
 	pixel_y = 24
@@ -4314,7 +4314,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 8;
 	pixel_x = -24
 	},
@@ -5061,7 +5061,7 @@
 	name = "UO45 Crew Quarters"
 	})
 "iq" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 8;
 	pixel_x = -24
 	},
@@ -5827,7 +5827,7 @@
 	name = "UO45 Crew Quarters"
 	})
 "jw" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 8;
 	pixel_x = -24
 	},
@@ -6511,7 +6511,7 @@
 	initialize_directions = 11;
 	tag = "icon-manifold-r-f (EAST)"
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},
@@ -7046,7 +7046,7 @@
 	name = "UO45 Crew Quarters"
 	})
 "lg" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -7409,7 +7409,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -7594,7 +7594,7 @@
 	icon_state = "pipe-j1";
 	tag = "icon-pipe-j1 (EAST)"
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -7668,7 +7668,7 @@
 	name = "UO45 Research"
 	})
 "lN" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -8181,7 +8181,7 @@
 	})
 "mz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 8;
 	pixel_x = -24
 	},
@@ -8241,7 +8241,7 @@
 	name = "UO45 Gateway"
 	})
 "mE" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -9938,7 +9938,7 @@
 	scrub_N2O = 0;
 	scrub_Toxins = 0
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -10347,7 +10347,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 8;
 	pixel_x = -24
 	},
@@ -10384,7 +10384,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},
@@ -11386,7 +11386,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 2;
 	pixel_x = 0;
 	pixel_y = 24
@@ -11735,7 +11735,7 @@
 	name = "UO45 Engineering"
 	})
 "rj" = (
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 2;
 	pixel_x = 0;
 	pixel_y = 24
@@ -12914,7 +12914,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -15179,7 +15179,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
@@ -16281,7 +16281,7 @@
 	})
 "xp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/firealarm{
+/obj/machinery/firealarm/no_alarm{
 	dir = 4;
 	pixel_x = 24
 	},

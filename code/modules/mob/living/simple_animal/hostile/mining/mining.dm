@@ -1,4 +1,4 @@
-/mob/living/simple_animal/hostile/asteroid/
+/mob/living/simple_animal/hostile/asteroid
 	vision_range = 2
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
@@ -13,12 +13,18 @@
 	response_harm = "strikes"
 	status_flags = 0
 	a_intent = INTENT_HARM
+	var/crusher_loot
 	var/throw_message = "bounces off of"
 	var/icon_aggro = null // for swapping to when we get aggressive
 	var/fromtendril = FALSE
 	see_in_dark = 8
 	see_invisible = SEE_INVISIBLE_MINIMUM
 	mob_size = MOB_SIZE_LARGE
+	var/crusher_drop_mod = 25
+
+/mob/living/simple_animal/hostile/asteroid/New()
+	..()
+	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 
 /mob/living/simple_animal/hostile/asteroid/Aggro()
 	..()
@@ -46,3 +52,12 @@
 			visible_message("<span class='notice'>The [T.name] [src.throw_message] [src.name]!</span>")
 			return
 	..()
+
+/mob/living/simple_animal/hostile/asteroid/death(gibbed)
+	var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	if(C && crusher_loot && prob((C.total_damage/maxHealth) * crusher_drop_mod)) //on average, you'll need to kill 4 creatures before getting the item
+		spawn_crusher_loot()
+	..(gibbed)
+
+/mob/living/simple_animal/hostile/asteroid/proc/spawn_crusher_loot()
+	butcher_results[crusher_loot] = 1

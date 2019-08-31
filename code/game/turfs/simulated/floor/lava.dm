@@ -38,6 +38,14 @@
 /turf/simulated/floor/plating/lava/make_plating()
 	return
 
+/turf/simulated/floor/plating/lava/remove_plating()
+	return
+
+/turf/open/lava/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/floors.dmi'
+	underlay_appearance.icon_state = "basalt"
+	return TRUE
+
 /turf/simulated/floor/plating/lava/proc/is_safe()
 	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
 	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
@@ -53,13 +61,13 @@
 		return FALSE
 
 	var/thing_to_check = src
-	if (AM)
+	if(AM)
 		thing_to_check = list(AM)
 	for(var/thing in thing_to_check)
-		if(istype(thing, /atom/movable/lighting_object) || istype(thing, /atom/movable/overlay))
-			continue
 		if(isobj(thing))
 			var/obj/O = thing
+			if(!O.simulated)
+				continue
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
 			. = 1
@@ -71,7 +79,7 @@
 				O.resistance_flags &= ~FIRE_PROOF
 			O.fire_act(10000, 1000)
 
-		else if (isliving(thing))
+		else if(isliving(thing))
 			. = 1
 			var/mob/living/L = thing
 			if(L.flying)

@@ -128,10 +128,12 @@
 	var/teleporting = 0
 	var/chargecost = 1000
 
+/obj/item/rcs/get_cell()
+	return rcell
+
 /obj/item/rcs/New()
 	..()
 	rcell = new(src)
-
 
 /obj/item/rcs/examine(mob/user)
 	..(user)

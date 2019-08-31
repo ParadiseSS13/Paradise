@@ -58,12 +58,10 @@
 
 		var/contcount
 		for(var/atom/A in T.contents)
-			if(istype(A,/atom/movable/lighting_object))
-				continue
-			if(istype(A,/obj/machinery/light))
-				continue //hacky but whatever, shuttles need three spots each for this shit
 			if(!A.simulated)
 				continue
+			if(istype(A, /obj/machinery/light))
+				continue //hacky but whatever, shuttles need three spots each for this shit
 			contcount++
 
 		if(contcount)
@@ -249,7 +247,8 @@
 		/obj/machinery/clonepod,
 		/obj/effect/hierophant,
 		/obj/item/warp_cube,
-		/obj/machinery/quantumpad
+		/obj/machinery/quantumpad,
+		/obj/structure/extraction_point
 	)
 	if(A)
 		if(is_type_in_list(A, blacklist))

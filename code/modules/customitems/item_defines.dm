@@ -10,6 +10,9 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
+#define USED_MOD_HELM 1
+#define USED_MOD_SUIT 2
+
 /obj/item/fluff
 	var/used = 0
 
@@ -175,7 +178,7 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "book_berner_1"
 
-/obj/item/clothing/glasses/sunglasses/fake/fluff/kaki //Rapidvalj: Kakicharakiti
+/obj/item/clothing/glasses/sunglasses_fake/fluff/kaki //Rapidvalj: Kakicharakiti
 	name = "broken thermonocle"
 	desc = "A weathered Vox thermonocle, doesn't seem to work anymore."
 	icon_state = "thermoncle"
@@ -400,118 +403,6 @@
 		qdel(src)
 		return
 	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-#define USED_MOD_HELM 1
-#define USED_MOD_SUIT 2
-
-/obj/item/fluff/shadey_plasman_modkit
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = WEIGHT_CLASS_SMALL
-	force = 0
-	throwforce = 0
-
-/obj/item/fluff/shadey_plasman_modkit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
-			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		used |= USED_MOD_HELM
-
-		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
-		P.name = "plasma containment helmet"
-		P.desc = "A purpose-built containment helmet designed to keep plasma in, and everything else out."
-		P.icon_state = "plasmaman_halo_helmet[P.on]"
-		P.base_state = "plasmaman_halo_helmet"
-
-		if(P == H.head)
-			H.update_inv_head()
-		return
-	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
-			return
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		used |= USED_MOD_SUIT
-
-		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
-		P.name = "plasma containment suit"
-		P.desc = "A feminine containment suit designed to keep plasma in, and everything else out. It's even got an overskirt."
-		P.icon_state = "plasmaman_halo"
-
-		if(P == H.wear_suit)
-			H.update_inv_wear_suit()
-		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
-/obj/item/fluff/lighty_plasman_modkit // LightFire53: Ikelos
-	name = "plasmaman suit modkit"
-	desc = "A kit containing nanites that are able to modify the look of a plasmaman suit and helmet without exposing the wearer to hostile environments."
-	icon_state = "modkit"
-	w_class = 2
-	force = 0
-	throwforce = 0
-	var/picked_color = null
-	var/list/helmets = list(
-		"Blue" = "plasmaman_ikelosdefault_helmet",
-		"Gold" = "plasmaman_ikelosgold_helmet",
-		"Red" = "plasmaman_ikelossecurity_helmet")
-	var/list/suits = list(
-		"Blue" = "plasmaman_ikelosdefault",
-		"Gold" = "plasmaman_ikelosgold",
-		"Red" = "plasmaman_ikelossecurity")
-
-/obj/item/fluff/lighty_plasman_modkit/afterattack(atom/target, mob/user, proximity)
-	if(!proximity || !ishuman(user) || user.incapacitated())
-		return
-	var/mob/living/carbon/human/H = user
-
-	if(istype(target, /obj/item/clothing/head/helmet/space/eva/plasmaman))
-		if(used & USED_MOD_HELM)
-			to_chat(H, "<span class='notice'>The kit's helmet modifier has already been used.</span>")
-			return
-
-		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in helmets
-		var/obj/item/clothing/head/helmet/space/eva/plasmaman/P = target
-
-		if(!picked_color)
-			return
-		P.icon_state = helmets[picked_color] + "[P.on]"
-		P.base_state = helmets[picked_color]
-
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		P.icon = 'icons/obj/custom_items.dmi'
-		used |= USED_MOD_HELM
-
-		if(P == H.head)
-			H.update_inv_head()
-		return
-	if(istype(target, /obj/item/clothing/suit/space/eva/plasmaman))
-		if(used & USED_MOD_SUIT)
-			to_chat(user, "<span class='notice'>The kit's suit modifier has already been used.</span>")
-			return
-		picked_color = input(H, "Which color would you like to paint [target]?", "Recolor") as null|anything in suits
-		var/obj/item/clothing/suit/space/eva/plasmaman/P = target
-
-		if(!picked_color)
-			return
-		P.icon_state = suits[picked_color]
-
-		to_chat(H, "<span class='notice'>You modify the appearance of [target].</span>")
-		P.icon = 'icons/obj/custom_items.dmi'
-		used |= USED_MOD_SUIT
-
-		if(P == H.wear_suit)
-			H.update_inv_wear_suit()
-		return
-	to_chat(user, "<span class='warning'>You can't modify [target]!</span>")
-
 
 /obj/item/fluff/merchant_sallet_modkit //Travelling Merchant: Trav Noble. This is what they spawn in with
 	name = "SG Helmet modkit"
@@ -1321,16 +1212,16 @@
 
 //////////// Sets ////////////
 // Fox P McCloud: Fox McCloud
-/obj/item/clothing/suit/jacket/fluff/fox
+/obj/item/clothing/suit/storage/fox
 	name = "Aeronautics Jacket"
 	desc = "An aviator styled jacket made from a peculiar material; this one seems very old."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "fox_jacket"
 	item_state = "fox_jacket"
-	ignore_suitadjust = TRUE
-	actions_types = list()
-	adjust_flavour = null
-	sprite_sheets = null
+	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/gun/projectile/automatic/pistol, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/revolver/detective)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
+	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
 
 /obj/item/clothing/under/fluff/fox
 	name = "Aeronautics Jumpsuit"
@@ -1340,6 +1231,12 @@
 	item_state = "g_suit"
 	item_color = "fox_suit"
 	displays_id = FALSE //still appears on examine; this is pure fluff.
+
+/obj/item/clothing/suit/storage/fox/miljacket_desert
+	name = "rugged military jacket"
+	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
+	icon_state = "fox_coat"
+	item_color = "fox_coat"
 
 /obj/item/toy/plushie/fluff/fox
 	name = "orange fox plushie"
@@ -1371,12 +1268,6 @@
 /obj/item/toy/plushie/fluff/fox/ui_action_click()
 	change_color()
 
-/obj/item/clothing/suit/jacket/miljacket/desert/fox
-	name = "rugged military jacket"
-	desc = "A rugged brown military jacket with a stylized 'A' embroidered on the back. It seems very old, yet is in near mint condition. Has a tag on the inside collar signed 'Fox McCloud'."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "fox_coat"
-	item_color = "fox_coat"
 
 // TheFlagbearer: Willow Walker
 /obj/item/clothing/under/fluff/arachno_suit

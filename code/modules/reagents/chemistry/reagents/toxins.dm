@@ -988,10 +988,10 @@
 			C.adjustToxLoss(lethality)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
-			if(IS_PLANT in H.dna.species.species_traits) //plantmen take a LOT of damage
-				H.adjustToxLoss(50)
+			if(IS_PLANT in H.dna.species.species_traits) //plantmen take extra damage
+				H.adjustToxLoss(3)
 				..()
-	else if(istype(M, /mob/living/simple_animal/diona)) //plantmen monkeys (diona) take EVEN MORE damage
+	else if(istype(M, /mob/living/simple_animal/diona)) //nymphs take EVEN MORE damage
 		var/mob/living/simple_animal/diona/D = M
 		D.adjustHealth(100)
 		..()
@@ -1174,3 +1174,14 @@
 		M.electrocute_act(rand(5, 20), "Teslium in their body", 1, TRUE) //Override because it's caused from INSIDE of you
 		playsound(M, "sparks", 50, 1)
 	return ..()
+
+/datum/reagent/gluttonytoxin
+	name = "Gluttony's Blessing"
+	id = "gluttonytoxin"
+	description = "An advanced corruptive toxin produced by something terrible."
+	reagent_state = LIQUID
+	color = "#5EFF3B" //RGB: 94, 255, 59
+	taste_message = "decay"
+
+/datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
+	L.ForceContractDisease(new /datum/disease/transformation/morph())

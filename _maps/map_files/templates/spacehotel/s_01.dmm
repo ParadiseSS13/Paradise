@@ -141,6 +141,10 @@
 	icon_state = "freezerfloor"
 	},
 /area/template_noop)
+"K" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -153,7 +157,7 @@ a
 "}
 (2,1,1) = {"
 a
-b
+K
 b
 l
 o

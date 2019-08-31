@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Ghosts can now transition through space again. This is now done by clicking on the edge of space."

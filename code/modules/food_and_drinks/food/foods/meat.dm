@@ -129,7 +129,7 @@
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
-	list_reagents = list("nutriment" = 3, "toxin" = 5)
+	list_reagents = list("protein" = 3, "toxin" = 5)
 
 /obj/item/reagent_containers/food/snacks/goliath/burn()
 	visible_message("[src] finishes cooking!")
@@ -152,7 +152,7 @@
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
 	desc = "It looks crispy and tastes amazing! Mmm... Bacon."
-	icon_state = "bacon2"
+	icon_state = "bacon"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
 
 /obj/item/reagent_containers/food/snacks/telebacon
@@ -168,8 +168,9 @@
 
 /obj/item/reagent_containers/food/snacks/telebacon/On_Consume(mob/M, mob/user)
 	if(!reagents.total_volume)
-		baconbeacon.loc = user
+		baconbeacon.forceMove(user)
 		baconbeacon.digest_delay()
+		baconbeacon = null
 
 /obj/item/reagent_containers/food/snacks/meatball
 	name = "meatball"
@@ -222,6 +223,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "goliathsteak"
 	trash = null
+	list_reagents = list("protein" = 6, "vitamin" = 2)
 
 //////////////////////
 //		Cubes		//

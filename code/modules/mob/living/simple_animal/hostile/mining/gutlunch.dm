@@ -35,7 +35,7 @@
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	deathmessage = "is pulped into bugmash."
 
-	simplespecies = /mob/living/simple_animal/hostile/asteroid/gutlunch
+	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck = 45, /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen = 55)
 
 	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs)
@@ -64,7 +64,7 @@
 		..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(is_type_in_list(target, wanted_objects)) //we eats
+	if(is_type_in_typecache(target, wanted_objects)) //we eats
 		udder.generateMilk()
 		regenerate_icons()
 		visible_message("<span class='notice'>[src] slurps up [target].</span>")

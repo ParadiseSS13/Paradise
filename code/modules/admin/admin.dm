@@ -167,7 +167,6 @@ var/global/nologevent = 0
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
 				body += {"<A href='?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
-					<A href='?_src_=holder;makemask=[M.UID()]'>Make Mask</A> |
 					<A href='?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
 					<A href='?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
 					<A href='?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |
@@ -785,11 +784,13 @@ var/global/nologevent = 0
 		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		return //alert("Round end delayed", null, null, null, null, null)
-	going = !( going )
-	if(!( going ))
+	if(going)
+		going = FALSE
+		SSticker.delay_end = TRUE
 		to_chat(world, "<b>The game start has been delayed.</b>")
 		log_admin("[key_name(usr)] delayed the game.")
 	else
+		going = TRUE
 		to_chat(world, "<b>The game will start soon.</b>")
 		log_admin("[key_name(usr)] removed the delay.")
 	feedback_add_details("admin_verb","DELAY") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

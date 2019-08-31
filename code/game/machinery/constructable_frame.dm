@@ -330,6 +330,14 @@ to destroy them and players will be able to make replacements.
 			name = "circuit board (Freezer)"
 			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
 
+/obj/item/circuitboard/recharger
+	name = "circuit board (Recharger)"
+	build_path = /obj/machinery/recharger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	frame_desc = "Requires 1 Capacitor"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
+
 /obj/item/circuitboard/snow_machine
 	name = "circuit board (snow machine)"
 	build_path = /obj/machinery/snow_machine
@@ -590,6 +598,16 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/console_screen = 1)
+
+/obj/item/circuitboard/reagentgrinder
+	name = "circuit board (All-In-One Grinder)"
+	build_path = /obj/machinery/reagentgrinder/empty
+	board_type = "machine"
+	origin_tech = "materials=2;engineering=2;biotech=2"
+	frame_desc = "Requires 2 Manipulators and 1 Matter Bin."
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 2,
+							/obj/item/stock_parts/matter_bin = 1)
 
 //Almost the same recipe as destructive analyzer to give people choices.
 /obj/item/circuitboard/experimentor

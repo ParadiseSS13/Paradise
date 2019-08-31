@@ -81,5 +81,8 @@
 	planetary_atmos = TRUE
 	desc = "A floor with a square pattern. It's faintly cool to the touch."
 
+/turf/open/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return FALSE
+
 /turf/simulated/floor/indestructible/hierophant/two
 	icon_state = "hierophant2"

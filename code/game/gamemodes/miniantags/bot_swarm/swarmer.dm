@@ -181,8 +181,18 @@
 	S.Integrate(src)
 	return FALSE
 
-/atom/movable/lighting_object/swarmer_act()
+/atom/movable/swarmer_act()
+	if(!simulated)
+		return FALSE
+	return ..()
+
+/obj/effect/swarmer_act()
 	return FALSE
+
+/obj/effect/decal/cleanable/robot_debris/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	S.DisIntegrate(src)
+	qdel(src)
+	return TRUE
 
 /obj/item/gun/swarmer_act()//Stops you from eating the entire armory
 	return FALSE
@@ -535,7 +545,7 @@
 	light_color = LIGHT_COLOR_CYAN
 	health = 10
 
-/obj/structure/swarmer/trap/Crossed(var/atom/movable/AM)
+/obj/structure/swarmer/trap/Crossed(var/atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))

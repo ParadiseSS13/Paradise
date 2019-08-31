@@ -133,12 +133,9 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 		can_strengthen_clothing = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
 			/obj/item/clothing/head/helmet/space/hardsuit/mining,
-			/obj/item/clothing/suit/space/eva/plasmaman/miner,
-			/obj/item/clothing/head/helmet/space/eva/plasmaman/miner,
 			/obj/item/clothing/suit/hooded/explorer,
 			/obj/item/clothing/head/hooded/explorer,
-			/obj/item/clothing/suit/space/eva/plasmaman/explorer,
-			/obj/item/clothing/head/helmet/space/eva/plasmaman/explorer
+			/obj/item/clothing/head/helmet/space/plasmaman/mining
 		))
 
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)

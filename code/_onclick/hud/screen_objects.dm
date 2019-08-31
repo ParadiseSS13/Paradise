@@ -95,6 +95,9 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
+/obj/screen/act_intent/robot/AI
+	screen_loc = "EAST-1:32,SOUTH:70"
+
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
@@ -453,6 +456,11 @@
 /obj/screen/healths/corgi
 	icon = 'icons/mob/screen_corgi.dmi'
 
+/obj/screen/healths/slime
+	icon = 'icons/mob/screen_slime.dmi'
+	icon_state = "slime_health0"
+	screen_loc = ui_slime_health
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/healths/guardian
 	name = "summoner health"
@@ -467,9 +475,13 @@
 	screen_loc = ui_healthdoll
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
 
+/obj/screen/healthdoll/Click()
+	if(ishuman(usr))
+		var/mob/living/carbon/H = usr
+		H.check_self_for_injuries()
+
 /obj/screen/component_button
 	var/obj/screen/parent
-
 
 /obj/screen/component_button/Initialize(mapload, obj/screen/new_parent)
 	. = ..()

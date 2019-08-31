@@ -1,6 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "Ghosts will no longer get the wrong role offered when a nukie
-spawns a borg and will properly be informed whether they will spawn as a
-nuke ops or a syndi cyborg."

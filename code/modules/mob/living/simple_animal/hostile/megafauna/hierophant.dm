@@ -53,6 +53,7 @@ Difficulty: Hard
 	ranged_cooldown_time = 40
 	aggro_vision_range = 23
 	loot = list(/obj/item/hierophant_staff)
+	crusher_loot = list(/obj/item/hierophant_staff, /obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -496,6 +497,7 @@ Difficulty: Hard
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "hierophant_blast"
 	name = "vortex blast"
+	layer = 3.9 // between LYING_MOB_LAYER and ABOVE_MOB_LAYER
 	luminosity = 1
 	desc = "Get out of the way!"
 	duration = 9
@@ -526,7 +528,7 @@ Difficulty: Hard
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
+/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM, oldloc)
 	..()
 	if(bursting)
 		do_damage(get_turf(src))
@@ -554,6 +556,37 @@ Difficulty: Hard
 			to_chat(M.occupant, "<span class='userdanger'>Your [M.name] is struck by a [name]!</span>")
 		playsound(M,'sound/weapons/sear.ogg', 50, 1, -4)
 		M.take_damage(damage, BURN, 0, 0)
+
+/obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
+	name = "vortex wall"
+	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
+	icon_state = "wall"
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	duration = 100
+	smooth = SMOOTH_TRUE
+
+/obj/effect/temp_visual/hierophant/wall/New(loc, new_caster)
+	..()
+	queue_smooth_neighbors(src)
+	queue_smooth(src)
+
+/obj/effect/temp_visual/hierophant/wall/Destroy()
+	queue_smooth_neighbors(src)
+	return ..()
+
+/obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
+	if(QDELETED(caster))
+		return FALSE
+	if(mover == caster.pulledby)
+		return TRUE
+	if(istype(mover, /obj/item/projectile))
+		var/obj/item/projectile/P = mover
+		if(P.firer == caster)
+			return TRUE
+	if(mover == caster)
+		return TRUE
+	return FALSE
+
 
 /obj/effect/hierophant
 	name = "hierophant rune"

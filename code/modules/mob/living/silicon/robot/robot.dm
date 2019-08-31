@@ -103,6 +103,9 @@ var/list/robot_verbs_default = list(
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
+/mob/living/silicon/robot/get_cell()
+	return cell
+
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
@@ -573,6 +576,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/restrained()
 	return 0
 
+/mob/living/silicon/robot/InCritical()
+	return low_power_mode
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
@@ -880,6 +885,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
 		wires.Interact(user)
+	else
+		..() //this calls the /mob/living/attack_ghost proc for the ghost health/cyborg analyzer
 
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob

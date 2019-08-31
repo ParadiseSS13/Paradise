@@ -815,7 +815,7 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(5))
 		if(prob(10))
-			update_flags |= M.adjustToxLoss(rand(2.4), FALSE)
+			update_flags |= M.adjustToxLoss(rand(2,4), FALSE)
 		if(prob(7))
 			to_chat(M, "<span class='warning'>A horrible migraine overpowers you.</span>")
 			update_flags |= M.Stun(rand(2,5), FALSE)

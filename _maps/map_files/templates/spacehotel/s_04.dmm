@@ -190,6 +190,10 @@
 	icon_state = "floor4"
 	},
 /area/template_noop)
+"X" = (
+/obj/machinery/poolcontroller/invisible,
+/turf/unsimulated/beach/water,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -202,7 +206,7 @@ a
 "}
 (2,1,1) = {"
 a
-b
+X
 b
 l
 o

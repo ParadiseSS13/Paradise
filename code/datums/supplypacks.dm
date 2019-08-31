@@ -160,12 +160,16 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "vox life support supplies crate"
 
 /datum/supply_packs/emergency/plasmamansupport
-	name = "Plasmaman Life Support Supplies"
-	contains = list(/obj/item/clothing/mask/breath,
-					/obj/item/tank/emergency_oxygen/plasma,
-					/obj/item/clothing/suit/space/eva/plasmaman,
-					/obj/item/clothing/head/helmet/space/eva/plasmaman)
-	cost = 75
+	name = "Plasmaman Supply Kit"
+	contains = list(/obj/item/clothing/under/plasmaman,
+					/obj/item/clothing/under/plasmaman,
+					/obj/item/tank/plasma/plasmaman/belt/full,
+					/obj/item/tank/plasma/plasmaman/belt/full,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/mask/breath,
+					/obj/item/clothing/head/helmet/space/plasmaman,
+					/obj/item/clothing/head/helmet/space/plasmaman)
+	cost = 20
 	containertype = /obj/structure/closet/crate/secure/plasma
 	containername = "plasmaman life support supplies crate"
 	access = access_eva
@@ -478,10 +482,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/securitybarriers
 	name = "Security Barriers Crate"
-	contains = list(/obj/machinery/deployable/barrier,
-					/obj/machinery/deployable/barrier,
-					/obj/machinery/deployable/barrier,
-					/obj/machinery/deployable/barrier)
+	contains = list(/obj/item/grenade/barrier,
+					/obj/item/grenade/barrier,
+					/obj/item/grenade/barrier,
+					/obj/item/grenade/barrier)
 	cost = 20
 	containername = "security barriers crate"
 
@@ -1169,6 +1173,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/organic/hydroponics/seeds
 	name = "Seeds Crate"
 	contains = list(/obj/item/seeds/chili,
+					/obj/item/seeds/cotton,
 					/obj/item/seeds/berry,
 					/obj/item/seeds/corn,
 					/obj/item/seeds/eggplant,
@@ -1366,7 +1371,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Shaft Miner Starter Kit"
 	cost = 30
 	access = access_qm
-	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
+	contains = list(/obj/item/storage/backpack/duffel/mining_conscript/noid)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
 

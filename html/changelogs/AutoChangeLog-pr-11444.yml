@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "unanchored vending machines will no longer generate a runtime error when throwing products at people."

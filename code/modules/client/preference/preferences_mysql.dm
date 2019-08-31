@@ -19,7 +19,9 @@
 					exp,
 					clientfps,
 					atklog,
-					fuid
+					fuid,
+					afk_watch,
+					parallax
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
 					)
@@ -52,6 +54,8 @@
 		clientfps = text2num(query.item[17])
 		atklog = text2num(query.item[18])
 		fuid = text2num(query.item[19])
+		afk_watch = text2num(query.item[20])
+		parallax = text2num(query.item[21])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -72,6 +76,8 @@
 	clientfps = sanitize_integer(clientfps, 0, 1000, initial(clientfps))
 	atklog = sanitize_integer(atklog, 0, 100, initial(atklog))
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
+	afk_watch = sanitize_integer(afk_watch, 0, 1, initial(afk_watch))
+	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	return 1
 
 /datum/preferences/proc/save_preferences(client/C)
@@ -90,7 +96,7 @@
 					UI_style_alpha='[UI_style_alpha]',
 					be_role='[sanitizeSQL(list2params(be_special))]',
 					default_slot='[default_slot]',
-					toggles='[num2text(toggles, 7)]',
+					toggles='[num2text(toggles, Ceiling(log(10, (TOGGLES_TOTAL))))]',
 					atklog='[atklog]',
 					sound='[sound]',
 					randomslot='[randomslot]',
@@ -101,7 +107,9 @@
 					windowflashing='[windowflashing]',
 					ghost_anonsay='[ghost_anonsay]',
 					clientfps='[clientfps]',
-					atklog='[atklog]'
+					atklog='[atklog]',
+					afk_watch='[afk_watch]',
+					parallax='[parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)
 
