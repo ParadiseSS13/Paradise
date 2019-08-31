@@ -69,6 +69,7 @@
 	. = ..()
 	if(prob(90)) //only has a 10% chance of existing, otherwise it'll just be a NPC syndie.
 		new /mob/living/simple_animal/hostile/syndicate/ranged(get_turf(src))
+		return INITIALIZE_HINT_QDEL
 
 /datum/outfit/lavaland_syndicate/comms
 	name = "Lavaland Syndicate Comms Agent"
