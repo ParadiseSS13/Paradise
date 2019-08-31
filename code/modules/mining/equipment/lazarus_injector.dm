@@ -73,9 +73,10 @@
 	icon = 'icons/obj/mobcap.dmi'
 	icon_state = "mobcap0"
 	w_class = WEIGHT_CLASS_TINY
-	throw_range = 20
+	throw_range = 7
 	var/mob/living/simple_animal/captured = null
 	var/colorindex = 0
+	var/capture_type = SENTIENCE_ORGANIC //So you can't capture boss monsters or robots with it
 
 /obj/item/mobcapsule/Destroy()
 	if(captured)
@@ -83,26 +84,25 @@
 		QDEL_NULL(captured)
 	return ..()
 
-/obj/item/mobcapsule/attack(var/atom/A, mob/user, prox_flag)
-	if(!istype(A, /mob/living/simple_animal) || isbot(A))
-		return ..()
-	capture(A, user)
-	return 1
+/obj/item/mobcapsule/attack(mob/living/simple_animal/S, mob/user, prox_flag)
+	if(istype(S) && S.sentience_type == capture_type)
+		capture(S, user)
+		return TRUE
+	return ..()
 
-/obj/item/mobcapsule/proc/capture(var/mob/target, var/mob/U as mob)
-	var/mob/living/simple_animal/T = target
+/obj/item/mobcapsule/proc/capture(mob/living/simple_animal/S, mob/living/M)
 	if(captured)
-		to_chat(U, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+		to_chat(M, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
 	else
-		if(istype(T) && "neutral" in T.faction)
-			T.forceMove(src)
-			T.name = "[U.name]'s [initial(T.name)]"
-			T.cancel_camera()
-			name = "Lazarus Capsule: [initial(T.name)]"
-			to_chat(U, "<span class='notice'>You placed a [T.name] inside the Lazarus Capsule!</span>")
-			captured = T
+		if("neutral" in S.faction)
+			S.forceMove(src)
+			S.name = "[M.name]'s [initial(S.name)]"
+			S.cancel_camera()
+			name = "Lazarus Capsule: [initial(S.name)]"
+			to_chat(M, "<span class='notice'>You placed a [S.name] inside the Lazarus Capsule!</span>")
+			captured = S
 		else
-			to_chat(U, "You can't capture that mob!")
+			to_chat(M, "You can't capture that mob!")
 
 /obj/item/mobcapsule/throw_impact(atom/A, mob/user)
 	..()

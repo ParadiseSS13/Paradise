@@ -95,7 +95,7 @@
 /obj/item/seeds/redbeet
 	name = "pack of redbeet seeds"
 	desc = "These seeds grow into red beet producing plants."
-	icon_state = "seedredbeet"
+	icon_state = "seed-redbeet"
 	species = "redbeet"
 	plantname = "Red Beet Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/redbeet

@@ -762,6 +762,8 @@
 	desc = "Bark bark bark."
 	key = "vu"
 
-
+/mob/proc/grant_all_languages()
+	for(var/la in GLOB.all_languages)
+		add_language(la)
 
 #undef SCRAMBLE_CACHE_LEN

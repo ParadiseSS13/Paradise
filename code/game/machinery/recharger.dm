@@ -109,6 +109,7 @@
 			var/obj/item/gun/energy/E = charging
 			if(E.power_supply.charge < E.power_supply.maxcharge)
 				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
+				E.on_recharge()
 				use_power(250)
 				using_power = TRUE
 

@@ -668,6 +668,7 @@
 	color = "#A0E85E"
 	metabolization_rate = 0.2
 	taste_description = "life"
+	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -680,13 +681,14 @@
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
-	if(isanimal(M))
-		if(method == TOUCH)
-			var/mob/living/simple_animal/SM = M
-			if(SM.stat == DEAD)
-				SM.revive()
-				SM.loot.Cut() //no abusing strange reagent for unlimited farming of resources
-				SM.visible_message("<span class='warning'>[M] seems to rise from the dead!</span>")
+	if(isanimal(M) && method == TOUCH)
+		var/mob/living/simple_animal/SM = M
+		if(SM.sentience_type != revive_type) // No reviving Ash Drakes for you
+			return
+		if(SM.stat == DEAD)
+			SM.revive()
+			SM.loot.Cut() //no abusing strange reagent for farming unlimited resources
+			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
 		if(method == INGEST || (method == TOUCH && prob(25)))

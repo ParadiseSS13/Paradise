@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - tweak: "Blood spread now depends on volume of the blood, requires more drips of blood to create a pool"

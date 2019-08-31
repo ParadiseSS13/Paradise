@@ -175,6 +175,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = TURF_LAYER
+	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 	color = "#D5820B"

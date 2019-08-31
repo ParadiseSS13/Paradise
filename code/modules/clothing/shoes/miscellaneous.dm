@@ -243,29 +243,54 @@
 	icon_state = "bsing"
 	put_on_delay = 50
 
-/obj/item/clothing/shoes/cowboyboots
+/obj/item/clothing/shoes/cowboy
 	name = "cowboy boots"
 	desc = "A pair a' brown boots."
-	icon_state = "cowboyboots"
-	item_color = "cowboyboots"
+	icon_state = "cowboy_brown"
+	item_color = "cowboy_brown"
 
-/obj/item/clothing/shoes/cowboyboots/black
+/obj/item/clothing/shoes/cowboy/black
 	name = "black cowboy boots"
 	desc = "A pair a' black rustlers' boots"
-	icon_state = "cowboyboots_black"
-	item_color = "cowboyboots_black"
+	icon_state = "cowboy_black"
+	item_color = "cowboy_black"
 
-/obj/item/clothing/shoes/cowboyboots/white
+/obj/item/clothing/shoes/cowboy/white
 	name = "white cowboy boots"
 	desc = "For the rancher in us all."
-	icon_state = "cowboyboots_white"
-	item_color = "cowboyboots_white"
+	icon_state = "cowboy_white"
+	item_color = "cowboy_white"
 
-/obj/item/clothing/shoes/cowboyboots/pink
+/obj/item/clothing/shoes/cowboy/fancy
+	name = "bilton wrangler boots"
+	desc = "A pair of authentic haute couture boots from Japanifornia. You doubt they have ever been close to cattle."
+	icon_state = "cowboy_fancy"
+	item_color = "cowboy_fancy"
+
+/obj/item/clothing/shoes/cowboy/pink
 	name = "pink cowgirl boots"
 	desc = "For a Rustlin' tustlin' cowgirl."
 	icon_state = "cowboyboots_pink"
 	item_color = "cowboyboots_pink"
+
+/obj/item/clothing/shoes/cowboy/lizard
+	name = "lizard skin boots"
+	desc = "You can hear a faint hissing from inside the boots; you hope it is just a mournful ghost."
+	icon_state = "lizardboots_green"
+
+/obj/item/clothing/shoes/cowboy/lizardmasterwork
+	name = "\improper Hugs-The-Feet lizard skin boots"
+	desc = "A pair of masterfully crafted lizard skin boots. Finally a good application for the station's most bothersome inhabitants."
+	icon_state = "lizardboots_blue"
+
+/obj/effect/spawner/lootdrop/lizardboots
+	name = "random lizard boot quality"
+	desc = "Which ever gets picked, the lizard race loses"
+	icon = 'icons/obj/clothing/shoes.dmi'
+	icon_state = "lizardboots_green"
+	loot = list(
+		/obj/item/clothing/shoes/cowboy/lizard = 7,
+		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
 
 /obj/item/clothing/shoes/footwraps
  	name = "cloth footwraps"
