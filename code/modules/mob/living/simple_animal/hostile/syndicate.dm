@@ -159,7 +159,7 @@
 				continue
 			if(depotarea.list_includes(body, depotarea.dead_list))
 				continue
-			if(faction_check(body))
+			if(faction_check_mob(body))
 				continue
 			say("Target [body]... terminated.")
 			depotarea.list_add(body, depotarea.dead_list)
@@ -190,7 +190,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
-		if(faction_check(blocker))
+		if(faction_check_mob(blocker))
 			return 1
 	return ..(mover, target, height)
 

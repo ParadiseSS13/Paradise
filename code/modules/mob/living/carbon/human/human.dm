@@ -34,9 +34,6 @@
 
 	handcrafting = new()
 
-	var/mob/M = src
-	faction |= "\ref[M]" //what
-
 	// Set up DNA.
 	if(dna)
 		dna.ready_dna(src)
