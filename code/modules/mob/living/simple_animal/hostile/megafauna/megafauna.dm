@@ -32,10 +32,15 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	var/chosen_attack = 1 // chosen attack num
+	var/list/attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/New()
 	..()
 	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	for(var/action_type in attack_action_types)
+		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
+		attack_action.Grant(src)
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
@@ -113,3 +118,21 @@
 		SSmedals.SetScore(BOSS_SCORE, C, 1)
 		SSmedals.SetScore(score_type, C, 1)
 	return TRUE
+
+/datum/action/innate/megafauna_attack
+	name = "Megafauna Attack"
+	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = ""
+	var/mob/living/simple_animal/hostile/megafauna/M
+	var/chosen_message
+	var/chosen_attack_num = 0
+
+/datum/action/innate/megafauna_attack/Grant(mob/living/L)
+	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+		M = L
+		return ..()
+	return FALSE
+
+/datum/action/innate/megafauna_attack/Activate()
+	M.chosen_attack = chosen_attack_num
+	to_chat(M, chosen_message)
