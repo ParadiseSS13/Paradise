@@ -143,16 +143,15 @@
 	health = Clamp(health, 0, maxHealth)
 	med_hud_set_status()
 
-/mob/living/simple_animal/lay_down()
+/mob/living/simple_animal/StartResting(updating = 1)
 	..()
-	handle_resting_state_icons()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_resting
 
-/mob/living/simple_animal/proc/handle_resting_state_icons()
-	if(icon_resting)
-		if(resting && stat != DEAD)
-			icon_state = icon_resting
-		else if(stat != DEAD)
-			icon_state = icon_living
+/mob/living/simple_animal/StopResting(updating = 1)
+	..()
+	if(icon_resting && stat != DEAD)
+		icon_state = icon_living
 
 /mob/living/simple_animal/update_stat(reason = "none given")
 	if(status_flags & GODMODE)

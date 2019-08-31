@@ -57,27 +57,21 @@
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(prob(speak_chance))
+	if(prob(speak_chance) && !incapacitated())
 		for(var/mob/M in view())
-			M << squeak_sound
+			SEND_SOUND(M, squeak_sound)
 
 /mob/living/simple_animal/mouse/Life(seconds, times_fired)
 	. = ..()
-	if(stat == UNCONSCIOUS)
-		if(ckey || prob(1))
-			stat = CONSCIOUS
-			icon_state = "mouse_[mouse_color]"
-			wander = 1
-		else if(prob(5))
-			emote("snuffles")
-
-/mob/living/simple_animal/mouse/Life()
-	..()
-	if(!stat && prob(0.5) && !ckey)
-		stat = UNCONSCIOUS
-		icon_state = "mouse_[mouse_color]_sleep"
-		wander = 0
-		speak_chance = 0
+	if(.) // Alive
+		if(!ckey)
+			if(resting)
+				if(prob(1))
+					StopResting()
+				else if(prob(5))
+					custom_emote(2, "snuffles")
+			else if(prob(0.5))
+				StartResting()
 
 /mob/living/simple_animal/mouse/New()
 	..()

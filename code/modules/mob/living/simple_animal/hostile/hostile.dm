@@ -222,7 +222,7 @@
 
 		if(isspacepod(the_target))
 			var/obj/spacepod/S = the_target
-			if(S.pilot)//Just so we don't attack empty mechs
+			if(S.pilot)//Just so we don't attack empty pods
 				if(CanAttack(S.pilot))
 					return TRUE
 
