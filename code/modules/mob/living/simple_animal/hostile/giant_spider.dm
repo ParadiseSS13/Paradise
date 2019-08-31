@@ -40,8 +40,8 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
-	..()
-	if(venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
+	. = ..()
+	if(. && venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/carbon/C = target
 		var/inject_target = pick("chest", "head")
 		if(C.can_inject(null, 0, inject_target, 0))

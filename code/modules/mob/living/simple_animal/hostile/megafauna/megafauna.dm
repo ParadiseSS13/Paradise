@@ -59,8 +59,8 @@
 	loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
-	..()
-	if(isliving(target))
+	. = ..()
+	if(. && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)

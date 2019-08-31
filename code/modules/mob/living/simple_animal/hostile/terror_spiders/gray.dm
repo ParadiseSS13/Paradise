@@ -58,7 +58,7 @@
 	if(invisibility > 0)
 		GrayDeCloak()
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/GrayCloak()
 	visible_message("<span class='notice'>[src] hides in the vent.</span>")

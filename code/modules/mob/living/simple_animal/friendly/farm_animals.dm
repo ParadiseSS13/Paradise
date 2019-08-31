@@ -91,8 +91,8 @@
 		say("Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/AttackingTarget()
-	..()
-	if(isdiona(target))
+	. = ..()
+	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
 		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")

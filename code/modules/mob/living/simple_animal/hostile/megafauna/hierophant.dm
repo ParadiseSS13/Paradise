@@ -123,13 +123,18 @@ Difficulty: Hard
 	adjustHealth(-L.maxHealth*0.5)
 	L.dust()
 
+/mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
+	. = ..()
+	if(istype(the_target, /mob/living/simple_animal/hostile/asteroid/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
+		return FALSE
+
 /*/mob/living/simple_animal/hostile/megafauna/hierophant/GiveTarget(new_target)
 	var/targets_the_same = (new_target == target)
 	. = ..()
 	if(. && target && !targets_the_same)
 		visible_message("<span class='hierophant'>\"[pick(target_phrases)]\"</span>")*/
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount)
+/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(src && amount > 0 && !blinking)
 		wander = TRUE
@@ -140,7 +145,7 @@ Difficulty: Hard
 		if(target && isliving(target))
 			spawn(0)
 				melee_blast(get_turf(target)) //melee attacks on living mobs produce a 3x3 blast
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/DestroySurroundings()
 	if(!blinking)

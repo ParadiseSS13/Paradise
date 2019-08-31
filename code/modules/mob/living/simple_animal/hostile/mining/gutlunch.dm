@@ -30,7 +30,7 @@
 	stop_automated_movement_when_pulled = TRUE
 	stat_exclusive = TRUE
 	robust_searching = TRUE
-	search_objects = TRUE
+	search_objects = 3
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	deathmessage = "is pulped into bugmash."
@@ -63,14 +63,35 @@
 	else
 		..()
 
+/mob/living/simple_animal/hostile/asteroid/gutlunch/CanAttack(atom/the_target) // Gutlunch-specific version of CanAttack to handle stupid stat_exclusive = true crap so we don't have to do it for literally every single simple_animal/hostile except the two that spawn in lavaland
+	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
+		return FALSE
+
+	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
+		return FALSE
+
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+
+		if(faction_check_mob(L) && !attack_same)
+			return FALSE
+		if(L.stat > stat_attack || L.stat != stat_attack && stat_exclusive)
+			return FALSE
+
+		return TRUE
+
+	if(isobj(the_target) && is_type_in_typecache(the_target, wanted_objects))
+		return TRUE
+
+	return FALSE
+
 /mob/living/simple_animal/hostile/asteroid/gutlunch/AttackingTarget()
-	if(is_type_in_typecache(target, wanted_objects)) //we eats
+	if(is_type_in_typecache(target,wanted_objects)) //we eats
 		udder.generateMilk()
 		regenerate_icons()
 		visible_message("<span class='notice'>[src] slurps up [target].</span>")
 		qdel(target)
-		return
-	..()
+	return ..()
 
 /obj/item/udder/gutlunch
 	name = "nutrient sac"

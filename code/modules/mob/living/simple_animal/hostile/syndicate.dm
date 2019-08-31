@@ -135,6 +135,8 @@
 			LoseTarget()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
+	if(!..())
+		return
 	if(seen_enemy)
 		aggro_cycles++
 		if(alert_on_timeout && !raised_alert && aggro_cycles >= 60)
@@ -166,7 +168,6 @@
 			pointed(body)
 	else
 		scan_cycles++
-	..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)

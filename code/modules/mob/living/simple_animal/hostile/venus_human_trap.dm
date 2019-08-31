@@ -105,6 +105,12 @@
 
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
+	for(var/turf/T in getline(src,target))
+		if (T.density)
+			return
+		for(var/obj/O in T)
+			if(O.density)
+				return
 	var/dist = get_dist(src,the_target)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
 	the_target.attack_animal(src)

@@ -48,14 +48,13 @@
 			retreat_distance = 10
 			minimum_distance = 10
 			if(will_burrow)
-				spawn(chase_time)
-					Burrow()
+				addtimer(CALLBACK(src, .proc/Burrow), chase_time)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/AttackingTarget()
 	if(istype(target, /obj/item/stack/ore))
 		EatOre(target)
 		return
-	..()
+	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(var/atom/targeted_ore)
 	for(var/obj/item/stack/ore/O in get_turf(targeted_ore))
@@ -69,13 +68,13 @@
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
 	if(!stat)
-		visible_message("<span class='danger'>The [src.name] buries into the ground, vanishing from sight!</span>")
+		visible_message("<span class='danger'>The [name] buries into the ground, vanishing from sight!</span>")
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
 	visible_message("<span class='danger'>The [P.name] was repelled by [src.name]'s girth!</span>")
 	return
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(damage)
+/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
 	vision_range = 9
 	. = ..()

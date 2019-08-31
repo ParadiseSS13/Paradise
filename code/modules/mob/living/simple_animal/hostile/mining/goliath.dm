@@ -54,6 +54,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/OpenFire()
 	var/tturf = get_turf(target)
+	if(!isturf(tturf))
+		return
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
 		visible_message("<span class='warning'>The [src.name] digs its tentacles under [target.name]!</span>")
 		new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
@@ -61,10 +63,10 @@
 		icon_state = icon_aggro
 		pre_attack = FALSE
 
-/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(damage)
-	ranged_cooldown--
+/mob/living/simple_animal/hostile/asteroid/goliath/adjustHealth(amount, updating_health = TRUE)
+	ranged_cooldown -= 10
 	handle_preattack()
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/Aggro()
 	vision_range = aggro_vision_range
