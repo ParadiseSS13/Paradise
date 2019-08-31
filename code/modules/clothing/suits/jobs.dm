@@ -85,7 +85,7 @@
 	icon_state = "chaplain_hoodie"
 	item_state = "chaplain_hoodie"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	hoodtype = /obj/item/clothing/head/chaplain_hood
+	hoodtype = /obj/item/clothing/head/hooded/chaplain_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
 
 	sprite_sheets = list(
@@ -100,7 +100,7 @@
 	item_state = "nun"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	hoodtype = /obj/item/clothing/head/nun_hood
+	hoodtype = /obj/item/clothing/head/hooded/nun_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
 
 	sprite_sheets = list(
@@ -115,7 +115,7 @@
 	item_state = "monkrobe"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS|HANDS
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
-	hoodtype = /obj/item/clothing/head/monk_hood
+	hoodtype = /obj/item/clothing/head/hooded/monk_hood
 	allowed = list(/obj/item/storage/bible, /obj/item/nullrod, /obj/item/reagent_containers/food/drinks/bottle/holywater, /obj/item/storage/fancy/candle_box, /obj/item/candle, /obj/item/tank/emergency_oxygen)
 
 /obj/item/clothing/suit/witchhunter
