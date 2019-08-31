@@ -326,7 +326,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #CC0000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
@@ -346,6 +346,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .clown					{color: #ff0000;}
 .shadowling				{color: #Cb2799;}
 .vulpkanin				{color: #B97A57;}
+.yakar					{color: #bda60f;}
 .abductor				{color: #800080; font-style: italic;}
 .mind_control				{color: #A00D6F; font-size: 3; font-weight: bold; font-style: italic;}
 .rough					{font-family: 'Trebuchet MS', cursive, sans-serif;}

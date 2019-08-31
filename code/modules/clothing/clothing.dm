@@ -639,7 +639,8 @@ BLIND     // can't see anything
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi',
 		"Drask" = 'icons/mob/species/drask/uniform.dmi',
-		"Grey" = 'icons/mob/species/grey/uniform.dmi'
+		"Grey" = 'icons/mob/species/grey/uniform.dmi',
+		"Murghal" = 'icons/hispania/mob/species/murghal/uniform.dmi'
 		)
 
 	var/has_sensor = TRUE//For the crew computer 2 = unable to change mode
