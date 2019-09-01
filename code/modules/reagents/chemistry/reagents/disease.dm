@@ -181,6 +181,7 @@
 	name = "sucrose agar"
 	id = "sugarvirusfood"
 	color = "#41B0C0" // rgb: 65,176,192
+	taste_mult = 1.5
 
 /datum/reagent/medicine/diphenhydramine/diphenhydraminevirusfood
 	name = "virus rations"
