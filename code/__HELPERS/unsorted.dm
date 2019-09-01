@@ -1487,7 +1487,8 @@ var/mob/dview/dview_mob = new
 	canmove = FALSE
 	see_in_dark = 1e6
 
-/mob/dview/New() //For whatever reason, if this isn't called, then BYOND will throw a type mismatch runtime when attempting to add this to the mobs list. -Fox
+/mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
+	return INITIALIZE_HINT_NORMAL
 
 /mob/dview/Destroy()
 	// should never be deleted
