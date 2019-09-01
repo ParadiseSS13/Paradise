@@ -167,9 +167,9 @@
 		var/amount = 1 + round(potency * reagents_add[reagent_id], 1)
 		var/list/data = null
 		if(reagent_id == "blood") // Hack to make blood in plants always O-
-			data = list("blood_type"="O-")
+			data = list("blood_type" = "O-")
 			continue
-		var/list/nutritious_reagents = list("nutriment", "protein", "plantmatter")
+		var/list/nutritious_reagents = list("nutriment", "vitamin", "protein", "plantmatter")
 		if(reagent_id in nutritious_reagents)
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T

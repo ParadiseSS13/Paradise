@@ -5,7 +5,7 @@
 /mob/living/proc/get_taste_sensitivity()
 	return TASTE_SENSITIVITY_NORMAL
 
-/mob/living/carbon/get_taste_sensitivity()
+/mob/living/carbon/human/get_taste_sensitivity()
 	if(dna.species)
 		return dna.species.taste_sensitivity
 	else

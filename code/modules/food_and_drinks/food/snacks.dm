@@ -23,7 +23,7 @@
 		return
 	if(!tastes || !tastes.len)
 		return ..()
-	var/list/nutritious_reagents = list("nutriment", "protein", "plantmatter")
+	var/list/nutritious_reagents = list("nutriment", "vitamin", "protein", "plantmatter")
 	for(var/reagent_id in list_reagents)
 		var/amount = list_reagents[reagent_id]
 		if(reagent_id in nutritious_reagents)

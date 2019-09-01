@@ -784,6 +784,7 @@ var/const/INGEST = 2
 			temp.Add(v.Copy())
 		trans_data["viruses"] = temp
 	return trans_data
+
 /datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL)
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
