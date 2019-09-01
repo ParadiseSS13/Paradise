@@ -38,7 +38,6 @@
 	description = "A colorless, odorless gas."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	taste_description = null
 	taste_mult = 0
 
 /datum/reagent/nitrogen
@@ -47,7 +46,6 @@
 	description = "A colorless, odorless, tasteless gas."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	taste_description = null
 	taste_mult = 0
 
 /datum/reagent/hydrogen
@@ -56,7 +54,6 @@
 	description = "A colorless, odorless, nonmetallic, tasteless, highly combustible diatomic gas."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	taste_description = null
 	taste_mult = 0
 
 /datum/reagent/potassium
@@ -197,7 +194,7 @@
 	description = "A secondary amine, useful as a plant nutrient and as building block for other compounds."
 	reagent_state = LIQUID
 	color = "#322D00"
-	taste_description = null
+	taste_description = "iron"
 
 /datum/reagent/oil
 	name = "Oil"
@@ -252,7 +249,7 @@
 	description = "A red-brown liquid element."
 	reagent_state = LIQUID
 	color = "#4E3A3A"
-	taste_description = null
+	taste_description = "chemicals"
 
 /datum/reagent/phenol
 	name = "Phenol"
@@ -260,7 +257,7 @@
 	description = "Also known as carbolic acid, this is a useful building block in organic chemistry."
 	reagent_state = LIQUID
 	color = "#525050"
-	taste_description = null
+	taste_description = "acid"
 
 /datum/reagent/ash
 	name = "Ash"

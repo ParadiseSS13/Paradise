@@ -219,7 +219,7 @@
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
@@ -365,7 +365,7 @@
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
 	can_synth = FALSE
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
@@ -379,7 +379,7 @@
 	color = "#E7C4C4"
 	metabolization_rate = 0.2
 	overdose_threshold = 40
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/histamine/reaction_mob(mob/living/M, method=TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
@@ -652,7 +652,7 @@
 	reagent_state = LIQUID
 	color = "#7F10C0"
 	can_synth = FALSE
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -684,7 +684,6 @@
 	reagent_state = LIQUID
 	color = "#1E4664"
 	metabolization_rate = 0.2
-	taste_description = null
 	taste_mult = 0
 
 /datum/reagent/pancuronium/on_mob_life(mob/living/M)
@@ -720,7 +719,7 @@
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
 	can_synth = FALSE
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -750,7 +749,7 @@
 	metabolization_rate = 0.8
 	penetrates_skin = TRUE
 	can_synth = FALSE
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -802,7 +801,7 @@
 	description = "A toxin produced by certain mushrooms. Very deadly."
 	reagent_state = LIQUID
 	color = "#D9D9D9"
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/amanitin/on_mob_delete(mob/living/M)
 	M.adjustToxLoss(current_cycle*rand(2,4))
@@ -907,7 +906,7 @@
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
 	overdose_threshold = 25
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
