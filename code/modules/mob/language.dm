@@ -453,7 +453,7 @@
 	ask_verb = "chitters"
 	exclaim_verb = "chitters"
 	colour = "alien"
-	key = "y"
+	key = "asd"
 	flags = RESTRICTED | HIVEMIND
 
 /datum/language/wryn/check_special_condition(mob/other)
@@ -660,22 +660,6 @@
 	key = "z"//Zwarmer...Or Zerg!
 	flags = RESTRICTED | HIVEMIND
 	follow = 1
-
-/datum/language/murghal
-	name = "Yakar"
-	desc = "The most widespread Murghal language, made up of screeches, tongue tickings and growls."
-	speech_verb = "ticks"
-	ask_verb = "ticks"
-	exclaim_verb = "screeches"
-	colour = "skrell"
-	key = "t"
-	flags = RESTRICTED
-	syllables = list("ask","are","tik","qur","cut","chik","wak","grr","ras","ak","ek","ik","zix","tak","tek","tik","kala","kili","rink","ruk","skrra", "ska","ske","nix","nokt")
-
-/datum/language/murghal/get_random_name()
-	var/new_name = "[pick(list("Vasi","Lisk","Lich","Sika","Naika","Eva","Kirana","Taura","Tairana","Laski","Nikera", "Oki", "Mika"))]"
-	new_name += " [pick(list("Mink","lira","Kartis","TikTik","Kirakakai","Kali","Xixek","Ukik","Kondra","Beki"))]"
-	return new_name
 
 // Language handling.
 /mob/proc/add_language(language)
