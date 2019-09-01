@@ -39,6 +39,7 @@
 		var/mob/living/silicon/ai/A = owner.current
 		A.set_zeroth_law("")
 		A.showLaws()
+		A.malf_picker.remove_malf_verbs(A)
 		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
 		qdel(A.malf_picker)
 
