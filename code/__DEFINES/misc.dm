@@ -209,12 +209,6 @@
 	locate(min(CENTER.x+(RADIUS),world.maxx), min(CENTER.y+(RADIUS),world.maxy), CENTER.z) \
   )
 
-#define FOR_DVIEW(type, range, center, invis_flags) \
-	dview_mob.loc = center; \
-	dview_mob.see_invisible = invis_flags; \
-	for(type in view(range, dview_mob))
-#define END_FOR_DVIEW dview_mob.loc = null
-
 //Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
 #define NORTH_OF_TURF(T)	locate(T.x, T.y + 1, T.z)
