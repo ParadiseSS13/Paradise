@@ -83,7 +83,6 @@
 
 	if(!istype(owner.head, /obj/item/clothing/head/helmet))
 		toggle_boost(TRUE)
-		owner.visible_message("<span class='warning'>[owner] headbutts the .</span>")
 		var/obj/item/organ/external/affecting = owner.get_organ("head")
 		owner.Stun(5)
 		owner.Weaken(5)
