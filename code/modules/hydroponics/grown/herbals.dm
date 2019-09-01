@@ -17,6 +17,7 @@
 	desc = "Mash to turn into a poultice."
 	icon_state = "tea_astra_leaves"
 	color = "#378C61"
+	tastes = list("comfrey" = 1)
 	bitesize_mod = 2
 
 /obj/item/reagent_containers/food/snacks/grown/comfrey/attack_self(mob/user)
@@ -43,6 +44,7 @@
 	desc = "Mash to turn into a poultice."
 	icon_state = "ambrosiavulgaris"
 	color = "#4CC5C7"
+	tastes = list("aloe" = 1)
 	bitesize_mod = 2
 
 /obj/item/reagent_containers/food/snacks/grown/aloe/attack_self(mob/user)

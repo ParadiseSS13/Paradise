@@ -24,6 +24,7 @@
 	dried_type = null
 	w_class = WEIGHT_CLASS_NORMAL
 	filling_color = "#008000"
+	tastes = list("watermelon" = 1)
 	bitesize_mod = 3
 	wine_power = 0.4
 
@@ -47,4 +48,5 @@
 	filling_color = "#FFD700"
 	dried_type = null
 	wine_power = 0.7 //Water to wine, baby.
+	tastes = list("melon" = 1, "divinity" = 1)
 	wine_flavor = "divinity"

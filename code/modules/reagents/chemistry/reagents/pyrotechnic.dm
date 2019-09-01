@@ -84,7 +84,7 @@
 	drink_icon = "dr_gibb_glass"
 	drink_name = "Glass of welder fuel"
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
-	taste_message = "mistakes"
+	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
 	var/max_radius = 7
 	var/min_radius = 0
@@ -140,7 +140,8 @@
 	description = "The liquid phase of an unusual extraterrestrial compound."
 	reagent_state = LIQUID
 	color = "#7A2B94"
-	taste_message = "corporate assets going to waste"
+	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
@@ -171,7 +172,7 @@
 	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "rust"
+	taste_description = "rust"
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= TOUCH, volume)
 	if(method == TOUCH)
@@ -206,7 +207,7 @@
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = "sweetness"
+	taste_description = "sweetness"
 
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
@@ -214,7 +215,7 @@
 	description = "A chemical that stabilises normally volatile compounds, preventing them from reacting immediately."
 	reagent_state = LIQUID
 	color = "#FFFF00"
-	taste_message = "long-term stability"
+	taste_description = "long-term stability"
 
 /datum/reagent/clf3
 	name = "Chlorine Trifluoride"
@@ -224,7 +225,7 @@
 	color = "#FF0000"
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = null
+	taste_description = null
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)
@@ -268,7 +269,7 @@
 	description = "Sucks everything into the detonation point."
 	reagent_state = LIQUID
 	color = "#800080"
-	taste_message = "the end of the world"
+	taste_description = "the end of the world"
 
 /datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
 	if(prob(75))
@@ -287,7 +288,7 @@
 	color = "#000000"
 	metabolization_rate = 0.05
 	penetrates_skin = TRUE
-	taste_message = "explosions"
+	taste_description = "explosions"
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
 	if(volume >= 5 && !isspaceturf(T))
@@ -406,7 +407,8 @@
 	id = "plasma_dust"
 	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
 	color = "#500064" // rgb: 80, 0, 100
-	taste_message = "corporate assets going to waste"
+	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
