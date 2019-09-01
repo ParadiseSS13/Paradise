@@ -34,9 +34,9 @@
 			impact()
 
 		if(owner.step_count % 2)
-			playsound(NewLoc, 'sound/hispania/effects/footsteps/sprint_murghal0.ogg', 35, 1)
+			playsound(NewLoc, 'sound/hispania/effects/footsteps/sprint_murghal0.ogg', 35, 1, -(world.view - 2))
 		else
-			playsound(NewLoc, 'sound/hispania/effects/footsteps/sprint_murghal1.ogg', 35, 1)
+			playsound(NewLoc, 'sound/hispania/effects/footsteps/sprint_murghal1.ogg', 35, 1, -(world.view - 2))
 
 		if(footstep > 40)
 			legs_pain()
