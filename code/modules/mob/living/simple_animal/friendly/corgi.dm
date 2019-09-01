@@ -32,8 +32,8 @@
 	var/default_atmos_requirements = 0
 	var/last_eaten = 0
 
-/mob/living/simple_animal/pet/corgi/New()
-	..()
+/mob/living/simple_animal/pet/corgi/Initialize(mapload)
+	. = ..()
 	default_atmos_requirements = src.atmos_requirements
 	regenerate_icons()
 	if(gender == NEUTER)

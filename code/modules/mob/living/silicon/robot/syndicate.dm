@@ -16,8 +16,8 @@
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
 							<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/New(loc)
-	..()
+/mob/living/silicon/robot/syndicate/Initialize(mapload)
+	. = ..()
 	cell.maxcharge = 25000
 	cell.charge = 25000
 
@@ -80,7 +80,7 @@
 
 	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
 	thermals.Grant(src)
-	
+
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."

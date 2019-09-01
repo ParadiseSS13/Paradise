@@ -1,4 +1,4 @@
-/mob/living/Initialize()
+/mob/living/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
@@ -256,10 +256,10 @@
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
-	
+
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
-	
+
 
 /mob/living/ex_act(severity)
 	..()

@@ -29,7 +29,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
 
-/mob/living/simple_animal/hostile/retaliate/goat/New()
+/mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
 	udder = new()
 	. = ..()
 
@@ -129,7 +129,7 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
 
-/mob/living/simple_animal/cow/Initialize()
+/mob/living/simple_animal/cow/Initialize(mapload)
 	udder = new()
 	. = ..()
 
@@ -196,8 +196,8 @@
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/chick/New()
-	..()
+/mob/living/simple_animal/chick/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
 
@@ -251,8 +251,8 @@ var/global/chicken_count = 0
 	var/list/validColors = list("brown","black","white")
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/chicken/New()
-	..()
+/mob/living/simple_animal/chicken/Initialize(mapload)
+	. = ..()
 	if(!body_color)
 		body_color = pick(validColors)
 	icon_state = "[icon_prefix]_[body_color]"

@@ -36,7 +36,7 @@
 	var/smoke_freq = 300 // 30 seconds
 	var/datum/action/innate/demon/whisper/whisper_action
 
-/mob/living/simple_animal/hostile/hellhound/New()
+/mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
 	whisper_action = new()
 	whisper_action.Grant(src)

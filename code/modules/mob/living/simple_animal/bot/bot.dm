@@ -136,8 +136,8 @@
 	update_icon()
 	update_controls()
 
-/mob/living/simple_animal/bot/New()
-	..()
+/mob/living/simple_animal/bot/Initialize(mapload)
+	. = ..()
 	GLOB.bots_list += src
 	icon_living = icon_state
 	icon_dead = icon_state

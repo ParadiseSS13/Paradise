@@ -29,8 +29,8 @@
 	var/spawn_pc_stillborn = 50
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
-/mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/mother/Initialize(mapload)
+	. = ..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
 

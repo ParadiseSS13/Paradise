@@ -106,7 +106,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
+/mob/living/silicon/robot/Initialize(mapload, syndie = 0, unfinished = 0, alien = 0)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
@@ -154,7 +154,7 @@ var/list/robot_verbs_default = list(
 		cell.maxcharge = 7500
 		cell.charge = 7500
 
-	..()
+	. = ..()
 
 	add_robot_verbs()
 
@@ -1313,8 +1313,8 @@ var/list/robot_verbs_default = list(
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
 
-/mob/living/silicon/robot/deathsquad/New(loc)
-	..()
+/mob/living/silicon/robot/deathsquad/Initialize(mapload)
+	. = ..()
 	cell.maxcharge = 25000
 	cell.charge = 25000
 
@@ -1367,8 +1367,8 @@ var/list/robot_verbs_default = list(
 	radio.recalculateChannels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
-	..(loc)
+/mob/living/silicon/robot/ert/Initialize(mapload, cyborg_unlock)
+	. = ..()
 	cell.maxcharge = 25000
 	cell.charge = 25000
 	var/rnum = rand(1,1000)
@@ -1460,4 +1460,4 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-	
+

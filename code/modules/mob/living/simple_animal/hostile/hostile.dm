@@ -51,8 +51,8 @@
 
 	var/attack_all_objects = FALSE //if true, equivalent to having a wanted_objects list containing ALL objects.
 
-/mob/living/simple_animal/hostile/New()
-	..()
+/mob/living/simple_animal/hostile/Initialize(mapload)
+	. = ..()
 	if(!targets_from)
 		targets_from = src
 	environment_target_typecache = typecacheof(environment_target_typecache)

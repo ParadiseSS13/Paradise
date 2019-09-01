@@ -36,8 +36,8 @@
 //	var/sprite[0]
 
 
-/mob/living/silicon/robot/drone/New()
-	..()
+/mob/living/silicon/robot/drone/Initialize(mapload)
+	. = ..()
 
 	remove_language("Robot Talk")
 	remove_language("Galactic Common")

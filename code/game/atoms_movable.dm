@@ -29,7 +29,7 @@
 	var/list/client_mobs_in_contents
 	var/area/areaMaster
 
-/atom/movable/New()
+/atom/movable/Initialize(mapload)
 	. = ..()
 	areaMaster = get_area(src)
 
@@ -120,7 +120,7 @@
 			return
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
-		
+
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
 		return FALSE

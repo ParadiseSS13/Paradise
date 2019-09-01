@@ -30,8 +30,8 @@
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 	var/datum/action/innate/terrorspider/evolvequeen/evolvequeen_action
 
-/mob/living/simple_animal/hostile/poison/terror_spider/princess/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/princess/Initialize(mapload)
+	. = ..()
 	ventsmash_action = new()
 	ventsmash_action.Grant(src)
 	evolvequeen_action = new()

@@ -22,8 +22,8 @@
 	var/frustration = 0
 	var/debug_ai_choices = FALSE
 
-/obj/structure/spider/spiderling/terror_spiderling/New()
-	..()
+/obj/structure/spider/spiderling/terror_spiderling/Initialize(mapload)
+	. = ..()
 	ts_spiderling_list += src
 	if(is_away_level(z))
 		spider_awaymission = TRUE

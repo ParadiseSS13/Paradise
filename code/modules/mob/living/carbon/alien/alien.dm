@@ -25,7 +25,7 @@
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
-/mob/living/carbon/alien/New()
+/mob/living/carbon/alien/Initialize(mapload)
 	verbs += /mob/living/verb/mob_sleep
 	verbs += /mob/living/verb/lay_down
 	alien_organs += new /obj/item/organ/internal/brain/xeno
@@ -33,7 +33,7 @@
 	alien_organs += new /obj/item/organ/internal/ears
 	for(var/obj/item/organ/internal/I in alien_organs)
 		I.insert(src)
-	..()
+	. = ..()
 
 /mob/living/carbon/alien/get_default_language()
 	if(default_language)

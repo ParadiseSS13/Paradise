@@ -25,8 +25,8 @@
 	var/datum/action/innate/terrorspider/greeneggs/greeneggs_action
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/green/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/green/Initialize(mapload)
+	. = ..()
 	greeneggs_action = new()
 	greeneggs_action.Grant(src)
 

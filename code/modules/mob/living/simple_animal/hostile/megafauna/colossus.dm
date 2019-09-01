@@ -93,8 +93,8 @@ Difficulty: Very Hard
 				alternating_dir_shots()
 
 
-/mob/living/simple_animal/hostile/megafauna/colossus/New()
-	..()
+/mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
+	. = ..()
 	internal_gps = new/obj/item/gps/internal/colossus(src)
 
 /obj/effect/temp_visual/at_shield

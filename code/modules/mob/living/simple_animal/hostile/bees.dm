@@ -56,8 +56,8 @@
 /mob/living/simple_animal/hostile/poison/bees/Process_Spacemove(movement_dir = 0)
 	return TRUE
 
-/mob/living/simple_animal/hostile/poison/bees/New()
-	..()
+/mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
+	. = ..()
 	generate_bee_visuals()
 
 /mob/living/simple_animal/hostile/poison/bees/Destroy()
@@ -297,9 +297,9 @@
 	bee_syndicate = TRUE
 	var/list/master_and_friends = list()
 
-/mob/living/simple_animal/hostile/poison/bees/syndi/New()
+/mob/living/simple_animal/hostile/poison/bees/syndi/Initialize(mapload)
 	beegent = GLOB.chemical_reagents_list["facid"] //Prepare to die
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/poison/bees/syndi/Destroy()
 	master_and_friends.Cut()

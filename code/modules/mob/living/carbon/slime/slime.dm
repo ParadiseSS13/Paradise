@@ -50,7 +50,7 @@
 	var/coretype = /obj/item/slime_extract/grey
 	var/list/slime_mutation[4]
 
-/mob/living/carbon/slime/New()
+/mob/living/carbon/slime/Initialize(mapload)
 	create_reagents(100)
 	spawn (0)
 		number = rand(1, 1000)
@@ -60,11 +60,11 @@
 		slime_mutation = mutation_table(colour)
 		var/sanitizedcolour = replacetext(colour, " ", "")
 		coretype = text2path("/obj/item/slime_extract/[sanitizedcolour]")
-	..()
+	. = ..()
 
-/mob/living/carbon/slime/random/New()
+/mob/living/carbon/slime/random/Initialize(mapload)
 	colour = pick("grey","orange", "metal", "blue", "purple", "dark purple", "dark blue", "green", "silver", "yellow", "gold", "yellow", "red", "silver", "pink", "cerulean", "sepia", "bluespace", "pyrite", "light pink", "oil", "adamantine", "black")
-	..()
+	. = ..()
 
 /mob/living/carbon/slime/Destroy()
 	for(var/obj/machinery/computer/camera_advanced/xenobio/X in GLOB.machines)

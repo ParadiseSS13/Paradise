@@ -21,6 +21,6 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/butterfly/New()
-	..()
+/mob/living/simple_animal/butterfly/Initialize(mapload)
+	. = ..()
 	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))

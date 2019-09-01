@@ -41,9 +41,9 @@
 	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs)
 	var/obj/item/udder/gutlunch/udder = null
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/New()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	udder = new()
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
 	qdel(udder)
@@ -91,8 +91,8 @@
 	name = "gubbuck"
 	gender = MALE
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/New()
-	..()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
+	. = ..()
 	add_atom_colour(pick("#E39FBB", "#D97D64", "#CF8C4A"), FIXED_COLOUR_PRIORITY)
 	resize = 0.85
 	update_transform()

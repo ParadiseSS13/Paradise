@@ -32,7 +32,7 @@
 	for(var/image/I in overlays_standing)
 		overlays += I
 
-/mob/living/carbon/alien/humanoid/sentinel/New()
+/mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)
 	create_reagents(100)
 	if(name == "alien sentinel")
 		name = text("alien sentinel ([rand(1, 1000)])")
@@ -40,7 +40,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
-	..()
+	. = ..()
 
 /mob/living/carbon/alien/humanoid/sentinel/handle_hud_icons_health()
 	..() //-Yvarov

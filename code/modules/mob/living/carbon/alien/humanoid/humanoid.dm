@@ -18,14 +18,14 @@
 	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 //This is fine right now, if we're adding organ specific damage this needs to be updated
-/mob/living/carbon/alien/humanoid/New()
+/mob/living/carbon/alien/humanoid/Initialize(mapload)
 	create_reagents(1000)
 	if(name == "alien")
 		name = text("alien ([rand(1, 1000)])")
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")
-	..()
+	. = ..()
 
 /mob/living/carbon/alien/humanoid/Process_Spacemove(var/check_drift = 0)
 	if(..())

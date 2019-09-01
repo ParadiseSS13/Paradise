@@ -43,9 +43,9 @@
 	var/list/children = list() //Actual mob instances of children
 	var/cats_deployed = 0
 
-/mob/living/simple_animal/pet/cat/Runtime/New()
+/mob/living/simple_animal/pet/cat/Runtime/Initialize(mapload)
 	Read_Memory()
-	..()
+	. = ..()
 
 /mob/living/simple_animal/pet/cat/Runtime/Life(seconds, times_fired)
 	if(!cats_deployed && SSticker.current_state >= GAME_STATE_SETTING_UP)

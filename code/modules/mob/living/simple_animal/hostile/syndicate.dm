@@ -96,8 +96,8 @@
 	var/shield_key = FALSE
 	var/turf/spawn_turf
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/New()
-	..()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Initialize(mapload)
+	. = ..()
 	name = "[name] [pick(GLOB.last_names)]"
 	// Do not attempt to move this code to Initialize() or LateInitialize(). Doing so with other objects has caused bugs in the past, because assigning "depotarea" may not work there.
 	depotarea = areaMaster
@@ -211,8 +211,8 @@
 	melee_block_chance = 80
 	alert_on_shield_breach = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
-	..()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
+	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()

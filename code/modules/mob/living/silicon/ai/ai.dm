@@ -119,7 +119,7 @@ var/list/ai_verbs_default = list(
 	verbs -= ai_verbs_default
 	verbs -= silicon_subsystems
 
-/mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
+/mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, obj/item/mmi/B, safety = 0)
 	announcement = new()
 	announcement.title = "A.I. Announcement"
 	announcement.announcement_type = "A.I. Announcement"
@@ -208,7 +208,7 @@ var/list/ai_verbs_default = list(
 
 	ai_list += src
 	GLOB.shuttle_caller_list += src
-	..()
+	. = ..()
 
 /mob/living/silicon/ai/proc/on_mob_init()
 	to_chat(src, "<B>You are playing the station's AI. The AI cannot move, but can interact with many objects while viewing them (through cameras).</B>")

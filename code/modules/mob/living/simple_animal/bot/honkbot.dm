@@ -33,7 +33,7 @@
 /obj/machinery/bot_core/honkbot
 	req_one_access = list(access_clown, access_robotics, access_mime)
 
-/mob/living/simple_animal/bot/honkbot/Initialize()
+/mob/living/simple_animal/bot/honkbot/Initialize(mapload)
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE

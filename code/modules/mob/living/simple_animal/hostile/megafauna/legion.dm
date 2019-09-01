@@ -51,8 +51,8 @@ Difficulty: Medium
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = 1 // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
-/mob/living/simple_animal/hostile/megafauna/legion/New()
-	..()
+/mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
+	. = ..()
 	internal_gps = new/obj/item/gps/internal/legion(src)
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()

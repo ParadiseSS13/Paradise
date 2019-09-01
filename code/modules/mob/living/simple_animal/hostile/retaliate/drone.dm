@@ -43,8 +43,8 @@
 	deathmessage = "suddenly breaks apart."
 	del_on_death = 1
 
-/mob/living/simple_animal/hostile/retaliate/malf_drone/New()
-	..()
+/mob/living/simple_animal/hostile/retaliate/malf_drone/Initialize(mapload)
+	. = ..()
 	if(prob(5))
 		projectiletype = /obj/item/projectile/beam/pulse/drone
 		projectilesound = 'sound/weapons/pulse2.ogg'

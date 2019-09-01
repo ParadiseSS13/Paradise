@@ -92,8 +92,8 @@
 	radio_channel = "Syndicate"
 	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
 
-/mob/living/simple_animal/bot/medbot/syndicate/New()
-	..()
+/mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload)
+	. = ..()
 	Radio.syndiekey = new /obj/item/encryptionkey/syndicate
 
 /mob/living/simple_animal/bot/medbot/syndicate/emagged
@@ -116,8 +116,8 @@
 	else
 		icon_state = "medibot1"
 
-/mob/living/simple_animal/bot/medbot/New(loc, new_skin)
-	..()
+/mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
+	. = ..()
 	var/datum/job/doctor/J = new /datum/job/doctor
 	access_card.access += J.get_access()
 	prev_access = access_card.access

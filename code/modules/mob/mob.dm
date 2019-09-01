@@ -25,7 +25,7 @@
 	..()
 	return QDEL_HINT_HARDDEL
 
-/mob/Initialize()
+/mob/Initialize(mapload)
 	GLOB.mob_list += src
 	if(stat == DEAD)
 		GLOB.dead_mob_list += src
@@ -33,7 +33,7 @@
 		GLOB.living_mob_list += src
 	set_focus(src)
 	prepare_huds()
-	..()
+	. = ..()
 
 /atom/proc/prepare_huds()
 	hud_list = list()

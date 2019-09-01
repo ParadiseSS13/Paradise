@@ -29,7 +29,7 @@
 	for(var/image/I in overlays_standing)
 		overlays += I
 
-/mob/living/carbon/alien/humanoid/empress/New()
+/mob/living/carbon/alien/humanoid/empress/Initialize(mapload)
 	create_reagents(100)
 
 	//there should only be one queen
@@ -46,7 +46,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
-	..()
+	. = ..()
 
 /mob/living/carbon/alien/humanoid/empress/handle_hud_icons_health()
 	..() //-Yvarov

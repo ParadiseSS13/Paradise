@@ -6,7 +6,7 @@
 	canmove = 0
 	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
 
-/mob/living/silicon/decoy/New()
+/mob/living/silicon/decoy/Initialize(mapload)
 	src.icon = 'icons/mob/ai.dmi'
 	src.icon_state = "ai"
 	src.anchored = 1
@@ -25,7 +25,7 @@
 	desc = "Red Operations, Depot General Emission Regulator"
 	icon_state = "ai-magma"
 
-/mob/living/silicon/decoy/syndicate/New()
+/mob/living/silicon/decoy/syndicate/Initialize(mapload)
 	. = ..()
 	icon_state = "ai-magma"
 

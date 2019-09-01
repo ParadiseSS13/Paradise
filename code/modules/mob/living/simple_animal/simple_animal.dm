@@ -84,8 +84,8 @@
 	var/shouldwakeup = FALSE //convenience var for forcibly waking up an idling AI on next check.
 
 
-/mob/living/simple_animal/Initialize()
-	..()
+/mob/living/simple_animal/Initialize(mapload)
+	. = ..()
 	GLOB.simple_animals[AIStatus] += src
 	verbs -= /mob/verb/observe
 	if(!can_hide)
@@ -448,7 +448,7 @@
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 	next_scan_time = world.time + 400
-	
+
 	var/alone = TRUE
 	var/mob/living/simple_animal/partner
 	var/children = 0
@@ -590,7 +590,7 @@
 	. = ..()
 	if(!ckey && !stat)//Not unconscious
 		if(AIStatus == AI_IDLE)
-			toggle_ai(AI_ON) 
+			toggle_ai(AI_ON)
 
 /mob/living/simple_animal/proc/toggle_ai(togglestatus)
 	if(!can_have_ai && (togglestatus != AI_OFF))
@@ -613,7 +613,7 @@
 	..()
 	if(AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[old_z] -= src
-		toggle_ai(initial(AIStatus)) 
+		toggle_ai(initial(AIStatus))
 
 // Simple animals will not be given night vision upon death, as that would result in issues when they are revived.
 /mob/living/simple_animal/grant_death_vision()

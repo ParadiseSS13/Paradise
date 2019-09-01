@@ -23,7 +23,7 @@
 	var/attack_cycles = 0
 	var/attack_cycles_max = 3
 
-/mob/living/simple_animal/hostile/retaliate/kangaroo/New()
+/mob/living/simple_animal/hostile/retaliate/kangaroo/Initialize(mapload)
 	. = ..()
 	// Leap spell, player-only usage
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/leap)

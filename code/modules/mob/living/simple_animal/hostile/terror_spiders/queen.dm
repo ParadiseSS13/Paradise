@@ -50,8 +50,8 @@
 	var/datum/action/innate/terrorspider/queen/queenfakelings/queenfakelings_action
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/Initialize(mapload)
+	. = ..()
 	queennest_action = new()
 	queennest_action.Grant(src)
 	ventsmash_action = new()

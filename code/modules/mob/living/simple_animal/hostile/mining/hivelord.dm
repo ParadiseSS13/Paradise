@@ -83,8 +83,8 @@
 	pass_flags = PASSTABLE
 	del_on_death = 1
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/New()
-	..()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, .proc/death), 100)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
@@ -102,9 +102,9 @@
 		reagents.reaction(get_turf(src))
 	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/New()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/Initialize(mapload)
 	create_reagents(30)
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/AttackingTarget()
 	..()
@@ -169,7 +169,7 @@
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
 
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion/Initialize()
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/Initialize(mapload)
 	. = ..()
 	if(prob(5))
 		new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(loc)
@@ -277,7 +277,7 @@
 	genemutcheck(H, SMALLSIZEBLOCK, null, MUTCHK_FORCED)
 	H.update_mutations()
 
-/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize()
+/obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
 	switch(type)
 		if("Miner")

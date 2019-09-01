@@ -9,7 +9,7 @@
 	large = 1
 	ventcrawler = 0
 
-/mob/living/carbon/alien/humanoid/queen/New()
+/mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	create_reagents(100)
 
 	//there should only be one queen
@@ -26,7 +26,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/eggsac
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
 	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
-	..()
+	. = ..()
 
 /mob/living/carbon/alien/humanoid/queen/movement_delay()
 	. = ..()

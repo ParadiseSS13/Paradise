@@ -5,7 +5,7 @@
 	health = 100
 	icon_state = "aliend_s"
 
-/mob/living/carbon/alien/humanoid/drone/New()
+/mob/living/carbon/alien/humanoid/drone/Initialize(mapload)
 	create_reagents(100)
 	if(src.name == "alien drone")
 		src.name = text("alien drone ([rand(1, 1000)])")
@@ -13,7 +13,7 @@
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/drone
 	alien_organs += new /obj/item/organ/internal/xenos/acidgland
 	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
-	..()
+	. = ..()
 
 //Drones use the same base as generic humanoids.
 //Drone verbs

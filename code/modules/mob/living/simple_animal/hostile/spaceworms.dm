@@ -83,8 +83,8 @@
 	var/catastrophicDeathProb = 15 //15% chance for the death of the head to kill the whole thing
 
 
-/mob/living/simple_animal/hostile/spaceWorm/wormHead/New(var/location, var/segments = spawnWithSegments)
-	..()
+/mob/living/simple_animal/hostile/spaceWorm/wormHead/Initialize(mapload, segments = spawnWithSegments)
+	. = ..()
 
 	if(!src)//This is to prevent a runtime.
 		return

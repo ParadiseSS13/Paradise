@@ -71,8 +71,8 @@ Difficulty: Hard
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/New()
-	..()
+/mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
+	. = ..()
 	internal_gps = new/obj/item/gps/internal/hierophant(src)
 	spawned_rune = new(loc)
 

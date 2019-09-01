@@ -21,8 +21,8 @@
 	icon_state = "grey adult slime"
 	icon_living = "grey adult slime"
 
-/mob/living/simple_animal/slime/New()
-	..()
+/mob/living/simple_animal/slime/Initialize(mapload)
+	. = ..()
 	overlays += "aslime-:33"
 
 /mob/living/simple_animal/slime/updatehealth(reason)

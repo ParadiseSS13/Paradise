@@ -31,8 +31,8 @@
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
-/obj/New()
-	..()
+/obj/Initialize(mapload)
+	. = ..()
 	if(!armor)
 		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	if(obj_integrity == null)

@@ -53,8 +53,8 @@ Difficulty: Medium
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
 	death_sound = 'sound/misc/demon_dies.ogg'
 
-/mob/living/simple_animal/hostile/megafauna/dragon/New()
-	..()
+/mob/living/simple_animal/hostile/megafauna/dragon/Initialize(mapload)
+	. = ..()
 	internal_gps = new/obj/item/gps/internal/dragon(src)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/ex_act(severity, target)

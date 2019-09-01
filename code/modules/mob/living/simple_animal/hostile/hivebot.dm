@@ -74,8 +74,8 @@
 		warpbots()
 
 
-/mob/living/simple_animal/hostile/hivebot/tele/New()
-	..()
+/mob/living/simple_animal/hostile/hivebot/tele/Initialize(mapload)
+	. = ..()
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(5, 0, src.loc)
 	smoke.start()

@@ -7,20 +7,15 @@
 	deathgasp_on_death = TRUE
 	var/obj/item/rig/wearing_rig // This is very not good, but it's much much better than calling get_rig() every update_canmove() call.
 
-/mob/living/carbon/human/New(loc)
-	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
-	if(length(args) > 1)
-		log_runtime(EXCEPTION("human/New called with more than 1 argument (REPORT THIS ENTIRE RUNTIME TO A CODER)"))
-	. = ..()
-
 /mob/living/carbon/human/Initialize(mapload, datum/species/new_species = /datum/species/human)
+	icon = null // This is now handled by overlays -- we just keep an icon for the sake of the map editor.
 	if(!dna)
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
 	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
 
-	..()
+	. = ..()
 
 	if(dna.species)
 		real_name = dna.species.get_random_name(gender)
@@ -68,55 +63,55 @@
 	status_flags = GODMODE|CANPUSH
 
 /mob/living/carbon/human/skrell/Initialize(mapload)
-	..(mapload, /datum/species/skrell)
+	return ..(mapload, /datum/species/skrell)
 
 /mob/living/carbon/human/tajaran/Initialize(mapload)
-	..(mapload, /datum/species/tajaran)
+	return ..(mapload, /datum/species/tajaran)
 
 /mob/living/carbon/human/vulpkanin/Initialize(mapload)
-	..(mapload, /datum/species/vulpkanin)
+	return ..(mapload, /datum/species/vulpkanin)
 
 /mob/living/carbon/human/unathi/Initialize(mapload)
-	..(mapload, /datum/species/unathi)
+	return ..(mapload, /datum/species/unathi)
 
 /mob/living/carbon/human/vox/Initialize(mapload)
-	..(mapload, /datum/species/vox)
+	return ..(mapload, /datum/species/vox)
 
 /mob/living/carbon/human/voxarmalis/Initialize(mapload)
-	..(mapload, /datum/species/vox/armalis)
+	return ..(mapload, /datum/species/vox/armalis)
 
 /mob/living/carbon/human/skeleton/Initialize(mapload)
-	..(mapload, /datum/species/skeleton)
+	return ..(mapload, /datum/species/skeleton)
 
 /mob/living/carbon/human/kidan/Initialize(mapload)
-	..(mapload, /datum/species/kidan)
+	return ..(mapload, /datum/species/kidan)
 
 /mob/living/carbon/human/plasma/Initialize(mapload)
-	..(mapload, /datum/species/plasmaman)
+	return ..(mapload, /datum/species/plasmaman)
 
 /mob/living/carbon/human/slime/Initialize(mapload)
-	..(mapload, /datum/species/slime)
+	return ..(mapload, /datum/species/slime)
 
 /mob/living/carbon/human/grey/Initialize(mapload)
-	..(mapload, /datum/species/grey)
+	return ..(mapload, /datum/species/grey)
 
 /mob/living/carbon/human/abductor/Initialize(mapload)
-	..(mapload, /datum/species/abductor)
+	return ..(mapload, /datum/species/abductor)
 
 /mob/living/carbon/human/diona/Initialize(mapload)
-	..(mapload, /datum/species/diona)
+	return ..(mapload, /datum/species/diona)
 
 /mob/living/carbon/human/pod_diona/Initialize(mapload)
-	..(mapload, /datum/species/diona/pod)
+	return ..(mapload, /datum/species/diona/pod)
 
 /mob/living/carbon/human/machine/Initialize(mapload)
-	..(mapload, /datum/species/machine)
+	return ..(mapload, /datum/species/machine)
 
 /mob/living/carbon/human/machine/created
 	name = "Integrated Robotic Chassis"
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
-	..()
+	. = ..()
 	rename_character(null, "Integrated Robotic Chassis ([rand(1, 9999)])")
 	update_dna()
 	for(var/obj/item/organ/external/E in bodyparts)
@@ -129,34 +124,34 @@
 	death()
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
-	..(mapload, /datum/species/shadow)
+	return ..(mapload, /datum/species/shadow)
 
 /mob/living/carbon/human/golem/Initialize(mapload)
-	..(mapload, /datum/species/golem)
+	return ..(mapload, /datum/species/golem)
 
 /mob/living/carbon/human/wryn/Initialize(mapload)
-	..(mapload, /datum/species/wryn)
+	return ..(mapload, /datum/species/wryn)
 
 /mob/living/carbon/human/nucleation/Initialize(mapload)
-	..(mapload, /datum/species/nucleation)
+	return ..(mapload, /datum/species/nucleation)
 
 /mob/living/carbon/human/drask/Initialize(mapload)
-	..(mapload, /datum/species/drask)
+	return ..(mapload, /datum/species/drask)
 
 /mob/living/carbon/human/monkey/Initialize(mapload)
-	..(mapload, /datum/species/monkey)
+	return ..(mapload, /datum/species/monkey)
 
 /mob/living/carbon/human/farwa/Initialize(mapload)
-	..(mapload, /datum/species/monkey/tajaran)
+	return ..(mapload, /datum/species/monkey/tajaran)
 
 /mob/living/carbon/human/wolpin/Initialize(mapload)
-	..(mapload, /datum/species/monkey/vulpkanin)
+	return ..(mapload, /datum/species/monkey/vulpkanin)
 
 /mob/living/carbon/human/neara/Initialize(mapload)
-	..(mapload, /datum/species/monkey/skrell)
+	return ..(mapload, /datum/species/monkey/skrell)
 
 /mob/living/carbon/human/stok/Initialize(mapload)
-	..(mapload, /datum/species/monkey/unathi)
+	return ..(mapload, /datum/species/monkey/unathi)
 
 /mob/living/carbon/human/Stat()
 	..()

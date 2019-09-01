@@ -6,7 +6,7 @@
 	var/highlighted = FALSE
 	var/mob/camera/aiEye/pic_in_pic/aiEye
 
-/obj/screen/movable/pic_in_pic/ai/Initialize()
+/obj/screen/movable/pic_in_pic/ai/Initialize(mapload)
 	. = ..()
 	aiEye = new /mob/camera/aiEye/pic_in_pic()
 	aiEye.screen = src
@@ -88,7 +88,7 @@
 	icon_state = "room_background"
 	flags = NOJAUNT
 
-/turf/unsimulated/ai_visible/Initialize()
+/turf/unsimulated/ai_visible/Initialize(mapload)
 	. = ..()
 	obscured = image(null, src, null)
 
@@ -106,7 +106,7 @@ GLOBAL_DATUM(ai_camera_room_landmark, /obj/effect/landmark/ai_multicam_room)
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
 
-/obj/effect/landmark/ai_multicam_room/Initialize()
+/obj/effect/landmark/ai_multicam_room/Initialize(mapload)
 	. = ..()
 	qdel(GLOB.ai_camera_room_landmark)
 	GLOB.ai_camera_room_landmark = src

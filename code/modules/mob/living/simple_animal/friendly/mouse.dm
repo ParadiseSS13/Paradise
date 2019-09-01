@@ -39,6 +39,13 @@
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
+	if(!mouse_color)
+		mouse_color = pick( list("brown","gray","white") )
+	icon_state = "mouse_[mouse_color]"
+	icon_living = "mouse_[mouse_color]"
+	icon_dead = "mouse_[mouse_color]_dead"
+	icon_resting = "mouse_[mouse_color]_sleep"
+	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))
@@ -56,7 +63,7 @@
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
-	..()			
+	..()
 	if(prob(speak_chance))
 		for(var/mob/M in view())
 			M << squeak_sound
@@ -78,16 +85,6 @@
 		icon_state = "mouse_[mouse_color]_sleep"
 		wander = 0
 		speak_chance = 0
-
-/mob/living/simple_animal/mouse/New()
-	..()
-	if(!mouse_color)
-		mouse_color = pick( list("brown","gray","white") )
-	icon_state = "mouse_[mouse_color]"
-	icon_living = "mouse_[mouse_color]"
-	icon_dead = "mouse_[mouse_color]_dead"
-	icon_resting = "mouse_[mouse_color]_sleep"
-	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0
@@ -119,7 +116,7 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/death(gibbed)	
+/mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
 	playsound(src, squeak_sound, 40, 1)
 	. = ..(gibbed)

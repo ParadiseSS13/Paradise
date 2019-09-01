@@ -30,8 +30,8 @@
 	var/chase_time = 100
 	var/will_burrow = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/New()
-	..()
+/mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
+	. = ..()
 	var/i = rand(1,3)
 	while(i)
 		loot += pick(/obj/item/stack/ore/silver, /obj/item/stack/ore/gold, /obj/item/stack/ore/uranium, /obj/item/stack/ore/diamond)

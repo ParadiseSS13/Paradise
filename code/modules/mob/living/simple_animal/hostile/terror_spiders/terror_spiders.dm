@@ -250,8 +250,8 @@ var/global/list/ts_spiderling_list = list()
 			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
 	to_chat(usr,msgs.Join("<BR>"))
 
-/mob/living/simple_animal/hostile/poison/terror_spider/New()
-	..()
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
 	ts_spiderlist += src
 	add_language("Spider Hivemind")
 	if(spider_tier >= TS_TIER_2)

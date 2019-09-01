@@ -31,8 +31,8 @@
 	var/mob/living/owner
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
-/mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
-	..()
+/mob/living/simple_animal/hostile/scarybat/Initialize(mapload, mob/living/L)
+	. = ..()
 	if(istype(L))
 		owner = L
 

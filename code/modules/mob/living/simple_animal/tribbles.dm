@@ -26,8 +26,8 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	wander = 1
 
 
-/mob/living/simple_animal/tribble/New()
-	..()
+/mob/living/simple_animal/tribble/Initialize(mapload)
+	. = ..()
 	var/list/types = list("tribble1","tribble2","tribble3")
 	src.icon_state = pick(types)
 	src.icon_living = src.icon_state

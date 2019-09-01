@@ -89,8 +89,8 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 
-/mob/living/simple_animal/parrot/New()
-	..()
+/mob/living/simple_animal/parrot/Initialize(mapload)
+	. = ..()
 	GLOB.hear_radio_list += src
 	if(!ears)
 		var/headset = pick(/obj/item/radio/headset/headset_sec, \
@@ -699,10 +699,10 @@
 		)
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
-/mob/living/simple_animal/parrot/Poly/New()
+/mob/living/simple_animal/parrot/Poly/Initialize(mapload)
 	ears = new /obj/item/radio/headset/headset_eng(src)
 	available_channels = list(":e")
-	..()
+	. = ..()
 
 /mob/living/simple_animal/parrot/handle_message_mode(var/message_mode, list/message_pieces, var/verb, var/used_radios)
 	if(message_mode && istype(ears))

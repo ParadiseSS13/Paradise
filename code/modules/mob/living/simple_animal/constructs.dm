@@ -27,8 +27,8 @@
 	del_on_death = 1
 	deathmessage = "collapses in a shattered heap."
 
-/mob/living/simple_animal/hostile/construct/New()
-	..()
+/mob/living/simple_animal/hostile/construct/Initialize(mapload)
+	. = ..()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		name = "[const_type] ([rand(1, 1000)])"
 		real_name = const_type

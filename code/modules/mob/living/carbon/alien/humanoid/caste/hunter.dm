@@ -5,13 +5,13 @@
 	health = 125
 	icon_state = "alienh_s"
 
-/mob/living/carbon/alien/humanoid/hunter/New()
+/mob/living/carbon/alien/humanoid/hunter/Initialize(mapload)
 	create_reagents(100)
 	if(name == "alien hunter")
 		name = text("alien hunter ([rand(1, 1000)])")
 	real_name = name
 	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/hunter
-	..()
+	. = ..()
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
 	. = -1		//hunters are sanic

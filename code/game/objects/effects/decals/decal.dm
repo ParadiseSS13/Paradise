@@ -5,7 +5,7 @@
 
 /obj/effect/turf_decal/Initialize(mapload)
 	. = ..()
-	qdel(src) // return INITIALIZE_HINT_QDEL <-- Doesn't work
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/turf_decal/ComponentInitialize()
 	. = ..()
