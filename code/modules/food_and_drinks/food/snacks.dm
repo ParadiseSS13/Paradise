@@ -19,17 +19,16 @@
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
-	if(!list_reagents)
-		return
-	if(!tastes || !tastes.len)
-		return ..()
-	var/list/nutritious_reagents = list("nutriment", "vitamin", "protein", "plantmatter")
-	for(var/reagent_id in list_reagents)
-		var/amount = list_reagents[reagent_id]
-		if(reagent_id in nutritious_reagents)
-			reagents.add_reagent(reagent_id, amount, tastes.Copy())
-		else
-			reagents.add_reagent(reagent_id, amount)
+	if(tastes && tastes.len)
+		if(list_reagents)
+			for(var/rid in list_reagents)
+				var/amount = list_reagents[rid]
+				if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
+					reagents.add_reagent(rid, amount, tastes.Copy())
+				else
+					reagents.add_reagent(rid, amount)
+	else
+		..()
 
 //Placeholder for effect that trigger on eating that aren't tied to reagents.
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)

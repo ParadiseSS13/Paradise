@@ -25,7 +25,6 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
-	taste_description = null
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -389,7 +388,7 @@
 	description = "Heated beyond usefulness, this enzyme is now worthless."
 	reagent_state = LIQUID
 	color = "#282314" // rgb: 54, 94, 48
-	taste_description = null
+	taste_description = "sweetness"
 
 /datum/reagent/consumable/dry_ramen
 	name = "Dry Ramen"

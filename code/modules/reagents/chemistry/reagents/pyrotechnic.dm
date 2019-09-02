@@ -225,7 +225,7 @@
 	color = "#FF0000"
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = null
+	taste_mult = 0
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)

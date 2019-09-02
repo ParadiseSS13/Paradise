@@ -160,23 +160,23 @@
 	return result
 
 
-/obj/item/seeds/proc/prepare_result(var/obj/item/T)
+/obj/item/seeds/proc/prepare_result(obj/item/T)
 	if(!T.reagents)
 		CRASH("[T] has no reagents.")
-	for(var/reagent_id in reagents_add)
-		var/amount = 1 + round(potency * reagents_add[reagent_id], 1)
+
+	for(var/rid in reagents_add)
+		var/amount = 1 + round(potency * reagents_add[rid], 1)
+
 		var/list/data = null
-		if(reagent_id == "blood") // Hack to make blood in plants always O-
+		if(rid == "blood") // Hack to make blood in plants always O-
 			data = list("blood_type" = "O-")
-			continue
-		var/list/nutritious_reagents = list("nutriment", "vitamin", "protein", "plantmatter")
-		if(reagent_id in nutritious_reagents)
+		if(rid == "nutriment" || rid == "vitamin" || rid == "protein" || rid == "plantmatter")
+			// apple tastes of apple.
 			if(istype(T, /obj/item/reagent_containers/food/snacks/grown))
 				var/obj/item/reagent_containers/food/snacks/grown/grown_edible = T
-				data = grown_edible.tastes
+				data = grown_edible.tastes.Copy()
 
-		T.reagents.add_reagent(reagent_id, amount, data)
-	return 1
+		T.reagents.add_reagent(rid, amount, data)
 
 
 /// Setters procs ///

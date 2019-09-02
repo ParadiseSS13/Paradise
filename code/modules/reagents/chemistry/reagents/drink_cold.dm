@@ -1,7 +1,6 @@
 /datum/reagent/consumable/drink/cold
 	name = "Cold drink"
 	adj_temp_cool = 5
-	taste_description = null
 
 /datum/reagent/consumable/drink/cold/tonic
 	name = "Tonic Water"
