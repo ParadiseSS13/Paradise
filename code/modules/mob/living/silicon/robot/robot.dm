@@ -106,7 +106,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/get_cell()
 	return cell
 
-/mob/living/silicon/robot/Initialize(mapload, syndie = 0, unfinished = 0, alien = 0)
+/mob/living/silicon/robot/Initialize(mapload)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
