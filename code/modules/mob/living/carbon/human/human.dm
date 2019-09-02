@@ -1305,8 +1305,13 @@
 			oldspecies.handle_dna(src, TRUE) // Remove any genes that belong to the old species
 
 		oldspecies.on_species_loss(src)
+	var/datum/species/new_race
+	if(ispath(new_species))
+		new_race = new new_species
+	else if(istype(new_species))
+		new_race = new_species
 
-	dna.species = new new_species()
+	dna.species = new_race
 
 	tail = dna.species.tail
 

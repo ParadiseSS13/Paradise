@@ -308,7 +308,10 @@
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
-/datum/species/proc/spec_death(mob/living/carbon/human/C)
+/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/C)
+	return
+
+/datum/species/proc/spec_apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
 	return
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)

@@ -37,17 +37,13 @@
 	language = "Zombie"
 	var/heal_rate = 1
 	var/regen_cooldown = 0
-	flesh_color = "#00FF00" // for green examine text
 
-/datum/species/zombie/infectious/handle_dna(mob/living/carbon/human/H, remove)
-	. = ..()
-
-/datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H,amount)
+/datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H, amount)
 	. = min(20, amount)
 
-/datum/species/zombie/infectious/spec_attacked_by(damage, damagetype = BRUTE, def_zone = null, blocked, mob/living/carbon/human/H)
+/datum/species/zombie/infectious/spec_apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
 	. = ..()
-	if(.)
+	if(damage)
 		regen_cooldown = world.time + REGENERATION_DELAY
 
 /datum/species/zombie/infectious/handle_life(mob/living/carbon/human/C)
@@ -57,14 +53,14 @@
 	if(regen_cooldown < world.time)
 		var/heal_amt = heal_rate
 		if(C.InCritical())
-			heal_amt *= 5
+			heal_amt *= 2
 		C.heal_overall_damage(heal_amt,heal_amt)
 		C.adjustToxLoss(-heal_amt)
 	if(!C.InCritical() && prob(4))
 		playsound(C, pick(spooks), 50, TRUE, 10)
 		
 //Congrats you somehow died so hard you stopped being a zombie
-/datum/species/zombie/infectious/spec_death(mob/living/carbon/C)
+/datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
 	. = ..()
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = C.get_organ_slot("zombie_infection")
@@ -88,8 +84,8 @@
 		infection.insert(C)
 
 /datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/old_species)
-	qdel(C.r_hand)
-	qdel(C.l_hand)
+	QDEL_NULL(C.r_hand)
+	QDEL_NULL(C.l_hand)
 	return ..()
 
 #undef REGENERATION_DELAY

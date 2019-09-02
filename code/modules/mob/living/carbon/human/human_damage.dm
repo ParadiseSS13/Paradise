@@ -334,7 +334,9 @@ This function restores all organs.
 
 	//Handle BRUTE and BURN damage
 	handle_suit_punctures(damagetype, damage)
-
+	//Handle species apply_damage procs
+	dna.species.spec_apply_damage(damage, damagetype, def_zone, blocked, sharp, used_weapon)
+	
 	blocked = (100 - blocked) / 100
 	if(blocked <= 0)
 		return 0

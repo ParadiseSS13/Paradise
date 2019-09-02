@@ -1,6 +1,8 @@
 // String identifiers for associative list lookup
 
 
+#define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
+
 #define MUTCHK_FORCED        1
 
 // mob/var/list/mutations
