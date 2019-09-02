@@ -149,7 +149,7 @@
 	set category = "Spider"
 	set desc = "Spread a sticky web to slow down prey."
 
-	if(stat == DEAD)
+	if(stat == UNCONSCIOUS)
 		return
 
 	var/T = src.loc
@@ -170,7 +170,7 @@
 	set category = "Spider"
 	set desc = "Wrap up prey to feast upon and objects for safe keeping."
 
-	if(stat == DEAD)
+	if(stat == UNCONSCIOUS)
 		return
 
 	if(!cocoon_target)
@@ -229,7 +229,7 @@
 	set category = "Spider"
 	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
 
-	if(stat == DEAD)
+	if(stat == UNCONSCIOUS)
 		return
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
