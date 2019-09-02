@@ -152,10 +152,12 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "Gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
+	var/accepted_intents = list(INTENT_HARM)
+	var/click_speed_modifier = CLICK_CD_RAPID
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
 
-	if(M.a_intent == INTENT_HARM)
-		M.changeNext_move(CLICK_CD_RAPID)
+	if(M.a_intent in accepted_intents)
+		M.changeNext_move(click_speed_modifier)
 	.= FALSE
