@@ -71,14 +71,14 @@
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 
-/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE)
+/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, alt_title)
 	if(!H)
 		return 0
 
 	H.dna.species.before_equip_job(src, H, visualsOnly)
 
 	if(outfit)
-		H.equipOutfit(outfit, visualsOnly)
+		H.equipOutfit(outfit, visualsOnly, alt_title)
 
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 
@@ -150,7 +150,7 @@
 
 	var/tmp/list/gear_leftovers = list()
 
-/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
 	if(allow_backbag_choice)
 		switch(H.backbag)
 			if(GBACKPACK)

@@ -417,7 +417,7 @@
 		if(2)	return FALSE //if it returns 2, it wants no normal handling
 	if(!has_organ_for_slot(slot))
 		return FALSE
-	
+
 	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
 		if(FAT in mutations)
 			//testing("[M] TOO FAT TO WEAR [src]!")
@@ -554,7 +554,7 @@
 
 	return 0 //Unsupported slot
 
-/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
+/mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE, alt_title)
 	var/datum/outfit/O = null
 
 	if(ispath(outfit))
@@ -566,7 +566,7 @@
 	if(!O)
 		return 0
 
-	return O.equip(src, visualsOnly)
+	return O.equip(src, visualsOnly, alt_title)
 
 //delete all equipment without dropping anything
 /mob/living/carbon/human/proc/delete_equipment()

@@ -897,3 +897,11 @@
 	item_state = "durathread"
 	item_color = "durathread"
 	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0)
+
+/obj/item/clothing/under/tourist
+	name = "tourist outfit"
+	desc = "it has salt and tear stains on it."
+	icon_state = "tourist"
+	item_state = "tourist"
+	item_color = "tourist"
+	flags_size = ONESIZEFITSALL

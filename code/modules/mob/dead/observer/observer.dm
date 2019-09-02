@@ -131,6 +131,17 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	. = MA
 
+/mob/dead/observer/proc/make_tourist(client/C) //Set up a roundstart observer with the tourist garb.
+	if(!istype(C))
+		return
+	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
+	C.prefs.copy_to(mannequin)
+	mannequin.equipOutfit(/datum/outfit/admin/tourist, visualsOnly = TRUE)
+	COMPILE_OVERLAYS(mannequin)
+	appearance = copy_appearance(mannequin)
+	updateallghostimages()
+	unset_busy_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
+
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0)
 	return 1
 
@@ -501,7 +512,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Jump to Mob"
 	set desc = "Teleport to a mob"
 
-	if(isobserver(usr)) //Make sure they're an observer!		
+	if(isobserver(usr)) //Make sure they're an observer!
 		var/list/dest = getpois(mobs_only=1) //Fill list, prompt user with list
 		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
 		A.on_close(CALLBACK(src, .proc/jump_to_mob))

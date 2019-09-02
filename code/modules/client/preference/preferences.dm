@@ -141,8 +141,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 		//Mob preview
 	var/icon/preview_icon = null
-	var/icon/preview_icon_front = null
-	var/icon/preview_icon_side = null
 
 		//Jobs, uses bitflags
 	var/job_support_high = 0
@@ -236,8 +234,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	if(!user || !user.client)
 		return
 	update_preview_icon()
-	user << browse_rsc(preview_icon_front, "previewicon.png")
-	user << browse_rsc(preview_icon_side, "previewicon2.png")
+	user << browse_rsc(preview_icon, "previewicon.png")
 
 	var/dat = ""
 	dat += "<center>"
@@ -255,7 +252,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				S = GLOB.all_species[species]
 				random_character()
 
-			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
+			dat += "<div class='statusDisplay'style='position: absolute; left: 170px; top: 110px;'><img src=previewicon.png width=[preview_icon.Width()] height=[preview_icon.Height()]></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
 			dat += "<a href='?_src_=prefs;preference=name;task=input'><b>[real_name]</b></a>"
@@ -2050,7 +2047,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("ghost_radio")
 					toggles ^= CHAT_GHOSTRADIO
-				
+
 				if("ghost_pda")
 					toggles ^= CHAT_GHOSTPDA
 
@@ -2104,7 +2101,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						"High" = PARALLAX_HIGH,
 						"Insane" = PARALLAX_INSANE
 					)
-					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]	
+					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
@@ -2114,7 +2111,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/copy_to(mob/living/carbon/human/character)
 	var/datum/species/S = GLOB.all_species[species]
-	character.set_species(S.type) // Yell at me if this causes everything to melt
+	character.set_species(S.type, skip_same_check = TRUE) // Yell at me if this causes everything to melt
 	if(be_random_name)
 		real_name = random_name(gender,species)
 

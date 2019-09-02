@@ -195,8 +195,8 @@
 			observer.forceMove(O.loc)
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
-			observer.icon = client.prefs.preview_icon
-			observer.alpha = 127
+			observer.make_tourist(client) //Generate observer icons with the tourist garb.
+
 
 			if(client.prefs.be_random_name)
 				client.prefs.real_name = random_name(client.prefs.gender,client.prefs.species)

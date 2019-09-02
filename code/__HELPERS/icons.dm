@@ -961,3 +961,31 @@ The _flatIcons list is a cache for generated icon files.
 
 		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
 		return main
+
+//For creating consistent icons for human looking simple animals
+/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key, showDirs = cardinal, outfit_override = null)
+	var/static/list/humanoid_icon_cache = list()
+	if(!icon_id || !humanoid_icon_cache[icon_id])
+		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
+
+		if(prefs)
+			prefs.copy_to(body)
+		if(J)
+			J.equip(body, TRUE, FALSE)
+		else if(outfit_override)
+			body.equipOutfit(outfit_override, visualsOnly = TRUE)
+
+
+
+		var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
+
+		for(var/D in showDirs)
+			body.setDir(D)
+			var/icon/partial = getFlatIcon(body)
+			out_icon.Insert(partial, dir = D)
+
+		humanoid_icon_cache[icon_id] = out_icon
+		dummy_key ? unset_busy_human_dummy(dummy_key) : qdel(body)
+		return out_icon
+	else
+		return humanoid_icon_cache[icon_id]

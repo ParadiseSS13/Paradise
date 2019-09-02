@@ -423,6 +423,10 @@
 //Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
 
+//Dummy mob reserve slots
+#define DUMMY_HUMAN_SLOT_PREFERENCES "dummy_preference_preview"
+#define DUMMY_HUMAN_SLOT_MANIFEST "dummy_manifest_generation"
+
 // Area selection defines
 #define AREASELECT_CORNERA "corner A"
 #define AREASELECT_CORNERB "corner B"

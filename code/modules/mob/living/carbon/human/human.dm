@@ -63,10 +63,6 @@
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
 
-/mob/living/carbon/human/dummy
-	real_name = "Test Dummy"
-	status_flags = GODMODE|CANPUSH
-
 /mob/living/carbon/human/skrell/Initialize(mapload)
 	..(mapload, /datum/species/skrell)
 
