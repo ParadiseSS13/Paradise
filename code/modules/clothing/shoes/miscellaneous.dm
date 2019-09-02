@@ -100,6 +100,7 @@
 	icon_state = "jackboots"
 	item_state = "jackboots"
 	item_color = "hosred"
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	strip_delay = 50
 	put_on_delay = 50
 	burn_state = FIRE_PROOF
