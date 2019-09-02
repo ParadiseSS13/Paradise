@@ -161,3 +161,10 @@
 	if(M.a_intent in accepted_intents)
 		M.changeNext_move(click_speed_modifier)
 	.= FALSE
+
+/obj/item/clothing/gloves/fingerless/rapid/admin
+	name = "Advanced Interactive Gloves"
+	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps my merely looking at them."
+	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
+	click_speed_modifier = 0
+	siemens_coefficient = 0
