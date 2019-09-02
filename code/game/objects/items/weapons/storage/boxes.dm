@@ -1121,6 +1121,34 @@
 	playsound(loc, "rustle", 50, 1, -5)
 	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
 
+/obj/item/storage/box/mobcapsule
+	name = "box of lazarus capsule"
+	desc = "Contains several lazarus capsule."
+
+/obj/item/storage/box/mobcapsule/New()
+	..()
+	contents = list()
+	new /obj/item/mobcapsule(src)
+	new /obj/item/mobcapsule(src)
+	new /obj/item/mobcapsule(src)
+	new /obj/item/mobcapsule(src)
+	new /obj/item/mobcapsule(src)
+	new /obj/item/mobcapsule(src)
+
+/obj/item/storage/box/lazarus_injector
+	name = "box of lazarus injector"
+	desc = "Contains several lazarus injectors."
+
+/obj/item/storage/box/lazarus_injector/New()
+	..()
+	contents = list()
+	new /obj/item/lazarus_injector(src)
+	new /obj/item/lazarus_injector(src)
+	new /obj/item/lazarus_injector(src)
+	new /obj/item/lazarus_injector(src)
+	new /obj/item/lazarus_injector(src)
+	new /obj/item/lazarus_injector(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
