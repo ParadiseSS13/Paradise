@@ -152,25 +152,10 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "Gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
-	var/accepted_intents = list(INTENT_HARM)
-	var/click_speed_modifier = CLICK_CD_RAPID
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
 
-	if(M.a_intent in accepted_intents)
-		M.changeNext_move(click_speed_modifier)
+	if(M.a_intent == INTENT_HARM)
+		M.changeNext_move(CLICK_CD_RAPID)
 	.= FALSE
-
-/obj/item/clothing/gloves/fingerless/rapid/admin
-	name = "Advanced Interactive Gloves"
-	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps my merely looking at them."
-	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
-	click_speed_modifier = 0
-	siemens_coefficient = 0
-
-/obj/item/clothing/gloves/fingerless/rapid/headpat
-	name = "Gloves of Headpats"
-	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
-	accepted_intents = list(INTENT_HELP)
-	click_speed_modifier = 0 // That's some serious headpatting

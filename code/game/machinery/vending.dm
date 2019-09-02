@@ -1599,7 +1599,7 @@
 					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
 					)
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
-	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1, /obj/item/clothing/gloves/fingerless/rapid/headpat = 1)
+	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
 	refill_canister = /obj/item/vending_refill/crittercare
 
 /obj/machinery/vending/crittercare/free
