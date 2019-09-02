@@ -27,7 +27,7 @@
 	var/drink_name = "Glass of ..what?"
 	var/drink_desc = "You can't really tell what this is."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
-	var/taste_description = "bitterness" //life's bitter by default. Cool points for using a span class for when you're tasting <span class='userdanger'>LIQUID FUCKING DEATH</span>
+	var/taste_description = "metaphorical salt"
 
 /datum/reagent/Destroy()
 	. = ..()
