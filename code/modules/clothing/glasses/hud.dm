@@ -38,12 +38,6 @@
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/health/health_advanced
-	name = "\improper Advanced Health Scanner HUD"
-	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
-	icon_state = "advmedhud"
-	flash_protect = 1
-
 /obj/item/clothing/glasses/hud/health/night
 	name = "\improper Night Vision Health Scanner HUD"
 	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
@@ -53,6 +47,14 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
+
+/obj/item/clothing/glasses/hud/health/sunglasses
+	name = "medical HUDSunglasses"
+	desc = "Sunglasses with a medical HUD."
+	icon_state = "sunhudmed"
+	see_in_dark = 1
+	flash_protect = 1
+	tint = 1
 
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "Diagnostic HUD"
@@ -76,6 +78,14 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
+
+/obj/item/clothing/glasses/hud/diagnostic/sunglasses
+	name = "diagnostic sunglasses"
+	desc = "Sunglasses with a diagnostic HUD."
+	icon_state = "sunhuddiag"
+	item_state = "glasses"
+	flash_protect = 1
+	tint = 1
 
 /obj/item/clothing/glasses/hud/security
 	name = "\improper Security HUD"

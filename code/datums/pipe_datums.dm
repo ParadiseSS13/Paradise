@@ -337,6 +337,13 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_icon = "intake"
 	rpd_dispensable = TRUE
 
+/datum/pipes/disposal/sortjunction
+	pipe_name = "disposals sort junction"
+	pipe_id = PIPE_DISPOSALS_SORT_RIGHT
+	orientations = 4
+	pipe_icon = "pipe-j1s"
+	rpd_dispensable = TRUE
+
 //Pipes the RPD can't dispense. Since these don't use an interface, we don't need to bother with setting an icon. We do, however, want to name these for other purposes
 
 /datum/pipes/atmospheric/circulator
@@ -363,12 +370,8 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_name = "bent insulated pipe"
 	pipe_id = PIPE_INSULATED_BENT
 
-/datum/pipes/disposal/sortjunction
-	pipe_name = "disposals sort junction"
-	pipe_id = PIPE_DISPOSALS_SORT_RIGHT
-	pipe_icon = "pipe-j1s"
-
-/datum/pipes/disposal/sortjunction/left
+/datum/pipes/disposal/left_sortjunction
+	pipe_name = "disposals sort junction left"
 	pipe_id = PIPE_DISPOSALS_SORT_LEFT
 	pipe_icon = "pipe-j2s"
 

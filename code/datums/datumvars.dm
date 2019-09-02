@@ -1269,7 +1269,12 @@
 			return
 		src.debug_variables(DAT)
 
-	return
+	if(href_list["copyoutfit"])
+		if(!check_rights(R_EVENT))
+			return
+		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
+		if(istype(H))
+			H.copy_outfit()
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

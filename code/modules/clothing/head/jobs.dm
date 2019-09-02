@@ -39,7 +39,7 @@
 
 
 //Chaplain
-/obj/item/clothing/head/chaplain_hood
+/obj/item/clothing/head/hooded/chaplain_hood
 	name = "chaplain's hood"
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
@@ -47,7 +47,7 @@
 	flags_cover = HEADCOVERSEYES
 
 //Chaplain
-/obj/item/clothing/head/nun_hood
+/obj/item/clothing/head/hooded/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
@@ -55,7 +55,7 @@
 	flags_cover = HEADCOVERSEYES
 
 //Chaplain
-/obj/item/clothing/head/monk_hood
+/obj/item/clothing/head/hooded/monk_hood
 	name = "monk hood"
 	desc = "Wooden board not included."
 	icon_state = "monk_hood"
@@ -81,6 +81,13 @@
 	name = "beret"
 	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
+
+/obj/item/clothing/head/beret/durathread
+	name = "durathread beret"
+	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
+	icon_state = "beretdurathread"
+	item_color = null
+	armor = list(melee = 15, bullet = 5, laser = 15, energy = 5, bomb = 10, bio = 0, rad = 0)
 
 //Security
 /obj/item/clothing/head/HoS

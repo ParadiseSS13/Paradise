@@ -104,6 +104,11 @@
 			H.rename_character(null, H.dna.species.get_random_name())
 		else
 			H.rename_character(null, name)
+		if(is_species(H, /datum/species/golem/tranquillite) && H.mind)
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/mime_wall(null))
+			H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
+			H.mind.miming = TRUE
+
 	if(has_owner)
 		new_spawn.mind.assigned_role = "Servant Golem"
 	else

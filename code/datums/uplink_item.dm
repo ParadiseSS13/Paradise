@@ -900,6 +900,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 10
 
+/datum/uplink_item/stealthy_weapons/false_briefcase
+	name = "False Bottomed Briefcase"
+	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
+	reference = "FBBC"
+	item = /obj/item/storage/briefcase/false_bottomed
+	cost = 3
+
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
 	desc = "A sinister-looking surfactant used to clean blood stains to hide murders and prevent DNA analysis. You can also drop it underfoot to slip people."
@@ -1313,7 +1320,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/elite
 	name = "Elite Syndicate Hardsuit"
 	desc = "An advanced hardsuit with superior armor and mobility to the standard Syndicate Hardsuit."
-	item = /obj/item/storage/box/syndie_kit/elite_hardsuit
+	item = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	cost = 8
 	reference = "ESHS"
 	excludefrom = list()
@@ -1322,7 +1329,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/suits/hardsuit/shielded
 	name = "Shielded Hardsuit"
 	desc = "An advanced hardsuit with built in energy shielding. The shields will rapidly recharge when not under fire."
-	item = /obj/item/storage/box/syndie_kit/shielded_hardsuit
+	item = /obj/item/clothing/suit/space/hardsuit/shielded/syndi
 	cost = 30
 	reference = "SHS"
 	excludefrom = list()

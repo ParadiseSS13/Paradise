@@ -397,7 +397,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/tank/emergency_oxygen/double,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

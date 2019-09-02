@@ -25,4 +25,5 @@
   filling_color = "#e5b437"
   w_class = WEIGHT_CLASS_NORMAL
   bitesize_mod = 3
+  tastes = list("pineapple" = 1)
   wine_power = 0.4

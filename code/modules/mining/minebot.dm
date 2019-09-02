@@ -303,6 +303,7 @@
 	qdel(src)
 
 //AI
+
 /obj/item/slimepotion/sentience/mining
 	name = "minebot AI upgrade"
 	desc = "Can be used to grant sentience to minebots."
@@ -324,6 +325,22 @@
 		M.move_to_delay = initial(M.move_to_delay) + base_speed_add
 		if(M.stored_gun)
 			M.stored_gun.overheat_time += base_cooldown_add
+
+/**********************Mining drone cube**********************/
+
+/obj/item/mining_drone_cube
+	name = "mining drone cube"
+	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "minedronecube"
+	item_state = "electronic"
+
+/obj/item/mining_drone_cube/attack_self(mob/user)
+	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
+	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
+	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
+	qdel(src)
 
 #undef MINEDRONE_COLLECT
 #undef MINEDRONE_ATTACK

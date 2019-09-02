@@ -227,6 +227,24 @@ obj/item/clothing/head/blob
 	item_state = "knight_templar"
 	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0)
 
+/obj/item/clothing/head/helmet/skull
+	name = "skull helmet"
+	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 10, bio = 5, rad = 20)
+	icon_state = "skull"
+	item_state = "skull"
+	strip_delay = 100
+
+/obj/item/clothing/head/helmet/durathread
+	name = "durathread helmet"
+	desc = "A helmet made from durathread and leather."
+	icon_state = "durathread"
+	item_state = "durathread"
+	armor = list(melee = 25, bullet = 10, laser = 20, energy = 10, bomb = 30, bio = 15, rad = 20)
+	strip_delay = 60
+
 //Commander
 /obj/item/clothing/head/helmet/ert/command
 	name = "emergency response team commander helmet"
