@@ -2038,7 +2038,6 @@ var/mob/dview/dview_mob = new
 /datum/proc/stack_trace(msg)
 	CRASH(msg)
 
-
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	var/initialpixelx = pixel_x
 	var/initialpixely = pixel_y
@@ -2061,4 +2060,5 @@ var/mob/dview/dview_mob = new
 	tX = Clamp(origin.x + text2num(tX) - round(actual_view[1] / 2) - 1, 1, world.maxx)
 	tY = Clamp(origin.y + text2num(tY) - round(actual_view[2] / 2) - 1, 1, world.maxy)
 	return locate(tX, tY, tZ)
+
 #define UNTIL(X) while(!(X)) stoplag()
