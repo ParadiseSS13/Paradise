@@ -33,11 +33,10 @@
 	return 0
 
 
-/obj/machinery/field/containment/Crossed(mob/mover)
+/obj/machinery/field/containment/Crossed(mob/mover, oldloc)
 	if(isliving(mover))
 		shock_field(mover)
 
-/obj/machinery/field/containment/Crossed(obj/mover)
 	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
 		bump_field(mover)
 

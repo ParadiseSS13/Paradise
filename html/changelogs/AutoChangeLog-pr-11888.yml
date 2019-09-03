@@ -1,0 +1,4 @@
+author: "kazboo"
+delete-after: True
+changes: 
+  - rscadd: "added a nice metalic alarm sound for when the nuclear self-destruct is activated on the station."

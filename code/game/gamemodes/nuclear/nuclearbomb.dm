@@ -76,14 +76,19 @@ var/bomb_set
 
 	if(panel_open && (istype(O, /obj/item/multitool) || istype(O, /obj/item/wirecutters)))
 		return attack_hand(user)
-
-	if(extended)
-		if(istype(O, /obj/item/disk/nuclear))
-			usr.drop_item()
-			O.loc = src
+	
+	if(istype(O, /obj/item/disk/nuclear))
+		if(extended)
+			if(!user.drop_item())
+				to_chat(user, "<span class='notice'>\The [O] is stuck to your hand!</span>")
+				return
+			O.forceMove(src)
 			auth = O
 			add_fingerprint(user)
 			return attack_hand(user)
+		else
+			to_chat(user, "<span class='notice'>You need to deploy \the [src] first. Right click on the sprite, select 'Make Deployable' then click on \the [src] with an empty hand.</span>")
+			return
 
 	if(anchored)
 		switch(removal_stage)

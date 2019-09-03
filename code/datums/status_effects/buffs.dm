@@ -40,6 +40,49 @@
 	playsound(owner, 'sound/weapons/bite.ogg', 50, 1)
 	owner.adjustBruteLoss(3)
 
+/datum/status_effect/blooddrunk
+	id = "blooddrunk"
+	duration = 10
+	tick_interval = 0
+	alert_type = /obj/screen/alert/status_effect/blooddrunk
+
+/obj/screen/alert/status_effect/blooddrunk
+	name = "Blood-Drunk"
+	desc = "You are drunk on blood! Your pulse thunders in your ears! Nothing can harm you!" //not true, and the item description mentions its actual effect
+	icon_state = "blooddrunk"
+
+/datum/status_effect/blooddrunk/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			for(var/X in H.bodyparts)
+				var/obj/item/organ/external/BP = X
+				BP.brute_mod *= 0.1
+				BP.burn_mod *= 0.1
+			H.dna.species.tox_mod *= 0.1
+			H.dna.species.oxy_mod *= 0.1
+			H.dna.species.clone_mod *= 0.1
+			H.dna.species.stamina_mod *= 0.1
+		add_attack_logs(owner, owner, "gained blood-drunk stun immunity")
+		var/status = CANSTUN | CANWEAKEN | CANPARALYSE | IGNORESLOWDOWN
+		owner.status_flags &= ~status
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1)
+
+/datum/status_effect/blooddrunk/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		for(var/X in H.bodyparts)
+			var/obj/item/organ/external/BP = X
+			BP.brute_mod *= 10
+			BP.burn_mod *= 10
+		H.dna.species.tox_mod *= 10
+		H.dna.species.oxy_mod *= 10
+		H.dna.species.clone_mod *= 10
+		H.dna.species.stamina_mod *= 10
+	add_attack_logs(owner, owner, "lost blood-drunk stun immunity")
+	owner.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | IGNORESLOWDOWN
+
 /datum/status_effect/exercised
 	id = "Exercised"
 	duration = 1200

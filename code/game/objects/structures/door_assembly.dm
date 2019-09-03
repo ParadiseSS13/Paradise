@@ -226,6 +226,7 @@
 					door = new airlock_type(loc)
 				door.setDir(dir)
 				door.electronics = electronics
+				door.unres_sides = electronics.unres_sides
 				door.heat_proof = heat_proof_finished
 				if(electronics.one_access)
 					door.req_access = null

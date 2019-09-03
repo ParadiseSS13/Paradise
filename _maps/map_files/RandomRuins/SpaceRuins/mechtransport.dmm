@@ -56,9 +56,7 @@
 /turf/simulated/shuttle/floor,
 /area/ruin/powered)
 "m" = (
-/obj/structure/chair/office/dark{
-	tag = "icon-officechair_dark (NORTH)";
-	icon_state = "officechair_dark";
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,

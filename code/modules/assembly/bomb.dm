@@ -77,9 +77,9 @@
 	if(bombassembly)
 		bombassembly.HasProximity(AM)
 
-/obj/item/onetankbomb/Crossed(atom/movable/AM) //for mousetraps
+/obj/item/onetankbomb/Crossed(atom/movable/AM, oldloc) //for mousetraps
 	if(bombassembly)
-		bombassembly.Crossed(AM)
+		bombassembly.Crossed(AM, oldloc)
 
 /obj/item/onetankbomb/on_found(mob/finder) //for mousetraps
 	if(bombassembly)

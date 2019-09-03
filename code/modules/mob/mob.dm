@@ -193,14 +193,7 @@
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
-		if(istype(W, /obj/item/clothing))
-			var/obj/item/clothing/C = W
-			if(C.hardsuit_restrict_helmet)
-				to_chat(src, "<span class='warning'>You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)</span>")// Stop eva helms equipping.
-			else
-				equip_to_slot_if_possible(C, slot)
-		else
-			equip_to_slot_if_possible(W, slot)
+		equip_to_slot_if_possible(W, slot)
 	else if(!restrained())
 		W = get_item_by_slot(slot)
 		if(W)
@@ -693,7 +686,7 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-	
+
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)
@@ -1370,5 +1363,19 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
-		if (L)
+		if(L)
 			L.alpha = lighting_alpha
+
+	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
+
+/mob/proc/sync_nightvision_screen()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(S)
+		var/suffix = ""
+		switch(see_in_dark)
+			if(3 to 8)
+				suffix = "_[see_in_dark]"
+			if(8 to INFINITY)
+				suffix = "_8"
+
+		S.icon_state = "[initial(S.icon_state)][suffix]"

@@ -25,6 +25,7 @@
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/cartridge/ce(src)
 	new /obj/item/radio/headset/heads/ce(src)
 	new /obj/item/storage/toolbox/mechanical(src)
@@ -38,6 +39,7 @@
 	new /obj/item/rpd(src)
 	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
 	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
+	new /obj/item/clothing/accessory/medal/engineering(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -146,3 +148,4 @@
 	new /obj/item/clothing/suit/fire/atmos(src)
 	new /obj/item/clothing/head/hardhat/atmos(src)
 	new /obj/item/rpd(src)
+	new /obj/item/destTagger(src)

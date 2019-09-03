@@ -42,6 +42,7 @@
 	var/list/kills = list()
 	var/list/datum/objective/objectives = list()
 	var/list/datum/objective/special_verbs = list()
+	var/list/targets = list()
 
 	var/has_been_rev = 0//Tracks if this mind has been a rev or not
 
@@ -1150,7 +1151,7 @@
 						A.set_zeroth_law("")
 						A.show_laws()
 						A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-						A.malf_picker.remove_verbs(A)
+						A.malf_picker.remove_malf_verbs(A)
 						qdel(A.malf_picker)
 					SSticker.mode.update_traitor_icons_removed(src)
 

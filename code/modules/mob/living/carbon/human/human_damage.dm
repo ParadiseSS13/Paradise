@@ -202,6 +202,16 @@
 		amount = amount * dna.species.tox_mod
 	. = ..()
 
+/mob/living/carbon/human/adjustStaminaLoss(amount, updating = TRUE)
+	if(dna.species && amount > 0)
+		amount = amount * dna.species.stamina_mod
+	. = ..()
+
+/mob/living/carbon/human/setStaminaLoss(amount, updating = TRUE)
+	if(dna.species && amount > 0)
+		amount = amount * dna.species.stamina_mod
+	. = ..()
+
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs

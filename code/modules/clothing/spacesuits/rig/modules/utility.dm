@@ -56,7 +56,7 @@
 	interface_desc = "A diamond-tipped industrial drill."
 	suit_overlay_active = "mounted-drill"
 	suit_overlay_inactive = "mounted-drill"
-	device_type = /obj/item/pickaxe/diamonddrill
+	device_type = /obj/item/pickaxe/drill/diamonddrill
 
 /obj/item/rig_module/device/orescanner
 	name = "ore scanner module"
