@@ -385,7 +385,7 @@
 			A.attack_animal(src)
 		return 1
 
-/mob/living/simple_animal/hostile/RangedAttack(atom/A, mouseparams) //Player firing
+/mob/living/simple_animal/hostile/RangedAttack(atom/A) //Player firing
 	if(ranged && ranged_cooldown <= world.time)
 		target = A
 		OpenFire(A)

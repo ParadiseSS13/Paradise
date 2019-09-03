@@ -541,7 +541,7 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A, mouseparams)
+/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
 	if(!on)
 		return
 	shootAt(A)
