@@ -37,9 +37,8 @@
 	QDEL_NULL(udder)
 	return ..()
 
-/mob/living/simple_animal/hostile/retaliate/goat/handle_automated_action()
-	if(!..())
-		return
+/mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
+	. = ..()
 	//chance to go crazy and start wacking stuff
 	if(!enemies.len && prob(1))
 		Retaliate()

@@ -76,9 +76,8 @@
 	venom_per_bite = 10
 	move_to_delay = 5
 
-/mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
-	if(!..()) //AIStatus is off
-		return 0
+/mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement() //Hacky and ugly.
+	. = ..()
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
 		if(!busy && prob(1))
@@ -97,7 +96,7 @@
 			busy = 0
 			stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement() //Hacky and ugly.
 	if(..())
 		var/list/can_see = view(src, 10)
 		if(!busy && prob(30))	//30% chance to stop wandering and do something
