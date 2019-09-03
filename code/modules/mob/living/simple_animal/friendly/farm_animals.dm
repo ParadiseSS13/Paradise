@@ -34,31 +34,33 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
-	qdel(udder)
-	udder = null
+	QDEL_NULL(udder)
 	return ..()
+
+/mob/living/simple_animal/hostile/retaliate/goat/handle_automated_action()
+	if(!..())
+		return
+	//chance to go crazy and start wacking stuff
+	if(!enemies.len && prob(1))
+		Retaliate()
+
+	if(enemies.len && prob(10))
+		enemies = list()
+		LoseTarget()
+		visible_message("<span class='notice'>[src] calms down.</span>")
+
+	eat_plants()
+	if(!pulledby)
+		for(var/direction in shuffle(list(1, 2, 4, 8, 5, 6, 9, 10)))
+			var/step = get_step(src, direction)
+			if(step)
+				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
+					Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
-	if(.)
-		//chance to go crazy and start wacking stuff
-		if(!enemies.len && prob(1))
-			Retaliate()
-
-		if(enemies.len && prob(10))
-			enemies = list()
-			LoseTarget()
-			visible_message("<span class='notice'>[src] calms down.</span>")
-
 	if(stat == CONSCIOUS)
 		udder.generateMilk()
-		eat_plants()
-		if(!pulledby)
-			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
-				var/step = get_step(src, direction)
-				if(step)
-					if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
-						Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()

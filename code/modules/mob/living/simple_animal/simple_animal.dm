@@ -489,6 +489,9 @@
 		canmove = 0
 	else
 		canmove = 1
+	if(!canmove)
+		walk(src, 0) //stop mid walk
+
 	update_transform()
 	if(!delay_action_updates)
 		update_action_buttons_icon()

@@ -21,10 +21,6 @@
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/crab/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
-
 //COFFEE! SQUEEEEEEEEE!
 /mob/living/simple_animal/crab/Coffee
 	name = "Coffee"
