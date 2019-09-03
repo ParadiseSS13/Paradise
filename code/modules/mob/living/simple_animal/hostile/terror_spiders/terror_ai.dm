@@ -99,7 +99,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/handle_automated_movement()
 	// Putting the main terror spider AI code in handle_automated_movement() rather than handle_automated_action() ensures it will still run when the spider AIStatus == AI_IDLE
 	// This is necessary for the terror spiders in the away mission to work properly.
-	if(stat || ckey || AIStatus != AI_IDLE)
+	if(AIStatus != AI_IDLE)
 		return
 	if(!target)
 		var/my_ventcrawl_freq = freq_ventcrawl_idle
