@@ -2,8 +2,8 @@
 
 // EMP
 
-/obj/machinery/camera/emp_proof/New()
-	..()
+/obj/machinery/camera/emp_proof/Initialize(mapload)
+	. = ..()
 	upgradeEmpProof()
 
 // X-RAY
@@ -11,20 +11,20 @@
 /obj/machinery/camera/xray
 	icon_state = "xraycam" // Thanks to Krutchen for the icons.
 
-/obj/machinery/camera/xray/New()
-	..()
+/obj/machinery/camera/xray/Initialize(mapload)
+	. = ..()
 	upgradeXRay()
 
 // MOTION
 
-/obj/machinery/camera/motion/New()
-	..()
+/obj/machinery/camera/motion/Initialize(mapload)
+	. = ..()
 	upgradeMotion()
 
 // ALL UPGRADES
 
-/obj/machinery/camera/all/New()
-	..()
+/obj/machinery/camera/all/Initialize(mapload)
+	. = ..()
 	upgradeEmpProof()
 	upgradeXRay()
 	upgradeMotion()
@@ -35,19 +35,23 @@
 	var/number = 0 //camera number in area
 
 //This camera type automatically sets it's name to whatever the area that it's in is called.
-/obj/machinery/camera/autoname/New()
-	..()
-	spawn(10)
-		number = 1
-		var/area/A = get_area(src)
-		if(A)
-			for(var/obj/machinery/camera/autoname/C in world)
-				if(C == src) continue
-				var/area/CA = get_area(C)
-				if(CA.type == A.type)
-					if(C.number)
-						number = max(number, C.number+1)
-			c_tag = "[A.name] #[number]"
+/obj/machinery/camera/autoname/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/camera/autoname/Initialize(mapload)
+	. = ..()
+	number = 1
+	var/area/A = get_area(src)
+	if(A)
+		for(var/obj/machinery/camera/autoname/C in world)
+			if(C == src)
+				continue
+			var/area/CA = get_area(C)
+			if(CA.type == A.type)
+				if(C.number)
+					number = max(number, C.number+1)
+		c_tag = "[A.name] #[number]"
 
 
 // CHECKS

@@ -15,12 +15,11 @@
 	else
 		set_light(0)
 
-/obj/machinery/computer/arcade/New()
-	..()
+/obj/machinery/computer/arcade/Initialize(mapload)
+	. = ..()
 	var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
 	new choice(loc)
-	qdel(src)
-
+	return INITIALIZE_HINT_QDEL
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
 	if(!contents.len)

@@ -16,13 +16,12 @@
 	var/list/gibamounts = list()
 	var/list/gibdirections = list() //of lists
 
-/obj/effect/gibspawner/New(location, datum/dna/MobDNA)
-	..()
-
-	if(istype(loc,/turf)) //basically if a badmin spawns it
+/obj/effect/gibspawner/Initialize(mapload, datum/dna/MobDNA)
+	. = ..()
+	if(istype(loc, /turf)) //basically if a badmin spawns it
 		Gib(loc, MobDNA)
 
-/obj/effect/gibspawner/proc/Gib(atom/location, datum/dna/MobDNA = null)
+/obj/effect/gibspawner/proc/Gib(atom/location, datum/dna/MobDNA)
 	if(gibtypes.len != gibamounts.len || gibamounts.len != gibdirections.len)
 		to_chat(world, "<span class='warning'>Gib list length mismatch!</span>")
 		return

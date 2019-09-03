@@ -5,6 +5,11 @@
 /obj/machinery/telecomms/relay/preset
 	network = "tcommsat"
 
+/obj/machinery/telecomms/relay/Initialize(mapload)
+	. = ..()
+	if(autolinkers.len) //We want lateloaded presets to autolink (lateloaded aways/ruins/shuttles)
+		return INITIALIZE_HINT_LATELOAD
+
 /obj/machinery/telecomms/relay/preset/station
 	id = "Station Relay"
 	listening_level = 1

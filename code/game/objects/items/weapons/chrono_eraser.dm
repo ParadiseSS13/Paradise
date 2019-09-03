@@ -55,13 +55,13 @@
 	var/obj/effect/chrono_field/field = null
 	var/turf/startpos = null
 
-/obj/item/gun/energy/chrono_gun/New(var/obj/item/chrono_eraser/T)
+/obj/item/gun/energy/chrono_gun/Initialize(mapload)
 	. = ..()
-	if(istype(T))
-		TED = T
+	if(istype(loc, /obj/item/chrono_eraser))
+		TED = loc
 	else //admin must have spawned it
 		TED = new(src.loc)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/item/gun/energy/chrono_gun/update_icon()
 	return

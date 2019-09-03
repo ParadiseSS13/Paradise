@@ -171,8 +171,8 @@
 		log_game("[key_name(usr)] emagged the Holodeck Control Computer")
 		src.updateUsrDialog()
 
-/obj/machinery/computer/HolodeckControl/New()
-	..()
+/obj/machinery/computer/HolodeckControl/Initialize(mapload)
+	. = ..()
 	linkedholodeck = locate(/area/holodeck/alphadeck)
 	//if(linkedholodeck)
 	//	target = locate(/area/holodeck/source_emptycourt)

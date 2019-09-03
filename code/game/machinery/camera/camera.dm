@@ -45,8 +45,8 @@
 	cameranet.cameras += src
 	cameranet.addCamera(src)
 
-/obj/machinery/camera/Initialize()
-	..()
+/obj/machinery/camera/Initialize(mapload)
+	. = ..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.CutAll()
@@ -399,8 +399,8 @@
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf
 
-/obj/machinery/camera/portable/New()
-	..()
+/obj/machinery/camera/portable/Initialize(mapload)
+	. = ..()
 	assembly.state = 0 //These cameras are portable, and so shall be in the portable state if removed.
 	assembly.anchored = 0
 	assembly.update_icon()

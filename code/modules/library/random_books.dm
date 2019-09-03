@@ -1,20 +1,23 @@
 /obj/item/book/manual/random
 	icon_state = "random_book"
 
-/obj/item/book/manual/random/New()
+/obj/item/book/manual/random/Initialize(mapload)
 	..()
 	var/static/banned_books = list(/obj/item/book/manual/random, /obj/item/book/manual/nuclear)
 	var/newtype = pick(subtypesof(/obj/item/book/manual) - banned_books)
 	new newtype(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/item/book/random
 	icon_state = "random_book"
 	var/amount = 1
 	var/category = null
 
-/obj/item/book/random/Initialize()
+/obj/item/book/random/Initialize(mapload)
 	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/book/random/LateInitialize()
 	create_random_books(amount, src.loc, TRUE, category)
 	qdel(src)
 
@@ -27,12 +30,13 @@
 	icon_state = "random_bookcase"
 	anchored = TRUE
 
-/obj/structure/bookcase/random/New()
+/obj/structure/bookcase/random/Initialize(mapload)
 	. = ..()
-	if(!book_count || !isnum(book_count))
-		update_icon()
-		return
-	book_count += pick(-1,-1,0,1,1)
+	if(book_count && isnum(book_count))
+		book_count += pick(-1,-1,0,1,1)
+		. = INITIALIZE_HINT_LATELOAD
+
+/obj/structure/bookcase/random/LateInitialize()
 	create_random_books(book_count, src, FALSE, category)
 	update_icon()
 
@@ -50,15 +54,15 @@
 		category = null
 	var/c = category? " AND category='[sanitizeSQL(category)]'" :""
 	var/DBQuery/query_get_random_books = dbcon.NewQuery("SELECT * FROM [format_table_name("library")] WHERE (isnull(flagged) OR flagged = 0)[c] GROUP BY title ORDER BY rand() LIMIT [amount];")
-	query_get_random_books.Execute()
-	while(query_get_random_books.NextRow())
-		var/obj/item/book/B = new(location)
-		. += B
-		B.author	=	query_get_random_books.item[2]
-		B.title		=	query_get_random_books.item[3]
-		B.dat		=	query_get_random_books.item[4]
-		B.name		=	"Book: [B.title]"
-		B.icon_state=	"book[rand(1,8)]"
+	if(query_get_random_books.Execute())
+		while(query_get_random_books.NextRow())
+			var/obj/item/book/B = new(location)
+			. += B
+			B.author	=	query_get_random_books.item[2]
+			B.title		=	query_get_random_books.item[3]
+			B.dat		=	query_get_random_books.item[4]
+			B.name		=	"Book: [B.title]"
+			B.icon_state=	"book[rand(1,8)]"
 
 /obj/structure/bookcase/random/fiction
 	name = "bookcase (Fiction)"

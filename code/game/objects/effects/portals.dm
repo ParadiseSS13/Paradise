@@ -16,8 +16,8 @@
 	var/can_multitool_to_remove = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
 
-/obj/effect/portal/New(loc, turf/target, creator = null, lifespan = 300)
-	..()
+/obj/effect/portal/Initialize(mapload, turf/target, creator = null, lifespan = 300)
+	. = ..()
 
 	GLOB.portals += src
 
@@ -25,8 +25,7 @@
 	src.creator = creator
 
 	if(lifespan > 0)
-		spawn(lifespan)
-			qdel(src)
+		QDEL_IN(src, lifespan)
 
 /obj/effect/portal/Destroy()
 	GLOB.portals -= src
@@ -110,7 +109,7 @@
 		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
 			invalid_teleport()
 			return FALSE
-	
+
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()

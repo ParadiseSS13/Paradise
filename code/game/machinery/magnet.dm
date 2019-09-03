@@ -29,18 +29,16 @@
 	var/center_y = 0
 	var/max_dist = 20 // absolute value of center_x,y cannot exceed this integer
 
-/obj/machinery/magnetic_module/New()
-	..()
+/obj/machinery/magnetic_module/Initialize(mapload)
+	. = ..()
 	var/turf/T = loc
 	hide(T.intact)
 	center = T
+	SSradio.add_object(src, freq, RADIO_MAGNETS)
+	return INITIALIZE_HINT_LATELOAD
 
-	spawn(10)	// must wait for map loading to finish
-		if(SSradio)
-			SSradio.add_object(src, freq, RADIO_MAGNETS)
-
-	spawn()
-		magnetic_process()
+/obj/machinery/magnetic_module/LateInitialize()
+	magnetic_process()
 
 	// update the invisibility and icon
 /obj/machinery/magnetic_module/hide(intact)

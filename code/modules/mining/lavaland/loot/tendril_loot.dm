@@ -20,8 +20,8 @@
 	name = "paradox bag"
 	desc = "Somehow, it's in two places at once."
 
-/obj/item/shared_storage/red/New()
-	..()
+/obj/item/shared_storage/red/Initialize(mapload)
+	. = ..()
 	if(!bag)
 		var/obj/item/storage/backpack/shared/S = new(src)
 		var/obj/item/shared_storage/blue = new(loc)

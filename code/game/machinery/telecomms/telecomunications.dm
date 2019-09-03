@@ -104,29 +104,22 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	else
 		return 0
 
-
-/obj/machinery/telecomms/New()
+/obj/machinery/telecomms/Initialize(mapload)
+	. = ..()
 	telecomms_list += src
-	..()
-
 	//Set the listening_level if there's none.
 	if(!listening_level)
 		//Defaults to our Z level!
 		var/turf/position = get_turf(src)
 		// TODO: Make the radio system cooperate with the space manager
 		listening_level = position.z
+	if(mapload && autolinkers.len)
+		return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/telecomms/Initialize()
+/obj/machinery/telecomms/LateInitialize()
 	..()
-	if(autolinkers.len)
-		// Links nearby machines
-		if(!long_range_link)
-			for(var/obj/machinery/telecomms/T in orange(20, src))
-				add_link(T)
-		else
-			for(var/obj/machinery/telecomms/T in telecomms_list)
-				add_link(T)
-
+	for(var/obj/machinery/telecomms/T in (long_range_link ? telecomms_list : urange(20, src, 1)))
+		add_link(T)
 
 /obj/machinery/telecomms/Destroy()
 	telecomms_list -= src

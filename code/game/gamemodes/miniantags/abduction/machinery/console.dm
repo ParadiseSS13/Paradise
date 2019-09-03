@@ -3,9 +3,9 @@
 /obj/machinery/abductor
 	var/team = 0
 
-/obj/machinery/abductor/New()
+/obj/machinery/abductor/Initialize(mapload)
+	. = ..()
 	GLOB.abductor_equipment.Add(src)
-	..()
 
 /obj/machinery/abductor/Destroy()
 	GLOB.abductor_equipment.Remove(src)
@@ -27,8 +27,13 @@
 	var/obj/machinery/computer/camera_advanced/abductor/camera
 	var/list/datum/icon_snapshot/disguises = list()
 
-/obj/machinery/abductor/console/Initialize()
+/obj/machinery/abductor/console/Initialize(mapload)
 	..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/abductor/console/LateInitialize()
+	if(!team )
+		return
 	Link_Abduction_Equipment()
 
 /obj/machinery/abductor/console/attack_hand(mob/user)

@@ -9,10 +9,13 @@
 
 /obj/effect/baseturf_helper/Initialize(mapload)
 	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/baseturf_helper/LateInitialize()
 	var/area/thearea = get_area(src)
 	for(var/turf/T in get_area_turfs(thearea, z))
 		replace_baseturf(T)
-	return INITIALIZE_HINT_QDEL
+	qdel(src)
 
 /obj/effect/baseturf_helper/proc/replace_baseturf(turf/thing)
 	if(thing.baseturf != thing.type)
@@ -84,7 +87,13 @@
 	else
 		log_world("### MAP WARNING, [src] failed to find an airlock at [AREACOORD(src)]")
 
-/obj/effect/mapping_helpers/no_lava/New()
+//needs to do its thing before spawn_rivers() is called
+INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)
+
+/obj/effect/mapping_helpers/no_lava
+	icon_state = "no_lava"
+
+/obj/effect/mapping_helpers/no_lava/Initialize(mapload)
+	. = ..()
 	var/turf/T = get_turf(src)
 	T.flags |= NO_LAVA_GEN
-	. = ..()

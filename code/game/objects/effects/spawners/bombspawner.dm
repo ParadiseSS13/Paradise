@@ -6,30 +6,28 @@
 	var/btemp1 = 1500
 	var/btemp2 = 1000	// tank temperatures
 
-	timer
-		btype = 2
+/obj/effect/spawner/newbomb/timer
+	btype = 2
 
-		syndicate
-			btemp1 = 150
-			btemp2 = 20
+/obj/effect/spawner/newbomb/timer/syndicate
+	btemp1 = 150
+	btemp2 = 20
 
-	proximity
-		btype = 1
+/obj/effect/spawner/newbomb/proximity
+	btype = 1
 
-	radio
-		btype = 0
+/obj/effect/spawner/newbomb/radio
+	btype = 0
 
 
-/obj/effect/spawner/newbomb/New()
-	..()
-
+/obj/effect/spawner/newbomb/Initialize(mapload)
+	. = ..()
 	var/obj/item/transfer_valve/V = new(src.loc)
 	var/obj/item/tank/plasma/PT = new(V)
 	var/obj/item/tank/oxygen/OT = new(V)
 
 	V.tank_one = PT
 	V.tank_two = OT
-
 	PT.master = V
 	OT.master = V
 
@@ -62,4 +60,4 @@
 
 	V.update_icon()
 
-	qdel(src)
+	return INITIALIZE_HINT_QDEL

@@ -4,12 +4,12 @@
 /obj/item/toy/random
 	name = "Random Toy"
 
-/obj/item/toy/random/New()
-	..()
+/obj/item/toy/random/Initialize(mapload)
+	. = ..()
 	var/list/types = list(/obj/item/gun/projectile/shotgun/toy/crossbow, /obj/item/toy/balloon,/obj/item/toy/spinningtoy,/obj/item/reagent_containers/spray/waterflower) + subtypesof(/obj/item/toy/prize)
 	var/T = pick(types)
 	new T(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 // -------------------------------------
 //	Random cleanables, clearly this makes sense
@@ -23,18 +23,18 @@
 	var/list/list = subtypesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
 	var/T = pick(list)
 	new T(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 
 /obj/item/stack/sheet/animalhide/random
 	name = "random animal hide"
 
-/obj/item/stack/sheet/animalhide/random/New()
-	..()
+/obj/item/stack/sheet/animalhide/random/Initialize(mapload)
+	. = ..()
 	var/htype = pick(/obj/item/stack/sheet/animalhide/cat,/obj/item/stack/sheet/animalhide/corgi,/obj/item/stack/sheet/animalhide/human,/obj/item/stack/sheet/animalhide/lizard,/obj/item/stack/sheet/animalhide/monkey)
 	var/obj/item/stack/S = new htype(loc)
 	S.amount = amount
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 // -------------------------------------
 //    Not yet identified chemical.

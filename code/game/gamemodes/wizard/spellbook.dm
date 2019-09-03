@@ -796,12 +796,9 @@
 	uses = 1
 	desc = "This template spellbook was never meant for the eyes of man..."
 
-/obj/item/spellbook/oneuse/New()
-	..()
+/obj/item/spellbook/oneuse/Initialize()
+	. = ..()
 	name += spellname
-
-/obj/item/spellbook/oneuse/initialize() //No need to init
-	return
 
 /obj/item/spellbook/oneuse/attack_self(mob/user)
 	var/obj/effect/proc_holder/spell/S = new spell
@@ -980,9 +977,9 @@
 /obj/item/spellbook/oneuse/random
 	icon_state = "random_book"
 
-/obj/item/spellbook/oneuse/random/initialize()
+/obj/item/spellbook/oneuse/random/Initialize(mapload)
 	. = ..()
 	var/static/banned_spells = list(/obj/item/spellbook/oneuse/mime, /obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/fingergun/fake, /obj/item/spellbook/oneuse/mime/greaterwall)
 	var/real_type = pick(subtypesof(/obj/item/spellbook/oneuse) - banned_spells)
 	new real_type(loc)
-	qdel(src)
+	return INITIALIZE_HINT_QDEL

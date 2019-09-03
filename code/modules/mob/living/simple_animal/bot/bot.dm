@@ -892,11 +892,11 @@ Pass a positive integer as an argument to override a bot's default speed.
 	use_power = NO_POWER_USE
 	var/mob/living/simple_animal/bot/owner = null
 
-/obj/machinery/bot_core/New(loc)
-	..()
+/obj/machinery/bot_core/Initialize(mapload)
+	. = ..()
 	owner = loc
 	if(!istype(owner))
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /mob/living/simple_animal/bot/proc/topic_denied(mob/user) //Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.
 	if(user.can_admin_interact())

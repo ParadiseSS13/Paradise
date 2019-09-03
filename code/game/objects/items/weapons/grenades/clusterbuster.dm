@@ -58,19 +58,20 @@
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
-/obj/effect/payload_spawner/New(var/turf/newloc,var/type, var/numspawned as num)
+/obj/effect/payload_spawner/Initialize(mapload, type, numspawned)
+	. = ..()
+	spawn_payload(type, numspawned)
+	return INITIALIZE_HINT_QDEL
 
-	for(var/loop = numspawned ,loop > 0, loop--)
+/obj/effect/payload_spawner/proc/spawn_payload(type, numspawned)
+	for(var/loop in 1 to numspawned)
 		var/obj/item/grenade/P = new type(loc)
-		if(istype(P, /obj/item/grenade))
-			P.active = 1
-		walk_away(P,loc,rand(1,4))
-
-		spawn(rand(15,60))
-			if(!QDELETED(P))
-				if(istype(P, /obj/item/grenade))
-					P.prime()
-			qdel(src)
+		if(istype(P))
+			P.active = TRUE
+			addtimer(CALLBACK(P, /obj/item/grenade/proc/prime), rand(15,60))
+		var/steps = rand(1,4)
+		for(var/i in 1 to steps)
+			step_away(src,loc)
 
 
 //////////////////////////////////

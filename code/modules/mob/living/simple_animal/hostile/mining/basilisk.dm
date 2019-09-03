@@ -81,7 +81,7 @@
 	loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/Initialize(mapload)
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/random/Initialize(mapload)
 	. = ..()
 	if(prob(1))
 		if(prob(75))

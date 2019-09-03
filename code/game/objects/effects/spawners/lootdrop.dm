@@ -6,7 +6,8 @@
 	var/lootdoubles = 1		//if the same item can be spawned twice
 	var/list/loot			//a list of possible items to spawn e.g. list(/obj/item, /obj/structure, /obj/effect)
 
-/obj/effect/spawner/lootdrop/New()
+/obj/effect/spawner/lootdrop/Initialize(mapload)
+	. = ..()
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len) break
@@ -16,7 +17,7 @@
 
 			if(lootspawn)
 				new lootspawn(get_turf(src))
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/armory_contraband
 	name = "armory contraband gun spawner"
@@ -218,7 +219,7 @@
 				/obj/item/stack/sheet/mineral/sandstone = 50
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/minerals/New()
+/obj/effect/spawner/lootdrop/trade_sol/minerals/Initialize(mapload)
 	if(loot && loot.len)
 		for(var/i = lootcount, i > 0, i--)
 			if(!loot.len)
@@ -229,7 +230,7 @@
 			if(lootspawn)
 				var/obj/item/stack/sheet/S = new lootspawn(get_turf(src))
 				S.amount = 25
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 
 /obj/effect/spawner/lootdrop/trade_sol/donksoft
@@ -343,14 +344,14 @@
 				/obj/vehicle/space/speedbike = 50
 				)
 
-/obj/effect/spawner/lootdrop/trade_sol/vehicle/New()
+/obj/effect/spawner/lootdrop/trade_sol/vehicle/Initialize(mapload)
 	if(!loot.len)
 		return
 	var/lootspawn = pickweight(loot)
 	var/obj/vehicle/V = new lootspawn(get_turf(src))
 	if(V.keytype)
 		new V.keytype(get_turf(src))
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 
 /obj/effect/spawner/lootdrop/trade_sol/serv
@@ -399,6 +400,6 @@
 			/obj/item/reagent_containers/food/snacks/bigbiteburger,
 			/obj/item/reagent_containers/food/snacks/superbiteburger)
 
-/obj/effect/spawner/lootdrop/three_course_meal/New()
+/obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
 	. = ..()

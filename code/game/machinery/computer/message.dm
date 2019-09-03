@@ -77,12 +77,16 @@
 	..()
 
 /obj/machinery/computer/message_monitor/Initialize()
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/machinery/computer/message_monitor/LateInitialize()
 	..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
 		if(message_servers && message_servers.len > 0)
 			linkedServer = message_servers[1]
-	return
 
 /obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
 	if(..())
@@ -484,18 +488,19 @@
 
 
 /obj/item/paper/monitorkey
-	//..()
 	name = "Monitor Decryption Key"
-	var/obj/machinery/message_server/server = null
 
-/obj/item/paper/monitorkey/New()
+/obj/item/paper/monitorkey/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/item/paper/monitorkey/LateInitialize()
 	..()
-	spawn(10)
-		if(message_servers)
-			for(var/obj/machinery/message_server/server in message_servers)
-				if(!isnull(server))
-					if(!isnull(server.decryptkey))
-						info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
-						info_links = info
-						overlays += "paper_words"
-						break
+	if(message_servers)
+		for(var/obj/machinery/message_server/server in message_servers)
+			if(!isnull(server))
+				if(!isnull(server.decryptkey))
+					info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."
+					info_links = info
+					overlays += "paper_words"
+					break
