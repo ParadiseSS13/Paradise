@@ -41,7 +41,7 @@
 /datum/species/zombie/infectious/spec_stun(mob/living/carbon/human/H, amount)
 	. = min(20, amount)
 
-/datum/species/zombie/infectious/spec_apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
+/datum/species/zombie/infectious/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
 	. = ..()
 	if(damage)
 		regen_cooldown = world.time + REGENERATION_DELAY

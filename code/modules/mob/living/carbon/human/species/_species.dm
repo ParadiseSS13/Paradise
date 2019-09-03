@@ -311,8 +311,56 @@
 /datum/species/proc/spec_death(gibbed, mob/living/carbon/human/C)
 	return
 
-/datum/species/proc/spec_apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, sharp = 0, obj/used_weapon = null)
-	return
+/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
+	blocked = (100 - blocked) / 100
+	if(blocked <= 0)
+		return 0
+
+	var/obj/item/organ/external/organ = null
+	if(isorgan(def_zone))
+		organ = def_zone
+	else
+		if(!def_zone)
+			def_zone = ran_zone(def_zone)
+		organ = H.get_organ(check_zone(def_zone))
+	if(!organ)
+		return 0
+
+	damage = damage * blocked
+
+	switch(damagetype)
+		if(BRUTE)
+			H.damageoverlaytemp = 20
+			damage = damage * brute_mod
+
+			if(organ.receive_damage(damage, 0, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+			if(H.LAssailant && ishuman(H.LAssailant)) //superheros still get the comical hit markers
+				var/mob/living/carbon/human/A = H.LAssailant
+				if(A.mind && A.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
+					var/list/attack_bubble_recipients = list()
+					var/mob/living/user
+					for(var/mob/O in viewers(user, src))
+						if(O.client && O.has_vision(information_only=TRUE))
+							attack_bubble_recipients.Add(O.client)
+					spawn(0)
+						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
+						dmgIcon.pixel_x = (!H.lying) ? rand(-3,3) : rand(-11,12)
+						dmgIcon.pixel_y = (!H.lying) ? rand(-11,9) : rand(-10,1)
+						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
+
+
+		if(BURN)
+			H.damageoverlaytemp = 20
+			damage = damage * burn_mod
+
+			if(organ.receive_damage(0, damage, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
+	H.updatehealth("apply damage")
+	return 1
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
 	return

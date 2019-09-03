@@ -4,6 +4,7 @@
 	parent_organ = "head"
 	slot = "zombie_infection"
 	icon_state = "blacktumor"
+	var/converts_living = FALSE
 	var/causes_damage = TRUE
 	var/datum/species/old_species = /datum/species/human
 	var/living_transformation_time = 3
@@ -45,7 +46,7 @@
 		return
 	if(owner.suiciding)
 		return
-	if(owner.stat != DEAD)
+	if(owner.stat != DEAD && !converts_living)
 		return
 	if(causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustToxLoss(1)
@@ -63,7 +64,7 @@
 
 /obj/item/organ/internal/zombie_infection/proc/zombify()
 	timer_id = null
-	if(owner.stat != DEAD)
+	if(owner.stat != DEAD && !converts_living)
 		return
 
 	if(!iszombie(owner))
