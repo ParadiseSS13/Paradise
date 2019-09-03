@@ -256,10 +256,10 @@
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
-	
+
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
-	
+
 
 /mob/living/ex_act(severity)
 	..()
@@ -385,6 +385,7 @@
 
 /mob/living/proc/revive()
 	rejuvenate()
+	lying = 0
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
 
