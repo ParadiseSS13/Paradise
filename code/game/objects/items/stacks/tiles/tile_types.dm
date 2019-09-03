@@ -41,6 +41,19 @@
 		if(!R && replace)
 			user.put_in_hands(new_item)
 
+	else
+		var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
+		var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
+		user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
+					 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
+					 "<span class='italics'>You hear welding.</span>")
+		var/obj/item/stack/rods/R = src
+		src = null
+		var/replace = (user.get_inactive_hand()==R)
+		R.use(4)
+		if (!R && replace)
+			user.put_in_hands(new_item)
+
 //Grass
 /obj/item/stack/tile/grass
 	name = "grass tiles"
@@ -72,10 +85,16 @@
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/carpet/twenty
+	amount = 20
+
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
 	icon_state = "tile-carpet-black"
 	turf_type = /turf/simulated/floor/carpet/black
+
+/obj/item/stack/tile/carpet/black/twenty
+	amount = 20
 
 //Plasteel
 /obj/item/stack/tile/plasteel
