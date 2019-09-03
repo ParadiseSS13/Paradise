@@ -1,6 +1,5 @@
 /hook/startup/proc/createDatacore()
 	data_core = new /datum/datacore()
-	var/static/list/show_directions = list(SOUTH, WEST)
 	return 1
 
 /datum/datacore
@@ -252,7 +251,7 @@ var/global/list/PDA_Manifest = list()
 		foundrecord.fields["real_rank"] = real_title
 
 var/record_id_num = 1001
-/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
+/datum/datacore/proc/manifest_inject(mob/living/carbon/human/H, client/C)
 	var/static/list/show_directions = list(SOUTH, WEST)
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()
@@ -270,6 +269,8 @@ var/record_id_num = 1001
 
 		var/id = num2hex(record_id_num++, 6)
 
+		if(!C)
+			C = H.client
 
 		//General Record
 		var/datum/data/record/G = new()
@@ -283,7 +284,7 @@ var/record_id_num = 1001
 		G.fields["m_stat"]		= "Stable"
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
-		G.fields["photo"]		= get_id_photo(H, show_directions)
+		G.fields["photo"]		= get_id_photo(H, C, show_directions)
 		G.fields["photo-south"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = SOUTH))]'"
 		G.fields["photo-west"] = "'data:image/png;base64,[icon2base64(icon(G.fields["photo"], dir = WEST))]'"
 		if(H.gen_record && !jobban_isbanned(H, "Records"))

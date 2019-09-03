@@ -71,14 +71,14 @@
 
 /datum/job/proc/announce(mob/living/carbon/human/H)
 
-/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, alt_title)
+/datum/job/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, alt_title, datum/outfit/outfit_override = null)
 	if(!H)
 		return 0
 
 	H.dna.species.before_equip_job(src, H, visualsOnly)
 
-	if(outfit)
-		H.equipOutfit(outfit, visualsOnly, alt_title)
+	if(outfit_override || outfit)
+		H.equipOutfit(outfit_override ? outfit_override : outfit, visualsOnly, alt_title)
 
 	H.dna.species.after_equip_job(src, H, visualsOnly)
 

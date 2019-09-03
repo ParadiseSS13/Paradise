@@ -15,7 +15,7 @@ INITIALIZE_IMMEDIATE(/mob/living/carbon/human/dummy)
 /mob/living/carbon/human/dummy/proc/wipe_state()
 	for(var/slot in get_all_slots())
 		qdel(slot)
-	overlays.Cut()
+	cut_overlays()
 
 //Inefficient pooling/caching way.
 GLOBAL_LIST_EMPTY(human_dummy_list)

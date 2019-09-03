@@ -115,25 +115,21 @@
 					/obj/item/reagent_scanner = 1,
 					/obj/item/storage/box/bodybags = 1)
 
-/datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
 	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Surgeon")
-				uniform = /obj/item/clothing/under/rank/medical/blue
-				head = /obj/item/clothing/head/surgery/blue
-			if("Medical Doctor")
-				uniform = /obj/item/clothing/under/rank/medical
-			if("Nurse")
-				if(H.gender == FEMALE)
-					if(prob(50))
-						uniform = /obj/item/clothing/under/rank/nursesuit
-					else
-						uniform = /obj/item/clothing/under/rank/nurse
-					head = /obj/item/clothing/head/nursehat
-				else
-					uniform = /obj/item/clothing/under/rank/medical/purple
 
+	if(alt_title == "Surgeon")
+		uniform = /obj/item/clothing/under/rank/medical/blue
+		head = /obj/item/clothing/head/surgery/blue
+	else if(alt_title == "Medical Doctor")
+		uniform = /obj/item/clothing/under/rank/medical
+	else if(alt_title == "Nurse")
+		if(H.gender == FEMALE)
+			if(prob(50))
+				uniform = /obj/item/clothing/under/rank/nursesuit
+			else
+				uniform = /obj/item/clothing/under/rank/nurse
+		head = /obj/item/clothing/head/nursehat
 
 
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
@@ -267,16 +263,14 @@
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 
-/datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
 	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if("Psychiatrist")
-				uniform = /obj/item/clothing/under/rank/psych
-			if("Psychologist")
-				uniform = /obj/item/clothing/under/rank/psych/turtleneck
-			if("Therapist")
-				uniform = /obj/item/clothing/under/rank/medical
+	if(alt_title =="Psychiatrist")
+		uniform = /obj/item/clothing/under/rank/psych
+	else if(alt_title == "Psychologist")
+		uniform = /obj/item/clothing/under/rank/psych/turtleneck
+	else if(alt_title == "Therapist")
+		uniform = /obj/item/clothing/under/rank/medical
 
 /datum/job/paramedic
 	title = "Paramedic"

@@ -138,8 +138,7 @@
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE, alt_title)
 	. = ..()
-	if(!alt_title)
-		alt_title = H.mind && H.mind.role_alt_title ? H.mind.role_alt_title : null
+
 	if(alt_title == "Forensic Technician" )
 		suit = /obj/item/clothing/suit/storage/det_suit/forensics/blue
 		head = null
