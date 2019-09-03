@@ -187,7 +187,7 @@ Difficulty: Very Hard
 	for(var/i in colossus_shotgun_shot_angles)
 		shoot_projectile(null, angle_to_target + i)
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots	(list/dirs)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/dir_shots(list/dirs)
 	if(!islist(dirs))
 		dirs = alldirs.Copy()
 	playsound(get_turf(src), 'sound/magic/invoke_general.ogg', 200, 1, 2)

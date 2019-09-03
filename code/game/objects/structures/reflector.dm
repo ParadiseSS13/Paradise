@@ -3,12 +3,12 @@
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "reflector_map"
 	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
-	anchored = 0
-	density = 0
+	anchored = FALSE
+	density = FALSE
 	layer = 3
 	var/deflector_icon_state
 	var/image/deflector_overlay
-	var/finished = 0
+	var/finished = FALSE
 	var/admin = FALSE //Can't be rotated or deconstructed
 	var/can_rotate = TRUE
 	var/framebuildstacktype = /obj/item/stack/sheet/metal
@@ -143,7 +143,7 @@
 
 
 /obj/structure/reflector/proc/rotate(mob/user)
-	if (anchored)
+	if(anchored)
 		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
 		return FALSE
 	var/new_angle = input(user, "Input a new angle for primary reflection face.", "Reflector Angle", rotation_angle) as null|num
@@ -170,7 +170,7 @@
 		return
 	if(!in_range(src, user))
 		return
-	else if (finished)
+	else if(finished)
 		rotate(user)
 
 
@@ -183,7 +183,7 @@
 	deflector_icon_state = "reflector"
 	desc = "An angled mirror for reflecting laser beams."
 	density = TRUE
-	finished = 1
+	finished = TRUE
 	buildstacktype = /obj/item/stack/sheet/glass
 	buildstackamount = 5
 

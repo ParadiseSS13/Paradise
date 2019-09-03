@@ -265,7 +265,7 @@
 			var/overrun = required_moves - SSprojectiles.global_max_tick_moves
 			required_moves = SSprojectiles.global_max_tick_moves
 			time_offset += overrun * speed
-		time_offset += Modulus(elapsed_time_deciseconds, speed)
+		time_offset += MODULUS(elapsed_time_deciseconds, speed)
 
 	for(var/i in 1 to required_moves)
 		pixel_move(required_moves)
