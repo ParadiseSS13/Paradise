@@ -7,6 +7,7 @@
 	icobase = 'icons/mob/human_races/r_zombie.dmi'
 	deform = 'icons/mob/human_races/r_def_zombie.dmi'
 	dies_at_threshold = TRUE
+	language = "Zombie"
 	species_traits = list(NO_BLOOD,NOZOMBIE,NOTRANSSTING,NO_BREATHE, RADIMMUNE, NO_SCAN)
 	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
 	warning_low_pressure = 50
@@ -34,7 +35,6 @@
 	armor = 20 // 120 damage to KO a zombie, which kills it
 	speedmod = 1.6
 	default_language = "Zombie"
-	language = "Zombie"
 	var/heal_rate = 1
 	var/regen_cooldown = 0
 
