@@ -202,7 +202,7 @@
 	deflector_icon_state = "reflector_double"
 	desc = "A double sided angled mirror for reflecting laser beams."
 	density = TRUE
-	finished = 1
+	finished = TRUE
 	buildstacktype = /obj/item/stack/sheet/rglass
 	buildstackamount = 10
 
