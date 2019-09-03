@@ -36,7 +36,6 @@
 	strip_delay = 70
 	put_on_delay = 70
 	burn_state = FIRE_PROOF
-	hide_tail
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
