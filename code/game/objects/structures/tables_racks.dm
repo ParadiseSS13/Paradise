@@ -91,9 +91,9 @@
 	if(climber)
 		climber.Weaken(2)
 		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
-	else if(user.pulling.pass_flags & PASSTABLE)
+	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
-		if (user.pulling.loc == loc)
+		if(user.pulling.loc == loc)
 			user.visible_message("<span class='notice'>[user] places [user.pulling] onto [src].</span>",
 				"<span class='notice'>You place [user.pulling] onto [src].</span>")
 			user.stop_pulling()
