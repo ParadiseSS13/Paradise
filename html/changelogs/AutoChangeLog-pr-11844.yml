@@ -1,4 +1,0 @@
-author: "JKnutson101"
-delete-after: True
-changes: 
-  - rscadd: "Added the ability for cyborgs with zero battery to use the 'succumb' verb."

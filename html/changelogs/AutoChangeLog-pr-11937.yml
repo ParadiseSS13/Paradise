@@ -1,4 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "Rigging a crate now doesn't delete your coil stack anymore but instead uses 15 of it. Borgs can use it safely again"

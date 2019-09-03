@@ -385,42 +385,11 @@
 	)
 	category = CAT_WEAPON
 
-/datum/crafting_recipe/bonfire
-	name = "Bonfire"
-	time = 60
-	reqs = list(/obj/item/grown/log = 5)
-	result = /obj/structure/bonfire
-	category = CAT_PRIMAL
-	
-/datum/crafting_recipe/boneaxe
-	name = "Bone Axe"
-	result = /obj/item/twohanded/fireaxe/boneaxe
-	time = 50
-	reqs = list(/obj/item/stack/sheet/bone = 6,
-				 /obj/item/stack/sheet/sinew = 3)
-	category = CAT_PRIMAL
-
-/datum/crafting_recipe/bonespear
-	name = "Bone Spear"
-	result = /obj/item/twohanded/spear/bonespear
+/datum/crafting_recipe/bonearmor
+	name = "Bone Armor"
+	result = /obj/item/clothing/suit/armor/bone
 	time = 30
-	reqs = list(/obj/item/stack/sheet/bone = 4,
-				 /obj/item/stack/sheet/sinew = 1)
-	category = CAT_PRIMAL
-
-/datum/crafting_recipe/bonedagger
-	name = "Bone Dagger"
-	result = /obj/item/kitchen/knife/combat/survival/bone
-	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2)
-	category = CAT_PRIMAL
-
-/datum/crafting_recipe/bonecodpiece
-	name = "Skull Codpiece"
-	result = /obj/item/clothing/accessory/necklace/skullcodpiece
-	time = 20
-	reqs = list(/obj/item/stack/sheet/bone = 2,
-				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	reqs = list(/obj/item/stack/sheet/bone = 6)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/bonetalisman
@@ -431,16 +400,25 @@
 				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
-/datum/crafting_recipe/bonearmor
-	name = "Bone Armor"
-	result = /obj/item/clothing/suit/armor/bone
-	time = 30
-	reqs = list(/obj/item/stack/sheet/bone = 6)
+/datum/crafting_recipe/bonecodpiece
+	name = "Skull Codpiece"
+	result = /obj/item/clothing/accessory/necklace/skullcodpiece
+	time = 20
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				 /obj/item/stack/sheet/animalhide/goliath_hide = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bracers
+	name = "Bone Bracers"
+	result = /obj/item/clothing/gloves/bracer
+	time = 20
+	reqs = list(/obj/item/stack/sheet/bone = 2,
+				 /obj/item/stack/sheet/sinew = 1)
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/skullhelm
 	name = "Skull Helmet"
-	result = /obj/item/clothing/head/skullhelmet
+	result = /obj/item/clothing/head/helmet/skull
 	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4)
 	category = CAT_PRIMAL
@@ -463,12 +441,63 @@
 				/obj/item/stack/sheet/animalhide/ashdrake = 5)
 	category = CAT_PRIMAL
 
+/datum/crafting_recipe/firebrand
+	name = "Firebrand"
+	result = /obj/item/match/firebrand
+	time = 100 //Long construction time. Making fire is hard work.
+	reqs = list(/obj/item/stack/sheet/wood = 2)
+	category = CAT_PRIMAL
+
 /datum/crafting_recipe/tribal_splint
 	name = "Tribal Splint"
 	time = 20
 	reqs = list(/obj/item/stack/sheet/bone = 2,
 				/obj/item/stack/sheet/sinew = 1)
 	result = /obj/item/stack/medical/splint/tribal
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bonedagger
+	name = "Bone Dagger"
+	result = /obj/item/kitchen/knife/combat/survival/bone
+	time = 20
+	reqs = list(/obj/item/stack/sheet/bone = 2)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bonespear
+	name = "Bone Spear"
+	result = /obj/item/twohanded/spear/bonespear
+	time = 30
+	reqs = list(/obj/item/stack/sheet/bone = 4,
+				 /obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/boneaxe
+	name = "Bone Axe"
+	result = /obj/item/twohanded/fireaxe/boneaxe
+	time = 50
+	reqs = list(/obj/item/stack/sheet/bone = 6,
+				 /obj/item/stack/sheet/sinew = 3)
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/bonfire
+	name = "Bonfire"
+	time = 60
+	reqs = list(/obj/item/grown/log = 5)
+	result = /obj/structure/bonfire
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/rake //Category resorting incoming
+	name = "Rake"
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 5)
+	result = /obj/item/cultivator/rake
+	category = CAT_PRIMAL
+
+/datum/crafting_recipe/woodbucket
+	name = "Wooden Bucket"
+	time = 30
+	reqs = list(/obj/item/stack/sheet/wood = 3)
+	result = /obj/item/reagent_containers/glass/bucket/wooden
 	category = CAT_PRIMAL
 
 /datum/crafting_recipe/guillotine

@@ -226,6 +226,8 @@
 	health = 3
 	var/organhonked = 0
 	var/suffering_delay = 900
+	var/datum/component/waddle
+	var/datum/component/squeak
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -236,6 +238,8 @@
 	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
 	organhonked = world.time
+	waddle = M.AddComponent(/datum/component/waddling)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	. = ..()
@@ -246,6 +250,8 @@
 	M.dna.SetSEState(COMICBLOCK,0)
 	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+	QDEL_NULL(waddle)
+	QDEL_NULL(squeak)
 	qdel(src)
 
 /obj/item/organ/internal/honktumor/on_life()
@@ -281,6 +287,28 @@
 	owner.setBrainLoss(80)
 	owner.nutrition = 9000
 	owner.overeatduration = 9000
+
+
+/obj/item/organ/internal/honkbladder
+	name = "honk bladder"
+	desc = "a air filled sac that produces honking noises."
+	icon_state = "honktumor"//Not making a new icon
+	origin_tech = "biotech=1"
+	w_class = WEIGHT_CLASS_TINY
+	parent_organ = "groin"
+	slot = "honk_bladder"
+	health = 3
+	var/datum/component/squeak
+
+/obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
+
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50)
+
+/obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+
+	QDEL_NULL(squeak)
+	qdel(src)
 
 /obj/item/organ/internal/beard
 	name = "beard organ"

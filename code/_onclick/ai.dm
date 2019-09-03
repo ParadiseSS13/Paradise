@@ -209,11 +209,13 @@
 /atom/proc/AIMiddleClick()
 	return
 
-/obj/machinery/door/airlock/AIMiddleClick() // Toggles door bolt lights.
-	if(!src.lights)
-		Topic(src, list("src" = UID(), "command"="lights", "activate" = "1"), 1) // 1 meaning no window (consistency!)
+/obj/machinery/door/airlock/AIMiddleClick() // Toggles door safety.
+	if(safe)
+		Topic(src, list("src" = UID(), "command"="safeties", "activate" = "1"), 1) // 1 meaning no window (consistency!)
+		to_chat(usr, "The door safeties have been overridden.")
 	else
-		Topic(src, list("src" = UID(), "command"="lights", "activate" = "0"), 1)
+		Topic(src, list("src" = UID(), "command"="safeties", "activate" = "0"), 1)
+		to_chat(usr, "The door safeties have been reset.")
 	return
 
 /obj/machinery/ai_slipper/AICtrlClick() //Turns liquid dispenser on or off

@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - tweak: "The iron ore sprite that shows up when using the miner scanner no longer has a background, making it blend in better with the actual rock."

@@ -12,6 +12,16 @@
 	build_path = /obj/item/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
 
+/datum/design/recharger
+	name = "Machine Board(Weapon Recharger)"
+	desc = "The circuit board for a weapon recharger"
+	id = "recharger"
+	build_path = /obj/item/circuitboard/recharger
+	materials = list(MAT_GLASS = 1000)
+	build_type = IMPRINTER
+	req_tech = list("powerstorage" = 3, "materials" = 3)
+	category = list("Misc. Machinery")
+
 /datum/design/smes
 	name = "Machine Board (SMES)"
 	desc = "The circuit board for a SMES."
@@ -180,6 +190,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/chem_heater
+	category = list ("Medical Machinery")
+
+/datum/design/reagentgrinder
+	name = "Machine Design (All-In-One Grinder)"
+	desc = "The circuit board for an All-In-One Grinder."
+	id = "reagentgrinder"
+	req_tech = list("biotech" = 2, "materials" = 2, "programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/reagentgrinder
 	category = list ("Medical Machinery")
 
 /datum/design/sleeper

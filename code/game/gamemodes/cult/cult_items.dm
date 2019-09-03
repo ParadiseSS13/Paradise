@@ -61,7 +61,7 @@
 	breakouttime = 45
 	weaken = 1
 
-/obj/item/clothing/head/culthood
+/obj/item/clothing/head/hooded/culthood
 	name = "cult hood"
 	icon_state = "culthood"
 	desc = "A hood worn by the followers of a cult."
@@ -72,7 +72,7 @@
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 
 
-/obj/item/clothing/head/culthood/alt
+/obj/item/clothing/head/hooded/culthood/alt
 	icon_state = "cult_hoodalt"
 	item_state = "cult_hoodalt"
 
@@ -83,7 +83,7 @@
 	icon_state = "cultrobes"
 	item_state = "cultrobes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	hoodtype = /obj/item/clothing/head/culthood
+	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
 	flags_inv = HIDEJUMPSUIT
@@ -91,7 +91,7 @@
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
 	item_state = "cultrobesalt"
-	hoodtype = /obj/item/clothing/head/culthood/alt
+	hoodtype = /obj/item/clothing/head/hooded/culthood/alt
 
 /obj/item/clothing/head/magus
 	name = "magus helm"
@@ -140,15 +140,14 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	var/current_charges = 3
-	hoodtype = /obj/item/clothing/head/cult_hoodie
+	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
 
-/obj/item/clothing/head/cult_hoodie
+/obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist robe"
 	desc = "Empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
 	body_parts_covered = HEAD
-	flags = NODROP
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 
@@ -182,10 +181,10 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list(melee = -50, bullet = -50, laser = -100, energy = -50, bomb = -50, bio = -50, rad = -50)
 	slowdown = -1
-	hoodtype = /obj/item/clothing/head/berserkerhood
+	hoodtype = /obj/item/clothing/head/hooded/berserkerhood
 
 
-/obj/item/clothing/head/berserkerhood
+/obj/item/clothing/head/hooded/berserkerhood
 	name = "flagellant's robes"
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
 	icon_state = "culthood"
@@ -344,27 +343,12 @@
 	else
 		to_chat(C, "<span class='danger'>The veil cannot be torn here!</span>")
 
-/obj/item/clothing/suit/space/eva/plasmaman/cultist
-	name = "plasmaman cultist armor"
-	icon_state = "plasmaman_cult"
-	item_state = "plasmaman_cult"
-	desc = "A bulky suit of armour, menacing with red energy. It looks like it would fit a plasmaman."
-	slowdown = 1
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
-
-/obj/item/clothing/head/helmet/space/eva/plasmaman/cultist
-	name = "plasmaman cultist helmet"
-	icon_state = "plasmamanCult_helmet0"
-	base_state = "plasmamanCult_helmet"
-	desc = "A helmet designed by cultists. It glows menacingly with unearthly flames."
-	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 30, bio = 30, rad = 30)
-
 /obj/item/melee/cultblade/ghost
 	name = "eldritch sword"
 	force = 15
 	flags = NODROP | DROPDEL
 
-/obj/item/clothing/head/culthood/alt/ghost
+/obj/item/clothing/head/hooded/culthood/alt/ghost
 	flags = NODROP | DROPDEL
 
 /obj/item/clothing/suit/cultrobesghost
@@ -389,5 +373,5 @@
 	uniform = /obj/item/clothing/under/color/black
 	suit = /obj/item/clothing/suit/cultrobesghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
-	head = /obj/item/clothing/head/culthood/alt/ghost
+	head = /obj/item/clothing/head/hooded/culthood/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost

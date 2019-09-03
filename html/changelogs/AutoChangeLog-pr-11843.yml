@@ -1,4 +1,0 @@
-author: "JKnutson101"
-delete-after: True
-changes: 
-  - bugfix: "Issue where Emergency NanoMed Vendors required Medical ID to Access."
