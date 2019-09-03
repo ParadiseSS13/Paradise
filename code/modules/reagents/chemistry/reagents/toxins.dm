@@ -4,6 +4,7 @@
 	description = "A Toxic chemical."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
+	taste_mult = 1.2
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -28,7 +29,7 @@
 	description = "Useful for dealing with undesirable customers."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
-	taste_message = "mint"
+	taste_description = "mint"
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
 	if(FAT in M.mutations)
@@ -41,7 +42,8 @@
 	description = "A gooey semi-liquid produced from one of the deadliest lifeforms in existence. SO REAL."
 	reagent_state = LIQUID
 	color = "#801E28" // rgb: 128, 30, 40
-	taste_message = "slimes"
+	taste_description = "slimes"
+	taste_mult = 1.3
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -59,7 +61,7 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 	can_synth = FALSE
-	taste_message = "shadows"
+	taste_description = "shadows"
 
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -93,7 +95,8 @@
 	color = "#484848" // rgb: 72, 72, 72
 	metabolization_rate = 0.2
 	penetrates_skin = TRUE
-	taste_message = "metal"
+	taste_description = "metal"
+	taste_mult = 0 // elemental mercury is tasteless
 
 /datum/reagent/mercury/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -109,7 +112,7 @@
 	color = "#808080" // rgb: 128, 128, 128
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "fire"
+	taste_description = "fire"
 
 /datum/reagent/chlorine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -124,7 +127,7 @@
 	color = "#6A6054"
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "spicy freshness"
+	taste_description = "spicy freshness"
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -156,6 +159,7 @@
 	reagent_state = LIQUID
 	color = "#04DF27"
 	metabolization_rate = 0.3
+	taste_mult = 0.9
 
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(!..())
@@ -215,7 +219,7 @@
 	description = "A silvery-white metallic chemical element in the actinide series, weakly radioactive."
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
@@ -247,7 +251,7 @@
 	reagent_state = LIQUID
 	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "<span class='userdanger'>ACID</span>"
+	taste_description = "<span class='userdanger'>ACID</span>"
 
 /datum/reagent/sacid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -340,7 +344,7 @@
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
-	taste_message = "beer"
+	taste_description = "beer"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -361,7 +365,7 @@
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
 	can_synth = FALSE
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
 	M.apply_effect(8, IRRADIATE, negate_armor = 1)
@@ -375,7 +379,7 @@
 	color = "#E7C4C4"
 	metabolization_rate = 0.2
 	overdose_threshold = 40
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/histamine/reaction_mob(mob/living/M, method=TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
@@ -533,7 +537,7 @@
 	color = "#CF3600"
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
-	taste_message = "almonds"
+	taste_description = "almonds"
 
 /datum/reagent/cyanide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -592,7 +596,7 @@
 	reagent_state = LIQUID
 	color = "#5050FF"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "<span class='userdanger'>ACID</span>"
+	taste_description = "<span class='userdanger'>ACID</span>"
 
 /datum/reagent/facid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -648,7 +652,7 @@
 	reagent_state = LIQUID
 	color = "#7F10C0"
 	can_synth = FALSE
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -680,7 +684,7 @@
 	reagent_state = LIQUID
 	color = "#1E4664"
 	metabolization_rate = 0.2
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/pancuronium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -715,7 +719,7 @@
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
 	can_synth = FALSE
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -745,7 +749,7 @@
 	metabolization_rate = 0.8
 	penetrates_skin = TRUE
 	can_synth = FALSE
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -797,7 +801,7 @@
 	description = "A toxin produced by certain mushrooms. Very deadly."
 	reagent_state = LIQUID
 	color = "#D9D9D9"
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/amanitin/on_mob_delete(mob/living/M)
 	M.adjustToxLoss(current_cycle*rand(2,4))
@@ -810,7 +814,7 @@
 	reagent_state = SOLID
 	color = "#D1DED1"
 	metabolization_rate = 0.2
-	taste_message = "battery acid"
+	taste_description = "battery acid"
 
 /datum/reagent/lipolicide/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -902,7 +906,7 @@
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
 	overdose_threshold = 25
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/sarin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1038,7 +1042,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
-	taste_message = "sweetness"
+	taste_description = "sweetness"
 
 /datum/reagent/capulettium/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1069,7 +1073,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	heart_rate_stop = 1
-	taste_message = "sweetness"
+	taste_description = "sweetness"
 
 /datum/reagent/capulettium_plus/on_mob_life(mob/living/M)
 	M.Silence(2)
@@ -1142,7 +1146,7 @@
 	reagent_state = SOLID
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "<span class='warning'>ANTS OH GOD</span>"
+	taste_description = "<span class='warning'>ANTS OH GOD</span>"
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1165,7 +1169,7 @@
 	metabolization_rate = 0.2
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "electricity"
+	taste_description = "electricity"
 
 /datum/reagent/teslium/on_mob_life(mob/living/M)
 	shock_timer++
@@ -1181,7 +1185,7 @@
 	description = "An advanced corruptive toxin produced by something terrible."
 	reagent_state = LIQUID
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	taste_message = "decay"
+	taste_description = "decay"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
 	L.ForceContractDisease(new /datum/disease/transformation/morph())

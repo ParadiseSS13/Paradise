@@ -164,7 +164,7 @@
 
 /obj/item/clothing/gloves/fingerless/rapid/admin
 	name = "Advanced Interactive Gloves"
-	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps my merely looking at them."
+	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps by merely looking at them."
 	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
 	click_speed_modifier = 0
 	siemens_coefficient = 0
