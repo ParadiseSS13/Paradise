@@ -36,6 +36,10 @@
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
 			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
 		qdel(src)
+		if(istype(src, /datum/action/innate/ai/overload_machine))
+			usr.verbs -= /mob/living/silicon/ai/proc/overload_machine
+		else if(istype(src, /datum/action/innate/ai/override_machine))
+			usr.verbs -= /mob/living/silicon/ai/proc/override_machine
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/action/innate/ai/ranged
@@ -105,6 +109,8 @@
 		for(var/datum/action/A in AI.actions)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
+	AI.verbs -= /mob/living/silicon/ai/proc/overload_machine
+	AI.verbs -= /mob/living/silicon/ai/proc/override_machine
 
 /datum/module_picker/proc/use(user as mob)
 	var/dat
@@ -155,6 +161,16 @@
 				if(AM.power_type)
 					if(!action) //Unlocking for the first time
 						var/datum/action/AC = new AM.power_type
+
+						// These two powers are annoying as fuck to have as action buttons ONLY. We need verbs for them too, so we can right click on machines to overload/override
+						// Still adding them as action buttons just to have a neat icon and a tooltip for the amount of charges left
+						if(istype(AC, /datum/action/innate/ai/overload_machine))
+							A.view_core() //A BYOND bug requires you to be viewing your core before your verbs update
+							A.verbs += /mob/living/silicon/ai/proc/overload_machine
+						else if(istype(AC, /datum/action/innate/ai/override_machine))
+							A.view_core()
+							A.verbs += /mob/living/silicon/ai/proc/override_machine
+
 						AC.Grant(A)
 						A.current_modules += new AM.type
 						temp = AM.description
@@ -165,6 +181,13 @@
 						if(AM.unlock_sound)
 							A.playsound_local(A, AM.unlock_sound, 50, 0)
 					else //Adding uses to an existing module
+						if(istype(action, /datum/action/innate/ai/overload_machine))
+							for(var/datum/AI_Module/small/overload_machine/overload in A.current_modules)
+								overload.uses += 2
+						else if(istype(action, /datum/action/innate/ai/override_machine))
+							for(var/datum/AI_Module/small/override_machine/override in A.current_modules)
+								override.uses += 4
+
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
 						action.UpdateButtonIcon()
@@ -188,6 +211,7 @@
 	var/upgrade //If the module gives a passive upgrade, use this. Mutually exclusive with power_type.
 	var/unlock_text = "<span class='notice'>Hello World!</span>" //Text shown when an ability is unlocked
 	var/unlock_sound //Sound played when an ability is unlocked
+	var/uses
 
 /datum/AI_Module/proc/upgrade(mob/living/silicon/AI/AI) //Apply upgrades!
 	return
@@ -454,6 +478,7 @@
 	mod_pick_name = "overload"
 	description = "Overheats an electrical machine, causing a small explosion and destroying it. Two uses per purchase."
 	cost = 20
+	uses = 2
 	power_type = /datum/action/innate/ai/overload_machine
 	unlock_text = "<span class='notice'>You enable the ability for the station's APCs to direct intense energy into machinery.</span>"
 
@@ -493,12 +518,45 @@
 		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
 		return
 
+/mob/living/silicon/ai/proc/overload_machine(obj/machinery/M in GLOB.machines)
+	set name = "Overload Machine"
+	set category = "Malfunction"
+
+	if(stat)
+		return
+
+	if(istype(M, /obj/machinery))
+		for(var/datum/AI_Module/small/overload_machine/overload in current_modules)
+			if(overload.uses > 0)
+				overload.uses--
+
+				// This section is for updating the ability's associated action button tooltip after using the right click verb to overload
+				for(var/datum/action/innate/ai/A in usr.actions)
+					if(istype(A, /datum/action/innate/ai/overload_machine))
+						A.adjust_uses(-1)
+						A.desc = "[initial(A.desc)] It has [overload.uses] use\s remaining."
+						A.UpdateButtonIcon()
+						break
+
+				audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
+				to_chat(src, "<span class='warning'>Overloading machine circuitry...</span>")
+				spawn(50)
+					if(M)
+						explosion(get_turf(M), 0,1,1,0)
+						qdel(M)
+
+			if(overload.uses == 0)
+				usr.verbs -= /mob/living/silicon/ai/proc/overload_machine
+	else
+		to_chat(src, "<span class='notice'>That's not a machine.</span>")
+
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
 /datum/AI_Module/small/override_machine
 	module_name = "Machine Override"
 	mod_pick_name = "override"
 	description = "Overrides a machine's programming, causing it to rise up and attack everyone except other machines. Four uses."
 	cost = 30
+	uses = 4
 	power_type = /datum/action/innate/ai/override_machine
 	unlock_text = "<span class='notice'>You procure a virus from the Space Dark Web and prepare to distribute it to the station's machines.</span>"
 
@@ -539,6 +597,39 @@
 	else
 		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
 		return
+
+/mob/living/silicon/ai/proc/override_machine(obj/machinery/M in GLOB.machines)
+	set name = "Override Machine"
+	set category = "Malfunction"
+
+	if(stat)
+		return
+
+	if(istype(M, /obj/machinery))
+		if(!M.can_be_overridden())
+			to_chat(src, "Can't override this device.")
+		for(var/datum/AI_Module/small/override_machine/override in current_modules)
+			if(override.uses > 0)
+				override.uses--
+			
+				// This section is for updating the ability's associated action tooltip button after using the right click verb to override
+				for(var/datum/action/innate/ai/A in usr.actions)
+					if(istype(A, /datum/action/innate/ai/override_machine))
+						A.adjust_uses(-1)
+						A.desc = "[initial(A.desc)] It has [override.uses] use\s remaining."
+						A.UpdateButtonIcon()
+						break
+
+				audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
+				to_chat(src, "<span class='warning'>Reprogramming machine behaviour...</span>")
+				spawn(50)
+					if(M && !QDELETED(M))
+						new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
+
+			if(override.uses == 0)
+				usr.verbs -= /mob/living/silicon/ai/proc/override_machine
+	else
+		to_chat(src, "<span class='notice'>That's not a machine.</span>")
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
 /datum/AI_Module/large/place_cyborg_transformer
