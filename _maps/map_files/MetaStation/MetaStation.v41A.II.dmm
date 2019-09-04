@@ -44349,7 +44349,7 @@
 	pixel_y = 30
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "byf" = (
@@ -68716,7 +68716,7 @@
 	pixel_y = 32
 	},
 /obj/structure/chair/stool,
-/mob/living/simple_animal/pet/corgi/Ian/borgi,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -69612,7 +69612,7 @@
 	dir = 4;
 	on = 1
 	},
-/mob/living/simple_animal/pet/pug{
+/mob/living/simple_animal/pet/dog/pug{
 	name = "Pugley IV";
 	real_name = "Pugley IV"
 	},

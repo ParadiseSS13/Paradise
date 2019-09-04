@@ -678,7 +678,7 @@
 /obj/item/clothing/accessory/petcollar/process()
 	var/mob/living/simple_animal/M = loc
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.collar && M.stat != DEAD)
+	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
 
 	var/area/t = get_area(M)

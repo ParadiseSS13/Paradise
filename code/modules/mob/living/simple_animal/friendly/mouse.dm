@@ -168,6 +168,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
+	unique_pet = TRUE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 

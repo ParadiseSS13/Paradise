@@ -230,7 +230,7 @@
 /obj/item/grenade/clusterbuster/fluffy
 	name = "Fluffy Love Bomb"
 	desc = "Exactly as snuggly as it sounds."
-	payload = /mob/living/simple_animal/pet/corgi/puppy
+	payload = /mob/living/simple_animal/pet/dog/corgi/puppy
 
 /obj/item/grenade/clusterbuster/fox
 	name = "Troublemaking Grenade"

@@ -234,7 +234,7 @@
 						if("parrot")
 							new_mob = new /mob/living/simple_animal/parrot(M.loc)
 						if("corgi")
-							new_mob = new /mob/living/simple_animal/pet/corgi(M.loc)
+							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
 						if("crab")
 							new_mob = new /mob/living/simple_animal/crab(M.loc)
 						if("cat")

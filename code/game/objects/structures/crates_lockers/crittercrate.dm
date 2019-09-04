@@ -33,11 +33,11 @@
 
 /obj/structure/closet/critter/corgi
 	name = "corgi crate"
-	content_mob = /mob/living/simple_animal/pet/corgi
+	content_mob = /mob/living/simple_animal/pet/dog/corgi
 
 /obj/structure/closet/critter/corgi/New()
 	if(prob(50))
-		content_mob = /mob/living/simple_animal/pet/corgi/Lisa
+		content_mob = /mob/living/simple_animal/pet/dog/corgi/Lisa
 	..()
 
 /obj/structure/closet/critter/cow

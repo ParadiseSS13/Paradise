@@ -434,7 +434,7 @@ var/list/teleport_runes = list()
 	var/sacrifice_fulfilled
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	if(T)
-		if(istype(T, /mob/living/simple_animal/pet/corgi))
+		if(istype(T, /mob/living/simple_animal/pet/dog/corgi))
 			for(var/M in invokers)
 				var/mob/living/L = M
 				to_chat(L, "<span class='cultlarge'>\"Even I have standards, such as they are!\"</span>")

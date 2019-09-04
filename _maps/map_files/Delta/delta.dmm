@@ -63383,7 +63383,7 @@
 	icon_state = "alarm0";
 	pixel_x = 24
 	},
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -94462,7 +94462,7 @@
 	},
 /area/toxins/explab)
 "dnd" = (
-/mob/living/simple_animal/pet/pug,
+/mob/living/simple_animal/pet/dog/pug,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

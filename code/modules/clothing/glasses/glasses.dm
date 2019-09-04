@@ -258,7 +258,7 @@
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
-
+	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -374,6 +374,7 @@
 	flash_protect = 2
 	tint = 3				//to make them blind
 	prescription_upgradable = 0
+	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1

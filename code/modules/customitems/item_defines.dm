@@ -240,11 +240,10 @@
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>", "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
 	spawn(20)
-		var/mob/living/simple_animal/pet/corgi/C = new /mob/living/simple_animal/pet/corgi(get_turf(user))
+		var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
 		var/obj/item/clothing/head/det_hat/D = new /obj/item/clothing/head/det_hat(C)
 		D.flags |= NODROP
-		C.inventory_head = D
-		C.regenerate_icons()
+		C.place_on_head(D)
 		C.name = "Detective Sax"
 		C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 		to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
