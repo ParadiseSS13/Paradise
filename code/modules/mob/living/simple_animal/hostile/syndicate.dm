@@ -279,14 +279,9 @@
 	rapid = 2
 	retreat_distance = 5
 	minimum_distance = 5
-<<<<<<< HEAD
 	icon_state = "syndicate_smg"
 	icon_living = "syndicate_smg"
-=======
-	icon_state = "syndicateranged"
-	icon_living = "syndicateranged"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
->>>>>>> ParadiseSS13/master
 	casingtype = /obj/item/ammo_casing/c45
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
 
