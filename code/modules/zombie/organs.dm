@@ -15,8 +15,8 @@
 
 /obj/item/organ/internal/zombie_infection/New()
 	. = ..()
-	if(ishuman(owner) && !ismachine(owner) && !iszombie(owner.dna.species))
-		old_species = owner.dna.species
+	if(ishuman(owner) && !iszombie(owner))
+		old_species = owner.dna.species.type
 	GLOB.zombie_infection_list += src
 
 /obj/item/organ/internal/zombie_infection/Destroy()
