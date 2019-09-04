@@ -207,6 +207,12 @@
 
 	return ..()
 
+/datum/reagent/stable_mutagen/on_tick()
+	var/datum/reagent/blood/B = locate() in holder.reagent_list
+	if(B && islist(B.data) && !data)
+		data = B.data.Copy()
+	..()
+
 datum/reagent/romerol
 	name = "romerol"
 	// the REAL zombie powder
@@ -221,15 +227,13 @@ datum/reagent/romerol
 	can_synth = FALSE
 	taste_description = "CAAAARL"
 
-/datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H)
+/datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H, method = TOUCH, volume)
+	if(!istype(H))
+		return
 	// Silently add the zombie infection organ to be activated upon death
-	new /obj/item/organ/internal/zombie_infection(H)
-	..()
-
-/datum/reagent/stable_mutagen/on_tick()
-	var/datum/reagent/blood/B = locate() in holder.reagent_list
-	if(B && islist(B.data) && !data)
-		data = B.data.Copy()
+	if(!H.get_organ_slot("zombie_infection"))
+		var/obj/item/organ/internal/zombie_infection/nodamage/ZI = new()
+		ZI.insert(H)
 	..()
 
 /datum/reagent/uranium
