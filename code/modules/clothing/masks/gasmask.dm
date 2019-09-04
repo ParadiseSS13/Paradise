@@ -140,11 +140,7 @@
 	flags_inv = HIDEEARS | HIDEEYES
 	magical = TRUE
 
-/obj/item/clothing/mask/gas/virusclown_hat
-	name = "clown wig and mask"
-	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
-	icon_state = "clown"
-	item_state = "clown_hat"
+/obj/item/clothing/mask/gas/clown_hat/nodrop
 	flags = NODROP
 
 /obj/item/clothing/mask/gas/mime
@@ -153,6 +149,9 @@
 	icon_state = "mime"
 	item_state = "mime"
 	burn_state = FLAMMABLE
+
+/obj/item/clothing/mask/gas/mime/nodrop
+	flags = NODROP
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"

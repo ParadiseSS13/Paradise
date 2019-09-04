@@ -8742,7 +8742,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/glasses/hud/health/health_advanced,
+/obj/item/clothing/glasses/hud/health/sunglasses,
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /turf/unsimulated/floor{
 	tag = "icon-floor";

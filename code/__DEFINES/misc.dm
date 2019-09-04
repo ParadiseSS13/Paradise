@@ -487,9 +487,13 @@
 // Cult summon possibilities
 #define SUMMON_POSSIBILITIES 3
 
+// Dice rigged options.
 #define DICE_NOT_RIGGED 1
 #define DICE_BASICALLY_RIGGED 2
 #define DICE_TOTALLY_RIGGED 3
+
+// Water temperature
+#define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
 
 // Parallax
 #define PARALLAX_DELAY_DEFAULT	world.tick_lag

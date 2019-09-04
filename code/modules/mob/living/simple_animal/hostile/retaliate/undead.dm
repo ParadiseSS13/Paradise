@@ -35,6 +35,9 @@
 	maxHealth = 20
 	health = 20
 
+	emote_taunt = list("wails")
+	taunt_chance = 20
+
 	harm_intent_damage = 10
 	melee_damage_lower = 2
 	melee_damage_upper = 3
@@ -50,11 +53,6 @@
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Process_Spacemove(var/check_drift = 0)
 	return 1
-
-/mob/living/simple_animal/hostile/retaliate/ghost/FindTarget()
-	. = ..()
-	if(.)
-		custom_emote(1, "wails at [.]")
 
 /mob/living/simple_animal/hostile/retaliate/ghost/Life(seconds, times_fired)
 	if(target)

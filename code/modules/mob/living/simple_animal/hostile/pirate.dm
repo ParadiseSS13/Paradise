@@ -37,7 +37,7 @@
 	icon_dead = "piratemelee_dead" // Does not actually exist. del_on_death.
 	projectilesound = 'sound/weapons/laser.ogg'
 	ranged = 1
-	rapid = 1
+	rapid = 2
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/beam

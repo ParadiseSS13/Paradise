@@ -142,6 +142,7 @@
 			LoseTarget()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_movement()
+	. = ..()
 	if(seen_enemy)
 		aggro_cycles++
 		if(alert_on_timeout && !raised_alert && aggro_cycles >= 60)
@@ -166,14 +167,13 @@
 				continue
 			if(depotarea.list_includes(body, depotarea.dead_list))
 				continue
-			if(faction_check(body))
+			if(faction_check_mob(body))
 				continue
 			say("Target [body]... terminated.")
 			depotarea.list_add(body, depotarea.dead_list)
 			pointed(body)
 	else
 		scan_cycles++
-	..()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)
@@ -197,7 +197,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isliving(mover))
 		var/mob/living/blocker = mover
-		if(faction_check(blocker))
+		if(faction_check_mob(blocker))
 			return 1
 	return ..(mover, target, height)
 
@@ -276,11 +276,17 @@
 
 /mob/living/simple_animal/hostile/syndicate/ranged
 	ranged = 1
-	rapid = 1
+	rapid = 2
 	retreat_distance = 5
 	minimum_distance = 5
+<<<<<<< HEAD
 	icon_state = "syndicate_smg"
 	icon_living = "syndicate_smg"
+=======
+	icon_state = "syndicateranged"
+	icon_living = "syndicateranged"
+	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
+>>>>>>> ParadiseSS13/master
 	casingtype = /obj/item/ammo_casing/c45
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
 

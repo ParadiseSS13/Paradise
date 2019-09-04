@@ -80,6 +80,8 @@
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
+	var/list/learned_recipes //List of learned recipe TYPES.
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -1151,7 +1153,7 @@
 						A.set_zeroth_law("")
 						A.show_laws()
 						A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-						A.malf_picker.remove_verbs(A)
+						A.malf_picker.remove_malf_verbs(A)
 						qdel(A.malf_picker)
 					SSticker.mode.update_traitor_icons_removed(src)
 
