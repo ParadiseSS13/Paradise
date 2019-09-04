@@ -46,7 +46,6 @@ Difficulty: Medium
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	elimination = 1
-	idle_vision_range = 13
 	appearance_flags = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = 1 // Overriden from /tg/ - otherwise Legion starts chasing its minions
@@ -56,8 +55,8 @@ Difficulty: Medium
 	internal_gps = new/obj/item/gps/internal/legion(src)
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
-	..()
-	if(ishuman(target))
+	. = ..()
+	if(. && ishuman(target))
 		var/mob/living/L = target
 		if(L.stat == UNCONSCIOUS)
 			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)

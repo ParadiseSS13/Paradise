@@ -23,7 +23,7 @@
 	regen_points_per_hp = 2 // 50% higher regen speed
 	stat_attack = 1 // ensures they will target people in crit, too!
 	wander = 0 // wandering defeats the purpose of stealth
-	idle_vision_range = 3 // very low idle vision range
+	vision_range = 3 // very low idle vision range
 	delay_web = 20 // double speed
 	web_type = /obj/structure/spider/terrorweb/gray
 
@@ -58,7 +58,7 @@
 	if(invisibility > 0)
 		GrayDeCloak()
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/GrayCloak()
 	visible_message("<span class='notice'>[src] hides in the vent.</span>")
@@ -67,7 +67,6 @@
 	icon_living = "terror_gray_cloaked"
 	if(!ckey)
 		vision_range = 3
-		idle_vision_range = 3
 	// Bugged, does not work yet. Also spams webs. Also doesn't look great. But... planned.
 	move_to_delay = 15 // while invisible, slow.
 
@@ -76,7 +75,6 @@
 	icon_state = "terror_gray"
 	icon_living = "terror_gray"
 	vision_range = 9
-	idle_vision_range = 9
 	move_to_delay = 5
 	prob_ai_hides_in_vents = 10
 

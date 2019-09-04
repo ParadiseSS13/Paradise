@@ -18,19 +18,8 @@
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
+	vision_range = 5
 	aggro_vision_range = 18
-	idle_vision_range = 5
-	environment_target_typecache = list(
-	/obj/machinery/door/window,
-	/obj/structure/window,
-	/obj/structure/closet,
-	/obj/structure/table,
-	/obj/structure/grille,
-	/obj/structure/girder,
-	/obj/structure/rack,
-	/obj/structure/barricade,
-	/obj/machinery/field,
-	/obj/machinery/power/emitter)
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
@@ -43,10 +32,15 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	var/chosen_attack = 1 // chosen attack num
+	var/list/attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
 	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	for(var/action_type in attack_action_types)
+		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
+		attack_action.Grant(src)
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
@@ -70,8 +64,8 @@
 	loot = crusher_loot
 
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
-	..()
-	if(isliving(target))
+	. = ..()
+	if(. && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
@@ -124,3 +118,21 @@
 		SSmedals.SetScore(BOSS_SCORE, C, 1)
 		SSmedals.SetScore(score_type, C, 1)
 	return TRUE
+
+/datum/action/innate/megafauna_attack
+	name = "Megafauna Attack"
+	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = ""
+	var/mob/living/simple_animal/hostile/megafauna/M
+	var/chosen_message
+	var/chosen_attack_num = 0
+
+/datum/action/innate/megafauna_attack/Grant(mob/living/L)
+	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+		M = L
+		return ..()
+	return FALSE
+
+/datum/action/innate/megafauna_attack/Activate()
+	M.chosen_attack = chosen_attack_num
+	to_chat(M, chosen_message)

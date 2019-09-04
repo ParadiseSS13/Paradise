@@ -10,6 +10,7 @@
 	power_channel = ENVIRON
 	max_integrity = 350
 	armor = list(melee = 30, bullet = 30, laser = 20, energy = 20, bomb = 10, bio = 100, rad = 100)
+	flags = PREVENT_CLICK_UNDER
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	var/operating = FALSE

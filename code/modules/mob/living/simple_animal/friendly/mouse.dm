@@ -39,13 +39,6 @@
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
-	if(!mouse_color)
-		mouse_color = pick( list("brown","gray","white") )
-	icon_state = "mouse_[mouse_color]"
-	icon_living = "mouse_[mouse_color]"
-	icon_dead = "mouse_[mouse_color]_dead"
-	icon_resting = "mouse_[mouse_color]_sleep"
-	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/handle_automated_action()
 	if(prob(chew_probability))
@@ -64,27 +57,28 @@
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(prob(speak_chance))
-		for(var/mob/M in view())
-			M << squeak_sound
+	if(prob(speak_chance) && !incapacitated())
+		playsound(src, squeak_sound, 100, 1)
 
-/mob/living/simple_animal/mouse/Life(seconds, times_fired)
+/mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
-	if(stat == UNCONSCIOUS)
-		if(ckey || prob(1))
-			stat = CONSCIOUS
-			icon_state = "mouse_[mouse_color]"
-			wander = 1
+	if(resting)
+		if(prob(1))
+			StopResting()
 		else if(prob(5))
-			emote("snuffles")
+			custom_emote(2, "snuffles")
+	else if(prob(0.5))
+		StartResting()
 
-/mob/living/simple_animal/mouse/Life()
+/mob/living/simple_animal/mouse/New()
 	..()
-	if(prob(0.5) && !ckey)
-		stat = UNCONSCIOUS
-		icon_state = "mouse_[mouse_color]_sleep"
-		wander = 0
-		speak_chance = 0
+	if(!mouse_color)
+		mouse_color = pick( list("brown","gray","white") )
+	icon_state = "mouse_[mouse_color]"
+	icon_living = "mouse_[mouse_color]"
+	icon_dead = "mouse_[mouse_color]_dead"
+	icon_resting = "mouse_[mouse_color]_sleep"
+	desc = "It's a small [mouse_color] rodent, often seen hiding in maintenance areas and making a nuisance of itself."
 
 /mob/living/simple_animal/mouse/proc/splat()
 	src.health = 0

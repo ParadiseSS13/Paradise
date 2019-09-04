@@ -34,12 +34,11 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
-	qdel(udder)
-	udder = null
+	QDEL_NULL(udder)
 	return ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
-	..()
+	. = ..()
 	//chance to go crazy and start wacking stuff
 	if(!enemies.len && prob(1))
 		Retaliate()
@@ -49,14 +48,13 @@
 		LoseTarget()
 		visible_message("<span class='notice'>[src] calms down.</span>")
 
-	if(stat == CONSCIOUS)
-		eat_plants()
-		if(!pulledby)
-			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
-				var/step = get_step(src, direction)
-				if(step)
-					if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
-						Move(step, get_dir(src, step))
+	eat_plants()
+	if(!pulledby)
+		for(var/direction in shuffle(list(1, 2, 4, 8, 5, 6, 9, 10)))
+			var/step = get_step(src, direction)
+			if(step)
+				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
+					Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
@@ -94,8 +92,8 @@
 		say("Nom")
 
 /mob/living/simple_animal/hostile/retaliate/goat/AttackingTarget()
-	..()
-	if(isdiona(target))
+	. = ..()
+	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
 		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")

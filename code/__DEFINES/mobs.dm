@@ -219,3 +219,5 @@
 #define hasorgans(A)	(ishuman(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
+
+#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;

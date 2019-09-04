@@ -121,9 +121,13 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/AttackingTarget()
 	if(!charging)
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Goto(target, delay, minimum_distance)
+	if(!charging)
+		..()
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/MoveToTarget(list/possible_targets)
 	if(!charging)
 		..()
 
@@ -194,7 +198,7 @@ Difficulty: Hard
 	. = list()
 	for(var/mob/living/L in targets)
 		var/list/bloodpool = get_pools(get_turf(L), 0)
-		if(bloodpool.len && (!faction_check(L) || L.stat == DEAD))
+		if(bloodpool.len && (!faction_check_mob(L) || L.stat == DEAD))
 			. += L
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/try_bloodattack()
@@ -245,7 +249,7 @@ Difficulty: Hard
 		new /obj/effect/temp_visual/bubblegum_hands/leftsmack(T)
 	sleep(2.5)
 	for(var/mob/living/L in T)
-		if(!faction_check(L))
+		if(!faction_check_mob(L))
 			to_chat(L, "<span class='userdanger'>[src] rends you!</span>")
 			playsound(T, attack_sound, 100, 1, -1)
 			var/limb_to_hit = pick("head", "chest", "r_arm", "l_arm", "r_leg", "l_leg")
@@ -261,7 +265,7 @@ Difficulty: Hard
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 	sleep(6)
 	for(var/mob/living/L in T)
-		if(!faction_check(L))
+		if(!faction_check_mob(L))
 			to_chat(L, "<span class='userdanger'>[src] drags you through the blood!</span>")
 			playsound(T, 'sound/misc/enter_blood.ogg', 100, 1, -1)
 			var/turf/targetturf = get_step(src, dir)
