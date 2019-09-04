@@ -10,13 +10,10 @@
 		var/const/max_health = 200
 		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
 
-/obj/machinery/shield/New()
-	dir = pick(NORTH, SOUTH, EAST, WEST)
-	..()
-
-/obj/machinery/shield/Initialize()
+/obj/machinery/shield/Initialize(mapload)
+	. = ..()
+	setDir(pick(cardinal))
 	air_update_turf(1)
-	..()
 
 /obj/machinery/shield/Destroy()
 	opacity = FALSE
@@ -453,7 +450,7 @@
 		var/field_dir = get_dir(T2,get_step(T2, NSEW))
 		T = get_step(T2, NSEW)
 		T2 = T
-		var/obj/machinery/shieldwall/CF = new/obj/machinery/shieldwall/(src, G) //(ref to this gen, ref to connected gen)
+		var/obj/machinery/shieldwall/CF = new/obj/machinery/shieldwall(src, G) //(ref to this gen, ref to connected gen)
 		CF.loc = T
 		CF.dir = field_dir
 
@@ -539,8 +536,8 @@
 		var/obj/machinery/shieldwallgen/gen_primary
 		var/obj/machinery/shieldwallgen/gen_secondary
 
-/obj/machinery/shieldwall/New(obj/machinery/shieldwallgen/A, obj/machinery/shieldwallgen/B)
-	..()
+/obj/machinery/shieldwall/Initialize(mapload, obj/machinery/shieldwallgen/A, obj/machinery/shieldwallgen/B)
+	. = ..()
 	gen_primary = A
 	gen_secondary = B
 	if(A && B)

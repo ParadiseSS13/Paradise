@@ -25,8 +25,8 @@
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|OXYLOSS
 
-/obj/item/toy/crayon/New()
-	..()
+/obj/item/toy/crayon/Initialize(mapload)
+	. = ..()
 	name = "[colourName] crayon" //Makes crayons identifiable in things like grinders
 	drawtype = pick(pick(graffiti), pick(letters), "rune[rand(1,10)]")
 
@@ -147,7 +147,7 @@
 	colour = "#DA00FF"
 	colourName = "purple"
 
-/obj/item/toy/crayon/random/New()
+/obj/item/toy/crayon/random/Initialize(mapload)
 	icon_state = pick(list("crayonred", "crayonorange", "crayonyellow", "crayongreen", "crayonblue", "crayonpurple"))
 	switch(icon_state)
 		if("crayonred")
@@ -168,7 +168,7 @@
 		if("crayonpurple")
 			colour = "#DA00FF"
 			colourName = "purple"
-	..()
+	. = ..()
 
 /obj/item/toy/crayon/white
 	icon_state = "crayonwhite"
@@ -234,8 +234,8 @@
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
-/obj/item/toy/crayon/spraycan/New()
-	..()
+/obj/item/toy/crayon/spraycan/Initialize(mapload)
+	. = ..()
 	name = "Nanotrasen-brand Rapid Paint Applicator"
 	update_icon()
 

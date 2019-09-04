@@ -307,7 +307,8 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 /obj/item/healthanalyzer/advanced
 	upgraded = TRUE
 
-/obj/item/healthanalyzer/advanced/New()
+/obj/item/healthanalyzer/advanced/Initialize(mapload)
+	. = ..()
 	overlays += "advanced"
 
 
@@ -611,8 +612,8 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 	scan_time = 5 SECONDS
 	scan_cd = 20 SECONDS
 
-/obj/item/bodyanalyzer/New()
-	..()
+/obj/item/bodyanalyzer/Initialize(mapload)
+	. = ..()
 	power_supply = new cell_type(src)
 	power_supply.give(power_supply.maxcharge)
 	update_icon()

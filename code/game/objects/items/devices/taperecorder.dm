@@ -13,12 +13,15 @@
 	var/playing = 0
 	var/playsleepseconds = 0
 	var/obj/item/tape/mytape
+	var/starting_tape_type = /obj/item/tape/random
 	var/open_panel = 0
 	var/canprint = 1
 
 
-/obj/item/taperecorder/New()
-	mytape = new /obj/item/tape/random(src)
+/obj/item/taperecorder/Initialize(mapload)
+	. = ..()
+	if(starting_tape_type)
+		mytape = new /obj/item/tape/random(src)
 	update_icon()
 
 /obj/item/taperecorder/Destroy()
@@ -242,8 +245,8 @@
 	canprint = 1
 
 //empty tape recorders
-/obj/item/taperecorder/empty/New()
-	return
+/obj/item/taperecorder/empty
+	starting_tape_type = null
 
 
 /obj/item/tape
@@ -315,5 +318,6 @@
 
 
 //Random colour tapes
-/obj/item/tape/random/New()
+/obj/item/tape/random/Initialize(mapload)
+	. = ..()
 	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"

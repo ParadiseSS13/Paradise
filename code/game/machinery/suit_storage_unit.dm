@@ -235,8 +235,8 @@
 	..()
 
 
-/obj/machinery/suit_storage_unit/New()
-	..()
+/obj/machinery/suit_storage_unit/Initialize(mapload)
+	. = ..()
 	wires = new(src)
 
 /obj/machinery/suit_storage_unit/Initialize()

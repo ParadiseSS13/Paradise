@@ -196,22 +196,17 @@
 	var/datum/radio_frequency/radio_connection
 
 
-/obj/machinery/magnetic_controller/New()
-	..()
-
+/obj/machinery/magnetic_controller/Initialize(mapload)
+	. = ..()
 	if(autolink)
-		for(var/obj/machinery/magnetic_module/M in world)
+		for(var/obj/machinery/magnetic_module/M in GLOB.machines)
 			if(M.freq == frequency && M.code == code)
 				magnets.Add(M)
 
-
-	spawn(45)	// must wait for map loading to finish
-		if(SSradio)
-			radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
-
-
 	if(path) // check for default path
 		filter_path() // renders rpath
+	if(SSradio)
+		radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
 
 /obj/machinery/magnetic_controller/Destroy()

@@ -28,9 +28,6 @@
 	melee_damage_type = STAMINA
 	adminseal = TRUE
 
-/mob/living/simple_animal/hostile/guardian/healer/New()
-	..()
-
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
 	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]

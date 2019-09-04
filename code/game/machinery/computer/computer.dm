@@ -15,12 +15,9 @@
 	var/light_power_on = 1
 	var/overlay_layer
 
-/obj/machinery/computer/New()
+/obj/machinery/computer/Initialize(mapload)
+	. = ..()
 	overlay_layer = layer
-	..()
-
-/obj/machinery/computer/Initialize()
-	..()
 	power_change()
 	update_icon()
 

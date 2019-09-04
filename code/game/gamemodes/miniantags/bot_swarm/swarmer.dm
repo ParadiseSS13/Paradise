@@ -112,8 +112,8 @@
 	to_chat(src, "2. Ensure that the station is fit for invasion at a later date, do not perform actions that would render it dangerous or inhospitable.")
 	to_chat(src, "3. Biological and sentient resources will be harvested at a later date, do not harm them.")
 
-/mob/living/simple_animal/hostile/swarmer/New()
-	..()
+/mob/living/simple_animal/hostile/swarmer/Initialize(mapload)
+	. = ..()
 	add_language("Swarmer", 1)
 	verbs -= /mob/living/verb/pulled
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
@@ -380,9 +380,10 @@
 		resources++
 		do_attack_animation(target)
 		changeNext_move(CLICK_CD_MELEE)
-		var/obj/structure/swarmer/integrate/I = new /obj/structure/swarmer/integrate(get_turf(target))
+		var/obj/effect/temp_visual/swarmer/integrate/I = new /obj/effect/temp_visual/swarmer/integrate(get_turf(target))
 		I.pixel_x = target.pixel_x
 		I.pixel_y = target.pixel_y
+		I.pixel_z = target.pixel_z
 		if(istype(target, /obj/item/stack))
 			var/obj/item/stack/S = target
 			S.use(1)
@@ -394,7 +395,7 @@
 		return
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(var/atom/movable/target)
-	new /obj/structure/swarmer/disintegration(get_turf(target))
+	new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 	do_attack_animation(target)
 	changeNext_move(CLICK_CD_MELEE)
 	target.ex_act(3)
@@ -433,9 +434,10 @@
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(var/obj/machinery/target)
 	do_attack_animation(target)
 	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
-	var/obj/structure/swarmer/dismantle/D = new /obj/structure/swarmer/dismantle(get_turf(target))
+	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
+	D.pixel_z = target.pixel_z
 	if(do_mob(src, target, 100))
 		if(!src.Adjacent(target))
 			to_chat(src, "<span class='info'>Error:Dismantling aborted.</span>")
@@ -446,9 +448,10 @@
 			if(target.component_parts && target.component_parts.len)
 				for(var/obj/item/I in target.component_parts)
 					I.forceMove(M.loc)
-			var/obj/structure/swarmer/disintegration/N = new /obj/structure/swarmer/disintegration(get_turf(target))
+			var/obj/effect/temp_visual/swarmer/disintegration/N = new /obj/effect/temp_visual/swarmer/disintegration(get_turf(target))
 			N.pixel_x = target.pixel_x
 			N.pixel_y = target.pixel_y
+			N.pixel_z = target.pixel_z
 			target.dropContents()
 			if(istype(target, /obj/machinery/computer))
 				var/obj/machinery/computer/C = target
@@ -456,7 +459,25 @@
 					new C.circuit(get_turf(M))
 			qdel(target)
 
+/obj/effect/temp_visual/swarmer //temporary swarmer visual feedback objects
+	icon = 'icons/mob/swarmer.dmi'
+	layer = BELOW_MOB_LAYER
 
+/obj/effect/temp_visual/swarmer/disintegration
+	icon_state = "disintegrate"
+	duration = 10
+
+/obj/effect/temp_visual/swarmer/disintegration/Initialize(mapload)
+	. = ..()
+	playsound(loc, "sparks", 100, TRUE)
+
+/obj/effect/temp_visual/swarmer/dismantle
+	icon_state = "dismantle"
+	duration = 25
+
+/obj/effect/temp_visual/swarmer/integrate
+	icon_state = "integrate"
+	duration = 5
 
 /obj/structure/swarmer //Default swarmer effect object visual feedback
 	name = "swarmer ui"
@@ -473,31 +494,9 @@
 	light_color = LIGHT_COLOR_CYAN
 	var/lon_range = 1
 
-/obj/structure/swarmer/New()
+/obj/structure/swarmer/Initialize(mapload)
 	. = ..()
 	set_light(lon_range)
-
-/obj/structure/swarmer/disintegration
-	icon_state = "disintegrate"
-
-/obj/structure/swarmer/disintegration/New()
-	playsound(src.loc, "sparks", 100, 1)
-	spawn(10)
-		qdel(src)
-
-/obj/structure/swarmer/dismantle
-	icon_state = "dismantle"
-
-/obj/structure/swarmer/dismantle/New()
-	spawn(25)
-		qdel(src)
-
-/obj/structure/swarmer/integrate
-	icon_state = "integrate"
-
-/obj/structure/swarmer/integrate/New()
-	spawn(5)
-		qdel(src)
 
 /obj/structure/swarmer/take_damage(damage)
 	health -= damage

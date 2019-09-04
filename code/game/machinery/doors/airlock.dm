@@ -113,12 +113,9 @@ About the new airlock wires panel:
 */
 // You can find code for the airlock wires in the wire datum folder.
 
-/obj/machinery/door/airlock/New()
-	..()
-	wires = new(src)
-
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
+	wires = new(src)
 	if(closeOtherId != null)
 		addtimer(CALLBACK(src, .proc/update_other_id), 5)
 	if(glass)
@@ -132,6 +129,8 @@ About the new airlock wires panel:
 	if(damage_deflection == AIRLOCK_DAMAGE_DEFLECTION_N && security_level > AIRLOCK_SECURITY_METAL)
 		damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 	update_icon()
+	if(SSradio)
+		set_frequency(frequency)
 
 /obj/machinery/door/airlock/proc/update_other_id()
 	for(var/obj/machinery/door/airlock/A in GLOB.airlocks)

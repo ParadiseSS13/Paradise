@@ -13,8 +13,8 @@
 	var/recharge_speed_nutrition
 	var/repairs
 
-/obj/machinery/recharge_station/New()
-	..()
+/obj/machinery/recharge_station/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -24,8 +24,8 @@
 	RefreshParts()
 	build_icon()
 
-/obj/machinery/recharge_station/upgraded/New()
-	..()
+/obj/machinery/recharge_station/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cyborgrecharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)

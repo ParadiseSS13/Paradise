@@ -37,9 +37,9 @@
 
 	var/list/categories = list("Tools", "Electronics", "Construction", "Communication", "Security", "Machinery", "Medical", "Miscellaneous", "Dinnerware", "Imported")
 
-/obj/machinery/autolathe/New()
+/obj/machinery/autolathe/Initialize(mapload)
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS), 0, TRUE, null, null, CALLBACK(src, .proc/AfterMaterialInsert))
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -53,8 +53,8 @@
 	files = new /datum/research/autolathe(src)
 	matching_designs = list()
 
-/obj/machinery/autolathe/upgraded/New()
-	..()
+/obj/machinery/autolathe/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/autolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)

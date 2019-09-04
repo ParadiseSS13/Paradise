@@ -25,7 +25,7 @@
 
 /obj/effect/proc_holder/spell/targeted/touch/proc/ChargeHand(mob/living/carbon/user)
 	var/hand_handled = 1
-	attached_hand = new hand_path(src)
+	attached_hand = new hand_path(spell = src)
 	if(user.hand) 	//left active hand
 		if(!user.equip_to_slot_if_possible(attached_hand, slot_l_hand, 0, 1, 1))
 			if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, 0, 1, 1))

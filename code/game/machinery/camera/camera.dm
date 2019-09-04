@@ -34,8 +34,8 @@
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
 
-/obj/machinery/camera/New()
-	..()
+/obj/machinery/camera/Initialize(mapload)
+	. = ..()
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
@@ -45,8 +45,6 @@
 	cameranet.cameras += src
 	cameranet.addCamera(src)
 
-/obj/machinery/camera/Initialize(mapload)
-	. = ..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.CutAll()

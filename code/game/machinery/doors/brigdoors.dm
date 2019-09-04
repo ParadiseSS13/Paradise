@@ -36,9 +36,9 @@
 	var/time = 0
 	var/officer = "None"
 
-/obj/machinery/door_timer/New()
+/obj/machinery/door_timer/Initialize(mapload)
+	. = ..()
  	GLOB.celltimers_list += src
- 	return ..()
 
 /obj/machinery/door_timer/Destroy()
  	GLOB.celltimers_list -= src

@@ -18,9 +18,9 @@
 /obj/machinery/computer/prisoner/attack_ai(var/mob/user as mob)
 	return src.attack_hand(user)
 
-/obj/machinery/computer/prisoner/New()
+/obj/machinery/computer/prisoner/Initialize(mapload)
+	. = ..()
  	GLOB.prisoncomputer_list += src
- 	return ..()
 
 /obj/machinery/computer/prisoner/Destroy()
  	GLOB.prisoncomputer_list -= src

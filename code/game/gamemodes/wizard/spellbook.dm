@@ -600,9 +600,9 @@
 	main_tab = main_categories[1]
 	tab = categories[1]
 
-/obj/item/spellbook/New()
-	..()
-	initialize()
+/obj/item/spellbook/Initialize(mapload)
+	. = ..()
+	initialize() // oh screw you
 
 /obj/item/spellbook/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/contract))

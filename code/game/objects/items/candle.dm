@@ -11,8 +11,8 @@
 	var/start_lit = 0
 	light_color = "#E09D37"
 
-/obj/item/candle/New()
-	..()
+/obj/item/candle/Initialize(mapload)
+	. = ..()
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)

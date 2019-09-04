@@ -28,8 +28,8 @@
 			set_opacity(0)
 		stoplag()
 
-/obj/effect/particle_effect/smoke/New()
-	..()
+/obj/effect/particle_effect/smoke/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	lifetime += rand(-1,1)
 

@@ -147,8 +147,8 @@
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
 
-/obj/effect/rend/New(loc, var/spawn_type, var/spawn_amt, var/desc)
-	..()
+/obj/effect/rend/Initialize(mapload, spawn_type, spawn_amt, desc)
+	. = ..()
 	src.spawn_path = spawn_type
 	src.spawn_amt_left = spawn_amt
 	src.desc = desc
@@ -221,7 +221,7 @@
 	user.ghostize(1)
 
 /////////////////////Multiverse Blade////////////////////
-var/global/list/multiverse = list()
+GLOBAL_LIST(multiverse)
 
 /obj/item/multisword
 	name = "multiverse sword"
@@ -245,13 +245,13 @@ var/global/list/multiverse = list()
 	var/duplicate_self = 0 //Do we want the species randomized along with equipment should the user be duplicated in their entirety?
 	var/sword_type = /obj/item/multisword //type of sword to equip.
 
-/obj/item/multisword/New()
-	..()
-	multiverse |= src
+/obj/item/multisword/Initialize(mapload)
+	. = ..()
+	GLOB.multiverse |= src
 
 
 /obj/item/multisword/Destroy()
-	multiverse.Remove(src)
+	GLOB.multiverse.Remove(src)
 	return ..()
 
 /obj/item/multisword/attack(mob/living/M as mob, mob/living/user as mob)  //to prevent accidental friendly fire or out and out grief.
@@ -298,7 +298,7 @@ var/global/list/multiverse = list()
 					evil = FALSE
 		else
 			cooldown = world.time + cooldown_between_uses
-			for(var/obj/item/multisword/M in multiverse)
+			for(var/obj/item/multisword/M in GLOB.multiverse)
 				if(M.assigned == assigned)
 					M.cooldown = cooldown
 
@@ -637,7 +637,7 @@ var/global/list/multiverse = list()
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
-		
+
 	if((!M.mind || !M.client) && !M.grab_ghost())
 		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
 		return

@@ -32,8 +32,8 @@
 
 	faction = list("faithless")
 
-/mob/living/simple_animal/ascendant_shadowling/New()
-	..()
+/mob/living/simple_animal/ascendant_shadowling/Initialize(mapload)
+	. = ..()
 	if(prob(35))
 		icon_state = "NurnKal"
 		icon_living = "NurnKal"

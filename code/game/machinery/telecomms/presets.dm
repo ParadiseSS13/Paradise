@@ -80,10 +80,10 @@
 	freq_listening = list(AI_FREQ, COMM_FREQ, ENG_FREQ, SEC_FREQ)
 
 	//Common and other radio frequencies for people to freely use
-/obj/machinery/telecomms/receiver/preset_right/New()
+/obj/machinery/telecomms/receiver/preset_right/Initialize(mapload)
 	for(var/i = PUBLIC_LOW_FREQ, i < PUBLIC_HIGH_FREQ, i += 2)
 		freq_listening |= i
-	..()
+	. = ..()
 
 /obj/machinery/telecomms/receiver/preset_cent
 	id = "CentComm Receiver"
@@ -118,10 +118,10 @@
 	freq_listening = list(ENG_FREQ, AI_FREQ, PUB_FREQ)
 	autolinkers = list("processor4", "engineering", "common")
 
-/obj/machinery/telecomms/bus/preset_four/New()
+/obj/machinery/telecomms/bus/preset_four/Initialize(mapload)
 	for(var/i = PUBLIC_LOW_FREQ, i < PUBLIC_HIGH_FREQ, i += 2)
 		freq_listening |= i
-	..()
+	. = ..()
 
 /obj/machinery/telecomms/bus/preset_cent
 	id = "CentComm Bus"
@@ -190,10 +190,10 @@
 	autolinkers = list("common")
 
 //Common and other radio frequencies for people to freely use
-/obj/machinery/telecomms/server/presets/common/New()
+/obj/machinery/telecomms/server/presets/common/Initialize(mapload)
 	for(var/i = PUBLIC_LOW_FREQ, i < PUBLIC_HIGH_FREQ, i += 2)
 		freq_listening |= i
-	..()
+	. = ..()
 
 /obj/machinery/telecomms/server/presets/command
 	id = "Command Server"

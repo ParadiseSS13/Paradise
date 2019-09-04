@@ -10,8 +10,8 @@
 	var/required_blood = 0
 	var/gain_desc = null
 
-/obj/effect/proc_holder/spell/vampire/New()
-	..()
+/obj/effect/proc_holder/spell/vampire/Initialize(mapload)
+	. = ..()
 	if(!gain_desc)
 		gain_desc = "You have gained \the [src] ability."
 
@@ -369,8 +369,8 @@
 	action_icon_state = "vampire_cloak"
 	charge_max = 10
 
-/obj/effect/proc_holder/spell/vampire/self/cloak/New()
-	..()
+/obj/effect/proc_holder/spell/vampire/self/cloak/Initialize(mapload)
+	. = ..()
 	update_name()
 
 /obj/effect/proc_holder/spell/vampire/self/cloak/proc/update_name()

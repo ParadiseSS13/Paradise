@@ -14,8 +14,8 @@
 	var/power_efficiency = 1
 	var/obj/machinery/quantumpad/linked_pad = null
 
-/obj/machinery/quantumpad/New()
-	..()
+/obj/machinery/quantumpad/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null)

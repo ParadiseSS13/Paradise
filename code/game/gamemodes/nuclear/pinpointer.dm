@@ -19,8 +19,8 @@
 	var/icon_medium = "pinonmedium"
 	var/icon_far = "pinonfar"
 
-/obj/item/pinpointer/New()
-	..()
+/obj/item/pinpointer/Initialize(mapload)
+	. = ..()
 	GLOB.pinpointer_list += src
 
 /obj/item/pinpointer/Destroy()
@@ -165,13 +165,13 @@
 					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
 					if(!targetitem)
 						return
-					
+
 					var/list/target_candidates = get_all_of_type(item_paths[targetitem], subtypes = TRUE)
 					for(var/obj/item/candidate in target_candidates)
 						if(!is_admin_level((get_turf(candidate)).z))
 							target = candidate
 							break
-					
+
 					if(!target)
 						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return

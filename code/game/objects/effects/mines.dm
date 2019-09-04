@@ -110,8 +110,8 @@
 	density = 0
 	var/duration = 0
 
-/obj/effect/mine/pickup/New()
-	..()
+/obj/effect/mine/pickup/Initialize(mapload)
+	. = ..()
 	animate(src, pixel_y = 4, time = 20, loop = -1)
 
 /obj/effect/mine/pickup/triggermine(mob/living/victim)

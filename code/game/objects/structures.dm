@@ -28,8 +28,8 @@
 		return 1
 	return 0
 
-/obj/structure/New()
-	..()
+/obj/structure/Initialize(mapload)
+	. = ..()
 	if(smooth)
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 			queue_smooth(src)

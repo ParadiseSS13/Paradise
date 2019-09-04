@@ -19,8 +19,8 @@
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
 
 
-/obj/machinery/light_switch/New(turf/loc, var/w_dir=null)
-	..()
+/obj/machinery/light_switch/Initialize(mapload, w_dir = null)
+	. = ..()
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
@@ -32,21 +32,16 @@
 			pixel_x = -25
 	if(SSradio)
 		set_frequency(frequency)
-	spawn(5)
-		src.area = get_area(src)
+	area = get_area(src)
 
-		if(otherarea)
-			src.area = locate(text2path("/area/[otherarea]"))
+	if(otherarea)
+		area = locate(text2path("/area/[otherarea]"))
 
-		if(!name)
-			name = "light switch([area.name])"
+	if(!name)
+		name = "light switch([area.name])"
 
-		src.on = src.area.lightswitch
-		updateicon()
-
-/obj/machinery/light_switch/Initialize()
-	..()
-	set_frequency(frequency)
+	on = area.lightswitch
+	updateicon()
 
 /obj/machinery/light_switch/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

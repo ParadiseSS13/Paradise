@@ -10,8 +10,8 @@ var/global/list/minor_air_alarms = list()
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/atmos_alert/New()
-	..()
+/obj/machinery/computer/atmos_alert/Initialize(mapload)
+	. = ..()
 	SSalarms.atmosphere_alarm.register(src, /obj/machinery/computer/station_alert/update_icon)
 
 /obj/machinery/computer/atmos_alert/Destroy()

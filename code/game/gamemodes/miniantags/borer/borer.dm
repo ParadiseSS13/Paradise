@@ -114,8 +114,8 @@
 	var/datum/action/innate/borer/freeze_victim/freeze_victim_action = new
 	var/datum/action/innate/borer/torment/torment_action = new
 
-/mob/living/simple_animal/borer/New(atom/newloc, var/gen=1)
-	..(newloc)
+/mob/living/simple_animal/borer/Initialize(mapload, gen = 1)
+	. = ..()
 	remove_from_all_data_huds()
 	generation = gen
 	add_language("Cortical Link")

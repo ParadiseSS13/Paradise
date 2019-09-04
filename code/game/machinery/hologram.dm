@@ -58,8 +58,8 @@ var/list/holopads = list()
 	var/ringing = FALSE
 	var/dialling_input = FALSE //The user is currently selecting where to send their call
 
-/obj/machinery/hologram/holopad/New()
-	..()
+/obj/machinery/hologram/holopad/Initialize(mapload)
+	. = ..()
 	holopads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/holopad(null)

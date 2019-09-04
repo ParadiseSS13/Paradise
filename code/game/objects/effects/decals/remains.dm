@@ -29,8 +29,8 @@
 	icon_state = "remains"
 	anchored = TRUE
 
-/obj/effect/decal/remains/slime/New()
-	..()
+/obj/effect/decal/remains/slime/Initialize(mapload)
+	. = ..()
 	var/datum/reagents/R = new/datum/reagents(5)
 	var/obj/effect/particle_effect/water/W = new(get_turf(src))
 	W.reagents = R

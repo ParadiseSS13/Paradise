@@ -26,8 +26,8 @@ var/list/doppler_arrays = list()
 	actual_size_message = log_actual_size_message
 	theoretical_size_message = log_theoretical_size_message
 
-/obj/machinery/doppler_array/New()
-	..()
+/obj/machinery/doppler_array/Initialize(mapload)
+	. = ..()
 	doppler_arrays += src
 	explosion_target = rand(8, 20)
 	toxins_tech = new /datum/tech/toxins(src)

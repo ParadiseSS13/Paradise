@@ -8,11 +8,10 @@
 		icon_full  	= ""
 		icon_broken	= ""
 
-/obj/item/ashtray/New()
-	..()
+/obj/item/ashtray/Initialize(mapload)
+	. = ..()
 	src.pixel_y = rand(-5, 5)
 	src.pixel_x = rand(-6, 6)
-	return
 
 /obj/item/ashtray/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(health < 1)

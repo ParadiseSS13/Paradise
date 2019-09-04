@@ -38,12 +38,12 @@
 	scribereduct = 50
 	canbypass = 1
 
-/obj/item/tome/New()
+/obj/item/tome/Initialize(mapload)
+	. = ..()
 	if(!SSticker.mode)
 		icon_state = "tome"
 	else
 		icon_state = SSticker.cultdat.tome_icon
-	..()
 
 /obj/item/tome/examine(mob/user)
 	..()

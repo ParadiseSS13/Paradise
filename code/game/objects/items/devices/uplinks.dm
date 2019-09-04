@@ -29,8 +29,8 @@ var/list/world_uplinks = list()
 /obj/item/uplink/nano_host()
 	return loc
 
-/obj/item/uplink/New()
-	..()
+/obj/item/uplink/Initialize(mapload)
+	. = ..()
 	welcome = SSticker.mode.uplink_welcome
 	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items()
@@ -188,11 +188,11 @@ var/list/world_uplinks = list()
 	var/active = 0
 
 // The hidden uplink MUST be inside an obj/item's contents.
-/obj/item/uplink/hidden/New()
-	spawn(2)
+/obj/item/uplink/hidden/Initialize(mapload)
+	. = ..()
+	spawn(2) // Gross
 		if(!istype(src.loc, /obj/item))
 			qdel(src)
-	..()
 
 // Toggles the uplink on and off. Normally this will bypass the item's normal functions and go to the uplink menu, if activated.
 /obj/item/uplink/hidden/proc/toggle()
@@ -315,7 +315,8 @@ var/list/world_uplinks = list()
 // Includes normal radio uplink, multitool uplink,
 // implant uplink (not the implant tool) and a preset headset uplink.
 
-/obj/item/radio/uplink/New()
+/obj/item/radio/uplink/Initialize(mapload)
+	. = ..()
 	hidden_uplink = new(src)
 	icon_state = "radio"
 
@@ -323,8 +324,8 @@ var/list/world_uplinks = list()
 	if(hidden_uplink)
 		hidden_uplink.trigger(user)
 
-/obj/item/radio/uplink/nuclear/New()
-	..()
+/obj/item/radio/uplink/nuclear/Initialize(mapload)
+	. = ..()
 	if(hidden_uplink)
 		hidden_uplink.uplink_type = "nuclear"
 	GLOB.nuclear_uplink_list += src
@@ -333,12 +334,13 @@ var/list/world_uplinks = list()
 	GLOB.nuclear_uplink_list -= src
 	return ..()
 
-/obj/item/radio/uplink/sst/New()
-	..()
+/obj/item/radio/uplink/sst/Initialize(mapload)
+	. = ..()
 	if(hidden_uplink)
 		hidden_uplink.uplink_type = "sst"
 
-/obj/item/multitool/uplink/New()
+/obj/item/multitool/uplink/Initialize(mapload)
+	. = ..()
 	hidden_uplink = new(src)
 
 /obj/item/multitool/uplink/attack_self(mob/user as mob)
@@ -348,7 +350,7 @@ var/list/world_uplinks = list()
 /obj/item/radio/headset/uplink
 	traitor_frequency = 1445
 
-/obj/item/radio/headset/uplink/New()
-	..()
+/obj/item/radio/headset/uplink/Initialize(mapload)
+	. = ..()
 	hidden_uplink = new(src)
 	hidden_uplink.uses = 20

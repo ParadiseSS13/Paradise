@@ -96,8 +96,8 @@
 		return
 	..()
 
-/obj/item/pizza_bomb/New()
-	..()
+/obj/item/pizza_bomb/Initialize(mapload)
+	. = ..()
 	correct_wire = pick(wires)
 
 /obj/item/pizza_bomb/autoarm

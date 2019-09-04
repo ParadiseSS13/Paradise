@@ -22,8 +22,8 @@
 	anchored = TRUE
 	var/hotspottemp = 1000
 
-/obj/effect/particle_effect/sparks/New()
-	..()
+/obj/effect/particle_effect/sparks/Initialize(mapload)
+	. = ..()
 	flick("sparks", src) // replay the animation
 	playsound(loc, "sparks", 100, 1)
 	var/turf/T = loc
@@ -56,14 +56,14 @@
 	icon_state = "sparkel"
 	hotspottemp = 3000
 
-/obj/effect/particle_effect/sparks/sparkles/New()
+/obj/effect/particle_effect/sparks/sparkles/Initialize(mapload)
+	. = ..()
 	var/icon/I = new(src.icon,src.icon_state)
 	var/r = rand(0,255)
 	var/g = rand(0,255)
 	var/b = rand(0,255)
 	I.Blend(rgb(r,g,b),ICON_MULTIPLY)
 	src.icon = I
-	..()
 
 /datum/effect_system/sparkle_spread
 	effect_type = /obj/effect/particle_effect/sparks/sparkles

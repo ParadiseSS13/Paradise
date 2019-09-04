@@ -10,8 +10,8 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE //set if allowed to teleport to even if on zlevel2
 
-/obj/item/radio/beacon/New()
-	..()
+/obj/item/radio/beacon/Initialize(mapload)
+	. = ..()
 	code = "[code] ([GLOB.beacons.len + 1])"
 	GLOB.beacons += src
 

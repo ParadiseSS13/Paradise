@@ -50,8 +50,8 @@
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
 
-/obj/machinery/clonepod/New()
-	..()
+/obj/machinery/clonepod/Initialize(mapload)
+	. = ..()
 	countdown = new(src)
 
 	Radio = new /obj/item/radio(src)
@@ -70,8 +70,8 @@
 	RefreshParts()
 	update_icon()
 
-/obj/machinery/clonepod/upgraded/New()
-	..()
+/obj/machinery/clonepod/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -125,7 +125,8 @@
 	name = "data disk - 'God Emperor of Mankind'"
 	read_only = 1
 
-/obj/item/disk/data/demo/New()
+/obj/item/disk/data/demo/Initialize(mapload)
+	. = ..()
 	initialize()
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
@@ -144,7 +145,8 @@
 	name = "data disk - 'Mr. Muggles'"
 	read_only = 1
 
-/obj/item/disk/data/monkey/New()
+/obj/item/disk/data/monkey/Initialize(mapload)
+	. = ..()
 	initialize()
 	buf.types=DNA2_BUF_SE
 	var/list/new_SE=list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
@@ -154,8 +156,8 @@
 	buf.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
 
 //Disk stuff.
-/obj/item/disk/data/New()
-	..()
+/obj/item/disk/data/Initialize(mapload)
+	. = ..()
 	var/diskcolor = pick(0,1,2)
 	icon_state = "datadisk[diskcolor]"
 
@@ -615,8 +617,8 @@
 	name = "Diskette Box"
 	icon_state = "disk_kit"
 
-/obj/item/storage/box/disks/New()
-	..()
+/obj/item/storage/box/disks/Initialize(mapload)
+	. = ..()
 	new /obj/item/disk/data(src)
 	new /obj/item/disk/data(src)
 	new /obj/item/disk/data(src)

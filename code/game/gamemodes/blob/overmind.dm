@@ -21,7 +21,7 @@
 	var/datum/reagent/blob/blob_reagent_datum = new/datum/reagent/blob()
 	var/list/blob_mobs = list()
 
-/mob/camera/blob/New()
+/mob/camera/blob/Initialize(mapload)
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
 	name = new_name
 	real_name = new_name
@@ -34,7 +34,7 @@
 		blob_core.adjustcolors(blob_reagent_datum.color)
 
 	color = blob_reagent_datum.complementary_color
-	..()
+	. = ..()
 
 /mob/camera/blob/Life(seconds, times_fired)
 	if(!blob_core)

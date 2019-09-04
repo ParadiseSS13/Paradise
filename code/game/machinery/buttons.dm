@@ -22,8 +22,8 @@
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
 	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 
-/obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
-	..()
+/obj/machinery/driver_button/Initialize(mapload, w_dir = null)
+	. = ..()
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
@@ -35,10 +35,6 @@
 			pixel_x = -25
 	if(SSradio)
 		set_frequency(frequency)
-
-/obj/machinery/driver_button/Initialize()
-	..()
-	set_frequency(frequency)
 
 /obj/machinery/driver_button/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)

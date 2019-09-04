@@ -27,8 +27,8 @@ var/bomb_set
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = 1
 
-/obj/machinery/nuclearbomb/New()
-	..()
+/obj/machinery/nuclearbomb/Initialize(mapload)
+	. = ..()
 	r_code = "[rand(10000, 99999.0)]"//Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	previous_level = get_security_level()
@@ -76,7 +76,7 @@ var/bomb_set
 
 	if(panel_open && (istype(O, /obj/item/multitool) || istype(O, /obj/item/wirecutters)))
 		return attack_hand(user)
-	
+
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
 			if(!user.drop_item())
@@ -410,8 +410,8 @@ var/bomb_set
 /obj/item/disk/nuclear/unrestricted
 	desc = "Seems to have been stripped of its safeties, you better not lose it."
 
-/obj/item/disk/nuclear/New()
-	..()
+/obj/item/disk/nuclear/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 

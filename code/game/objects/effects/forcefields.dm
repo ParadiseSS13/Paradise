@@ -9,8 +9,8 @@
 	unacidable = 1
 	var/lifetime = 30 SECONDS
 
-/obj/effect/forcefield/New()
-	..()
+/obj/effect/forcefield/Initialize(mapload)
+	. = ..()
 	if(lifetime)
 		QDEL_IN(src, lifetime)
 

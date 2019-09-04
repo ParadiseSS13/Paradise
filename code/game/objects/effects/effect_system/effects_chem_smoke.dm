@@ -17,8 +17,8 @@
 	var/third_scale = 2
 	var/spread_amount = 96
 
-/obj/effect/particle_effect/chem_smoke/New(location, chem_color)
-	..(location)
+/obj/effect/particle_effect/chem_smoke/Initialize(mapload, chem_color)
+	. = ..()
 	color = chem_color
 	pixel_x += -16 + rand(-3, 3)
 	pixel_y += -16 + rand(-3, 3)

@@ -34,8 +34,8 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 /obj/item/stack/rods/fifty
 	amount = 50
 
-/obj/item/stack/rods/New(loc, amount=null)
-	..()
+/obj/item/stack/rods/Initialize(mapload, amount = null)
+	. = ..()
 	recipes = rod_recipes
 	update_icon()
 

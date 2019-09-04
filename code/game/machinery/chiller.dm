@@ -9,13 +9,12 @@
 	set_temperature = 20		// in celcius, add T0C for kelvin
 	var/cooling_power = 40000
 
-/obj/machinery/space_heater/air_conditioner/New()
-	..()
+/obj/machinery/space_heater/air_conditioner/Initialize(mapload)
+	. = ..()
 	cell = new(src)
 	cell.charge = 1000
 	cell.maxcharge = 1000
 	update_icon()
-	return
 
 /obj/machinery/space_heater/air_conditioner/update_icon()
 	overlays.Cut()

@@ -22,13 +22,13 @@
 	var/mob/living/oldform
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 
-/mob/living/carbon/true_devil/New(loc, mob/living/carbon/dna_source)
+/mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	dna = dna_source.dna.Clone()
 	var/obj/item/organ/internal/brain/B = new(src)
 	var/obj/item/organ/internal/ears/E = new(src)
 	B.insert()
 	E.insert()
-	..()
+	. = ..()
 
 // inventory system could use some love
 /mob/living/carbon/true_devil/put_in_hands(obj/item/W)

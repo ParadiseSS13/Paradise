@@ -39,7 +39,7 @@
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
-/obj/machinery/camera/autoname/Initialize(mapload)
+/obj/machinery/camera/autoname/LateInitialize()
 	. = ..()
 	number = 1
 	var/area/A = get_area(src)

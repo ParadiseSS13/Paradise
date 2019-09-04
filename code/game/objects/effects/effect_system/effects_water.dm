@@ -4,8 +4,8 @@
 	icon_state = "extinguish"
 	var/life = 15
 
-/obj/effect/particle_effect/water/New()
-	..()
+/obj/effect/particle_effect/water/Initialize(mapload)
+	. = ..()
 	QDEL_IN(src, 70)
 
 /obj/effect/particle_effect/water/Move(turf/newloc)
@@ -44,8 +44,8 @@ steam.start() -- spawns the effect
 	icon_state = "extinguish"
 	density = 0
 
-/obj/effect/particle_effect/steam/New()
-	..()
+/obj/effect/particle_effect/steam/Initialize(mapload)
+	. = ..()
 	QDEL_IN(src, 20)
 
 /datum/effect_system/steam_spread

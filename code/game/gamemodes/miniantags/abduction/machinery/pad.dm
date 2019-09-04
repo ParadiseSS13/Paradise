@@ -46,6 +46,6 @@
 	icon_state = "teleport"
 	duration = 80
 
-/obj/effect/temp_visual/teleport_abductor/New()
+/obj/effect/temp_visual/teleport_abductor/Initialize(mapload)
+	. = ..()
 	do_sparks(10, 0, loc)
-	..()

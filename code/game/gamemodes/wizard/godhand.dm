@@ -13,9 +13,9 @@
 	throw_range = 0
 	throw_speed = 0
 
-/obj/item/melee/touch_attack/New(var/spell)
+/obj/item/melee/touch_attack/Initialize(mapload, spell)
 	attached_spell = spell
-	..()
+	. = ..()
 
 /obj/item/melee/touch_attack/attack(mob/target, mob/living/carbon/user)
 	if(!iscarbon(user)) //Look ma, no hands

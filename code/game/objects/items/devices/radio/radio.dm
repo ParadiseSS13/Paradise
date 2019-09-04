@@ -64,12 +64,18 @@ var/global/list/default_medbay_channels = list(
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
 
 
-/obj/item/radio/New()
-	..()
+/obj/item/radio/Initialize(mapload)
+	. = ..()
 	wires = new(src)
 
 	internal_channels = default_internal_channels.Copy()
 	GLOB.global_radios |= src
+	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
+		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+	set_frequency(frequency)
+
+	for(var/ch_name in channels)
+		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/radio/Destroy()
 	QDEL_NULL(wires)
@@ -81,16 +87,6 @@ var/global/list/default_medbay_channels = list(
 	GLOB.global_radios -= src
 	follow_target = null
 	return ..()
-
-
-/obj/item/radio/Initialize()
-	..()
-	if(frequency < RADIO_LOW_FREQ || frequency > RADIO_HIGH_FREQ)
-		frequency = sanitize_frequency(frequency, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
-	set_frequency(frequency)
-
-	for(var/ch_name in channels)
-		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
 /obj/item/radio/attack_ghost(mob/user)
 	return interact(user)
@@ -271,9 +267,9 @@ var/global/list/default_medbay_channels = list(
 	var/message = ""
 	universal_speak = 1
 
-/mob/living/automatedannouncer/New()
+/mob/living/automatedannouncer/Initialize(mapload)
+	. = ..()
 	lifetime_timer = addtimer(CALLBACK(src, .proc/autocleanup), SecondsToTicks(10), TIMER_STOPPABLE)
-	..()
 
 /mob/living/automatedannouncer/Destroy()
 	if(lifetime_timer)
@@ -396,7 +392,7 @@ var/global/list/default_medbay_channels = list(
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		displayname = H.voice
-		if(H.voice != real_name)	
+		if(H.voice != real_name)
 			voicemask = TRUE
 
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
@@ -669,22 +665,22 @@ var/global/list/default_medbay_channels = list(
 /obj/item/radio/borg/list_channels(var/mob/user)
 	return list_secure_channels(user)
 
-/obj/item/radio/borg/syndicate/New()
-	..()
+/obj/item/radio/borg/syndicate/Initialize(mapload)
+	. = ..()
 	syndiekey = keyslot
 	set_frequency(SYND_FREQ)
 
 /obj/item/radio/borg/deathsquad
 
-/obj/item/radio/borg/deathsquad/New()
-	..()
+/obj/item/radio/borg/deathsquad/Initialize(mapload)
+	. = ..()
 	set_frequency(DTH_FREQ)
 
 /obj/item/radio/borg/ert
 	keyslot = new /obj/item/encryptionkey/ert
 
-/obj/item/radio/borg/ert/New()
-	..()
+/obj/item/radio/borg/ert/Initialize(mapload)
+	. = ..()
 	set_frequency(ERT_FREQ)
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
@@ -851,6 +847,6 @@ var/global/list/default_medbay_channels = list(
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ
 
-/obj/item/radio/phone/medbay/New()
-	..()
+/obj/item/radio/phone/medbay/Initialize(mapload)
+	. = ..()
 	internal_channels = default_medbay_channels.Copy()

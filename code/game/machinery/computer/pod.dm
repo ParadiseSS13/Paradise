@@ -13,10 +13,9 @@
 	var/list/powers = list()
 	var/list/loopings = list()
 
-/obj/machinery/computer/pod/New()
-	..()
-	spawn(5)
-		driver_sync()
+/obj/machinery/computer/pod/Initialize(mapload)
+	. = ..()
+	driver_sync()
 
 
 /obj/machinery/computer/pod/proc/driver_sync()

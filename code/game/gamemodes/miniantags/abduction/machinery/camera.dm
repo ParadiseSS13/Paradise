@@ -13,9 +13,9 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
 
-/obj/machinery/computer/camera_advanced/abductor/New()
+/obj/machinery/computer/camera_advanced/abductor/Initialize(mapload)
+	. = ..()
 	GLOB.abductor_equipment.Add(src)
-	..()
 
 /obj/machinery/computer/camera_advanced/abductor/CreateEye()
 	..()

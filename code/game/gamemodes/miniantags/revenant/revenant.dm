@@ -111,9 +111,8 @@
 		stat(null, "Stolen essence: [essence_accumulated]E")
 		stat(null, "Stolen perfect souls: [perfectsouls]")
 
-/mob/living/simple_animal/revenant/New()
-	..()
-
+/mob/living/simple_animal/revenant/Initialize(mapload)
+	. = ..()
 	remove_from_all_data_huds()
 	random_revenant_name()
 
@@ -348,15 +347,20 @@
 	var/inert = 0
 	var/client/client_to_revive
 
-/obj/item/ectoplasm/revenant/New()
-	..()
-	reforming = 0
-	spawn(600) //1 minutes
-		if(src && reforming)
-			reform()
-		else
-			inert = 1
-			visible_message("<span class='warning'>[src] settles down and seems lifeless.</span>")
+/obj/item/ectoplasm/revenant/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, .proc/try_reform), 600)
+
+/obj/item/ectoplasm/revenant/proc/scatter()
+	qdel(src)
+
+/obj/item/ectoplasm/revenant/proc/try_reform()
+	if(reforming)
+		reforming = FALSE
+		reform()
+	else
+		inert = TRUE
+		visible_message("<span class='warning'>[src] settles down and seems lifeless.</span>")
 
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
@@ -364,14 +368,14 @@
 	user.visible_message("<span class='notice'>[user] scatters [src] in all directions.</span>", \
 						 "<span class='notice'>You scatter [src] across the area. The particles slowly fade away.</span>")
 	user.drop_item()
-	qdel(src)
+	scatter()
 
-/obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom)
+/obj/item/ectoplasm/revenant/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(inert)
 		return
 	visible_message("<span class='notice'>[src] breaks into particles upon impact, which fade away to nothingness.</span>")
-	qdel(src)
+	scatter()
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
 	..(user)
@@ -381,11 +385,11 @@
 		to_chat(user, "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>")
 
 /obj/item/ectoplasm/revenant/proc/reform()
-	if(inert || !src)
+	if(QDELETED(src) || inert)
 		return
 	var/key_of_revenant
 	message_admins("Revenant ectoplasm was left undestroyed for 1 minute and is reforming into a new revenant.")
-	loc = get_turf(src) //In case it's in a backpack or someone's hand
+	forceMove(drop_location()) //In case it's in a backpack or someone's hand
 	var/mob/living/simple_animal/revenant/R = new(get_turf(src))
 	if(client_to_revive)
 		for(var/mob/M in GLOB.dead_mob_list)

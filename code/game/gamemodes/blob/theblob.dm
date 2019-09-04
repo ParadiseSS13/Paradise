@@ -14,14 +14,15 @@
 	var/fire_resist = 1
 
 
-/obj/structure/blob/New(loc)
+/obj/structure/blob/Initialize(mapload)
+	. = ..()
 	blobs += src
-	src.dir = pick(1, 2, 4, 8)
-	src.update_icon()
-	..(loc)
+	setDir(pick(cardinal))
+	update_icon()
 	for(var/atom/A in loc)
 		A.blob_act(src)
-	return
+	if(iswallturf(loc))
+		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
 
 /obj/structure/blob/Destroy()

@@ -22,8 +22,8 @@
 	var/cable = 1
 	var/list/debris = list()
 
-/obj/machinery/door/window/New(loc, set_dir)
-	..()
+/obj/machinery/door/window/Initialize(mapload, set_dir)
+	. = ..()
 	if(set_dir)
 		setDir(set_dir)
 	if(req_access && req_access.len)
@@ -339,8 +339,8 @@
 	cancolor = FALSE
 	var/made_glow = FALSE
 
-/obj/machinery/door/window/clockwork/New(loc, set_dir)
-	..()
+/obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)
+	. = ..()
 	debris += new/obj/item/stack/tile/brass(src, 2)
 
 /obj/machinery/door/window/clockwork/setDir(direct)

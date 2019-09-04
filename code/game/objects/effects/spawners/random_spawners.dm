@@ -11,7 +11,7 @@
 	var/spawn_inside = null
 
 // This needs to use New() instead of Initialize() because the thing it creates might need to be initialized too
-/obj/effect/spawner/random_spawners/New()
+/obj/effect/spawner/random_spawners/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(!T)

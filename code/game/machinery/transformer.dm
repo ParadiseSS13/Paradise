@@ -13,9 +13,9 @@
 	var/robot_cell_charge = 5000
 	var/acceptdir = EAST
 
-/obj/machinery/transformer/New()
+/obj/machinery/transformer/Initialize(mapload)
 	// On us
-	..()
+	. = ..()
 	new /obj/machinery/conveyor/auto(loc, WEST)
 
 /obj/machinery/transformer/power_change()
@@ -88,8 +88,8 @@
 		cooldown = 0
 		update_icon()
 
-/obj/machinery/transformer/conveyor/New()
-	..()
+/obj/machinery/transformer/conveyor/Initialize(mapload)
+	. = ..()
 	var/turf/T = loc
 	if(T)
 		// Spawn Conveyour Belts
@@ -111,8 +111,8 @@
 	desc = "Turns anything placed inside black and white."
 
 
-/obj/machinery/transformer/mime/conveyor/New()
-	..()
+/obj/machinery/transformer/mime/conveyor/Initialize(mapload)
+	. = ..()
 	var/turf/T = loc
 	if(T)
 		// Spawn Conveyour Belts
@@ -171,8 +171,8 @@
 	// On us
 	new /obj/machinery/conveyor/auto(loc, EAST)
 
-/obj/machinery/transformer/xray/conveyor/New()
-	..()
+/obj/machinery/transformer/xray/conveyor/Initialize(mapload)
+	. = ..()
 	var/turf/T = loc
 	if(T)
 		// Spawn Conveyour Belts

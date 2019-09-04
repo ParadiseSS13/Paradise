@@ -4,8 +4,8 @@
 	opacity = 1
 	anchored = 1
 
-/obj/effect/particle_effect/expl_particles/New()
-	..()
+/obj/effect/particle_effect/expl_particles/Initialize(mapload)
+	. = ..()
 	QDEL_IN(src, 15)
 
 /datum/effect_system/expl_particles
@@ -31,8 +31,8 @@
 	pixel_x = -32
 	pixel_y = -32
 
-/obj/effect/explosion/New()
-	..()
+/obj/effect/explosion/Initialize(mapload)
+	. = ..()
 	QDEL_IN(src, 10)
 
 /datum/effect_system/explosion

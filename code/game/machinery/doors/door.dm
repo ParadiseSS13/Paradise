@@ -32,11 +32,12 @@
 	//Multi-tile doors
 	var/width = 1
 
-/obj/machinery/door/New()
-	..()
+/obj/machinery/door/Initialize(mapload)
+	. = ..()
 	set_init_door_layer()
 	update_dir()
 	update_freelook_sight()
+	air_update_turf(1)
 	GLOB.airlocks += src
 	spark_system = new /datum/effect_system/spark_spread
 	spark_system.set_up(2, 1, src)
@@ -67,10 +68,6 @@
 		else
 			bound_width = world.icon_size
 			bound_height = width * world.icon_size
-
-/obj/machinery/door/Initialize()
-	air_update_turf(1)
-	..()
 
 /obj/machinery/door/Destroy()
 	density = 0

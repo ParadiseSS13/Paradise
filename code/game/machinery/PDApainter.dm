@@ -26,8 +26,8 @@
 
 	return
 
-/obj/machinery/pdapainter/New()
-	..()
+/obj/machinery/pdapainter/Initialize(mapload)
+	. = ..()
 	var/blocked = list(/obj/item/pda/silicon/ai, /obj/item/pda/silicon/robot, /obj/item/pda/silicon/pai, /obj/item/pda/heads,
 						/obj/item/pda/clear, /obj/item/pda/syndicate)
 

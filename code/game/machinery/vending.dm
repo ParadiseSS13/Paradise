@@ -815,8 +815,8 @@
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
 
-/obj/machinery/vending/boozeomat/New()
-	..()
+/obj/machinery/vending/boozeomat/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -846,8 +846,8 @@
 /obj/machinery/vending/coffee/free
 	prices = list()
 
-/obj/machinery/vending/coffee/New()
-	..()
+/obj/machinery/vending/coffee/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -912,8 +912,8 @@
 /obj/machinery/vending/snack/free
 	prices = list()
 
-/obj/machinery/vending/snack/New()
-	..()
+/obj/machinery/vending/snack/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -936,8 +936,8 @@
 /obj/machinery/vending/chinese/free
 	prices = list()
 
-/obj/machinery/vending/chinese/New()
-	..()
+/obj/machinery/vending/chinese/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -964,8 +964,8 @@
 /obj/machinery/vending/cola/free
 	prices = list()
 
-/obj/machinery/vending/cola/New()
-	..()
+/obj/machinery/vending/cola/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -1084,8 +1084,8 @@
 				   /obj/item/lighter/zippo = 3)
 	prices = list()
 
-/obj/machinery/vending/cigarette/New()
-	..()
+/obj/machinery/vending/cigarette/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -1296,8 +1296,8 @@
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/shield/riot/roman = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
-/obj/machinery/vending/autodrobe/New()
-	..()
+/obj/machinery/vending/autodrobe/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -1555,8 +1555,8 @@
 
 	refill_canister = /obj/item/vending_refill/clothing
 
-/obj/machinery/vending/clothing/New()
-	..()
+/obj/machinery/vending/clothing/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
@@ -1604,8 +1604,8 @@
 /obj/machinery/vending/crittercare/free
 	prices = list()
 
-/obj/machinery/vending/crittercare/New()
-	..()
+/obj/machinery/vending/crittercare/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)

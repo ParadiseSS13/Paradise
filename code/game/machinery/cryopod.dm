@@ -36,8 +36,8 @@
 	var/allow_items = 1
 
 
-/obj/machinery/computer/cryopod/New()
-	..()
+/obj/machinery/computer/cryopod/Initialize(mapload)
+	. = ..()
 	for(var/T in potential_theft_objectives)
 		theft_cache += new T
 
@@ -177,13 +177,12 @@
 	orient_right = 1
 	icon_state = "cryo_rear-r"
 
-/obj/structure/cryofeed/New()
-
+/obj/structure/cryofeed/Initialize(mapload)
+	. = ..()
 	if(orient_right)
 		icon_state = "cryo_rear-r"
 	else
 		icon_state = "cryo_rear"
-	..()
 
 //Cryopods themselves.
 /obj/machinery/cryopod
@@ -244,19 +243,14 @@
 	orient_right = 1
 	icon_state = "body_scanner_0-r"
 
-/obj/machinery/cryopod/New()
+/obj/machinery/cryopod/Initialize(mapload)
+	. = ..()
 	announce = new /obj/item/radio/intercom(src)
 
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"
 	else
 		icon_state = base_icon_state
-
-	..()
-
-/obj/machinery/cryopod/Initialize()
-	..()
-
 	find_control_computer()
 
 /obj/machinery/cryopod/proc/find_control_computer(urgent=0)

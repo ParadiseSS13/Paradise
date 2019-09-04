@@ -13,9 +13,9 @@
 	var/list/available_networks = list()
 	var/list/watchers = list() //who's using the console, associated with the camera they're on.
 
-/obj/machinery/computer/security/New() // Lists existing networks and their required access. Format: available_networks[<name>] = list(<access>)
+/obj/machinery/computer/security/Initialize(mapload) // Lists existing networks and their required access. Format: available_networks[<name>] = list(<access>)
+	. = ..()
 	generate_network_access()
-	..()
 
 /obj/machinery/computer/security/proc/generate_network_access()
 	available_networks["SS13"] =              list(access_hos,access_captain)
@@ -116,7 +116,7 @@
 
 /obj/machinery/computer/security/proc/get_user_access(mob/user)
 	var/list/access = list()
-	
+
 	if(emagged)
 		access = get_all_accesses() // Assume captain level access when emagged
 	else if(ishuman(user))

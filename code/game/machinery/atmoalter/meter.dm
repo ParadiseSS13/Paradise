@@ -20,13 +20,12 @@
 	Mtoollink = TRUE
 	settagwhitelist = list("id_tag")
 
-/obj/machinery/meter/New()
-	..()
+/obj/machinery/meter/Initialize(mapload)
+	. = ..()
 	SSair.atmos_machinery += src
 	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
 		id_tag = id
-	return 1
 
 /obj/machinery/meter/Destroy()
 	SSair.atmos_machinery -= src
@@ -141,10 +140,9 @@
 
 // TURF METER - REPORTS A TILE'S AIR CONTENTS
 
-/obj/machinery/meter/turf/New()
-	..()
+/obj/machinery/meter/turf/Initialize(mapload)
+	. = ..()
 	target = loc
-	return 1
 
 
 /obj/machinery/meter/turf/Initialize()

@@ -126,11 +126,11 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	name = "Security Newscaster"
 	securityCaster = 1
 
-/obj/machinery/newscaster/New()
+/obj/machinery/newscaster/Initialize(mapload)
+	. = ..()
 	allCasters += src
 	unit_no = allCasters.len
 	update_icon() //for any custom ones on the map...
-	..()
 
 /obj/machinery/newscaster/Destroy()
 	allCasters -= src

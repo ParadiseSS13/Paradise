@@ -27,8 +27,8 @@
 	..()
 	overload_action.Remove(user)
 
-/obj/mecha/combat/gygax/loaded/New()
-	..()
+/obj/mecha/combat/gygax/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/taser
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang
@@ -50,8 +50,8 @@
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 
-/obj/mecha/combat/gygax/dark/loaded/New()
-	..()
+/obj/mecha/combat/gygax/dark/loaded/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang

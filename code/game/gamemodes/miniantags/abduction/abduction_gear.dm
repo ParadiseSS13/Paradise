@@ -585,8 +585,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	item_state = "abductor_headset"
 	ks2type = /obj/item/encryptionkey/heads/captain
 
-/obj/item/radio/headset/abductor/New()
-	..()
+/obj/item/radio/headset/abductor/Initialize(mapload)
+	. = ..()
 	make_syndie()
 
 /obj/item/radio/headset/abductor/attackby(obj/item/I, mob/user, params)

@@ -42,8 +42,8 @@
 				overcharged = 1
 				overlays += "overcharge"
 
-/obj/item/flash/random/New()
-	..()
+/obj/item/flash/random/Initialize(mapload)
+	. = ..()
 	if(prob(25))
 		broken = 1
 		icon_state = "[initial(icon_state)]burnt"
@@ -205,8 +205,8 @@
 /obj/item/flash/cameraflash/burn_out() //stops from burning out
 	return
 
-/obj/item/flash/cameraflash/New()
-	..()
+/obj/item/flash/cameraflash/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/flash/cameraflash/Destroy()

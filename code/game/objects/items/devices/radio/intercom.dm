@@ -45,8 +45,8 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, ndir, building = 3)
-	..()
+/obj/item/radio/intercom/Initialize(mapload, ndir, building = 3)
+	. = ..()
 	buildstage = building
 	if(buildstage)
 		START_PROCESSING(SSobj, src)
@@ -60,12 +60,12 @@
 	GLOB.global_intercoms.Add(src)
 	update_icon()
 
-/obj/item/radio/intercom/department/medbay/New()
-	..()
+/obj/item/radio/intercom/department/medbay/Initialize(mapload)
+	. = ..()
 	internal_channels = default_medbay_channels.Copy()
 
-/obj/item/radio/intercom/department/security/New()
-	..()
+/obj/item/radio/intercom/department/security/Initialize(mapload)
+	. = ..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
 		num2text(SEC_I_FREQ) = list(access_security)
@@ -78,8 +78,8 @@
 	subspace_transmission = TRUE
 	syndiekey = new /obj/item/encryptionkey/syndicate/nukeops
 
-/obj/item/radio/intercom/syndicate/New()
-	..()
+/obj/item/radio/intercom/syndicate/Initialize(mapload)
+	. = ..()
 	internal_channels[num2text(SYND_FREQ)] = list(access_syndicate)
 
 /obj/item/radio/intercom/pirate
@@ -87,8 +87,8 @@
 	desc = "You wouldn't steal a space shuttle. Piracy. It's a crime!"
 	subspace_transmission = 1
 
-/obj/item/radio/intercom/pirate/New()
-	..()
+/obj/item/radio/intercom/pirate/Initialize(mapload)
+	. = ..()
 	internal_channels.Cut()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
@@ -262,6 +262,6 @@
 	name = "\improper prison intercom"
 	desc = "Talk through this. It looks like it has been modified to not broadcast."
 
-/obj/item/radio/intercom/locked/prison/New()
-	..()
+/obj/item/radio/intercom/locked/prison/Initialize(mapload)
+	. = ..()
 	wires.CutWireIndex(WIRE_TRANSMIT)

@@ -87,8 +87,8 @@
 	lethal = 1
 	installation = /obj/item/gun/energy/laser
 
-/obj/machinery/porta_turret/New()
-	..()
+/obj/machinery/porta_turret/Initialize(mapload)
+	. = ..()
 	if(req_access && req_access.len)
 		req_access.Cut()
 	req_one_access = list(access_security, access_heads)
@@ -105,8 +105,8 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/porta_turret/centcom/New()
-	..()
+/obj/machinery/porta_turret/centcom/Initialize(mapload)
+	. = ..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
 	req_access = list(access_cent_specops)
@@ -1027,8 +1027,8 @@ var/list/turret_icons
 		depotarea.declare_started()
 	return ..(target)
 
-/obj/machinery/porta_turret/syndicate/New()
-	..()
+/obj/machinery/porta_turret/syndicate/Initialize(mapload)
+	. = ..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
 	req_access = list(access_syndicate)

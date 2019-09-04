@@ -413,9 +413,9 @@
 	anchored = TRUE
 	simulated = FALSE
 
-/atom/movable/overlay/New()
+/atom/movable/overlay/Initialize(mapload)
+	. = ..()
 	verbs.Cut()
-	return
 
 /atom/movable/overlay/attackby(a, b, c)
 	if(master)

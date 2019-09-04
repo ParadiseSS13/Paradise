@@ -15,14 +15,14 @@
 	color = "#C80000"
 	var/splatter_type = "splatter"
 
-/obj/effect/temp_visual/dir_setting/bloodsplatter/New(loc, set_dir, blood_color)
+/obj/effect/temp_visual/dir_setting/bloodsplatter/Initialize(mapload, set_dir, blood_color)
 	if(blood_color)
 		color = blood_color
 	if(set_dir in diagonals)
 		icon_state = "[splatter_type][pick(1, 2, 6)]"
 	else
 		icon_state = "[splatter_type][pick(3, 4, 5)]"
-	..()
+	. = ..()
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(set_dir)
@@ -127,8 +127,8 @@
 	desc = "It's a decoy!"
 	duration = 15
 
-/obj/effect/temp_visual/decoy/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	alpha = initial(alpha)
 	if(mimiced_atom)
 		name = mimiced_atom.name
@@ -136,8 +136,8 @@
 		setDir(mimiced_atom.dir)
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
-/obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
-	..()
+/obj/effect/temp_visual/decoy/fading/Initialize(mapload, atom/mimiced_atom)
+	. = ..()
 	animate(src, alpha = 0, time = duration)
 
 /obj/effect/temp_visual/decoy/fading/threesecond
@@ -159,9 +159,9 @@
 	alpha = 250
 	blend_mode = BLEND_ADD
 
-/obj/effect/temp_visual/fire/New(loc)
+/obj/effect/temp_visual/fire/Initialize(mapload)
 	color = heat2color(FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-	..()
+	. = ..()
 
 /obj/effect/temp_visual/revenant
 	name = "spooky lights"
@@ -197,8 +197,8 @@
 	icon_state = "heal"
 	duration = 15
 
-/obj/effect/temp_visual/heal/New(loc, colour)
-	..()
+/obj/effect/temp_visual/heal/Initialize(mapload, colour)
+	. = ..()
 	pixel_x = rand(-12, 12)
 	pixel_y = rand(-9, 0)
 	if(colour)
@@ -229,8 +229,8 @@
 	icon_state = "heart"
 	duration = 25
 
-/obj/effect/temp_visual/heart/New(loc)
-	..()
+/obj/effect/temp_visual/heart/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(-4,4)
 	pixel_y = rand(-4,4)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = 25)

@@ -148,8 +148,8 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_uranium
 	var/event_step = 20
 
-/obj/machinery/door/airlock/uranium/New()
-	..()
+/obj/machinery/door/airlock/uranium/Initialize(mapload)
+	. = ..()
 	addtimer(CALLBACK(src, .proc/radiate), event_step)
 
 
@@ -477,8 +477,8 @@
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 
-/obj/machinery/door/airlock/cult/New()
-	..()
+/obj/machinery/door/airlock/cult/Initialize(mapload)
+	. = ..()
 	new openingoverlaytype(loc)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)

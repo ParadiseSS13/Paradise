@@ -1056,8 +1056,8 @@ to destroy them and players will be able to make replacements.
 							"CONVERT Gate" = /obj/machinery/logic_gate/convert
 	)
 
-/obj/item/circuitboard/logic_gate/New()
-	..()
+/obj/item/circuitboard/logic_gate/Initialize(mapload)
+	. = ..()
 	if(build_path == /obj/machinery/logic_gate)			//If we spawn the base type board (determined by the base type machine as the build path), become a random gate board
 		var/new_path = names_paths[pick(names_paths)]
 		set_type(new_path)

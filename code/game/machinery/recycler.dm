@@ -17,10 +17,10 @@ var/const/SAFETY_COOLDOWN = 100
 	var/eat_victim_items = 1
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
 
-/obj/machinery/recycler/New()
+/obj/machinery/recycler/Initialize(mapload)
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0,
 				TRUE, null, null, null, TRUE)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)

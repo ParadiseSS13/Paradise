@@ -294,7 +294,7 @@ datum/game_mode/proc/auto_declare_completion_heist()
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "tcstation"
 
-/obj/vox/win_button/New()
+/obj/vox/win_button/Initialize(mapload)
 	. = ..()
 	overlays += icon('icons/obj/computer.dmi', "syndie")
 

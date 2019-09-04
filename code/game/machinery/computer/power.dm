@@ -18,8 +18,8 @@
 	circuit = /obj/item/circuitboard/powermonitor/secret
 	is_secret_monitor = TRUE
 
-/obj/machinery/computer/monitor/New()
-	..()
+/obj/machinery/computer/monitor/Initialize(mapload)
+	. = ..()
 	GLOB.power_monitors += src
 	GLOB.power_monitors = sortAtom(GLOB.power_monitors)
 	power_monitor = new(src)

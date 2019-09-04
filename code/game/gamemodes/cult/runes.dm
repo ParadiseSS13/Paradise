@@ -39,8 +39,8 @@ To draw a rune, use an arcane tome.
 	var/invoke_damage = 0 //how much damage invokers take when invoking it
 
 
-/obj/effect/rune/New(loc, set_keyword)
-	..()
+/obj/effect/rune/Initialize(mapload, set_keyword)
+	. = ..()
 	if(set_keyword)
 		keyword = set_keyword
 	check_icon()
@@ -264,8 +264,8 @@ var/list/teleport_runes = list()
 	var/listkey
 	invoke_damage = 6 //but theres some checks for z-level
 
-/obj/effect/rune/teleport/New(loc, set_keyword)
-	..()
+/obj/effect/rune/teleport/Initialize(mapload, set_keyword)
+	. = ..()
 	var/area/A = get_area(src)
 	var/locname = initial(A.name)
 	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
@@ -389,8 +389,8 @@ var/list/teleport_runes = list()
 	invocation = "Barhah hra zar'garis!"
 	rune_in_use = 0
 
-/obj/effect/rune/sacrifice/New()
-	..()
+/obj/effect/rune/sacrifice/Initialize(mapload)
+	. = ..()
 	cultist_desc = "sacrifices a crew member to [SSticker.cultdat.entity_title3]. May place them into a soul shard if their spirit remains in their body."
 
 /obj/effect/rune/sacrifice/invoke(var/list/invokers)
@@ -492,8 +492,8 @@ var/list/teleport_runes = list()
 	scribe_damage = 40.1 //how much damage you take doing it
 	var/used
 
-/obj/effect/rune/narsie/New()
-	..()
+/obj/effect/rune/narsie/Initialize(mapload)
+	. = ..()
 	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
 	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]. Requires 9 invokers."
 
@@ -974,8 +974,8 @@ var/list/teleport_runes = list()
 	var/ghosts = 0
 	invoke_damage = 10
 
-/obj/effect/rune/manifest/New(loc)
-	..()
+/obj/effect/rune/manifest/Initialize(mapload)
+	. = ..()
 	cultist_desc = "manifests a spirit as a servant of [SSticker.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound='sound/effects/ghost2.ogg', source = src)

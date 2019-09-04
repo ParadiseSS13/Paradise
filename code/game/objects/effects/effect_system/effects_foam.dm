@@ -14,8 +14,8 @@
 	var/expand = 1
 	var/metal = 0
 
-/obj/effect/particle_effect/foam/New(loc, ismetal=0)
-	..(loc)
+/obj/effect/particle_effect/foam/Initialize(mapload, ismetal=0)
+	. = ..()
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
 		color = mix_color_from_reagents(reagents.reagent_list)
@@ -176,8 +176,8 @@
 	max_integrity = 20
 	var/metal = MFOAM_ALUMINUM
 
-/obj/structure/foamedmetal/Initialize()
-	..()
+/obj/structure/foamedmetal/Initialize(mapload)
+	. = ..()
 	air_update_turf(1)
 
 /obj/structure/foamedmetal/Destroy()

@@ -10,8 +10,8 @@
 	var/clean_icon = "mixing_bowl"
 	var/dirty_icon = "mixing_bowl_dirty"
 
-/obj/item/mixing_bowl/New()
-	..()
+/obj/item/mixing_bowl/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 
 /obj/item/mixing_bowl/attackby(obj/item/I, mob/user, params)

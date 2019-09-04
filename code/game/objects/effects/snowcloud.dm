@@ -7,8 +7,8 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/snow_machine/parent_machine
 
-/obj/effect/snowcloud/New(turf, obj/machinery/snow_machine/SM)
-	..()
+/obj/effect/snowcloud/Initialize(mapload, obj/machinery/snow_machine/SM)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	if(SM && istype(SM))
 		parent_machine = SM
@@ -72,10 +72,10 @@
 	layer = ABOVE_ICYOVERLAY_LAYER
 	anchored = TRUE
 
-/obj/effect/snow/New()
+/obj/effect/snow/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 	icon_state = "snow[rand(1,6)]"
-	..()
 
 /obj/effect/snow/Destroy()
 	STOP_PROCESSING(SSobj, src)

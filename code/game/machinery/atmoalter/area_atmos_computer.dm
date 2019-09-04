@@ -15,11 +15,14 @@
 	//Simple variable to prevent me from doing attack_hand in both this and the child computer
 	var/zone = "This computer is working on a wireless range, the range is currently limited to 25 meters."
 
-/obj/machinery/computer/area_atmos/New()
+/obj/machinery/computer/area_atmos/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/machinery/computer/area_atmos/LateInitialize()
 	..()
-	//So the scrubbers have time to spawn
-	spawn(10)
-		scanscrubbers()
+	scanscrubbers()
 
 /obj/machinery/computer/area_atmos/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)

@@ -63,10 +63,10 @@
 	var/decrement = 1
 	var/charge = 1
 
-/obj/item/lightreplacer/New()
+/obj/item/lightreplacer/Initialize(mapload)
+	. = ..()
 	uses = max_uses / 2
 	failmsg = "The [name]'s refill light blinks red."
-	..()
 
 /obj/item/lightreplacer/examine(mob/user)
 	if(..(user, 2))

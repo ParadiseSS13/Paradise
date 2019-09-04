@@ -9,9 +9,9 @@
 	var/instrumentId = "generic"
 	var/instrumentExt = "mid"
 
-/obj/item/instrument/New()
+/obj/item/instrument/Initialize(mapload)
+	. = ..()
 	song = new(instrumentId, src, instrumentExt)
-	..()
 
 /obj/item/instrument/Destroy()
 	QDEL_NULL(song)

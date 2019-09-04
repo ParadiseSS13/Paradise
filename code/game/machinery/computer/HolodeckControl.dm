@@ -332,10 +332,9 @@
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
+/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /turf/simulated/floor/holofloor/grass/update_icon()
 	..()
@@ -414,10 +413,12 @@
 	block_chance = 50
 	var/active = 0
 
-/obj/item/holo/esword/green/New()
+/obj/item/holo/esword/green/Initialize(mapload)
+	. = ..()
 	item_color = "green"
 
-/obj/item/holo/esword/red/New()
+/obj/item/holo/esword/red/Initialize(mapload)
+	. = ..()
 	item_color = "red"
 
 /obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
@@ -425,7 +426,8 @@
 		return ..()
 	return 0
 
-/obj/item/holo/esword/New()
+/obj/item/holo/esword/Initialize(mapload)
+	. = ..()
 	item_color = pick("red","blue","green","purple")
 
 /obj/item/holo/esword/attack_self(mob/living/user as mob)

@@ -81,12 +81,12 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	else
 		icon_state = "req_comp[newmessagepriority]"
 
-/obj/machinery/requests_console/New()
+/obj/machinery/requests_console/Initialize(mapload)
+	. = ..()
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 1
 	Radio.config(list("Engineering","Medical","Supply","Command","Science","Service","Security", "AI Private" = 0))
 	Radio.follow_target = src
-	..()
 
 	announcement.title = "[department] announcement"
 	announcement.newscast = 0

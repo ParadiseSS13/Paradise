@@ -21,13 +21,9 @@
 	var/ks1type = null
 	var/ks2type = null
 
-/obj/item/radio/headset/New()
-	..()
+/obj/item/radio/headset/Initialize(mapload)
+	. = ..()
 	internal_channels.Cut()
-
-/obj/item/radio/headset/Initialize()
-	..()
-
 	if(ks1type)
 		keyslot1 = new ks1type(src)
 		if(keyslot1.syndie)

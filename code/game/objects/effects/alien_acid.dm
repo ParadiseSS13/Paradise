@@ -22,8 +22,8 @@
 	var/target_strength = 0
 
 
-/obj/effect/acid/New(loc, targ)
-	..(loc)
+/obj/effect/acid/Initialize(mapload, targ)
+	. = ..()
 	target = targ
 
 	//handle APCs and newscasters and stuff nicely

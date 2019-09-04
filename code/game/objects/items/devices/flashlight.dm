@@ -325,7 +325,8 @@
 	materials = list()
 	on = TRUE //Bio-luminesence has one setting, on.
 
-/obj/item/flashlight/slime/New()
+/obj/item/flashlight/slime/Initialize(mapload)
+	. = ..()
 	set_light(brightness_on)
 	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
 		update_brightness()
@@ -345,8 +346,8 @@
 	var/charge_tick = 0
 
 
-/obj/item/flashlight/emp/New()
-	..()
+/obj/item/flashlight/emp/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/emp/Destroy()

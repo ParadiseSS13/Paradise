@@ -56,8 +56,8 @@
 	var/datum/action/innate/demon/whisper/whisper_action
 
 
-/mob/living/simple_animal/slaughter/New()
-	..()
+/mob/living/simple_animal/slaughter/Initialize(mapload)
+	. = ..()
 	remove_from_all_data_huds()
 	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
 	AddSpell(bloodspell)
@@ -154,8 +154,8 @@
 		return 0
 	to_chat(usr, "<span class='danger'>You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b></span>")
 
-/mob/living/simple_animal/slaughter/cult/New()
-	..()
+/mob/living/simple_animal/slaughter/cult/Initialize(mapload)
+	. = ..()
 	spawn(5)
 		var/list/demon_candidates = pollCandidates("Do you want to play as a slaughter demon?", ROLE_DEMON, 1, 100)
 		if(!demon_candidates.len)

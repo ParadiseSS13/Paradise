@@ -15,10 +15,9 @@
 	var/list/crowbar_salvage
 	var/salvage_num = 5
 
-/obj/effect/decal/mecha_wreckage/New()
-	..()
+/obj/effect/decal/mecha_wreckage/Initialize(mapload)
+	. = ..()
 	crowbar_salvage = new
-	return
 
 /obj/effect/decal/mecha_wreckage/ex_act(severity)
 	if(severity < 2)
@@ -86,8 +85,8 @@
 	name = "Gygax wreckage"
 	icon_state = "gygax-broken"
 
-/obj/effect/decal/mecha_wreckage/gygax/New()
-	..()
+/obj/effect/decal/mecha_wreckage/gygax/Initialize(mapload)
+	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/gygax_torso,
 								/obj/item/mecha_parts/part/gygax_head,
 								/obj/item/mecha_parts/part/gygax_left_arm,
@@ -126,8 +125,8 @@
 	name = "Ripley wreckage"
 	icon_state = "ripley-broken"
 
-/obj/effect/decal/mecha_wreckage/ripley/New()
-	..()
+/obj/effect/decal/mecha_wreckage/ripley/Initialize(mapload)
+	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/ripley_torso,
 								/obj/item/mecha_parts/part/ripley_left_arm,
 								/obj/item/mecha_parts/part/ripley_right_arm,
@@ -144,8 +143,8 @@
 	name = "Firefighter wreckage"
 	icon_state = "firefighter-broken"
 
-/obj/effect/decal/mecha_wreckage/ripley/firefighter/New()
-	..()
+/obj/effect/decal/mecha_wreckage/ripley/firefighter/Initialize(mapload)
+	. = ..()
 	var/list/parts = list(/obj/item/mecha_parts/part/ripley_torso,
 								/obj/item/mecha_parts/part/ripley_left_arm,
 								/obj/item/mecha_parts/part/ripley_right_arm,
@@ -167,8 +166,8 @@
 	name = "Honker wreckage"
 	icon_state = "honker-broken"
 
-/obj/effect/decal/mecha_wreckage/honker/New()
-	..()
+/obj/effect/decal/mecha_wreckage/honker/Initialize(mapload)
+	. = ..()
 	var/list/parts = list(
 							/obj/item/mecha_parts/chassis/honker,
 							/obj/item/mecha_parts/part/honker_torso,
@@ -188,8 +187,8 @@
 	name = "Durand wreckage"
 	icon_state = "durand-broken"
 
-/obj/effect/decal/mecha_wreckage/durand/New()
-	..()
+/obj/effect/decal/mecha_wreckage/durand/Initialize(mapload)
+	. = ..()
 	var/list/parts = list(
 								/obj/item/mecha_parts/part/durand_torso,
 								/obj/item/mecha_parts/part/durand_head,
@@ -218,8 +217,8 @@
 	name = "Odysseus wreckage"
 	icon_state = "odysseus-broken"
 
-/obj/effect/decal/mecha_wreckage/odysseus/New()
-	..()
+/obj/effect/decal/mecha_wreckage/odysseus/Initialize(mapload)
+	. = ..()
 	var/list/parts = list(
 								/obj/item/mecha_parts/part/odysseus_torso,
 								/obj/item/mecha_parts/part/odysseus_head,

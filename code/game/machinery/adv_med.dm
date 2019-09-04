@@ -34,8 +34,8 @@
 		else
 			M.forceMove(loc)
 
-/obj/machinery/bodyscanner/New()
-	..()
+/obj/machinery/bodyscanner/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -44,8 +44,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
-/obj/machinery/bodyscanner/upgraded/New()
-	..()
+/obj/machinery/bodyscanner/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -243,8 +243,8 @@
 			icon_state = "bodyscannerconsole-p"
 			stat |= NOPOWER
 
-/obj/machinery/body_scanconsole/New()
-	..()
+/obj/machinery/body_scanconsole/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner_console(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)

@@ -138,13 +138,6 @@
 
 	update_icon()
 
-
-/obj/machinery/door/airlock/New()
-	..()
-
-	if(SSradio)
-		set_frequency(frequency)
-
 /obj/machinery/airlock_sensor
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
@@ -206,12 +199,8 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/airlock_sensor/Initialize()
-	..()
-	set_frequency(frequency)
-
-/obj/machinery/airlock_sensor/New()
-	..()
+/obj/machinery/airlock_sensor/Initialize(mapload)
+	. = ..()
 	if(SSradio)
 		set_frequency(frequency)
 
@@ -279,13 +268,8 @@
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
 
-/obj/machinery/access_button/Initialize()
-	..()
-	set_frequency(frequency)
-
-/obj/machinery/access_button/New()
-	..()
-
+/obj/machinery/access_button/Initialize(mapload)
+	. = ..()
 	if(SSradio)
 		set_frequency(frequency)
 

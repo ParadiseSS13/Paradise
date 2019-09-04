@@ -7,10 +7,10 @@
 	point_return = 18
 	var/mob/camera/blob/overmind
 
-/obj/structure/blob/node/New(loc, var/h = 100)
+/obj/structure/blob/node/Initialize(mapload)
 	blob_nodes += src
 	START_PROCESSING(SSobj, src)
-	..(loc, h)
+	. = ..()
 
 /obj/structure/blob/node/adjustcolors(var/a_color)
 	overlays.Cut()

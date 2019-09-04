@@ -21,11 +21,9 @@
 	anchored = 1
 
 
-/obj/machinery/party/turntable/New()
-	..()
-	sleep(2)
+/obj/machinery/party/turntable/Initialize(mapload)
+	. = ..()
 	new /sound/turntable/test(src)
-	return
 
 /obj/machinery/party/turntable/attack_hand(mob/user as mob)
 
@@ -167,9 +165,6 @@
 	icon_state = "laserred1"
 	anchored = 1
 	layer = 4
-
-/obj/item/lasermachine/New()
-	..()
 
 /obj/machinery/party/lasermachine/proc/turnon()
 	var/wall = 0

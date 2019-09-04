@@ -15,13 +15,12 @@
 /obj/machinery/space_heater/get_cell()
 	return cell
 
-/obj/machinery/space_heater/New()
-	..()
+/obj/machinery/space_heater/Initialize(mapload)
+	. = ..()
 	cell = new(src)
 	cell.charge = 1000
 	cell.maxcharge = 1000
 	update_icon()
-	return
 
 /obj/machinery/space_heater/Destroy()
 	QDEL_NULL(cell)

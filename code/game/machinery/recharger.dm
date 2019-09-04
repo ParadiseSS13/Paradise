@@ -17,8 +17,8 @@
 	var/icon_state_idle = "recharger0"
 	var/recharge_coeff = 1
 
-/obj/machinery/recharger/New()
-	..()
+/obj/machinery/recharger/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -67,7 +67,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
-		
+
 	if(anchored && !charging)
 		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
 			return

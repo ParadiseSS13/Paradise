@@ -14,14 +14,9 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
-/obj/machinery/computer/teleporter/New()
-	src.id = "[rand(1000, 9999)]"
-	link_power_station()
-	..()
-	return
-
-/obj/machinery/computer/teleporter/Initialize()
-	..()
+/obj/machinery/computer/teleporter/Initialize(mapload)
+	. = ..()
+	id = "[rand(1000, 9999)]"
 	link_power_station()
 	update_icon()
 
@@ -278,8 +273,8 @@
 	var/calibrated //Calibration prevents mutation
 	var/admin_usage = 0 // if 1, works on z2. If 0, doesn't. Used for admin room teleport.
 
-/obj/machinery/teleport/hub/New()
-	..()
+/obj/machinery/teleport/hub/Initialize(mapload)
+	. = ..()
 	link_power_station()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
@@ -287,8 +282,8 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	RefreshParts()
 
-/obj/machinery/teleport/hub/upgraded/New()
-	..()
+/obj/machinery/teleport/hub/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_hub(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 3)
@@ -474,8 +469,8 @@
 	var/list/linked_stations = list()
 	var/efficiency = 0
 
-/obj/machinery/teleport/station/New()
-	..()
+/obj/machinery/teleport/station/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/teleporter_station(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)

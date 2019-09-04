@@ -22,7 +22,7 @@
 	var/has_alerted = FALSE
 
 
-/obj/machinery/computer/syndicate_depot/New()
+/obj/machinery/computer/syndicate_depot/Initialize(mapload)
 	. = ..()
 	depotarea = areaMaster
 
@@ -190,11 +190,11 @@
 	alerts_when_broken = TRUE
 	var/area/syndicate_depot/perimeter/perimeterarea
 
-/obj/machinery/computer/syndicate_depot/shieldcontrol/New()
+/obj/machinery/computer/syndicate_depot/shieldcontrol/Initialize(mapload)
 	. = ..()
 	perimeterarea = locate(/area/syndicate_depot/perimeter)
 	if(istype(perimeterarea) && (GAMEMODE_IS_NUCLEAR || prob(20)))
-		spawn(200)
+		spawn(200) // Disgusting
 			perimeterarea.perimeter_shields_up()
 
 /obj/machinery/computer/syndicate_depot/shieldcontrol/Destroy()
@@ -245,7 +245,7 @@
 	alerts_when_broken = TRUE
 	var/message_sent = FALSE
 
-/obj/machinery/computer/syndicate_depot/syndiecomms/New()
+/obj/machinery/computer/syndicate_depot/syndiecomms/Initialize(mapload)
 	. = ..()
 	if(depotarea)
 		depotarea.comms_computer = src
@@ -362,9 +362,9 @@
 	var/portal_enabled = FALSE
 	var/portaldir = WEST
 
-/obj/machinery/computer/syndicate_depot/teleporter/New()
+/obj/machinery/computer/syndicate_depot/teleporter/Initialize(mapload)
 	. = ..()
-	spawn(10)
+	spawn(10) // Also disgusting
 		findbeacon()
 		update_portal()
 

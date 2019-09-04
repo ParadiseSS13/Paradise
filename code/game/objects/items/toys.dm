@@ -37,7 +37,8 @@
 	icon_state = "waterballoon-e"
 	item_state = "balloon-empty"
 
-/obj/item/toy/balloon/New()
+/obj/item/toy/balloon/Initialize(mapload)
+	. = ..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
@@ -415,9 +416,6 @@ obj/item/toy/cards
 	var/card_throw_range = 20
 	var/list/card_attack_verb = list("attacked")
 
-obj/item/toy/cards/New()
-	..()
-
 obj/item/toy/cards/proc/apply_card_vars(obj/item/toy/cards/newobj, obj/item/toy/cards/sourceobj) // Applies variables for supporting multiple types of card deck
 	if(!istype(sourceobj))
 		return
@@ -432,8 +430,8 @@ obj/item/toy/cards/deck
 	var/cooldown = 0
 	var/list/cards = list()
 
-obj/item/toy/cards/deck/New()
-	..()
+obj/item/toy/cards/deck/Initialize(mapload)
+	. = ..()
 	icon_state = "deck_[deckstyle]_full"
 	for(var/i in 2 to 10)
 		cards += "[i] of Hearts"
@@ -796,7 +794,8 @@ obj/item/toy/cards/deck/syndicate/black
 	var/cooldown = 0
 	burn_state = FLAMMABLE
 
-/obj/item/toy/therapy/New()
+/obj/item/toy/therapy/Initialize(mapload)
+	. = ..()
 	if(item_color)
 		name = "[item_color] therapy doll"
 		desc += " This one is [item_color]."
@@ -1278,8 +1277,8 @@ obj/item/toy/cards/deck/syndicate/black
 	name = "Box of Miniatures"
 	desc = "The nerd's best friends."
 	icon_state = "box"
-/obj/item/storage/box/characters/New()
-	..()
+/obj/item/storage/box/characters/Initialize(mapload)
+	. = ..()
 	new /obj/item/toy/character/alien(src)
 	new /obj/item/toy/character/cleric(src)
 	new /obj/item/toy/character/warrior(src)
@@ -1407,8 +1406,8 @@ obj/item/toy/cards/deck/syndicate/black
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return BRUTELOSS
 
-/obj/item/toy/russian_revolver/New()
-	..()
+/obj/item/toy/russian_revolver/Initialize(mapload)
+	. = ..()
 	spin_cylinder()
 
 /obj/item/toy/russian_revolver/attack_self(mob/user)
@@ -1465,8 +1464,8 @@ obj/item/toy/cards/deck/syndicate/black
 	max_shots = 1
 	var/fake_bullets = 0
 
-/obj/item/toy/russian_revolver/trick_revolver/New()
-	..()
+/obj/item/toy/russian_revolver/trick_revolver/Initialize(mapload)
+	. = ..()
 	fake_bullets = rand(2, 7)
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
@@ -1532,8 +1531,8 @@ obj/item/toy/cards/deck/syndicate/black
 	var/cooldown = 0
 	var/toysay = "What the fuck did you do?"
 
-/obj/item/toy/figure/New()
-	..()
+/obj/item/toy/figure/Initialize(mapload)
+	. = ..()
 	desc = "A \"Space Life\" brand [name]"
 
 /obj/item/toy/figure/attack_self(mob/user as mob)

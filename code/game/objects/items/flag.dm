@@ -203,9 +203,9 @@
 	var/obj/item/grenade/boobytrap = null
 	var/mob/trapper = null
 
-/obj/item/flag/chameleon/New()
+/obj/item/flag/chameleon/Initialize(mapload)
 	updated_icon_state = icon_state
-	..()
+	. = ..()
 
 /obj/item/flag/chameleon/attack_self(mob/user)
 	if(used)
@@ -270,6 +270,6 @@
 /obj/item/flag/chameleon/updateFlagIcon()
 	icon_state = updated_icon_state
 
-/obj/item/flag/chameleon/depot/New()
-	..()
+/obj/item/flag/chameleon/depot/Initialize(mapload)
+	. = ..()
 	boobytrap = new /obj/item/grenade/gas/plasma(src)

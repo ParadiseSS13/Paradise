@@ -192,9 +192,9 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
 
-/obj/structure/cult/functional/pylon/New()
+/obj/structure/cult/functional/pylon/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
-	..()
 
 /obj/structure/cult/functional/pylon/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -284,8 +284,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	can_hold = list("/obj/item/clothing/suit/space/cult", "/obj/item/clothing/head/helmet/space/cult")
 	max_w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/storage/box/cult/New()
-	..()
+/obj/item/storage/box/cult/Initialize(mapload)
+	. = ..()
 	new /obj/item/clothing/suit/space/cult(src)
 	new /obj/item/clothing/head/helmet/space/cult(src)
-	return

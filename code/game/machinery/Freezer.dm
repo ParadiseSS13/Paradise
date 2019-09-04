@@ -10,8 +10,8 @@
 	layer = 3
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/New()
-	..()
+/obj/machinery/atmospherics/unary/cold_sink/freezer/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/thermomachine(null)
@@ -23,8 +23,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/thermomachine(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -170,8 +170,8 @@
 	current_heat_capacity = 1000
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
-	..()
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/Initialize(mapload)
+	. = ..()
 	initialize_directions = dir
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
@@ -186,8 +186,8 @@
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/New()
-	..()
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded/Initialize(mapload)
+	. = ..()
 	var/obj/item/circuitboard/thermomachine/H = new /obj/item/circuitboard/thermomachine(null)
 	H.build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
 	H.name = "circuit board (Heater)"

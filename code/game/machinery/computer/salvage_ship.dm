@@ -12,7 +12,8 @@
 	var/lastMove = 0
 
 
-/obj/machinery/computer/salvage_ship/New()
+/obj/machinery/computer/salvage_ship/Initialize(mapload)
+	. = ..()
 	curr_location= locate(/area/shuttle/salvage/start)
 
 
