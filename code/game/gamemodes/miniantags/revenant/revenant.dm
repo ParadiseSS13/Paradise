@@ -9,12 +9,15 @@
 /mob/living/simple_animal/revenant
 	name = "revenant"
 	desc = "A malevolent spirit."
-	icon = 'icons/mob/mob.dmi'
+	icon = 'icons/mob/revenant.dmi'
 	icon_state = "revenant_idle"
 	var/icon_idle = "revenant_idle"
 	var/icon_reveal = "revenant_revealed"
 	var/icon_stun = "revenant_stun"
 	var/icon_drain = "revenant_draining"
+
+	var/revenant_color = ""
+
 	incorporeal_move = 3
 	invisibility = INVISIBILITY_REVENANT
 	health =  INFINITY //Revenants don't use health, they use essence instead
@@ -116,6 +119,19 @@
 
 	remove_from_all_data_huds()
 	random_revenant_name()
+	revenant_color = pick("purple", "red", "yellow", "blue", "black")
+
+	if(revenant_color != "purple")
+		icon_idle = "[revenant_color]_revenant_idle"
+		icon_reveal = "[revenant_color]_revenant_revealed"
+		icon_stun = "[revenant_color]_revenant_stun"
+		icon_drain = "[revenant_color]_revenant_draining"
+
+	else
+		icon_idle = "revenant_idle"
+		icon_reveal = "revenant_revealed"
+		icon_stun = "revenant_stun"
+		icon_drain = "revenant_draining"
 
 	addtimer(CALLBACK(src, .proc/firstSetupAttempt), 15 SECONDS) // Give admin 15 seconds to put in a ghost (Or wait 15 seconds before giving it objectives)
 
