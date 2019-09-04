@@ -145,7 +145,7 @@ Difficulty: Very Hard
 	INVOKE_ASYNC(src, .proc/spiral_shoot, TRUE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = FALSE, counter_start = 8)
-	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
+	var/turf/start_turf = get_step(src, pick(alldirs))
 	var/counter = counter_start
 	for(var/i in 1 to 80)
 		if(negative)
