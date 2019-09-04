@@ -24,18 +24,22 @@
 	stat_attack = 1 // ensures they will target people in crit, too!
 	delay_web = 20 // double speed
 	web_type = /obj/structure/spider/terrorweb/gray
+	ai_spins_webs = FALSE // uses massweb instead
 	var/prob_ai_massweb = 10
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/Move(turf/T)
 	. = ..(T)
-	var/obj/structure/spider/terrorweb/W = locate() in get_turf(src)
-	if(W)
-		if(icon_state == "terror_gray")
-			icon_state = "terror_gray_cloaked"
-			icon_living = "terror_gray_cloaked"
-	else if(icon_state != "terror_gray")
-		icon_state = "terror_gray"
-		icon_living = "terror_gray"
+	if(stat == DEAD)
+		icon_state = icon_dead
+	else
+		var/obj/structure/spider/terrorweb/W = locate() in get_turf(src)
+		if(W)
+			if(icon_state == "terror_gray")
+				icon_state = "terror_gray_cloaked"
+				icon_living = "terror_gray_cloaked"
+		else if(icon_state != "terror_gray")
+			icon_state = "terror_gray"
+			icon_living = "terror_gray"
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray/spider_specialattack(mob/living/carbon/human/L, poisonable)
 	var/obj/structure/spider/terrorweb/W = locate() in get_turf(L)
