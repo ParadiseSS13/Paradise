@@ -213,7 +213,7 @@
 		data = B.data.Copy()
 	..()
 
-datum/reagent/romerol
+/datum/reagent/romerol
 	name = "romerol"
 	// the REAL zombie powder
 	id = "romerol"
@@ -236,7 +236,7 @@ datum/reagent/romerol
 		ZI.insert(H)
 	..()
 
-/datum/reagent/romerol/stable_mutagen/on_mob_life(mob/living/M)
+/datum/reagent/romerol/on_mob_life(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!H.get_organ_slot("zombie_infection"))
