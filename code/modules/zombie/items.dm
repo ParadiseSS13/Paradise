@@ -5,12 +5,15 @@
 		sustain the zombie, forcing open airlock doors and opening \
 		child-safe caps on bottles."
 	flags = NODROP|ABSTRACT|DROPDEL
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
+	unacidable = TRUE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "bloodhand_left"
 	var/icon_left = "bloodhand_left"
 	var/icon_right = "bloodhand_right"
 	hitsound = 'sound/hallucinations/growl1.ogg'
-	force = 25
+	force = 21 // Just enough to break airlocks with melee attacks
 	damtype = "brute"
 
 /obj/item/zombie_hand/equipped(mob/user, slot)
@@ -26,14 +29,14 @@
 	. = ..()
 	if(!proximity_flag)
 		return
-		
+
 	else if(isliving(target))
 		if(ishuman(target))
-			check_infection(target, user)
+			try_to_zombie_infect(target)
 		else
 			check_feast(target, user)
 
-/obj/item/zombie_hand/proc/check_infection(var/mob/living/carbon/human/target, var/mob/user)
+/proc/try_to_zombie_infect(mob/living/carbon/human/target)
 	CHECK_DNA_AND_SPECIES(target)
 
 	if(NOZOMBIE in target.dna.species.species_traits)
@@ -44,18 +47,19 @@
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = target.get_organ_slot("zombie_infection")
 	if(!infection)
-		if (target.InCritical() || (!target.check_death_method() && target.health <= HEALTH_THRESHOLD_DEAD))
-			infection = new(target)
+		infection = new()
+		infection.insert(target)
 
 /obj/item/zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)
 		var/hp_gained = target.maxHealth
 		target.gib()
-		user.adjustBruteLoss(-hp_gained)
-		user.adjustToxLoss(-hp_gained)
-		user.adjustFireLoss(-hp_gained)
-		user.adjustCloneLoss(-hp_gained)
-		user.adjustBrainLoss(-hp_gained) // Zom Bee gibbers "BRAAAAISNSs!1!"
+		user.adjustBruteLoss(-hp_gained, FALSE)
+		user.adjustToxLoss(-hp_gained, FALSE)
+		user.adjustFireLoss(-hp_gained, FALSE)
+		user.adjustCloneLoss(-hp_gained, FALSE)
+		user.adjustBrainLoss(-hp_gained, FALSE) // Zom Bee gibbers "BRAAAAISNSs!1!"
+		user.updatehealth()
 
 /obj/item/zombie_hand/suicide_act(mob/living/carbon/human/user)
 	user.visible_message("<span class='suicide'>[user] is ripping [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</span>")
