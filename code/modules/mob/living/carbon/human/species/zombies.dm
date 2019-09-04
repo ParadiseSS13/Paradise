@@ -17,6 +17,7 @@
 	cold_level_1 = -1
 	cold_level_2 = -1
 	cold_level_3 = -1
+	tox_mod = 0
 	flesh_color = "#00FF00" // for green examine text
 	bodyflags = HAS_SKIN_COLOR
 	dietflags = DIET_CARN
