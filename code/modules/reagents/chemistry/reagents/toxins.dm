@@ -219,7 +219,7 @@ datum/reagent/romerol
 	color = "#123524" // RGB (18, 53, 36)
 	metabolization_rate = INFINITY
 	can_synth = FALSE
-	taste_message = "CAAAARL"
+	taste_description = "CAAAARL"
 
 /datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H)
 	// Silently add the zombie infection organ to be activated upon death
