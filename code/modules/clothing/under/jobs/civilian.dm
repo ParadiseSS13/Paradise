@@ -88,6 +88,9 @@
 	item_state = "sexyclown"
 	item_color = "sexyclown"
 
+/obj/item/clothing/under/rank/clown/nodrop
+	flags = NODROP
+
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
 	name = "head of personnel's jumpsuit"
@@ -208,6 +211,8 @@
 	item_color = "mime"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/mime/nodrop
+	flags = NODROP
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."

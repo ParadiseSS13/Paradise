@@ -19,7 +19,8 @@
 	ventcrawler = 1
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
-	rapid = 1
+	ai_type = TS_AI_AGGRESSIVE
+	rapid = 3
 	canlay = 1000
 	spider_tier = TS_TIER_5
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress

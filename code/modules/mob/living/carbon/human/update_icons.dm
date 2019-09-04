@@ -1022,9 +1022,9 @@ var/global/list/damage_icon_parts = list()
 			t_state = r_hand.icon_state
 
 		var/mutable_appearance/standing
-		if(r_hand.sprite_sheets && r_hand.sprite_sheets[dna.species.name])
+		if(r_hand.sprite_sheets_inhand && r_hand.sprite_sheets_inhand[dna.species.name])
 			t_state = "[t_state]_r"
-			standing = mutable_appearance(r_hand.sprite_sheets[dna.species.name], "[t_state]", layer = -R_HAND_LAYER)
+			standing = mutable_appearance(r_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -R_HAND_LAYER)
 		else
 			standing = mutable_appearance(r_hand.righthand_file, "[t_state]", layer = -R_HAND_LAYER)
 			standing = center_image(standing, r_hand.inhand_x_dimension, r_hand.inhand_y_dimension)
@@ -1041,9 +1041,9 @@ var/global/list/damage_icon_parts = list()
 			t_state = l_hand.icon_state
 
 		var/mutable_appearance/standing
-		if(l_hand.sprite_sheets && l_hand.sprite_sheets[dna.species.name])
+		if(l_hand.sprite_sheets_inhand && l_hand.sprite_sheets_inhand[dna.species.name])
 			t_state = "[t_state]_l"
-			standing = mutable_appearance(l_hand.sprite_sheets[dna.species.name], "[t_state]", layer = -L_HAND_LAYER)
+			standing = mutable_appearance(l_hand.sprite_sheets_inhand[dna.species.name], "[t_state]", layer = -L_HAND_LAYER)
 		else
 			standing = mutable_appearance(l_hand.lefthand_file, "[t_state]", layer = -L_HAND_LAYER)
 			standing = center_image(standing, l_hand.inhand_x_dimension, l_hand.inhand_y_dimension)

@@ -1,6 +1,6 @@
 /datum/event/grid_check	//NOTE: Times are measured in master controller ticks!
 	announceWhen		= 5
-	
+
 /datum/event/grid_check/setup()
 	endWhen = rand(30,120)
 
@@ -12,7 +12,7 @@
 		if(!M.client || !is_station_level(T.z))
 			continue
 		SEND_SOUND(M, S)
-		
+
 /datum/event/grid_check/announce()
 	event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
 
@@ -45,11 +45,6 @@
 			continue
 		if(C.cell)
 			C.cell.charge = 0
-	for(var/obj/machinery/power/P in GLOB.machines)
-		var/area/current_area = get_area(P)
-		if((current_area.type in skipped_areas_apc) || (current_area.type in skipped_areas) || !is_station_level(P.z))
-			continue
-		P.malfunction = TRUE
 
 /proc/power_restore(var/announce = 1)
 	var/list/skipped_areas = list(/area/turret_protected/ai)
@@ -72,8 +67,6 @@
 		S.input_attempt = S.last_input_attempt
 		S.update_icon()
 		S.power_change()
-	for(var/obj/machinery/power/P in GLOB.machines)
-		P.malfunction = FALSE
 
 /proc/power_restore_quick(var/announce = 1)
 	if(announce)

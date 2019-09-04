@@ -323,7 +323,7 @@
 	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
-	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	suit_store = /obj/item/gun/energy/gun
 	cybernetic_implants = list(
 	 /obj/item/organ/internal/cyberimp/arm/surgery,

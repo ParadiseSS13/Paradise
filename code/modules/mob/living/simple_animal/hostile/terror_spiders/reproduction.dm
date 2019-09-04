@@ -11,7 +11,6 @@
 	layer = 2.75
 	health = 3
 	var/stillborn = FALSE
-	faction = list("terrorspiders")
 	var/spider_myqueen = null
 	var/spider_mymother = null
 	var/goto_mother = FALSE
@@ -169,10 +168,8 @@
 				if(!grow_as)
 					grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 				var/mob/living/simple_animal/hostile/poison/terror_spider/S = new grow_as(loc)
-				S.faction = faction
 				S.spider_myqueen = spider_myqueen
 				S.spider_mymother = spider_mymother
-				S.master_commander = master_commander
 				S.enemies = enemies
 				qdel(src)
 
@@ -186,10 +183,8 @@
 	var/obj/structure/spider/eggcluster/terror_eggcluster/C = new /obj/structure/spider/eggcluster/terror_eggcluster(get_turf(src))
 	C.spiderling_type = lay_type
 	C.spiderling_number = lay_number
-	C.faction = faction
 	C.spider_myqueen = spider_myqueen
 	C.spider_mymother = src
-	C.master_commander = master_commander
 	C.enemies = enemies
 	if(spider_growinstantly)
 		C.amount_grown = 250
@@ -202,7 +197,6 @@
 	desc = "A cluster of tiny spider eggs. They pulse with a strong inner life, and appear to have sharp thorns on the sides."
 	icon_state = "eggs"
 	var/spider_growinstantly = 0
-	faction = list("terrorspiders")
 	var/spider_myqueen = null
 	var/spider_mymother = null
 	var/spiderling_type = null
@@ -244,10 +238,8 @@
 			var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
 			if(spiderling_type)
 				S.grow_as = spiderling_type
-			S.faction = faction
 			S.spider_myqueen = spider_myqueen
 			S.spider_mymother = spider_mymother
-			S.master_commander = master_commander
 			S.enemies = enemies
 			if(spider_growinstantly)
 				S.amount_grown = 250

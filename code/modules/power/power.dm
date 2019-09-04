@@ -15,7 +15,6 @@
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
 	active_power_usage = 0
-	var/malfunction = FALSE
 
 /obj/machinery/power/Destroy()
 	disconnect_from_network()
@@ -31,7 +30,7 @@
 // Non-machines should use add_delayedload(), delayed_surplus(), newavail()
 
 /obj/machinery/power/proc/add_avail(amount)
-	if(powernet && !malfunction)
+	if(powernet)
 		powernet.newavail += amount
 		return TRUE
 	else

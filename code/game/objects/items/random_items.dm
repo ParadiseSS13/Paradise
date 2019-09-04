@@ -18,8 +18,8 @@
 /obj/effect/decal/cleanable/random
 	name = "Random Mess"
 
-/obj/effect/decal/cleanable/random/New()
-	..()
+/obj/effect/decal/cleanable/random/Initialize(mapload)
+	. = ..()
 	var/list/list = subtypesof(/obj/effect/decal/cleanable) - list(/obj/effect/decal/cleanable/random,/obj/effect/decal/cleanable/cobweb,/obj/effect/decal/cleanable/cobweb2)
 	var/T = pick(list)
 	new T(loc)

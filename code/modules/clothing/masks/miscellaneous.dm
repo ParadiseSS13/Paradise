@@ -483,6 +483,11 @@
 	item_color = "black"
 	desc = "It's a black bandana."
 
+/obj/item/clothing/mask/bandana/durathread
+	name = "durathread bandana"
+	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
+	icon_state = "banddurathread"
+
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"
 	desc = "This is a very, very odd looking mask."

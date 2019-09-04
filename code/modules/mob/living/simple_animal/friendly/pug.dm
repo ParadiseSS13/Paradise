@@ -19,13 +19,12 @@
 	see_in_dark = 5
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
-/mob/living/simple_animal/pet/pug/Life()
-	..()
-
+/mob/living/simple_animal/pet/pug/handle_automated_movement()
+	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
 			custom_emote(1, pick("chases its tail."))
 			spawn(0)
-				for(var/i in list(1,2,4,8,4,2,1,2,4,8,4,2,1,2,4,8,4,2))
+				for(var/i in list(1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2, 1, 2, 4, 8, 4, 2))
 					dir = i
 					sleep(1)

@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - tweak: "Admins now don't get spammed by hugs."

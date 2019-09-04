@@ -12,6 +12,9 @@
 /area/ruin/powered/snow_biodome
 	icon_state = "dk_yellow"
 
+/area/ruin/powered/snow_cabin
+	icon_state = "bar"
+
 /area/ruin/powered/gluttony
 	icon_state = "dk_yellow"
 
