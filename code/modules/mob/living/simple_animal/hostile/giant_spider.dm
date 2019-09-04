@@ -80,14 +80,13 @@
 	. = ..()
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
-		if(prob(1))
+		if(!busy && prob(1))
 			stop_automated_movement = 1
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			spawn(50)
 				stop_automated_movement = 0
 				walk(src,0)
-		else
-			..()
+		return 1
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
@@ -123,6 +122,7 @@
 					for(var/obj/O in can_see)
 						if(O.anchored)
 							continue
+
 						if(isitem(O) || isstructure(O) || ismachinery(O))
 							cocoon_target = O
 							busy = MOVING_TO_TARGET
@@ -130,9 +130,11 @@
 							Goto(O, move_to_delay)
 							//give up if we can't reach them after 10 seconds
 							GiveUp(O)
+
 		else if(busy == MOVING_TO_TARGET && cocoon_target)
 			if(get_dist(src, cocoon_target) <= 1)
 				Wrap()
+
 	else
 		busy = 0
 		stop_automated_movement = 0
