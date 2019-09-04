@@ -65,8 +65,6 @@
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
-	var/mob/living/list/ignored_by = list() // list of mobs that will ignore this species
-
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
 	var/list/species_traits = list()

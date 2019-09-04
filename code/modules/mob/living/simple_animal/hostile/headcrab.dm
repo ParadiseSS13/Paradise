@@ -36,11 +36,11 @@
 			for(var/mob/living/L in T)
 				if(L == src || L == A)
 					continue
-				if(faction_check(L) && !attack_same)
+				if(faction_check_mob(L) && !attack_same)
 					return
 	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
-	ranged_cooldown = world.time + ranged_cooldown_time	
+	ranged_cooldown = world.time + ranged_cooldown_time
 
 /mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())

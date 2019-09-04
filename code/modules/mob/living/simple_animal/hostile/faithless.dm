@@ -19,6 +19,8 @@
 	attacktext = "grips"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	speak_emote = list("growls")
+	emote_taunt = list("wails")
+	taunt_chance = 25
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -29,14 +31,9 @@
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/movement_dir = 0)
 	return 1
 
-/mob/living/simple_animal/hostile/faithless/FindTarget()
-	. = ..()
-	if(.)
-		custom_emote(1, "wails at [.]!")
-
 /mob/living/simple_animal/hostile/faithless/AttackingTarget()
-	..()
-	if(iscarbon(target))
+	. = ..()
+	if(. && iscarbon(target))
 		var/mob/living/carbon/C = target
 		if(prob(12))
 			C.Weaken(3)

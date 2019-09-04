@@ -158,7 +158,8 @@
 		if(istype(target, /obj/effect/decal/cleanable))
 			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
 			qdel(target)
-			return
+			return TRUE
 		var/atom/movable/M = target
 		M.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+		return TRUE
