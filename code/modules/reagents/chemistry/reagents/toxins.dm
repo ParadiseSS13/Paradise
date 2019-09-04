@@ -236,6 +236,14 @@ datum/reagent/romerol
 		ZI.insert(H)
 	..()
 
+/datum/reagent/romerol/stable_mutagen/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.get_organ_slot("zombie_infection"))
+			var/obj/item/organ/internal/zombie_infection/nodamage/ZI = new()
+			ZI.insert(H)
+	return ..()
+
 /datum/reagent/uranium
 	name ="Uranium"
 	id = "uranium"
