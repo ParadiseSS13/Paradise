@@ -128,11 +128,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	typepath = /obj/item/clothing/gloves/color/black/krav_maga/sec
 	protected_jobs = list("Head Of Security", "Warden")
 
-/datum/theft_objective/forensics
-	name = "the detective's advanced forensics gloves"
-	typepath = /obj/item/clothing/gloves/color/black/forensics
-	protected_jobs = list("Head Of Security", "Detective")
-
 /datum/theft_objective/number
 	var/min=0
 	var/max=0
