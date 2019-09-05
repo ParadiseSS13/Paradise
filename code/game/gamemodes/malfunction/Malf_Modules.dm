@@ -36,10 +36,6 @@
 		if(initial(uses) > 1) //no need to tell 'em if it was one-use anyway!
 			to_chat(owner, "<span class='warning'>[name] has run out of uses!</span>")
 		qdel(src)
-		if(istype(src, /datum/action/innate/ai/overload_machine))
-			usr.verbs -= /mob/living/silicon/ai/proc/overload_machine
-		else if(istype(src, /datum/action/innate/ai/override_machine))
-			usr.verbs -= /mob/living/silicon/ai/proc/override_machine
 
 //Framework for ranged abilities that can have different effects by left-clicking stuff.
 /datum/action/innate/ai/ranged
@@ -81,13 +77,13 @@
 	var/disable_text = "<span class='danger'>Goodbye Cruel World!</span>" //Context clues!
 	var/datum/action/innate/ai/ranged/attached_action
 
-/obj/effect/proc_holder/ranged_ai/Destroy()
-	QDEL_NULL(attached_action)
-	return ..()
+// /obj/effect/proc_holder/ranged_ai/Destroy()
+// 	QDEL_NULL(attached_action)
+// 	return ..()
 
 /obj/effect/proc_holder/ranged_ai/proc/toggle(mob/user)
 	if(active)
-		remove_ranged_ability(disable_text)
+		remove_ranged_ability(user, disable_text)
 	else
 		add_ranged_ability(user, enable_text)
 
@@ -109,8 +105,6 @@
 		for(var/datum/action/A in AI.actions)
 			if(istype(A, initial(AM.power_type)))
 				qdel(A)
-	AI.verbs -= /mob/living/silicon/ai/proc/overload_machine
-	AI.verbs -= /mob/living/silicon/ai/proc/override_machine
 
 /datum/module_picker/proc/use(user as mob)
 	var/dat
@@ -161,16 +155,6 @@
 				if(AM.power_type)
 					if(!action) //Unlocking for the first time
 						var/datum/action/AC = new AM.power_type
-
-						// These two powers are annoying as fuck to have as action buttons ONLY. We need verbs for them too, so we can right click on machines to overload/override
-						// Still adding them as action buttons just to have a neat icon and a tooltip for the amount of charges left
-						if(istype(AC, /datum/action/innate/ai/overload_machine))
-							A.view_core() //A BYOND bug requires you to be viewing your core before your verbs update
-							A.verbs += /mob/living/silicon/ai/proc/overload_machine
-						else if(istype(AC, /datum/action/innate/ai/override_machine))
-							A.view_core()
-							A.verbs += /mob/living/silicon/ai/proc/override_machine
-
 						AC.Grant(A)
 						A.current_modules += new AM.type
 						temp = AM.description
@@ -181,13 +165,6 @@
 						if(AM.unlock_sound)
 							A.playsound_local(A, AM.unlock_sound, 50, 0)
 					else //Adding uses to an existing module
-						if(istype(action, /datum/action/innate/ai/overload_machine))
-							for(var/datum/AI_Module/small/overload_machine/overload in A.current_modules)
-								overload.uses += 2
-						else if(istype(action, /datum/action/innate/ai/override_machine))
-							for(var/datum/AI_Module/small/override_machine/override in A.current_modules)
-								override.uses += 4
-
 						action.uses += initial(action.uses)
 						action.desc = "[initial(action.desc)] It has [action.uses] use\s remaining."
 						action.UpdateButtonIcon()
@@ -373,7 +350,7 @@
 	for(var/obj/machinery/door/D in GLOB.airlocks)
 		if(!is_station_level(D.z))
 			continue
-		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown, src)
+		INVOKE_ASYNC(D, /obj/machinery/door.proc/hostile_lockdown, owner)
 		addtimer(CALLBACK(D, /obj/machinery/door.proc/disable_lockdown), 900)
 
 	post_status("alert", "lockdown")
@@ -472,83 +449,60 @@
 	to_chat(owner, "<span class='notice'>All air alarm safeties on the station have been overriden. Air alarms may now use the Flood environmental mode.")
 	owner.playsound_local(owner, 'sound/machines/terminal_off.ogg', 50, 0)
 
+
 //Overload Machine: Allows the AI to overload a machine, detonating it after a delay. Two uses per purchase.
 /datum/AI_Module/small/overload_machine
 	module_name = "Machine Overload"
 	mod_pick_name = "overload"
 	description = "Overheats an electrical machine, causing a small explosion and destroying it. Two uses per purchase."
 	cost = 20
-	uses = 2
-	power_type = /datum/action/innate/ai/overload_machine
+	power_type = /datum/action/innate/ai/ranged/overload_machine
 	unlock_text = "<span class='notice'>You enable the ability for the station's APCs to direct intense energy into machinery.</span>"
 
-/datum/action/innate/ai/overload_machine
+/datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
 	desc = "Overheats a machine, causing a small explosion after a short time."
 	button_icon_state = "overload_machine"
 	uses = 2
-	auto_use_uses = FALSE
+	linked_ability_type = /obj/effect/proc_holder/ranged_ai/overload_machine
 
-/datum/action/innate/ai/overload_machine/New()
+/datum/action/innate/ai/ranged/overload_machine/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
 	button.desc = desc
 
-/datum/action/innate/ai/overload_machine/Activate()
-	var/select = input("Choose a device to overload", "Overload Machine", null, null) as null|anything in GLOB.machines
-	if(!select)
+/datum/action/innate/ai/ranged/overload_machine/proc/detonate_machine(obj/machinery/M)
+	if(M && !QDELETED(M))
+		explosion(get_turf(M), 0,1,1,0)
+		if(M) //to check if the explosion killed it before we try to delete it
+			qdel(M)
+
+/obj/effect/proc_holder/ranged_ai/overload_machine
+	active = FALSE
+	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
+	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
+	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
+
+/obj/effect/proc_holder/ranged_ai/overload_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
+	if(..())
+		return
+	if(ranged_ability_user.incapacitated())
+		remove_ranged_ability()
+		return
+	if(!istype(target))
+		to_chat(ranged_ability_user, "<span class='warning'>You can only overload machines!</span>")
 		return
 
-	var/obj/machinery/M = select
-	if(istype(M, /obj/machinery))
-		if(uses > 0)
-			adjust_uses(-1)
-			if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
-				desc = "[initial(desc)] It has [uses] use\s remaining."
-				UpdateButtonIcon()
-			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
-			to_chat(owner, "<span class='warning'>Overloading machine circuitry...</span>")
-			spawn(50)
-				if(M)
-					explosion(get_turf(M), 0,1,1,0)
-					qdel(M)
-		else
-			to_chat(owner, "<span class='notice'>Out of uses.</span>")
-	else
-		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
-		return
+	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, 0)
+	attached_action.adjust_uses(-1)
+	if(attached_action && attached_action.uses)
+		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
+		attached_action.UpdateButtonIcon()
+	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
+	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
+	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
+	return TRUE
 
-/mob/living/silicon/ai/proc/overload_machine(obj/machinery/M in GLOB.machines)
-	set name = "Overload Machine"
-	set category = "Malfunction"
-
-	if(stat)
-		return
-
-	if(istype(M, /obj/machinery))
-		for(var/datum/AI_Module/small/overload_machine/overload in current_modules)
-			if(overload.uses > 0)
-				overload.uses--
-
-				// This section is for updating the ability's associated action button tooltip after using the right click verb to overload
-				for(var/datum/action/innate/ai/A in usr.actions)
-					if(istype(A, /datum/action/innate/ai/overload_machine))
-						A.adjust_uses(-1)
-						A.desc = "[initial(A.desc)] It has [overload.uses] use\s remaining."
-						A.UpdateButtonIcon()
-						break
-
-				audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
-				to_chat(src, "<span class='warning'>Overloading machine circuitry...</span>")
-				spawn(50)
-					if(M)
-						explosion(get_turf(M), 0,1,1,0)
-						qdel(M)
-
-			if(overload.uses == 0)
-				usr.verbs -= /mob/living/silicon/ai/proc/overload_machine
-	else
-		to_chat(src, "<span class='notice'>That's not a machine.</span>")
 
 //Override Machine: Allows the AI to override a machine, animating it into an angry, living version of itself.
 /datum/AI_Module/small/override_machine
@@ -556,80 +510,54 @@
 	mod_pick_name = "override"
 	description = "Overrides a machine's programming, causing it to rise up and attack everyone except other machines. Four uses."
 	cost = 30
-	uses = 4
-	power_type = /datum/action/innate/ai/override_machine
-	unlock_text = "<span class='notice'>You procure a virus from the Space Dark Web and prepare to distribute it to the station's machines.</span>"
+	power_type = /datum/action/innate/ai/ranged/override_machine
+	unlock_text = "<span class='notice'>You procure a virus from the Space Dark Web and distribute it to the station's machines.</span>"
 
-/datum/action/innate/ai/override_machine
+/datum/action/innate/ai/ranged/override_machine
 	name = "Override Machine"
 	desc = "Animates a targeted machine, causing it to attack anyone nearby."
 	button_icon_state = "override_machine"
 	uses = 4
-	auto_use_uses = FALSE
+	linked_ability_type = /obj/effect/proc_holder/ranged_ai/override_machine
 
-/datum/action/innate/ai/override_machine/New()
+/datum/action/innate/ai/ranged/override_machine/New()
 	..()
 	desc = "[desc] It has [uses] use\s remaining."
 	button.desc = desc
 
-/datum/action/innate/ai/override_machine/Activate()
-	var/select = input("Choose a device to override", "Override Machine", null, null) as null|anything in GLOB.machines
-	if(!select)
+/datum/action/innate/ai/ranged/override_machine/proc/animate_machine(obj/machinery/M)
+	if(M && !QDELETED(M))
+		new/mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, owner, 1)
+
+/obj/effect/proc_holder/ranged_ai/override_machine
+	active = FALSE
+	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
+	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.</span>"
+	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
+
+/obj/effect/proc_holder/ranged_ai/override_machine/InterceptClickOn(mob/living/caller, params, obj/machinery/target)
+	if(..())
+		return
+	if(ranged_ability_user.incapacitated())
+		remove_ranged_ability()
+		return
+	if(!istype(target))
+		to_chat(ranged_ability_user, "<span class='warning'>You can only animate machines!</span>")
+		return
+	if(!target.can_be_overridden())
+		to_chat(ranged_ability_user, "<span class='warning'>That machine can't be overridden!</span>")
 		return
 
-	var/obj/machinery/M = select
-	if(istype(M, /obj/machinery))
-		if(!M.can_be_overridden())
-			to_chat(owner, "Can't override this device.")
-			return
-		else if(uses > 0)
-			adjust_uses(-1)
-			if(src && uses) //Not sure if not having src here would cause a runtime, so it's here to be safe
-				desc = "[initial(desc)] It has [uses] use\s remaining."
-				UpdateButtonIcon()
-			M.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
-			to_chat(owner, "<span class='warning'>Reprogramming machine behaviour...</span>")
-			spawn(50)
-				if(M && !QDELETED(M))
-					new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
-		else
-			to_chat(owner, "<span class='notice'>Out of uses.</span>")
-	else
-		to_chat(owner, "<span class='notice'>That's not a machine.</span>")
-		return
+	ranged_ability_user.playsound_local(ranged_ability_user, 'sound/misc/interference.ogg', 50, 0)
+	attached_action.adjust_uses(-1)
+	if(attached_action && attached_action.uses)
+		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
+		attached_action.UpdateButtonIcon()
+	target.audible_message("<span class='userdanger'>You hear a loud electrical buzzing sound coming from [target]!</span>")
+	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/override_machine.proc/animate_machine, target), 50) //kabeep!
+	remove_ranged_ability(ranged_ability_user, "<span class='danger'>Sending override signal...</span>")
+	return TRUE
 
-/mob/living/silicon/ai/proc/override_machine(obj/machinery/M in GLOB.machines)
-	set name = "Override Machine"
-	set category = "Malfunction"
-
-	if(stat)
-		return
-
-	if(istype(M, /obj/machinery))
-		if(!M.can_be_overridden())
-			to_chat(src, "Can't override this device.")
-		for(var/datum/AI_Module/small/override_machine/override in current_modules)
-			if(override.uses > 0)
-				override.uses--
-			
-				// This section is for updating the ability's associated action tooltip button after using the right click verb to override
-				for(var/datum/action/innate/ai/A in usr.actions)
-					if(istype(A, /datum/action/innate/ai/override_machine))
-						A.adjust_uses(-1)
-						A.desc = "[initial(A.desc)] It has [override.uses] use\s remaining."
-						A.UpdateButtonIcon()
-						break
-
-				audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
-				to_chat(src, "<span class='warning'>Reprogramming machine behaviour...</span>")
-				spawn(50)
-					if(M && !QDELETED(M))
-						new /mob/living/simple_animal/hostile/mimic/copy/machine(get_turf(M), M, src, 1)
-
-			if(override.uses == 0)
-				usr.verbs -= /mob/living/silicon/ai/proc/override_machine
-	else
-		to_chat(src, "<span class='notice'>That's not a machine.</span>")
 
 //Robotic Factory: Places a large machine that converts humans that go through it into cyborgs. Unlocking this ability removes shunting.
 /datum/AI_Module/large/place_cyborg_transformer
