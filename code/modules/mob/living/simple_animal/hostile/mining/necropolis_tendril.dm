@@ -27,12 +27,12 @@
 	..()
 	//for(var/F in RANGE_TURFS(1, src)) TODO: Uncomment
 		//if(ismineralturf(F))
-			//var/turf/simulated/mineral/M = F 
+			//var/turf/simulated/mineral/M = F
 			//M.ChangeTurf(M.turf_type, FALSE, TRUE)
 	gps = new /obj/item/gps/internal(src)
 
 /mob/living/simple_animal/hostile/spawner/lavaland/Destroy()
-	qdel(gps)
+	QDEL_NULL(gps)
 	. = ..()
 
 /mob/living/simple_animal/hostile/spawner/lavaland/death()
@@ -54,25 +54,28 @@
 	name = "collapsing necropolis tendril"
 	desc = "Get clear!"
 	luminosity = 1
-	layer = ABOVE_OPEN_TURF_LAYER
+	layer = TABLE_LAYER
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "tendril"
 	anchored = TRUE
+	density = TRUE
 
-/obj/effect/collapse/New()
-	..()
+/obj/effect/collapse/Initialize(mapload)
+	. = ..()
 	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")
 	visible_message("<span class='warning'>Something falls free of the tendril!</span>")
 	playsound(get_turf(src),'sound/effects/tendril_destroyed.ogg', 200, 0, 50, 1, 1)
-	spawn(50)
-		for(var/mob/M in range(7,src))
-			shake_camera(M, 15, 1)
-		playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, 1)
-		visible_message("<span class='boldannounce'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
-		for(var/turf/T in range(2,src))
-			if(!T.density)
-				T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
-		qdel(src)
+	addtimer(CALLBACK(src, .proc/collapse), 50)
+
+/obj/effect/collapse/proc/collapse()
+	for(var/mob/M in range(7,src))
+		shake_camera(M, 15, 1)
+	playsound(get_turf(src),'sound/effects/explosionfar.ogg', 200, 1)
+	visible_message("<span class='boldannounce'>The tendril falls inward, the ground around it widening into a yawning chasm!</span>")
+	for(var/turf/T in range(2,src))
+		if(!T.density)
+			T.TerraformTurf(/turf/simulated/floor/chasm/straight_down/lava_land_surface)
+	qdel(src)
 
 /mob/living/simple_animal/hostile/spawner/lavaland/goliath
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast/tendril)
