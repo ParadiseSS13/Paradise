@@ -60,7 +60,7 @@
 			if(C != src && C.type == type && !QDELETED(C))
 				if(replace_decal(C))
 					qdel(src)
-					return
+					return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	if(smooth)
