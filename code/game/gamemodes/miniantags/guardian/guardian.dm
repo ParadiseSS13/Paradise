@@ -123,7 +123,7 @@
 		med_hud_set_health()
 		med_hud_set_status()
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
+/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
 	if(summoner)
 		if(loc == summoner)

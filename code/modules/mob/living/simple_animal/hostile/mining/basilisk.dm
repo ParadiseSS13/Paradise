@@ -26,8 +26,8 @@
 	a_intent = INTENT_HARM
 	speak_emote = list("chitters")
 	attack_sound = 'sound/weapons/bladeslice.ogg'
+	vision_range = 2
 	aggro_vision_range = 9
-	idle_vision_range = 2
 	turns_per_move = 5
 	loot = list(/obj/item/stack/ore/diamond{layer = 4.1},
 				/obj/item/stack/ore/diamond{layer = 4.1})
@@ -41,13 +41,10 @@
 	flag = "energy"
 	temperature = 50
 
-/mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(var/new_target)
+/mob/living/simple_animal/hostile/asteroid/basilisk/GiveTarget(new_target)
 	if(..()) //we have a target
-		if(isliving(target))
-			var/mob/living/L = target
-			if(L.bodytemperature > 261)
-				L.bodytemperature = 261
-				visible_message("<span class='danger'>The [src.name]'s stare chills [L.name] to the bone!</span>")
+		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)//No more being shot at point blank or spammed with RNG beams
+			OpenFire(target)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/ex_act(severity)
 	switch(severity)
