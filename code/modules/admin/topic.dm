@@ -1832,10 +1832,8 @@
 					P.universal_understand = 1
 					P.can_collar = 1
 					P.faction = list("neutral")
-					var/obj/item/clothing/accessory/petcollar/C = new /obj/item/clothing/accessory/petcollar(P)
-					P.pcollar = C
-					C.equipped(P)
-					P.regenerate_icons()
+					var/obj/item/clothing/accessory/petcollar/C = new
+					P.add_collar(C)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)
 						var/obj/item/card/id/D = new /obj/item/card/id(C)

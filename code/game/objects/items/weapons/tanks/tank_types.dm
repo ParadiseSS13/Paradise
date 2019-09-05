@@ -70,7 +70,6 @@ obj/item/tank/oxygen/empty/New()
 	desc = "Mixed anyone?"
 	icon_state = "air"
 	item_state = "air"
-	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/air/examine(mob/user)
 	if(..(user, 0))

@@ -590,14 +590,14 @@
 /mob/living/simple_animal/proc/add_collar(obj/item/clothing/accessory/petcollar/P, mob/user)
 	if(QDELETED(P) || pcollar)
 		return
-	if(!user.unEquip(P))
+	if(user && !user.unEquip(P))
 		return
 	P.forceMove(src)
 	P.equipped(src)
 	pcollar = P
 	regenerate_icons()
 	if(user)
-		to_chat(user, "<span class='notice'>You put the [P] around [src]'s neck.</span>")
+		to_chat(user, "<span class='notice'>You put [P] around [src]'s neck.</span>")
 	if(P.tagname && !unique_pet)
 		name = P.tagname
 		real_name = P.tagname

@@ -38,6 +38,7 @@
 	desc = "A top hat worn by only the most prestigious hat collectors."
 	icon_state = "tophat"
 	item_state = "that"
+	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/head/collectable/captain
 	name = "collectable captain's hat"

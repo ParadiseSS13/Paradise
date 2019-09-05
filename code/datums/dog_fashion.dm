@@ -45,6 +45,10 @@
 /datum/dog_fashion/back
 	icon_file = 'icons/mob/corgi_back.dmi'
 
+/datum/dog_fashion/head/hardhat/apply(mob/living/simple_animal/pet/dog/D)
+	..()
+	D.set_light(4)
+
 /datum/dog_fashion/head/helmet
 	name = "Sergeant REAL_NAME"
 	desc = "The ever-loyal, the ever-vigilant."
@@ -149,6 +153,10 @@
 	emote_hear = list("lights the way!", "illuminates.", "yaps!")
 	desc = "He has a very shiny nose."
 
+/datum/dog_fashion/head/reindeer/apply(mob/living/simple_animal/pet/dog/D)
+	..()
+	D.set_light(2, 2, LIGHT_COLOR_RED)
+
 /datum/dog_fashion/head/sombrero
 	name = "Segnor REAL_NAME"
 	desc = "You must respect Elder Dogname"
@@ -174,3 +182,21 @@
 /datum/dog_fashion/back/deathsquad
 	name = "Trooper REAL_NAME"
 	desc = "That's not red paint. That's real corgi blood."
+
+/datum/dog_fashion/head/not_ian
+	name = "Definitely Not REAL_NAME"
+	desc = "That's Definitely Not Dogname"
+
+/datum/dog_fashion/head/not_ian/New(mob/M)
+	..()
+	desc = "That's Definitely Not [M.real_name]."
+
+/datum/dog_fashion/back/hardsuit
+	name = "Space Explorer REAL_NAME"
+	desc = "That's one small step for a corgi. One giant yap for corgikind."
+
+/datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
+	..()
+	D.mutations.Add(BREATHLESS)
+	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	D.minbodytemp = 0

@@ -21,7 +21,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return
-	playsound(src, yelp_sound, 75, 1)
+	playsound(src, yelp_sound, 75, TRUE)
 
 /mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
 	if(!incapacitated())
@@ -44,11 +44,11 @@
 		if("bark")
 			message = "<B>[src]</B> [pick(src.speak_emote)]!"
 			m_type = 2 //audible
-			playsound(src, pick(src.bark_sound), 50, 0.85)
+			playsound(src, pick(src.bark_sound), 50, TRUE)
 		if("yelp")
 			message = "<B>[src]</B> yelps!"
 			m_type = 2 //audible
-			playsound(src, yelp_sound, 50, 0.85)
+			playsound(src, yelp_sound, 75, TRUE)
 		if("growl")
 			message = "<B>[src]</B> growls!"
 			m_type = 2 //audible
@@ -69,7 +69,7 @@
 	if(change)
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
-				new /obj/effect/temp_visual/heart(loc)
+				new /obj/effect/temp_visual/heart(src)
 				custom_emote(1, "yaps happily!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)
@@ -155,16 +155,16 @@
 
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/razor))
-		if (shaved)
+		if(shaved)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it's already been shaved!</span>")
 			return
-		if (nofur)
+		if(nofur)
 			to_chat(user, "<span class='warning'>You can't shave this corgi, it doesn't have a fur coat!</span>")
 			return
 		user.visible_message("<span class='notice'>[user] starts to shave [src] using \the [O].", "<span class='notice'>You start to shave [src] using \the [O]...</span>")
 		if(do_after(user, 50, target = src))
 			user.visible_message("<span class='notice'>[user] shaves [src]'s hair using \the [O].</span>")
-			playsound(loc, 'sound/items/welder2.ogg', 20, TRUE)
+			playsound(loc, O.usesound, 20, TRUE)
 			shaved = TRUE
 			icon_living = "[initial(icon_living)]_shaved"
 			icon_dead = "[initial(icon_living)]_shaved_dead"
@@ -190,6 +190,7 @@
 				if(inventory_head)
 					if(inventory_head.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+						return
 					usr.put_in_hands(inventory_head)
 					inventory_head = null
 					update_corgi_fluff()
@@ -201,6 +202,7 @@
 				if(inventory_back)
 					if(inventory_back.flags & NODROP)
 						to_chat(usr, "<span class='warning'>\The [inventory_head] is stuck too hard to [src] for you to remove!</span>")
+						return
 					usr.put_in_hands(inventory_back)
 					inventory_back = null
 					update_corgi_fluff()
@@ -266,7 +268,7 @@
 						return
 
 					item_to_add.forceMove(src)
-					src.inventory_back = item_to_add
+					inventory_back = item_to_add
 					update_corgi_fluff()
 					regenerate_icons()
 
@@ -313,7 +315,7 @@
 				"<span class='notice'>You put [item_to_add] on [real_name]'s head. [src] gives you a peculiar look, then wags [p_their()] tail once and barks.</span>",
 				"<span class='italics'>You hear a friendly-sounding bark.</span>")
 		item_to_add.forceMove(src)
-		src.inventory_head = item_to_add
+		inventory_head = item_to_add
 		update_corgi_fluff()
 		regenerate_icons()
 	else
@@ -338,6 +340,9 @@
 	emote_see = list("shakes its head.", "chases its tail.","shivers.")
 	desc = initial(desc)
 	set_light(0)
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	mutations.Remove(BREATHLESS)
+	minbodytemp = initial(minbodytemp)
 
 	if(inventory_head && inventory_head.dog_fashion)
 		var/datum/dog_fashion/DF = new inventory_head.dog_fashion(src)
@@ -684,14 +689,10 @@
 	if(!emagged)
 		emagged = 1
 		visible_message("<span class='warning'>[user] swipes a card through [src].</span>", "<span class='notice'>You overload [src]s internal reactor.</span>")
-		spawn (1000)
-			src.explode()
+		addtimer(CALLBACK(src, .proc/explode), 1000)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/proc/explode()
-	for(var/mob/M in viewers(src, null))
-		if(M.client)
-			M.show_message("<span class='warning'>[src] makes an odd whining noise.</span>")
-	sleep(10)
+	visible_message("<span class='warning'>[src] makes an odd whining noise.</span>")
 	explosion(get_turf(src), 0, 1, 4, 7)
 	death()
 
@@ -708,7 +709,6 @@
 	A.yo = U.y - T.y
 	A.xo = U.x - T.x
 	A.fire()
-	return
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/Life(seconds, times_fired)
 	..()

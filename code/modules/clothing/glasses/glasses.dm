@@ -374,7 +374,6 @@
 	flash_protect = 2
 	tint = 3				//to make them blind
 	prescription_upgradable = 0
-	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/glasses/sunglasses/prescription
 	prescription = 1
