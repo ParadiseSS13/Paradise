@@ -43480,7 +43480,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCQ" = (
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCR" = (

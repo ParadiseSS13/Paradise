@@ -245,6 +245,7 @@
 		D.flags |= NODROP
 		C.place_on_head(D)
 		C.name = "Detective Sax"
+		C.real_name = "Detective Sax"
 		C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
 		to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
 		qdel(src)

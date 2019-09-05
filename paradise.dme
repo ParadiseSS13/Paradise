@@ -1928,7 +1928,6 @@
 #include "code\modules\mob\living\simple_animal\friendly\butterfly.dm"
 #include "code\modules\mob\living\simple_animal\friendly\cat.dm"
 #include "code\modules\mob\living\simple_animal\friendly\cockroach.dm"
-#include "code\modules\mob\living\simple_animal\friendly\corgi_powers.dm"
 #include "code\modules\mob\living\simple_animal\friendly\crab.dm"
 #include "code\modules\mob\living\simple_animal\friendly\deer.dm"
 #include "code\modules\mob\living\simple_animal\friendly\diona.dm"

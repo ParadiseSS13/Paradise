@@ -79,7 +79,7 @@
 
 /obj/structure/closet/critter/fox
 	name = "fox crate"
-	content_mob = /mob/living/simple_animal/pet/fox
+	content_mob = /mob/living/simple_animal/pet/dog/fox
 
 /obj/structure/closet/critter/butterfly
 	name = "butterflies crate"

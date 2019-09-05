@@ -248,7 +248,7 @@
 						if("lizard")
 							new_mob = new /mob/living/simple_animal/lizard(M.loc)
 						if("fox")
-							new_mob = new /mob/living/simple_animal/pet/fox(M.loc)
+							new_mob = new /mob/living/simple_animal/pet/dog/fox(M.loc)
 						else
 							new_mob = new /mob/living/simple_animal/chick(M.loc)
 				new_mob.universal_speak = TRUE

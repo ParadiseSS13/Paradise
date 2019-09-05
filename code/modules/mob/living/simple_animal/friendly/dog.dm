@@ -1,6 +1,10 @@
 //Dogs.
 
 /mob/living/simple_animal/pet/dog
+	name = "dog"
+	icon_state = "blackdog"
+	icon_living = "blackdog"
+	icon_dead = "blackdog_dead"
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
@@ -12,9 +16,18 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
+	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
+
+/mob/living/simple_animal/pet/dog/verb/chasetail()
+	set name = "Chase your tail"
+	set desc = "d'awwww."
+	set category = "Dog"
+
+	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
+	spin(20, 1)
 
 /mob/living/simple_animal/pet/dog/death(gibbed)
 	// Only execute the below if we successfully died
@@ -69,7 +82,7 @@
 	if(change)
 		if(change > 0)
 			if(M && stat != DEAD) // Added check to see if this mob (the corgi) is dead to fix issue 2454
-				new /obj/effect/temp_visual/heart(src)
+				new /obj/effect/temp_visual/heart(loc)
 				custom_emote(1, "yaps happily!")
 		else
 			if(M && stat != DEAD) // Same check here, even though emote checks it as well (poor form to check it only in the help case)

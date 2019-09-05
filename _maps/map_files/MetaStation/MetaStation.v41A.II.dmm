@@ -50014,7 +50014,7 @@
 	network = list("MiniSat","tcomm");
 	pixel_y = -29
 	},
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet{
 	tag = "icon-carpetside";
 	icon_state = "carpetside"

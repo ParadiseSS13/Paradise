@@ -1,5 +1,5 @@
 //Foxxy
-/mob/living/simple_animal/pet/fox
+/mob/living/simple_animal/pet/dog/fox
 	name = "fox"
 	desc = "It's a fox. I wonder what it says?"
 	icon_state = "fox"
@@ -20,14 +20,14 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 
 //Captain fox
-/mob/living/simple_animal/pet/fox/Renault
+/mob/living/simple_animal/pet/dog/fox/Renault
 	name = "Renault"
 	desc = "Renault, the Captain's trustworthy fox. I wonder what it says?"
 	unique_pet = TRUE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 //Syndi fox
-/mob/living/simple_animal/pet/fox/Syndifox
+/mob/living/simple_animal/pet/dog/fox/Syndifox
 	name = "Syndifox"
 	desc = "Syndifox, the Syndicate's most respected mascot. I wonder what it says?"
 	icon_state = "Syndifox"

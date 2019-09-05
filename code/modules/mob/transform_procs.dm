@@ -185,7 +185,6 @@
 		qdel(t)
 
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
-	new_corgi.a_intent = INTENT_HARM
 	new_corgi.key = key
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
@@ -288,9 +287,9 @@
 	if(ispath(MP, /mob/living/simple_animal/parrot))
 		return 1
 	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/fox/Syndifox))
+		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
 			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/fox))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
 		return 1

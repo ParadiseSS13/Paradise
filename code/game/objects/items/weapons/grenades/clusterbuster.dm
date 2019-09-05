@@ -235,7 +235,7 @@
 /obj/item/grenade/clusterbuster/fox
 	name = "Troublemaking Grenade"
 	desc = "More trouble than two foxes combined."
-	payload = /mob/living/simple_animal/pet/fox
+	payload = /mob/living/simple_animal/pet/dog/fox
 
 /obj/item/grenade/clusterbuster/crab
 	name = "Crab Grenade"
