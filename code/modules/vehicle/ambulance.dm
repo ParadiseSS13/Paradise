@@ -1,6 +1,6 @@
 /obj/vehicle/ambulance
 	name = "ambulance"
-	desc = "what the paramedic uses to run over people to take to medbay."
+	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
 	keytype = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
