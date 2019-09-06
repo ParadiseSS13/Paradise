@@ -39,6 +39,7 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/size = 5
 	var/charging = 0
+	internal_gps = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	pixel_y = -90
@@ -49,10 +50,6 @@ Difficulty: Medium
 	appearance_flags = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
 	stat_attack = 1 // Overriden from /tg/ - otherwise Legion starts chasing its minions
-
-/mob/living/simple_animal/hostile/megafauna/legion/New()
-	..()
-	internal_gps = new/obj/item/gps/internal/legion(src)
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
@@ -132,6 +129,8 @@ Difficulty: Medium
 			elimination = 0
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
+			if(!true_spawn)
+				loot = null
 		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)

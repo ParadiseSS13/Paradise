@@ -45,10 +45,23 @@ Difficulty: Hard
 	crusher_loot = list(/obj/structure/closet/crate/necropolis/bubblegum/crusher)
 	loot = list(/obj/structure/closet/crate/necropolis/bubblegum)
 	var/charging = 0
+	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
 	deathmessage = "sinks into a pool of blood, fleeing the battle. You've won, for now... "
 	death_sound = 'sound/misc/enter_blood.ogg'
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/New()
+	..()
+	if(true_spawn)
+		for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.living_mob_list)
+			if(B != src)
+				qdel(src)
+				return //There can be only one
+	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
+	AddSpell(bloodspell)
+	if(istype(loc, /obj/effect/dummy/slaughter))
+		bloodspell.phased = 1
 
 /obj/item/gps/internal/bubblegum
 	icon_state = null
@@ -103,18 +116,6 @@ Difficulty: Hard
 			else
 				spawn(0)
 					warp_charge()
-
-/mob/living/simple_animal/hostile/megafauna/bubblegum/New()
-	..()
-	for(var/mob/living/simple_animal/hostile/megafauna/bubblegum/B in GLOB.mob_list)
-		if(B != src)
-			qdel(src) //There can be only one
-			break
-	var/obj/effect/proc_holder/spell/bloodcrawl/bloodspell = new
-	AddSpell(bloodspell)
-	if(istype(loc, /obj/effect/dummy/slaughter))
-		bloodspell.phased = 1
-	internal_gps = new/obj/item/gps/internal/bubblegum(src)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)
 	if(!charging)

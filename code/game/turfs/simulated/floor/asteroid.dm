@@ -13,9 +13,9 @@
 	var/obj/item/stack/digResult = /obj/item/stack/ore/glass/basalt
 	var/dug
 
-/turf/simulated/floor/plating/asteroid/Initialize(mapload)
+/turf/simulated/floor/plating/asteroid/New()
 	var/proper_name = name
-	. = ..()
+	..()
 	name = proper_name
 	if(prob(floor_variance))
 		icon_state = "[environment_type][rand(0, 12)]"
@@ -74,7 +74,7 @@
 		to_chat(user, "<span class='notice'>You start digging...</span>")
 
 		playsound(src, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed, target = src))
+		if(do_after(user, 40 * I.toolspeed, target = src))
 			if(!can_dig(user))
 				return TRUE
 			to_chat(user, "<span class='notice'>You dig a hole.</span>")
@@ -114,8 +114,8 @@
 	oxygen = 0
 	nitrogen = 0
 
-/turf/simulated/floor/plating/asteroid/basalt/Initialize(mapload)
-	. = ..()
+/turf/simulated/floor/plating/asteroid/basalt/New()
+	..()
 	set_basalt_light(src)
 
 /turf/simulated/floor/plating/asteroid/basalt/getDug()
@@ -146,6 +146,7 @@
 
 #define SPAWN_MEGAFAUNA "bluh bluh huge boss"
 #define SPAWN_BUBBLEGUM 6
+GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = SPAWN_BUBBLEGUM))
 
 /turf/simulated/floor/plating/asteroid/airless/cave
 	var/length = 100
@@ -178,14 +179,14 @@
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data //subtype for producing a tunnel with given data
 	has_data = TRUE
 
-/turf/simulated/floor/plating/asteroid/airless/cave/Initialize(mapload)
-	if (!mob_spawn_list)
+/turf/simulated/floor/plating/asteroid/airless/cave/New()
+	if(!mob_spawn_list)
 		mob_spawn_list = list(/mob/living/simple_animal/hostile/asteroid/goldgrub = 1, /mob/living/simple_animal/hostile/asteroid/goliath = 5, /mob/living/simple_animal/hostile/asteroid/basilisk = 4, /mob/living/simple_animal/hostile/asteroid/hivelord = 3)
-	if (!megafauna_spawn_list)
-		megafauna_spawn_list = list(/mob/living/simple_animal/hostile/megafauna/dragon = 4, /mob/living/simple_animal/hostile/megafauna/colossus = 2, /mob/living/simple_animal/hostile/megafauna/bubblegum = SPAWN_BUBBLEGUM)
-	if (!flora_spawn_list)
+	if(!megafauna_spawn_list)
+		megafauna_spawn_list = GLOB.megafauna_spawn_list
+	if(!flora_spawn_list)
 		flora_spawn_list = list(/obj/structure/flora/ash/leaf_shroom = 2 , /obj/structure/flora/ash/cap_shroom = 2 , /obj/structure/flora/ash/stem_shroom = 2 , /obj/structure/flora/ash/cacti = 1, /obj/structure/flora/ash/tall_shroom = 2)
-	. = ..()
+	..()
 	if(!has_data)
 		produce_tunnel_from_data()
 
@@ -270,7 +271,7 @@
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnMonster(turf/T)
 	if(prob(30))
-		if(istype(loc, /area/mine/explored) || istype(loc, /area/lavaland/surface/outdoors/explored))
+		if(istype(loc, /area/mine/explored) || !istype(loc, /area/lavaland/surface/outdoors/unexplored))
 			return
 		var/randumb = pickweight(mob_spawn_list)
 		while(randumb == SPAWN_MEGAFAUNA)

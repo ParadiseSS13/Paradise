@@ -63,8 +63,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	var/static/list/swarmer_caps
 
 
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Initialize(mapload)
-	. = ..()
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/New()
+	..()
 	swarmer_caps = GLOB.AISwarmerCapsByType //for admin-edits
 	for(var/ddir in cardinal)
 		new /obj/structure/swarmer/blockade (get_step(src, ddir))
@@ -103,8 +103,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	weather_immunities = list("ash") //wouldn't be fun otherwise
 	AIStatus = AI_ON
 
-/mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
-	. = ..()
+/mob/living/simple_animal/hostile/swarmer/ai/New()
+	..()
 	ToggleLight() //so you can see them eating you out of house and home/shooting you/stunlocking you for eternity
 	LAZYINITLIST(GLOB.AISwarmersByType[type])
 	GLOB.AISwarmers += src

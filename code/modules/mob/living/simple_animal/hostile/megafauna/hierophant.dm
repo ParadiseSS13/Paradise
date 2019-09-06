@@ -66,6 +66,7 @@ Difficulty: Hard
 	var/did_reset = TRUE //if we timed out, returned to our rune, and healed some
 	//var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...")
 	//var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
+	internal_gps = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
@@ -73,7 +74,6 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/New()
 	..()
-	internal_gps = new/obj/item/gps/internal/hierophant(src)
 	spawned_rune = new(loc)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Life(seconds, times_fired)

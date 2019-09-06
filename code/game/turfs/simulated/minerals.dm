@@ -24,14 +24,14 @@
 	var/scan_state = "" //Holder for the image we display when we're pinged by a mining scanner
 	var/defer_change = FALSE
 
-/turf/simulated/mineral/Initialize(mapload)
+/turf/simulated/mineral/New()
 	if (!canSmoothWith)
 		canSmoothWith = list(/turf/simulated/mineral)
 	var/matrix/M = new
 	M.Translate(-4, -4)
 	transform = M
 	icon = smooth_icon
-	. = ..()
+	..()
 	GLOB.mineral_turfs += src
 	if(mineralType && mineralAmt && spread && spreadChance)
 		for(var/dir in cardinal)
@@ -141,14 +141,14 @@
 	var/mineralChance = 13
 	var/display_icon_state = "rock"
 
-/turf/simulated/mineral/random/Initialize(mapload)
+/turf/simulated/mineral/random/New()
 
 	mineralSpawnChanceList = typelist("mineralSpawnChanceList", mineralSpawnChanceList)
 
 	if (display_icon_state)
 		icon_state = display_icon_state
-	. = ..()
-	if (prob(mineralChance))
+	..()
+	if(prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
 		var/turf/T = ChangeTurf(path, FALSE, TRUE)
 
@@ -408,9 +408,9 @@
 	var/activated_name = null
 	var/mutable_appearance/activated_overlay
 
-/turf/simulated/mineral/gibtonite/Initialize(mapload)
+/turf/simulated/mineral/gibtonite/New()
 	det_time = rand(8,10) //So you don't know exactly when the hot potato will explode
-	. = ..()
+	..()
 
 /turf/simulated/mineral/gibtonite/volcanic
 	environment_type = "basalt"

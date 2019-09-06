@@ -32,11 +32,14 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	var/true_spawn = TRUE // if this is a megafauna that should grant achievements, or have a gps signal
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
 
 /mob/living/simple_animal/hostile/megafauna/New()
 	..()
+	if(internal_gps && true_spawn)
+		new internal_gps(src)
 	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
