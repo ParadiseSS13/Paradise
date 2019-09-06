@@ -141,9 +141,9 @@ window "mainwindow"
 		background-color = none
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Paradise Station 13"
+		title = "Hispania Station 13"
 		is-maximized = true
-		icon = 'icons\\paradise.png'
+		icon = 'icons\\hispania.png'
 		macro = "default"
 		menu = "menu"
 	elem "asset_cache_browser"
@@ -237,7 +237,6 @@ window "outputwindow"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Output window"
 		can-close = false
@@ -261,7 +260,6 @@ window "rpane"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "rpanewindow"
@@ -270,7 +268,6 @@ window "rpane"
 		size = 636x449
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = none
 		saved-params = "splitter"
 		right = "outputwindow"
 		is-vert = false
@@ -280,7 +277,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Text"
@@ -294,7 +290,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Info"
@@ -307,7 +302,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "is-checked"
 		text = "Wiki"
 		command = "wiki"
@@ -317,7 +311,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "is-checked"
 		text = "Forum"
 		command = "forum"
@@ -327,7 +320,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "is-checked"
 		text = "Rules"
 		command = "rules"
@@ -337,7 +329,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "is-checked"
 		text = "GitHub"
 		command = "github"
@@ -347,7 +338,6 @@ window "rpane"
 		size = 67x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "is-checked"
 		text = "Changelog"
 		command = "Changelog"
@@ -357,7 +347,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "is-checked"
 		text = "Rules"
 		command = "rules"
@@ -367,7 +356,6 @@ window "rpane"
 		size = 60x16
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Browser"
@@ -382,7 +370,6 @@ window "browserwindow"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Browser"
 		is-pane = true
@@ -392,7 +379,6 @@ window "browserwindow"
 		size = 640x499
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = none
 		is-default = true
 		saved-params = ""
 		on-show = ".winset\"rpane.infob.is-visible=true?rpane.infob.pos=130,7;rpane.textb.is-visible=true;rpane.browseb.is-visible=true;rpane.browseb.is-checked=true;rpane.rpanewindow.pos=0,30;rpane.rpanewindow.size=0x0;rpane.rpanewindow.left=browserwindow\""
@@ -405,7 +391,6 @@ window "infowindow"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Info"
 		is-pane = true
@@ -418,7 +403,6 @@ window "infowindow"
 		is-default = true
 		saved-params = ""
 		highlight-color = #00aa00
-		tab-background-color = none
 		on-show = ".winset\"rpane.infob.is-visible=true;rpane.browseb.is-visible=true?rpane.infob.pos=130,7:rpane.infob.pos=65,7 rpane.textb.is-visible=true rpane.infob.is-checked=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=infowindow\""
 		on-hide = ".winset\"rpane.infob.is-visible=false;rpane.browseb.is-visible=true?rpane.browseb.is-checked=true rpane.rpanewindow.left=browserwindow:rpane.textb.is-visible=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=\""
 
