@@ -10,6 +10,7 @@
 	var/circuitry_installed = 1
 	var/last_tick //used to delay the powercheck
 	var/buildstage = 0
+	dog_fashion = null
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"

@@ -348,7 +348,7 @@
 			if("queen")				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1 )
 			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1 )
 			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob, 1 )
-			if("human")			
+			if("human")
 				var/posttransformoutfit = usr.client.robust_dress_shop()
 				var/mob/living/carbon/human/newmob = M.change_mob_type(/mob/living/carbon/human, null, null, delmob, 1)
 				if(posttransformoutfit && istype(newmob))
@@ -358,8 +358,7 @@
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1 )
 			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob, 1 )
-			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/corgi , null, null, delmob, 1 )
-			if("ian")				M.change_mob_type( /mob/living/simple_animal/pet/corgi/Ian , null, null, delmob, 1 )
+			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1 )
 			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1 )
 			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1 )
 			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1 )
@@ -1514,7 +1513,7 @@
 		usr.client.cmd_admin_animalize(M)
 
 	else if(href_list["incarn_ghost"])
-		if(!check_rights(R_SPAWN)) 
+		if(!check_rights(R_SPAWN))
 			return
 
 		var/mob/dead/observer/G = locateUID(href_list["incarn_ghost"])
@@ -1839,9 +1838,8 @@
 					P.universal_understand = 1
 					P.can_collar = 1
 					P.faction = list("neutral")
-					var/obj/item/clothing/accessory/petcollar/C = new /obj/item/clothing/accessory/petcollar(P)
-					P.collar = C
-					C.equipped(P)
+					var/obj/item/clothing/accessory/petcollar/C = new
+					P.add_collar(C)
 					var/obj/item/card/id/I = H.wear_id
 					if(I)
 						var/obj/item/card/id/D = new /obj/item/card/id(C)

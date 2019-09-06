@@ -1,15 +1,6 @@
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
-	if(can_collar && !collar && istype(O, /obj/item/clothing/accessory/petcollar))
-		var/obj/item/clothing/accessory/petcollar/C = O
-		if(user.drop_item())
-			C.forceMove(src)
-			collar = C
-			collar.equipped(src)
-			regenerate_icons()
-			to_chat(usr, "<span class='notice'>You put \the [C] around \the [src]'s neck.</span>")
-			if(C.tagname)
-				name = C.tagname
-				real_name = C.tagname
+	if(can_collar && istype(O, /obj/item/clothing/accessory/petcollar) && !pcollar)
+		add_collar(O, user)
 		return
 	else
 		return ..()
