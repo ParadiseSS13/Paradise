@@ -4,6 +4,7 @@
 
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
+#define iszombie(A) (is_species(A, /datum/species/zombie))
 
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
@@ -16,6 +17,8 @@
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
+
+#define isspacepod(A) (istype(A, /obj/spacepod))
 
 #define iseffect(A) (istype(A, /obj/effect))
 

@@ -80,6 +80,8 @@
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
+	var/list/learned_recipes //List of learned recipe TYPES.
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -1794,7 +1796,7 @@
 	..()
 	mind.assigned_role = "Animal"
 
-/mob/living/simple_animal/pet/corgi/mind_initialize()
+/mob/living/simple_animal/pet/dog/corgi/mind_initialize()
 	..()
 	mind.assigned_role = "Corgi"
 

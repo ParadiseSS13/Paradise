@@ -320,6 +320,7 @@
 /obj/item/clothing/accessory/scarf // No overlay
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
+	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/accessory/scarf/red
 	name = "red scarf"
@@ -678,7 +679,7 @@
 /obj/item/clothing/accessory/petcollar/process()
 	var/mob/living/simple_animal/M = loc
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.collar && M.stat != DEAD)
+	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
 
 	var/area/t = get_area(M)

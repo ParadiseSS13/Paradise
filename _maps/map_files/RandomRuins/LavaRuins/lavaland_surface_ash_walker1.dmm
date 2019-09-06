@@ -1066,6 +1066,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/obj/item/cultivator/rake,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -1305,6 +1306,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center,
+/obj/item/hatchet/wooden,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -1326,10 +1328,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "dw" = (
-/obj/item/reagent_containers/glass/bucket,
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
+/obj/item/reagent_containers/glass/bucket/wooden,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)

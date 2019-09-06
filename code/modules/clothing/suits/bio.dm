@@ -12,6 +12,9 @@
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/head.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/head.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/head.dmi',
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
 
@@ -33,11 +36,13 @@
 	strip_delay = 70
 	put_on_delay = 70
 	burn_state = FIRE_PROOF
-
 	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-	hide_tail_by_species = list("Vox")
+
 
 //Standard biosuit, orange stripe
 /obj/item/clothing/head/bio_hood/general
@@ -98,4 +103,9 @@
 	strip_delay = 40
 	put_on_delay = 20
 
-	sprite_sheets = null
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
+		)
+	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")

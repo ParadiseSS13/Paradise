@@ -22,6 +22,7 @@ var/global/list/default_medbay_channels = list(
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
+	dog_fashion = /datum/dog_fashion/back
 	suffix = "\[3\]"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
@@ -396,7 +397,7 @@ var/global/list/default_medbay_channels = list(
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		displayname = H.voice
-		if(H.voice != real_name)	
+		if(H.voice != real_name)
 			voicemask = TRUE
 
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
@@ -653,6 +654,7 @@ var/global/list/default_medbay_channels = list(
 	icon_state = "radio"
 	canhear_range = 0
 	subspace_transmission = 1
+	dog_fashion = null
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
@@ -840,6 +842,7 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/radio/off
 	listening = 0
+	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/radio/phone
 	broadcasting = 0
@@ -847,6 +850,7 @@ var/global/list/default_medbay_channels = list(
 	icon_state = "red_phone"
 	listening = 1
 	name = "phone"
+	dog_fashion = null
 
 /obj/item/radio/phone/medbay
 	frequency = MED_I_FREQ

@@ -137,7 +137,7 @@
 		if(prob(50))
 			ChangeTurf(baseturf)
 
-/turf/simulated/floor/vines/ChangeTurf(turf/open/floor/T)
+/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T)
 	. = ..()
 	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/structure/spacevine/SV in src)
