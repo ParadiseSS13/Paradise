@@ -92,7 +92,7 @@
 			result = "You win ten credits!"
 			resultlvl = "good"
 			win_money(10)
-		else // 74.05%
+		else // 75.31%
 			result = "<span class='warning'>No luck!</span>"
 			resultlvl = "average"
 	working = 0
