@@ -1573,6 +1573,13 @@
 		else //Ahelp
 			SStickets.takeTicket(index)
 
+	else if(href_list["resolve"])
+		var/index = text2num(href_list["resolve"])
+		if(href_list["is_mhelp"])
+			SSmentor_tickets.resolveTicket(index)
+		else //Ahelp
+			SStickets.resolveTicket(index)
+
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return

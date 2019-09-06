@@ -25,7 +25,7 @@
 	can_leave_fibers = FALSE
 
 /obj/item/clothing/gloves/combat
-	desc = "These tactical gloves are somewhat fire and impact resistant."
+	desc = "These tactical gloves are both insulated and offer protection from heat sources."
 	name = "combat gloves"
 	icon_state = "combat"
 	item_state = "swat_gl"
