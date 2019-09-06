@@ -79,12 +79,6 @@
 			ChangeTurf(Z.turf_type, keep_icon = FALSE)
 		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 
-/turf/simulated/floor/plating/asteroid/gets_drilled()
-	if(!dug)
-		gets_dug()
-	else
-		..()
-
 /turf/simulated/floor/plating/asteroid/proc/gets_dug()
 	if(dug)
 		return
