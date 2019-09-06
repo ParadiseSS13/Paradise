@@ -78,7 +78,7 @@
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 	var/decayedRange
 
-/obj/item/projectile/Initialize()
+/obj/item/projectile/Initialize(mapload)
 	. = ..()
 	permutated = list()
 	decayedRange = range
