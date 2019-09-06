@@ -145,6 +145,10 @@
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
+/obj/item/mecha_parts/mecha_equipment/mining_scanner/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	return ..()
+
 /obj/item/mecha_parts/mecha_equipment/mining_scanner/process()
 	if(!loc)
 		STOP_PROCESSING(SSfastprocess, src)
