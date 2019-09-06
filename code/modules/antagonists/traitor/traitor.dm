@@ -1,4 +1,3 @@
-// AI can still state laws on the syndicate channel after removing traitor status
 
 #define TRAITOR_HUMAN "human"
 #define TRAITOR_AI	  "AI"
