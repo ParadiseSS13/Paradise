@@ -238,9 +238,6 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		if(istype(tunnel))
 			// Small chance to have forks in our tunnel; otherwise dig our tunnel.
 			if(i > 3 && prob(20))
-				if(istype(tunnel.loc, /area/mine/explored) || (istype(tunnel.loc, /area/lavaland/surface/outdoors) && !istype(tunnel.loc, /area/lavaland/surface/outdoors/unexplored)))
-					sanity = 0
-					break
 				var/turf/simulated/floor/plating/asteroid/airless/cave/C = tunnel.ChangeTurf(data_having_type, FALSE, TRUE)
 				C.going_backwards = FALSE
 				C.produce_tunnel_from_data(rand(10, 15), dir)
@@ -259,7 +256,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T)
 	for(var/S in RANGE_TURFS(1, src))
 		var/turf/NT = S
-		if(!NT || isspaceturf(NT) || istype(NT.loc, /area/mine/explored) || (istype(NT.loc, /area/lavaland/surface/outdoors) && !istype(NT.loc, /area/lavaland/surface/outdoors/unexplored)))
+		if(!NT || isspaceturf(NT) || istype(NT.loc, /area/mine/explored) || istype(NT.loc, /area/lavaland/surface/outdoors/explored))
 			sanity = 0
 			break
 	if(!sanity)
@@ -280,7 +277,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 				if(megafauna_spawn_list[maybe_boss])
 					randumb = maybe_boss
 					if(ispath(maybe_boss, /mob/living/simple_animal/hostile/megafauna/bubblegum)) //there can be only one bubblegum, so don't waste spawns on it
-						megafauna_spawn_list[maybe_boss] = 0
+						megafauna_spawn_list.Remove(maybe_boss)
 			else //this is not danger, don't spawn a boss, spawn something else
 				randumb = pickweight(mob_spawn_list)
 
