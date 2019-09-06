@@ -293,7 +293,7 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/pug))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/pug))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1
