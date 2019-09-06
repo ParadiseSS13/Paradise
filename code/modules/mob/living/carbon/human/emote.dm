@@ -858,14 +858,10 @@
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("fart", "farts")
-			if(locate(/obj/item/storage/bible) in get_turf(src))
-				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
-				var/image/cross = image('icons/obj/storage.dmi', "bible")
-				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
-				for(var/client/X in GLOB.admins)
-					if(check_rights(R_EVENT, 0, X.mob))
-						to_chat(X, adminbfmessage)
-			else
+			var/farted_on_thing = FALSE
+			for(var/atom/A in get_turf(src))
+				farted_on_thing += A.fart_act(src)
+			if(!farted_on_thing)
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
 			m_type = 2
 
@@ -947,7 +943,7 @@
 
 		for(var/mob/M in GLOB.dead_mob_list)
 			if(!M.client)
-				continue 
+				continue
 
 			if(isnewplayer(M))
 				continue

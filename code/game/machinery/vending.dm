@@ -10,15 +10,14 @@
 	var/display_color = null  // Display color for vending machine listing
 	var/category = CAT_NORMAL  // CAT_HIDDEN for contraband, CAT_COIN for premium
 
-/datum/data/vending_product/New(var/path, var/name = null, var/amount = 1, var/price = 0, var/color = null, var/category = CAT_NORMAL)
+/datum/data/vending_product/New(path, name = null, amount = 1, price = 0, color = null, category = CAT_NORMAL)
 	..()
 
 	product_path = path
 
 	if(!name)
-		var/atom/tmp = new path
-		product_name = initial(tmp.name)
-		qdel(tmp)
+		var/atom/temp = path
+		product_name = initial(temp.name)
 	else
 		product_name = name
 
@@ -138,7 +137,7 @@
 		var/category = current_list[2]
 
 		for(var/entry in current_list[1])
-			var/datum/data/vending_product/product = new/datum/data/vending_product(entry)
+			var/datum/data/vending_product/product = new /datum/data/vending_product(entry)
 
 			product.price = (entry in prices) ? prices[entry] : 0
 			product.amount = (current_list[1][entry]) ? current_list[1][entry] : 1
@@ -1599,7 +1598,7 @@
 					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
 					)
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
-	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
+	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1, /obj/item/clothing/gloves/fingerless/rapid/headpat = 1)
 	refill_canister = /obj/item/vending_refill/crittercare
 
 /obj/machinery/vending/crittercare/free

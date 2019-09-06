@@ -21,6 +21,7 @@
 	icon_state = "tomato"
 	splat_type = /obj/effect/decal/cleanable/tomato_smudge
 	filling_color = "#FF6347"
+	tastes = list("tomato" = 1)
 	bitesize_mod = 2
 	distill_reagent = "enzyme"
 
@@ -43,6 +44,7 @@
 	icon_state = "bloodtomato"
 	splat_type = /obj/effect/gibspawner/generic
 	filling_color = "#FF0000"
+	tastes = list("tomato" = 1, "blood" = 2)
 	origin_tech = "biotech=5"
 	distill_reagent = "bloodymary"
 
@@ -67,6 +69,7 @@
 	name = "blue-tomato"
 	desc = "I say blue-mah-to, you say blue-mae-to."
 	icon_state = "bluetomato"
+	tastes = list("bluemato" = 1)
 	splat_type = /obj/effect/decal/cleanable/blood/oil
 	filling_color = "#0000FF"
 
@@ -90,6 +93,7 @@
 	name = "bluespace tomato"
 	desc = "So lubricated, you might slip through space-time."
 	icon_state = "bluespacetomato"
+	tastes = list("bluemato" = 1, "taste bud dislocation" = 1)
 	origin_tech = "biotech=4;bluespace=5"
 	distill_reagent = null
 	wine_power = 0.8

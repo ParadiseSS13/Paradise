@@ -15799,7 +15799,7 @@
 "aAd" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aAe" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -15856,7 +15856,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aAm" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/courtroom)
@@ -16579,7 +16579,7 @@
 	initialize_directions = 10
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aBF" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
@@ -16609,7 +16609,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aBG" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -17125,7 +17125,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aCD" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -17143,7 +17143,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aCE" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "1"
@@ -17575,13 +17575,13 @@
 	d2 = 4
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDv" = (
 /turf/simulated/wall,
 /area/security/lobby)
 "aDw" = (
 /turf/simulated/wall/r_wall,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDx" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -17598,7 +17598,7 @@
 	filled = 0.05
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDy" = (
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -17622,7 +17622,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDz" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/cigarette/pipe,
@@ -18153,7 +18153,7 @@
 "aEC" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aED" = (
 /obj/machinery/power/terminal,
 /obj/machinery/light/small{
@@ -18164,7 +18164,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aEE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -18173,7 +18173,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aEF" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -18753,7 +18753,7 @@
 	shock_proof = 1
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFR" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -18763,7 +18763,7 @@
 	charge = 0
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFS" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -18776,11 +18776,11 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFT" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFU" = (
 /obj/structure/table,
 /obj/item/toy/figure/detective,
@@ -43480,7 +43480,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCQ" = (
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCR" = (
@@ -50259,7 +50259,7 @@
 /area/assembly/robotics)
 "bPb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/mob/living/simple_animal/pet/corgi/Ian/borgi,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -52780,7 +52780,7 @@
 	pixel_y = 24
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTe" = (

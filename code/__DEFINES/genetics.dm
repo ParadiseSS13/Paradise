@@ -1,6 +1,8 @@
 // String identifiers for associative list lookup
 
 
+#define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
+
 #define MUTCHK_FORCED        1
 
 // mob/var/list/mutations
@@ -22,7 +24,6 @@
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
-
 // Generic mutations:
 #define	TK				1
 #define COLDRES			2
@@ -150,3 +151,4 @@
 #define RESISTCOLD		17
 #define NO_EXAMINE		18
 #define CAN_WINGDINGS	19
+#define NOZOMBIE 20

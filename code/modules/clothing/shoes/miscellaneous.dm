@@ -88,6 +88,9 @@
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
 		enabled_waddle = FALSE
 
+/obj/item/clothing/shoes/clown_shoes/nodrop
+	flags = NODROP
+
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
