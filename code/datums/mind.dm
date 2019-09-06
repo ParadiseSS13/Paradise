@@ -1160,8 +1160,8 @@
 		switch(href_list["traitor"])
 			if("clear")
 				if(has_antag_datum(/datum/antagonist/traitor))
-					remove_antag_datum(/datum/antagonist/traitor)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a traitor!</B></FONT></span>")
+					remove_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
 					
@@ -1169,7 +1169,6 @@
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
-					T.should_give_codewords = FALSE
 					T.should_equip = FALSE
 					add_antag_datum(T)
 					log_admin("[key_name(usr)] has traitored [key_name(current)]")
@@ -1264,17 +1263,20 @@
 				var/mob/living/silicon/robot/R = current
 				if(istype(R))
 					R.emagged = 0
-					if(R.activated(R.module.emag))
-						R.module_active = null
-					if(R.module_state_1 == R.module.emag)
-						R.module_state_1 = null
-						R.contents -= R.module.emag
-					else if(R.module_state_2 == R.module.emag)
-						R.module_state_2 = null
-						R.contents -= R.module.emag
-					else if(R.module_state_3 == R.module.emag)
-						R.module_state_3 = null
-						R.contents -= R.module.emag
+					if(R.module)
+						if(R.activated(R.module.emag))
+							R.module_active = null
+						if(R.module_state_1 == R.module.emag)
+							R.module_state_1 = null
+							R.contents -= R.module.emag
+						else if(R.module_state_2 == R.module.emag)
+							R.module_state_2 = null
+							R.contents -= R.module.emag
+						else if(R.module_state_3 == R.module.emag)
+							R.module_state_3 = null
+							R.contents -= R.module.emag
+					R.clear_supplied_laws()
+					R.laws = new /datum/ai_laws/crewsimov
 					log_admin("[key_name(usr)] has un-emagged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has un-emagged [key_name_admin(current)]")
 
@@ -1295,6 +1297,8 @@
 							else if(R.module_state_3 == R.module.emag)
 								R.module_state_3 = null
 								R.contents -= R.module.emag
+						R.clear_supplied_laws()
+						R.laws = new /datum/ai_laws/crewsimov
 					log_admin("[key_name(usr)] has unemagged [key_name(ai)]'s cyborgs")
 					message_admins("[key_name_admin(usr)] has unemagged [key_name_admin(ai)]'s cyborgs")
 

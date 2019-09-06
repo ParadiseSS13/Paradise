@@ -1,3 +1,5 @@
+// AI can still state laws on the syndicate channel after removing traitor status
+
 #define TRAITOR_HUMAN "human"
 #define TRAITOR_AI	  "AI"
 
@@ -7,7 +9,6 @@
 	roundend_category = "traitors"
 	job_rank = ROLE_TRAITOR
 	var/special_role = ROLE_TRAITOR
-	var/employer = "The Syndicate"
 	var/give_objectives = TRUE
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
@@ -37,8 +38,10 @@
 	//Remove malf powers.
 	if(traitor_kind == TRAITOR_AI && owner.current && isAI(owner.current))
 		var/mob/living/silicon/ai/A = owner.current
-		A.set_zeroth_law("")
-		A.showLaws()
+		A.clear_zeroth_law()
+		A.common_radio.channels.Remove("Syndicate")  // De-traitored AIs can still state laws over the syndicate channel without this
+		A.laws.sorted_laws = A.laws.inherent_laws.Copy() // AI's 'notify laws' button will still state a law 0 because sorted_laws contains it
+		A.show_laws()
 		A.malf_picker.remove_malf_verbs(A)
 		A.verbs -= /mob/living/silicon/ai/proc/choose_modules
 		qdel(A.malf_picker)
@@ -280,6 +283,8 @@
 		if(TRAITOR_AI)
 			add_law_zero()
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE)
+			var/mob/living/silicon/ai/A = owner.current
+			A.show_laws()
 		if(TRAITOR_HUMAN)
 			if(should_equip)
 				equip_traitor()
@@ -289,7 +294,7 @@
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)
 		return
-	var/mob/traitor_mob=owner.current
+	var/mob/traitor_mob = owner.current
 
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
