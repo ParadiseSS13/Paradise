@@ -77,10 +77,6 @@
 	var/disable_text = "<span class='danger'>Goodbye Cruel World!</span>" //Context clues!
 	var/datum/action/innate/ai/ranged/attached_action
 
-// /obj/effect/proc_holder/ranged_ai/Destroy()
-// 	QDEL_NULL(attached_action)
-// 	return ..()
-
 /obj/effect/proc_holder/ranged_ai/proc/toggle(mob/user)
 	if(active)
 		remove_ranged_ability(user, disable_text)
@@ -498,7 +494,7 @@
 	if(attached_action && attached_action.uses)
 		attached_action.desc = "[initial(attached_action.desc)] It has [attached_action.uses] use\s remaining."
 		attached_action.UpdateButtonIcon()
-	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound!</span>")
+	target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [target]!</span>")
 	addtimer(CALLBACK(attached_action, /datum/action/innate/ai/ranged/overload_machine.proc/detonate_machine, target), 50) //kaboom!
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
 	return TRUE
