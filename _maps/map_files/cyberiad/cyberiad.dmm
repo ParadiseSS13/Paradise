@@ -96511,6 +96511,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"kIF" = (
+/obj/machinery/baseball_machine,
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 4
@@ -116917,7 +116921,7 @@ aab
 cgQ
 ctV
 cgQ
-coL
+kIF
 coL
 coL
 cBf

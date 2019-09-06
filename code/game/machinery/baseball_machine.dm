@@ -16,7 +16,7 @@
 	. = ..()
 	if(default_unfasten_wrench(user, I))
 		return
-		
+
 	if(istype(I, /obj/item/beach_ball/holoball/baseball))
 		if(!user.drop_item())
 			return
@@ -45,7 +45,7 @@
 		update_icon()
 		return FALSE // returns false if ball was not fired
 	var/obj/item/beach_ball/holoball/bball = new /obj/item/beach_ball/holoball/baseball(get_turf(src))
-	bball.throw_at(get_edge_target_turf(src, dir), 20, 1, src)
+	bball.throw_at(get_edge_target_turf(src, dir), 20, 1)
 	baseball_count--
 	return TRUE
 
@@ -54,3 +54,21 @@
 		icon_state = "target_prism"
 	else
 		icon_state = "turretCover"
+
+/obj/machinery/baseball_machine/AltClick(mob/user)
+	rotate(user)
+
+/obj/machinery/baseball_machine/verb/rotate(mob/user)
+	set name = "Rotate"
+	set category = "Object"
+	set src in oview(1)
+
+	if(user.incapacitated())
+		return
+	if(!Adjacent(user))
+		return
+	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do that!</span>")
+		return
+	dir = turn(dir, 90)
+	to_chat(user, "<span class='notice'>You rotate [src].</span>")
