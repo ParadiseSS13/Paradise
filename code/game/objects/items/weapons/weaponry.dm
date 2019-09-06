@@ -171,50 +171,64 @@
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
 	homerun_able = 1
 
+/obj/item/melee/baseball_bat/badmin
+	name = "badmin bat"
+	desc = "SWING! SWING! SWING! SWING!"
+	icon_state = "baseball_bat_metal"
+	item_state = "baseball_bat_metal"
+
+/obj/item/melee/baseball_bat/badmin/can_deflect()
+	return TRUE // ALWAYS DEFLECT ALWAYS
+
 /obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type, atom/movable/AM)
 	. = ..()
-	if(!istype(AM, /obj/item) || attack_type != THROWN_PROJECTILE_ATTACK)
+	if(!istype(AM, /obj/item) || attack_type != THROWN_PROJECTILE_ATTACK && !istype(src, /obj/item/melee/baseball_bat/badmin))
 		return FALSE
 	var/obj/item/I = AM
-	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
+	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball) || istype(src, /obj/item/melee/baseball_bat/badmin)) // baseball bat deflecting
 		if(deflectmode)
 			if(prob(10))
-				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
+				visible_message("<span class='boldwarning'>[owner] deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)
-				I.throw_at(I.thrownby, 20, 20, owner)
-				deflectmode = FALSE
+				owner.do_attack_animation(I, ATTACK_EFFECT_DISARM)
+				I.throw_at(I.thrownby, 20, 3, owner)
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 3000
+				deflectmode = can_deflect()
 				return TRUE
 			else if(prob(30))
 				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				do_attack_animation(get_step(owner, pick(alldirs)), ATTACK_EFFECT_DISARM)
-				deflectmode = FALSE
+				owner.do_attack_animation(get_step(owner, pick(alldirs)), ATTACK_EFFECT_DISARM)
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 3000
+				deflectmode = can_deflect()
 				return FALSE
 			else
 				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)
-				I.throw_at(get_edge_target_turf(owner, pick(cardinal)), rand(8,10), 14, owner)
-				deflectmode = FALSE
+				owner.do_attack_animation(I, ATTACK_EFFECT_DISARM)
+				var/directionangle = dir2angle(owner.dir)
+				I.throw_at(get_edge_target_turf(owner, angle2dir(rand(directionangle - 180, directionangle + 180))), rand(8,10), 1, owner)
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 3000
+				deflectmode = can_deflect()
 				return TRUE
+				
+/obj/item/melee/baseball_bat/proc/can_deflect()
+	if(world.time >= lastdeflect)
+		return TRUE
 
 /obj/item/melee/baseball_bat/attack_self(mob/user)
 	if(!homerun_able)
-		if(!deflectmode && world.time >= lastdeflect)
+		if(!deflectmode && can_deflect())
 			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
 			deflectmode = TRUE
-		else if(deflectmode && world.time >= lastdeflect)
+		else if(deflectmode && can_deflect())
 			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
 			deflectmode = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "m:ss")]</span>")
+			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]</span>")
 		return ..()
 	if(homerun_ready)
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
