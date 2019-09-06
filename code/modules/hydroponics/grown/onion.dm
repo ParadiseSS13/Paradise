@@ -24,6 +24,7 @@
 	filling_color = "#C0C9A0"
 	bitesize_mod = 2
 	slice_path = /obj/item/reagent_containers/food/snacks/onion_slice
+	tastes = list("onion" = 1, "pungentness" = 1)
 	slices_num = 2
 	wine_power = 0.2
 	wine_flavor = "pungentness"
@@ -45,6 +46,7 @@
 	icon_state = "onion_red"
 	filling_color = "#C29ACF"
 	slice_path = /obj/item/reagent_containers/food/snacks/onion_slice/red
+	tastes = list("red onion" = 1, "pungentness" = 3)
 	wine_power = 0.6
 	wine_flavor = "powerful pungentness"
 
@@ -54,6 +56,7 @@
 	icon_state = "onionslice"
 	list_reagents = list("plantmatter" = 5, "vitamin" = 2)
 	filling_color = "#C0C9A0"
+	tastes = list("onion" = 1, "pungentness" = 1)
 	gender = PLURAL
 	cooked_type = /obj/item/reagent_containers/food/snacks/onionrings
 
@@ -62,4 +65,5 @@
 	desc = "They shine like exceptionally low quality amethyst."
 	icon_state = "onionslice_red"
 	filling_color = "#C29ACF"
+	tastes = list("red onion" = 1, "pungentness" = 3)
 	list_reagents = list("plantmatter" = 5, "vitamin" = 2, "onionjuice" = 2.5)

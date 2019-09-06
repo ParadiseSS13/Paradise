@@ -38,7 +38,7 @@
 "f" = (
 /obj/structure/rack,
 /obj/item/clothing/head/collectable/police,
-/obj/item/clothing/head/nun_hood,
+/obj/item/clothing/head/hooded/nun_hood,
 /obj/item/clothing/head/mailman,
 /obj/item/clothing/head/nursehat,
 /obj/item/clothing/head/wizard/fake,

@@ -135,8 +135,13 @@ REAGENT SCANNER
 		user.show_message("<span class='notice'>Key: Suffocation/Toxin/Burns/Brute</span>", 1)
 		user.show_message("<span class='notice'>Body Temperature: ???</span>", 1)
 		return
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>","<span class='notice'> You have analyzed [M]'s vitals.</span>")
 
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>","<span class='notice'> You have analyzed [M]'s vitals.</span>")
+	healthscan(user, M, mode, upgraded)
+	add_fingerprint(user)
+
+
+proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 	if(!ishuman(M) || M.isSynthetic())
 		//these sensors are designed for organic life
 		user.show_message("<span class='notice'>Analyzing Results for ERROR:\n\t Overall Status: ERROR</span>")
@@ -271,8 +276,9 @@ REAGENT SCANNER
 		user.show_message("<span class='warning'>Subject's genes are showing minor signs of instability.</span>")
 	else
 		user.show_message("<span class='notice'>Subject's genes are stable.</span>")
-	add_fingerprint(user)
 
+/obj/item/healthanalyzer/attack_self(mob/user)
+	toggle_mode()
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Switch Verbosity"

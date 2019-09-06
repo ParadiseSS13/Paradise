@@ -165,7 +165,7 @@
 						/obj/item/clothing/suit/armor/vest,
 						/obj/item/clothing/suit/armor/vest/blueshield,
 						/obj/item/clothing/suit/space/deathsquad,
-						/obj/item/clothing/suit/space/hardsuit/engineering,
+						/obj/item/clothing/suit/space/hardsuit/engine,
 						/obj/item/radio,
 						/obj/item/radio/off,
 						/obj/item/clothing/suit/cardborg,
@@ -356,7 +356,7 @@
 				desc = "That's not red paint. That's real corgi blood."
 				valid = 1
 
-			if(/obj/item/clothing/head/helmet/space/hardsuit/engineering)
+			if(/obj/item/clothing/suit/space/hardsuit/engine)
 				name = "Space Explorer [real_name]"
 				desc = "That's one small step for a corgi. One giant yap for corgikind."
 				valid = 1
@@ -451,9 +451,8 @@
 	response_harm   = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
-/mob/living/simple_animal/pet/corgi/Ian/Life()
-	..()
-
+/mob/living/simple_animal/pet/corgi/Ian/handle_automated_movement()
+	. = ..()
 	//Feeding, chasing food, FOOOOODDDD
 	if(!resting && !buckled)
 		turns_since_scan++
@@ -580,9 +579,10 @@
 
 /mob/living/simple_animal/pet/corgi/Lisa/Life()
 	..()
-
 	make_babies()
 
+/mob/living/simple_animal/pet/corgi/Lisa/handle_automated_movement()
+	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
 			custom_emote(1, pick("dances around.","chases her tail."))
@@ -651,14 +651,15 @@
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/Life(seconds, times_fired)
 	..()
-	if(emagged && prob(25))
-		var/mob/living/carbon/target = locate() in view(10,src)
-		if(target)
-			shootAt(target)
-
 	//spark for no reason
 	if(prob(5))
 		do_sparks(3, 1, src)
+
+/mob/living/simple_animal/pet/corgi/Ian/borgi/handle_automated_action()
+	if(emagged && prob(25))
+		var/mob/living/carbon/target = locate() in view(10, src)
+		if(target)
+			shootAt(target)
 
 /mob/living/simple_animal/pet/corgi/Ian/borgi/death(gibbed)
 	// Only execute the below if we successfully died

@@ -26,10 +26,8 @@
 	var/drink_icon = null
 	var/drink_name = "Glass of ..what?"
 	var/drink_desc = "You can't really tell what this is."
-	var/taste_strength = 1 //how easy it is to taste - the more the easier
-	var/taste_message = "bitterness" //life's bitter by default. Cool points for using a span class for when you're tasting <span class='userdanger'>LIQUID FUCKING DEATH</span>
-	//Hispania icon folder
-	var/drink_hispania = FALSE
+	var/taste_mult = 1 //how easy it is to taste - the more the easier
+	var/taste_description = "metaphorical salt"
 
 /datum/reagent/Destroy()
 	. = ..()

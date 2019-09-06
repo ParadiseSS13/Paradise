@@ -245,7 +245,7 @@
 			switch(href_list["field"])
 				if("name")
 					if(istype(active1, /datum/data/record))
-						var/t1 = reject_bad_name(input("Please input name:", "Secure. records", active1.fields["name"], null) as text)
+						var/t1 = reject_bad_name(clean_input("Please input name:", "Secure. records", active1.fields["name"], null))
 						if(!t1 || !length(trim(t1)) || incapable || active1 != a1)
 							return 1
 						active1.fields["name"] = t1

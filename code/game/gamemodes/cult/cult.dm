@@ -29,7 +29,7 @@ var/global/list/all_cults = list()
 	return 1
 
 /proc/is_sacrifice_target(datum/mind/mind)
-	if(istype(SSticker.mode.name, "cult"))
+	if(SSticker.mode.name == "cult")
 		var/datum/game_mode/cult/cult_mode = SSticker.mode
 		if(mind == cult_mode.sacrifice_target)
 			return 1
@@ -40,10 +40,9 @@ var/global/list/all_cults = list()
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_jobs = list()
-	required_players = 15
-	required_enemies = 2
-	recommended_enemies = 2
-	free_golems_disabled = TRUE
+	required_players = 30
+	required_enemies = 3
+	recommended_enemies = 4
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0

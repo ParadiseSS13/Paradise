@@ -8,7 +8,6 @@
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0
-	var/deaconeggs = 3
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	create_reagents(100)
@@ -33,7 +32,7 @@
 	. = ..()
 	. += 3
 
-/mob/living/carbon/alien/humanoid/queen/handle_regular_hud_updates()
+/mob/living/carbon/alien/humanoid/queen/handle_hud_icons_health()
 	..() //-Yvarov
 
 	if(healths)
@@ -72,26 +71,6 @@
 		new /obj/structure/alien/egg(loc)
 	return
 
-/mob/living/carbon/alien/humanoid/queen/verb/lay_deaconegg()
-
-	set name = "Lay Deacon Egg (120)"
-	set desc = "Lay a deacon egg to protect the queen."
-	set category = "Alien"
-	if(locate(/obj/structure/alien/egg) in get_turf(src))
-		to_chat(src, "<span class='noticealien'>There's already an egg here.</span>")
-		return
-
-	if(powerc(75,1))//Can't plant eggs on spess tiles. That's silly.
-		if(deaconeggs<=0)
-			to_chat(src, "<span class='noticealien'>You have no more deacon embryos.</span>")
-		if(deaconeggs >=1)
-			adjustPlasma(-120)
-			for(var/mob/O in viewers(src, null))
-				O.show_message(text("<span class='alertalien'>[src] has laid an unusually large egg!</span>"), 1)
-			new /obj/structure/alien/egg/deacon(loc)
-			deaconeggs -= 1
-		return
-	return
 
 /mob/living/carbon/alien/humanoid/queen/large
 	icon = 'icons/mob/alienlarge.dmi'

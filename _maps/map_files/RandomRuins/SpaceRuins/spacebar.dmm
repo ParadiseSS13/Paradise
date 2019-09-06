@@ -64,7 +64,7 @@
 	},
 /area/ruin/powered)
 "ao" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,

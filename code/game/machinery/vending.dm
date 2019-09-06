@@ -10,15 +10,14 @@
 	var/display_color = null  // Display color for vending machine listing
 	var/category = CAT_NORMAL  // CAT_HIDDEN for contraband, CAT_COIN for premium
 
-/datum/data/vending_product/New(var/path, var/name = null, var/amount = 1, var/price = 0, var/color = null, var/category = CAT_NORMAL)
+/datum/data/vending_product/New(path, name = null, amount = 1, price = 0, color = null, category = CAT_NORMAL)
 	..()
 
 	product_path = path
 
 	if(!name)
-		var/atom/tmp = new path
-		product_name = initial(tmp.name)
-		qdel(tmp)
+		var/atom/temp = path
+		product_name = initial(temp.name)
 	else
 		product_name = name
 
@@ -138,7 +137,7 @@
 		var/category = current_list[2]
 
 		for(var/entry in current_list[1])
-			var/datum/data/vending_product/product = new/datum/data/vending_product(entry)
+			var/datum/data/vending_product/product = new /datum/data/vending_product(entry)
 
 			product.price = (entry in prices) ? prices[entry] : 0
 			product.amount = (current_list[1][entry]) ? current_list[1][entry] : 1
@@ -1084,6 +1083,7 @@
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2,
 				   /obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				   /obj/item/lighter/zippo = 3)
+	prices = list()
 
 /obj/machinery/vending/cigarette/New()
 	..()
@@ -1193,7 +1193,7 @@
 	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!"
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
-	products = list(/obj/item/seeds/aloe =3, /obj/item/seeds/ambrosia = 3, /obj/item/seeds/apple = 3, /obj/item/seeds/banana = 3, /obj/item/seeds/berry = 3,
+	products = list(/obj/item/seeds/aloe =3, /obj/item/seeds/ambrosia = 3, /obj/item/seeds/apple = 3, /obj/item/seeds/cotton = 3, /obj/item/seeds/banana = 3, /obj/item/seeds/berry = 3,
 						/obj/item/seeds/cabbage = 3, /obj/item/seeds/carrot = 3, /obj/item/seeds/cherry = 3, /obj/item/seeds/chanter = 3,
 						/obj/item/seeds/chili = 3, /obj/item/seeds/cocoapod = 3, /obj/item/seeds/coffee = 3, /obj/item/seeds/comfrey =3, /obj/item/seeds/corn = 3,
 						/obj/item/seeds/nymph =3, /obj/item/seeds/eggplant = 3, /obj/item/seeds/grape = 3, /obj/item/seeds/grass = 3, /obj/item/seeds/lemon = 3,
@@ -1357,7 +1357,7 @@
 	desc = "Spare tool vending. What? Did you expect some witty description?"
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
-	req_access_txt = "11" //Engineering Equipment access
+	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
@@ -1472,24 +1472,90 @@
 	product_slogans = "Dress for success!;Prepare to look swagalicious!;Look at all this free swag!;Why leave style up to fate? Use the ClothesMate!"
 	vend_delay = 15
 	vend_reply = "Thank you for using the ClothesMate!"
-	products = list(/obj/item/clothing/head/that=2,/obj/item/clothing/head/fedora=1,/obj/item/clothing/glasses/monocle=1,
-	/obj/item/clothing/under/suit_jacket/navy=2,/obj/item/clothing/under/kilt=1,/obj/item/clothing/under/overalls=1,
-	/obj/item/clothing/under/suit_jacket/really_black=2,/obj/item/clothing/suit/storage/lawyer/blackjacket=2,/obj/item/clothing/under/pants/jeans=3,/obj/item/clothing/under/pants/classicjeans=2,
-	/obj/item/clothing/under/pants/camo = 1,/obj/item/clothing/under/pants/blackjeans=2,/obj/item/clothing/under/pants/khaki=2,
-	/obj/item/clothing/under/pants/white=2,/obj/item/clothing/under/pants/red=1,/obj/item/clothing/under/pants/black=2,
-	/obj/item/clothing/under/pants/tan=2,/obj/item/clothing/under/pants/blue=1,/obj/item/clothing/under/pants/track=1,/obj/item/clothing/suit/jacket/miljacket = 1,
-	/obj/item/clothing/accessory/scarf/red=1,/obj/item/clothing/accessory/scarf/green=1,/obj/item/clothing/accessory/scarf/darkblue=1,
-	/obj/item/clothing/accessory/scarf/purple=1,/obj/item/clothing/accessory/scarf/yellow=1,/obj/item/clothing/accessory/scarf/orange=1,
-	/obj/item/clothing/accessory/scarf/lightblue=1,/obj/item/clothing/accessory/scarf/white=1,/obj/item/clothing/accessory/scarf/black=1,
-	/obj/item/clothing/accessory/scarf/zebra=1,/obj/item/clothing/accessory/scarf/christmas=1,/obj/item/clothing/accessory/stripedredscarf=1,
-	/obj/item/clothing/accessory/stripedbluescarf=1,/obj/item/clothing/accessory/stripedgreenscarf=1,/obj/item/clothing/accessory/waistcoat=1,
-	/obj/item/clothing/under/sundress=2,/obj/item/clothing/under/stripeddress = 1, /obj/item/clothing/under/sailordress = 1, /obj/item/clothing/under/redeveninggown = 1, /obj/item/clothing/under/blacktango=1,/obj/item/clothing/suit/jacket=3,
-	/obj/item/clothing/glasses/regular=2,/obj/item/clothing/glasses/sunglasses/fake=2,/obj/item/clothing/head/sombrero=1,/obj/item/clothing/suit/poncho=1,
-	/obj/item/clothing/suit/ianshirt=1,/obj/item/clothing/shoes/laceup=2,/obj/item/clothing/shoes/black=4,
-	/obj/item/clothing/shoes/sandal=1, /obj/item/clothing/gloves/fingerless=2,
-	/obj/item/storage/belt/fannypack=1, /obj/item/storage/belt/fannypack/blue=1, /obj/item/storage/belt/fannypack/red=1, /obj/item/clothing/suit/mantle = 2, /obj/item/clothing/suit/mantle/old = 1, /obj/item/clothing/suit/mantle/regal = 2)
-	contraband = list(/obj/item/clothing/under/syndicate/tacticool=1,/obj/item/clothing/mask/balaclava=1,/obj/item/clothing/head/ushanka=1,/obj/item/clothing/under/soviet=1,/obj/item/storage/belt/fannypack/black=1)
-	premium = list(/obj/item/clothing/under/suit_jacket/checkered=1,/obj/item/clothing/head/mailman=1,/obj/item/clothing/under/rank/mailman=1,/obj/item/clothing/suit/jacket/leather=1,/obj/item/clothing/under/pants/mustangjeans=1)
+	products = list(/obj/item/clothing/head/that = 2,
+					/obj/item/clothing/head/fedora = 1,
+					/obj/item/clothing/glasses/monocle = 1,
+					/obj/item/clothing/under/suit_jacket/navy = 2,
+					/obj/item/clothing/under/kilt = 1,
+					/obj/item/clothing/under/overalls = 1,
+					/obj/item/clothing/under/suit_jacket/really_black = 2,
+					/obj/item/clothing/suit/storage/lawyer/blackjacket = 2,
+					/obj/item/clothing/under/pants/jeans = 3,
+					/obj/item/clothing/under/pants/classicjeans = 2,
+					/obj/item/clothing/under/pants/camo = 1,
+					/obj/item/clothing/under/pants/blackjeans = 2,
+					/obj/item/clothing/under/pants/khaki = 2,
+					/obj/item/clothing/under/pants/white = 2,
+					/obj/item/clothing/under/pants/red = 1,
+					/obj/item/clothing/under/pants/black = 2,
+					/obj/item/clothing/under/pants/tan = 2,
+					/obj/item/clothing/under/pants/blue = 1,
+					/obj/item/clothing/under/pants/track = 1,
+					/obj/item/clothing/suit/jacket/miljacket = 1,
+					/obj/item/clothing/head/beanie = 3,
+					/obj/item/clothing/head/beanie/black = 3,
+					/obj/item/clothing/head/beanie/red = 3,
+					/obj/item/clothing/head/beanie/green = 3,
+					/obj/item/clothing/head/beanie/darkblue = 3,
+					/obj/item/clothing/head/beanie/purple = 3,
+					/obj/item/clothing/head/beanie/yellow = 3,
+					/obj/item/clothing/head/beanie/orange = 3,
+					/obj/item/clothing/head/beanie/cyan = 3,
+					/obj/item/clothing/head/beanie/christmas = 3,
+					/obj/item/clothing/head/beanie/striped = 3,
+					/obj/item/clothing/head/beanie/stripedred = 3,
+					/obj/item/clothing/head/beanie/stripedblue = 3,
+					/obj/item/clothing/head/beanie/stripedgreen = 3,
+					/obj/item/clothing/head/beanie/rasta = 3,
+					/obj/item/clothing/accessory/scarf/red = 1,
+					/obj/item/clothing/accessory/scarf/green = 1,
+					/obj/item/clothing/accessory/scarf/darkblue = 1,
+					/obj/item/clothing/accessory/scarf/purple = 1,
+					/obj/item/clothing/accessory/scarf/yellow = 1,
+					/obj/item/clothing/accessory/scarf/orange = 1,
+					/obj/item/clothing/accessory/scarf/lightblue = 1,
+					/obj/item/clothing/accessory/scarf/white = 1,
+					/obj/item/clothing/accessory/scarf/black = 1,
+					/obj/item/clothing/accessory/scarf/zebra = 1,
+					/obj/item/clothing/accessory/scarf/christmas = 1,
+					/obj/item/clothing/accessory/stripedredscarf = 1,
+					/obj/item/clothing/accessory/stripedbluescarf = 1,
+					/obj/item/clothing/accessory/stripedgreenscarf = 1,
+					/obj/item/clothing/accessory/waistcoat = 1,
+					/obj/item/clothing/under/sundress = 2,
+					/obj/item/clothing/under/stripeddress = 1,
+					/obj/item/clothing/under/sailordress = 1,
+					/obj/item/clothing/under/redeveninggown = 1,
+					/obj/item/clothing/under/blacktango = 1,
+					/obj/item/clothing/suit/jacket = 3,
+					/obj/item/clothing/glasses/regular = 2,
+					/obj/item/clothing/glasses/sunglasses_fake = 2,
+					/obj/item/clothing/head/sombrero = 1,
+					/obj/item/clothing/suit/poncho = 1,
+					/obj/item/clothing/suit/ianshirt = 1,
+					/obj/item/clothing/shoes/laceup = 2,
+					/obj/item/clothing/shoes/black = 4,
+					/obj/item/clothing/shoes/sandal = 1,
+					/obj/item/clothing/gloves/fingerless = 2,
+					/obj/item/storage/belt/fannypack = 1,
+					/obj/item/storage/belt/fannypack/blue = 1,
+					/obj/item/storage/belt/fannypack/red = 1,
+					/obj/item/clothing/suit/mantle = 2,
+					/obj/item/clothing/suit/mantle/old = 1,
+					/obj/item/clothing/suit/mantle/regal = 2)
+
+	contraband = list(/obj/item/clothing/under/syndicate/tacticool = 1,
+					  /obj/item/clothing/mask/balaclava = 1,
+					  /obj/item/clothing/head/ushanka = 1,
+					  /obj/item/clothing/under/soviet = 1,
+					  /obj/item/storage/belt/fannypack/black = 1)
+
+	premium = list(/obj/item/clothing/under/suit_jacket/checkered = 1,
+				   /obj/item/clothing/head/mailman = 1,
+				   /obj/item/clothing/under/rank/mailman = 1,
+				   /obj/item/clothing/suit/jacket/leather = 1,
+				   /obj/item/clothing/under/pants/mustangjeans = 1)
+
 	refill_canister = /obj/item/vending_refill/clothing
 
 /obj/machinery/vending/clothing/New()
@@ -1535,7 +1601,7 @@
 					/obj/item/fish_eggs/electric_eel = 10, /obj/item/fish_eggs/shrimp = 5, /obj/item/toy/pet_rock = 100,
 					)
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
-	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1)
+	premium = list(/obj/item/toy/pet_rock/fred = 1, /obj/item/toy/pet_rock/roxie = 1, /obj/item/clothing/gloves/fingerless/rapid/headpat = 1)
 	refill_canister = /obj/item/vending_refill/crittercare
 
 /obj/machinery/vending/crittercare/free
