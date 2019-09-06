@@ -97,7 +97,7 @@
 				broken = FALSE
 				update_icon()
 			if(unfastened)
-				user.visible_message("<span class='danger'>[user] starts removing [src]!</span>", "<span class='warning'>You start removing [src] exposing space after you're done!</span>")
+				to_chat(user, "<span class='warning'>You start removing [src] exposing space after you're done!</span>")
 				playsound(src, welder.usesound, 100, 1)
 				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())
 					to_chat(user, "<span class='notice'>You remove [src].</span>")
