@@ -756,7 +756,7 @@
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	collar_type = "pug"
 
-/mob/living/simple_animal/pet/pug/handle_automated_movement()
+/mob/living/simple_animal/pet/dog/pug/handle_automated_movement()
 	. = ..()
 	if(!resting && !buckled)
 		if(prob(1))
