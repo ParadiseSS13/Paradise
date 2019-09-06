@@ -28,12 +28,15 @@
 	var/force_wielded = 0
 	var/wieldsound = null
 	var/unwieldsound = null
+	var/sharp_when_wielded = FALSE
 
 /obj/item/twohanded/proc/unwield(mob/living/carbon/user)
 	if(!wielded || !user)
 		return
 	wielded = FALSE
 	force = force_unwielded
+	if(sharp_when_wielded)
+		sharp = FALSE
 	var/sf = findtext(name," (Wielded)")
 	if(sf)
 		name = copytext(name, 1, sf)
@@ -66,6 +69,8 @@
 		return
 	wielded = TRUE
 	force = force_wielded
+	if(sharp_when_wielded)
+		sharp = TRUE
 	name = "[name] (Wielded)"
 	update_icon()
 	if(user)
@@ -224,7 +229,7 @@
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
-	sharp = TRUE
+	sharp_when_wielded = TRUE // only sharp when wielded
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)

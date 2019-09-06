@@ -18,12 +18,10 @@
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
 	path = /obj/item/clothing/suit/furcape
-	cost = 2
 
 /datum/gear/donor/furcoat
 	display_name = "Fur Coat"
 	path = /obj/item/clothing/suit/furcoat
-	cost = 2
 
 /datum/gear/donor/kamina
 	display_name = "Spiky Orange-tinted Shades"
@@ -32,10 +30,6 @@
 /datum/gear/donor/green
 	display_name = "Spiky Green-tinted Shades"
 	path = /obj/item/clothing/glasses/fluff/kamina/green
-
-/datum/gear/donor/hipster
-	display_name = "Hipster Glasses"
-	path = /obj/item/clothing/glasses/regular/hipster
 
 /datum/gear/donor/threedglasses
 	display_name = "Threed Glasses"

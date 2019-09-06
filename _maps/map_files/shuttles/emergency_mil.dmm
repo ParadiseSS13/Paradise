@@ -115,43 +115,13 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "au" = (
-/obj/structure/chair/comfy/brown{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"av" = (
-/obj/structure/chair/comfy/teal{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"aw" = (
-/obj/structure/chair/comfy/red{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"ax" = (
-/obj/structure/chair/comfy/blue{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "ay" = (
 /obj/machinery/computer/robotics,
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"az" = (
-/obj/structure/chair/comfy/beige{
-	dir = 1
-	},
-/turf/simulated/shuttle/floor,
-/area/shuttle/escape)
-"aA" = (
-/obj/structure/chair/comfy/purp{
-	dir = 1
-	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "aB" = (
@@ -181,7 +151,7 @@
 	},
 /area/shuttle/escape)
 "aF" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aG" = (
@@ -193,7 +163,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor4,
 /area/shuttle/escape)
 "aH" = (
@@ -335,7 +305,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "aX" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor4,
@@ -469,31 +439,31 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bk" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bl" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bm" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -503,19 +473,8 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/escape)
-"bo" = (
-/obj/machinery/light/spot{
-	tag = "icon-tube1 (EAST)";
-	icon_state = "tube1";
-	dir = 4
-	},
-/obj/structure/chair{
-	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -629,7 +588,7 @@ aa
 ab
 af
 as
-az
+au
 af
 aF
 aN
@@ -732,7 +691,7 @@ aj
 ac
 af
 al
-av
+au
 at
 aC
 aH
@@ -784,7 +743,7 @@ bz
 ac
 af
 an
-aw
+au
 at
 aC
 aH
@@ -810,7 +769,7 @@ by
 ab
 af
 ao
-ax
+au
 at
 af
 aJ
@@ -889,7 +848,7 @@ aa
 ab
 af
 ay
-aA
+au
 af
 aM
 aT
@@ -901,12 +860,12 @@ bm
 bk
 bk
 bk
-bo
+bm
 bi
 aI
 br
 bk
-bo
+bm
 aC
 bw
 "}

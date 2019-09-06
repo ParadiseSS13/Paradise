@@ -303,7 +303,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/changeling/proc/can_absorb_dna(mob/living/carbon/user, mob/living/carbon/target)
 	if(using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
-		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
+		to_chat(user, "<span class='warning'>The DNA we are wearing is stale. Transform and try again.</span>")
 		return
 
 	if(!target || !target.dna)

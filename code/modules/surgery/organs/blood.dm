@@ -99,11 +99,11 @@
 /mob/living/carbon/proc/bleed_internal(amt) // Return 1 if we've coughed blood up, 2 if we're vomited it.
 	if(blood_volume)
 		blood_volume = max(blood_volume - amt, 0)
-		if (prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
+		if(prob(10 * amt)) // +5% chance per internal bleeding site that we'll cough up blood on a given tick.
 			custom_emote(1, "coughs up blood!")
 			add_splatter_floor(loc, 1)
 			return 1
-		else if (amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
+		else if(amt >= 1 && prob(5 * amt)) // +2.5% chance per internal bleeding site that we'll cough up blood on a given tick. Must be bleeding internally in more than one place to have a chance at this.
 			vomit(0, 1)
 			return 2
 	return 0
@@ -253,7 +253,7 @@
 		// Only a certain number of drips (or one large splatter) can be on a given turf.
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
 		if(drop)
-			if(drop.drips < 3)
+			if(drop.drips < 5)
 				drop.drips++
 				drop.overlays |= pick(drop.random_icon_states)
 				drop.transfer_mob_blood_dna(src)
@@ -278,7 +278,8 @@
 		B = locate() in bloods
 	if(!B)
 		B = new(T)
-
+	if(B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
+		B.bloodiness += BLOOD_AMOUNT_PER_DECAL
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.blood_DNA |= temp_blood_DNA
