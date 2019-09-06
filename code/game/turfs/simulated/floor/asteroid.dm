@@ -47,6 +47,18 @@
 /turf/simulated/floor/plating/asteroid/remove_plating()
 	return
 
+/turf/simulated/floor/plating/asteroid/ex_act(severity)
+	if(!can_dig())
+		return
+	switch(severity)
+		if(3)
+			return
+		if(2)
+			if(prob(20))
+				getDug()
+		if(1)
+			getDug()
+
 /turf/simulated/floor/plating/asteroid/attackby(obj/item/I, mob/user, params)
 	//note that this proc does not call ..()
 	if(!I || !user)
@@ -74,6 +86,16 @@
 		if(S.collection_mode == 1)
 			for(var/obj/item/stack/ore/O in src.contents)
 				O.attackby(I, user)
+
+	else if(istype(I, /obj/item/stack/tile))
+		var/obj/item/stack/tile/Z = I
+		if(!Z.use(1))
+			return
+		if(istype(Z, /obj/item/stack/tile/plasteel)) // Turn asteroid floors into plating by default
+			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+		else
+			ChangeTurf(Z.turf_type, keep_icon = FALSE)
+		playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
 
 /turf/simulated/floor/plating/asteroid/basalt
 	name = "volcanic floor"
