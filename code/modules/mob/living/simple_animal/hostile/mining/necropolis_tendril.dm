@@ -23,17 +23,17 @@
 	del_on_death = 1
 	var/gps = null
 
-/mob/living/simple_animal/hostile/spawner/lavaland/New()
-	..()
+/mob/living/simple_animal/hostile/spawner/lavaland/Initialize(mapload)
+	. = ..()
 	//for(var/F in RANGE_TURFS(1, src)) TODO: Uncomment
 		//if(ismineralturf(F))
-			//var/turf/simulated/mineral/M = F 
+			//var/turf/simulated/mineral/M = F
 			//M.ChangeTurf(M.turf_type, FALSE, TRUE)
 	gps = new /obj/item/gps/internal(src)
 
 /mob/living/simple_animal/hostile/spawner/lavaland/Destroy()
-	qdel(gps)
-	. = ..()
+	QDEL_NULL(gps)
+	return ..()
 
 /mob/living/simple_animal/hostile/spawner/lavaland/death()
 	var/last_tendril = TRUE

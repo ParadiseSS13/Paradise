@@ -21,7 +21,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	regen_points_per_hp = 2 // 50% higher regen speed
-	stat_attack = 1 // ensures they will target people in crit, too!
+	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	wander = 0 // wandering defeats the purpose of stealth
 	vision_range = 3 // very low idle vision range
 	delay_web = 20 // double speed
