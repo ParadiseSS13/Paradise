@@ -1,3 +1,4 @@
+
 /*
 	Global associative list for caching humanoid icons.
 	Index format m or f, followed by a string of 0 and 1 to represent bodyparts followed by husk fat hulk skeleton 1 or 0.
@@ -564,9 +565,6 @@ var/global/list/damage_icon_parts = list()
 				to_chat(src, "<span class='warning'>You burst out of \the [w_uniform]!</span>")
 				unEquip(w_uniform)
 				return
-		else
-			standing.icon = icon_condition(w_uniform, null, null, null, TRUE, FALSE, -UNIFORM_LAYER)
-
 
 		if(w_uniform.icon_override)
 			standing.icon = w_uniform.icon_override
@@ -958,7 +956,7 @@ var/global/list/damage_icon_parts = list()
 				mask_icon = new(wear_mask.sprite_sheets[dna.species.name])
 				standing = mutable_appearance(wear_mask.sprite_sheets[dna.species.name], "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 			else
-				standing = icon_condition(wear_mask.sprite_sheets[dna.species.name], 'icons/mob/mask.dmi', 'icons/hispania/mob/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", null, null, layer = -FACEMASK_LAYER)
+				standing = mutable_appearance('icons/mob/mask.dmi', "[wear_mask.icon_state][(alternate_head && ("[wear_mask.icon_state]_[alternate_head.suffix]" in mask_icon.IconStates())) ? "_[alternate_head.suffix]" : ""]", layer = -FACEMASK_LAYER)
 
 			if(!istype(wear_mask, /obj/item/clothing/mask/cigarette) && wear_mask.blood_DNA)
 				var/image/bloodsies = image("icon" = dna.species.blood_mask, "icon_state" = "maskblood")
