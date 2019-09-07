@@ -662,6 +662,8 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
 			return
 		wires.Interact(user)
+	else
+		..()
 
 //Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
