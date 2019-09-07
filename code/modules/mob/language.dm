@@ -770,6 +770,7 @@
 	exclaim_verb = "wails"
 	colour = "zombie"
 	key = "zom"
+	flags = RESTRICTED
 	syllables = list("BRAAAAAAAAAAAAAAAAINS", "BRAAINS", "BRAINS")
 
 /mob/proc/grant_all_languages()
