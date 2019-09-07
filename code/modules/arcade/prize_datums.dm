@@ -320,9 +320,9 @@ var/global/datum/prizes/global_prizes = new
 
 /datum/prize_item/headpat
 	name = "Gloves of Headpats"
-	desc = "Gloves that let you heatpat fast."
+	desc = "Gloves that fill you with an irresistable urge to give headpats."
 	typepath = /obj/item/clothing/gloves/fingerless/rapid/headpat
-	cost = 500
+	cost = 150
 
 /datum/prize_item/bike
 	name = "Awesome Bike!"
