@@ -37335,10 +37335,28 @@
 	},
 /area/hydroponics)
 "bqb" = (
-/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9;
+	pixel_y = 0
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurplecorner"
+	icon_state = "whitepurple"
 	},
 /area/medical/research{
 	name = "Research Division"
@@ -38847,14 +38865,19 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bts" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Science Maintenance";
-	req_access_txt = "47"
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 1;
+	icon_state = "whitepurplecorner"
 	},
-/area/maintenance/asmaint2)
+/area/medical/research{
+	name = "Research Division"
+	})
 "btt" = (
 /obj/item/radio/intercom{
 	dir = 8;
@@ -51829,6 +51852,11 @@
 	name = "Biohazard Shutter";
 	opacity = 0
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -54870,26 +54898,19 @@
 	name = "Research Division"
 	})
 "bWr" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Science Maintenance";
+	req_access_txt = "47"
+	},
 /obj/structure/cable{
-	d1 = 1;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "1-8";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9;
-	pixel_y = 0
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "white"
 	},
-/area/medical/research{
-	name = "Research Division"
-	})
+/area/maintenance/asmaint2)
 "bWs" = (
 /obj/structure/table,
 /obj/item/soap/nanotrasen,
@@ -60191,16 +60212,19 @@
 	},
 /area/toxins/server_coldroom)
 "ceJ" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/pod_4)
+/area/maintenance/asmaint2)
 "ceK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -63374,14 +63398,16 @@
 	},
 /area/crew_quarters/hor)
 "cjT" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/maintenance/asmaint2)
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/pod_4)
 "cjU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -129098,7 +129124,7 @@ dfR
 dcq
 dcq
 dcq
-ceJ
+cjT
 doL
 cmI
 dcq
@@ -144450,7 +144476,7 @@ bRY
 bUk
 bUR
 bVG
-bWr
+bqb
 bLR
 bYj
 bVo
@@ -144707,7 +144733,7 @@ bIp
 bPB
 bIp
 bTe
-bqb
+bts
 ctv
 bYj
 bZW
@@ -145221,7 +145247,7 @@ bED
 bED
 bED
 bED
-bts
+bWr
 bPj
 bYj
 bYj
@@ -145478,7 +145504,7 @@ cZp
 cZp
 cZT
 bEG
-cjT
+ceJ
 cac
 cba
 ccM
