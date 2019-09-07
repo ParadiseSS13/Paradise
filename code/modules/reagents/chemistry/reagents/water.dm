@@ -25,10 +25,17 @@
 	M.water_act(volume, water_temperature, src, method)
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
+	T.water_act(volume, water_temperature, src)
+
+/datum/reagent/water/reaction_obj(obj/O, volume)
+	O.water_act(volume, water_temperature, src)
+
+/datum/reagent/lube
 	name = "Space Lube"
 	id = "lube"
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
+	color = "#1BB1AB"
 	taste_description = "cherry"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
