@@ -20,7 +20,6 @@
 	health = 120
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	regen_points_per_hp = 2 // 50% higher regen speed
 	stat_attack = 1 // ensures they will target people in crit, too!
 	delay_web = 20 // double speed
 	web_type = /obj/structure/spider/terrorweb/gray
