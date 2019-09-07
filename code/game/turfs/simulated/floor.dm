@@ -96,9 +96,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		overlays.Add(current_overlay)
 	return 1
 
-/turf/simulated/floor/proc/gets_drilled()
-	return
-
 /turf/simulated/floor/proc/break_tile_to_plating()
 	var/turf/simulated/floor/plating/T = make_plating()
 	T.break_tile()
@@ -121,11 +118,11 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
-	if(!istype(src, /turf/simulated/floor)) 
+	if(!istype(src, /turf/simulated/floor))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
-	if(!ispath(T, /turf/simulated/floor)) 
+	if(!ispath(T, /turf/simulated/floor))
 		return ..()
-		
+
 	var/old_icon = icon_regular_floor
 	var/old_plating = icon_plating
 	var/old_dir = dir
