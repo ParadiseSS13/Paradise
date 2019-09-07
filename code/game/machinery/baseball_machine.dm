@@ -12,17 +12,23 @@
 	var/baseball_count = 15 // starts with 15 baseballs so we don't just spawn INFINITE amounts of baseballs
 	var/active = FALSE
 
-/obj/machinery/baseball_machine/attackby(obj/item/I, mob/user, params)
+/obj/machinery/baseball_machine/Initialize(mapload)
 	. = ..()
+	for(var/x in 1 to baseball_count)
+		new /obj/item/beach_ball/holoball/baseball(src)
+
+/obj/machinery/baseball_machine/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		return
 
-	if(istype(I, /obj/item/beach_ball/holoball/baseball))
+	if(istype(I, /obj/item/beach_ball))
 		if(!user.drop_item())
 			return
-		visible_message("<span class='notice'>[src] loads the baseball machine with a baseball.</span>")
-		qdel(I)
+		visible_message("<span class='notice'>[src] loads the baseball machine with a [I].</span>")
+		I.forceMove(src)
 		baseball_count++
+
+	return ..()
 
 /obj/machinery/baseball_machine/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))
@@ -44,8 +50,10 @@
 		active = FALSE
 		update_icon()
 		return FALSE // returns false if ball was not fired
-	var/obj/item/beach_ball/holoball/bball = new /obj/item/beach_ball/holoball/baseball(get_turf(src))
+	var/obj/item/beach_ball/bball = locate() in src
+	bball.forceMove(get_turf(src))
 	bball.throw_at(get_edge_target_turf(src, dir), 20, 1)
+	visible_message("<span class='warning'>[src] fires [bball]!</span>")
 	baseball_count--
 	return TRUE
 
