@@ -137,9 +137,9 @@
 					step_to(src,L)
 					L.on = 1
 					L.broken()
-					L.do_attack_animation(src)
+					do_attack_animation(L)
 					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
-					break
+					return
 		else if(ai_spins_webs && web_type && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
