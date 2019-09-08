@@ -508,8 +508,12 @@
 		data["mode"] = 0
 		var/list/listed_products = list()
 
-		for(var/key = 1 to src.product_records.len)
-			var/datum/data/vending_product/I = src.product_records[key]
+		var/list/display_records = product_records + coin_records
+		if(extended_inventory)
+			display_records = product_records + coin_records + hidden_records
+
+		for(var/key = 1 to display_records.len)
+			var/datum/data/vending_product/I = display_records[key]
 
 			if(coin_records.Find(I) && !coin)
 				continue
@@ -593,7 +597,10 @@
 			return
 
 		var/key = text2num(href_list["vend"])
-		var/datum/data/vending_product/R = product_records[key]
+		var/list/display_records = product_records + coin_records
+		if(extended_inventory)
+			display_records = product_records + coin_records + hidden_records
+		var/datum/data/vending_product/R = display_records[key]
 
 		// This should not happen unless the request from NanoUI was bad
 		if(coin_records.Find(R) && !coin)
