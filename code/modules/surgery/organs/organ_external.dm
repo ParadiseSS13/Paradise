@@ -96,7 +96,6 @@
 
 	return ..()
 
-
 /obj/item/organ/external/update_health()
 	damage = min(max_damage, (brute_dam + burn_dam))
 	return
@@ -695,7 +694,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_malfunctioning()
 	return (is_robotic() && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
 
-/obj/item/organ/external/remove(var/mob/living/user, var/ignore_children)
+/obj/item/organ/external/remove(mob/living/user, ignore_children, ignore_malf)
 
 	if(!owner)
 		return
@@ -731,7 +730,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		victim.bodyparts_by_name[limb_name] = null	// Remove from owner's vars.
 
 	//Robotic limbs explode if sabotaged.
-	if(is_robotic() && sabotaged)
+	if(!ignore_malf && is_robotic() && sabotaged)
 		victim.visible_message(
 			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 			"<span class='danger'>Your [src.name] explodes!</span>",\

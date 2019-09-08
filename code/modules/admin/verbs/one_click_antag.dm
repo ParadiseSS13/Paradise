@@ -494,9 +494,6 @@ client/proc/one_click_antag()
 	var/mob/living/carbon/human/new_vox = new /mob/living/carbon/human/vox(spawn_location.loc)
 
 	new_vox.add_language("Tradeband")
-	new_vox.real_name = capitalize(newname)
-	new_vox.dna.real_name = new_vox.real_name
-	new_vox.name = new_vox.real_name
 	new_vox.age = rand(12,20)
 	new_vox.flavor_text = ""
 	new_vox.change_eye_color(rand(1, 255), rand(1, 255), rand(1, 255))
@@ -504,7 +501,8 @@ client/proc/one_click_antag()
 
 	// Do the initial caching of the player's body icons.
 	new_vox.force_update_limbs()
-	new_vox.update_dna()
+	new_vox.change_real_name(capitalize(newname), TRUE)
+	new_vox.name = new_vox.real_name
 	new_vox.update_eyes()
 
 	for(var/obj/item/organ/external/limb in new_vox.bodyparts)

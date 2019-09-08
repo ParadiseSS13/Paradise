@@ -91,6 +91,7 @@
 		H.Initialize(null)
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
+		H.change_real_name(H.real_name, TRUE)
 		if(!mob_gender)
 			mob_gender = pick(MALE, FEMALE)
 		M.gender = mob_gender

@@ -74,7 +74,7 @@
 		H.gib()
 		return
 
-	H.real_name = H.dna.real_name
+	H.change_real_name(H.dna.real_name, TRUE)
 	H.name = H.real_name
 
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")

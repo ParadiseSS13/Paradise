@@ -66,7 +66,7 @@
 
 			var/mob/living/carbon/human/lich = new /mob/living/carbon/human(item_turf)
 
-			lich.real_name = M.mind.name
+			lich.change_real_name(M.mind.name, TRUE)
 			M.mind.transfer_to(lich)
 			lich.set_species(/datum/species/skeleton)
 			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")

@@ -126,6 +126,8 @@ proc/issyndicate(mob/living/M as mob)
 
 			agent_number++
 		spawnpos++
+		var/mob/living/carbon/human/H = synd_mind.current
+		H.change_real_name(synd_mind.current.real_name, TRUE) //Write the true_name and other attributes to everything.
 		update_synd_icons_added(synd_mind)
 
 	scale_telecrystals()
@@ -161,13 +163,11 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/create_syndicate(datum/mind/synd_mind) // So we don't have inferior species as ops - randomize a human
 	var/mob/living/carbon/human/M = synd_mind.current
-
-	M.set_species(/datum/species/human, TRUE)
-	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
-	M.dna.species.create_organs(M)
-	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
 	M.overeatduration = 0
 	M.flavor_text = null
+	M.dna.ready_dna(M) // Quadriplegic Nuke Ops won't be participating in the paralympics
+	M.cleanSE() //No fat/blind/colourblind/epileptic/whatever ops.
+	M.set_species(/datum/species/human, TRUE)
 
 	var/obj/item/organ/external/head/head_organ = M.get_organ("head")
 	var/hair_c = pick("#8B4513","#000000","#FF4500","#FFD700") // Brown, black, red, blonde

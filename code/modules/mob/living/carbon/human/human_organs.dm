@@ -152,7 +152,7 @@ Otherwise, this restricts itself to organs that share the UE of the host.
 
 old_ue: Set this to a UE string, and this proc will overwrite the dna of organs that have that UE, instead of the host's present UE
 */
-/mob/living/carbon/human/proc/sync_organ_dna(var/assimilate = 1, var/old_ue = null)
+/mob/living/carbon/human/proc/sync_organ_dna(assimilate = 1, old_ue)
 	var/ue_to_compare = (old_ue) ? old_ue : dna.unique_enzymes
 	var/list/all_bits = internal_organs|bodyparts
 	for(var/obj/item/organ/O in all_bits)

@@ -18,7 +18,7 @@
 		dna = new /datum/dna(null)
 		// Species name is handled by set_species()
 
-	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE)
+	set_species(new_species, 1, delay_icon_update = 1, skip_same_check = TRUE, new_mob = TRUE)
 
 	..()
 
@@ -1128,7 +1128,6 @@
 										 //while the organ in the eyes slot may not be listed in the mob's species' organs definition, it is still viable and fits in the appropriate organ slot.
 			else
 				I = new organ(H) //Create the organ inside the player.
-				I.insert(H)
 
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
@@ -1238,11 +1237,11 @@
 	else
 		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
 
-/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE)
+/mob/living/carbon/human/proc/set_species(datum/species/new_species, default_colour, delay_icon_update = FALSE, skip_same_check = FALSE, retain_damage = FALSE, new_mob = FALSE)
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
-	var/datum/species/oldspecies = dna.species
+	var/datum/species/oldspecies = new dna.species.type()
 
 	if(oldspecies)
 		if(oldspecies.language)
@@ -1319,7 +1318,7 @@
 			internal_damages += list(stats)
 
 		//Create the new organs for the species change
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, oldspecies, new_mob)
 
 		//Apply relevant damages and variables to the new organs.
 		for(var/B in bodyparts)
@@ -1355,7 +1354,7 @@
 					qdel(part)
 
 	else
-		dna.species.create_organs(src)
+		dna.species.create_organs(src, oldspecies, new_mob)
 
 	for(var/obj/item/thing in kept_items)
 		equip_to_slot_if_possible(thing, kept_items[thing], redraw_mob = 0)
@@ -1971,3 +1970,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(O && O.glowing)
 		O.toggle_biolum(TRUE)
 		visible_message("<span class='danger'>[src] is engulfed in shadows and fades into the darkness.</span>", "<span class='danger'>A sense of dread washes over you as you suddenly dim dark.</span>")
+
+/mob/living/carbon/human/proc/change_real_name(new_name = real_name, assimilate = FALSE, old_ue = null)
+	real_name = new_name
+	dna.real_name = real_name
+	update_dna() //Commit real_name to DNA.
+	sync_organ_dna(assimilate, old_ue) //Sort the whole body out with the real_name.

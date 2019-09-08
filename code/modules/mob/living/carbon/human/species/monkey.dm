@@ -50,7 +50,7 @@
 
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.real_name = "[lowertext(name)] ([rand(100,999)])"
+	H.change_real_name("[lowertext(name)] ([rand(100,999)])", TRUE)
 	H.name = H.real_name
 	H.butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/monkey = 5)
 

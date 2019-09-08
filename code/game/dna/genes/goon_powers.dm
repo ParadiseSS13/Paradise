@@ -494,8 +494,8 @@
 			var/mob/living/carbon/human/H = user
 			var/mob/living/carbon/human/target = M
 			H.UpdateAppearance(target.dna.UI)
-			H.real_name = target.real_name
 			H.name = target.name
+			H.change_real_name(target.real_name, TRUE)
 
 ////////////////////////////////////////////////////////////////////////
 

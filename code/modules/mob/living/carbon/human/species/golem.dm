@@ -94,7 +94,7 @@
 			H.mind.special_role = SPECIAL_ROLE_GOLEM
 		else
 			H.mind.special_role = SPECIAL_ROLE_FREE_GOLEM
-	H.real_name = get_random_name()
+	H.change_real_name(get_random_name(), TRUE)
 	H.name = H.real_name
 	to_chat(H, info_text)
 

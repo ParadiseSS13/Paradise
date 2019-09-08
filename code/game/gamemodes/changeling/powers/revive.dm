@@ -29,7 +29,7 @@
 		var/mob/living/carbon/human/H = user
 		H.restore_blood()
 		H.next_pain_time = 0
-		H.dna.species.create_organs(H)
+		H.check_and_regenerate_organs(H)
 		// Now that recreating all organs is necessary, the rest of this organ stuff probably
 		//  isn't, but I don't want to remove it, just in case.
 		for(var/organ_name in H.bodyparts_by_name)

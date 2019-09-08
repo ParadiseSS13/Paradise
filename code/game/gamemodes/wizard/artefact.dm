@@ -92,7 +92,7 @@
 				if(!newname)
 					newname = randomname
 				M.mind.name = newname
-				M.real_name = newname
+				M.change_real_name(newname, TRUE)
 				M.name = newname
 				var/datum/objective/protect/new_objective = new /datum/objective/protect
 				new_objective.owner = M:mind
@@ -335,7 +335,7 @@ var/global/list/multiverse = list()
 		if(prob(50))
 			var/list/list_all_species = list(/datum/species/human, /datum/species/unathi, /datum/species/skrell, /datum/species/tajaran, /datum/species/kidan, /datum/species/golem, /datum/species/diona, /datum/species/machine, /datum/species/slime, /datum/species/grey, /datum/species/vulpkanin)
 			M.set_species(pick(list_all_species))
-	M.real_name = user.real_name //this is clear down here in case the user happens to become a golem; that way they have the proper name.
+	M.change_real_name(user.real_name, TRUE) //this is clear down here in case the user happens to become a golem; that way they have the proper name.
 	M.name = user.real_name
 	if(duplicate_self)
 		M.dna = user.dna.Clone()
@@ -751,6 +751,7 @@ var/global/list/multiverse = list()
 		H.real_name = "Neko-chan"
 	else
 		H.real_name = "[H.name]-chan"
+	H.change_real_name(H.real_name, TRUE)
 	H.say("NYA!~")
 
 /obj/item/necromantic_stone/nya

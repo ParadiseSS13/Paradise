@@ -241,8 +241,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		scramble(1, H, 100)
-		H.real_name = random_name(H.gender, H.dna.species.name) //Give them a name that makes sense for their species.
-		H.sync_organ_dna(assimilate = 1)
+		H.change_real_name(random_name(H.gender, H.dna.species.name), TRUE) //Give them a name that makes sense for their species.
 		H.update_body(0)
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 		H.reset_markings() //...Or markings.

@@ -1029,6 +1029,7 @@
 						SSticker.mode.prepare_syndicate_leader(src)
 					else
 						current.real_name = "[syndicate_name()] Operative #[SSticker.mode.syndicates.len-1]"
+					H.change_real_name(H.real_name, TRUE) //Write it to DNA all over the body.
 					special_role = SPECIAL_ROLE_NUKEOPS
 					to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 					SSticker.mode.forge_syndicate_objectives(src)
@@ -1446,6 +1447,9 @@
 		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
 
 		var/mob/living/carbon/human/H = current
+		H.update_dna() //Commit real_name to DNA.
+		H.sync_organ_dna(TRUE) //Sort the whole body out with the real_name.
+
 		qdel(H.belt)
 		qdel(H.back)
 		qdel(H.l_ear)

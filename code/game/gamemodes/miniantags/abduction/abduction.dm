@@ -124,7 +124,7 @@
 	H.set_species(/datum/species/abductor)
 	S = H.dna.species
 	S.team = team_number
-	H.real_name = team_name + " Agent"
+	H.change_real_name("[team_name] Agent", TRUE)
 	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
 	H.flavor_text = null
@@ -141,7 +141,7 @@
 	S = H.dna.species
 	S.scientist = TRUE
 	S.team = team_number
-	H.real_name = team_name + " Scientist"
+	H.change_real_name("[team_name] Scientist", TRUE)
 	H.cleanSE() //No fat/blind/colourblind/epileptic/whatever ayys.
 	H.overeatduration = 0
 	H.flavor_text = null

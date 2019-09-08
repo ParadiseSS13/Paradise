@@ -68,7 +68,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				playsound(H.loc, 'sound/effects/ghost.ogg', 100, 1)
 				var/newNameId = pick(possibleShadowlingNames)
 				possibleShadowlingNames.Remove(newNameId)
-				H.real_name = newNameId
+				H.change_real_name(newNameId, TRUE)
 				H.name = user.real_name
 				H.SetStunned(0)
 				to_chat(H, "<i><b><font size=3>YOU LIVE!!!</i></b></font>")
@@ -84,7 +84,7 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.socks = "None"
 				H.faction |= "faithless"
 
-				H.set_species(/datum/species/shadow/ling)	//can't be a shadowling without being a shadowling
+				H.set_species(/datum/species/shadow/ling, new_mob = TRUE)	//can't be a shadowling without being a shadowling
 				H.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), slot_w_uniform)
 				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), slot_shoes)
 				H.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), slot_wear_suit)
