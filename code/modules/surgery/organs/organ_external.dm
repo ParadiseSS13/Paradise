@@ -72,7 +72,7 @@
 		if(vital)
 			owner.death()
 
-/obj/item/organ/external/proc/become_orphan()
+/obj/item/organ/external/become_orphan()
 	if(parent && parent.children)
 		parent.children -= src
 	parent = null

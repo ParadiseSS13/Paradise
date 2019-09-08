@@ -195,29 +195,28 @@
 				var/obj/item/organ/internal/I = H.get_organ_slot(organ_type)
 				if(!I)
 					replace_after["organs"][organ_type] = TRUE //Error 404 no type found. Will be generated from scratch later.
-				else
+				else //Liquidate the surplus.
 					remove_after["organs"] |= I
+					H.internal_organs -= I
+					H.internal_organs_slot -= I.slot
+					I.become_orphan()
 
 		for(var/O in H.internal_organs) //Same as above but for innards. Gotta go inside out to avoid runtimes.
 			var/obj/item/organ/internal/I = O
 			if(!(I.slot in oldspecies_organs) && (I.type != oldspecies_organs[I.slot]))
-				to_chat(H, "I1 - [I.slot]")
 				continue
 			if(I.is_robotic() && isrobot(initial(I))) //Were ya born that way?
-				to_chat(H, "I2 - [I.slot]")
 				continue
-			to_chat(H, "I - [I && I.dna ? I.dna.species.name : null] - [OS.name]")
-			if(I.dna && (I.dna.species.name != OS.name)) //Same slot, different species?
-				to_chat(H, "I3 - [I.slot]")
+			if((I?.dna.species.name != OS.name) || (I?.dna.real_name != H.real_name)) //Same slot, different species?
 				continue
-			to_chat(H, "I - [I && I.dna ? I.dna.real_name : null] - [H.real_name]")
-			if(I.dna && (I.dna.real_name != H.real_name)) //It ain't me.
-				to_chat(H, "I4 - [I.slot]")
-				continue
+			if((I.slot in oldspecies_organs) && !(I.slot in species_organs))
+				remove_after["organs"] |= I
+			else
+				replace_after["organs"][I.slot] = I
 
-			replace_after["organs"][I.slot] = I
 			H.internal_organs -= I
-			H.internal_organs_slot[I.slot] -= I
+			H.internal_organs_slot -= I.slot
+			I.become_orphan()
 
 		QDEL_LIST(remove_after["organs"]) //This needs to be broken out here because it made the loops above unable to read properties properly.
 
@@ -229,25 +228,23 @@
 					replace_after["limbs"][limb_type] = TRUE
 				else
 					remove_after["limbs"] |= E
+					H.bodyparts -= E
+					H.bodyparts_by_name -= E.limb_name
+					E.become_orphan()
 
 		for(var/B in H.bodyparts) //Is it mine?
 			var/obj/item/organ/external/E = B
-			if((E.limb_name in OS.has_limbs) && (E.type != OS.has_limbs[E.limb_name]["path"]))
-				to_chat(H, "E1 - [E.limb_name]")
+			if(!(E.limb_name in OS.has_limbs) && (E.type != OS.has_limbs[E.limb_name]["path"]))
 				continue
 			if(E.is_robotic() && (!ismachine(H) || isrobot(initial(E)))) //FBPs are fair game.
-				to_chat(H, "E2 - [E.limb_name]")
 				continue
-			to_chat(H, "E - [E && E.dna ? E.dna.species.name : null] - [OS.name]")
-			if(E.dna && (E.dna.species.name != OS.name))
-				to_chat(H, "E3 - [E.limb_name]")
+			if((E?.dna.species.name != OS.name) || (E?.dna.real_name != H.real_name))
 				continue
-			to_chat(H, "E - [E && E.dna ? E.dna.real_name : null] - [H.real_name]")
-			if(E.dna && (E.dna.real_name != H.real_name))
-				to_chat(H, "E4 - [E.limb_name]")
-				continue
+			if((E.limb_name in OS.has_limbs) && !(E.limb_name in has_limbs)) //Negative on the octopus arms.
+				remove_after["limbs"] |= E
+			else
+				replace_after["limbs"][E.limb_name] = E
 
-			replace_after["limbs"][E.limb_name] = E
 			H.bodyparts -= E
 			H.bodyparts_by_name -= E.limb_name
 			E.become_orphan() //Planned parenthood is important, even in space.

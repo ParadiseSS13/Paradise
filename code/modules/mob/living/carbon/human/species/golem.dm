@@ -5,6 +5,7 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
+	rebuild_on_gain = TRUE
 	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
 	speed_mod = 2

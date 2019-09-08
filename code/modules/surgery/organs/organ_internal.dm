@@ -44,6 +44,9 @@
 	if(vital)
 		M.update_stat("Vital organ inserted")
 
+/obj/item/organ/internal/become_orphan()
+	parent_organ = null
+
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
 // However, you MUST set the object's positiion yourself when you call this!

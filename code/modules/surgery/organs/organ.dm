@@ -40,6 +40,9 @@
 	QDEL_NULL(dna)
 	return ..()
 
+/obj/item/organ/proc/become_orphan() //Useful in species changes where we don't need to be sensitive about this. Abandons children and isolates organ from parents.
+	return
+
 /obj/item/organ/proc/update_health()
 	return
 
