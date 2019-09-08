@@ -11,6 +11,7 @@ var/list/GPS_list = list()
 	var/emped = 0
 	var/turf/locked_location
 	var/tracking = TRUE
+	var/local = FALSE	//local gps show up only to gps on same z level
 
 /obj/item/gps/New()
 	..()
@@ -63,13 +64,15 @@ var/list/GPS_list = list()
 			t += "<BR>Bluespace coordinates saved: [locked_location.loc]"
 			gps_window_height += 20
 
+		var/turf/own_pos = get_turf(src)
+		var/own_z = own_pos.z
 		for(var/obj/item/gps/G in GPS_list)
 			var/turf/pos = get_turf(G)
 			var/area/gps_area = get_area(G)
 			var/tracked_gpstag = G.gpstag
 			if(G.emped == 1)
 				t += "<BR>[tracked_gpstag]: ERROR"
-			else if(G.tracking)
+			else if(G.tracking && (!G.local || (own_z == pos.z)))
 				t += "<BR>[tracked_gpstag]: [format_text(gps_area.name)] ([pos.x], [pos.y], [pos.z])"
 			else
 				continue
@@ -115,6 +118,7 @@ var/list/GPS_list = list()
 /obj/item/gps/internal
 	icon_state = null
 	flags = ABSTRACT
+	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."
 	invisibility = INVISIBILITY_MAXIMUM
