@@ -275,11 +275,43 @@
 	stat_attack = DEAD
 	can_infest_dead = TRUE
 
-/obj/item/legion_skull
-	name = "legion's head"
-	desc = "The once living, now empty eyes of the former human's skull cut deep into your soul."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "skull"
+//Legion that spawns Legions
+/mob/living/simple_animal/hostile/big_legion
+	name = "legion"
+	desc = "One of many."
+	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
+	icon_state = "legion"
+	icon_living = "legion"
+	icon_dead = "legion"
+	health = 450
+	maxHealth = 450
+	melee_damage_lower = 20
+	melee_damage_upper = 20
+	anchored = FALSE
+	AIStatus = AI_ON
+	stop_automated_movement = FALSE
+	wander = TRUE
+	maxbodytemp = INFINITY
+	layer = MOB_LAYER
+	del_on_death = TRUE
+	sentience_type = SENTIENCE_BOSS
+	attack_sound = 'sound/misc/demon_attack1.ogg'
+	loot = list(/obj/item/organ/internal/regenerative_core/legion = 3, /obj/effect/mob_spawn/human/corpse/damaged/legioninfested = 5)
+	move_to_delay = 14
+	vision_range = 5
+	aggro_vision_range = 9
+	speed = 3
+	faction = list("mining")
+	weather_immunities = list("lava","ash")
+	obj_damage = 30
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+
+/mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
+	.=..()
+	AddComponent(/datum/component/spawner, list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion), 200, faction, "peels itself off from", 3)
 
 //Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
