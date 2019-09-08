@@ -120,12 +120,12 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			T = SStickets.checkForOpenTicket(src) // Make T equal to the ticket they have open
 		else
 			ticketNum = SStickets.getTicketCounter() // ticketNum is the ticket ready to be assigned.
-	
+
 	if(T)
 		ticketNum = T.ticketNum // ticketNum is the number of their ticket.
 		T.addResponse(src, msg)
-	
-	msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) [ai_found ? "(<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) (<A HREF='?_src_=holder;resolve=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>RESOLVE</A>)  :</span> [span][msg]</span>"
+
+	msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_TP(mob,"TP")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) [ai_found ? "(<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) (<A HREF='?_src_=holder;resolve=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>RESOLVE</A>)  :</span> [span][msg]</span>"
 	if(isMhelp)
 		//Open a new adminticket and inform the user.
 		SSmentor_tickets.newTicket(src, prunedmsg, msg)
@@ -142,7 +142,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 			window_flash(X)
 			to_chat(X, msg)
 
-			
+
 
 	//show it to the person adminhelping too
 	to_chat(src, "<span class='boldnotice'>[selected_type]</b>: [original_msg]</span>")
@@ -185,4 +185,3 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		else
 			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
 	return admin_number_present
-	
