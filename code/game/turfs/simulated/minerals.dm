@@ -27,8 +27,9 @@
 /turf/simulated/mineral/New()
 	if (!canSmoothWith)
 		canSmoothWith = list(/turf/simulated/mineral)
-	pixel_y = -4
-	pixel_x = -4
+	var/matrix/M = new
+	M.Translate(-4, -4)
+	transform = M
 	icon = smooth_icon
 
 	..()
@@ -87,6 +88,8 @@
 		for(i=0; i < mineralAmt; i++)
 			new mineralType(src)
 		feedback_add_details("ore_mined","[mineralType]|[mineralAmt]")
+	for(var/obj/effect/temp_visual/mining_overlay/M in src)
+		qdel(M)
 	ChangeTurf(turf_type, defer_change)
 	addtimer(CALLBACK(src, .proc/AfterChange), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction

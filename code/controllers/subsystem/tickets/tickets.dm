@@ -99,6 +99,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/openTicket(N)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_OPEN)
+		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) re-opened [ticket_name] number [N]</span>")
 		T.ticketState = TICKET_OPEN
 		return TRUE
 
@@ -107,12 +108,16 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_RESOLVED)
 		T.ticketState = TICKET_RESOLVED
+		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [N]</span>")
+		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
 
 //Set ticket state with key N to closed
 /datum/controller/subsystem/tickets/proc/closeTicket(N)
 	var/datum/ticket/T = allTickets[N]
 	if(T.ticketState != TICKET_CLOSED)
+		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) closed [ticket_name] number [N]</span>")
+		to_chat_safe(returnClient(N), close_messages)
 		T.ticketState = TICKET_CLOSED
 		return TRUE
 
@@ -369,15 +374,11 @@ UI STUFF
 	if(href_list["resolve"])
 		var/indexNum = text2num(href_list["resolve"])
 		if(resolveTicket(indexNum))
-			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
-			to_chat_safe(returnClient(indexNum), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 			showUI(usr)
 
 	if(href_list["detailresolve"])
 		var/indexNum = text2num(href_list["detailresolve"])
 		if(resolveTicket(indexNum))
-			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [indexNum]</span>")
-			to_chat_safe(returnClient(indexNum), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 			showDetailUI(usr, indexNum)
 
 	if(href_list["detailclose"])
@@ -388,15 +389,12 @@ UI STUFF
 		if(alert("Are you sure? This will send a negative message.",,"Yes","No") != "Yes")
 			return
 		if(closeTicket(indexNum))
-			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) closed [ticket_name] number [indexNum]</span>")
-			to_chat_safe(returnClient(indexNum), close_messages)
 			showDetailUI(usr, indexNum)
 			
 
 	if(href_list["detailreopen"])
 		var/indexNum = text2num(href_list["detailreopen"])
 		if(openTicket(indexNum))
-			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) re-opened [ticket_name] number [indexNum]</span>")
 			showDetailUI(usr, indexNum)
 
 	if(href_list["assignstaff"])

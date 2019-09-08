@@ -14,7 +14,6 @@
 		handle_heartbeat()
 		handle_drunk()
 		dna.species.handle_life(src)
-
 		if(!client)
 			dna.species.handle_npc(src)
 

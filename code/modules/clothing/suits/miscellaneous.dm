@@ -174,6 +174,7 @@
 	item_state = "chickensuit"
 	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
 	flags_inv = HIDESHOES|HIDEJUMPSUIT
+	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/corgisuit/super_hero
 	name = "super-hero corgi suit"
@@ -229,6 +230,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
 	species_disguise = "High-tech robot"
+	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()

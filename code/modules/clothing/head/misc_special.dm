@@ -136,7 +136,7 @@
 	flags_inv = HIDEEARS
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-
+	dog_fashion = /datum/dog_fashion/head/ushanka
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -181,6 +181,7 @@
 	flags_inv = 0
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	brightness_on = 1 //luminosity when on
+	dog_fashion = /datum/dog_fashion/head/reindeer
 
 
 /*
@@ -191,6 +192,7 @@
 	desc = "A pair of kitty ears. Meow!"
 	icon_state = "kitty"
 	var/icon/mob
+	dog_fashion = /datum/dog_fashion/head/kitty
 
 /obj/item/clothing/head/kitty/update_icon(var/mob/living/carbon/human/user)
 	if(!istype(user)) return
@@ -234,7 +236,7 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	species_disguise = "High-tech robot"
-
+	dog_fashion = /datum/dog_fashion/head/cardborg
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)

@@ -46,7 +46,7 @@
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
 	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0)
-	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -108,6 +108,7 @@
 	item_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	burn_state = FLAMMABLE
+	dog_fashion = /datum/dog_fashion/head/clown
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
 
@@ -140,11 +141,7 @@
 	flags_inv = HIDEEARS | HIDEEYES
 	magical = TRUE
 
-/obj/item/clothing/mask/gas/virusclown_hat
-	name = "clown wig and mask"
-	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
-	icon_state = "clown"
-	item_state = "clown_hat"
+/obj/item/clothing/mask/gas/clown_hat/nodrop
 	flags = NODROP
 
 /obj/item/clothing/mask/gas/mime
@@ -153,6 +150,9 @@
 	icon_state = "mime"
 	item_state = "mime"
 	burn_state = FLAMMABLE
+
+/obj/item/clothing/mask/gas/mime/nodrop
+	flags = NODROP
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"

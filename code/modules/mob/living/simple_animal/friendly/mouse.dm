@@ -56,28 +56,19 @@
 					visible_message("<span class='warning'>[src] chews through [C].</span>")
 
 /mob/living/simple_animal/mouse/handle_automated_speech()
-	..()			
-	if(prob(speak_chance))
-		for(var/mob/M in view())
-			M << squeak_sound
-
-/mob/living/simple_animal/mouse/Life(seconds, times_fired)
-	. = ..()
-	if(stat == UNCONSCIOUS)
-		if(ckey || prob(1))
-			stat = CONSCIOUS
-			icon_state = "mouse_[mouse_color]"
-			wander = 1
-		else if(prob(5))
-			emote("snuffles")
-
-/mob/living/simple_animal/mouse/Life()
 	..()
-	if(prob(0.5) && !ckey)
-		stat = UNCONSCIOUS
-		icon_state = "mouse_[mouse_color]_sleep"
-		wander = 0
-		speak_chance = 0
+	if(prob(speak_chance) && !incapacitated())
+		playsound(src, squeak_sound, 100, 1)
+
+/mob/living/simple_animal/mouse/handle_automated_movement()
+	. = ..()
+	if(resting)
+		if(prob(1))
+			StopResting()
+		else if(prob(5))
+			custom_emote(2, "snuffles")
+	else if(prob(0.5))
+		StartResting()
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -119,7 +110,7 @@
 	desc = "It's toast."
 	death()
 
-/mob/living/simple_animal/mouse/death(gibbed)	
+/mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
 	playsound(src, squeak_sound, 40, 1)
 	. = ..(gibbed)
@@ -177,6 +168,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
+	unique_pet = TRUE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
 
 

@@ -74,12 +74,11 @@
 	attacktext = "punches"
 	deathmessage = "falls apart into a fine dust."
 
-/mob/living/simple_animal/hostile/spawner/nether
+/obj/structure/spawner/nether
 	name = "netherworld link"
 	desc = null //see examine()
 	icon_state = "nether"
-	health = 100
-	maxHealth = 100
+	max_integrity = 50
 	spawn_time = 600 //1 minute
 	max_mobs = 10
 	icon = 'icons/mob/nest.dmi'
@@ -88,19 +87,19 @@
 	faction = list("nether", "mining", "cult")
 	var/blankckey = null
 
-/mob/living/simple_animal/hostile/spawner/nether/death()
-	. = ..()
-	qdel(src)
+/obj/structure/spawner/nether/Initialize(mapload)
+	.=..()
+	START_PROCESSING(SSprocessing, src)
 
-/mob/living/simple_animal/hostile/spawner/nether/examine(mob/user)
+/obj/structure/spawner/nether/examine(mob/user)
 	..()
 	if(iscultist(user))
 		to_chat(user, "A direct link to another dimension full of creatures very happy to see your God again. <span class='notice'>They are patiently waiting to be re-enlisted.</span>") //By touching the portal on harm or disarm intent, you will recall all the monsters spawned by the portal. By touching it on help or grab intent, you will be able to move it around.</span>")
 	else
 		to_chat(user, "A direct link to another dimension full of creatures not very happy to see you. <span class='warning'>Entering the link would be a very bad idea.</span>")
 
-/mob/living/simple_animal/hostile/spawner/nether/attack_hand(mob/user)
-	..()
+/obj/structure/spawner/nether/attack_hand(mob/user)
+	. = ..()
 /*	if(iscultist(user)) // Touched by cultist
 		if((user.a_intent == "help") || (user.a_intent == "grab")) // Grab around
 			if(move_resist == initial(move_resist))
@@ -117,16 +116,15 @@
 				if(M)
 					M.gib()
 			to_chat(user, "<span class='notice'>All the monsters spawned by the portal disappear in an explosion of gore, returning to the nether!</span>")*/
-	if(!iscultist(user)) // Touched by some rando, warned you man!
+	if(!iscultist(user))
 		user.visible_message("<span class='warning'>[user] is violently pulled into the link!</span>", \
 							"<span class='userdanger'>Touching the portal, you are quickly pulled through into a world of unimaginable horror!</span>")
 		contents.Add(user)
 
-/mob/living/simple_animal/hostile/spawner/nether/Life()
-	. = ..()
+/obj/structure/spawner/nether/process()
 	for(var/mob/living/M in contents)
 		if(M)
-			playsound(src, 'sound/magic/demon_consume.ogg', 50, 1)
+			playsound(src, 'sound/magic/demon_consume.ogg', 50, TRUE)
 			M.adjustBruteLoss(60)
 			if(M.stat == DEAD)
 				var/mob/living/simple_animal/hostile/netherworld/blankbody/blank
@@ -146,7 +144,7 @@
 				qdel(M)
 				blankckey = null
 
-/*/mob/living/simple_animal/hostile/spawner/nether/attackby(obj/item/W as obj, mob/user as mob, params)
+/*/obj/structure/spawner/nether/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
 		if(iscultist(user))
 			var/obj/item/grab/G = W

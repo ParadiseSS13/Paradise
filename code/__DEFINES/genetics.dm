@@ -1,6 +1,8 @@
 // String identifiers for associative list lookup
 
 
+#define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
+
 #define MUTCHK_FORCED        1
 
 // mob/var/list/mutations
@@ -22,7 +24,6 @@
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
-
 // Generic mutations:
 #define	TK				1
 #define COLDRES			2
@@ -116,6 +117,17 @@
 #define BLOOD_VOLUME_BAD			224
 #define BLOOD_VOLUME_SURVIVE		122
 
+//Sizes of mobs, used by mob/living/var/mob_size
+#define MOB_SIZE_TINY 0
+#define MOB_SIZE_SMALL 1
+#define MOB_SIZE_HUMAN 2
+#define MOB_SIZE_LARGE 3
+
+//Ventcrawling defines
+#define VENTCRAWLER_NONE   0
+#define VENTCRAWLER_NUDE   1
+#define VENTCRAWLER_ALWAYS 2
+
 //Used for calculations for negative effects of having genetics powers
 #define DEFAULT_GENE_STABILITY 100
 #define GENE_INSTABILITY_MINOR 5
@@ -150,3 +162,4 @@
 #define RESISTCOLD		17
 #define NO_EXAMINE		18
 #define CAN_WINGDINGS	19
+#define NOZOMBIE 20
