@@ -1653,12 +1653,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "foam force pistols crate"
 	contraband = 1
 
-/datum/supply_packs/service/autodrobe
-	name = "Autodrobe Supply Crate"
-	cost = 15
-	contains = list(/obj/item/vending_refill/autodrobe)
-	containername = "autodrobe supply crate"
-
 /datum/supply_packs/misc/bigband
 	name = "Big band instrument collection"
 	contains = list(/obj/item/instrument/violin,
@@ -1851,13 +1845,28 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "autodrobe supply crate"
 
 /datum/supply_packs/vending/clothes
-	name = "Clothing Supply Crate"
-	contains = list(/obj/item/vending_refill/suitdispenser,
-					/obj/item/vending_refill/shoedispenser,
-					/obj/item/vending_refill/hatdispenser,
-					/obj/item/vending_refill/clothing)
-	cost = 45
-	containername = "clothing supply crate"
+	name = "ClothesMate Supply Crate"
+	contains = list(/obj/item/vending_refill/clothing)
+	cost = 15
+	containername = "clothesmate supply crate"
+
+/datum/supply_packs/vending/suit
+	name = "Suitlord Supply Crate"
+	contains = list(/obj/item/vending_refill/suitdispenser)
+	cost = 15
+	containername = "suitlord supply crate"
+
+/datum/supply_packs/vending/hat
+	name = "Hatlord Supply Crate"
+	contains = list(/obj/item/vending_refill/hatdispenser)
+	cost = 15
+	containername = "hatlord supply crate"
+
+/datum/supply_packs/vending/shoes
+	name = "Shoelord Supply Crate"
+	contains = list(/obj/item/vending_refill/shoedispenser)
+	cost = 15
+	containername = "shoelord supply crate"
 
 /datum/supply_packs/vending/pets
 	name = "Pet Supply Crate"
