@@ -94,3 +94,62 @@
 
 /obj/item/vending_refill/chinese
 	machine_name = "MrChangs"
+
+/obj/item/vending_refill/hydroseeds
+	machine_name = "MegaSeed Servitor"
+	icon_state = "refill_plant"
+
+/obj/item/vending_refill/assist
+	machine_name = "Vendomat"
+	icon_state = "refill_engi"
+
+/obj/item/vending_refill/cart
+	machine_name = "PTech"
+	icon_state = "refill_smoke"
+
+/obj/item/vending_refill/dinnerware
+	machine_name = "Plasteel Chef's Dinnerware Vendor"
+	icon_state = "refill_smoke"
+
+/obj/item/vending_refill/engineering
+	machine_name = "Robco Tool Maker"
+	icon_state = "refill_engi"
+
+/obj/item/vending_refill/engivend
+	machine_name = "Engi-Vend"
+	icon_state = "refill_engi"
+
+/obj/item/vending_refill/medical
+	machine_name = "NanoMed Plus"
+	icon_state = "refill_medical"
+
+/obj/item/vending_refill/wallmed
+	machine_name = "NanoMed"
+	icon_state = "refill_medical"
+
+/obj/item/vending_refill/modularpc
+	machine_name = "Deluxe Silicate Selections"
+	icon_state = "refill_engi"
+
+/obj/item/vending_refill/hydronutrients
+	machine_name = "NutriMax"
+	icon_state = "refill_plant"
+
+/obj/item/vending_refill/security
+	icon_state = "refill_sec"
+
+/obj/item/vending_refill/sovietsoda
+	machine_name = "BODA"
+	icon_state = "refill_cola"
+
+/obj/item/vending_refill/sustenance
+	machine_name = "Sustenance Vendor"
+	icon_state = "refill_snack"
+
+/obj/item/vending_refill/donksoft
+	machine_name = "Donksoft Toy Vendor"
+	icon_state = "refill_donksoft"
+
+/obj/item/vending_refill/robotics
+	machine_name = "Robotech Deluxe"
+	icon_state = "refill_engi"

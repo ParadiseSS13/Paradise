@@ -4511,7 +4511,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
 "lK" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	pixel_x = 31
 	},
 /turf/simulated/floor/plasteel{

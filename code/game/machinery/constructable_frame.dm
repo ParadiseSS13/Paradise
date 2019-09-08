@@ -234,18 +234,31 @@ to destroy them and players will be able to make replacements.
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
 	var/static/list/vending_names_paths = list(
-							/obj/machinery/vending/boozeomat = "Booze-O-Mat",
-							/obj/machinery/vending/coffee = "Solar's Best Hot Drinks",
-							/obj/machinery/vending/snack = "Getmore Chocolate Corp",
-							/obj/machinery/vending/chinese = "Mr. Chang",
-							/obj/machinery/vending/cola = "Robust Softdrinks",
-							/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
-							/obj/machinery/vending/autodrobe = "AutoDrobe",
-							/obj/machinery/vending/hatdispenser = "Hatlord 9000",
-							/obj/machinery/vending/suitdispenser = "Suitlord 9000",
-							/obj/machinery/vending/shoedispenser = "Shoelord 9000",
-							/obj/machinery/vending/clothing = "ClothesMate",
-							/obj/machinery/vending/crittercare = "CritterCare")
+		/obj/machinery/vending/boozeomat = "Booze-O-Mat",
+		/obj/machinery/vending/coffee = "Solar's Best Hot Drinks",
+		/obj/machinery/vending/snack = "Getmore Chocolate Corp",
+		/obj/machinery/vending/chinese = "Mr. Chang",
+		/obj/machinery/vending/cola = "Robust Softdrinks",
+		/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
+		/obj/machinery/vending/hatdispenser = "Hatlord 9000",
+		/obj/machinery/vending/suitdispenser = "Suitlord 9000",
+		/obj/machinery/vending/shoedispenser = "Shoelord 9000",
+		/obj/machinery/vending/clothing = "ClothesMate",
+		/obj/machinery/vending/medical = "NanoMed Plus",
+		/obj/machinery/vending/wallmed = "NanoMed",
+		/obj/machinery/vending/assist  = "Vendomat",
+		/obj/machinery/vending/engivend = "Engi-Vend",
+		/obj/machinery/vending/hydronutrients = "NutriMax",
+		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
+		/obj/machinery/vending/sustenance = "Sustenance Vendor",
+		/obj/machinery/vending/dinnerware = "Plasteel Chef's Dinnerware Vendor",
+		/obj/machinery/vending/cart = "PTech",
+		/obj/machinery/vending/robotics = "Robotech Deluxe",
+		/obj/machinery/vending/engineering = "Robco Tool Maker",
+		/obj/machinery/vending/sovietsoda = "BODA",
+		/obj/machinery/vending/security = "SecTech",
+		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
+		/obj/machinery/vending/crittercare = "CritterCare")
 
 /obj/item/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
 	if(isscrewdriver(I))
