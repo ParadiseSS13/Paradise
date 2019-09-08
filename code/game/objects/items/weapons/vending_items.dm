@@ -1,6 +1,3 @@
-/*
-	Vending machine refills can be found at /code/modules/vending/ within each vending machine's respective file
-*/
 /obj/item/vending_refill
 	name = "resupply canister"
 	var/machine_name = "Generic"
@@ -9,6 +6,7 @@
 	icon_state = "refill_snack"
 	item_state = "restock_unit"
 	desc = "A vending machine restock cart."
+	usesound = 'sound/items/deconstruct.ogg'
 	flags = CONDUCT
 	force = 7
 	throwforce = 10
