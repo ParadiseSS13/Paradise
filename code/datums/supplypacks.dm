@@ -1808,8 +1808,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/vending/autodrobe
 	name = "Autodrobe Supply Crate"
-	contains = list(/obj/item/vending_refill/autodrobe,
-					/obj/item/vending_refill/autodrobe)
+	contains = list(/obj/item/vending_refill/autodrobe)
 	cost = 15
 	containername = "autodrobe supply crate"
 
@@ -1824,57 +1823,43 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/vending/pets
 	name = "Pet Supply Crate"
-	contains = list(/obj/item/vending_refill/crittercare,
-					/obj/item/vending_refill/crittercare,
-					/obj/item/vending_refill/crittercare)
+	contains = list(/obj/item/vending_refill/crittercare)
 	cost = 15
 	containername = "pet supply crate"
 
 /datum/supply_packs/vending/bar
 	name = "Bar Supply Crate"
-	contains = list(/obj/item/vending_refill/boozeomat,
-					/obj/item/vending_refill/boozeomat,
-					/obj/item/vending_refill/boozeomat)
+	contains = list(/obj/item/vending_refill/boozeomat)
 	cost = 15
 	containername = "bar supply crate"
 	announce_beacons = list("Bar" = list("Bar"))
 
 /datum/supply_packs/vending/coffee
 	name = "Coffee Supply Crate"
-	contains = list(/obj/item/vending_refill/coffee,
-					/obj/item/vending_refill/coffee,
-					/obj/item/vending_refill/coffee)
+	contains = list(/obj/item/vending_refill/coffee)
 	cost = 15
 	containername = "coffee supply crate"
 
 /datum/supply_packs/vending/snack
 	name = "Snack Supply Crate"
-	contains = list(/obj/item/vending_refill/snack,
-					/obj/item/vending_refill/snack,
-					/obj/item/vending_refill/snack)
+	contains = list(/obj/item/vending_refill/snack)
 	cost = 15
 	containername = "snacks supply crate"
 
 /datum/supply_packs/vending/chinese
 	name = "Chinese Supply Crate"
-	contains = list(/obj/item/vending_refill/chinese,
-					/obj/item/vending_refill/chinese,
-					/obj/item/vending_refill/chinese)
+	contains = list(/obj/item/vending_refill/chinese)
 	cost = 15
 	containername = "chinese supply crate"
 
 /datum/supply_packs/vending/cola
 	name = "Softdrinks Supply Crate"
-	contains = list(/obj/item/vending_refill/cola,
-					/obj/item/vending_refill/cola,
-					/obj/item/vending_refill/cola)
+	contains = list(/obj/item/vending_refill/cola)
 	cost = 15
 	containername = "softdrinks supply crate"
 
 /datum/supply_packs/vending/cigarette
 	name = "Cigarette Supply Crate"
-	contains = list(/obj/item/vending_refill/cigarette,
-					/obj/item/vending_refill/cigarette,
-					/obj/item/vending_refill/cigarette)
+	contains = list(/obj/item/vending_refill/cigarette)
 	cost = 15
 	containername = "cigarette supply crate"
