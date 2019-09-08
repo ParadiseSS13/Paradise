@@ -159,6 +159,30 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 		if(assimilate || O.dna.unique_enzymes == ue_to_compare)
 			O.set_dna(dna)
 
+/mob/living/carbon/human/proc/update_organ_parenthood() //Refresh the parenthood of all organs - namely after species changes.
+	for(var/B in bodyparts)
+		var/obj/item/organ/external/E = B
+		E.update_parenthood()
+
+/mob/living/carbon/human/proc/sort_organ_lists() //Sort mob organ lists matched as closely as possible to the species defines.
+	if(dna.species)
+		var/list/sorted_bodyparts = list()
+		var/list/sorted_bodyparts_by_name = list()
+
+		for(var/B in dna.species.has_limbs) //As close as we can get. This method is index-wise!
+			var/obj/item/organ/external/E = bodyparts_by_name[B]
+			if(E && (E in bodyparts))
+				sorted_bodyparts += E
+				bodyparts -= E
+		sorted_bodyparts += bodyparts //Unceremoniously dump the last of the elements off at the end of the sorted list.
+
+		for(var/B in sorted_bodyparts) //Take the easy way out and make use of our previous work.
+			var/obj/item/organ/external/E = B
+			sorted_bodyparts_by_name[E.limb_name] = E
+
+		bodyparts = sorted_bodyparts
+		bodyparts_by_name = sorted_bodyparts_by_name
+
 /*
 Given the name of an organ, returns the external organ it's contained in
 I use this to standardize shadowling dethrall code

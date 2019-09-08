@@ -190,7 +190,7 @@
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
-		H.set_species(mob_species)
+		H.set_species(mob_species, new_mob = TRUE)
 
 	if(husk)
 		H.ChangeToHusk()

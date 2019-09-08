@@ -72,11 +72,13 @@
 		if(vital)
 			owner.death()
 
-/obj/item/organ/external/Destroy()
+/obj/item/organ/external/proc/become_orphan()
 	if(parent && parent.children)
 		parent.children -= src
-
 	parent = null
+
+/obj/item/organ/external/Destroy()
+	become_orphan()
 
 	if(internal_organs)
 		for(var/obj/item/organ/internal/O in internal_organs)
@@ -111,7 +113,15 @@
 		sync_colour_to_human(H)
 	get_icon()
 
-/obj/item/organ/external/replaced(var/mob/living/carbon/human/target)
+/obj/item/organ/external/proc/update_parenthood()
+	if(parent_organ)
+		parent = owner.bodyparts_by_name[parent_organ]
+		if(parent)
+			if(!parent.children)
+				parent.children = list()
+			parent.children |= src
+
+/obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	forceMove(owner)
 	if(istype(owner))
@@ -122,12 +132,7 @@
 		for(var/atom/movable/stuff in src)
 			stuff.attempt_become_organ(src, owner)
 
-	if(parent_organ)
-		parent = owner.bodyparts_by_name[src.parent_organ]
-		if(parent)
-			if(!parent.children)
-				parent.children = list()
-			parent.children.Add(src)
+	update_parenthood()
 
 /obj/item/organ/external/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(parent_organ != parent.limb_name)

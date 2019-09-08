@@ -10,6 +10,7 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
+	rebuild_on_gain = TRUE
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NO_HUNGER, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone

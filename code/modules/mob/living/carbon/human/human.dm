@@ -1282,6 +1282,9 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
+	if(dna.species.rebuild_on_gain)
+		new_mob = TRUE
+
 	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
 	var/list/kept_items[0]
 	var/list/item_flags[0]

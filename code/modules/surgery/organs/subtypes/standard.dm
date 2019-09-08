@@ -57,6 +57,7 @@
 	min_broken_damage = 30
 	w_class = WEIGHT_CLASS_NORMAL
 	body_part = ARM_LEFT
+	icon_position = LEFT
 	parent_organ = "chest"
 	amputation_point = "left shoulder"
 	can_grasp = 1
@@ -67,6 +68,7 @@
 	name = "right arm"
 	icon_name = "r_arm"
 	body_part = ARM_RIGHT
+	icon_position = RIGHT
 	amputation_point = "right shoulder"
 	convertable_children = list(/obj/item/organ/external/hand/right)
 
@@ -127,6 +129,7 @@
 	min_broken_damage = 15
 	w_class = WEIGHT_CLASS_SMALL
 	body_part = HAND_LEFT
+	icon_position = LEFT
 	parent_organ = "l_arm"
 	amputation_point = "left wrist"
 	can_grasp = 1
@@ -147,6 +150,7 @@
 	name = "right hand"
 	icon_name = "r_hand"
 	body_part = HAND_RIGHT
+	icon_position = RIGHT
 	parent_organ = "r_arm"
 	amputation_point = "right wrist"
 
