@@ -164,8 +164,7 @@
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	keytype = /obj/item/oar
-	burn_state = LAVA_PROOF | FIRE_PROOF
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)
@@ -185,7 +184,7 @@
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
@@ -208,7 +207,7 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
