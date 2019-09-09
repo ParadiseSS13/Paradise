@@ -1044,7 +1044,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_ssd_afk_check")
+	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"
