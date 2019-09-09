@@ -10,7 +10,7 @@
 	pass_flags = PASSTABLE
 	var/obj/item/charging = null
 	var/using_power = FALSE
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer)
+	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/storage/belt/recharger)
 	var/icon_state_off = "rechargeroff"
 	var/icon_state_charged = "recharger2"
 	var/icon_state_charging = "recharger1"
@@ -144,6 +144,14 @@
 			if(B.power_supply)
 				if(B.power_supply.give(B.power_supply.chargerate))
 					use_power(200)
+					using_power = TRUE
+
+		if(istype(charging, /obj/item/storage/belt/recharger))
+			var/obj/item/storage/belt/recharger/R = charging
+			if(R.current_cell)
+				if(R.current_cell.charge < R.current_cell.maxcharge)
+					R.current_cell.give(R.current_cell.chargerate * recharge_coeff)
+					use_power(250)
 					using_power = TRUE
 
 	update_icon(using_power)

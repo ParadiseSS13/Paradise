@@ -502,6 +502,13 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containername = "security clothing crate"
 
+/datum/supply_packs/security/rechargerbelt
+	name = "Recharger Belt Crate"
+	contains = list(/obj/item/storage/belt/recharger,
+					/obj/item/storage/belt/recharger)
+	cost = 20
+	containername = "recharger belt crate"
+	
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////

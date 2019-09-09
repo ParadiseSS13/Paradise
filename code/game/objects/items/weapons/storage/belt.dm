@@ -254,6 +254,99 @@
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
+/obj/item/storage/belt/recharger
+	name = "recharger belt"
+	desc = "Holds energy guns and charges them using an internal battery."
+	icon_state = "rechargerbelt"
+	item_state = "rechargerbelt"
+	storage_slots = 1
+	w_class = WEIGHT_CLASS_BULKY						//No carrying around anything short of a BoH full of recharging guns
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(
+		/obj/item/gun/energy
+		)
+	var/obj/item/stock_parts/cell/current_cell = null	//The cell currently stored in the belt
+	var/charge_used = 1000								//The amount of charge drained from the current cell every process while it is charging a gun
+	var/charge_given = 100								//The amount of charge the cell of the gun gains every process while it is charging
+	var/reload_time = 50								//Default time it takes to unscrew the current cell from the belt
+	var/emp_loss = 10000								//Default amount of charge lost from the current cell if the belt is EMPd
+	var/icon_state_full = "rechargerbelt"
+	var/icon_state_empty = "rechargerbelt_empty"
+	var/icon_state_charging = "rechargerbelt_charging"
+	var/icon_state_depleted = "rechargerbelt_depleted"
+
+/obj/item/storage/belt/recharger/examine(mob/user)
+	..()
+	if(current_cell)
+		to_chat(user, "<span class='notice'>[src] is [round(current_cell.percent())]% charged. Use a screwdriver to remove the cell.</span>")
+	else
+		to_chat(user, "<span class='notice'>There is no cell inside.</span>")
+
+/obj/item/storage/belt/recharger/attackby(obj/item/W, mob/user)
+	if(istype(W, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/B = W
+		if(isnull(current_cell))
+			if(B.grown_battery)		//No 400k batteries
+				to_chat(user, "<span class='warning'>[B] is too irregularly shaped to fit into the cell slot!</span>")
+				return
+			if(!user.unEquip(B))
+				return
+			to_chat(user, "<span class='notice'>You click [B] into place on [src].</span>")
+			current_cell = B
+			if(current_cell.rigged)		//Having it blow up as soon as it is inserted, as having it explode in nullspace causes issues
+				current_cell.explode()
+				current_cell = null
+				return
+			B.loc = null		//Sending it to nullspace as storing it in the belt's contents causes it to show up in the belt's inventory
+			icon_state = icon_state_full
+		else
+			to_chat(user, "<span class='warning'>There already is a cell inside!</span>")
+	else if(isscrewdriver(W))
+		if(!isnull(current_cell))
+			playsound(loc, W.usesound, 50, 1)
+			to_chat(user, "<span class='notice'>You begin unscrewing [current_cell] from [src].</span>")
+			if(do_after(user, reload_time * W.toolspeed, target = user))		//To hinder switching batteries mid-fight
+				to_chat(user, "<span class='notice'>You unscrew [current_cell] from [src].</span>")
+				current_cell.loc = get_turf(user)
+				current_cell = null
+				icon_state = icon_state_empty
+		else
+			to_chat(user, "<span class='warning'>There is no cell inside!</span>")
+	else
+		..()
+
+/obj/item/storage/belt/recharger/process()
+	if(current_cell)
+		var/obj/item/gun/energy/C = locate(/obj/item/gun/energy) in contents
+		if(C && C.can_charge && C.power_supply.charge < C.power_supply.maxcharge && current_cell.charge >= charge_used)
+			C.power_supply.give(charge_given)
+			current_cell.use(charge_used)
+			C.on_recharge()
+			C.update_icon()
+			icon_state = icon_state_charging
+		else if(current_cell.charge < charge_used)
+			icon_state = icon_state_depleted
+		else
+			icon_state = icon_state_full
+
+/obj/item/storage/belt/recharger/New()
+	..()
+	current_cell = new /obj/item/stock_parts/cell/high
+	START_PROCESSING(SSobj, src)
+
+/obj/item/storage/belt/recharger/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	if(current_cell)	//The cell isn't part of the belt's contents, so it needs to be deleted seperately
+		QDEL_NULL(current_cell)
+	return ..()
+
+/obj/item/storage/belt/recharger/emp_act(severity)
+	if(current_cell)
+		current_cell.charge -= emp_loss / severity
+		if(current_cell.charge < 0)
+			current_cell.charge = 0
+	..()
+
 /obj/item/storage/belt/soulstone
 	name = "soul stone belt"
 	desc = "Designed for ease of access to the shards during a fight, as to not let a single enemy spirit slip away"
