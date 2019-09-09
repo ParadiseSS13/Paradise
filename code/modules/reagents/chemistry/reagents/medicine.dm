@@ -787,7 +787,7 @@
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
 	can_synth = FALSE
-	taste_description = "<span class='userdanger'>and unstoppable force</span>"
+	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

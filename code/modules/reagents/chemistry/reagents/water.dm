@@ -246,7 +246,7 @@
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_description = taste_description = "the inside of a toilet... or worse"
+	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
 	return
