@@ -10,6 +10,7 @@ var/list/admin_verbs_default = list(
 var/list/admin_verbs_admin = list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
+	/client/proc/player_panel,			/*shows an interface for all players, with links to various panels (old style)*/
 	/client/proc/player_panel_new,		/*shows an interface for all players, with links to various panels*/
 	/client/proc/invisimin,				/*allows our mob to go invisible/visible*/
 	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
@@ -359,6 +360,17 @@ var/list/admin_verbs_ticket = list(
 			mob.invisibility = INVISIBILITY_OBSERVER
 			to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>")
 			mob.remove_from_all_data_huds()
+
+/client/proc/player_panel()
+	set name = "Player Panel"
+	set category = null
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	holder.player_panel_old()
+	feedback_add_details("admin_verb","PP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	return
 
 /client/proc/player_panel_new()
 	set name = "Player Panel New"
