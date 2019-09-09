@@ -45,13 +45,7 @@
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	var/turf/un_opaque
-	if(opacity && isturf(loc))
-		un_opaque = loc
-
 	loc = null
-	if(un_opaque)
-		un_opaque.recalc_atom_opacity()
 	if(pulledby)
 		if(pulledby.pulling == src)
 			pulledby.pulling = null
@@ -120,7 +114,7 @@
 			return
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
-		
+
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
 		return FALSE
