@@ -979,6 +979,7 @@ The _flatIcons list is a cache for generated icon files.
 		var/icon/out_icon = icon('icons/effects/effects.dmi', "nothing")
 		for(var/D in showDirs)
 			body.setDir(D)
+			COMPILE_OVERLAYS(body)
 			var/icon/partial = getFlatIcon(body)
 			out_icon.Insert(partial, dir=D)
 
