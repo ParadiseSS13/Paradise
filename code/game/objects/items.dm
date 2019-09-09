@@ -211,6 +211,13 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		msg += "*--------*"
 		to_chat(user, msg)
 
+/obj/item/burn()
+	if(!QDELETED(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/ash/A = new(T)
+		A.desc += "\nLooks like this used to be \an [name] some time ago."
+		..()
+
 /obj/item/afterattack(atom/target, mob/user, proximity, params)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
 	..()

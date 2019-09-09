@@ -49,3 +49,9 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			R.on_ex_act()
 	..()
+
+/obj/effect/decal/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature)
+	if(!(resistance_flags & FIRE_PROOF)) //non fire proof decal or being burned by lava
+		qdel(src)

@@ -52,9 +52,9 @@
 
 
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
 	if(!lit)
 		light() //honk
+	return ..()
 
 /obj/item/candle/proc/light(show_message)
 	if(!lit)

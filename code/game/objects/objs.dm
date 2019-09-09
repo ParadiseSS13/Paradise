@@ -21,9 +21,6 @@
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
-	var/burn_state = FIRE_PROOF // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
-	var/burntime = 10 //How long it takes to burn to ashes, in seconds
-	var/burn_world_time //What world time the object will burn up completely
 	var/being_shocked = 0
 	var/speed_process = FALSE
 
@@ -283,12 +280,6 @@ a {
 
 /obj/proc/CanAStarPass()
 	. = !density
-
-/obj/proc/empty_object_contents(burn = 0, new_loc = loc)
-	for(var/obj/item/Item in contents) //Empty out the contents
-		Item.forceMove(new_loc)
-		if(burn)
-			Item.fire_act() //Set them on fire, too
 
 /obj/proc/on_mob_move(dir, mob/user)
 	return

@@ -48,11 +48,6 @@
 	Life()
 	return
 
-/obj/structure/blob/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
-	var/damage = Clamp(0.01 * exposed_temperature, 0, 4)
-	take_damage(damage, BURN)
-
 /obj/structure/blob/blob_act()
 	return
 

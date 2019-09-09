@@ -161,26 +161,28 @@
 //// FIRE
 
 /obj/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	if(isturf(loc))
+		var/turf/T = loc
+		if(T.intact && level == 1) //fire can't damage things hidden below the floor.
+			return
 	..()
-	if(!burn_state)
-		burn_state = ON_FIRE
+	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
+		take_damage(Clamp(0.02 * exposed_temperature, 0, 20), BURN, "fire", 0)
+	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
+		resistance_flags |= ON_FIRE
 		SSfires.processing[src] = src
-		burn_world_time = world.time + burntime*rand(10,20)
-		if(global_overlay)
-			overlays += fire_overlay
-		return TRUE
+		add_overlay(fire_overlay, TRUE)
+		return 1
 
 /obj/proc/burn()
-	empty_object_contents(1, loc)
-	var/obj/effect/decal/cleanable/ash/A = new(loc)
-	A.desc = "Looks like this used to be a [name] some time ago."
-	SSfires.processing -= src
-	qdel(src)
+	if(resistance_flags & ON_FIRE)
+		SSfires.processing -= src
+	deconstruct(FALSE)
 
 /obj/proc/extinguish()
-	if(burn_state == ON_FIRE)
-		burn_state = FLAMMABLE
-		overlays -= fire_overlay
+	if(resistance_flags & ON_FIRE)
+		resistance_flags &= ~ON_FIRE
+		cut_overlay(fire_overlay, TRUE)
 		SSfires.processing -= src
 
 /obj/proc/tesla_act(power)

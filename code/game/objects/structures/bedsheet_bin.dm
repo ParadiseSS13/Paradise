@@ -262,8 +262,9 @@ LINEN BINS
 
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	if(!amount)
-		return
+	if(amount)
+		amount = 0
+		update_icon()
 	..()
 
 /obj/structure/bedsheetbin/burn()

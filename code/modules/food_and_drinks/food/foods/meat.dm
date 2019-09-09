@@ -142,7 +142,7 @@
 	tastes = list("tough meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/goliath/burn()
-	visible_message("[src] finishes cooking!")
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
