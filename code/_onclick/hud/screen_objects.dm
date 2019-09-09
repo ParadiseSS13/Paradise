@@ -11,7 +11,8 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	layer = HUD_LAYER
 	plane = HUD_PLANE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE
+	burn_state = LAVA_PROOF
 	unacidable = TRUE
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null

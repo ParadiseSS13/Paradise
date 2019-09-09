@@ -23,7 +23,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
-
+	collar_type = "cat"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
 	var/eats_mice = 1
@@ -38,6 +38,7 @@
 	icon_resting = "cat_rest"
 	gender = FEMALE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	unique_pet = TRUE
 	var/list/family = list()
 	var/memory_saved = 0
 	var/list/children = list() //Actual mob instances of children
@@ -107,6 +108,7 @@
 		else if(prob(1))
 			custom_emote(1, pick("sits down.", "crouches on its hind legs.", "looks alert."))
 			icon_state = "[icon_living]_sit"
+			collar_type = "[initial(collar_type)]_sit"
 			resting = TRUE
 			update_canmove()
 		else if(prob(1))
@@ -188,6 +190,7 @@
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
+	unique_pet = TRUE
 
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
@@ -199,6 +202,7 @@
 	gender = NEUTER
 	density = 0
 	pass_flags = PASSMOB
+	collar_type = "kitten"
 
 /mob/living/simple_animal/pet/cat/Syndi
 	name = "SyndiCat"

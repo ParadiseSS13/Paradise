@@ -13,7 +13,7 @@
 	flying = 1
 	robust_searching = 1
 	ranged_ignores_vision = TRUE
-	stat_attack = 2
+	stat_attack = DEAD
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
@@ -26,17 +26,21 @@
 	var/elimination = 0
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
+	var/internal_type
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	var/true_spawn = TRUE // if this is a megafauna that should grant achievements, or have a gps signal
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
 
-/mob/living/simple_animal/hostile/megafauna/New()
-	..()
+/mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
+	. = ..()
+	if(internal_type && true_spawn)
+		internal = new internal_type(src)
 	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
@@ -44,7 +48,7 @@
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/can_die()
 	return ..() && health <= 0

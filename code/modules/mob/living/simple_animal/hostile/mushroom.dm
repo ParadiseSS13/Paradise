@@ -21,7 +21,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("mushroom")
 	environment_smash = 0
-	stat_attack = 2
+	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
 	ventcrawler = 2

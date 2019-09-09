@@ -40,6 +40,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	unique_pet = TRUE
 
 //LOOK AT THIS - ..()??
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob, params)

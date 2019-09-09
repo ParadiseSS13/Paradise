@@ -333,7 +333,7 @@
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall"
-	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
 	unacidable = TRUE
 	mineral_amount = 1
 	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)

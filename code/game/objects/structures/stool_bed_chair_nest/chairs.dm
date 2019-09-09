@@ -419,7 +419,7 @@
 	name = "wooden chair"
 	icon_state = "wooden_chair_toppled"
 	item_state = "woodenchair"
-	resistance_flags = FLAMMABLE
+	burn_state = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood

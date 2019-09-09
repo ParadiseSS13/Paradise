@@ -64,6 +64,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
+	// Needs to be in /obj/item because corgis can wear a lot of
+	// non-clothing items
+	var/datum/dog_fashion/dog_fashion = null
+
 	var/mob/thrownby = null
 
 	//So items can have custom embedd values

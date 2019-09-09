@@ -79,7 +79,7 @@
 	name = "Syndicate Operative"
 	force_threshold = 6 // Prevents people using punches to bypass eshield
 	robust_searching = 1 // Together with stat_attack, ensures dionae/etc that regen are killed properly
-	stat_attack = 1
+	stat_attack = UNCONSCIOUS
 	universal_speak = 1
 	melee_block_chance = 40
 	del_on_death = 1
