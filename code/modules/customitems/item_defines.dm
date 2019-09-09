@@ -243,8 +243,8 @@
 
 /obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
 	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
-	C.name = "Detective Sax"
-	C.real_name = "Detective Sax"
+	C.name = "Sax"
+	C.real_name = "Sax"
 	var/obj/item/clothing/head/det_hat/D = new
 	D.flags |= NODROP
 	C.place_on_head(D)
