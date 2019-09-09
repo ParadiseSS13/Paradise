@@ -1,18 +1,3 @@
-/datum/reagent/serotrotium
-	name = "Serotrotium"
-	id = "serotrotium"
-	description = "A chemical compound that promotes concentrated production of the serotonin neurotransmitter in humans."
-	reagent_state = LIQUID
-	color = "#202040" // rgb: 20, 20, 40
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
-
-/datum/reagent/serotrotium/on_mob_life(mob/living/M)
-	if(ishuman(M))
-		if(prob(7))
-			M.emote(pick("twitch","drool","moan","gasp"))
-	return ..()
-
-
 /datum/reagent/lithium
 	name = "Lithium"
 	id = "lithium"
@@ -170,6 +155,7 @@
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
 	addiction_chance = 50
+	taste_description = "bitterness"
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -475,7 +461,7 @@
 	reagent_state = LIQUID
 	color = "#644600"
 	addiction_chance = 30
-	taste_description = "puke... or worse"
+	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -491,6 +477,7 @@
 	description = "An illegal performance enhancing drug. Side effects might include chest pain, seizures, swelling, headache, fever... ... ..."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
+	taste_description = "bitterness"
 
 /datum/reagent/aranesp/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -515,6 +502,7 @@
 	description = "A mild psychoactive chemical extracted from the cannabis plant."
 	reagent_state = LIQUID
 	color = "#0FBE0F"
+	taste_description = "man like, totally the best like, thing ever dude"
 
 /datum/reagent/thc/on_mob_life(mob/living/M)
 	M.stuttering += rand(0,2)
@@ -697,7 +685,7 @@
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
 	addiction_chance = 50
-	taste_description = "silicone"
+	taste_description = "silicon"
 
 
 /datum/reagent/surge/on_mob_life(mob/living/M)
