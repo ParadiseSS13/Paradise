@@ -719,6 +719,14 @@ var/list/blood_splatter_icons = list()
 /atom/proc/singularity_pull()
 	return
 
+/**
+  * Respond to acid being used on our atom
+  *
+  * Default behaviour is to send COMSIG_ATOM_ACID_ACT and return
+  */
+/atom/proc/acid_act(acidpwr, acid_volume)
+	SEND_SIGNAL(src, COMSIG_ATOM_ACID_ACT, acidpwr, acid_volume)
+
 /atom/proc/narsie_act()
 	return
 

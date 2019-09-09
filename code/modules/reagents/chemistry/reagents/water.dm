@@ -24,10 +24,14 @@
 /datum/reagent/water/reaction_mob(mob/living/M, method = TOUCH, volume)
 	M.water_act(volume, water_temperature, src, method)
 
-/datum/reagent/water/reaction_turf(turf/simulated/T, volume)
+/datum/reagent/water/reaction_turf(turf/T, volume)
 	T.water_act(volume, water_temperature, src)
+	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
+	if(A)
+		A.acid_level = max(A.acid_level - volume*  50, 0)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
+	O.acid_level = 0
 	O.water_act(volume, water_temperature, src)
 
 /datum/reagent/lube

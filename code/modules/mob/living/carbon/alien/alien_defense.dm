@@ -74,3 +74,6 @@ In all, this is a lot like the monkey code. /N
 				adjustCloneLoss(damage)
 			if(STAMINA)
 				adjustStaminaLoss(damage)
+
+/mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
+	return 0//aliens are immune to acid.

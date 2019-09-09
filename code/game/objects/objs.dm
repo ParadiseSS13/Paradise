@@ -2,7 +2,6 @@
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = 0
-	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
 	var/throwforce = 1
 	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
@@ -15,6 +14,7 @@
 	var/obj_integrity	//defaults to max_integrity
 	var/max_integrity = INFINITY
 	var/integrity_failure = 0 //0 if we have no special broken behavior
+	var/acid_level = 0 //how much acid is on that obj
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
 	var/can_be_hit = TRUE //can this be bludgeoned by items?

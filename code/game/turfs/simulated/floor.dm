@@ -241,5 +241,8 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(.)
 		ChangeTurf(/turf/simulated/floor/clockwork)
 
+/turf/simulated/floor/acid_melt()
+	ChangeTurf(baseturf)
+
 /turf/simulated/floor/can_have_cabling()
 	return !burnt && !broken

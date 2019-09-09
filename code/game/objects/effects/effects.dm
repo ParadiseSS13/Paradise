@@ -15,6 +15,12 @@
 /obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	return FALSE
 
+/obj/effect/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	return
+
+/obj/effect/acid_act()
+	return
+
 /obj/effect/decal
 	plane = FLOOR_PLANE
 	var/no_scoop = FALSE   //if it has this, don't let it be scooped up

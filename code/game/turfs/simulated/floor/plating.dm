@@ -150,6 +150,10 @@
 /turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
 
+/turf/simulated/floor/engine/acid_act(acidpwr, acid_volume)
+	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
+	. = ..()
+
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
 		return

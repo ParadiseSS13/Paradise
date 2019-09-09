@@ -132,6 +132,9 @@
 		if(istype(M.selected,/obj/item/mecha_parts/mecha_equipment/drill))
 			M.selected.action(src)
 
+/turf/simulated/mineral/acid_melt()
+	ChangeTurf(baseturf)
+
 /turf/simulated/mineral/ex_act(severity, target)
 	..()
 	switch(severity)
