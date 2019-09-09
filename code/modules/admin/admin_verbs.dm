@@ -71,13 +71,12 @@ var/list/admin_verbs_admin = list(
 	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds,
-	/client/proc/list_afks,
+	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
 	/client/proc/show_discord_duplicates, // This needs removing at some point, ingame discord linking got removed in #11359
@@ -85,8 +84,7 @@ var/list/admin_verbs_admin = list(
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
-	/client/proc/jobbans,
-	/client/proc/stickybanpanel
+	/client/proc/jobbans
 	)
 var/list/admin_verbs_sounds = list(
 	/client/proc/play_local_sound,
@@ -365,7 +363,7 @@ var/list/admin_verbs_ticket = list(
 
 /client/proc/player_panel()
 	set name = "Player Panel"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -803,7 +801,7 @@ var/list/admin_verbs_ticket = list(
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -829,7 +827,7 @@ var/list/admin_verbs_ticket = list(
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

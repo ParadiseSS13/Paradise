@@ -263,7 +263,12 @@ UI STUFF
 			else
 				continue
 
-	dat += "</table></body>"
+	dat += "</table>"
+	dat += "<h1>Resolve All</h1>"
+	if(ticket_system_name == "Mentor Tickets")
+		dat += "<a href='?src=[UID()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
+	else
+		dat += "<a href='?src=[UID()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
 
 	return dat
 
@@ -401,6 +406,12 @@ UI STUFF
 		var/indexNum = text2num(href_list["assignstaff"])
 		takeTicket(indexNum)
 		showDetailUI(usr, indexNum)
+
+	if(href_list["resolveall"])
+		if(ticket_system_name == "Mentor Tickets")
+			usr.client.resolveAllMentorTickets()
+		else
+			usr.client.resolveAllAdminTickets()
 
 /datum/controller/subsystem/tickets/proc/takeTicket(var/index)
 	if(assignStaffToTicket(usr.client, index))
