@@ -5428,16 +5428,6 @@
 /obj/item/stack/tile,
 /turf/space,
 /area/space/nearstation)
-"lz" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "lA" = (
 /obj/machinery/door/poddoor{
 	id_tag = "syndi_depot_lvl2";
@@ -6754,10 +6744,6 @@
 	pixel_x = 24
 	},
 /obj/structure/cable,
-/obj/machinery/turretid/syndicate{
-	name = "external turret controls";
-	pixel_y = 32
-	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_depot/outer)
 "pf" = (
@@ -11730,6 +11716,17 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"ZQ" = (
+/obj/machinery/turretid/syndicate{
+	name = "external turret controls";
+	pixel_x = -32;
+	pixel_y = 0;
+	req_access = list(150)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/syndicate_depot/outer)
 
 (1,1,1) = {"
@@ -61799,7 +61796,7 @@ lI
 lK
 mg
 mm
-lz
+mR
 mA
 mB
 mA
@@ -62056,12 +62053,12 @@ lK
 lK
 lK
 mm
-zP
+mM
 mA
 mO
 mh
 mA
-zP
+mA
 mm
 mA
 mA
@@ -62320,7 +62317,7 @@ nk
 ns
 mA
 nA
-mR
+lV
 mA
 nS
 mm
@@ -62575,9 +62572,9 @@ zO
 mm
 no
 mA
-mA
+zP
 mm
-mM
+zP
 mA
 mA
 ob
@@ -64380,7 +64377,7 @@ lX
 lX
 lX
 Mc
-lX
+ZQ
 BB
 lK
 YV
