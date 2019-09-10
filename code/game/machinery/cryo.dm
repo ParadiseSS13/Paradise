@@ -8,7 +8,7 @@
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
 	interact_offline = 1
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
 	var/on = 0
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null

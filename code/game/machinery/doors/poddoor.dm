@@ -8,7 +8,7 @@
 	explosion_block = 3
 	heat_proof = TRUE
 	safe = FALSE
-	armor = list(melee = 50, bullet = 100, laser = 100, energy = 100, bomb = 50, bio = 100, rad = 100)
+	armor = list("melee" = 50, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
 	burn_state = FIRE_PROOF
 	damage_deflection = 70
 	var/id_tag = 1.0

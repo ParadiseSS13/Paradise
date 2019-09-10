@@ -3,6 +3,7 @@
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-earth technologies that are still relevant on most planet-bound outposts."
 	icon = 'icons/vehicles/4wheeler.dmi'
 	icon_state = "fourwheel"
+	armor = list("melee" = 50, "bullet" = 25, "laser" = 20, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
 	keytype = /obj/item/key
 	generic_pixel_x = 0
 	generic_pixel_y = 4

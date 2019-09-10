@@ -161,7 +161,7 @@
 		if(C.use(15))
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
 			rigged = TRUE
-		else 
+		else
 			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
 			return
 	else if(istype(W, /obj/item/radio/electropack))
@@ -236,6 +236,7 @@
 	var/greenlight = "securecrateg"
 	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	broken = 0
 	locked = 1
 	health = 1000

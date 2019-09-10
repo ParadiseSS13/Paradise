@@ -12,6 +12,7 @@
 	var/active = 0
 	settagwhitelist = list("id_tag", "logic_id_tag")
 	anchored = 1.0
+	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4

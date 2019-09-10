@@ -149,6 +149,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-metal"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=2"
@@ -195,6 +196,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 	burn_state = FLAMMABLE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/New(var/loc, var/amount=null)

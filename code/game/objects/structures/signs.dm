@@ -4,7 +4,7 @@
 	opacity = 0
 	density = 0
 	layer = 3.5
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
 /obj/structure/sign/ex_act(severity)
 	switch(severity)

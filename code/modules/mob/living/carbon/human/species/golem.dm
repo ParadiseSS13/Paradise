@@ -727,7 +727,7 @@
 	item_color = "golem"
 	has_sensor = 0
 	flags = ABSTRACT | NODROP
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 100)
 
 /obj/item/clothing/suit/golem
 	name = "golem shell"
@@ -742,7 +742,7 @@
 	flags_size = ONESIZEFITSALL
 	cold_protection = HEAD | UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0, fire = 0, acid = 100)
 
 /obj/item/clothing/shoes/golem
 	name = "golem's feet"
