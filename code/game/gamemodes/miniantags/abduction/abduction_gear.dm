@@ -80,7 +80,7 @@
 		M.overlays.Cut()
 		M.regenerate_icons()
 
-/obj/item/clothing/suit/armor/abductor/vest/hit_reaction()
+/obj/item/clothing/suit/armor/abductor/vest/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	DeactivateStealth()
 	return 0
 
@@ -455,7 +455,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK))
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK))
 			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return 0
 
