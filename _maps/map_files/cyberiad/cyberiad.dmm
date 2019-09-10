@@ -2706,7 +2706,7 @@
 	},
 /area/shuttle/syndicate)
 "afD" = (
-/obj/machinery/vending/wallmed1/syndicate{
+/obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/shuttle/floor{
@@ -8543,13 +8543,6 @@
 	},
 /area/security/prison/cell_block/A)
 "apA" = (
-/obj/machinery/vending/wallmed1{
-	name = "Emergency NanoMed";
-	pixel_x = -27;
-	req_access_txt = "0"
-	},
-/obj/structure/table/reinforced,
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -24
@@ -8557,9 +8550,19 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/vending/wallmed{
+	dir = 2;
+	name = "Emergency NanoMed";
+	pixel_x = -27;
+	pixel_y = 0;
+	req_access_txt = "0"
+	},
+/obj/structure/table/reinforced,
+/obj/item/stack/medical/bruise_pack/advanced,
 /obj/machinery/camera{
 	c_tag = "Brig Security Equipment South";
-	dir = 4
+	dir = 4;
+	network = list("SS13")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -15041,7 +15044,7 @@
 "aAd" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aAe" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -15772,32 +15775,34 @@
 	initialize_directions = 10
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aBF" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
 	frequency = 1379;
 	id_tag = "solar_tool_pump"
 	},
 /obj/machinery/airlock_sensor{
+	frequency = 1379;
 	id_tag = "solar_tool_sensor";
 	pixel_x = 25;
 	pixel_y = 12
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
+	tag_airpump = "solar_tool_pump";
+	tag_exterior_door = "solar_tool_outer";
+	frequency = 1379;
 	id_tag = "solar_tool_airlock";
+	tag_interior_door = "solar_tool_inner";
 	pixel_x = 25;
 	req_access_txt = "13";
-	tag_airpump = "solar_tool_pump";
-	tag_chamber_sensor = "solar_tool_sensor";
-	tag_exterior_door = "solar_tool_outer";
-	tag_interior_door = "solar_tool_inner"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+	tag_chamber_sensor = "solar_tool_sensor"
 	},
 /turf/simulated/floor/plating,
 /area/solar/auxport)
@@ -16289,7 +16294,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aCD" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -16716,8 +16721,8 @@
 	name = "Fore Port Solar Control"
 	},
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "0-4";
+	d2 = 4
 	},
 /turf/simulated/floor/plating,
 /area/solar/auxport)
@@ -16726,14 +16731,15 @@
 /area/security/lobby)
 "aDw" = (
 /turf/simulated/wall/r_wall,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDx" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
 	icon_state = "space";
 	layer = 4;
 	name = "EXTERNAL AIRLOCK";
-	pixel_x = 32
+	pixel_x = 32;
+	pixel_y = 0
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
@@ -16766,7 +16772,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDz" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/cigarette/pipe,
@@ -17271,7 +17277,7 @@
 "aEC" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aED" = (
 /obj/machinery/power/terminal,
 /obj/machinery/light/small{
@@ -17282,7 +17288,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aEE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -17291,7 +17297,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aEF" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -17855,7 +17861,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/smes,
+/obj/machinery/power/smes{
+	charge = 0
+	},
 /turf/simulated/floor/plating,
 /area/solar/auxport)
 "aFS" = (
@@ -17870,11 +17878,11 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFT" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFU" = (
 /obj/structure/table,
 /obj/item/toy/figure/detective,
@@ -22668,8 +22676,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "aQE" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
+	pixel_x = 0;
 	pixel_y = 28;
 	req_access_txt = "0"
 	},
@@ -24726,17 +24735,17 @@
 	},
 /area/medical/reception)
 "aUP" = (
+/obj/item/folder/white,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -5;
 	pixel_y = 30;
 	req_access_txt = "0"
 	},
 /obj/structure/table,
-/obj/item/folder/white,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	tag = "icon-whitebluefull"
@@ -26325,7 +26334,7 @@
 	},
 /area/security/nuke_storage)
 "aXS" = (
-/obj/machinery/lapvend,
+/obj/machinery/vending/modularpc,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "aXT" = (
@@ -41474,7 +41483,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCQ" = (
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCR" = (
@@ -41517,17 +41526,18 @@
 /area/crew_quarters/captain)
 "bCW" = (
 /obj/structure/table,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/item/storage/box/cups{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	req_access_txt = "0"
+	},
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
 	},
 /obj/item/roller,
 /turf/simulated/floor/plasteel{
@@ -41850,10 +41860,11 @@
 /turf/space,
 /area/space/nearstation)
 "bDF" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
+	pixel_y = 0;
 	req_access_txt = "0"
 	},
 /obj/structure/bed/roller,
@@ -47157,12 +47168,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bNW" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -32;
 	req_access_txt = "0"
@@ -47172,6 +47178,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -47795,7 +47807,7 @@
 /area/assembly/robotics)
 "bPb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/mob/living/simple_animal/pet/corgi/Ian/borgi,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50173,7 +50185,7 @@
 	pixel_y = 24
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTe" = (
@@ -52796,12 +52808,12 @@
 	},
 /area/medical/cryo)
 "bXP" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	req_access_txt = "0"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner";
@@ -55766,7 +55778,7 @@
 	c_tag = "Medbay Cryogenics";
 	dir = 1
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -5;
 	pixel_y = -30;
@@ -57644,7 +57656,7 @@
 	},
 /area/medical/cmo)
 "cfY" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	req_access_txt = "0"
@@ -59047,17 +59059,18 @@
 /area/medical/medbay2)
 "ciU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
+	pixel_y = 0;
 	req_access_txt = "0"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -71887,7 +71900,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -32;
 	req_access_txt = "0"
@@ -73747,7 +73760,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkyellowcorners"
 	},
 /area/engine/equipmentstorage)
 "cYH" = (
@@ -79347,6 +79361,11 @@
 	pixel_y = 5
 	},
 /obj/structure/table,
+/obj/machinery/vending/wallmed{
+	name = "Emergency NanoMed";
+	pixel_y = -32;
+	req_access_txt = "0"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "yellowcorner"
@@ -80741,6 +80760,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat_interior)
+"eMx" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/engineeringcart,
+/turf/simulated/floor/plasteel,
+/area/engine/break_room)
 "eNg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -82074,7 +82098,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkyellowcorners"
 	},
 /area/engine/equipmentstorage)
 "fWf" = (
@@ -83197,6 +83222,12 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
+"gWm" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plasteel,
+/area/maintenance/asmaint)
 "gWn" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/grille,
@@ -83787,7 +83818,6 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/structure/engineeringcart,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "yellowcorner"
@@ -86062,7 +86092,8 @@
 	level = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkyellowcorners"
 	},
 /area/engine/engineering)
 "jRq" = (
@@ -87118,7 +87149,7 @@
 /area/maintenance/asmaint)
 "kLB" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -94472,7 +94503,7 @@
 	name = "\improper Tesla and Singularity Engine"
 	})
 "rNR" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -95944,6 +95975,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"tmD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "tmJ" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -96083,7 +96120,8 @@
 "txq" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 1;
+	icon_state = "darkyellowcorners"
 	},
 /area/engine/engineering)
 "txX" = (
@@ -96573,6 +96611,11 @@
 	dir = 8
 	},
 /area/atmos/control)
+"ubn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/mounted/frame/apc_frame,
+/turf/simulated/floor/plasteel,
+/area/assembly/assembly_line)
 "ubU" = (
 /obj/machinery/atmospherics/trinary/filter/flipped{
 	dir = 4;
@@ -125911,7 +125954,7 @@ nyi
 nyi
 kKU
 cJx
-cJx
+ubn
 cOr
 qdK
 whJ
@@ -134142,7 +134185,7 @@ cWV
 dfy
 dvI
 hvp
-hvp
+eMx
 gHQ
 cHQ
 vJF
@@ -137729,7 +137772,7 @@ cQk
 ctZ
 vvL
 eew
-cuk
+gWm
 dgS
 yfC
 cQZ
@@ -137986,7 +138029,7 @@ cQk
 csL
 vvL
 csL
-cuk
+gWm
 dgS
 nvG
 ikP
@@ -138495,7 +138538,7 @@ cQk
 cPc
 csL
 cyJ
-cyJ
+tmD
 chf
 chf
 vvL
@@ -142378,7 +142421,7 @@ aaa
 aaa
 aaa
 tzW
-abP
+awP
 aaa
 aaa
 aaa

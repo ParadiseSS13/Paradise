@@ -738,22 +738,7 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
-		to_chat(M, "Control of your mob has been offered to dead players.")
-		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
-		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name ? M.real_name : M.name]?", poll_time = 100, min_hours = minhours)
-		var/mob/dead/observer/theghost = null
-
-		if(candidates.len)
-			theghost = pick(candidates)
-			to_chat(M, "Your mob has been taken over by a ghost!")
-			message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
-			M.ghostize()
-			M.key = theghost.key
-		else
-			to_chat(M, "There were no ghosts willing to take control.")
-			message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+		offer_control(M)
 
 	else if(href_list["delete"])
 		if(!check_rights(R_DEBUG, 0))

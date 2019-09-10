@@ -50,10 +50,12 @@
 	var/oxy_mod = 1		 // Oxy damage reduction/amplification
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
+	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-
+	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-
+	var/obj/item/mutanthands
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -62,8 +64,6 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
-
-	var/mob/living/list/ignored_by = list() // list of mobs that will ignore this species
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
@@ -305,6 +305,63 @@
 	return
 
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
+	return
+
+/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/C)
+	return
+
+/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
+	blocked = (100 - blocked) / 100
+	if(blocked <= 0)
+		return 0
+
+	var/obj/item/organ/external/organ = null
+	if(isorgan(def_zone))
+		organ = def_zone
+	else
+		if(!def_zone)
+			def_zone = ran_zone(def_zone)
+		organ = H.get_organ(check_zone(def_zone))
+	if(!organ)
+		return 0
+
+	damage = damage * blocked
+
+	switch(damagetype)
+		if(BRUTE)
+			H.damageoverlaytemp = 20
+			damage = damage * brute_mod
+
+			if(organ.receive_damage(damage, 0, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+			if(H.LAssailant && ishuman(H.LAssailant)) //superheros still get the comical hit markers
+				var/mob/living/carbon/human/A = H.LAssailant
+				if(A.mind && A.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
+					var/list/attack_bubble_recipients = list()
+					var/mob/living/user
+					for(var/mob/O in viewers(user, src))
+						if(O.client && O.has_vision(information_only=TRUE))
+							attack_bubble_recipients.Add(O.client)
+					spawn(0)
+						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
+						dmgIcon.pixel_x = (!H.lying) ? rand(-3,3) : rand(-11,12)
+						dmgIcon.pixel_y = (!H.lying) ? rand(-11,9) : rand(-10,1)
+						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
+
+
+		if(BURN)
+			H.damageoverlaytemp = 20
+			damage = damage * burn_mod
+
+			if(organ.receive_damage(0, damage, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
+	H.updatehealth("apply damage")
+	return 1
+
+/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
 	return
 
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)

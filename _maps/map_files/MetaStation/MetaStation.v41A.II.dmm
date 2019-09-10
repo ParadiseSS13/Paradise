@@ -589,7 +589,7 @@
 	},
 /area/shuttle/syndicate)
 "abk" = (
-/obj/machinery/vending/wallmed1/syndicate{
+/obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/shuttle/floor{
@@ -44349,7 +44349,7 @@
 	pixel_y = 30
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "byf" = (
@@ -50014,7 +50014,7 @@
 	network = list("MiniSat","tcomm");
 	pixel_y = -29
 	},
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet{
 	tag = "icon-carpetside";
 	icon_state = "carpetside"
@@ -57886,7 +57886,7 @@
 	})
 "bVg" = (
 /obj/structure/bed/roller,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	pixel_x = -28
 	},
 /obj/machinery/camera{
@@ -68224,7 +68224,7 @@
 /turf/space,
 /area/solar/port)
 "cmI" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 25;
 	req_access_txt = "0"
@@ -68716,7 +68716,7 @@
 	pixel_y = 32
 	},
 /obj/structure/chair/stool,
-/mob/living/simple_animal/pet/corgi/Ian/borgi,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cafeteria (NORTHEAST)";
 	icon_state = "cafeteria";
@@ -69498,7 +69498,7 @@
 	},
 /area/toxins/lab)
 "coL" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	req_access_txt = "0"
@@ -69612,7 +69612,7 @@
 	dir = 4;
 	on = 1
 	},
-/mob/living/simple_animal/pet/pug{
+/mob/living/simple_animal/pet/dog/pug{
 	name = "Pugley IV";
 	real_name = "Pugley IV"
 	},
@@ -82553,7 +82553,7 @@
 	})
 "cJM" = (
 /obj/structure/chair/office/light,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	req_access_txt = "0"
@@ -82599,7 +82599,7 @@
 /area/medical/virology)
 "cJQ" = (
 /obj/structure/chair/office/light,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 25;
 	req_access_txt = "0"
@@ -95073,7 +95073,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "deb" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	req_access_txt = "0";
 	use_power = 0

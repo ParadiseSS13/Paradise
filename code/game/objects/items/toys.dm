@@ -1506,7 +1506,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "toy_mouse"
 	w_class = WEIGHT_CLASS_SMALL
-	resistance_flags = FLAMMABLE
+	burn_state = FLAMMABLE
 	var/cooldown = 0
 
 /*

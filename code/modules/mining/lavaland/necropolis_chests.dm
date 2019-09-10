@@ -6,7 +6,7 @@
 	icon_state = "necrocrate"
 	icon_opened = "necrocrateopen"
 	icon_closed = "necrocrate"
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = 1
 
 /obj/structure/closet/crate/necropolis/tendril
@@ -18,7 +18,7 @@
 	if(!add_loot)
 		return
 
-	var/loot = rand(1,25)
+	var/loot = rand(1, 26)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -48,7 +48,7 @@
 		if(11)
 			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker(src)
 		if(12)
-			new /obj/item/sord(src)
+			new /obj/item/jacobs_ladder(src)
 		if(13)
 			new /obj/item/nullrod/scythe/talking(src)
 		if(14)
@@ -78,6 +78,8 @@
 		if(24)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(25)
+			new /obj/item/book_of_babel(src)
+		if(26)
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 

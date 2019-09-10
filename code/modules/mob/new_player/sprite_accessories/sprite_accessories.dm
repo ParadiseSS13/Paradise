@@ -48,7 +48,7 @@
 	var/gender = NEUTER	//Determines if the accessory will be skipped or included in random hair generations
 
 	// Restrict some styles to specific species
-	var/list/species_allowed = list("Human", "Slime People")
+	var/list/species_allowed = list("Human", "Slime People", "Infectious Zombie", "High-Functioning Zombie")
 	var/list/sprite_sheets = list() //For accessories common across species but need to use 'fitted' sprites (like underwear). e.g. list("Vox" = 'icons/mob/species/vox/iconfile.dmi')
 	var/list/models_allowed = list() //Specifies which, if any, hairstyles or markings can be accessed by which prosthetics. Should equal the manufacturing company name in robolimbs.dm.
 	var/list/heads_allowed = null //Specifies which, if any, alt heads a head marking, hairstyle or facial hair style is compatible with.

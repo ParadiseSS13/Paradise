@@ -27,7 +27,7 @@
 	luminosity = 8
 	max_n_of_items = INFINITY
 	unacidable = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	pixel_y = -4
 	use_power = NO_POWER_USE
 	var/memory_saved = FALSE
@@ -116,7 +116,7 @@
 	luminosity = 8
 	use_power = NO_POWER_USE
 	density = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = 1
 	var/activation_method = "touch"
 	var/activation_damage_type = null
@@ -380,7 +380,7 @@
 	medsensor.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
-	..()
+	. = ..()
 	if(isliving(target) && target != src)
 		var/mob/living/L = target
 		if(L.stat < DEAD)

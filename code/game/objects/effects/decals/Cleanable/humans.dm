@@ -11,6 +11,7 @@ var/global/list/image/splatter_cache = list()
 	density = FALSE
 	anchored = TRUE
 	layer = TURF_LAYER
+	plane = GAME_PLANE
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "mfloor1"
 	random_icon_states = list("mfloor1", "mfloor2", "mfloor3", "mfloor4", "mfloor5", "mfloor6", "mfloor7")
@@ -46,14 +47,8 @@ var/global/list/image/splatter_cache = list()
 				mode_ticker.blood_check()
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
-	if(type == /obj/effect/decal/cleanable/blood)
-		if(loc && isturf(loc))
-			for(var/obj/effect/decal/cleanable/blood/B in loc)
-				if(B != src)
-					if(B.blood_DNA)
-						blood_DNA |= B.blood_DNA.Copy()
-					qdel(B)
-	dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+	if(!.)
+		dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(GAMEMODE_IS_CULT)

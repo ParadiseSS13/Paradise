@@ -64,6 +64,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
+	// Needs to be in /obj/item because corgis can wear a lot of
+	// non-clothing items
+	var/datum/dog_fashion/dog_fashion = null
+
 	var/mob/thrownby = null
 
 	//So items can have custom embedd values
@@ -606,6 +610,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+
+// Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
+/obj/item/proc/get_part_rating()
+	return 0
 
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))

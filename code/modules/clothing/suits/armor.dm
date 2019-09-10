@@ -21,6 +21,7 @@
 	blood_overlay_type = "armor"
 	flags_size = ONESIZEFITSALL
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
@@ -148,6 +149,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|HANDS
 	strip_delay = 70
 	burn_state = FLAMMABLE
+	dog_fashion = null
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
@@ -161,6 +163,7 @@
 	item_state = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	armor = list(melee = 50, bullet = 40, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	dog_fashion = null
 
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
 	name = "captain's parade jacket"
@@ -252,6 +255,7 @@
 	flags_size = ONESIZEFITSALL
 	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	burn_state = FLAMMABLE
+	dog_fashion = null
 
 //Reactive armor
 /obj/item/clothing/suit/armor/reactive
@@ -497,7 +501,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/head/hooded/drake
 	name = "drake helmet"
@@ -507,7 +511,7 @@
 	armor = list("melee" = 70, "bullet" = 30, "laser" = 50, "energy" = 40, "bomb" = 70, "bio" = 60, "rad" = 50, "fire" = 100, "acid" = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 
@@ -516,8 +520,8 @@
 	icon_state = "goliath_cloak"
 	item_state = "goliath_cloak"
 	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
-	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
-	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival)
+	armor = list(melee = 35, bullet = 10, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -526,7 +530,7 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "A protective & concealing hood."
-	armor = list("melee" = 35, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
+	armor = list(melee = 35, bullet = 10, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	flags = BLOCKHAIR
 	flags_cover = HEADCOVERSEYES
 

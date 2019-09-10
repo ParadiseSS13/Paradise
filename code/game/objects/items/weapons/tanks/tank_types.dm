@@ -15,6 +15,7 @@
 	desc = "A tank of oxygen."
 	icon_state = "oxygen"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	dog_fashion = /datum/dog_fashion/back
 
 
 /obj/item/tank/oxygen/New()
@@ -34,10 +35,12 @@ obj/item/tank/oxygen/empty/New()
 /obj/item/tank/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
 	icon_state = "oxygen_f"
+	dog_fashion = null
 
 /obj/item/tank/oxygen/red
 	desc = "A tank of oxygen, this one is red."
 	icon_state = "oxygen_fr"
+	dog_fashion = null
 
 
 /*

@@ -23,17 +23,17 @@
 	return
 
 /turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
-	return 
+	return
 
 /turf/simulated/floor/indestructible/attack_hand(mob/user)
-	return 
+	return
 
 /turf/simulated/floor/indestructible/attack_hulk(mob/user, does_attack_animation = FALSE)
 	return
 
 /turf/simulated/floor/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
-	
+
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
@@ -48,7 +48,7 @@
 	temperature = 300
 	planetary_atmos = TRUE
 
-/turf/simulated/floor/indestructible/necropolis/Initialize()
+/turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
 	if(prob(12))
 		icon_state = "necro[rand(2,3)]"
@@ -81,7 +81,7 @@
 	planetary_atmos = TRUE
 	desc = "A floor with a square pattern. It's faintly cool to the touch."
 
-/turf/open/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+/turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
 
 /turf/simulated/floor/indestructible/hierophant/two

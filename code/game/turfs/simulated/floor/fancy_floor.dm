@@ -122,7 +122,7 @@
 	burnt = 1
 	update_icon()
 
-/turf/open/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+/turf/simulated/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
 
 /turf/simulated/floor/carpet/black
@@ -147,7 +147,7 @@
 	floor_tile = /obj/item/stack/tile/arcade_carpet
 	smooth = SMOOTH_FALSE
 
-/turf/open/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+/turf/simulated/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
 	underlay_appearance.plane = PLANE_SPACE

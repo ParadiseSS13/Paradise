@@ -188,17 +188,27 @@
 	icon_state = "hardsuit0-ert_paranormal"
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	sprite_sheets = null
 	actions_types = list()
-	has_camera = 0
+	has_camera = FALSE
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal
 	name = "paranormal response team suit"
 	desc = "Powerful wards are built into this hardsuit, protecting the user from all manner of paranormal threats."
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	sprite_sheets = null
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
+	sprite_sheets = list(
+		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi'
+		)
+	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/New()
 	..()
@@ -208,20 +218,26 @@
 	name = "inquisitor's helmet"
 	icon_state = "hardsuit0-inquisitor"
 	item_color = "inquisitor"
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
 	name = "inquisitor's hardsuit"
 	icon_state = "hardsuit-inquisitor"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100)
+	slowdown = 0
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
 	name = "champion's helmet"
 	desc = "Peering into the eyes of the helmet is enough to seal damnation."
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100)
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker
 	name = "champion's hardsuit"
 	desc = "Voices echo from the hardsuit, driving the user insane."
 	icon_state = "hardsuit-berserker"
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 100, rad = 100)
+	slowdown = 0

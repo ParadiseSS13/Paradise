@@ -79,7 +79,7 @@
 	holds_charge = TRUE
 	unique_frequency = TRUE
 
-/obj/item/gun/energy/kinetic_accelerator/New()
+/obj/item/gun/energy/kinetic_accelerator/Initialize(mapload)
 	. = ..()
 	if(!holds_charge)
 		empty()
@@ -98,8 +98,7 @@
 	if(!QDELING(src) && !holds_charge)
 		// Put it on a delay because moving item from slot to hand
 		// calls dropped().
-		spawn(2)
-			empty_if_not_held()
+		addtimer(CALLBACK(src, .proc/empty_if_not_held), 2)
 
 /obj/item/gun/energy/kinetic_accelerator/proc/empty_if_not_held()
 	if(!ismob(loc))
@@ -143,17 +142,17 @@
 	overheat = FALSE
 
 /obj/item/gun/energy/kinetic_accelerator/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	if(empty_state && !can_shoot())
-		overlays += empty_state
+		add_overlay(empty_state)
 
 	if(gun_light && can_flashlight)
 		var/iconF = "flight"
 		if(gun_light.on)
 			iconF = "flight_on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+		add_overlay(image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset))
 	if(bayonet && can_bayonet)
-		overlays += knife_overlay
+		add_overlay(knife_overlay)
 
 
 /obj/item/gun/energy/kinetic_accelerator/experimental

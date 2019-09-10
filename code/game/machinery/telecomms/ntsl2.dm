@@ -109,7 +109,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"Mime" = "srvradio",
 	)
 	// Just command members
-	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security")
+	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
 	// Just ERT
 	var/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	// Defined so code compiles and incase someone has a non-standard job
@@ -331,7 +331,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		var/job = signal.data["job"]
 		if((job in ert_jobs) || (job in heads))
 			for(var/datum/multilingual_say_piece/S in message_pieces)
-				S.message = "<b>[S.message]</b>"
+				S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
 
 	// Hacks!
 	// Censor dat shit like nobody's business
