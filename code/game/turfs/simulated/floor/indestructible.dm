@@ -48,7 +48,7 @@
 	temperature = 300
 	planetary_atmos = TRUE
 
-/turf/simulated/floor/indestructible/necropolis/Initialize()
+/turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
 	if(prob(12))
 		icon_state = "necro[rand(2,3)]"
