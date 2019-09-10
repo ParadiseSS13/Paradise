@@ -40,7 +40,6 @@
 		icon_state = "[icon_prefix][icon_state]"
 
 /obj/item/shard/afterattack(atom/movable/AM, mob/user, proximity)
-	. = ..()
 	if(!proximity || !(src in user))
 		return
 	if(isturf(AM))
