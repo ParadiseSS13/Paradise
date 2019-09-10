@@ -49,10 +49,6 @@ var/global/list/ts_spiderling_list = list()
 	// '1' (default for most simple_mobs, including terror spiders) converts to 3.5, or 2.8 tiles/sec.
 	// '2' converts to 4.5, or 2.2 tiles/sec.
 
-	// Atmos
-	pressure_resistance = 50    //50 kPa difference required to push
-	throw_pressure_limit = 100  //100 kPa difference required to throw
-
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
 	var/ai_ventcrawls = TRUE
