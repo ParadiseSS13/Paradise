@@ -155,7 +155,7 @@ var/list/chatResources = list(
 
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				//TODO: add a new evasion ban for the CURRENT client details, using the matched row details
+				AddBan(owner.ckey, owner.computer_id, "Ban evasion on account: [found["ckey"]]", "System", 0, 0, owner.address) 
 				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
