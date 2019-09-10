@@ -118,8 +118,7 @@
 			else
 				atoms = orange(3, target)
 			for(var/atom/movable/A in atoms)
-				if(A.anchored) continue
-				if(A.move_resist == INFINITY) continue
+				if(A.anchored || A.move_resist == INFINITY) continue
 				spawn(0)
 					var/iter = 5-get_dist(A,target)
 					for(var/i=0 to iter)
