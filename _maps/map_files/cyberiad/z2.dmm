@@ -7326,7 +7326,7 @@
 	},
 /area/centcom/specops)
 "sg" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -30;
 	pixel_y = 0;
@@ -7342,7 +7342,7 @@
 	},
 /area/centcom/evac)
 "si" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 30;
 	pixel_y = 0;
@@ -7633,7 +7633,7 @@
 	},
 /area/centcom/evac)
 "sS" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -30;
 	pixel_y = 0;
@@ -7787,7 +7787,7 @@
 	},
 /area/centcom/evac)
 "tk" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 30;
 	pixel_y = 0;

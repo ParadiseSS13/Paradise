@@ -2,29 +2,14 @@
  *  Datum used to hold information about a product in a vending machine
  */
 /datum/data/vending_product
-	var/product_name = "generic" // Display name for the product
+	name = "generic"
+	///Typepath of the product that is created when this record "sells"
 	var/product_path = null
-	var/amount = 0  // Amount held in the vending machine
+	///How many of this product we currently have
+	var/amount = 0
+	///How many we can store at maximum
 	var/max_amount = 0
 	var/price = 0  // Price to buy one
-	var/display_color = null  // Display color for vending machine listing
-	var/category = CAT_NORMAL  // CAT_HIDDEN for contraband, CAT_COIN for premium
-
-/datum/data/vending_product/New(path, name = null, amount = 1, price = 0, color = null, category = CAT_NORMAL)
-	..()
-
-	product_path = path
-
-	if(!name)
-		var/atom/temp = path
-		product_name = initial(temp.name)
-	else
-		product_name = name
-
-	amount = amount
-	price = price
-	display_color = color
-	category = category
 
 /**
  *  A vending machine
@@ -39,7 +24,7 @@
 	density = 1
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	var/icon_vend //Icon_state when vending
 	var/icon_deny //Icon_state when denying access
 
@@ -52,7 +37,6 @@
 	var/active = 1 //No sales pitches if off!
 	var/vend_ready = 1 //Are we ready to vend?? Is it time??
 	var/vend_delay = 10 //How long does it take to vend?
-	var/categories = CAT_NORMAL // Bitmask of cats we're currently showing
 	var/datum/data/vending_product/currently_vending = null // What we're requesting payment for right now
 	var/status_message = "" // Status screen messages like "insufficient funds", displayed in NanoUI
 	var/status_error = 0 // Set to 1 if status_message is an error
@@ -66,6 +50,7 @@
 	// List of vending_product items available.
 	var/list/product_records = list()
 	var/list/hidden_records = list()
+	var/list/coin_records = list()
 
 	// // Variables used to initialize advertising
 	var/product_slogans = ""	//String of slogans separated by semicolons, optional
@@ -77,11 +62,14 @@
 	var/list/slogan_list = list()
 	var/vend_reply				//Thank you for shopping!
 	var/shut_up = 0				//Stop spouting those godawful pitches!
+	///can we access the hidden inventory?
+	var/extended_inventory = 0
 	var/last_reply = 0
 	var/last_slogan = 0			//When did we last pitch?
 	var/slogan_delay = 6000		//How long until we can pitch again?
 
-	var/obj/item/vending_refill/refill_canister = null    //The type of refill canisters used by this machine.
+	//The type of refill canisters used by this machine.
+	var/obj/item/vending_refill/refill_canister = null
 
 	// Things that can go wrong
 	emagged = 0			//Ignores if somebody doesn't have card access to that machine.
@@ -98,8 +86,15 @@
 	var/obj/item/inserted_item = null
 
 /obj/machinery/vending/Initialize(mapload)
+	var/build_inv = FALSE
+	if(!refill_canister)
+		build_inv = TRUE
 	. = ..()
 	wires = new(src)
+	if(build_inv) //non-constructable vending machine
+		build_inventory(products, product_records)
+		build_inventory(contraband, hidden_records)
+		build_inventory(premium, coin_records)
 	if(product_slogans)
 		slogan_list += splittext(product_slogans, ";")
 
@@ -111,7 +106,6 @@
 	if(product_ads)
 		ads_list += splittext(product_ads, ";")
 
-	build_inventory()
 	power_change()
 
 /obj/machinery/vending/Destroy()
@@ -120,6 +114,20 @@
 	QDEL_NULL(inserted_item)
 	return ..()
 
+/obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
+	if(!component_parts)
+		return
+
+	product_records = list()
+	hidden_records = list()
+	coin_records = list()
+	build_inventory(products, product_records, start_empty = TRUE)
+	build_inventory(contraband, hidden_records, start_empty = TRUE)
+	build_inventory(premium, coin_records, start_empty = TRUE)
+	for(var/obj/item/vending_refill/VR in component_parts)
+		restock(VR)
+
+
 /**
  *  Build src.produdct_records from the products lists
  *
@@ -127,24 +135,82 @@
  *  products that the vending machine is to carry without manually populating
  *  src.product_records.
  */
-/obj/machinery/vending/proc/build_inventory()
-	var/list/all_products = list(
-		list(products, CAT_NORMAL),
-		list(contraband, CAT_HIDDEN),
-		list(premium, CAT_COIN))
+/obj/machinery/vending/proc/build_inventory(list/productlist, list/recordlist, start_empty = FALSE)
+	for(var/typepath in productlist)
+		var/amount = productlist[typepath]
+		if(isnull(amount))
+			amount = 0
 
-	for(var/current_list in all_products)
-		var/category = current_list[2]
+		var/atom/temp = typepath
+		var/datum/data/vending_product/R = new /datum/data/vending_product()
+		R.name = initial(temp.name)
+		R.product_path = typepath
+		if(!start_empty)
+			R.amount = amount
+		R.max_amount = amount
+		R.price = (typepath in prices) ? prices[typepath] : 0
+		recordlist += R
+/**
+  * Refill a vending machine from a refill canister
+  *
+  * This takes the products from the refill canister and then fills the products,contraband and premium product categories
+  *
+  * Arguments:
+  * * canister - the vending canister we are refilling from
+  */
+/obj/machinery/vending/proc/restock(obj/item/vending_refill/canister)
+	if(!canister.products)
+		canister.products = products.Copy()
+	if(!canister.contraband)
+		canister.contraband = contraband.Copy()
+	if(!canister.premium)
+		canister.premium = premium.Copy()
+	. = 0
+	. += refill_inventory(canister.products, product_records)
+	. += refill_inventory(canister.contraband, hidden_records)
+	. += refill_inventory(canister.premium, coin_records)
+/**
+  * Refill our inventory from the passed in product list into the record list
+  *
+  * Arguments:
+  * * productlist - list of types -> amount
+  * * recordlist - existing record datums
+  */
+/obj/machinery/vending/proc/refill_inventory(list/productlist, list/recordlist)
+	. = 0
+	for(var/R in recordlist)
+		var/datum/data/vending_product/record = R
+		var/diff = min(record.max_amount - record.amount, productlist[record.product_path])
+		if (diff)
+			productlist[record.product_path] -= diff
+			record.amount += diff
+			. += diff
+/**
+  * Set up a refill canister that matches this machines products
+  *
+  * This is used when the machine is deconstructed, so the items aren't "lost"
+  */
+/obj/machinery/vending/proc/update_canister()
+	if(!component_parts)
+		return
 
-		for(var/entry in current_list[1])
-			var/datum/data/vending_product/product = new /datum/data/vending_product(entry)
+	var/obj/item/vending_refill/R = locate() in component_parts
+	if(!R)
+		CRASH("Constructible vending machine did not have a refill canister")
+		return
 
-			product.price = (entry in prices) ? prices[entry] : 0
-			product.amount = (current_list[1][entry]) ? current_list[1][entry] : 1
-			product.max_amount = product.amount
-			product.category = category
+	R.products = unbuild_inventory(product_records)
+	R.contraband = unbuild_inventory(hidden_records)
+	R.premium = unbuild_inventory(coin_records)
 
-			product_records.Add(product)
+/**
+  * Given a record list, go through and and return a list of type -> amount
+  */
+/obj/machinery/vending/proc/unbuild_inventory(list/recordlist)
+	. = list()
+	for(var/R in recordlist)
+		var/datum/data/vending_product/record = R
+		.[record.product_path] += record.amount
 
 /obj/machinery/vending/ex_act(severity) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
 	switch(severity)
@@ -156,11 +222,6 @@
 		if(3)
 			take_damage(rand(10, 90), BRUTE, "bomb", 0)
 
-/obj/machinery/vending/RefreshParts()         //Better would be to make constructable child
-	if(component_parts)
-		for(var/obj/item/vending_refill/VR in component_parts)
-			refill_inventory(VR, product_records, usr)
-
 /obj/machinery/vending/deconstruct(disassembled = TRUE)
 	eject_item()
 	if(!refill_canister) //the non constructable vendors drop metal instead of a machine frame.
@@ -171,37 +232,6 @@
 
 /obj/machinery/vending/blob_act(obj/structure/blob/B) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
 	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
-
-/obj/machinery/vending/proc/refill_inventory(obj/item/vending_refill/refill, list/machine, mob/user)
-	var/total = 0
-
-	var/to_restock = 0
-	for(var/datum/data/vending_product/machine_content in machine)
-		to_restock += machine_content.max_amount - machine_content.amount
-
-	if(to_restock <= refill.charges)
-		for(var/datum/data/vending_product/machine_content in machine)
-			if(machine_content.amount != machine_content.max_amount)
-				if(user)
-					to_chat(user, "<span class='notice'>[machine_content.max_amount - machine_content.amount] of [machine_content.product_name]</span>")
-				machine_content.amount = machine_content.max_amount
-		refill.charges -= to_restock
-		total = to_restock
-	else
-		var/tmp_charges = refill.charges
-		for(var/datum/data/vending_product/machine_content in machine)
-			var/restock = Ceiling(((machine_content.max_amount - machine_content.amount)/to_restock)*tmp_charges)
-			if(restock > refill.charges)
-				restock = refill.charges
-			machine_content.amount += restock
-			refill.charges -= restock
-			total += restock
-			if(restock)
-				if(user)
-					to_chat(user, "<span class='notice'>[restock] of [machine_content.product_name]</span>")
-			if(refill.charges == 0) //due to rounding, we ran out of refill charges, exit.
-				break
-	return total
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(currently_vending && vendor_account && !vendor_account.suspended)
@@ -245,14 +275,6 @@
 		if(ismultitool(I) || iswirecutter(I))
 			return attack_hand(user)
 		if(component_parts && iscrowbar(I))
-			var/datum/data/vending_product/machine = product_records
-			for(var/datum/data/vending_product/machine_content in machine)
-				while(machine_content.amount !=0)
-					for(var/obj/item/vending_refill/VR in component_parts)
-						VR.charges++
-						machine_content.amount--
-						if(!machine_content.amount)
-							break
 			default_deconstruction_crowbar(I)
 			return
 	if(istype(I, /obj/item/coin) && premium.len)
@@ -260,26 +282,26 @@
 			return
 		I.forceMove(src)
 		coin = I
-		categories |= CAT_COIN
 		to_chat(user, "<span class='notice'>You insert the [I] into the [src]</span>")
 		SSnanoui.update_uis(src)
 		return
-	if(istype(I, refill_canister) && refill_canister != null)
-		if(stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='notice'>It does nothing.</span>")
-		else if(panel_open)
+	if(refill_canister && istype(I, refill_canister))
+		if(!panel_open)
+			to_chat(user, "<span class='warning'>You should probably unscrew the service panel first!</span>")
+		else if (stat & (BROKEN|NOPOWER))
+			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
+		else
 			//if the panel is open we attempt to refill the machine
 			var/obj/item/vending_refill/canister = I
-			if(canister.charges == 0)
-				to_chat(user, "<span class='notice'>This [canister.name] is empty!</span>")
+			if(canister.get_part_rating() == 0)
+				to_chat(user, "<span class='warning'>[canister] is empty!</span>")
 			else
-				var/transfered = refill_inventory(canister,product_records,user)
-				if(transfered)
-					to_chat(user, "<span class='notice'>You loaded [transfered] items in \the [name].</span>")
+				// instantiate canister if needed
+				var/transferred = restock(canister)
+				if(transferred)
+					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
 				else
-					to_chat(user, "<span class='notice'>The [name] is fully stocked.</span>")
-		else
-			to_chat(user, "<span class='notice'>You should probably unscrew the service panel first.</span>")
+					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
 	if(item_slot_check(user, I))
 		insert_item(user, I)
@@ -304,6 +326,32 @@
 		return FALSE
 	return TRUE
 */
+
+/obj/machinery/vending/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
+	if(!istype(W))
+		return FALSE
+	if(!W.works_from_distance)
+		return FALSE
+	if(!component_parts || !refill_canister)
+		return FALSE
+
+	var/moved = 0
+	if(panel_open || W.works_from_distance)
+		if(W.works_from_distance)
+			display_parts(user)
+		for(var/I in W)
+			if(istype(I, refill_canister))
+				moved += restock(I)
+	else
+		display_parts(user)
+	if(moved)
+		to_chat(user, "[moved] items restocked.")
+		W.play_rped_sound()
+	return TRUE
+
+/obj/machinery/vending/on_deconstruction()
+	update_canister()
+	. = ..()
 
 /obj/machinery/vending/proc/insert_item(mob/user, obj/item/I)
 	if(!item_slot || inserted_item)
@@ -397,8 +445,8 @@
 	else
 		// Okay to move the money at this point
 		var/paid = customer_account.charge(currently_vending.price, vendor_account,
-			"Purchase of [currently_vending.product_name]", name, vendor_account.owner_name,
-			"Sale of [currently_vending.product_name]", customer_account.owner_name)
+			"Purchase of [currently_vending.name]", name, vendor_account.owner_name,
+			"Sale of [currently_vending.name]", customer_account.owner_name)
 
 		if(paid)
 			// Give the vendor the money. We use the account owner name, which means
@@ -414,7 +462,7 @@
  */
 /obj/machinery/vending/proc/credit_purchase(var/target as text)
 	vendor_account.money += currently_vending.price
-	vendor_account.credit(currently_vending.price, "Sale of [currently_vending.product_name]",
+	vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
 	name, target)
 
 /obj/machinery/vending/attack_ai(mob/user)
@@ -451,7 +499,7 @@
 	var/list/data = list()
 	if(currently_vending)
 		data["mode"] = 1
-		data["product"] = sanitize(currently_vending.product_name)
+		data["product"] = sanitize(currently_vending.name)
 		data["price"] = currently_vending.price
 		data["message_err"] = 0
 		data["message"] = src.status_message
@@ -460,17 +508,23 @@
 		data["mode"] = 0
 		var/list/listed_products = list()
 
-		for(var/key = 1 to src.product_records.len)
-			var/datum/data/vending_product/I = src.product_records[key]
+		var/list/display_records = product_records + coin_records
+		if(extended_inventory)
+			display_records = product_records + coin_records + hidden_records
 
-			if(!(I.category & src.categories))
+		for(var/key = 1 to display_records.len)
+			var/datum/data/vending_product/I = display_records[key]
+
+			if(coin_records.Find(I) && !coin)
+				continue
+
+			if(hidden_records.Find(I) && !extended_inventory)
 				continue
 
 			listed_products.Add(list(list(
 				"key" = key,
-				"name" = sanitize(I.product_name),
+				"name" = sanitize(I.name),
 				"price" = I.price,
-				"color" = I.display_color,
 				"amount" = I.amount)))
 
 		data["products"] = listed_products
@@ -506,7 +560,6 @@
 		usr.put_in_hands(coin)
 		coin = null
 		to_chat(usr, "<span class='notice'>You remove [coin] from [src].</span>")
-		categories &= ~CAT_COIN
 
 	if(href_list["remove_item"])
 		eject_item(usr)
@@ -544,10 +597,16 @@
 			return
 
 		var/key = text2num(href_list["vend"])
-		var/datum/data/vending_product/R = product_records[key]
+		var/list/display_records = product_records + coin_records
+		if(extended_inventory)
+			display_records = product_records + coin_records + hidden_records
+		var/datum/data/vending_product/R = display_records[key]
 
 		// This should not happen unless the request from NanoUI was bad
-		if(!(R.category & categories))
+		if(coin_records.Find(R) && !coin)
+			return
+
+		if(hidden_records.Find(R) && !extended_inventory)
 			return
 
 		if(R.price <= 0)
@@ -585,7 +644,7 @@
 	status_error = 0
 	SSnanoui.update_uis(src)
 
-	if(R.category & CAT_COIN)
+	if(coin_records.Find(R))
 		if(!coin)
 			to_chat(user, "<span class='notice'>You need to insert a coin to get this item.</span>")
 			return
@@ -595,10 +654,8 @@
 			else
 				to_chat(user, "<span class='notice'>You weren't able to pull the coin out fast enough, the machine ate it, string and all.</span>")
 				QDEL_NULL(coin)
-				categories &= ~CAT_COIN
 		else
 			QDEL_NULL(coin)
-			categories &= ~CAT_COIN
 
 	R.amount--
 
@@ -643,13 +700,6 @@
 	inserted_item.damtype = vended.damtype
 	qdel(vended)
 */
-
-/obj/machinery/vending/proc/stock(datum/data/vending_product/R, mob/user)
-	if(panel_open)
-		to_chat(user, "<span class='notice'>You stock the [src] with \a [R.product_name]</span>")
-		R.amount++
-	updateUsrDialog()
-
 
 /obj/machinery/vending/process()
 	if(stat & (BROKEN|NOPOWER))
@@ -771,6 +821,22 @@
 	vend_delay = 0
 */
 
+/obj/machinery/vending/assist
+	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
+						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
+	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
+	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
+	refill_canister = /obj/item/vending_refill/assist
+
+/obj/machinery/vending/assist/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/assist(null)
+	RefreshParts()
+	return ..()
+
 /obj/machinery/vending/boozeomat
 	name = "\improper Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
@@ -808,21 +874,14 @@
 /obj/machinery/vending/boozeomat/syndicate_access
 	req_access = list(access_syndicate)
 
-/obj/machinery/vending/assist
-	products = list(	/obj/item/assembly/prox_sensor = 5,/obj/item/assembly/igniter = 3,/obj/item/assembly/signaler = 4,
-						/obj/item/wirecutters = 1, /obj/item/cartridge/signal = 4)
-	contraband = list(/obj/item/flashlight = 5,/obj/item/assembly/timer = 2, /obj/item/assembly/voice = 2, /obj/item/assembly/health = 2)
-	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
-
-/obj/machinery/vending/boozeomat/New()
-	..()
+/obj/machinery/vending/boozeomat/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/boozeomat(0)
-	component_parts += new /obj/item/vending_refill/boozeomat(0)
-	component_parts += new /obj/item/vending_refill/boozeomat(0)
+	component_parts += new /obj/item/vending_refill/boozeomat(null)
+	RefreshParts()
+	return ..()
 
 
 /obj/machinery/vending/coffee
@@ -845,15 +904,14 @@
 /obj/machinery/vending/coffee/free
 	prices = list()
 
-/obj/machinery/vending/coffee/New()
-	..()
+/obj/machinery/vending/coffee/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/coffee(0)
-	component_parts += new /obj/item/vending_refill/coffee(0)
-	component_parts += new /obj/item/vending_refill/coffee(0)
+	component_parts += new /obj/item/vending_refill/coffee(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/coffee/item_slot_check(mob/user, obj/item/I)
 	if(!(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)))
@@ -911,15 +969,14 @@
 /obj/machinery/vending/snack/free
 	prices = list()
 
-/obj/machinery/vending/snack/New()
-	..()
+/obj/machinery/vending/snack/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/snack(0)
-	component_parts += new /obj/item/vending_refill/snack(0)
-	component_parts += new /obj/item/vending_refill/snack(0)
+	component_parts += new /obj/item/vending_refill/snack(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/chinese
 	name = "\improper Mr. Chang"
@@ -935,15 +992,14 @@
 /obj/machinery/vending/chinese/free
 	prices = list()
 
-/obj/machinery/vending/chinese/New()
-	..()
+/obj/machinery/vending/chinese/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/chinese(0)
-	component_parts += new /obj/item/vending_refill/chinese(0)
-	component_parts += new /obj/item/vending_refill/chinese(0)
+	component_parts += new /obj/item/vending_refill/chinese(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/cola
 	name = "\improper Robust Softdrinks"
@@ -963,18 +1019,16 @@
 /obj/machinery/vending/cola/free
 	prices = list()
 
-/obj/machinery/vending/cola/New()
-	..()
+/obj/machinery/vending/cola/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/cola(0)
-	component_parts += new /obj/item/vending_refill/cola(0)
-	component_parts += new /obj/item/vending_refill/cola(0)
+	component_parts += new /obj/item/vending_refill/cola(null)
+	RefreshParts()
+	return ..()
 
 
-//This one's from bay12
 /obj/machinery/vending/cart
 	name = "\improper PTech"
 	desc = "Cartridges for PDA's."
@@ -988,9 +1042,19 @@
 	prices = list(/obj/item/pda =300,/obj/item/cartridge/mob_hunt_game = 50,/obj/item/cartridge/medical = 200,/obj/item/cartridge/chemistry = 150,/obj/item/cartridge/engineering = 100,
 					/obj/item/cartridge/atmos = 75,/obj/item/cartridge/janitor = 100,/obj/item/cartridge/signal/toxins = 150,
 					/obj/item/cartridge/signal = 75)
+	refill_canister = /obj/item/vending_refill/cart
 
 /obj/machinery/vending/cart/free
 	prices = list()
+
+/obj/machinery/vending/cart/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/cart(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/liberationstation
 	name = "\improper Liberation Station"
@@ -1006,7 +1070,8 @@
 					/obj/item/gun/projectile/shotgun = 2,/obj/item/gun/projectile/automatic/ar = 2)
 	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2,/obj/item/ammo_box/magazine/m50 = 4,/obj/item/ammo_box/magazine/m45 = 2,/obj/item/ammo_box/magazine/m75 = 2)
 	contraband = list(/obj/item/clothing/under/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+
 
 /obj/machinery/vending/toyliberationstation
 	name = "\improper Syndicate Donksoft Toy Vendor"
@@ -1032,7 +1097,7 @@
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,
 					  /obj/item/toy/cards/deck/syndicate = 10) //Gambling and it hurts, making it a +18 item
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 
 /obj/machinery/vending/cigarette
 	name = "cigarette machine"
@@ -1081,15 +1146,14 @@
 				   /obj/item/lighter/zippo = 3)
 	prices = list()
 
-/obj/machinery/vending/cigarette/New()
-	..()
+/obj/machinery/vending/cigarette/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/cigarette(0)
-	component_parts += new /obj/item/vending_refill/cigarette(0)
-	component_parts += new /obj/item/vending_refill/cigarette(0)
+	component_parts += new /obj/item/vending_refill/cigarette(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/medical
 	name = "\improper NanoMed Plus"
@@ -1108,13 +1172,22 @@
 					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
 					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	refill_canister = /obj/item/vending_refill/medical
 
 /obj/machinery/vending/medical/syndicate_access
 	name = "\improper SyndiMed Plus"
 	req_access = list(access_syndicate)
 
-//This one's from bay12
+/obj/machinery/vending/medical/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/medical(null)
+	RefreshParts()
+	return ..()
+
 /obj/machinery/vending/plasmaresearch
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
@@ -1122,7 +1195,7 @@
 					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
 	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
 
-/obj/machinery/vending/wallmed1
+/obj/machinery/vending/wallmed
 	name = "\improper NanoMed"
 	desc = "Wall-mounted Medical Equipment dispenser."
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?"
@@ -1131,19 +1204,19 @@
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	refill_canister = /obj/item/vending_refill/wallmed
 
-/obj/machinery/vending/wallmed2
-	name = "\improper NanoMed"
-	desc = "Wall-mounted Medical Equipment dispenser."
-	icon_state = "wallmed"
-	icon_deny = "wallmed-deny"
-	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
-	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 5, /obj/item/reagent_containers/syringe/charcoal = 3, /obj/item/stack/medical/bruise_pack = 3,
-					/obj/item/stack/medical/ointment = 3, /obj/item/healthanalyzer = 3)
-	contraband = list(/obj/item/reagent_containers/food/pill/tox = 3)
+/obj/machinery/vending/wallmed/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/wallmed(null)
+	RefreshParts()
+	return ..()
 
-/obj/machinery/vending/wallmed1/syndicate
+/obj/machinery/vending/wallmed/syndicate
 	name = "\improper SyndiMed Plus"
 	desc = "<b>EVIL</b> wall-mounted Medical Equipment dispenser."
 	icon_state = "syndimed"
@@ -1164,6 +1237,16 @@
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/clothing/mask/muzzle/safety = 4)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
+	refill_canister = /obj/item/vending_refill/security
+
+/obj/machinery/vending/security/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/security(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/hydronutrients
 	name = "\improper NutriMax"
@@ -1175,8 +1258,16 @@
 	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 30,/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 20,/obj/item/reagent_containers/glass/bottle/nutrient/rh = 10,/obj/item/reagent_containers/spray/pestspray = 20,
 					/obj/item/reagent_containers/syringe = 5,/obj/item/storage/bag/plants = 5,/obj/item/cultivator = 3,/obj/item/shovel/spade = 3,/obj/item/plant_analyzer = 4)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	refill_canister = /obj/item/vending_refill/hydronutrients
 
-///obj/item/beezeez = 45,
+/obj/machinery/vending/hydronutrients/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/hydronutrients(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
@@ -1195,33 +1286,16 @@
 	contraband = list(/obj/item/seeds/amanita = 2, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2,
 						/obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/cannabis = 3, /obj/item/seeds/starthistle = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
+	refill_canister = /obj/item/vending_refill/hydroseeds
 
-/**
- *  Populate hydroseeds product_records
- *
- *  This needs to be customized to fetch the actual names of the seeds, otherwise
- *  the machine would simply list "packet of seeds" times 20
- */
-/obj/machinery/vending/hydroseeds/build_inventory()
-	var/list/all_products = list(
-		list(products, CAT_NORMAL),
-		list(contraband, CAT_HIDDEN),
-		list(premium, CAT_COIN))
-
-	for(var/current_list in all_products)
-		var/category = current_list[2]
-
-		for(var/entry in current_list[1])
-			var/obj/item/seeds/S = new entry(src)
-			var/name = S.name
-			var/datum/data/vending_product/product = new/datum/data/vending_product(entry, name)
-
-			product.price = (entry in prices) ? prices[entry] : 0
-			product.amount = (current_list[1][entry]) ? current_list[1][entry] : 1
-			product.max_amount = product.amount
-			product.category = category
-
-			product_records.Add(product)
+/obj/machinery/vending/hydroseeds/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/hydroseeds(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/magivend
 	name = "\improper MagiVend"
@@ -1242,7 +1316,7 @@
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
 					/obj/item/twohanded/staff = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
 
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
@@ -1289,15 +1363,14 @@
 	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/shield/riot/roman = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
-/obj/machinery/vending/autodrobe/New()
-	..()
+/obj/machinery/vending/autodrobe/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/autodrobe(0)
-	component_parts += new /obj/item/vending_refill/autodrobe(0)
-	component_parts += new /obj/item/vending_refill/autodrobe(0)
+	component_parts += new /obj/item/vending_refill/autodrobe(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/dinnerware
 	name = "\improper Plasteel Chef's Dinnerware Vendor"
@@ -1319,6 +1392,16 @@
 					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1,
 					/obj/item/kitchen/cutter = 2)
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
+	refill_canister = /obj/item/vending_refill/dinnerware
+
+/obj/machinery/vending/dinnerware/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/dinnerware(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/sovietsoda
 	name = "\improper BODA"
@@ -1327,6 +1410,16 @@
 	product_ads = "For Tsar and Country.;Have you fulfilled your nutrition quota today?;Very nice!;We are simple people, for this is all we eat.;If there is a person, there is a problem. If there is no person, then there is no problem."
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30)
 	contraband = list(/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20)
+	refill_canister = /obj/item/vending_refill/sovietsoda
+
+/obj/machinery/vending/sovietsoda/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/sovietsoda(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/tool
 	name = "\improper YouTool"
@@ -1338,7 +1431,7 @@
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
 
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
@@ -1349,8 +1442,17 @@
 	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
+	refill_canister = /obj/item/vending_refill/engivend
 
-//This one's from bay12
+/obj/machinery/vending/engivend/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/engivend(null)
+	RefreshParts()
+	return ..()
+
 /obj/machinery/vending/engineering
 	name = "\improper Robco Tool Maker"
 	desc = "Everything you need for do-it-yourself station repair."
@@ -1363,11 +1465,17 @@
 					/obj/item/stack/cable_coil/heavyduty = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10,/obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5,/obj/item/stock_parts/micro_laser = 5,
 					/obj/item/stock_parts/matter_bin = 5,/obj/item/stock_parts/manipulator = 5,/obj/item/stock_parts/console_screen = 5)
-	// There was an incorrect entry (cablecoil/power).  I improvised to cablecoil/heavyduty.
-	// Another invalid entry, /obj/item/circuitry.  I don't even know what that would translate to, removed it.
-	// The original products list wasn't finished.  The ones without given quantities became quantity 5.  -Sayu
+	refill_canister = /obj/item/vending_refill/engineering
 
-//This one's from bay12
+/obj/machinery/vending/engineering/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/engineering(null)
+	RefreshParts()
+	return ..()
+
 /obj/machinery/vending/robotics
 	name = "\improper Robotech Deluxe"
 	desc = "All the tools you need to create your own robot army."
@@ -1378,7 +1486,16 @@
 					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
 					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
-	//everything after the power cell had no amounts, I improvised.  -Sayu
+	refill_canister = /obj/item/vending_refill/robotics
+
+/obj/machinery/vending/robotics/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/robotics(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
@@ -1389,7 +1506,20 @@
 	products = list(/obj/item/reagent_containers/food/snacks/tofu = 24,
 					/obj/item/reagent_containers/food/drinks/ice = 12,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
-	contraband = list(/obj/item/kitchen/knife = 6)
+	contraband = list(/obj/item/kitchen/knife = 6,
+					  /obj/item/reagent_containers/food/drinks/coffee = 12,
+					  /obj/item/tank/emergency_oxygen = 6,
+					  /obj/item/clothing/mask/breath = 6)
+	refill_canister = /obj/item/vending_refill/sustenance
+
+/obj/machinery/vending/sustenance/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/sustenance(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/hatdispenser
 	name = "\improper Hatlord 9000"
@@ -1406,6 +1536,15 @@
 	premium = list(/obj/item/clothing/head/soft/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
+/obj/machinery/vending/hatdispenser/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/hatdispenser(null)
+	RefreshParts()
+	return ..()
+
 /obj/machinery/vending/suitdispenser
 	name = "\improper Suitlord 9000"
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
@@ -1418,6 +1557,15 @@
 	premium = list(/obj/item/clothing/under/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
+/obj/machinery/vending/suitdispenser/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/suitdispenser(null)
+	RefreshParts()
+	return ..()
+
 /obj/machinery/vending/shoedispenser
 	name = "\improper Shoelord 9000"
 	desc = "Wow, hatlord looked fancy, suitlord looked streamlined, and this is just normal. The guy who designed these must be an idiot."
@@ -1427,6 +1575,15 @@
 	contraband = list(/obj/item/clothing/shoes/orange = 5)
 	premium = list(/obj/item/clothing/shoes/rainbow = 1)
 	refill_canister = /obj/item/vending_refill/shoedispenser
+
+/obj/machinery/vending/shoedispenser/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/shoedispenser(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
@@ -1445,9 +1602,7 @@
 	icon_state = "snack"
 	products = list(/obj/item/reagent_containers/food/snacks/chips =6,/obj/item/reagent_containers/food/snacks/sosjerky = 6,
 					/obj/item/reagent_containers/food/snacks/syndicake = 6, /obj/item/reagent_containers/food/snacks/cheesiehonkers = 6)
-	refill_canister = /obj/item/vending_refill/snack
 
-//This one's from NTstation
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/vending/clothing
 	name = "\improper  ClothesMate" //renamed to make the slogan rhyme
@@ -1542,15 +1697,14 @@
 
 	refill_canister = /obj/item/vending_refill/clothing
 
-/obj/machinery/vending/clothing/New()
-	..()
+/obj/machinery/vending/clothing/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/clothing(0)
-	component_parts += new /obj/item/vending_refill/clothing(0)
-	component_parts += new /obj/item/vending_refill/clothing(0)
+	component_parts += new /obj/item/vending_refill/clothing(null)
+	RefreshParts()
+	return ..()
 
 /obj/machinery/vending/artvend
 	name = "\improper ArtVend"
@@ -1591,12 +1745,54 @@
 /obj/machinery/vending/crittercare/free
 	prices = list()
 
-/obj/machinery/vending/crittercare/New()
-	..()
+/obj/machinery/vending/crittercare/Initialize(mapload)
 	component_parts = list()
 	var/obj/item/circuitboard/vendor/V = new(null)
 	V.set_type(type)
 	component_parts += V
-	component_parts += new /obj/item/vending_refill/crittercare(0)
-	component_parts += new /obj/item/vending_refill/crittercare(0)
-	component_parts += new /obj/item/vending_refill/crittercare(0)
+	component_parts += new /obj/item/vending_refill/crittercare(null)
+	RefreshParts()
+	return ..()
+
+/obj/machinery/vending/modularpc
+	name = "\improper Deluxe Silicate Selections"
+	desc = "All the parts you need to build your own custom pc."
+	icon_state = "modularpc"
+	icon_deny = "modularpc-deny"
+	product_ads = "Get your gamer gear!;The best GPUs for all of your space-crypto needs!;The most robust cooling!;The finest RGB in space!"
+	vend_reply = "Game on!"
+	products = list(/obj/item/modular_computer/laptop = 4,
+					/obj/item/modular_computer/tablet = 4,
+					/obj/item/computer_hardware/hard_drive = 4,
+					/obj/item/computer_hardware/hard_drive/small = 4,
+					/obj/item/computer_hardware/network_card = 8,
+					/obj/item/computer_hardware/hard_drive/portable = 8,
+					/obj/item/computer_hardware/battery = 8,
+					/obj/item/stock_parts/cell/computer = 8,
+					/obj/item/computer_hardware/processor_unit = 4,
+					/obj/item/computer_hardware/processor_unit/small = 4)
+	premium = list(/obj/item/computer_hardware/card_slot = 2,
+		           /obj/item/computer_hardware/ai_slot = 2,
+		           /obj/item/computer_hardware/printer/mini = 2,
+		           /obj/item/computer_hardware/recharger/APC = 2,
+		           /obj/item/paicard = 2)
+	prices = list(/obj/item/modular_computer/laptop = 300,
+					/obj/item/modular_computer/tablet = 300,
+					/obj/item/computer_hardware/hard_drive = 100,
+					/obj/item/computer_hardware/hard_drive/small = 50,
+					/obj/item/computer_hardware/network_card = 100,
+					/obj/item/computer_hardware/hard_drive/portable = 100,
+					/obj/item/computer_hardware/battery = 100,
+					/obj/item/stock_parts/cell/computer = 100,
+					/obj/item/computer_hardware/processor_unit = 100,
+					/obj/item/computer_hardware/processor_unit/small = 100)
+	refill_canister = /obj/item/vending_refill/modularpc
+
+/obj/machinery/vending/modularpc/Initialize(mapload)
+	component_parts = list()
+	var/obj/item/circuitboard/vendor/V = new(null)
+	V.set_type(type)
+	component_parts += V
+	component_parts += new /obj/item/vending_refill/modularpc(null)
+	RefreshParts()
+	return ..()
