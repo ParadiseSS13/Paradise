@@ -17,11 +17,6 @@
 	return dat
 
 /obj/item/implant/traitor/implant(mob/M, mob/user)
-
-	if(!user.mind.has_antag_datum(/datum/antagonist))  // if the user isnt an antagonist at all, don't let them use it
-		to_chat(user, "<span class='warning'><i>You lack the training required to use this type of implant.</i></span>")
-		return 0
-	
 	if(!M.mind)  // If the target is catatonic or doesn't have a mind, don't let them use it
 		to_chat(user, "<span class='warning'><i>This person doesn't have a mind for you to slave!</i></span>")
 		return 0

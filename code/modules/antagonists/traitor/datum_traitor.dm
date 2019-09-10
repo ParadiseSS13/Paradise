@@ -1,4 +1,3 @@
-
 #define TRAITOR_HUMAN "human"
 #define TRAITOR_AI	  "AI"
 
