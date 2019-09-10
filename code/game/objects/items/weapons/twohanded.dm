@@ -337,13 +337,22 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
+	var/icon_prefix = "spearglass"
 
 /obj/item/twohanded/spear/update_icon()
-	if(explosive)
-		icon_state = "spearbomb[wielded]"
-	else
-		icon_state = "spearglass[wielded]"
+	icon_state = "[icon_prefix][wielded]"
+
+/obj/item/twohanded/spear/CheckParts(list/parts_list)
+	var/obj/item/shard/tip = locate() in parts_list
+	if(istype(tip, /obj/item/shard/plasma))
+		force_wielded = 19
+		force_unwielded = 11
+		throwforce = 21
+		icon_prefix = "spearplasma"
+	update_icon()
+	qdel(tip)
 	..()
+
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -370,9 +379,7 @@
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
 	armour_penetration = 15				//Enhanced armor piercing
-
-/obj/item/twohanded/spear/bonespear/update_icon()
-	icon_state = "bone_spear[wielded]"
+	icon_prefix = "bone_spear"
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
