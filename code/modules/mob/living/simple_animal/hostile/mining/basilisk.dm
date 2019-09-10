@@ -132,7 +132,7 @@
 	. = ..()
 	if(.)
 		var/mob/living/L = target
-		if (istype(L))
+		if(istype(L))
 			L.adjust_fire_stacks(0.1)
 			L.IgniteMob()
 
@@ -140,6 +140,13 @@
 	damage = 5
 	damage_type = BURN
 	nodamage = FALSE
+
+/obj/item/projectile/temp/basilisk/icewing/on_hit(atom/target, blocked = FALSE)
+	. = ..()
+	if(.)
+		var/mob/living/L = target
+		if(istype(L))
+			L.apply_status_effect(/datum/status_effect/freon/watcher)
 
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril
 	fromtendril = TRUE

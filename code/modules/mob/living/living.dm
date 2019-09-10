@@ -617,6 +617,8 @@
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
+
 	if(!restrained())
 		if(resist_grab())
 			return
