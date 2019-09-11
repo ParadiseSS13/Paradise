@@ -1108,21 +1108,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 35
 
-/datum/uplink_item/stealthy_tools/syndigaloshes
-	name = "No-Slip Chameleon Shoes"
-	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
-			They do not work on heavily lubricated surfaces."
-	reference = "NSSS"
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	reference = "TNSSS"
-	cost = 4 //but they aren't
-	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/stealthy_tools/chamsechud
 	name = "Chameleon Security HUD"
 	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
@@ -1168,8 +1153,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
+	cost = 4
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/chameleon/nuke
+	reference = "NCHAM"
+	cost = 6
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes
+	name = "No-Slip Chameleon Shoes"
+	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
+			They do not work on heavily lubricated surfaces."
+	reference = "NSSS"
+	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
 	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
+	reference = "NNSSS"
+	cost = 4
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
