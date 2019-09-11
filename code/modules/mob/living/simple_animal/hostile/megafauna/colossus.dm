@@ -231,6 +231,16 @@ Difficulty: Very Hard
 	target = new_target
 	INVOKE_ASYNC(src, /atom/movable/proc/orbit, target, 0, FALSE, 0, 0, FALSE, TRUE)
 
+/mob/living/simple_animal/hostile/megafauna/colossus/bullet_act(obj/item/projectile/P)
+	if(!stat)
+		var/obj/effect/temp_visual/at_shield/AT = new /obj/effect/temp_visual/at_shield(loc, src)
+		var/random_x = rand(-32, 32)
+		AT.pixel_x += random_x
+
+		var/random_y = rand(0, 72)
+		AT.pixel_y += random_y
+	return ..()
+
 /obj/item/projectile/colossus
 	name ="death bolt"
 	icon_state= "chronobolt"
