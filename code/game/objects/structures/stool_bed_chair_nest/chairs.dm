@@ -133,6 +133,9 @@
 
 // Chair types
 /obj/structure/chair/wood
+	name = "wooden chair"
+	desc = "Old is never too old to not be in fashion."
+	icon_state = "wooden_chair"
 	burn_state = FLAMMABLE
 	burntime = 20
 	buildstackamount = 3
@@ -142,15 +145,8 @@
 /obj/structure/chair/wood/narsie_act()
 	return
 
-/obj/structure/chair/wood/normal
-	icon_state = "wooden_chair"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
-
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
 	item_chair = /obj/item/chair/wood/wings
 
 /obj/structure/chair/comfy

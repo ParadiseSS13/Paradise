@@ -13578,7 +13578,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aya" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "ayb" = (
@@ -14935,7 +14935,7 @@
 	name = "Port Maintenance"
 	})
 "aAB" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -14952,7 +14952,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -15652,7 +15652,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
 "aBS" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -21926,7 +21926,7 @@
 	name = "\improper Warehouse"
 	})
 "aMA" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
