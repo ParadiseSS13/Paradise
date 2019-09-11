@@ -9,7 +9,7 @@
 	throw_range = 2
 	throw_speed = 1
 	layer = 4
-	pressure_resistance = 1
+	pressure_resistance = 2
 	attack_verb = list("bapped")
 	var/amount = 0 //Amount of items clipped to the paper. Note: If you have 2 paper, this should be 1
 	var/page = 1

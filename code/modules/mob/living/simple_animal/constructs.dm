@@ -18,6 +18,7 @@
 	minbodytemp = 0
 	faction = list("cult")
 	flying = 1
+	pressure_resistance = 100
 	universal_speak = 1
 	AIStatus = AI_OFF //normal constructs don't have AI
 	var/const_type = "shade"

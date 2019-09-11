@@ -8,7 +8,7 @@
 	slot_flags = SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
-	pressure_resistance = ONE_ATMOSPHERE*5
+	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5.0
 	throwforce = 10.0
 	throw_speed = 1
