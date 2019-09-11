@@ -336,6 +336,31 @@
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
 
+/datum/reagent/consumable/garlic
+	name = "Garlic Juice"
+	id = "garlic"
+	description = "Crushed garlic. Chefs love it, but it can make you smell bad."
+	color = "#FEFEFE"
+	taste_description = "garlic"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+			if(prob(min(25, current_cycle)))
+				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
+				H.Weaken(1)
+				H.Jitter(10)
+				H.fakevomit()
+		else
+			if(H.job == "Chef")
+				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
+					update_flags |= H.adjustBruteLoss(-1, FALSE)
+					update_flags |= H.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
+
 /datum/reagent/consumable/sprinkles
 	name = "Sprinkles"
 	id = "sprinkles"
