@@ -105,7 +105,12 @@
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
-
+		if(istype(I, /obj/item/shard/plasma))
+			S.force_wielded = 19
+			S.force_unwielded = 11
+			S.throwforce = 21
+			S.icon_prefix = "spearplasma"
+			S.update_icon()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
 		user.unEquip(I)
