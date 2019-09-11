@@ -359,7 +359,7 @@
 				
 		if(STAMINA)
 			if(organ.receive_damage(0, 0, damage, sharp, used_weapon))
-				UpdateDamageIcon()
+				H.UpdateDamageIcon()
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	H.updatehealth("apply damage")
 	return 1
