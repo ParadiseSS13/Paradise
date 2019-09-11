@@ -437,16 +437,17 @@ emp_act
 					visible_message("<span class='danger'>[M] has tried to disarm [src]!</span>")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
-	if(..())
+	. = ..()
+	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
-			return 0
+			return FALSE
 		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		if(!affecting)
+			affecting = get_organ("chest")
+		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
-		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
-		if(affected)
-			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 
