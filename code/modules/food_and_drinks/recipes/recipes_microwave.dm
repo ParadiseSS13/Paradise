@@ -237,7 +237,7 @@
 
 /datum/recipe/microwave/nettlesoup
 	reagents = list("water" = 10)
-	items = list(/obj/item/reagent_containers/food/snacks/egg, /obj/item/grown/nettle/basic, /obj/item/reagent_containers/food/snacks/grown/potato)
+	items = list(/obj/item/reagent_containers/food/snacks/egg, /obj/item/reagent_containers/food/snacks/grown/nettle/basic, /obj/item/reagent_containers/food/snacks/grown/potato)
 	result = /obj/item/reagent_containers/food/snacks/nettlesoup
 
 /datum/recipe/microwave/wishsoup

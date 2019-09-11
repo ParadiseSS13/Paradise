@@ -4,7 +4,7 @@
 	icon_state = "seed-nettle"
 	species = "nettle"
 	plantname = "Nettles"
-	product = /obj/item/grown/nettle/basic
+	product = /obj/item/reagent_containers/food/snacks/grown/nettle
 	lifespan = 30
 	endurance = 40 // tuff like a toiger
 	yield = 4
@@ -19,7 +19,7 @@
 	icon_state = "seed-deathnettle"
 	species = "deathnettle"
 	plantname = "Death Nettles"
-	product = /obj/item/grown/nettle/death
+	product = /obj/item/reagent_containers/food/snacks/grown/nettle/death
 	endurance = 25
 	maturation = 8
 	yield = 2
@@ -28,7 +28,8 @@
 	reagents_add = list("facid" = 0.5, "sacid" = 0.5)
 	rarity = 20
 
-/obj/item/grown/nettle //abstract type
+/obj/item/reagent_containers/food/snacks/grown/nettle // "snack"
+	seed = /obj/item/seeds/nettle
 	name = "nettle"
 	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
 	icon = 'icons/obj/items.dmi'
@@ -43,11 +44,11 @@
 	origin_tech = "combat=3"
 	attack_verb = list("stung")
 
-/obj/item/grown/nettle/suicide_act(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/nettle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS|TOXLOSS
 
-/obj/item/grown/nettle/pickup(mob/living/user)
+/obj/item/reagent_containers/food/snacks/grown/nettle/pickup(mob/living/user)
 	..()
 	if(!ishuman(user))
 		return TRUE
@@ -64,7 +65,7 @@
 
 
 
-/obj/item/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
+/obj/item/reagent_containers/food/snacks/grown/nettle/afterattack(atom/A as mob|obj, mob/user,proximity)
 	if(!proximity)
 		return
 	if(force > 0)
@@ -74,14 +75,14 @@
 		usr.unEquip(src)
 		qdel(src)
 
-/obj/item/grown/nettle/basic
+/obj/item/reagent_containers/food/snacks/grown/nettle/basic
 	seed = /obj/item/seeds/nettle
 
-/obj/item/grown/nettle/basic/add_juice()
+/obj/item/reagent_containers/food/snacks/grown/nettle/basic/add_juice()
 	..()
 	force = round((5 + seed.potency / 5), 1)
 
-/obj/item/grown/nettle/death
+/obj/item/reagent_containers/food/snacks/grown/nettle/death
 	seed = /obj/item/seeds/nettle/death
 	name = "deathnettle"
 	desc = "The <span class='danger'>glowing</span> nettle incites <span class='boldannounce'>rage</span> in you just from looking at it!"
@@ -90,11 +91,11 @@
 	throwforce = 15
 	origin_tech = "combat=5"
 
-/obj/item/grown/nettle/death/add_juice()
+/obj/item/reagent_containers/food/snacks/grown/nettle/death/add_juice()
 	..()
 	force = round((5 + seed.potency / 2.5), 1)
 
-/obj/item/grown/nettle/death/pickup(mob/living/carbon/user)
+/obj/item/reagent_containers/food/snacks/grown/nettle/death/pickup(mob/living/carbon/user)
 	. = ..()
 	if(. && ishuman(user)) // If the pickup succeeded and is humanoid
 		var/mob/living/carbon/human/H = user
@@ -102,7 +103,7 @@
 			user.Paralyse(5)
 			to_chat(user, "<span class='userdanger'>You are stunned by the Deathnettle when you try picking it up!</span>")
 
-/obj/item/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
+/obj/item/reagent_containers/food/snacks/grown/nettle/death/attack(mob/living/carbon/M, mob/user)
 	..()
 	if(isliving(M))
 		to_chat(M, "<span class='danger'>You are stunned by the powerful acid of the Deathnettle!</span>")

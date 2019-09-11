@@ -941,7 +941,7 @@
 	id = "entpoly"
 	description = "An ichor, derived from a certain mushroom, makes for a bad time."
 	color = "#1d043d"
-	taste_description = "mold"
+	taste_description = "bitter mushroom"
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -960,13 +960,13 @@
 	id = "tinlux"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
-	var/light_activated = 0
-	taste_description = "mold"
+	var/light_activated = FALSE
+	taste_description = "tingling mushroom"
 
 /datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
 	if(!light_activated)
 		M.set_light(2)
-		light_activated = 1
+		light_activated = TRUE
 	return ..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
@@ -978,7 +978,7 @@
 	description = "A bubbly paste that heals wounds of the skin."
 	color = "#d3a308"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
-	taste_description = "sweetness"
+	taste_description = "fruity mushroom"
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
