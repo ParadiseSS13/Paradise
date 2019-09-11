@@ -40,14 +40,16 @@
 	if(!istype(targloc) || !istype(curloc) || !BB)
 		return 0
 	BB.ammo_casing = src
-	
+
 	if(target && get_dist(user, target) <= 1) //Point blank shot must always hit
+		BB.prehit(target)
 		target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return 1
 
 	if(targloc == curloc)
 		if(target) //if the target is right on our location we go straight to bullet_act()
+			BB.prehit(target)
 			target.bullet_act(BB, BB.def_zone)
 		QDEL_NULL(BB)
 		return 1

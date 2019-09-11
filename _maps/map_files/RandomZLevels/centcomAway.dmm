@@ -1059,8 +1059,8 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/awaymission/centcomAway/maint)
 "cO" = (
 /obj/structure/cable{
@@ -1082,8 +1082,8 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/awaymission/centcomAway/maint)
 "cP" = (
 /obj/structure/table/reinforced,
@@ -1105,7 +1105,7 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "cS" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -1166,7 +1166,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "da" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -1215,7 +1215,7 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "dg" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -1310,12 +1310,12 @@
 	},
 /area/awaymission/centcomAway/hangar)
 "dr" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor,
 /area/awaymission/centcomAway/hangar)
@@ -1551,8 +1551,8 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/awaymission/centcomAway/maint)
 "dV" = (
 /obj/structure/closet/crate,
@@ -1646,8 +1646,8 @@
 	pixel_y = 0;
 	tag = ""
 	},
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/awaymission/centcomAway/maint)
 "ei" = (
 /obj/structure/table,
@@ -1694,8 +1694,8 @@
 "eo" = (
 /obj/structure/cable,
 /obj/machinery/power/tracker,
-/turf/space,
 /obj/structure/lattice/catwalk,
+/turf/space,
 /area/awaymission/centcomAway/maint)
 "ep" = (
 /obj/structure/table,
@@ -1972,7 +1972,7 @@
 /turf/simulated/shuttle/floor,
 /area/awaymission/centcomAway/hangar)
 "fc" = (
-/obj/structure/chair,
+/obj/structure/chair/comfy/shuttle,
 /turf/simulated/shuttle/floor,
 /area/awaymission/centcomAway/hangar)
 "fd" = (
@@ -2368,13 +2368,6 @@
 	dir = 5
 	},
 /area/awaymission/centcomAway/general)
-"gb" = (
-/obj/structure/chair{
-	dir = 4;
-	name = "Prosecution"
-	},
-/turf/simulated/shuttle/floor,
-/area/awaymission/centcomAway/hangar)
 "gc" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2966,6 +2959,9 @@
 	},
 /obj/item/radio/intercom{
 	pixel_y = 25
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
 	},
 /turf/simulated/shuttle/floor,
 /area/awaymission/centcomAway/hangar)
@@ -4076,7 +4072,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
 "kb" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/russian/ranged{
@@ -6814,6 +6810,15 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/thunderdome)
+"Di" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor,
+/area/awaymission/centcomAway/hangar)
 
 (1,1,1) = {"
 aa
@@ -11426,7 +11431,7 @@ gX
 gX
 gX
 bP
-dg
+Di
 bP
 oc
 aW
@@ -12205,7 +12210,7 @@ jz
 gX
 gX
 bP
-dg
+Di
 bP
 gX
 gX
@@ -12324,7 +12329,7 @@ bY
 cq
 ei
 bO
-gb
+dg
 cq
 hH
 fA

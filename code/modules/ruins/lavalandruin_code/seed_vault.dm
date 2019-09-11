@@ -17,7 +17,7 @@
 	density = TRUE
 	roundstart = FALSE
 	death = FALSE
-	mob_species = /datum/species/diona
+	mob_species = /datum/species/diona/pod
 	flavour_text = "<span class='big bold'>You are a sentient ecosystem,</span><b> an example of the mastery over life that your creators possessed. Your masters, benevolent as they were, created uncounted \
 	seed vaults and spread them across the universe to every planet they could chart. You are in one such seed vault. Your goal is to cultivate and spread life wherever it will go while waiting \
 	for contact from your creators. Estimated time of last contact: Deployment, 5x10^3 millennia ago.</b>"

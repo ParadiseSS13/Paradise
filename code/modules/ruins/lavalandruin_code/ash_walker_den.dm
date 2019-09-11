@@ -9,7 +9,7 @@
 	anchored = TRUE
 	density = TRUE
 
-	resistance_flags = FIRE_PROOF | LAVA_PROOF
+	burn_state = LAVA_PROOF
 	max_integrity = 200
 
 	var/faction = list("ashwalker")

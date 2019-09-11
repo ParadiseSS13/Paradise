@@ -10,6 +10,8 @@
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
+	emote_taunt = list("gnashes")
+	taunt_chance = 30
 	speed = 0
 	maxHealth = 25
 	health = 25
@@ -28,6 +30,7 @@
 
 	faction = list("carp")
 	flying = 1
+	pressure_resistance = 200
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 	var/carp_color = "carp" //holder for icon set
@@ -50,14 +53,9 @@
 /mob/living/simple_animal/hostile/carp/Process_Spacemove(var/movement_dir = 0)
 	return 1	//No drifting in space for space carp!	//original comments do not steal
 
-/mob/living/simple_animal/hostile/carp/FindTarget()
-	. = ..()
-	if(.)
-		custom_emote(1, "gnashes at [.]!")
-
 /mob/living/simple_animal/hostile/carp/AttackingTarget()
-	..()
-	if(ishuman(target))
+	. = ..()
+	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.adjustStaminaLoss(8)
 

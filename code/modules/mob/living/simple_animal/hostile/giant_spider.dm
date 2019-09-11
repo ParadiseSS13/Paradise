@@ -40,8 +40,8 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
 	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
-	..()
-	if(venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
+	. = ..()
+	if(. && venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/carbon/C = target
 		var/inject_target = pick("chest", "head")
 		if(C.can_inject(null, 0, inject_target, 0))
@@ -76,20 +76,19 @@
 	venom_per_bite = 10
 	move_to_delay = 5
 
-/mob/living/simple_animal/hostile/poison/giant_spider/hunter/handle_automated_action()
-	if(!..()) //AIStatus is off
-		return
+/mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement() //Hacky and ugly.
+	. = ..()
 	if(AIStatus == AI_IDLE)
 		//1% chance to skitter madly away
 		if(!busy && prob(1))
 			stop_automated_movement = 1
-			Goto(pick(orange(20, src)), move_to_delay)
+			Goto(pick(urange(20, src, 1)), move_to_delay)
 			spawn(50)
 				stop_automated_movement = 0
 				walk(src,0)
 		return 1
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(var/C)
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
 		if(busy == MOVING_TO_TARGET)
 			if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
@@ -97,13 +96,13 @@
 			busy = 0
 			stop_automated_movement = 0
 
-/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_movement() //Hacky and ugly.
 	if(..())
 		var/list/can_see = view(src, 10)
 		if(!busy && prob(30))	//30% chance to stop wandering and do something
-		//first, check for potential food nearby to cocoon
+			//first, check for potential food nearby to cocoon
 			for(var/mob/living/C in can_see)
-				if(C.stat && !istype(C,/mob/living/simple_animal/hostile/poison/giant_spider))
+				if(C.stat && !istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && !C.anchored)
 					cocoon_target = C
 					busy = MOVING_TO_TARGET
 					Goto(C, move_to_delay)
@@ -123,13 +122,14 @@
 					for(var/obj/O in can_see)
 						if(O.anchored)
 							continue
-							if(istype(O, /obj/item) || istype(O, /obj/structure) || istype(O, /obj/machinery))
-								cocoon_target = O
-								busy = MOVING_TO_TARGET
-								stop_automated_movement = 1
-								Goto(O, move_to_delay)
-								//give up if we can't reach them after 10 seconds
-								GiveUp(O)
+
+						if(isitem(O) || isstructure(O) || ismachinery(O))
+							cocoon_target = O
+							busy = MOVING_TO_TARGET
+							stop_automated_movement = 1
+							Goto(O, move_to_delay)
+							//give up if we can't reach them after 10 seconds
+							GiveUp(O)
 
 		else if(busy == MOVING_TO_TARGET && cocoon_target)
 			if(get_dist(src, cocoon_target) <= 1)

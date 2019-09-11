@@ -81,7 +81,7 @@
 
 	// Once at least one egg has hatched from you, you'll need help to reach medbay.
 	if(eggs_hatched >= 1)
-		owner.Confused(2)
+		owner.SetConfused(45)
 
 	if(egg_progress > egg_progress_per_hatch)
 		egg_progress -= egg_progress_per_hatch

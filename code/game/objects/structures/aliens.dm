@@ -235,14 +235,22 @@
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
 
+/obj/structure/alien/egg/grown
+	status = GROWN
+	icon_state = "egg"
+
+/obj/structure/alien/egg/burst
+	status = BURST
+	icon_state = "egg_hatched"
 
 /obj/structure/alien/egg/New()
 	new /obj/item/clothing/mask/facehugger(src)
 	..()
-	spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
-		Grow()
 	if(status == BURST)
 		obj_integrity = integrity_failure
+	else if(status != GROWN)
+		spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+		Grow()
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)

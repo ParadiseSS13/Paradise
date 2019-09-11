@@ -26,11 +26,12 @@
 			stat(null, "Stealth Cooldown Remaining: [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
-	..()
-	if(toggle && (isliving(target) || istype(target, /obj/structure/window) || istype(target, /obj/structure/grille)))
-		ToggleMode(1)
+	. = ..()
+	if(.)
+		if(toggle && (isliving(target) || istype(target, /obj/structure/window) || istype(target, /obj/structure/grille)))
+			ToggleMode(1)
 
-/mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(. > 0 && toggle)
 		ToggleMode(1)

@@ -100,15 +100,20 @@
 	height = 400
 	immediate_submit = TRUE
 
+/datum/async_input/ranked/New()
+	..()
+	popup.add_script("rankedInput.js", 'html/browser/rankedInput.js')
+	popup.add_head_content("<title>Drag and drop or use the buttons to reorder</title>")
+
 /datum/async_input/ranked/render_choices()
 	var/dat = "<div>"
-	dat += "<table style='margin: auto; text-align: left;'>"
+	dat += "<table id='choices' uid=[UID()] style='margin: auto; text-align: left;'>"
 	for(var/i = 1, i <= choices.len, i++)
 		var/choice = choices[i]
 		dat += "<tr>"
 		dat += "<td>[button("+", i != 1 ? "upvote=[i]" : "", , i == 1)]</td>"
 		dat += "<td>[button("-", i != choices.len ? "downvote=[i]" : "", , i == choices.len)]</td>"
-		dat += "<td>[i]. [choice]</td>"
+		dat += "<td style='cursor: move;' index='[i]'  ondrop='drop(event)' ondragover='allowDrop(event)' draggable='true' ondragstart='drag(event)'>[i]. [choice]</td>"
 		dat += "</tr>"
 	dat += "</table>"
 	dat += "</div>"
@@ -128,6 +133,15 @@
 	if(href_list["downvote"])
 		var/index = text2num(href_list["downvote"])
 		choices.Swap(index, index + 1)
+		show()
+		return
+
+	if(href_list["cut"] && href_list["insert"])
+		var/cut = text2num(href_list["cut"])
+		var/insert = text2num(href_list["insert"])
+		var/choice = choices[cut]
+		choices.Cut(cut, cut + 1)
+		choices.Insert(insert, choice)
 		show()
 		return
 

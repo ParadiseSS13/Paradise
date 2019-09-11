@@ -4,7 +4,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "alienh_running"
 	icon_living = "alienh_running"
-	icon_dead = "alien_l"
+	icon_dead = "alienh_dead"
 	icon_gib = "syndicate_gib"
 	response_help = "pokes the"
 	response_disarm = "shoves the"
@@ -24,8 +24,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	heat_damage_per_tick = 20
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120   //120 kPa difference required to throw
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
@@ -40,7 +38,7 @@
 	name = "alien drone"
 	icon_state = "aliend_running"
 	icon_living = "aliend_running"
-	icon_dead = "aliend_l"
+	icon_dead = "aliend_dead"
 	health = 60
 	maxHealth = 60
 	melee_damage_lower = 15
@@ -61,7 +59,7 @@
 	name = "alien sentinel"
 	icon_state = "aliens_running"
 	icon_living = "aliens_running"
-	icon_dead = "aliens_l"
+	icon_dead = "aliens_dead"
 	health = 120
 	maxHealth = 120
 	melee_damage_lower = 15
@@ -77,7 +75,7 @@
 	name = "alien queen"
 	icon_state = "alienq_running"
 	icon_living = "alienq_running"
-	icon_dead = "alienq_l"
+	icon_dead = "alienq_d"
 	health = 250
 	maxHealth = 250
 	melee_damage_lower = 15
@@ -158,7 +156,8 @@
 		if(istype(target, /obj/effect/decal/cleanable))
 			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
 			qdel(target)
-			return
+			return TRUE
 		var/atom/movable/M = target
 		M.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+		return TRUE
