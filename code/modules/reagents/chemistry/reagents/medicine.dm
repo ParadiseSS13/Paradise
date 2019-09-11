@@ -1,6 +1,7 @@
 /datum/reagent/medicine
 	name = "Medicine"
 	id = "medicine"
+	taste_description = "bitterness"
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
@@ -728,7 +729,7 @@
 	id = "mannitol"
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
-	taste_description = "neurogenisis"
+	taste_description = "sweetness"
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -786,6 +787,7 @@
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
 	can_synth = FALSE
+	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

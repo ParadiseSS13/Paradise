@@ -17997,7 +17997,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aGk" = (
@@ -32001,7 +32001,7 @@
 	},
 /area/hallway/primary/central/north)
 "biP" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -32014,7 +32014,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "biR" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -72462,7 +72462,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cSX" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -72707,7 +72707,7 @@
 	name = "\improper Tesla and Singularity Engine"
 	})
 "cUi" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cUl" = (
@@ -76242,9 +76242,12 @@
 "dhq" = (
 /obj/machinery/light,
 /obj/item/radio/intercom{
+	broadcasting = 0;
+	listening = 1;
+	name = "station intercom (General)";
 	pixel_y = -28
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -89537,7 +89540,7 @@
 	},
 /area/storage/secure)
 "nab" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,

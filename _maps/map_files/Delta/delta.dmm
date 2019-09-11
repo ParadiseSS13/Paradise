@@ -22514,7 +22514,7 @@
 	},
 /area/crew_quarters/bar/atrium)
 "aRy" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "aRz" = (
@@ -23422,7 +23422,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -24305,7 +24305,7 @@
 	},
 /area/crew_quarters/bar/atrium)
 "aUH" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -89006,7 +89006,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -89016,12 +89016,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "dcT" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -90537,7 +90537,7 @@
 /area/maintenance/gambling_den)
 "dfP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood{
@@ -91371,7 +91371,7 @@
 	},
 /area/maintenance/gambling_den)
 "dhw" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -91380,7 +91380,7 @@
 /area/maintenance/gambling_den)
 "dhx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -92327,7 +92327,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "diY" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -92346,7 +92346,7 @@
 /area/maintenance/gambling_den)
 "dja" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -93121,7 +93121,7 @@
 	},
 /area/maintenance/gambling_den)
 "dkr" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -94305,7 +94305,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction)
 "dmM" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "dmN" = (
@@ -96153,7 +96153,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dpR" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -96848,7 +96848,7 @@
 	},
 /area/maintenance/gambling_den)
 "dra" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -101412,7 +101412,7 @@
 	},
 /area/crew_quarters/theatre)
 "dzq" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -102176,7 +102176,7 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -102619,7 +102619,7 @@
 	},
 /area/crew_quarters/theatre)
 "dBq" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -108948,21 +108948,21 @@
 	},
 /area/chapel/office)
 "dMT" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dMU" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dMV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
@@ -108970,14 +108970,14 @@
 /area/chapel/main)
 "dMW" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dMX" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 28
@@ -109317,14 +109317,14 @@
 	},
 /area/chapel/office)
 "dNJ" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dNK" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -109332,7 +109332,7 @@
 /area/chapel/main)
 "dNL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -109340,7 +109340,7 @@
 /area/chapel/main)
 "dNM" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -109692,7 +109692,7 @@
 	},
 /area/chapel/office)
 "dOq" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 8
@@ -109715,7 +109715,7 @@
 	},
 /area/chapel/main)
 "dOt" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 4
@@ -111770,7 +111770,7 @@
 /area/chapel/office)
 "dSf" = (
 /obj/machinery/light/small,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -111783,7 +111783,7 @@
 /area/chapel/main)
 "dSg" = (
 /obj/machinery/light/small,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /obj/machinery/newscaster{
