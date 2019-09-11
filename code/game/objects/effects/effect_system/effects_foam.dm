@@ -16,6 +16,7 @@
 
 /obj/effect/particle_effect/foam/New(loc, ismetal=0)
 	..(loc)
+	MakeSlippery()
 	icon_state = "[ismetal ? "m":""]foam"
 	if(!ismetal && reagents)
 		color = mix_color_from_reagents(reagents.reagent_list)
@@ -43,6 +44,9 @@
 		sleep(5)
 		qdel(src)
 	return
+
+/obj/effect/particle_effect/foam/proc/MakeSlippery()
+	AddComponent(/datum/component/slippery, 5, NONE, CALLBACK(src, .proc/AfterSlip))
 
 // on delete, transfer any reagents to the floor
 /obj/effect/particle_effect/foam/Destroy()
@@ -94,21 +98,15 @@
 		spawn(5)
 			qdel(src)
 
-/obj/effect/particle_effect/foam/Crossed(atom/movable/AM, oldloc)
-	if(metal)
-		return
-
-	if(iscarbon(AM))
-		var/mob/living/carbon/M =	AM
-		if(M.slip("foam", 5, 2))
-			if(reagents)
-				for(var/reagent_id in reagents.reagent_list)
-					var/amount = M.reagents.get_reagent_amount(reagent_id)
-					if(amount < 25)
-						M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
-				if(reagents.total_volume)
-					var/fraction = 5 / reagents.total_volume
-					reagents.reaction(M, TOUCH, fraction)
+/obj/effect/particle_effect/foam/proc/AfterSlip(mob/living/carbon/human/M)
+	if(reagents)
+		for(var/reagent_id in reagents.reagent_list)
+			var/amount = M.reagents.get_reagent_amount(reagent_id)
+			if(amount < 25)
+				M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
+		if(reagents.total_volume)
+			var/fraction = 5 / reagents.total_volume
+			reagents.reaction(M, TOUCH, fraction)
 
 /datum/effect_system/foam_spread
 	effect_type = /obj/effect/particle_effect/foam

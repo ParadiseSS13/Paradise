@@ -28,7 +28,8 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 	var/area/areaMaster
-
+	var/datum/forced_movement/force_moving = null	//handled soley by forced_movement.dm
+	
 /atom/movable/New()
 	. = ..()
 	areaMaster = get_area(src)

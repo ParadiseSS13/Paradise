@@ -215,13 +215,12 @@
 		stun_len /= 3
 
 	stun_len = min(stun_len, 7) // No fun allowed
+	G.AddComponent(/datum/component/slippery, stun_len, NONE, CALLBACK(src, .proc/handle_slip, G))
 
-	G.trip_stun = stun_len
-	G.trip_weaken = stun_len
-	G.trip_chance = 100
-	G.trip_verb = TV_SLIP
-	G.trip_walksafe = FALSE
-
+/datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
+	for(var/datum/plant_gene/trait/T in G.seed.genes)
+		T.on_slip(G, M)
+		
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
 	// Generates sparks on squash.

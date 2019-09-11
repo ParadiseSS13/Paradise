@@ -118,12 +118,10 @@
 /obj/item/grown/bananapeel/specialpeel     //used by /obj/item/clothing/shoes/clown_shoes/banana_shoes
 	name = "synthesized banana peel"
 	desc = "A synthetic banana peel."
-	trip_stun = 2
-	trip_weaken = 2
-	trip_chance = 100
-	trip_walksafe = FALSE
-	trip_verb = TV_SLIP
 
-/obj/item/grown/bananapeel/specialpeel/on_trip(mob/living/carbon/human/H)
-	if(..())
-		qdel(src)
+/obj/item/grown/bananapeel/specialpeel/New()
+	. = ..()
+	AddComponent(/datum/component/slippery, 2, NONE, CALLBACK(src, .proc/AfterSlip))
+
+/obj/item/grown/bananapeel/specialpeel/proc/AfterSlip(mob/living/carbon/human/H)
+	qdel(src)

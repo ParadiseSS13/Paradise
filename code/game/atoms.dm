@@ -346,6 +346,10 @@
 	if(AM && isturf(AM.loc))
 		step(AM, turn(AM.dir, 180))
 
+///Handle the atom being slipped over
+/atom/proc/handle_slip(mob/living/carbon/C, knockdown_amount, obj/O, lube)
+	return
+
 /atom/proc/get_spooked()
 	return
 

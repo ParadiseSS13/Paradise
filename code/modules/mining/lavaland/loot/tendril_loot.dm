@@ -375,11 +375,12 @@
 
 /obj/item/projectile/hook/on_hit(atom/target)
 	. = ..()
-	if(isliving(target))
-		var/mob/living/L = target
-		if(!L.anchored)
-			L.visible_message("<span class='danger'>[L] is snagged by [firer]'s hook!</span>")
-			L.forceMove(get_turf(firer))
+	if(istype(target, /atom/movable))
+		var/atom/movable/A = target
+		if(A.anchored)
+			return
+		A.visible_message("<span class='danger'>[A] is snagged by [firer]'s hook!</span>")
+		new /datum/forced_movement(A, get_turf(firer), 5, TRUE)
 
 /obj/item/projectile/hook/Destroy()
 	QDEL_NULL(chain)

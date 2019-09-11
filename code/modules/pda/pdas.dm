@@ -38,11 +38,15 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
 	ttone = "honk"
 
-	trip_stun = 8
-	trip_weaken = 5
-	trip_chance = 100
-	trip_walksafe = TRUE
-	trip_verb = TV_SLIP
+/obj/item/pda/clown/New()
+	. = ..()
+	AddComponent(/datum/component/slippery, 5, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip))
+
+/obj/item/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
+	if(istype(M) && (M.real_name != src.owner))
+		var/obj/item/cartridge/clown/cart = cartridge
+		if(istype(cart) && cart.charges < 5)
+			cart.charges++
 
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime

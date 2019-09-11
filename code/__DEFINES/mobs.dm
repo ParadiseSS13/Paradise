@@ -122,6 +122,13 @@
 #define ENVIRONMENT_SMASH_WALLS 2   //walls
 #define ENVIRONMENT_SMASH_RWALLS 4  //rwalls
 
+
+#define NO_SLIP_WHEN_WALKING	(1<<0)
+#define SLIDE					(1<<1)
+#define GALOSHES_DONT_HELP		(1<<2)
+#define SLIDE_ICE				(1<<3)
+#define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
+
 #define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
 
 #define DEFAULT_ITEM_STRIP_DELAY		40  //time taken (in deciseconds) to strip somebody

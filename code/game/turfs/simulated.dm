@@ -23,6 +23,43 @@
 /turf/simulated/proc/burn_tile()
 	return
 
+/turf/simulated/handle_slip(mob/living/carbon/C, knockdown_amount, obj/O, lube)
+	if(C.flying)
+		return FALSE
+	if(has_gravity(src))
+		var/obj/buckled_obj
+		if(C.buckled)
+			buckled_obj = C.buckled
+			if(!(lube & GALOSHES_DONT_HELP))
+				return FALSE
+		else
+			if(C.lying || !(C.status_flags & CANWEAKEN)) // can't slip unbuckled mob if they're lying or can't fall.
+				return FALSE
+			if(C.m_intent == MOVE_INTENT_WALK && (lube & NO_SLIP_WHEN_WALKING))
+				return FALSE
+		if(!(lube & SLIDE_ICE))
+			to_chat(C, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
+			playsound(C.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+		var/olddir = C.dir
+		C.moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
+		if(!(lube & SLIDE_ICE))
+			C.Weaken(knockdown_amount)
+			C.stop_pulling()
+		else
+			C.Stun(10)
+
+		if(buckled_obj)
+			buckled_obj.unbuckle_mob(C)
+			lube |= SLIDE_ICE
+
+		if(lube & SLIDE)
+			new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 4), 1, FALSE, CALLBACK(C, /mob/living/carbon/.proc/spin, 1, 1))
+		else if(lube & SLIDE_ICE)
+			if(C.force_moving) //If we're already slipping extend it
+				qdel(C.force_moving)
+			new /datum/forced_movement(C, get_ranged_target_turf(C, olddir, 1), 1, FALSE)	//spinning would be bad for ice, fucks up the next dir
+		return TRUE
+
 /turf/simulated/water_act(volume, temperature, source)
 	. = ..()
 
@@ -41,6 +78,7 @@
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
+	UpdateSlip()
 	if(wet_setting != TURF_DRY)
 		if(wet_overlay)
 			overlays -= wet_overlay
@@ -63,12 +101,38 @@
 				return
 			MakeDry(wet_setting)
 
+/turf/simulated/proc/UpdateSlip()
+	switch(wet)
+		if(TURF_WET_WATER)
+			AddComponent(/datum/component/slippery, 2, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip))
+		if(TURF_WET_LUBE)
+			AddComponent(/datum/component/slippery, 5, SLIDE | GALOSHES_DONT_HELP, CALLBACK(src, .proc/AfterSlip))
+		if(TURF_WET_ICE)
+			AddComponent(/datum/component/slippery, 2, SLIDE | GALOSHES_DONT_HELP, CALLBACK(src, .proc/AfterSlip))
+		if(TURF_WET_PERMAFROST)
+			AddComponent(/datum/component/slippery, 5, SLIDE_ICE | GALOSHES_DONT_HELP, CALLBACK(src, .proc/AfterSlip))
+		// if anyone wants to port slides
+/* 		if(TURF_WET_SLIDE)
+			AddComponent(/datum/component/slippery, 80, SLIDE | GALOSHES_DONT_HELP) */
+		else
+			qdel(GetComponent(/datum/component/slippery))
+
+/turf/simulated/proc/AfterSlip(mob/living/carbon/human/M)
+	if(wet == TURF_WET_ICE)
+		if(prob(5))
+			var/obj/item/organ/external/affected = M.get_organ("head")
+			if(affected)
+				M.apply_damage(5, BRUTE, "head")
+				M.visible_message("<span class='warning'><b>[M]</b> hits their head on the ice!</span>")
+				playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
+
 /turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)
 		return
 	wet = TURF_DRY
 	if(wet_overlay)
 		overlays -= wet_overlay
+	UpdateSlip()
 
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()
@@ -91,29 +155,6 @@
 
 			if(M.flying)
 				return ..()
-
-			switch(src.wet)
-				if(TURF_WET_WATER)
-					if(!(M.slip("the wet floor", 4, 2, tilesSlipped = 0, walkSafely = 1)))
-						M.inertia_dir = 0
-						return
-
-				if(TURF_WET_LUBE) //lube
-					M.slip("the floor", 0, 5, tilesSlipped = 3, walkSafely = 0, slipAny = 1)
-
-
-				if(TURF_WET_ICE) // Ice
-					if(M.slip("the icy floor", 4, 2, tilesSlipped = 0, walkSafely = 0))
-						M.inertia_dir = 0
-						if(prob(5))
-							var/obj/item/organ/external/affected = M.get_organ("head")
-							if(affected)
-								M.apply_damage(5, BRUTE, "head")
-								M.visible_message("<span class='warning'><b>[M]</b> hits their head on the ice!</span>")
-								playsound(src, 'sound/weapons/genhit1.ogg', 50, 1)
-
-				if(TURF_WET_PERMAFROST) // Permafrost
-					M.slip("the frosted floor", 0, 5, tilesSlipped = 1, walkSafely = 0, slipAny = 1)
 
 /turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
 	. = ..()

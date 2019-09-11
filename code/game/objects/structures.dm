@@ -21,6 +21,12 @@
 		if(3.0)
 			return
 
+/obj/structure/proc/force_climb(atom/movable/A)
+	if(climbable)
+		density = 0
+		. = step(A,get_dir(A,src.loc))
+		density = 1
+
 /obj/structure/mech_melee_attack(obj/mecha/M)
 	if(M.damtype == "brute")
 		M.occupant_message("<span class='danger'>You hit [src].</span>")

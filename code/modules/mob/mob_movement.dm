@@ -86,6 +86,9 @@
 	if(moving)
 		return 0
 
+	if(mob.force_moving)
+		return FALSE
+
 	if(isliving(mob))
 		var/mob/living/L = mob
 		if(L.incorporeal_move)//Move though walls
@@ -350,6 +353,10 @@
 					continue
 				. = AM
 
+
+/// Called when this mob slips over, override as needed
+/mob/proc/slip(knockdown_amount, obj/O, lube)
+	return
 
 /mob/proc/mob_has_gravity(turf/T)
 	return has_gravity(src, T)

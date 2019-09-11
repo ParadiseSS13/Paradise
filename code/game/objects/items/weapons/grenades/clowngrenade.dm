@@ -39,21 +39,15 @@
 	qdel(src)
 	return
 
-/obj/item/grown/bananapeel/traitorpeel
-	trip_stun = 0
-	trip_weaken = 7
-	trip_tiles = 4
-	trip_walksafe = FALSE
-
-	trip_chance = 100
-
-
-/obj/item/grown/bananapeel/traitorpeel/on_trip(mob/living/carbon/human/H)
+/obj/item/grown/bananapeel/traitorpeel/New()
 	. = ..()
-	if(.)
-		to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
-		H.take_overall_damage(0, rand(2,8))
-		H.take_organ_damage(2) // Was 5 -- TLE
+	AddComponent(/datum/component/slippery, 7, NONE, CALLBACK(src, .proc/AfterSlip))
+
+
+/obj/item/grown/bananapeel/traitorpeel/proc/AfterSlip(mob/living/carbon/human/H)
+	to_chat(H, "<span class='warning'>Your feet feel like they're on fire!</span>")
+	H.take_overall_damage(0, rand(2,8))
+	H.take_organ_damage(2) // Was 5 -- TLE
 
 /obj/item/grown/bananapeel/traitorpeel/throw_impact(atom/hit_atom)
 	var/burned = rand(1,3)
