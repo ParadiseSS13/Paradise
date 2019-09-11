@@ -532,26 +532,6 @@ DROP TABLE IF EXISTS `SS13_ipintel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE  `SS13_ipintel` (
-<<<<<<< HEAD
-`ip` INT UNSIGNED NOT NULL ,
-`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL ,
-`intel` REAL NOT NULL DEFAULT  '0',
-PRIMARY KEY (  `ip` )
-) ENGINE = INNODB;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `SS13_vpn_whitelist`
---
-DROP TABLE IF EXISTS `SS13_vpn_whitelist`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `SS13_vpn_whitelist` (
-  `ckey` VARCHAR(32) NOT NULL,
-  `reason` text,
-  PRIMARY KEY (`ckey`)
-) ENGINE=INNODB;
-=======
   `ip` int UNSIGNED NOT NULL,
   `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
   `intel` real NOT NULL DEFAULT '0',

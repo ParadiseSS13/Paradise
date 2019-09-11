@@ -15,8 +15,8 @@
 	health = 100
 	harm_intent_damage = 5
 	obj_damage = 60
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	melee_damage_lower = 25
+	melee_damage_upper = 25
 	attacktext = "slashes"
 	speak_emote = list("hisses")
 	a_intent = INTENT_HARM

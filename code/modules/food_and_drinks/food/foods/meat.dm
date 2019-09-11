@@ -146,17 +146,6 @@
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
-/obj/item/reagent_containers/food/snacks/goliath
-	name = "goliath meat"
-	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
-	icon_state = "goliathmeat"
-	list_reagents = list("protein" = 3, "toxin" = 5)
-
-/obj/item/reagent_containers/food/snacks/goliath/burn()
-	visible_message("[src] finishes cooking!")
-	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
-	qdel(src)
-
 //////////////////////
 //	Cooked Meat		//
 //////////////////////

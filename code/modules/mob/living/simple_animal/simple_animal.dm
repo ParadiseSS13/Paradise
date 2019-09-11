@@ -411,6 +411,7 @@
 	if(gender != FEMALE || stat || next_scan_time > world.time || !childtype || !animal_species || !SSticker.IsRoundInProgress())
 		return FALSE
 	next_scan_time = world.time + 400
+
 	var/alone = TRUE
 	var/mob/living/simple_animal/partner
 	var/children = 0

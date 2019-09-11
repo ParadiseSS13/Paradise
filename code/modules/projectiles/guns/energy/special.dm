@@ -165,18 +165,12 @@
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
-		if(power_supply.charge >= power_supply.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
-			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
 		power_supply.give(1000)
 		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/stack/ore/plasma))
-		if(power_supply.charge >= power_supply.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
-			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
 		power_supply.give(500)
