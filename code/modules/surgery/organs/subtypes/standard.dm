@@ -258,9 +258,9 @@
 	..()
 
 /obj/item/organ/external/head/receive_damage(brute, burn, stamina, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
-	..(brute, burn, stamina, sharp, used_weapon, forbidden_limbs, ignore_resists)
+	..()
 	if(!disfigured)
-		if(brute_dam + burn_dam > 50)
+		if(total_damage() > 50)
 			disfigure()
 
 /obj/item/organ/external/head/proc/handle_alt_icon()

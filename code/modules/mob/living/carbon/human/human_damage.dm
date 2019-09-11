@@ -390,7 +390,7 @@ This function restores all organs.
 			if(organ.receive_damage(0, damage, 0, sharp, used_weapon))
 				UpdateDamageIcon()
 		if(STAMINA)
-			if(organ.receive_damage(0,0,damage, sharp, used_weapon))
+			if(organ.receive_damage(0, 0, damage, sharp, used_weapon))
 				UpdateDamageIcon()
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
