@@ -1,6 +1,6 @@
 /obj/vehicle/ambulance
 	name = "ambulance"
-	desc = "what the paramedic uses to run over people to take to medbay."
+	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
 	keytype = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
@@ -101,6 +101,10 @@
 	icon_state = "ambulance"
 	anchored = FALSE
 	throw_pressure_limit = INFINITY //Throwing an ambulance trolley can kill the process scheduler.
+
+/obj/structure/bed/amb_trolley/examine(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>")
 
 /obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()

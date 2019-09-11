@@ -227,46 +227,56 @@ to destroy them and players will be able to make replacements.
 */
 /obj/item/circuitboard/vendor
 	name = "circuit board (Booze-O-Mat Vendor)"
-	build_path = /obj/machinery/vending/boozeomat
 	board_type = "machine"
 	origin_tech = "programming=1"
-	frame_desc = "Requires 3 Resupply Canisters."
-	req_components = list(
-							/obj/item/vending_refill/boozeomat = 3)
+	frame_desc = "Requires 1 Resupply Canister."
+	build_path = /obj/machinery/vending/boozeomat
+	req_components = list(/obj/item/vending_refill/boozeomat = 1)
 
-	var/list/names_paths = list("Booze-O-Mat" = /obj/machinery/vending/boozeomat,
-							"Solar's Best Hot Drinks" = /obj/machinery/vending/coffee,
-							"Getmore Chocolate Corp" = /obj/machinery/vending/snack,
-							"Mr. Chang" = /obj/machinery/vending/chinese,
-							"Robust Softdrinks" = /obj/machinery/vending/cola,
-							"ShadyCigs Deluxe" = /obj/machinery/vending/cigarette,
-							"AutoDrobe" = /obj/machinery/vending/autodrobe,
-							"Hatlord 9000" = /obj/machinery/vending/hatdispenser,
-							"Suitlord 9000" = /obj/machinery/vending/suitdispenser,
-							"Shoelord 9000" = /obj/machinery/vending/shoedispenser,
-							"ClothesMate" = /obj/machinery/vending/clothing,
-							"CritterCare" = /obj/machinery/vending/crittercare)
+	var/static/list/vending_names_paths = list(
+		/obj/machinery/vending/boozeomat = "Booze-O-Mat",
+		/obj/machinery/vending/coffee = "Solar's Best Hot Drinks",
+		/obj/machinery/vending/snack = "Getmore Chocolate Corp",
+		/obj/machinery/vending/chinese = "Mr. Chang",
+		/obj/machinery/vending/cola = "Robust Softdrinks",
+		/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
+		/obj/machinery/vending/hatdispenser = "Hatlord 9000",
+		/obj/machinery/vending/suitdispenser = "Suitlord 9000",
+		/obj/machinery/vending/shoedispenser = "Shoelord 9000",
+		/obj/machinery/vending/clothing = "ClothesMate",
+		/obj/machinery/vending/medical = "NanoMed Plus",
+		/obj/machinery/vending/wallmed = "NanoMed",
+		/obj/machinery/vending/assist  = "Vendomat",
+		/obj/machinery/vending/engivend = "Engi-Vend",
+		/obj/machinery/vending/hydronutrients = "NutriMax",
+		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
+		/obj/machinery/vending/sustenance = "Sustenance Vendor",
+		/obj/machinery/vending/dinnerware = "Plasteel Chef's Dinnerware Vendor",
+		/obj/machinery/vending/cart = "PTech",
+		/obj/machinery/vending/robotics = "Robotech Deluxe",
+		/obj/machinery/vending/engineering = "Robco Tool Maker",
+		/obj/machinery/vending/sovietsoda = "BODA",
+		/obj/machinery/vending/security = "SecTech",
+		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
+		/obj/machinery/vending/crittercare = "CritterCare")
 
 /obj/item/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		set_type(null, user)
-
-
-/obj/item/circuitboard/vendor/proc/set_type(typepath, mob/user)
-	var/new_name = "Booze-O-Mat Vendor"
-	if(!typepath)
-		new_name = input("Circuit Setting", "What would you change the board setting to?") in names_paths
-		typepath = names_paths[new_name]
+	if(isscrewdriver(I))
+		var/static/list/display_vending_names_paths
+		if(!display_vending_names_paths)
+			display_vending_names_paths = list()
+			for(var/path in vending_names_paths)
+				display_vending_names_paths[vending_names_paths[path]] = path
+		var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
+		set_type(display_vending_names_paths[choice])
 	else
-		for(var/name in names_paths)
-			if(names_paths[name] == typepath)
-				new_name = name
-				break
+		return ..()
+
+
+/obj/item/circuitboard/vendor/proc/set_type(obj/machinery/vending/typepath)
 	build_path = typepath
-	name = "circuit board ([new_name])"
-	req_components = list(text2path("/obj/item/vending_refill/[copytext("[build_path]", 24)]") = 3)
-	if(user)
-		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
+	name = "circuit board ([vending_names_paths[build_path]] Vendor)"
+	req_components = list(initial(typepath.refill_canister) = 1)
 
 /obj/item/circuitboard/smes
 	name = "circuit board (SMES)"
@@ -329,6 +339,14 @@ to destroy them and players will be able to make replacements.
 			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 			name = "circuit board (Freezer)"
 			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
+
+/obj/item/circuitboard/recharger
+	name = "circuit board (Recharger)"
+	build_path = /obj/machinery/recharger
+	board_type = "machine"
+	origin_tech = "powerstorage=3;materials=2"
+	frame_desc = "Requires 1 Capacitor"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
 /obj/item/circuitboard/snow_machine
 	name = "circuit board (snow machine)"
@@ -590,6 +608,16 @@ to destroy them and players will be able to make replacements.
 	req_components = list(
 							/obj/item/stock_parts/micro_laser = 1,
 							/obj/item/stock_parts/console_screen = 1)
+
+/obj/item/circuitboard/reagentgrinder
+	name = "circuit board (All-In-One Grinder)"
+	build_path = /obj/machinery/reagentgrinder/empty
+	board_type = "machine"
+	origin_tech = "materials=2;engineering=2;biotech=2"
+	frame_desc = "Requires 2 Manipulators and 1 Matter Bin."
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 2,
+							/obj/item/stock_parts/matter_bin = 1)
 
 //Almost the same recipe as destructive analyzer to give people choices.
 /obj/item/circuitboard/experimentor

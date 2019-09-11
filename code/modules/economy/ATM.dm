@@ -240,9 +240,7 @@ log transactions
 						if(amount > 10000) // prevent crashes
 							to_chat(usr, "<span class='notice'>The ATM's screen flashes, 'Maximum single withdrawl limit reached, defaulting to 10,000.'</span>")
 							amount = 10000
-						authenticated_account.money -= amount
 						withdraw_arbitrary_sum(amount)
-
 						authenticated_account.charge(amount, null, "Credit withdrawal", machine_id, authenticated_account.owner_name)
 					else
 						to_chat(usr, "[bicon(src)]<span class='warning'>You don't have enough funds to do that!</span>")

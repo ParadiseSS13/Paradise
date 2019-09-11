@@ -14,6 +14,7 @@
 	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL=90)
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
+	dog_fashion = /datum/dog_fashion/back
 	var/max_water = 50
 	var/last_use = 1.0
 	var/safety = 1
@@ -35,6 +36,7 @@
 	materials = list()
 	max_water = 30
 	sprite_name = "miniFE"
+	dog_fashion = null
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()

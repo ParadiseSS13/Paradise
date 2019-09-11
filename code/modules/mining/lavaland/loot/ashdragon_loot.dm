@@ -15,6 +15,15 @@
 		if(4)
 			new /obj/item/dragons_blood(src)
 
+
+/obj/structure/closet/crate/necropolis/dragon/crusher
+	name = "firey dragon chest"
+
+/obj/structure/closet/crate/necropolis/dragon/crusher/New()
+	..()
+	new /obj/item/crusher_trophy/tail_spike(src)
+
+
 // Spectral Blade
 
 /obj/item/melee/ghost_sword
@@ -159,7 +168,7 @@
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = 1
 	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"

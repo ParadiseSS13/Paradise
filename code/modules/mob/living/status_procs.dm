@@ -397,6 +397,9 @@
 // STUN
 
 /mob/living/Stun(amount, updating = 1, force = 0)
+	if(status_flags & CANSTUN || force)
+		if(absorb_stun(amount, force))
+			return FALSE
 	return SetStunned(max(stunned, amount), updating, force)
 
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
@@ -434,6 +437,9 @@
 // WEAKEN
 
 /mob/living/Weaken(amount, updating = 1, force = 0)
+	if(status_flags & CANWEAKEN || force)
+		if(absorb_stun(amount, force))
+			return FALSE
 	return SetWeakened(max(weakened, amount), updating, force)
 
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
@@ -549,6 +555,11 @@
 		dna.SetSEState(block, 0, 1) //Fix the gene
 		genemutcheck(src, block,null, MUTCHK_FORCED)
 		dna.UpdateSE()
+
+///////////////////////////////// FROZEN /////////////////////////////////////
+
+/mob/living/proc/IsFrozen()
+	return has_status_effect(/datum/status_effect/freon)
 
 ///////////////////////////////////// STUN ABSORPTION /////////////////////////////////////
 

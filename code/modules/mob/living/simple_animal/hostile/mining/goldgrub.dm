@@ -1,7 +1,8 @@
+//An ore-devouring but easily scared creature
 /mob/living/simple_animal/hostile/asteroid/goldgrub
 	name = "goldgrub"
 	desc = "A worm that grows fat from eating everything in its sight. Seems to enjoy precious metals and other shiny things, hence the name."
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goldgrub"
 	icon_living = "Goldgrub"
 	icon_aggro = "Goldgrub_alert"
@@ -9,7 +10,6 @@
 	icon_gib = "syndicate_gib"
 	vision_range = 2
 	aggro_vision_range = 9
-	idle_vision_range = 2
 	move_to_delay = 5
 	friendly = "harmlessly rolls into"
 	maxHealth = 45
@@ -22,6 +22,7 @@
 	a_intent = INTENT_HELP
 	speak_emote = list("screeches")
 	throw_message = "sinks in slowly, before being pushed out of "
+	deathmessage = "spits up the contents of its stomach before dying!"
 	status_flags = CANPUSH
 	search_objects = 1
 	wanted_objects = list(/obj/item/stack/ore/diamond, /obj/item/stack/ore/gold, /obj/item/stack/ore/silver,
@@ -30,8 +31,8 @@
 	var/chase_time = 100
 	var/will_burrow = TRUE
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/New()
-	..()
+/mob/living/simple_animal/hostile/asteroid/goldgrub/Initialize(mapload)
+	. = ..()
 	var/i = rand(1,3)
 	while(i)
 		loot += pick(/obj/item/stack/ore/silver, /obj/item/stack/ore/gold, /obj/item/stack/ore/uranium, /obj/item/stack/ore/diamond)
@@ -48,34 +49,31 @@
 			retreat_distance = 10
 			minimum_distance = 10
 			if(will_burrow)
-				spawn(chase_time)
-					Burrow()
+				addtimer(CALLBACK(src, .proc/Burrow), chase_time)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/AttackingTarget()
 	if(istype(target, /obj/item/stack/ore))
 		EatOre(target)
 		return
-	..()
+	return ..()
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(var/atom/targeted_ore)
+/mob/living/simple_animal/hostile/asteroid/goldgrub/proc/EatOre(atom/targeted_ore)
 	for(var/obj/item/stack/ore/O in get_turf(targeted_ore))
-		if(loot.len < 10)
-			var/using = min(10 - loot.len, O.amount)
+		if(length(loot) < 10)
+			var/using = min(10 - length(loot), O.amount)
 			for(var/i in 1 to using)
 				loot += O.type
 			O.use(using)
 	visible_message("<span class='notice'>The ore was swallowed whole!</span>")
 
-
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//Begin the chase to kill the goldgrub in time
 	if(!stat)
-		visible_message("<span class='danger'>The [src.name] buries into the ground, vanishing from sight!</span>")
+		visible_message("<span class='danger'>The [name] buries into the ground, vanishing from sight!</span>")
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
-	visible_message("<span class='danger'>The [P.name] was repelled by [src.name]'s girth!</span>")
-	return
+	visible_message("<span class='danger'>[P.name] was repelled by [name]'s girth!</span>")
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(damage)
-	idle_vision_range = 9
+/mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(amount, updating_health = TRUE)
+	vision_range = 9
 	. = ..()
