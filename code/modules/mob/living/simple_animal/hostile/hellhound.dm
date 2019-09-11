@@ -22,7 +22,7 @@
 	health = 250
 	obj_damage = 50
 	robust_searching = 1
-	stat_attack = 1
+	stat_attack = UNCONSCIOUS
 	attacktext = "savages"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")

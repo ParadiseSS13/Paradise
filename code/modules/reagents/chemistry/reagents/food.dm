@@ -25,6 +25,8 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
+	var/brute_heal = 1
+	var/burn_heal = 0
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -33,10 +35,8 @@
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				if(prob(50))
-					update_flags |= M.adjustBruteLoss(-1, FALSE)
-					if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
-						if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-							H.blood_volume += 0.4
+					update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
+					update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
@@ -66,36 +66,26 @@
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
 	diet_flags = DIET_CARN | DIET_OMNI
-	taste_description = "meat" //TODO: Remove
 
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Plant-matter"
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
-	taste_description = "vegetables" //TODO: Remove
 
-/datum/reagent/consumable/vitamin
+/datum/reagent/consumable/nutriment/vitamin
 	name = "Vitamin"
 	id = "vitamin"
 	description = "All the best vitamins, minerals, and carbohydrates the body needs in pure form."
 	reagent_state = SOLID
 	color = "#664330" // rgb: 102, 67, 48
-	taste_description = "nutrition"
+	brute_heal = 1
+	burn_heal = 1
 
-/datum/reagent/consumable/vitamin/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(50))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+/datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 30
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.5
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/sugar
 	name = "Sugar"

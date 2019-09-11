@@ -18,7 +18,7 @@
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
 	var/is_zombie = 0
-	stat_attack = 1 //so they continue to attack when they are on the ground.
+	stat_attack = DEAD //so they continue to attack when they are on the ground.
 	var/host_species = ""
 	var/list/human_overlays = list()
 

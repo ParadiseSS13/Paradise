@@ -367,7 +367,7 @@
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
 "aW" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel/white,

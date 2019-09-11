@@ -64,7 +64,7 @@
 			H.dna.species.oxy_mod *= 0.1
 			H.dna.species.clone_mod *= 0.1
 			H.dna.species.stamina_mod *= 0.1
-		add_attack_logs(owner, owner, "gained blood-drunk stun immunity")
+		add_attack_logs(owner, owner, "gained blood-drunk stun immunity", ATKLOG_ALL)
 		var/status = CANSTUN | CANWEAKEN | CANPARALYSE | IGNORESLOWDOWN
 		owner.status_flags &= ~status
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1)
@@ -80,7 +80,7 @@
 		H.dna.species.oxy_mod *= 10
 		H.dna.species.clone_mod *= 10
 		H.dna.species.stamina_mod *= 10
-	add_attack_logs(owner, owner, "lost blood-drunk stun immunity")
+	add_attack_logs(owner, owner, "lost blood-drunk stun immunity", ATKLOG_ALL)
 	owner.status_flags |= CANSTUN | CANWEAKEN | CANPARALYSE | IGNORESLOWDOWN
 
 /datum/status_effect/exercised

@@ -173,4 +173,3 @@
 	name = "Gloves of Headpats"
 	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
 	accepted_intents = list(INTENT_HELP)
-	click_speed_modifier = 0 // That's some serious headpatting

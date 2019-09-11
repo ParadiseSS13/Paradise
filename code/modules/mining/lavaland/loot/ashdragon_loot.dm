@@ -168,7 +168,7 @@
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = 1
 	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"

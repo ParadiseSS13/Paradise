@@ -492,7 +492,7 @@
 							playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
 							var/turf/space/T
 							for(T in orange(1, src))
-								T.ChangeTurf(/turf/simulated/floor/plating/)
+								T.ChangeTurf(/turf/simulated/floor/plating)
 					else
 						atom_say("Something slams into the floor around [src] - luckily, it didn't get through!")
 						playsound(src.loc, 'sound/effects/bang.ogg', 20, 1)
