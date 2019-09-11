@@ -164,6 +164,9 @@
 		to_chat(user, "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>")
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
+	if(power_supply.charge >= power_supply.maxcharge)
+		to_chat(user,"<span class='notice'>[src] is already fully charged.")
+		return
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
