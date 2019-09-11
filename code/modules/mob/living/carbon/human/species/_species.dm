@@ -461,7 +461,7 @@
 		var/obj/item/organ/external/temp = M.bodyparts_by_name["r_hand"]
 		if(M.hand)
 			temp = M.bodyparts_by_name["l_hand"]
-		if(temp && temp.disabled)
+		if(temp?.disabled)
 			to_chat(M, "<span class='warning'> Your [temp.name] is disabled!</span>")
 			return
 		if(!temp || !temp.is_usable())
@@ -541,7 +541,7 @@
 	return H.health - H.getStaminaLoss()
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
-	if(!H || !H.client)
+	if(!H?.client)
 		return
 	handle_hud_icons_health(H)
 	H.handle_hud_icons_health_overlay()

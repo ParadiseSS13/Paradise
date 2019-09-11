@@ -68,7 +68,7 @@
 	max_stamina_damage = 50
 
 /obj/item/organ/external/arm/set_disabled(new_disabled = TRUE)
-	..()
+	. = ..()
 	if(disabled)
 		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 		owner.emote("scream")
@@ -103,7 +103,7 @@
 	max_stamina_damage = 50
 
 /obj/item/organ/external/leg/set_disabled(new_disabled = TRUE)
-	..()
+	. = ..()
 	if(disabled)
 		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 		owner.emote("scream")
@@ -134,7 +134,7 @@
 	max_stamina_damage = 30
 
 /obj/item/organ/external/foot/set_disabled(new_disabled = TRUE)
-	..()
+	. = ..()
 	if(disabled)
 		to_chat(owner, "<span class='userdanger'>Your [name] is too damaged to function!</span>")
 		owner.emote("scream")
