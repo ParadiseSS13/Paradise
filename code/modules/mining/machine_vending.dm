@@ -219,7 +219,7 @@
 	var/drop_location = drop_location()
 	switch(selection)
 		if("Survival Capsule and Explorer's Webbing")
-			new /obj/item/storage/belt/mining(drop_location)
+			new /obj/item/storage/belt/mining/vendor(drop_location)
 		if("Resonator Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/resonator(drop_location)

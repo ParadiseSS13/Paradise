@@ -262,7 +262,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
 	item_state = "sheet-cloth"
-	resistance_flags = FLAMMABLE
+	burn_state = FLAMMABLE
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/durathread
@@ -276,7 +276,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	desc = "A bundle of raw cotton ready to be spun on the loom."
 	singular_name = "raw cotton ball"
 	icon_state = "sheet-cotton"
-	resistance_flags = FLAMMABLE
+	burn_state = FLAMMABLE
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cotton

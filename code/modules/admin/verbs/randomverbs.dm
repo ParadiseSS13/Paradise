@@ -776,8 +776,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
-	set category = "Admin"
 	set name = "Check Contents"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -957,21 +957,24 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
 	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/list_ssds()
+/client/proc/list_ssds_afks()
 	set category = "Admin"
-	set name = "List SSDs"
-	set desc = "Lists SSD players"
+	set name = "List SSDs and AFKs"
+	set desc = "Lists SSD and AFK players"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/msg = "<html><head><title>SSD Report</title></head><body>"
+	/* ======== SSD Section ========= */
+	var/msg = "<html><head><title>SSD & AFK Report</title></head><body>"
 	msg += "SSD Players:<BR><TABLE border='1'>"
 	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
 	var/mins_ssd
 	var/job_string
 	var/key_string
 	var/role_string
+	var/obj_count = 0
+	var/obj_string = ""
 	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(!isLivingSSD(H))
 			continue
@@ -984,8 +987,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
-		var/obj_count = 0
-		var/obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
@@ -1003,24 +1004,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
 		msg += "</TR>"
-	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_ssd_check")
+	msg += "</TABLE><br></BODY></HTML>"
 
-/client/proc/list_afks()
-	set category = "Admin"
-	set name = "List AFKs"
-	set desc = "Lists AFK players"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/msg = "<html><head><title>AFK Report</title></head><body>"
+	/* ======== AFK Section ========= */
 	msg += "AFK Players:<BR><TABLE border='1'>"
 	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins AFK</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
 	var/mins_afk
-	var/job_string
-	var/key_string
-	var/role_string
 	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(H.client == null || H.stat == DEAD) // No clientless or dead
 			continue
@@ -1035,8 +1024,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
-		var/obj_count = 0
-		var/obj_string = ""
+		obj_count = 0
+		obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
@@ -1055,7 +1044,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
 		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_afk_check")
+	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"

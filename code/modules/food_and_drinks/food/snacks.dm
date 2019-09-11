@@ -153,33 +153,29 @@
 /obj/item/reagent_containers/food/snacks/attack_animal(mob/M)
 	if(isanimal(M))
 		M.changeNext_move(CLICK_CD_MELEE)
-		if(iscorgi(M))
-			var/mob/living/simple_animal/pet/corgi/G = M
-			if(world.time < (G.last_eaten + 300))
-				to_chat(G, "<span class='notice'>You are too full to try eating [src] right now.</span>")
+		if(isdog(M))
+			var/mob/living/simple_animal/pet/dog/D = M
+			if(world.time < (D.last_eaten + 300))
+				to_chat(D, "<span class='notice'>You are too full to try eating [src] right now.</span>")
 			else if(bitecount >= 4)
-				M.visible_message("[M] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
+				D.visible_message("[D] [pick("burps from enjoyment", "yaps for more", "woofs twice", "looks at the area where [src] was")].","<span class='notice'>You swallow up the last part of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-				var/mob/living/simple_animal/pet/corgi/C = M
-				C.adjustBruteLoss(-5)
-				C.adjustFireLoss(-5)
+				D.adjustHealth(-10)
+				D.last_eaten = world.time
+				D.taste(reagents)
 				qdel(src)
-				G.last_eaten = world.time
-				G.taste(reagents)
 			else
-				M.visible_message("[M] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
+				D.visible_message("[D] takes a bite of [src].","<span class='notice'>You take a bite of [src].</span>")
 				playsound(loc,'sound/items/eatfood.ogg', rand(10,50), 1)
 				bitecount++
-				G.last_eaten = world.time
-				G.taste(reagents)
+				D.last_eaten = world.time
+				D.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
 			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
-			//N.emote("nibbles away at the [src]")
-			N.adjustBruteLoss(-1)
-			N.adjustFireLoss(-1)
+			N.adjustHealth(-2)
 			N.taste(reagents)
 
 /obj/item/reagent_containers/food/snacks/sliceable/examine(mob/user)

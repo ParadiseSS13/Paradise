@@ -1855,7 +1855,7 @@
 	},
 /area/shuttle/syndicate)
 "aem" = (
-/obj/machinery/vending/wallmed1/syndicate{
+/obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/shuttle/floor{
@@ -32126,7 +32126,7 @@
 	},
 /obj/machinery/iv_drip,
 /obj/structure/bed,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
 /obj/item/bedsheet/blue,
@@ -51452,7 +51452,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63383,7 +63383,7 @@
 	icon_state = "alarm0";
 	pixel_x = 24
 	},
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -94462,7 +94462,7 @@
 	},
 /area/toxins/explab)
 "dnd" = (
-/mob/living/simple_animal/pet/pug,
+/mob/living/simple_animal/pet/dog/pug,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96753,7 +96753,7 @@
 	},
 /area/medical/surgery)
 "dqS" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
@@ -98848,7 +98848,7 @@
 	pixel_x = 12;
 	pixel_y = 0
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
@@ -99390,7 +99390,7 @@
 /area/medical/morgue)
 "dvF" = (
 /obj/structure/table/glass,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 0;
@@ -107567,7 +107567,7 @@
 /area/medical/virology)
 "dKC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -111985,7 +111985,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;

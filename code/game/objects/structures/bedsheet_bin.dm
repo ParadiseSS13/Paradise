@@ -19,6 +19,7 @@ LINEN BINS
 	burn_state = FLAMMABLE
 	slot_flags = SLOT_BACK
 
+	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5

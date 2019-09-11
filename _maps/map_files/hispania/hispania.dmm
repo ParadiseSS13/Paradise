@@ -2820,7 +2820,7 @@
 	},
 /area/shuttle/syndicate)
 "afD" = (
-/obj/machinery/vending/wallmed1/syndicate{
+/obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/shuttle/floor{
@@ -8950,7 +8950,7 @@
 	},
 /area/security/prison/cell_block/A)
 "apA" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	dir = 2;
 	name = "Emergency NanoMed";
 	pixel_x = -27;
@@ -23729,7 +23729,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "aQE" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = 28;
@@ -36326,7 +36326,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -5;
 	pixel_y = 30;
@@ -43617,7 +43617,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCQ" = (
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCR" = (
@@ -43669,7 +43669,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -44014,7 +44014,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bDF" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
@@ -49640,7 +49640,7 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -50325,7 +50325,7 @@
 /area/assembly/robotics)
 "bPb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/mob/living/simple_animal/pet/corgi/Ian/borgi,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -52856,7 +52856,7 @@
 	pixel_y = 24
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTe" = (
@@ -55568,7 +55568,7 @@
 /area/medical/cryo)
 "bXP" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -58703,7 +58703,7 @@
 	dir = 1;
 	network = list("SS13")
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -5;
 	pixel_y = -30;
@@ -60868,7 +60868,7 @@
 	},
 /area/medical/cmo)
 "cfY" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -62474,7 +62474,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -74754,7 +74754,7 @@
 /area/toxins/misc_lab)
 "cDE" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -81831,7 +81831,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -86096,7 +86096,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cXI" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;

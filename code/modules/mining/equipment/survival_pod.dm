@@ -160,7 +160,7 @@
 	RefreshParts()
 
 //NanoMed
-/obj/machinery/vending/wallmed1/survival_pod
+/obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
@@ -295,7 +295,8 @@
 
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE
+	burn_state = LAVA_PROOF
 	unacidable = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 
