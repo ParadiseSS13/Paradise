@@ -167,11 +167,13 @@
 		..()
 
 var/list/blacklisted_pylon_turfs = typecacheof(list(
-	/turf/simulated/floor/engine/cult,
-	/turf/space,
-	/turf/simulated/floor/plating/lava,
-	/turf/simulated/floor/chasm,
-	/turf/simulated/wall,
+    /turf/simulated/floor/engine/cult,
+    /turf/space,
+    /turf/simulated/floor/plating/lava,
+    /turf/simulated/floor/chasm,
+    /turf/simulated/wall/cult,
+    /turf/simulated/wall/cult/artificer,
+    /turf/unsimulated/wall
 	))
 
 /obj/structure/cult/functional/pylon
@@ -230,8 +232,13 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 		last_corrupt = world.time + corrupt_delay
 
 		var/turf/T = safepick(validturfs)
-		if(T)
-			T.ChangeTurf(/turf/simulated/floor/engine/cult)
+        if(T)
+            if(istype(turf/simulated/floor))
+                T.ChangeTurf(/turf/simulated/floor/engine/cult)
+            else if(istype(/turf/simulated/wall))
+                T.ChangeTurf(/turf/simulated/wall/cult/artificer)
+            else
+                return
 		else
 			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
 			if(F)
