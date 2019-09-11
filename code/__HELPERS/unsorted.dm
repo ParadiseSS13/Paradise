@@ -507,11 +507,11 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/y = A.y
 	if(direction & NORTH)
 		y = min(world.maxy, y + range)
-	if(direction & SOUTH)
+	else if(direction & SOUTH)
 		y = max(1, y - range)
 	if(direction & EAST)
 		x = min(world.maxx, x + range)
-	if(direction & WEST)
+	else if(direction & WEST)
 		x = max(1, x - range)
 
 	return locate(x,y,A.z)
