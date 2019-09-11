@@ -163,7 +163,7 @@
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
-	objectives = get_all_objectives()
+	//objectives = get_all_objectives() TODO: Move handling of objectives from the mind to /datum/antagonist/objectives, then we can use this function
 	for(var/datum/objective/objective in objectives)
 		. += "<b>Objective #[obj_count]</b>: [objective.explanation_text]"
 		if(admin)

@@ -77,12 +77,13 @@
 		if(traitor_mob && istype(traitor_mob))
 			traitor_mob.mutations.Add(CLUMSY)
 
-
+// Adding/removing objectives in the owner's mind until we can datumize all antags. Then we can use the /datum/antagonist/objectives var to handle them
+// Change "owner.objectives" to "objectives" once objectives are handled in antag datums instead of the mind
 /datum/antagonist/traitor/proc/add_objective(datum/objective/O)
-	objectives += O
+	owner.objectives += O
 
 /datum/antagonist/traitor/proc/remove_objective(datum/objective/O)
-	objectives -= O
+	owner.objectives -= O
 
 
 /datum/antagonist/traitor/proc/forge_traitor_objectives()
