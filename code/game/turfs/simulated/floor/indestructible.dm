@@ -33,6 +33,7 @@
 
 /turf/simulated/floor/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
+
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 

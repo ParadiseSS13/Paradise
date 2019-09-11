@@ -287,12 +287,6 @@
 	cooktype["grilled"] = 1
 	cooktype["deep fried"] = 1
 
-/obj/item/reagent_containers/food/snacks/meatsteak
-	name = "Meat steak"
-	desc = "A piece of hot spicy meat."
-	icon_state = "meatstake"
-	trash = /obj/item/trash/plate
-	filling_color = "#7A3D11"
 // MISC
 
 /obj/item/reagent_containers/food/snacks/cereal

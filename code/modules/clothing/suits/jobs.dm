@@ -374,6 +374,7 @@
 	icon_state = "surgical"
 	item_state = "surgical"
 	allowed = list(/obj/item/scalpel, /obj/item/surgical_drapes, /obj/item/cautery, /obj/item/hemostat, /obj/item/retractor)
+
 //Research Director
 /obj/item/clothing/suit/mantle/labcoat
 	name = "research director's mantle"

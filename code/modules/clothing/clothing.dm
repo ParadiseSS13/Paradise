@@ -218,6 +218,7 @@ BLIND     // can't see anything
 	icon = (hispania_icon ? 'icons/hispania/obj/clothing/glasses.dmi' : icon)
 	lefthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_lefthand.dmi' : lefthand_file)
 	righthand_file = (hispania_icon ? 'icons/hispania/mob/inhands/clothing_righthand.dmi' : righthand_file)
+
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
 	set name = "Adjust Eyewear"
 	set category = "Object"

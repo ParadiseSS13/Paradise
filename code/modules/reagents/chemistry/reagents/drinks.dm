@@ -391,7 +391,7 @@
 	taste_description = "cold tea"
 
 /datum/reagent/consumable/drink/bananahonk
-	name = "Banana Mama"
+	name = "Banana Honk"
 	id = "bananahonk"
 	description = "A drink from Clown Heaven."
 	color = "#664300" // rgb: 102, 67, 0
@@ -429,7 +429,7 @@
 	id = "chocolatepudding"
 	description = "A great dessert for chocolate lovers."
 	color = "#800000"
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "chocolatepudding"
 	drink_name = "Chocolate Pudding"
 	drink_desc = "Tasty"
@@ -440,7 +440,7 @@
 	id = "vanillapudding"
 	description = "A great dessert for vanilla lovers."
 	color = "#FAFAD2"
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "vanillapudding"
 	drink_name = "Vanilla Pudding"
 	drink_desc = "Tasty."
@@ -451,7 +451,7 @@
 	id = "cherryshake"
 	description = "A cherry flavored milkshake."
 	color = "#FFB6C1"
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "cherryshake"
 	drink_name = "Cherry Shake"
 	drink_desc = "A cherry flavored milkshake."
@@ -462,7 +462,7 @@
 	id = "bluecherryshake"
 	description = "An exotic milkshake."
 	color = "#00F1FF"
-	nutriment_factor = 3 * REAGENTS_METABOLISM
+	nutriment_factor = 4 * REAGENTS_METABOLISM
 	drink_icon = "bluecherryshake"
 	drink_name = "Blue Cherry Shake"
 	drink_desc = "An exotic blue milkshake."
@@ -484,7 +484,7 @@
 	id = "gibbfloats"
 	description = "Ice cream on top of a Dr. Gibb glass."
 	color = "#B22222"
-	nutriment_factor = 2 * REAGENTS_METABOLISM
+	nutriment_factor = 3 * REAGENTS_METABOLISM
 	drink_icon= "gibbfloats"
 	drink_name = "Gibbfloat"
 	drink_desc = "Dr. Gibb with ice cream on top."
