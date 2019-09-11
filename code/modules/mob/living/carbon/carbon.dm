@@ -962,7 +962,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(flying)
 		return FALSE
 	if(!(lube & SLIDE_ICE))
-		add_attack_logs(src, (O ? O : get_turf(src)), "slipped on the", null, ((lube & SLIDE) ? "(LUBE)" : null))
+		add_attack_logs(src, (O ? O : get_turf(src)), "slipped on", null, ((lube & SLIDE) ? "(LUBE)" : null))
 	return loc.handle_slip(src, knockdown_amount, O, lube)
 
 /mob/living/carbon/proc/can_eat(flags = 255)
