@@ -374,7 +374,7 @@
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
-	. = ..(user)
+	. = ..()
 	if(inert)
 		. += "<span class='revennotice'>It seems inert.</span>"
 	else if(reforming)

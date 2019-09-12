@@ -1033,7 +1033,7 @@
 		update_icon()
 
 /obj/machinery/alarm/examine(mob/user)
-	. = ..(user)
+	. = ..()
 	if(buildstage < 2)
 		. += "It is not wired."
 	if(buildstage < 1)

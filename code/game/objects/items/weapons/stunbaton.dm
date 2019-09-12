@@ -73,7 +73,7 @@
 		icon_state = "[base_icon]"
 
 /obj/item/melee/baton/examine(mob/user)
-	. = ..(user)
+	. = ..()
 	if(isrobot(loc))
 		. += "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>"
 	if(bcell)

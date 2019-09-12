@@ -65,7 +65,7 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
-	. = ..(user)
+	. = ..()
 	if(welded)
 		. += "It seems welded shut."
 

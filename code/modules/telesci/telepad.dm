@@ -136,7 +136,7 @@
 	rcell = new(src)
 
 /obj/item/rcs/examine(mob/user)
-	. = ..(user)
+	. = ..()
 	. += "There are [round(rcell.charge/chargecost)] charge\s left."
 
 /obj/item/rcs/Destroy()

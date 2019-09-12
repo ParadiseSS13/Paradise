@@ -155,7 +155,7 @@
 	power_gen = round(initial(power_gen) * (max(2, temp_rating) / 2))
 
 /obj/machinery/power/port_gen/pacman/examine(mob/user)
-	. = ..(user)
+	. = ..()
 	. += "\The [src] appears to be producing [power_gen*power_output] W."
 	. += "There [sheets == 1 ? "is" : "are"] [sheets] sheet\s left in the hopper."
 	if(IsBroken())

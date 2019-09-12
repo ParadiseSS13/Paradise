@@ -9,7 +9,7 @@
 	bomb_name = "contact mine"
 
 /obj/item/assembly/mousetrap/examine(mob/user)
-	. = ..(user)
+	. = ..()
 	if(armed)
 		. += "It looks like it's armed."
 
