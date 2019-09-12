@@ -56,9 +56,9 @@
 		return ..()
 
 /obj/machinery/iv_drip/examine(mob/user)
-	..(user)
+	. = ..(user)
 	if(bag)
-		bag.examine(user)
+		. += bag.examine(user) // TODO CHECK LIST ADD RANGE
 
 /obj/machinery/iv_drip/Move(NewLoc, direct)
 	. = ..()

@@ -133,7 +133,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 			desc = text("The [name] is assembled")
 			if(powered)
 				desc = desc_holder
-	..(user)
+	. = ..()
 
 /obj/structure/particle_accelerator/attackby(obj/item/W, mob/user, params)
 	if(istool(W))

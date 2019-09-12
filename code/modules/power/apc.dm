@@ -229,27 +229,28 @@
 	addtimer(CALLBACK(src, .proc/update), 5)
 
 /obj/machinery/power/apc/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		if(stat & BROKEN)
-			to_chat(user, "Looks broken.")
+			. += "Looks broken."
 			return
 		if(opened)
 			if(has_electronics && terminal)
-				to_chat(user, "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"].")
+				. += "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
 			else if(!has_electronics && terminal)
-				to_chat(user, "There are some wires but no electronics.")
+				. += "There are some wires but no electronics."
 			else if(has_electronics && !terminal)
-				to_chat(user, "Electronics installed but not wired.")
+				. += "Electronics installed but not wired."
 			else /* if(!has_electronics && !terminal) */
-				to_chat(user, "There is no electronics nor connected wires.")
+				. += "There is no electronics nor connected wires."
 
 		else
 			if(stat & MAINT)
-				to_chat(user, "The cover is closed. Something wrong with it: it doesn't work.")
+				. += "The cover is closed. Something wrong with it: it doesn't work."
 			else if(malfhack)
-				to_chat(user, "The cover is broken. It may be hard to force it open.")
+				. += "The cover is broken. It may be hard to force it open."
 			else
-				to_chat(user, "The cover is closed.")
+				. += "The cover is closed."
 
 // update the APC icon to show the three base states
 // also add overlays for indicator lights

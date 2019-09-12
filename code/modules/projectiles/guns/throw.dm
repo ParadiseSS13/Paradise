@@ -31,8 +31,8 @@
 	return count
 
 /obj/item/gun/throw/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].</span>")
+	. = ..()
+	. += "<span class='notice'>It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].</span>"
 	notify_ammo_count(user)
 
 /obj/item/gun/throw/Destroy()

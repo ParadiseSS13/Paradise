@@ -21,8 +21,9 @@
 	return ..()
 
 /obj/structure/mopbucket/examine(mob/user)
-	if(..(user, 1))
-		to_chat(usr, "[bicon(src)] [src] contains [reagents.total_volume] units of water left!")
+	. = ..()
+	if(in_range(user, src))
+		. += "[bicon(src)] [src] contains [reagents.total_volume] units of water left!"
 
 /obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/mop))

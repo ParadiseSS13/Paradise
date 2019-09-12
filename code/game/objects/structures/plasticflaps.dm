@@ -19,9 +19,9 @@
 	. = ..()
 	switch(state)
 		if(PLASTIC_FLAPS_NORMAL)
-			to_chat(user, "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>")
+			. += "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>"
 		if(PLASTIC_FLAPS_DETACHED)
-			to_chat(user, "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>")
+			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
 
 /obj/structure/plasticflaps/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)

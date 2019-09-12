@@ -102,16 +102,15 @@
 	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
-	if(!..(user, 2))
-		return
+	. =	..()
+	if(get_dist(user, src) <= 2)
+		var/empty = 1
 
-	var/empty = 1
+		for(var/datum/reagents/RS in reagent_list)
+			var/datum/reagent/R = locate() in RS.reagent_list
+			if(R)
+				. += "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
+				empty = 0
 
-	for(var/datum/reagents/RS in reagent_list)
-		var/datum/reagent/R = locate() in RS.reagent_list
-		if(R)
-			to_chat(user, "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>")
-			empty = 0
-
-	if(empty)
-		to_chat(user, "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>")
+		if(empty)
+			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"

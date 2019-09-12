@@ -309,7 +309,7 @@
 /obj/item/guardiancreator/examine(mob/user, distance)
 	. = ..()
 	if(used)
-		to_chat(user, "<span class='notice'>[used_message]</span>")
+		. += "<span class='notice'>[used_message]</span>"
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key)
 	var/guardian_type = "Standard"

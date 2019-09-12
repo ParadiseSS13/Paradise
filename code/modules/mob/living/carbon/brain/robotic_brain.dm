@@ -166,12 +166,9 @@
 
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
-	to_chat(user, "Its speaker is turned [silenced ? "off" : "on"].")
-	to_chat(user, "<span class='info'>*---------*</span>")
+	. += "Its speaker is turned [silenced ? "off" : "on"]."
+	. += "<span class='info'>*---------*</span>"
 	. = ..()
-	if(!.)
-		to_chat(user, "<span class='info'>*---------*</span>")
-		return
 
 	var/list/msg = list("<span class='info'>")
 
@@ -187,7 +184,7 @@
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	msg += "*---------*</span>"
-	to_chat(user, msg.Join(""))
+	. += msg.Join("")
 
 /obj/item/mmi/robotic_brain/emp_act(severity)
 	if(!brainmob)

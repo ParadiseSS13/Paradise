@@ -28,14 +28,15 @@
 		icon_state = "bulb-construct-stage1"
 
 /obj/machinery/light_construct/examine(mob/user)
-	if(..(user, 2))
-		switch(src.stage)
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		switch(stage)
 			if(1)
-				to_chat(usr, "It's an empty frame.")
+				. += "It's an empty frame."
 			if(2)
-				to_chat(usr, "It's wired.")
+				. += "It's wired."
 			if(3)
-				to_chat(usr, "The casing is closed.")
+				. += "The casing is closed."
 
 /obj/machinery/light_construct/attackby(obj/item/W as obj, mob/living/user as mob, params)
 	src.add_fingerprint(user)
@@ -283,16 +284,17 @@
 
 // examine verb
 /obj/machinery/light/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				to_chat(user, "[desc] It is turned [on? "on" : "off"].")
+				. += "[desc] It is turned [on? "on" : "off"]."
 			if(LIGHT_EMPTY)
-				to_chat(user, "[desc] The [fitting] has been removed.")
+				. += "[desc] The [fitting] has been removed."
 			if(LIGHT_BURNED)
-				to_chat(user, "[desc] The [fitting] is burnt out.")
+				. += "[desc] The [fitting] is burnt out."
 			if(LIGHT_BROKEN)
-				to_chat(user, "[desc] The [fitting] has been smashed.")
+				. += "[desc] The [fitting] has been smashed."
 
 
 

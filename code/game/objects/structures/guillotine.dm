@@ -29,7 +29,7 @@
 	var/current_action = 0 // What's currently happening to the guillotine
 
 /obj/structure/guillotine/examine(mob/user)
-	..()
+	. = ..()
 
 	var/msg = ""
 
@@ -49,9 +49,7 @@
 		msg += "<br/>"
 		msg += "Someone appears to be strapped in. You can help them out, or you can harm them by activating the guillotine."
 
-	to_chat(user, msg)
-
-	return msg
+	. += msg
 
 /obj/structure/guillotine/attack_hand(mob/user)
 	add_fingerprint(user)

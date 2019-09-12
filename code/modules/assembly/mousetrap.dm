@@ -9,9 +9,9 @@
 	bomb_name = "contact mine"
 
 /obj/item/assembly/mousetrap/examine(mob/user)
-	..(user)
+	. = ..(user)
 	if(armed)
-		to_chat(user, "It looks like it's armed.")
+		. += "It looks like it's armed."
 
 /obj/item/assembly/mousetrap/activate()
 	if(..())

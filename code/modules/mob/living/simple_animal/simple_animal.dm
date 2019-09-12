@@ -140,7 +140,7 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		to_chat(user, "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>")
+		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)

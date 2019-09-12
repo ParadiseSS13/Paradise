@@ -73,13 +73,13 @@
 		icon_state = "[base_icon]"
 
 /obj/item/melee/baton/examine(mob/user)
-	..(user)
+	. = ..(user)
 	if(isrobot(loc))
-		to_chat(user, "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>")
+		. += "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>"
 	if(bcell)
-		to_chat(user, "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>")
+		. += "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>"
 	if(!bcell)
-		to_chat(user, "<span class='warning'>The baton does not have a power source installed.</span>")
+		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 
 /obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))

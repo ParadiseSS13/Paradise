@@ -23,7 +23,7 @@
 
 /obj/effect/clockwork/overlay/examine(mob/user)
 	if(linked)
-		linked.examine(user)
+		return linked.examine(user)
 
 /obj/effect/clockwork/overlay/ex_act()
 	return FALSE

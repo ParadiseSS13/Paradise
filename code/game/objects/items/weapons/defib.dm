@@ -44,8 +44,8 @@
 	update_charge()
 
 /obj/item/defibrillator/examine(mob/user)
-	..(user)
-	to_chat(user, "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>")
+	. = ..()
+	. += "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>"
 
 /obj/item/defibrillator/proc/update_power()
 	if(bcell)

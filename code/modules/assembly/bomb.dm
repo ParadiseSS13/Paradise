@@ -13,8 +13,8 @@
 	origin_tech = "materials=1;engineering=1"
 
 /obj/item/onetankbomb/examine(mob/user)
-	..(user)
-	user.examinate(bombtank)
+	. = ..(user)
+	. += bombtank.examine(user)
 
 /obj/item/onetankbomb/update_icon()
 	if(bombtank)
