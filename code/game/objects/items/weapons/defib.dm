@@ -283,8 +283,7 @@
 		return
 	cooldown = TRUE
 	update_icon()
-	spawn(time)
-		recharge_finished()
+	addtimer(CALLBACK(src, .proc/recharge_finished), time)
 
 /obj/item/twohanded/shockpaddles/proc/recharge_finished()
 	var/turf/T = get_turf(src)
@@ -386,7 +385,6 @@
 	M.visible_message("<span class='danger'>[user] has touched [M] with [src]!</span>", "<span class='userdanger'>[user] has touched [M] with [src]!</span>")
 	M.adjustStaminaLoss(50)
 	M.Paralyse(10)
-	M.updatehealth() //forces health update before next life tick
 	playsound(src,  'sound/machines/defib_zap.ogg', 50, 1, -1)
 	M.emote("gasp")
 	add_attack_logs(user, M, "Stunned with [src]")
