@@ -131,16 +131,6 @@
 	fire_delay = 10
 	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
-/obj/item/spacepod_equipment/weaponry/mining_laser_hyper
-	name = "enhanced mining laser system"
-	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock."
-	icon = 'icons/goonstation/pods/ship.dmi'
-	icon_state = "pod_w_laser"
-	projectile_type = /obj/item/projectile/kinetic/pod/enhanced
-	shot_cost = 200
-	fire_delay = 8
-	fire_sound = 'sound/weapons/kenetic_accel.ogg'
-
 /*
 ///////////////////////////////////////
 /////////Misc. System///////////////////

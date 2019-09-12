@@ -1,0 +1,4 @@
+author: "Terilia"
+delete-after: True
+changes: 
+  - bugfix: "stat_attack from unconscious to dead"

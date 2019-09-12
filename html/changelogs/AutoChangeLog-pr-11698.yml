@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Admins using the 'MOST' attack log setting no longer see player-v-NPC combat, or any attack logs generated in the admin room, admin testing area, thunderdome arena, or lavaland syndicate base. Prevents admins being spammed with attack logs."

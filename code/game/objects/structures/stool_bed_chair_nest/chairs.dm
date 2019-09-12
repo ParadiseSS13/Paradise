@@ -64,6 +64,12 @@
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 			return
+		if(!usr.has_right_hand() && !usr.has_left_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but you are missing both of your hands!</span>")
+			return
+		if(usr.get_active_hand() && usr.get_inactive_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but your hands are already full!</span>")
+			return
 		if(!ishuman(usr))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
@@ -127,6 +133,9 @@
 
 // Chair types
 /obj/structure/chair/wood
+	name = "wooden chair"
+	desc = "Old is never too old to not be in fashion."
+	icon_state = "wooden_chair"
 	burn_state = FLAMMABLE
 	burntime = 20
 	buildstackamount = 3
@@ -136,15 +145,8 @@
 /obj/structure/chair/wood/narsie_act()
 	return
 
-/obj/structure/chair/wood/normal
-	icon_state = "wooden_chair"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
-
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
 	item_chair = /obj/item/chair/wood/wings
 
 /obj/structure/chair/comfy
@@ -413,7 +415,7 @@
 	name = "wooden chair"
 	icon_state = "wooden_chair_toppled"
 	item_state = "woodenchair"
-	resistance_flags = FLAMMABLE
+	burn_state = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood

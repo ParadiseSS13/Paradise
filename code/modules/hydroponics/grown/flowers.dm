@@ -25,6 +25,7 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#FF6347"
 	bitesize_mod = 3
+	tastes = list("poppy" = 1)
 	distill_reagent = "vermouth"
 
 // Lily
@@ -42,6 +43,7 @@
 	name = "lily"
 	desc = "A beautiful orange flower"
 	icon_state = "lily"
+	tastes = list("lily" = 1)
 	filling_color = "#FFA500"
 
 // Geranium
@@ -59,6 +61,7 @@
 	name = "geranium"
 	desc = "A beautiful blue flower"
 	icon_state = "geranium"
+	tastes = list("geranium" = 1)
 	filling_color = "#008B8B"
 
 
@@ -88,6 +91,7 @@
 	icon_state = "harebell"
 	slot_flags = SLOT_HEAD
 	filling_color = "#E6E6FA"
+	tastes = list("harebell" = 1)
 	bitesize_mod = 3
 	distill_reagent = "vermouth"
 
@@ -147,6 +151,7 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
+	tastes = list("moonflower" = 1)
 	distill_reagent = "absinthe" 
 
 // Novaflower

@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(mapping)
 
 		var/num_extra_space = rand(config.extra_space_ruin_levels_min, config.extra_space_ruin_levels_max)
 		for(var/i = 1, i <= num_extra_space, i++)
-			var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED)
+			var/zlev = space_manager.add_new_zlevel("[EMPTY_AREA] #[i]", linkage = CROSSLINKED, traits = list(REACHABLE))
 			seedRuins(list(zlev), rand(0, 3), /area/space, space_ruins_templates)
 
 	// Setup the Z-level linkage
@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(mapping)
 	if (mining_type == "lavaland")
 		// Spawn Lavaland ruins and rivers.
 		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates)
-		spawn_rivers()
+		spawn_rivers(list(level_name_to_num(MINING)))
 	else
 		// Populate mining Z-level hidden rooms
 		for(var/i = 0, i < max_secret_rooms, i++)

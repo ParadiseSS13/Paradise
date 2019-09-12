@@ -14,7 +14,6 @@ var/list/blob_nodes = list()
 	required_enemies = 1
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
-	free_golems_disabled = TRUE
 
 	var/declared = 0
 	var/burst = 0

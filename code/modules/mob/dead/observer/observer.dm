@@ -29,6 +29,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/seedarkness = TRUE
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
+	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 
 /mob/dead/observer/New(var/mob/body=null, var/flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -236,6 +237,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
+	update_parallax_contents()
 	following = null
 	setDir(direct)
 	ghostimage.setDir(dir)
@@ -417,6 +419,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	forceMove(pick(L))
+	update_parallax_contents()
 	following = null
 
 /mob/dead/observer/verb/follow()
@@ -511,6 +514,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
 		A.forceMove(T)
+		M.update_parallax_contents()
+		following = null
 		return
 	to_chat(A, "This mob is not located in the game world.")
 
@@ -536,6 +541,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/add_memory()
 	set hidden = 1
 	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
+
+
+/mob/dead/observer/verb/toggle_health_scan()
+	set name = "Toggle Health Scan"
+	set desc = "Toggles whether you health-scan living beings on click"
+	set category = "Ghost"
+
+	if(health_scan) //remove old huds
+		to_chat(src, "<span class='notice'>Health scan disabled.</span>")
+		health_scan = FALSE
+	else
+		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
+		health_scan = TRUE
 
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
@@ -761,13 +779,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/incarnate_ghost()
 	if(!client)
 		return
+
 	var/mob/living/carbon/human/new_char = new(get_turf(src))
 	client.prefs.copy_to(new_char)
 	if(mind)
-		mind.active = 1
+		mind.active = TRUE
 		mind.transfer_to(new_char)
 	else
 		new_char.key = key
+
+	return new_char
 
 /mob/dead/observer/is_literate()
 	return TRUE

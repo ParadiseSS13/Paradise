@@ -96,7 +96,7 @@ Class Procs:
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
-	pressure_resistance = 10
+	pressure_resistance = 15
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
 	var/emagged = 0
@@ -553,9 +553,7 @@ Class Procs:
 			threatcount += 2
 
 	if(check_records || check_arrest)
-		var/perpname = perp.name
-		if(id)
-			perpname = id.registered_name
+		var/perpname = perp.get_visible_name(TRUE)
 
 		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)

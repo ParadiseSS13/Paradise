@@ -71,15 +71,16 @@ var/list/admin_verbs_admin = list(
 	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds,
+	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/show_discord_duplicates,
+	/client/proc/show_discord_duplicates, // This needs removing at some point, ingame discord linking got removed in #11359
+	/client/proc/toggle_panic_bunker
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -118,7 +119,8 @@ var/list/admin_verbs_event = list(
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
 	/client/proc/event_manager_panel,
-	/client/proc/modify_goals
+	/client/proc/modify_goals,
+	/client/proc/outfit_manager
 	)
 
 var/list/admin_verbs_spawn = list(
@@ -642,7 +644,7 @@ var/list/admin_verbs_ticket = list(
 		if(!message)
 			return
 		for(var/mob/V in hearers(O))
-			V.show_message(message, 2)
+			V.show_message(admin_pencode_to_html(message), 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
 		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
 		feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -800,7 +802,7 @@ var/list/admin_verbs_ticket = list(
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -826,7 +828,7 @@ var/list/admin_verbs_ticket = list(
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -1027,3 +1029,16 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	holder.discord_duplicates()
+
+/client/proc/toggle_panic_bunker()
+	set name = "Toggle Panic Bunker"
+	set category = "Admin"
+	set desc = "Disables new players connecting."
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled 
+
+	log_admin("[key_name(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
+	message_admins("[key_name_admin(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")

@@ -17,8 +17,6 @@
 	stop_automated_movement = 1
 	friendly = "pinches"
 	ventcrawler = 2
-	var/obj/item/inventory_head
-	var/obj/item/inventory_mask
 	can_hide = 1
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
@@ -32,11 +30,6 @@
 				var/east_vs_west = pick(4, 8)
 				if(Process_Spacemove(east_vs_west))
 					Move(get_step(src, east_vs_west), east_vs_west)
-					turns_since_move = 0
-
-/mob/living/simple_animal/crab/Life(seconds, times_fired)
-	. = ..()
-	regenerate_icons()
 
 //COFFEE! SQUEEEEEEEEE!
 /mob/living/simple_animal/crab/Coffee
@@ -47,6 +40,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	unique_pet = TRUE
 
 //LOOK AT THIS - ..()??
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
