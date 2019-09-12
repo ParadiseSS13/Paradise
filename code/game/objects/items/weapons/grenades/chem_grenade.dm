@@ -567,7 +567,7 @@
 	update_icon()
 
 /obj/item/grenade/chem_grenade/saringas
-	payload_name = "saringas"
+	payload_name = "sarin gas"
 	desc = "Contains sarin gas; extremely deadly and fast acting; use with extreme caution."
 	stage = READY
 
