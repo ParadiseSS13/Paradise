@@ -5,6 +5,7 @@
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
 	taste_mult = 1.2
+	taste_description = "bitterness"
 
 /datum/reagent/toxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -17,6 +18,7 @@
 	description = "A toxic venom injected by spacefaring arachnids."
 	reagent_state = LIQUID
 	color = "#CF3600" // rgb: 207, 54, 0
+	taste_description = "bitterness"
 
 /datum/reagent/spider_venom/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -81,6 +83,7 @@
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
 	can_synth = FALSE
+	taste_description = "slime"
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method != TOUCH)
@@ -95,7 +98,6 @@
 	color = "#484848" // rgb: 72, 72, 72
 	metabolization_rate = 0.2
 	penetrates_skin = TRUE
-	taste_description = "metal"
 	taste_mult = 0 // elemental mercury is tasteless
 
 /datum/reagent/mercury/on_mob_life(mob/living/M)
@@ -127,7 +129,7 @@
 	color = "#6A6054"
 	penetrates_skin = TRUE
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "spicy freshness"
+	taste_description = "acid"
 
 /datum/reagent/fluorine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -142,6 +144,7 @@
 	reagent_state = SOLID
 	color = "#C7C7C7" // rgb: 199,199,199
 	penetrates_skin = TRUE
+	taste_description = "the colour blue and regret"
 
 /datum/reagent/radium/on_mob_life(mob/living/M)
 	if(M.radiation < 80)
@@ -160,6 +163,7 @@
 	color = "#04DF27"
 	metabolization_rate = 0.3
 	taste_mult = 0.9
+	taste_description = "slime"
 
 /datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(!..())
@@ -186,6 +190,7 @@
 	description = "Just the regular, boring sort of mutagenic compound.  Works in a completely predictable manner."
 	reagent_state = LIQUID
 	color = "#7DFF00"
+	taste_description = "slime"
 
 /datum/reagent/stable_mutagen/on_mob_life(mob/living/M)
 	if(!ishuman(M) || !M.dna)
@@ -213,6 +218,37 @@
 		data = B.data.Copy()
 	..()
 
+/datum/reagent/romerol
+	name = "romerol"
+	// the REAL zombie powder
+	id = "romerol"
+	description = "Romerol is a highly experimental bioterror agent \
+		which causes dormant nodules to be etched into the grey matter of \
+		the subject. These nodules only become active upon death of the \
+		host, upon which, the secondary structures activate and take control \
+		of the host body."
+	color = "#123524" // RGB (18, 53, 36)
+	metabolization_rate = INFINITY
+	can_synth = FALSE
+	taste_description = "CAAAARL"
+
+/datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H, method = TOUCH, volume)
+	if(!istype(H))
+		return
+	// Silently add the zombie infection organ to be activated upon death
+	if(!H.get_organ_slot("zombie_infection"))
+		var/obj/item/organ/internal/zombie_infection/nodamage/ZI = new()
+		ZI.insert(H)
+	..()
+
+/datum/reagent/romerol/on_mob_life(mob/living/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H.get_organ_slot("zombie_infection"))
+			var/obj/item/organ/internal/zombie_infection/nodamage/ZI = new()
+			ZI.insert(H)
+	return ..()
+
 /datum/reagent/uranium
 	name ="Uranium"
 	id = "uranium"
@@ -220,6 +256,7 @@
 	reagent_state = SOLID
 	color = "#B8B8C0" // rgb: 184, 184, 192
 	taste_mult = 0
+	taste_description = "the inside of a reactor"
 
 /datum/reagent/uranium/on_mob_life(mob/living/M)
 	M.apply_effect(2, IRRADIATE, negate_armor = 1)
@@ -237,6 +274,7 @@
 	reagent_state = LIQUID
 	color = "#52685D"
 	metabolization_rate = 0.2
+	taste_description = "sweetness"
 
 /datum/reagent/lexorin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -301,6 +339,7 @@
 	description = "A deadly neurotoxin produced by the dreaded spess carp."
 	reagent_state = LIQUID
 	color = "#003333" // rgb: 0, 51, 51
+	taste_description = "fish"
 
 /datum/reagent/carpotoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -314,6 +353,7 @@
 	reagent_state = LIQUID
 	color = "#6E2828"
 	data = 13
+	taste_description = "bitterness"
 
 /datum/reagent/staminatoxin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -327,6 +367,7 @@
 	id = "spore"
 	description = "A natural toxin produced by blob spores that inhibits vision when ingested."
 	color = "#9ACD32"
+	taste_description = "bitterness"
 
 /datum/reagent/spores/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -345,6 +386,7 @@
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
 	taste_description = "beer"
+	taste_description = "piss water"
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -456,6 +498,7 @@
 	reagent_state = LIQUID
 	color = "#DED6D0"
 	penetrates_skin = TRUE
+	taste_description = "bitterness"
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -473,6 +516,7 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 40
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/venom/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -498,6 +542,7 @@
 	reagent_state = LIQUID
 	color = "#60A584"
 	metabolization_rate = 1
+	taste_mult = 0
 
 /datum/reagent/neurotoxin2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -562,6 +607,7 @@
 	color = "#B0B0B0"
 	metabolization_rate = 0.3
 	penetrates_skin = TRUE
+	taste_description = "prickliness"
 
 /datum/reagent/itching_powder/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_STAT
@@ -775,6 +821,7 @@
 	reagent_state = LIQUID
 	color = "#6BA688"
 	metabolization_rate = 0.1
+	taste_mult = 0
 
 /datum/reagent/sulfonal/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -840,6 +887,7 @@
 	color = "#C2D8CD"
 	metabolization_rate = 0.05
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -855,6 +903,7 @@
 	color = "#191919"
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
+	taste_mult = 0
 
 /datum/reagent/curare/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -888,6 +937,7 @@
 	reagent_state = LIQUID
 	color = "#C8C8C8" //RGB: 200, 200, 200
 	metabolization_rate = 0.2 * REAGENTS_METABOLISM
+	taste_mult = 0
 
 /datum/reagent/heparin/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -962,6 +1012,7 @@
 	reagent_state = LIQUID
 	color = "#d3cf50"
 	var/lethality = 0 //Glyphosate is non-toxic to people
+	taste_description = "bitterness"
 
 /datum/reagent/glyphosate/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1014,6 +1065,7 @@
 	id = "pestkiller"
 	description = "A harmful toxic mixture to kill pests. Do not ingest!"
 	color = "#4B004B" // rgb: 75, 0, 75
+	taste_description = "bitterness"
 
 /datum/reagent/pestkiller/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1094,6 +1146,7 @@
 	description = "A filthy, carcinogenic sludge produced by the Slurrypod plant."
 	reagent_state = LIQUID
 	color = "#00C81E"
+	taste_description = "slime"
 
 /datum/reagent/toxic_slurry/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1112,6 +1165,7 @@
 	description = "This is probably not good for you."
 	reagent_state = LIQUID
 	color = "#00FD00"
+	taste_description = "slime"
 
 /datum/reagent/glowing_slurry/reaction_mob(mob/living/M, method=TOUCH, volume) //same as mutagen
 	if(!..())

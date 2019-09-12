@@ -74,7 +74,7 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
 
-/obj/item/clothing/under/rank/clown/hit_reaction()
+/obj/item/clothing/under/rank/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")
@@ -87,6 +87,9 @@
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 	item_color = "sexyclown"
+
+/obj/item/clothing/under/rank/clown/nodrop
+	flags = NODROP
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -208,6 +211,8 @@
 	item_color = "mime"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/mime/nodrop
+	flags = NODROP
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."

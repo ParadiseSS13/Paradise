@@ -24,8 +24,6 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	heat_damage_per_tick = 20
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120   //120 kPa difference required to throw
 	faction = list("alien")
 	status_flags = CANPUSH
 	minbodytemp = 0
@@ -158,7 +156,8 @@
 		if(istype(target, /obj/effect/decal/cleanable))
 			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
 			qdel(target)
-			return
+			return TRUE
 		var/atom/movable/M = target
 		M.clean_blood()
 		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+		return TRUE

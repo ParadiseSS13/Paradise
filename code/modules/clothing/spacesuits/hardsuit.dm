@@ -186,6 +186,7 @@
 	item_state = "eng_hardsuit"
 	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
+	dog_fashion = /datum/dog_fashion/back/hardsuit
 
 //Atmospherics
 /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
@@ -207,6 +208,7 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
+	dog_fashion = null
 
 //Chief Engineer's hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
@@ -229,6 +231,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	jetpack = /obj/item/tank/jetpack/suit
+	dog_fashion = null
 
 //Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -357,7 +360,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	unacidable = TRUE
-	sprite_sheets = null
 
 /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	name = "elite syndicate hardsuit"
@@ -369,7 +371,6 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	unacidable = TRUE
-	sprite_sheets = null
 
 //Strike team hardsuits
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst
@@ -415,10 +416,6 @@
 	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
 	heat_protection = HEAD												//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-
-	sprite_sheets = list(
-		"Grey" = 'icons/mob/species/grey/helmet.dmi'
-		)
 	magical = TRUE
 
 /obj/item/clothing/suit/space/hardsuit/wizard
@@ -433,7 +430,6 @@
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
-	sprite_sheets = null
 	magical = TRUE
 
 //Medical hardsuit
@@ -478,11 +474,10 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	name = "head of security's hardsuit helmet"
-	desc = "a special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+	desc = "A special bulky helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "hardsuit0-hos"
 	item_color = "hos"
 	armor = list(melee = 45, bullet = 25, laser = 30,energy = 10, bomb = 25, bio = 100, rad = 50)
-	sprite_sheets = null
 
 /obj/item/clothing/suit/space/hardsuit/security/hos
 	name = "head of security's hardsuit"
@@ -491,7 +486,7 @@
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/security/hos
 	jetpack = /obj/item/tank/jetpack/suit
-	sprite_sheets = null
+
 
 //Singuloth armor
 /obj/item/clothing/head/helmet/space/hardsuit/singuloth
@@ -532,7 +527,7 @@
 	var/shield_on = "shield-old"
 	sprite_sheets = null
 
-/obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, attack_text)
+/obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges > 0)
 		do_sparks(2, 1, src)
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")

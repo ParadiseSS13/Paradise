@@ -96,7 +96,7 @@ Class Procs:
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
-	pressure_resistance = 10
+	pressure_resistance = 15
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
 	var/emagged = 0

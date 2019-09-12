@@ -2,6 +2,7 @@
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
+	faction += "\ref[src]"
 
 /mob/living/prepare_huds()
 	..()
@@ -256,10 +257,10 @@
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
-	
+
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
-	
+
 
 /mob/living/ex_act(severity)
 	..()
@@ -603,6 +604,34 @@
 	else
 		return pick("trails_1", "trails_2")
 
+/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+	if(buckled)
+		return
+	if(client && client.move_delay >= world.time + world.tick_lag * 2)
+		pressure_resistance_prob_delta -= 30
+
+	var/list/turfs_to_check = list()
+
+	if(has_limbs)
+		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
+		if (T)
+			turfs_to_check += T
+
+		T = get_step(src, angle2dir(dir2angle(direction) - 90))
+		if(T)
+			turfs_to_check += T
+
+		for(var/t in turfs_to_check)
+			T = t
+			if(T.density)
+				pressure_resistance_prob_delta -= 20
+				continue
+			for(var/atom/movable/AM in T)
+				if(AM.density && AM.anchored)
+					pressure_resistance_prob_delta -= 20
+					break
+
+	..(pressure_difference, direction, pressure_resistance_prob_delta)
 
 /*//////////////////////
 	START RESIST PROCS
@@ -615,6 +644,8 @@
 	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
 		return
 	changeNext_move(CLICK_CD_RESIST)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 
 	if(!restrained())
 		if(resist_grab())

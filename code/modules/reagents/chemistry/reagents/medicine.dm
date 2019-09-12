@@ -1,6 +1,7 @@
 /datum/reagent/medicine
 	name = "Medicine"
 	id = "medicine"
+	taste_description = "bitterness"
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
@@ -289,11 +290,6 @@
 	overdose_threshold = 30
 	addiction_chance = 5
 	taste_description = "health"
-
-/datum/reagent/medicine/omnizine/godblood
-	name = "Godblood"
-	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
-	overdose_threshold = 150
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -728,7 +724,7 @@
 	id = "mannitol"
 	description = "Mannitol is a sugar alcohol that can help alleviate cranial swelling."
 	color = "#D1D1F1"
-	taste_description = "neurogenisis"
+	taste_description = "sweetness"
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -786,6 +782,7 @@
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
 	can_synth = FALSE
+	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -961,6 +958,12 @@
 	overdose_threshold = 30
 	metabolization_rate = 0.1
 	taste_description = "faint hope"
+
+/datum/reagent/medicine/omnizine_diluted/godblood
+	name = "Godblood"
+	id = "godblood"
+	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
+	overdose_threshold = 150
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

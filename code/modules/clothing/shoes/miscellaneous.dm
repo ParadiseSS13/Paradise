@@ -88,6 +88,9 @@
 		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
 		enabled_waddle = FALSE
 
+/obj/item/clothing/shoes/clown_shoes/nodrop
+	flags = NODROP
+
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
@@ -123,7 +126,7 @@
 	name = "mining boots"
 	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
 	icon_state = "explorer"
-	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
 
 /obj/item/clothing/shoes/winterboots
 	name = "winter boots"
@@ -307,7 +310,7 @@
 	icon_state = "jetboots"
 	item_state = "jetboots"
 	item_color = "hosred"
-	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05
 	can_cut_open = FALSE

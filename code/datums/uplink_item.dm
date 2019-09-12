@@ -189,7 +189,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
-
+/*
+/datum/uplink_item/stealthy_weapons/romerol_kit
+	name = "Romerol"
+	reference = "ROM"
+	desc = "A highly experimental bioterror agent which creates dormant nodules to be etched into the grey matter of the brain. On death, these nodules take control of the dead body, causing limited revivification, along with slurred speech, aggression, and the ability to infect others with this agent."
+	item = /obj/item/storage/box/syndie_kit/romerol
+	cost = 25
+	cant_discount = TRUE
+*/
 //mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
@@ -646,6 +654,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/dangerous/guardian
 	name = "Holoparasites"
+	reference = "HPA"
 	desc = "Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, they require an organic host as a home base and source of fuel. \
 			The holoparasites are unable to incoporate themselves to changeling and vampire agents."
 	item = /obj/item/storage/box/syndie_kit/guardian
@@ -1099,21 +1108,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 35
 
-/datum/uplink_item/stealthy_tools/syndigaloshes
-	name = "No-Slip Chameleon Shoes"
-	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
-			They do not work on heavily lubricated surfaces."
-	reference = "NSSS"
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	reference = "TNSSS"
-	cost = 4 //but they aren't
-	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/stealthy_tools/chamsechud
 	name = "Chameleon Security HUD"
 	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
@@ -1159,7 +1153,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
+	cost = 4
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/chameleon/nuke
+	reference = "NCHAM"
+	cost = 6
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes
+	name = "No-Slip Chameleon Shoes"
+	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
+			They do not work on heavily lubricated surfaces."
+	reference = "NSSS"
+	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
+	reference = "NNSSS"
+	cost = 4
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
@@ -1199,6 +1215,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/flashlight/emp
 	cost = 2
 	surplus = 30
+
+/datum/uplink_item/stealthy_tools/syndigaloshes
+	name = "No-Slip Chameleon Shoes"
+	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. They do not work on heavily lubricated surfaces."
+	reference = "NOCS"
+	item = /obj/item/clothing/shoes/chameleon/noslip
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
+	reference = "NOCSN"
+	item = /obj/item/clothing/shoes/chameleon/noslip
+	cost = 4
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
@@ -1364,16 +1395,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	These reverse-engineered knockoffs of Nanotrasen's 'Advanced Magboots' slow you down in simulated-gravity environments much like the standard issue variety."
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
-	cost = 3
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/device_tools/magboots/advance
-	name = "Advanced Blood-Red Magboots"
-	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
-	reference = "ABRMB"
-	item = /obj/item/clothing/shoes/magboots/syndie/advance
-	cost = 3
-	excludefrom = list()
+	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/powersink

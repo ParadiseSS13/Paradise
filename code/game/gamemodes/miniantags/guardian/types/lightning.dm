@@ -19,8 +19,8 @@
 	var/successfulshocks = 0
 
 /mob/living/simple_animal/hostile/guardian/beam/AttackingTarget()
-	..()
-	if(isliving(target) && target != src && target != summoner)
+	. = ..()
+	if(. && isliving(target) && target != src && target != summoner)
 		cleardeletedchains()
 		for(var/chain in enemychains)
 			var/datum/beam/B = chain

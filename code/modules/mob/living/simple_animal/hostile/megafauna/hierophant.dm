@@ -66,14 +66,14 @@ Difficulty: Hard
 	var/did_reset = TRUE //if we timed out, returned to our rune, and healed some
 	//var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...")
 	//var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
+	internal_type = /obj/item/gps/internal/hierophant
 	medal_type = BOSS_MEDAL_HIEROPHANT
 	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
 	death_sound = 'sound/magic/repulse.ogg'
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/New()
-	..()
-	internal_gps = new/obj/item/gps/internal/hierophant(src)
+/mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
+	. = ..()
 	spawned_rune = new(loc)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Life(seconds, times_fired)
@@ -108,7 +108,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
 	QDEL_NULL(spawned_rune)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/devour(mob/living/L)
 	for(var/obj/item/W in L)
@@ -123,13 +123,18 @@ Difficulty: Hard
 	adjustHealth(-L.maxHealth*0.5)
 	L.dust()
 
+/mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
+	. = ..()
+	if(istype(the_target, /mob/living/simple_animal/hostile/asteroid/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
+		return FALSE
+
 /*/mob/living/simple_animal/hostile/megafauna/hierophant/GiveTarget(new_target)
 	var/targets_the_same = (new_target == target)
 	. = ..()
 	if(. && target && !targets_the_same)
 		visible_message("<span class='hierophant'>\"[pick(target_phrases)]\"</span>")*/
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount)
+/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(src && amount > 0 && !blinking)
 		wander = TRUE
@@ -140,7 +145,7 @@ Difficulty: Hard
 		if(target && isliving(target))
 			spawn(0)
 				melee_blast(get_turf(target)) //melee attacks on living mobs produce a 3x3 blast
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/DestroySurroundings()
 	if(!blinking)
@@ -536,7 +541,7 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...
 		hit_things += L
-		if((friendly_fire_check && caster && caster.faction_check(L)) || L.stat == DEAD)
+		if((friendly_fire_check && caster && caster.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		if(L.client)
 			flash_color(L.client, "#660099", 1)
@@ -551,7 +556,7 @@ Difficulty: Hard
 	for(var/obj/mecha/M in T.contents - hit_things) //and mechs.
 		hit_things += M
 		if(M.occupant)
-			if(friendly_fire_check && caster && caster.faction_check(M.occupant))
+			if(friendly_fire_check && caster && caster.faction_check_mob(M.occupant))
 				continue
 			to_chat(M.occupant, "<span class='userdanger'>Your [M.name] is struck by a [name]!</span>")
 		playsound(M,'sound/weapons/sear.ogg', 50, 1, -4)
