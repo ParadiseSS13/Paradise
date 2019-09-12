@@ -45,7 +45,7 @@
 		remove(owner)
 	if(causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustToxLoss(1)
-		if (prob(10))
+		if(prob(10))
 			to_chat(owner, "<span class='danger'>You feel sick...</span>")
 	if(timer_id)
 		return

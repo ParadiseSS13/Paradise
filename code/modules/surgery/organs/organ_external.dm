@@ -72,10 +72,25 @@
 		if(vital)
 			owner.death()
 
-/obj/item/organ/external/become_orphan()
+/obj/item/organ/external/proc/update_parenthood() //Check to see if there's an available parent organ and become their child.
+	if(parent_organ)
+		parent = owner.bodyparts_by_name[parent_organ]
+		if(parent)
+			if(!parent.children)
+				parent.children = list()
+			parent.children |= src
+
+/obj/item/organ/external/become_orphan(mob/living/carbon/human/H)
 	if(parent && parent.children)
 		parent.children -= src
 	parent = null
+	..()
+
+/obj/item/organ/external/prep_replace(mob/living/carbon/human/H)
+	if(H)
+		H.bodyparts -= src
+		H.bodyparts_by_name -= limb_name
+	..()
 
 /obj/item/organ/external/Destroy()
 	become_orphan()
@@ -90,7 +105,8 @@
 		owner.bodyparts_by_name[limb_name] = null
 		owner.splinted_limbs -= src
 
-	QDEL_LIST(children)
+	if(!(status & ORGAN_SPECIES_CHANGING))
+		QDEL_LIST(children)
 
 	QDEL_LIST(embedded_objects)
 
@@ -112,14 +128,6 @@
 		replaced(H)
 		sync_colour_to_human(H)
 	get_icon()
-
-/obj/item/organ/external/proc/update_parenthood()
-	if(parent_organ)
-		parent = owner.bodyparts_by_name[parent_organ]
-		if(parent)
-			if(!parent.children)
-				parent.children = list()
-			parent.children |= src
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -663,8 +671,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 		if((convert_all) || (T.type in convertable_children))
 			T.robotize(company, make_tough, convert_all)
 
-
-
 /obj/item/organ/external/proc/set_company(var/company)
 	model = company
 	var/datum/robolimb/R = all_robolimbs[company]
@@ -699,8 +705,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/is_malfunctioning()
 	return (is_robotic() && (brute_dam + burn_dam) >= 10 && prob(brute_dam + burn_dam) && !tough)
 
-/obj/item/organ/external/remove(mob/living/user, ignore_children, ignore_malf)
-
+/obj/item/organ/external/remove(mob/living/user, ignore_children)
 	if(!owner)
 		return
 	var/mob/living/carbon/human/victim = owner
@@ -717,7 +722,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	. = ..()
 
 	// Attached organs also fly off.
-	if(!ignore_children)
+	if(!ignore_children && !(status & ORGAN_SPECIES_CHANGING))
 		for(var/obj/item/organ/external/O in children)
 			var/atom/movable/thing = O.remove(victim)
 			if(thing)
@@ -729,20 +734,20 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/atom/movable/thing = organ.remove(victim)
 		thing.forceMove(src)
 
-	release_restraints(victim)
 	victim.bodyparts -= src
 	if(is_primary_organ(victim))
 		victim.bodyparts_by_name[limb_name] = null	// Remove from owner's vars.
 
-	//Robotic limbs explode if sabotaged.
-	if(!ignore_malf && is_robotic() && sabotaged)
-		victim.visible_message(
-			"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
-			"<span class='danger'>Your [src.name] explodes!</span>",\
-			"<span class='danger'>You hear an explosion!</span>")
-		explosion(get_turf(owner),-1,-1,2,3)
-		do_sparks(5, 0, victim)
-		qdel(src)
+	if(!(status & ORGAN_SPECIES_CHANGING))
+		release_restraints(victim) //Make absolutely sure these don't come off during species changing.
+		if(!(status & ORGAN_SPECIES_CHANGING) && is_robotic() && sabotaged) //Robotic limbs explode if sabotaged.
+			victim.visible_message(
+				"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
+				"<span class='danger'>Your [src.name] explodes!</span>",\
+				"<span class='danger'>You hear an explosion!</span>")
+			explosion(get_turf(owner),-1,-1,2,3)
+			do_sparks(5, 0, victim)
+			qdel(src)
 
 /obj/item/organ/external/proc/disfigure()
 	if(disfigured)

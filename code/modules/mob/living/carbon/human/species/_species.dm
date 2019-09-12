@@ -112,7 +112,7 @@
 	var/language = "Galactic Common"         // Default racial language, if any.
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
-	var/list/speech_chance                   // The likelihood of a speech sound playing.
+	var/list/speech_chance                   // The likelihood 	of a speech sound playing.
 	var/scream_verb = "screams"
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
@@ -180,6 +180,7 @@
 	var/list/replace_after = list("limbs" = list(), "organs" = list())
 
 	//Criteria:
+		//*. Do create organs to fill in for missing stuff so long as it wasn't already missing.
 		//1. Don't create organs or limbs that were missing if not initializing a fresh dude (few exceptions).
 		//2. Don't regenerate organs and limbs that were removed or amputated, or that would conflict with augmentations and frankensteins.
 
@@ -189,66 +190,74 @@
 		if(OS.mutantears)
 			oldspecies_organs["ears"] = OS.mutantears
 
+		H.toggle_species_changing(TRUE) //Indicates the start the madness and that organ procs should avoid certain behaviours during the process.
+
 		/**HANDLE INTERNAL ORGANS**/
-		for(var/organ_type in species_organs) //Account for switching from a species with less organs to a species with more and vise versa.
-			if(!(organ_type in oldspecies_organs))
-				var/obj/item/organ/internal/I = H.get_organ_slot(organ_type)
-				if(!I)
-					replace_after["organs"][organ_type] = TRUE //Error 404 no type found. Will be generated from scratch later.
-				else //Liquidate the surplus.
-					remove_after["organs"] |= I
-					H.internal_organs -= I
-					H.internal_organs_slot -= I.slot
-					I.become_orphan()
+		for(var/organ_type in species_organs) //Account for switching from a species with less organs to a species with more, excepting amputations.
+			if(!H.get_organ_slot(organ_type) && !(organ_type in oldspecies_organs))
+				to_chat(H, "PI1 - [organ_type]")
+				replace_after["organs"][organ_type] = TRUE //Make sure missing stuff is regenerated or we DIE!
 
 		for(var/O in H.internal_organs) //Same as above but for innards. Gotta go inside out to avoid runtimes.
 			var/obj/item/organ/internal/I = O
-			if(!(I.slot in oldspecies_organs) && (I.type != oldspecies_organs[I.slot]))
-				continue
-			if(I.is_robotic() && isrobot(initial(I))) //Were ya born that way?
+			if(I.is_robotic() && !(initial(I.status) & ORGAN_ROBOT)) //Were ya born that way? Allows for correct removal of IPC/Vox organs.
+				to_chat(H, "I2 - [I.slot]")
 				continue
 			if((I?.dna.species.name != OS.name) || (I?.dna.real_name != H.real_name)) //Same slot, different species?
+				to_chat(H, "I3 - [I.slot]")
 				continue
-			if((I.slot in oldspecies_organs) && !(I.slot in species_organs))
-				remove_after["organs"] |= I
-			else
-				replace_after["organs"][I.slot] = I
+			if(I.slot in oldspecies_organs)
+				if(I.type != oldspecies_organs[I.slot]) //Organs with cybernetic in the type should be preserved because of this.
+					to_chat(H, "I4 - [I.slot]")
+					continue
+				if(!(I.slot in species_organs)) //Liquidate surplus.
+					to_chat(H, "I4 - [I.slot]")
+					remove_after["organs"] |= I
+					I.prep_replace(H)
+					continue
 
-			H.internal_organs -= I
-			H.internal_organs_slot -= I.slot
-			I.become_orphan()
+			//You ran the gauntlet and survived, I am pleased.
+			replace_after["organs"][I.slot] = I
+			remove_after["organs"] |= I
+			I.prep_replace(H)
 
+		for(var/I in remove_after["organs"])
+			to_chat(H, "Remove - [I]")
+		for(var/I in replace_after["organs"])
+			to_chat(H, "Replace - [I]")
 		QDEL_LIST(remove_after["organs"]) //This needs to be broken out here because it made the loops above unable to read properties properly.
 
 		/**HANDLE LIMBS**/
 		for(var/limb_type in has_limbs) //Just doing this 'cause I don't know what the future holds. Something about third leg jokes.
-			if(!(limb_type in OS.has_limbs))
-				var/obj/item/organ/external/E = H.get_organ(limb_type)
-				if(!E)
-					replace_after["limbs"][limb_type] = TRUE
-				else
-					remove_after["limbs"] |= E
-					H.bodyparts -= E
-					H.bodyparts_by_name -= E.limb_name
-					E.become_orphan()
+			if(!H.get_organ(limb_type) && !(limb_type in OS.has_limbs))
+				to_chat(H, "PE1 - [limb_type]")
+				replace_after["limbs"][limb_type] = TRUE //Just need to fill this in with something.
 
 		for(var/B in H.bodyparts) //Is it mine?
 			var/obj/item/organ/external/E = B
-			if(!(E.limb_name in OS.has_limbs) && (E.type != OS.has_limbs[E.limb_name]["path"]))
-				continue
-			if(E.is_robotic() && (!ismachine(H) || isrobot(initial(E)))) //FBPs are fair game.
+			if(E.is_robotic() && !(initial(E.status) & ORGAN_ROBOT)) //Preserves augmented or prosthetic limbs. FBPs will be fine due to rebuild_on_gain == true and their limbs starting robotic.
+				to_chat(H, "E1 - [E.limb_name]")
 				continue
 			if((E?.dna.species.name != OS.name) || (E?.dna.real_name != H.real_name))
+				to_chat(H, "E2 - [E.limb_name]")
 				continue
-			if((E.limb_name in OS.has_limbs) && !(E.limb_name in has_limbs)) //Negative on the octopus arms.
-				remove_after["limbs"] |= E
-			else
-				replace_after["limbs"][E.limb_name] = E
+			if(E.limb_name in OS.has_limbs)
+				if(E.type != OS.has_limbs[E.limb_name]["path"])
+					to_chat(H, "E3 - [E.limb_name]")
+					continue
+				if(!(E.limb_name in has_limbs))
+					to_chat(H, "E4 - [E.limb_name]")
+					remove_after["limbs"] |= E
+					E.prep_replace(H)
 
-			H.bodyparts -= E
-			H.bodyparts_by_name -= E.limb_name
-			E.become_orphan() //Planned parenthood is important, even in space.
+			replace_after["limbs"][E.limb_name] = E
+			remove_after["limbs"] |= E
+			E.prep_replace(H) //Planned parenthood is important, even in space.
 
+		for(var/E in remove_after["limbs"])
+			to_chat(H, "Remove - [E]")
+		for(var/E in replace_after["limbs"])
+			to_chat(H, "Replace - [E]")
 		QDEL_LIST(remove_after["limbs"])
 
 	else //Maintain old behaviour. Legacy support
@@ -274,6 +283,7 @@
 			new organ_path(H) //Adds the organ to the correct lists and such already via insert().
 
 	if(!regen_all)
+		H.toggle_species_changing() //We done changing the species, back to regular operations.
 		H.update_organ_parenthood() //Make sure there aren't no orphans after all the messing around we just did.
 		H.sort_organ_lists() //Fix the order so you don't have limbs rendering weird, like being hidden behind torsos.
 

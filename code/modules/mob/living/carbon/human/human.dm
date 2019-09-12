@@ -1241,7 +1241,7 @@
 	if(!skip_same_check)
 		if(dna.species.name == initial(new_species.name))
 			return
-	var/datum/species/oldspecies = new dna.species.type()
+	var/datum/species/oldspecies = dna.species
 
 	if(oldspecies)
 		if(oldspecies.language)

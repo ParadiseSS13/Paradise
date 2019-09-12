@@ -159,6 +159,15 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 		if(assimilate || O.dna.unique_enzymes == ue_to_compare)
 			O.set_dna(dna)
 
+/mob/living/carbon/human/proc/toggle_species_changing(activate = FALSE) //Toggle the status flag for species changing. Gets toggled during species create_organs() to avoid unintended behaviour.
+	var/list/all_bits = internal_organs|bodyparts
+	for(var/B in all_bits)
+		var/obj/item/organ/O = B
+		if(activate)
+			O.status |= ORGAN_SPECIES_CHANGING
+		else
+			O.status &= ~ORGAN_SPECIES_CHANGING
+
 /mob/living/carbon/human/proc/update_organ_parenthood() //Refresh the parenthood of all organs - namely after species changes.
 	for(var/B in bodyparts)
 		var/obj/item/organ/external/E = B

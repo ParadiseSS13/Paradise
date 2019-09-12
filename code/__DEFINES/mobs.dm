@@ -1,11 +1,12 @@
 ///////////////////ORGAN DEFINES///////////////////
 
 // Organ defines.
-#define ORGAN_BROKEN     1
-#define ORGAN_ROBOT      2
-#define ORGAN_SPLINTED   4
-#define ORGAN_DEAD       8
-#define ORGAN_MUTATED    16
+#define ORGAN_BROKEN			(1<<0)
+#define ORGAN_ROBOT				(1<<1)
+#define ORGAN_SPLINTED			(1<<2)
+#define ORGAN_DEAD				(1<<3)
+#define ORGAN_MUTATED			(1<<4)
+#define ORGAN_SPECIES_CHANGING	(1<<5)
 
 #define PROCESS_ACCURACY 10
 

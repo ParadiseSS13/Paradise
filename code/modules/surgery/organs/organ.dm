@@ -13,6 +13,7 @@
 	var/organ_tag = "organ"
 
 	var/parent_organ = "chest"
+	var/changing_parent = FALSE //Set TRUE during species changes whereby organs may be temporarily orphaned during regeneration until parenthood is updated.
 
 	var/list/datum/autopsy_data/autopsy_data = list()
 	var/list/trace_chemicals = list() // traces of chemicals in the organ,
@@ -42,6 +43,13 @@
 
 /obj/item/organ/proc/become_orphan() //Useful in species changes where we don't need to be sensitive about this. Abandons children and isolates organ from parents.
 	return
+
+/*Again useful in species changes -- we need to be very careful of how we handle references.
+Traditionally you'd be working with extremities and leaving the torso alone -- but it takes the Midas touch
+to keep an extremity, replace the core and rebuild the references properly so stuff still works.*/
+/obj/item/organ/proc/prep_replace(mob/living/carbon/human/H)
+	if(H)
+		become_orphan(H)
 
 /obj/item/organ/proc/update_health()
 	return
