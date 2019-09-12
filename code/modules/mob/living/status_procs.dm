@@ -556,6 +556,11 @@
 		genemutcheck(src, block,null, MUTCHK_FORCED)
 		dna.UpdateSE()
 
+///////////////////////////////// FROZEN /////////////////////////////////////
+
+/mob/living/proc/IsFrozen()
+	return has_status_effect(/datum/status_effect/freon)
+
 ///////////////////////////////////// STUN ABSORPTION /////////////////////////////////////
 
 /mob/living/proc/add_stun_absorption(key, duration, priority, message, self_message, examine_message)
