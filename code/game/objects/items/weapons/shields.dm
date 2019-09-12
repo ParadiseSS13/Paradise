@@ -3,7 +3,7 @@
 	block_chance = 50
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 30, bio = 0, rad = 0)
 
-/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
 	if(attack_type == LEAP_ATTACK)
@@ -63,7 +63,7 @@
 	attack_verb = list("shoved", "bashed")
 	var/active = 0
 
-/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/shield/energy/IsReflect()
@@ -110,7 +110,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/active = 0
 
-/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
 	return 0

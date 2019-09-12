@@ -291,11 +291,6 @@
 	addiction_chance = 5
 	taste_description = "health"
 
-/datum/reagent/medicine/omnizine/godblood
-	name = "Godblood"
-	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
-	overdose_threshold = 150
-
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(-1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
@@ -963,6 +958,12 @@
 	overdose_threshold = 30
 	metabolization_rate = 0.1
 	taste_description = "faint hope"
+
+/datum/reagent/medicine/omnizine_diluted/godblood
+	name = "Godblood"
+	id = "godblood"
+	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
+	overdose_threshold = 150
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

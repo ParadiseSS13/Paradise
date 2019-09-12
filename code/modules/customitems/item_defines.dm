@@ -135,7 +135,7 @@
 	force = 5
 	sharp = 0
 
-/obj/item/claymore/fluff/hit_reaction()
+/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan
