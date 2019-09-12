@@ -39,6 +39,12 @@
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
 	icon_state = "roman_shield"
 	item_state = "roman_shield"
+	materials = list(MAT_METAL=8500)
+
+/obj/item/shield/riot/roman/fake
+	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
+	block_chance = 0
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
