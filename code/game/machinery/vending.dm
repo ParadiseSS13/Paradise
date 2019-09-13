@@ -121,9 +121,10 @@
 	product_records = list()
 	hidden_records = list()
 	coin_records = list()
-	build_inventory(products, product_records, start_empty = TRUE)
-	build_inventory(contraband, hidden_records, start_empty = TRUE)
-	build_inventory(premium, coin_records, start_empty = TRUE)
+	if(refill_canister)
+		build_inventory(products, product_records, start_empty = TRUE)
+		build_inventory(contraband, hidden_records, start_empty = TRUE)
+		build_inventory(premium, coin_records, start_empty = TRUE)
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
