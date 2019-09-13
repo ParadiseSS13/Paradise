@@ -981,12 +981,11 @@
 
 /obj/item/orion_ship/examine(mob/user)
 	. = ..()
-	if(!(in_range(user, src)))
-		return
-	if(!active)
-		. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
-	else
-		. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
+	if(in_range(user, src))
+		if(!active)
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
+		else
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)

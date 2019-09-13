@@ -73,14 +73,13 @@
 /obj/item/reagent_containers/food/snacks/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		if(bitecount==0)
-			return
-		else if(bitecount==1)
-			. += "<span class='notice'>[src] was bitten by someone!</span>"
-		else if(bitecount<=3)
-			. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
-		else
-			. += "<span class='notice'>[src] was bitten multiple times!</span>"
+		if(bitecount > 0)
+			if(bitecount==1)
+				. += "<span class='notice'>[src] was bitten by someone!</span>"
+			else if(bitecount<=3)
+				. += "<span class='notice'>[src] was bitten [bitecount] times!</span>"
+			else
+				. += "<span class='notice'>[src] was bitten multiple times!</span>"
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/W, mob/user, params)

@@ -78,12 +78,10 @@
 
 /obj/item/pinpointer/examine(mob/user)
 	. = ..()
-	if(!shows_nuke_timer)
-		return
-
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-		if(bomb.timing)
-			. += "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
+	if(shows_nuke_timer)
+		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+			if(bomb.timing)
+				. += "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
