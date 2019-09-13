@@ -247,11 +247,10 @@ LINEN BINS
 	. = ..()
 	if(amount < 1)
 		. += "There are no bed sheets in the bin."
-		return
-	if(amount == 1)
+	else if(amount == 1)
 		. += "There is one bed sheet in the bin."
-		return
-	. += "There are [amount] bed sheets in the bin."
+	else
+		. += "There are [amount] bed sheets in the bin."
 
 
 /obj/structure/bedsheetbin/update_icon()

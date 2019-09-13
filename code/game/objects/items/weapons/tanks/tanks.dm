@@ -86,7 +86,7 @@
 	if(!in_range(src, user))
 		if(icon == src)
 			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
-		return
+		return .
 
 	var/celsius_temperature = air_contents.temperature-T0C
 	var/descriptive
@@ -105,8 +105,6 @@
 		descriptive = "furiously hot"
 
 	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
-
-	return
 
 /obj/item/tank/blob_act()
 	if(prob(50))

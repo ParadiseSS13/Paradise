@@ -52,7 +52,7 @@
 
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
-	if(get_dist(user, src) <= 2 && is_open_container())
+	if(get_dist(user, src) <= 2 && !is_open_container())
 		. += "<span class='notice'>Airtight lid seals it completely.</span>"
 
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)

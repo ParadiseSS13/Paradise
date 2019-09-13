@@ -233,8 +233,7 @@
 	if(in_range(user, src))
 		if(stat & BROKEN)
 			. += "Looks broken."
-			return
-		if(opened)
+		else if(opened)
 			if(has_electronics && terminal)
 				. += "The cover is [opened==2?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"]."
 			else if(!has_electronics && terminal)
@@ -243,7 +242,6 @@
 				. += "Electronics installed but not wired."
 			else /* if(!has_electronics && !terminal) */
 				. += "There is no electronics nor connected wires."
-
 		else
 			if(stat & MAINT)
 				. += "The cover is closed. Something wrong with it: it doesn't work."

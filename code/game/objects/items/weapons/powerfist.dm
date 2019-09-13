@@ -24,8 +24,7 @@
 	. = ..()
 	if(!in_range(user, src))
 		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
-		return
-	if(tank)
+	else if(tank)
 		. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
