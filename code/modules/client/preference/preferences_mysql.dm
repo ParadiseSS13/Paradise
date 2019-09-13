@@ -460,7 +460,8 @@
 											gen_record,
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
-											socks, body_accessory, gear, autohiss)
+											socks, body_accessory, gear, autohiss,
+											clown_name, mime_name, ai_name, cyborg_name, diety_name, religion_name, human_name)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
@@ -488,7 +489,9 @@
 											'[sanitizeSQL(gen_record)]',
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
-											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]')
+											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]',
+											'[sanitizeSQL(custom_names["clown"])]', '[sanitizeSQL(custom_names["mime"])]', '[sanitizeSQL(custom_names["ai"])]',
+											'[sanitizeSQL(custom_names["cyborg"])]', '[sanitizeSQL(custom_names["diety"])]', '[sanitizeSQL(custom_names["religion"])]', '[sanitizeSQL(custom_names["human"])]')
 
 "}
 )
