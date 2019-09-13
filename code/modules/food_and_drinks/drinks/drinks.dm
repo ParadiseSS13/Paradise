@@ -109,19 +109,18 @@
 
 /obj/item/reagent_containers/food/drinks/examine(mob/user)
 	. = ..()
-	if(!in_range(user, src))
-		return .
-	if(!reagents || reagents.total_volume == 0)
-		. += "<span class='notice'> \The [src] is empty!</span>"
-	else if(reagents.total_volume <= volume/4)
-		. += "<span class='notice'> \The [src] is almost empty!</span>"
-	else if(reagents.total_volume <= volume*0.66)
-		. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
+	if(in_range(user, src))
+		if(!reagents || reagents.total_volume == 0)
+			. += "<span class='notice'> \The [src] is empty!</span>"
+		else if(reagents.total_volume <= volume/4)
+			. += "<span class='notice'> \The [src] is almost empty!</span>"
+		else if(reagents.total_volume <= volume*0.66)
+			. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
 
-	else if(reagents.total_volume <= volume*0.90)
-		. += "<span class='notice'> \The [src] is almost full!</span>"
-	else
-		. += "<span class='notice'> \The [src] is full!</span>"
+		else if(reagents.total_volume <= volume*0.90)
+			. += "<span class='notice'> \The [src] is almost full!</span>"
+		else
+			. += "<span class='notice'> \The [src] is full!</span>"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END

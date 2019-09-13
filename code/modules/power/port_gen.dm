@@ -54,11 +54,10 @@
 /obj/machinery/power/port_gen/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))
-		return .
-	if(active)
-		. += "<span class='notice'>The generator is on.</span>"
-	else
-		. += "<span class='notice'>The generator is off.</span>"
+		if(active)
+			. += "<span class='notice'>The generator is on.</span>"
+		else
+			. += "<span class='notice'>The generator is off.</span>"
 
 /obj/machinery/power/port_gen/emp_act(severity)
 	var/duration = 6000 //ten minutes

@@ -174,7 +174,7 @@
 	if(mess)
 		. += "It's filled with blood and viscera. You swear you can see it moving..."
 	if(!occupant || stat & (NOPOWER|BROKEN))
-		return .
+		return
 	if(occupant && occupant.stat != DEAD)
 		. +=  "Current clone cycle is [round(get_completion())]% complete."
 

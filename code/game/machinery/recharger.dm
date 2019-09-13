@@ -180,7 +180,7 @@
 	. = ..()
 	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
 		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
-		return .
+		return
 
 	if(charging)
 		. += "<span class='notice'>\The [src] contains:</span>"
