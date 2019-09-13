@@ -187,7 +187,7 @@
 					mime_name,
 					ai_name,
 					cyborg_name,
-					diety_name,
+					deity_name,
 					religion_name,
 					human_name
 				 	FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' AND slot='[slot]'"})
@@ -272,7 +272,7 @@
 		custom_names["mime"] = text2num(query.item[54])
 		custom_names["ai"] = text2num(query.item[55])
 		custom_names["cyborg"] = text2num(query.item[56])
-		custom_names["diety"] = text2num(query.item[57])
+		custom_names["deity"] = text2num(query.item[57])
 		custom_names["religion"] = text2num(query.item[58])
 		custom_names["human"] = text2num(query.item[59])
 
@@ -331,7 +331,7 @@
 	custom_names["mime"]		= reject_bad_name(custom_names["mime"], 1)
 	custom_names["ai"]			= reject_bad_name(custom_names["ai"], 1)
 	custom_names["cyborg"] 		= reject_bad_name(custom_names["cyborg"] , 1)
-	custom_names["diety"] 		= reject_bad_name(custom_names["diety"] , 1)
+	custom_names["deity"] 		= reject_bad_name(custom_names["deity"] , 1)
 	custom_names["religion"]	= reject_bad_name(custom_names["religion"], 1)
 	custom_names["human"]		= reject_bad_name(custom_names["human"], 1)
 
@@ -420,7 +420,7 @@
 												mime_name='[sanitizeSQL(custom_names["mime"])]',
 												ai_name='[sanitizeSQL(custom_names["ai"])]',
 												cyborg_name='[sanitizeSQL(custom_names["cyborg"])]',
-												diety_name='[sanitizeSQL(custom_names["diety"])]',
+												deity_name='[sanitizeSQL(custom_names["deity"])]',
 												religion_name='[sanitizeSQL(custom_names["religion"])]',
 												human_name='[sanitizeSQL(custom_names["human"])]'
 												WHERE ckey='[C.ckey]'
@@ -461,7 +461,7 @@
 											player_alt_titles,
 											disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
 											socks, body_accessory, gear, autohiss,
-											clown_name, mime_name, ai_name, cyborg_name, diety_name, religion_name, human_name)
+											clown_name, mime_name, ai_name, cyborg_name, deity_name, religion_name, human_name)
 
 					VALUES
 											('[C.ckey]', '[default_slot]', '[sanitizeSQL(metadata)]', '[sanitizeSQL(real_name)]', '[be_random_name]','[gender]',
@@ -491,7 +491,7 @@
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
 											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]',
 											'[sanitizeSQL(custom_names["clown"])]', '[sanitizeSQL(custom_names["mime"])]', '[sanitizeSQL(custom_names["ai"])]',
-											'[sanitizeSQL(custom_names["cyborg"])]', '[sanitizeSQL(custom_names["diety"])]', '[sanitizeSQL(custom_names["religion"])]', '[sanitizeSQL(custom_names["human"])]')
+											'[sanitizeSQL(custom_names["cyborg"])]', '[sanitizeSQL(custom_names["deity"])]', '[sanitizeSQL(custom_names["religion"])]', '[sanitizeSQL(custom_names["human"])]')
 
 "}
 )
