@@ -164,7 +164,6 @@
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
-	refill_canister = null
 
 	products = list(/obj/item/reagent_containers/food/pill/patch/styptic = 5,
 					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 5,
