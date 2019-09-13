@@ -227,7 +227,7 @@
 	icon_state = "stunprod_nocell"
 	base_icon = "stunprod"
 	item_state = "prod"
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_BULKY
 	force = 3
 	throwforce = 5
 	stunforce = 5
