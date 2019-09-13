@@ -298,7 +298,7 @@ This is always put in the attack log.
 			loglevel = ATKLOG_FEW
 		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 			loglevel = ATKLOG_ALL
-		else if(!user.ckey || !target.ckey) // Player v NPC combat is de-prioritized.
+		else if(!user.ckey || !target.ckey || (user.ckey == target.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
 			loglevel = ATKLOG_ALMOSTALL
 		else
 			var/area/A = get_area(target)
