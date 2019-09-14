@@ -16,6 +16,7 @@
 	required_enemies = 1
 	recommended_enemies = 4
 
+	var/list/datum/mind/pre_traitors = list()
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/const/traitor_scaling_coeff = 5.0 //how much does the amount of players get divided by to determine traitors
 	var/antag_datum = /datum/antagonist/traitor //what type of antag to create
@@ -47,17 +48,17 @@
 		if(!possible_traitors.len)
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
-		traitors += traitor
+		pre_traitors += traitor
 		traitor.restricted_roles = restricted_jobs
 		possible_traitors.Remove(traitor)
 
-	if(!traitors.len)
+	if(!pre_traitors.len)
 		return 0
 	return 1
 
 
 /datum/game_mode/traitor/post_setup()
-	for(var/datum/mind/traitor in traitors)
+	for(var/datum/mind/traitor in pre_traitors)
 		var/datum/antagonist/traitor/new_antag = new antag_datum()
 		addtimer(CALLBACK(traitor, /datum/mind.proc/add_antag_datum, new_antag), rand(10,100))
 	if(!exchange_blue)
@@ -135,6 +136,11 @@
 				text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
 				feedback_add_details("traitor_success","FAIL")
 
+		var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
+		var/responses = jointext(GLOB.syndicate_code_response, ", ")
+
+		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
+					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
 		to_chat(world, text)
 	return 1

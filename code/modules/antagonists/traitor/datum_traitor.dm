@@ -51,6 +51,7 @@
 		owner.som = null
 		slaved.leave_serv_hud(owner)
 
+	assigned_targets.Cut()
 	SSticker.mode.traitors -= owner
 	owner.special_role = null
 	update_traitor_icons_removed()
@@ -121,7 +122,7 @@
 		i += forge_single_objective()
 
 	var/martyr_compatibility = 1 //You can't succeed in stealing if you're dead.
-	for(var/datum/objective/O in objectives)
+	for(var/datum/objective/O in owner.objectives)
 		if(!O.martyr_compatible)
 			martyr_compatibility = 0
 			break
@@ -146,23 +147,17 @@
 	if(prob(30))
 		objective_count += forge_single_objective()
 
-	for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
+	for(var/i = objective_count, i < config.traitor_objectives_amount)
 		var/datum/objective/assassinate/kill_objective = new
 		kill_objective.owner = owner
 		kill_objective.find_target()
-		// This bit of code will usually only come into play during very very low pop rounds
-		if(assigned_targets.Find(kill_objective.target))	// In the rare case the game can't find a target for the AI thats not a duplicate
-			if(try_again)									// It will attempt to location another target ONCE
-				try_again = FALSE			
-			else
-				var/datum/objective/survive/free_objective = new		// If the game still can't find a non duplicate target												
-				free_objective.owner = owner							// Give them a free objective. If they survive the round, it will complete
-				free_objective.explanation_text = "Free Objective"
-				add_objective(free_objective)
-			continue
-		assigned_targets.Add(kill_objective.target)
+		if("[kill_objective.target]" in assigned_targets)	// In the rare case the game can't find a target for the AI thats not a duplicate
+			if(try_again)						            // It will attempt to location another target ONCE
+				try_again = FALSE							// This code will really only come into play on lowpop rounds where getting duplicate targets is more common
+				continue
+		assigned_targets.Add("[kill_objective.target]")
 		add_objective(kill_objective)
-
+		i += 1
 	var/datum/objective/survive/survive_objective = new
 	survive_objective.owner = owner
 	add_objective(survive_objective)
@@ -184,50 +179,50 @@
 			var/datum/objective/destroy/destroy_objective = new
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
-			if(assigned_targets.Find(destroy_objective.target))	 // Is this target already in their list of assigned targets? If so, don't add this objective and return
+			if("[destroy_objective]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
 				return 0										 
-			if(destroy_objective.target)						 // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
-				assigned_targets.Add(destroy_objective.target)	 // This logic is applied to all traitor objectives including steal objectives
+			else if(destroy_objective.target)					    // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
+				assigned_targets.Add("[destroy_objective.target]")	// This logic is applied to all traitor objectives including steal objectives
 			add_objective(destroy_objective)
 
 		else if(prob(5))
 			var/datum/objective/debrain/debrain_objective = new
 			debrain_objective.owner = owner
 			debrain_objective.find_target()
-			if(assigned_targets.Find(debrain_objective.target))
+			if("[debrain_objective]" in assigned_targets)
 				return 0
-			if(debrain_objective.target)
-				assigned_targets.Add(debrain_objective.target)
+			else if(debrain_objective.target)
+				assigned_targets.Add("[debrain_objective.target]")
 			add_objective(debrain_objective)
 
 		else if(prob(30))
 			var/datum/objective/maroon/maroon_objective = new
 			maroon_objective.owner = owner
 			maroon_objective.find_target()
-			if(assigned_targets.Find(maroon_objective.target))
+			if("[maroon_objective]" in assigned_targets)
 				return 0
-			if(maroon_objective.target)
-				assigned_targets.Add(maroon_objective.target)
+			else if(maroon_objective.target)
+				assigned_targets.Add("[maroon_objective.target]")
 			add_objective(maroon_objective)
 
 		else
 			var/datum/objective/assassinate/kill_objective = new
 			kill_objective.owner = owner
 			kill_objective.find_target()
-			if(assigned_targets.Find(kill_objective.target))
+			if("[kill_objective.target]" in assigned_targets)
 				return 0
-			if(kill_objective.target)
-				assigned_targets.Add(kill_objective.target)
+			else if(kill_objective.target)
+				assigned_targets.Add("[kill_objective.target]")
 			add_objective(kill_objective)
 		
 	else
 		var/datum/objective/steal/steal_objective = new
 		steal_objective.owner = owner
 		steal_objective.find_target()
-		if(assigned_targets.Find(steal_objective.steal_target))
+		if("[steal_objective.steal_target]" in assigned_targets)
 			return 0
-		if(steal_objective.steal_target)
-			assigned_targets.Add(steal_objective.steal_target)
+		else if(steal_objective.steal_target)
+			assigned_targets.Add("[steal_objective.steal_target]")
 		add_objective(steal_objective)
 		
 
@@ -239,14 +234,16 @@
 			var/datum/objective/block/block_objective = new
 			block_objective.owner = owner
 			add_objective(block_objective)
-		if(2) // Protect and strand a target			
+		if(2) // Protect and strand a target
 			var/datum/objective/protect/yandere_one = new	
 			yandere_one.owner = owner
 			yandere_one.find_target()
 
-			if(yandere_one.target)
-				assigned_targets.Add(yandere_one.target)
-				
+			if("[yandere_one.target]" in assigned_targets)
+				return 0
+			else if(yandere_one.target)
+				assigned_targets.Add("[yandere_one.target]")
+
 			add_objective(yandere_one)
 			var/datum/objective/maroon/yandere_two = new
 			yandere_two.owner = owner
@@ -257,7 +254,7 @@
 
 /datum/antagonist/traitor/greet()
 	to_chat(owner.current, "<B><font size=3 color=red>You are a [owner.special_role]!</font></B>")
-	if(!LAZYLEN(objectives))
+	if(!LAZYLEN(owner.objectives))   // Remove "owner" when objectives are handled in the datum
 		to_chat(owner.current, "<span>You don't have any objectives right now.</span>")
 	else
 		owner.announce_objectives()

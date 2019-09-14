@@ -132,12 +132,13 @@
 	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
 	output += memory
 
-	var/list/all_objectives = objectives
-	for(var/datum/antagonist/A in antag_datums)
-		output += A.antag_memory
-		all_objectives |= A.objectives
+	if(objectives.len)   // Delete this line when we handle objectives in the antag datum
+	//var/list/all_objectives = objectives
+	// for(var/datum/antagonist/A in antag_datums)   // Uncomment these 5 lines when antags are datumized and the objectives are handled in the antag datum -SteelSlayer
+	// 	output += A.antag_memory
+	// 	all_objectives |= A.objectives
 
-	if(LAZYLEN(all_objectives))
+	// if(LAZYLEN(all_objectives))
 		output += "<HR><B>Objectives:</B><BR>"
 		output += gen_objective_text()
 
