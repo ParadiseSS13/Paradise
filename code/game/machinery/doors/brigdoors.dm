@@ -124,7 +124,7 @@
 	if(!target_pda)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
-	if(PM)
+	if(PM && PM.can_receive())
 		PM.notify("<b>Message from Brig Timer (Automated), </b>\"[antext]\" (Unable to Reply)")
 
 
