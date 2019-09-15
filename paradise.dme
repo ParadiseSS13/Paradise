@@ -12,8 +12,6 @@
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\hispania.dm"
-#include "_maps\arena_template.dmm"
-#include "_maps\map_files\hispania\hispania.dmm"
 #include "code\_compile_options.dm"
 #include "code\hub.dm"
 #include "code\world.dm"
@@ -1192,7 +1190,6 @@
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\alcohol.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\drinks.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\recipes\drinks.dm"
-#include "code\HISPANIA\modules\reagents\reagent_containers\bottle.dm"
 #include "code\HISPANIA\modules\research\designs\equipment_designs.dm"
 #include "code\HISPANIA\modules\research\designs\mechfabricator_designs.dm"
 #include "code\HISPANIA\modules\research\designs\misc_designs.dm"
