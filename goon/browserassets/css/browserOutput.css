@@ -409,4 +409,6 @@ h1.alert, h2.alert			{color: #000000;}
 
 /* ADMIN TICKETS */
 
-.adminticket {color: #3daf21; font-weight: bold}
+.adminticket {color: #3e7336; font-weight: bold}
+
+.adminticketalt {color: #014c8a; font-weight: bold}

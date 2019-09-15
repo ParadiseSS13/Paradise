@@ -94,6 +94,8 @@ SUBSYSTEM_DEF(tickets)
 
 	//Inform the user that they have opened a ticket
 	to_chat(C, "<span class='[span_class]'>You have opened [ticket_name] number #[(getTicketCounter() - 1)]! Please be patient and we will help you soon!</span>")
+	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
+	SEND_SOUND(C, ticket_open_sound)
 
 //Set ticket state with key N to open
 /datum/controller/subsystem/tickets/proc/openTicket(N)
@@ -111,7 +113,43 @@ SUBSYSTEM_DEF(tickets)
 		message_staff("<span class='[span_class]'>[usr.client] / ([usr]) resolved [ticket_name] number [N]</span>")
 		to_chat_safe(returnClient(N), "<span class='[span_class]'>Your [ticket_name] has now been resolved.</span>")
 		return TRUE
+		
 
+/datum/controller/subsystem/tickets/proc/autoRespond(N)
+	var/datum/ticket/T = allTickets[N]
+	var/client/C = usr.client
+	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || T.ticketState != TICKET_OPEN) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
+		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "This ticket is already marked as closed or resolved" : "Another admin appears to already be handling this."] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
+			return
+	T.assignStaff(C)
+	
+	//try to keep this list where more common things are at the top yeah? thx
+	var/response_phrases = list("Cancel" = "Cancel",
+		"Thanks" = "Thanks, have a Paradise day!", 
+		"Already Resolved" = "The problem has been resolved already.",
+		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
+		"Clear Cache" = "To fix a blank screen, please leave the game and clear your byond cache. To clear your Byond Cache, there is a Settings icon in the top right of the launcher. After you click that, go into the Games tab and hit the Clear Cache button. If the issue persists a few minutes after rejoining and doing this please adminhelp again and state you cleared your cache." ,
+		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
+		"Appeal on the Forums" = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[config.banappeals]'>[config.banappeals]</a>"
+		)
+		
+	var/sorted_responses = list()
+	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list
+		sorted_responses += key
+
+	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as anything in sorted_responses
+
+	switch(message_key)
+		if("Cancel")
+			T.staffAssigned = initial(T.staffAssigned) //if they cancel we dont need to hold this ticket anymore
+			return
+		else
+			var/msg_sound = sound('sound/effects/adminhelp.ogg')
+			SEND_SOUND(returnClient(N), msg_sound)
+			to_chat(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player
+			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the named keys for this which is why we do response_phrases[message_key]
+			resolveTicket(N)
+			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
 //Set ticket state with key N to closed
 /datum/controller/subsystem/tickets/proc/closeTicket(N)
 	var/datum/ticket/T = allTickets[N]
@@ -406,6 +444,11 @@ UI STUFF
 		var/indexNum = text2num(href_list["assignstaff"])
 		takeTicket(indexNum)
 		showDetailUI(usr, indexNum)
+
+	if(href_list["autorespond"])
+		var/indexNum = text2num(href_list["autorespond"])
+		takeTicket(indexNum)
+		autoRespond(indexNum)
 
 	if(href_list["resolveall"])
 		if(ticket_system_name == "Mentor Tickets")
