@@ -20,7 +20,7 @@
 	action_icon_state = "skeleton"
 
 /obj/effect/proc_holder/spell/targeted/lichdom/Destroy()
-	for(var/datum/mind/M in ticker.mode.wizards) //Make sure no other bones are about
+	for(var/datum/mind/M in SSticker.mode.wizards) //Make sure no other bones are about
 		for(var/obj/effect/proc_holder/spell/S in M.spell_list)
 			if(istype(S,/obj/effect/proc_holder/spell/targeted/lichdom) && S != src)
 				return ..()

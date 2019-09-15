@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Fixed an issue where slimes wouldn't take damage from water in space."

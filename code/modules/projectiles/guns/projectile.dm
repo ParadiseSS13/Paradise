@@ -24,6 +24,8 @@
 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+	if(bayonet && can_bayonet)
+		overlays += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
@@ -66,7 +68,6 @@
 		return
 
 /obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	..()
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -108,7 +109,8 @@
 		else
 			to_chat(user, "<span class='warning'>You can't seem to figure out how to fit [S] on [src].</span>")
 			return
-	return 0
+	else
+		return ..()
 
 /obj/item/gun/projectile/attack_hand(mob/user)
 	if(loc == user)
@@ -177,6 +179,9 @@
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
+		return
+	if(bayonet)
+		to_chat(user, "<span class='warning'>You cannot saw-off [src] with [bayonet] attached!</span>")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", "<span class='notice'>You begin to shorten \the [src]...</span>")

@@ -139,7 +139,6 @@
 					new /obj/item/gun/magic/staff/door(get_turf(H))
 				if("armor")
 					new /obj/item/clothing/suit/space/hardsuit/wizard(get_turf(H))
-					new /obj/item/clothing/head/helmet/space/hardsuit/wizard(get_turf(H))
 				if("scrying")
 					new /obj/item/scrying(get_turf(H))
 					if(!(XRAY in H.mutations))

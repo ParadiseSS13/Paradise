@@ -92,6 +92,8 @@
 		has_paint = 1
 	update_icons()
 
+/obj/spacepod/get_cell()
+	return battery
 
 /obj/spacepod/New()
 	. = ..()
@@ -1035,7 +1037,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 		return stop()
 
 /obj/spacepod/relaymove(mob/user, direction)
-	if(usr != src.pilot)
+	if(user != src.pilot)
 		return
 	handlerelaymove(user, direction)
 

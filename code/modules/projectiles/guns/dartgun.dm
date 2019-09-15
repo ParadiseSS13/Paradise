@@ -101,6 +101,8 @@
 		beakers += B
 		to_chat(user, "<span class='notice'>You slot [B] into [src].</span>")
 		src.updateUsrDialog()
+	else
+		return ..()
 
 /obj/item/gun/dartgun/can_shoot()
 	if(!cartridge)

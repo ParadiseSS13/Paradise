@@ -1,6 +1,6 @@
 //Asteroid turfs
 /datum/mapGeneratorModule/bottomLayer/asteroidTurfs
-	spawnableTurfs = list(/turf/simulated/floor/plating/airless/asteroid = 100)
+	spawnableTurfs = list(/turf/simulated/floor/plating/asteroid/airless = 100)
 
 /datum/mapGeneratorModule/bottomLayer/asteroidWalls
 	spawnableTurfs = list(/turf/simulated/mineral = 100)

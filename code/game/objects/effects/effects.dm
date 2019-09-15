@@ -4,7 +4,7 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	resistance_flags = INDESTRUCTIBLE
 	anchored = 1
 	can_be_hit = FALSE

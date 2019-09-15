@@ -76,7 +76,8 @@
 			return 1
 		else
 			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
-	return 0
+	else
+		return ..()
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"

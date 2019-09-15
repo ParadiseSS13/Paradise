@@ -118,8 +118,9 @@
 
 //Try to move onto target's turf and eat them
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/AttackingTarget()
-	..()
-	attemptToEat(target)
+	. = ..()
+	if(.)
+		attemptToEat(target)
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
 /mob/living/simple_animal/hostile/spaceWorm/wormHead/Bump(atom/obstacle)

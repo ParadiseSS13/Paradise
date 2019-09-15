@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Personal crafting now has subcategories"
+  - tweak: "Finishing crafting an item puts it in your hands instead of on the floor"

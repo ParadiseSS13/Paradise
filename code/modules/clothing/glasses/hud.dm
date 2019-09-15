@@ -31,18 +31,12 @@
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	HUDType = DATA_HUD_MEDICAL_ADVANCED
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
-
-/obj/item/clothing/glasses/hud/health/health_advanced
-	name = "\improper Advanced Health Scanner HUD"
-	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status.  Includes anti-flash filter."
-	icon_state = "advmedhud"
-	flash_protect = 1
 
 /obj/item/clothing/glasses/hud/health/night
 	name = "\improper Night Vision Health Scanner HUD"
@@ -54,15 +48,24 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
 
+/obj/item/clothing/glasses/hud/health/sunglasses
+	name = "medical HUDSunglasses"
+	desc = "Sunglasses with a medical HUD."
+	icon_state = "sunhudmed"
+	see_in_dark = 1
+	flash_protect = 1
+	tint = 1
+
 /obj/item/clothing/glasses/hud/diagnostic
 	name = "Diagnostic HUD"
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "diagnostichud"
 	origin_tech = "magnets=2;engineering=2"
 	HUDType = DATA_HUD_DIAGNOSTIC
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
@@ -76,6 +79,14 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 0
 
+/obj/item/clothing/glasses/hud/diagnostic/sunglasses
+	name = "diagnostic sunglasses"
+	desc = "Sunglasses with a diagnostic HUD."
+	icon_state = "sunhuddiag"
+	item_state = "glasses"
+	flash_protect = 1
+	tint = 1
+
 /obj/item/clothing/glasses/hud/security
 	name = "\improper Security HUD"
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their ID status and security records."
@@ -84,20 +95,13 @@
 	var/global/list/jobs[0]
 	HUDType = DATA_HUD_SECURITY_ADVANCED
 	var/read_only = FALSE
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/hud/security/chameleon
-	name = "Chameleon Security HUD"
-	desc = "A stolen security HUD integrated with Syndicate chameleon technology. Toggle to disguise the HUD. Provides flash protection."
-	flash_protect = 1
-
-/obj/item/clothing/glasses/hud/security/chameleon/attack_self(mob/user)
-	chameleon(user)
 
 /obj/item/clothing/glasses/hud/security/sunglasses/jensenshades
 	name = "augmented shades"
@@ -128,7 +132,7 @@
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -143,9 +147,10 @@
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydroponichud"
 	HUDType = DATA_HUD_HYDROPONIC
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
@@ -166,7 +171,7 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
@@ -182,9 +187,11 @@
 	flags_cover = GLASSESCOVERSEYES
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/eyes.dmi'
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/hud/health/tajblind/attack_self()

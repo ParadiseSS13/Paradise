@@ -63,7 +63,7 @@
 //Sleeping in here prevents future fires until returned.
 /datum/controller/subsystem/proc/fire(resumed = 0)
 	flags |= SS_NO_FIRE
-	throw EXCEPTION("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
+	CRASH("Subsystem [src]([type]) does not fire() but did not set the SS_NO_FIRE flag. Please add the SS_NO_FIRE flag to any subsystem that doesn't fire so it doesn't get added to the processing list and waste cpu.")
 
 /datum/controller/subsystem/Destroy()
 	dequeue()
@@ -168,7 +168,9 @@
 //hook for printing stats to the "MC" statuspanel for admins to see performance and related stats etc.
 /datum/controller/subsystem/stat_entry(msg)
 	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(src, "Initializing...")
+		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
+
+
 
 	if(can_fire && !(SS_NO_FIRE & flags))
 		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[msg]"

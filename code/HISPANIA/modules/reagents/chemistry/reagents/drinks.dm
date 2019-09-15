@@ -10,7 +10,7 @@
 	drink_icon = "rainbowjuice"
 	drink_name = "Rainbow Juice"
 	drink_desc = "A colorful mixture of fruit juices."
-	taste_message = "gayness"
+	taste_description = "gayness"
 
 /datum/reagent/consumable/drink/unclegits_specialmilk
 	name= "Uncle Git's Special Milk"
@@ -21,7 +21,7 @@
 	drink_icon = "unclegits_specialmilk"
 	drink_name = "Uncle Git's Special Milk"
 	drink_desc = "It is sticky and has a strong chlorine smell."
-	taste_message = "someone else's child"
+	taste_description = "someone else's child"
 
 /datum/reagent/consumable/drink/fernetcola
 	name= "Fernet with cola"
@@ -32,7 +32,7 @@
 	drink_icon = "fernetcoke_glass"
 	drink_name = "Fernet with cola"
 	drink_desc = "It has a nice brown color and a good amount of fizzy foam."
-	taste_message = "sweet oil "
+	taste_description = "sweet oil "
 
 /datum/reagent/consumable/drink/michelada
 	name= "Michelada"
@@ -42,17 +42,17 @@
 	drink_icon = "michelada"
 	drink_name = "michelada"
 	drink_desc = "looks spicy and salty, yummi."
-	taste_message ="you need another sip now!"
+	taste_description ="you need another sip now!"
 
 /datum/reagent/consumable/drink/bloody_mariachi
 	name= "Bloody Mariachi"
 	id = "bloody_mariachi"
-	description = "You did not have vodka and now you have a piñata."
+	description = "You did not have vodka and now you have a piï¿½ata."
 	color = "#E6502F"
 	drink_icon = "bloody_mariachi"
 	drink_name = "bloody mariachi"
-	drink_desc = "PIRIPÍ PIRIPÍ PIRIPIPÍ."
-	taste_message ="you need some beans right now"
+	drink_desc = "PIRIPï¿½ PIRIPï¿½ PIRIPIPï¿½."
+	taste_description ="you need some beans right now"
 
 /datum/reagent/consumable/drink/acapulco_de_noche
 	name= "Acapulco de noche"
@@ -62,7 +62,7 @@
 	drink_icon = "acapulco_de_noche"
 	drink_name = "acapulco de noche"
 	drink_desc = "Ice cold and refreshing drink, smells like medicine."
-	taste_message ="You feel like Luis Miguel"
+	taste_description ="You feel like Luis Miguel"
 
 /datum/reagent/consumable/drink/matadora_beer
 	name= "Matadora beer"
@@ -72,4 +72,4 @@
 	drink_icon = "matadora_beer"
 	drink_name = "matadora beer"
 	drink_desc = "It smells strangely good despite its appearance taken out of the garbage."
-	taste_message ="Tastes urine with strawberry soda and medicinal alcohol"
+	taste_description ="Tastes urine with strawberry soda and medicinal alcohol"

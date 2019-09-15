@@ -49,8 +49,7 @@
 /obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
 
 /obj/item/radio/beacon/bacon/proc/digest_delay()
-		spawn(600)
-		qdel(src)
+	QDEL_IN(src, 600)
 
 // SINGULO BEACON SPAWNER
 /obj/item/radio/beacon/syndicate
@@ -85,3 +84,23 @@
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		qdel(src)
 	return
+
+/obj/item/radio/beacon/engine
+	desc = "A label on it reads: <i>Warning: This device is used for transportation of high-density objects used for high-yield power generation. Stay away!</i>."
+	anchored = 1		//Let's not move these around. Some folk might get the idea to use these for assassinations
+	var/list/enginetype = list()
+
+/obj/item/radio/beacon/engine/Initialize()
+	LAZYADD(GLOB.engine_beacon_list, src)
+
+/obj/item/radio/beacon/engine/tesling
+	name = "Engine Beacon for Tesla and Singularity"
+	enginetype = list(ENGTYPE_TESLA, ENGTYPE_SING)
+
+/obj/item/radio/beacon/engine/tesla
+	name = "Engine Beacon for Tesla"
+	enginetype = list(ENGTYPE_TESLA)
+
+/obj/item/radio/beacon/engine/sing
+	name = "Engine Beacon for Singularity"
+	enginetype = list(ENGTYPE_SING)

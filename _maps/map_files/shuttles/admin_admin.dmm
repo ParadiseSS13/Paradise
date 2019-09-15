@@ -408,12 +408,18 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
 "aW" = (
 /obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor{
@@ -550,13 +556,13 @@
 	},
 /area/shuttle/administration)
 "bl" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (EAST)";
 	icon_state = "tube1";
 	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
@@ -603,7 +609,7 @@
 	},
 /area/shuttle/administration)
 "br" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor{
@@ -643,7 +649,7 @@
 	color = "#FF0000";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{
@@ -651,7 +657,7 @@
 	},
 /area/shuttle/administration)
 "bw" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor{

@@ -4,6 +4,7 @@
 
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
+#define iszombie(A) (is_species(A, /datum/species/zombie))
 
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
@@ -16,6 +17,10 @@
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
+
+#define isspacepod(A) (istype(A, /obj/spacepod))
+
+#define iseffect(A) (istype(A, /obj/effect))
 
 #define is_cleanable(A) (istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/rune)) //if something is cleanable
 
@@ -53,6 +58,10 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isreinforcedwallturf(A) istype(A, /turf/simulated/wall/r_wall)
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
+
+#define islava(A) (istype(A, /turf/simulated/floor/plating/lava))
+
+#define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
 //Mobs
 #define isliving(A) (istype(A, /mob/living))

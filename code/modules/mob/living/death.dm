@@ -88,8 +88,8 @@
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
 
-	if(ticker && ticker.mode)
-		ticker.mode.check_win()
+	if(SSticker && SSticker.mode)
+		SSticker.mode.check_win()
 	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
 		mind.devilinfo.beginResurrectionCheck(src)
 

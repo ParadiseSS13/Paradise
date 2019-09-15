@@ -1,0 +1,4 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - tweak: "Headpat gloves now inherit their click speed from the North Star gloves and are no longer as fast as before."

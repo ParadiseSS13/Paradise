@@ -13,7 +13,7 @@
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Drask", "Grey")
+	dog_fashion = /datum/dog_fashion/head/helmet
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Drask" = 'icons/mob/species/drask/helmet.dmi',
@@ -76,6 +76,7 @@
 	icon_state = "swat"
 	item_state = "swat-alt"
 	armor = list(melee = 15, bullet = 40, laser = 10, energy = 10, bomb = 40, bio = 0, rad = 0)
+	dog_fashion = null
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
@@ -86,6 +87,7 @@
 	flags_inv = HIDEEARS
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 80
+	dog_fashion = null
 
 /obj/item/clothing/head/helmet/riot/knight
 	name = "medieval helmet"
@@ -94,6 +96,7 @@
 	item_state = "knight_green"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	dog_fashion = null
 
 /obj/item/clothing/head/helmet/justice
 	name = "helmet of justice"
@@ -105,6 +108,7 @@
 	can_toggle = 1
 	toggle_cooldown = 20
 	active_sound = 'sound/items/weeoo1.ogg'
+	dog_fashion = null
 
 /obj/item/clothing/head/helmet/justice/escape
 	name = "alarm helmet"
@@ -127,6 +131,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
+	dog_fashion = null
 
 /obj/item/clothing/head/helmet/swat/syndicate
 	name = "blood-red helmet"
@@ -146,6 +151,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	strip_delay = 80
+	dog_fashion = null
 
 /obj/item/clothing/head/helmet/roman
 	name = "roman helmet"
@@ -155,6 +161,7 @@
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
+	dog_fashion = null
 
 /obj/item/clothing/head/helmet/roman/legionaire
 	name = "roman legionaire helmet"
@@ -175,6 +182,7 @@
 	can_toggle = 1
 	toggle_cooldown = 20
 	toggle_sound = 'sound/items/zippoclose.ogg'
+	dog_fashion = null
 
 obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
@@ -185,6 +193,7 @@ obj/item/clothing/head/helmet/redtaghelm
 	armor = list(melee = 15, bullet = 10, laser = 20, energy = 10, bomb = 20, bio = 0, rad = 0)
 	// Offer about the same protection as a hardhat.
 	flags_inv = HIDEEARS|HIDEEYES
+	dog_fashion = null
 
 obj/item/clothing/head/helmet/bluetaghelm
 	name = "blue laser tag helmet"
@@ -195,6 +204,7 @@ obj/item/clothing/head/helmet/bluetaghelm
 	armor = list(melee = 15, bullet = 10, laser = 20, energy = 10, bomb = 20, bio = 0, rad = 0)
 	// Offer about the same protection as a hardhat.
 	flags_inv = HIDEEARS|HIDEEYES
+	dog_fashion = null
 
 obj/item/clothing/head/blob
 	name = "blob hat"
@@ -203,7 +213,7 @@ obj/item/clothing/head/blob
 	item_state = "blobhat"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi'
 		)
@@ -226,6 +236,24 @@ obj/item/clothing/head/blob
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
 	armor = list(melee = 20, bullet = 7, laser = 2, energy = 2, bomb = 2, bio = 2, rad = 0)
+
+/obj/item/clothing/head/helmet/skull
+	name = "skull helmet"
+	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	armor = list(melee = 25, bullet = 25, laser = 25, energy = 10, bomb = 10, bio = 5, rad = 20)
+	icon_state = "skull"
+	item_state = "skull"
+	strip_delay = 100
+
+/obj/item/clothing/head/helmet/durathread
+	name = "durathread helmet"
+	desc = "A helmet made from durathread and leather."
+	icon_state = "durathread"
+	item_state = "durathread"
+	armor = list(melee = 25, bullet = 10, laser = 20, energy = 10, bomb = 30, bio = 15, rad = 20)
+	strip_delay = 60
 
 //Commander
 /obj/item/clothing/head/helmet/ert/command

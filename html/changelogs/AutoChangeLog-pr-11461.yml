@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Nuclear Operative reinforcements now spawn with a properly counted agent designation."

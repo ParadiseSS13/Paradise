@@ -90,7 +90,6 @@
 	desc = "test lightning"
 
 /obj/item/lightning/New()
-		icon = midicon
 		icon_state = "1"
 
 /obj/item/lightning/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)

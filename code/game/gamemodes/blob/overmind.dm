@@ -84,7 +84,7 @@
 	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
 	for(var/mob/M in GLOB.mob_list)
-		if(isovermind(M) || isobserver(M))
+		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
 			M.show_message(rendered, 2)
 
 /mob/camera/blob/emote(act, m_type = 1, message = null, force)

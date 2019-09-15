@@ -28,6 +28,8 @@
 			to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>")
 		else
 			to_chat(user, "<span class='warning'>The grenade launcher cannot hold more grenades.</span>")
+	else
+		return ..()
 
 /obj/item/gun/grenadelauncher/afterattack(obj/target, mob/user , flag)
 	if(target == user)

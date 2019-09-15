@@ -50,10 +50,12 @@
 	var/oxy_mod = 1		 // Oxy damage reduction/amplification
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
+	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-
+	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-
+	var/obj/item/mutanthands
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -62,8 +64,6 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
-
-	var/mob/living/list/ignored_by = list() // list of mobs that will ignore this species
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
@@ -307,6 +307,63 @@
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/C)
+	return
+
+/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
+	blocked = (100 - blocked) / 100
+	if(blocked <= 0)
+		return 0
+
+	var/obj/item/organ/external/organ = null
+	if(isorgan(def_zone))
+		organ = def_zone
+	else
+		if(!def_zone)
+			def_zone = ran_zone(def_zone)
+		organ = H.get_organ(check_zone(def_zone))
+	if(!organ)
+		return 0
+
+	damage = damage * blocked
+
+	switch(damagetype)
+		if(BRUTE)
+			H.damageoverlaytemp = 20
+			damage = damage * brute_mod
+
+			if(organ.receive_damage(damage, 0, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+			if(H.LAssailant && ishuman(H.LAssailant)) //superheros still get the comical hit markers
+				var/mob/living/carbon/human/A = H.LAssailant
+				if(A.mind && A.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
+					var/list/attack_bubble_recipients = list()
+					var/mob/living/user
+					for(var/mob/O in viewers(user, src))
+						if(O.client && O.has_vision(information_only=TRUE))
+							attack_bubble_recipients.Add(O.client)
+					spawn(0)
+						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
+						dmgIcon.pixel_x = (!H.lying) ? rand(-3,3) : rand(-11,12)
+						dmgIcon.pixel_y = (!H.lying) ? rand(-11,9) : rand(-10,1)
+						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
+
+
+		if(BURN)
+			H.damageoverlaytemp = 20
+			damage = damage * burn_mod
+
+			if(organ.receive_damage(0, damage, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
+	H.updatehealth("apply damage")
+	return 1
+
+/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
+	return
+
 /datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
 	return
 
@@ -331,18 +388,15 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
-		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
+		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
-			return
-		if(issmall(target) && !target.ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
-			to_chat(user, "<span class='warning'>Blood from a monkey is useless!</span>")
 			return
 		//we're good to suck the blood, blaah
 		user.mind.vampire.handle_bloodsucking(target)
@@ -534,13 +588,6 @@
 	attack_verb = list("slash", "claw")
 	damage = 6
 
-/datum/unarmed_attack/zombie
-	attack_verb = list("bites", "slash")
-	damage = 6
-	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	animation_type = ATTACK_EFFECT_BITE
-
 /datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
 	return FALSE
 
@@ -610,20 +657,37 @@
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
-	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			H.throw_alert("nutrition", /obj/screen/alert/fat)
-		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			H.throw_alert("nutrition", /obj/screen/alert/full)
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			H.throw_alert("nutrition", /obj/screen/alert/well_fed)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			H.throw_alert("nutrition", /obj/screen/alert/fed)
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.throw_alert("nutrition", /obj/screen/alert/hungry)
-		else
-			H.throw_alert("nutrition", /obj/screen/alert/starving)
-	return 1
+	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /obj/screen/alert/fat/vampire)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				H.throw_alert("nutrition", /obj/screen/alert/full/vampire)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/fed/vampire)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
+			else
+				H.throw_alert("nutrition", /obj/screen/alert/starving/vampire)
+		return 1
+
+	else ///Any other non-vampires
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /obj/screen/alert/fat)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				H.throw_alert("nutrition", /obj/screen/alert/full)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/well_fed)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/fed)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /obj/screen/alert/hungry)
+			else
+				H.throw_alert("nutrition", /obj/screen/alert/starving)
+		return 1
 
 /*
 Returns the path corresponding to the corresponding organ
@@ -682,7 +746,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 			H.see_invisible = G.invis_override
 		else
 			H.see_invisible = min(G.invis_view, H.see_invisible)
-		
+
 		if(!isnull(G.lighting_alpha))
 			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 
@@ -725,9 +789,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	H.sync_lighting_plane_alpha()
 
-/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
-	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = TOUCH)
+	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
+		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
 
 /datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE

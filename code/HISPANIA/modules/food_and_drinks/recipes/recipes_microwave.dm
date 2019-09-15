@@ -60,3 +60,11 @@
 		/obj/item/reagent_containers/food/snacks/shrimp
 	)
 	result = /obj/item/reagent_containers/food/snacks/furamingosoup
+
+//Arepa descogelada
+
+/datum/recipe/microwave/arepa
+	items = list(
+		/obj/item/reagent_containers/food/snacks/arepa_ice
+	)
+	result = /obj/item/reagent_containers/food/snacks/arepa

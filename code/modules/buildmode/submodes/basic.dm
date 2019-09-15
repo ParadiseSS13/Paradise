@@ -35,7 +35,7 @@
 			T.ChangeTurf(/turf/simulated/floor/plasteel)
 		else if(istype(object,/turf/simulated/floor))
 			var/turf/T = object
-			T.ChangeTurf(/turf/space)
+			T.ChangeTurf(T.baseturf)
 		else if(istype(object,/turf/simulated/wall/r_wall))
 			var/turf/T = object
 			T.ChangeTurf(/turf/simulated/wall)

@@ -16,12 +16,12 @@
 	end_duration = 300
 	end_overlay = "light_ash"
 
-	area_type = /area/mine/dangerous // /area/lavaland/surface/outdoors
+	area_type = /area/lavaland/surface/outdoors
 	target_trait = ORE_LEVEL
 
 	immunity_type = "ash"
 
-//	probability = 90
+	probability = 90
 
 	barometer_predictable = TRUE
 
@@ -105,4 +105,4 @@
 
 	aesthetic = TRUE
 
-//	probability = 10
+	probability = 10

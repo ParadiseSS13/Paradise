@@ -103,6 +103,9 @@ var/list/robot_verbs_default = list(
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
 
+/mob/living/silicon/robot/get_cell()
+	return cell
+
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
@@ -289,7 +292,7 @@ var/list/robot_verbs_default = list(
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
+		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
 		modules += "Combat"
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
@@ -416,6 +419,31 @@ var/list/robot_verbs_default = list(
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(2)
+
+/mob/living/silicon/robot/proc/reset_module()
+	notify_ai(2)
+
+	uneq_all()
+	sight_mode = null
+	hands.icon_state = "nomod"
+	icon_state = "robot"
+	module.remove_subsystems_and_actions(src)
+	QDEL_NULL(module)
+
+	camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
+	rename_character(real_name, get_default_name("Default"))
+	languages = list()
+	speech_synthesizer_langs = list()
+
+	update_icons()
+	update_headlamp()
+
+	speed = 0 // Remove upgrades.
+	ionpulse = FALSE
+	magpulse = FALSE
+	add_language("Robot Talk", 1)
+
+	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -548,6 +576,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/restrained()
 	return 0
 
+/mob/living/silicon/robot/InCritical()
+	return low_power_mode
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
@@ -855,6 +885,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
 		wires.Interact(user)
+	else
+		..() //this calls the /mob/living/attack_ghost proc for the ghost health/cyborg analyzer
 
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
@@ -1351,9 +1383,9 @@ var/list/robot_verbs_default = list(
 	mind.special_role = SPECIAL_ROLE_ERT
 	if(cyborg_unlock)
 		crisis = 1
-	if(!(mind in ticker.minds))
-		ticker.minds += mind
-	ticker.mode.ert += mind
+	if(!(mind in SSticker.minds))
+		SSticker.minds += mind
+	SSticker.mode.ert += mind
 
 /mob/living/silicon/robot/ert/gamma
 	crisis = 1

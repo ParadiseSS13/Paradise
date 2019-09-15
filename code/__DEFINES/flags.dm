@@ -1,6 +1,9 @@
 #define ALL ~0 //For convenience.
 #define NONE 0
 
+// for /datum/var/datum_flags
+#define DF_USE_TAG		(1<<0)
+
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 		1		//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define NODROP					2		// This flag makes it so that an item literally cannot be removed at all, or at least that's how it should be. Only deleted.
@@ -10,6 +13,7 @@
 #define CONDUCT					32		// conducts electricity (metal etc.)
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				128		// item has priority to check when entering or leaving
+#define PREVENT_CLICK_UNDER		256
 
 #define EARBANGPROTECT			1024
 
@@ -101,6 +105,8 @@
 
 //turf-only flags
 #define NOJAUNT		1
+#define NO_LAVA_GEN	2 //Blocks lava rivers being generated on the turf
+#define NO_RUINS 	4
 
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_OCLOTHING 1
@@ -131,8 +137,11 @@
 #define FLAMMABLE 0
 #define ON_FIRE 1
 
-//resistance_flags
-#define INDESTRUCTIBLE 64 //doesn't take damage
+//Fire and Acid stuff, for resistance_flags
+#define UNACIDABLE		(1<<4) //acid can't even appear on it, let alone melt it.
+#define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
+#define INDESTRUCTIBLE	(1<<6) //doesn't take damage
+#define FREEZE_PROOF	(1<<7) //can't be frozen
 
 #define CHECK_RICOCHET_1			(1<<4)
 

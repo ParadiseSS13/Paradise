@@ -35,9 +35,16 @@
 	..()
 	name = "floor"
 
+/turf/simulated/floor/redgrid
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "rcircuit"
+
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
+
+/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
+	return
 
 /turf/simulated/floor/beach/sand
 	name = "sand"
@@ -48,15 +55,20 @@
 	icon = 'icons/misc/beach2.dmi'
 	icon_state = "sandwater"
 
+/turf/simulated/floor/beach/coastline_t
+	name = "coastline"
+	desc = "Tide's high tonight. Charge your batons."
+	icon_state = "sandwater_t"
+
+/turf/simulated/floor/beach/coastline_b
+	name = "coastline"
+	icon_state = "sandwater_b"
+
 /turf/simulated/floor/beach/water // TODO - Refactor water so they share the same parent type - Or alternatively component something like that
 	name = "water"
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/obj/machinery/poolcontroller/linkedcontroller = null
-
-/turf/simulated/floor/beach/water/pry_tile(obj/item/C, mob/user, silent = FALSE)
-	return	//cannot pry off tiles of water
-
 
 /turf/simulated/floor/beach/water/New()
 	..()
@@ -67,7 +79,7 @@
 /turf/simulated/floor/beach/water/Entered(atom/movable/AM, atom/OldLoc)
 	. = ..()
 	if(!linkedcontroller)
-		return 
+		return
 	if(ismob(AM))
 		linkedcontroller.mobinpool += AM
 
@@ -95,22 +107,59 @@
 /turf/simulated/floor/noslip/MakeSlippery()
 	return
 
+/turf/simulated/floor/noslip/lavaland
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+
+/turf/simulated/floor/lubed
+	name = "slippery floor"
+	icon_state = "floor"
+
+/turf/simulated/floor/lubed/Initialize(mapload)
+	. = ..()
+	MakeSlippery(TURF_WET_LUBE, TRUE)
+
+/turf/simulated/floor/lubed/pry_tile(obj/item/C, mob/user, silent = FALSE) //I want to get off Mr Honk's Wild Ride
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		to_chat(H, "<span class='warning'>You lose your footing trying to pry off the tile!</span>")
+		H.slip("the floor", 0, 5, tilesSlipped = 4, walkSafely = 0, slipAny = 1)
+	return
+
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"
 	desc = "Tightly-pressed brass tiles. They emit minute vibration."
-	icon_state = "clockwork_floor"
+	icon_state = "plating"
+	baseturf = /turf/simulated/floor/clockwork
+	var/dropped_brass
+	var/uses_overlay = TRUE
+	var/obj/effect/clockwork/overlay/floor/realappearence
 
-/turf/simulated/floor/clockwork/New()
-	..()
-	new /obj/effect/temp_visual/ratvar/floor(src)
-	new /obj/effect/temp_visual/ratvar/beam(src)
+/turf/simulated/floor/clockwork/Initialize(mapload)
+	. = ..()
+	if(uses_overlay)
+		new /obj/effect/temp_visual/ratvar/floor(src)
+		new /obj/effect/temp_visual/ratvar/beam(src)
+		realappearence = new /obj/effect/clockwork/overlay/floor(src)
+		realappearence.linked = src
+
+/turf/simulated/floor/clockwork/Destroy()
+	if(uses_overlay && realappearence)
+		QDEL_NULL(realappearence)
+	return ..()
+
+/turf/simulated/floor/clockwork/ReplaceWithLattice()
+	. = ..()
+	for(var/obj/structure/lattice/L in src)
+		L.ratvar_act()
 
 /turf/simulated/floor/clockwork/attackby(obj/item/I, mob/living/user, params)
 	if(iscrowbar(I))
 		user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
 		playsound(src, I.usesound, 20, 1)
-		if(!do_after(user, 70*I.toolspeed, target = src))
+		if(!do_after(user, 70 * I.toolspeed, target = src))
 			return 0
 		user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
 		playsound(src, I.usesound, 80, 1)
@@ -119,7 +168,11 @@
 	return ..()
 
 /turf/simulated/floor/clockwork/make_plating()
-	new /obj/item/stack/tile/brass(src)
+	if(!dropped_brass)
+		new /obj/item/stack/tile/brass(src)
+		dropped_brass = TRUE
+	if(baseturf == type)
+		return
 	return ..()
 
 /turf/simulated/floor/clockwork/narsie_act()
@@ -128,3 +181,12 @@
 		var/previouscolor = color
 		color = "#960000"
 		animate(src, color = previouscolor, time = 8)
+		addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
+
+/turf/simulated/floor/clockwork/reebe
+	name = "cogplate"
+	desc = "Warm brass plating. You can feel it gently vibrating, as if machinery is on the other side."
+	icon_state = "reebe"
+	baseturf = /turf/simulated/floor/clockwork/reebe
+	uses_overlay = FALSE
+	planetary_atmos = TRUE

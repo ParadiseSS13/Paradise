@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - rscdel: "NTTC regex has been disabled due to an urgent security issue."

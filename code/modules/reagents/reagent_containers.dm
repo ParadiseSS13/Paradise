@@ -35,6 +35,9 @@
 		var/datum/disease/F = new spawned_disease(0)
 		var/list/data = list("viruses" = list(F), "blood_color" = "#A10808")
 		reagents.add_reagent("blood", disease_amount, data)
+	add_initial_reagents()
+
+obj/item/reagent_containers/proc/add_initial_reagents()
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
 
@@ -55,13 +58,6 @@
 		update_icon()
 	return
 
-// this prevented pills, food, and other things from being picked up by bags.
-// possibly intentional, but removing it allows us to not duplicate functionality.
-// -Sayu (storage conslidation)
-/*
-/obj/item/reagent_containers/attackby(obj/item/I as obj, mob/user as mob, params)
-	return
-*/
 /obj/item/reagent_containers/afterattack(obj/target, mob/user , flag)
 	return
 

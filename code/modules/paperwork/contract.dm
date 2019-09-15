@@ -272,7 +272,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.update_body()
-	var/obj/item/organ/internal/hivelord_core/organ = new /obj/item/organ/internal/hivelord_core
+	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core
 	organ.insert(user)
 	return ..()
 

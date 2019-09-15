@@ -140,7 +140,23 @@
 	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
-	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood)
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
+
+/turf/simulated/wall/mineral/wood/attackby(obj/item/W, mob/user)
+	if(W.sharp && W.force)
+		var/duration = (48 / W.force) * 2 //In seconds, for now.
+		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/twohanded/fireaxe))
+			duration /= 4 //Much better with hatchets and axes.
+		if(do_after(user, duration * 10, target = src)) //Into deciseconds.
+			dismantle_wall(FALSE, FALSE)
+			return
+	return ..()
+
+/turf/simulated/wall/mineral/wood/nonmetal
+	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
+	girder_type = /obj/structure/barricade/wooden
+	hardness = 50
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
 
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
@@ -274,6 +290,36 @@
 /turf/simulated/wall/mineral/plastitanium/overspace
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
+
+/turf/simulated/wall/mineral/plastitanium/coated
+	name = "coated wall"
+	max_temperature = INFINITY
+	icon_state = "map-shuttle_nd"
+	smooth = SMOOTH_MORE
+
+/turf/simulated/wall/mineral/plastitanium/coated/Initialize(mapload)
+	. = ..()
+	desc += " It seems to have additional plating to protect against heat."
+
+/turf/simulated/wall/mineral/plastitanium/explosive
+	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
+	icon_state = "map-shuttle_nd"
+	smooth = SMOOTH_MORE
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	GLOB.explosive_walls += src
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Destroy()
+	GLOB.explosive_walls -= src
+	return ..()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/proc/self_destruct()
+	var/obj/item/bombcore/large/explosive_wall/bombcore = new(get_turf(src))
+	bombcore.detonate()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity)
+	return
 
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)

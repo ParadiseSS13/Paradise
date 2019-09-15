@@ -38,7 +38,7 @@
 	desc = "A thick vine, painful to the touch."
 
 
-/obj/effect/ebeam/vine/Crossed(atom/movable/AM)
+/obj/effect/ebeam/vine/Crossed(atom/movable/AM, oldloc)
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(!("vines" in L.faction))
@@ -57,9 +57,9 @@
 	maxHealth = 50
 	ranged = 1
 	harm_intent_damage = 5
-	obj_damage = 10
-	melee_damage_lower = 5
-	melee_damage_upper = 5
+	obj_damage = 30
+	melee_damage_lower = 15
+	melee_damage_upper = 15
 	a_intent = INTENT_HARM
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -93,7 +93,7 @@
 		if(grasping.len < max_grasps)
 			grasping:
 				for(var/mob/living/L in view(grasp_range, src))
-					if(L == src || faction_check(L) || (L in grasping) || L == target)
+					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)
 						continue
 					for(var/t in getline(src,L))
 						for(var/a in t)
@@ -108,6 +108,12 @@
 
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
+	for(var/turf/T in getline(src,target))
+		if (T.density)
+			return
+		for(var/obj/O in T)
+			if(O.density)
+				return
 	var/dist = get_dist(src,the_target)
 	Beam(the_target, "vine", time=dist*2, maxdistance=dist+2, beam_type=/obj/effect/ebeam/vine)
 	the_target.attack_animal(src)

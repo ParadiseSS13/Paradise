@@ -36,7 +36,7 @@
 
 /mob/living/simple_animal/hostile/hivebot/rapid
 	ranged = 1
-	rapid = 1
+	rapid = 3
 	retreat_distance = 5
 	minimum_distance = 5
 

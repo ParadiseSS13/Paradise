@@ -115,7 +115,6 @@
 	..()
 
 /obj/item/gun/projectile/revolver/detective/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/screwdriver))
 		if(magazine.caliber == "38")
 			to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
@@ -143,6 +142,8 @@
 				magazine.caliber = "38"
 				desc = initial(desc)
 				to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "\improper finger gun"
@@ -299,6 +300,18 @@
 	user.apply_damage(300, BRUTE, affecting)
 	user.visible_message("<span class='danger'>[user.name] fires [src] at [user.p_their()] head!</span>", "<span class='userdanger'>You fire [src] at your head!</span>", "<span class='italics'>You hear a gunshot!</span>")
 
+/obj/item/gun/projectile/revolver/russian/soul
+	name = "cursed Russian revolver"
+	desc = "To play with this revolver requires wagering your very soul."
+
+/obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
+	..()
+	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
+	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
+		qdel(SS)
+		return
+	user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
+
 /obj/item/gun/projectile/revolver/capgun
 	name = "cap gun"
 	desc = "Looks almost like the real thing! Ages 8 and up."
@@ -335,7 +348,6 @@
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
 	if(istype(A, /obj/item/melee/energy))
@@ -344,6 +356,8 @@
 			sawoff(user)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
@@ -382,7 +396,6 @@
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
@@ -394,6 +407,8 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
 			return
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
@@ -438,9 +453,10 @@
 	return
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/stack/cable_coil))
 		return
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
 	var/f_name = "\a [src]."

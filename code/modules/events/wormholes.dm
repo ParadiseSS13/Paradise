@@ -34,7 +34,6 @@
 		qdel(O)
 	wormholes.Cut()
 
-
 /obj/effect/portal/wormhole
 	name = "wormhole"
 	desc = "It looks highly unstable; It could close at any moment."
@@ -42,23 +41,26 @@
 	icon_state = "anom"
 	failchance = 0
 
-/obj/effect/portal/wormhole/attack_hand(mob/user)
-	teleport(user)
+/obj/effect/portal/wormhole/can_teleport(atom/movable/M)
+	. = ..()
 
-/obj/effect/portal/wormhole/attackby(obj/item/I, mob/user, params)
-	teleport(user)
+	if(istype(M, /obj/singularity))
+		. = FALSE
 
 /obj/effect/portal/wormhole/teleport(atom/movable/M)
-	if(istype(M, /obj/effect))	//sparks don't teleport
-		return
-	if(M.anchored && istype(M, /obj/mecha))
-		return
+	if(!can_teleport(M))
+		return FALSE
 
-	if(istype(M, /atom/movable))
-		var/turf/target
-		if(GLOB.portals.len)
-			var/obj/effect/portal/P = pick(GLOB.portals)
-			if(P && isturf(P.loc))
-				target = P.loc
-		if(!target)	return
-		do_teleport(M, target, 1, 1, 0, 0) ///You will appear adjacent to the beacon
+	var/turf/target
+	if(GLOB.portals.len)
+		var/obj/effect/portal/P = pick(GLOB.portals)
+		if(P && isturf(P.loc))
+			target = P.loc
+
+	if(!target)	
+		return FALSE
+
+	if(!do_teleport(M, target, 1, TRUE)) ///You will appear adjacent to the beacon
+		return FALSE
+
+	return TRUE

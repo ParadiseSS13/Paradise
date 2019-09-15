@@ -9,7 +9,7 @@
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	icon_state = "ivbag"
 	volume = 200
-	possible_transfer_amounts = list(1,5,10)
+	possible_transfer_amounts = list(1,5,10,15,20,25,30,50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
 	var/label_text
@@ -50,6 +50,11 @@
 
 /obj/item/reagent_containers/iv_bag/process()
 	if(!injection_target)
+		end_processing()
+		return
+
+	if(amount_per_transfer_from_this > 10) // Prevents people from switching to illegal transfer values while the IV is already in someone, i.e. anything over 10
+		visible_message("<span class='danger'>The IV bag's needle pops out of [injection_target]'s arm. The transfer amount is too high!</span>")
 		end_processing()
 		return
 
@@ -98,6 +103,9 @@
 		else // Inserting the needle
 			if(!L.can_inject(user, 1))
 				return
+			if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
+				to_chat(user, "<span class='warning'>The IV bag can only be used on someone with a transfer amount of 1, 5 or 10.</span>")
+				return
 			if(L != user)
 				L.visible_message("<span class='danger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] is trying to insert [src]'s needle into [L]'s arm!</span>")
@@ -106,6 +114,22 @@
 			L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
 			begin_processing(L)
+
+	else if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
+		if(!reagents.total_volume)
+			to_chat(user, "<span class='warning'>[src] is empty.</span>")
+			return
+
+		if(target.reagents.total_volume >= target.reagents.maximum_volume)
+			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			return
+
+		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
+		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
+	
+	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
+		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
+		return
 
 
 /obj/item/reagent_containers/iv_bag/update_icon()

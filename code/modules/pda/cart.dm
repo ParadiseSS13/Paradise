@@ -59,9 +59,9 @@
 		new/datum/data/pda/app/crew_records/security,
 		new/datum/data/pda/app/secbot_control)
 
-/obj/item/cartridge/security/Initialize()
+/obj/item/cartridge/security/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/beepsky(src)
-	..()
 
 /obj/item/cartridge/detective
 	name = "D.E.T.E.C.T. Cartridge"
@@ -109,9 +109,9 @@
 	desc = "A data cartridge with an integrated radio signaler module."
 	programs = list(new/datum/data/pda/app/signaller)
 
-/obj/item/cartridge/signal/Initialize()
+/obj/item/cartridge/signal/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/signal(src)
-	..()
 
 /obj/item/cartridge/signal/toxins
 	name = "Signal Ace 2"
@@ -132,9 +132,9 @@
 		new/datum/data/pda/app/supply,
 		new/datum/data/pda/app/mule_control)
 
-/obj/item/cartridge/quartermaster/Initialize()
+/obj/item/cartridge/quartermaster/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/mule(src)
-	..()
 
 /obj/item/cartridge/head
 	name = "Easy-Record DELUXE"
@@ -154,9 +154,9 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/hop/Initialize()
+/obj/item/cartridge/hop/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/mule(src)
-	..()
 
 /obj/item/cartridge/hos
 	name = "R.O.B.U.S.T. DELUXE"
@@ -167,9 +167,9 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/hos/Initialize()
+/obj/item/cartridge/hos/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/beepsky(src)
-	..()
 
 /obj/item/cartridge/ce
 	name = "Power-On DELUXE"
@@ -205,9 +205,9 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/rd/Initialize()
+/obj/item/cartridge/rd/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/signal(src)
-	..()
 
 /obj/item/cartridge/captain
 	name = "Value-PAK Cartridge"
@@ -234,9 +234,9 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/captain/Initialize()
+/obj/item/cartridge/captain/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/beepsky(src)
-	..()
 
 /obj/item/cartridge/supervisor
 	name = "Easy-Record DELUXE"
@@ -271,9 +271,9 @@
 
 		new/datum/data/pda/app/status_display)
 
-/obj/item/cartridge/centcom/Initialize()
+/obj/item/cartridge/centcom/Initialize(mapload)
+	. = ..()
 	radio = new /obj/item/integrated_radio/beepsky(src)
-	..()
 
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
@@ -283,7 +283,8 @@
 	programs = list(new/datum/data/pda/utility/toggle_door)
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/detonate)
 
-/obj/item/cartridge/syndicate/New()
+/obj/item/cartridge/syndicate/Initialize(mapload)
+	. = ..()
 	var/datum/data/pda/utility/toggle_door/D = programs[1]
 	if(istype(D))
 		D.remote_door_id = initial_remote_door_id

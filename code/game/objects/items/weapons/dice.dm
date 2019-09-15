@@ -4,6 +4,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
+	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/dice/New()
 	..()
@@ -25,19 +26,33 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
+/obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return (OXYLOSS)
+
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
 	name = "die"
 	desc = "A die with six sides. Basic and servicable."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
+
 	var/sides = 6
 	var/result = null
 	var/list/special_faces = list() //entries should match up to sides var if used
 
-/obj/item/dice/New()
-	result = rand(1, sides)
+	var/rigged = DICE_NOT_RIGGED
+	var/rigged_value
+
+/obj/item/dice/Initialize(mapload)
+	. = ..()
+	if(!result)
+		result = roll(sides)
 	update_icon()
+
+/obj/item/dice/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return (OXYLOSS)
 
 /obj/item/dice/d1
 	name = "d1"
@@ -117,11 +132,19 @@
 	. = ..()
 
 /obj/item/dice/proc/diceroll(mob/user)
-	result = rand(1, sides)
-	var/fake_result = rand(1, sides)//Daredevil isn't as good as he used to be
+	result = roll(sides)
+	if(rigged != DICE_NOT_RIGGED && result != rigged_value)
+		if(rigged == DICE_BASICALLY_RIGGED && prob(Clamp(1/(sides - 1) * 100, 25, 80)))
+			result = rigged_value
+		else if(rigged == DICE_TOTALLY_RIGGED)
+			result = rigged_value
+
+	. = result
+
+	var/fake_result = roll(sides)//Daredevil isn't as good as he used to be
 	var/comment = ""
 	if(sides == 20 && result == 20)
-		comment = "Nat 20!"
+		comment = "NAT 20!"
 	else if(sides == 20 && result == 1)
 		comment = "Ouch, bad luck."
 	update_icon()
@@ -130,16 +153,18 @@
 	if(special_faces.len == sides)
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
-		user.visible_message("<span class='notice'>[user] has thrown [src]. It lands on [result]. [comment]</span>", \
+		user.visible_message("[user] has thrown [src]. It lands on [result]. [comment]", \
 							 "<span class='notice'>You throw [src]. It lands on [result]. [comment]</span>", \
 							 "<span class='italics'>You hear [src] rolling, it sounds like a [fake_result].</span>")
-	else if(!throwing) //Dice was thrown and is coming to rest
+	else if(!src.throwing) //Dice was thrown and is coming to rest
 		visible_message("<span class='notice'>[src] rolls to a stop, landing on [result]. [comment]</span>")
 
 /obj/item/dice/d20/e20/diceroll(mob/user as mob, thrown)
 	if(triggered)
 		return
-	..()
+
+	. = ..()
+
 	if(result == 1)
 		to_chat(user, "<span class='danger'>Rocks fall, you die.</span>")
 		user.gib()
@@ -166,7 +191,7 @@
 
 /obj/item/dice/update_icon()
 	overlays.Cut()
-	overlays += "[src.icon_state][src.result]"
+	overlays += "[icon_state][result]"
 
 /obj/item/storage/box/dice
 	name = "Box of dice"

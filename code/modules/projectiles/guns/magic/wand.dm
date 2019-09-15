@@ -161,22 +161,3 @@
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 	charges--
 	..()
-/*
-/////////////////////////////////////
-//WAND OF BARRICADE
-/////////////////////////////////////
-
-/obj/item/gun/magic/wand/barricade
-	name = "wand of barricade creation"
-	desc = "This particular wand creates a wooden barricade."
-	ammo_type = /obj/item/ammo_casing/magic/barricade
-	fire_sound = 'sound/magic/Staff_Door.ogg'
-	icon_state = "doorwand"
-	max_charges = 30 //20, 10, 10, 7
-
-/obj/item/gun/magic/wand/door/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>You feel an emotional blockage.</span>")
-	charges--
-	..()
-
-	*/

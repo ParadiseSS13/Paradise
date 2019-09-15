@@ -218,7 +218,7 @@
 /mob/living/carbon/human/proc/sec_hud_set_security_status()
 	var/image/holder = hud_list[WANTED_HUD]
 	var/perpname = get_visible_name(TRUE) //gets the name of the perp, works if they have an id or if their face is uncovered
-	if(!ticker) return //wait till the game starts or the monkeys runtime....
+	if(!SSticker) return //wait till the game starts or the monkeys runtime....
 	if(perpname)
 		var/datum/data/record/R = find_record("name", perpname, data_core.security)
 		if(R)

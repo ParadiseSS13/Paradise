@@ -21,7 +21,7 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("mushroom")
 	environment_smash = 0
-	stat_attack = 2
+	stat_attack = DEAD
 	mouse_opacity = MOUSE_OPACITY_ICON
 	speed = 1
 	ventcrawler = 2
@@ -61,21 +61,42 @@
 	health = maxHealth
 	..()
 
-/mob/living/simple_animal/hostile/mushroom/adjustHealth(damage)//Possibility to flee from a fight just to make it more visually interesting
+/mob/living/simple_animal/hostile/mushroom/CanAttack(atom/the_target) // Mushroom-specific version of CanAttack to handle stupid attack_same = 2 crap so we don't have to do it for literally every single simple_animal/hostile because this shit never gets spawned
+	if(!the_target || isturf(the_target) || istype(the_target, /atom/movable/lighting_object))
+		return FALSE
+
+	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
+		return FALSE
+
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+
+		if (!faction_check_mob(L) && attack_same == 2)
+			return FALSE
+		if(L.stat > stat_attack)
+			return FALSE
+
+		return TRUE
+
+	return FALSE
+
+/mob/living/simple_animal/hostile/mushroom/adjustHealth(amount, updating_health = TRUE)//Possibility to flee from a fight just to make it more visually interesting
 	if(!retreat_distance && prob(33))
 		retreat_distance = 5
-		spawn(30)
-			retreat_distance = null
-	..()
+		addtimer(CALLBACK(src, .proc/stop_retreat), 30)
+	. = ..()
 
-/mob/living/simple_animal/hostile/mushroom/attack_animal(var/mob/living/L)
+/mob/living/simple_animal/hostile/mushroom/proc/stop_retreat()
+	retreat_distance = null
+
+/mob/living/simple_animal/hostile/mushroom/attack_animal(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/mushroom) && stat == DEAD)
 		var/mob/living/simple_animal/hostile/mushroom/M = L
 		if(faint_ticker < 2)
-			M.visible_message("<span class='notice'>[M] chews a bit on [src].</span>")
+			M.visible_message("[M] chews a bit on [src].")
 			faint_ticker++
-			return
-		M.visible_message("<span class='notice'>[M] devours [src]!</span>")
+			return TRUE
+		M.visible_message("<span class='warning'>[M] devours [src]!</span>")
 		var/level_gain = (powerlevel - M.powerlevel)
 		if(level_gain >= -1 && !bruised && !M.ckey)//Player shrooms can't level up to become robust gods.
 			if(level_gain < 1)//So we still gain a level if two mushrooms were the same level
@@ -83,7 +104,8 @@
 			M.LevelUp(level_gain)
 		M.adjustBruteLoss(-M.maxHealth)
 		qdel(src)
-	..()
+		return TRUE
+	return ..()
 
 /mob/living/simple_animal/hostile/mushroom/revive()
 	..()

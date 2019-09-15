@@ -62,8 +62,8 @@ var/global/list/obj/item/pda/PDAs = list()
 /*
  *	The Actual PDA
  */
-/obj/item/pda/New()
-	..()
+/obj/item/pda/Initialize(mapload)
+	. = ..()
 	PDAs += src
 	PDAs = sortAtom(PDAs)
 	update_programs()

@@ -170,6 +170,20 @@
 	icon_state = "tile_pod"
 	turf_type = /turf/simulated/floor/pod
 
+/obj/item/stack/tile/pod/light
+	name = "light pod floor tile"
+	singular_name = "light pod floor tile"
+	desc = "A lightly colored grooved floor tile."
+	icon_state = "tile_podlight"
+	turf_type = /turf/simulated/floor/pod
+
+/obj/item/stack/tile/pod/dark
+	name = "dark pod floor tile"
+	singular_name = "dark pod floor tile"
+	desc = "A darkly colored grooved floor tile."
+	icon_state = "tile_poddark"
+	turf_type = /turf/simulated/floor/pod/dark
+
 /obj/item/stack/tile/arcade_carpet
 	name = "arcade carpet"
 	singular_name = "arcade carpet"

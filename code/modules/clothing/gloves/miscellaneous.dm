@@ -25,7 +25,7 @@
 	can_leave_fibers = FALSE
 
 /obj/item/clothing/gloves/combat
-	desc = "These tactical gloves are somewhat fire and impact resistant."
+	desc = "These tactical gloves are both insulated and offer protection from heat sources."
 	name = "combat gloves"
 	icon_state = "combat"
 	item_state = "swat_gl"
@@ -37,6 +37,21 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	burn_state = FIRE_PROOF
+
+/obj/item/clothing/gloves/bracer
+	name = "bone bracers"
+	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
+	icon_state = "bracers"
+	item_state = "bracers"
+	item_color = null	//So they don't wash.
+	transfer_prints = TRUE
+	strip_delay = 40
+	body_parts_covered = ARMS
+	cold_protection = ARMS
+	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
+	resistance_flags = NONE
+	armor = list(melee = 15, bullet = 25, laser = 15, energy = 15, bomb = 20, bio = 10, rad = 0)
 
 /obj/item/clothing/gloves/botanic_leather
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
@@ -64,13 +79,15 @@
 	item_state = "lgloves"
 	flags = NODROP
 
-
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
 	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
 	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 5
 	var/stun_cost = 2000
+
+/obj/item/clothing/gloves/color/yellow/stun/get_cell()
+	return cell
 
 /obj/item/clothing/gloves/color/yellow/stun/New()
 	..()
@@ -135,10 +152,24 @@
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "Gloves of the North Star"
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
+	var/accepted_intents = list(INTENT_HARM)
+	var/click_speed_modifier = CLICK_CD_RAPID
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
 
-	if(M.a_intent == INTENT_HARM)
-		M.changeNext_move(CLICK_CD_RAPID)
+	if(M.a_intent in accepted_intents)
+		M.changeNext_move(click_speed_modifier)
 	.= FALSE
+
+/obj/item/clothing/gloves/fingerless/rapid/admin
+	name = "Advanced Interactive Gloves"
+	desc = "The gloves are covered in indecipherable buttons and dials, your mind warps by merely looking at them."
+	accepted_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, INTENT_HARM)
+	click_speed_modifier = 0
+	siemens_coefficient = 0
+
+/obj/item/clothing/gloves/fingerless/rapid/headpat
+	name = "Gloves of Headpats"
+	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
+	accepted_intents = list(INTENT_HELP)

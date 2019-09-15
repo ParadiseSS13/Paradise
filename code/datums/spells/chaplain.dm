@@ -64,9 +64,9 @@
 
 	spawn(0) // allows cast to complete even if recipient ignores the prompt
 		if(alert(target, "[user] wants to bless you, in the name of [user.p_their()] religion. Accept?", "Accept Blessing?", "Yes", "No") == "Yes") // prevents forced conversions
-			user.visible_message("[user] starts blessing [target] in the name of [ticker.Bible_deity_name].", "<span class='notice'>You start blessing [target] in the name of [ticker.Bible_deity_name].</span>")
+			user.visible_message("[user] starts blessing [target] in the name of [SSticker.Bible_deity_name].", "<span class='notice'>You start blessing [target] in the name of [SSticker.Bible_deity_name].</span>")
 			if(do_after(user, 150, target = target))
-				user.visible_message("[user] has blessed [target] in the name of [ticker.Bible_deity_name].", "<span class='notice'>You have blessed [target] in the name of [ticker.Bible_deity_name].</span>")
+				user.visible_message("[user] has blessed [target] in the name of [SSticker.Bible_deity_name].", "<span class='notice'>You have blessed [target] in the name of [SSticker.Bible_deity_name].</span>")
 				if(!target.mind.isblessed)
 					target.mind.isblessed = TRUE
 					user.mind.num_blessed++

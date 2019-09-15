@@ -53,6 +53,7 @@ var/list/admin_verbs_admin = list(
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/cmd_mentor_say,
 	/datum/admins/proc/show_player_notes,
+	/datum/admins/proc/vpn_whitelist,
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/toggleattacklogs,
 	/client/proc/toggleadminlogs,
@@ -70,15 +71,16 @@ var/list/admin_verbs_admin = list(
 	/client/proc/alt_check,
 	/client/proc/secrets,
 	/client/proc/change_human_appearance_admin,	/* Allows an admin to change the basic appearance of human-based mobs */
-	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself change its basic appearance */
+	/client/proc/change_human_appearance_self,	/* Allows the human-based mob itself to change its basic appearance */
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
-	/client/proc/list_ssds,
+	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/show_discord_duplicates,
+	/client/proc/show_discord_duplicates, // This needs removing at some point, ingame discord linking got removed in #11359
+	/client/proc/toggle_panic_bunker
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -117,7 +119,8 @@ var/list/admin_verbs_event = list(
 	/client/proc/cmd_admin_create_centcom_report,
 	/client/proc/fax_panel,
 	/client/proc/event_manager_panel,
-	/client/proc/modify_goals
+	/client/proc/modify_goals,
+	/client/proc/outfit_manager
 	)
 
 var/list/admin_verbs_spawn = list(
@@ -474,7 +477,7 @@ var/list/admin_verbs_ticket = list(
 		if(holder.fakekey)
 			holder.fakekey = null
 		else
-			var/new_key = ckeyEx(input("Enter your desired display name.", "Fake Key", key) as text|null)
+			var/new_key = ckeyEx(clean_input("Enter your desired display name.", "Fake Key", key))
 			if(!new_key)	return
 			if(length(new_key) >= 26)
 				new_key = copytext(new_key, 1, 26)
@@ -496,7 +499,7 @@ var/list/admin_verbs_ticket = list(
 			holder.fakekey = null
 			holder.big_brother = 0
 		else
-			var/new_key = ckeyEx(input("Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", key) as text|null)
+			var/new_key = ckeyEx(clean_input("Enter your desired display name. Unlike normal stealth mode, this will not appear in Who at all, except for other heads.", "Fake Key", key))
 			if(!new_key)
 				return
 			if(length(new_key) >= 26)
@@ -637,11 +640,11 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	if(O)
-		var/message = input("What do you want the message to be?", "Make Sound") as text|null
+		var/message = clean_input("What do you want the message to be?", "Make Sound")
 		if(!message)
 			return
 		for(var/mob/V in hearers(O))
-			V.show_message(message, 2)
+			V.show_message(admin_pencode_to_html(message), 2)
 		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound")
 		message_admins("<span class='notice'>[key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound</span>")
 		feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -799,7 +802,7 @@ var/list/admin_verbs_ticket = list(
 /client/proc/change_human_appearance_admin(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Admin"
 	set desc = "Allows you to change the mob appearance"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -825,7 +828,7 @@ var/list/admin_verbs_ticket = list(
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H in GLOB.mob_list)
 	set name = "C.M.A. - Self"
 	set desc = "Allows the mob to change its appearance"
-	set category = "Admin"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -888,7 +891,7 @@ var/list/admin_verbs_ticket = list(
 		to_chat(usr, "Your attack logs preference is now: show ALMOST ALL attack logs (notable exceptions: NPCs attacking other NPCs, vampire bites, equipping/stripping, people pushing each other over)")
 	else if(prefs.atklog == ATKLOG_ALMOSTALL)
 		prefs.atklog = ATKLOG_MOST
-		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides attacks by players on NPCs)")
+		to_chat(usr, "Your attack logs preference is now: show MOST attack logs (like ALMOST ALL, except that it also hides player v. NPC combat, and certain areas like lavaland syndie base and thunderdome)")
 	else if(prefs.atklog == ATKLOG_MOST)
 		prefs.atklog = ATKLOG_FEW
 		to_chat(usr, "Your attack logs preference is now: show FEW attack logs (only the most important stuff: attacks on SSDs, use of explosives, messing with the engine, gibbing, AI wiping, forcefeeding, acid sprays, and organ extraction)")
@@ -1026,3 +1029,16 @@ var/list/admin_verbs_ticket = list(
 		return
 
 	holder.discord_duplicates()
+
+/client/proc/toggle_panic_bunker()
+	set name = "Toggle Panic Bunker"
+	set category = "Admin"
+	set desc = "Disables new players connecting."
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled 
+
+	log_admin("[key_name(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
+	message_admins("[key_name_admin(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")

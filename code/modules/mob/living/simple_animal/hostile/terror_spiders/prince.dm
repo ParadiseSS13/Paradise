@@ -22,7 +22,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	ventcrawler = 0
-	ai_ventcrawls = 0
+	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0
 	spider_tier = TS_TIER_3
@@ -38,6 +38,7 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/spider_specialattack(mob/living/carbon/human/L)
 	if(prob(15))
 		visible_message("<span class='danger'>[src] rams into [L], knocking [L.p_them()] to the floor!</span>")
+		do_attack_animation(L)
 		L.Weaken(5)
 		L.Stun(5)
 	else

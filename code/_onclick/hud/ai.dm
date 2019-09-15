@@ -257,3 +257,9 @@
 	using = new /obj/screen/ai/add_multicam()
 	using.screen_loc = ui_ai_add_multicam
 	static_inventory += using
+
+//Intent
+	using = new /obj/screen/act_intent/robot/AI()
+	using.icon_state = mymob.a_intent
+	static_inventory += using
+	action_intent = using

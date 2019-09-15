@@ -203,6 +203,7 @@
 						if(D.power_supply.charge < D.power_supply.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
 							D.power_supply.give(E.e_cost)
+							D.on_recharge()
 							D.update_icon()
 						else
 							D.charge_tick = 0

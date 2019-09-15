@@ -31,6 +31,15 @@
 			// Mark down this time to prevent shuttle cheese
 			SSshuttle.emergency_sec_level_time = world.time
 
+		// Reset gamma borgs if the new security level is lower than Gamma.
+		if(level < SEC_LEVEL_GAMMA)
+			for(var/M in GLOB.silicon_mob_list)
+				if(isrobot(M))
+					var/mob/living/silicon/robot/R = M
+					if(istype(R.module, /obj/item/robot_module/combat) && !R.crisis)
+						R.reset_module()
+						to_chat(R, "<span class='warning'>Crisis mode deactivated. The combat module is no longer available and your module has been reset.</span>")
+
 		switch(level)
 			if(SEC_LEVEL_GREEN)
 				security_announcement_down.Announce("All threats to the station have passed. All weapons need to be holstered and privacy laws are once again fully enforced.","Attention! Security level lowered to green.")
@@ -113,7 +122,7 @@
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_epsilon")
 
 			if(SEC_LEVEL_DELTA)
-				security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!")
+				security_announcement_up.Announce("The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.","Attention! Delta security level reached!", new_sound = sound('sound/effects/deltaalarm.ogg'))
 				security_level = SEC_LEVEL_DELTA
 
 				post_status("alert", "deltaalert")
@@ -176,15 +185,3 @@
 			return SEC_LEVEL_EPSILON
 		if("delta")
 			return SEC_LEVEL_DELTA
-
-
-/*DEBUG
-/mob/verb/set_thing0()
-	set_security_level(0)
-/mob/verb/set_thing1()
-	set_security_level(1)
-/mob/verb/set_thing2()
-	set_security_level(2)
-/mob/verb/set_thing3()
-	set_security_level(3)
-*/

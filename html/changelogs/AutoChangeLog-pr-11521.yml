@@ -1,0 +1,5 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - tweak: "Blob split consciousness ability now requires you to directly target a node you want to turn into another sentient overmind instead of selecting a nearest one"
+  - spellcheck: "Fixed and improved some descriptions regarding Blob offspring"

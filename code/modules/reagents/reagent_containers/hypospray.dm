@@ -151,6 +151,14 @@
 	volume = 50
 	list_reagents = list("stimulants" = 50)
 
+/obj/item/reagent_containers/hypospray/autoinjector/survival
+	name = "survival medipen"
+	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards. <br><span class='boldwarning'>WARNING: Do not inject more than one pen in quick succession.</span>"
+	icon_state = "stimpen"
+	volume = 42
+	amount_per_transfer_from_this = 42
+	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
+
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "nanocalcium autoinjector"
 	desc = "After a short period of time the nanites will slow the body's systems and assist with bone repair. Nanomachines son."

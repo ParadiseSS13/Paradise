@@ -10,6 +10,7 @@
 	filling_color = "#FFFEE0"
 	bitesize = 3
 	list_reagents = list("plantmatter" = 2)
+	tastes = list("tofu" = 1)
 
 /obj/item/reagent_containers/food/snacks/fried_tofu
 	name = "fried tofu"
@@ -18,6 +19,7 @@
 	filling_color = "#FFFEE0"
 	bitesize = 3
 	list_reagents = list("plantmatter" = 3)
+	tastes = list("tofu" = 1)
 
 /obj/item/reagent_containers/food/snacks/soydope
 	name = "soy dope"
@@ -26,6 +28,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#C4BF76"
 	list_reagents = list("nutriment" = 2)
+	tastes = list("soy" = 1)
 
 
 //////////////////////
@@ -40,12 +43,14 @@
 	slices_num = 5
 	filling_color = "#FFF700"
 	list_reagents = list("nutriment" = 15, "vitamin" = 5, "cheese" = 20)
+	tastes = list("cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/cheesewedge
 	name = "cheese wedge"
 	desc = "A wedge of delicious Cheddar. The cheese wheel it was cut from can't have gone far."
 	icon_state = "cheesewedge"
 	filling_color = "#FFF700"
+	tastes = list("cheese" = 1)
 
 /obj/item/reagent_containers/food/snacks/weirdcheesewedge
 	name = "weird cheese"
@@ -66,6 +71,7 @@
 	filling_color = "#E0D7C5"
 	bitesize = 6
 	list_reagents = list("plantmatter" = 3, "vitamin" = 1)
+	tastes = list("mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/tomatomeat
 	name = "tomato slice"
@@ -74,18 +80,21 @@
 	filling_color = "#DB0000"
 	bitesize = 6
 	list_reagents = list("protein" = 2)
+	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
 	icon_state = "watermelonslice"
 	filling_color = "#FF3867"
+	tastes = list("watermelon" = 1)
 
 /obj/item/reagent_containers/food/snacks/pineappleslice
 	name = "pineapple slices"
 	desc = "Rings of pineapple."
 	icon_state = "pineappleslice"
 	filling_color = "#e5b437"
+	tastes = list("pineapple" = 1)
 
 
 //////////////////////
@@ -98,6 +107,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "dough"
 	list_reagents = list("nutriment" = 6)
+	tastes = list("dough" = 1)
 
 // Dough + rolling pin = flat dough
 /obj/item/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, params)
@@ -120,6 +130,8 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/doughslice
 	slices_num = 3
 	list_reagents = list("nutriment" = 6)
+	tastes = list("dough" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/doughslice
 	name = "dough slice"
@@ -127,6 +139,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "doughslice"
 	list_reagents = list("nutriment" = 1)
+	tastes = list("dough" = 1)
 
 
 ///cookies by Ume
@@ -138,6 +151,8 @@
 	desc = "The base for tasty cookies."
 	icon_state = "cookiedough"
 	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	tastes = list("dough" = 1, "sugar" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
     if(flat)
@@ -193,6 +208,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
+	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)
 
 //////////////////////
 //	Chocolate		//
@@ -204,6 +220,7 @@
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 2, "sugar" = 2, "cocoa" = 2)
+	tastes = list("chocolate" = 1)
 
 ///Chocolate crumbles/pile
 /obj/item/reagent_containers/food/snacks/chocolatebar/attackby(obj/item/I, mob/user, params)
@@ -224,6 +241,7 @@
 	icon_state = "cocoa"
 	filling_color = "#7D5F46"
 	list_reagents = list("chocolate" = 5)
+	tastes = list("chocolate" = 1)
 
 
 //////////////////////
@@ -236,3 +254,4 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "ectoplasm"
 	list_reagents = list("ectoplasm" = 10)
+	tastes = list("spookiness" = 1)

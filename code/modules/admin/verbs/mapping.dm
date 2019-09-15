@@ -132,13 +132,13 @@ var/intercom_range_display_status = 0
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/level = input("Which z-level?","Level?") as text
+	var/level = clean_input("Which z-level?","Level?")
 	if(!level) return
 	var/num_level = text2num(level)
 	if(!num_level) return
 	if(!isnum(num_level)) return
 
-	var/type_text = input("Which type path?","Path?") as text
+	var/type_text = clean_input("Which type path?","Path?")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -170,7 +170,7 @@ var/intercom_range_display_status = 0
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/type_text = input("Which type path?","") as text
+	var/type_text = clean_input("Which type path?","")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return

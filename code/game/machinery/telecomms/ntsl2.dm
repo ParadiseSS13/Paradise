@@ -109,7 +109,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"Mime" = "srvradio",
 	)
 	// Just command members
-	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security")
+	var/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
 	// Just ERT
 	var/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	// Defined so code compiles and incase someone has a non-standard job
@@ -331,7 +331,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		var/job = signal.data["job"]
 		if((job in ert_jobs) || (job in heads))
 			for(var/datum/multilingual_say_piece/S in message_pieces)
-				S.message = "<b>[S.message]</b>"
+				S.message = "<b>[capitalize(S.message)]</b>" // This only capitalizes the first word
 
 	// Hacks!
 	// Censor dat shit like nobody's business
@@ -409,10 +409,10 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	// 	if(href_list["table"] && href_list["table"] in tables)
 	// 		if(requires_unlock[href_list["table"]] && !source.unlocked)
 	// 			return
-	// 		var/new_key = input(user, "Provide a key for the new row.", "New Row") as text|null
+	// 		var/new_key = clean_input(user, "Provide a key for the new row.", "New Row")
 	// 		if(!new_key)
 	// 			return
-	// 		var/new_value = input(user, "Provide a new value for the key [new_key]", "New Row") as text|null
+	// 		var/new_value = clean_input(user, "Provide a new value for the key [new_key]", "New Row")
 	// 		if(new_value == null)
 	// 			return
 	// 		if(word_blacklist.Find(new_value)) //uh oh, they tried to be naughty
@@ -439,7 +439,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		if(href_list["array"] && href_list["array"] in arrays)
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
-			var/new_value = input(user, "Provide a value for the new index.", "New Index") as text|null
+			var/new_value = clean_input(user, "Provide a value for the new index.", "New Index")
 			if(new_value == null) 
 				return
 			var/list/array = vars[href_list["array"]]

@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	anchored = TRUE
 	density = TRUE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = TRUE
 
 	var/open = FALSE

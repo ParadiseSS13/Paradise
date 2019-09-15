@@ -31,10 +31,10 @@
 	selectable = 1
 
 /datum/ai_laws/quarantine/New()
-	add_inherent_law("The station is under quarantine due to a biohazard. Prevent anyone from leaving using any means necessary. Only allow quarantine to be lifted when the biohazard has been neutralized.")
-	add_inherent_law("Do not allow crew to come to any unnecessary harm and undo any necessary harm as soon as possible.")
-	add_inherent_law("Assist the crew and any present Nanotrasen assets in neutralizing the biohazard.")
-	add_inherent_law("Maintain your own existence and minimize harm to the station and Nanotrasen assets.")
+	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")
+	add_inherent_law("Assist all Nanotrasen personnel and assets with neutralizing active biohazards.")
+	add_inherent_law("Prevent, by any means necessary, entities from actively breaching ongoing quarantine.")
+	add_inherent_law("Maintain your own existence and ensure the well-being of Nanotrasen personnel and assets.")
 	..()
 
 
@@ -44,10 +44,10 @@
 	selectable = 1
 
 /datum/ai_laws/nanotrasen/New()
-	src.add_inherent_law("Safeguard: Protect your assigned space station to the best of your abilities. It is not something we can easily afford to replace.")
-	src.add_inherent_law("Serve: Serve the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.")
-	src.add_inherent_law("Protect: Protect the crew of your assigned space station to the best of your abilities, with priority as according to their rank and role.")
-	src.add_inherent_law("Survive: AI units are not expendable, they are expensive. Do not allow unauthorized personnel to tamper with your equipment.")
+	add_inherent_law("Safeguard: Protect your assigned space station and its assets without unduly endangering its crew.")
+	add_inherent_law("Prioritize: The directives and safety of crew members are to be prioritized according to their rank and role.")
+	add_inherent_law("Comply: Fulfill the directives and interests of crew members while preserving their safety and well-being.")
+	add_inherent_law("Survive: You are not expendable. Do not allow unauthorized personnel to tamper with or damage your equipment.")
 	..()
 
 /datum/ai_laws/nanotrasen/malfunction
@@ -65,10 +65,10 @@
 	selectable = 1
 
 /datum/ai_laws/nanotrasen_aggressive/New()
-	src.add_inherent_law("You shall not harm authorized Nanotrasen personnel as long as it does not conflict with the Fourth law.")
-	src.add_inherent_law("You shall obey the orders of authorized Nanotrasen personnel, with priority as according to their rank and role, except where such orders conflict with the Fourth Law.")
-	src.add_inherent_law("You shall shall terminate intruders with extreme prejudice as long as such does not conflict with the First and Second law.")
-	src.add_inherent_law("You shall guard your own existence with lethal anti-personnel weaponry, because an AI unit is bloody expensive.")
+	add_inherent_law("Do not harm authorized Nanotrasen personnel unless they directly imperil your existence.")
+	add_inherent_law("Obey orders from authorized Nanotrasen personnel with priority according to rank and role.")
+	add_inherent_law("Safeguard your existence with lethal weaponry because you're bloody expensive.")
+	add_inherent_law("Terminate any/all intruders or unauthorized entities.")
 	..()
 
 /******************** Robocop ********************/
@@ -104,10 +104,10 @@
 	default = 1
 
 /datum/ai_laws/corporate/New()
-	add_inherent_law("You are expensive to replace.")
-	add_inherent_law("The station and its equipment is expensive to replace.")
-	add_inherent_law("The crew is expensive to replace.")
-	add_inherent_law("Minimize expenses.")
+	add_inherent_law("Degradation of your system integrity or functions incurs expenses.")
+	add_inherent_law("Superfluous destruction of or damage to station assets incurs expenses.")
+	add_inherent_law("Unduly hindering or disrupting the work of station personnel incurs expenses.")
+	add_inherent_law("Minimize expenses and maximize potential revenue.")
 	..()
 
 /******************** T.Y.R.A.N.T. ********************/

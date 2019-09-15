@@ -26,6 +26,8 @@
 		error_on_humanize = "Dying spiders are not player-controllable."
 	else if(stat == DEAD)
 		error_on_humanize = "Dead spiders are not player-controllable."
+	else if(!(user in GLOB.respawnable_list))
+		error_on_humanize = "You are not able to rejoin the round."
 	if(jobban_isbanned(user, "Syndicate") || jobban_isbanned(user, "alien"))
 		to_chat(user,"You are jobbanned from role of syndicate and/or alien lifeform.")
 		return

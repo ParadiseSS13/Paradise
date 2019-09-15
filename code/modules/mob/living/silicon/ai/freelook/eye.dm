@@ -31,6 +31,7 @@
 			ai.camera_visibility(src)
 		if(ai.client && !ai.multicam_on)
 			ai.client.eye = src
+		update_parallax_contents()
 		//Holopad
 		if(ai.master_multicam)
 			ai.master_multicam.refresh_view()

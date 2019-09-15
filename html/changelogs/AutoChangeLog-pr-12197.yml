@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Carp Migration event no longer deletes the carp when it ends; they will continue to stick around the station"

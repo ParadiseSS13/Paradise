@@ -5645,7 +5645,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /mob/living/simple_animal/hostile/poison/terror_spider/red{
-	ai_ventcrawls = 0;
 	wander = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -11152,7 +11151,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/medical)
 "uW" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/UO71/outside)
 "uX" = (
 /obj/structure/cable{
@@ -11633,7 +11632,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/UO71/outside)
 "vV" = (
 /obj/machinery/computer/monitor,
@@ -13391,7 +13390,7 @@
 /area/awaymission/UO71/loot)
 "zr" = (
 /obj/structure/glowshroom/single,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/UO71/outside)
 "zs" = (
 /turf/simulated/floor/carpet,

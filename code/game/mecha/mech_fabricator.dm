@@ -33,6 +33,7 @@
 								"Phazon",
 								"Exosuit Equipment",
 								"Cyborg Upgrade Modules",
+								"Medical",
 								"Misc"
 								)
 

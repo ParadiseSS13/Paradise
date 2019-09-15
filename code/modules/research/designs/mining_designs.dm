@@ -1,16 +1,6 @@
 /////////////////////////////////////////
 /////////////////Mining//////////////////
 /////////////////////////////////////////
-/datum/design/drill_diamond
-	name = "Diamond Mining Drill"
-	desc = "Yours is the drill that will pierce the heavens!"
-	id = "drill_diamond"
-	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_DIAMOND = 2000) //Yes, a whole diamond is needed.
-	build_path = /obj/item/pickaxe/drill/diamonddrill
-	category = list("Mining")
-
 /datum/design/drill
 	name = "Mining Drill"
 	desc = "Yours is the drill that will pierce through the rock walls."
@@ -21,13 +11,23 @@
 	build_path = /obj/item/pickaxe/drill
 	category = list("Mining")
 
+/datum/design/drill_diamond
+	name = "Diamond Mining Drill"
+	desc = "Yours is the drill that will pierce the heavens!"
+	id = "drill_diamond"
+	req_tech = list("materials" = 6, "powerstorage" = 5, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_DIAMOND = 2000) //Yes, a whole diamond is needed.
+	build_path = /obj/item/pickaxe/drill/diamonddrill
+	category = list("Mining")
+
 /datum/design/plasmacutter
 	name = "Plasma Cutter"
 	desc = "You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 	id = "plasmacutter"
 	req_tech = list("materials" = 3, "plasmatech" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_PLASMA = 1500)
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 500, MAT_PLASMA = 400)
 	build_path = /obj/item/gun/energy/plasmacutter
 	category = list("Mining")
 
@@ -37,7 +37,7 @@
 	id = "plasmacutter_adv"
 	req_tech = list("materials" = 4, "plasmatech" = 4, "engineering" = 2, "combat" = 3, "magnets" = 3)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 4000, MAT_GLASS = 1000, MAT_PLASMA = 4000, MAT_GOLD = 500)
+	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_PLASMA = 2000, MAT_GOLD = 500)
 	build_path = /obj/item/gun/energy/plasmacutter/adv
 	category = list("Mining")
 
@@ -99,16 +99,6 @@
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_GOLD = 1500, MAT_URANIUM = 1000)
 	build_path = /obj/item/borg/upgrade/modkit/range
-	category = list("Mining", "Cyborg Upgrade Modules")
-
-/datum/design/superaccelerator
-	name = "Kinetic Accelerator Pressure Mod"
-	desc = "A modification kit which allows Kinetic Accelerators to do more damage while indoors."
-	id = "indoormod"
-	req_tech = list("materials" = 5, "powerstorage" = 4, "engineering" = 4, "magnets" = 4, "combat" = 3)
-	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 2000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_URANIUM = 2000)
-	build_path = /obj/item/borg/upgrade/modkit/indoors
 	category = list("Mining", "Cyborg Upgrade Modules")
 
 /datum/design/hyperaccelerator

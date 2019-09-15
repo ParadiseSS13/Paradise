@@ -1,0 +1,4 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - bugfix: "The AI's robot control window now allows you to see and interact with available bots again"

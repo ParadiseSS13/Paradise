@@ -948,10 +948,16 @@ The _flatIcons list is a cache for generated icon files.
 	return "#[color]"
 
 //Imagine removing pixels from the main icon that are covered by pixels from the mask icon.
-/proc/get_icon_difference(var/icon/main, var/icon/mask)
+//Standard behaviour is to cut pixels from the main icon that are covered by pixels from the mask icon unless passed mask_ready, see below.
+/proc/get_icon_difference(var/icon/main, var/icon/mask, var/mask_ready)
+	/*You should skip prep if the mask is already sprited properly. This significantly improves performance by eliminating most of the realtime icon work.
+	e.g. A 'ready' mask is a mask where the part you want cut out is missing (no pixels, 0 alpha) from the sprite, and everything else is solid white.*/
+
 	if(istype(main) && istype(mask))
-		mask.Blend(rgb(255,255,255), ICON_SUBTRACT) //Make all pixels on the mask as black as possible.
-		mask.Opaque(rgb(255,255,255)) //Make the transparent pixels (background) white.
-		mask.BecomeAlphaMask() //Make all the black pixels vanish (fully transparent), leaving only the white pixels.
+		if(!mask_ready) //Prep the mask if we're using a regular old sprite and not a special-made mask.
+			mask.Blend(rgb(255,255,255), ICON_SUBTRACT) //Make all pixels on the mask as black as possible.
+			mask.Opaque(rgb(255,255,255)) //Make the transparent pixels (background) white.
+			mask.BecomeAlphaMask() //Make all the black pixels vanish (fully transparent), leaving only the white background pixels.
+
 		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
 		return main

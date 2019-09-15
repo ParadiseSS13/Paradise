@@ -22,7 +22,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	web_type = /obj/structure/spider/terrorweb/black
-	stat_attack = 1 // ensures they will target people in crit, too!
+	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
 
 

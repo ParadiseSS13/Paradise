@@ -187,9 +187,9 @@
 	if(rig)
 		rig.HasProximity(AM)
 
-/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM)
+/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM, oldloc)
 	if(rig)
-		rig.Crossed(AM)
+		rig.Crossed(AM, oldloc)
 
 /obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, list/message_pieces)
 	if(rig)
@@ -220,6 +220,7 @@
 	icon_state = "water_cooler"
 	anchored = 1
 	tank_volume = 500
+	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)

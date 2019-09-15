@@ -3,8 +3,8 @@
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
-/client/proc/can_vv_get(var_name)
-	return TRUE
+// /client/proc/can_vv_get(var_name)
+// 	return TRUE
 
 /datum/proc/vv_edit_var(var_name, var_value) //called whenever a var is edited
 	switch(var_name)
@@ -18,7 +18,7 @@
 	. = TRUE
 
 
-/client/proc/vv_edit_var(var_name, var_value) //called whenever a var is edited
+/client/vv_edit_var(var_name, var_value) //called whenever a var is edited
 	switch(var_name)
 		if("vars")
 			return FALSE
@@ -37,7 +37,7 @@
 			return debug_variable(var_name, list(), 0, src)
 	return debug_variable(var_name, vars[var_name], 0, src)
 
-/client/proc/vv_get_var(var_name)
+/client/vv_get_var(var_name)
 	switch(var_name)
 		if("vars")
 			return debug_variable(var_name, list(), 0, src)
@@ -57,7 +57,7 @@
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
 	. += "---"
 
-/client/proc/vv_get_dropdown()
+/client/vv_get_dropdown()
 	. = list()
 	. += "---"
 	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
@@ -738,22 +738,7 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
-		to_chat(M, "Control of your mob has been offered to dead players.")
-		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
-		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name ? M.real_name : M.name]?", poll_time = 100, min_hours = minhours)
-		var/mob/dead/observer/theghost = null
-
-		if(candidates.len)
-			theghost = pick(candidates)
-			to_chat(M, "Your mob has been taken over by a ghost!")
-			message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
-			M.ghostize()
-			M.key = theghost.key
-		else
-			to_chat(M, "There were no ghosts willing to take control.")
-			message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+		offer_control(M)
 
 	else if(href_list["delete"])
 		if(!check_rights(R_DEBUG, 0))
@@ -1019,16 +1004,6 @@
 			return
 		holder.Topic(href, list("makeai"=href_list["makeai"]))
 
-	else if(href_list["makemask"])
-		if(!check_rights(R_SPAWN)) return
-		var/mob/currentMob = locateUID(href_list["makemask"])
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
-		if(!currentMob)
-			to_chat(usr, "Mob doesn't exist anymore")
-			return
-		holder.Topic(href, list("makemask"=href_list["makemask"]))
-
-
 	else if(href_list["setspecies"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -1279,7 +1254,12 @@
 			return
 		src.debug_variables(DAT)
 
-	return
+	if(href_list["copyoutfit"])
+		if(!check_rights(R_EVENT))
+			return
+		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
+		if(istype(H))
+			H.copy_outfit()
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

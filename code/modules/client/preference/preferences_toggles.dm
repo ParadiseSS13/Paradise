@@ -201,6 +201,19 @@
 		to_chat(src, "You will no longer hear musical instruments.")
 	feedback_add_details("admin_verb","TInstru") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/Toggle_disco() //to toggle off the disco machine locally, in case it gets too annoying
+	set name = "Hear/Silence Dance Machine"
+	set category = "Preferences"
+	set desc = "Toggles hearing and dancing to the radiant dance machine"
+	prefs.sound ^= SOUND_DISCO
+	prefs.save_preferences(src)
+	if(prefs.sound & SOUND_DISCO)
+		to_chat(src, "You will now hear and dance to the radiant dance machine.")
+	else
+		to_chat(src, "You will no longer hear or dance to the radiant dance machine.")
+		usr.stop_sound_channel(CHANNEL_JUKEBOX)
+	feedback_add_details("admin_verb","Tdd") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/setup_character()
 	set name = "Game Preferences"
 	set category = "Preferences"
@@ -241,4 +254,36 @@
 		to_chat(usr, "<span class='notice'>You have enabled text popup limiting.")
 	else
 		to_chat(usr, "<span class='notice'>You have disabled text popup limiting.")
+	return
 
+/client/verb/numpad_target()
+	set name = "Toggle Numpad targetting"
+	set category = "Preferences"
+	set desc = "This button will allow you to enable or disable Numpad Targetting"
+	prefs.toggles ^= NUMPAD_TARGET
+	prefs.save_preferences(src)
+	if (prefs.toggles & NUMPAD_TARGET)
+		to_chat(usr, "<span class='notice'>You have enabled Numpad Targetting.")
+	else
+		to_chat(usr, "<span class='notice'>You have disabled Numpad Targetting.")
+	return
+
+/client/verb/azerty_toggle()
+	set name = "Toggle QWERTY/AZERTY"
+	set category = "Preferences"
+	set desc = "This button will switch you between QWERTY and AZERTY control sets"
+	prefs.toggles ^= AZERTY
+	prefs.save_preferences(src)
+	if (prefs.toggles & AZERTY)
+		to_chat(usr, "<span class='notice'>You are now in AZERTY mode.")
+	else
+		to_chat(usr, "<span class='notice'>You are now in QWERTY mode.")
+	return
+/client/verb/toggle_ghost_pda()
+	set name = "Show/Hide GhostPDA"
+	set category = "Preferences"
+	set desc = ".Toggle seeing PDA messages as an observer."
+	prefs.toggles ^= CHAT_GHOSTPDA
+	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
+	prefs.save_preferences(src)
+	feedback_add_details("admin_verb","TGP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

@@ -3,7 +3,7 @@
 /turf/space,
 /area/space)
 "b" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "c" = (
 /turf/simulated/mineral,

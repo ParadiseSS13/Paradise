@@ -95,4 +95,5 @@
 	icon_state = "kudzupod"
 	filling_color = "#6B8E23"
 	bitesize_mod = 2
+	tastes = list("kudzu" = 1)
 	wine_power = 0.2

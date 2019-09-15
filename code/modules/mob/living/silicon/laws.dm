@@ -70,6 +70,13 @@
 	if(!silent && !isnull(usr))
 		log_and_message_admins("cleared the supplied laws of [src]")
 
+/mob/living/silicon/proc/clear_zeroth_law(var/silent = FALSE)
+	throw_alert("newlaw", /obj/screen/alert/newlaw)
+	laws_sanity_check()
+	laws.clear_zeroth_laws()
+	if(!silent && !isnull(usr))
+		log_and_message_admins("cleared the zeroth law of [src]")
+
 /mob/living/silicon/proc/statelaws(var/datum/ai_laws/laws)
 	var/prefix = ""
 	if(MAIN_CHANNEL == lawchannel)

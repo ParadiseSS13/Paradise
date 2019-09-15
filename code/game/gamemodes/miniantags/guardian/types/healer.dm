@@ -43,7 +43,7 @@
 			stat(null, "Bluespace Beacon Cooldown Remaining: [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
-	..()
+	. = ..()
 	if(toggle == TRUE)
 		if(loc == summoner)
 			to_chat(src, "<span class='danger'>You must be manifested to heal!</span>")

@@ -22,7 +22,8 @@ var/datum/atom_hud/huds = list( \
 	ANTAG_HUD_ABDUCTOR = new/datum/atom_hud/antag/hidden(),\
 	DATA_HUD_ABDUCTOR = new/datum/atom_hud/abductor(),\
 	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
-	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden()\
+	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
+	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden()\
  	)
 
 /datum/atom_hud
@@ -93,8 +94,8 @@ var/datum/atom_hud/huds = list( \
 	//		gang_huds += G.ganghud
 
 	var/serv_huds = list()//mindslaves and/or vampire thralls
-	if(ticker.mode)
-		for(var/datum/mindslaves/serv in (ticker.mode.vampires | ticker.mode.traitors))
+	if(SSticker.mode)
+		for(var/datum/mindslaves/serv in (SSticker.mode.vampires | SSticker.mode.traitors))
 			serv_huds += serv.thrallhud
 
 

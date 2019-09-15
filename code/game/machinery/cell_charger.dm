@@ -8,6 +8,7 @@
 	idle_power_usage = 5
 	active_power_usage = 60
 	power_channel = EQUIP
+	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
 

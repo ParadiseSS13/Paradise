@@ -101,7 +101,7 @@ var/datum/cameranet/cameranet = new()
 
 /datum/cameranet/proc/updateVisibility(atom/A, opacity_check = 1)
 
-	if(!ticker || (opacity_check && !A.opacity))
+	if(!SSticker || (opacity_check && !A.opacity))
 		return
 	majorChunkChange(A, 2)
 
@@ -184,7 +184,7 @@ var/datum/cameranet/cameranet = new()
 /*
 /datum/cameranet/proc/stat_entry()
 	if(!statclick)
-		statclick = new/obj/effect/statclick/debug("Initializing...", src)
+		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
 
 	stat(name, statclick.update("Cameras: [cameranet.cameras.len] | Chunks: [cameranet.chunks.len]"))
 */

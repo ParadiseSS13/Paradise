@@ -81,7 +81,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/exp
 	var/ooccolor = "#b82e00"
-	var/be_special = list()				//Special role selection
+	var/list/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
 	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
@@ -92,6 +92,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/windowflashing = TRUE
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
+	var/fuid							// forum userid
+	var/afk_watch = FALSE  				// If the player wants to be kept track of by the AFK system
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -199,6 +201,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	//Gear stuff
 	var/list/gear = list()
 	var/gear_tab = "General"
+	// Parallax
+	var/parallax = PARALLAX_HIGH
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -436,9 +440,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			// LEFT SIDE OF THE PAGE
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
-			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(afk_watch) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
+			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
 				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Custom UI settings:</b><br>"
@@ -449,15 +455,28 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(user.client.donator_level > 0)
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
 			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
-			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
-			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
+			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
+			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
+			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
+			switch (parallax)
+				if(PARALLAX_LOW)
+					dat += "Low"
+				if(PARALLAX_MED)
+					dat += "Medium"
+				if(PARALLAX_INSANE)
+					dat += "Insane"
+				if(PARALLAX_DISABLE)
+					dat += "Disabled"
+				else
+					dat += "High"
+			dat += "</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
@@ -524,10 +543,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
 				var/ticked = (G.display_name in gear)
-				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
-				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
+				dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
@@ -1148,9 +1164,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(TG.display_name in gear)
 				gear -= TG.display_name
 			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
-					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
 				for(var/gear_name in gear)
@@ -1262,7 +1275,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -1979,6 +1992,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("winflash")
 					windowflashing = !windowflashing
 
+				if("afk_watch")
+					afk_watch = !afk_watch
+
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
 					if(!UI_style_color_new) return
@@ -2032,6 +2048,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("ghost_radio")
 					toggles ^= CHAT_GHOSTRADIO
+				
+				if("ghost_pda")
+					toggles ^= CHAT_GHOSTPDA
 
 				if("ghost_anonsay")
 					ghost_anonsay = !ghost_anonsay
@@ -2066,6 +2085,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
+
 				if("ambientocclusion")
 					toggles ^= AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
@@ -2073,6 +2093,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						PM.filters -= FILTER_AMBIENT_OCCLUSION
 						if(toggles & AMBIENT_OCCLUSION)
 							PM.filters += FILTER_AMBIENT_OCCLUSION
+
+				if("parallax")
+					var/parallax_styles = list(
+						"Off" = PARALLAX_DISABLE,
+						"Low" = PARALLAX_LOW,
+						"Medium" = PARALLAX_MED,
+						"High" = PARALLAX_HIGH,
+						"Insane" = PARALLAX_INSANE
+					)
+					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]	
+					if(parent && parent.mob && parent.mob.hud_used)
+						parent.mob.hud_used.update_parallax_pref()
+
 
 	ShowChoices(user)
 	return 1
@@ -2283,3 +2316,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/close_load_dialog(mob/user)
 	user << browse(null, "window=saves")
+
+//Check if the user has ANY job selected.
+/datum/preferences/proc/check_any_job()
+	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)

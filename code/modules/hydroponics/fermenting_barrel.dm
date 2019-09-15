@@ -32,8 +32,8 @@
 		data["alcohol_perc"] = G.wine_power
 		if(G.wine_flavor)
 			data["tastes"] = list(G.wine_flavor = 1)
-		// else										// Stub - Will implement when we port over tg's better taste system - I'd rather get the barrel in first. 
-		// 	data["tastes"] = list(G.tastes[1] = 1)
+		else
+			data["tastes"] = list(G.tastes[1] = 1)
 		reagents.add_reagent("fruit_wine", amount, data)
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)

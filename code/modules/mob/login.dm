@@ -73,9 +73,6 @@
 	if(abilities)
 		client.verbs |= abilities
 
-	if(ishuman(src))
-		client.screen += client.void
-
 	//HUD updates (antag hud, etc)
 	//readd this mob's HUDs (antag, med, etc)
 	reload_huds()

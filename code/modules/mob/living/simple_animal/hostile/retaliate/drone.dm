@@ -7,7 +7,7 @@
 	icon_living = "drone3"
 	icon_dead = "drone_dead"
 	ranged = 1
-	rapid = 1
+	rapid = 3
 	speak_chance = 5
 	turns_per_move = 3
 	response_help = "pokes the"

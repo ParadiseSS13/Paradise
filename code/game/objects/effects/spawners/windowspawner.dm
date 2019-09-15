@@ -47,3 +47,8 @@
 	name = "reinforced plasma window spawner"
 	icon_state = "pwindow_spawner"
 	windowtospawn = /obj/structure/window/plasmareinforced
+
+/obj/effect/spawner/window/shuttle
+	name = "shuttle window spawner"
+	icon_state = "swindow_spawner"
+	windowtospawn = /obj/structure/window/shuttle

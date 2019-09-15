@@ -4,7 +4,7 @@ var/const/commandos_possible = 6 //if more Commandos are needed in the future
 var/global/sent_strike_team = 0
 
 /client/proc/strike_team()
-	if(!ticker)
+	if(!SSticker)
 		to_chat(usr, "<span class='userdanger'>The game hasn't started yet!</span>")
 		return
 	if(sent_strike_team == 1)
@@ -86,9 +86,9 @@ var/global/sent_strike_team = 0
 				R.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
 				R.mind.offstation_role = TRUE
-				if(!(R.mind in ticker.minds))
-					ticker.minds += R.mind
-				ticker.mode.traitors += R.mind
+				if(!(R.mind in SSticker.minds))
+					SSticker.minds += R.mind
+				SSticker.mode.traitors += R.mind
 				R.key = ghost_mob.key
 				if(nuke_code)
 					R.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code].</span>")
@@ -150,7 +150,7 @@ var/global/sent_strike_team = 0
 	new_commando.mind_initialize()
 	new_commando.mind.assigned_role = SPECIAL_ROLE_DEATHSQUAD
 	new_commando.mind.special_role = SPECIAL_ROLE_DEATHSQUAD
-	ticker.mode.traitors |= new_commando.mind//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.traitors |= new_commando.mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_commando.equip_death_commando(is_leader)
 	return new_commando
 

@@ -38,7 +38,7 @@
 	description = "A colorless, odorless gas."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/nitrogen
 	name = "Nitrogen"
@@ -46,7 +46,7 @@
 	description = "A colorless, odorless, tasteless gas."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/hydrogen
 	name = "Hydrogen"
@@ -54,7 +54,7 @@
 	description = "A colorless, odorless, nonmetallic, tasteless, highly combustible diatomic gas."
 	reagent_state = GAS
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/potassium
 	name = "Potassium"
@@ -62,7 +62,7 @@
 	description = "A soft, low-melting solid that can easily be cut with a knife. Reacts violently with water."
 	reagent_state = SOLID
 	color = "#A0A0A0" // rgb: 160, 160, 160
-	taste_message = "bad ideas"
+	taste_description = "bad ideas"
 
 /datum/reagent/sulfur
 	name = "Sulfur"
@@ -70,7 +70,7 @@
 	description = "A chemical element."
 	reagent_state = SOLID
 	color = "#BF8C00" // rgb: 191, 140, 0
-	taste_message = "impulsive decisions"
+	taste_description = "impulsive decisions"
 
 /datum/reagent/sodium
 	name = "Sodium"
@@ -78,7 +78,7 @@
 	description = "A chemical element."
 	reagent_state = SOLID
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = "horrible misjudgement"
+	taste_description = "horrible misjudgement"
 
 /datum/reagent/phosphorus
 	name = "Phosphorus"
@@ -86,7 +86,7 @@
 	description = "A chemical element."
 	reagent_state = SOLID
 	color = "#832828" // rgb: 131, 40, 40
-	taste_message = "misguided choices"
+	taste_description = "misguided choices"
 
 /datum/reagent/carbon
 	name = "Carbon"
@@ -94,7 +94,7 @@
 	description = "A chemical element."
 	reagent_state = SOLID
 	color = "#1C1300" // rgb: 30, 20, 0
-	taste_message = "like a pencil or something"
+	taste_description = "like a pencil or something"
 
 /datum/reagent/carbon/reaction_turf(turf/T, volume)
 	if(!(locate(/obj/effect/decal/cleanable/dirt) in T) && !isspaceturf(T)) // Only add one dirt per turf.  Was causing people to crash.
@@ -106,7 +106,7 @@
 	description = "Gold is a dense, soft, shiny metal and the most malleable and ductile metal known."
 	reagent_state = SOLID
 	color = "#F7C430" // rgb: 247, 196, 48
-	taste_message = "bling"
+	taste_description = "bling"
 
 
 /datum/reagent/silver
@@ -115,7 +115,7 @@
 	description = "A lustrous metallic element regarded as one of the precious metals."
 	reagent_state = SOLID
 	color = "#D0D0D0" // rgb: 208, 208, 208
-	taste_message = "sub-par bling"
+	taste_description = "sub-par bling"
 
 /datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(M.has_bane(BANE_SILVER))
@@ -128,7 +128,7 @@
 	description = "A silvery white and ductile member of the boron group of chemical elements."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = "metal"
+	taste_description = "metal"
 
 
 /datum/reagent/silicon
@@ -137,7 +137,7 @@
 	description = "A tetravalent metalloid, silicon is less reactive than its chemical analog carbon."
 	reagent_state = SOLID
 	color = "#A8A8A8" // rgb: 168, 168, 168
-	taste_message = "a CPU"
+	taste_description = "a CPU"
 
 
 /datum/reagent/copper
@@ -145,7 +145,7 @@
 	id = "copper"
 	description = "A highly ductile metal."
 	color = "#6E3B08" // rgb: 110, 59, 8
-	taste_message = "copper"
+	taste_description = "copper"
 
 
 /datum/reagent/iron
@@ -154,7 +154,7 @@
 	description = "Pure iron is a metal."
 	reagent_state = SOLID
 	color = "#C8A5DC" // rgb: 200, 165, 220
-	taste_message = "metal"
+	taste_description = "metal"
 
 /datum/reagent/iron/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -176,7 +176,7 @@
 	description = "A perfluoronated sulfonic acid that forms a foam when mixed with water."
 	reagent_state = LIQUID
 	color = "#9E6B38" // rgb: 158, 107, 56
-	taste_message = "extreme discomfort"
+	taste_description = "extreme discomfort"
 
 // metal foaming agent
 // this is lithium hydride. Add other recipies (e.g. LiH + H2O -> LiOH + H2) eventually
@@ -186,7 +186,7 @@
 	description = "A caustic substance commonly used in fertilizer or household cleaners."
 	reagent_state = GAS
 	color = "#404030" // rgb: 64, 64, 48
-	taste_message = "floor cleaner"
+	taste_description = "floor cleaner"
 
 /datum/reagent/diethylamine
 	name = "Diethylamine"
@@ -194,7 +194,7 @@
 	description = "A secondary amine, useful as a plant nutrient and as building block for other compounds."
 	reagent_state = LIQUID
 	color = "#322D00"
-	taste_message = null
+	taste_description = "iron"
 
 /datum/reagent/oil
 	name = "Oil"
@@ -202,14 +202,15 @@
 	description = "A decent lubricant for machines. High in benzene, naptha and other hydrocarbons."
 	reagent_state = LIQUID
 	color = "#3C3C3C"
-	taste_message = "motor oil"
+	taste_description = "motor oil"
 	process_flags = ORGANIC | SYNTHETIC
 
 /datum/reagent/oil/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 600)
 		var/turf/T = get_turf(holder.my_atom)
 		holder.my_atom.visible_message("<b>The oil burns!</b>")
-		fireflash(T, min(max(0, volume / 40), 8))
+		if(volume > (holder.maximum_volume / 2))
+			fireflash(T, min(max(0, volume / 40), 8))
 		var/datum/effect_system/smoke_spread/bad/BS = new
 		BS.set_up(1, 0, T)
 		BS.start()
@@ -227,7 +228,7 @@
 	description = "A purple gaseous element."
 	reagent_state = GAS
 	color = "#493062"
-	taste_message = "chemtrail resistance"
+	taste_description = "chemtrail resistance"
 
 /datum/reagent/carpet
 	name = "Carpet"
@@ -235,7 +236,7 @@
 	description = "A covering of thick fabric used on floors. This type looks particularly gross."
 	reagent_state = LIQUID
 	color = "#701345"
-	taste_message = "a carpet...what?"
+	taste_description = "a carpet...what?"
 
 /datum/reagent/carpet/reaction_turf(turf/simulated/T, volume)
 	if(istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel))
@@ -249,7 +250,7 @@
 	description = "A red-brown liquid element."
 	reagent_state = LIQUID
 	color = "#4E3A3A"
-	taste_message = null
+	taste_description = "chemicals"
 
 /datum/reagent/phenol
 	name = "Phenol"
@@ -257,7 +258,7 @@
 	description = "Also known as carbolic acid, this is a useful building block in organic chemistry."
 	reagent_state = LIQUID
 	color = "#525050"
-	taste_message = null
+	taste_description = "acid"
 
 /datum/reagent/ash
 	name = "Ash"
@@ -265,7 +266,7 @@
 	description = "Ashes to ashes, dust to dust."
 	reagent_state = LIQUID
 	color = "#191919"
-	taste_message = "ash"
+	taste_description = "ash"
 
 /datum/reagent/acetone
 	name = "Acetone"
@@ -273,7 +274,7 @@
 	description = "Pure 100% nail polish remover, also works as an industrial solvent."
 	reagent_state = LIQUID
 	color = "#474747"
-	taste_message = "nail polish remover"
+	taste_description = "nail polish remover"
 
 /datum/reagent/acetone/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -286,7 +287,7 @@
 	description = "Volatile."
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
-	taste_message = "one third of an explosion"
+	taste_description = "one third of an explosion"
 
 /datum/reagent/colorful_reagent
 	name = "Colorful Reagent"
@@ -294,7 +295,7 @@
 	description = "It's pure liquid colors. That's a thing now."
 	reagent_state = LIQUID
 	color = "#FFFFFF"
-	taste_message = "the rainbow"
+	taste_description = "the rainbow"
 
 /datum/reagent/colorful_reagent/on_mob_life(mob/living/M)
 	if(ishuman(M))
@@ -320,7 +321,7 @@
 	description = "A rather tubular and gnarly way of coloring totally bodacious hair. Duuuudddeee."
 	reagent_state = LIQUID
 	color = "#960096"
-	taste_message = "the 2559 Autumn release of the Le Jeune Homme catalogue for professional hairdressers"
+	taste_description = "the 2559 Autumn release of the Le Jeune Homme catalogue for professional hairdressers"
 
 /datum/reagent/hair_dye/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
@@ -341,7 +342,7 @@
 	reagent_state = LIQUID
 	color = "#5DDA5D"
 	penetrates_skin = TRUE
-	taste_message = "someone's beard"
+	taste_description = "someone's beard"
 
 /datum/reagent/hairgrownium/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
@@ -360,7 +361,7 @@
 	reagent_state = LIQUID
 	color = "#5DD95D"
 	penetrates_skin = TRUE
-	taste_message = "multiple beards"
+	taste_description = "multiple beards"
 
 /datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, volume)
 	if(ishuman(M))
@@ -393,7 +394,7 @@
 	description = "Hugs, in liquid form.  Yes, the concept of a hug.  As a liquid.  This makes sense in the future."
 	reagent_state = LIQUID
 	color = "#FF97B9"
-	taste_message = "<font color='pink'><b>hugs</b></font>"
+	taste_description = "<font color='pink'><b>hugs</b></font>"
 
 /datum/reagent/love
 	name = "Pure love"
@@ -402,7 +403,7 @@
 	reagent_state = LIQUID
 	color = "#FF83A5"
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
-	taste_message = "<font color='pink'><b>love</b></font>"
+	taste_description = "<font color='pink'><b>love</b></font>"
 
 /datum/reagent/love/on_mob_life(mob/living/M)
 	if(M.a_intent != INTENT_HELP)
@@ -436,7 +437,7 @@
 	id = "jestosterone"
 	description = "Jestosterone is an odd chemical compound that induces a variety of annoying side-effects in the average person. It also causes mild intoxication, and is toxic to mimes."
 	color = "#ff00ff" //Fuchsia, pity we can't do rainbow here
-	taste_message = "a funny flavour"
+	taste_description = "a funny flavour"
 
 /datum/reagent/jestosterone/on_new()
 	..()
@@ -457,6 +458,7 @@
 			C.AdjustDizzy(volume)
 	C.AddComponent(/datum/component/jestosterone, mind_type)
 	C.AddComponent(/datum/component/squeak, null, null, null, null, null, TRUE)
+	C.AddComponent(/datum/component/waddling)
 
 /datum/reagent/jestosterone/on_mob_life(mob/living/carbon/M)
 	if(!istype(M))
@@ -493,15 +495,17 @@
 	..()
 	GET_COMPONENT_FROM(remove_fun, /datum/component/jestosterone, M)
 	GET_COMPONENT_FROM(squeaking, /datum/component/squeak, M)
+	GET_COMPONENT_FROM(waddling, /datum/component/waddling, M)
 	remove_fun.Destroy()
 	squeaking.Destroy()
+	waddling.Destroy()
 
 /datum/reagent/royal_bee_jelly
 	name = "royal bee jelly"
 	id = "royal_bee_jelly"
 	description = "Royal Bee Jelly, if injected into a Queen Space Bee said bee will split into two bees."
 	color = "#00ff80"
-	taste_message = "sweetness"
+	taste_description = "sweetness"
 
 /datum/reagent/royal_bee_jelly/on_mob_life(mob/living/M)
 	if(prob(2))
@@ -514,7 +518,7 @@
 	description = "A commercial chemical designed to help older men in the bedroom." //not really it just makes you a giant
 	color = "#ff0000"//strong red. rgb 255, 0, 0
 	var/current_size = 1
-	taste_message = "enhancement"
+	taste_description = "enhancement"
 
 /datum/reagent/growthserum/on_mob_life(mob/living/carbon/H)
 	var/newsize = current_size
@@ -546,7 +550,7 @@
 	description = "Finely ground Coffee beans, used to make coffee."
 	reagent_state = SOLID
 	color = "#5B2E0D" // rgb: 91, 46, 13
-	taste_message = "waste"
+	taste_description = "waste"
 
 /datum/reagent/toxin/teapowder
 	name = "Ground Tea Leaves"
@@ -554,7 +558,7 @@
 	description = "Finely shredded Tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0"
-	taste_message = "the future"
+	taste_description = "the future"
 
 //////////////////////////////////Hydroponics stuff///////////////////////////////
 
@@ -564,7 +568,7 @@
 	description = "Some kind of nutriment. You can't really tell what it is. You should probably report it, along with how you obtained it."
 	color = "#000000" // RBG: 0, 0, 0
 	var/tox_prob = 0
-	taste_message = "puke"
+	taste_description = "puke"
 
 /datum/reagent/plantnutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -578,7 +582,7 @@
 	description = "Cheap and extremely common type of plant nutriment."
 	color = "#376400" // RBG: 50, 100, 0
 	tox_prob = 10
-	taste_message = "obscurity and toil"
+	taste_description = "obscurity and toil"
 
 /datum/reagent/plantnutriment/left4zednutriment
 	name = "Left 4 Zed"
@@ -586,7 +590,7 @@
 	description = "Unstable nutriment that makes plants mutate more often than usual."
 	color = "#1A1E4D" // RBG: 26, 30, 77
 	tox_prob = 25
-	taste_message = "evolution"
+	taste_description = "evolution"
 
 /datum/reagent/plantnutriment/robustharvestnutriment
 	name = "Robust Harvest"
@@ -594,7 +598,7 @@
 	description = "Very potent nutriment that prevents plants from mutating."
 	color = "#9D9D00" // RBG: 157, 157, 0
 	tox_prob = 15
-	taste_message = "bountifulness"
+	taste_description = "bountifulness"
 
 ///Alchemical Reagents
 
@@ -611,6 +615,7 @@
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#092D09"
+	taste_description = "alchemy"
 
 /datum/reagent/woolbat
 	name = "Wool of bat"
@@ -618,6 +623,7 @@
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#080808"
+	taste_description = "alchemy"
 
 /datum/reagent/tonguedog
 	name = "Tongue of dog"
@@ -625,6 +631,7 @@
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#2D0909"
+	taste_description = "alchemy"
 
 /datum/reagent/triplepiss
 	name = "Triplepiss"
@@ -632,3 +639,51 @@
 	description = "Ewwwwwwwww."
 	reagent_state = LIQUID
 	color = "#857400"
+	taste_description = "alchemy"
+
+/datum/reagent/spraytan
+	name = "Spray Tan"
+	id = "spraytan"
+	description = "A substance applied to the skin to darken the skin."
+	color = "#FFC080" // rgb: 255, 196, 128  Bright orange
+	metabolization_rate = 10 * REAGENTS_METABOLISM // very fast, so it can be applied rapidly.  But this changes on an overdose
+	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
+	taste_description = "sour oranges"
+
+/datum/reagent/spraytan/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+	if(ishuman(M))
+		if(method == TOUCH)
+			var/mob/living/carbon/human/N = M
+			set_skin_color(N)
+
+		if(method == INGEST)
+			if(show_message)
+				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
+	..()
+
+/datum/reagent/spraytan/overdose_process(mob/living/M)
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+
+	if(ishuman(M) && is_species(M, /datum/species/human))
+		var/mob/living/carbon/human/N = M
+		N.change_hair("Spiky")
+		N.change_facial_hair("Shaved")
+		N.change_hair_color("#000000")
+		N.change_facial_hair_color("#000000")
+		set_skin_color(N)
+		if(prob(7))
+			if(N.w_uniform)
+				M.visible_message(pick("<b>[M]</b>'s collar pops up without warning.</span>", "<b>[M]</b> flexes [M.p_their()] arms."))
+			else
+				M.visible_message("<b>[M]</b> flexes [M.p_their()] arms.")
+	if(prob(10))
+		M.say(pick("Shit was SO cash.", "You are everything bad in the world.", "What sports do you play, other than 'jack off to naked drawn Japanese people?'", "Don’t be a stranger. Just hit me with your best shot.", "My name is John and I hate every single one of you."))
+
+	return list(0, STATUS_UPDATE_NONE)
+
+/datum/reagent/spraytan/proc/set_skin_color(mob/living/carbon/human/H)
+	if(H.dna.species.bodyflags & HAS_SKIN_TONE)
+		H.change_skin_tone(-30)
+
+	if(H.dna.species.bodyflags & HAS_SKIN_COLOR) //take current alien color and darken it slightly
+		H.change_skin_color("#9B7653")

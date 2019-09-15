@@ -1,0 +1,8 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - tweak: "Ash Walkers now once more have fine manipulation. Their lack of fine manipulation caused unintended side effects (such as them being unable to mine)."
+  - bugfix: "Ash Walkers (and other ghost spawner roles) can no longer be antagonist targets or become antagonists through the antagonist creation."
+  - bugfix: "Fixed the Lavaland Syndicate base incinerator buttons not working."
+  - bugfix: "Fixed the Syndicate communication agent spawning with a broken voice changer mask."
+  - bugfix: "Fixed the Disk Compartmentalizer not having a sprite."

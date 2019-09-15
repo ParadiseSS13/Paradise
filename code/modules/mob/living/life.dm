@@ -3,9 +3,9 @@
 	set background = BACKGROUND_ENABLED
 
 	if(notransform)
-		return 0
+		return FALSE
 	if(!loc)
-		return 0
+		return FALSE
 	var/datum/gas_mixture/environment = loc.return_air()
 
 	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
@@ -59,8 +59,7 @@
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
 	if(client)
-		//regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
-		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
+		handle_regular_hud_updates()
 
 	..()
 

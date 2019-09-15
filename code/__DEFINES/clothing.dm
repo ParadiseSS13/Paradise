@@ -9,7 +9,7 @@
 #define HIDEEYES	4	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
-//slots
+// slots
 #define slot_back 1
 #define slot_wear_mask 2
 #define slot_handcuffed 3
@@ -34,6 +34,11 @@
 #define slot_tie 22
 #define slot_collar 23
 #define slots_amt 23
+
+// accessory slots
+#define ACCESSORY_SLOT_DECOR 1
+#define ACCESSORY_SLOT_UTILITY 2
+#define ACCESSORY_SLOT_ARMBAND 3
 
 //Cant seem to find a mob bitflags area other than the powers one
 

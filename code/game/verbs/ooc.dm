@@ -41,6 +41,9 @@ var/global/admin_ooc_colour = "#b82e00"
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
+		if(!config.ooc_allowed)
+			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			return
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))

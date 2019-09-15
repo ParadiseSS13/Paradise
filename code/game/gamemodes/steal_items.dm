@@ -37,6 +37,11 @@
 	typepath = /obj/item/tank/jetpack/oxygen/captain
 	protected_jobs = list("Captain")
 
+/datum/theft_objective/captains_rapier
+	name = "the captain's rapier"
+	typepath = /obj/item/melee/rapier
+	protected_jobs = list("Captain")
+
 /datum/theft_objective/hoslaser
 	name = "the head of security's recreated antique laser gun"
 	typepath = /obj/item/gun/energy/gun/hos
@@ -88,18 +93,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	name = "a nasa voidsuit"
 	typepath = /obj/item/clothing/suit/space/nasavoid
 	protected_jobs = list("Research Director")
-
-/datum/theft_objective/slime_extract
-	name = "a sample of unused slime extract"
-	typepath = /obj/item/slime_extract
-	protected_jobs = list("Research Director","Scientist")
-	location_override = "Xenobiology"
-
-/datum/theft_objective/slime_extract/check_special_completion(var/obj/item/slime_extract/E)
-	if(..())
-		if(E.Uses > 0)
-			return 1
-	return 0
 
 /datum/theft_objective/capmedal
 	name = "the medal of captaincy"
@@ -165,17 +158,6 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 
 /datum/theft_objective/number/proc/getAmountStolen(var/obj/item/I)
 	return I:amount
-
-/datum/theft_objective/number/plasma_gas
-	name = "moles of plasma (full tank)"
-	typepath = /obj/item/tank
-	min=28
-	max=28
-	protected_jobs = list("Chief Engineer", "Station Engineer", "Scientist", "Research Director", "Life Support Specialist")
-	location_override = "Engineering or Toxin Mixing"
-
-/datum/theft_objective/number/plasma_gas/getAmountStolen(var/obj/item/I)
-	return I:air_contents:toxins
 
 /datum/theft_objective/unique
 	flags = THEFT_FLAG_UNIQUE

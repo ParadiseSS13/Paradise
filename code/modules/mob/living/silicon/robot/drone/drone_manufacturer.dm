@@ -27,7 +27,7 @@
 
 /obj/machinery/drone_fabricator/process()
 
-	if(ticker.current_state < GAME_STATE_PLAYING)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
 		return
 
 	if(stat & NOPOWER || !produce_drones)
@@ -98,7 +98,7 @@
 		to_chat(usr, "<span class='warning'>You are banned from playing drones and cannot spawn as a drone.</span>")
 		return
 
-	if(!ticker || ticker.current_state < 3)
+	if(!SSticker || SSticker.current_state < 3)
 		to_chat(src, "<span class='warning'>You can't join as a drone before the game starts!</span>")
 		return
 

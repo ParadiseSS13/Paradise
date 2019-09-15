@@ -431,7 +431,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/structure/window/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	setDir(ini_dir)
 	move_update_air(T)
 
@@ -482,7 +482,6 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
-	var/health
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
@@ -580,6 +579,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	dir = FULLTILE_WINDOW_DIR
 	level = 3
 	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
@@ -676,6 +676,7 @@ obj/structure/window/full/reinforced/ice
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 200
 	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100)
@@ -735,6 +736,7 @@ obj/structure/window/full/reinforced/ice
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 120
 	level = 3

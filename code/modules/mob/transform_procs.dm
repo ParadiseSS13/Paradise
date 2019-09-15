@@ -184,8 +184,7 @@
 	for(var/t in bodyparts)	//this really should not be necessary
 		qdel(t)
 
-	var/mob/living/simple_animal/pet/corgi/new_corgi = new /mob/living/simple_animal/pet/corgi (loc)
-	new_corgi.a_intent = INTENT_HARM
+	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
 	new_corgi.key = key
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
@@ -277,7 +276,7 @@
 			return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/crab))
 		return 1
@@ -288,13 +287,13 @@
 	if(ispath(MP, /mob/living/simple_animal/parrot))
 		return 1
 	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/fox/Syndifox))
+		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
 			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/fox))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/pug))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/pug))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1

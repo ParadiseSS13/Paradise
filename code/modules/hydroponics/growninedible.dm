@@ -51,7 +51,7 @@
 	return 0
 
 
-/obj/item/grown/Crossed(atom/movable/AM)
+/obj/item/grown/Crossed(atom/movable/AM, oldloc)
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_cross(src, AM)

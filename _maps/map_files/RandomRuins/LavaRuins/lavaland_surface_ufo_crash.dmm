@@ -1,0 +1,431 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"b" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"c" = (
+/obj/machinery/abductor/experiment,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"d" = (
+/turf/simulated/wall/mineral/abductor,
+/area/ruin/unpowered)
+"e" = (
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"g" = (
+/obj/machinery/abductor/pad,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"h" = (
+/obj/item/hemostat/alien,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"i" = (
+/obj/effect/mob_spawn/human/abductor,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"j" = (
+/obj/structure/closet/abductor,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"k" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"l" = (
+/obj/machinery/optable/abductor,
+/obj/item/cautery/alien,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"m" = (
+/obj/structure/table/abductor,
+/obj/item/storage/box/alienhandcuffs,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"n" = (
+/obj/item/scalpel/alien,
+/obj/item/surgical_drapes,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"o" = (
+/obj/item/retractor/alien,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"p" = (
+/obj/machinery/abductor/gland_dispenser,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"q" = (
+/obj/structure/table/abductor,
+/obj/item/surgicaldrill/alien,
+/obj/item/circular_saw/alien,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+"r" = (
+/obj/structure/bed/abductor,
+/turf/unsimulated/floor/abductor,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,1) = {"
+a
+a
+a
+d
+a
+a
+a
+a
+a
+a
+"}
+(4,1,1) = {"
+a
+a
+d
+d
+a
+a
+a
+a
+a
+a
+"}
+(5,1,1) = {"
+a
+a
+d
+c
+e
+k
+a
+p
+d
+a
+"}
+(6,1,1) = {"
+a
+a
+d
+e
+h
+l
+n
+q
+d
+a
+"}
+(7,1,1) = {"
+a
+a
+d
+g
+i
+e
+o
+r
+d
+a
+"}
+(8,1,1) = {"
+a
+a
+d
+d
+j
+m
+j
+d
+d
+a
+"}
+(9,1,1) = {"
+a
+a
+b
+d
+d
+d
+d
+d
+b
+a
+"}
+(10,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(11,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(12,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(13,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(14,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(15,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(16,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(17,1,1) = {"
+a
+b
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(18,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(19,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+b
+a
+"}
+(20,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(21,1,1) = {"
+a
+b
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(22,1,1) = {"
+a
+b
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(23,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(24,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(25,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(26,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(27,1,1) = {"
+a
+a
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(28,1,1) = {"
+a
+b
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(29,1,1) = {"
+a
+b
+b
+b
+b
+b
+b
+b
+a
+a
+"}
+(30,1,1) = {"
+a
+b
+b
+b
+b
+b
+b
+b
+b
+a
+"}

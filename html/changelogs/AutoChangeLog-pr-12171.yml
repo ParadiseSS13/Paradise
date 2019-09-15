@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - tweak: "Welding a tile away now gives a more useful message when doing so."

@@ -9,7 +9,7 @@ var/global/sent_syndicate_strike_team = 0
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
-	if(!ticker)
+	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
 	if(sent_syndicate_strike_team == 1)
@@ -117,7 +117,7 @@ var/global/sent_syndicate_strike_team = 0
 	new_syndicate_commando.mind.assigned_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.offstation_role = TRUE
-	ticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
 	new_syndicate_commando.equip_syndicate_commando(is_leader)
 	qdel(spawn_location)
 	return new_syndicate_commando
@@ -147,7 +147,6 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
 
 	if(full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst(src), slot_head)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), slot_wear_suit)
 		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)

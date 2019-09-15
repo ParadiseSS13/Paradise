@@ -7,8 +7,8 @@
 	flags_inv = HIDEFACE
 	permeability_coefficient = 0.01
 	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
-	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox", "Grey")
+	species_restricted = list("exclude", "Wryn")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
@@ -31,8 +31,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	allowed = list(/obj/item/tank, /obj/item/flashlight,/obj/item/gun/energy, /obj/item/gun/projectile, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton,/obj/item/restraints/handcuffs)
 	armor = list(melee = 40, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
-	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox")
+	species_restricted = list("exclude", "Wryn")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -62,6 +62,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	unacidable = 1
 	strip_delay = 130
+	dog_fashion = /datum/dog_fashion/back/deathsquad
 
 	//NEW SWAT suit
 /obj/item/clothing/suit/space/swat
@@ -72,8 +73,8 @@
 	allowed = list(/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/tank,/obj/item/kitchen/knife/combat)
 	armor = list(melee = 40, bullet = 30, laser = 30, energy = 30, bomb = 50, bio = 90, rad = 20)
 	strip_delay = 120
-	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox")
+	species_restricted = list("exclude", "Wryn")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -100,13 +101,15 @@
 	name = "Santa's hat"
 	desc = "Ho ho ho. Merrry X-mas!"
 	icon_state = "santahat"
-	species_fit = list("Grey, Drask")
+
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/Grey/head.dmi',
 		"Drask" = 'icons/mob/species/Drask/helmet.dmi'
 		)
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
+	dog_fashion = /datum/dog_fashion/head/santa
+
 /obj/item/clothing/head/helmet/space/santahat/attack_self(mob/user as mob)
 	if(src.icon_state == "santahat")
 		src.icon_state = "santahat_beard"
@@ -158,8 +161,8 @@
 	icon_state = "paramedic-eva-helmet"
 	item_state = "paramedic-eva-helmet"
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
-	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox", "Grey" , "Skrell" , "Tajaran" , "Drask" , "Unathi" , "Vulpkanin")
+	species_restricted = list("exclude", "Wryn")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
@@ -179,8 +182,8 @@
 	item_state = "paramedic-eva"
 	desc = "A brand new paramedic EVA suit. The nitrile seems a bit too thin to be space proof. Used for retrieving bodies in space."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
-	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Vox", "Skrell" , "Tajaran" , "Drask" , "Unathi" , "Vulpkanin")
+	species_restricted = list("exclude", "Wryn")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
@@ -199,8 +202,8 @@
 	item_state = "s_suit"
 	desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
-	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin")
+	species_restricted = list("exclude", "Wryn")
+
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
@@ -222,8 +225,8 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20)
 	flash_protect = 0
-	species_restricted = list("exclude", "Diona", "Wryn")
-	species_fit = list("Tajaran", "Unathi", "Vox", "Vulpkanin", "Grey")
+	species_restricted = list("exclude", "Wryn")
+
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
@@ -243,8 +246,7 @@
 	desc = ". . ."
 	icon_state = "spacemimehelmet"
 	item_state = "spacemimehelmet"
-	species_restricted = list("exclude","Diona","Vox","Wryn")
-	species_fit = null
+	species_restricted = list("exclude","Vox","Wryn")
 	sprite_sheets = null
 	sprite_sheets_obj = null
 
@@ -254,8 +256,7 @@
 	desc = ". . ."
 	icon_state = "spacemime_suit"
 	item_state = "spacemime_items"
-	species_restricted = list("exclude","Diona","Vox","Wryn")
-	species_fit = null
+	species_restricted = list("exclude","Vox","Wryn")
 	sprite_sheets = null
 	sprite_sheets_obj = null
 
@@ -265,8 +266,7 @@
 	desc = "An EVA helmet specifically designed for the clown. SPESSHONK!"
 	icon_state = "clownhelmet"
 	item_state = "clownhelmet"
-	species_restricted = list("exclude","Diona","Vox","Wryn")
-	species_fit = null
+	species_restricted = list("exclude","Vox","Wryn")
 	sprite_sheets = null
 	sprite_sheets_obj = null
 
@@ -276,7 +276,7 @@
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"
 	item_state = "spaceclown_items"
-	species_restricted = list("exclude","Diona","Vox","Wryn")
-	species_fit = null
+	species_restricted = list("exclude","Vox","Wryn")
 	sprite_sheets = null
 	sprite_sheets_obj = null
+	

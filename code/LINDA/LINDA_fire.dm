@@ -184,12 +184,12 @@
 			else
 				chance_of_deletion = 100
 			if(prob(chance_of_deletion))
-				T.ChangeTurf(/turf/space)
+				T.ChangeTurf(T.baseturf)
 			else
 				T.to_be_destroyed = 0
 				T.max_fire_temperature_sustained = 0
 
-/obj/effect/hotspot/Crossed(mob/living/L)
+/obj/effect/hotspot/Crossed(mob/living/L, oldloc)
 	..()
 	if(isliving(L))
 		L.fire_act()

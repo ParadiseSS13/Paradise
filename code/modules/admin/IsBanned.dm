@@ -1,5 +1,12 @@
 //Blocks an attempt to connect before even creating our client datum thing.
-world/IsBanned(key,address,computer_id)
+world/IsBanned(key, address, computer_id, check_ipintel = TRUE)
+
+	if(!config.ban_legacy_system)
+		if(address)
+			address = sanitizeSQL(address)
+		if(computer_id)
+			computer_id = sanitizeSQL(computer_id)
+
 	if(!key || !address || !computer_id)
 		log_adminwarn("Failed Login (invalid data): [key] [address]-[computer_id]")
 		return list("reason"="invalid login data", "desc"="Error: Could not check ban status, please try again. Error message: Your computer provided invalid or blank information to the server on connection (BYOND Username, IP, and Computer ID). Provided information for reference: Username: '[key]' IP: '[address]' Computer ID: '[computer_id]'. If you continue to get this error, please restart byond or contact byond support.")
@@ -30,6 +37,14 @@ world/IsBanned(key,address,computer_id)
 		if(config.banappeals)
 			mistakemessage = "\nIf you believe this is a mistake, please request help at [config.banappeals]."
 		return list("reason"="using Tor", "desc"="\nReason: The network you are using to connect has been banned.[mistakemessage]")
+
+	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
+	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
+		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
+		var/mistakemessage = ""
+		if(config.banappeals)
+			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
 
 	if(config.ban_legacy_system)
@@ -93,7 +108,7 @@ world/IsBanned(key,address,computer_id)
 				var/appealmessage = ""
 				if(config.banappeals)
 					appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
-				expires = " This is a permanent ban.[appealmessage]"
+				expires = " This ban does not expire automatically and must be appealed.[appealmessage]"
 
 			var/desc = "\nReason: You, or another user of this computer or connection ([pckey]) is banned from playing here. The ban reason is:\n[reason]\nThis ban was applied by [ackey] on [bantime].[expires]"
 

@@ -140,7 +140,7 @@
 /obj/effect/meatgrinder/New()
 	icon_state = "blobpod"
 
-/obj/effect/meatgrinder/Crossed(AM as mob|obj)
+/obj/effect/meatgrinder/Crossed(AM as mob|obj, oldloc)
 	Bumped(AM)
 
 /obj/effect/meatgrinder/Bumped(mob/M as mob|obj)

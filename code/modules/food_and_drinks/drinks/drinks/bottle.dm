@@ -249,7 +249,6 @@
 	volume = 50
 	list_reagents = list("suicider" = 50)
 
-
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -257,6 +256,7 @@
 	desc = "Full of vitamins and deliciousness!"
 	icon_state = "orangejuice"
 	item_state = "carton"
+	throwforce = 0
 	isGlass = 0
 	list_reagents = list("orangejuice" = 100)
 
@@ -265,6 +265,7 @@
 	desc = "It's cream. Made from milk. What else did you think you'd find in there?"
 	icon_state = "cream"
 	item_state = "carton"
+	throwforce = 0
 	isGlass = 0
 	list_reagents = list("cream" = 100)
 
@@ -273,6 +274,7 @@
 	desc = "Well, at least it LOOKS like tomato juice. You can't tell with all that redness."
 	icon_state = "tomatojuice"
 	item_state = "carton"
+	throwforce = 0
 	isGlass = 0
 	list_reagents = list("tomatojuice" = 100)
 
@@ -281,6 +283,7 @@
 	desc = "Sweet-sour goodness."
 	icon_state = "limejuice"
 	item_state = "carton"
+	throwforce = 0
 	isGlass = 0
 	list_reagents = list("limejuice" = 100)
 
@@ -289,6 +292,7 @@
 	desc = "Soothing milk."
 	icon_state = "milk"
 	item_state = "carton"
+	throwforce = 0
 	isGlass = 0
 	list_reagents = list("milk" = 100)
 

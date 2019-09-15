@@ -241,10 +241,10 @@
 	else
 		to_chat(user, "[src] is in pristine condition.")
 
-/mob/living/simple_animal/bot/adjustHealth(amount)
+/mob/living/simple_animal/bot/adjustHealth(amount, updating_health = TRUE)
 	if(amount > 0 && prob(10))
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-	return ..(amount)
+	. = ..()
 
 /mob/living/simple_animal/bot/updatehealth(reason = "none given")
 	..(reason)

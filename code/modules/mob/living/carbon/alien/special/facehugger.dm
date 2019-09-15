@@ -72,7 +72,7 @@ var/const/MAX_ACTIVE_TIME = 400
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	Attach(M)
 
-/obj/item/clothing/mask/facehugger/Crossed(atom/target)
+/obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
 	HasProximity(target)
 	return
 
@@ -152,14 +152,6 @@ var/const/MAX_ACTIVE_TIME = 400
 		target.equip_to_slot(src, slot_wear_mask,,0)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
-	else if(iscorgi(M))
-		var/mob/living/simple_animal/pet/corgi/C = M
-		if(C.facehugger)
-			var/obj/item/F = C.facehugger
-			F.forceMove(C.loc)
-		forceMove(C)
-		C.facehugger = src
-		C.regenerate_icons()
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
@@ -192,11 +184,6 @@ var/const/MAX_ACTIVE_TIME = 400
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
-
-		if(iscorgi(target))
-			var/mob/living/simple_animal/pet/corgi/C = target
-			src.loc = get_turf(C)
-			C.facehugger = null
 	else
 		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \
 								"<span class='userdanger'>[src] violates [target]'s face!</span>")

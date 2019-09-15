@@ -4,7 +4,7 @@ GLOBAL_LIST_INIT(base_chemicals, list("water","oxygen","nitrogen","hydrogen","po
 							"iron","aluminum","silicon","sugar","ethanol"))
 // Standard chemicals
 GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","charcoal","toxin","cyanide",
-								"morphine","epinephrine","space_drugs","serotrotium","oxygen","copper",
+								"morphine","epinephrine","space_drugs","oxygen","copper",
 								"nitrogen","hydrogen","potassium","mercury","sulfur","carbon","chlorine",
 								"fluorine","sodium","phosphorus","lithium","sugar","sacid","facid",
 								"glycerol","radium","mutadone","thermite","mutagen","virusfood","iron",
@@ -20,7 +20,7 @@ GLOBAL_LIST_INIT(standard_chemicals, list("slimejelly","blood","water","lube","c
 GLOBAL_LIST_INIT(rare_chemicals, list("minttoxin","syndicate_nanites", "xenomicrobes"))
 // Standard medicines
 GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine","epinephrine","space_drugs",
-								"serotrotium","mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
+								"mutadone","mutagen","teporone","lexorin","silver_sulfadiazine",
 								"salbutamol","perfluorodecalin","omnizine","synaptizine","haloperidol",
 								"potass_iodide","pen_acid","mannitol","oculine","styptic_powder",
 								"methamphetamine","spaceacillin","carpotoxin","lsd","ethanol","ammonia",

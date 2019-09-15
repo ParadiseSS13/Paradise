@@ -49,8 +49,8 @@
 
 /obj/screen/blob/Blobbernaut
 	icon_state = "ui_blobbernaut"
-	name = "Produce Blobbernaut (20)"
-	desc = "Produces a strong, but dumb blobbernaut from a factory blob for 20 resources.<br>The factory blob will be destroyed in the process."
+	name = "Produce Blobbernaut (60)"
+	desc = "Produces a strong, intelligent blobbernaut from a factory blob for 60 resources.<br>The factory blob will be destroyed in the process."
 
 /obj/screen/blob/Blobbernaut/Click()
 	if(isovermind(usr))
@@ -126,7 +126,7 @@
 /obj/screen/blob/Split
 	icon_state = "ui_split"
 	name = "Split consciousness (100)"
-	desc = "Creates another Blob Overmind at the nearest node. One use only.<br>Offsprings are be unable to use this ability."
+	desc = "Creates another Blob Overmind at the targeted node. One use only.<br>Offspring are unable to use this ability."
 
 /obj/screen/blob/Split/Click()
 	if(isovermind(usr))

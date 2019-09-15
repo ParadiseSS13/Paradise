@@ -22,6 +22,9 @@
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 
+	emote_taunt = list("flutters")
+	taunt_chance = 20
+
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
@@ -38,11 +41,6 @@
 
 /mob/living/simple_animal/hostile/scarybat/Process_Spacemove(var/check_drift = 0)
 	return ..()	//No drifting in space for space carp!	//original comments do not steal
-
-/mob/living/simple_animal/hostile/scarybat/FindTarget()
-	. = ..()
-	if(.)
-		custom_emote(1, "flutters towards [.]")
 
 /mob/living/simple_animal/hostile/scarybat/Found(var/atom/A)//This is here as a potential override to pick a specific target if available
 	if(istype(A) && A == owner)

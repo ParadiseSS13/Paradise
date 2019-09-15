@@ -40,6 +40,7 @@
 	desc = "It's an amish looking hat."
 	icon_state = "tophat"
 	item_state = "that"
+	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
@@ -68,6 +69,7 @@
 	name = "nurse's hat"
 	desc = "It allows quick identification of trained medical personnel."
 	icon_state = "nursehat"
+	dog_fashion = /datum/dog_fashion/head/nurse
 
 /obj/item/clothing/head/syndicatefake
 	name = "black and red space-helmet replica"
@@ -76,7 +78,7 @@
 	desc = "A plastic replica of a syndicate agent's space helmet, you'll look just like a real murderous syndicate agent in this! This is a toy, it is not made for use in space!"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/helmet.dmi'
 	)
@@ -90,7 +92,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -103,7 +105,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -151,6 +153,7 @@
 	name = "rabbit ears"
 	desc = "Wearing these makes you look useless, and only good for your sex appeal."
 	icon_state = "bunny"
+	dog_fashion = /datum/dog_fashion/head/rabbit
 
 /obj/item/clothing/head/flatcap
 	name = "flat cap"
@@ -163,6 +166,7 @@
 	desc = "Yarr."
 	icon_state = "pirate"
 	item_state = "pirate"
+	dog_fashion = /datum/dog_fashion/head/pirate
 
 /obj/item/clothing/head/hgpiratecap
 	name = "pirate hat"
@@ -265,7 +269,7 @@
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
 	flags = BLOCKHAIR
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -374,12 +378,14 @@
 	icon_state = "sombrero"
 	item_state = "sombrero"
 	desc = "You can practically taste the fiesta."
+	dog_fashion = /datum/dog_fashion/head/sombrero
 
 /obj/item/clothing/head/sombrero/green
 	name = "green sombrero"
 	icon_state = "greensombrero"
 	item_state = "greensombrero"
 	desc = "As elegant as a dancing cactus."
+	dog_fashion = null
 
 /obj/item/clothing/head/sombrero/shamebrero
 	name = "shamebrero"
@@ -387,6 +393,7 @@
 	item_state = "shamebrero"
 	desc = "Once it's on, it never comes off."
 	flags = NODROP
+	dog_fashion = null
 
 /obj/item/clothing/head/cone
 	desc = "This cone is trying to warn you of something!"
@@ -419,7 +426,7 @@
 	item_state = "griffinhat"
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -452,7 +459,7 @@
 	icon_state = "papersack"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE|HIDEEARS
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -463,7 +470,7 @@
 	icon_state = "papersack_smile"
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE|HIDEEARS
-	species_fit = list("Grey")
+
 	sprite_sheets = list(
 	"Grey" = 'icons/mob/species/grey/head.dmi'
 	)

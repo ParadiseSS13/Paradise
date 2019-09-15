@@ -4,10 +4,12 @@
 		for(var/turf/simulated/floor/T in orange(1,xmas))
 			for(var/i=1,i<=rand(1,5),i++)
 				new /obj/item/a_gift(T)
-	for(var/mob/living/simple_animal/pet/corgi/Ian/Ian in GLOB.mob_list)
-		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat(Ian))
-	GLOB.crafting_recipes += new /datum/crafting_recipe/snowman
-//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
+	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_list)
+		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat)
+	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)
+		S.always_availible = TRUE
+		break
+	//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
 	spawn(60 SECONDS)
 		var/datum/supply_packs/xmas = SSshuttle.supply_packs["[/datum/supply_packs/misc/snow_machine]"]
 		xmas.special_enabled = TRUE

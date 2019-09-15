@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Refactors the very core and soul of SS13 and enhances the code that powers it"
+  - tweak: "Bible fartgibbing is now a form of suicide"

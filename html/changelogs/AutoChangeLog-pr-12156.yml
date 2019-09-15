@@ -1,0 +1,5 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - tweak: "The AI and magistrate get bold text when the \"louder command members\" telecomms setting is on"
+  - tweak: "Command members will get the first letter of their radio message auto capitalized when the \"louder command members\" telecomms setting is on"

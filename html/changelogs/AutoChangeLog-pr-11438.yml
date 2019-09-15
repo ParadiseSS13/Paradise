@@ -1,0 +1,4 @@
+author: "EmanTheAlmighty"
+delete-after: True
+changes: 
+  - tweak: "Admin made cultists can now properly summon their Gods if the gamemode wasn't initially Cult."

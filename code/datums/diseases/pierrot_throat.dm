@@ -59,5 +59,6 @@
 			if(prob(5))
 				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
 
-			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/virusclown_hat))
-				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/virusclown_hat(src), slot_wear_mask)
+			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
+				affected_mob.unEquip(affected_mob.wear_mask, TRUE)
+				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), slot_wear_mask)

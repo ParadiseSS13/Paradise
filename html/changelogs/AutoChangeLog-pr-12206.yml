@@ -1,0 +1,10 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Ian now has persistence; if he's killed, he'll start over life as a puppy--if he lives to a very long old age, he'll get a unique sprite"
+  - tweak: "Pugs will now yipe on death and can bark"
+  - rscadd: "Adds new dog mob; a generic black dog"
+  - tweak: "Foxes are now a dog subtype"
+  - rscadd: "Can manually yelp as a dog"
+  - tweak: "All dog subtypes can now chase their tail and be given pats and pets. They all can additionally eat (and taste!) food"
+  - tweak: "Nar-Sie will absolutely not tolerate sacrificing doggos"

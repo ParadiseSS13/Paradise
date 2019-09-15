@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes weird behavior with ghosts being able to trigger a few things by crossing over them"

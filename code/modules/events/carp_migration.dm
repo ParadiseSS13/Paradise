@@ -4,20 +4,18 @@
 
 	var/list/spawned_mobs = list(
     /mob/living/simple_animal/hostile/carp = 95,
-    /mob/living/simple_animal/hostile/carp/megacarp = 5,
-	)
-	var/list/spawned_carp = list()
+    /mob/living/simple_animal/hostile/carp/megacarp = 5)
 
 /datum/event/carp_migration/setup()
 	announceWhen = rand(40, 60)
-	endWhen = rand(600,1200)
+	endWhen = rand(600, 1200)
 
 /datum/event/carp_migration/announce()
 	var/announcement = ""
 	if(severity == EVENT_LEVEL_MAJOR)
 		announcement = "Massive migration of unknown biological entities has been detected near [station_name()], please stand-by."
 	else
-		announcement = "Unknown biological [spawned_carp.len == 1 ? "entity has" : "entities have"] been detected near [station_name()], please stand-by."
+		announcement = "Unknown biological entities have been detected near [station_name()], please stand-by."
 	event_announcement.Announce(announcement, "Lifesign Alert")
 
 /datum/event/carp_migration/start()
@@ -29,7 +27,7 @@
 	else
 		spawn_fish(rand(1, 3), 1, 2)	//1 to 6 carp, alone or in pairs
 
-/datum/event/carp_migration/proc/spawn_fish(var/num_groups, var/group_size_min=3, var/group_size_max=5)
+/datum/event/carp_migration/proc/spawn_fish(num_groups, group_size_min = 3, group_size_max = 5)
 	var/list/spawn_locations = list()
 
 	for(var/obj/effect/landmark/C in GLOB.landmarks_list)
@@ -43,12 +41,5 @@
 		var/group_size = rand(group_size_min, group_size_max)
 		for(var/j = 1, j <= group_size, j++)
 			var/carptype = pickweight(spawned_mobs)
-			spawned_carp.Add(new carptype(spawn_locations[i]))
+			new carptype(spawn_locations[i])
 		i++
-
-/datum/event/carp_migration/end()
-	for(var/mob/living/simple_animal/hostile/C in spawned_carp)
-		if(!C.stat)
-			var/turf/T = get_turf(C)
-			if(istype(T, /turf/space))
-				qdel(C)

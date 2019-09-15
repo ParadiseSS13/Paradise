@@ -2,7 +2,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(!target_ckey)
-		var/new_ckey = ckey(input(usr,"Who would you like to add to the watchlist?","Enter a ckey",null) as text)
+		var/new_ckey = ckey(clean_input("Who would you like to add to the watchlist?","Enter a ckey",null))
 		if(!new_ckey)
 			return
 		new_ckey = sanitizeSQL(new_ckey)

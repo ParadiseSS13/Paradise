@@ -9,7 +9,7 @@
 		return
 
 	if(!new_type)
-		new_type = input("Mob type path:", "Mob type") as text|null
+		new_type = clean_input("Mob type path:", "Mob type")
 
 	if(istext(new_type))
 		new_type = text2path(new_type)

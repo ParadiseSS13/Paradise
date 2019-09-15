@@ -77,7 +77,7 @@
 			else
 				do_animate("deny")
 		return
-	if(!ticker)
+	if(!SSticker)
 		return
 	var/mob/living/M = AM
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))

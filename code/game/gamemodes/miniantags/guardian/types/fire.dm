@@ -28,9 +28,9 @@
 			toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/fire/AttackingTarget()
-	..()
+	. = ..()
 	if(toggle)
-		if(ishuman(target) && !summoner)
+		if(. && ishuman(target) && !summoner)
 			spawn(0)
 				new /obj/effect/hallucination/delusion(target.loc, target, force_kind = "custom", duration = 200, skip_nearby = 0, custom_icon = icon_state, custom_icon_file = icon)
 	else
@@ -42,7 +42,7 @@
 					do_teleport(M, M, 10)
 					new /obj/effect/temp_visual/guardian/phase/out(get_turf(M))
 
-/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj)
+/mob/living/simple_animal/hostile/guardian/fire/Crossed(AM as mob|obj, oldloc)
 	..()
 	collision_ignite(AM)
 

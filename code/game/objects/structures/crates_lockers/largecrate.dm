@@ -55,7 +55,7 @@
 
 /obj/structure/largecrate/lisa/attackby(obj/item/W as obj, mob/user as mob)	//ugly but oh well
 	if(istype(W, /obj/item/crowbar))
-		new /mob/living/simple_animal/pet/corgi/Lisa(loc)
+		new /mob/living/simple_animal/pet/dog/corgi/Lisa(loc)
 	..()
 
 /obj/structure/largecrate/cow

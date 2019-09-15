@@ -142,7 +142,7 @@
 	take_damage(Proj.damage, Proj.damage_type)
 	return 0
 
-/obj/structure/blob/Crossed(var/mob/living/L)
+/obj/structure/blob/Crossed(var/mob/living/L, oldloc)
 	..()
 	L.blob_act(src)
 

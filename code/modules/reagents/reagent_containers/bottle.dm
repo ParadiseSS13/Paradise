@@ -12,6 +12,11 @@
 	container_type = OPENCONTAINER
 	volume = 30
 
+/obj/item/reagent_containers/glass/bottle/romerol
+	name = "romerol bottle"
+	desc = "A small bottle of Romerol. The REAL zombie powder."
+	list_reagents = list("romerol" = 30)
+	
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon()
 
@@ -203,6 +208,11 @@
 	name = "Formaldehyde Bottle"
 	desc = "A reagent bottle. Contains formaldehyde."
 	list_reagents = list("formaldehyde" = 50)
+
+/obj/item/reagent_containers/glass/bottle/reagent/synaptizine
+	name = "Synaptizine Bottle"
+	desc = "A reagent bottle. Contains synaptizine."
+	list_reagents = list("synaptizine" = 50)
 
 /obj/item/reagent_containers/glass/bottle/reagent/morphine
 	name = "Morphine Bottle"

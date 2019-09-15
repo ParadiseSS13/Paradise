@@ -19,6 +19,12 @@
 			return A
 	return 0
 
+/proc/get_location_name(atom/X, format_text = FALSE)
+	var/area/A = isarea(X) ? X : get_area(X)
+	if(!A)
+		return null
+	return format_text ? format_text(A.name) : A.name
+
 /proc/get_areas_in_range(dist=0, atom/center=usr)
 	if(!dist)
 		var/turf/T = get_turf(center)
@@ -428,6 +434,17 @@
 
 /proc/GetBluePart(const/hexa)
 	return hex2num(copytext(hexa, 6, 8))
+
+/proc/lavaland_equipment_pressure_check(turf/T)
+	. = FALSE
+	if(!istype(T))
+		return
+	var/datum/gas_mixture/environment = T.return_air()
+	if(!istype(environment))
+		return
+	var/pressure = environment.return_pressure()
+	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
+		. = TRUE
 
 /proc/GetHexColors(const/hexa)
 	return list(

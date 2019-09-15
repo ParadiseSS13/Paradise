@@ -11,6 +11,7 @@
 	filling_color = "#785210"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	tastes = list("meatball" = 1)
 
 /obj/item/reagent_containers/food/snacks/slimesoup
 	name = "slime soup"
@@ -19,6 +20,7 @@
 	filling_color = "#C4DBA0"
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "slimejelly" = 5, "water" = 5, "vitamin" = 4)
+	tastes = list("slime" = 1)
 
 /obj/item/reagent_containers/food/snacks/bloodsoup
 	name = "tomato soup"
@@ -27,6 +29,7 @@
 	filling_color = "#FF0000"
 	bitesize = 5
 	list_reagents = list("nutriment" = 2, "blood" = 10, "water" = 5, "vitamin" = 4)
+	tastes = list("iron" = 1)
 
 /obj/item/reagent_containers/food/snacks/clownstears
 	name = "clown's tears"
@@ -35,6 +38,7 @@
 	filling_color = "#C4FBFF"
 	bitesize = 5
 	list_reagents = list("nutriment" = 4, "banana" = 5, "water" = 5, "vitamin" = 8)
+	tastes = list("a bad joke" = 1)
 
 /obj/item/reagent_containers/food/snacks/vegetablesoup
 	name = "vegetable soup"
@@ -44,6 +48,7 @@
 	filling_color = "#AFC4B5"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	tastes = list("vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/nettlesoup
 	name = "nettle soup"
@@ -53,6 +58,7 @@
 	filling_color = "#AFC4B5"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	tastes = list("nettles" = 1)
 
 /obj/item/reagent_containers/food/snacks/mysterysoup
 	name = "mystery soup"
@@ -61,6 +67,7 @@
 	var/extra_reagent = null
 	bitesize = 5
 	list_reagents = list("nutriment" = 6)
+	tastes = list("chaos" = 1)
 
 /obj/item/reagent_containers/food/snacks/mysterysoup/New()
 	..()
@@ -75,6 +82,7 @@
 	filling_color = "#D1F4FF"
 	bitesize = 5
 	list_reagents = list("water" = 10)
+	tastes = list("wishes" = 1)
 
 /obj/item/reagent_containers/food/snacks/wishsoup/New()
 	..()
@@ -91,6 +99,7 @@
 	filling_color = "#D92929"
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "tomatojuice" = 10, "vitamin" = 3)
+	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/milosoup
 	name = "milosoup"
@@ -99,6 +108,7 @@
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	tastes = list("milo" = 1)
 
 /obj/item/reagent_containers/food/snacks/mushroomsoup
 	name = "chantrelle soup"
@@ -108,6 +118,7 @@
 	filling_color = "#E386BF"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "vitamin" = 4)
+	tastes = list("mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/beetsoup
 	name = "beet soup"
@@ -117,6 +128,7 @@
 	bitesize = 5
 	filling_color = "#FAC9FF"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	tastes = list("beet" = 1)
 
 /obj/item/reagent_containers/food/snacks/beetsoup/New()
 	..()
@@ -134,6 +146,7 @@
 	filling_color = "#9E673A"
 	bitesize = 7
 	list_reagents = list("nutriment" = 10, "oculine" = 5, "tomatojuice" = 5, "vitamin" = 5)
+	tastes = list("tomato" = 1, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/stewedsoymeat
 	name = "stewed soy meat"
@@ -141,6 +154,7 @@
 	icon_state = "stewedsoymeat"
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 8)
+	tastes = list("soy" = 1, "vegetables" = 1)
 
 
 //////////////////////
@@ -155,6 +169,7 @@
 	filling_color = "#FF3C00"
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "capsaicin" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	tastes = list("hot peppers" = 1, "tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/coldchili
 	name = "cold chili"
@@ -164,3 +179,4 @@
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "frostoil" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	tastes = list("tomato" = 1, "mint" = 1)

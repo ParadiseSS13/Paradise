@@ -332,7 +332,7 @@
 			break //Only count the first bedsheet
 		if(drunk)
 			comfort += 1 //Aren't naps SO much better when drunk?
-			AdjustDrunk(1-0.0015*comfort) //reduce drunkenness ~6% per two seconds, when on floor.
+			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
 		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
 			adjustBruteLoss(-1*comfort)
 			adjustFireLoss(-1*comfort)

@@ -7,7 +7,7 @@
 	icon_state = "3d"
 	item_state = "3d"
 	prescription_upgradable = 0
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)

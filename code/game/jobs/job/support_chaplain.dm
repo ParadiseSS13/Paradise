@@ -158,11 +158,11 @@
 						to_chat(H, "Welp, out of time, buddy. You're stuck. Next time choose faster.")
 						accepted = 1
 
-		if(ticker)
-			ticker.Bible_icon_state = B.icon_state
-			ticker.Bible_item_state = B.item_state
-			ticker.Bible_name = B.name
-			ticker.Bible_deity_name = B.deity_name
+		if(SSticker)
+			SSticker.Bible_icon_state = B.icon_state
+			SSticker.Bible_item_state = B.item_state
+			SSticker.Bible_name = B.name
+			SSticker.Bible_deity_name = B.deity_name
 		feedback_set_details("religion_deity", "[new_deity]")
 		feedback_set_details("religion_book", "[new_book_style]")
 

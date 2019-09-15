@@ -13,74 +13,22 @@
 	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
+	taste_description = "water"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	taste_message = null
+	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
-/datum/reagent/water/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
-		// Put out fire
-		M.adjust_fire_stacks(-(volume * 0.2))
-
-	if(isgrey(M)) // You gosh darn snowflakes
-		var/mob/living/carbon/human/G = M
-		if(method == TOUCH)
-			if(volume > 25)
-				if(G.wear_mask)
-					to_chat(G, "<span class='danger'>Your [G.wear_mask] protects you from the acid!</span>")
-					return
-
-				if(G.head)
-					to_chat(G, "<span class='danger'>Your [G.wear_mask] protects you from the acid!</span>")
-					return
-
-				if(prob(75))
-					G.take_organ_damage(5, 10)
-					G.emote("scream")
-					var/obj/item/organ/external/affecting = G.get_organ("head")
-					if(affecting)
-						affecting.disfigure()
-				else
-					G.take_organ_damage(5, 10)
-			else
-				G.take_organ_damage(5, 10)
-		else
-			to_chat(G, "<span class='warning'>The water stings[volume < 10 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-			if(volume >= 10)
-				G.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
-				G.emote("scream")
+/datum/reagent/water/reaction_mob(mob/living/M, method = TOUCH, volume)
+	M.water_act(volume, water_temperature, src, method)
 
 /datum/reagent/water/reaction_turf(turf/simulated/T, volume)
-	if(!istype(T))
-		return
-	if(volume >= 3)
-		T.MakeSlippery()
-
-	for(var/mob/living/carbon/slime/M in T)
-		M.apply_water()
-
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.water_act(volume, water_temperature, src)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	O.extinguish()
-
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
-		var/obj/item/reagent_containers/food/snacks/monkeycube/cube = O
-		cube.Expand()
-	// Dehydrated carp
-	if(istype(O, /obj/item/toy/carpplushie/dehy_carp))
-		var/obj/item/toy/carpplushie/dehy_carp/dehy = O
-		dehy.Swell() // Makes a carp
-
+	O.water_act(volume, water_temperature, src)
 
 /datum/reagent/lube
 	name = "Space Lube"
@@ -88,7 +36,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
-	taste_message = "cherry"
+	taste_description = "cherry"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
@@ -101,7 +49,7 @@
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
-	taste_message = "floor cleaner"
+	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
 	if(is_cleanable(O))
@@ -109,7 +57,7 @@
 		if(!(istype(B) && B.off_floor))
 			qdel(O)
 	else
-		if(!istype(O, /atom/movable/lighting_object))
+		if(O.simulated)
 			O.color = initial(O.color)
 		O.clean_blood()
 
@@ -175,7 +123,8 @@
 	drink_icon = "glass_red"
 	drink_name = "Glass of Tomato juice"
 	drink_desc = "Are you sure this is tomato juice?"
-	taste_message = "<span class='warning'>blood</span>"
+	taste_description = "<span class='warning'>blood</span>"
+	taste_mult = 1.3
 
 /datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(data && data["viruses"])
@@ -257,7 +206,7 @@
 	name = "Vaccine"
 	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
-	taste_message = "antibodies"
+	taste_description = "antibodies"
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(islist(data) && (method == INGEST))
@@ -277,7 +226,7 @@
 	description = "Smelly water from a fish tank. Gross!"
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_message = "puke"
+	taste_description = "puke"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(method == INGEST)
@@ -297,7 +246,7 @@
 	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_message = "puke"
+	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
 	return
@@ -312,7 +261,7 @@
 	drink_icon = "glass_clear"
 	drink_name = "Glass of Water"
 	drink_desc = "The father of all refreshments."
-	taste_message = null
+	taste_description = "water"
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -326,14 +275,14 @@
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))
-			ticker.mode.remove_vampire_mind(M.mind)
+			SSticker.mode.remove_vampire_mind(M.mind)
 			holder.remove_reagent(id, volume)
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
 		if(iscultist(M))
-			ticker.mode.remove_cultist(M.mind)
+			SSticker.mode.remove_cultist(M.mind)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
 			M.SetJitter(0)
 			M.SetStuttering(0)
@@ -413,7 +362,7 @@
 	description = "Something that shouldn't exist on this plane of existance."
 	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
 	metabolization_rate = 1
-	taste_message = "sulfur"
+	taste_description = "sulfur"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -442,7 +391,7 @@
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
 	can_synth = FALSE
-	taste_message = "admin abuse"
+	taste_description = "burning"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -459,7 +408,7 @@
 	color = "#FF9966"
 	description = "You don't even want to think about what's in here."
 	reagent_state = LIQUID
-	taste_message = "meat"
+	taste_description = "meat"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
@@ -472,7 +421,7 @@
 	description = "Also known as sodium hydroxide."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
-	taste_message = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
+	taste_description = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
 
 /datum/reagent/drying_agent
 	name = "Drying agent"
@@ -480,7 +429,7 @@
 	description = "Can be used to dry things."
 	reagent_state = LIQUID
 	color = "#A70FFF"
-	taste_message = "dry mouth"
+	taste_description = "dry mouth"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
 	if(istype(T) && T.wet)

@@ -254,10 +254,21 @@
 	var/applying_meds = FALSE //To Prevent spam clicking and generating runtimes from apply a deleting pill multiple times.
 	var/rapid_intake_message = "unscrews the cap on the pill bottle and begins dumping the entire contents down their throat!"
 	var/rapid_post_instake_message = "downs the entire bottle of pills in one go!"
+	var/allow_wrap = TRUE
+	var/wrapper_color = null
 
 /obj/item/storage/pill_bottle/New()
 	..()
 	base_name = name
+	if(allow_wrap)
+		apply_wrap()
+
+/obj/item/storage/pill_bottle/proc/apply_wrap()
+	if(wrapper_color)
+		overlays.Cut()
+		var/image/I = image(icon, "pillbottle_wrap")
+		I.color = wrapper_color
+		overlays += I
 
 /obj/item/storage/pill_bottle/attack(mob/M, mob/user)
 	if(iscarbon(M) && contents.len)
@@ -273,6 +284,9 @@
 			break
 	else
 		return ..()
+
+/obj/item/storage/pill_bottle/ert
+	wrapper_color = COLOR_MAROON
 
 /obj/item/storage/pill_bottle/ert/New()
 	..()
@@ -319,15 +333,18 @@
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "Patch Pack"
+	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the Patch Pack open and begins rapidly stamping patches on themselves!"
 	rapid_post_instake_message = "stamps the entire contents of the Patch Pack all over their entire body!"
+	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/charcoal
 	name = "Pill bottle (Charcoal)"
 	desc = "Contains pills used to counter toxins."
+	wrapper_color = COLOR_GREEN
 
 	New()
 		..()
@@ -342,6 +359,7 @@
 /obj/item/storage/pill_bottle/painkillers
 	name = "Pill Bottle (Salicylic Acid)"
 	desc = "Contains various pills for minor pain relief."
+	wrapper_color = COLOR_RED
 
 /obj/item/storage/pill_bottle/painkillers/New()
 	..()
@@ -353,6 +371,9 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
+
+/obj/item/storage/pill_bottle/fakedeath
+	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/fakedeath/New()
 	..()

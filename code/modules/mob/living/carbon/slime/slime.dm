@@ -146,6 +146,44 @@
 
 		stat(null,"Power Level: [powerlevel]")
 
+/mob/living/carbon/slime/updatehealth(reason)
+	. = ..()
+	update_health_hud()
+
+/mob/living/carbon/slime/proc/update_health_hud()
+	if(hud_used)
+		var/severity = 0
+		var/healthpercent = (health/maxHealth) * 100
+		if(stat != DEAD)
+			switch(healthpercent)
+				if(100 to INFINITY)
+					healths.icon_state = "slime_health0"
+				if(80 to 100)
+					healths.icon_state = "slime_health1"
+					severity = 1
+				if(60 to 80)
+					healths.icon_state = "slime_health2"
+					severity = 2
+				if(40 to 60)
+					healths.icon_state = "slime_health3"
+					severity = 3
+				if(20 to 40)
+					healths.icon_state = "slime_health4"
+					severity = 4
+				if(0 to 20)
+					healths.icon_state = "slime_health5"
+					severity = 5
+				if(-199 to 0)
+					healths.icon_state = "slime_health6"
+					severity = 6
+		else
+			healths.icon_state = "slime_health7"
+			severity = 6
+		if(severity > 0)
+			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
+		else
+			clear_fullscreen("brute")
+
 /mob/living/carbon/slime/adjustFireLoss(amount)
 	..(-abs(amount)) // Heals them
 	return
@@ -472,13 +510,15 @@ mob/living/carbon/slime/var/temperature_resistance = T0C+75
 /mob/living/carbon/slime/toggle_throw_mode()
 	return
 
-/mob/living/carbon/slime/proc/apply_water()
-	adjustToxLoss(rand(15,20))
-	if(!client)
-		if(Target) // Like cats
-			Target = null
-			++Discipline
-	return
+/mob/living/carbon/slime/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+
+	var/water_damage = rand(10, 15) * volume
+	adjustToxLoss(water_damage)
+
+	if(!client && Target && volume >= 3)
+		Target = null
+		++Discipline
 
 /mob/living/carbon/slime/can_use_vents()
 	if(Victim)

@@ -140,6 +140,29 @@
 	..()
 	animate(src, alpha = 0, time = duration)
 
+/obj/effect/temp_visual/decoy/fading/threesecond
+	duration = 40
+
+/obj/effect/temp_visual/decoy/fading/fivesecond
+	duration = 50
+
+/obj/effect/temp_visual/decoy/fading/halfsecond
+	duration = 5
+
+/obj/effect/temp_visual/fire
+	icon = 'icons/goonstation/effects/fire.dmi'
+	icon_state = "3"
+	light_range = LIGHT_RANGE_FIRE
+	light_color = LIGHT_COLOR_FIRE
+	duration = 10
+	layer = MASSIVE_OBJ_LAYER
+	alpha = 250
+	blend_mode = BLEND_ADD
+
+/obj/effect/temp_visual/fire/New(loc)
+	color = heat2color(FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	..()
+
 /obj/effect/temp_visual/revenant
 	name = "spooky lights"
 	icon_state = "purplesparkles"
@@ -172,14 +195,14 @@
 /obj/effect/temp_visual/heal //color is white by default, set to whatever is needed
 	name = "healing glow"
 	icon_state = "heal"
-	duration = 15
 
-/obj/effect/temp_visual/heal/New(loc, colour)
+/obj/effect/temp_visual/heal/New(loc, colour, var/time = 15)
 	..()
 	pixel_x = rand(-12, 12)
 	pixel_y = rand(-9, 0)
 	if(colour)
 		color = colour
+	duration = time
 
 /obj/effect/temp_visual/kinetic_blast
 	name = "kinetic explosion"
@@ -229,3 +252,93 @@
 	pixel_y = -16
 	pixel_x = -16
 	duration = 20
+
+/obj/effect/temp_visual/bleed
+	name = "bleed"
+	icon = 'icons/effects/bleed.dmi'
+	icon_state = "bleed0"
+	duration = 10
+	var/shrink = TRUE
+
+/obj/effect/temp_visual/bleed/Initialize(mapload, atom/size_calc_target)
+	. = ..()
+	var/size_matrix = matrix()
+	if(size_calc_target)
+		layer = size_calc_target.layer + 0.01
+		var/icon/I = icon(size_calc_target.icon, size_calc_target.icon_state, size_calc_target.dir)
+		size_matrix = matrix() * (I.Height()/world.icon_size)
+		transform = size_matrix //scale the bleed overlay's size based on the target's icon size
+	var/matrix/M = transform
+	if(shrink)
+		M = size_matrix * 0.1
+	else
+		M = size_matrix * 2
+	animate(src, alpha = 20, transform = M, time = duration, flags = ANIMATION_PARALLEL)
+
+/obj/effect/temp_visual/bleed/explode
+	icon_state = "bleed10"
+	duration = 12
+	shrink = FALSE
+
+/obj/effect/temp_visual/small_smoke
+	icon_state = "smoke"
+	duration = 50
+
+/obj/effect/temp_visual/small_smoke/halfsecond
+	duration = 5
+
+/obj/effect/temp_visual/dir_setting/firing_effect
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "firing_effect"
+	duration = 2
+
+/obj/effect/temp_visual/dir_setting/firing_effect/setDir(newdir)
+	switch(newdir)
+		if(NORTH)
+			layer = BELOW_MOB_LAYER
+			pixel_x = rand(-3,3)
+			pixel_y = rand(4,6)
+		if(SOUTH)
+			pixel_x = rand(-3,3)
+			pixel_y = rand(-1,1)
+		else
+			pixel_x = rand(-1,1)
+			pixel_y = rand(-1,1)
+	..()
+
+/obj/effect/temp_visual/dir_setting/firing_effect/energy
+	icon_state = "firing_effect_energy"
+	duration = 3
+
+/obj/effect/temp_visual/dir_setting/firing_effect/magic
+	icon_state = "shieldsparkles"
+	duration = 3
+
+/obj/effect/temp_visual/impact_effect
+	icon_state = "impact_bullet"
+	duration = 5
+
+/obj/effect/temp_visual/impact_effect/Initialize(mapload, x, y)
+	pixel_x = x
+	pixel_y = y
+	return ..()
+
+/obj/effect/temp_visual/impact_effect/red_laser
+	icon_state = "impact_laser"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/blue_laser
+	icon_state = "impact_laser_blue"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/green_laser
+	icon_state = "impact_laser_green"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/purple_laser
+	icon_state = "impact_laser_purple"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/ion
+	icon_state = "shieldsparkles"
+	duration = 6

@@ -24,8 +24,35 @@
 	panel = "Shadowling Abilities"
 	charge_max = 300
 	clothes_req = 0
+	range = 10	//has no effect beyond this range, so setting this makes invalid/useless targets not show up in popup
 	action_icon_state = "glare"
-	humans_only = 1
+	humans_only = 1	//useless since we override chose_targets, but might be used for other code later??? Might remove, idk
+
+/obj/effect/proc_holder/spell/targeted/glare/choose_targets(mob/user)
+	var/list/possible_targets = list()
+	for(var/mob/living/carbon/human/target in view_or_range(range, user, "view"))
+		if(target.stat)
+			continue
+		if(is_shadow_or_thrall(target))
+			continue
+		possible_targets += target
+	var/mob/living/carbon/human/M
+	var/list/targets = list()
+	if(possible_targets.len == 1)//no choice involved
+		targets = possible_targets
+	else
+		M = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
+		if(M in view_or_range(range, user, "view"))
+			targets += M
+
+	
+	if(!targets.len) //doesn't waste the spell
+		revert_cast(user)
+		return
+
+	perform(targets, user = user)
+	return
+	
 
 /obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
@@ -216,11 +243,11 @@
 
 /obj/effect/proc_holder/spell/targeted/enthrall/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/ling = user
-	listclearnulls(ticker.mode.shadowling_thralls)
-	if(!(ling.mind in ticker.mode.shadows))
+	listclearnulls(SSticker.mode.shadowling_thralls)
+	if(!(ling.mind in SSticker.mode.shadows))
 		return
 	if(!isshadowling(ling))
-		if(ticker.mode.shadowling_thralls.len >= 5)
+		if(SSticker.mode.shadowling_thralls.len >= 5)
 			charge_counter = charge_max
 			return
 	for(var/mob/living/carbon/human/target in targets)
@@ -291,7 +318,7 @@
 		target.visible_message("<span class='big'>[target] looks to have experienced a revelation!</span>", \
 								"<span class='warning'>False faces all d<b>ark not real not real not--</b></span>")
 		target.setOxyLoss(0) //In case the shadowling was choking them out
-		ticker.mode.add_thrall(target.mind)
+		SSticker.mode.add_thrall(target.mind)
 		target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 
 /obj/effect/proc_holder/spell/targeted/shadowling_regenarmor //Resets a shadowling's species to normal, removes genetic defects, and re-equips their armor
@@ -345,7 +372,7 @@
 		return
 	for(var/mob/living/target in targets)
 		var/thralls = 0
-		var/victory_threshold = ticker.mode.required_thralls
+		var/victory_threshold = SSticker.mode.required_thralls
 		var/mob/M
 
 		to_chat(target, "<span class='shadowling'><b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b></span>")
@@ -359,24 +386,24 @@
 			to_chat(target, "<span class='warning'>Your concentration has been broken. The mental hooks you have sent out now retract into your mind.</span>")
 			return
 
-		if(thralls >= CEILING(3 * ticker.mode.thrall_ratio, 1) && !screech_acquired)
+		if(thralls >= CEILING(3 * SSticker.mode.thrall_ratio, 1) && !screech_acquired)
 			screech_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Sonic Screech</b> ability. This ability will shatter nearby windows and deafen enemies, plus stunning silicon lifeforms.</span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/unearthly_screech(null))
 
-		if(thralls >= CEILING(5 * ticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
+		if(thralls >= CEILING(5 * SSticker.mode.thrall_ratio, 1) && !blind_smoke_acquired)
 			blind_smoke_acquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Blinding Smoke</b> ability. \
 			It will create a choking cloud that will blind any non-thralls who enter.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/blindness_smoke(null))
 
-		if(thralls >= CEILING(7 * ticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
+		if(thralls >= CEILING(7 * SSticker.mode.thrall_ratio, 1) && !nullChargeAcquired)
 			nullChargeAcquired = 1
 			to_chat(user, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Null Charge</b> ability. This ability will drain an APC's contents to the void, preventing it from recharging \
 			or sending power until repaired.</i></span>")
 			target.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/null_charge(null))
 
-		if(thralls >= CEILING(9 * ticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
+		if(thralls >= CEILING(9 * SSticker.mode.thrall_ratio, 1) && !reviveThrallAcquired)
 			reviveThrallAcquired = 1
 			to_chat(target, "<span class='shadowling'><i>The power of your thralls has granted you the <b>Black Recuperation</b> ability. \
 			This will, after a short time, bring a dead thrall completely back to life with no bodily defects.</i></span>")
@@ -578,7 +605,7 @@
 					charge_counter = charge_max
 					return
 				var/empowered_thralls = 0
-				for(var/datum/mind/M in ticker.mode.shadowling_thralls)
+				for(var/datum/mind/M in SSticker.mode.shadowling_thralls)
 					if(!ishuman(M.current))
 						return
 					var/mob/living/carbon/human/H = M.current
@@ -767,7 +794,7 @@
 
 		to_chat(user, "<span class='shadowling'>You instantly rearrange <b>[target]</b>'s memories, hyptonitizing [target.p_them()] into a thrall.</span>")
 		to_chat(target, "<span class='userdanger'><font size=3>An agonizing spike of pain drives into your mind, and--</font></span>")
-		ticker.mode.add_thrall(target.mind)
+		SSticker.mode.add_thrall(target.mind)
 		target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 		target.add_language("Shadowling Hivemind")
 

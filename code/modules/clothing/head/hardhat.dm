@@ -11,7 +11,7 @@
 	flags_inv = 0
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	burn_state = FIRE_PROOF
-	species_fit = list("Grey")
+	dog_fashion = /datum/dog_fashion/head/hardhat
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
@@ -55,11 +55,13 @@
 	icon_state = "hardhat0_orange"
 	item_state = "hardhat0_orange"
 	item_color = "orange"
+	dog_fashion = null
 
 /obj/item/clothing/head/hardhat/red
 	icon_state = "hardhat0_red"
 	item_state = "hardhat0_red"
 	item_color = "red"
+	dog_fashion = null
 	name = "firefighter helmet"
 	flags = STOPSPRESSUREDMAGE
 	heat_protection = HEAD
@@ -76,12 +78,13 @@
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-
+	dog_fashion = /datum/dog_fashion/head/hardhat
 
 /obj/item/clothing/head/hardhat/dblue
 	icon_state = "hardhat0_dblue"
 	item_state = "hardhat0_dblue"
 	item_color = "dblue"
+	dog_fashion = null
 
 /obj/item/clothing/head/hardhat/atmos
 	icon_state = "hardhat0_atmos"
@@ -95,7 +98,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
-	species_fit = list("Grey")
+	dog_fashion = null
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi'
 		)

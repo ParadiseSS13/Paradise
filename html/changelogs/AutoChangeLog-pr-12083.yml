@@ -1,0 +1,6 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - rscadd: "The Captain's rapier can now be assigned as a theft objective."
+  - rscdel: "Slime extracts and plasma tanks have been removed as theft objectives."
+  - tweak: "Document trading no longer counts towards a traitor's total number of assigned objectives."

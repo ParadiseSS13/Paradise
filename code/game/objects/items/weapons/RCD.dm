@@ -333,7 +333,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 					return FALSE
 				playsound(loc, usesound, 50, 1)
 				var/turf/AT = A
-				AT.ChangeTurf(/turf/space)
+				AT.ChangeTurf(AT.baseturf)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this floor!</span>")

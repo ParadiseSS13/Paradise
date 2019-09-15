@@ -35,7 +35,7 @@
 												"<span class='userdanger'>You howl!</span>")
 				affected_mob.AdjustConfused(rand(6, 8))
 			if(prob(3) && barklimit <= 10)
-				var/list/puppytype = list(/mob/living/simple_animal/pet/corgi/puppy, /mob/living/simple_animal/pet/pug, /mob/living/simple_animal/pet/fox)
+				var/list/puppytype = list(/mob/living/simple_animal/pet/dog/corgi/puppy, /mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/pet/dog/fox)
 				var/mob/living/puppypicked = pick(puppytype)
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up [initial(puppypicked.name)]!</span>", \
 													"<span class='userdanger'>You cough up [initial(puppypicked.name)]?!</span>")

@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "Disarming/grabbing a door with IDSCAN disabled no longer results in a can_admin_interact runtime error."

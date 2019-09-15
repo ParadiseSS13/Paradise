@@ -1,24 +1,24 @@
 var/list/sting_paths
 // totally stolen from the new player panel.  YAYY
 
-/obj/effect/proc_holder/changeling/evolution_menu
+/datum/action/changeling/evolution_menu
 	name = "-Evolution Menu-" //Dashes are so it's listed before all the other abilities.
 	desc = "Choose our method of subjugation."
+	button_icon_state = "changelingsting"
 	dna_cost = 0
 
-/obj/effect/proc_holder/changeling/evolution_menu/Click()
+/datum/action/changeling/evolution_menu/Trigger()
 	if(!usr || !usr.mind || !usr.mind.changeling)
 		return
 	var/datum/changeling/changeling = usr.mind.changeling
 
 	if(!sting_paths)
-		sting_paths = init_subtypes(/obj/effect/proc_holder/changeling)
+		sting_paths = init_subtypes(/datum/action/changeling)
 
 	var/dat = create_menu(changeling)
 	usr << browse(dat, "window=powers;size=600x700")//900x480
 
-
-/obj/effect/proc_holder/changeling/evolution_menu/proc/create_menu(var/datum/changeling/changeling)
+/datum/action/changeling/evolution_menu/proc/create_menu(var/datum/changeling/changeling)
 	var/dat
 	dat +="<html><head><title>Changeling Evolution Menu</title></head>"
 
@@ -230,7 +230,7 @@ var/list/sting_paths
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable_data'>"}
 
 	var/i = 1
-	for(var/obj/effect/proc_holder/changeling/cling_power in sting_paths)
+	for(var/datum/action/changeling/cling_power in sting_paths)
 
 		if(cling_power.dna_cost <= 0) //Let's skip the crap we start with. Keeps the evolution menu uncluttered.
 			continue
@@ -283,7 +283,7 @@ var/list/sting_paths
 	return dat
 
 
-/obj/effect/proc_holder/changeling/evolution_menu/Topic(href, href_list)
+/datum/action/changeling/evolution_menu/Topic(href, href_list)
 	..()
 	if(!(iscarbon(usr) && usr.mind && usr.mind.changeling))
 		return
@@ -297,12 +297,10 @@ var/list/sting_paths
 /////
 
 /datum/changeling/proc/purchasePower(var/mob/living/carbon/user, var/sting_name)
+	var/datum/action/changeling/thepower = null
+	var/list/all_powers = init_subtypes(/datum/action/changeling)
 
-	var/obj/effect/proc_holder/changeling/thepower = null
-
-	if(!sting_paths)
-		sting_paths = init_subtypes(/obj/effect/proc_holder/changeling)
-	for(var/obj/effect/proc_holder/changeling/cling_sting in sting_paths)
+	for(var/datum/action/changeling/cling_sting in all_powers)
 		if(cling_sting.name == sting_name)
 			thepower = cling_sting
 
@@ -343,21 +341,19 @@ var/list/sting_paths
 		to_chat(user, "<span class='notice'>We have removed our evolutions from this form, and are now ready to readapt.</span>")
 		user.remove_changeling_powers(1)
 		canrespec = 0
-		user.make_changeling()
+		user.make_changeling(FALSE)
 		return 1
 	else
 		to_chat(user, "<span class='danger'>You lack the power to readapt your evolutions!</span>")
 		return 0
 
-/mob/proc/make_changeling()
+/mob/proc/make_changeling(var/get_free_powers = TRUE)
 	if(!mind)
 		return
 	if(!ishuman(src))
 		return
 	if(!mind.changeling)
 		mind.changeling = new /datum/changeling(gender)
-	if(!sting_paths)
-		sting_paths = init_subtypes(/obj/effect/proc_holder/changeling)
 	if(mind.changeling.purchasedpowers)
 		remove_changeling_powers(1)
 
@@ -366,13 +362,23 @@ var/list/sting_paths
 	for(var/language in languages)
 		mind.changeling.absorbed_languages |= language
 
-	// purchase free powers.
-	for(var/obj/effect/proc_holder/changeling/path in sting_paths)
-		//var/obj/effect/proc_holder/changeling/S = new path()
-		if(!path.dna_cost)
-			if(!mind.changeling.has_sting(path))
-				mind.changeling.purchasedpowers += path
-			path.on_purchase(src)
+	if(get_free_powers)
+		var/list/all_powers = init_subtypes(/datum/action/changeling)
+		for(var/datum/action/changeling/path in all_powers) // purchase free powers.
+			if(!path.dna_cost)
+				if(!mind.changeling.has_sting(path))
+					mind.changeling.purchasedpowers += path
+				path.on_purchase(src)
+	else //for respec
+		var/datum/action/changeling/hivemind_upload/S1 = new
+		if(!mind.changeling.has_sting(S1))
+			mind.changeling.purchasedpowers+=S1
+			S1.Grant(src)
+
+		var/datum/action/changeling/hivemind_download/S2 = new
+		if(!mind.changeling.has_sting(S2))
+			mind.changeling.purchasedpowers+=S2
+			S2.Grant(src)
 
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna.Clone()
@@ -406,18 +412,18 @@ var/list/sting_paths
 			digitalcamo = 0
 			mind.changeling.changeling_speak = 0
 			mind.changeling.reset()
-			for(var/obj/effect/proc_holder/changeling/p in mind.changeling.purchasedpowers)
+			for(var/datum/action/changeling/p in mind.changeling.purchasedpowers)
 				if((p.dna_cost == 0 && keep_free_powers) || p.always_keep)
 					continue
 				mind.changeling.purchasedpowers -= p
-				p.on_refund(src)
+				p.Remove(src)
 			remove_language("Changeling")
 		if(hud_used)
 			hud_used.lingstingdisplay.icon_state = null
 			hud_used.lingstingdisplay.invisibility = 101
 
-/datum/changeling/proc/has_sting(obj/effect/proc_holder/changeling/power)
-	for(var/obj/effect/proc_holder/changeling/P in purchasedpowers)
+/datum/changeling/proc/has_sting(datum/action/power)
+	for(var/datum/action/P in purchasedpowers)
 		if(power.name == P.name)
 			return 1
 	return 0

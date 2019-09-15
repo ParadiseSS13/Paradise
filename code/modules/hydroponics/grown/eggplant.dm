@@ -22,6 +22,7 @@
 	icon_state = "eggplant"
 	filling_color = "#800080"
 	bitesize_mod = 2
+	tastes = list("eggplant" = 1)
 	wine_power = 0.2
 
 // Egg-Plant
@@ -43,4 +44,5 @@
 	trash = /obj/item/reagent_containers/food/snacks/egg
 	filling_color = "#F8F8FF"
 	bitesize_mod = 2
+	tastes = list("egg-plant" = 1)
 	distill_reagent = "eggnog"

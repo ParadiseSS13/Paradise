@@ -25,7 +25,8 @@
 	if(blob_nodes.len)
 		var/list/nodes = list()
 		for(var/i = 1; i <= blob_nodes.len; i++)
-			nodes["Blob Node #[i]"] = blob_nodes[i]
+			var/obj/structure/blob/node/B = blob_nodes[i]
+			nodes["Blob Node #[i] ([get_location_name(B)])"] = B
 		var/node_name = input(src, "Choose a node to jump to.", "Node Jump") in nodes
 		var/obj/structure/blob/node/chosen_node = nodes[node_name]
 		if(chosen_node)
@@ -207,7 +208,7 @@
 
 /mob/camera/blob/verb/create_blobbernaut()
 	set category = "Blob"
-	set name = "Create Blobbernaut (20)"
+	set name = "Create Blobbernaut (60)"
 	set desc = "Create a powerful blob-being, a Blobbernaut"
 
 	var/turf/T = get_turf(src)
@@ -224,7 +225,7 @@
 		to_chat(src, "Unable to use this blob, find a factory blob.")
 		return
 
-	if(!can_buy(20))
+	if(!can_buy(60))
 		return
 
 	var/mob/living/simple_animal/hostile/blob/blobbernaut/blobber = new /mob/living/simple_animal/hostile/blob/blobbernaut (get_turf(B))
@@ -233,6 +234,18 @@
 	blobber.color = blob_reagent_datum.complementary_color
 	blobber.overmind = src
 	blob_mobs.Add(blobber)
+	blobber.AIStatus = AI_OFF
+	blobber.LoseTarget()
+	spawn()
+		var/list/candidates = pollCandidates("Do you want to play as a blobbernaut?", ROLE_BLOB, 1, 100)
+		if(candidates.len)
+			var/mob/C = pick(candidates)
+			if(C)
+				blobber.key = C.key
+				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
+				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
+		if(!blobber.ckey)
+			blobber.AIStatus = AI_ON
 	return
 
 
@@ -350,45 +363,45 @@
 			BS.Goto(pick(surrounding_turfs), BS.move_to_delay)
 	return
 
-
 /mob/camera/blob/verb/split_consciousness()
 	set category = "Blob"
 	set name = "Split consciousness (100) (One use)"
 	set desc = "Expend resources to attempt to produce another sentient overmind."
 
+	var/turf/T = get_turf(src)
+	if(!T)
+		return
 	if(split_used)
 		to_chat(src, "<span class='warning'>You have already produced an offspring.</span>")
 		return
 	if(is_offspring)
 		to_chat(src, "<span class='warning'>You cannot split as an offspring of another Blob.</span>")
 		return
-	if(!blob_nodes || !blob_nodes.len)
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring...</span>")
-		return
-	var/obj/structure/blob/node/N = locate(/obj/structure/blob) in blob_nodes
-	if(!N)
-		to_chat(src, "<span class='warning'>A node is required to birth your offspring...</span>")
-		return
 
+	var/obj/structure/blob/N = (locate(/obj/structure/blob) in T)
+	if(!N)
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
+		return
+	if(!istype(N, /obj/structure/blob/node))
+		to_chat(src, "<span class='warning'>A node is required to birth your offspring.</span>")
+		return
 	if(!can_buy(100))
 		return
 
 	split_used = TRUE
-
 	new /obj/structure/blob/core/ (get_turf(N), 200, null, blob_core.point_rate, "offspring")
 	qdel(N)
 
-	if(ticker && ticker.mode.name == "blob")
-		var/datum/game_mode/blob/BL = ticker.mode
+	if(SSticker && SSticker.mode.name == "blob")
+		var/datum/game_mode/blob/BL = SSticker.mode
 		BL.blobwincount += initial(BL.blobwincount)
-
 
 /mob/camera/blob/verb/blob_broadcast()
 	set category = "Blob"
 	set name = "Blob Broadcast"
 	set desc = "Speak with your blob spores and blobbernauts as your mouthpieces. This action is free."
 
-	var/speak_text = input(usr, "What would you like to say with your minions?", "Blob Broadcast", null) as text
+	var/speak_text = clean_input("What would you like to say with your minions?", "Blob Broadcast", null)
 
 	if(!speak_text)
 		return

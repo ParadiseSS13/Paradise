@@ -123,7 +123,7 @@
 		med_hud_set_health()
 		med_hud_set_status()
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
+/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
 	if(summoner)
 		if(loc == summoner)
@@ -187,7 +187,7 @@
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
 			log_say("(GUARDIAN to [key_name(M)]) [input]", src)
-		else if(M in GLOB.dead_mob_list)
+		else if(M in GLOB.dead_mob_list && M.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
@@ -210,13 +210,13 @@
 	if(!input) return
 
 	for(var/mob/M in GLOB.mob_list)
-		if(istype (M, /mob/living/simple_animal/hostile/guardian))
+		if(istype(M, /mob/living/simple_animal/hostile/guardian))
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
 				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
 				log_say("(GUARDIAN to [key_name(G)]) [input]", src)
 
-		else if(M in GLOB.dead_mob_list)
+		else if(M in GLOB.dead_mob_list && M.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 

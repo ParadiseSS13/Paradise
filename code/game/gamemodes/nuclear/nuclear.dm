@@ -4,15 +4,14 @@
 	var/list/datum/mind/syndicates = list()
 
 proc/issyndicate(mob/living/M as mob)
-	return istype(M) && M.mind && ticker && ticker.mode && (M.mind in ticker.mode.syndicates)
+	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.syndicates)
 
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
-	required_players = 15	// 30 players - 5 players to be the nuke ops = 25 players remaining
-	required_enemies = 2
-	recommended_enemies = 2
-	free_golems_disabled = TRUE
+	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
+	required_enemies = 5
+	recommended_enemies = 5
 
 	var/const/agents_possible = 2 //If we ever need more syndicate agents.
 
@@ -64,7 +63,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/proc/remove_operative(datum/mind/operative_mind)
 	if(operative_mind in syndicates)
-		ticker.mode.syndicates -= operative_mind
+		SSticker.mode.syndicates -= operative_mind
 		operative_mind.special_role = null
 		for(var/datum/objective/nuclear/O in operative_mind.objectives)
 			operative_mind.objectives -= O
@@ -73,7 +72,7 @@ proc/issyndicate(mob/living/M as mob)
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
 		else
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
-		ticker.mode.update_synd_icons_removed(operative_mind)
+		SSticker.mode.update_synd_icons_removed(operative_mind)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +207,7 @@ proc/issyndicate(mob/living/M as mob)
 		P.stamp(stamp)
 		qdel(stamp)
 
-		if(ticker.mode.config_tag=="nuclear")
+		if(SSticker.mode.config_tag=="nuclear")
 			P.loc = synd_mind.current.loc
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
@@ -292,11 +291,9 @@ proc/issyndicate(mob/living/M as mob)
 
 			if("Plasmaman")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/nuclear(synd_mob), slot_wear_suit)
-				synd_mob.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/nuclear(synd_mob), slot_head)
 				synd_mob.equip_or_collect(new /obj/item/tank/plasma/plasmaman(synd_mob), slot_s_store)
-				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
-				synd_mob.equip_or_collect(new /obj/item/plasmensuit_cartridge(synd_mob), slot_in_backpack)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
 				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
 				synd_mob.update_action_buttons_icon()
 
@@ -437,7 +434,7 @@ proc/issyndicate(mob/living/M as mob)
 
 /datum/game_mode/nuclear/set_scoreboard_gvars()
 	var/foecount = 0
-	for(var/datum/mind/M in ticker.mode.syndicates)
+	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 		if(!M || !M.current)
 			score_opkilled++
@@ -490,7 +487,7 @@ proc/issyndicate(mob/living/M as mob)
 	var/diskdat = ""
 	var/bombdat = null
 
-	for(var/datum/mind/M in ticker.mode.syndicates)
+	for(var/datum/mind/M in SSticker.mode.syndicates)
 		foecount++
 
 	for(var/mob/living/C in world)

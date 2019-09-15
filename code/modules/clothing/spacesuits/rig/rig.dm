@@ -97,6 +97,9 @@
 		to_chat(usr, "The maintenance panel is [open ? "open" : "closed"].")
 		to_chat(usr, "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</font>"].")
 
+/obj/item/rig/get_cell()
+	return cell
+
 /obj/item/rig/New()
 	..()
 

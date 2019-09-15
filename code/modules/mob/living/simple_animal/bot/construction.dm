@@ -594,7 +594,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	qdel(src)
 
 /obj/item/honkbot_arm_assembly
-	name = "incomplete honkbot assembly."
+	name = "incomplete honkbot assembly"
 	desc = "A clown box with a robot arm permanently grafted to it."
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot_arm"
@@ -625,8 +625,8 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		if(istype(W, /obj/item/instrument/trombone))
 			if(!user.unEquip(W))
 				return
-			to_chat(user, "<span class='notice'>You add the trombone to [src]! Heeeenk! </span>")
+			to_chat(user, "<span class='notice'>You add the trombone to [src]! Heeeenk!</span>")
 			qdel(W)
-			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(T)
+			var/mob/living/simple_animal/bot/honkbot/A = new /mob/living/simple_animal/bot/honkbot(get_turf(src))
 			A.robot_arm = robot_arm
 			qdel(src)

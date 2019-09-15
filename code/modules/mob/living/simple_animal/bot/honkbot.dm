@@ -37,7 +37,7 @@
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE
-	var/datum/job/clown/J = new/datum/job/clown
+	var/datum/job/clown/J = new /datum/job/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
@@ -298,7 +298,7 @@
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM)
+/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
 	if(ismob(AM) && on) //only if its online
 		if(prob(30)) //you're far more likely to trip on a honkbot
 			var/mob/living/carbon/C = AM

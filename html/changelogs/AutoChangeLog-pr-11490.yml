@@ -1,4 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Resolved an issue where clicking on a windoor would no longer prevent it from auto-closing."

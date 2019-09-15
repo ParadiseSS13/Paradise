@@ -27,6 +27,7 @@
 	bitesize_mod = 2
 	var/stacktype = /obj/item/stack/tile/grass
 	var/tile_coefficient = 0.02 // 1/50
+	tastes = list("grass" = 1)
 	wine_power = 0.15
 
 /obj/item/reagent_containers/food/snacks/grown/grass/attack_self(mob/user)
@@ -66,4 +67,5 @@
 	desc = "The textile industry's dark secret."
 	icon_state = "carpetclump"
 	stacktype = /obj/item/stack/tile/carpet
+	tastes = list("carpet" = 1)
 	can_distill = FALSE

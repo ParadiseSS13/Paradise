@@ -1,0 +1,4 @@
+author: "TheSardele"
+delete-after: True
+changes: 
+  - bugfix: "It is no longer possible to raise zero to -infinity fingers using the *signal emote"

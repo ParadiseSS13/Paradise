@@ -7,9 +7,10 @@
 	item_color = "bluetie"
 	slot_flags = SLOT_TIE
 	w_class = WEIGHT_CLASS_SMALL
-	var/slot = "decor"
+	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
 	var/image/inv_overlay = null	//overlay used when attached to clothing.
+	var/allow_duplicates = TRUE // Allow accessories of the same type.
 
 /obj/item/clothing/accessory/New()
 	..()
@@ -117,7 +118,7 @@
 	icon_state = "waistcoat"
 	item_state = "waistcoat"
 	item_color = "waistcoat"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -181,34 +182,7 @@
 	materials = list(MAT_METAL=1000)
 	burn_state = FIRE_PROOF
 
-/obj/item/clothing/accessory/medal/conduct
-	name = "distinguished conduct medal"
-	desc = "A bronze medal awarded for distinguished conduct. Whilst a great honor, this is the most basic award given by Nanotrasen. It is often awarded by a captain to a member of his crew."
-
-/obj/item/clothing/accessory/medal/bronze_heart
-	name = "bronze heart medal"
-	desc = "A bronze heart-shaped medal awarded for sacrifice. It is often awarded posthumously or for severe injury in the line of duty."
-	icon_state = "bronze_heart"
-
-/obj/item/clothing/accessory/medal/nobel_science
-	name = "nobel sciences award"
-	desc = "A bronze medal which represents significant contributions to the field of science or engineering."
-
-/obj/item/clothing/accessory/medal/silver
-	name = "silver medal"
-	desc = "A silver medal."
-	icon_state = "silver"
-	item_color = "silver"
-	materials = list(MAT_SILVER=1000)
-
-/obj/item/clothing/accessory/medal/silver/valor
-	name = "medal of valor"
-	desc = "A silver medal awarded for acts of exceptional valor."
-
-/obj/item/clothing/accessory/medal/silver/security
-	name = "robust security award"
-	desc = "An award for distinguished combat and sacrifice in defence of Nanotrasen's commercial interests. Often awarded to security staff."
-
+// GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
 	name = "gold medal"
 	desc = "A prestigious golden medal."
@@ -222,7 +196,61 @@
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
-	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist. This medal is almost never awarded to anybody but commanders."
+	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
+
+// SILVER (awarded by Captain)
+
+/obj/item/clothing/accessory/medal/silver
+	name = "silver medal"
+	desc = "A silver medal."
+	icon_state = "silver"
+	item_color = "silver"
+	materials = list(MAT_SILVER=1000)
+
+/obj/item/clothing/accessory/medal/silver/valor
+	name = "medal of valor"
+	desc = "An award issued by Captains to crew members whose exceptional performance and service to the station has been commended by the station's top leadership."
+
+/obj/item/clothing/accessory/medal/silver/leadership
+	name = "medal of command"
+	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
+
+
+// BRONZE (awarded by heads of department, except for the bronze heart)
+
+
+
+/obj/item/clothing/accessory/medal/security
+	name = "robust security medal"
+	desc = "An award issued by the HoS to security staff who excel at upholding the law."
+
+/obj/item/clothing/accessory/medal/science
+	name = "smart science medal"
+	desc = "An award issued by the RD to science staff who advance the frontiers of knowledge."
+
+/obj/item/clothing/accessory/medal/engineering
+	name = "excellent engineering medal"
+	desc = "An award issued by the CE to engineering staff whose dedication keep the station running at its best."
+
+/obj/item/clothing/accessory/medal/service
+	name = "superior service medal"
+	desc = "An award issued by the HoP to service staff who go above and beyond."
+
+/obj/item/clothing/accessory/medal/medical
+	name = "magnificient medical medal"
+	desc = "An award issued by the CMO to medical staff who excel at saving lives."
+
+/obj/item/clothing/accessory/medal/legal
+	name = "meritous legal medal"
+	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+
+/obj/item/clothing/accessory/medal/heart
+	name = "bronze heart medal"
+	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
+	icon_state = "bronze_heart"
+
+
+
 
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized
@@ -292,6 +320,7 @@
 /obj/item/clothing/accessory/scarf // No overlay
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
+	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/accessory/scarf/red
 	name = "red scarf"
@@ -378,6 +407,31 @@
 	item_color = "necklace"
 	slot_flags = SLOT_TIE
 
+/obj/item/clothing/accessory/necklace/dope
+	name = "gold necklace"
+	desc = "Damn, it feels good to be a gangster."
+	icon_state = "bling"
+	item_state = "bling"
+	item_color = "bling"
+
+/obj/item/clothing/accessory/necklace/skullcodpiece
+	name = "skull codpiece"
+	desc = "A skull shaped ornament, intended to protect the important things in life."
+	icon_state = "skull"
+	item_state = "skull"
+	item_color = "skull"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	allow_duplicates = FALSE
+
+/obj/item/clothing/accessory/necklace/talisman
+	name = "bone talisman"
+	desc = "A hunter's talisman, some say the old gods smile on those who wear it."
+	icon_state = "talisman"
+	item_state = "talisman"
+	item_color = "talisman"
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	allow_duplicates = FALSE
+
 /obj/item/clothing/accessory/necklace/locket
 	name = "gold locket"
 	desc = "A gold locket that seems to have space for a photo within."
@@ -436,7 +490,7 @@
 	icon_state = "cowboyshirt"
 	item_state = "cowboyshirt"
 	item_color = "cowboyshirt"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -447,7 +501,7 @@
 	icon_state = "cowboyshirt_s"
 	item_state = "cowboyshirt_s"
 	item_color = "cowboyshirt_s"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -458,7 +512,7 @@
 	icon_state = "cowboyshirt_white"
 	item_state = "cowboyshirt_white"
 	item_color = "cowboyshirt_white"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -469,7 +523,7 @@
 	icon_state = "cowboyshirt_whites"
 	item_state = "cowboyshirt_whites"
 	item_color = "cowboyshirt_whites"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -480,7 +534,7 @@
 	icon_state = "cowboyshirt_pink"
 	item_state = "cowboyshirt_pink"
 	item_color = "cowboyshirt_pink"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -491,7 +545,7 @@
 	icon_state = "cowboyshirt_pinks"
 	item_state = "cowboyshirt_pinks"
 	item_color = "cowboyshirt_pinks"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -502,7 +556,7 @@
 	icon_state = "cowboyshirt_navy"
 	item_state = "cowboyshirt_navy"
 	item_color = "cowboyshirt_navy"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -513,7 +567,7 @@
 	icon_state = "cowboyshirt_navys"
 	item_state = "cowboyshirt_navys"
 	item_color = "cowboyshirt_navys"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -524,7 +578,7 @@
 	icon_state = "cowboyshirt_red"
 	item_state = "cowboyshirt_red"
 	item_color = "cowboyshirt_red"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
@@ -535,7 +589,7 @@
 	icon_state = "cowboyshirt_reds"
 	item_state = "cowboyshirt_reds"
 	item_color = "cowboyshirt_reds"
-	species_fit = list("Vox", "Drask", "Grey")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
@@ -625,7 +679,7 @@
 /obj/item/clothing/accessory/petcollar/process()
 	var/mob/living/simple_animal/M = loc
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.collar && M.stat != DEAD)
+	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
 
 	var/area/t = get_area(M)

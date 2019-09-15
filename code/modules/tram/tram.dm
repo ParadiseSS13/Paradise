@@ -22,7 +22,7 @@
 
 	var/delay_timer = null
 
-	var/list/blacklist = list(/obj/tram/rail,/atom/movable/lighting_object)
+	var/list/blacklist = list(/obj/tram/rail)
 	var/list/ancwhitelist = list(/obj/tram, /obj/vehicle, /obj/structure/chair, /obj/structure/grille, /obj/structure/window)
 
 /obj/tram/tram_controller/New()
@@ -135,14 +135,20 @@
 				tram += src
 
 /obj/tram/tram_controller/proc/check_validity(var/atom/movable/AM)
-	if(!AM)	return 0
-	if(is_type_in_list(AM, blacklist))	return 0
-	if(!AM.simulated)	return 0
+	if(!AM)	
+		return FALSE
+
+	if(!AM.simulated)	
+		return FALSE
+
+	if(is_type_in_list(AM, blacklist))	
+		return FALSE
+
 	if(AM.anchored)
 		if(is_type_in_list(AM, ancwhitelist))
-			return 1
-		return 0
-	return 1
+			return TRUE
+		return FALSE
+	return TRUE
 
 /obj/tram/tram_controller/proc/init_controllers()
 	for(var/obj/tram/controlpad/CCP in tram)

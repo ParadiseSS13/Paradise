@@ -117,7 +117,7 @@
 	maxHealth = 250
 	health = 250
 	ranged = 1
-	rapid = 1
+	rapid = 3
 	speed = 0	//he's lost some weight from the fighting
 	projectiletype = /obj/item/projectile/ornament
 	retreat_distance = 3

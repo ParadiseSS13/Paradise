@@ -142,7 +142,7 @@
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
+		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 350)
 		ui.open()
 		ui.set_auto_update(1)
 

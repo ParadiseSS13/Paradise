@@ -176,7 +176,7 @@ var/global/dmm_suite/preloader/_preloader = new
 			for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
 				var/turf/T = t
 				//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
-				T.AfterChange(1,keep_cabling = TRUE)
+				T.AfterChange(1, keep_cabling = TRUE)
 		return bounds
 
 /**
@@ -321,7 +321,7 @@ var/global/dmm_suite/preloader/_preloader = new
 	var/turf/T = locate(x,y,z)
 	if(T)
 		if(ispath(path, /turf))
-			T.ChangeTurf(path, 1, 0)
+			T.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE)
 			instance = T
 		else if(ispath(path, /area))
 

@@ -1,0 +1,95 @@
+<!--
+	Title: Hispania Jukebox
+	Author: Helixis
+	Collaborator: Ryzor
+	Used In File(s):
+	\code\HISPANIA\game\machinery\jukebox.dm
+-->
+<style type="text/css">
+	table {
+		width: 100%;
+		overflow: hidden;
+		clear: both;
+	}
+
+	.trackSelected {
+		width: 100%;
+		display: block;
+		clear: both;
+		overflow: hidden;
+	}
+
+	.trackSelected span {
+		width: 100%;
+		display: block;
+		font-weight: bold;
+	}
+
+	.trackSelected .playbtn {
+		border: none;
+		background: none;
+		font-size: 32px;
+		cursor: pointer;
+		height: 32px;
+		width: 32px;
+		margin: auto auto;
+		display: block;
+	}
+
+	.tablePlaylist {
+		width: 100%;
+		display: block;
+		clear: both;
+		overflow: hidden;
+		background: #000000;
+		border: 1px solid #024f87;
+	}
+
+	tbody {
+		box-sizing: border-box;
+	}
+
+	tbody td {
+		text-align: center;
+		background-color: #024f87;
+		overflow: hidden;
+		height: 100%;
+		height: inherit;
+	}
+
+	tbody td .playlist {
+		border: none;
+		background-color: #024f87;
+		cursor: pointer;
+	}
+
+	tbody td:hover .playlist {
+		background-color: #0F6AAD;
+	}
+</style>
+<div class='trackSelected' style='text-align: center;'>
+	<span>Track Selected: {{:data.song_name}}</span>
+	<input type='hidden' value=''>{{:helper.link('', (data.active ? 'pause-circle' : 'play-circle'), {'action' : 'on_click'}, null, 'playbtn')}}
+</div>
+<div class='tablePlaylist'>
+	<table>
+		<thead>
+			<tr>
+				<th>Track</th>
+				<th>Genre</th>
+				<th>Name</th>
+				<th>Length</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{for data.songs}}
+				<tr>
+					<td>{{:value.id}}</td>
+					<td>{{:value.genre}}</td>
+					<td><input type='hidden' value='{{:value.id}} {{:value.genre}} {{:value.name}} {{:value.length}}'>{{:helper.link(value.name, '', {'a_sound' : value.ref, 'a_id' : value.id}, null, 'playlist')}}</td>
+					<td>{{:value.length}}</td>
+				</tr>
+			{{/for}}
+		</tbody>
+	</table>
+</div>

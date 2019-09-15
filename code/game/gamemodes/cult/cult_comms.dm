@@ -42,7 +42,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
-		else if(M in GLOB.dead_mob_list)
+		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
 
 	log_say("(CULT) [message]", user)

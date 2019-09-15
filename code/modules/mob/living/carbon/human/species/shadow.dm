@@ -8,8 +8,6 @@
 
 	unarmed_type = /datum/unarmed_attack/claws
 
-	ignored_by = list(/mob/living/simple_animal/hostile/faithless)
-
 	blood_color = "#CCCCCC"
 	flesh_color = "#AAAAAA"
 	has_organ = list(
@@ -51,12 +49,14 @@
 	if(grant_vision_toggle)
 		vision_toggle = new
 		vision_toggle.Grant(H)
+	H.faction |= "faithless"
 
 /datum/species/shadow/on_species_loss(mob/living/carbon/human/H)
 	..()
 	if(grant_vision_toggle && vision_toggle)
 		H.vision_type = null
 		vision_toggle.Remove(H)
+	H.faction -= "faithless"
 
 /datum/species/shadow/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0

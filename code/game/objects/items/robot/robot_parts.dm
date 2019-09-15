@@ -245,7 +245,7 @@
 				to_chat(user, "<span class='warning'>Sticking a dead [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
-			if(M.brainmob.mind in ticker.mode.head_revolutionaries)
+			if(M.brainmob.mind in SSticker.mode.head_revolutionaries)
 				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept the [M].</span>")
 				return
 

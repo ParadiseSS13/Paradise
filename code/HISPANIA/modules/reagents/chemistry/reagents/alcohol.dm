@@ -12,4 +12,4 @@
 	drink_icon = "fernet_glass"
 	drink_name = "Glass of Fernet"
 	drink_desc = "A crystal clear glass of Fernet Branca."
-	taste_message = "pure bitter oil"
+	taste_description = "pure bitter oil"

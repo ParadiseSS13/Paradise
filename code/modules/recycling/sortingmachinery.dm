@@ -10,7 +10,6 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 
-
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
@@ -23,7 +22,6 @@
 		AM.loc = T
 
 	qdel(src)
-
 
 /obj/structure/bigDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/destTagger))
@@ -67,16 +65,15 @@
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 
-
 /obj/item/smallDelivery
 	name = "small parcel"
 	desc = "A small wrapped package."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycrateSmall"
+	item_state = "deliverypackage"
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
-
 
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
@@ -87,7 +84,6 @@
 			wrapped.loc = get_turf(src)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
-
 
 /obj/item/smallDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/destTagger))
@@ -128,8 +124,6 @@
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
 
-
-
 /obj/item/stack/packageWrap
 	name = "package wrapper"
 	icon = 'icons/obj/items.dmi'
@@ -139,7 +133,6 @@
 	amount = 25
 	max_amount = 25
 	burn_state = FLAMMABLE
-
 
 /obj/item/stack/packageWrap/afterattack(var/obj/target as obj, mob/user as mob, proximity)
 	if(!proximity) return
@@ -152,8 +145,6 @@
 		return
 	if(target in user)
 		return
-
-
 
 	if(istype(target, /obj/item) && !(istype(target, /obj/item/storage) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shippingPackage)))
 		var/obj/item/O = target
@@ -363,7 +354,6 @@
 		else
 			to_chat(user, "You need more welding fuel to complete this task.")
 			return
-
 
 /obj/item/shippingPackage
 	name = "Shipping package"

@@ -1,0 +1,4 @@
+author: "Christasmurf"
+delete-after: True
+changes: 
+  - bugfix: "Fixes a random pixel on the leather shoes"

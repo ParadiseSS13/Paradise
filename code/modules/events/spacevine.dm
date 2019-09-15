@@ -137,7 +137,7 @@
 		if(prob(50))
 			ChangeTurf(baseturf)
 
-/turf/simulated/floor/vines/ChangeTurf(turf/open/floor/T)
+/turf/simulated/floor/vines/ChangeTurf(turf/simulated/floor/T)
 	. = ..()
 	//Do this *after* the turf has changed as qdel in spacevines will call changeturf again if it hasn't
 	for(var/obj/structure/spacevine/SV in src)
@@ -514,7 +514,7 @@
 /obj/structure/spacevine/obj_destruction()
 	wither()
 
-/obj/structure/spacevine/Crossed(mob/crosser)
+/obj/structure/spacevine/Crossed(mob/crosser, oldloc)
 	if(isliving(crosser))
 		for(var/datum/spacevine_mutation/SM in mutations)
 			SM.on_cross(src, crosser)

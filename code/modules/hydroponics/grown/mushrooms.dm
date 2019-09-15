@@ -28,6 +28,7 @@
 	name = "reishi"
 	desc = "<I>Ganoderma lucidum</I>: A special fungus known for its medicinal and stress relieving properties."
 	icon_state = "reishi"
+	tastes = list("reishi" = 1)
 	filling_color = "#FF4500"
 
 
@@ -55,6 +56,7 @@
 	name = "fly amanita"
 	desc = "<I>Amanita Muscaria</I>: Learn poisonous mushrooms by heart. Only pick mushrooms you know."
 	icon_state = "amanita"
+	tastes = list("amanita" = 1)
 	filling_color = "#FF0000"
 
 
@@ -85,6 +87,7 @@
 	desc = "<I>Amanita Virosa</I>: Deadly poisonous basidiomycete fungus filled with alpha amanitin."
 	icon_state = "angel"
 	filling_color = "#C0C0C0"
+	tastes = list("destroying angel" = 1)
 	wine_power = 0.6
 
 
@@ -112,6 +115,7 @@
 	icon_state = "libertycap"
 	filling_color = "#DAA520"
 	wine_power = 0.8
+	tastes = list("liberty-cap" = 1)
 	wine_flavor = "freedom"
 
 
@@ -139,6 +143,7 @@
 	desc = "<I>Plumus Hellmus</I>: Plump, soft and s-so inviting~"
 	icon_state = "plumphelmet"
 	filling_color = "#9370DB"
+	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)
 	distill_reagent = "manlydorf"
 
 
@@ -166,6 +171,7 @@
 	icon_state = "walkingmushroom"
 	filling_color = "#9370DB"
 	origin_tech = "biotech=4;programming=5"
+	tastes = list("walking mushroom" = 1, "motion" = 1)
 	can_distill = FALSE
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom/attack_self(mob/user)
@@ -205,6 +211,7 @@
 	name = "chanterelle cluster"
 	desc = "<I>Cantharellus Cibarius</I>: These jolly yellow little shrooms sure look tasty!"
 	icon_state = "chanterelle"
+	tastes = list("chanterelle" = 1)
 	filling_color = "#FFA500"
 
 
@@ -238,6 +245,7 @@
 	var/effect_path = /obj/structure/glowshroom
 	origin_tech = "biotech=4;plasmatech=6"
 	light_color = "#006622"
+	tastes = list("warmth" = 1, "light" = 1, "glowshroom" = 1)
 	wine_power = 0.5
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
@@ -287,6 +295,7 @@
 	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"
+	tastes = list("warmth" = 1, "light" = 1, "glowscap" = 1)
 	wine_power = 0.6
 	wine_flavor = "warmth"
 
@@ -311,6 +320,7 @@
 	name = "fungus"
 	desc = "A fungus ideal for making antibacterials."
 	icon_state = "angel"
+	tastes = list("fungus" = 1)
 	color = "#4f4331"
 
 //Shadowshroom
@@ -335,5 +345,6 @@
 	icon_state = "shadowshroom"
 	effect_path = /obj/structure/glowshroom/shadowshroom
 	origin_tech = "biotech=4;plasmatech=4;magnets=4"
+	tastes = list("strange coldness" = 1, "shadowshroom" = 1)
 	wine_power = 0.6
 	wine_flavor = "strange coldness"

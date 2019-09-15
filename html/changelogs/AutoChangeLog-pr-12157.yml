@@ -1,0 +1,9 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fixes mice coming back to life"
+  - bugfix: "Fixes nurse spiders not wrapping things"
+  - bugfix: "Fixes spiders not spazzing out"
+  - tweak: "Simple mobs will now attack everything in the vicinity instead of just specific object types"
+  - tweak: "Gutlunches now eat internal organs"
+  - tweak: "ranged guardians don't rapid fire anymore, but have a lower cooldown on attacks"

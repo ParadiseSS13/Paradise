@@ -1,3 +1,22 @@
+//Colossus
+/obj/structure/closet/crate/necropolis/colossus
+	name = "colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/New()
+	..()
+	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(choices)
+	new random_crystal(src)
+	new /obj/item/organ/internal/vocal_cords/colossus(src)
+
+/obj/structure/closet/crate/necropolis/colossus/crusher
+	name = "angelic colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/crusher/New()
+	..()
+	new /obj/item/crusher_trophy/blaster_tubes(src)
+
+
 //Black Box
 
 /obj/machinery/smartfridge/black_box
@@ -5,12 +24,10 @@
 	desc = "A completely indestructible chunk of crystal, rumoured to predate the start of this universe. It looks like you could store things inside it."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "blackbox"
-	icon_on = "blackbox"
-	icon_off = "blackbox"
 	luminosity = 8
 	max_n_of_items = INFINITY
 	unacidable = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	pixel_y = -4
 	use_power = NO_POWER_USE
 	var/memory_saved = FALSE
@@ -38,7 +55,7 @@
 
 /obj/machinery/smartfridge/black_box/process()
 	..()
-	if(!memory_saved && ticker.current_state == GAME_STATE_FINISHED)
+	if(!memory_saved && SSticker.current_state == GAME_STATE_FINISHED)
 		WriteMemory()
 
 /obj/machinery/smartfridge/black_box/proc/WriteMemory()
@@ -99,7 +116,7 @@
 	luminosity = 8
 	use_power = NO_POWER_USE
 	density = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = 1
 	var/activation_method = "touch"
 	var/activation_damage_type = null
@@ -189,7 +206,7 @@
 	terrain_theme = pick("lavaland","winter","jungle","alien")
 	switch(terrain_theme)
 		if("lavaland")//Depressurizes the place... and free cult metal, I guess.
-			NewTerrainFloors = /turf/simulated/floor/basalt // Needs to be updated after turf update
+			NewTerrainFloors = /turf/simulated/floor/plating/asteroid/basalt // Needs to be updated after turf update
 			NewTerrainWalls = /turf/simulated/wall/cult
 			NewFlora = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
 			florachance = 1
@@ -363,7 +380,7 @@
 	medsensor.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
-	..()
+	. = ..()
 	if(isliving(target) && target != src)
 		var/mob/living/L = target
 		if(L.stat < DEAD)

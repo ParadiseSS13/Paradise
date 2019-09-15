@@ -108,6 +108,11 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	new /datum/stack_recipe("incomplete servant golem shell", /obj/item/golem_shell/servant, req_amount = 1, res_amount = 1), \
 	)
 
+var/global/list/datum/stack_recipe/snow_recipes = list(
+	new/datum/stack_recipe("snowman", /obj/structure/snowman, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("Snowball", /obj/item/snowball, 1)
+	)
+
 /obj/item/stack/sheet/mineral
 	force = 5
 	throwforce = 5
@@ -132,6 +137,44 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	..()
 	recipes = sandstone_recipes
 
+/*
+ * Sandbags
+ */
+
+/obj/item/stack/sheet/mineral/sandbags
+	name = "sandbags"
+	icon_state = "sandbags"
+	singular_name = "sandbag"
+	layer = LOW_ITEM_LAYER
+	merge_type = /obj/item/stack/sheet/mineral/sandbags
+
+GLOBAL_LIST_INIT(sandbag_recipes, list ( \
+	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = 1, on_floor = 1), \
+	))
+
+/obj/item/stack/sheet/mineral/sandbags/New()
+	recipes = GLOB.sandbag_recipes
+	..()
+
+/obj/item/emptysandbag
+	name = "empty sandbag"
+	desc = "A bag to be filled with sand."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "sandbag"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/ore/glass))
+		var/obj/item/stack/ore/glass/G = I
+		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
+		var/obj/item/stack/sheet/mineral/sandbags/S = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
+		qdel(src)
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(S)
+		G.use(1)
+	else
+		return ..()
+
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
@@ -139,6 +182,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	origin_tech = "materials=6"
 	sheettype = "diamond"
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
+	point_value = 25
 
 /obj/item/stack/sheet/mineral/diamond/New()
 	..()
@@ -151,6 +195,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	origin_tech = "materials=5"
 	sheettype = "uranium"
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
+	point_value = 20
 
 /obj/item/stack/sheet/mineral/uranium/New()
 	..()
@@ -165,6 +210,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
 	burn_state = FLAMMABLE
 	burntime = 5
+	point_value = 20
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
@@ -191,6 +237,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	origin_tech = "materials=4"
 	sheettype = "gold"
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
+	point_value = 20
 
 /obj/item/stack/sheet/mineral/gold/New()
 	..()
@@ -203,6 +250,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	origin_tech = "materials=4"
 	sheettype = "silver"
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
+	point_value = 20
 
 /obj/item/stack/sheet/mineral/silver/New()
 	..()
@@ -215,6 +263,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	origin_tech = "materials=4"
 	sheettype = "bananium"
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
+	point_value = 50
 
 /obj/item/stack/sheet/mineral/bananium/New(loc, amount=null)
 	..()
@@ -228,6 +277,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	sheettype = "tranquillite"
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
 	wall_allowed = FALSE	//no tranquilite walls in code
+	point_value = 50
 
 /obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
 	..()
@@ -248,6 +298,7 @@ var/global/list/datum/stack_recipe/adamantine_recipes = list(
 	throw_range = 3
 	sheettype = "titanium"
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
+	point_value = 20
 
 var/global/list/datum/stack_recipe/titanium_recipes = list (
 	new/datum/stack_recipe("titanium tile", /obj/item/stack/tile/mineral/titanium, 1, 4, 20),
@@ -277,6 +328,7 @@ var/global/list/datum/stack_recipe/titanium_recipes = list (
 	throw_range = 3
 	sheettype = "plastitanium"
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
+	point_value = 45
 
 var/global/list/datum/stack_recipe/plastitanium_recipes = list (
 	new/datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
@@ -320,4 +372,20 @@ var/global/list/datum/stack_recipe/plastitanium_recipes = list (
 
 /obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
 	recipes = adamantine_recipes
+	..()
+
+/*
+ * Snow
+ */
+/obj/item/stack/sheet/mineral/snow
+	name = "snow"
+	icon_state = "sheet-snow"
+	item_state = "sheet-snow"
+	singular_name = "snow block"
+	force = 1
+	throwforce = 2
+	merge_type = /obj/item/stack/sheet/mineral/snow
+
+/obj/item/stack/sheet/mineral/snow/New(loc, amount = null)
+	recipes = snow_recipes
 	..()

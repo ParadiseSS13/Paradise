@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - rscadd: "Added the Banana Touch and Mime Malaise spells to the Wizard spellbook."
