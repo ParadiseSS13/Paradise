@@ -192,7 +192,7 @@ var/list/ai_verbs_default = list(
 		new /obj/machinery/ai_powersupply(src)
 
 	create_eye()
-	apply_pref_name("ai")
+	apply_pref_name("ai", usr.client)
 
 
 	builtInCamera = new /obj/machinery/camera/portable(src)

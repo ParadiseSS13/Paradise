@@ -36,7 +36,7 @@
 
 	O.add_ai_verbs()
 
-	O.apply_pref_name("AI", client)
+	O.apply_pref_name("ai", client)
 
 	spawn()
 		qdel(src)

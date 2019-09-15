@@ -268,13 +268,13 @@
 		body_accessory = query.item[50]
 		gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
-		custom_names["clown"] = text2num(query.item[53])
-		custom_names["mime"] = text2num(query.item[54])
-		custom_names["ai"] = text2num(query.item[55])
-		custom_names["cyborg"] = text2num(query.item[56])
-		custom_names["deity"] = text2num(query.item[57])
-		custom_names["religion"] = text2num(query.item[58])
-		custom_names["human"] = text2num(query.item[59])
+		custom_names["clown"] = query.item[53]
+		custom_names["mime"] = query.item[54]
+		custom_names["ai"] = query.item[55]
+		custom_names["cyborg"] = query.item[56]
+		custom_names["deity"] = query.item[57]
+		custom_names["religion"] = query.item[58]
+		custom_names["human"] = query.item[59]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
