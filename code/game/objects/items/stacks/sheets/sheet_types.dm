@@ -104,6 +104,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list(
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10.0
 	flags = CONDUCT
+	resistance_flags = FIRE_PROOF
 	origin_tech = "materials=1"
 	merge_type = /obj/item/stack/sheet/metal
 	point_value = 2
@@ -150,6 +151,7 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list(
 	item_state = "sheet-metal"
 	materials = list(MAT_METAL=2000, MAT_PLASMA=2000)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 80)
+	resistance_flags = FIRE_PROOF
 	throwforce = 10.0
 	flags = CONDUCT
 	origin_tech = "materials=2"
@@ -195,7 +197,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0)
 	merge_type = /obj/item/stack/sheet/wood
 
@@ -239,7 +241,7 @@ var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	origin_tech = "materials=2"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cloth
@@ -264,7 +266,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
 	item_state = "sheet-cloth"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/durathread
@@ -278,7 +280,7 @@ GLOBAL_LIST_INIT(durathread_recipes, list ( \
 	desc = "A bundle of raw cotton ready to be spun on the loom."
 	singular_name = "raw cotton ball"
 	icon_state = "sheet-cotton"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	force = 0
 	throwforce = 0
 	merge_type = /obj/item/stack/sheet/cotton
@@ -329,7 +331,7 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list (
 	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
 	origin_tech = "materials=1"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/sheet/cardboard
 
 /obj/item/stack/sheet/cardboard/New(var/loc, var/amt = null)
@@ -409,7 +411,7 @@ var/global/list/datum/stack_recipe/brass_recipes = list (\
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	icon = 'icons/obj/items.dmi'
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
 	throw_speed = 1

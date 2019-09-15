@@ -1,6 +1,6 @@
 /obj/item/clothing
 	name = "clothing"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?
 
@@ -123,7 +123,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
 	slot_flags = SLOT_EARS
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/ears.dmi',
 		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
@@ -201,7 +201,7 @@
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
 	put_on_delay = 25
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	species_restricted = list("exclude","Kidan")
 /*
 SEE_SELF  // can see self, no matter what
@@ -600,7 +600,7 @@ BLIND     // can't see anything
 	flash_protect = 2
 	strip_delay = 50
 	put_on_delay = 50
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	dog_fashion = null
 
 /obj/item/clothing/suit/space
@@ -623,7 +623,7 @@ BLIND     // can't see anything
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	strip_delay = 80
 	put_on_delay = 80
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude","Vox","Wryn")
 

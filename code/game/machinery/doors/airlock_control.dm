@@ -150,6 +150,7 @@
 	icon_state = "airlock_sensor_off"
 	name = "airlock sensor"
 	anchored = 1
+	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 
 	var/id_tag

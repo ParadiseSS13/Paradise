@@ -149,9 +149,10 @@
 	desc = "An aura of time-bluespace energy."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "chronofield"
-	density = 1
-	anchored = 1
-	unacidable = 1
+	density = TRUE
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	move_resist = INFINITY
 	blend_mode = BLEND_MULTIPLY
 	var/mob/living/captured = null
 	var/obj/item/gun/energy/chrono_gun/gun = null

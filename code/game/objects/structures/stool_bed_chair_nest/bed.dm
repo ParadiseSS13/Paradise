@@ -17,8 +17,9 @@
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
-	burn_state = FLAMMABLE
-	burntime = 30
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	integrity_failure = 30
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 2
 	buckle_offset = -6
@@ -62,7 +63,7 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
 

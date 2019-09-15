@@ -376,6 +376,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 	origin_tech = "biotech=5"
+	resistance_flags = FIRE_PROOF
 	var/uses = 3
 
 /obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
@@ -396,7 +397,7 @@
 	C.color = "#000080"
 	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
-	C.burn_state = FIRE_PROOF
+	C.resistance_flags |= FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)

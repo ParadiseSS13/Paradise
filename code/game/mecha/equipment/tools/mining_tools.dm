@@ -22,8 +22,7 @@
 		return
 	if(isobj(target))
 		var/obj/target_obj = target
-		if(target_obj.unacidable && !ismecha(target_obj))
-			occupant_message("<span class='danger'>[target] is too durable to drill through.</span>")
+		if(target_obj.resistance_flags & UNACIDABLE)
 			return
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",

@@ -159,6 +159,8 @@
 	var/obj/machinery/atmospherics/binary/circulator/circP = make_from
 	if(istype(circP) && circP.side == circP.CIRC_RIGHT)
 		icon_state = "m_[icon_state]"
+	if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
+		resistance_flags |= FIRE_PROOF | LAVA_PROOF
 
 // called by turf to know if should treat as bent or not on placement
 /obj/item/pipe/proc/is_bent_pipe()

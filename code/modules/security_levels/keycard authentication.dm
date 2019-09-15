@@ -23,6 +23,7 @@
 	power_channel = ENVIRON
 
 	req_access = list(access_keycard_auth)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")

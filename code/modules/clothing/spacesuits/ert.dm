@@ -6,6 +6,7 @@
 	item_state = "helm-command"
 	item_color = "ert_commander"
 	armor = list(melee = 45, bullet = 25, laser = 30, energy = 10, bomb = 25, bio = 100, rad = 50, fire = 80, acid = 80)
+	resistance_flags = FIRE_PROOF
 	var/obj/machinery/camera/camera
 	var/has_camera = TRUE
 	strip_delay = 130
@@ -43,7 +44,7 @@
 	/obj/item/gun/energy/gun/advtaser, /obj/item/melee/baton, /obj/item/gun/energy/gun, /obj/item/gun/projectile/automatic/lasercarbine, /obj/item/gun/energy/gun/blueshield, /obj/item/gun/energy/immolator/multi)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert
 	strip_delay = 130
-
+	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/species/drask/suit.dmi',
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
@@ -189,6 +190,7 @@
 	item_color = "ert_paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	actions_types = list()
+	resistance_flags = FIRE_PROOF
 	has_camera = FALSE
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/helmet.dmi',
@@ -203,6 +205,7 @@
 	icon_state = "hardsuit-paranormal"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal
+	resistance_flags = FIRE_PROOF
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
 		"Unathi" = 'icons/mob/species/unathi/suit.dmi',

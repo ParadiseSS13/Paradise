@@ -7,7 +7,7 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	anchored = TRUE
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	buckle_offset = 0
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
@@ -136,8 +136,8 @@
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
 	icon_state = "wooden_chair"
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 	buildstackamount = 3
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood
@@ -154,8 +154,8 @@
 	desc = "It looks comfy."
 	icon_state = "comfychair"
 	color = rgb(255, 255, 255)
-	burn_state = FLAMMABLE
-	burntime = 30
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
 	var/image/armrest = null
@@ -415,7 +415,7 @@
 	name = "wooden chair"
 	icon_state = "wooden_chair_toppled"
 	item_state = "woodenchair"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood

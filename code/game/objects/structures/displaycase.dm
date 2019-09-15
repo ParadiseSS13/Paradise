@@ -16,6 +16,7 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	name = "display case frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_glass"
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100)
 	var/obj/item/airlock_electronics/circuit = null
 	var/obj/item/assembly/prox_sensor/sensor = null
@@ -95,7 +96,7 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	desc = "A display case for prized possessions. It taunts you to kick it."
 	density = TRUE
 	anchored = TRUE
-	unacidable = TRUE //Dissolving the case would also delete the contents.
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100)
 	var/health = 30
 	var/obj/item/occupant = null

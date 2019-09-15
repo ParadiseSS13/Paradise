@@ -12,7 +12,6 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
 	strip_delay = 60
-	burn_state = FIRE_PROOF
 	dog_fashion = /datum/dog_fashion/head/helmet
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/helmet.dmi',
@@ -158,6 +157,7 @@
 	desc = "An ancient helmet made of bronze and leather."
 	flags = null
 	armor = list("melee" = 25, "bullet" = 0, "laser" = 25, "energy" = 10, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
@@ -260,6 +260,7 @@ obj/item/clothing/head/blob
 	desc = "A helmet made from durathread and leather."
 	icon_state = "durathread"
 	item_state = "durathread"
+	resistance_flags = FLAMMABLE
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 30, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 50)
 	strip_delay = 60
 

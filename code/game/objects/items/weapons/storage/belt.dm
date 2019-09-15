@@ -293,6 +293,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"

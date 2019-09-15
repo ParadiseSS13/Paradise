@@ -170,6 +170,7 @@
 	desc = "A lightweight foamed metal wall."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "metalfoam"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	density = TRUE
 	opacity = TRUE	// changed in New()
 	anchored = TRUE

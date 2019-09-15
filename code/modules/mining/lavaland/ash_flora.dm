@@ -168,6 +168,7 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
 	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
 

@@ -42,7 +42,7 @@
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
 /obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
@@ -125,11 +125,13 @@
 	name = "\improper DANGER: FIRE"
 	desc = "A warning sign which reads 'DANGER: FIRE'"
 	icon_state = "fire"
+	resistance_flags = FIRE_PROOF
 
 /obj/structure/sign/nosmoking_1
 	name = "\improper NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'"
 	icon_state = "nosmoking"
+	resistance_flags = FLAMMABLE
 
 /obj/structure/sign/nosmoking_2
 	name = "\improper NO SMOKING"

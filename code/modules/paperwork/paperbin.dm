@@ -8,7 +8,6 @@
 	throw_speed = 3
 	throw_range = 7
 	pressure_resistance = 8
-	burn_state = FLAMMABLE
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
 

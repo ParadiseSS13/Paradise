@@ -11,6 +11,7 @@
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	var/ignore_flags = FALSE
@@ -78,6 +79,7 @@
 
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"

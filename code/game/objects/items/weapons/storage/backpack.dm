@@ -15,7 +15,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
-	burn_state = FLAMMABLE
+	resistance_flags = NONE
 	burntime = 20
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi',
@@ -56,7 +56,7 @@
 	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
@@ -159,7 +159,7 @@
 	desc = "It's a tough backpack for the daily grind of station life."
 	icon_state = "engiepack"
 	item_state = "engiepack"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
@@ -206,7 +206,7 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
@@ -242,7 +242,7 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel/explorer
 	name = "explorer satchel"
@@ -336,6 +336,7 @@
 	origin_tech = "syndicate=1"
 	silent = 1
 	slowdown = 0
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/syndie/med
 	name = "suspicious duffelbag"
@@ -510,7 +511,7 @@
 	desc = "A duffelbag designed to hold tools."
 	icon_state = "duffel-eng"
 	item_state = "duffel-eng"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/atmos
 	name = "atmospherics duffelbag"
@@ -537,6 +538,7 @@
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
 	item_state = "backpack"
+	resistance_flags = FIRE_PROOF
 
 //Commander
 /obj/item/storage/backpack/ert/commander

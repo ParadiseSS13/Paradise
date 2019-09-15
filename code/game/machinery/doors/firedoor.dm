@@ -14,8 +14,8 @@
 	icon_state = "door_open"
 	opacity = 0
 	density = FALSE
-	burn_state = FIRE_PROOF
 	max_integrity = 300
+	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
 	glass = TRUE
 	explosion_block = 1

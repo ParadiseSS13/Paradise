@@ -32,6 +32,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	flags = ON_BORDER
 	can_be_unanchored = TRUE
 	max_integrity = 25
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
@@ -693,8 +694,7 @@ obj/structure/window/full/reinforced/ice
 	desc = "A paper-thin pane of translucent yet reinforced brass."
 	icon = 'icons/obj/smooth_structures/clockwork_window.dmi'
 	icon_state = "clockwork_window_single"
-	burn_state = FIRE_PROOF
-	unacidable = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_integrity = 80
 	armor = list("melee" = 60, "bullet" = 25, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
 	explosion_block = 2 //fancy AND hard to destroy. the most useful combination.

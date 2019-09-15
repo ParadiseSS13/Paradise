@@ -9,7 +9,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
 	var/mopcap = 5

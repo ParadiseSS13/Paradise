@@ -33,11 +33,9 @@
 		layer = 99
 		plane = HUD_PLANE
 		mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-		unacidable = 1//Just to be sure.
 
 /obj/effect/beam
 	name = "beam"
-	unacidable = 1//Just to be sure.
 	var/def_zone
 	pass_flags = PASSTABLE
 
@@ -53,7 +51,6 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "begin"
 	anchored = 1.0
-	unacidable = 1
 
 /obj/effect/projection
 	name = "Projection"

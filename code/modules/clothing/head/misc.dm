@@ -400,7 +400,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
@@ -473,6 +473,7 @@
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
 	armor = list("melee" = 15, "bullet" = 0, "laser" = 0,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/crown/fancy
 	name = "magnificent crown"

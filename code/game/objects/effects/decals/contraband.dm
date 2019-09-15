@@ -8,7 +8,7 @@
 	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
 	icon = 'icons/obj/contraband.dmi'
 	force = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 

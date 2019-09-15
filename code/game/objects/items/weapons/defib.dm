@@ -260,6 +260,7 @@
 	force = 0
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
+	resistance_flags = INDESTRUCTIBLE
 	toolspeed = 1
 
 	var/revivecost = 1000

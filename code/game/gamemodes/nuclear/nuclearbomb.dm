@@ -6,6 +6,7 @@ var/bomb_set
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
 	density = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/deployable = 0
 	var/extended = 0
 	var/lighthack = 0
@@ -20,7 +21,6 @@ var/bomb_set
 	var/lastentered
 	var/is_syndicate = 0
 	use_power = NO_POWER_USE
-	unacidable = 1
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 
@@ -406,6 +406,7 @@ var/bomb_set
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/disk/nuclear/unrestricted
 	desc = "Seems to have been stripped of its safeties, you better not lose it."

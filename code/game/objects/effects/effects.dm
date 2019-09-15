@@ -4,8 +4,8 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
-	burn_state = LAVA_PROOF
-	resistance_flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	move_resist = INFINITY
 	anchored = 1
 	can_be_hit = FALSE
 
@@ -26,6 +26,7 @@
 
 /obj/effect/decal
 	plane = FLOOR_PLANE
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/no_scoop = FALSE   //if it has this, don't let it be scooped up
 	var/no_clear = FALSE    //if it has this, don't delete it when its' scooped up
 	var/list/scoop_reagents = null

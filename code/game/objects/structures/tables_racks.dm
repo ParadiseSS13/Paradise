@@ -368,9 +368,9 @@
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
 	icon_state = "glass_table"
 	buildstack = /obj/item/stack/sheet/glass
-	max_integrity = 70
-	unacidable = 1
 	canSmoothWith = null
+	max_integrity = 70
+	resistance_flags = ACID_PROOF
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/list/debris = list()
 
@@ -453,8 +453,7 @@
 	buildstack = /obj/item/stack/sheet/wood
 	max_integrity = 70
 	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
 	if(!total_override)
@@ -550,7 +549,7 @@
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
 	icon_state = "brass_table"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass

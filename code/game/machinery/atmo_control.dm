@@ -1,6 +1,7 @@
 /obj/machinery/air_sensor
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
+	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
 	req_one_access_txt = "24;10"
 

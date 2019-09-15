@@ -177,6 +177,15 @@
 	S.DisIntegrate(src)
 	return TRUE
 
+/obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return FALSE
+	for(var/mob/living/L in contents)
+		if(!issilicon(L) && !isbrain(L))
+			to_chat(S, "<span class='warning'>An organism has been detected inside this object. Aborting.</span>")
+			return FALSE
+	return ..()
+
 /obj/item/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.Integrate(src)
 	return FALSE
@@ -466,11 +475,11 @@
 	icon_state = "ui_light"
 	layer = MOB_LAYER
 	anchored = 1
-	unacidable = 1
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_ICON
-	var/health = 30
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_color = LIGHT_COLOR_CYAN
+	max_integrity = 30
 	var/lon_range = 1
 
 /obj/structure/swarmer/New()

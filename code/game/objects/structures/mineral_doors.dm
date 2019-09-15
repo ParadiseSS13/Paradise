@@ -250,8 +250,8 @@
 	closeSound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/wood
 	hardness = 1
-	burn_state = FLAMMABLE
-	burntime = 30
+	resistance_flags = FLAMMABLE
+	max_integrity = 200
 
 /obj/structure/mineral_door/resin
 	name = "resin door"

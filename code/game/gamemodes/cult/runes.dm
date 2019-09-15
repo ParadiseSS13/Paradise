@@ -18,9 +18,9 @@ To draw a rune, use an arcane tome.
 	anchored = 1
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/visibility = 0
 	var/view_range = 7
-	unacidable = 1
 	layer = TURF_LAYER
 
 	var/invocation = "Aiy ele-mayo!" //This is said by cultists when the rune is invoked.

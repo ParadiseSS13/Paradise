@@ -83,7 +83,7 @@
 	layer = OBJ_LAYER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cobweb1"
-	burntime = 1
+	resistance_flags = FLAMMABLE
 
 /obj/effect/decal/cleanable/molten_object
 	name = "gooey grey mass"

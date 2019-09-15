@@ -12,6 +12,7 @@
 	possible_transfer_amounts = list(1,5,10,15,20,25,30,50) // Everything above 10 is NOT usable on a person and is instead used for transfering to other containers
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
+	resistance_flags = ACID_PROOF
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
@@ -126,7 +127,7 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
-	
+
 	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
