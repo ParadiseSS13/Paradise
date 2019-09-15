@@ -276,7 +276,7 @@
 			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
 		else
 			visible_message("<span class='notice'>[src] fails to expand!</span>")
-		qdel(src)
+		return
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
