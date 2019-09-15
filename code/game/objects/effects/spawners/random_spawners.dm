@@ -186,7 +186,7 @@
 	name = "common loot"
 	icon_state = "x3"
 	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
-	// Loot schema: costumes, toys, useless gimmick items, trapped items
+	// Loot schema: costumes, toys, useless gimmick items
 	result = list(/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
@@ -200,6 +200,16 @@
 		/obj/item/suppressor = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/cutouts = 1)
+
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin
+	name = "20pc stetchkin"
+	icon_state = "x3"
+	spawn_inside = null
+	result = list(/datum/nothing = 1,
+		/obj/item/wrench = 1,
+		/obj/item/reagent_containers/food/snacks/syndicake = 1,
+		/obj/item/coin/antagtoken/syndicate = 1,
+		/obj/item/gun/projectile/automatic/pistol = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level2
 	name = "rare loot"
@@ -296,7 +306,7 @@
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/secret
 	name = "50pc falsewall 50pc wall"
-	result = list(/turf/simulated/wall/r_wall = 1,
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1,
 		/obj/structure/falsewall/plastitanium = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault

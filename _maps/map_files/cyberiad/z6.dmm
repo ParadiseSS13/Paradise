@@ -6147,6 +6147,7 @@
 "nz" = (
 /obj/item/lighter/zippo/black,
 /obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6275,8 +6276,8 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nR" = (
-/obj/item/storage/box/donkpockets,
 /obj/structure/table,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6469,7 +6470,7 @@
 /area/syndicate_depot/core)
 "os" = (
 /obj/structure/table,
-/obj/item/wrench,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11677,6 +11678,13 @@
 /area/syndicate_depot/core)
 "OX" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/outer)
+"Pn" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/syndicate_depot/outer)
 "Sv" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
@@ -60791,7 +60799,7 @@ mm
 mm
 nx
 mA
-mA
+os
 mm
 lK
 lK
@@ -64373,7 +64381,7 @@ lI
 lI
 lI
 OX
-lX
+Pn
 lX
 lX
 Mc
