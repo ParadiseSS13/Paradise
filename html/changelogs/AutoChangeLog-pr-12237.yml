@@ -1,0 +1,4 @@
+author: "variableundefined"
+delete-after: True
+changes: 
+  - rscadd: "Config option to let gamemode ignore the number of required players."
