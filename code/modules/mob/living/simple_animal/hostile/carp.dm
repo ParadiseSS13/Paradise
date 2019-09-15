@@ -30,6 +30,7 @@
 
 	faction = list("carp")
 	flying = 1
+	pressure_resistance = 200
 	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
 
 	var/carp_color = "carp" //holder for icon set

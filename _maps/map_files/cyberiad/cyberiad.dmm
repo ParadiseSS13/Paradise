@@ -18897,7 +18897,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aGk" = (
@@ -33468,7 +33468,7 @@
 	},
 /area/hallway/primary/central/north)
 "biP" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -33483,7 +33483,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "biR" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -79735,7 +79735,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cMb" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -79748,7 +79748,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
 "cMd" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -83569,7 +83569,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cSX" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -84339,7 +84339,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cUi" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cUj" = (
@@ -91152,7 +91152,7 @@
 	name = "station intercom (General)";
 	pixel_y = -28
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,

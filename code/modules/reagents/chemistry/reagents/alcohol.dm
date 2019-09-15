@@ -362,7 +362,6 @@
 	drink_icon = "cubalibreglass"
 	drink_name = "Cuba Libre"
 	drink_desc = "A classic mix of rum and cola."
-	taste_description = "fruity alcohol"
 	taste_description = "liberation"
 
 /datum/reagent/consumable/ethanol/whiskey_cola

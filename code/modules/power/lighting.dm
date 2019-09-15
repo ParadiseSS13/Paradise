@@ -303,10 +303,7 @@
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
-		if(isliving(user))
-			var/mob/living/U = user
-			LR.ReplaceLight(src, U)
-			return
+		LR.ReplaceLight(src, user)
 
 	// attempt to insert light
 	if(istype(W, /obj/item/light))

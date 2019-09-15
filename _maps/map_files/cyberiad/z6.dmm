@@ -3384,7 +3384,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "hx" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood{
 	tag = "icon-wood-broken7";
 	icon_state = "wood-broken7"
@@ -3946,7 +3946,7 @@
 	},
 /area/derelict/crew_quarters)
 "ix" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -4279,7 +4279,7 @@
 	name = "Derelict Annex"
 	})
 "je" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -4296,7 +4296,7 @@
 	},
 /area/derelict/arrival)
 "jg" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -4370,7 +4370,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "jn" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -4613,7 +4613,7 @@
 	},
 /area/derelict/crew_quarters)
 "jM" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -7287,7 +7287,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -7301,7 +7301,7 @@
 	},
 /area/derelict/crew_quarters)
 "qo" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -8210,7 +8210,7 @@
 	name = "Derelict Annex"
 	})
 "sd" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,

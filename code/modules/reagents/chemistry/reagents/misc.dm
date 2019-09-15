@@ -614,6 +614,7 @@
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#092D09"
+	taste_description = "alchemy"
 
 /datum/reagent/woolbat
 	name = "Wool of bat"
@@ -621,6 +622,7 @@
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#080808"
+	taste_description = "alchemy"
 
 /datum/reagent/tonguedog
 	name = "Tongue of dog"
@@ -628,6 +630,7 @@
 	description = "A potent alchemic ingredient."
 	reagent_state = LIQUID
 	color = "#2D0909"
+	taste_description = "alchemy"
 
 /datum/reagent/triplepiss
 	name = "Triplepiss"
@@ -635,6 +638,7 @@
 	description = "Ewwwwwwwww."
 	reagent_state = LIQUID
 	color = "#857400"
+	taste_description = "alchemy"
 
 /datum/reagent/spraytan
 	name = "Spray Tan"
