@@ -41,6 +41,7 @@
 	status_flags = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 	var/melee_block_chance = 20
+	var/ranged_block_chance = 35
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -64,12 +65,13 @@
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
-	if(!Proj)	return
-	if(prob(65))
+	if(!Proj)
+		return
+	if(prob(ranged_block_chance))
+		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
+	else
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 			adjustHealth(Proj.damage)
-	else
-		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
 	return 0
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
@@ -81,7 +83,10 @@
 	robust_searching = 1 // Together with stat_attack, ensures dionae/etc that regen are killed properly
 	stat_attack = UNCONSCIOUS
 	universal_speak = 1
-	melee_block_chance = 40
+	icon_state = "syndicate_swordonly"
+	icon_living = "syndicate_swordonly"
+	melee_block_chance = 0
+	ranged_block_chance = 0
 	del_on_death = 1
 	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
@@ -204,21 +209,32 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
 	name = "Syndicate Officer"
+	icon_state = "syndicate_sword"
+	icon_living = "syndicate_sword"
+	melee_block_chance = 20
+	ranged_block_chance = 35
 	alert_on_death = TRUE
-	melee_block_chance = 60
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/Initialize(mapload)
 	. = ..()
 	if(prob(50))
+		// 50% chance of switching to ranged variant.
+		// Designed to counter players taking cover behind reinforced plasmasglass.
+		// Does almost no danage in melee, but decent damage at range, and its shots go through glass.
+		melee_damage_lower = 10
+		melee_damage_upper = 10
+		attacktext = "punches"
+		attack_sound = 'sound/weapons/punch1.ogg'
 		ranged = 1
-		rapid = 1
+		rapid = 3
 		retreat_distance = 3
 		minimum_distance = 3
 		melee_block_chance = 0
-		icon_state = "syndicate_smg"
-		icon_living = "syndicate_smg"
+		ranged_block_chance = 0
+		icon_state = "syndicate_pistol"
+		icon_living = "syndicate_pistol"
 		projectiletype = /obj/item/projectile/beam/laser
-		projectilesound = 'sound/weapons/laser.ogg' // do not use casingtype, it spams bullet casings.
+		projectilesound = 'sound/weapons/laser.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
 	name = "Syndicate Quartermaster"
@@ -226,13 +242,28 @@
 	icon_living = "syndicate_stormtrooper_sword"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	maxHealth = 250
-	health = 250
-	melee_block_chance = 80
+	maxHealth = 200
+	health = 200
+	melee_block_chance = 40
 	alert_on_shield_breach = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	..()
+	if(prob(50))
+		// 50% chance of switching to extremely dangerous ranged variant
+		melee_damage_lower = 10
+		melee_damage_upper = 10
+		attacktext = "punches"
+		attack_sound = 'sound/weapons/punch1.ogg'
+		ranged = 1
+		retreat_distance = 3
+		minimum_distance = 3
+		melee_block_chance = 0
+		ranged_block_chance = 0
+		icon_state = "syndicate_stormtrooper_shotgun"
+		icon_living = "syndicate_stormtrooper_shotgun"
+		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
+		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
