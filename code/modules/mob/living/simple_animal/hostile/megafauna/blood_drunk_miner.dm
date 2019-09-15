@@ -30,7 +30,7 @@ Difficulty: Medium
 	icon = 'icons/mob/alienqueen.dmi'
 	light_color = "#E4C7C5"
 	speak_emote = list("roars")
-	speed = 1
+	speed = 3
 	move_to_delay = 3
 	projectiletype = /obj/item/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
