@@ -3,7 +3,7 @@
 /turf/space,
 /area/space)
 "b" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "c" = (
 /turf/simulated/mineral,
@@ -13,11 +13,11 @@
 /area/ruin/unpowered)
 "e" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "f" = (
 /obj/item/pickaxe/diamond,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

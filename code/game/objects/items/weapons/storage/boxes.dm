@@ -113,7 +113,7 @@
 	New()
 		..()
 		contents = list()
-		new /obj/item/clothing/mask/breath(src)
+		new /obj/item/clothing/mask/gas/explorer(src)
 		new /obj/item/tank/emergency_oxygen/engi(src)
 		new /obj/item/crowbar/red(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
@@ -190,6 +190,15 @@
 		new /obj/item/reagent_containers/glass/beaker( src )
 		new /obj/item/reagent_containers/glass/beaker( src )
 		new /obj/item/reagent_containers/glass/beaker( src )
+
+/obj/item/storage/box/beakers/bluespace
+	name = "box of bluespace beakers"
+	icon_state = "beaker"
+
+/obj/item/storage/box/beakers/bluespace/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
 
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
@@ -363,6 +372,20 @@
 		new /obj/item/implantpad(src)
 		new /obj/item/locator(src)
 
+/obj/item/storage/box/minertracker
+	name = "boxed tracking implant kit"
+	desc = "For finding those who have died on the accursed lavaworld."
+	icon_state = "implant"
+
+/obj/item/storage/box/minertracker/New()
+	..()
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implanter(src)
+	new /obj/item/implantpad(src)
+	new /obj/item/locator(src)
+
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"
 	desc = "Box of stuff used to implant chemicals."
@@ -535,6 +558,10 @@
 	..()
 	for(var/i in 1 to 5)
 		new monkey_cube_type(src)
+
+/obj/item/storage/box/monkeycubes/syndicate
+	desc = "Waffle Co. brand monkey cubes. Just add water and a dash of subterfuge!"
+	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
 
 /obj/item/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
@@ -1032,6 +1059,15 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 
+/obj/item/storage/box/emptysandbags
+	name = "box of empty sandbags"
+
+/obj/item/storage/box/emptysandbags/New()
+	..()
+	contents = list()
+	for(var/i in 1 to 7)
+		new /obj/item/emptysandbag(src)
+
 /obj/item/storage/box/rndboards
 	name = "the Liberator's legacy"
 	desc = "A box containing a gift for worthy golems."
@@ -1043,6 +1079,47 @@
 	new /obj/item/circuitboard/destructive_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
+
+/obj/item/storage/box/stockparts/basic //for ruins where it's a bad idea to give access to an autolathe/protolathe, but still want to make stock parts accessible
+	name = "box of stock parts"
+	desc = "Contains a variety of basic stock parts."
+
+/obj/item/storage/box/stockparts/basic/New()
+	..()
+	for(var/i in 1 to 3)
+		new /obj/item/stock_parts/capacitor(src)
+		new /obj/item/stock_parts/scanning_module(src)
+		new /obj/item/stock_parts/manipulator(src)
+		new /obj/item/stock_parts/micro_laser(src)
+		new /obj/item/stock_parts/matter_bin(src)
+
+/obj/item/storage/box/stockparts/deluxe
+	name = "box of deluxe stock parts"
+	desc = "Contains a variety of deluxe stock parts."
+
+/obj/item/storage/box/stockparts/deluxe/New()
+	for(var/i in 1 to 3)
+		new /obj/item/stock_parts/capacitor/quadratic(src)
+		new /obj/item/stock_parts/scanning_module/triphasic(src)
+		new /obj/item/stock_parts/manipulator/femto(src)
+		new /obj/item/stock_parts/micro_laser/quadultra(src)
+		new /obj/item/stock_parts/matter_bin/bluespace(src)
+
+/obj/item/storage/box/hug
+	name = "box of hugs"
+	desc = "A special box for sensitive people."
+	icon_state = "hugbox"
+	foldable = null
+
+/obj/item/storage/box/hug/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	return (BRUTELOSS)
+
+/obj/item/storage/box/hug/attack_self(mob/user)
+	..()
+	user.changeNext_move(CLICK_CD_MELEE)
+	playsound(loc, "rustle", 50, 1, -5)
+	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
 
 #undef NODESIGN
 #undef NANOTRASEN

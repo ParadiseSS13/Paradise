@@ -21,6 +21,8 @@
 /obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
 	..()
 	icon = (hispania_icon ? 'icons/hispania/obj/hydroponics/harvest.dmi' : icon)
+	if(!tastes)
+		tastes = list("[name]" = 1)
 
 	if(new_seed)
 		seed = new_seed.Copy()
@@ -70,7 +72,7 @@
 
 			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
 				to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-				return TRUE	
+				return TRUE
 
 			var/slices_lost = 0
 			if(!inaccurate)
@@ -153,7 +155,7 @@
 				T.on_consume(src, usr)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/Crossed(atom/movable/AM)
+/obj/item/reagent_containers/food/snacks/grown/Crossed(atom/movable/AM, oldloc)
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_cross(src, AM)

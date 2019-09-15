@@ -2,6 +2,7 @@
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
+	faction += "\ref[src]"
 
 /mob/living/prepare_huds()
 	..()
@@ -256,8 +257,10 @@
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
+
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
+
 
 /mob/living/ex_act(severity)
 	..()
@@ -528,7 +531,7 @@
 				return
 
 			var/pull_dir = get_dir(src, pulling)
-			if(get_dist(src, pulling) > 1 || ((pull_dir - 1) & pull_dir)) // puller and pullee more than one tile away or in diagonal position
+			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 				if(isliving(pulling))
 					var/mob/living/M = pulling
 					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
@@ -614,6 +617,8 @@
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
+
 	if(!restrained())
 		if(resist_grab())
 			return
@@ -690,7 +695,7 @@
 	return name
 
 /mob/living/update_gravity(has_gravity)
-	if(!ticker)
+	if(!SSticker)
 		return
 	if(has_gravity)
 		clear_alert("weightless")
@@ -913,44 +918,6 @@
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
 		stop_pulling()
-
-/mob/living/proc/get_taste_sensitivity()
-	return 1
-
-/mob/living/proc/taste_reagents(datum/reagents/tastes)
-	if(!get_taste_sensitivity())//this also works for IPCs and stuff that returns 0 here
-		return
-
-	var/do_not_taste_at_all = 1//so we don't spam with recent tastes
-
-	var/taste_sum = 0
-	var/list/taste_list = list()//associative list so we can stack stuff that tastes the same
-	var/list/final_taste_list = list()//final list of taste strings
-
-	for(var/datum/reagent/R in tastes.reagent_list)
-		taste_sum += R.volume * R.taste_strength
-		if(!R.taste_message)//set to null; no taste, like water
-			continue
-		taste_list[R.taste_message] += R.volume * R.taste_strength
-
-	for(var/R in taste_list)
-		if(recent_tastes[R] && (world.time - recent_tastes[R] < 12 SECONDS))
-			continue
-
-		do_not_taste_at_all = 0//something was fresh enough to taste; could still be bland enough to be unrecognizable
-
-		if(taste_list[R] / taste_sum >= 0.15 / get_taste_sensitivity())//we return earlier if the proc returns a 0; won't break the universe
-			final_taste_list += R
-			recent_tastes[R] = world.time
-
-	if(do_not_taste_at_all)
-		return //no message spam
-
-	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
-		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
-		return
-
-	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
 	if(registered_z != new_z)

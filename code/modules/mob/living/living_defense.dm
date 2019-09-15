@@ -216,13 +216,9 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
-//Mobs on Fire end
-
-/mob/living/water_act(volume, temperature)
-	if(volume >= 20)	fire_stacks -= 0.5
-	if(volume >= 50)	fire_stacks -= 1
-
-
+/mob/living/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	adjust_fire_stacks(-(volume * 0.2))
 
 //This is called when the mob is thrown into a dense turf
 /mob/living/proc/turf_collision(var/turf/T, var/speed)
@@ -279,7 +275,7 @@
 	return G
 
 /mob/living/attack_slime(mob/living/carbon/slime/M)
-	if(!ticker)
+	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 

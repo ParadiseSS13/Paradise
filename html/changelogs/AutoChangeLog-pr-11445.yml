@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "cryogenic_liquid/envenomed_filaments blobs no longer generate runtimes when their blob special attack hits mobs that do not process reagents"

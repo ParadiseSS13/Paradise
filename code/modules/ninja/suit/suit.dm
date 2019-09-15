@@ -27,6 +27,9 @@ Contents:
 	var/obj/item/clothing/mask/gas/space_ninja/suitMask
 	var/mob/living/carbon/human/suitOccupant
 
+/obj/item/clothing/suit/space/space_ninja/get_cell()
+	return suitCell
+
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_suit_lock(mob/living/carbon/human/user)
 	if(!suitActive)
 		if(!istype(user.wear_suit, /obj/item/clothing/suit/space/space_ninja))

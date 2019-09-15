@@ -1,6 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Resolved an issue where cameras couldn't take pictures of non-dynamic lighting areas, such as the holodeck or space."
-  - bugfix: "Resolved an issue where mobs would appear above water."
-  - bugfix: "Resolved an issue where radiation storms would make lighting invisible in space."

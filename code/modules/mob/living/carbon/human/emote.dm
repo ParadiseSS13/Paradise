@@ -106,6 +106,12 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
+		if("warble", "warbles")
+			if(isskrell(src)) //Only Skrell can warble.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
@@ -206,15 +212,26 @@
 		if("hiss", "hisses")
 			var/M = handle_emote_param(param)
 
-			message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
-			m_type = 2
+			if(!muzzled)
+				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+				m_type = 2
+			else
+				message = "<B>[src]</B> makes a weak hissing noise."
+				m_type = 2
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> rustles [p_their()] quills[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
+			m_type = 2
+
+		if("warble", "warbles")
+			var/M = handle_emote_param(param)
+
+			message = "<B>[src]</B> warbles[M ? " at [M]" : ""]."
+			playsound(loc, 'sound/effects/warble.ogg', 50, 0) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
@@ -654,9 +671,9 @@
 			if(!restrained())
 				var/t1 = round(text2num(param))
 				if(isnum(t1))
-					if(t1 <= 5 && (!r_hand || !l_hand))
+					if(t1 <= 5 && t1 >= 1 && (!r_hand || !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
-					else if(t1 <= 10 && (!r_hand && !l_hand))
+					else if(t1 <= 10 && t1 >= 1 && (!r_hand && !l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 			m_type = 1
 
@@ -841,14 +858,10 @@
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("fart", "farts")
-			if(locate(/obj/item/storage/bible) in get_turf(src))
-				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
-				var/image/cross = image('icons/obj/storage.dmi', "bible")
-				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
-				for(var/client/X in GLOB.admins)
-					if(check_rights(R_EVENT, 0, X.mob))
-						to_chat(X, adminbfmessage)
-			else
+			var/farted_on_thing = FALSE
+			for(var/atom/A in get_turf(src))
+				farted_on_thing += A.fart_act(src)
+			if(!farted_on_thing)
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
 			m_type = 2
 
@@ -900,6 +913,8 @@
 					emotelist += "\nVox specific emotes :- quill(s)"
 				if("Diona")
 					emotelist += "\nDiona specific emotes :- creak(s)"
+				if("Skrell")
+					emotelist += "\nSkrell specific emotes :- warble(s)"
 
 			if(ismachine(src))
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
@@ -927,9 +942,13 @@
  // Maybe some people are okay with that.
 
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || istype(M, /mob/new_player))
-				continue //skip monkeys, leavers and new players
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+			if(!M.client)
+				continue
+
+			if(isnewplayer(M))
+				continue
+
+			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(m_type)

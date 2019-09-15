@@ -1,5 +1,3 @@
-#define MEDAL_PREFIX "Boss"
-
 /mob/living/simple_animal/hostile/megafauna
 	name = "megafauna"
 	desc = "Attack the weak point for massive damage."
@@ -15,39 +13,42 @@
 	flying = 1
 	robust_searching = 1
 	ranged_ignores_vision = TRUE
-	stat_attack = 2
+	stat_attack = DEAD
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
+	vision_range = 5
 	aggro_vision_range = 18
-	idle_vision_range = 5
-	environment_target_typecache = list(
-	/obj/machinery/door/window,
-	/obj/structure/window,
-	/obj/structure/closet,
-	/obj/structure/table,
-	/obj/structure/grille,
-	/obj/structure/girder,
-	/obj/structure/rack,
-	/obj/structure/barricade,
-	/obj/machinery/field,
-	/obj/machinery/power/emitter)
-	var/medal_type = MEDAL_PREFIX
+	var/list/crusher_loot
+	var/medal_type
 	var/score_type = BOSS_SCORE
 	var/elimination = 0
 	var/anger_modifier = 0
 	var/obj/item/gps/internal_gps
+	var/internal_type
 	move_force = MOVE_FORCE_OVERPOWERING
 	move_resist = MOVE_FORCE_OVERPOWERING
 	pull_force = MOVE_FORCE_OVERPOWERING
 	mob_size = MOB_SIZE_LARGE
-	layer = MOB_LAYER + 0.5 //Looks weird with them slipping under mineral walls and cameras and shit otherwise
+	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	var/true_spawn = TRUE // if this is a megafauna that should grant achievements, or have a gps signal
+	var/chosen_attack = 1 // chosen attack num
+	var/list/attack_action_types = list()
+
+/mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
+	. = ..()
+	if(internal_type && true_spawn)
+		internal = new internal_type(src)
+	apply_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	for(var/action_type in attack_action_types)
+		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
+		attack_action.Grant(src)
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/can_die()
 	return ..() && health <= 0
@@ -55,14 +56,20 @@
 /mob/living/simple_animal/hostile/megafauna/death(gibbed)
 	// this happens before the parent call because `del_on_death` may be set
 	if(can_die() && !admin_spawned)
-		feedback_set_details("megafauna_kills","[initial(name)]")
+		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
+			spawn_crusher_loot()
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			grant_achievement(medal_type,score_type)
+			feedback_set_details("megafauna_kills","[initial(name)]")
 	return ..()
 
+/mob/living/simple_animal/hostile/megafauna/proc/spawn_crusher_loot()
+	loot = crusher_loot
+
 /mob/living/simple_animal/hostile/megafauna/AttackingTarget()
-	..()
-	if(isliving(target))
+	. = ..()
+	if(. && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
@@ -102,122 +109,34 @@
 		if(3)
 			adjustBruteLoss(50)
 
-/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype,scoretype)
+/mob/living/simple_animal/hostile/megafauna/proc/grant_achievement(medaltype, scoretype, crusher_kill)
+	if(!medal_type || admin_spawned || !SSmedals.hub_enabled) //Don't award medals if the medal type isn't set
+		return FALSE
 
-	if(medal_type == "Boss")	//Don't award medals if the medal type isn't set
-		return
+	for(var/mob/living/L in view(7,src))
+		if(L.stat || !L.client)
+			continue
+		var/client/C = L.client
+		SSmedals.UnlockMedal("Boss [BOSS_KILL_MEDAL]", C)
+		SSmedals.UnlockMedal("[medaltype] [BOSS_KILL_MEDAL]", C)
+		SSmedals.SetScore(BOSS_SCORE, C, 1)
+		SSmedals.SetScore(score_type, C, 1)
+	return TRUE
 
-	if(admin_spawned)
-		return
+/datum/action/innate/megafauna_attack
+	name = "Megafauna Attack"
+	icon_icon = 'icons/mob/actions/actions_animal.dmi'
+	button_icon_state = ""
+	var/mob/living/simple_animal/hostile/megafauna/M
+	var/chosen_message
+	var/chosen_attack_num = 0
 
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-		for(var/mob/living/L in view(7,src))
-			if(L.stat)
-				continue
-			if(L.client)
-				var/client/C = L.client
-				var/suffixm = BOSS_KILL_MEDAL
-				UnlockMedal("Boss [suffixm]",C)
-				UnlockMedal("[medaltype] [suffixm]",C)
-				SetScore(BOSS_SCORE,C,1)
-				SetScore(score_type,C,1)
+/datum/action/innate/megafauna_attack/Grant(mob/living/L)
+	if(istype(L, /mob/living/simple_animal/hostile/megafauna))
+		M = L
+		return ..()
+	return FALSE
 
-/proc/UnlockMedal(medal,client/player)
-
-	if(!player || !medal)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-		spawn()
-			var/result = world.SetMedal(medal, player, global.medal_hub, global.medal_pass)
-			if(isnull(result))
-				global.medals_enabled = FALSE
-				log_game("MEDAL ERROR: Could not contact hub to award medal:[medal] player:[player.ckey]")
-				message_admins("Error! Failed to contact hub to award [medal] medal to [player.ckey]!")
-			else if(result)
-				to_chat(player.mob, "<span class='greenannounce'><B>Achievement unlocked: [medal]!</B></span>")
-
-
-/proc/SetScore(score,client/player,increment,force)
-
-	if(!score || !player)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-		spawn()
-			var/list/oldscore = GetScore(score,player,1)
-
-			if(increment)
-				if(!oldscore[score])
-					oldscore[score] = 1
-				else
-					oldscore[score] = (text2num(oldscore[score]) + 1)
-			else
-				oldscore[score] = force
-
-			var/newscoreparam = list2params(oldscore)
-
-			var/result = world.SetScores(player.ckey, newscoreparam, global.medal_hub, global.medal_pass)
-
-			if(isnull(result))
-				global.medals_enabled = FALSE
-				log_game("SCORE ERROR: Could not contact hub to set score. Score:[score] player:[player.ckey]")
-				message_admins("Error! Failed to contact hub to set [score] score for [player.ckey]!")
-
-
-/proc/GetScore(score,client/player,returnlist)
-
-	if(!score || !player)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-
-		var/scoreget = world.GetScores(player.ckey, score, global.medal_hub, global.medal_pass)
-		if(isnull(scoreget))
-			global.medals_enabled = FALSE
-			log_game("SCORE ERROR: Could not contact hub to get score. Score:[score] player:[player.ckey]")
-			message_admins("Error! Failed to contact hub to get score: [score] for [player.ckey]!")
-			return
-
-		var/list/scoregetlist = params2list(scoreget)
-
-		if(returnlist)
-			return scoregetlist
-		else
-			return scoregetlist[score]
-
-
-/proc/CheckMedal(medal,client/player)
-
-	if(!player || !medal)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-
-		var/result = world.GetMedal(medal, player, global.medal_hub, global.medal_pass)
-
-		if(isnull(result))
-			global.medals_enabled = FALSE
-			log_game("MEDAL ERROR: Could not contact hub to get medal:[medal] player:[player.ckey]")
-			message_admins("Error! Failed to contact hub to get [medal] medal for [player.ckey]!")
-		else if(result)
-			to_chat(player.mob, "[medal] is unlocked")
-
-/proc/LockMedal(medal,client/player)
-
-	if(!player || !medal)
-		return
-	if(global.medal_hub && global.medal_pass && global.medals_enabled)
-
-		var/result = world.ClearMedal(medal, player, global.medal_hub, global.medal_pass)
-
-		if(isnull(result))
-			global.medals_enabled = FALSE
-			log_game("MEDAL ERROR: Could not contact hub to clear medal:[medal] player:[player.ckey]")
-			message_admins("Error! Failed to contact hub to clear [medal] medal for [player.ckey]!")
-		else if(result)
-			message_admins("Medal: [medal] removed for [player.ckey]")
-		else
-			message_admins("Medal: [medal] was not found for [player.ckey]. Unable to clear.")
-
-
-/proc/ClearScore(client/player)
-	world.SetScores(player.ckey, "", global.medal_hub, global.medal_pass)
-
-#undef MEDAL_PREFIX
+/datum/action/innate/megafauna_attack/Activate()
+	M.chosen_attack = chosen_attack_num
+	to_chat(M, chosen_message)

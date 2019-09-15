@@ -16,6 +16,7 @@
 	icon_state = "ash"
 	anchored = TRUE
 	scoop_reagents = list("ash" = 10)
+	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
@@ -30,8 +31,8 @@
 	smooth = SMOOTH_MORE
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize()
-	..()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
+	. = ..()
 	icon_state = ""
 
 /obj/effect/decal/cleanable/dirt/blackpowder
@@ -55,7 +56,7 @@
 	desc = "It's foam."
 	color = "#EBEBEB"
 
-/obj/effect/decal/cleanable/flour/foam/Initialize()
+/obj/effect/decal/cleanable/flour/foam/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 15 SECONDS)
 
@@ -97,6 +98,7 @@
 	gender = NEUTER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
+	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/molten_object/large
 	name = "big gooey grey mass"
@@ -173,6 +175,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = TURF_LAYER
+	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 	color = "#D5820B"
@@ -185,4 +188,12 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
+	anchored = TRUE
+
+/obj/effect/decal/cleanable/insectguts
+	name = "cockroach guts"
+	desc = "One bug squashed. Four more will rise in its place."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "xfloor1"
+	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
 	anchored = TRUE

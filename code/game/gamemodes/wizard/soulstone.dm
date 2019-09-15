@@ -273,11 +273,11 @@
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
-							if(ticker.mode.name == "cult")
-								ticker.mode:add_cultist(Z.mind)
+							if(SSticker.mode.name == "cult")
+								SSticker.mode:add_cultist(Z.mind)
 							else
-								ticker.mode.cult+=Z.mind
-							ticker.mode.update_cult_icons_added(Z.mind)
+								SSticker.mode.cult+=Z.mind
+							SSticker.mode.update_cult_icons_added(Z.mind)
 						qdel(T)
 						to_chat(Z, "<B>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, create shield walls and even deflect energy weapons, and rip apart enemies and walls alike.</B>")
 						to_chat(Z, "<B>You are still bound to serve your creator, follow [U.p_their()] orders and help [U.p_them()] complete [U.p_their()] goals at all costs.</B>")
@@ -289,11 +289,11 @@
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
-							if(ticker.mode.name == "cult")
-								ticker.mode:add_cultist(Z.mind)
+							if(SSticker.mode.name == "cult")
+								SSticker.mode:add_cultist(Z.mind)
 							else
-								ticker.mode.cult+=Z.mind
-							ticker.mode.update_cult_icons_added(Z.mind)
+								SSticker.mode.cult+=Z.mind
+							SSticker.mode.update_cult_icons_added(Z.mind)
 						qdel(T)
 						to_chat(Z, "<B>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</B>")
 						to_chat(Z, "<B>You are still bound to serve your creator, follow [U.p_their()] orders and help [U.p_them()] complete [U.p_their()] goals at all costs.</B>")
@@ -305,11 +305,11 @@
 						Z.key = A.key
 						Z.faction |= "\ref[U]"
 						if(iscultist(U))
-							if(ticker.mode.name == "cult")
-								ticker.mode:add_cultist(Z.mind)
+							if(SSticker.mode.name == "cult")
+								SSticker.mode:add_cultist(Z.mind)
 							else
-								ticker.mode.cult+=Z.mind
-							ticker.mode.update_cult_icons_added(Z.mind)
+								SSticker.mode.cult+=Z.mind
+							SSticker.mode.update_cult_icons_added(Z.mind)
 						qdel(T)
 						to_chat(Z, "<B>You are an Artificer. You are incredibly weak and fragile, but you are able to construct fortifications, use magic missile, repair allied constructs (by clicking on them), </B><I>and most important of all create new constructs</I><B> (Use your Artificer spell to summon a new construct shell and Summon Soulstone to create a new soulstone).</B>")
 						to_chat(Z, "<B>You are still bound to serve your creator, follow [U.p_their()] orders and help [U.p_them()] complete [U.p_their()] goals at all costs.</B>")
@@ -326,11 +326,11 @@
 	newstruct.faction |= "\ref[stoner]"
 	newstruct.key = target.key
 	if(stoner && iscultist(stoner) || cultoverride)
-		if(ticker.mode.name == "cult")
-			ticker.mode:add_cultist(newstruct.mind)
+		if(SSticker.mode.name == "cult")
+			SSticker.mode:add_cultist(newstruct.mind)
 		else
-			ticker.mode.cult+=newstruct.mind
-		ticker.mode.update_cult_icons_added(newstruct.mind)
+			SSticker.mode.cult+=newstruct.mind
+		SSticker.mode.update_cult_icons_added(newstruct.mind)
 	if(stoner && iswizard(stoner))
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow [stoner.p_their()] orders and help [stoner.p_them()] complete [stoner.p_their()] goals at all costs.</B>")
 	else if(stoner && iscultist(stoner))
@@ -357,7 +357,7 @@
 	if(U)
 		S.faction |= "\ref[U]" //Add the master as a faction, allowing inter-mob cooperation
 	if(U && iscultist(U))
-		ticker.mode.add_cultist(S.mind, 0)
+		SSticker.mode.add_cultist(S.mind, 0)
 	S.cancel_camera()
 	name = "soulstone: Shade of [T.real_name]"
 	icon_state = "soulstone2"

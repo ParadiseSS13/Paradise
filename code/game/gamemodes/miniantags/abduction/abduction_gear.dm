@@ -23,7 +23,6 @@
 	var/datum/icon_snapshot/disguise
 	var/stealth_armor = list(melee = 15, bullet = 15, laser = 15, energy = 15, bomb = 15, bio = 15, rad = 15)
 	var/combat_armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 50, bio = 50, rad = 50)
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/toggle_nodrop()

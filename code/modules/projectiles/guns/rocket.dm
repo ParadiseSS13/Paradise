@@ -37,6 +37,8 @@
 			to_chat(user, "<span class='notice'>[rockets.len] / [max_rockets] rockets.</span>")
 		else
 			to_chat(usr, "<span class='notice'>[src] cannot hold more rockets.</span>")
+	else
+		return ..()
 
 /obj/item/gun/rocketlauncher/can_shoot()
 	return rockets.len

@@ -234,16 +234,23 @@
 	integrity_failure = 5
 	var/status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
 	layer = MOB_LAYER
-	var/eggtype = "facehugger"
 
+/obj/structure/alien/egg/grown
+	status = GROWN
+	icon_state = "egg"
+
+/obj/structure/alien/egg/burst
+	status = BURST
+	icon_state = "egg_hatched"
 
 /obj/structure/alien/egg/New()
 	new /obj/item/clothing/mask/facehugger(src)
 	..()
-	spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
-		Grow()
 	if(status == BURST)
 		obj_integrity = integrity_failure
+	else if(status != GROWN)
+		spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+		Grow()
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)
@@ -303,8 +310,7 @@
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/alien/egg/HasProximity(atom/movable/AM)
-
-	if(status == GROWN && eggtype != "deacon")
+	if(status == GROWN)
 		if(!CanHug(AM))
 			return
 
@@ -313,74 +319,6 @@
 			return
 
 		Burst(0)
-
-/*Deacon Egg here */
-
-/obj/structure/alien/egg/deacon
-	name = "egg"
-	desc = "A large mottled egg. Looks slightly bigger than others."
-	icon = 'icons/mob/deacon.dmi'
-	icon_state = "deaconegg_growing"
-	density = 0
-	anchored = 1
-	var/health = 100
-	status = GROWING	//can be GROWING, GROWN or BURST; all mutually exclusive
-	layer = MOB_LAYER
-	eggtype = "deacon"
-
-
-/obj/structure/alien/egg/deacon/New()
-	new /mob/living/simple_animal/hostile/alien/deacon(src)
-	..()
-	spawn(rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
-		Grow()
-
-/obj/structure/alien/egg/deacon/attack_alien(mob/living/carbon/alien/user)
-	return attack_hand(user)
-
-/obj/structure/alien/egg/deacon/attack_hand(mob/living/user)
-	if(user.get_int_organ(/obj/item/organ/internal/xenos/plasmavessel))
-		switch(status)
-			if(BURST)
-				to_chat(user, "<span class='notice'>You clear the hatched egg.</span>")
-				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-				qdel(src)
-				return
-			if(GROWING)
-				to_chat(user, "<span class='notice'>The child is not developed yet.</span>")
-				return
-			if(GROWN)
-				to_chat(user, "<span class='notice'>You retrieve the deacon.</span>")
-				BurstDeacon(0)
-				return
-	else
-		to_chat(user, "<span class='notice'>It feels slimy.</span>")
-		user.changeNext_move(CLICK_CD_MELEE)
-
-
-/obj/structure/alien/egg/deacon/proc/GetDeacon()
-	return locate(/mob/living/simple_animal/hostile/alien/deacon) in contents
-
-/obj/structure/alien/egg/deacon/proc/GrowDeacon()
-	icon = 'icons/mob/deacon.dmi'
-	icon_state = "egg"
-	status = GROWN
-
-/obj/structure/alien/egg/deacon/proc/BurstDeacon(kill = 1)	//drops and kills the hugger if any is remaining
-	if(status == GROWN || status == GROWING)
-
-		icon_state = "deaconegg_hatched"
-		flick("deaconegg_opening", src)
-		status = BURSTING
-		spawn(15)
-			status = BURST
-			var/mob/living/simple_animal/hostile/alien/deacon/spawned = GetDeacon()
-			if(spawned)
-				spawned.loc = get_turf(src)
-
-			else
-				for(var/mob/M in range(1,src))
-				Burst(0)
 
 #undef BURST
 #undef BURSTING

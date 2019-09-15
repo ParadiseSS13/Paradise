@@ -78,6 +78,9 @@
 	set_picture("ai_bsod")
 	..(severity)
 
+/obj/machinery/status_display/get_spooked()
+	spookymode = TRUE
+
 // set what is displayed
 /obj/machinery/status_display/proc/update()
 	if(friendc && !ignore_friendc)
@@ -226,6 +229,9 @@
 		return
 	set_picture("ai_bsod")
 	..(severity)
+
+/obj/machinery/ai_status_display/get_spooked()
+	spookymode = TRUE
 
 /obj/machinery/ai_status_display/proc/update()
 	if(mode==0) //Blank

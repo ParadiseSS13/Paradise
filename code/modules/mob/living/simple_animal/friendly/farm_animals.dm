@@ -25,12 +25,20 @@
 	melee_damage_lower = 1
 	melee_damage_upper = 2
 	stop_automated_movement_when_pulled = 1
-	var/milk_content = 0
 	can_collar = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
+	var/obj/item/udder/udder = null
+
+/mob/living/simple_animal/hostile/retaliate/goat/New()
+	udder = new()
+	. = ..()
+
+/mob/living/simple_animal/hostile/retaliate/goat/Destroy()
+	QDEL_NULL(udder)
+	return ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/handle_automated_movement()
-	..()
+	. = ..()
 	//chance to go crazy and start wacking stuff
 	if(!enemies.len && prob(1))
 		Retaliate()
@@ -40,20 +48,18 @@
 		LoseTarget()
 		visible_message("<span class='notice'>[src] calms down.</span>")
 
-	if(stat == CONSCIOUS)
-		eat_plants()
-		if(!pulledby)
-			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
-				var/step = get_step(src, direction)
-				if(step)
-					if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
-						Move(step, get_dir(src, step))
+	eat_plants()
+	if(!pulledby)
+		for(var/direction in shuffle(list(1, 2, 4, 8, 5, 6, 9, 10)))
+			var/step = get_step(src, direction)
+			if(step)
+				if(locate(/obj/structure/spacevine) in step || locate(/obj/structure/glowshroom) in step)
+					Move(step, get_dir(src, step))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life(seconds, times_fired)
 	. = ..()
-	if(stat == CONSCIOUS && prob(5))
-		milk_content = min(50, milk_content+rand(5, 10))
-
+	if(stat == CONSCIOUS)
+		udder.generateMilk()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
@@ -63,6 +69,12 @@
 	. = ..()
 	if(!stat)
 		eat_plants()
+
+/mob/living/simple_animal/hostile/retaliate/goat/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
+	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
+		udder.milkAnimal(O, user)
+	else
+		return ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/proc/eat_plants()
 	var/eaten = FALSE
@@ -79,26 +91,9 @@
 	if(eaten && prob(10))
 		say("Nom")
 
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/I, mob/user, params)
-	if(stat == CONSCIOUS && istype(I, /obj/item/reagent_containers/glass))
-		user.changeNext_move(CLICK_CD_MELEE)
-		var/obj/item/reagent_containers/glass/G = I
-		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
-		if(transfered > 0)
-			user.visible_message("<span class='notice'>[user] milks [src] using [G].</span>")
-			G.reagents.add_reagent("milk", transfered)
-			milk_content -= transfered
-		else if(G.reagents.total_volume >= G.volume)
-			to_chat(user, "<span class='warning'>[G] is full.</span>")
-		else
-			to_chat(user, "<span class='warning'>The udder is dry. Wait a bit longer...</span>")
-		return TRUE
-	else
-		return ..()
-
 /mob/living/simple_animal/hostile/retaliate/goat/AttackingTarget()
-	..()
-	if(isdiona(target))
+	. = ..()
+	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
 		H.visible_message("<span class='warning'>[src] takes a big chomp out of [H]!</span>", "<span class='userdanger'>[src] takes a big chomp out of your [NB.name]!</span>")
@@ -127,34 +122,31 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
-	var/milk_content = 0
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	blood_volume = BLOOD_VOLUME_NORMAL
+	var/obj/item/udder/udder = null
 
-/mob/living/simple_animal/cow/New()
-	..()
+/mob/living/simple_animal/cow/Initialize()
+	udder = new()
+	. = ..()
 
-/mob/living/simple_animal/cow/attackby(var/obj/item/O as obj, var/mob/user as mob, params, params)
+/mob/living/simple_animal/cow/Destroy()
+	qdel(udder)
+	udder = null
+	return ..()
+
+/mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		user.changeNext_move(CLICK_CD_MELEE)
-		var/obj/item/reagent_containers/glass/G = O
-		var/transfered = min(milk_content, rand(5,10), (G.volume - G.reagents.total_volume))
-		if(transfered > 0)
-			user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
-			G.reagents.add_reagent("milk", transfered)
-			milk_content -= transfered
-		else if(G.reagents.total_volume >= G.volume)
-			to_chat(user, "<span class='warning'>\The [O] is full.</span>")
-		else
-			to_chat(user, "<span class='warning'>The udder is dry. Wait a bit longer...</span>")
+		udder.milkAnimal(O, user)
+		return 1
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/cow/Life(seconds, times_fired)
 	. = ..()
-	if(stat == CONSCIOUS && prob(5))
-		milk_content = min(50, milk_content+rand(5, 10))
+	if(stat == CONSCIOUS)
+		udder.generateMilk()
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
@@ -431,3 +423,26 @@ var/global/chicken_count = 0
 	can_collar = 1
 	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	blood_volume = BLOOD_VOLUME_NORMAL
+
+/obj/item/udder
+	name = "udder"
+
+/obj/item/udder/New()
+	create_reagents(50)
+	reagents.add_reagent("milk", 20)
+	. = ..()
+
+/obj/item/udder/proc/generateMilk()
+	if(prob(5))
+		reagents.add_reagent("milk", rand(5, 10))
+
+/obj/item/udder/proc/milkAnimal(obj/O, mob/user)
+	var/obj/item/reagent_containers/glass/G = O
+	if(G.reagents.total_volume >= G.volume)
+		to_chat(user, "<span class='danger'>[O] is full.</span>")
+		return
+	var/transfered = reagents.trans_to(O, rand(5,10))
+	if(transfered)
+		user.visible_message("[user] milks [src] using \the [O].", "<span class='notice'>You milk [src] using \the [O].</span>")
+	else
+		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")

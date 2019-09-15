@@ -353,12 +353,12 @@
 	var/middle = L.len / 2 + 1 // Copy is first,second-1
 	return mergeLists(sortList(L.Copy(0,middle)), sortList(L.Copy(middle))) //second parameter null = to end of list
 
-//Mergsorge: uses sortList() but uses the var's name specifically. This should probably be using mergeAtom() instead
+//Mergsorge: uses sortAssoc() but uses the var's name specifically. This should probably be using mergeAtom() instead
 /proc/sortNames(var/list/L)
 	var/list/Q = new()
 	for(var/atom/x in L)
 		Q[x.name] = x
-	return sortList(Q)
+	return sortAssoc(Q)
 
 /proc/mergeLists(var/list/L, var/list/R)
 	var/Li=1
@@ -799,3 +799,29 @@ proc/dd_sortedObjectList(list/incoming)
 			L.Swap(start++, end--)
 
 	return L
+
+/proc/counterlist_scale(list/L, scalar)
+	var/list/out = list()
+	for(var/key in L)
+		out[key] = L[key] * scalar
+	. = out
+
+/proc/counterlist_sum(list/L)
+	. = 0
+	for(var/key in L)
+		. += L[key]
+
+/proc/counterlist_normalise(list/L)
+	var/avg = counterlist_sum(L)
+	if(avg != 0)
+		. = counterlist_scale(L, 1 / avg)
+	else
+		. = L
+
+/proc/counterlist_combine(list/L1, list/L2)
+	for(var/key in L2)
+		var/other_value = L2[key]
+		if(key in L1)
+			L1[key] += other_value
+		else
+			L1[key] = other_value

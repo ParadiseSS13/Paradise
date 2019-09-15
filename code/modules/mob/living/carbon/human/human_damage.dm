@@ -202,6 +202,16 @@
 		amount = amount * dna.species.tox_mod
 	. = ..()
 
+/mob/living/carbon/human/adjustStaminaLoss(amount, updating = TRUE)
+	if(dna.species && amount > 0)
+		amount = amount * dna.species.stamina_mod
+	. = ..()
+
+/mob/living/carbon/human/setStaminaLoss(amount, updating = TRUE)
+	if(dna.species && amount > 0)
+		amount = amount * dna.species.stamina_mod
+	. = ..()
+
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
@@ -334,56 +344,5 @@ This function restores all organs.
 
 	//Handle BRUTE and BURN damage
 	handle_suit_punctures(damagetype, damage)
-
-	blocked = (100 - blocked) / 100
-	if(blocked <= 0)
-		return 0
-
-	var/obj/item/organ/external/organ = null
-	if(isorgan(def_zone))
-		organ = def_zone
-	else
-		if(!def_zone)
-			def_zone = ran_zone(def_zone)
-		organ = get_organ(check_zone(def_zone))
-	if(!organ)
-		return 0
-
-	damage = damage * blocked
-
-	switch(damagetype)
-		if(BRUTE)
-			damageoverlaytemp = 20
-			if(dna.species)
-				damage = damage * dna.species.brute_mod
-
-			if(organ.receive_damage(damage, 0, sharp, used_weapon))
-				UpdateDamageIcon()
-
-			if(LAssailant && ishuman(LAssailant)) //superheros still get the comical hit markers
-				var/mob/living/carbon/human/H = LAssailant
-				if(H.mind && H.mind in (ticker.mode.superheroes || ticker.mode.supervillains || ticker.mode.greyshirts))
-					var/list/attack_bubble_recipients = list()
-					var/mob/living/user
-					for(var/mob/O in viewers(user, src))
-						if(O.client && O.has_vision(information_only=TRUE))
-							attack_bubble_recipients.Add(O.client)
-					spawn(0)
-						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
-						dmgIcon.pixel_x = (!lying) ? rand(-3,3) : rand(-11,12)
-						dmgIcon.pixel_y = (!lying) ? rand(-11,9) : rand(-10,1)
-						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
-
-
-		if(BURN)
-			damageoverlaytemp = 20
-
-			if(dna.species)
-				damage = damage * dna.species.burn_mod
-
-			if(organ.receive_damage(0, damage, sharp, used_weapon))
-				UpdateDamageIcon()
-
-	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
-	updatehealth("apply damage")
-	return 1
+	//Handle species apply_damage procs
+	return dna.species.apply_damage(damage, damagetype, def_zone, blocked, src, sharp, used_weapon)

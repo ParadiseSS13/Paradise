@@ -6,13 +6,13 @@
 /turf/simulated/mineral/random,
 /area/ruin/unpowered/no_grav/way_home)
 "c" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav/way_home)
 "d" = (
 /obj/structure/signpost{
 	name = "salvation"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered/no_grav/way_home)
 
 (1,1,1) = {"

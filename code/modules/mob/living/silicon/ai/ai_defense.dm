@@ -1,5 +1,5 @@
 /mob/living/silicon/ai/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if(!ticker)
+	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 	..()

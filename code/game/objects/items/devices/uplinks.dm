@@ -31,8 +31,8 @@ var/list/world_uplinks = list()
 
 /obj/item/uplink/New()
 	..()
-	welcome = ticker.mode.uplink_welcome
-	uses = ticker.mode.uplink_uses
+	welcome = SSticker.mode.uplink_welcome
+	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items()
 
 	world_uplinks += src

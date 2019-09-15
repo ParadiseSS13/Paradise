@@ -10,7 +10,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	if(!check_rights(R_ADMIN))
 		to_chat(src, "Only administrators may use this command.")
 		return
-	if(!ticker)
+	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
 	if(alert("Do you want to send in the Syndicate Infiltration Team?",,"Yes","No")=="No")
@@ -132,7 +132,7 @@ var/global/sent_syndicate_infiltration_team = 0
 	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to z2 so make them inelligible as antag targets
-	ticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
+	SSticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	return new_syndicate_infiltrator
 

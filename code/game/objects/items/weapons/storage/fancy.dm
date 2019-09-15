@@ -62,6 +62,7 @@
 /obj/item/storage/fancy/egg_box
 	icon_state = "eggbox"
 	icon_type = "egg"
+	item_state = "eggbox"
 	name = "egg box"
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)

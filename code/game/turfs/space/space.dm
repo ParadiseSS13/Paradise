@@ -11,10 +11,12 @@
 	layer = SPACE_LAYER
 	light_power = 0.25
 	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	intact = FALSE
 
 	var/destination_z
 	var/destination_x
 	var/destination_y
+	plane = PLANE_SPACE
 
 /turf/space/Initialize(mapload)
 	if(!istype(src, /turf/space/transit))
@@ -66,12 +68,15 @@
 	if(istype(C, /obj/item/stack/rods))
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
+		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
+		if(W)
+			to_chat(user, "<span class='warning'>There is already a catwalk here!</span>")
+			return
 		if(L)
 			if(R.use(1))
-				to_chat(user, "<span class='notice'>You begin constructing catwalk...</span>")
+				to_chat(user, "<span class='notice'>You construct a catwalk.</span>")
 				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				qdel(L)
-				ChangeTurf(/turf/simulated/floor/plating/airless/catwalk)
+				new/obj/structure/lattice/catwalk(src)
 			else
 				to_chat(user, "<span class='warning'>You need two rods to build a catwalk!</span>")
 			return
@@ -228,6 +233,8 @@
 	return
 
 /turf/space/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk, src))
+		return 1
 	return 0
 
 /turf/space/proc/set_transition_north(dest_z)
@@ -252,3 +259,14 @@
 
 /turf/space/proc/remove_transitions()
 	destination_z = initial(destination_z)
+
+/turf/space/attack_ghost(mob/dead/observer/user)
+	if(destination_z)
+		var/turf/T = locate(destination_x, destination_y, destination_z)
+		user.forceMove(T)
+
+/turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = SPACE_ICON_STATE
+	underlay_appearance.plane = PLANE_SPACE
+	return TRUE

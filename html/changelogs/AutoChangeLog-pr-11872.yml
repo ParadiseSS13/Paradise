@@ -1,0 +1,4 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - bugfix: "Q no longer drops items as a cyborg on AZERTY mode"

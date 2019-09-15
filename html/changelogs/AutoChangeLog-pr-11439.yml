@@ -1,0 +1,6 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - rscadd: "Changeling verbs replaced with action buttons"
+  - tweak: "Changeling ability descriptions updated"
+  - imageadd: "Added custom icons for changeling action buttons"

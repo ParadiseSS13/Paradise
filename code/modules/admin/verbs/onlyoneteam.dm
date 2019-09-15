@@ -1,5 +1,5 @@
 /client/proc/only_one_team()
-	if(!ticker)
+	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
 

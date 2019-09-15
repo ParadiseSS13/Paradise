@@ -1,6 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Fixed an issue where a mob's sight wouldn't update properly in certain cases, such as being revived."
-  - bugfix: "Resolved an issue where the lobby would be bright white when being sent back."
-  - bugfix: "Resolved an issue where the ambient occlusion preference wouldn't update properly in the lobby."

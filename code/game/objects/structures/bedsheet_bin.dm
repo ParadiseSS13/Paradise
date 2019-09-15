@@ -19,6 +19,7 @@ LINEN BINS
 	burn_state = FLAMMABLE
 	slot_flags = SLOT_BACK
 
+	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
@@ -34,6 +35,15 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
+/obj/item/bedsheet/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
+		var/obj/item/stack/sheet/cloth/C = new (get_turf(src), 3)
+		transfer_fingerprints_to(C)
+		C.add_fingerprint(user)
+		qdel(src)
+		to_chat(user, "<span class='notice'>You tear [src] up.</span>")
+	else
+		return ..()
 
 /obj/item/bedsheet/blue
 	icon_state = "sheetblue"
@@ -86,6 +96,12 @@ LINEN BINS
 	item_color = "yellow"
 	dream_messages = list("yellow")
 	nightmare_messages = list("locker full of banana peels")
+
+/obj/item/bedsheet/black
+	icon_state = "sheetblack"
+	item_color = "sheetblack"
+	dream_messages = list("black")
+	nightmare_messages = list("the void of space")
 
 /obj/item/bedsheet/mime
 	name = "mime's blanket"

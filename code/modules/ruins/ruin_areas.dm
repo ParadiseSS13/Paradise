@@ -1,10 +1,11 @@
 //Parent types
 
-/area/ruin/
+/area/ruin
 	name = "\improper Unexplored Location"
 	icon_state = "away"
 	has_gravity = TRUE
 	there_can_be_many = TRUE
+	ambientsounds = list('sound/ambience/ambimine.ogg')
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/ruin/unpowered
@@ -15,9 +16,6 @@
 
 /area/ruin/powered
 	requires_power = FALSE
-
-
-
 
 //Areas
 
@@ -34,7 +32,6 @@
 /area/ruin/onehalf/hallway
 	name = "Hallway"
 	icon_state = "hallC"
-
 
 /area/ruin/onehalf/drone_bay
 	name = "Mining Drone Bay"

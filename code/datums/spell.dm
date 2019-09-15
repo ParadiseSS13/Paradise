@@ -5,6 +5,7 @@
 	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
+	var/mob/living/ranged_ability_user
 
 var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin verb for now
 
@@ -24,6 +25,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been replaced by <b>[name]</b>.")
 		user.ranged_ability.remove_ranged_ability(user)
 	user.ranged_ability = src
+	ranged_ability_user = user
 	user.client.click_intercept = user.ranged_ability
 	add_mousepointer(user.client)
 	active = TRUE
@@ -43,6 +45,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	if(!user || !user.client || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
 		return
 	user.ranged_ability = null
+	ranged_ability_user = null
 	user.client.click_intercept = null
 	remove_mousepointer(user.client)
 	active = FALSE
@@ -62,6 +65,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
 
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
+	var/starts_charged = TRUE //Does this spell start ready to go?
 	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 
@@ -167,6 +171,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			if("holdervar")
 				adjust_var(user, holder_var_type, holder_var_amount)
 
+	if(action)
+		action.UpdateButtonIcon()
 	return 1
 
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
@@ -193,9 +199,11 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 /obj/effect/proc_holder/spell/New()
 	..()
 	action = new(src)
-
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
-	charge_counter = charge_max
+	if(starts_charged)
+		charge_counter = charge_max
+	else
+		start_recharge()
 
 /obj/effect/proc_holder/spell/Destroy()
 	QDEL_NULL(action)
@@ -212,9 +220,14 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 /obj/effect/proc_holder/spell/proc/start_recharge()
 	if(action)
 		action.UpdateButtonIcon()
-	while(charge_counter < charge_max)
-		sleep(1)
-		charge_counter++
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/effect/proc_holder/spell/process()
+	charge_counter += 2
+	if(charge_counter < charge_max)
+		return
+	STOP_PROCESSING(SSfastprocess, src)
+	charge_counter = charge_max
 	if(action)
 		action.UpdateButtonIcon()
 
@@ -235,6 +248,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	else
 		cast(targets, user = user)
 	after_cast(targets)
+	if(action)
+		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets)
 	if(overlay)
@@ -291,8 +306,8 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 			charge_counter++
 		if("holdervar")
 			adjust_var(user, holder_var_type, -holder_var_amount)
-
-	return
+	if(action)
+		action.UpdateButtonIcon()
 
 /obj/effect/proc_holder/spell/proc/updateButtonIcon()
 	if(action)

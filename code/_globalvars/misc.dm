@@ -84,3 +84,10 @@ GLOBAL_VAR_INIT(gametime_offset, 432000) // 12:00 in seconds
 var/copier_items_printed = 0
 var/copier_max_items = 300
 var/copier_items_printed_logged = FALSE
+
+
+GLOBAL_VAR(map_name) // Self explanatory
+
+var/global/datum/datacore/data_core = null // Station datacore, manifest, etc
+
+GLOBAL_VAR_INIT(panic_bunker_enabled, 0) // Is the panic bunker enabled

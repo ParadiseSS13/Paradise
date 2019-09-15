@@ -85,11 +85,11 @@
 		a_right.HasProximity(AM)
 
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM)
+/obj/item/assembly_holder/Crossed(atom/movable/AM, oldloc)
 	if(a_left)
-		a_left.Crossed(AM)
+		a_left.Crossed(AM, oldloc)
 	if(a_right)
-		a_right.Crossed(AM)
+		a_right.Crossed(AM, oldloc)
 
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
@@ -116,7 +116,7 @@
 		a_right.holder_movement()
 
 /obj/item/assembly_holder/Move()
-	..()
+	. = ..()
 	process_movement()
 	return
 

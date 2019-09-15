@@ -54,10 +54,13 @@
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text
+	var/msg = clean_input("Message:", text("Subtle PM to [M.key]"))
 
 	if(!msg)
 		return
+
+	msg = admin_pencode_to_html(msg)
+
 	if(usr)
 		if(usr.client)
 			if(usr.client.holder)
@@ -109,10 +112,11 @@
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to everyone:")) as text
+	var/msg = clean_input("Message:", text("Enter the text you wish to appear to everyone:"))
 
 	if(!msg)
 		return
+	msg = pencode_to_html(msg)
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
@@ -131,10 +135,11 @@
 	if(!M)
 		return
 
-	var/msg = input("Message:", text("Enter the text you wish to appear to your target:")) as text
+	var/msg = clean_input("Message:", text("Enter the text you wish to appear to your target:"))
 
 	if( !msg )
 		return
+	msg = admin_pencode_to_html(msg)
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
@@ -169,7 +174,7 @@
 			return
 
 	message_admins("[key_name_admin(src)] has started answering [key_name_admin(H)]'s [sender] request.")
-	var/input = input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "") as text|null
+	var/input = clean_input("Please enter a message to reply to [key_name(H)] via their headset.", "Outgoing message from [sender]", "")
 	if(!input)
 		message_admins("[key_name_admin(src)] decided not to answer [key_name_admin(H)]'s [sender] request.")
 		return
@@ -437,11 +442,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if("traitor")
 			SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
 			SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)
-			ticker.mode.equip_traitor(new_character)
+			SSticker.mode.equip_traitor(new_character)
 		if("Wizard")
 			new_character.loc = pick(wizardstart)
 			//ticker.mode.learn_basic_spells(new_character)
-			ticker.mode.equip_wizard(new_character)
+			SSticker.mode.equip_wizard(new_character)
 		if("Syndicate")
 			var/obj/effect/landmark/synd_spawn = locate("landmark*Syndicate-Spawn")
 			if(synd_spawn)
@@ -550,7 +555,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_EVENT))
 		return
 
-	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
+	var/input = clean_input("Please enter anything you want the AI to do. Anything. Serious.", "What?", "")
 	if(!input)
 		return
 
@@ -603,9 +608,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/type = input(usr, "Pick a type of report to send", "Report Type", "") as anything in MsgType
 
 	if(type == "Custom")
-		type = input(usr, "What would you like the report type to be?", "Report Type", "Encrypted Transmission") as text|null
+		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
+	var/customname = clean_input("Pick a title for the report.", "Title", MsgType[type])
 	if(!customname)
 		return
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
@@ -651,7 +656,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","DEL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		if(isturf(D))
 			var/turf/T = D
-			T.ChangeTurf(/turf/space)
+			T.ChangeTurf(T.baseturf)
 		else
 			qdel(D)
 
@@ -771,8 +776,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
-	set category = "Admin"
 	set name = "Check Contents"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -858,7 +863,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	set category = "Admin"
 	set name = "Toggle Deny Shuttle"
 
-	if(!ticker)
+	if(!SSticker)
 		return
 
 	if(!check_rights(R_ADMIN))
@@ -891,12 +896,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	if(ticker && ticker.mode)
+	if(SSticker && SSticker.mode)
 		to_chat(usr, "Nope you can't do this, the game's already started. This only works before rounds!")
 		return
 
-	if(ticker.random_players)
-		ticker.random_players = 0
+	if(SSticker.random_players)
+		SSticker.random_players = 0
 		message_admins("Admin [key_name_admin(usr)] has disabled \"Everyone is Special\" mode.", 1)
 		to_chat(usr, "Disabled.")
 		return
@@ -914,7 +919,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	to_chat(usr, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.")
 
-	ticker.random_players = 1
+	SSticker.random_players = 1
 	feedback_add_details("admin_verb","MER") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_random_events()
@@ -952,21 +957,24 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
 	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/list_ssds()
+/client/proc/list_ssds_afks()
 	set category = "Admin"
-	set name = "List SSDs"
-	set desc = "Lists SSD players"
+	set name = "List SSDs and AFKs"
+	set desc = "Lists SSD and AFK players"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/msg = "<html><head><title>SSD Report</title></head><body>"
+	/* ======== SSD Section ========= */
+	var/msg = "<html><head><title>SSD & AFK Report</title></head><body>"
 	msg += "SSD Players:<BR><TABLE border='1'>"
 	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
 	var/mins_ssd
 	var/job_string
 	var/key_string
 	var/role_string
+	var/obj_count = 0
+	var/obj_string = ""
 	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(!isLivingSSD(H))
 			continue
@@ -979,8 +987,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
-		var/obj_count = 0
-		var/obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
@@ -998,8 +1004,47 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
 		msg += "</TR>"
+	msg += "</TABLE><br></BODY></HTML>"
+
+	/* ======== AFK Section ========= */
+	msg += "AFK Players:<BR><TABLE border='1'>"
+	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins AFK</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/mins_afk
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
+		if(H.client == null || H.stat == DEAD) // No clientless or dead
+			continue
+		mins_afk = round(H.client.inactivity / 600)
+		if(mins_afk < config.list_afk_minimum)
+			continue
+		if(H.job)
+			job_string = H.job
+		else
+			job_string = "-"
+		key_string = H.key
+		if(job_string in command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = "-"
+		obj_count = 0
+		obj_string = ""
+		if(H.mind)
+			if(H.mind.special_role)
+				role_string = "<U>[H.mind.special_role]</U>"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+			for(var/datum/objective/O in all_objectives)
+				if(O.target == H.mind)
+					obj_count++
+			if(obj_count > 0)
+				obj_string = "<BR><U>Obj Target</U>"
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_afk]</TD><TD>[role_string][obj_string]</TD>"
+		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
+		else
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_ssd_check")
+	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"
@@ -1009,13 +1054,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_EVENT))
 		return
 
-	if(ticker.mode.ert_disabled)
-		ticker.mode.ert_disabled = 0
+	if(SSticker.mode.ert_disabled)
+		SSticker.mode.ert_disabled = 0
 		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
 	else
-		ticker.mode.ert_disabled = 1
+		SSticker.mode.ert_disabled = 1
 		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
 		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
@@ -1033,14 +1078,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!input)
 		return
 
-	if(!ticker)
+	if(!SSticker)
 		return
 
-	ticker.selected_tip = input
+	SSticker.selected_tip = input
 
 	// If we've already tipped, then send it straight away.
-	if(ticker.tipped)
-		ticker.send_tip_of_the_round()
+	if(SSticker.tipped)
+		SSticker.send_tip_of_the_round()
 
 	message_admins("[key_name_admin(usr)] sent a Tip of the round.")
 	log_admin("[key_name(usr)] sent \"[input]\" as the Tip of the Round.")
@@ -1055,12 +1100,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	holder.modify_goals()
 
 /datum/admins/proc/modify_goals()
-	if(!ticker || !ticker.mode)
+	if(!SSticker || !SSticker.mode)
 		to_chat(usr, "<span class='warning'>This verb can only be used if the round has started.</span>")
 		return
 
 	var/dat = ""
-	for(var/datum/station_goal/S in ticker.mode.station_goals)
+	for(var/datum/station_goal/S in SSticker.mode.station_goals)
 		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	usr << browse(dat, "window=goals;size=400x400")

@@ -112,7 +112,7 @@
 		if(H.mind)
 			H.mind.kills += "[key_name(src)]"
 
-	if(ticker && ticker.mode)
+	if(SSticker && SSticker.mode)
 //		log_world("k")
 		sql_report_death(src)
 

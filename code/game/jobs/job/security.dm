@@ -64,7 +64,7 @@
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_weapons)
 	minimal_player_age = 10
 	exp_requirements = 1440
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden

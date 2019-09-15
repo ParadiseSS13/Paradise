@@ -34,7 +34,7 @@
 /obj/screen/plane_master/game_world
 	name = "game world plane master"
 	plane = GAME_PLANE
-	appearance_flags = PLANE_MASTER //should use client color
+	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_OVERLAY
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
@@ -45,6 +45,7 @@
 /obj/screen/plane_master/lighting
 	name = "lighting plane master"
 	plane = LIGHTING_PLANE
+	appearance_flags = PLANE_MASTER
 	blend_mode = BLEND_MULTIPLY
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 

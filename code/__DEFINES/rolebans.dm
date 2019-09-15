@@ -25,6 +25,7 @@ var/global/list/other_roles = list(
 	ROLE_SENTIENT,
 	ROLE_NYMPH,
 	ROLE_ERT,
+	ROLE_GHOST,
 	"AntagHUD",
 	"Records"
 )

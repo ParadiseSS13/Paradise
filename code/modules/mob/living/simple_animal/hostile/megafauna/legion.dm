@@ -1,4 +1,3 @@
-#define MEDAL_PREFIX "Legion"
 /*
 
 LEGION
@@ -31,6 +30,7 @@ Difficulty: Medium
 	armour_penetration = 50
 	melee_damage_lower = 25
 	melee_damage_upper = 25
+	wander = 0
 	speed = 2
 	ranged = 1
 	del_on_death = 1
@@ -39,25 +39,21 @@ Difficulty: Medium
 	ranged_cooldown_time = 20
 	var/size = 5
 	var/charging = 0
-	medal_type = MEDAL_PREFIX
+	internal_type = /obj/item/gps/internal/legion
+	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
 	pixel_y = -90
 	pixel_x = -75
 	loot = list(/obj/item/stack/sheet/bone = 3)
 	vision_range = 13
 	elimination = 1
-	idle_vision_range = 13
 	appearance_flags = 0
 	mouse_opacity = MOUSE_OPACITY_ICON
-	stat_attack = 1 // Overriden from /tg/ - otherwise Legion starts chasing its minions
-
-/mob/living/simple_animal/hostile/megafauna/legion/New()
-	..()
-	internal_gps = new/obj/item/gps/internal/legion(src)
+	stat_attack = UNCONSCIOUS // Overriden from /tg/ - otherwise Legion starts chasing its minions
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
-	..()
-	if(ishuman(target))
+	. = ..()
+	if(. && ishuman(target))
 		var/mob/living/L = target
 		if(L.stat == UNCONSCIOUS)
 			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
@@ -133,6 +129,8 @@ Difficulty: Medium
 			elimination = 0
 		else if(prob(5))
 			loot = list(/obj/structure/closet/crate/necropolis/tendril)
+			if(!true_spawn)
+				loot = null
 		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/Process_Spacemove(movement_dir = 0)
@@ -143,5 +141,3 @@ Difficulty: Medium
 	gpstag = "Echoing Signal"
 	desc = "The message repeats."
 	invisibility = 100
-
-#undef MEDAL_PREFIX

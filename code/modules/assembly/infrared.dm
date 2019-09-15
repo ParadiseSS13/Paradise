@@ -106,7 +106,7 @@
 
 /obj/item/assembly/infra/Move()
 	var/t = dir
-	..()
+	. = ..()
 	dir = t
 	qdel(first)
 
@@ -269,7 +269,7 @@
 /obj/effect/beam/i_beam/Bumped()
 	hit()
 
-/obj/effect/beam/i_beam/Crossed(atom/movable/AM)
+/obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
 	if(!isobj(AM) && !isliving(AM))
 		return
 	if(istype(AM, /obj/effect))

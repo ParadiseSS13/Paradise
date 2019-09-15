@@ -8,7 +8,7 @@
 [![forthebadge](http://forthebadge.com/images/badges/contains-technical-debt.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-[Website](https://nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/gXZMc?utm_source=Discord%20Widget&utm_medium=Connect)
+[Website](https://nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/YJDsXFE)
 
 ---
 
@@ -103,7 +103,8 @@ The SQL backend for the library and stats tracking requires a MySQL server.
 Your server details go in /config/dbconfig.txt,
 and the SQL schema is in /SQL/paradise_schema.sql or /SQL/paradise_schema_prefix.sql,
 depending on if you want table prefixes.  
-More detailed setup instructions are located on /tg/station's wiki: http://www.tgstation13.org/wiki/Downloading_the_source_code#Setting_up_the_database
+More detailed setup instructions are located on our wiki:
+https://nanotrasen.se/wiki/index.php/Setting_up_the_Database
 
 ---
 

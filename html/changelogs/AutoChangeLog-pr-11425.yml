@@ -1,5 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - tweak: "Examine tooltip delay increased slightly"
-  - bugfix: "Examine tooltips now work properly on items in storage"

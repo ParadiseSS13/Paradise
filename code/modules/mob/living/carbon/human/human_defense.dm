@@ -141,19 +141,19 @@ emp_act
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
 		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
-		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(r_hand && !istype(r_hand, /obj/item/clothing))
 		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
-		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(w_uniform)
 		var/final_block_chance = w_uniform.block_chance - (Clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	return 0
 
@@ -267,7 +267,7 @@ emp_act
 							apply_effect(5, WEAKEN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
-							ticker.mode.remove_revolutionary(mind)
+							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
 						if(wear_mask)
@@ -506,9 +506,9 @@ emp_act
 			return 0
 	..()
 
-/mob/living/carbon/human/water_act(volume, temperature, source)
-	..()
-	dna.species.water_act(src,volume,temperature,source)
+/mob/living/carbon/human/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	dna.species.water_act(src, volume, temperature, source, method)
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))

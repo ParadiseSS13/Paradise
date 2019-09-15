@@ -45,15 +45,15 @@
 				return -1
 			H.implanting = 1
 			to_chat(H, "<span class='notice'>You feel completely loyal to [user.name].</span>")
-			if(!(user.mind in ticker.mode.implanter))
-				ticker.mode.implanter[ref] = list()
-			implanters = ticker.mode.implanter[ref]
+			if(!(user.mind in SSticker.mode.implanter))
+				SSticker.mode.implanter[ref] = list()
+			implanters = SSticker.mode.implanter[ref]
 			implanters.Add(H.mind)
-			ticker.mode.implanted.Add(H.mind)
-			ticker.mode.implanted[H.mind] = user.mind
-			//ticker.mode.implanter[user.mind] += H.mind
-			ticker.mode.implanter[ref] = implanters
-			ticker.mode.traitors += H.mind
+			SSticker.mode.implanted.Add(H.mind)
+			SSticker.mode.implanted[H.mind] = user.mind
+			//SSticker.mode.implanter[user.mind] += H.mind
+			SSticker.mode.implanter[ref] = implanters
+			SSticker.mode.traitors += H.mind
 			H.mind.special_role = SPECIAL_ROLE_TRAITOR
 			to_chat(H, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect [user.p_them()] and assist in [user.p_their()] goals at any cost.</span>")
 			var/datum/objective/protect/mindslave/MS = new
@@ -64,8 +64,8 @@
 			for(var/datum/objective/objective in H.mind.objectives)
 				to_chat(H, "<B>Objective #1</B>: [objective.explanation_text]")
 
-			ticker.mode.update_traitor_icons_added(user.mind)
-			ticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
+			SSticker.mode.update_traitor_icons_added(user.mind)
+			SSticker.mode.update_traitor_icons_added(H.mind)//handles datahuds/observerhuds
 
 			if(user.mind.som)//do not add if not a traitor..and you just picked up an implanter in the hall...
 				var/datum/mindslaves/slaved = user.mind.som
@@ -77,12 +77,12 @@
 			log_admin("[key_name(user)] has mind-slaved [key_name(H)].")
 			activated = 1
 			if(jobban_isbanned(M, ROLE_SYNDICATE))
-				ticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)
+				SSticker.mode.replace_jobbanned_player(M, ROLE_SYNDICATE)
 			return 1
 		return 0
 
 /obj/item/implant/traitor/removed(mob/target)
 	if(..())
-		ticker.mode.remove_traitor_mind(target.mind)
+		SSticker.mode.remove_traitor_mind(target.mind)
 		return 1
 	return 0

@@ -1,0 +1,4 @@
+author: "Arkatos"
+delete-after: True
+changes: 
+  - imageadd: "Added movement animation for mice, chickens and killer tomatoes"

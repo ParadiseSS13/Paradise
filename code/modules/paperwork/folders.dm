@@ -36,7 +36,7 @@
 		to_chat(user, "<span class='notice'>You put the [W] into \the [src].</span>")
 		update_icon()
 	else if(istype(W, /obj/item/pen))
-		var/n_name = input(usr, "What would you like to label the folder?", "Folder Labelling", null) as text|null
+		var/n_name = clean_input("What would you like to label the folder?", "Folder Labelling", null)
 		if(!n_name)
 			return
 		n_name = sanitize(copytext(n_name, 1, MAX_NAME_LEN))
@@ -130,4 +130,10 @@
 	..()
 	new /obj/item/documents/syndicate/yellow(src)
 	update_icon()
+
+/obj/item/folder/syndicate/mining/New()
+	. = ..()
+	new /obj/item/documents/syndicate/mining(src)
+	update_icon()
+
 

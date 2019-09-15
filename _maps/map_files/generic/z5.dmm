@@ -4,7 +4,7 @@
 /area/space)
 "ab" = (
 /turf/simulated/mineral,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "ac" = (
 /obj/docking_port/stationary{
 	dheight = 9;
@@ -18,11 +18,11 @@
 /turf/space,
 /area/space)
 "ad" = (
-/turf/simulated/floor/plating/airless/asteroid/cave,
-/area/mine/dangerous/unexplored)
+/turf/simulated/floor/plating/asteroid/airless/cave,
+/area/mine/unexplored)
 "ae" = (
 /turf/simulated/mineral/random,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "af" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -60,7 +60,7 @@
 /area/space/nearstation)
 "ak" = (
 /turf/simulated/mineral/random/high_chance,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "al" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -660,7 +660,7 @@
 /turf/simulated/floor/plasteel/airless,
 /area/mine/abandoned)
 "bV" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "bW" = (
 /obj/structure/alien/weeds{
@@ -748,7 +748,7 @@
 /obj/machinery/camera{
 	c_tag = "North Outpost";
 	dir = 8;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -981,7 +981,7 @@
 /area/mine/dangerous/explored)
 "cL" = (
 /obj/structure/ore_box,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "cM" = (
 /obj/effect/decal/remains/xeno,
@@ -1121,7 +1121,7 @@
 /area/mine/north_outpost)
 "dh" = (
 /obj/structure/glowshroom,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "di" = (
 /obj/structure/alien/resin/wall,
@@ -1237,7 +1237,7 @@
 "ds" = (
 /obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap,
 /obj/structure/glowshroom,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "dt" = (
 /obj/effect/decal/warning_stripes/north,
@@ -1286,8 +1286,8 @@
 /turf/space,
 /area/mine/north_outpost)
 "dy" = (
-/turf/simulated/floor/plating/airless/asteroid,
-/area/mine/dangerous/unexplored)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/mine/unexplored)
 "dz" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /turf/simulated/floor/plasteel{
@@ -1595,7 +1595,7 @@
 /area/mine/abandoned)
 "em" = (
 /turf/simulated/mineral/random/labormineral,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "en" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless{
@@ -1612,21 +1612,11 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = 25
@@ -1642,21 +1632,11 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -1669,21 +1649,11 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /obj/machinery/status_display{
 	density = 0;
@@ -1702,26 +1672,16 @@
 /obj/item/clothing/glasses/meson,
 /obj/item/flashlight,
 /obj/item/storage/bag/ore,
-/obj/item/shovel{
-	attack_verb = list("ineffectively hit");
-	desc = "A large tool for digging and moving dirt. Was modified with extra safety, making it ineffective as a weapon.";
-	force = 1;
-	name = "safety shovel";
-	pixel_x = -5;
-	throwforce = 1
+/obj/item/shovel/safety{
+	pixel_x = -5
 	},
-/obj/item/pickaxe{
-	attack_verb = list("ineffectively hit");
-	desc = "A pickaxe designed to be only effective at digging rock and ore, very ineffective as a weapon.";
-	force = 1;
-	name = "safety pickaxe";
-	pixel_x = 5;
-	throwforce = 1
+/obj/item/pickaxe/safety{
+	pixel_x = 5
 	},
 /obj/machinery/camera{
 	c_tag = "Labor Camp Storage";
 	dir = 8;
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -1749,7 +1709,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp Medical";
 	dir = 8;
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -1795,7 +1755,7 @@
 /area/mine/laborcamp)
 "eB" = (
 /turf/simulated/wall,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "eC" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
@@ -1975,7 +1935,7 @@
 /turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "eX" = (
 /obj/item/shard{
 	icon_state = "medium"
@@ -2175,21 +2135,21 @@
 	icon_state = "asteroidwarning";
 	dir = 10
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "ft" = (
 /turf/simulated/floor/plasteel/airless{
 	tag = "icon-asteroidwarning (SOUTHEAST)";
 	icon_state = "asteroidwarning";
 	dir = 6
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "fu" = (
 /turf/simulated/floor/plasteel/airless{
 	tag = "icon-asteroidwarning";
 	icon_state = "asteroidwarning";
 	dir = 2
 	},
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "fv" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -2292,7 +2252,7 @@
 "fF" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central";
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
@@ -2419,7 +2379,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp External";
 	dir = 4;
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2586,7 +2546,7 @@
 /obj/machinery/camera{
 	c_tag = "Labor Camp Security Hallway";
 	dir = 8;
-	network = list("Labor");
+	network = list("Labor Camp");
 	pixel_x = 0;
 	pixel_y = 0
 	},
@@ -2786,7 +2746,7 @@
 /obj/machinery/camera{
 	c_tag = "Communications Relay";
 	dir = 8;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/bluegrid,
 /area/mine/maintenance)
@@ -3013,7 +2973,7 @@
 "hj" = (
 /obj/machinery/computer/security{
 	name = "Labor Camp Monitoring";
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -3123,7 +3083,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/west_outpost)
 "hA" = (
 /obj/machinery/computer/arcade,
@@ -3133,7 +3093,7 @@
 /area/mine/living_quarters)
 "hB" = (
 /turf/space,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "hC" = (
 /obj/structure/lattice,
 /turf/space,
@@ -3497,7 +3457,7 @@
 /obj/machinery/camera{
 	c_tag = "Crew Area";
 	dir = 1;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3539,7 +3499,7 @@
 "iz" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/mineral/random,
-/area/mine/dangerous/unexplored)
+/area/mine/unexplored)
 "iA" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3559,7 +3519,7 @@
 /obj/machinery/camera{
 	c_tag = "Storage Room";
 	dir = 1;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
@@ -3861,7 +3821,7 @@
 /obj/machinery/camera{
 	c_tag = "West Outpost";
 	dir = 1;
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/west_outpost)
@@ -3960,7 +3920,7 @@
 "js" = (
 /obj/machinery/camera{
 	c_tag = "Crew Area Hallway";
-	network = list("MINE")
+	network = list("Mining Outpost")
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -5;
@@ -4071,7 +4031,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Monitoring";
-	network = list("Labor")
+	network = list("Labor Camp")
 	},
 /obj/machinery/light_switch{
 	pixel_y = 28
@@ -4317,7 +4277,7 @@
 /area/mine/eva)
 "ki" = (
 /obj/machinery/light,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kj" = (
 /obj/structure/disposalpipe/segment{
@@ -4415,21 +4375,21 @@
 /area/mine/living_quarters)
 "ku" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "kx" = (
 /obj/machinery/access_button{
@@ -4767,7 +4727,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/living_quarters)
 "ll" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "lm" = (
 /obj/effect/spawner/window/reinforced,
@@ -5335,7 +5295,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/living_quarters)
 "mv" = (
 /obj/effect/decal/warning_stripes/northeast,
@@ -5477,7 +5437,7 @@
 /obj/effect/decal/remains/human{
 	desc = "Seems to be all that remains of a poor miner that didn't heed the warning signs."
 	},
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/mine/dangerous/explored)
 "mK" = (
 /obj/structure/table/reinforced,

@@ -42,6 +42,7 @@
 /datum/nano_module/atmos_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	data["alarms"] = air_alarm_repository.air_alarm_data(monitored_alarms)
+
 	return data
 
 /datum/nano_module/atmos_control/proc/generate_state(air_alarm)

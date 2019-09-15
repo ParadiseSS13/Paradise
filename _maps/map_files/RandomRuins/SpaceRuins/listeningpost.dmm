@@ -9,10 +9,10 @@
 /turf/simulated/mineral,
 /area/ruin/unpowered)
 "d" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "e" = (
-/turf/simulated/floor/plating/airless/asteroid,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/powered)
 "f" = (
 /turf/simulated/wall/r_wall,

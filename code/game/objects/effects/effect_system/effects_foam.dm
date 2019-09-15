@@ -94,7 +94,7 @@
 		spawn(5)
 			qdel(src)
 
-/obj/effect/particle_effect/foam/Crossed(atom/movable/AM)
+/obj/effect/particle_effect/foam/Crossed(atom/movable/AM, oldloc)
 	if(metal)
 		return
 

@@ -213,64 +213,15 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
-			var/mob/living/carbon/human/H = src
-			visible_message( \
-				text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
-				"<span class='notice'>You check yourself for injuries.</span>" \
-				)
-
-			var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
-			for(var/X in H.bodyparts)
-				var/obj/item/organ/external/LB = X
-				missing -= LB.limb_name
-				var/status = ""
-				var/brutedamage = LB.brute_dam
-				var/burndamage = LB.burn_dam
-
-				if(brutedamage > 0)
-					status = "bruised"
-				if(brutedamage > 20)
-					status = "battered"
-				if(brutedamage > 40)
-					status = "mangled"
-				if(brutedamage > 0 && burndamage > 0)
-					status += " and "
-				if(burndamage > 40)
-					status += "peeling away"
-
-				else if(burndamage > 10)
-					status += "blistered"
-				else if(burndamage > 0)
-					status += "numb"
-				if(LB.status & ORGAN_MUTATED)
-					status = "weirdly shapen."
-				if(status == "")
-					status = "OK"
-				to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
-
-				for(var/obj/item/I in LB.embedded_objects)
-					to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
-
-			for(var/t in missing)
-				to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
-
-			if(H.bleed_rate)
-				to_chat(src, "<span class='danger'>You are bleeding!</span>")
-			if(staminaloss)
-				if(staminaloss > 30)
-					to_chat(src, "<span class='info'>You're completely exhausted.</span>")
-				else
-					to_chat(src, "<span class='info'>You feel fatigued.</span>")
-			if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
-				H.play_xylophone()
+			check_self_for_injuries()
 		else
 			if(player_logged)
 				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
 				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
 			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
@@ -307,6 +258,58 @@
 							H.wear_suit.add_fingerprint(M)
 						else if(H.w_uniform)
 							H.w_uniform.add_fingerprint(M)
+
+/mob/living/carbon/proc/check_self_for_injuries()
+	var/mob/living/carbon/human/H = src
+	visible_message( \
+		text("<span class='notice'>[src] examines [].</span>",gender==MALE?"himself":"herself"), \
+		"<span class='notice'>You check yourself for injuries.</span>" \
+		)
+
+	var/list/missing = list("head", "chest", "groin", "l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")
+	for(var/X in H.bodyparts)
+		var/obj/item/organ/external/LB = X
+		missing -= LB.limb_name
+		var/status = ""
+		var/brutedamage = LB.brute_dam
+		var/burndamage = LB.burn_dam
+
+		if(brutedamage > 0)
+			status = "bruised"
+		if(brutedamage > 20)
+			status = "battered"
+		if(brutedamage > 40)
+			status = "mangled"
+		if(brutedamage > 0 && burndamage > 0)
+			status += " and "
+		if(burndamage > 40)
+			status += "peeling away"
+
+		else if(burndamage > 10)
+			status += "blistered"
+		else if(burndamage > 0)
+			status += "numb"
+		if(LB.status & ORGAN_MUTATED)
+			status = "weirdly shapen."
+		if(status == "")
+			status = "OK"
+		to_chat(src, "\t <span class='[status == "OK" ? "notice" : "warning"]'>Your [LB.name] is [status].</span>")
+
+		for(var/obj/item/I in LB.embedded_objects)
+			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[I.UID()];embedded_limb=[LB.UID()]' class='warning'>There is \a [I] embedded in your [LB.name]!</a>")
+
+	for(var/t in missing)
+		to_chat(src, "<span class='boldannounce'>Your [parse_zone(t)] is missing!</span>")
+
+	if(H.bleed_rate)
+		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+	if(staminaloss)
+		if(staminaloss > 30)
+			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
+		else
+			to_chat(src, "<span class='info'>You feel fatigued.</span>")
+	if((SKELETON in H.mutations) && (!H.w_uniform) && (!H.wear_suit))
+		H.play_xylophone()
 
 /mob/living/carbon/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	. = ..()
@@ -712,16 +715,17 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			return back
 		if(slot_wear_mask)
 			return wear_mask
-		if(slot_handcuffed)
-			return handcuffed
-		if(slot_legcuffed)
-			return legcuffed
+		if(slot_wear_suit)
+			return wear_suit
 		if(slot_l_hand)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand
+		if(slot_handcuffed)
+			return handcuffed
+		if(slot_legcuffed)
+			return legcuffed
 	return null
-
 
 //generates realistic-ish pulse output based on preset levels
 /mob/living/carbon/proc/get_pulse(var/method)	//method 0 is for hands, 1 is for machines, more accurate
@@ -971,6 +975,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	to_chat(src, "<span class='notice'>You [slipVerb]ped on [description]!</span>")
 	playsound(src.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 	// Something something don't run with scissors
+	moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
 	Stun(stun)
 	Weaken(weaken)
 	return 1
@@ -995,7 +1000,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0
-	consume(toEat, bitesize_override, taste = toEat.taste)
+	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	score_foodeaten++
 	return 1
 
@@ -1046,7 +1051,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/reagent_containers/food/toEat, var/bitesize_override, var/taste = TRUE)
+/mob/living/carbon/proc/consume(var/obj/item/reagent_containers/food/toEat, var/bitesize_override, var/can_taste_container = TRUE)
 	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return
@@ -1055,8 +1060,8 @@ so that different stomachs can handle things in different ways VB*/
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
-		if(taste)
-			taste_reagents(toEat.reagents)
+		if(can_taste_container)
+			taste(toEat.reagents)
 		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
 		toEat.reagents.reaction(src, toEat.apply_type, fraction)
 		toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
@@ -1123,6 +1128,7 @@ so that different stomachs can handle things in different ways VB*/
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
 			update_tint()
+		update_sight()
 	if(I.flags_inv & HIDEMASK || forced)
 		update_inv_wear_mask()
 	update_inv_head()

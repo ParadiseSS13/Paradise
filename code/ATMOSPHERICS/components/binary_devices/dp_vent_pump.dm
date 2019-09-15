@@ -56,6 +56,9 @@
 /obj/machinery/atmospherics/binary/dp_vent_pump/high_volume
 	name = "large dual port air vent"
 
+/obj/machinery/atmospherics/binary/dp_vent_pump/high_volume/on
+	on = TRUE
+
 /obj/machinery/atmospherics/binary/dp_vent_pump/high_volume/New()
 	..()
 	air1.volume = 1000

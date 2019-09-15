@@ -77,6 +77,21 @@
 
 			add_fingerprint(M)
 
+//Book of Babel
+
+/obj/item/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "book1"
+	w_class = 2
+
+/obj/item/book_of_babel/attack_self(mob/user)
+	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
+	user.grant_all_languages()
+	new /obj/effect/decal/cleanable/ash(get_turf(user))
+	qdel(src)
+
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
 /obj/item/reagent_containers/glass/bottle/potion
@@ -117,6 +132,30 @@
 		H.emote("scream")
 	..()*/
 
+/obj/item/jacobs_ladder
+	name = "jacob's ladder"
+	desc = "A celestial ladder that violates the laws of physics."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder00"
+
+/obj/item/jacobs_ladder/attack_self(mob/user)
+	var/turf/T = get_turf(src)
+	var/ladder_x = T.x
+	var/ladder_y = T.y
+	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
+	var/last_ladder = null
+	for(var/i in 1 to world.maxz)
+		if(is_admin_level(i) || is_away_level(i))
+			continue
+		var/turf/T2 = locate(ladder_x, ladder_y, i)
+		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
+	qdel(src)
+
+// Inherit from unbreakable but don't set ID, to suppress the default Z linkage
+/obj/structure/ladder/unbreakable/jacob
+	name = "jacob's ladder"
+	desc = "An indestructible celestial ladder that violates the laws of physics."
+
 //Boat
 
 /obj/vehicle/lavaboat
@@ -125,13 +164,13 @@
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	keytype = /obj/item/oar
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)
 	var/turf/current = get_turf(src)
 
-	if(istype(next, /turf/unsimulated/floor/lava) || istype(current, /turf/unsimulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
+	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
 		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
@@ -145,7 +184,7 @@
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
@@ -168,6 +207,7 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
+	burn_state = LAVA_PROOF
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")

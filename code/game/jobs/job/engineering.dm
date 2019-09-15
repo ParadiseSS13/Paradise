@@ -19,7 +19,7 @@
 			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, access_minisat, access_mechanic, access_mineral_storeroom)
 	minimal_player_age = 15
 	exp_requirements = 2880
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
 
 /datum/outfit/job/chief_engineer

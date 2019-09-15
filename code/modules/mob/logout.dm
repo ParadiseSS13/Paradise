@@ -6,7 +6,7 @@
 	create_attack_log("<font color='red'>Logged out at [atom_loc_line(get_turf(src))]</font>")
 	// `holder` is nil'd out by now, so we check the `admin_datums` array directly
 	//Only report this stuff if we are currently playing.
-	if(admin_datums[ckey] && ticker && ticker.current_state == GAME_STATE_PLAYING)
+	if(admin_datums[ckey] && SSticker && SSticker.current_state == GAME_STATE_PLAYING)
 		var/datum/admins/temp_admin = admin_datums[ckey]
 		// Triggers on people with banhammer power only - no mentors tripping the alarm
 		if(temp_admin.rights & R_BAN)
