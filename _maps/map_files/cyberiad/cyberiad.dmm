@@ -31966,9 +31966,15 @@
 /area/chapel/office)
 "bfW" = (
 /obj/structure/rack,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /obj/item/storage/fancy/candle_box/full,
-/obj/item/storage/fancy/candle_box/full,
-/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bfX" = (
