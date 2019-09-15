@@ -101,7 +101,7 @@
 		return FALSE
 
 	set_heartattack(FALSE)
-
+	SSmobs.cubemonkeys -= src
 	if(dna.species)
 		dna.species.handle_hud_icons(src)
 		//Handle species-specific deaths.
