@@ -337,7 +337,7 @@ UI STUFF
 			dat += "<tr><td>[T.content[i]]</td></tr>"
 
 	dat += "</table><br /><br />"
-	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
 
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
