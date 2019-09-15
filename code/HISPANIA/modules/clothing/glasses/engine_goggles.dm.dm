@@ -145,7 +145,7 @@
 	icon_state = "traysonce-"
 	item_state = "traysonce-"
 	init_flash_protect = 2
-	flash_protect
+	flash_protect = 2
 	tint = 0
 
 

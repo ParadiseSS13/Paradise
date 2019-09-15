@@ -28,9 +28,8 @@
 		H.remove_hud_from(user)
 		return FALSE
 
-/obj/item/clothing/glasses/welding/superior/toggle()
+/obj/item/clothing/glasses/welding/superior/weldingvisortoggle(mob/user)
 	..()
-	var/mob/living/carbon/user = usr
 	var/datum/atom_hud/H = huds[HUDType]
 	if(up)
 		on = TRUE
