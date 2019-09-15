@@ -28853,7 +28853,7 @@
 /area/chapel/office)
 "baA" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -31966,15 +31966,9 @@
 /area/chapel/office)
 "bfW" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
-/obj/item/storage/fancy/candle_box{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/fancy/candle_box{
-	pixel_x = 3;
-	pixel_y = -3
-	},
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint2)
 "bfX" = (
@@ -35632,7 +35626,7 @@
 /area/chapel/main)
 "bmU" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79001,7 +78995,7 @@
 "cKD" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cKE" = (
