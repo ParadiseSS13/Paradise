@@ -1252,7 +1252,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/suit/beekeeper_suit,
 					/obj/item/melee/flyswatter)
 	cost = 15
+	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "beekeeping starter kit"
+	access = access_hydroponics
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
 	name = "2 Beekeeper suits"
@@ -1748,10 +1750,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 ///////////// Station Goals
 
-/datum/supply_packs/misc/bsa
+/datum/supply_packs/misc/station_goal
+	name = "Empty Station Goal Crate"
+	cost = 10
+	special = TRUE
+	containername = "empty station goal crate"
+	containertype = /obj/structure/closet/crate/secure/engineering
+	access = access_engine
+
+/datum/supply_packs/misc/station_goal/bsa
 	name = "Bluespace Artillery Parts"
 	cost = 150
-	special = TRUE
 	contains = list(/obj/item/circuitboard/machine/bsa/front,
 					/obj/item/circuitboard/machine/bsa/middle,
 					/obj/item/circuitboard/machine/bsa/back,
@@ -1759,19 +1768,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "bluespace artillery parts crate"
 
-/datum/supply_packs/misc/dna_vault
+/datum/supply_packs/misc/station_goal/dna_vault
 	name = "DNA Vault Parts"
 	cost = 120
-	special = TRUE
 	contains = list(
 					/obj/item/circuitboard/machine/dna_vault
 					)
 	containername = "dna vault parts crate"
 
-/datum/supply_packs/misc/dna_probes
+/datum/supply_packs/misc/station_goal/dna_probes
 	name = "DNA Vault Samplers"
 	cost = 30
-	special = TRUE
 	contains = list(/obj/item/dna_probe,
 					/obj/item/dna_probe,
 					/obj/item/dna_probe,
@@ -1779,9 +1786,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/dna_probe
 					)
 	containername = "dna samplers crate"
+	containertype = /obj/structure/closet/crate/engineering
+	access = null
 
-
-/datum/supply_packs/misc/shield_sat
+/datum/supply_packs/misc/station_goal/shield_sat
 	name = "Shield Generator Satellite"
 	cost = 30
 	special = TRUE
@@ -1792,8 +1800,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "shield sat crate"
 
-
-/datum/supply_packs/misc/shield_sat_control
+/datum/supply_packs/misc/station_goal/shield_sat_control
 	name = "Shield System Control Board"
 	cost = 50
 	special = TRUE
