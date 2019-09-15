@@ -490,8 +490,13 @@
 											'[playertitlelist]',
 											'[disabilities]', '[organlist]', '[rlimblist]', '[nanotrasen_relation]', '[speciesprefs]',
 											'[socks]', '[body_accessory]', '[gearlist]', '[autohiss_mode]',
-											'[sanitizeSQL(custom_names["clown"])]', '[sanitizeSQL(custom_names["mime"])]', '[sanitizeSQL(custom_names["ai"])]',
-											'[sanitizeSQL(custom_names["cyborg"])]', '[sanitizeSQL(custom_names["deity"])]', '[sanitizeSQL(custom_names["religion"])]', '[sanitizeSQL(custom_names["human"])]')
+											'[sanitizeSQL(custom_names["clown"])]',
+											'[sanitizeSQL(custom_names["mime"])]',
+											'[sanitizeSQL(custom_names["ai"])]',
+											'[sanitizeSQL(custom_names["cyborg"])]',
+											'[sanitizeSQL(custom_names["deity"])]',
+											'[sanitizeSQL(custom_names["religion"])]',
+											'[sanitizeSQL(custom_names["human"])]')
 
 "}
 )

@@ -6,5 +6,5 @@ ALTER TABLE `characters`
 	ADD `ai_name` varchar(45) NOT NULL AFTER `mime_name`,
 	ADD `cyborg_name` varchar(45) NOT NULL AFTER `ai_name`,
 	ADD `deity_name` varchar(45) NOT NULL AFTER `cyborg_name`,
-	ADD `religion_name` varchar(45) NOT NULL AFTER `diety_name`,
+	ADD `religion_name` varchar(45) NOT NULL AFTER `deity_name`,
 	ADD `human_name` varchar(45) NOT NULL AFTER `religion_name`;
