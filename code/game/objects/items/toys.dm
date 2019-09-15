@@ -795,7 +795,7 @@ obj/item/toy/cards/deck/syndicate/black
 	item_state = "egg4"
 	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/toy/therapy/New()
 	if(item_color)

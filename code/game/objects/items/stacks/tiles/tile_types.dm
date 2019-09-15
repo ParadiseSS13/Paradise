@@ -193,7 +193,7 @@
 	icon_state = "tile_space"
 	turf_type = /turf/simulated/floor/carpet/arcade
 	merge_type = /obj/item/stack/tile/arcade_carpet
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20

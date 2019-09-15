@@ -477,6 +477,7 @@
 	anchored = 1
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_ICON
+	var/health = 30
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_color = LIGHT_COLOR_CYAN
 	max_integrity = 30

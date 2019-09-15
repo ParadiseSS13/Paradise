@@ -496,7 +496,7 @@
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
 	item_state = "cclown_hat"
-	unacidable = 1 // HUNKE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'

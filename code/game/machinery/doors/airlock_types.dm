@@ -359,7 +359,7 @@
 	name = "gamma level hatch"
 	hackProof = 1
 	aiControlDisabled = 1
-	unacidable = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	is_special = 1
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)

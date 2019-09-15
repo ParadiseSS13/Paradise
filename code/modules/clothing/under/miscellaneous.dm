@@ -753,6 +753,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags_size = ONESIZEFITSALL
 	has_sensor = 0 // HUNKE
 

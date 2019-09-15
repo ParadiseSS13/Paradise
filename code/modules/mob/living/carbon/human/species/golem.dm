@@ -727,7 +727,8 @@
 	item_color = "golem"
 	has_sensor = 0
 	flags = ABSTRACT | NODROP
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 100)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/golem
 	name = "golem shell"
@@ -742,13 +743,15 @@
 	flags_size = ONESIZEFITSALL
 	cold_protection = HEAD | UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0, fire = 0, acid = 100)
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0, fire = 100, acid = 100)
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/golem
 	name = "golem's feet"
 	desc = "sturdy golem feet"
 	icon_state = "golem"
 	item_state = "golem"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP
 
 /obj/item/clothing/mask/gas/golem
@@ -756,7 +759,7 @@
 	desc = "the imposing face of a golem"
 	icon_state = "golem"
 	item_state = "golem"
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP
 	flags_inv = HIDEEARS | HIDEEYES
 
@@ -765,4 +768,5 @@
 	desc = "strong golem hands"
 	icon_state = "golem"
 	item_state = null
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP

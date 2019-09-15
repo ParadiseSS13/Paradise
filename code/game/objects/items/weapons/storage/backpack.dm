@@ -16,7 +16,7 @@
 	max_combined_w_class = 21
 	storage_slots = 21
 	resistance_flags = NONE
-	burntime = 20
+	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi',
 		"Vox Armalis" = 'icons/mob/species/armalis/back.dmi',
@@ -152,7 +152,7 @@
 	desc = "It's a special backpack made exclusively for Nanotrasen officers."
 	icon_state = "captainpack"
 	item_state = "captainpack"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/industrial
 	name = "industrial backpack"
@@ -190,7 +190,7 @@
 	desc = "A specially designed backpack. It's fire resistant and smells vaguely of plasma."
 	icon_state = "toxpack"
 	item_state = "toxpack"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/virology
 	name = "virology backpack"
@@ -274,7 +274,7 @@
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_sec
 	name = "security satchel"
@@ -290,7 +290,7 @@
 	name = "captain's satchel"
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -468,7 +468,7 @@
 	desc = "A duffelbag designed to hold large quantities of condoms."
 	icon_state = "duffel-captain"
 	item_state = "duffel-captain"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/security
 	name = "security duffelbag"
@@ -518,7 +518,7 @@
 	desc = "A duffelbag designed to hold tools. This one is specially designed for atmospherics."
 	icon_state = "duffel-atmos"
 	item_state = "duffel-atmos"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/hydro
 	name = "hydroponics duffelbag"
