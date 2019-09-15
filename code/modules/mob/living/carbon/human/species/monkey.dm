@@ -46,6 +46,10 @@
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 
+/datum/species/monkey/handle_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
+	SSmobs.cubemonkeys -= H
+
 /datum/species/monkey/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.real_name = "[lowertext(name)] ([rand(100,999)])"

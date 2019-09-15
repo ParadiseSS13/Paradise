@@ -410,7 +410,7 @@
 	prefix = "Sand"
 	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
 
-/datum/species/golem/sand/handle_death(mob/living/carbon/human/H)
+/datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] turns into a pile of sand!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
@@ -442,7 +442,7 @@
 	prefix = "Glass"
 	special_names = list("Lens", "Prism", "Fiber", "Bead")
 
-/datum/species/golem/glass/handle_death(mob/living/carbon/human/H)
+/datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
 	H.visible_message("<span class='danger'>[H] shatters!</span>")
 	for(var/obj/item/W in H)
@@ -679,7 +679,7 @@
 			active = null
 	..()
 
-/datum/species/golem/bananium/handle_death(mob/living/carbon/human/H)
+/datum/species/golem/bananium/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
 /datum/unarmed_attack/golem/bananium

@@ -219,6 +219,7 @@
 	if(cameranet.checkTurfVis(remote_eye.loc))
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/monkey/food = new /mob/living/carbon/human/monkey(remote_eye.loc)
+			SSmobs.cubemonkeys += food
 			food.LAssailant = C
 			X.monkeys --
 			to_chat(owner, "[X] now has [X.monkeys] monkeys left.")
