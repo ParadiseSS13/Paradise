@@ -1459,7 +1459,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/shield
 	name = "Energy Shield"
-	desc = "A handheld personal shield projector, capable of reflecting energy projectiles but not other attacks."
+	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles, but it cannot block other attacks. Pair with an Energy Sword for a killer combination."
 	item = /obj/item/shield/energy
 	reference = "ESD"
 	cost = 16
