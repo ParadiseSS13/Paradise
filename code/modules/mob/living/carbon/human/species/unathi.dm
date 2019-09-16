@@ -102,7 +102,7 @@
 				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
 				return
 
-/datum/species/unathi/handle_death(mob/living/carbon/human/H)
+/datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
 /datum/species/unathi/ashwalker

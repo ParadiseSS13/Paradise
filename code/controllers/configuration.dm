@@ -242,6 +242,9 @@
 	// Lavaland
 	var/lavaland_budget = 60
 
+	//cube monkey limit
+	var/cubemonkeycap = 20
+	
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
@@ -787,6 +790,8 @@
 					config.enable_night_shifts = TRUE
 				if("lavaland_budget")
 					config.lavaland_budget = text2num(value)
+				if("cubemonkey_cap")
+					config.cubemonkeycap = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

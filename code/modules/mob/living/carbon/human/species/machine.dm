@@ -90,7 +90,7 @@
 	if(monitor)
 		monitor.Remove(H)
 
-/datum/species/machine/handle_death(mob/living/carbon/human/H)
+/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
 	if(!head_organ)
 		return
