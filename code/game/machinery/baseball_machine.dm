@@ -54,6 +54,7 @@
 		var/obj/item/beach_ball/bball = ball
 		bball.forceMove(get_turf(src))
 		bball.throw_at(get_edge_target_turf(src, dir), 20, 1)
+		playsound(loc, 'sound/machines/baseball_machine.ogg', 50, 1)
 		visible_message("<span class='warning'>[src] fires [bball]!</span>")
 		baseball_count -= ball
 		return TRUE
