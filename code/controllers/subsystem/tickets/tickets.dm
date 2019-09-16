@@ -451,7 +451,6 @@ UI STUFF
 
 	if(href_list["autorespond"])
 		var/indexNum = text2num(href_list["autorespond"])
-		takeTicket(indexNum)
 		autoRespond(indexNum)
 
 	if(href_list["resolveall"])
