@@ -105,7 +105,7 @@
 		empty()
 
 /obj/item/gun/energy/kinetic_accelerator/proc/empty()
-	power_supply?.use(500)
+	power_supply.use(500)
 	update_icon()
 
 /obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload(recharge_time)
