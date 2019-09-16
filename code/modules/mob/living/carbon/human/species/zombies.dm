@@ -29,8 +29,8 @@
 		"brain" =    /obj/item/organ/internal/brain,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes,
-		"ears" = 	/obj/item/organ/internal/ears)
-
+		"ears" = 	/obj/item/organ/internal/ears,
+		"zombie_infection" = /obj/item/organ/internal/zombie_infection)
 
 /datum/species/zombie/infectious
 	name = "Infectious Zombie"
@@ -88,11 +88,6 @@
 		H.drop_r_hand()
 		H.put_in_hands(new mutanthands())
 		H.put_in_hands(new mutanthands())
-	var/obj/item/organ/internal/zombie_infection/infection
-	infection = H.get_organ_slot("zombie_infection")
-	if(!infection)
-		infection = new()
-		infection.insert(H)
 
 /datum/species/zombie/infectious/on_species_loss(mob/living/carbon/human/C, datum/species/old_species)
 	QDEL_NULL(C.r_hand)

@@ -45,8 +45,7 @@
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = target.get_organ_slot("zombie_infection")
 	if(!infection)
-		infection = new()
-		infection.insert(target)
+		infection = new(target)
 
 /obj/item/zombie_hand/proc/check_feast(mob/living/target, mob/living/user)
 	if(target.stat == DEAD)

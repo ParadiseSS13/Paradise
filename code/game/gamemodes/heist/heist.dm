@@ -107,7 +107,7 @@ var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' 
 	vox.add_language("Tradeband")
 	head_organ.h_style = "Short Vox Quills"
 	head_organ.f_style = "Shaved"
-	vox.change_hair_color(rgb(97, 79, 25)) //Same as the species default colour.
+	vox.change_hair_color("#614f19") //Same as the species default colour.
 	vox.change_eye_color(rgb(rand(1, 255), rand(1, 255), rand(1, 255)))
 	vox.underwear = "Nude"
 	vox.undershirt = "Nude"

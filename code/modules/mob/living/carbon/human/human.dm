@@ -1131,9 +1131,7 @@
 
 /mob/living/carbon/human/revive()
 	//Fix up all organs and replace lost ones.
-	restore_all_organs() //Rejuvenate and reset all existing organs.
 	check_and_regenerate_organs(src) //Regenerate limbs and organs only if they're really missing.
-	surgeries.Cut() //End all surgeries.
 
 	if(!isskeleton(src) && (SKELETON in mutations))
 		mutations.Remove(SKELETON)
@@ -1150,7 +1148,7 @@
 						H.brainmob.mind.transfer_to(src)
 						qdel(H)
 
-	..()
+	..() //Restoration of organs and cutting of surgeries happens during a call of rejuvenate() from the parent /living type.
 
 /mob/living/carbon/human/proc/is_lung_ruptured()
 	var/obj/item/organ/internal/lungs/L = get_int_organ(/obj/item/organ/internal/lungs)
@@ -1282,7 +1280,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	if(dna.species.rebuild_on_gain)
+	if(REBUILD_ON_GAIN in dna.species.species_traits)
 		new_mob = TRUE
 
 	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)

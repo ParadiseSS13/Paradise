@@ -13,7 +13,6 @@
 	var/organ_tag = "organ"
 
 	var/parent_organ = "chest"
-	var/changing_parent = FALSE //Set TRUE during species changes whereby organs may be temporarily orphaned during regeneration until parenthood is updated.
 
 	var/list/datum/autopsy_data/autopsy_data = list()
 	var/list/trace_chemicals = list() // traces of chemicals in the organ,
@@ -40,6 +39,9 @@
 	QDEL_LIST_ASSOC_VAL(autopsy_data)
 	QDEL_NULL(dna)
 	return ..()
+
+/obj/item/organ/proc/update_parenthood() //Check to see if there's an available parent organ and become their child -- or become internal organ to appropriate parent.
+	return
 
 /obj/item/organ/proc/become_orphan() //Useful in species changes where we don't need to be sensitive about this. Abandons children and isolates organ from parents.
 	return

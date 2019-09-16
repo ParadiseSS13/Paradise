@@ -167,3 +167,4 @@
 #define NO_DECAY		"no_decay"
 #define PIERCEIMMUNE	"pierce_immunity"
 #define NO_HUNGER		"no_hunger"
+#define REBUILD_ON_GAIN "rebuild_on_gain" //If this is true, when you set_species to this species it'll build up the mob from scratch legacy style.

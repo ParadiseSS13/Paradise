@@ -72,7 +72,7 @@
 		if(vital)
 			owner.death()
 
-/obj/item/organ/external/proc/update_parenthood() //Check to see if there's an available parent organ and become their child.
+/obj/item/organ/external/update_parenthood() //Check to see if there's an available parent organ and become their child.
 	if(parent_organ)
 		parent = owner.bodyparts_by_name[parent_organ]
 		if(parent)
@@ -95,17 +95,17 @@
 /obj/item/organ/external/Destroy()
 	become_orphan()
 
-	if(internal_organs)
-		for(var/obj/item/organ/internal/O in internal_organs)
-			internal_organs -= O
-			O.remove(owner,special = 1)
-			qdel(O)
-
 	if(owner)
 		owner.bodyparts_by_name[limb_name] = null
 		owner.splinted_limbs -= src
 
 	if(!(status & ORGAN_SPECIES_CHANGING))
+		if(internal_organs)
+			for(var/obj/item/organ/internal/O in internal_organs)
+				internal_organs -= O
+				O.remove(owner,special = 1)
+				qdel(O)
+
 		QDEL_LIST(children)
 
 	QDEL_LIST(embedded_objects)
@@ -721,18 +721,19 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	. = ..()
 
-	// Attached organs also fly off.
-	if(!ignore_children && !(status & ORGAN_SPECIES_CHANGING))
-		for(var/obj/item/organ/external/O in children)
-			var/atom/movable/thing = O.remove(victim)
-			if(thing)
-				thing.forceMove(src)
-		victim.updatehealth("limb remove")
+	if(!(status & ORGAN_SPECIES_CHANGING))
+		// Attached organs also fly off.
+		if(!ignore_children)
+			for(var/obj/item/organ/external/O in children)
+				var/atom/movable/thing = O.remove(victim)
+				if(thing)
+					thing.forceMove(src)
+			victim.updatehealth("limb remove")
 
-	// Grab all the internal giblets too.
-	for(var/obj/item/organ/internal/organ in internal_organs)
-		var/atom/movable/thing = organ.remove(victim)
-		thing.forceMove(src)
+		// Grab all the internal giblets too.
+		for(var/obj/item/organ/internal/organ in internal_organs)
+			var/atom/movable/thing = organ.remove(victim)
+			thing.forceMove(src)
 
 	victim.bodyparts -= src
 	if(is_primary_organ(victim))
@@ -740,7 +741,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 	if(!(status & ORGAN_SPECIES_CHANGING))
 		release_restraints(victim) //Make absolutely sure these don't come off during species changing.
-		if(!(status & ORGAN_SPECIES_CHANGING) && is_robotic() && sabotaged) //Robotic limbs explode if sabotaged.
+		if(is_robotic() && sabotaged) //Robotic limbs explode if sabotaged.
 			victim.visible_message(
 				"<span class='danger'>\The [victim]'s [src.name] explodes violently!</span>",\
 				"<span class='danger'>Your [src.name] explodes!</span>",\

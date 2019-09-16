@@ -169,9 +169,10 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 			O.status &= ~ORGAN_SPECIES_CHANGING
 
 /mob/living/carbon/human/proc/update_organ_parenthood() //Refresh the parenthood of all organs - namely after species changes.
-	for(var/B in bodyparts)
-		var/obj/item/organ/external/E = B
-		E.update_parenthood()
+	var/list/all_bits = internal_organs|bodyparts
+	for(var/B in all_bits)
+		var/obj/item/organ/O = B
+		O.update_parenthood()
 
 /mob/living/carbon/human/proc/sort_organ_lists() //Sort mob organ lists matched as closely as possible to the species defines.
 	if(dna.species)

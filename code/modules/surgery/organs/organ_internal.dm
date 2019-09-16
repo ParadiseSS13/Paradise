@@ -36,7 +36,6 @@
 			log_runtime(EXCEPTION("[src] attempted to insert into a [parent_organ], but [parent_organ] wasn't an organ! [atom_loc_line(M)]"), src)
 		else
 			parent.internal_organs |= src
-			changing_parent = FALSE
 	//M.internal_bodyparts_by_name[src] |= src(H,1)
 	loc = null
 	for(var/X in actions)
@@ -45,12 +44,18 @@
 	if(vital)
 		M.update_stat("Vital organ inserted")
 
+/obj/item/organ/internal/update_parenthood() //Find parent and internalize.
+	var/mob/living/carbon/human/H = owner
+	if(parent_organ && istype(H))
+		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
+		if(istype(parent))
+			parent.internal_organs |= src
+
 /obj/item/organ/internal/become_orphan(mob/living/carbon/human/H)
 	if(H)
 		var/obj/item/organ/external/parent = H.get_organ(check_zone(parent_organ))
-		if(parent && parent.children)
+		if(parent)
 			parent.internal_organs -= src
-			parent = null
 	parent_organ = null
 	..()
 
@@ -63,7 +68,7 @@
 // Removes the given organ from its owner.
 // Returns the removed object, which is usually just itself
 // However, you MUST set the object's positiion yourself when you call this!
-/obj/item/organ/internal/remove(mob/living/carbon/M, special = 0, prep_replace)
+/obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner && !(status & ORGAN_SPECIES_CHANGING))
 		log_runtime(EXCEPTION("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]"), src)
 	owner = null

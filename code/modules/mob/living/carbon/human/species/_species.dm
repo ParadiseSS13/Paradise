@@ -65,7 +65,6 @@
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
-	var/rebuild_on_gain = FALSE //If this is true, when you set_species to this species it'll build up the mob from scratch legacy style.
 	var/list/species_traits = list()
 
 	var/breathid = "o2"
@@ -112,7 +111,7 @@
 	var/language = "Galactic Common"         // Default racial language, if any.
 	var/secondary_langs = list()             // The names of secondary languages that are available to this species.
 	var/list/speech_sounds                   // A list of sounds to potentially play when speaking.
-	var/list/speech_chance                   // The likelihood 	of a speech sound playing.
+	var/list/speech_chance                   // The likelihood of a speech sound playing.
 	var/scream_verb = "screams"
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
@@ -133,7 +132,7 @@
 	var/list/icon_skin_tones = list()
 
                               // Determines the organs that the species spawns with and
-	var/list/has_organ = list(    // which required-organ checks are conducted.
+	var/list/has_organ = list(    // which required-organ checks are conducted. Should be enumerated with the SLOT the organ will occupy, even if it's a fluff organ.
 		"heart" =    /obj/item/organ/internal/heart,
 		"lungs" =    /obj/item/organ/internal/lungs,
 		"liver" =    /obj/item/organ/internal/liver,
@@ -177,7 +176,7 @@
 	var/list/species_organs = has_organ.Copy()
 	if(mutantears)
 		species_organs["ears"] = mutantears
-	var/list/replace_after = list("limbs" = list(), "organs" = list())
+	var/list/add_after = list("limbs" = list(), "organs" = list())
 
 	//Criteria:
 		//*. Do create organs to fill in for missing stuff so long as it wasn't already missing.
@@ -196,34 +195,37 @@
 		for(var/organ_type in species_organs) //Account for switching from a species with less organs to a species with more, excepting amputations.
 			if(!H.get_organ_slot(organ_type) && !(organ_type in oldspecies_organs))
 				to_chat(H, "PI1 - [organ_type]")
-				replace_after["organs"][organ_type] = TRUE //Make sure missing stuff is regenerated or we DIE!
+				add_after["organs"][organ_type] = TRUE //Make sure missing stuff is regenerated or we DIE!
 
 		for(var/O in H.internal_organs) //Same as above but for innards. Gotta go inside out to avoid runtimes.
 			var/obj/item/organ/internal/I = O
 			if(I.is_robotic() && !(initial(I.status) & ORGAN_ROBOT)) //Were ya born that way? Allows for correct removal of IPC/Vox organs.
-				to_chat(H, "I2 - [I.slot]")
+				to_chat(H, "I1 - [I.slot]")
 				continue
 			if((I?.dna.species.name != OS.name) || (I?.dna.real_name != H.real_name)) //Same slot, different species?
-				to_chat(H, "I3 - [I.slot]")
+				to_chat(H, "I2 - [I.slot]")
 				continue
 			if(I.slot in oldspecies_organs)
-				if(I.type != oldspecies_organs[I.slot]) //Organs with cybernetic in the type should be preserved because of this.
-					to_chat(H, "I4 - [I.slot]")
+				if(I.type != oldspecies_organs[I.slot]) //Organs with cybernetic in the type should be preserved because of this. Augments/implants etc. survive too.
+					to_chat(H, "I3 - [I.slot]")
 					continue
 				if(!(I.slot in species_organs)) //Liquidate surplus.
 					to_chat(H, "I4 - [I.slot]")
 					remove_after["organs"] |= I
 					I.prep_replace(H)
 					continue
+			else //if(I.slot in species_organs) Organ's already the right kind and belongs to us, don't screw with it. Also accounts for additional non-synthetic augmentations.
+				to_chat(H, "I5 - [I.slot]")
+				continue
 
 			//You ran the gauntlet and survived, I am pleased.
-			replace_after["organs"][I.slot] = I
+			add_after["organs"][I.slot] = I
 			remove_after["organs"] |= I
 			I.prep_replace(H)
 
 		for(var/I in remove_after["organs"])
 			to_chat(H, "Remove - [I]")
-		for(var/I in replace_after["organs"])
+		for(var/I in add_after["organs"])
 			to_chat(H, "Replace - [I]")
 		QDEL_LIST(remove_after["organs"]) //This needs to be broken out here because it made the loops above unable to read properties properly.
 
@@ -231,7 +233,7 @@
 		for(var/limb_type in has_limbs) //Just doing this 'cause I don't know what the future holds. Something about third leg jokes.
 			if(!H.get_organ(limb_type) && !(limb_type in OS.has_limbs))
 				to_chat(H, "PE1 - [limb_type]")
-				replace_after["limbs"][limb_type] = TRUE //Just need to fill this in with something.
+				add_after["limbs"][limb_type] = TRUE //Just need to fill this in with something.
 
 		for(var/B in H.bodyparts) //Is it mine?
 			var/obj/item/organ/external/E = B
@@ -249,19 +251,22 @@
 					to_chat(H, "E4 - [E.limb_name]")
 					remove_after["limbs"] |= E
 					E.prep_replace(H)
+			else //if(E.limb_name in has_limbs)
+				to_chat(H, "E5 - [E.limb_name]")
+				continue
 
-			replace_after["limbs"][E.limb_name] = E
+			add_after["limbs"][E.limb_name] = E
 			remove_after["limbs"] |= E
 			E.prep_replace(H) //Planned parenthood is important, even in space.
 
 		for(var/E in remove_after["limbs"])
 			to_chat(H, "Remove - [E]")
-		for(var/E in replace_after["limbs"])
+		for(var/E in add_after["limbs"])
 			to_chat(H, "Replace - [E]")
 		QDEL_LIST(remove_after["limbs"])
 
 	else //Maintain old behaviour. Legacy support
-		replace_after = list("limbs" = has_limbs, "organs" = species_organs) //Give 'em the whole 9 yards.
+		add_after = list("limbs" = has_limbs, "organs" = species_organs) //Give 'em the whole 9 yards.
 
 		QDEL_LIST(H.internal_organs)
 		QDEL_LIST(H.bodyparts)
@@ -271,20 +276,19 @@
 		LAZYREINITLIST(H.internal_organs)
 
 	for(var/limb_type in has_limbs) //We did our checks, now generate limbs & organs for the new species.
-		if(limb_type in replace_after["limbs"]) //Don't suddenly sprout organs you were missing before changing species.
+		if(limb_type in add_after["limbs"]) //Don't suddenly sprout organs you were missing before changing species.
 			var/limb_path = has_limbs[limb_type]["path"]
-			var/obj/item/organ/external/E = new limb_path(H)
+			var/obj/item/organ/external/E = new limb_path(H) //Implies replaced(), insert() etc. Takes care of parenthood and list membership
 			has_limbs[limb_type]["descriptor"] = E.name
-			E.replaced(H) //Takes care of parenthood and list membership -- last part made redundant by new() but it's all good.
 
 	for(var/organ_type in species_organs) //Had to go outside in -- internal organs need something to be internal inside. Uhh...
-		if(organ_type in replace_after["organs"])
+		if(organ_type in add_after["organs"])
 			var/organ_path = species_organs[organ_type]
 			new organ_path(H) //Adds the organ to the correct lists and such already via insert().
 
 	if(!regen_all)
-		H.toggle_species_changing() //We done changing the species, back to regular operations.
 		H.update_organ_parenthood() //Make sure there aren't no orphans after all the messing around we just did.
+		H.toggle_species_changing() //We done changing the species, back to regular operations.
 		H.sort_organ_lists() //Fix the order so you don't have limbs rendering weird, like being hidden behind torsos.
 
 /datum/species/proc/breathe(mob/living/carbon/human/H)

@@ -400,7 +400,7 @@
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
-/mob/living/proc/rejuvenate()
+/mob/living/proc/rejuvenate(no_release = FALSE)
 	var/mob/living/carbon/human/human_mob = null //Get this declared for use later.
 
 	// shut down various types of badness
@@ -440,12 +440,13 @@
 	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
-	if(buckled) //Unbuckle the mob and clear the alerts.
+	if(!no_release && buckled) //Unbuckle the mob and clear the alerts.
 		buckled.unbuckle_mob(src, force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
-		C.handcuffed = initial(C.handcuffed)
+		if(!no_release)
+			C.handcuffed = initial(C.handcuffed)
 
 		for(var/thing in C.viruses)
 			var/datum/disease/D = thing
@@ -462,7 +463,7 @@
 	restore_all_organs()
 	surgeries.Cut() //End all surgeries.
 	if(stat == DEAD)
-		update_revive()
+		. = update_revive()
 	else if(stat == UNCONSCIOUS)
 		WakeUp()
 
@@ -472,7 +473,7 @@
 	if(human_mob)
 		human_mob.update_eyes()
 		human_mob.update_dna()
-	return
+	return .
 
 /mob/living/proc/remove_CC(should_update_canmove = TRUE)
 	SetWeakened(0, FALSE)

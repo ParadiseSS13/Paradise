@@ -61,7 +61,7 @@
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
-		"cortical stack" =    /obj/item/organ/internal/brain/vox,
+		"brain" =    /obj/item/organ/internal/brain/vox,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
