@@ -124,8 +124,7 @@ SUBSYSTEM_DEF(tickets)
 	T.assignStaff(C)
 	
 	//try to keep this list where more common things are at the top yeah? thx
-	var/response_phrases = list("Cancel" = "Cancel",
-		"Thanks" = "Thanks, have a Paradise day!", 
+	var/response_phrases = list("Thanks" = "Thanks, have a Paradise day!", 
 		"Handling It" = "The issue is being looked into, thanks.",
 		"Already Resolved" = "The problem has been resolved already.",
 		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
@@ -140,10 +139,10 @@ SUBSYSTEM_DEF(tickets)
 	for(var/key in response_phrases)	//build a new list based on the short descriptive keys of the master list so we can send this as the input instead of the full paragraphs to the admin choosing which autoresponse
 		sorted_responses += key
 
-	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as anything in sorted_responses
+	var/message_key = input("Select an autoresponse. This will mark the ticket as resolved.", "Autoresponse") as null|anything in sortTim(sorted_responses, /proc/cmp_text_asc) //use sortTim and cmp_text_asc to sort alphabetically
 
 	switch(message_key)
-		if("Cancel")
+		if(null) //they cancelled
 			T.staffAssigned = initial(T.staffAssigned) //if they cancel we dont need to hold this ticket anymore
 			return
 		if("Reject")
