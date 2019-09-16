@@ -49153,13 +49153,18 @@
 	dir = 8
 	},
 /obj/structure/table,
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/metal,
-/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
 /obj/item/multitool,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel,
@@ -76104,7 +76109,7 @@
 	amount = 50
 	},
 /obj/item/stack/sheet/mineral/plasma{
-	amount = 1;
+	amount = 3;
 	layer = 2.9
 	},
 /obj/item/stack/sheet/glass{
@@ -87693,7 +87698,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"
