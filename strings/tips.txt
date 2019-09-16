@@ -182,7 +182,7 @@ As a Devil, you gain power for every three souls you control, however you also b
 As a Devil, as long as you control at least one other soul, you will automatically resurrect, as long as a banishment ritual is not performed.
 At which time a Devil's nameth is spake on the tongue of man, the Devil may appeareth. 
 As a Security Officer, remember that correlation does not equal causation. Someone may have just been at the wrong place at the wrong time!
-As a Security Officer, remember that you can attach a sec-lite to your taser or your helmet!
+As a Security Officer, remember that you can attach a sec-lite to your taser!
 As a Terror Spider, leave wrapping of corpses to green spiders unless absolutely necessary. They need it to lay eggs!
 As a Prince of Terror, you are powerful but usually on your own. Consider hit and run tactics to regenerate your health between engagements.
 As a Brown Terror Spider, focus on smashing welded vents. You are weak in direct combat, but you can enable your comrades to go almost anywhere.
