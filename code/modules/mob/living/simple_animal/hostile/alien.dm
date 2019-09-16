@@ -29,7 +29,7 @@
 	minbodytemp = 0
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = NO_SPAWN
 	death_sound = 'sound/voice/hiss6.ogg'
 	deathmessage = "lets out a waning guttural screech, green blood bubbling from its maw..."
 
@@ -131,7 +131,7 @@
 	maxHealth = 400
 	health = 400
 	mob_size = MOB_SIZE_LARGE
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 
 /obj/item/projectile/neurotox
 	name = "neurotoxin"
@@ -149,7 +149,7 @@
 	icon_state = "maid"
 	icon_living = "maid"
 	icon_dead = "maid_dead"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //no fun allowed
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
 	if(istype(target, /atom/movable))

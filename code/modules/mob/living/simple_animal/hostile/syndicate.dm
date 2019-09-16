@@ -300,6 +300,6 @@
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
 	flying = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"

@@ -23,7 +23,7 @@
 	unsuitable_atmos_damage = 10
 	robust_searching = 1
 	stat_attack = UNCONSCIOUS
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("skeleton")
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -39,7 +39,7 @@
 	maxHealth = 55
 	health = 55
 	weather_immunities = list("snow")
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	melee_damage_lower = 17
 	melee_damage_upper = 20
 	deathmessage = "collapses into a pile of bones, its gear falling to the floor!"

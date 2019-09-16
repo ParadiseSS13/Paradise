@@ -32,7 +32,7 @@
 
 	faction = list("hostile", "winter")
 	loot = list(/obj/item/stack/sheet/wood)
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	deathmessage = "is hacked into pieces!"
 	del_on_death = 1
 

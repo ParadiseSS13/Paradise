@@ -13,7 +13,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("creature")
 	speak_emote = list("screams")
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	faction = list("nether")
@@ -56,7 +56,7 @@
 	icon_state = "blank-body"
 	icon_living = "blank-body"
 	icon_dead = "blank-dead"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	health = 100
 	maxHealth = 100
 	melee_damage_lower = 5

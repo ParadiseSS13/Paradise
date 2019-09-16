@@ -31,7 +31,7 @@
 	faction = list("carp")
 	flying = 1
 	pressure_resistance = 200
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 	var/carp_color = "carp" //holder for icon set
 	var/list/icon_sets = list("carp", "blue", "yellow", "grape", "rust", "teal", "purple")
@@ -63,7 +63,7 @@
 	icon_state = "holocarp"
 	icon_living = "holocarp"
 	maxbodytemp = INFINITY
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	del_on_death = 1
 
 /mob/living/simple_animal/hostile/carp/holocarp/carp_randomify()
