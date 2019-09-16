@@ -126,9 +126,11 @@ SUBSYSTEM_DEF(tickets)
 	//try to keep this list where more common things are at the top yeah? thx
 	var/response_phrases = list("Cancel" = "Cancel",
 		"Thanks" = "Thanks, have a Paradise day!", 
+		"Handling It" = "The issue is being looked into, thanks.",
 		"Already Resolved" = "The problem has been resolved already.",
 		"Mentorhelp" = "Please redirect your question to Mentorhelp, as they are better experienced with these types of questions.",
-		"Clear Cache" = "To fix a blank screen, please leave the game and clear your byond cache. To clear your Byond Cache, there is a Settings icon in the top right of the launcher. After you click that, go into the Games tab and hit the Clear Cache button. If the issue persists a few minutes after rejoining and doing this please adminhelp again and state you cleared your cache." ,
+		"Happens Again" = "Thanks, let us know if it continues to happen.",
+		"Clear Cache" = "To fix a blank screen, please leave the game and clear your byond cache. To clear your Byond Cache, there is a Settings icon in the top right of the launcher. After you click that, go into the Games tab and hit the Clear Cache button. If the issue persists a few minutes after rejoining and doing this, please adminhelp again and state you cleared your cache." ,
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Appeal on the Forums" = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[config.banappeals]'>[config.banappeals]</a>"
 		)
