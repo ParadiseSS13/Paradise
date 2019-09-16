@@ -94706,8 +94706,7 @@
 	})
 "dds" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	unacidable = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{
