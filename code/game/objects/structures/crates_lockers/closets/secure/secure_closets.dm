@@ -8,6 +8,7 @@
 	locked = 1
 	broken = 0
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	damage_deflection = 20
 	var/large = 1
 	icon_closed = "secure"
 	var/icon_locked = "secure1"

@@ -306,7 +306,7 @@
 	visible_message("<span class='userdanger'>\The [src] emits a bone-chilling shriek!</span>")
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))
-			L.broken()
+			L.break_light_tube()
 	for(var/obj/machinery/camera/C in orange(camera_range, src))
 		if(C.status && prob(camera_chance))
 			C.toggle_cam(src, 0)

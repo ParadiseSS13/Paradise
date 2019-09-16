@@ -49,6 +49,10 @@
 		else
 			take_damage(rand(5,10), BRUTE, 0)
 
+/obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	update_icon()
+
 /obj/structure/grille/blob_act()
 	if(!broken)
 		obj_break()

@@ -5,7 +5,6 @@
 	health = 30
 	fire_resist = 2
 	point_return = 12
-	var/mob/camera/blob/overmind = null
 
 /obj/structure/blob/storage/update_icon()
 	if(health <= 0 && !QDELETED(src))

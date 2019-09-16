@@ -143,6 +143,13 @@ FIRE ALARM
 	else
 		return ..()
 
+/obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	if(.) //damage received
+		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+			if(prob(33))
+				alarm()
+
 /obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
 	if(stat & (NOPOWER|BROKEN))
 		return

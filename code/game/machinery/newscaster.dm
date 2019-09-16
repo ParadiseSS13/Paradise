@@ -159,6 +159,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	..()
 	update_icon()
 
+/obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	update_icon()
+
 /obj/machinery/newscaster/ex_act(severity)
 	switch(severity)
 		if(1)

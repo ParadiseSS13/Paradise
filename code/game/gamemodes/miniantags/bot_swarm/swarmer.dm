@@ -509,11 +509,6 @@
 	spawn(5)
 		qdel(src)
 
-/obj/structure/swarmer/take_damage(damage)
-	health -= damage
-	if(health <= 0)
-		qdel(src)
-
 /obj/structure/swarmer/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage)
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))

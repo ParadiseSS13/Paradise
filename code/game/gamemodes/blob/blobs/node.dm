@@ -6,7 +6,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 65, "acid" = 90)
 	fire_resist = 2
 	point_return = 18
-	var/mob/camera/blob/overmind
 
 /obj/structure/blob/node/New(loc, var/h = 100)
 	blob_nodes += src

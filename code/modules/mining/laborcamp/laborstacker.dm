@@ -91,7 +91,7 @@ GLOBAL_LIST(labor_sheet_values)
 	if(href_list["handle_id"])
 		if(inserted_id)
 			if(!usr.put_in_hands(inserted_id))
-				inserted_id.forceMove(get_turf(src))		
+				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
 		else
 			var/obj/item/I = usr.get_active_hand()
@@ -143,6 +143,7 @@ GLOBAL_LIST(labor_sheet_values)
 
 /**********************Prisoner Collection Unit**************************/
 /obj/machinery/mineral/stacking_machine/laborstacker
+	damage_deflection = 21
 	var/points = 0 //The unclaimed value of ore stacked.
 
 /obj/machinery/mineral/stacking_machine/laborstacker/process_sheet(obj/item/stack/sheet/inp)

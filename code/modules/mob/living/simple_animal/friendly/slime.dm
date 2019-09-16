@@ -29,7 +29,7 @@
 	. = ..()
 	update_health_hud()
 
-/mob/living/simple_animal/slime/proc/update_health_hud()
+/mob/living/simple_animal/slime/update_health_hud()
 	if(hud_used)
 		var/severity = 0
 		var/healthpercent = (health/maxHealth) * 100

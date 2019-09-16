@@ -452,18 +452,6 @@ var/list/turret_icons
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
-/obj/machinery/porta_turret/take_damage(force)
-	if(!raised && !raising)
-		force = force / 8
-		if(force < 5)
-			return
-
-	health -= force
-	if(force > 5 && prob(45) && spark_system)
-		spark_system.start()
-	if(health <= 0)
-		die()	//the death process :(
-
 /obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
 	if(Proj.damage_type == STAMINA)
 		return
@@ -497,6 +485,18 @@ var/list/turret_icons
 				enabled=1
 
 	..()
+
+/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	. = ..()
+	if(. && obj_integrity > 0) //damage received
+		if(prob(30))
+			spark_system.start()
+		if(enabled && !attacked && !emagged)
+			attacked = TRUE
+			addtimer(CALLBACK(src, .proc/reset_attacked), 60)
+
+/obj/machinery/porta_turret/proc/reset_attacked()
+	attacked = FALSE
 
 /obj/machinery/porta_turret/ex_act(severity)
 	switch(severity)

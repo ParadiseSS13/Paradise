@@ -73,11 +73,6 @@
 	if(health <= 0)
 		destroy_structure()
 
-/obj/structure/cult/functional/take_damage(damage, damage_type = BRUTE)
-	if(damage_type == BRUTE || damage_type == BURN)
-		health -= damage
-		updatehealth()
-
 /obj/structure/cult/functional/attackby(obj/item/I, mob/living/user)
 	..()
 	take_damage(I.force, I.damtype)

@@ -45,11 +45,11 @@
 	..()
 	sync_mind()
 	blob_help()
-	update_health()
+	update_health_hud()
 
-/mob/camera/blob/proc/update_health()
+/mob/camera/blob/update_health_hud()
 	if(blob_core)
-		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.health)]</font></div>"
+		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.obj_integrity)]</font></div>"
 
 /mob/camera/blob/proc/add_points(var/points)
 	if(points != 0)

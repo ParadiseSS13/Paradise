@@ -41,12 +41,6 @@
 			take_damage(rand(25, 75))
 			return
 
-/obj/structure/girder/take_damage(amount)
-	health -= amount
-	if(health <= 0)
-		new /obj/item/stack/sheet/metal(get_turf(src))
-		qdel(src)
-
 /obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	..()
 	var/temp_check = exposed_temperature
@@ -501,12 +495,6 @@
 			var/turf/T = get_turf(src)
 			T.ChangeTurf(/turf/simulated/wall/cult)
 			qdel(src)
-
-/obj/structure/girder/cult/take_damage(amount)
-	health -= amount
-	if(health <= 0)
-		new /obj/item/stack/sheet/runed_metal(get_turf(src))
-		qdel(src)
 
 /obj/structure/girder/cult/narsie_act()
 	return

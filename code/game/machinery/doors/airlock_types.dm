@@ -472,6 +472,7 @@
 	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/cult/runed/overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
+	damage_deflection = 10
 	hackProof = TRUE
 	aiControlDisabled = TRUE
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door

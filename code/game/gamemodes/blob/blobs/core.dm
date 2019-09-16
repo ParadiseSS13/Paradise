@@ -6,7 +6,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 90)
 	fire_resist = 2
 	point_return = -1
-	var/mob/camera/blob/overmind = null // the blob core's overmind
 	var/overmind_get_delay = 0 // we don't want to constantly try to find an overmind, do it every 5 minutes
 	var/resource_delay = 0
 	var/point_rate = 2
@@ -47,6 +46,12 @@
 	GLOB.poi_list.Remove(src)
 	return ..()
 
+/obj/structure/blob/core/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, overmind_reagent_trigger = 1)
+	. = ..()
+	if(obj_integrity > 0)
+		if(overmind) //we should have an overmind, but...
+			overmind.update_health_hud()
+
 /obj/structure/blob/core/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
@@ -56,7 +61,7 @@
 		return
 	// update_icon is called when health changes so... call update_health in the overmind
 	if(overmind)
-		overmind.update_health()
+		overmind.update_health_hud()
 	return
 
 /obj/structure/blob/core/RegenHealth()
@@ -71,7 +76,7 @@
 			overmind.add_points(point_rate)
 	health = min(initial(health), health + 1)
 	if(overmind)
-		overmind.update_health()
+		overmind.update_health_hud()
 	if(overmind)
 		for(var/i = 1; i < 8; i += i)
 			Pulse(0, i, overmind.blob_reagent_datum.color)

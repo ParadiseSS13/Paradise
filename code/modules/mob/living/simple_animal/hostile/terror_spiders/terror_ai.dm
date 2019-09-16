@@ -136,7 +136,7 @@
 				if(!L.status)
 					step_to(src,L)
 					L.on = 1
-					L.broken()
+					L.break_light_tube()
 					do_attack_animation(L)
 					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
 					return

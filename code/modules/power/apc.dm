@@ -50,6 +50,7 @@
 	resistance_flags = FIRE_PROOF
 	req_access = list(access_engine_equip)
 	siemens_strength = 1
+	damage_deflection = 10
 	var/area/area
 	var/areastring = null
 	var/obj/item/stock_parts/cell/cell
@@ -654,6 +655,11 @@
 			user.visible_message("<span class='warning'>The [src.name] has been hit with the [W.name] by [user.name]!</span>", \
 				"<span class='warning'>You hit the [src.name] with your [W.name]!</span>", \
 				"You hear a bang.")
+
+/obj/machinery/power/apc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
+	if((!(stat & BROKEN) || malfai))
+		return 0
+	. = ..()
 
 /obj/machinery/power/apc/emag_act(user as mob)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card
@@ -1355,12 +1361,12 @@
 		spawn(0)
 			for(var/obj/machinery/light/L in area)
 				if(prob(chance))
-					L.broken(0, 1)
+					L.break_light_tube(0, 1)
 					stoplag()
 
 /obj/machinery/power/apc/proc/null_charge()
 	for(var/obj/machinery/light/L in area)
-		L.broken(0, 1)
+		L.break_light_tube(0, 1)
 		stoplag()
 
 /obj/machinery/power/apc/proc/setsubsystem(val)

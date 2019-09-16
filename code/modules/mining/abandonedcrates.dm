@@ -210,11 +210,3 @@
 		boom(user)
 	else
 		..()
-
-/obj/structure/closet/crate/secure/loot/proc/boom(mob/user)
-	to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
-	for(var/atom/movable/AM in src)
-		qdel(AM)
-	var/turf/T = get_turf(src)
-	explosion(T, -1, -1, 1, 1)
-	qdel(src)

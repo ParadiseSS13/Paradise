@@ -5,7 +5,6 @@
 	health = 30
 	fire_resist = 2
 	point_return = 12
-	var/mob/camera/blob/overmind = null
 	var/resource_delay = 0
 
 /obj/structure/blob/resource/update_icon()

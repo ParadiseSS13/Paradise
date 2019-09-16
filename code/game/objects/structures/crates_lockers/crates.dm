@@ -237,6 +237,8 @@
 	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	damage_deflection = 25
+	var/tamperproof = 0
 	broken = 0
 	locked = 1
 	health = 1000
@@ -252,6 +254,21 @@
 		overlays += emag
 	else
 		overlays += greenlight
+
+/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
+		boom()
+	else
+		return ..()
+
+/obj/structure/closet/crate/secure/proc/boom(mob/user)
+	if(user)
+		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
+		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+	for(var/atom/movable/AM in src)
+		qdel(AM)
+	explosion(get_turf(src), 0, 1, 5, 5)
+	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
 	return !locked

@@ -11,6 +11,7 @@
 	max_integrity = 350
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
 	flags = PREVENT_CLICK_UNDER
+	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	var/operating = FALSE
@@ -24,7 +25,6 @@
 	var/auto_close_time_dangerous = 15
 	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
-	var/damage_deflection = 10
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE
@@ -202,11 +202,6 @@
 		try_to_activate_door(user)
 		return 1
 	return ..()
-
-/obj/machinery/door/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < damage_deflection)
-		return 0
-	. = ..()
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()

@@ -184,6 +184,14 @@
 		step_rand(A)
 	return ..()
 
+/obj/mecha/working/ripley/ex_act(severity)
+	..()
+	for(var/X in cargo)
+		var/obj/O = X
+		if(prob(30 / severity))
+			cargo -= O
+			O.forceMove(drop_location())
+
 /obj/mecha/working/ripley/proc/update_pressure()
 	var/turf/T = get_turf(loc)
 

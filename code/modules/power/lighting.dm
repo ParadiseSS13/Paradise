@@ -200,12 +200,12 @@
 			if("tube")
 				brightness_range = 8
 				if(prob(2))
-					broken(1)
+					break_light_tube(1)
 			if("bulb")
 				brightness_range = 4
 				brightness_color = "#a0a080"
 				if(prob(5))
-					broken(1)
+					break_light_tube()
 		spawn(1)
 			update(0)
 
@@ -354,7 +354,7 @@
 			if(on && (W.flags & CONDUCT))
 				if(prob(12))
 					electrocute_mob(user, get_area(src), src, 0.3, TRUE)
-			broken()
+			break_light_tube()
 
 		else
 			user.visible_message("<span class='danger'>[user.name] hits the light.</span>")
@@ -390,6 +390,12 @@
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
 
 
+/obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	. = ..()
+	if(. && !QDELETED(src))
+		if(prob(damage_amount * 5))
+			break_light_tube()
+
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
@@ -423,7 +429,7 @@
 	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		user.do_attack_animation(src)
 		visible_message("<span class='danger'>[user.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
-		broken()
+		break_light_tube()
 	return
 
 /obj/machinery/light/attack_animal(mob/living/simple_animal/M)
@@ -434,7 +440,7 @@
 	else if(status == LIGHT_OK||status == LIGHT_BURNED)
 		M.do_attack_animation(src)
 		visible_message("<span class='danger'>[M.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
-		broken()
+		break_light_tube()
 	return
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
@@ -529,7 +535,7 @@
 	status = LIGHT_EMPTY
 	update()
 
-/obj/machinery/light/proc/broken(skip_sound_and_sparks = 0, overloaded = 0)
+/obj/machinery/light/proc/break_light_tube(skip_sound_and_sparks = 0, overloaded = 0)
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
@@ -562,9 +568,9 @@
 			qdel(src)
 			return
 		if(2.0)
-			broken()
+			break_light_tube()
 		if(3.0)
-			broken()
+			break_light_tube()
 	return
 
 //blob effect
@@ -588,14 +594,14 @@
 /obj/machinery/light/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
-		broken()
+		break_light_tube()
 
 // explode the light
 
 /obj/machinery/light/proc/explode()
 	var/turf/T = get_turf(src.loc)
 	spawn(0)
-		broken()	// break it first to give a warning
+		break_light_tube()	// break it first to give a warning
 		sleep(2)
 		explosion(T, 0, 0, 2, 2)
 		sleep(1)

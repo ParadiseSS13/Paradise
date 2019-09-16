@@ -13,6 +13,7 @@
 	var/health_timestamp = 0
 	var/brute_resist = 4
 	var/fire_resist = 1
+	var/mob/camera/blob/overmind
 
 
 /obj/structure/blob/New(loc)
@@ -176,16 +177,27 @@
 	take_damage(damage, BRUTE)
 	return
 
-/obj/structure/blob/take_damage(damage, damage_type)
-	if(!damage || damage_type == STAMINA) // Avoid divide by zero errors
-		return
+/obj/structure/blob/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	switch(damage_type)
 		if(BRUTE)
-			damage /= max(brute_resist, 1)
+			damage_amount *= brute_resist
 		if(BURN)
-			damage /= max(fire_resist, 1)
-	health -= damage
-	update_icon()
+			damage_amount *= fire_resist
+		if(CLONE)
+		else
+			return 0
+	var/armor_protection = 0
+	if(damage_flag)
+		armor_protection = armor[damage_flag]
+	damage_amount = round(damage_amount * (100 - armor_protection)*0.01, 0.1)
+	if(overmind && damage_flag)
+		damage_amount = overmind.blob_reagent_datum.damage_reaction(src, damage_amount, damage_type, damage_flag)
+	return damage_amount
+
+/obj/structure/blob/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	if(. && obj_integrity > 0)
+		update_icon()
 
 /obj/structure/blob/proc/change_to(var/type)
 	if(!ispath(type))
