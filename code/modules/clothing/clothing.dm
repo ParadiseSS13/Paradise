@@ -601,6 +601,7 @@ BLIND     // can't see anything
 	strip_delay = 50
 	put_on_delay = 50
 	burn_state = FIRE_PROOF
+	dog_fashion = null
 
 /obj/item/clothing/suit/space
 	name = "Space suit"

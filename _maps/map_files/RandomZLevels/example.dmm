@@ -605,7 +605,7 @@
 	},
 /area/awaymission/example)
 "bB" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -670,7 +670,7 @@
 	},
 /area/awaymission/example)
 "bJ" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
@@ -680,7 +680,7 @@
 	},
 /area/awaymission/example)
 "bK" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (WEST)";
 	icon_state = "wooden_chair";
 	dir = 8
@@ -706,7 +706,7 @@
 	},
 /area/awaymission/example)
 "bN" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1

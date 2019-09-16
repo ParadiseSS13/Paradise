@@ -383,18 +383,18 @@
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	charge_max = 400
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 	range = 5
 	cooldown_min = 150
 	selection_type = "view"
+	sound = 'sound/magic/repulse.ogg'
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
-	sound = 'sound/magic/repulse.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 2)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
@@ -411,16 +411,16 @@
 		throwtarget = get_edge_target_turf(user, get_dir(user, get_step_away(AM, user)))
 		distfromcaster = get_dist(user, AM)
 		if(distfromcaster == 0)
-			if(istype(AM, /mob/living))
+			if(isliving(AM))
 				var/mob/living/M = AM
 				M.Weaken(5)
 				M.adjustBruteLoss(5)
 				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
-			if(istype(AM, /mob/living))
+			if(isliving(AM))
 				var/mob/living/M = AM
-				M.Weaken(2)
+				M.Weaken(stun_amt)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
 			spawn(0)
 				AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.

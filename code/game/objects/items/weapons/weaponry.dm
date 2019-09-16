@@ -105,7 +105,12 @@
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
-
+		if(istype(I, /obj/item/shard/plasma))
+			S.force_wielded = 19
+			S.force_unwielded = 11
+			S.throwforce = 21
+			S.icon_prefix = "spearplasma"
+			S.update_icon()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
 		user.unEquip(I)
@@ -182,11 +187,11 @@
 /obj/item/melee/baseball_bat/badmin/can_deflect()
 	return TRUE // ALWAYS DEFLECT ALWAYS
 
-/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type, atom/movable/AM)
+/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
-	if(!istype(AM, /obj/item) || attack_type != THROWN_PROJECTILE_ATTACK && !badmin)
+	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
 		return FALSE
-	var/obj/item/I = AM
+	var/obj/item/I = hitby
 	var/is_ball = istype(I, /obj/item/beach_ball)
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || is_ball || badmin) // baseball bat deflecting
 		if(deflectmode)

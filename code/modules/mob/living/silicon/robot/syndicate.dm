@@ -9,7 +9,6 @@
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
 	ionpulse = 1
-	magpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -80,7 +79,7 @@
 
 	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
 	thermals.Grant(src)
-	
+
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."

@@ -186,6 +186,7 @@
 	item_state = "eng_hardsuit"
 	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 75)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine
+	dog_fashion = /datum/dog_fashion/back/hardsuit
 
 //Atmospherics
 /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
@@ -202,11 +203,12 @@
 	name = "atmospherics hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has thermal shielding."
 	icon_state = "hardsuit-atmos"
-	item_state = "atmo_hardsuit"
+	item_state = "atmos_hardsuit"
 	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 25)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/atmos
+	dog_fashion = null
 
 //Chief Engineer's hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
@@ -229,6 +231,7 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/engine/elite
 	jetpack = /obj/item/tank/jetpack/suit
+	dog_fashion = null
 
 //Mining hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/mining
@@ -524,7 +527,7 @@
 	var/shield_on = "shield-old"
 	sprite_sheets = null
 
-/obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, attack_text)
+/obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(current_charges > 0)
 		do_sparks(2, 1, src)
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")

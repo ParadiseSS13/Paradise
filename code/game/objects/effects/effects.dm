@@ -4,7 +4,7 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	resistance_flags = INDESTRUCTIBLE
 	anchored = 1
 	can_be_hit = FALSE
@@ -14,6 +14,9 @@
 
 /obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	return FALSE
+
+/obj/effect/experience_pressure_difference()
+	return
 
 /obj/effect/decal
 	plane = FLOOR_PLANE

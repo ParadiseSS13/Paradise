@@ -1,0 +1,4 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - bugfix: "R&D Console no longer has a default design called 'Name' show up in the mining category."

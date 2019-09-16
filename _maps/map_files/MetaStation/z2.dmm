@@ -4552,7 +4552,7 @@
 	},
 /area/syndicate_mothership)
 "mE" = (
-/mob/living/simple_animal/pet/fox/Syndifox,
+/mob/living/simple_animal/pet/dog/fox/Syndifox,
 /turf/unsimulated/floor{
 	icon_state = "bar";
 	dir = 2

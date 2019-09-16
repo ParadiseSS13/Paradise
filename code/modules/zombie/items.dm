@@ -5,7 +5,7 @@
 		sustain the zombie, forcing open airlock doors and opening \
 		child-safe caps on bottles."
 	flags = NODROP|ABSTRACT|DROPDEL
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE
 	burn_state = LAVA_PROOF
 	unacidable = TRUE
 	icon = 'icons/effects/blood.dmi'

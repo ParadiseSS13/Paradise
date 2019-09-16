@@ -25,6 +25,8 @@
 	reagent_state = SOLID
 	nutriment_factor = 15 * REAGENTS_METABOLISM
 	color = "#664330" // rgb: 102, 67, 48
+	var/brute_heal = 1
+	var/burn_heal = 0
 
 /datum/reagent/consumable/nutriment/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -33,10 +35,8 @@
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
 				if(prob(50))
-					update_flags |= M.adjustBruteLoss(-1, FALSE)
-					if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
-						if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-							H.blood_volume += 0.4
+					update_flags |= M.adjustBruteLoss(-brute_heal, FALSE)
+					update_flags |= M.adjustFireLoss(-burn_heal, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/consumable/nutriment/on_new(list/supplied_data)
@@ -66,36 +66,26 @@
 	id = "protein"
 	description = "Various essential proteins and fats commonly found in animal flesh and blood."
 	diet_flags = DIET_CARN | DIET_OMNI
-	taste_description = "meat" //TODO: Remove
 
 /datum/reagent/consumable/nutriment/plantmatter		// Plant-based biomatter, digestable by herbivores and omnivores, worthless to carnivores
 	name = "Plant-matter"
 	id = "plantmatter"
 	description = "Vitamin-rich fibers and natural sugars commonly found in fresh produce."
 	diet_flags = DIET_HERB | DIET_OMNI
-	taste_description = "vegetables" //TODO: Remove
 
-/datum/reagent/consumable/vitamin
+/datum/reagent/consumable/nutriment/vitamin
 	name = "Vitamin"
 	id = "vitamin"
 	description = "All the best vitamins, minerals, and carbohydrates the body needs in pure form."
 	reagent_state = SOLID
 	color = "#664330" // rgb: 102, 67, 48
-	taste_description = "nutrition"
+	brute_heal = 1
+	burn_heal = 1
 
-/datum/reagent/consumable/vitamin/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(prob(50))
-		update_flags |= M.adjustBruteLoss(-1, FALSE)
-		update_flags |= M.adjustFireLoss(-1, FALSE)
+/datum/reagent/consumable/nutriment/vitamin/on_mob_life(mob/living/M)
 	if(M.satiety < 600)
 		M.satiety += 30
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(!(NO_BLOOD in H.dna.species.species_traits))//do not restore blood on things with no blood by nature.
-			if(H.blood_volume < BLOOD_VOLUME_NORMAL)
-				H.blood_volume += 0.5
-	return ..() | update_flags
+	return ..()
 
 /datum/reagent/consumable/sugar
 	name = "Sugar"
@@ -345,6 +335,31 @@
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
+
+/datum/reagent/consumable/garlic
+	name = "Garlic Juice"
+	id = "garlic"
+	description = "Crushed garlic. Chefs love it, but it can make you smell bad."
+	color = "#FEFEFE"
+	taste_description = "garlic"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+			if(prob(min(25, current_cycle)))
+				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
+				H.Weaken(1)
+				H.Jitter(10)
+				H.fakevomit()
+		else
+			if(H.job == "Chef")
+				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
+					update_flags |= H.adjustBruteLoss(-1, FALSE)
+					update_flags |= H.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/sprinkles
 	name = "Sprinkles"
@@ -951,7 +966,7 @@
 	id = "entpoly"
 	description = "An ichor, derived from a certain mushroom, makes for a bad time."
 	color = "#1d043d"
-	taste_description = "mold"
+	taste_description = "bitter mushroom"
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -970,13 +985,13 @@
 	id = "tinlux"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
-	var/light_activated = 0
-	taste_description = "mold"
+	var/light_activated = FALSE
+	taste_description = "tingling mushroom"
 
 /datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
 	if(!light_activated)
 		M.set_light(2)
-		light_activated = 1
+		light_activated = TRUE
 	return ..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
@@ -988,7 +1003,7 @@
 	description = "A bubbly paste that heals wounds of the skin."
 	color = "#d3a308"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
-	taste_description = "sweetness"
+	taste_description = "fruity mushroom"
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

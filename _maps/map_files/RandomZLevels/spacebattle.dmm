@@ -2300,7 +2300,7 @@
 /area/awaymission/spacebattle/syndicate7)
 "hr" = (
 /obj/structure/largecrate,
-/mob/living/simple_animal/pet/corgi/puppy,
+/mob/living/simple_animal/pet/dog/corgi/puppy,
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/cruiser)
 "hs" = (
