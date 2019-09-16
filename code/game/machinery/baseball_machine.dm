@@ -1,8 +1,8 @@
 /obj/machinery/baseball_machine
 	name = "baseball pitching machine"
 	desc = "Hey batter batter!"
-	icon = 'icons/obj/turrets.dmi'
-	icon_state = "turretCover"
+	icon = 'icons/obj/machines/baseball_machine.dmi'
+	icon_state = "Baseballshooter"
 	anchored = TRUE
 	density = TRUE
 	use_power = IDLE_POWER_USE				//this turret uses and requires power
@@ -45,7 +45,7 @@
 	shoot_baseball()
 
 /obj/machinery/baseball_machine/proc/shoot_baseball()
-	if(!baseball_count)
+	if(!LAZYLEN(baseball_count))
 		atom_say("Out of baseballs. Please insert more baseballs to continue.")
 		active = FALSE
 		update_icon()
@@ -60,9 +60,9 @@
 
 /obj/machinery/baseball_machine/update_icon()
 	if(active)
-		icon_state = "target_prism"
+		icon_state = "[icon_state]_firing"
 	else
-		icon_state = "turretCover"
+		icon_state = "Baseballshooter"
 
 /obj/machinery/baseball_machine/AltClick(mob/user)
 	rotate(user)
