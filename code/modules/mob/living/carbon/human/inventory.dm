@@ -74,7 +74,7 @@
 	if(istype(O) && O.owner == src)
 		. = 0 // keep a good grip on your heart
 
-/mob/living/carbon/human/unEquip(obj/item/I)
+/mob/living/carbon/human/unEquip(obj/item/I, force)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
@@ -572,5 +572,3 @@
 /mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
-	for(var/obj/item/I in l_hand, r_hand)
-		qdel(I)
