@@ -16,7 +16,7 @@
 	response_help = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm = "kicks"
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	health = 50
@@ -29,4 +29,4 @@
 	name = "Paperwork"
 	desc = "Cargo's pet sloth. About as useful as the rest of the techs."
 	unique_pet = TRUE
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN

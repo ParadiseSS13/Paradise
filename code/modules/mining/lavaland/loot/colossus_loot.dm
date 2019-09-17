@@ -356,7 +356,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
-	gold_core_spawnable = 0
+	gold_core_spawnable = HOSTILE_SPAWN
 	speak_emote = list("warps")
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
