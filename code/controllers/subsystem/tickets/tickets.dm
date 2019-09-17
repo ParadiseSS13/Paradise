@@ -150,6 +150,7 @@ SUBSYSTEM_DEF(tickets)
 				to_chat(C, "Unable to close ticket")
 		if("Man Up")
 			C.man_up(returnClient(N))
+			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>")
 			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
@@ -158,6 +159,7 @@ SUBSYSTEM_DEF(tickets)
 			SEND_SOUND(returnClient(N), msg_sound)
 			to_chat(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
 //Set ticket state with key N to closed
