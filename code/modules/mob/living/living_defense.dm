@@ -303,17 +303,17 @@
 	return
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
+	M.face_atom(src)
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src].")
-		return 0
-	else
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-						"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_attack_logs(M, src, "Animal attacked")
-		return 1
+		return FALSE
+	if(M.attack_sound)
+		playsound(loc, M.attack_sound, 50, 1, 1)
+	M.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
+					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
+	add_attack_logs(M, src, "Animal attacked")
+	return TRUE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)

@@ -27630,7 +27630,7 @@
 /area/chapel/office)
 "baA" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -30575,13 +30575,13 @@
 /area/chapel/office)
 "bfW" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
-/obj/item/storage/fancy/candle_box{
+/obj/item/storage/fancy/candle_box/full{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/fancy/candle_box{
-	pixel_x = 3;
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -3;
 	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
@@ -34007,7 +34007,7 @@
 /area/chapel/main)
 "bmU" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

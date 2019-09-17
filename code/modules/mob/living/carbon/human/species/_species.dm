@@ -304,10 +304,7 @@
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
-/datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
-	return
-
-/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/C)
+/datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
@@ -522,7 +519,7 @@
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return
 
-	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(0, M.name, attack_type = UNARMED_ATTACK))
+	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
 		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
 		return FALSE

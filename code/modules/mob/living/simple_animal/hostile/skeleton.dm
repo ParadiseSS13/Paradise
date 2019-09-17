@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/skeleton
 	name = "reanimated skeleton"
 	desc = "A real bonefied skeleton, doesn't seem like it wants to socialize."
-	icon = 'icons/mob/animal.dmi'
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "skeleton"
 	icon_living = "skeleton"
 	turns_per_move = 5

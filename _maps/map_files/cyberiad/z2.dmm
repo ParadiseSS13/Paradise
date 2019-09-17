@@ -1867,7 +1867,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/machinery/computer/syndicate_depot/teleporter/targeted,
+/obj/machinery/computer/syndicate_depot/teleporter,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},

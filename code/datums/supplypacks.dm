@@ -508,6 +508,25 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containername = "security clothing crate"
 
+/datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
+	name = "Officer Starter Pack"
+	contains = 	list(/obj/item/clothing/suit/armor/vest/security,
+				/obj/item/radio/headset/headset_sec/alt,
+				/obj/item/clothing/head/soft/sec,
+				/obj/item/reagent_containers/spray/pepper,
+				/obj/item/flash,
+				/obj/item/grenade/flashbang,
+				/obj/item/storage/belt/security/sec,
+				/obj/item/holosign_creator/security,
+				/obj/item/clothing/mask/gas/sechailer,
+				/obj/item/clothing/glasses/hud/security/sunglasses,
+				/obj/item/clothing/head/helmet,
+				/obj/item/melee/baton/loaded,
+				/obj/item/clothing/suit/armor/secjacket)
+	cost = 30 // Convenience has a price and this pack is genuinely loaded
+	containername = "officer starter crate"
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////
