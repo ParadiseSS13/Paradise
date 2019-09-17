@@ -36,7 +36,7 @@
 	//Temperature effect
 	var/minbodytemp = 250
 	var/maxbodytemp = 350
-	var/heat_damage_per_tick = 3	//amount of damage applied if animal's body temperature is higher than maxbodytemp
+	var/heat_damage_per_tick = 2	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	var/cold_damage_per_tick = 2	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 
 	//Healable by medical stacks? Defaults to yes.
@@ -277,8 +277,10 @@
 	handle_temperature_damage()
 
 /mob/living/simple_animal/proc/handle_temperature_damage()
-	if((bodytemperature < minbodytemp) || (bodytemperature > maxbodytemp))
-		adjustHealth(unsuitable_atmos_damage)
+	if(bodytemperature < minbodytemp)
+		adjustHealth(cold_damage_per_tick)
+	else if(bodytemperature > maxbodytemp)
+		adjustHealth(heat_damage_per_tick)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
