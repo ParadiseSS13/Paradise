@@ -137,11 +137,11 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list (/obj/item/kitchen/knife)
 	flags_size = ONESIZEFITSALL
+	species_fit = list("Vox")
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
-
 //Chef
 /obj/item/clothing/suit/chef/classic
 	name = "classic chef's apron"
