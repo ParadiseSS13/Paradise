@@ -300,6 +300,7 @@
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
+	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
