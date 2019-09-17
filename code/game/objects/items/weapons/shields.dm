@@ -9,7 +9,7 @@
 	if(attack_type == MELEE_ATTACK)
 		final_block_chance += 10
 	else if(owner.get_active_hand())
-		final_block_chance += 30
+		final_block_chance += 25
 	if(attack_type == LEAP_ATTACK)
 		final_block_chance = 90
 	return ..()
