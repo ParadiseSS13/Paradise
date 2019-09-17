@@ -131,6 +131,7 @@ SUBSYSTEM_DEF(tickets)
 		"Clear Cache" = "To fix a blank screen, please leave the game and clear your Byond Cache. To clear your Byond Cache, there is a Settings icon in the top right of the launcher. After you click that, go into the Games tab and hit the Clear Cache button. If the issue persists a few minutes after rejoining and doing this, please adminhelp again and state you cleared your cache." ,
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
+		"Man Up" = "Man Up",
 		"Appeal on the Forums" = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[config.banappeals]'>[config.banappeals]</a>"
 		)
 		
@@ -147,6 +148,11 @@ SUBSYSTEM_DEF(tickets)
 		if("Reject")
 			if(!closeTicket(N))
 				to_chat(C, "Unable to close ticket")
+		if("Man Up")
+			C.man_up(returnClient(N))
+			resolveTicket(N)
+			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>")
+			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
 		else
 			var/msg_sound = sound('sound/effects/adminhelp.ogg')
 			SEND_SOUND(returnClient(N), msg_sound)
