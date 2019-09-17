@@ -82,7 +82,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(open)
 		to_chat(user, "The inside of the the door has numbers written on it: <b>[get_combination()]</b>")
 
-/obj/structure/safe/blob_act()
+/obj/structure/safe/blob_act(obj/structure/blob/B)
 	return
 
 /obj/structure/safe/ex_act(severity)

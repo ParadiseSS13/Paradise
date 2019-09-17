@@ -188,13 +188,7 @@ Class Procs:
 		if(3.0)
 			if(prob(25))
 				qdel(src)
-				return
-		else
-	return
 
-/obj/machinery/blob_act()
-	if(prob(50))
-		qdel(src)
 
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)

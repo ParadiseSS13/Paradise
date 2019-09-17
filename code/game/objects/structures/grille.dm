@@ -53,10 +53,6 @@
 	. = ..()
 	update_icon()
 
-/obj/structure/grille/blob_act()
-	if(!broken)
-		obj_break()
-
 /obj/structure/grille/examine(mob/user)
 	..()
 	if(anchored)
@@ -78,6 +74,11 @@
 		shock(user, 70)
 		shockcooldown = world.time + my_shockcooldown
 
+/obj/structure/grille/attack_animal(mob/user)
+	. = ..()
+	if(!shock(user, 70))
+		take_damage(rand(5,10), BRUTE, "melee", 1)
+
 /obj/structure/grille/hulk_damage()
 	return 60
 
@@ -98,14 +99,9 @@
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
 /obj/structure/grille/attack_alien(mob/living/user)
-	if(istype(user, /mob/living/carbon/alien/larva))
-		return
-	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src)
-	user.visible_message("<span class='warning'>[user] mangles [src].</span>", \
-						 "<span class='warning'>You mangle [src].</span>", \
-						 "You hear twisting metal.")
-
+	user.changeNext_move(CLICK_CD_MELEE)
+	user.visible_message("<span class='warning'>[user] mangles [src].</span>")
 	if(!shock(user, 70))
 		take_damage(20, BRUTE, "melee", 1)
 
@@ -222,17 +218,17 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(src, 'sound/effects/grillehit.ogg', 80, 1)
+				playsound(src, 'sound/effects/grillehit.ogg', 80, TRUE)
 			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 80, 1)
+			playsound(src, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/grille/deconstruct(disassembled = TRUE)
 	if(!loc) //if already qdel'd somehow, we do nothing
 		return
-	if(can_deconstruct)
-		var/obj/R = new rods_type(loc, rods_amount)
+	if(!(flags & NODECONSTRUCT))
+		var/obj/R = new rods_type(drop_location(), rods_amount)
 		transfer_fingerprints_to(R)
 		qdel(src)
 	..()
@@ -270,15 +266,17 @@
 		if(exposed_temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
 
-/obj/structure/grille/hitby(atom/movable/AM)
-	if(istype(AM, /obj))
+/obj/structure/grille/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(isobj(AM))
 		if(prob(50) && anchored && !broken)
-			var/turf/T = get_turf(src)
-			var/obj/structure/cable/C = T.get_cable_node()
-			if(C)
-				playsound(loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
-				tesla_zap(src, 3, C.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
-				C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
+			var/obj/O = AM
+			if(O.throwforce != 0)//don't want to let people spam tesla bolts, this way it will break after time
+				var/turf/T = get_turf(src)
+				var/obj/structure/cable/C = T.get_cable_node()
+				if(C)
+					playsound(src, 'sound/magic/lightningshock.ogg', 100, TRUE, extrarange = 5)
+					tesla_zap(src, 3, C.newavail() * 0.01) //Zap for 1/100 of the amount of power. At a million watts in the grid, it will be as powerful as a tesla revolver shot.
+					C.add_delayedload(C.newavail() * 0.0375) // you can gain up to 3.5 via the 4x upgrades power is halved by the pole so thats 2x then 1X then .5X for 3.5x the 3 bounces shock.
 	return ..()
 
 /obj/structure/grille/broken // Pre-broken grilles for map placement

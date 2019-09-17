@@ -336,12 +336,10 @@ var/bomb_set
 /obj/machinery/nuclearbomb/ex_act(severity)
 	return
 
-/obj/machinery/nuclearbomb/blob_act()
+/obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(timing == -1.0)
 		return
-	else
-		return ..()
-	return
+	qdel(src)
 
 /obj/machinery/nuclearbomb/tesla_act(power, explosive)
 	..()

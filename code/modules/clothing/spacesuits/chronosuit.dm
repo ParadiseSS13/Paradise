@@ -188,6 +188,12 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 
+/obj/effect/chronos_cam/singularity_act()
+	return
+
+/obj/effect/chronos_cam/singularity_pull()
+	return
+
 /obj/effect/chronos_cam/relaymove(var/mob/user, direction)
 	if(holder)
 		if(user == holder)

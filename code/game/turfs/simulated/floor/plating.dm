@@ -186,7 +186,7 @@
 			if(prob(50))
 				ChangeTurf(baseturf)
 
-/turf/simulated/floor/engine/blob_act()
+/turf/simulated/floor/engine/blob_act(obj/structure/blob/B)
 	if(prob(25))
 		ChangeTurf(baseturf)
 
@@ -221,12 +221,14 @@
 	assume_air(adding)
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
+	..()
 	if(current_size >= STAGE_FIVE)
-		if(prob(30))
-			make_plating() //does not actually do anything
-		else
+		if(floor_tile)
 			if(prob(30))
-				ReplaceWithLattice()
+				new floor_tile(src)
+				make_plating()
+		else if(prob(30))
+			ReplaceWithLattice()
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"

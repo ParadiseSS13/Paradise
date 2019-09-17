@@ -157,15 +157,6 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 	health -= Proj.damage
 	..()
 	src.healthcheck()
-	return
-
-
-/obj/structure/tribble_cage/blob_act()
-	if(prob(75))
-		new /obj/item/shard( src.loc )
-		Break()
-		qdel(src)
-
 
 /obj/structure/tribble_cage/proc/healthcheck()
 	if(src.health <= 0)

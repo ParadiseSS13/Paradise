@@ -29,18 +29,6 @@
 	for(var/i=0;i < metalAmount;i++)
 		new /obj/item/stack/sheet/metal(get_turf(src))
 
-/obj/structure/girder/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if((M.environment_smash & ENVIRONMENT_SMASH_STRUCTURES) || (M.environment_smash & ENVIRONMENT_SMASH_WALLS) || (M.environment_smash & ENVIRONMENT_SMASH_RWALLS))
-		if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS)
-			ex_act(2)
-			M.visible_message("<span class='warning'>[M] smashes through \the [src].</span>", "<span class='warning'>You smash through \the [src].</span>")
-		else
-			M.visible_message("<span class='warning'>[M] smashes against \the [src].</span>", "<span class='warning'>You smash against \the [src].</span>")
-			take_damage(rand(25, 75))
-			return
-
 /obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	..()
 	var/temp_check = exposed_temperature
@@ -372,27 +360,15 @@
 		. = . || mover.checkpass(PASSGRILLE)
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
-		var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
+	if(!(flags & NODECONSTRUCT))
+		var/remains = pick(/obj/item/stack/rods, /obj/item/stack/sheet/metal)
 		new remains(loc)
 	qdel(src)
-
-/obj/structure/girder/blob_act()
-	if(prob(40))
-		qdel(src)
 
 /obj/structure/girder/narsie_act()
 	if(prob(25))
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
-
-/obj/structure/girder/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam/pulse))
-		ex_act(2)
-	else
-		take_damage(Proj.damage)
-	..()
-	return 0
 
 /obj/structure/girder/ex_act(severity)
 	switch(severity)
@@ -500,6 +476,6 @@
 	return
 
 /obj/structure/girder/cult/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
-		new/obj/item/stack/sheet/runed_metal/(get_turf(src), 1)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/runed_metal(drop_location(), 1)
 	qdel(src)

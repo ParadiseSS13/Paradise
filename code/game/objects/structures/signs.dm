@@ -6,6 +6,16 @@
 	layer = 3.5
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
+/obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src.loc, 'sound/weapons/slash.ogg', 80, TRUE)
+			else
+				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
+
 /obj/structure/sign/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -16,13 +26,6 @@
 			return
 		if(3.0)
 			qdel(src)
-			return
-		else
-	return
-
-/obj/structure/sign/blob_act()
-	qdel(src)
-	return
 
 /obj/structure/sign/attackby(obj/item/tool as obj, mob/user as mob)	//deconstruction
 	if(istype(tool, /obj/item/screwdriver) && !istype(src, /obj/structure/sign/double))

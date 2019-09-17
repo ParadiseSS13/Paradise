@@ -104,6 +104,16 @@
 	tag = text("landmark*[]", name)
 
 
+/obj/effect/landmark/singularity_act()
+	return
+
+// Please stop bombing the Observer-Start landmark.
+/obj/effect/landmark/ex_act()
+	return
+
+/obj/effect/landmark/singularity_pull()
+	return
+
 /obj/effect/landmark/start
 	name = "start"
 	icon = 'icons/mob/screen_gen.dmi'

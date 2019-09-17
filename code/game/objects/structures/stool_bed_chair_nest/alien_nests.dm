@@ -77,15 +77,15 @@
 		M.layer = initial(M.layer)
 		overlays -= nest_overlay
 
-/obj/structure/bed/nest/attackby(obj/item/W as obj, mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/aforce = W.force
-	health = max(0, health - aforce)
-	playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
-	visible_message("<span class='warning'>[user] hits [src] with [W]!</span>", 1)
-	healthcheck()
+/obj/structure/bed/nest/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/bed/nest/proc/healthcheck()
-	if(health <= 0)
-		density = FALSE
-		qdel(src)
+/obj/structure/bed/nest/attack_alien(mob/living/carbon/alien/user)
+	if(user.a_intent != INTENT_HARM)
+		return attack_hand(user)
+	else
+		return ..()

@@ -118,6 +118,11 @@
 	view_range = num
 	cameranet.updateVisibility(src, 0)
 
+/obj/machinery/camera/singularity_pull(S, current_size)
+	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+		toggle_cam(null, 0)
+	..()
+
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"

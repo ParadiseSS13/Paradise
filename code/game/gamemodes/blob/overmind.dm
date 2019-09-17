@@ -9,7 +9,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	pass_flags = PASSBLOB
-	faction = list("blob")
+	faction = list(ROLE_BLOB)
 
 	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
@@ -90,7 +90,7 @@
 /mob/camera/blob/emote(act, m_type = 1, message = null, force)
 	return
 
-/mob/camera/blob/blob_act()
+/mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
 
 /mob/camera/blob/Stat()

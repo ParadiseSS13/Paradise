@@ -50,7 +50,7 @@
 	Life()
 	return
 
-/obj/structure/blob/blob_act()
+/obj/structure/blob/blob_act(obj/structure/blob/B)
 	return
 
 /obj/structure/blob/proc/Life()
@@ -134,11 +134,6 @@
 	var/damage = 150 - 20 * severity
 	take_damage(damage, BRUTE)
 
-/obj/structure/blob/bullet_act(var/obj/item/projectile/Proj)
-	..()
-	take_damage(Proj.damage, Proj.damage_type)
-	return 0
-
 /obj/structure/blob/Crossed(var/mob/living/L, oldloc)
 	..()
 	L.blob_act(src)
@@ -159,23 +154,20 @@
 		playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
 	take_damage(W.force, W.damtype)
 
-/obj/structure/blob/attack_animal(mob/living/simple_animal/M as mob)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
-	visible_message("<span class='danger'>\The [M] has attacked the [src.name]!</span>")
-	var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-	take_damage(damage, BRUTE)
-	return
+/obj/structure/blob/attack_animal(mob/living/simple_animal/M)
+	if(ROLE_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
+		return
+	..()
 
-/obj/structure/blob/attack_alien(mob/living/carbon/alien/humanoid/M as mob)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
-	visible_message("<span class='danger'>[M] has slashed the [src.name]!</span>")
-	var/damage = rand(15, 30)
-	take_damage(damage, BRUTE)
-	return
+/obj/structure/blob/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src.loc, 'sound/effects/attackblob.ogg', 50, TRUE)
+			else
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
+		if(BURN)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/blob/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	switch(damage_type)

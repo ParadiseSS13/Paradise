@@ -56,6 +56,3 @@
 		playsound(src, P.hitsound, 50, 1)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
 		take_damage(P.damage, P.damage_type)
-
-/obj/structure/blob/shield/reflective/bullet_act()
-	return

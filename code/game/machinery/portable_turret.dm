@@ -415,29 +415,6 @@ var/list/turret_icons
 
 		..()
 
-/obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if(M.melee_damage_upper == 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
-		return
-	if(!(stat & BROKEN))
-		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
-		take_damage(M.melee_damage_upper)
-	else
-		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
-	return
-
-/obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
-	M.changeNext_move(CLICK_CD_MELEE)
-	M.do_attack_animation(src)
-	if(!(stat & BROKEN))
-		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
-		take_damage(15)
-	else
-		to_chat(M, "<span class='noticealien'>That object is useless to you.</span>")
-	return
-
 /obj/machinery/porta_turret/emag_act(user as mob)
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
@@ -451,21 +428,6 @@ var/list/turret_icons
 		enabled = 0 //turns off the turret temporarily
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
-
-/obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
-	if(Proj.damage_type == STAMINA)
-		return
-
-	if(enabled)
-		if(!attacked && !emagged)
-			attacked = 1
-			spawn(60)
-				attacked = 0
-
-	..()
-
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
 	if(enabled && emp_vulnerable)

@@ -75,7 +75,7 @@
 /obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
 	return 0
 
-/obj/singularity/blob_act(severity)
+/obj/singularity/blob_act(obj/structure/blob/B)
 	return
 
 /obj/singularity/ex_act(severity)
@@ -95,6 +95,7 @@
 
 
 /obj/singularity/bullet_act(obj/item/projectile/P)
+	qdel(P)
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
 
@@ -274,7 +275,7 @@
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
-		light_range = 10
+		set_light(10)
 	return
 
 

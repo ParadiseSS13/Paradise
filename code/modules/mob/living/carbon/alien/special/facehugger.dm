@@ -33,8 +33,7 @@ var/const/MAX_ACTIVE_TIME = 400
 		Die()
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
-	attack_hand(user)
-	return
+	return attack_hand(user)
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))
@@ -62,12 +61,6 @@ var/const/MAX_ACTIVE_TIME = 400
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O,mob/m, params)
 	if(O.force)
 		Die()
-	return
-
-/obj/item/clothing/mask/facehugger/bullet_act(obj/item/projectile/P)
-	if(P.damage)
-		Die()
-	return
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()

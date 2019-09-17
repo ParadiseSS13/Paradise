@@ -163,6 +163,21 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 		occupant = null
 	occupant_overlay = null
 
+/obj/structure/displaycase/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+		if(BURN)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+
+/obj/structure/displaycase/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		dump()
+		if(!disassembled)
+			new /obj/item/shard( src.loc )
+			burglar_alarm()
+	qdel(src)
+
 /obj/structure/displaycase/ex_act(severity)
 	switch(severity)
 		if(1)
@@ -178,19 +193,6 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 			if(prob(50))
 				src.health -= 5
 				src.healthcheck()
-
-/obj/structure/displaycase/bullet_act(var/obj/item/projectile/Proj)
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		health -= Proj.damage
-	..()
-	src.healthcheck()
-	return
-
-/obj/structure/displaycase/blob_act()
-	if(prob(75))
-		new /obj/item/shard(loc)
-		if(occupant) dump()
-		qdel(src)
 
 /obj/structure/displaycase/proc/healthcheck()
 	if(src.health <= 0)

@@ -25,20 +25,6 @@
 				src.health -= 5
 				src.healthcheck()
 
-
-/obj/structure/lamarr/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
-	..()
-	src.healthcheck()
-	return
-
-
-/obj/structure/lamarr/blob_act()
-	if(prob(75))
-		new /obj/item/shard(loc)
-		Break()
-		qdel(src)
-
 /obj/structure/lamarr/proc/healthcheck()
 	if(src.health <= 0)
 		if(!( src.destroyed ))

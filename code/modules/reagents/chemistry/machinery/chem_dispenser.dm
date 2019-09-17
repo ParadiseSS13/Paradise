@@ -141,10 +141,6 @@
 			if(prob(50))
 				qdel(src)
 
-/obj/machinery/chem_dispenser/blob_act()
-	if(prob(50))
-		qdel(src)
-
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

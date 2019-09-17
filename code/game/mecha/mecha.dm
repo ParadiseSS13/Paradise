@@ -25,6 +25,7 @@
 	var/dir_in = 2//What direction will the mech face when entered/powered on? Defaults to South.
 	var/normal_step_energy_drain = 10
 	var/step_energy_drain = 10
+	var/melee_energy_drain = 15
 	var/overload_step_energy_drain_min = 100
 	var/health = 300 //health is health
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
@@ -234,24 +235,6 @@
 			target.reagents.add_reagent("atropine", force/2)
 		if(target.reagents.get_reagent_amount("toxin") + force < force*2)
 			target.reagents.add_reagent("toxin", force/2.5)
-
-
-
-/atom/proc/mech_melee_attack(obj/mecha/M)
-	return
-
-/obj/mecha/mech_melee_attack(obj/mecha/M)
-	if(M.damtype =="brute")
-		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-	else if(M.damtype == "fire")
-		playsound(src, 'sound/items/welder.ogg', 50, 1)
-	else
-		return
-	M.occupant_message("<span class='danger'>You hit [src].</span>")
-	visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
-	take_damage(M.force, damtype)
-	add_attack_logs(M.occupant, src, "Mecha-attacked with [M] (INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
-	return
 
 /obj/mecha/proc/range_action(atom/target)
 	return
@@ -575,7 +558,7 @@
 
 
 /obj/mecha/attack_alien(mob/living/user)
-	log_message("Attack by alien. Attacker - [user].")
+	log_message("Attack by alien. Attacker - [user].", color = "red")
 	playsound(src.loc, 'sound/weapons/slash.ogg', 100, TRUE)
 	attack_generic(user, 15, BRUTE, "melee", 0)
 
@@ -894,6 +877,13 @@
 		take_damage(round(I.force * dam_coeff), I.damtype)
 		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
 
+/obj/mecha/mech_melee_attack(obj/mecha/M)
+	if(!has_charge(melee_energy_drain))
+		return 0
+	use_power(melee_energy_drain)
+	if(M.damtype == BRUTE || M.damtype == BURN)
+		add_attack_logs(M.occupant, src, "Mecha-attacked with [M] (INTENT: [uppertext(M.occupant.a_intent)]) (DAMTYPE: [uppertext(M.damtype)])")
+		. = ..()
 
 /obj/mecha/emag_act(mob/user)
 	to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")

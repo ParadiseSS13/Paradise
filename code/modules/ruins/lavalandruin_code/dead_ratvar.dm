@@ -31,6 +31,7 @@
 
 /obj/effect/clockwork/overlay/singularity_act()
 	return
+
 /obj/effect/clockwork/overlay/singularity_pull()
 	return
 

@@ -85,11 +85,6 @@
 /obj/structure/statue/CanAtmosPass()
 	return !density
 
-/obj/structure/statue/bullet_act(obj/item/projectile/Proj)
-	hardness -= Proj.damage
-	..()
-	CheckHardness()
-
 /obj/structure/statue/proc/CheckHardness()
 	if(hardness <= 0)
 		Dismantle(TRUE)

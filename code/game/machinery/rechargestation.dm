@@ -83,28 +83,11 @@
 					A.forceMove(src.loc)
 					A.ex_act(severity)
 				qdel(src)
-				return
-
-/obj/machinery/recharge_station/blob_act()
-	if(prob(50))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
-		qdel(src)
 
 /obj/machinery/recharge_station/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
-
-
-/obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
-	if(M.environment_smash)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
-		go_out()
-		qdel(src)
-	return
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
 	move_inside(AM)

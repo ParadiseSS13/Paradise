@@ -55,19 +55,6 @@
 						verbs -= x
 					set_broken()
 
-/obj/machinery/computer/bullet_act(var/obj/item/projectile/Proj)
-	if(prob(Proj.damage))
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-			set_broken()
-	..()
-
-/obj/machinery/computer/blob_act()
-	if(prob(75))
-		for(var/x in verbs)
-			verbs -= x
-		set_broken()
-		density = 0
-
 /obj/machinery/computer/extinguish_light()
 	set_light(0)
 	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
@@ -95,6 +82,16 @@
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
+
+/obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(stat & BROKEN)
+				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
+			else
+				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+		if(BURN)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/computer/proc/set_broken()
 	if(!(resistance_flags & INDESTRUCTIBLE))
@@ -137,23 +134,3 @@
 			qdel(src)
 	else
 		attack_hand(user)
-	return
-
-/obj/machinery/computer/attack_alien(mob/living/user)
-	if(isalien(user) && user.a_intent == INTENT_HELP)
-		var/mob/living/carbon/alien/humanoid/xeno = user
-		if(xeno.has_fine_manipulation)
-			return attack_hand(user)
-
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(circuit)
-		if(prob(80))
-			user.visible_message("<span class='danger'>[user.name] smashes the [src.name] with its claws.</span>",\
-			"<span class='danger'>You smash the [src.name] with your claws.</span>",\
-			"<span class='danger'>You hear a smashing sound.</span>")
-			set_broken()
-			return
-	user.visible_message("<span class='danger'>[user.name] smashes against the [src.name] with its claws.</span>",\
-	"<span class='danger'>You smash against the [src.name] with your claws.</span>",\
-	"<span class='danger'>You hear a clicking sound.</span>")

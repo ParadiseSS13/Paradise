@@ -261,10 +261,9 @@
 		return 0
 	..()
 
-/obj/machinery/logic_gate/blob_act()
-	if(tamperproof)
-		return 0
-	..()
+/obj/machinery/logic_gate/blob_act(obj/structure/blob/B)
+	if(!tamperproof)
+		return ..()
 
 /obj/machinery/logic_gate/singularity_act()
 	if(tamperproof)

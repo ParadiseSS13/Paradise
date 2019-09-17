@@ -193,6 +193,9 @@
 	if(isliving(L))
 		L.fire_act()
 
+/obj/effect/hotspot/singularity_pull()
+	return
+
 /obj/effect/hotspot/fake // Largely for the fireflash procs below
 	fake = TRUE
 	burn_time = 30

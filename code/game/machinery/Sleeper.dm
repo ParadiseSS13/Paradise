@@ -264,15 +264,6 @@
 		add_fingerprint(usr)
 	return 1
 
-/obj/machinery/sleeper/blob_act()
-	if(prob(75))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
-		qdel(src)
-	return
-
-
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!beaker)

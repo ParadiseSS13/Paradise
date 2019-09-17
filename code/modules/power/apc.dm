@@ -704,33 +704,6 @@
 
 	src.interact(user)
 
-/obj/machinery/power/apc/attack_alien(mob/living/carbon/alien/humanoid/user)
-	if(!user)
-		return
-	if(!istype(user,/mob/living/carbon/alien/humanoid))
-		return
-	if(indestructible)
-		return
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	user.visible_message("<span class='warning'>[user.name] slashes at the [src.name]!", "<span class='notice'>You slash at the [src.name]!</span></span>")
-	playsound(src.loc, 'sound/weapons/slash.ogg', 100, 1)
-
-	var/allcut = wires.IsAllCut()
-
-	if(beenhit >= pick(3, 4) && wiresexposed != 1)
-		wiresexposed = 1
-		src.update_icon()
-		src.visible_message("<span class='warning'>The [src.name]'s cover flies open, exposing the wires!</span>")
-
-	else if(wiresexposed == 1 && allcut == 0)
-		wires.CutAll()
-		src.update_icon()
-		src.visible_message("<span class='warning'>The [src.name]'s wires are shredded!</span>")
-	else
-		beenhit += 1
-	return
-
 /obj/machinery/power/apc/attack_ghost(mob/user)
 	if(wiresexposed)
 		wires.Interact(user)
@@ -1329,12 +1302,8 @@
 					cell.ex_act(3.0)
 	return
 
-/obj/machinery/power/apc/blob_act()
-	if(prob(75))
-		set_broken()
-		if(cell && prob(5))
-			cell.blob_act()
-
+/obj/machinery/power/apc/blob_act(obj/structure/blob/B)
+	set_broken()
 
 /obj/machinery/power/apc/disconnect_terminal()
 	if(terminal)

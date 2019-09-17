@@ -32,6 +32,10 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	if(severity == 1) // Very sturdy.
 		set_broken()
 
+/obj/machinery/gravity_generator/blob_act(obj/structure/blob/B)
+	if(prob(20))
+		set_broken()
+
 /obj/machinery/gravity_generator/tesla_act(power, explosive)
 	..()
 	if(explosive)

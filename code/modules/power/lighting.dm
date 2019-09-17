@@ -113,6 +113,10 @@
 	else
 		return ..()
 
+/obj/structure/light_construct/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
+		qdel(src)
+
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
 	desc = "A small light fixture under construction."
@@ -397,6 +401,19 @@
 		if(prob(damage_amount * 5))
 			break_light_tube()
 
+/obj/machinery/light/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			switch(status)
+				if(LIGHT_EMPTY)
+					playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE)
+				if(LIGHT_BROKEN)
+					playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 90, TRUE)
+				else
+					playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
+		if(BURN)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
@@ -420,29 +437,7 @@
 // ai attack - make lights flicker, because why not
 /obj/machinery/light/attack_ai(mob/user)
 	src.flicker(1)
-	return
 
-// Aliens smash the bulb but do not get electrocuted./N
-/obj/machinery/light/attack_alien(mob/living/carbon/alien/humanoid/user)//So larva don't go breaking light bulbs.
-	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
-		to_chat(user, "<span class=notice'>That object is useless to you.</span>")
-		return
-	else if(status == LIGHT_OK||status == LIGHT_BURNED)
-		user.do_attack_animation(src)
-		visible_message("<span class='danger'>[user.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
-		break_light_tube()
-	return
-
-/obj/machinery/light/attack_animal(mob/living/simple_animal/M)
-	if(M.melee_damage_upper == 0)	return
-	if(status == LIGHT_EMPTY||status == LIGHT_BROKEN)
-		to_chat(M, "<span class='warning'>That object is useless to you.</span>")
-		return
-	else if(status == LIGHT_OK||status == LIGHT_BURNED)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] smashed the light!</span>", "You hear a tinkle of breaking glass")
-		break_light_tube()
-	return
 // attack with hand - remove tube/bulb
 // if hands aren't protected and the light is on, burn the player
 
@@ -572,14 +567,6 @@
 			break_light_tube()
 		if(3.0)
 			break_light_tube()
-	return
-
-//blob effect
-
-/obj/machinery/light/blob_act()
-	if(prob(75))
-		qdel(src)
-
 
 // timed process
 // use power

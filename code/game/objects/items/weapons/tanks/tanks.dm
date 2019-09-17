@@ -109,16 +109,25 @@
 
 	return
 
-/obj/item/tank/blob_act()
-	if(prob(50))
-		var/turf/location = loc
-		if(!( istype(location, /turf) ))
+/obj/item/tank/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
+		var/turf/location = get_turf(src)
+		if(!location)
 			qdel(src)
 
 		if(air_contents)
 			location.assume_air(air_contents)
 
 		qdel(src)
+
+/obj/item/tank/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		var/turf/T = get_turf(src)
+		if(T)
+			T.assume_air(air_contents)
+			air_update_turf()
+		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+	qdel(src)
 
 /obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

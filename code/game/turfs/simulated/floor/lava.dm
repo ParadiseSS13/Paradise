@@ -24,7 +24,7 @@
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/hitby(atom/movable/AM)
+/turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 

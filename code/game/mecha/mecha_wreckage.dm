@@ -26,7 +26,7 @@
 			qdel(src)
 	return
 
-/obj/effect/decal/mecha_wreckage/bullet_act(var/obj/item/projectile/Proj)
+/obj/effect/decal/mecha_wreckage/bullet_act(obj/item/projectile/Proj)
 	return
 
 

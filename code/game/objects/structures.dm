@@ -5,10 +5,6 @@
 	var/mob/climber
 	var/broken = FALSE
 
-/obj/structure/blob_act()
-	if(prob(50))
-		qdel(src)
-
 /obj/structure/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -20,13 +16,6 @@
 				return
 		if(3.0)
 			return
-
-/obj/structure/mech_melee_attack(obj/mecha/M)
-	if(M.damtype == "brute")
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
-		return 1
-	return 0
 
 /obj/structure/New()
 	if (!armor)

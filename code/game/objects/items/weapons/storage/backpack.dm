@@ -87,7 +87,6 @@
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2),1)
 	explosion(src.loc,(dist),(dist*2),(dist*4))
-	return
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"

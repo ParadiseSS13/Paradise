@@ -222,11 +222,10 @@
 	updatehealth()
 
 
-/mob/living/carbon/slime/blob_act()
+/mob/living/carbon/slime/blob_act(obj/structure/blob/B)
 	show_message("<span class='userdanger'> The blob attacks you!</span>")
 	adjustBruteLoss(20)
 	updatehealth()
-	return
 
 /mob/living/carbon/slime/MouseDrop(atom/movable/A)
 	if(isliving(A) && A != src && usr == src)

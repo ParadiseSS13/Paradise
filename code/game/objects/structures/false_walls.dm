@@ -140,6 +140,15 @@
 	playsound(src, 'sound/items/welder.ogg', 100, 1)
 	qdel(src)
 
+/obj/structure/falsewall/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			new girder_type(loc)
+		if(mineral_amount)
+			for(var/i in 1 to mineral_amount)
+				new mineral(loc)
+	qdel(src)
+
 /*
  * False R-Walls
  */

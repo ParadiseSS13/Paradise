@@ -74,12 +74,15 @@
 		src.healthcheck()
 	..()
 
-
-/obj/machinery/power/solar/blob_act()
-	src.health--
-	src.healthcheck()
-	return
-
+/obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(stat & BROKEN)
+				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 60, TRUE)
+			else
+				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/power/solar/proc/healthcheck()
 	if(src.health <= 0)
@@ -153,12 +156,6 @@
 			if(3)
 				if(prob(25) && broken())
 					new /obj/item/shard(src.loc)
-
-/obj/machinery/power/solar/blob_act()
-	if(prob(75))
-		broken()
-		src.density = 0
-
 
 /obj/machinery/power/solar/fake/New(var/turf/loc, var/obj/item/solar_assembly/S)
 	..(loc, S, 0)
@@ -441,6 +438,16 @@
 		src.attack_hand(user)
 	return
 
+/obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(stat & BROKEN)
+				playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
+			else
+				playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+		if(BURN)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
+
 /obj/machinery/power/solar_control/process()
 	lastgen = gen
 	gen = 0
@@ -523,11 +530,6 @@
 			if(3)
 				if(prob(25))
 					broken()
-
-/obj/machinery/power/solar_control/blob_act()
-	if(prob(75))
-		broken()
-		src.density = 0
 
 //
 // MISC

@@ -99,10 +99,9 @@
 	griefProtection()
 	..()
 
-
-/obj/machinery/r_n_d/server/blob_act()
+/obj/machinery/r_n_d/server/blob_act(obj/structure/blob/B)
 	griefProtection()
-	..()
+	return ..()
 
 // Backup files to CentComm to help admins recover data after griefer attacks
 /obj/machinery/r_n_d/server/proc/griefProtection()

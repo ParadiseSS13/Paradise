@@ -487,6 +487,13 @@
 	. = ..()
 	set_light(lon_range)
 
+/obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+		if(BURN)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+
 /obj/structure/swarmer/disintegration
 	icon_state = "disintegrate"
 
@@ -509,12 +516,6 @@
 	spawn(5)
 		qdel(src)
 
-/obj/structure/swarmer/bullet_act(obj/item/projectile/Proj)
-	if(Proj.damage)
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-			take_damage(Proj.damage)
-	..()
-
 /obj/structure/swarmer/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item))
 		user.changeNext_move(CLICK_CD_MELEE)
@@ -526,21 +527,8 @@
 	qdel(src)
 	return
 
-/obj/structure/swarmer/blob_act()
-	qdel(src)
-	return
-
 /obj/structure/swarmer/emp_act()
 	qdel(src)
-	return
-/obj/structure/swarmer/attack_animal(mob/living/user)
-	if(isanimal(user))
-		var/mob/living/simple_animal/S = user
-		S.do_attack_animation(src)
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(S.melee_damage_type == BRUTE || S.melee_damage_type == BURN)
-			take_damage(rand(S.melee_damage_lower, S.melee_damage_upper))
-	return
 
 /obj/structure/swarmer/trap
 	name = "swarmer trap"

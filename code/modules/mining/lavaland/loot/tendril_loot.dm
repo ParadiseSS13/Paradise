@@ -438,6 +438,9 @@
 /obj/effect/immortality_talisman/ex_act()
 	return
 
+/obj/effect/immortality_talisman/singularity_act()
+	return
+
 /obj/effect/immortality_talisman/singularity_pull()
 	return 0
 

@@ -14,6 +14,7 @@
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				128		// item has priority to check when entering or leaving
 #define PREVENT_CLICK_UNDER		256
+#define NODECONSTRUCT			512
 
 #define EARBANGPROTECT			1024
 

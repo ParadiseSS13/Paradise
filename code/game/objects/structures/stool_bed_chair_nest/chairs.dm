@@ -304,12 +304,6 @@
 			if(prob(50))
 				new buildstacktype(loc, buildstackamount)
 				qdel(src)
-				return
-
-/obj/structure/chair/stool/blob_act()
-	if(prob(75))
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
 
 /obj/item/chair
 	name = "chair"

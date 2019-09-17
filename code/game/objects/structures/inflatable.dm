@@ -41,13 +41,6 @@
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
-	..()
-	if(health <= 0)
-		deflate(1)
-	return
-
 /obj/structure/inflatable/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -61,9 +54,6 @@
 				deflate(1)
 				return
 
-/obj/structure/inflatable/blob_act()
-	deflate(1)
-
 /obj/structure/inflatable/attack_hand(mob/user as mob)
 	add_fingerprint(user)
 	return
@@ -75,25 +65,6 @@
 		deflate(1)
 	else	//for nicer text~
 		user.visible_message("<span class='danger'>[user] tears at [src]!</span>")
-
-/obj/structure/inflatable/attack_alien(mob/user as mob)
-	if(islarva(user))
-		return
-	attack_generic(user, 15)
-
-/obj/structure/inflatable/attack_animal(mob/user as mob)
-	if(!isanimal(user))
-		return
-	var/mob/living/simple_animal/M = user
-	if(M.melee_damage_upper <= 0)
-		return
-	attack_generic(M, M.melee_damage_upper)
-
-/obj/structure/inflatable/attack_slime(mob/user as mob)
-	var/mob/living/carbon/slime/S = user
-	if(!S.is_adult)
-		return
-	attack_generic(user, rand(10, 15))
 
 /obj/structure/inflatable/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(!istype(W))

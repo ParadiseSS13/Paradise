@@ -177,6 +177,17 @@
 				feedback_inc("cyborg_ais_created",1)
 				qdel(src)
 
+/obj/structure/AIcore/deconstruct(disassembled = TRUE)
+	if(state == 4)
+		new /obj/item/stack/sheet/rglass(loc, 2)
+	if(state >= 3)
+		new /obj/item/stack/cable_coil(loc, 5)
+	if(circuit)
+		circuit.forceMove(loc)
+		circuit = null
+	new /obj/item/stack/sheet/plasteel(loc, 4)
+	qdel(src)
+
 /obj/structure/AIcore/deactivated
 	name = "Inactive AI"
 	icon = 'icons/mob/AI.dmi'

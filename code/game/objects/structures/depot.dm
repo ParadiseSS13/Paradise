@@ -33,11 +33,6 @@
 		obj_integrity = 0
 		healthcheck()
 
-/obj/structure/fusionreactor/bullet_act(obj/item/projectile/Proj)
-	obj_integrity -= Proj.damage
-	..()
-	healthcheck()
-
 /obj/structure/fusionreactor/proc/healthcheck()
 	if(obj_integrity <= 0 && istype(depotarea))
 		overload(TRUE)

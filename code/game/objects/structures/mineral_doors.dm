@@ -52,9 +52,6 @@
 /obj/structure/mineral_door/attack_hand(mob/user)
 	return TryToSwitchState(user)
 
-/obj/structure/mineral_door/attack_animal(mob/user)
-	return TryToSwitchState(user)
-
 /obj/structure/mineral_door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		SwitchState()

@@ -150,6 +150,11 @@ FIRE ALARM
 			if(prob(33))
 				alarm()
 
+/obj/machinery/firealarm/singularity_pull(S, current_size)
+	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
+		deconstruct()
+	..()
+
 /obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
 	if(stat & (NOPOWER|BROKEN))
 		return

@@ -449,7 +449,7 @@ emp_act
 	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
 
 //this proc handles being hit by a thrown atom
-/mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
+/mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	var/obj/item/I
 	var/throwpower = 30
 	if(istype(AM, /obj/item))
@@ -458,11 +458,11 @@ emp_act
 		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
 	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
-		hitpush = 0
-		skipcatch = 1
-		blocked = 1
+		hitpush = FALSE
+		skipcatch = TRUE
+		blocked = TRUE
 	else if(I)
-		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
+		if(((throwingdatum ? throwingdatum.speed : I.throw_speed) >= EMBED_THROWSPEED_THRESHOLD) || I.embedded_ignore_throwspeed_threshold)
 			if(can_embed(I))
 				if(prob(I.embed_chance))
 					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
@@ -472,8 +472,8 @@ emp_act
 					I.forceMove(src)
 					L.receive_damage(I.w_class*I.embedded_impact_pain_multiplier)
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
-					hitpush = 0
-					skipcatch = 1 //can't catch the now embedded item
+					hitpush = FALSE
+					skipcatch = TRUE //can't catch the now embedded item
 	if(!blocked)
 		dna.species.spec_hitby(AM, src)
 	return ..()
@@ -616,35 +616,38 @@ emp_act
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
+		M.do_attack_animation(src)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
-		var/obj/item/organ/external/affecting = get_organ(pick("chest", "chest", "chest", "head"))
+		var/obj/item/organ/external/affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
 		if(affecting)
 			var/update = 0
+			var/dmg = rand(M.force/2, M.force)
 			switch(M.damtype)
 				if("brute")
-					if(M.force > 20)
+					if(M.force > 35) // durand and other heavy mechas
 						Paralyse(1)
-					update |= affecting.receive_damage(rand(M.force/2, M.force), 0)
-					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
+					else if(M.force > 20 && !weakened) // lightweight mechas like gygax
+						Weaken(2)
+					update |= affecting.receive_damage(dmg, 0)
+					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if("fire")
-					update |= affecting.receive_damage(0, rand(M.force/2, M.force))
-					playsound(src, 'sound/items/welder.ogg', 50, 1)
+					update |= affecting.receive_damage(dmg, 0)
+					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 				if("tox")
 					M.mech_toxin_damage(src)
 				else
 					return
+			if(update)
+				UpdateDamageIcon()
 			updatehealth("mech melee attack")
 
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
-								"<span class='userdanger'>[src] has been hit by [M.name].</span>")
+		visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='userdanger'>[M.name] hits you!</span>")
 
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		..()
-
-	return
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)

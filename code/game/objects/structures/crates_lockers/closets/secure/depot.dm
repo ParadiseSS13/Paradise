@@ -40,7 +40,7 @@
 	if(isanimal(M) && "syndicate" in M.faction)
 		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
 		return
-	return ..(M)
+	return ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs))

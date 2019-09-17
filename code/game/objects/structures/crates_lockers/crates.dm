@@ -194,9 +194,10 @@
 		if(3.0)
 			if(prob(50))
 				qdel(src)
-			return
-		else
-	return
+
+/obj/structure/closet/singularity_act()
+	dump_contents()
+	..()
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)

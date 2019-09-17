@@ -135,13 +135,13 @@
 				tram += src
 
 /obj/tram/tram_controller/proc/check_validity(var/atom/movable/AM)
-	if(!AM)	
+	if(!AM)
 		return FALSE
 
-	if(!AM.simulated)	
+	if(!AM.simulated)
 		return FALSE
 
-	if(is_type_in_list(AM, blacklist))	
+	if(is_type_in_list(AM, blacklist))
 		return FALSE
 
 	if(AM.anchored)
@@ -252,7 +252,7 @@
 				qdel(src)
 			return
 
-/obj/tram/blob_act()
+/obj/tram/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		qdel(src)
 

@@ -51,11 +51,6 @@
 			if(prob(5))
 				boom()
 
-/obj/structure/reagent_dispensers/blob_act()
-	if(prob(50))
-		boom()
-
-
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
@@ -107,7 +102,7 @@
 		reagents.set_reagent_temp(1000) //uh-oh
 	qdel(src)
 
-/obj/structure/reagent_dispensers/fueltank/blob_act()
+/obj/structure/reagent_dispensers/fueltank/blob_act(obj/structure/blob/B)
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/ex_act()
@@ -277,9 +272,10 @@
 	icon_state = "beer"
 	reagent_id = "beer"
 
-/obj/structure/reagent_dispensers/beerkeg/blob_act()
+/obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(loc, 0, 3, 5, 7, 10)
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/structure/reagent_dispensers/beerkeg/nuke
 	name = "Nanotrasen-brand nuclear fission explosive"

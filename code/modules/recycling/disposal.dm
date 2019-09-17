@@ -72,6 +72,11 @@
 		trunk.remove_trunk_links()
 	return ..()
 
+/obj/machinery/disposal/singularity_pull(S, current_size)
+	..()
+	if(current_size >= STAGE_FIVE)
+		deconstruct()
+
 /obj/machinery/disposal/Initialize()
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
 	..()
@@ -714,8 +719,9 @@
 	return ..()
 
 /obj/structure/disposalpipe/singularity_pull(S, current_size)
+	..()
 	if(current_size >= STAGE_FIVE)
-		qdel(src)
+		deconstruct()
 
 // returns the direction of the next pipe object, given the entrance dir
 // by default, returns the bitmask of remaining directions

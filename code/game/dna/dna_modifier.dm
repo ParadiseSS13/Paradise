@@ -310,15 +310,6 @@
 					//Foreach goto(181)
 				//SN src = null
 				qdel(src)
-				return
-		else
-	return
-
-/obj/machinery/dna_scannernew/blob_act()
-	if(prob(75))
-		for(var/atom/movable/A as mob|obj in src)
-			A.forceMove(src.loc)
-		qdel(src)
 
 // Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
 /obj/machinery/dna_scannernew/proc/radiation_check()
@@ -387,13 +378,6 @@
 			if(prob(50))
 				//SN src = null
 				qdel(src)
-				return
-		else
-	return
-
-/obj/machinery/computer/scan_consolenew/blob_act()
-	if(prob(75))
-		qdel(src)
 
 /obj/machinery/computer/scan_consolenew/New()
 	..()

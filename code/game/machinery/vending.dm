@@ -213,16 +213,6 @@
 		var/datum/data/vending_product/record = R
 		.[record.product_path] += record.amount
 
-/obj/machinery/vending/ex_act(severity) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
-
 /obj/machinery/vending/deconstruct(disassembled = TRUE)
 	eject_item()
 	if(!refill_canister) //the non constructable vendors drop metal instead of a machine frame.
@@ -230,9 +220,6 @@
 		qdel(src)
 	else
 		..()
-
-/obj/machinery/vending/blob_act(obj/structure/blob/B) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(currently_vending && vendor_account && !vendor_account.suspended)

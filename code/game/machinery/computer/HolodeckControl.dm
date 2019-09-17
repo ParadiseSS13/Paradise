@@ -192,9 +192,9 @@
 	emergencyShutdown()
 	..()
 
-/obj/machinery/computer/HolodeckControl/blob_act()
+/obj/machinery/computer/HolodeckControl/blob_act(obj/structure/blob/B)
 	emergencyShutdown()
-	..()
+	return ..()
 
 /obj/machinery/computer/HolodeckControl/process()
 	for(var/item in holographic_items) // do this first, to make sure people don't take items out when power is down.
@@ -504,6 +504,18 @@
 		return 0
 	else
 		return ..(mover, target, height)
+
+/obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(isitem(AM) && !istype(AM,/obj/item/projectile))
+		if(prob(50))
+			AM.forceMove(get_turf(src))
+			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
+			return
+		else
+			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
+			return ..()
+	else
+		return ..()
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"

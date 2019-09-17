@@ -15,10 +15,20 @@
 /obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	return FALSE
 
+/obj/effect/singularity_act()
+	qdel(src)
+	return FALSE
+
 /obj/effect/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/effect/acid_act()
+	return
+
+/obj/effect/mech_melee_attack(obj/mecha/M)
+	return 0
+
+/obj/effect/blob_act(obj/structure/blob/B)
 	return
 
 /obj/effect/experience_pressure_difference()
@@ -64,4 +74,8 @@
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 	if(!(resistance_flags & FIRE_PROOF)) //non fire proof decal or being burned by lava
+		qdel(src)
+
+/obj/effect/decal/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
 		qdel(src)

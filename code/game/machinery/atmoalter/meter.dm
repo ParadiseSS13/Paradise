@@ -139,6 +139,11 @@
 		new /obj/item/pipe_meter(src.loc)
 		qdel(src)
 
+/obj/machinery/meter/singularity_pull(S, current_size)
+	..()
+	if(current_size >= STAGE_FIVE)
+		deconstruct()
+
 // TURF METER - REPORTS A TILE'S AIR CONTENTS
 
 /obj/machinery/meter/turf/New()

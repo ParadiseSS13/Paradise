@@ -42,16 +42,6 @@
 	playsound(src, "shatter", 70, 1)
 	desc = "Oh no, seven years of bad luck!"
 
-
-/obj/structure/mirror/bullet_act(obj/item/projectile/Proj)
-	if(prob(Proj.damage * 2))
-		if(!broken)
-			shatter()
-		else
-			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-	..()
-
-
 /obj/structure/mirror/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	if(isscrewdriver(I))
@@ -78,46 +68,18 @@
 		visible_message("<span class='warning'>[user] hits [src] with [I]!</span>")
 		playsound(src.loc, 'sound/effects/Glasshit.ogg', 70, 1)
 
+/obj/structure/mirror/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!disassembled)
+			new /obj/item/shard( src.loc )
+	qdel(src)
 
-/obj/structure/mirror/attack_alien(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(islarva(user))
-		return
-	user.do_attack_animation(src)
-	if(broken)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-		return
-	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
-	shatter()
-
-
-/obj/structure/mirror/attack_animal(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(!isanimal(user))
-		return
-	var/mob/living/simple_animal/M = user
-	if(M.melee_damage_upper <= 0)
-		return
-	M.do_attack_animation(src)
-	if(broken)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-		return
-	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
-	shatter()
-
-
-/obj/structure/mirror/attack_slime(mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/mob/living/carbon/slime/S = user
-	if(!S.is_adult)
-		return
-	user.do_attack_animation(src)
-	if(broken)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
-		return
-	user.visible_message("<span class='danger'>[user] smashes [src]!</span>")
-	shatter()
-
+/obj/structure/mirror/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
+		if(BURN)
+			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
 /obj/item/mounted/mirror
 	name = "mirror"
@@ -153,7 +115,7 @@
 				H.dna.real_name = newname
 			if(H.mind)
 				H.mind.name = newname
-		
+
 			if(newname)
 				curse(user)
 
@@ -197,7 +159,7 @@
 
 			if(voice_choice)
 				curse(user)
-			
+
 /obj/structure/mirror/magic/on_ui_close(mob/user)
 	curse(user)
 

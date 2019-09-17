@@ -41,11 +41,13 @@
 		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/rods(get_turf(src), number_of_rods)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/rods(get_turf(src), number_of_rods)
 	qdel(src)
 
-/obj/structure/lattice/blob_act()
-	qdel(src)
+
+/obj/structure/lattice/blob_act(obj/structure/blob/B)
+	return
 
 /obj/structure/lattice/ex_act(severity)
 	switch(severity)
@@ -58,7 +60,7 @@
 
 /obj/structure/lattice/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FOUR)
-		qdel(src)
+		deconstruct()
 
 /obj/structure/lattice/clockwork
 	name = "cog lattice"

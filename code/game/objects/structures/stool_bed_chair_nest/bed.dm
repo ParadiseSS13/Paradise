@@ -47,14 +47,6 @@
 		playsound(loc, W.usesound, 50, 1)
 		new buildstacktype(loc, buildstackamount)
 		qdel(src)
-
-/obj/structure/bed/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
-
 /*
  * Roller beds
  */

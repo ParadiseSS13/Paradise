@@ -146,27 +146,6 @@
 				new /obj/item/stack/sheet/metal(loc)
 				qdel(src)
 
-/obj/structure/closet/bullet_act(var/obj/item/projectile/Proj)
-	..()
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		health -= Proj.damage
-		if(health <= 0)
-			dump_contents()
-			qdel(src)
-
-/obj/structure/closet/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='warning'>[user] destroys the [src].</span>")
-		dump_contents()
-		qdel(src)
-
-// this should probably use dump_contents()
-/obj/structure/closet/blob_act()
-	if(prob(75))
-		dump_contents()
-		qdel(src)
-
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
 		if(user in contents) //to prevent self-teleporting.

@@ -78,9 +78,6 @@
 	take_damage(I.force, I.damtype)
 	playsound(loc, I.hitsound, 80, 1)
 
-/obj/structure/cult/functional/bullet_act(var/obj/item/projectile/P)
-	take_damage(P.damage, P.damage_type)
-
 /obj/structure/cult/functional/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "[heathen_message]")
@@ -259,6 +256,12 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	icon_state = "hole"
 	density = 1
 	anchored = 1.0
+
+/obj/effect/gateway/singularity_act()
+	return
+
+/obj/effect/gateway/singularity_pull()
+	return
 
 /obj/effect/gateway/Bumped(mob/M as mob|obj)
 	spawn(0)

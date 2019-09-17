@@ -113,9 +113,6 @@
 /obj/machinery/navbeacon/attack_ai(mob/user)
 	interact(user, 1)
 
-/obj/machinery/navbeacon/attack_animal()
-	return
-
 /obj/machinery/navbeacon/attack_hand(mob/user)
 	interact(user, 0)
 
