@@ -57,6 +57,7 @@
 
 /mob/living/carbon/human/Destroy()
 	. = ..()
+	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
 

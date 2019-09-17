@@ -101,11 +101,11 @@
 		return FALSE
 
 	set_heartattack(FALSE)
-
+	SSmobs.cubemonkeys -= src
 	if(dna.species)
 		dna.species.handle_hud_icons(src)
 		//Handle species-specific deaths.
-		dna.species.handle_death(src)
+		dna.species.handle_death(gibbed, src)
 
 	if(ishuman(LAssailant))
 		var/mob/living/carbon/human/H=LAssailant

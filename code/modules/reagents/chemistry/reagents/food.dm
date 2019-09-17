@@ -5,6 +5,7 @@
 /datum/reagent/consumable
 	name = "Consumable"
 	id = "consumable"
+	harmless = TRUE
 	taste_description = "generic food"
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
@@ -287,6 +288,7 @@
 	description = "Sodium chloride, common table salt."
 	reagent_state = SOLID
 	color = "#B1B0B0"
+	harmless = FALSE
 	overdose_threshold = 100
 	taste_mult = 2
 	taste_description = "salt"
@@ -604,6 +606,7 @@
 	color = "#AB5D5D"
 	metabolization_rate = 0.2
 	overdose_threshold = 133
+	harmless = FALSE
 	taste_description = "bacon"
 
 /datum/reagent/consumable/porktonium/overdose_process(mob/living/M, severity)
@@ -648,6 +651,7 @@
 	reagent_state = LIQUID
 	color = "#B2B139"
 	overdose_threshold = 50
+	harmless = FALSE
 	taste_description = "cheese?"
 
 /datum/reagent/consumable/fake_cheese/overdose_process(mob/living/M, severity)
@@ -714,6 +718,7 @@
 	color = "#B1B0B0"
 	metabolization_rate = 0.2
 	overdose_threshold = 75
+	harmless = FALSE
 	taste_description = "oil"
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/on_mob_life(mob/living/M)

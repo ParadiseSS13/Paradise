@@ -64,6 +64,7 @@
 	drink_icon = "nuka_colaglass"
 	drink_name = "Nuka Cola"
 	drink_desc = "Don't cry, Don't raise your eye, It's only nuclear wasteland"
+	harmless = FALSE
 	taste_description = "radioactive cola"
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_life(mob/living/M)

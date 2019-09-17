@@ -45,7 +45,7 @@
 
 			var/contained = english_list(injected)
 
-			add_attack_logs(user, M, "Injected with [src] containing ([contained])")
+			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 		return TRUE
 

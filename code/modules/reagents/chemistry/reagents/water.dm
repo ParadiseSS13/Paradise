@@ -40,6 +40,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
+	harmless = TRUE
 	taste_description = "cherry"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
@@ -53,6 +54,7 @@
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
+	harmless = TRUE
 	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)

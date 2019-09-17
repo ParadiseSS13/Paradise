@@ -67,7 +67,7 @@
 		playsound(H, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie
-/datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
+/datum/species/zombie/infectious/handle_death(gibbed, mob/living/carbon/C)
 	. = ..()
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = C.get_organ_slot("zombie_infection")
