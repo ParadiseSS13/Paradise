@@ -16,8 +16,6 @@
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = 1
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120
 	window_id = "syndiebot"
 	window_name = "Syndicate Bot Interface"
 	var/turf/saved_turf

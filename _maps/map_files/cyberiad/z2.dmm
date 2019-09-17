@@ -1867,7 +1867,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/machinery/computer/syndicate_depot/teleporter/targeted,
+/obj/machinery/computer/syndicate_depot/teleporter,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -7326,7 +7326,7 @@
 	},
 /area/centcom/specops)
 "sg" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -30;
 	pixel_y = 0;
@@ -7342,7 +7342,7 @@
 	},
 /area/centcom/evac)
 "si" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 30;
 	pixel_y = 0;
@@ -7633,7 +7633,7 @@
 	},
 /area/centcom/evac)
 "sS" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -30;
 	pixel_y = 0;
@@ -7787,7 +7787,7 @@
 	},
 /area/centcom/evac)
 "tk" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 30;
 	pixel_y = 0;

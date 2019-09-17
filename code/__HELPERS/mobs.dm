@@ -294,16 +294,16 @@ This is always put in the attack log.
 	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
-		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
-			loglevel = ATKLOG_FEW
-		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+		if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 			loglevel = ATKLOG_ALL
-		else if(!user.ckey || !target.ckey) // Player v NPC combat is de-prioritized.
+		else if(!user.ckey || !target.ckey || (user.ckey == target.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
 			loglevel = ATKLOG_ALMOSTALL
 		else
 			var/area/A = get_area(target)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
+	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+		loglevel = ATKLOG_FEW
 
 	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
@@ -495,7 +495,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID(): null]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>)")
+	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID(): null]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)

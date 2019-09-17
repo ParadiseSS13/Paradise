@@ -15,6 +15,9 @@
 /obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	return FALSE
 
+/obj/effect/experience_pressure_difference()
+	return
+
 /obj/effect/decal
 	plane = FLOOR_PLANE
 	var/no_scoop = FALSE   //if it has this, don't let it be scooped up

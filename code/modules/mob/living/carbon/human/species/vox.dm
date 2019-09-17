@@ -81,7 +81,7 @@
 
 	speciesbox = /obj/item/storage/box/survival_vox
 
-/datum/species/vox/handle_death(mob/living/carbon/human/H)
+/datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
 /datum/species/vox/after_equip_job(datum/job/J, mob/living/carbon/human/H)

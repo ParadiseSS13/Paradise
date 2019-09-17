@@ -3384,7 +3384,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "hx" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood{
 	tag = "icon-wood-broken7";
 	icon_state = "wood-broken7"
@@ -3946,7 +3946,7 @@
 	},
 /area/derelict/crew_quarters)
 "ix" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -4279,7 +4279,7 @@
 	name = "Derelict Annex"
 	})
 "je" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -4296,7 +4296,7 @@
 	},
 /area/derelict/arrival)
 "jg" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -4370,7 +4370,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
 "jn" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -4613,7 +4613,7 @@
 	},
 /area/derelict/crew_quarters)
 "jM" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -5428,16 +5428,6 @@
 /obj/item/stack/tile,
 /turf/space,
 /area/space/nearstation)
-"lz" = (
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
-/obj/machinery/portable_atmospherics/canister/air,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "lA" = (
 /obj/machinery/door/poddoor{
 	id_tag = "syndi_depot_lvl2";
@@ -5698,7 +5688,7 @@
 	},
 /area/syndicate_depot/outer)
 "mm" = (
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "mn" = (
 /obj/machinery/light{
@@ -5866,7 +5856,7 @@
 /area/syndicate_depot/core)
 "mK" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "mL" = (
 /obj/machinery/door/unpowered/shuttle,
@@ -5887,7 +5877,7 @@
 /area/syndicate_depot/core)
 "mO" = (
 /obj/structure/sign/poster/contraband/lamarr,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "mP" = (
 /obj/structure/closet/crate,
@@ -6067,8 +6057,8 @@
 	name = "Derelict Annex"
 	})
 "no" = (
-/obj/machinery/bluespace_beacon/syndicate,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/bluespace_beacon/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6118,7 +6108,7 @@
 /area/syndicate_depot/core)
 "nt" = (
 /obj/structure/sign/poster/contraband/fun_police,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nu" = (
 /obj/machinery/door/poddoor/multi_tile/two_tile_hor,
@@ -6157,20 +6147,21 @@
 "nz" = (
 /obj/item/lighter/zippo/black,
 /obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
 "nA" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nB" = (
 /obj/effect/landmark{
 	dir = 6;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nC" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
@@ -6187,7 +6178,7 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nE" = (
 /obj/structure/sign/poster/contraband/energy_swords,
@@ -6195,7 +6186,7 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nF" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod,
@@ -6209,18 +6200,18 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nH" = (
 /obj/effect/landmark{
 	dir = 10;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nI" = (
 /obj/structure/sign/poster/official/high_class_martini,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nJ" = (
 /obj/machinery/light/small{
@@ -6282,11 +6273,11 @@
 /area/syndicate_depot/core)
 "nQ" = (
 /obj/structure/sign/poster/official/air1,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nR" = (
-/obj/item/storage/box/donkpockets,
 /obj/structure/table,
+/obj/item/storage/box/donkpockets,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6305,11 +6296,11 @@
 /area/syndicate_depot/core)
 "nU" = (
 /obj/structure/sign/poster/contraband/tools,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nV" = (
 /obj/structure/sign/poster/contraband/hacking_guide,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nW" = (
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
@@ -6479,7 +6470,7 @@
 /area/syndicate_depot/core)
 "os" = (
 /obj/structure/table,
-/obj/item/wrench,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6533,14 +6524,14 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oz" = (
 /obj/effect/landmark{
 	dir = 5;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oA" = (
 /obj/structure/sign/poster/contraband/syndicate_pistol,
@@ -6548,7 +6539,7 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oB" = (
 /obj/effect/spawner/random_spawners/syndicate/mob,
@@ -6559,29 +6550,17 @@
 	dir = 9;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oD" = (
 /obj/structure/sign/poster/official/state_laws,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oE" = (
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
-/area/syndicate_depot/core)
-"oF" = (
-/obj/machinery/door_control{
-	active_power_usage = 0;
-	id = "syndi_depot_rear";
-	idle_power_usage = 0;
-	name = "mysterious button";
-	normaldoorcontrol = 0;
-	use_power = 0
-	},
-/obj/structure/sign/poster/contraband/syndicate_recruitment,
-/turf/simulated/wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oG" = (
 /obj/effect/decal/warning_stripes/east,
@@ -6639,33 +6618,9 @@
 	},
 /turf/simulated/floor/mineral/silver,
 /area/syndicate_depot/core)
-"oN" = (
-/obj/machinery/door_control{
-	active_power_usage = 0;
-	id = "syndi_depot_rear";
-	idle_power_usage = 0;
-	name = "mysterious button";
-	normaldoorcontrol = 0;
-	pixel_x = 24;
-	use_power = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/syndicate_depot/core)
 "oO" = (
 /obj/structure/sign/poster/contraband/missing_gloves,
-/turf/simulated/wall/r_wall,
-/area/syndicate_depot/core)
-"oP" = (
-/obj/machinery/door/poddoor{
-	id_tag = "syndi_depot_rear";
-	name = "Sealed Doors";
-	protected = 0
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oQ" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
@@ -6740,7 +6695,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "oY" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
@@ -6790,10 +6745,6 @@
 	pixel_x = 24
 	},
 /obj/structure/cable,
-/obj/machinery/turretid/syndicate{
-	name = "external turret controls";
-	pixel_y = 32
-	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_depot/outer)
 "pf" = (
@@ -6821,7 +6772,7 @@
 /area/syndicate_depot/outer)
 "pi" = (
 /obj/structure/sign/poster/official/obey,
-/turf/simulated/wall/r_wall,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "pj" = (
 /turf/simulated/floor/plasteel{
@@ -6865,13 +6816,6 @@
 	icon_state = "brown"
 	},
 /area/derelict/arrival)
-"pp" = (
-/turf/simulated/mineral,
-/area/syndicate_depot/core)
-"pq" = (
-/obj/effect/spawner/random_spawners/blood_maybe,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/syndicate_depot/core)
 "pr" = (
 /obj/structure/closet/crate/can,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -6933,17 +6877,6 @@
 /area/derelict/eva{
 	name = "Derelict Annex"
 	})
-"pw" = (
-/obj/item/candle,
-/obj/structure/table,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/syndicate_depot/core)
-"px" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/simulated/floor/plating/asteroid/airless,
-/area/syndicate_depot/core)
 "py" = (
 /obj/structure/chair{
 	dir = 8
@@ -6971,13 +6904,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/derelict/crew_quarters)
-"pC" = (
-/turf/simulated/floor/plating/asteroid/airless,
-/area/syndicate_depot/core)
-"pD" = (
-/obj/structure/falsewall,
-/turf/simulated/floor/plating/airless,
-/area/syndicate_depot/core)
 "pE" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -6986,9 +6912,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/syndicate_depot/core)
-"pF" = (
-/turf/simulated/wall,
 /area/syndicate_depot/core)
 "pG" = (
 /obj/structure/flora/rock/pile,
@@ -7287,7 +7210,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -7301,7 +7224,7 @@
 	},
 /area/derelict/crew_quarters)
 "qo" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -8210,7 +8133,7 @@
 	name = "Derelict Annex"
 	})
 "sd" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11101,6 +11024,18 @@
 	dir = 9
 	},
 /area/derelict/arrival)
+"yg" = (
+/obj/machinery/door_control{
+	active_power_usage = 0;
+	id = "syndi_depot_rear";
+	idle_power_usage = 0;
+	name = "mysterious button";
+	normaldoorcontrol = 0;
+	use_power = 0
+	},
+/obj/structure/sign/poster/contraband/syndicate_recruitment,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/outer)
 "yh" = (
 /obj/structure/rack,
 /obj/item/newspaper{
@@ -11666,6 +11601,141 @@
 	icon_state = "dark"
 	},
 /area/syndicate_depot/core)
+"BB" = (
+/obj/structure/falsewall,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating/airless,
+/area/syndicate_depot/outer)
+"DH" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/item/flag/chameleon{
+	icon_state = "syndiflag";
+	name = "Syndicate Flag";
+	used = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/core)
+"GF" = (
+/obj/item/flag/chameleon{
+	icon_state = "syndiflag";
+	name = "Syndicate Flag";
+	used = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"GH" = (
+/obj/effect/spawner/random_spawners/syndicate/turret,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"Hg" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"KK" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "sst_away";
+	req_access_txt = "150"
+	},
+/obj/structure/fans/tiny,
+/turf/unsimulated/floor{
+	name = "plating"
+	},
+/area/syndicate_depot/outer)
+"Mc" = (
+/obj/machinery/door/poddoor{
+	id_tag = "syndi_depot_rear";
+	name = "Sealed Doors";
+	protected = 0
+	},
+/obj/machinery/door/airlock/external{
+	id_tag = "sst_away";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"OV" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "sst_away";
+	req_access_txt = "150"
+	},
+/obj/structure/fans/tiny,
+/turf/unsimulated/floor{
+	name = "plating"
+	},
+/area/syndicate_depot/core)
+"OX" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/syndicate_depot/outer)
+"Pn" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"Sv" = (
+/obj/effect/spawner/random_spawners/blood_maybe,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"UB" = (
+/obj/item/candle,
+/obj/structure/table,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"UM" = (
+/obj/machinery/door_control{
+	active_power_usage = 0;
+	id = "syndi_depot_rear";
+	idle_power_usage = 0;
+	name = "mysterious button";
+	normaldoorcontrol = 0;
+	pixel_x = 24;
+	use_power = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"Yh" = (
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
+"YV" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/syndicate_depot/outer)
+"ZQ" = (
+/obj/machinery/turretid/syndicate{
+	name = "external turret controls";
+	pixel_x = -32;
+	pixel_y = 0;
+	req_access = list(150)
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/syndicate_depot/outer)
 
 (1,1,1) = {"
 aa
@@ -55577,7 +55647,7 @@ lK
 lK
 mi
 lK
-mf
+lK
 lK
 lK
 lK
@@ -56614,7 +56684,7 @@ mm
 mm
 mm
 lK
-mf
+lK
 lK
 lI
 lI
@@ -59924,7 +59994,7 @@ aa
 aa
 lG
 lH
-lH
+lI
 lH
 lH
 lH
@@ -60439,7 +60509,7 @@ aa
 lF
 lH
 lH
-lH
+lI
 lH
 lH
 lI
@@ -60457,7 +60527,7 @@ mw
 mA
 mA
 mm
-lV
+DH
 mA
 nZ
 ol
@@ -60729,7 +60799,7 @@ mm
 mm
 nx
 mA
-mA
+os
 mm
 lK
 lK
@@ -61211,7 +61281,7 @@ lF
 lH
 lH
 lH
-lH
+lI
 lH
 lH
 lH
@@ -61466,7 +61536,7 @@ aa
 aa
 lF
 lH
-lH
+lI
 lH
 lH
 lH
@@ -61481,7 +61551,7 @@ mm
 mB
 mm
 mm
-mm
+mB
 mm
 mm
 mm
@@ -61734,7 +61804,7 @@ lI
 lK
 mg
 mm
-lz
+mR
 mA
 mB
 mA
@@ -61991,12 +62061,12 @@ lK
 lK
 lK
 mm
-ms
+mM
 mA
 mO
 mh
 mA
-zP
+mA
 mm
 mA
 mA
@@ -62255,7 +62325,7 @@ nk
 ns
 mA
 nA
-mR
+lV
 mA
 nS
 mm
@@ -62494,7 +62564,7 @@ aa
 aa
 lG
 lH
-lH
+lI
 lH
 lH
 lH
@@ -62512,7 +62582,7 @@ no
 mA
 zP
 mm
-mM
+zP
 mA
 mA
 ob
@@ -62522,7 +62592,7 @@ oe
 pa
 mm
 nM
-oN
+mA
 mA
 mA
 mM
@@ -62756,9 +62826,9 @@ lH
 lH
 lH
 lH
-lH
 lI
 lI
+lI
 lK
 lK
 lK
@@ -62770,6 +62840,7 @@ mm
 mm
 mm
 mm
+OV
 mm
 mm
 mm
@@ -62780,7 +62851,6 @@ mm
 mm
 mm
 mm
-mC
 mm
 mm
 mm
@@ -63011,8 +63081,8 @@ lH
 lH
 lH
 lH
-lH
-lH
+lI
+lI
 lI
 lI
 lI
@@ -63028,17 +63098,17 @@ lK
 lK
 lK
 lK
-mn
+lK
+lK
+lK
+lK
 mf
-lK
-lK
-lK
 mn
 lK
 lK
-mC
-zO
-mC
+lK
+lK
+lK
 lK
 lK
 lK
@@ -63265,17 +63335,17 @@ aa
 aa
 lF
 lH
-lH
-lH
-lH
-lH
-lH
+lI
 lH
 lI
 lI
 lI
 lI
 lI
+lI
+lI
+lI
+lI
 lK
 lK
 lK
@@ -63293,9 +63363,9 @@ lK
 lK
 lK
 lK
-mm
-oP
-mm
+lK
+lK
+lK
 lK
 lK
 lK
@@ -63523,36 +63593,36 @@ aa
 lF
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lI
-lI
-lI
-lI
-lI
-lK
-lK
-lI
-lI
-lI
-lI
-lI
-lK
 lI
 lI
 lI
 lI
 lI
 lI
-pp
-pp
-pD
-pp
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+OX
+OX
+KK
+OX
+OX
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lI
 lI
 lI
@@ -63782,12 +63852,6 @@ lH
 lH
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
 lI
 lI
 lI
@@ -63802,14 +63866,17 @@ lI
 lI
 lI
 lI
+OX
+Hg
+lX
+lX
+OX
 lI
 lI
 lI
 lI
-oF
-pw
-pC
-pp
+OX
+OX
 lI
 lI
 lI
@@ -63817,7 +63884,10 @@ lI
 lI
 lI
 lI
-lH
+lI
+lK
+lI
+lI
 lH
 lH
 lH
@@ -64038,41 +64108,41 @@ lF
 lH
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
 lI
 lI
 lI
 lI
 lI
 lI
-lH
-lH
 lI
 lI
 lI
 lI
 lI
+lI
+lI
+lI
+lI
+OX
+Yh
+lX
+lX
+OX
+OX
+yg
 lK
-me
-lK
-lK
-pq
-px
-pq
-pF
-lI
+UB
 lK
 lK
+lI
+lI
+lI
+OX
+OX
 lK
 lK
-lH
+lK
+lK
 lH
 lH
 lH
@@ -64292,45 +64362,45 @@ aa
 aa
 aa
 lF
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
+lI
 lH
 lH
 lH
 lI
 lI
 lI
-lH
-lH
-lH
 lI
-lH
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+OX
+Pn
+lX
+lX
+Mc
+ZQ
+BB
+lK
+YV
+Sv
+OX
+OX
+lI
 lI
 lI
 lK
-lK
-lK
-lK
-lI
-lI
-me
-lI
-lI
-lH
 lI
 lK
-me
-lH
+OX
+OX
 lI
-lH
 lH
 lH
 lH
@@ -64552,33 +64622,34 @@ lF
 lH
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
 lI
 lI
 lI
-lH
-lH
-lI
-lI
-lH
-lH
-me
-lK
-me
 lI
 lI
 lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+OX
+GF
+lX
+UM
+OX
+OX
+lI
+Sv
 lK
 lK
+lI
+lK
+lK
 lK
 lK
 lK
@@ -64588,7 +64659,6 @@ lH
 lH
 lH
 lI
-lH
 lH
 lH
 lH
@@ -64808,38 +64878,38 @@ aa
 lF
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lI
-lH
-lH
 lI
 lI
 lI
-lH
-lH
-lH
-lH
-lH
 lI
-lK
-lK
-lK
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+OX
+OX
+GH
+OX
+OX
 lI
 lI
 lK
-me
+lK
+lI
+lI
+lK
+OX
 lI
 lK
 lI
-lH
 lH
 lH
 lH
@@ -65066,38 +65136,38 @@ lF
 lH
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
 lI
 lI
-lH
-lH
-lH
-lH
 lI
-lH
-lH
-lH
-lH
-lH
-lH
-me
-lK
-lK
-lK
-lK
-lK
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+OX
+OX
+OX
+lI
+lI
+lI
 lI
 lK
 lK
-me
 lK
-lH
+lK
+OX
+lK
+lK
+OX
+lK
 lH
 lH
 lH
@@ -65323,37 +65393,37 @@ lF
 lH
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
 lI
 lI
-lH
-lH
 lI
 lI
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
 lK
 lK
 lK
 lK
+lK
 lI
-lI
-lH
+OX
 lH
 lH
 lH
@@ -65579,33 +65649,34 @@ aa
 lG
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
+lI
 lH
 lI
 lI
 lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+OX
+OX
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-me
+lK
+lK
+lK
+OX
 lI
 lK
 lK
@@ -65613,7 +65684,6 @@ lK
 lK
 lK
 lK
-lH
 lH
 lH
 lH
@@ -65839,37 +65909,37 @@ lH
 lH
 lH
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-me
-lH
 lI
 lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lI
+lH
+lH
+OX
+lK
+lI
+OX
 lK
 lI
 lI
 lI
 lK
 lK
-lH
 lH
 lH
 lH
@@ -66098,35 +66168,35 @@ lH
 lH
 lH
 lH
+lI
+lI
+lI
 lH
 lH
+lI
+lI
+lI
+lI
 lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
-lH
+lI
+lI
+lI
+lI
 lH
 lH
 lH
 lH
 lI
+OX
+lK
 lI
 lK
-me
-lH
 lK
 lK
 lK
 lK
 lK
-lH
-lH
+OX
 lH
 lH
 lH
@@ -66355,17 +66425,18 @@ lH
 lH
 lH
 lH
+lI
 lH
 lH
 lH
 lH
 lH
+lI
 lH
 lH
 lH
-lH
-lH
-lH
+lI
+lI
 lH
 lH
 lH
@@ -66378,12 +66449,11 @@ lK
 lI
 lI
 lI
+OX
+OX
 lI
-me
-lI
 lH
-lH
-lH
+OX
 lH
 lH
 lH
@@ -66622,6 +66692,7 @@ lH
 lH
 lH
 lH
+lI
 lH
 lH
 lH
@@ -66636,7 +66707,6 @@ lK
 lH
 lH
 lI
-lH
 lH
 lH
 lH

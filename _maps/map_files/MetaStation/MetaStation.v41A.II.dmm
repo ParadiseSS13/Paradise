@@ -589,7 +589,7 @@
 	},
 /area/shuttle/syndicate)
 "abk" = (
-/obj/machinery/vending/wallmed1/syndicate{
+/obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/shuttle/floor{
@@ -13578,7 +13578,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aya" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "ayb" = (
@@ -14935,7 +14935,7 @@
 	name = "Port Maintenance"
 	})
 "aAB" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -14952,7 +14952,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -15652,7 +15652,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
 "aBS" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -21926,7 +21926,7 @@
 	name = "\improper Warehouse"
 	})
 "aMA" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -57886,7 +57886,7 @@
 	})
 "bVg" = (
 /obj/structure/bed/roller,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	pixel_x = -28
 	},
 /obj/machinery/camera{
@@ -68224,7 +68224,7 @@
 /turf/space,
 /area/solar/port)
 "cmI" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 25;
 	req_access_txt = "0"
@@ -69498,7 +69498,7 @@
 	},
 /area/toxins/lab)
 "coL" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	req_access_txt = "0"
@@ -82553,7 +82553,7 @@
 	})
 "cJM" = (
 /obj/structure/chair/office/light,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	req_access_txt = "0"
@@ -82599,7 +82599,7 @@
 /area/medical/virology)
 "cJQ" = (
 /obj/structure/chair/office/light,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 25;
 	req_access_txt = "0"
@@ -95073,7 +95073,7 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "deb" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	req_access_txt = "0";
 	use_power = 0

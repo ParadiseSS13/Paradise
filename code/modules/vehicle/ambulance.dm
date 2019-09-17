@@ -100,7 +100,6 @@
 	icon = 'icons/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = FALSE
-	throw_pressure_limit = INFINITY //Throwing an ambulance trolley can kill the process scheduler.
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
