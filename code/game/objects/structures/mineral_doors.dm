@@ -35,7 +35,7 @@
 
 /obj/structure/mineral_door/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	move_update_air(T)
 
 /obj/structure/mineral_door/Bumped(atom/user)
@@ -133,7 +133,7 @@
 	if(istype(W, /obj/item/pickaxe))
 		var/obj/item/pickaxe/digTool = W
 		to_chat(user, "<span class='notice'>You start digging \the [src].</span>")
-		if(do_after(user, digTool.digspeed * hardness, target = src) && src)
+		if(do_after(user, 40 * digTool.toolspeed * hardness, target = src) && src)
 			to_chat(user, "<span class='notice'>You finished digging.</span>")
 			deconstruct(TRUE)
 	else if(user.a_intent != INTENT_HARM)
@@ -229,6 +229,7 @@
 		return ..()
 
 /obj/structure/mineral_door/transparent/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		TemperatureAct(exposed_temperature)
 

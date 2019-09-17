@@ -18,7 +18,7 @@
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
 	user.visible_message("<span class='warning'>[user] pushes over [src]!</span>", "<span class='danger'>You push over [src]!</span>")
-	playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
 /obj/item/cardboard_cutout/proc/push_over()
@@ -85,7 +85,7 @@
 		return
 	if(pushed_over)
 		to_chat(user, "<span class='warning'>Right [src] first!</span>")
-		return	
+		return
 	if(!new_appearance || !crayon)
 		return
 	if(!do_after(user, 10, FALSE, src, TRUE))

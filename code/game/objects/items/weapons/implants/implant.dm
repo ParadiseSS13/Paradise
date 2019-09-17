@@ -14,7 +14,7 @@
 	flags = DROPDEL
 
 
-/obj/item/implant/proc/trigger(emote, mob/source)
+/obj/item/implant/proc/trigger(emote, mob/source, force)
 	return
 
 /obj/item/implant/proc/activate()

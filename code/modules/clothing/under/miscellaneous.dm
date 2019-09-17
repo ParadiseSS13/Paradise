@@ -53,13 +53,6 @@
 	item_state = "b_suit"
 	item_color = "mailman"
 
-/obj/item/clothing/under/sexyclown
-	name = "sexy-clown suit"
-	desc = "It makes you look HONKable!"
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
-	item_color = "sexyclown"
-
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
@@ -145,6 +138,19 @@
 	..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears [station_name()] on the left shoulder."
 
+/obj/item/clothing/under/rank/centcom/magistrate
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
+	name = "\improper Nanotrasen Navy Uniform"
+	icon_state = "officer"
+	item_state = "g_suit"
+	item_color = "officer"
+	displays_id = 0
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/centcom/magistrate/New()
+	..()
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
+
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
 	name = "\improper Nanotrasen Diplomatic Uniform"
@@ -198,7 +204,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
-	max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
 	burn_state = LAVA_PROOF
@@ -374,6 +380,10 @@
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	burn_state = FIRE_PROOF
+
+/obj/item/clothing/under/gladiator/ash_walker
+	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
+	has_sensor = FALSE
 
 //dress
 
@@ -811,8 +821,8 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+	flags_size = ONESIZEFITSALL
 	has_sensor = 0 // HUNKE
-
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"
@@ -855,3 +865,50 @@
 	item_state = "medicalgown"
 	item_color = "medicalgown"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/burial
+	name = "burial garments"
+	desc = "Traditional burial garments from the early 22nd century."
+	icon_state = "burial"
+	item_state = "burial"
+	item_color = "burial"
+
+/obj/item/clothing/under/redhawaiianshirt
+	name = "red hawaiian shirt"
+	desc = "a floral shirt worn to most vacation destinations."
+	icon_state = "hawaiianred"
+	item_state = "hawaiianred"
+	item_color = "hawaiianred"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/pinkhawaiianshirt
+	name = "pink hawaiian shirt"
+	desc = "a pink floral shirt the material feels cool and comfy."
+	icon_state = "hawaiianpink"
+	item_state = "hawaiianpink"
+	item_color = "hawaiianpink"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/orangehawaiianshirt
+	name = "orange hawaiian shirt"
+	desc = "a orange floral shirt for a relaxing day in space."
+	icon_state = "hawaiianorange"
+	item_state = "hawaiianorange"
+	item_color = "hawaiianorange"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/bluehawaiianshirt
+	name = "blue hawaiian shirt"
+	desc = "a blue floral shirt it has a oddly colored pink flower on it."
+	icon_state = "hawaiianblue"
+	item_state = "hawaiianblue"
+	item_color = "hawaiianblue"
+	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/misc/durathread
+	name = "durathread jumpsuit"
+	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
+	icon_state = "durathread"
+	item_state = "durathread"
+	item_color = "durathread"
+	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0)

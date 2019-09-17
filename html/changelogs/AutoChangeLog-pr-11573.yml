@@ -1,0 +1,4 @@
+author: "Shadeykins"
+delete-after: True
+changes: 
+  - bugfix: "Fixes rogue pixels on breath masks/gas masks for Plasmamen."

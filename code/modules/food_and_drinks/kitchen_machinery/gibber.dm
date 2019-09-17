@@ -24,6 +24,18 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 
+/obj/machinery/gibber/suicide_act(mob/user)
+	if(occupant || locked)
+		return FALSE
+	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.Stun(10)
+	user.forceMove(src)
+	occupant = user
+	update_icon()
+	feedinTopanim()
+	addtimer(CALLBACK(src, .proc/startgibbing, user), 33)
+	return OBLITERATION
+
 /obj/machinery/gibber/Destroy()
 	if(contents.len)
 		for(var/atom/movable/A in contents)
@@ -145,7 +157,7 @@
 	set name = "Empty Gibber"
 	set src in oview(1)
 
-	if(usr.stat != CONSCIOUS)
+	if(usr.incapacitated())
 		return
 
 	go_out()

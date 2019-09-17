@@ -47,10 +47,10 @@
 
 /obj/item/multitool/ai_detect/New()
 	..()
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/item/multitool/ai_detect/Destroy()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/multitool/ai_detect/process()

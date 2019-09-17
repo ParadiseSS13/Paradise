@@ -116,7 +116,9 @@
 					<A href='?src=[UID()];secretsfun=schoolgirl'>Japanese Animes Mode</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=eagles'>Egalitarian Station Mode</A><BR>
 					<A href='?src=[UID()];secretsfun=guns'>Summon Guns</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=magic'>Summon Magic</A>
+					<A href='?src=[UID()];secretsfun=magic'>Summon Magic</A>&nbsp;&nbsp;
+					<A href='?src=[UID()];secretsfun=revolver'>Summon Revolver Duel</A>&nbsp;&nbsp;
+					<A href='?src=[UID()];secretsfun=fakerevolver'>Summon Suicidal Revolver Duel</A>
 					<BR>
 					<A href='?src=[UID()];secretsfun=rolldice'>Roll the Dice</A><BR>
 					<BR>

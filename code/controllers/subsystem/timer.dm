@@ -71,7 +71,6 @@ SUBSYSTEM_DEF(timer)
 		for(var/I in second_queue)
 			log_world(get_timer_debug_string(I))
 
-	var/cut_start_index = 1
 	var/next_clienttime_timer_index = 0
 	var/len = length(clienttime_timers)
 
@@ -94,14 +93,14 @@ SUBSYSTEM_DEF(timer)
 
 		if(ctime_timer.flags & TIMER_LOOP)
 			ctime_timer.spent = 0
-			clienttime_timers.Insert(ctime_timer, 1)
-			cut_start_index++
+			ctime_timer.timeToRun = REALTIMEOFDAY + ctime_timer.wait
+			BINARY_INSERT(ctime_timer, clienttime_timers, datum/timedevent, timeToRun)
 		else
 			qdel(ctime_timer)
 
 
 	if(next_clienttime_timer_index)
-		clienttime_timers.Cut(cut_start_index,next_clienttime_timer_index+1)
+		clienttime_timers.Cut(1, next_clienttime_timer_index+1)
 
 	if(MC_TICK_CHECK)
 		return
@@ -269,7 +268,7 @@ SUBSYSTEM_DEF(timer)
 	var/new_bucket_count
 	var/i = 1
 	for(i in 1 to length(alltimers))
-		var/datum/timedevent/timer = alltimers[1]
+		var/datum/timedevent/timer = alltimers[i]
 		if(!timer)
 			continue
 
@@ -411,10 +410,8 @@ SUBSYSTEM_DEF(timer)
 		prev.next = next
 		next.prev = prev
 	else
-		if(prev)
-			prev.next = null
-		if(next)
-			next.prev = null
+		prev?.next = null
+		next?.prev = null
 	prev = next = null
 
 /datum/timedevent/proc/bucketJoin()

@@ -10,7 +10,8 @@ emp_act
 
 
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
-
+	if(!dna.species.bullet_act(P, src))
+		return FALSE
 	if(P.is_reflectable)
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
@@ -140,23 +141,23 @@ emp_act
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
 		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
-		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(r_hand && !istype(r_hand, /obj/item/clothing))
 		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
-		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	if(w_uniform)
 		var/final_block_chance = w_uniform.block_chance - (Clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type))
+		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
 			return 1
 	return 0
 
-/mob/living/carbon/human/check_block()
+/mob/living/carbon/human/proc/check_block()
 	if(martial_art && prob(martial_art.block_chance) && martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
 		return TRUE
 
@@ -219,10 +220,16 @@ emp_act
 		if(check_shields(I.force, "the [I.name]", I, MELEE_ATTACK, I.armour_penetration))
 			return 0
 
+	if(check_block())
+		visible_message("<span class='warning'>[src] blocks [I]!</span>")
+		return FALSE
+
 	if(istype(I,/obj/item/card/emag))
 		emag_act(user, affecting)
 
 	send_item_attack_message(I, user, hit_area)
+
+	var/weakness = check_weakness(I,user)
 
 	if(!I.force)
 		return 0 //item force is zero
@@ -231,12 +238,11 @@ emp_act
 	var/weapon_sharp = is_sharp(I)
 	if(weapon_sharp && prob(getarmor(user.zone_sel.selecting, "melee")))
 		weapon_sharp = 0
-
 	if(armor >= 100)
 		return 0
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 
-	apply_damage(I.force, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
+	apply_damage(I.force * weakness, I.damtype, affecting, armor, sharp = weapon_sharp, used_weapon = I)
 
 	var/bloody = 0
 	if(I.damtype == BRUTE && I.force && prob(25 + I.force * 2))
@@ -261,7 +267,7 @@ emp_act
 							apply_effect(5, WEAKEN, armor)
 							AdjustConfused(15)
 						if(prob(I.force + ((100 - health)/2)) && src != user && I.damtype == BRUTE)
-							ticker.mode.remove_revolutionary(mind)
+							SSticker.mode.remove_revolutionary(mind)
 
 					if(bloody)//Apply blood
 						if(wear_mask)
@@ -294,6 +300,8 @@ emp_act
 	if(Iforce > 10 || Iforce >= 5 && prob(33))
 		forcesay(GLOB.hit_appends)	//forcesay checks stat already
 
+	dna.species.spec_attacked_by(I, user, affecting, user.a_intent, src)
+
 //this proc handles being hit by a thrown atom
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = 0, hitpush = 1, blocked = 0)
 	var/obj/item/I
@@ -320,6 +328,8 @@ emp_act
 					visible_message("<span class='danger'>[I] embeds itself in [src]'s [L.name]!</span>","<span class='userdanger'>[I] embeds itself in your [L.name]!</span>")
 					hitpush = 0
 					skipcatch = 1 //can't catch the now embedded item
+	if(!blocked)
+		dna.species.spec_hitby(AM, src)
 	return ..()
 
 /mob/living/carbon/human/proc/bloody_hands(var/mob/living/source, var/amount = 2)
@@ -472,7 +482,7 @@ emp_act
 					playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 				if("fire")
 					update |= affecting.receive_damage(0, rand(M.force/2, M.force))
-					playsound(src, 'sound/items/Welder.ogg', 50, 1)
+					playsound(src, 'sound/items/welder.ogg', 50, 1)
 				if("tox")
 					M.mech_toxin_damage(src)
 				else
@@ -496,9 +506,9 @@ emp_act
 			return 0
 	..()
 
-/mob/living/carbon/human/water_act(volume, temperature, source)
-	..()
-	dna.species.water_act(src,volume,temperature,source)
+/mob/living/carbon/human/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	dna.species.water_act(src, volume, temperature, source, method)
 
 /mob/living/carbon/human/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	if(check_glasses && glasses && (glasses.flags_cover & GLASSESCOVERSEYES))
@@ -507,3 +517,12 @@ emp_act
 		return TRUE
 	if(check_mask && wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH))
 		return TRUE
+
+/mob/living/carbon/human/proc/reagent_safety_check(hot = TRUE)
+	if(wear_mask)
+		to_chat(src, "<span class='danger'>Your [wear_mask.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	if(head)
+		to_chat(src, "<span class='danger'>Your [head.name] protects you from the [hot ? "hot" : "cold"] liquid!</span>")
+		return FALSE
+	return TRUE

@@ -33,9 +33,8 @@
 	..()
 	to_chat(user, "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>")
 
-/obj/item/organ/internal/cyberimp/arm/attackby(obj/item/W, mob/user, params)
-	..()
-	if(isscrewdriver(W))
+/obj/item/organ/internal/cyberimp/arm/attackby(obj/item/I, mob/user, params)
+	if(isscrewdriver(I))
 		if(parent_organ == "r_arm")
 			parent_organ = "l_arm"
 		else
@@ -43,8 +42,8 @@
 		slot = parent_organ + "_device"
 		to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
 		update_icon()
-	else if(istype(W, /obj/item/card/emag))
-		emag_act()
+	else
+		return ..()
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()
@@ -126,7 +125,7 @@
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
 	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
-	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act())
+	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
 	if(!holder || (holder in src))
@@ -205,12 +204,12 @@
 /obj/item/organ/internal/cyberimp/arm/toolset/l
 	parent_organ = "l_arm"
 
-/obj/item/organ/internal/cyberimp/arm/toolset/emag_act()
+/obj/item/organ/internal/cyberimp/arm/toolset/emag_act(mob/user)
 	if(!(locate(/obj/item/kitchen/knife/combat/cyborg) in items_list))
-		to_chat(usr, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
+		to_chat(user, "<span class='notice'>You unlock [src]'s integrated knife!</span>")
 		items_list += new /obj/item/kitchen/knife/combat/cyborg(src)
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /obj/item/organ/internal/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
@@ -269,7 +268,7 @@
 /obj/item/organ/internal/cyberimp/arm/surgery
 	name = "surgical toolset implant"
 	desc = "A set of surgical tools hidden behind a concealed panel on the user's arm"
-	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/surgicaldrill/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/bonesetter/augment)
+	contents = newlist(/obj/item/retractor/augment, /obj/item/hemostat/augment, /obj/item/cautery/augment, /obj/item/bonesetter/augment, /obj/item/scalpel/augment, /obj/item/circular_saw/augment, /obj/item/bonegel/augment, /obj/item/FixOVein/augment, /obj/item/surgicaldrill/augment)
 	origin_tech = "materials=3;engineering=3;biotech=3;programming=2;magnets=3"
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/storage.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "duffel-med")

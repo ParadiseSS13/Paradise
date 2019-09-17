@@ -2,6 +2,7 @@
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
+	faction += "\ref[src]"
 
 /mob/living/prepare_huds()
 	..()
@@ -80,6 +81,10 @@
 	if(moving_diagonally) //no mob swap during diagonal moves.
 		return 1
 
+	if(a_intent == INTENT_HELP) // Help intent doesn't mob swap a mob pulling a structure
+		if(isstructure(M.pulling) || isstructure(pulling))
+			return 1
+
 	if(!M.buckled && !M.has_buckled_mobs())
 		var/mob_swap
 		//the puller can always swap with it's victim if on grab intent
@@ -128,6 +133,13 @@
 
 //Called when we want to push an atom/movable
 /mob/living/proc/PushAM(atom/movable/AM, force = move_force)
+
+	if(isstructure(AM) && AM.pulledby)
+		if(a_intent == INTENT_HELP && AM.pulledby != src) // Help intent doesn't push other peoples pulled structures
+			return FALSE
+		if(get_dist(get_step(AM, get_dir(src, AM)), AM.pulledby)>1)//Release pulled structures beyond 1 distance
+			AM.pulledby.stop_pulling()
+
 	if(now_pushing)
 		return TRUE
 	if(moving_diagonally) // no pushing during diagonal moves
@@ -226,7 +238,7 @@
 			return TRUE
 		A.visible_message("<span class='danger'>[src] points [hand_item] at [A]!</span>",
 											"<span class='userdanger'>[src] points [hand_item] at you!</span>")
-		A << 'sound/weapons/TargetOn.ogg'
+		A << 'sound/weapons/targeton.ogg'
 		return TRUE
 	visible_message("<b>[src]</b> points to [A]")
 	return TRUE
@@ -235,17 +247,20 @@
 	set hidden = 1
 	if(InCritical())
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
-		adjustOxyLoss(health - config.health_threshold_dead)
+		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
 		for(var/i = 1 to 5)
-			if(health < config.health_threshold_dead)
+			if(health < HEALTH_THRESHOLD_DEAD)
 				break
-			take_overall_damage(max(5, health - config.health_threshold_dead), 0)
+			take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
+		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
+
 /mob/living/proc/InCritical()
-	return (health < 0 && health > -95.0 && stat == UNCONSCIOUS)
+	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
+
 
 /mob/living/ex_act(severity)
 	..()
@@ -451,7 +466,6 @@
 			human_mob = src
 			human_mob.set_heartattack(FALSE)
 			human_mob.restore_blood()
-			human_mob.shock_stage = 0
 			human_mob.decaylevel = 0
 			human_mob.remove_all_embedded_objects()
 
@@ -517,7 +531,7 @@
 				return
 
 			var/pull_dir = get_dir(src, pulling)
-			if(get_dist(src, pulling) > 1 || ((pull_dir - 1) & pull_dir)) // puller and pullee more than one tile away or in diagonal position
+			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir))) // puller and pullee more than one tile away or in diagonal position
 				if(isliving(pulling))
 					var/mob/living/M = pulling
 					if(M.lying && !M.buckled && (prob(M.getBruteLoss() * 200 / M.maxHealth)))
@@ -603,6 +617,8 @@
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
+	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
+
 	if(!restrained())
 		if(resist_grab())
 			return
@@ -679,7 +695,7 @@
 	return name
 
 /mob/living/update_gravity(has_gravity)
-	if(!ticker)
+	if(!SSticker)
 		return
 	if(has_gravity)
 		clear_alert("weightless")
@@ -747,7 +763,7 @@
 		if(!silent)
 			visible_message("<span class='notice'>[src] tries to put [what] on [who].</span>")
 		if(do_mob(src, who, what.put_on_delay))
-			if(what && Adjacent(who))
+			if(what && Adjacent(who) && !(what.flags & NODROP))
 				unEquip(what)
 				who.equip_to_slot_if_possible(what, where, 0, 1)
 				add_attack_logs(src, who, "Equipped [what]")
@@ -774,11 +790,11 @@
 	..()
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-/mob/living/proc/do_jitter_animation(jitteriness)
+/mob/living/proc/do_jitter_animation(jitteriness, loop_amount = 6)
 	var/amplitude = min(4, (jitteriness/100) + 1)
 	var/pixel_x_diff = rand(-amplitude, amplitude)
 	var/pixel_y_diff = rand(-amplitude/3, amplitude/3)
-	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = 6)
+	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff , time = 2, loop = loop_amount)
 	animate(pixel_x = initial(pixel_x) , pixel_y = initial(pixel_y) , time = 2)
 	floating = 0 // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
@@ -882,7 +898,7 @@
 	// If we're pulling something then drop what we're currently pulling and pull this instead.
 	AM.add_fingerprint(src)
 	if(pulling)
-		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.	
+		if(AM == pulling)// Are we trying to pull something we are already pulling? Then just stop here, no need to continue.
 			return
 		stop_pulling()
 		if(AM.pulledby)
@@ -903,40 +919,89 @@
 	if(pulling && !(pulling in orange(1)))
 		stop_pulling()
 
-/mob/living/proc/get_taste_sensitivity()
+/mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
+	if(registered_z != new_z)
+		if(registered_z)
+			SSmobs.clients_by_zlevel[registered_z] -= src
+		if(client)
+			if(new_z)
+				SSmobs.clients_by_zlevel[new_z] += src
+				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
+					if (SA)
+						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
+					else
+						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA
+			registered_z = new_z
+		else
+			registered_z = null
+
+/mob/living/onTransitZ(old_z,new_z)
+	..()
+	update_z(new_z)
+
+/mob/living/proc/owns_soul()
+	if(mind)
+		return mind.soulOwner == mind
 	return 1
 
-/mob/living/proc/taste_reagents(datum/reagents/tastes)
-	if(!get_taste_sensitivity())//this also works for IPCs and stuff that returns 0 here
-		return
+/mob/living/proc/return_soul()
+	if(mind)
+		if(mind.soulOwner.devilinfo)//Not sure how this could happen, but whatever.
+			mind.soulOwner.devilinfo.remove_soul(mind)
+		mind.soulOwner = mind
+		mind.damnation_type = 0
 
-	var/do_not_taste_at_all = 1//so we don't spam with recent tastes
+/mob/living/proc/has_bane(banetype)
+	if(mind)
+		if(mind.devilinfo)
+			return mind.devilinfo.bane == banetype
+	return 0
 
-	var/taste_sum = 0
-	var/list/taste_list = list()//associative list so we can stack stuff that tastes the same
-	var/list/final_taste_list = list()//final list of taste strings
+/mob/living/proc/check_weakness(obj/item/weapon, mob/living/attacker)
+	if(mind && mind.devilinfo)
+		return check_devil_bane_multiplier(weapon, attacker)
+	return 1
 
-	for(var/datum/reagent/R in tastes.reagent_list)
-		taste_sum += R.volume * R.taste_strength
-		if(!R.taste_message)//set to null; no taste, like water
-			continue
-		taste_list[R.taste_message] += R.volume * R.taste_strength
+/mob/living/proc/check_acedia()
+	if(src.mind && src.mind.objectives)
+		for(var/datum/objective/sintouched/acedia/A in src.mind.objectives)
+			return 1
+	return 0
 
-	for(var/R in taste_list)
-		if(recent_tastes[R] && (world.time - recent_tastes[R] < 12 SECONDS))
-			continue
+/mob/living/proc/fakefireextinguish()
+	return
 
-		do_not_taste_at_all = 0//something was fresh enough to taste; could still be bland enough to be unrecognizable
+/mob/living/proc/fakefire()
+	return
 
-		if(taste_list[R] / taste_sum >= 0.15 / get_taste_sensitivity())//we return earlier if the proc returns a 0; won't break the universe
-			final_taste_list += R
-			recent_tastes[R] = world.time
+/mob/living/extinguish_light()
+	for(var/atom/A in src)
+		if(A.light_range > 0)
+			A.extinguish_light()
 
-	if(do_not_taste_at_all)
-		return //no message spam
-
-	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
-		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
-		return
-
-	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
+/mob/living/vv_edit_var(var_name, var_value)
+	switch(var_name)
+		if("stat")
+			if((stat == DEAD) && (var_value < DEAD))//Bringing the dead back to life
+				GLOB.dead_mob_list -= src
+				GLOB.living_mob_list += src
+			if((stat < DEAD) && (var_value == DEAD))//Kill he
+				GLOB.living_mob_list -= src
+				GLOB.dead_mob_list += src
+	. = ..()
+	switch(var_name)
+		if("weakened")
+			SetWeakened(var_value)
+		if("stunned")
+			SetStunned(var_value)
+		if("paralysis")
+			SetParalysis(var_value)
+		if("sleeping")
+			SetSleeping(var_value)
+		if("maxHealth")
+			updatehealth()
+		if("resize")
+			update_transform()
+		if("lighting_alpha")
+			sync_lighting_plane_alpha()

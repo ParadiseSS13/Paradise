@@ -51,6 +51,7 @@ var/list/airlock_overlays = list()
 	explosion_block = 1
 	assemblytype = /obj/structure/door_assembly
 	normalspeed = 1
+	siemens_strength = 1
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = FALSE //If TRUE, AI control is disabled until the AI hacks back in and disables the lock. If 2, the AI has bypassed the lock. If -1, the control is enabled but the AI had bypassed it earlier, so if it is disabled again the AI would have no trouble getting back in.
 	var/hackProof = FALSE // if TRUE, this door can't be hacked by the AI
@@ -70,7 +71,7 @@ var/list/airlock_overlays = list()
 	var/lockdownbyai = 0
 	var/justzap = 0
 	var/obj/item/airlock_electronics/electronics
-	var/hasShocked = 0 //Prevents multiple shocks from happening
+	var/shockCooldown = FALSE //Prevents multiple shocks from happening
 	var/obj/item/note //Any papers pinned to the airlock
 	var/previous_airlock = /obj/structure/door_assembly //what airlock assembly mineral plating was applied to
 	var/airlock_material //material of inner filling; if its an airlock with glass, this should be set to "glass"
@@ -90,9 +91,9 @@ var/list/airlock_overlays = list()
 
 	var/doorOpen = 'sound/machines/airlock_open.ogg'
 	var/doorClose = 'sound/machines/airlock_close.ogg'
-	var/doorDeni = 'sound/machines/DeniedBeep.ogg' // i'm thinkin' Deni's
-	var/boltUp = 'sound/machines/BoltsUp.ogg'
-	var/boltDown = 'sound/machines/BoltsDown.ogg'
+	var/doorDeni = 'sound/machines/deniedbeep.ogg' // i'm thinkin' Deni's
+	var/boltUp = 'sound/machines/boltsup.ogg'
+	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = 0
 
 /obj/machinery/door/airlock/welded
@@ -151,8 +152,8 @@ About the new airlock wires panel:
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
@@ -173,20 +174,12 @@ About the new airlock wires panel:
 			else /*if(justzap)*/
 				return
 		else if(user.hallucination > 50 && prob(10) && !operating)
-			to_chat(user, "<span class='danger'>You feel a powerful shock course through your body!</span>")
-			user.adjustStaminaLoss(50)
-			user.AdjustStunned(5)
-			return
+			if(user.electrocute_act(50, src, 1, illusion = TRUE)) // We'll just go with a flat 50 damage, instead of doing powernet checks
+				return
 	..(user)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/simple_animal/user)
 	..(user)
-
-/obj/machinery/door/airlock/autoclose()
-	autoclose_timer = 0
-	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)
-		close()
-	return
 
 /obj/machinery/door/airlock/proc/isElectrified()
 	if(electrified_until != 0)
@@ -296,16 +289,14 @@ About the new airlock wires panel:
 // The preceding comment was borrowed from the grille's shock script
 /obj/machinery/door/airlock/shock(mob/user, prb)
 	if(!arePowerSystemsOn())
-		return 0
-	if(hasShocked)
-		return 0	//Already shocked someone recently?
+		return FALSE
+	if(shockCooldown > world.time)
+		return FALSE	//Already shocked someone recently?
 	if(..())
-		hasShocked = 1
-		sleep(10)
-		hasShocked = 0
-		return 1
+		shockCooldown = world.time + 10
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 //Checks if the user can get shocked and shocks him if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/shock_user(mob/user, prob)
@@ -314,6 +305,7 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/update_icon(state=0, override=0)
 	if(operating && !override)
 		return
+	check_unres()
 	icon_state = density ? "closed" : "open"
 	switch(state)
 		if(0)
@@ -336,7 +328,6 @@ About the new airlock wires panel:
 	var/image/sparks_overlay
 	var/image/note_overlay
 	var/notetype = note_type()
-
 	switch(state)
 		if(AIRLOCK_CLOSED)
 			frame_overlay = get_airlock_overlay("closed", icon)
@@ -519,6 +510,7 @@ About the new airlock wires panel:
 		else
 			to_chat(user, "There's a [note.name] pinned to the front...")
 			note.examine(user)
+			to_chat(user, "<span class='notice'>Use an empty hand on the airlock on grab mode to remove [note.name].</span>")
 
 	if(panel_open)
 		switch(security_level)
@@ -624,6 +616,31 @@ About the new airlock wires panel:
 		if(user)
 			attack_ai(user)
 
+/obj/machinery/door/airlock/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
+	if(hasPower() && unres_sides)
+		if(unres_sides & NORTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
+			I.pixel_y = 32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & SOUTH)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
+			I.pixel_y = -32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & EAST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
+			I.pixel_x = 32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+		if(unres_sides & WEST)
+			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
+			I.pixel_x = -32
+			set_light(l_range = 1, l_power = 1, l_color = "#00FF00")
+			add_overlay(I)
+	else
+		set_light(0)
+
 /obj/machinery/door/airlock/CanPass(atom/movable/mover, turf/target, height=0)
 	if(isElectrified() && density && istype(mover, /obj/item))
 		var/obj/item/I = mover
@@ -645,33 +662,8 @@ About the new airlock wires panel:
 			to_chat(user, "<span class='warning'>Wires are protected!</span>")
 			return
 		wires.Interact(user)
-
-	if(iszombie(user)) //From attack_alien
-		add_fingerprint(user)
-		if(isElectrified())
-			shock(user, 100)
-			return
-		if(!density) //Already open
-			return
-		if(locked || welded)
-			to_chat(user, "<span class='warning'>[src] refuses to budge!</span>")
-			return
-		user.visible_message("<span class='warning'>[user] begins prying open [src].</span>",\
-							"<span class='noticealien'>You begin digging your hands into [src] with all your might!</span>",\
-							"<span class='warning'>You hear groaning metal...</span>")
-		var/time_to_open = 20
-		if(arePowerSystemsOn())
-			time_to_open = 90 //Powered airlocks take longer to open, and are loud.
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
-
-
-		if(do_after(user, time_to_open, target = src))
-			if(density && !open(1)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
-				to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
-
 	else
 		..()
-
 
 //Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
@@ -1105,6 +1097,10 @@ About the new airlock wires panel:
 		playsound(loc, doorOpen, 30, 1)
 	if(closeOther != null && istype(closeOther, /obj/machinery/door/airlock/) && !closeOther.density)
 		closeOther.close()
+
+	if(autoclose)
+		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
+
 	if(!density)
 		return TRUE
 	operating = TRUE
@@ -1119,10 +1115,6 @@ About the new airlock wires panel:
 	layer = OPEN_DOOR_LAYER
 	update_icon(AIRLOCK_OPEN, 1)
 	operating = FALSE
-
-	// The `addtimer` system has the advantage of being cancelable
-	if(autoclose)
-		autoclose_timer = addtimer(CALLBACK(src, .proc/autoclose), normalspeed ? auto_close_time : auto_close_time_dangerous, TIMER_UNIQUE | TIMER_STOPPABLE)
 	return TRUE
 
 /obj/machinery/door/airlock/close(forced=0, override = 0)
@@ -1139,7 +1131,8 @@ About the new airlock wires panel:
 		for(var/turf/turf in locs)
 			for(var/atom/movable/M in turf)
 				if(M.density && M != src) //something is blocking the door
-					addtimer(CALLBACK(src, .proc/autoclose), 60)
+					autoclose_in(60)
+					return
 
 	use_power(360)	//360 W seems much more appropriate for an actuator moving an industrial door capable of crushing people
 	if(forced)
@@ -1349,7 +1342,7 @@ About the new airlock wires panel:
 			else return FALSE
 		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
-			playsound(src, 'sound/items/Wirecutter.ogg', 50, 1)
+			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
 		note.forceMove(get_turf(user))
 		note = null
 		update_icon()

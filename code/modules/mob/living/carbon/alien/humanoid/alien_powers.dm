@@ -85,13 +85,8 @@ Doesn't work on other aliens/AI.*/
 					return
 			// TURF CHECK
 			else if(istype(O, /turf/simulated))
-				var/turf/T = O
-				// R WALL
-				if(istype(T, /turf/simulated/wall/r_wall))
-					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
-					return
-				// R FLOOR
-				if(istype(T, /turf/simulated/floor/engine))
+				var/turf/simulated/T = O
+				if(T.unacidable)
 					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 					return
 			else// Not a type we can acid.
@@ -159,7 +154,7 @@ Doesn't work on other aliens/AI.*/
 			for(var/mob/M in src)
 				if(M in stomach_contents)
 					stomach_contents.Remove(M)
-					M.loc = loc
+					M.forceMove(loc)
 					//Paralyse(10)
 			src.visible_message("<span class='alertalien'><B>[src] hurls out the contents of [p_their()] stomach!</span>")
 	return

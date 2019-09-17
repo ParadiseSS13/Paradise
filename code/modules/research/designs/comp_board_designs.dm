@@ -212,6 +212,16 @@
 	build_path = /obj/item/circuitboard/prisoner
 	category = list("Computer Boards")
 
+/datum/design/brigcells
+	name = "Console Board (Brig Cell Management Console)"
+	desc = "Allows for the construction of circuit boards used to build a brig cell management console."
+	id = "brigcells"
+	req_tech = list("programming" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/brigcells
+	category = list("Computer Boards")
+
 /datum/design/rdconsole
 	name = "Console Board (R&D Console)"
 	desc = "Allows for the construction of circuit boards used to build a new R&D console. Can be swiped with a Scientist level ID to manage access levels."
@@ -320,16 +330,6 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/comm_traffic
-	category = list("Computer Boards")
-
-/datum/design/telesci_console
-	name = "Console Board (Telepad Control Console)"
-	desc = "Allows for the construction of circuit boards used to build a telescience console."
-	id = "telesci_console"
-	req_tech = list("programming" = 3, "bluespace" = 3, "plasmatech" = 4)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/telesci_console
 	category = list("Computer Boards")
 
 /datum/design/teleconsole

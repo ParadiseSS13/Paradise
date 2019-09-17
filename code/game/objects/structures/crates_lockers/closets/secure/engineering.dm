@@ -20,10 +20,12 @@
 	new /obj/item/storage/box/permits(src)
 	new /obj/item/clothing/under/rank/chief_engineer(src)
 	new /obj/item/clothing/under/rank/chief_engineer/skirt(src)
+	new /obj/item/clothing/suit/mantle/chief_engineer(src)
 	new /obj/item/clothing/head/hardhat/white(src)
 	new /obj/item/clothing/glasses/welding/superior(src)
 	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/cartridge/ce(src)
 	new /obj/item/radio/headset/heads/ce(src)
 	new /obj/item/storage/toolbox/mechanical(src)
@@ -36,6 +38,8 @@
 	new /obj/item/door_remote/chief_engineer(src)
 	new /obj/item/rpd(src)
 	new /obj/item/reagent_containers/food/drinks/mug/ce(src)
+	new /obj/item/organ/internal/cyberimp/eyes/meson(src)
+	new /obj/item/clothing/accessory/medal/engineering(src)
 
 
 /obj/structure/closet/secure_closet/engineering_electrical
@@ -134,6 +138,8 @@
 		new /obj/item/storage/backpack/satchel_eng(src)
 	new /obj/item/storage/backpack/duffel/atmos(src)
 	new /obj/item/extinguisher(src)
+	new /obj/item/grenade/gas/oxygen(src)
+	new /obj/item/grenade/gas/oxygen(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/tank/emergency_oxygen/engi(src)
@@ -142,3 +148,4 @@
 	new /obj/item/clothing/suit/fire/atmos(src)
 	new /obj/item/clothing/head/hardhat/atmos(src)
 	new /obj/item/rpd(src)
+	new /obj/item/destTagger(src)

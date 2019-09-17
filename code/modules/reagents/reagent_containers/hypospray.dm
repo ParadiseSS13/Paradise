@@ -102,7 +102,8 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(10)
 	volume = 10
-	ignore_flags = 1 //so you can medipen through hardsuits
+	ignore_flags = TRUE //so you can medipen through hardsuits
+	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
 
@@ -143,12 +144,20 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	name = "Stimulants autoinjector"
-	desc = "Rapidly stimulates and regernates the body's organ system."
+	desc = "Rapidly stimulates and regenerates the body's organ system."
 	icon_state = "stimpen"
 	amount_per_transfer_from_this = 50
 	possible_transfer_amounts = list(50)
 	volume = 50
 	list_reagents = list("stimulants" = 50)
+
+/obj/item/reagent_containers/hypospray/autoinjector/survival
+	name = "survival medipen"
+	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards. <br><span class='boldwarning'>WARNING: Do not inject more than one pen in quick succession.</span>"
+	icon_state = "stimpen"
+	volume = 42
+	amount_per_transfer_from_this = 42
+	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "nanocalcium autoinjector"

@@ -284,7 +284,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(12)
 			var/list/jobs = list()
 			data["jobs"] = jobs
-			for(var/datum/job/job in job_master.occupations)
+			for(var/datum/job/job in SSjobs.occupations)
 				if(job_blacklisted(job))
 					continue
 				if(job.is_position_available())
@@ -596,7 +596,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 				return
 			if(W.force < 15)
 				visible_message("<span class='danger'>[user.name] hits the [name] with the [W.name] with no visible effect.</span>", null , 5)
-				playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
+				playsound(loc, 'sound/effects/glasshit.ogg', 100, 1)
 			else
 				hitstaken++
 				if(hitstaken == 3)
@@ -605,7 +605,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 					playsound(loc, 'sound/effects/Glassbr3.ogg', 100, 1)
 				else
 					visible_message("<span class='danger'>[user.name] forcefully slams the [name] with the [I.name]!</span>", null, 5)
-					playsound(loc, 'sound/effects/Glasshit.ogg', 100, 1)
+					playsound(loc, 'sound/effects/glasshit.ogg', 100, 1)
 		else
 			to_chat(user, "<span class='notice'>This does nothing.</span>")
 	update_icon()

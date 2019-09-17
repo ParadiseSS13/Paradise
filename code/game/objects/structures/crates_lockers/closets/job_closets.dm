@@ -76,6 +76,7 @@
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/cartridge/janitor(src)
 	new /obj/item/flashlight(src)
+	new /obj/item/melee/flyswatter(src)
 	new /obj/item/clothing/shoes/galoshes(src)
 	new /obj/item/soap(src)
 	new /obj/item/caution(src)

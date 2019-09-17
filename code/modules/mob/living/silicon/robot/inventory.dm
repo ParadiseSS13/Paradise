@@ -55,24 +55,24 @@
 	if(!module_state_1)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_1 = O
-		O.layer = 20
-		O.plane = HUD_PLANE
+		O.layer = ABOVE_HUD_LAYER
+		O.plane = ABOVE_HUD_PLANE
 		O.screen_loc = inv1.screen_loc
 		contents += O
 		set_actions(O)
 	else if(!module_state_2)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
-		O.layer = 20
-		O.plane = HUD_PLANE
+		O.layer = ABOVE_HUD_LAYER
+		O.plane = ABOVE_HUD_PLANE
 		O.screen_loc = inv2.screen_loc
 		contents += O
 		set_actions(O)
 	else if(!module_state_3)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
-		O.layer = 20
-		O.plane = HUD_PLANE
+		O.layer = ABOVE_HUD_LAYER
+		O.plane = ABOVE_HUD_PLANE
 		O.screen_loc = inv3.screen_loc
 		contents += O
 		set_actions(O)

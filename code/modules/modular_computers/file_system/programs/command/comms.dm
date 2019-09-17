@@ -158,11 +158,6 @@
 
 	data["shuttle"] = shuttle
 
-	if(trade_dockrequest_timelimit > world.time)
-		data["dock_request"] = 1
-	else
-		data["dock_request"] = 0
-
 	return data
 
 /datum/computer_file/program/comm/Topic(href, href_list)
@@ -250,7 +245,7 @@
 						message_cooldown = 0
 
 			if("callshuttle")
-				var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+				var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
 				if(!input || ..() || !is_authenticated(usr))
 					SSnanoui.update_uis(src)
 					return 1
@@ -311,11 +306,11 @@
 				setMenuState(usr, COMM_SCREEN_STAT)
 
 			if("setmsg1")
-				stat_msg1 = input("Line 1", "Enter Message Text", stat_msg1) as text|null
+				stat_msg1 = clean_input("Line 1", "Enter Message Text", stat_msg1)
 				setMenuState(usr, COMM_SCREEN_STAT)
 
 			if("setmsg2")
-				stat_msg2 = input("Line 2", "Enter Message Text", stat_msg2) as text|null
+				stat_msg2 = clean_input("Line 2", "Enter Message Text", stat_msg2)
 				setMenuState(usr, COMM_SCREEN_STAT)
 
 			if("nukerequest")
@@ -385,17 +380,6 @@
 						to_chat(usr, "<span class='warning'>Nano-Mob Hunter GO! game server reboot failed due to recent restart. Please wait before re-attempting.</span>")
 				else
 					to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
-
-			if("AcceptDocking")
-				to_chat(usr, "Docking request accepted!")
-				trade_dock_timelimit = world.time + 1200
-				trade_dockrequest_timelimit = 0
-				event_announcement.Announce("Docking request for trading ship approved, please dock at port bay 4.", "Docking Request")
-			if("DenyDocking")
-				to_chat(usr, "Docking requeset denied!")
-				trade_dock_timelimit = 0
-				trade_dockrequest_timelimit = 0
-				event_announcement.Announce("Docking request for trading ship denied.", "Docking request")
 
 	SSnanoui.update_uis(src)
 	return 1

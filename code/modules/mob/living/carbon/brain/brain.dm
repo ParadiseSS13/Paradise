@@ -67,10 +67,10 @@
 
 /mob/living/carbon/brain/on_forcemove(atom/newloc)
 	if(container)
-		container.loc = newloc
+		container.forceMove(newloc)
 	else //something went very wrong.
 		CRASH("Brainmob without container.")
-	loc = container
+	forceMove(container)
 
 /*
 This will return true if the brain has a container that leaves it less helpless than a naked brain
@@ -95,7 +95,6 @@ I'm using this for Stat to give it a more nifty interface to work with
 	..()
 	if(has_synthetic_assistance())
 		statpanel("Status")
-		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 
 		if(client.statpanel == "Status")

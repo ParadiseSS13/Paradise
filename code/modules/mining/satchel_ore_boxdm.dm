@@ -83,6 +83,9 @@ obj/structure/ore_box/ex_act(severity, target)
 		O.forceMove(loc)
 		CHECK_TICK
 
+/obj/structure/ore_box/onTransitZ()
+	return 
+
 /obj/structure/ore_box/verb/empty_box()
 	set name = "Empty Ore Box"
 	set category = "Object"

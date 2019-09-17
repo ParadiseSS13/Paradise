@@ -3,6 +3,7 @@
 	desc = "How do you even reuse a bullet?"
 	var/ammo_type = /obj/item/ammo_casing/caseless/
 	var/dropped = 0
+	impact_effect_type = null
 
 /obj/item/projectile/bullet/reusable/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -63,4 +64,17 @@
 	icon_state = "foamdart_riot"
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
 	stamina = 25
+	log_override = FALSE
+
+/obj/item/projectile/bullet/reusable/foam_dart/sniper
+	name = "foam sniper dart"
+	icon_state = "foamdartsniper"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper
+	range = 30
+
+/obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
+	name = "riot sniper foam dart"
+	icon_state = "foamdartsniper_riot"
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	stamina = 100
 	log_override = FALSE

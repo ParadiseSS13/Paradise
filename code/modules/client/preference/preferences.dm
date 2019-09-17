@@ -23,6 +23,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
+	ROLE_DEVIL = 14
 )
 
 /proc/player_old_enough_antag(client/C, role)
@@ -80,7 +81,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/exp
 	var/ooccolor = "#b82e00"
-	var/be_special = list()				//Special role selection
+	var/list/be_special = list()				//Special role selection
 	var/UI_style = "Midnight"
 	var/nanoui_fancy = TRUE
 	var/toggles = TOGGLES_DEFAULT
@@ -91,6 +92,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/windowflashing = TRUE
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
+	var/fuid							// forum userid
+	var/afk_watch = FALSE  				// If the player wants to be kept track of by the AFK system
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -182,7 +185,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	// 0 = character settings, 1 = game preferences
 	var/current_tab = TAB_CHAR
 
-		// OOC Metadata:
+	// OOC Metadata:
 	var/metadata = ""
 	var/slot_name = ""
 
@@ -198,6 +201,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	//Gear stuff
 	var/list/gear = list()
 	var/gear_tab = "General"
+	// Parallax
+	var/parallax = PARALLAX_HIGH
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -210,8 +215,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
 				max_save_slots = MAX_SAVE_SLOTS_MEMBER
-			if(C.donator_level >= DONATOR_LEVEL_ONE)
-				max_gear_slots += 5
 
 		loaded_preferences_successfully = load_preferences(C) // Do not call this with no client/C, it generates a runtime / SQL error
 		if(loaded_preferences_successfully)
@@ -280,7 +283,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(species == "Vox")
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			if(species == "Grey")
-				dat += "<b>Voice:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Wingdings" : "Normal"]</a><BR>"
+				dat += "<b>Wingdings:</b> Set in disabilities<br>"
+				dat += "<b>Voice Translator:</b> <a href ='?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Yes" : "No"]</a><br>"
 			dat += "<b>Secondary Language:</b> <a href='?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			if(S.autohiss_basic_map)
 				dat += "<b>Auto-accent:</b> <a href='?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Full" : (autohiss_mode == AUTOHISS_BASIC ? "Basic" : "Off")]</a><br>"
@@ -433,37 +437,51 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "</td></tr></table>"
 
 		if(TAB_GAME) // General Preferences
+			// LEFT SIDE OF THE PAGE
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
-			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
-			dat += "<b>Ghost-Item Attack Animation:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
-			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Yes" : "No"]</a><br>"
-			dat += "<b>Custom UI settings:</b><br>"
-			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
-			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <table style='display:inline;' bgcolor='[UI_style_color]'<tr><td>__</td></tr></table><br>"
-			dat += " - <b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
-			dat += "<br>"
-			dat += "<b>Play admin midis:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
-			dat += "<b>Play lobby music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			if(user.client.holder)
-				dat += "<b>Adminhelp sound:</b> "
-				dat += "<a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
-
-			if(check_rights(R_ADMIN,0))
-				dat += "<b>OOC:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
-			if(config.allow_Metadata)
-				dat += "<b>OOC notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
+				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(afk_watch) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
+			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
 				dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'><b>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
-			if(user.client.donator_level >= DONATOR_LEVEL_ONE)
+			dat += "<b>Custom UI settings:</b><br>"
+			dat += " - <b>Alpha (transparency):</b> <a href='?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
+			dat += " - <b>Color:</b> <a href='?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
+			dat += " - <b>UI Style:</b> <a href='?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
+			dat += "<b>Deadchat Anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[ghost_anonsay ? "Anonymous" : "Not Anonymous"]</b></a><br>"
+			if(user.client.donator_level > 0)
 				dat += "<b>Donator Publicity:</b> <a href='?_src_=prefs;preference=donor_public'><b>[(toggles & DONATOR_PUBLIC) ? "Public" : "Hidden"]</b></a><br>"
-
-			dat += "<b>Randomized character slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
-			dat += "<b>Ghost ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
-			dat += "<b>Ghost radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
-			dat += "<b>Deadchat anonymity:</b> <a href='?_src_=prefs;preference=ghost_anonsay'><b>[ghost_anonsay ? "Anonymous" : "Not Anonymous"]</b></a><br>"
-			dat += "<b>FPS:</b> <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
+			dat += "<b>Fancy NanoUI:</b> <a href='?_src_=prefs;preference=nanoui'>[(nanoui_fancy) ? "Yes" : "No"]</a><br>"
+			dat += "<b>FPS:</b>	 <a href='?_src_=prefs;preference=clientfps;task=input'>[clientfps]</a><br>"
+			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'><b>[(toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'><b>[(toggles & CHAT_GHOSTRADIO) ? "All Chatter" : "Nearest Speakers"]</b></a><br>"
+			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
+			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
+			if(check_rights(R_ADMIN,0))
+				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
+			if(config.allow_Metadata)
+				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
+			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
+			switch (parallax)
+				if(PARALLAX_LOW)
+					dat += "Low"
+				if(PARALLAX_MED)
+					dat += "Medium"
+				if(PARALLAX_INSANE)
+					dat += "Insane"
+				if(PARALLAX_DISABLE)
+					dat += "Disabled"
+				else
+					dat += "High"
+			dat += "</a><br>"
+			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
+			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Yes" : "No"]</a><br>"
+			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='300px' height='300px' valign='top'>"
 			dat += "<h2>Special Role Settings</h2>"
 			if(jobban_isbanned(user, "Syndicate"))
@@ -508,10 +526,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 			var/firstcat = 1
 			for(var/category in loadout_categories)
-				var/datum/loadout_category/LC = loadout_categories[category]
-				if(LC.donor_only)
-					if(user.client.donator_level < DONATOR_LEVEL_TWO) // level two donators get the donator loadout, so don't show it to anyone with less than that
-						continue
 				if(firstcat)
 					firstcat = 0
 				else
@@ -552,7 +566,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	dat += "<a href='?_src_=prefs;preference=reset_all'>Reset Setup</a>"
 	dat += "</center>"
 
-	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 640)
+	var/datum/browser/popup = new(user, "preferences", "<div align='center'>Character Setup</div>", 820, 660)
 	popup.set_content(dat)
 	popup.open(0)
 
@@ -576,7 +590,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 
 /datum/preferences/proc/SetChoices(mob/user, limit = 13, list/splitJobs = list("Civilian","Research Director","AI","Bartender"), width = 760, height = 790)
-	if(!job_master)
+	if(!SSjobs)
 		return
 
 	//limit 	 - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
@@ -597,8 +611,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
 	var/datum/job/lastJob
-	if(!job_master)		return
-	for(var/datum/job/job in job_master.occupations)
+	if(!SSjobs)
+		return
+	for(var/datum/job/job in SSjobs.occupations)
 
 		if(job.admin_only)
 			continue
@@ -805,7 +820,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	return 0
 
 /datum/preferences/proc/UpdateJobPreference(mob/user, role, desiredLvl)
-	var/datum/job/job = job_master.GetJob(role)
+	var/datum/job/job = SSjobs.GetJob(role)
 
 	if(!job)
 		user << browse(null, "window=mob_occupation")
@@ -830,29 +845,30 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	return 1
 
-/datum/preferences/proc/ShowDisabilityState(mob/user,flag,label)
+/datum/preferences/proc/ShowDisabilityState(mob/user, flag, label)
 	var/datum/species/S = GLOB.all_species[species]
-	if(flag==DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))
+	if(flag == DISABILITY_FLAG_FAT && !(CAN_BE_FAT in S.species_traits))
 		return "<li><i>[species] cannot be fat.</i></li>"
 	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
 
 /datum/preferences/proc/SetDisabilities(mob/user)
+	var/datum/species/S = GLOB.all_species[species]
 	var/HTML = "<body>"
 	HTML += "<tt><center>"
 
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_NEARSIGHTED,"Needs glasses")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_FAT,"Obese")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_EPILEPTIC,"Seizures")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DEAF,"Deaf")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_BLIND,"Blind")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_COLOURBLIND,"Colourblind")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_MUTE,"Mute")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_TOURETTES,"Tourettes syndrome") // this will / can not be abused. It also SEVERELY stuns. It's just for fun.
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_NERVOUS,"Stutter")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SWEDISH,"Swedish accent")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_LISP,"Lisp")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_DIZZY,"Dizziness")
-	HTML += ShowDisabilityState(user,DISABILITY_FLAG_SCRAMBLED,"Can't speak properly")
+	if(CAN_WINGDINGS in S.species_traits)
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_WINGDINGS, "Speak in Wingdings")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NEARSIGHTED, "Nearsighted")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_COLOURBLIND, "Colourblind")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_BLIND, "Blind")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DEAF, "Deaf")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_MUTE, "Mute")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_FAT, "Obese")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_NERVOUS, "Stutter")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_SWEDISH, "Swedish accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_CHAV, "Chav accent")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_LISP, "Lisp")
+	HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Dizziness")
 
 
 	HTML += {"</ul>
@@ -860,7 +876,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		<a href=\"?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
 		</center></tt>"}
 
-	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 300)
+	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 380)
 	popup.set_content(HTML)
 	popup.open(0)
 
@@ -910,7 +926,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		player_alt_titles[job.title] = new_title
 
 /datum/preferences/proc/SetJob(mob/user, role)
-	var/datum/job/job = job_master.GetJob(role)
+	var/datum/job/job = SSjobs.GetJob(role)
 	if(!job)
 		user << browse(null, "window=mob_occupation")
 		ShowChoices(user)
@@ -1148,10 +1164,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(TG.display_name in gear)
 				gear -= TG.display_name
 			else
-				if(TG.donor_only)
-					if(user.client.donator_level < DONATOR_LEVEL_TWO) // donator items are locked to > tier 2
-						//they normally can't even get this far- but just in case of href exploits, we check them here
-						return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
 				for(var/gear_name in gear)
@@ -1263,7 +1275,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -1291,8 +1303,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 //									whitelisted = 1
 //							if(!whitelisted)
 //								alert(user, "You cannot change your species as you need to be whitelisted. If you wish to be whitelisted contact an admin in-game, on the forums, or on IRC.")
-					else //Not using the whitelist? Aliens for everyone!
-						new_species += GLOB.whitelisted_species
+//					else //Not using the whitelist? Aliens for everyone!
+//						new_species += GLOB.whitelisted_species
 
 					species = input("Please select a species", "Character Generation", null) in new_species
 					var/datum/species/NS = GLOB.all_species[species]
@@ -1923,22 +1935,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(world.byond_version >= 511 && user.client && user.client.byond_version >= 511)
 							parent.fps = clientfps
 
-/*
-				if("skin_style")
-					var/skin_style_name = input(user, "Select a new skin style") as null|anything in list("default1", "default2", "default3")
-					if(!skin_style_name) return
-*/
-
-/*					if("spawnpoint")
-					var/list/spawnkeys = list()
-					for(var/S in spawntypes)
-						spawnkeys += S
-					var/choice = input(user, "Where would you like to spawn when latejoining?") as null|anything in spawnkeys
-					if(!choice || !spawntypes[choice])
-						spawnpoint = "Arrivals Shuttle"
-						return
-					spawnpoint = choice */
-
 		else
 			switch(href_list["preference"])
 				if("publicity")
@@ -1946,7 +1942,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						toggles ^= MEMBER_PUBLIC
 
 				if("donor_public")
-					if(user.client.donator_level >= DONATOR_LEVEL_ONE)
+					if(user.client.donator_level > 0)
 						toggles ^= DONATOR_PUBLIC
 
 				if("gender")
@@ -1995,6 +1991,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("winflash")
 					windowflashing = !windowflashing
+
+				if("afk_watch")
+					afk_watch = !afk_watch
 
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
@@ -2049,6 +2048,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("ghost_radio")
 					toggles ^= CHAT_GHOSTRADIO
+				
+				if("ghost_pda")
+					toggles ^= CHAT_GHOSTPDA
 
 				if("ghost_anonsay")
 					ghost_anonsay = !ghost_anonsay
@@ -2082,6 +2084,28 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("tab")
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
+
+
+				if("ambientocclusion")
+					toggles ^= AMBIENT_OCCLUSION
+					if(parent && parent.screen && parent.screen.len)
+						var/obj/screen/plane_master/game_world/PM = locate(/obj/screen/plane_master/game_world) in parent.screen
+						PM.filters -= FILTER_AMBIENT_OCCLUSION
+						if(toggles & AMBIENT_OCCLUSION)
+							PM.filters += FILTER_AMBIENT_OCCLUSION
+
+				if("parallax")
+					var/parallax_styles = list(
+						"Off" = PARALLAX_DISABLE,
+						"Low" = PARALLAX_LOW,
+						"Medium" = PARALLAX_MED,
+						"High" = PARALLAX_HIGH,
+						"Insane" = PARALLAX_INSANE
+					)
+					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]	
+					if(parent && parent.mob && parent.mob.hud_used)
+						parent.mob.hud_used.update_parallax_pref()
+
 
 	ShowChoices(user)
 	return 1
@@ -2195,47 +2219,53 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.change_eye_color(e_colour)
 
 	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.dna.species.species_traits))
-		character.dna.SetSEState(FATBLOCK,1,1)
+		character.dna.SetSEState(FATBLOCK, TRUE, TRUE)
 		character.overeatduration = 600
+		character.dna.default_blocks.Add(FATBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
-		character.dna.SetSEState(GLASSESBLOCK,1,1)
-
-	if(disabilities & DISABILITY_FLAG_EPILEPTIC)
-		character.dna.SetSEState(EPILEPSYBLOCK,1,1)
-
-	if(disabilities & DISABILITY_FLAG_DEAF)
-		character.dna.SetSEState(DEAFBLOCK,1,1)
+		character.dna.SetSEState(GLASSESBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLASSESBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
-		character.dna.SetSEState(BLINDBLOCK,1,1)
+		character.dna.SetSEState(BLINDBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(BLINDBLOCK)
+
+	if(disabilities & DISABILITY_FLAG_DEAF)
+		character.dna.SetSEState(DEAFBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(DEAFBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
-		character.dna.SetSEState(COLOURBLINDBLOCK,1,1)
+		character.dna.SetSEState(COLOURBLINDBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(COLOURBLINDBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
-		character.dna.SetSEState(MUTEBLOCK,1,1)
-
-	if(disabilities & DISABILITY_FLAG_TOURETTES)
-		character.dna.SetSEState(TWITCHBLOCK,1,1)
+		character.dna.SetSEState(MUTEBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(MUTEBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_NERVOUS)
-		character.dna.SetSEState(NERVOUSBLOCK,1,1)
+		character.dna.SetSEState(NERVOUSBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(NERVOUSBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_SWEDISH)
-		character.dna.SetSEState(SWEDEBLOCK,1,1)
+		character.dna.SetSEState(SWEDEBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(SWEDEBLOCK)
 
-	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
-		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
+	if(disabilities & DISABILITY_FLAG_CHAV)
+		character.dna.SetSEState(CHAVBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(CHAVBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_LISP)
-		character.dna.SetSEState(LISPBLOCK,1,1)
+		character.dna.SetSEState(LISPBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(LISPBLOCK)
 
 	if(disabilities & DISABILITY_FLAG_DIZZY)
-		character.dna.SetSEState(DIZZYBLOCK,1,1)
+		character.dna.SetSEState(DIZZYBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(DIZZYBLOCK)
 
-	if(disabilities & DISABILITY_FLAG_SCRAMBLED)
-		character.dna.SetSEState(SCRAMBLEBLOCK,1,1)
+	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
+		character.dna.SetSEState(WINGDINGSBLOCK, TRUE, TRUE)
+		character.dna.default_blocks.Add(WINGDINGSBLOCK)
 
 	character.dna.species.handle_dna(character)
 
@@ -2286,3 +2316,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/close_load_dialog(mob/user)
 	user << browse(null, "window=saves")
+
+//Check if the user has ANY job selected.
+/datum/preferences/proc/check_any_job()
+	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)

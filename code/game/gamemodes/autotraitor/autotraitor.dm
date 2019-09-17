@@ -96,7 +96,8 @@
 			for(var/obj/item/implant/mindshield/I in H.contents)
 				if(I && I.implanted)
 					possible_traitors -= player
-
+			if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
+				possible_traitors -= player
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
 //		message_admins("Potential Traitors:")
@@ -130,8 +131,10 @@
 				forge_traitor_objectives(newtraitor.mind)
 
 				if(istype(newtraitor, /mob/living/silicon))
+					SEND_SOUND(newtraitor, 'sound/ambience/antag/malf.ogg')
 					add_law_zero(newtraitor)
 				else
+					SEND_SOUND(newtraitor, 'sound/ambience/antag/tatoralert.ogg')
 					equip_traitor(newtraitor)
 
 				traitors += newtraitor.mind

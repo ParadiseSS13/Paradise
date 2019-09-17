@@ -110,8 +110,6 @@
 	message = "<span class='revennotice'>You toggle your night vision.</span>"
 	action_icon_state = "r_nightvision"
 	action_background_icon_state = "bg_revenant"
-	non_night_vision = INVISIBILITY_REVENANT
-	night_vision = SEE_INVISIBLE_OBSERVER_NOLIGHTING
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/targeted/revenant_transmit
@@ -215,11 +213,11 @@
 						if(!L.on) //wait, wait, don't shock me
 							return
 						flick("[L.base_state]2", L)
-						for(var/mob/living/carbon/human/M in view(shock_range, L))
+						for(var/mob/living/M in view(shock_range, L))
 							if(M == user)
 								return
 							M.Beam(L,icon_state="purple_lightning",icon='icons/effects/effects.dmi',time=5)
-							M.electrocute_act(shock_damage, "[L.name]", safety=1)
+							M.electrocute_act(shock_damage, L, safety = TRUE)
 							do_sparks(4, 0, M)
 							playsound(M, 'sound/machines/defib_zap.ogg', 50, 1, -1)
 

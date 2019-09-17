@@ -140,24 +140,19 @@
 
 ////////Laser Tag////////////////////
 
-/obj/item/gun/energy/laser/bluetag
+/obj/item/gun/energy/laser/tag
 	name = "laser tag gun"
-	icon_state = "bluetag"
 	desc = "Standard issue weapon of the Imperial Guard"
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
 	origin_tech = "combat=2;magnets=2"
 	clumsy_check = 0
 	needs_permit = 0
 	ammo_x_offset = 2
 	selfcharge = 1
 
-/obj/item/gun/energy/laser/redtag
-	name = "laser tag gun"
+/obj/item/gun/energy/laser/tag/blue
+	icon_state = "bluetag"
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/bluetag)
+
+/obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
-	desc = "Standard issue weapon of the Imperial Guard"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
-	origin_tech = "combat=2;magnets=2"
-	clumsy_check = 0
-	needs_permit = 0
-	ammo_x_offset = 2
-	selfcharge = 1

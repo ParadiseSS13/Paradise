@@ -11,9 +11,8 @@
 	flesh_color = "#E6E6C6"
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
-
-	oxy_mod = 0
 
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
@@ -42,7 +41,7 @@
 /datum/species/skeleton/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	// Crazylemon is still silly
 	if(R.id == "milk")
-		H.heal_overall_damage(4,4)
+		H.heal_overall_damage(4, 4)
 		if(prob(5)) // 5% chance per proc to find a random limb, and mend it
 			var/list/our_organs = H.bodyparts.Copy()
 			shuffle(our_organs)
@@ -55,7 +54,7 @@
 						L.perma_injury = 0
 					break // We're only checking one limb here, bucko
 		if(prob(3))
-			H.say(pick("Thanks Mr Skeltal", "Thank for strong bones", "Doot doot!"))
-		return 1
+			H.say(pick("Thanks Mr. Skeltal", "Thank for strong bones", "Doot doot!"))
+		return TRUE
 
 	return ..()

@@ -11,7 +11,8 @@ Pipelines + Other Objects -> Pipe network
 GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 /obj/machinery/atmospherics
 	anchored = 1
-	layer = 2.4 //under wires with their 2.44
+	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
+	plane = FLOOR_PLANE	
 	idle_power_usage = 0
 	active_power_usage = 0
 	power_channel = ENVIRON
@@ -61,10 +62,14 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
-	return null
+	var/turf/T = loc
+	if(level == 2 || !T.intact)
+		plane = GAME_PLANE
+	else
+		plane = FLOOR_PLANE	
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
-	pipe_image = image(src, loc, layer = 20, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
+	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
 	pipe_image.plane = HUD_PLANE
 
 /obj/machinery/atmospherics/proc/check_icon_cache(var/safety = 0)
@@ -226,6 +231,12 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	var/turf/T = loc
 	level = T.intact ? 2 : 1
 	add_fingerprint(usr)
+	if(!SSair.initialized) //If there's no atmos subsystem, we can't really initialize pipenets
+		SSair.machinery_to_construct.Add(src)
+		return
+	initialize_atmos_network()
+
+/obj/machinery/atmospherics/proc/initialize_atmos_network()
 	atmos_init()
 	var/list/nodes = pipeline_expansion()
 	for(var/obj/machinery/atmospherics/A in nodes)
@@ -243,7 +254,8 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 // Ventcrawling
 #define VENT_SOUND_DELAY 30
 /obj/machinery/atmospherics/relaymove(mob/living/user, direction)
-	if(!(direction & initialize_directions)) //can't go in a way we aren't connecting to
+	direction &= initialize_directions
+	if(!direction || !(direction in cardinal)) //cant go this way.
 		return
 
 	if(buckled_mob == user)
@@ -327,3 +339,4 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 
 /obj/machinery/atmospherics/update_remote_sight(mob/user)
 	user.sight |= (SEE_TURFS|BLIND)
+	. = ..()

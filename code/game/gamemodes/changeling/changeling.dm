@@ -140,7 +140,8 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		if(changeling.current.mind.assigned_role == "Clown")
 			to_chat(changeling.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 			changeling.current.mutations.Remove(CLUMSY)
-
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(changeling.current)
 	var/obj_count = 1
 	for(var/datum/objective/objective in changeling.objectives)
 		to_chat(changeling.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
@@ -239,10 +240,11 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/geneticpoints = 10
 	var/purchasedpowers = list()
 	var/mimicing = ""
-	var/canrespec = 0
+	var/canrespec = FALSE //set to TRUE in absorb.dm
 	var/changeling_speak = 0
 	var/datum/dna/chosen_dna
-	var/obj/effect/proc_holder/changeling/sting/chosen_sting
+	var/datum/action/changeling/sting/chosen_sting
+	var/regenerating = FALSE
 
 /datum/changeling/New(gender=FEMALE)
 	..()
@@ -301,7 +303,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 /datum/changeling/proc/can_absorb_dna(mob/living/carbon/user, mob/living/carbon/target)
 	if(using_stale_dna(user))//If our current DNA is the stalest, we gotta ditch it.
-		to_chat(user, "<span class='warning'>We have reached our capacity to store genetic information! We must transform before absorbing more.</span>")
+		to_chat(user, "<span class='warning'>The DNA we are wearing is stale. Transform and try again.</span>")
 		return
 
 	if(!target || !target.dna)

@@ -3,7 +3,7 @@
 	desc = "Its patented design allows it to be folded larger or smaller to accommodate standard paper, photo, and poster, and canvas sizes."
 	icon = 'icons/obj/bureaucracy.dmi'
 
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 	var/icon_base
 	var/obj/displayed

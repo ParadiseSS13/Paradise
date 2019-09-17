@@ -24,6 +24,8 @@
 			if(locked)
 				icon_state = icon_locked
 				to_chat(user, "<span class='warning'>You lock \the [src]!</span>")
+				if(user.s_active)
+					user.s_active.close(user)
 				return
 			else
 				icon_state = icon_closed
@@ -114,15 +116,10 @@
 
 /obj/item/storage/lockbox/medal/New()
 	..()
-	new /obj/item/clothing/accessory/medal/gold/heroism(src)
-	new /obj/item/clothing/accessory/medal/silver/security(src)
-	new /obj/item/clothing/accessory/medal/silver/valor(src)
-	new /obj/item/clothing/accessory/medal/nobel_science(src)
-	new /obj/item/clothing/accessory/medal/bronze_heart(src)
-	new /obj/item/clothing/accessory/medal/conduct(src)
-	new /obj/item/clothing/accessory/medal/conduct(src)
-	new /obj/item/clothing/accessory/medal/conduct(src)
 	new /obj/item/clothing/accessory/medal/gold/captain(src)
+	new /obj/item/clothing/accessory/medal/silver/leadership(src)
+	new /obj/item/clothing/accessory/medal/silver/valor(src)
+	new /obj/item/clothing/accessory/medal/heart(src)
 
 /obj/item/storage/lockbox/t4
 	name = "lockbox (T4)"
@@ -131,5 +128,5 @@
 
 /obj/item/storage/lockbox/t4/New()
 	..()
-	for(var/i = 0, i < 3, i++)
+	for(var/i in 0 to 2)
 		new /obj/item/grenade/plastic/x4/thermite(src)

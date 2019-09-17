@@ -9,23 +9,20 @@
 	anchored = 1
 	var/obj/item/nanomob_card/card
 	var/datum/mob_hunt/mob_info
+	var/obj/effect/landmark/battle_mob_point/avatar_point
 	var/obj/effect/nanomob/battle/avatar
 	var/ready = 0
 	var/team = "Grey"
-	var/avatar_x_offset = 4
-	var/avatar_y_offset = 0
 
 /obj/machinery/computer/mob_battle_terminal/red
 	pixel_y = 24
 	dir = SOUTH
 	team = "Red"
-	avatar_y_offset = -1
 
 /obj/machinery/computer/mob_battle_terminal/blue
 	pixel_y = -24
 	dir = NORTH
 	team = "Blue"
-	avatar_y_offset = 1
 
 /obj/machinery/computer/mob_battle_terminal/red/Initialize()
 	..()
@@ -94,7 +91,11 @@
 /obj/machinery/computer/mob_battle_terminal/proc/update_avatar()
 	//if we don't have avatars yet, spawn them
 	if(!avatar)
-		avatar = new(locate((x + avatar_x_offset), (y + avatar_y_offset), z))
+		if(!avatar_point)
+			log_debug("[src] attempted to spawn a battle mob avatar without a spawn point!")
+			return
+		else
+			avatar = new(get_turf(avatar_point))
 	//update avatar info from card
 	if(mob_info)
 		avatar.mob_info = mob_info
@@ -210,6 +211,29 @@
 	else if(team == "Blue")
 		if(SSmob_hunt && !SSmob_hunt.blue_terminal)
 			SSmob_hunt.blue_terminal = src
+
+	find_avatar_spawn_point()
+
+/obj/machinery/computer/mob_battle_terminal/proc/find_avatar_spawn_point()
+	if(avatar_point)
+		return
+	var/obj/effect/landmark/battle_mob_point/closest
+	for(var/obj/effect/landmark/battle_mob_point/bmp in GLOB.landmarks_list)
+		if(!istype(bmp, /obj/effect/landmark/battle_mob_point))
+			continue
+		if(bmp.z != z)	//only match with points on the same z-level)
+			continue
+		if(!closest || isnull(closest))
+			closest = bmp
+			continue
+		if(closest == bmp)
+			continue
+		if((abs(x-bmp.x)+abs(y-bmp.y)) < (abs(x-closest.x)+abs(y-closest.y)))	//get_dist would be preferable if it didn't count diagonals as 1 distance, so we have to rely on actual x/y distances in this janky way.
+			closest = bmp
+	if(closest)
+		avatar_point = closest
+	else
+		log_debug("[src] was unable to locate a nearby mob battle landmark! Unable to spawn battle avatars!")
 
 /obj/machinery/computer/mob_battle_terminal/proc/do_attack()
 	if(!ready)		//no attacking if you arent ready to fight (duh)

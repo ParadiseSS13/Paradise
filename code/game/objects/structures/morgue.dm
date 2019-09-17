@@ -27,7 +27,7 @@
 	"The tray contains a body that might be responsive."
 	)
 	anchored = 1.0
-	var/open_sound = 'sound/items/Deconstruct.ogg'
+	var/open_sound = 'sound/items/deconstruct.ogg'
 
 /obj/structure/morgue/Initialize()
 	. = ..()
@@ -248,7 +248,7 @@
 	var/cremating = 0
 	var/id = 1
 	var/locked = 0
-	var/open_sound = 'sound/items/Deconstruct.ogg'
+	var/open_sound = 'sound/items/deconstruct.ogg'
 
 /obj/structure/crematorium/proc/update()
 	if(connected)
@@ -485,13 +485,3 @@
 			morgue = get(C.loc, /obj/structure/morgue)
 			if(morgue)
 				morgue.update()
-
-/hook/mob_login/proc/update_morgue(var/client/client, var/mob/mob)
-	//Update morgues on login
-	mob.update_morgue()
-	return 1
-
-/hook/mob_logout/proc/update_morgue(var/client/client, var/mob/mob)
-	//Update morgues on logout
-	mob.update_morgue()
-	return 1

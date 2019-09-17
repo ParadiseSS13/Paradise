@@ -195,7 +195,7 @@
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/canRwall = 0
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/rcd/New()
 	GLOB.rcd_list += src
@@ -232,7 +232,7 @@
 				occupant_message("Deconstructing [target]...")
 				if(do_after_cooldown(F))
 					chassis.spark_system.start()
-					F.ChangeTurf(/turf/space)
+					F.ChangeTurf(F.baseturf)
 					F.air_update_turf()
 					playsound(F, usesound, 50, 1)
 			else if(istype(target, /obj/machinery/door/airlock))

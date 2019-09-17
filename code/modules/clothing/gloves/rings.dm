@@ -6,6 +6,7 @@
 	icon_state = "ironring"
 	item_state = ""
 	icon = 'icons/obj/clothing/rings.dmi'
+	var/fluff_material = FALSE	//If true, will ignore the material when examining
 	var/material = "iron"
 	var/stud = 0
 
@@ -21,7 +22,8 @@
 
 /obj/item/clothing/gloves/ring/examine(mob/user)
 	..(user)
-	to_chat(user, "This one is made of [material].")
+	if(!fluff_material)
+		to_chat(user, "This one is made of [material].")
 	if(stud)
 		to_chat(user, "It is adorned with a single gem.")
 

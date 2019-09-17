@@ -177,6 +177,41 @@
 	desc = "You're severely malnourished. The hunger pains make moving around a chore."
 	icon_state = "starving"
 
+///Vampire "hunger"
+
+/obj/screen/alert/fat/vampire
+	name = "Fat"
+	desc = "You somehow drank too much blood, lardass. Run around the station and lose some weight."
+	icon_state = "v_fat"
+
+/obj/screen/alert/full/vampire
+	name = "Full"
+	desc = "You feel full and satisfied, but you know you will thirst for more blood soon..."
+	icon_state = "v_full"
+
+/obj/screen/alert/well_fed/vampire
+	name = "Well Fed"
+	desc = "You feel quite satisfied, but you could do with a bit more blood."
+	icon_state = "v_well_fed"
+
+/obj/screen/alert/fed/vampire
+	name = "Fed"
+	desc = "You feel moderately satisfied, but a bit more blood wouldn't hurt."
+	icon_state = "v_fed"
+
+/obj/screen/alert/hungry/vampire
+	name = "Hungry"
+	desc = "You currently thirst for blood."
+	icon_state = "v_hungry"
+
+/obj/screen/alert/starving/vampire
+	name = "Starving"
+	desc = "You're severely thirsty. The thirst pains make moving around a chore."
+	icon_state = "v_starving"
+
+//End of Vampire "hunger"
+
+
 /obj/screen/alert/hot
 	name = "Too Hot"
 	desc = "You're flaming hot! Get somewhere cooler and take off any insulating clothing like a fire suit."
@@ -322,7 +357,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /obj/screen/alert/nymph/Click()
 	if(!usr || !usr.client)
-		return		
+		return
 	if(isnymph(usr))
 		var/mob/living/simple_animal/diona/D = usr
 		return D.resist()
@@ -411,6 +446,26 @@ so as to remain in compliance with the most up-to-date laws."
 		to_chat(usr, "<span class='notice'>[M] disconnects from the port.</span>")
 	else
 		to_chat(usr, "<span class='notice'>[M] is not connected to a port at the moment.</span>")
+
+/obj/screen/alert/mech_nocell
+	name = "Missing Power Cell"
+	desc = "Mech has no power cell."
+	icon_state = "nocell"
+
+/obj/screen/alert/mech_emptycell
+	name = "Out of Power"
+	desc = "Mech is out of power."
+	icon_state = "emptycell"
+
+/obj/screen/alert/mech_lowcell
+	name = "Low Charge"
+	desc = "Mech is running out of power."
+	icon_state = "lowcell"
+
+/obj/screen/alert/mech_maintenance
+	name = "Maintenance Protocols"
+	desc = "Maintenance protocols are currently in effect, most actions disabled."
+	icon_state = "locked"
 
 //GUARDIANS
 /obj/screen/alert/cancharge

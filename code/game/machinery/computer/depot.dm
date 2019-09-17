@@ -283,7 +283,7 @@
 		return
 	message_sent = TRUE
 	if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
-		var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "") as text|null
+		var/input = stripped_input(user, "Please choose a message to transmit to Syndicate HQ via quantum entanglement.  Transmission does not guarantee a response. This function may only be used ONCE.", "To abort, send an empty message.", "")
 		if(!input)
 			message_sent = FALSE
 			return

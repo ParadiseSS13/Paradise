@@ -5,7 +5,7 @@
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!target_ckey)
-		var/new_ckey = ckey(input(usr,"Who would you like to add a note for?","Enter a ckey",null) as text|null)
+		var/new_ckey = ckey(clean_input("Who would you like to add a note for?","Enter a ckey",null))
 		if(!new_ckey)
 			return
 		new_ckey = ckey(new_ckey)
@@ -46,6 +46,7 @@
 	if(logged)
 		log_admin("[key_name(usr)] has added a note to [target_ckey]: [notetext]")
 		message_admins("[key_name_admin(usr)] has added a note to [target_ckey]:<br>[notetext]")
+		ryzorbot("notify", "addnote=[key_name(usr)]&[target_ckey]&[json_encode(notetext)]")
 		show_note(target_ckey)
 
 /proc/remove_note(note_id)
@@ -76,6 +77,7 @@
 		return
 	log_admin("[key_name(usr)] has removed a note made by [adminckey] from [ckey]: [notetext]")
 	message_admins("[key_name_admin(usr)] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
+	ryzorbot("notify", "removenote=[key_name(usr)]&[adminckey]&[ckey]&[json_encode(notetext)]")
 	show_note(ckey)
 
 /proc/edit_note(note_id)

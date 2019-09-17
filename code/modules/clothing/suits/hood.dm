@@ -2,38 +2,21 @@
 
 /obj/item/clothing/suit/hooded
 	actions_types = list(/datum/action/item_action/toggle)
-	var/obj/item/clothing/head/hood
-	var/hoodtype = /obj/item/clothing/head/winterhood //so the chaplain hoodie or other hoodies can override this
+	var/obj/item/clothing/head/hooded/hood
+	var/hoodtype = /obj/item/clothing/head/hooded/winterhood //so the chaplain hoodie or other hoodies can override this
 
-/obj/item/clothing/head/chaplain_hood
-	flags = NODROP
-
-/obj/item/clothing/head/nun_hood
-	flags = NODROP
-
-/obj/item/clothing/head/monk_hood
-	flags = NODROP
-
-/obj/item/clothing/head/culthood
-	flags = NODROP
-
-/obj/item/clothing/head/culthood/alt
-	flags = NODROP
-
-/obj/item/clothing/head/berserkerhood
-	flags = NODROP
-
-/obj/item/clothing/suit/hooded/New()
+/obj/item/clothing/suit/hooded/Initialize(mapload)
+	. = ..()
 	MakeHood()
-	..()
 
 /obj/item/clothing/suit/hooded/Destroy()
 	QDEL_NULL(hood)
-	return ..()
+	. = ..()
 
 /obj/item/clothing/suit/hooded/proc/MakeHood()
 	if(!hood)
-		var/obj/item/clothing/head/W = new hoodtype(src)
+		var/obj/item/clothing/head/hooded/W = new hoodtype(src)
+		W.suit = src
 		hood = W
 
 /obj/item/clothing/suit/hooded/ui_action_click()
@@ -57,7 +40,7 @@
 		var/mob/living/carbon/H = hood.loc
 		H.unEquip(hood, 1)
 		H.update_inv_wear_suit()
-	hood.loc = src
+	hood.forceMove(src)
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -76,7 +59,7 @@
 			if(H.head)
 				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(hood,slot_head,0,0,1))
+			else if(H.equip_to_slot_if_possible(hood, slot_head, 0, 0, 1))
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
@@ -85,3 +68,23 @@
 					A.UpdateButtonIcon()
 	else
 		RemoveHood()
+
+/obj/item/clothing/head/hooded
+	var/obj/item/clothing/suit/hooded/suit
+
+/obj/item/clothing/head/hooded/Destroy()
+	suit = null
+	return ..()
+
+/obj/item/clothing/head/hooded/dropped()
+	..()
+	if(suit)
+		suit.RemoveHood()
+
+/obj/item/clothing/head/hooded/equipped(mob/user, slot)
+	..()
+	if(slot != slot_head)
+		if(suit)
+			suit.RemoveHood()
+		else
+			qdel(src)

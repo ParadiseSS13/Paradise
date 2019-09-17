@@ -62,7 +62,7 @@
 			timer = world.time + 51
 			if(do_after(user, 50, target = user))
 				var/turf/T = get_turf(user)
-				playsound(T,'sound/magic/Blind.ogg', 200, 1, -4)
+				playsound(T,'sound/magic/blind.ogg', 200, 1, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, user)
 				var/obj/effect/hierophant/H = new/obj/effect/hierophant(T)
 				rune = H
@@ -96,7 +96,7 @@
 		new /obj/effect/temp_visual/hierophant/telegraph(T, user)
 		new /obj/effect/temp_visual/hierophant/telegraph(source, user)
 		playsound(T,'sound/magic/blink.ogg', 200, 1)
-		//playsound(T,'sound/magic/Wand_Teleport.ogg', 200, 1)
+		//playsound(T,'sound/magic/wand_teleport.ogg', 200, 1)
 		playsound(source,'sound/magic/blink.ogg', 200, 1)
 		//playsound(source,'sound/machines/AirlockOpen.ogg', 200, 1)
 		if(!do_after(user, 3, target = user) || !rune) //no walking away shitlord

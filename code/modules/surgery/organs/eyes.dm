@@ -10,8 +10,12 @@
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
 	var/list/replace_colours = LIST_GREYSCALE_REPLACE
 	var/dependent_disabilities = null //Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
-	var/dark_view = 2 //Default dark_view for Humans.
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
+
+	var/vision_flags = 0
+	var/see_in_dark = 2
+	var/see_invisible = SEE_INVISIBLE_LIVING
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
@@ -31,11 +35,8 @@
 	else
 		return colourmatrix
 
-/obj/item/organ/internal/eyes/proc/get_dark_view() //Returns dark_view (if the eyes are organic) for see_invisible handling in species.dm to be autoprocessed by life().
-	return dark_view
-
 /obj/item/organ/internal/eyes/proc/shine()
-	if(is_robotic() || (dark_view > EYE_SHINE_THRESHOLD))
+	if(is_robotic() || (see_in_dark > EYE_SHINE_THRESHOLD))
 		return TRUE
 
 /obj/item/organ/internal/eyes/insert(mob/living/carbon/human/M, special = 0)
@@ -70,7 +71,7 @@
 	colourmatrix = null
 	..() //Make sure the organ's got the robotic status indicators before updating the client colour.
 	if(owner)
-		owner.update_client_colour(0) //Since mechanical eyes give dark_view of 2 and full colour vision atm, just having this here is fine.
+		owner.update_client_colour(0) //Since mechanical eyes give see_in_dark of 2 and full colour vision atm, just having this here is fine.
 
 /obj/item/organ/internal/eyes/cybernetic
 	name = "cybernetic eyes"

@@ -64,11 +64,6 @@
 				B.name = "Uplifting Primer"
 			if("toolboxia")
 				B.name = "Toolbox Manifesto Robusto"
-			if("homosexuality")
-				B.name = "Guys Gone Wild"
-			if("lol", "wtf", "gay", "penis", "ass", "poo", "badmin", "shitmin", "deadmin", "cock", "cocks")
-				B.name = pick("Woodys Got Wood: The Aftermath", "War of the Cocks", "Sweet Bro and Hella Jef: Expanded Edition")
-				H.setBrainLoss(99) // starts off retarded as fuck
 			if("science")
 				B.name = pick("Principle of Relativity", "Quantum Enigma: Physics Encounters Consciousness", "Programming the Universe", "Quantum Physics and Theology", "String Theory for Dummies", "How To: Build Your Own Warp Drive", "The Mysteries of Bluespace", "Playing God: Collector's Edition")
 			else
@@ -163,11 +158,11 @@
 						to_chat(H, "Welp, out of time, buddy. You're stuck. Next time choose faster.")
 						accepted = 1
 
-		if(ticker)
-			ticker.Bible_icon_state = B.icon_state
-			ticker.Bible_item_state = B.item_state
-			ticker.Bible_name = B.name
-			ticker.Bible_deity_name = B.deity_name
+		if(SSticker)
+			SSticker.Bible_icon_state = B.icon_state
+			SSticker.Bible_item_state = B.item_state
+			SSticker.Bible_name = B.name
+			SSticker.Bible_deity_name = B.deity_name
 		feedback_set_details("religion_deity", "[new_deity]")
 		feedback_set_details("religion_book", "[new_book_style]")
 

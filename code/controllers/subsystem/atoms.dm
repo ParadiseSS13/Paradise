@@ -19,6 +19,7 @@ SUBSYSTEM_DEF(atoms)
 	setupgenetics()
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
+	return ..()
 
 
 

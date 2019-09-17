@@ -796,6 +796,7 @@
 	name = "Space Law"
 	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
 	icon_state = "bookSpaceLaw"
+	force = 4 //advanced magistrate tactics
 	author = "Nanotrasen"
 	title = "Space Law"
 	dat = {"

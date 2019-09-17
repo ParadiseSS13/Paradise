@@ -573,8 +573,9 @@ $(function() {
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
 		'shideSpam': getCookie('hidespam'),
+		'darkChat': getCookie('darkChat'),
 	};
-
+	
 	if (savedConfig.sfontSize) {
 		$messages.css('font-size', savedConfig.sfontSize);
 		internalOutput('<span class="internal boldnshit">Loaded font size setting of: '+savedConfig.sfontSize+'</span>', 'internal');
@@ -612,7 +613,28 @@ $(function() {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
 	}
-
+	if (savedConfig.darkChat == "on") {
+		   $("head").append("<link>");
+		   var css = $("head").children(":last");
+		   css.attr({
+		     rel:  "stylesheet",
+		     type: "text/css",
+		     href: "./browserOutput-dark.css"
+		  });
+	} else {
+		   $("head").append("<link>");
+		   var css = $("head").children(":last");
+		   css.attr({
+		     rel:  "stylesheet",
+		     type: "text/css",
+		     href: "./browserOutput.css"
+		  });
+	}
+	if(localStorage){
+		var backlog = localStorage.getItem('backlog')
+		$messages.html(backlog)
+		localStorage.setItem('backlog', '')
+	}
 	(function() {
 		var dataCookie = getCookie('connData');
 		if (dataCookie) {
@@ -1012,13 +1034,17 @@ $(function() {
 		opts.previousMessageCount = 1;
 	});
 
-	// Tell BYOND to give us a macro list.
-	// I don't know why but for some retarded reason,
-	// You need to activate hotkeymode before you can winget the macros in it.
-	runByond('byond://winset?id=mainwindow&macro=hotkeymode')
-	runByond('byond://winset?id=mainwindow&macro=macro')
-
-	runByond('byond://winget?callback=wingetMacros&id=hotkeymode.*&property=command');
+	$('#toggleDarkChat').click(function(e) {
+		internalOutput('<span class="internal boldnshit">Dark Chat toggled. Reconnecting to chat.</span>', 'internal');
+		var backlog = $messages.html()
+		if(getCookie('darkChat') == "on"){
+			setCookie('darkChat', "off", 365)
+		} else {
+			setCookie('darkChat', "on", 365)
+		}
+		localStorage.setItem('backlog', backlog)
+		location.reload();
+	});
 
 	/*****************************************
 	*

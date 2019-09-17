@@ -19,6 +19,7 @@
 	nodamage = 0
 
 	//explosion values
+	var/exp_devastate = -1
 	var/exp_heavy = 0
 	var/exp_light = 2
 	var/exp_flash = 3
@@ -55,7 +56,7 @@
 /obj/item/projectile/magic/fireball/on_hit(var/target)
 	. = ..()
 	var/turf/T = get_turf(target)
-	explosion(T, -1, 0, 2, 3, 0, flame_range = 2)
+	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
 	if(ismob(target)) //multiple flavors of pain
 		var/mob/living/M = target
 		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
@@ -124,6 +125,8 @@
 		CreateDoor(T)
 	else if(istype(target, /obj/machinery/door))
 		OpenDoor(target)
+	else if(istype(target, /obj/structure/closet))
+		OpenCloset(target)
 
 /obj/item/projectile/magic/door/proc/CreateDoor(turf/T)
 	var/door_type = pick(door_types)
@@ -134,8 +137,14 @@
 /obj/item/projectile/magic/door/proc/OpenDoor(var/obj/machinery/door/D)
 	if(istype(D,/obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = D
-		A.locked = 0
+		A.locked = FALSE
 	D.open()
+
+/obj/item/projectile/magic/door/proc/OpenCloset(var/obj/structure/closet/C)
+	if(istype(C, /obj/structure/closet/secure_closet))
+		var/obj/structure/closet/secure_closet/SC = C
+		SC.locked = FALSE
+	C.open()
 
 /obj/item/projectile/magic/change
 	name = "bolt of change"
@@ -175,8 +184,10 @@
 		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
 		switch(randomize)
 			if("robot")
+				var/path
 				if(prob(30))
-					new_mob = new /mob/living/silicon/robot/syndicate(M.loc)
+					path = pick(typesof(/mob/living/silicon/robot/syndicate))
+					new_mob = new path(M.loc)
 				else
 					new_mob = new /mob/living/silicon/robot(M.loc)
 				new_mob.gender = M.gender
@@ -184,6 +195,10 @@
 				new_mob.job = "Cyborg"
 				var/mob/living/silicon/robot/Robot = new_mob
 				Robot.mmi = new /obj/item/mmi(new_mob)
+				Robot.lawupdate = FALSE
+				Robot.connected_ai = null
+				Robot.clear_inherent_laws()
+				Robot.clear_zeroth_law()
 				if(ishuman(M))
 					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("slime")
@@ -219,7 +234,7 @@
 						if("parrot")
 							new_mob = new /mob/living/simple_animal/parrot(M.loc)
 						if("corgi")
-							new_mob = new /mob/living/simple_animal/pet/corgi(M.loc)
+							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
 						if("crab")
 							new_mob = new /mob/living/simple_animal/crab(M.loc)
 						if("cat")
@@ -233,7 +248,7 @@
 						if("lizard")
 							new_mob = new /mob/living/simple_animal/lizard(M.loc)
 						if("fox")
-							new_mob = new /mob/living/simple_animal/pet/fox(M.loc)
+							new_mob = new /mob/living/simple_animal/pet/dog/fox(M.loc)
 						else
 							new_mob = new /mob/living/simple_animal/chick(M.loc)
 				new_mob.universal_speak = TRUE
@@ -301,24 +316,32 @@
 	flag = "magic"
 	dismemberment = 50
 	nodamage = 0
-/*
-/obj/item/projectile/magic/barricade
-	name = "bolt of barricade"
-	icon_state = "energy"
-	var/list/barricade_types = list(/obj/structure/barricade/wooden)
 
-/obj/item/projectile/magic/barricade/on_hit(var/atom/target)
+/obj/item/projectile/magic/slipping
+	name = "magical banana"
+	icon = 'icons/obj/hydroponics/harvest.dmi'
+	icon_state = "banana"
+	var/slip_stun = 5
+	var/slip_weaken = 5
+	hitsound = 'sound/items/bikehorn.ogg'
+
+/obj/item/projectile/magic/slipping/New()
+	..()
+	SpinAnimation()
+
+/obj/item/projectile/magic/slipping/on_hit(var/atom/target, var/blocked = 0)
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.slip(src, slip_stun, slip_weaken, 0, FALSE, TRUE) //Slips even with noslips/magboots on. NO ESCAPE!
+	else if(isrobot(target)) //You think you're safe, cyborg? FOOL!
+		var/mob/living/silicon/robot/R = target
+		if(!R.incapacitated())
+			to_chat(target, "<span class='warning'>You get splatted by [src], HONKING your sensors!</span>")
+			R.Stun(slip_stun)
+	else if(ismob(target))
+		var/mob/M = target
+		if(!M.stunned)
+			to_chat(target, "<span class='notice'>You get splatted by [src].</span>")
+			M.Weaken(slip_weaken)
+			M.Stun(slip_stun)
 	. = ..()
-	var/atom/T = target.loc
-	if(isturf(target) && target.density)
-		CreateBarricade(target)
-	else if(isturf(T) && T.density)
-		CreateBarricade(T)
-
-/obj/item/projectile/magic/barricade/proc/CreateBarricade(turf/T)
-	T.ChangeTurf(/turf/simulated/floor/plasteel)
-
-/obj/item/projectile/magic/barricade/proc/CreateDoor(turf/T)
-	var/barricade_type = pick(barricade_types)
-	T.ChangeTurf(/turf/simulated/floor/plasteel)
-	*/

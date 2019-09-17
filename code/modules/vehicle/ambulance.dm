@@ -1,6 +1,6 @@
 /obj/vehicle/ambulance
 	name = "ambulance"
-	desc = "what the paramedic uses to run over people to take to medbay."
+	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
 	keytype = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
@@ -20,11 +20,11 @@
 	var/toggle_cooldown = 40
 	var/cooldown = 0
 
-	
+
 /datum/action/ambulance_alarm/Trigger()
 	if(!..())
 		return FALSE
-		
+
 	var/obj/vehicle/ambulance/A = target
 
 	if(!istype(A) || !A.soundloop)
@@ -42,10 +42,10 @@
 		A.soundloop.stop()
 		A.set_light(0)
 
-		
+
 /datum/looping_sound/ambulance_alarm
     start_length = 0
-    mid_sounds = list('sound/items/WEEOO1.ogg' = 1)
+    mid_sounds = list('sound/items/weeoo1.ogg' = 1)
     mid_length = 14
     volume = 100
 
@@ -101,6 +101,10 @@
 	icon_state = "ambulance"
 	anchored = FALSE
 	throw_pressure_limit = INFINITY //Throwing an ambulance trolley can kill the process scheduler.
+
+/obj/structure/bed/amb_trolley/examine(mob/user)
+	. = ..()
+	to_chat(user, "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>")
 
 /obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
 	..()

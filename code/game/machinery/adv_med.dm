@@ -1,6 +1,6 @@
 /obj/machinery/bodyscanner
 	name = "body scanner"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscanner-open"
 	density = TRUE
 	dir = WEST
@@ -218,7 +218,7 @@
 
 /obj/machinery/body_scanconsole
 	name = "Body Scanner Console"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "bodyscannerconsole"
 	density = 1
 	anchored = 1
@@ -307,6 +307,7 @@
 		else
 			setDir(EAST)
 		playsound(loc, I.usesound, 50, 1)
+		return
 
 	if(exchange_parts(user, I))
 		return
@@ -458,8 +459,8 @@
 			organData["germ_level"] = I.germ_level
 			organData["damage"] = I.damage
 			organData["maxHealth"] = I.max_damage
-			organData["bruised"] = I.min_broken_damage
-			organData["broken"] = I.min_bruised_damage
+			organData["bruised"] = I.min_bruised_damage
+			organData["broken"] = I.min_broken_damage
 			organData["robotic"] = I.is_robotic()
 			organData["dead"] = (I.status & ORGAN_DEAD)
 

@@ -53,6 +53,11 @@
 				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
 	return make_plating()
 
+/turf/simulated/floor/wood/cold
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
+
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon_state = "grass1"
@@ -77,31 +82,6 @@
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
 		make_plating()
-
-// NEEDS TO BE UPDATED
-/turf/simulated/floor/basalt //By your powers combined, I am captain planet
-	name = "volcanic floor"
-	icon_state = "basalt0"
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-
-/turf/simulated/floor/basalt/attackby(obj/item/W, mob/user, params)
-	if(..())
-		return
-	if(istype(W, /obj/item/shovel))
-		new /obj/item/stack/ore/glass/basalt(src, 2)
-		user.visible_message("<span class='notice'>[user] digs up [src].</span>", "<span class='notice'>You uproot [src].</span>")
-		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		make_plating()
-
-/turf/simulated/floor/basalt/New()
-	..()
-	if(prob(15))
-		icon_state = "basalt[rand(0, 12)]"
-		switch(icon_state)
-			if("basalt1", "basalt2", "basalt3")
-				set_light(1, 1)
 
 /turf/simulated/floor/carpet
 	name = "carpet"
@@ -142,6 +122,9 @@
 	burnt = 1
 	update_icon()
 
+/turf/simulated/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	return FALSE
+
 /turf/simulated/floor/carpet/black
 	icon = 'icons/turf/floors/carpet_black.dmi'
 	floor_tile = /obj/item/stack/tile/carpet/black
@@ -152,6 +135,7 @@
 	icon_state = "0"
 	floor_tile = /obj/item/stack/tile/fakespace
 	broken_states = list("damaged")
+	plane = PLANE_SPACE
 
 /turf/simulated/floor/fakespace/New()
 	..()
@@ -162,3 +146,9 @@
 	icon_state = "arcade"
 	floor_tile = /obj/item/stack/tile/arcade_carpet
 	smooth = SMOOTH_FALSE
+
+/turf/simulated/floor/fakespace/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = SPACE_ICON_STATE
+	underlay_appearance.plane = PLANE_SPACE
+	return TRUE

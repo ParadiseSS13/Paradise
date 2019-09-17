@@ -175,12 +175,23 @@
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)
-			if(player.stat != DEAD)
+			if(player.stat != DEAD || !iszombie(player))
 				if(issilicon(player)) //Borgs are technically dead anyways
 					continue
 				if(isanimal(player)) //Poly does not own the shuttle
 					continue
-
+				if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
+					var/mob/living/carbon/human/H = player
+					if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
+						continue
+					if(H.handcuffed) //cuffs
+						continue
+					if(H.wear_suit && H.wear_suit.breakouttime) //straight jacket
+						continue
+					if(istype(H.loc, /obj/structure/closet)) //locked/welded locker, all aboard the clown train honk honk
+						var/obj/structure/closet/C = H.loc
+						if(C.welded || C.locked)
+							continue
 				var/special_role = player.mind.special_role
 				if(special_role)
 					if(special_role == SPECIAL_ROLE_TRAITOR) // traitors can hijack the shuttle
@@ -349,7 +360,7 @@
 	dwidth = 1
 	width = 3
 	height = 4
-	var/target_area = /area/mine/dangerous/unexplored
+	var/target_area = /area/mine/unexplored
 
 /obj/docking_port/stationary/random/Initialize()
 	..()

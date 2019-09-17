@@ -48,6 +48,7 @@
 		qdel(src)
 
 /obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
+	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)

@@ -1,4 +1,3 @@
-#define MEDAL_PREFIX "Hierophant"
 /*
 
 The Hierophant
@@ -54,6 +53,7 @@ Difficulty: Hard
 	ranged_cooldown_time = 40
 	aggro_vision_range = 23
 	loot = list(/obj/item/hierophant_staff)
+	crusher_loot = list(/obj/item/hierophant_staff, /obj/item/crusher_trophy/vortex_talisman)
 	wander = FALSE
 	var/burst_range = 3 //range on burst aoe
 	var/beam_range = 5 //range on cross blast beams
@@ -66,14 +66,14 @@ Difficulty: Hard
 	var/did_reset = TRUE //if we timed out, returned to our rune, and healed some
 	//var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...")
 	//var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
-	medal_type = MEDAL_PREFIX
-	score_type = BIRD_SCORE
+	internal_type = /obj/item/gps/internal/hierophant
+	medal_type = BOSS_MEDAL_HIEROPHANT
+	score_type = HIEROPHANT_SCORE
 	del_on_death = TRUE
-	death_sound = 'sound/magic/Repulse.ogg'
+	death_sound = 'sound/magic/repulse.ogg'
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/New()
-	..()
-	internal_gps = new/obj/item/gps/internal/hierophant(src)
+/mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)
+	. = ..()
 	spawned_rune = new(loc)
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Life(seconds, times_fired)
@@ -108,7 +108,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Destroy()
 	QDEL_NULL(spawned_rune)
-	. = ..()
+	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/devour(mob/living/L)
 	for(var/obj/item/W in L)
@@ -123,13 +123,18 @@ Difficulty: Hard
 	adjustHealth(-L.maxHealth*0.5)
 	L.dust()
 
+/mob/living/simple_animal/hostile/megafauna/hierophant/CanAttack(atom/the_target)
+	. = ..()
+	if(istype(the_target, /mob/living/simple_animal/hostile/asteroid/hivelordbrood)) //ignore temporary targets in favor of more permanent targets
+		return FALSE
+
 /*/mob/living/simple_animal/hostile/megafauna/hierophant/GiveTarget(new_target)
 	var/targets_the_same = (new_target == target)
 	. = ..()
 	if(. && target && !targets_the_same)
 		visible_message("<span class='hierophant'>\"[pick(target_phrases)]\"</span>")*/
 
-/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount)
+/mob/living/simple_animal/hostile/megafauna/hierophant/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(src && amount > 0 && !blinking)
 		wander = TRUE
@@ -140,7 +145,7 @@ Difficulty: Hard
 		if(target && isliving(target))
 			spawn(0)
 				melee_blast(get_turf(target)) //melee attacks on living mobs produce a 3x3 blast
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/DestroySurroundings()
 	if(!blinking)
@@ -342,7 +347,7 @@ Difficulty: Hard
 	new /obj/effect/temp_visual/hierophant/telegraph(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph(source, src)
 	playsound(T,'sound/magic/blink.ogg', 200, 1)
-	//playsound(T,'sound/magic/Wand_Teleport.ogg', 200, 1)
+	//playsound(T,'sound/magic/wand_teleport.ogg', 200, 1)
 	playsound(source,'sound/magic/blink.ogg', 200, 1)
 	//playsound(source,'sound/machines/AirlockOpen.ogg', 200, 1)
 	blinking = TRUE
@@ -497,6 +502,7 @@ Difficulty: Hard
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "hierophant_blast"
 	name = "vortex blast"
+	layer = 3.9 // between LYING_MOB_LAYER and ABOVE_MOB_LAYER
 	luminosity = 1
 	desc = "Get out of the way!"
 	duration = 9
@@ -520,14 +526,14 @@ Difficulty: Hard
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	playsound(T,'sound/magic/Blind.ogg', 125, 1, -5) //make a sound
+	playsound(T,'sound/magic/blind.ogg', 125, 1, -5) //make a sound
 	sleep(6) //wait a little
 	bursting = TRUE
 	do_damage(T) //do damage and mark us as bursting
 	sleep(1.3) //slightly forgiving; the burst animation is 1.5 deciseconds
 	bursting = FALSE //we no longer damage crossers
 
-/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM)
+/obj/effect/temp_visual/hierophant/blast/Crossed(atom/movable/AM, oldloc)
 	..()
 	if(bursting)
 		do_damage(get_turf(src))
@@ -535,7 +541,7 @@ Difficulty: Hard
 /obj/effect/temp_visual/hierophant/blast/proc/do_damage(turf/T)
 	for(var/mob/living/L in T.contents - hit_things) //find and damage mobs...
 		hit_things += L
-		if((friendly_fire_check && caster && caster.faction_check(L)) || L.stat == DEAD)
+		if((friendly_fire_check && caster && caster.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		if(L.client)
 			flash_color(L.client, "#660099", 1)
@@ -550,11 +556,42 @@ Difficulty: Hard
 	for(var/obj/mecha/M in T.contents - hit_things) //and mechs.
 		hit_things += M
 		if(M.occupant)
-			if(friendly_fire_check && caster && caster.faction_check(M.occupant))
+			if(friendly_fire_check && caster && caster.faction_check_mob(M.occupant))
 				continue
 			to_chat(M.occupant, "<span class='userdanger'>Your [M.name] is struck by a [name]!</span>")
 		playsound(M,'sound/weapons/sear.ogg', 50, 1, -4)
 		M.take_damage(damage, BURN, 0, 0)
+
+/obj/effect/temp_visual/hierophant/wall //smoothing and pooling were not friends, but pooling is dead.
+	name = "vortex wall"
+	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
+	icon_state = "wall"
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	duration = 100
+	smooth = SMOOTH_TRUE
+
+/obj/effect/temp_visual/hierophant/wall/New(loc, new_caster)
+	..()
+	queue_smooth_neighbors(src)
+	queue_smooth(src)
+
+/obj/effect/temp_visual/hierophant/wall/Destroy()
+	queue_smooth_neighbors(src)
+	return ..()
+
+/obj/effect/temp_visual/hierophant/wall/CanPass(atom/movable/mover, turf/target)
+	if(QDELETED(caster))
+		return FALSE
+	if(mover == caster.pulledby)
+		return TRUE
+	if(istype(mover, /obj/item/projectile))
+		var/obj/item/projectile/P = mover
+		if(P.firer == caster)
+			return TRUE
+	if(mover == caster)
+		return TRUE
+	return FALSE
+
 
 /obj/effect/hierophant
 	name = "hierophant rune"
@@ -572,7 +609,7 @@ Difficulty: Hard
 			to_chat(user, "<span class='notice'>You start removing your hierophant rune...</span>")
 			H.timer = world.time + 51
 			if(do_after(user, 50, target = src))
-				playsound(src,'sound/magic/Blind.ogg', 200, 1, -4)
+				playsound(src,'sound/magic/blind.ogg', 200, 1, -4)
 				new /obj/effect/temp_visual/hierophant/telegraph/teleport(get_turf(src), user)
 				to_chat(user, "<span class='hierophant_warning'>You touch the rune with the staff, dispelling it!</span>")
 				H.rune = null
@@ -591,24 +628,3 @@ Difficulty: Hard
 	gpstag = "Zealous Signal"
 	desc = "Heed its words."
 	invisibility = 100
-
-/turf/simulated/indestructible/hierophant
-	icon_state = "hierophant1"
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	desc = "A floor with a square pattern. It's faintly cool to the touch."
-
-/turf/simulated/indestructible/hierophant/New()
-	..()
-	if(prob(50))
-		icon_state = "hierophant2"
-
-/turf/simulated/indestructible/riveted/hierophant
-	name = "wall"
-	desc = "A wall made out of smooth, cold stone."
-	icon = 'icons/turf/walls/hierophant_wall.dmi'
-	icon_state = "hierophant"
-	smooth = SMOOTH_TRUE
-
-#undef MEDAL_PREFIX

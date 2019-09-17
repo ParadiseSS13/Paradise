@@ -21,6 +21,15 @@
 		add_random_traits()
 	add_random_plant_type(35)
 
+/obj/item/seeds/random/labelled
+	name = "pack of exotic strange seeds"
+
+/obj/item/seeds/random/labelled/New()
+	. = ..()
+	add_random_traits(1, 2)
+	add_random_plant_type(100)
+	desc = "Label: \n" + get_analyzer_text()
+
 /obj/item/reagent_containers/food/snacks/grown/random
 	seed = /obj/item/seeds/random
 	name = "strange plant"
@@ -33,3 +42,4 @@
 	wine_power = rand(0.1,1.5)
 	if(prob(1))
 		wine_power = 2.0
+

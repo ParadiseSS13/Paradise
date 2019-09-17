@@ -32,7 +32,7 @@
 	. = ..()
 
 	if(.)
-		if(!container && (health < config.health_threshold_dead || ((world.time - timeofhostdeath) > config.revival_brain_life)))
+		if(!container && (health < HEALTH_THRESHOLD_DEAD && check_death_method() || ((world.time - timeofhostdeath) > config.revival_brain_life)))
 			death()
 			return 0
 

@@ -4,7 +4,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/proc/color_windows(obj/W)
 	var/list/wcBarAreas = list(/area/crew_quarters/bar)
-	var/list/wcBrigAreas = list(/area/security,/area/prison,/area/shuttle/gamma)
+	var/list/wcBrigAreas = list(/area/security, /area/shuttle/gamma)
 
 	var/newcolor
 	var/turf/T = get_turf(W)
@@ -218,7 +218,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 				playsound(src, WT.usesound, 40, 1)
 				if(do_after(user, 40*I.toolspeed, target = src))
 					obj_integrity = max_integrity
-					playsound(src, 'sound/items/Welder2.ogg', 50, 1)
+					playsound(src, 'sound/items/welder2.ogg', 50, 1)
 					update_nearby_icons()
 					to_chat(user, "<span class='notice'>You repair [src].</span>")
 		else
@@ -292,7 +292,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			if(do_after(user, decon_speed*I.toolspeed, target = src, extra_checks = CALLBACK(src, .proc/check_state_and_anchored, state, anchored)))
 				var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
 				G.add_fingerprint(user)
-				playsound(src, 'sound/items/Deconstruct.ogg', 50, 1)
+				playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You successfully disassemble [src].</span>")
 				qdel(src)
 			return
@@ -335,7 +335,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 			else
 				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
+			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/structure/window/deconstruct(disassembled = TRUE)
 	if(QDELETED(src))
@@ -431,7 +431,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 
 /obj/structure/window/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	setDir(ini_dir)
 	move_update_air(T)
 
@@ -461,9 +461,9 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		overlays += crack_overlay
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
-	..()
 
 /obj/structure/window/GetExplosionBlock()
 	return reinf && fulltile ? real_explosion_block : 0
@@ -482,7 +482,6 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	max_integrity = 50
 	explosion_block = 1
 	glass_type = /obj/item/stack/sheet/rglass
-	var/health
 
 /obj/structure/window/reinforced/tinted
 	name = "tinted window"
@@ -580,6 +579,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	dir = FULLTILE_WINDOW_DIR
 	level = 3
 	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
 
 /obj/structure/window/full/basic
 	desc = "It looks thin and flimsy. A few knocks with... anything, really should shatter it."
@@ -676,6 +676,7 @@ obj/structure/window/full/reinforced/ice
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 200
 	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100)
@@ -735,6 +736,7 @@ obj/structure/window/full/reinforced/ice
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 120
 	level = 3

@@ -10,16 +10,20 @@
 	//Not given any special protective value since the magic robes are full-body protection --NEO
 	strip_delay = 50
 	put_on_delay = 50
+	magical = TRUE
+	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
 /obj/item/clothing/head/wizard/red
 	name = "red wizard hat"
 	desc = "Strange-looking, red, hat-wear that most certainly belongs to a real magic user."
 	icon_state = "redwizard"
+	dog_fashion = /datum/dog_fashion/head/red_wizard
 
 /obj/item/clothing/head/wizard/black
 	name = "black wizard hat"
 	desc = "Strange-looking black hat-wear that most certainly belongs to a real skeleton. Spooky."
 	icon_state = "blackwizard"
+	dog_fashion = null
 
 
 /obj/item/clothing/head/wizard/clown
@@ -27,6 +31,7 @@
 	desc = "Strange-looking purple hat-wear that most certainly belongs to a real magic user."
 	icon_state = "wizhatclown"
 	item_state = "wizhatclown" // cheating
+	dog_fashion = null
 
 /obj/item/clothing/head/wizard/fake
 	name = "wizard hat"
@@ -35,22 +40,27 @@
 	gas_transfer_coefficient = 1
 	permeability_coefficient = 1
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	magical = FALSE
+	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
 /obj/item/clothing/head/wizard/marisa
 	name = "Witch Hat"
 	desc = "Strange-looking hat-wear, makes you want to cast fireballs."
 	icon_state = "marisa"
+	dog_fashion = null
 
 /obj/item/clothing/head/wizard/magus
 	name = "Magus Helm"
 	desc = "A mysterious helmet that hums with an unearthly power"
 	icon_state = "magus"
 	item_state = "magus"
+	dog_fashion = null
 
 /obj/item/clothing/head/wizard/amp
 	name = "psychic amplifier"
 	desc = "A crown-of-thorns psychic amplifier. Kind of looks like a tiara having sex with an industrial robot."
 	icon_state = "amp"
+	dog_fashion = null
 
 /obj/item/clothing/suit/wizrobe
 	name = "wizard robe"
@@ -67,6 +77,7 @@
 	strip_delay = 50
 	put_on_delay = 50
 	burn_state = FIRE_PROOF
+	magical = TRUE
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
@@ -120,6 +131,7 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
 	burn_state = FLAMMABLE
+	magical = FALSE
 
 /obj/item/clothing/head/wizard/marisa/fake
 	name = "Witch Hat"
@@ -130,6 +142,7 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
 	burn_state = FLAMMABLE
+	magical = FALSE
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
 	name = "Witch Robe"
@@ -141,3 +154,4 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
 	burn_state = FLAMMABLE
+	magical = FALSE

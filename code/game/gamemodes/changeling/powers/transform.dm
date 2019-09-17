@@ -1,6 +1,7 @@
-/obj/effect/proc_holder/changeling/transform
+/datum/action/changeling/transform
 	name = "Transform"
-	desc = "We take on the appearance and voice of one we have absorbed."
+	desc = "We take on the appearance and voice of one we have absorbed. Costs 5 chemicals."
+	button_icon_state = "transform"
 	chemical_cost = 5
 	dna_cost = 0
 	req_dna = 1
@@ -8,7 +9,7 @@
 	max_genetic_damage = 3
 
 //Change our DNA to that of somebody we've absorbed.
-/obj/effect/proc_holder/changeling/transform/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/transform/sting_action(var/mob/living/carbon/human/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/datum/dna/chosen_dna = changeling.select_dna("Select the target DNA: ", "Target DNA")
 
@@ -18,10 +19,6 @@
 	transform_dna(user,chosen_dna)
 
 	user.changeling_update_languages(changeling.absorbed_languages)
-
-	if(user.mind.speech_span == "wingdings") //greys' wingdings isn't stored in DNA
-		user.mind.speech_span = ""
-		to_chat(user, "<span class='warning'>Our vocal cords have permanently shifted. We will now speak regularly.</span>")
 
 	feedback_add_details("changeling_powers","TR")
 	return 1

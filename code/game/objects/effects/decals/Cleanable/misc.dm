@@ -15,10 +15,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	anchored = TRUE
-
-/obj/effect/decal/cleanable/ash/Initialize()
-	. = ..()
-	reagents.add_reagent("ash", 10)
+	scoop_reagents = list("ash" = 10)
+	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
@@ -33,18 +31,15 @@
 	smooth = SMOOTH_MORE
 	mouse_opacity = FALSE
 
-/obj/effect/decal/cleanable/dirt/Initialize()
-	..()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
+	. = ..()
 	icon_state = ""
 
 /obj/effect/decal/cleanable/dirt/blackpowder
 	name = "black powder"
 	mouse_opacity = TRUE
-	noscoop = TRUE
-
-/obj/effect/decal/cleanable/dirt/blackpowder/Initialize()
-	. = ..()
-	reagents.add_reagent("blackpowder", 40) // size 2 explosion when activated
+	no_scoop = TRUE
+	scoop_reagents = list("blackpowder" = 40) // size 2 explosion when activated
 
 /obj/effect/decal/cleanable/flour
 	name = "flour"
@@ -61,7 +56,7 @@
 	desc = "It's foam."
 	color = "#EBEBEB"
 
-/obj/effect/decal/cleanable/flour/foam/Initialize()
+/obj/effect/decal/cleanable/flour/foam/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 15 SECONDS)
 
@@ -90,7 +85,8 @@
 	icon_state = "cobweb1"
 	burntime = 1
 
-/obj/effect/decal/cleanable/cobweb/fire_act()
+/obj/effect/decal/cleanable/cobweb/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	qdel(src)
 
 /obj/effect/decal/cleanable/molten_object
@@ -102,6 +98,7 @@
 	gender = NEUTER
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "molten"
+	mergeable_decal = FALSE
 
 /obj/effect/decal/cleanable/molten_object/large
 	name = "big gooey grey mass"
@@ -126,22 +123,15 @@
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
 	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4")
-	noclear = TRUE
-
-/obj/effect/decal/cleanable/vomit/Initialize()
-	. = ..()
-	reagents.add_reagent("vomit", 5)
+	no_clear = TRUE
+	scoop_reagents = list("vomit" = 5)
 
 /obj/effect/decal/cleanable/vomit/green
 	name = "green vomit"
 	desc = "It's all gummy. Ew."
 	icon_state = "gvomit_1"
 	random_icon_states = list("gvomit_1", "gvomit_2", "gvomit_3", "gvomit_4")
-
-/obj/effect/decal/cleanable/vomit/green/Initialize()
-	. = ..()
-	reagents.remove_reagent("vomit", 5)
-	reagents.add_reagent("green_vomit", 5)
+	scoop_reagents = list("green_vomit" = 5)
 
 /obj/effect/decal/cleanable/tomato_smudge
 	name = "tomato smudge"
@@ -185,13 +175,11 @@
 	density = FALSE
 	anchored = TRUE
 	layer = TURF_LAYER
+	plane = GAME_PLANE
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "flour"
 	color = "#D5820B"
-
-/obj/effect/decal/cleanable/fungus/Initialize()
-	. = ..()
-	reagents.add_reagent("fungus", 10)
+	scoop_reagents = list("fungus" = 10)
 
 /obj/effect/decal/cleanable/confetti //PARTY TIME!
 	name = "confetti"
@@ -200,4 +188,12 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "confetti1"
 	random_icon_states = list("confetti1", "confetti2", "confetti3")
+	anchored = TRUE
+
+/obj/effect/decal/cleanable/insectguts
+	name = "cockroach guts"
+	desc = "One bug squashed. Four more will rise in its place."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "xfloor1"
+	random_icon_states = list("xfloor1", "xfloor2", "xfloor3", "xfloor4", "xfloor5", "xfloor6", "xfloor7")
 	anchored = TRUE

@@ -34,9 +34,9 @@
 	icon_state = "pirateranged"
 	icon_living = "pirateranged"
 	icon_dead = "piratemelee_dead"
-	projectilesound = 'sound/weapons/Laser.ogg'
+	projectilesound = 'sound/weapons/laser.ogg'
 	ranged = 1
-	rapid = 1
+	rapid = 2
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/item/projectile/beam

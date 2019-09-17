@@ -42,7 +42,7 @@
 /obj/item/storage/bag/trash/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] puts the [name] over [user.p_their()] head and starts chomping at the insides! Disgusting!</span>")
 	playsound(loc, 'sound/items/eatfood.ogg', 50, 1, -1)
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/storage/bag/trash/update_icon()
 	if(contents.len == 0)
@@ -107,7 +107,7 @@
 /obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
 	if(slot==slot_head)
 		storage_slots = 0
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/storage/bag/plasticbag/process()
@@ -120,7 +120,7 @@
 				H.AdjustLoseBreath(1)
 	else
 		storage_slots = 7
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return
 
 // -----------------------------
@@ -460,6 +460,19 @@
 	return ..()
 
 
+/obj/item/storage/bag/tray/cookies_tray
+	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
+
+/obj/item/storage/bag/tray/cookies_tray/New() /// By Azule Utama, thank you a lot!
+	..()
+	for(var/i in 1 to 6)
+		var/obj/item/C = new cookie(src)
+		handle_item_insertion(C)    // Done this way so the tray actually has the cookies visible when spawned
+	rebuild_overlays()
+
+/obj/item/storage/bag/tray/cookies_tray/sugarcookie
+	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
+
 /*
  *	Chemistry bag
  */
@@ -486,5 +499,5 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/blood,/obj/item/reagent_containers/hypospray/autoinjector)
+	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
 	burn_state = FLAMMABLE

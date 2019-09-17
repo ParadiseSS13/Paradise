@@ -547,7 +547,7 @@
 			else
 				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
+			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/machinery/fishtank/deconstruct(disassembled = TRUE)
 	if(QDELETED(src))

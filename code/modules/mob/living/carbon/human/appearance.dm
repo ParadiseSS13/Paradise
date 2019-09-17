@@ -464,3 +464,12 @@
 		valid_alt_heads += alternate_head
 
 	return valid_alt_heads
+
+/mob/living/carbon/human/proc/scramble_appearance()
+	scramble(1, src, 100)
+	real_name = random_name(gender, dna.species.name) //Give them a name that makes sense for their species.
+	sync_organ_dna(assimilate = 1)
+	update_body(0)
+	reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
+	reset_markings() //...Or markings.
+	dna.ResetUIFrom(src)

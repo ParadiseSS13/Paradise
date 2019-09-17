@@ -19,7 +19,7 @@
 
 /obj/item/instrument/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/instrument/Initialize(mapload)
 	song.tempo = song.sanitize_tempo(song.tempo) // tick_lag isn't set when the map is loaded
@@ -168,6 +168,7 @@
 				/obj/item/stack/tape_roll = 5)
 	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
+	category = CAT_MISC
 
 /datum/crafting_recipe/guitar
 	name = "Guitar"
@@ -177,6 +178,7 @@
 				/obj/item/stack/tape_roll = 5)
 	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
+	category = CAT_MISC
 
 /datum/crafting_recipe/eguitar
 	name = "Electric Guitar"
@@ -186,3 +188,4 @@
 				/obj/item/stack/tape_roll = 5)
 	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
 	time = 80
+	category = CAT_MISC

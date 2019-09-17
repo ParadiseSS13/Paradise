@@ -48,6 +48,7 @@
 	EPILEPSYBLOCK      = getAssignedBlock("EPILEPSY",      numsToAssign)
 	TWITCHBLOCK        = getAssignedBlock("TWITCH",        numsToAssign)
 	NERVOUSBLOCK       = getAssignedBlock("NERVOUS",       numsToAssign)
+	WINGDINGSBLOCK     = getAssignedBlock("WINGDINGS",     numsToAssign)
 
 	// Bay muts
 	BREATHLESSBLOCK    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
@@ -141,12 +142,12 @@
 			qdel(F)
 			continue
 		else
-			ticker.factions.Add(F)
-			ticker.availablefactions.Add(F)
+			SSticker.factions.Add(F)
+			SSticker.availablefactions.Add(F)
 
 	// Populate the syndicate coalition:
-	for(var/datum/faction/syndicate/S in ticker.factions)
-		ticker.syndicate_coalition.Add(S)
+	for(var/datum/faction/syndicate/S in SSticker.factions)
+		SSticker.syndicate_coalition.Add(S)
 
 /proc/setupcult()
 	var/static/datum/cult_info/picked_cult // Only needs to get picked once

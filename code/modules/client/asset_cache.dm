@@ -44,6 +44,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	if(client.cache.Find(asset_name) || client.sending.Find(asset_name))
 		return 0
 
+	log_asset("Sending asset [asset_name] to client [client]")
 	client << browse_rsc(SSassets.cache[asset_name], asset_name)
 	if(!verify) // Can't access the asset cache browser, rip.
 		client.cache += asset_name
@@ -92,6 +93,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		to_chat(client, "Sending Resources...")
 	for(var/asset in unreceived)
 		if(asset in SSassets.cache)
+			log_asset("Sending asset [asset] to client [client]")
 			client << browse_rsc(SSassets.cache[asset], asset)
 
 	if(!verify) // Can't access the asset cache browser, rip.
@@ -191,6 +193,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		"large_stamp-cent.png"      = 'icons/paper_icons/large_stamp-cent.png',
 		"large_stamp-syndicate.png" = 'icons/paper_icons/large_stamp-syndicate.png',
 		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
+		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
 		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
 	)
@@ -291,7 +294,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 /datum/asset/chem_master/register()
 	for(var/i = 1 to 20)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
-	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle"))
+	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])
@@ -315,7 +318,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
-		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet"))) //Pipes we want sprites for
+		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet", "pipe-j1s"))) //Pipes we want sprites for
 			continue
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)

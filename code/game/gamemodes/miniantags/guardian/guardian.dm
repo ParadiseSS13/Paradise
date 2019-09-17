@@ -12,6 +12,7 @@
 	icon_dead = "magicOrange"
 	speed = 0
 	a_intent = INTENT_HARM
+	can_change_intents = 0
 	stop_automated_movement = 1
 	floating = 1
 	attack_sound = 'sound/weapons/punch1.ogg'
@@ -60,9 +61,9 @@
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired) //Dies if the summoner dies
 	..()
 	if(summoner)
-		if(summoner.stat == DEAD)
+		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD))
 			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'>The [src] dies along with its user!</span>")
+			visible_message("<span class='danger'>[src] dies along with its user!</span>")
 			ghostize()
 			qdel(src)
 	snapback()
@@ -85,6 +86,18 @@
 				forceMove(summoner.loc) //move to summoner's tile, don't recall
 				new /obj/effect/temp_visual/guardian/phase(loc)
 
+/mob/living/simple_animal/hostile/guardian/proc/is_deployed()
+	return loc != summoner
+
+/mob/living/simple_animal/hostile/guardian/AttackingTarget()
+	if(!is_deployed() && a_intent == INTENT_HARM)
+		to_chat(src, "<span class='danger'>You must be manifested to attack!</span>")
+		return FALSE
+	else if(!is_deployed() && a_intent == INTENT_HELP)
+		return FALSE
+	else
+		return ..()
+
 /mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
 	..()
 	snapback()
@@ -102,7 +115,7 @@
 	if(summoner)
 		var/resulthealth
 		if(iscarbon(summoner))
-			resulthealth = round((abs(config.health_threshold_dead - summoner.health) / abs(config.health_threshold_dead - summoner.maxHealth)) * 100)
+			resulthealth = round((abs(HEALTH_THRESHOLD_DEAD - summoner.health) / abs(HEALTH_THRESHOLD_DEAD - summoner.maxHealth)) * 100)
 		else
 			resulthealth = round((summoner.health / summoner.maxHealth) * 100)
 		if(hud_used)
@@ -110,7 +123,7 @@
 		med_hud_set_health()
 		med_hud_set_status()
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount) //The spirit is invincible, but passes on damage to the summoner
+/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
 	var/damage = amount * damage_transfer
 	if(summoner)
 		if(loc == summoner)
@@ -149,11 +162,12 @@
 	if(!summoner) return
 	if(loc == summoner)
 		forceMove(get_turf(summoner))
+		new /obj/effect/temp_visual/guardian/phase(loc)
 		src.client.eye = loc
 		cooldown = world.time + 30
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
-	if(cooldown > world.time && !forced)
+	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
 	if(!summoner) return
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
@@ -173,7 +187,7 @@
 		if(M == summoner)
 			to_chat(M, "<span class='changeling'><i>[src]:</i> [input]</span>")
 			log_say("(GUARDIAN to [key_name(M)]) [input]", src)
-		else if(M in GLOB.dead_mob_list)
+		else if(M in GLOB.dead_mob_list && M.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
@@ -182,7 +196,7 @@
 	if(adminseal || override)//if it's an admin-spawned guardian without a host it can still talk normally
 		return ..(message)
 	Communicate(message)
-	
+
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
@@ -196,13 +210,13 @@
 	if(!input) return
 
 	for(var/mob/M in GLOB.mob_list)
-		if(istype (M, /mob/living/simple_animal/hostile/guardian))
+		if(istype(M, /mob/living/simple_animal/hostile/guardian))
 			var/mob/living/simple_animal/hostile/guardian/G = M
 			if(G.summoner == src)
 				to_chat(G, "<span class='changeling'><i>[src]:</i> [input]</span>")
 				log_say("(GUARDIAN to [key_name(G)]) [input]", src)
 
-		else if(M in GLOB.dead_mob_list)
+		else if(M in GLOB.dead_mob_list && M.client && M.stat == DEAD && !isnewplayer(M))
 			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
 	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
 
@@ -261,7 +275,7 @@
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
 	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
-	var/random = TRUE
+	var/random = FALSE
 	var/color_list = list("Pink" = "#FFC0CB",
 		"Red" = "#FF0000",
 		"Orange" = "#FFA500",
@@ -358,7 +372,7 @@
 	G.icon_state = "[theme][color]"
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.magic_fluff_string].")
-	
+
 /obj/item/guardiancreator/choose
 	random = FALSE
 

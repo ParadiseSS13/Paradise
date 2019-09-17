@@ -214,12 +214,12 @@
 			shift = -10
 			adir = assailant.dir
 			affecting.setDir(assailant.dir)
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 		if(GRAB_KILL)
 			shift = 0
 			adir = 1
 			affecting.setDir(SOUTH)//face up
-			affecting.loc = assailant.loc
+			affecting.forceMove(assailant.loc)
 
 	switch(adir)
 		if(NORTH)
@@ -387,25 +387,28 @@
 	if(M == assailant && state >= GRAB_AGGRESSIVE) //no eatin unless you have an agressive grab
 		if(checkvalid(user, affecting)) //wut
 			var/mob/living/carbon/attacker = user
+
+			if(affecting.buckled)
+				to_chat(user, "<span class='warning'>[affecting] is buckled!</span>")
+				return
+
 			user.visible_message("<span class='danger'>[user] is attempting to devour \the [affecting]!</span>")
 
 			if(!do_after(user, checktime(user, affecting), target = affecting)) return
+
+			if(affecting.buckled)
+				to_chat(user, "<span class='warning'>[affecting] is buckled!</span>")
+				return
 
 			user.visible_message("<span class='danger'>[user] devours \the [affecting]!</span>")
 			if(affecting.mind)
 				add_attack_logs(attacker, affecting, "Devoured")
 
-			affecting.loc = user
+			affecting.forceMove(user)
 			attacker.stomach_contents.Add(affecting)
 			qdel(src)
 
 /obj/item/grab/proc/checkvalid(var/mob/attacker, var/mob/prey) //does all the checking for the attack proc to see if a mob can eat another with the grab
-	if(ishuman(attacker) && (/datum/dna/gene/basic/grant_spell/mattereater in attacker.active_genes)) // MATTER EATER CARES NOT OF YOUR FORM
-		return 1
-
-	if(ishuman(attacker) && (FAT in attacker.mutations) && iscarbon(prey) && !isalien(prey)) //Fat people eating carbon mobs but not xenos
-		return 1
-
 	if(isalien(attacker) && iscarbon(prey)) //Xenomorphs eating carbon mobs
 		return 1
 

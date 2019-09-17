@@ -8,6 +8,7 @@
 	desc = "The commander in chef's head wear."
 	strip_delay = 10
 	put_on_delay = 10
+	dog_fashion = /datum/dog_fashion/head/chef
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -17,12 +18,14 @@
 	item_state = "caphat"
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 60
+	dog_fashion = /datum/dog_fashion/head/captain
 
 //Captain: no longer space-worthy
 /obj/item/clothing/head/caphat/parade
 	name = "captain's parade cap"
 	desc = "Worn only by Captains with an abundance of class."
 	icon_state = "capcap"
+	dog_fashion = null
 
 //Captain formal hat by Danaleja
 
@@ -44,6 +47,7 @@
 	icon_state = "hopcap"
 	desc = "The symbol of true bureaucratic micromanagement."
 	armor = list(melee = 25, bullet = 15, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
+	dog_fashion = /datum/dog_fashion/head/hop
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
@@ -53,7 +57,7 @@
 
 
 //Chaplain
-/obj/item/clothing/head/chaplain_hood
+/obj/item/clothing/head/hooded/chaplain_hood
 	name = "chaplain's hood"
 	desc = "It's hood that covers the head. It keeps you warm during the space winters."
 	icon_state = "chaplain_hood"
@@ -61,7 +65,7 @@
 	flags_cover = HEADCOVERSEYES
 
 //Chaplain
-/obj/item/clothing/head/nun_hood
+/obj/item/clothing/head/hooded/nun_hood
 	name = "nun hood"
 	desc = "Maximum piety in this star system."
 	icon_state = "nun_hood"
@@ -69,7 +73,7 @@
 	flags_cover = HEADCOVERSEYES
 
 //Chaplain
-/obj/item/clothing/head/monk_hood
+/obj/item/clothing/head/hooded/monk_hood
 	name = "monk hood"
 	desc = "Wooden board not included."
 	icon_state = "monk_hood"
@@ -89,12 +93,21 @@
 	icon_state = "detective"
 	allowed = list(/obj/item/reagent_containers/food/snacks/candy/candy_corn, /obj/item/pen)
 	armor = list(melee = 25, bullet = 5, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
+	dog_fashion = /datum/dog_fashion/head/detective
 
 //Mime
 /obj/item/clothing/head/beret
 	name = "beret"
 	desc = "A beret, an artists favorite headwear."
 	icon_state = "beret"
+	dog_fashion = /datum/dog_fashion/head/beret
+
+/obj/item/clothing/head/beret/durathread
+	name = "durathread beret"
+	desc =  "A beret made from durathread, its resilient fibres provide some protection to the wearer."
+	icon_state = "beretdurathread"
+	item_color = null
+	armor = list(melee = 15, bullet = 5, laser = 15, energy = 5, bomb = 10, bio = 0, rad = 0)
 
 //Security
 /obj/item/clothing/head/HoS
@@ -115,6 +128,7 @@
 	icon_state = "policehelm"
 	armor = list(melee = 30, bullet = 5, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 60
+	dog_fashion = /datum/dog_fashion/head/warden
 
 /obj/item/clothing/head/officer
 	name = "officer's cap"
@@ -130,6 +144,7 @@
 	icon_state = "beret_officer"
 	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 25, bio = 0, rad = 0)
 	strip_delay = 60
+	dog_fashion = null
 
 /obj/item/clothing/head/beret/sec/warden
 	name = "warden's beret"

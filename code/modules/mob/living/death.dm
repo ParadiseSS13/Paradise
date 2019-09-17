@@ -56,7 +56,10 @@
 	SetJitter(0)
 	SetLoseBreath(0)
 
-	if(suiciding)
+	if(!gibbed && deathgasp_on_death)
+		emote("deathgasp", force = TRUE)
+
+	if(mind && suiciding)
 		mind.suicided = TRUE
 	clear_fullscreens()
 	update_sight()
@@ -64,7 +67,8 @@
 
 	med_hud_set_health()
 	med_hud_set_status()
-	callHook("death", list(src, gibbed))
+	if(!gibbed && !QDELETED(src))
+		addtimer(CALLBACK(src, .proc/med_hud_set_status), (DEFIB_TIME_LIMIT * 10) + 1)
 
 	for(var/s in ownedSoullinks)
 		var/datum/soullink/S = s
@@ -84,8 +88,16 @@
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
 		GLOB.respawnable_list += src
 
-	if(ticker && ticker.mode)
-		ticker.mode.check_win()
+	if(SSticker && SSticker.mode)
+		SSticker.mode.check_win()
+	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
+		mind.devilinfo.beginResurrectionCheck(src)
 
 	// u no we dead
 	return TRUE
+
+/mob/living/proc/delayed_gib()
+	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
+	Weaken(15)
+	do_jitter_animation(1000, -1)
+	addtimer(CALLBACK(src, .proc/gib), rand(20, 100))

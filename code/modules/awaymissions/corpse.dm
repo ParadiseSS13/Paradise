@@ -28,18 +28,25 @@
 	var/datum/disease/disease = null //Do they start with a pre-spawned disease?
 	var/mob_color //Change the mob's color
 	var/assignedrole
-	var/banType = "lavaland"
+	var/banType = ROLE_GHOST
 	var/ghost_usable = TRUE
-
+	var/offstation_role = TRUE // If set to true, the role of the user's mind will be set to offstation
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	if(ticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
+	var/mob/dead/observer/O = user
+	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
 		return
 	if(!uses)
 		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
 		return
 	if(jobban_isbanned(user, banType))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		return
+	if(cannotPossess(user))
+		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return
+	if(!O.can_reenter_corpse)
+		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
 	if(QDELETED(src) || QDELETED(user))
 		return
@@ -104,6 +111,7 @@
 				MM.objectives += new/datum/objective(objective)
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
+		M.mind.offstation_role = offstation_role
 		special(M, name)
 		MM.name = M.real_name
 	if(uses > 0)
@@ -197,7 +205,7 @@
 			var/T = vars[slot]
 			if(!isnum(T))
 				outfit.vars[slot] = T
-		H.equipOutfit(outfit, TRUE)
+		H.equipOutfit(outfit)
 		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
@@ -242,7 +250,7 @@
 
 
 /obj/effect/mob_spawn/human/alive
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	death = FALSE
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
@@ -256,7 +264,7 @@
 	mob_type = 	/mob/living/simple_animal/mouse
 	death = FALSE
 	roundstart = FALSE
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Squeak!"
 
@@ -267,7 +275,7 @@
 	death = FALSE
 	roundstart = FALSE
 	mob_gender = FEMALE
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
 
@@ -306,7 +314,7 @@
 	roundstart = FALSE
 	random = TRUE
 	name = "sleeper"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "<span class='big bold'>You are a space doctor!</span>"
 	assignedrole = "Space Doctor"
@@ -333,9 +341,8 @@
 
 	uniform = /obj/item/clothing/under/rank/engineer
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit
+	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	shoes = /obj/item/clothing/shoes/workboots
-	head = /obj/item/clothing/head/helmet/space/hardsuit
 	mask = /obj/item/clothing/mask/breath
 	id = /obj/item/card/id/engineering
 	l_pocket = /obj/item/t_scanner
@@ -351,7 +358,7 @@
 
 /obj/effect/mob_spawn/human/clown/Initialize()
 	mob_name = pick(GLOB.clown_names)
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownmili
 	name = "Clown Soldier"
@@ -359,7 +366,7 @@
 
 /obj/effect/mob_spawn/human/corpse/clownmili/Initialize()
 	mob_name = "Officer [pick(GLOB.clown_names)]"
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/corpse/clownoff
 	name = "Clown Officer"
@@ -367,7 +374,7 @@
 
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize()
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
-	..()
+	return ..()
 
 
 /datum/outfit/clownsoldier
@@ -398,7 +405,7 @@
 
 /obj/effect/mob_spawn/human/mime/Initialize()
 	mob_name = pick(GLOB.mime_names)
-	..()
+	return ..()
 
 /obj/effect/mob_spawn/human/scientist
 	name = "Scientist"
@@ -415,7 +422,6 @@
 /datum/outfit/job/mining/suit
 	name = "Shaft Miner"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
-	head = /obj/item/clothing/head/helmet/space/hardsuit/mining
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
@@ -424,6 +430,8 @@
 	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
+/obj/effect/mob_spawn/human/miner/explorer
+	outfit = /datum/outfit/job/mining/equipped
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
@@ -437,10 +445,17 @@
 	roundstart = FALSE
 	random = TRUE
 	name = "bartender sleeper"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "<span class='big bold'>You are a space bartender!</span><b> Time to mix drinks and change lives.</b>"
 	assignedrole = "Space Bartender"
+
+/obj/effect/mob_spawn/human/beach/alive/lifeguard
+	flavour_text = "<span class='big bold'>You're a spunky lifeguard!</span><b> It's up to you to make sure nobody drowns or gets eaten by sharks and stuff.</b>"
+	mob_gender = "female"
+	name = "lifeguard sleeper"
+	id_job = "Lifeguard"
+	uniform = /obj/item/clothing/under/shorts/red
 
 /datum/outfit/spacebartender
 	name = "Space Bartender"
@@ -461,7 +476,7 @@
 	random = TRUE
 	mob_name = "Beach Bum"
 	name = "beach bum sleeper"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "You are a beach bum!"
 	assignedrole = "Beach Bum"

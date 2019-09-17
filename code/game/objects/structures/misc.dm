@@ -92,11 +92,11 @@
 	last_ghost_alert = world.time
 	attack_atom = src
 	if(active)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 
 /obj/structure/ghost_beacon/Destroy()
 	if(active)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	attack_atom = null
 	return ..()
 
@@ -111,9 +111,9 @@
 		return
 	to_chat(user, "<span class='notice'>You [active ? "disable" : "enable"] \the [src].</span>")
 	if(active)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	else
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	active = !active
 
 /obj/structure/ghost_beacon/process()

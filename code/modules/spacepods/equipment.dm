@@ -90,7 +90,7 @@
 	icon_state = "weapon_taser"
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 400
-	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound = 'sound/weapons/taser.ogg'
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
 	name = "burst taser system"
@@ -99,7 +99,7 @@
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 1200
 	shots_per = 3
-	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound = 'sound/weapons/taser.ogg'
 	fire_delay = 30
 
 /obj/item/spacepod_equipment/weaponry/laser
@@ -108,7 +108,7 @@
 	icon_state = "weapon_laser"
 	projectile_type = /obj/item/projectile/beam
 	shot_cost = 600
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 // MINING LASERS
 /obj/item/spacepod_equipment/weaponry/mining_laser_basic
@@ -119,7 +119,7 @@
 	projectile_type = /obj/item/projectile/kinetic/pod
 	shot_cost = 300
 	fire_delay = 14
-	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
+	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
 /obj/item/spacepod_equipment/weaponry/mining_laser
 	name = "mining laser system"
@@ -129,17 +129,7 @@
 	projectile_type = /obj/item/projectile/kinetic/pod/regular
 	shot_cost = 250
 	fire_delay = 10
-	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
-
-/obj/item/spacepod_equipment/weaponry/mining_laser_hyper
-	name = "enhanced mining laser system"
-	desc = "An enhanced mining laser system for space pods, fires bursts of energy that cut through rock."
-	icon = 'icons/goonstation/pods/ship.dmi'
-	icon_state = "pod_w_laser"
-	projectile_type = /obj/item/projectile/kinetic/pod/enhanced
-	shot_cost = 200
-	fire_delay = 8
-	fire_sound = 'sound/weapons/Kenetic_accel.ogg'
+	fire_sound = 'sound/weapons/kenetic_accel.ogg'
 
 /*
 ///////////////////////////////////////

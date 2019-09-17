@@ -219,6 +219,8 @@
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
 		return
+	if(!ishuman(M))
+		return
 
 	if(over_object == M || istype(over_object, /obj/screen))
 		if(!remove_item_from_storage(M))
@@ -476,4 +478,5 @@
 		update_icon()
 
 /obj/item/cardhand/pickup(mob/user as mob)
+	. = ..()
 	update_icon()

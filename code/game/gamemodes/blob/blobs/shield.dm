@@ -3,9 +3,13 @@
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_idle"
 	desc = "Some blob creature thingy"
-	health = 75 
+	health = 75
 	fire_resist = 2
-	var/maxHealth = 75 
+	point_return = 4
+	var/maxHealth = 75
+
+/obj/structure/blob/shield/core
+	point_return = 0
 
 /obj/structure/blob/shield/update_icon()
 	if(health <= 0)
@@ -13,7 +17,7 @@
 		return
 	return
 
-/obj/structure/blob/shield/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/blob/shield/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
@@ -27,11 +31,12 @@
 	brute_resist = 0
 	health = 50
 	maxHealth = 50
+	point_return = 9
 	flags_2 = CHECK_RICOCHET_1
 	var/reflect_chance = 80 //80% chance to reflect
 
 /obj/structure/blob/shield/reflective/handle_ricochet(obj/item/projectile/P)
-	if(P.is_reflectable && prob(reflect_chance))
+	if(P.is_reflectable && prob(reflect_chance) && !P.legacy)
 		var/P_turf = get_turf(P)
 		var/face_direction = get_dir(src, P_turf)
 		var/face_angle = dir2angle(face_direction)
@@ -42,11 +47,14 @@
 		P.setAngle(new_angle_s)
 		P.firer = src //so people who fired the lasers are not immune to them when it reflects
 		visible_message("<span class='warning'>[P] reflects off [src]!</span>")
-		return -1// complete projectile permutation 
+		return -1// complete projectile permutation
+	else if(P.is_reflectable && P.legacy) //to stop legacy projectile exploits
+		visible_message("<span class='warning'>[P] disperses into energy from [src]!</span>")
+		qdel(P)
 	else
 		playsound(src, P.hitsound, 50, 1)
 		visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
 		take_damage(P.damage, P.damage_type)
-		
+
 /obj/structure/blob/shield/reflective/bullet_act()
 	return

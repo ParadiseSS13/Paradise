@@ -39,8 +39,6 @@
 
 	var/siemens_coeff = 1 //base electrocution coefficient
 
-	var/invis_sight = SEE_INVISIBLE_LIVING
-
 	var/hazard_high_pressure = HAZARD_HIGH_PRESSURE   // Dangerously high pressure.
 	var/warning_high_pressure = WARNING_HIGH_PRESSURE // High pressure warning.
 	var/warning_low_pressure = WARNING_LOW_PRESSURE   // Low pressure warning.
@@ -52,10 +50,12 @@
 	var/oxy_mod = 1		 // Oxy damage reduction/amplification
 	var/clone_mod = 1	 // Clone damage reduction/amplification
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
+	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-
+	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
-
+	var/obj/item/mutanthands
 	var/total_health = 100
 	var/punchdamagelow = 0       //lowest possible punch damage
 	var/punchdamagehigh = 9      //highest possible punch damage
@@ -64,8 +64,6 @@
 
 	var/ventcrawler = 0 //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
-
-	var/mob/living/list/ignored_by = list() // list of mobs that will ignore this species
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
 
@@ -80,7 +78,7 @@
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
 	var/blood_color = "#A10808" //Red.
-	var/flesh_color = "#FFC896" //Pink.
+	var/flesh_color = "#d1aa2e" //Gold.
 	var/single_gib_type = /obj/effect/decal/cleanable/blood/gibs
 	var/remains_type = /obj/effect/decal/remains/human //What sort of remains is left behind when the species dusts
 	var/base_color      //Used when setting species.
@@ -91,6 +89,8 @@
 
 	var/is_small
 	var/show_ssd = 1
+	var/forced_heartattack = FALSE //Some species have blood, but we still want them to have heart attacks
+	var/dies_at_threshold = FALSE // Do they die or get knocked out at specific thresholds, or do they go through complex crit?
 	var/can_revive_by_healing				// Determines whether or not this species can be revived by simply healing them
 	var/has_gender = TRUE
 	var/blacklisted = FALSE
@@ -255,8 +255,6 @@
 				. += (health_deficiency / 75)
 			else
 				. += (health_deficiency / 25)
-		if(H.shock_stage >= 10)
-			. += 3
 		. += 2 * H.stance_damage //damaged/missing feet or legs is slow
 
 		if((hungry >= 70) && !flight)
@@ -298,11 +296,8 @@
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
 	if((NO_BREATHE in species_traits) || (BREATHLESS in H.mutations))
-		H.setOxyLoss(0)
-		H.SetLoseBreath(0)
-
 		var/takes_crit_damage = (!(NOCRITDAMAGE in species_traits))
-		if((H.health <= config.health_threshold_crit) && takes_crit_damage)
+		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
 			H.adjustBruteLoss(1)
 	return
 
@@ -312,17 +307,77 @@
 /datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
+/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/C)
+	return
+
+/datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
+	blocked = (100 - blocked) / 100
+	if(blocked <= 0)
+		return 0
+
+	var/obj/item/organ/external/organ = null
+	if(isorgan(def_zone))
+		organ = def_zone
+	else
+		if(!def_zone)
+			def_zone = ran_zone(def_zone)
+		organ = H.get_organ(check_zone(def_zone))
+	if(!organ)
+		return 0
+
+	damage = damage * blocked
+
+	switch(damagetype)
+		if(BRUTE)
+			H.damageoverlaytemp = 20
+			damage = damage * brute_mod
+
+			if(organ.receive_damage(damage, 0, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+			if(H.LAssailant && ishuman(H.LAssailant)) //superheros still get the comical hit markers
+				var/mob/living/carbon/human/A = H.LAssailant
+				if(A.mind && A.mind in (SSticker.mode.superheroes || SSticker.mode.supervillains || SSticker.mode.greyshirts))
+					var/list/attack_bubble_recipients = list()
+					var/mob/living/user
+					for(var/mob/O in viewers(user, src))
+						if(O.client && O.has_vision(information_only=TRUE))
+							attack_bubble_recipients.Add(O.client)
+					spawn(0)
+						var/image/dmgIcon = image('icons/effects/hit_blips.dmi', src, "dmg[rand(1,2)]",MOB_LAYER+1)
+						dmgIcon.pixel_x = (!H.lying) ? rand(-3,3) : rand(-11,12)
+						dmgIcon.pixel_y = (!H.lying) ? rand(-11,9) : rand(-10,1)
+						flick_overlay(dmgIcon, attack_bubble_recipients, 9)
+
+
+		if(BURN)
+			H.damageoverlaytemp = 20
+			damage = damage * burn_mod
+
+			if(organ.receive_damage(0, damage, sharp, used_weapon))
+				H.UpdateDamageIcon()
+
+	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
+	H.updatehealth("apply damage")
+	return 1
+
+/datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
+	return
+
+/datum/species/proc/spec_electrocute_act(mob/living/carbon/human/H, shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE)
+	return
+
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= config.health_threshold_crit)
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
 	else
 		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s grab attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.grab_act(user, target))
@@ -333,44 +388,34 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in ticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
-		if(target.mind && target.mind.vampire && (target.mind in ticker.mode.vampires))
+		if(target.mind && target.mind.vampire && (target.mind in SSticker.mode.vampires))
 			to_chat(user, "<span class='warning'>Your fangs fail to pierce [target.name]'s cold flesh</span>")
 			return
 		if(SKELETON in target.mutations)
 			to_chat(user, "<span class='warning'>There is no blood in a skeleton!</span>")
-			return
-		if(issmall(target) && !target.ckey) //Monkeyized humans are okay, humanized monkeys are okay, NPC monkeys are not.
-			to_chat(user, "<span class='warning'>Blood from a monkey is useless!</span>")
 			return
 		//we're good to suck the blood, blaah
 		user.mind.vampire.handle_bloodsucking(target)
 		add_attack_logs(user, target, "vampirebit")
 		return
 		//end vampire codes
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
-	//zombie code
-	if(iszombie(user) && prob(70))
-		var/mob/living/L = target
-		var/poison_per_bite = 10
-		var/poison_type = "virush"
-		if(L.reagents)
-			L.reagents.add_reagent("virush", poison_per_bite)
-			if(prob(poison_per_bite))
-				to_chat(L, "<span class='danger'>You feel a lot of pain.</span>")
-				L.reagents.add_reagent(poison_type, poison_per_bite)
-				//end zombie code
 	if(attacker_style && attacker_style.harm_act(user, target))
 		return TRUE
 	else
 		var/datum/unarmed_attack/attack = user.dna.species.unarmed
 
 		user.do_attack_animation(target, attack.animation_type)
+		if(attack.harmless)
+			playsound(target.loc, attack.attack_sound, 25, 1, -1)
+			target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
+			return FALSE
 		add_attack_logs(user, target, "Melee attacked with fists", target.ckey ? null : ATKLOG_ALL)
 
 		if(!iscarbon(user))
@@ -392,7 +437,6 @@
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-
 		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has weakened [target]!</span>", \
@@ -401,9 +445,10 @@
 			target.forcesay(GLOB.hit_appends)
 		else if(target.lying)
 			target.forcesay(GLOB.hit_appends)
+		SEND_SIGNAL(target, COMSIG_PARENT_ATTACKBY)
 
 /datum/species/proc/disarm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
-	if(target.check_block()) //cqc
+	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
 		return FALSE
 	if(attacker_style && attacker_style.disarm_act(user, target))
@@ -520,14 +565,7 @@
 	var/miss_sound = 'sound/weapons/punchmiss.ogg'
 	var/sharp = FALSE
 	var/animation_type = ATTACK_EFFECT_PUNCH
-
-/datum/unarmed_attack/zombie
-	attack_verb = list("bites", "slash")
-	damage = 5
-	attack_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	miss_sound = 'sound/goonstation/voice/zombiemuerde.ogg'
-	animation_type = ATTACK_EFFECT_BITE
-
+	var/harmless = FALSE //if set to true, attacks won't be admin logged and punches will "hit" for no damage
 
 /datum/unarmed_attack/diona
 	attack_verb = list("lash", "bludgeon")
@@ -538,6 +576,7 @@
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_CLAW
+	var/has_been_sharpened = FALSE
 
 /datum/unarmed_attack/bite
 	attack_verb = list("chomp")
@@ -553,7 +592,7 @@
 	return FALSE
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return 100 - ((NO_PAIN in species_traits) ? 0 : H.traumatic_shock) - H.getStaminaLoss()
+	return H.health - H.getStaminaLoss()
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)
@@ -618,20 +657,37 @@
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
-	switch(H.nutrition)
-		if(NUTRITION_LEVEL_FULL to INFINITY)
-			H.throw_alert("nutrition", /obj/screen/alert/fat)
-		if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
-			H.throw_alert("nutrition", /obj/screen/alert/full)
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
-			H.throw_alert("nutrition", /obj/screen/alert/well_fed)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			H.throw_alert("nutrition", /obj/screen/alert/fed)
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.throw_alert("nutrition", /obj/screen/alert/hungry)
-		else
-			H.throw_alert("nutrition", /obj/screen/alert/starving)
-	return 1
+	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /obj/screen/alert/fat/vampire)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				H.throw_alert("nutrition", /obj/screen/alert/full/vampire)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/well_fed/vampire)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/fed/vampire)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /obj/screen/alert/hungry/vampire)
+			else
+				H.throw_alert("nutrition", /obj/screen/alert/starving/vampire)
+		return 1
+
+	else ///Any other non-vampires
+		switch(H.nutrition)
+			if(NUTRITION_LEVEL_FULL to INFINITY)
+				H.throw_alert("nutrition", /obj/screen/alert/fat)
+			if(NUTRITION_LEVEL_WELL_FED to NUTRITION_LEVEL_FULL)
+				H.throw_alert("nutrition", /obj/screen/alert/full)
+			if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_WELL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/well_fed)
+			if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+				H.throw_alert("nutrition", /obj/screen/alert/fed)
+			if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+				H.throw_alert("nutrition", /obj/screen/alert/hungry)
+			else
+				H.throw_alert("nutrition", /obj/screen/alert/starving)
+		return 1
 
 /*
 Returns the path corresponding to the corresponding organ
@@ -643,22 +699,19 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		return null
 	return has_organ[organ_slot]
 
-/datum/species/proc/get_resultant_darksight(mob/living/carbon/human/H) //Returns default value of 2 if the mob doesn't have eyes, otherwise it grabs the eyes darksight.
-	var/resultant_darksight = 2
-	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-	if(eyes)
-		resultant_darksight = eyes.get_dark_view()
-	return resultant_darksight
-
 /datum/species/proc/update_sight(mob/living/carbon/human/H)
 	H.sight = initial(H.sight)
-	H.see_in_dark = get_resultant_darksight(H)
-	H.see_invisible = invis_sight
 
-	if(H.see_in_dark > 2) //Preliminary see_invisible handling as per set_species() in code\modules\mob\living\carbon\human\human.dm.
-		H.see_invisible = SEE_INVISIBLE_LEVEL_ONE
+	var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
+	if(eyes)
+		H.sight |= eyes.vision_flags
+		H.see_in_dark = eyes.see_in_dark
+		H.see_invisible = eyes.see_invisible
+		H.lighting_alpha = eyes.lighting_alpha
 	else
-		H.see_invisible = SEE_INVISIBLE_LIVING
+		H.see_in_dark = initial(H.see_in_dark)
+		H.see_invisible = initial(H.see_invisible)
+		H.lighting_alpha = initial(H.lighting_alpha)
 
 	if(H.client && H.client.eye != H)
 		var/atom/A = H.client.eye
@@ -669,39 +722,43 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(H.mind.vampire.get_ability(/datum/vampire_passive/full))
 			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 			H.see_in_dark = 8
-			H.see_invisible = SEE_INVISIBLE_MINIMUM
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 		else if(H.mind.vampire.get_ability(/datum/vampire_passive/vision))
 			H.sight |= SEE_MOBS
+			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 	for(var/obj/item/organ/internal/cyberimp/eyes/E in H.internal_organs)
 		H.sight |= E.vision_flags
-		if(E.dark_view)
-			H.see_in_dark = E.dark_view
+		if(E.see_in_dark)
+			H.see_in_dark = max(H.see_in_dark, E.see_in_dark)
 		if(E.see_invisible)
 			H.see_invisible = min(H.see_invisible, E.see_invisible)
+		if(E.lighting_alpha)
+			H.lighting_alpha = min(H.lighting_alpha, E.lighting_alpha)
 
-	var/lesser_darkview_bonus = INFINITY
 	// my glasses, I can't see without my glasses
 	if(H.glasses)
 		var/obj/item/clothing/glasses/G = H.glasses
 		H.sight |= G.vision_flags
-		lesser_darkview_bonus = G.darkness_view
+		H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
+
 		if(G.invis_override)
 			H.see_invisible = G.invis_override
 		else
 			H.see_invisible = min(G.invis_view, H.see_invisible)
+
+		if(!isnull(G.lighting_alpha))
+			H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 
 	// better living through hat trading
 	if(H.head)
 		if(istype(H.head, /obj/item/clothing/head))
 			var/obj/item/clothing/head/hat = H.head
 			H.sight |= hat.vision_flags
+			H.see_in_dark = max(hat.see_in_dark, H.see_in_dark)
 
-			if(hat.darkness_view) // Pick the lowest of the two darkness_views between the glasses and helmet.
-				lesser_darkview_bonus = min(hat.darkness_view,lesser_darkview_bonus)
-
-			if(hat.helmet_goggles_invis_view)
-				H.see_invisible = min(hat.helmet_goggles_invis_view, H.see_invisible)
+			if(!isnull(hat.lighting_alpha))
+				H.lighting_alpha = min(hat.lighting_alpha, H.lighting_alpha)
 
 	if(istype(H.back, /obj/item/rig)) ///aghhh so snowflakey
 		var/obj/item/rig/rig = H.back
@@ -710,33 +767,38 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 				if(rig.visor && rig.visor.vision && rig.visor.active && rig.visor.vision.glasses)
 					var/obj/item/clothing/glasses/G = rig.visor.vision.glasses
 					if(istype(G))
-						H.see_in_dark = (G.darkness_view ? G.darkness_view : get_resultant_darksight(H)) // Otherwise we keep our darkness view with togglable nightvision.
-						if(G.vision_flags)		// MESONS
-							H.sight |= G.vision_flags
-
+						H.sight |= G.vision_flags
+						H.see_in_dark = max(G.see_in_dark, H.see_in_dark)
 						H.see_invisible = min(G.invis_view, H.see_invisible)
 
-	if(lesser_darkview_bonus != INFINITY)
-		H.see_in_dark = max(lesser_darkview_bonus, H.see_in_dark)
+						if(!isnull(G.lighting_alpha))
+							H.lighting_alpha = min(G.lighting_alpha, H.lighting_alpha)
 
 	if(H.vision_type)
-		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark, get_resultant_darksight(H))
-		H.see_invisible = H.vision_type.see_invisible
-		if(H.vision_type.light_sensitive)
-			H.weakeyes = 1
 		H.sight |= H.vision_type.sight_flags
+		H.see_in_dark = max(H.see_in_dark, H.vision_type.see_in_dark)
+
+		if(!isnull(H.vision_type.lighting_alpha))
+			H.lighting_alpha = min(H.vision_type.lighting_alpha, H.lighting_alpha)
+
+		if(H.vision_type.light_sensitive)
+			H.weakeyes = TRUE
 
 	if(XRAY in H.mutations)
 		H.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		H.see_in_dark = max(H.see_in_dark, 8)
-		H.see_invisible = SEE_INVISIBLE_MINIMUM
 
-	if(H.see_override)	//Override all
-		H.see_invisible = H.see_override
+	H.sync_lighting_plane_alpha()
 
-/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source)
-	if(abs(temperature - M.bodytemperature) > 10) //If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately
-		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 //Approximation for gradual heating or cooling
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = TOUCH)
+	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
+		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
+
+/datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
+	return TRUE
+
+/datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
+
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
 
 /proc/get_random_species(species_name = FALSE)	// Returns a random non black-listed or hazardous species, either as a string or datum
 	var/static/list/random_species = list()

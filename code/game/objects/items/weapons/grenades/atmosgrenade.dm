@@ -1,6 +1,3 @@
-
-
-
 /obj/item/grenade/gas
 	name = "plasma fire grenade"
 	desc = "A compressed plasma grenade, used to start horrific plasma fires."
@@ -23,8 +20,15 @@
 
 /obj/item/grenade/gas/knockout
 	name = "knockout grenade"
-	desc = "A grenade that completely removes all air and heat from its detonation area."
+	desc = "A grenade that releases pure N2O gas."
 	spawn_contents = SPAWN_20C | SPAWN_N2O
+
+/obj/item/grenade/gas/oxygen
+	name = "oxygen grenade"
+	desc = "A grenade that releases pure O2 gas."
+	icon_state = "oxygen"
+	spawn_contents = SPAWN_20C | SPAWN_OXYGEN
+	spawn_amount = 500
 
 /obj/item/grenade/gluon
 	desc = "An advanced grenade that releases a harmful stream of gluons inducing radiation in those nearby. These gluon streams will also make victims feel exhausted, and induce shivering. This extreme coldness will also wet any nearby floors."

@@ -3,11 +3,6 @@
 // DNA vault requires x animals ,y plants, z human dna
 // DNA vaults require high tier stock parts and cold
 // After completion each crewmember can receive single upgrade chosen out of 2 for the mob.
-#define VAULT_SPACEIMMUNE "Space Immunity"
-#define VAULT_XRAY "X-Ray Vision"
-#define VAULT_TELEKINESIS "Telekinesis"
-#define VAULT_PSYCHIC "Psychic Powers"
-#define VAULT_SPEED "Speediness"
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
@@ -17,8 +12,8 @@
 
 /datum/station_goal/dna_vault/New()
 	..()
-	animal_count = rand(15,20) //might be too few given ~15 roundstart stationside ones
-	human_count = rand(round(0.75 * ticker.mode.num_players_started()), ticker.mode.num_players_started()) // 75%+ roundstart population.
+	animal_count = rand(15, 20) //might be too few given ~15 roundstart stationside ones
+	human_count = rand(round(0.75 * SSticker.mode.num_players_started()), SSticker.mode.num_players_started()) // 75%+ roundstart population.
 	var/non_standard_plants = non_standard_plants_count()
 	plant_count = rand(round(0.5 * non_standard_plants),round(0.7 * non_standard_plants))
 
@@ -171,8 +166,8 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		F.parent = src
 		fillers += F
 
-	if(ticker.mode)
-		for(var/datum/station_goal/dna_vault/G in ticker.mode.station_goals)
+	if(SSticker.mode)
+		for(var/datum/station_goal/dna_vault/G in SSticker.mode.station_goals)
 			animals_max = G.animal_count
 			plants_max = G.plant_count
 			dna_max = G.human_count
@@ -302,3 +297,4 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	H.dna.SetSEState(block, 1, 1)
 	H.mutations |= power
 	genemutcheck(H, block, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(block) //prevent removal by mutadone

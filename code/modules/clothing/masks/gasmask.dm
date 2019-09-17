@@ -10,14 +10,14 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	burn_state = FIRE_PROOF
-	species_fit = list("Vox", "Unathi", "Tajaran", "Vulpkanin", "Grey")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Drask" = 'icons/mob/species/drask/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Plasmaman" = 'icons/mob/species/plasmaman/mask.dmi'
 		)
 
 // **** Welding gas mask ****
@@ -33,34 +33,40 @@
 	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSEYES
+	visor_flags_inv = HIDEEYES
 
-/obj/item/clothing/mask/gas/welding/attack_self()
-	toggle()
+/obj/item/clothing/mask/gas/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
 
-/obj/item/clothing/mask/gas/welding/proc/toggle()
-	if(up)
-		up = !src.up
-		flags_cover |= (MASKCOVERSEYES)
-		flags_inv |= (HIDEEYES)
-		icon_state = initial(icon_state)
-		to_chat(usr, "You flip the [src] down to protect your eyes.")
-		flash_protect = 2
-		tint = 2
-	else
-		up = !up
-		flags_cover &= ~(MASKCOVERSEYES)
-		flags_inv &= ~(HIDEEYES)
-		icon_state = "[initial(icon_state)]up"
-		to_chat(usr, "You push the [src] up out of your face.")
-		flash_protect = 0
-		tint = 0
-	var/mob/living/carbon/user = usr
-	user.update_tint()
-	user.update_inv_wear_mask()	//so our mob-overlays update
+/obj/item/clothing/mask/gas/explorer
+	name = "explorer gas mask"
+	desc = "A military-grade gas mask that can be connected to an air supply."
+	icon_state = "gas_mining"
+	actions_types = list(/datum/action/item_action/adjust)
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0)
+	burn_state = FIRE_PROOF
 
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi'
+		)
+
+/obj/item/clothing/mask/gas/explorer/attack_self(mob/user)
+	adjustmask(user)
+
+/obj/item/clothing/mask/gas/explorer/adjustmask(user)
+	..()
+	w_class = mask_adjusted ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+
+/obj/item/clothing/mask/gas/explorer/folded/Initialize()
+	. = ..()
+	adjustmask()
 
 //Bane gas mask
 /obj/item/clothing/mask/banemask
@@ -102,6 +108,7 @@
 	item_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
 	burn_state = FLAMMABLE
+	dog_fashion = /datum/dog_fashion/head/clown
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
 
@@ -119,26 +126,23 @@
 		to_chat(M, "Your Clown Mask has now morphed into [choice], all praise the Honk Mother!")
 		return 1
 
+/obj/item/clothing/mask/gas/clown_hat/sexy
+	name = "sexy-clown wig and mask"
+	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
+	icon_state = "sexyclown"
+	item_state = "sexyclown"
+
 /obj/item/clothing/mask/gas/clownwiz
 	name = "wizard clown wig and mask"
 	desc = "Some pranksters are truly magical."
 	icon_state = "wizzclown"
 	item_state = "wizzclown"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
+	flags_inv = HIDEEARS | HIDEEYES
+	magical = TRUE
 
-/obj/item/clothing/mask/gas/virusclown_hat
-	name = "clown wig and mask"
-	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
-	icon_state = "clown"
-	item_state = "clown_hat"
+/obj/item/clothing/mask/gas/clown_hat/nodrop
 	flags = NODROP
-
-/obj/item/clothing/mask/gas/sexyclown
-	name = "sexy-clown wig and mask"
-	desc = "A feminine clown mask for the dabbling crossdressers or female entertainers."
-	icon_state = "sexyclown"
-	item_state = "sexyclown"
-	burn_state = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -146,6 +150,9 @@
 	icon_state = "mime"
 	item_state = "mime"
 	burn_state = FLAMMABLE
+
+/obj/item/clothing/mask/gas/mime/nodrop
+	flags = NODROP
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -160,11 +167,6 @@
 	icon_state = "sexymime"
 	item_state = "sexymime"
 	burn_state = FLAMMABLE
-
-/obj/item/clothing/mask/gas/death_commando
-	name = "Death Commando Mask"
-	icon_state = "death_commando_mask"
-	item_state = "death_commando_mask"
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
@@ -187,7 +189,7 @@
 
 /obj/item/clothing/mask/gas/owl_mask/proc/hoot()
 	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
-		playsound(src.loc, 'sound/misc/hoot.ogg', 50, 1)
+		playsound(src.loc, 'sound/creatures/hoot.ogg', 50, 1)
 		cooldown = world.time
 
 // ********************************************************************
@@ -198,12 +200,13 @@
 	name = "security gas mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	icon_state = "sechailer"
+	item_state = "sechailer"
 	var/phrase = 1
 	var/aggressiveness = 1
 	var/safety = 1
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
 	var/phrase_list = list(
-					
+
 								"halt" 			= "HALT! HALT! HALT! HALT!",
 								"bobby" 		= "Stop in the name of the Law.",
 								"compliance" 	        = "Compliance is in your best interest.",
@@ -272,11 +275,11 @@
 	else if(actiontype == /datum/action/item_action/selectphrase)
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
-		
+
 		if (!safety)
 			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
 			return
-		
+
 		switch(aggressiveness)
 			if(1)
 				phrase = (phrase < 6) ? (phrase + 1) : 1

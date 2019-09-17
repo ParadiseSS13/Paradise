@@ -33,11 +33,10 @@
 	return 0
 
 
-/obj/machinery/field/containment/Crossed(mob/mover)
+/obj/machinery/field/containment/Crossed(mob/mover, oldloc)
 	if(isliving(mover))
 		shock_field(mover)
 
-/obj/machinery/field/containment/Crossed(obj/mover)
 	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
 		bump_field(mover)
 
@@ -78,7 +77,7 @@
 	if(isliving(user))
 		var/shock_damage = min(rand(30,40),rand(30,40))
 
-		if(iscarbon(user))
+		if(isliving(user) && !issilicon(user))
 			var/stun = min(shock_damage, 15)
 			user.Stun(stun)
 			user.Weaken(10)

@@ -77,6 +77,21 @@
 
 			add_fingerprint(M)
 
+//Book of Babel
+
+/obj/item/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "book1"
+	w_class = 2
+
+/obj/item/book_of_babel/attack_self(mob/user)
+	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
+	user.grant_all_languages()
+	new /obj/effect/decal/cleanable/ash(get_turf(user))
+	qdel(src)
+
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
 /obj/item/reagent_containers/glass/bottle/potion
@@ -117,6 +132,30 @@
 		H.emote("scream")
 	..()*/
 
+/obj/item/jacobs_ladder
+	name = "jacob's ladder"
+	desc = "A celestial ladder that violates the laws of physics."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder00"
+
+/obj/item/jacobs_ladder/attack_self(mob/user)
+	var/turf/T = get_turf(src)
+	var/ladder_x = T.x
+	var/ladder_y = T.y
+	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
+	var/last_ladder = null
+	for(var/i in 1 to world.maxz)
+		if(is_admin_level(i) || is_away_level(i))
+			continue
+		var/turf/T2 = locate(ladder_x, ladder_y, i)
+		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
+	qdel(src)
+
+// Inherit from unbreakable but don't set ID, to suppress the default Z linkage
+/obj/structure/ladder/unbreakable/jacob
+	name = "jacob's ladder"
+	desc = "An indestructible celestial ladder that violates the laws of physics."
+
 //Boat
 
 /obj/vehicle/lavaboat
@@ -125,13 +164,13 @@
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	keytype = /obj/item/oar
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)
 	var/turf/current = get_turf(src)
 
-	if(istype(next, /turf/unsimulated/floor/lava) || istype(current, /turf/unsimulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
+	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
 		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
@@ -145,7 +184,7 @@
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
@@ -168,10 +207,11 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
+	burn_state = LAVA_PROOF
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
-	playsound(user.loc, 'sound/effects/Glassbr1.ogg', 100, 1)
+	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
 	new /obj/vehicle/lavaboat/dragon(get_turf(src))
 	qdel(src)
 
@@ -184,42 +224,52 @@
 	generic_pixel_x = 1
 	vehicle_move_delay = 1
 
-// Wisp Lantern
+//Wisp Lantern
 /obj/item/wisp_lantern
 	name = "spooky lantern"
 	desc = "This lantern gives off no light, but is home to a friendly wisp."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lantern-blue"
+	item_state = "lantern"
+	light_range = 7
 	var/obj/effect/wisp/wisp
+	var/sight_flags = SEE_MOBS
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
 /obj/item/wisp_lantern/attack_self(mob/user)
 	if(!wisp)
 		to_chat(user, "<span class='warning'>The wisp has gone missing!</span>")
-		return
-	if(wisp.loc == src)
-		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
-		user.sight |= SEE_MOBS
 		icon_state = "lantern"
-		wisp.orbit(user, 20, forceMove = TRUE)
+		return
+
+	if(wisp.loc == src)
+		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+
+		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+		icon_state = "lantern"
+		wisp.orbit(user, 20)
+		set_light(0)
+
+		user.update_sight()
+		to_chat(user, "<span class='notice'>The wisp enhances your vision.</span>")
+
 		feedback_add_details("wisp_lantern","F") // freed
-
 	else
+		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
+
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
-
-		if(wisp.orbiting)
-			var/atom/A = wisp.orbiting
-			if(isliving(A))
-				var/mob/living/M = A
-				M.sight &= ~SEE_MOBS
-				to_chat(M, "<span class='notice'>Your vision returns to normal.</span>")
-
 		wisp.stop_orbit()
-		wisp.loc = src
+		wisp.forceMove(src)
+		set_light(initial(light_range))
+
+		user.update_sight()
+		to_chat(user, "<span class='notice'>Your vision returns to normal.</span>")
+
 		icon_state = "lantern-blue"
 		feedback_add_details("wisp_lantern","R") // returned
 
-/obj/item/wisp_lantern/New()
-	..()
+/obj/item/wisp_lantern/Initialize(mapload)
+	. = ..()
 	wisp = new(src)
 
 /obj/item/wisp_lantern/Destroy()
@@ -230,17 +280,20 @@
 			wisp.visible_message("<span class='notice'>[wisp] has a sad feeling for a moment, then it passes.</span>")
 	return ..()
 
+/obj/item/wisp_lantern/proc/update_user_sight(mob/user)
+	user.sight |= sight_flags
+	if(!isnull(lighting_alpha))
+		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
+
 /obj/effect/wisp
 	name = "friendly wisp"
 	desc = "Happy to light your way."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "orb"
-	layer = ABOVE_ALL_MOB_LAYER
-	light_power = 1
 	light_range = 7
+	layer = ABOVE_ALL_MOB_LAYER
 
 //Red/Blue Cubes
-
 /obj/item/warp_cube
 	name = "blue cube"
 	desc = "A mysterious blue cube."

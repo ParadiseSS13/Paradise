@@ -71,6 +71,30 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	silence_steps = 1
 	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
+	var/enabled_waddle = TRUE
+	var/datum/component/waddle
+
+/obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
+	. = ..()
+	if(slot == slot_shoes && enabled_waddle)
+		waddle = user.AddComponent(/datum/component/waddling)
+
+/obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
+	. = ..()
+	QDEL_NULL(waddle)
+
+/obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if(user.get_active_hand() != src)
+		to_chat(user, "You must hold [src] in your hand to do this.")
+		return
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
 	name = "boots of gripping"
@@ -79,10 +103,11 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	magboot_state = "wizmag"
 	slowdown_active = SHOES_SLOWDOWN //wiz hardsuit already slows you down, no need to double it
 	magpulse_name = "gripping ability"
+	magical = TRUE
 
 /obj/item/clothing/shoes/magboots/wizard/attack_self(mob/user)
 	if(user)
-		if(user.mind in ticker.mode.wizards)
+		if(user.mind in SSticker.mode.wizards)
 			if(magpulse) //faint blue light when shoes are turned on gives a reason to turn them off when not needed in maint
 				set_light(0)
 			else

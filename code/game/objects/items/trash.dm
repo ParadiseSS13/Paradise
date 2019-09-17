@@ -87,6 +87,12 @@
 	name = "bread tube"
 	icon_state = "tastybread"
 
+/obj/item/trash/spentcasing
+	icon = 'icons/obj/ammo.dmi'
+	name = "bullet casing"
+	desc = "A spent bullet casing. Smells like cordite."
+	icon_state = "gshell"
+
 /obj/item/trash/tapetrash
 	name = "old duct tape"
 	icon_state = "tape"

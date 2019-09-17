@@ -169,8 +169,8 @@
 var/list/blacklisted_pylon_turfs = typecacheof(list(
 	/turf/simulated/floor/engine/cult,
 	/turf/space,
-	/turf/unsimulated/floor/lava,
-	/turf/unsimulated/floor/chasm,
+	/turf/simulated/floor/plating/lava,
+	/turf/simulated/floor/chasm,
 	/turf/simulated/wall,
 	))
 
@@ -193,11 +193,11 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	return
 
 /obj/structure/cult/functional/pylon/New()
-	processing_objects |= src
+	START_PROCESSING(SSobj, src)
 	..()
 
 /obj/structure/cult/functional/pylon/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/structure/cult/functional/pylon/process()
@@ -271,7 +271,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 		return
 	return
 
-/obj/effect/gateway/Crossed(AM as mob|obj)
+/obj/effect/gateway/Crossed(AM as mob|obj, oldloc)
 	spawn(0)
 		return
 	return

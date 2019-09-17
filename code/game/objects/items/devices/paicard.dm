@@ -339,3 +339,7 @@
 		pai.ex_act(severity)
 	else
 		qdel(src)
+
+/obj/item/paicard/extinguish_light()
+	pai.extinguish_light()
+	set_light(0)

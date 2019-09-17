@@ -5,6 +5,7 @@
 	damage_type = BRUTE
 	flag = "bullet"
 	hitsound_wall = "ricochet"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
@@ -109,6 +110,15 @@
 	range = rand(1, 10)
 	..()
 
+/obj/item/projectile/bullet/pellet/assassination
+	damage = 12
+	tile_dropoff = 1	// slightly less damage and greater damage falloff compared to normal buckshot
+
+/obj/item/projectile/bullet/pellet/assassination/on_hit(atom/target, blocked = 0)
+	if(..(target, blocked))
+		var/mob/living/M = target
+		M.AdjustSilence(2)	// HELP MIME KILLING ME IN MAINT
+
 /obj/item/projectile/bullet/pellet/overload/on_hit(atom/target, blocked = 0)
  	..()
  	explosion(target, 0, 0, 2)
@@ -199,23 +209,6 @@
 	damage = 10
 	weaken = 4
 	stun = 4
-
-/obj/item/projectile/bullet/honker
-	name = "banana"
-	damage = 0
-	weaken = 5
-	stun = 5
-	forcedodge = 1
-	nodamage = 1
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	hitsound = 'sound/items/bikehorn.ogg'
-	icon = 'icons/obj/hydroponics/harvest.dmi'
-	icon_state = "banana"
-	range = 200
-
-/obj/item/projectile/bullet/honker/New()
-	..()
-	SpinAnimation()
 
 /obj/item/projectile/bullet/mime
 	damage = 0

@@ -11,7 +11,6 @@
 
 	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NOGUNS, NO_EXAMINE) //Can't use guns due to muzzle flash
 	burn_mod = 1.5 //1.5x burn damage, 2x is excessive
-	oxy_mod = 0
 	heatmod = 1.5
 
 	silent_steps = 1
@@ -63,7 +62,6 @@
 
 	species_traits = list(NO_BLOOD, NO_BREATHE, RADIMMUNE, NO_EXAMINE)
 	burn_mod = 1.1
-	oxy_mod = 0
 	heatmod = 1.1
 
 /datum/species/shadow/ling/lesser/handle_life(mob/living/carbon/human/H)

@@ -94,32 +94,32 @@
 		T.reconsider_lights()
 	update_freelook_sight()
 
-/obj/machinery/door/poddoor/multi_tile/four_tile_ver/
+/obj/machinery/door/poddoor/multi_tile/four_tile_ver
 	icon = 'icons/obj/doors/1x4blast_vert.dmi'
 	width = 4
 	dir = NORTH
 
-/obj/machinery/door/poddoor/multi_tile/three_tile_ver/
+/obj/machinery/door/poddoor/multi_tile/three_tile_ver
 	icon = 'icons/obj/doors/1x3blast_vert.dmi'
 	width = 3
 	dir = NORTH
 
-/obj/machinery/door/poddoor/multi_tile/two_tile_ver/
+/obj/machinery/door/poddoor/multi_tile/two_tile_ver
 	icon = 'icons/obj/doors/1x2blast_vert.dmi'
 	width = 2
 	dir = NORTH
 
-/obj/machinery/door/poddoor/multi_tile/four_tile_hor/
+/obj/machinery/door/poddoor/multi_tile/four_tile_hor
 	icon = 'icons/obj/doors/1x4blast_hor.dmi'
 	width = 4
 	dir = EAST
 
-/obj/machinery/door/poddoor/multi_tile/three_tile_hor/
+/obj/machinery/door/poddoor/multi_tile/three_tile_hor
 	icon = 'icons/obj/doors/1x3blast_hor.dmi'
 	width = 3
 	dir = EAST
 
-/obj/machinery/door/poddoor/multi_tile/two_tile_hor/
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor
 	icon = 'icons/obj/doors/1x2blast_hor.dmi'
 	width = 2
 	dir = EAST

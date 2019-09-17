@@ -9,10 +9,20 @@
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 
-	suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to trascend understanding of the universe!</b></span>")
-		return (user.dust())
+/obj/item/storage/bible/suicide_act(mob/user)
+	to_chat(viewers(user), "<span class='warning'><b>[user] stares into [src.name] and attempts to transcend understanding of the universe!</b></span>")
+	user.dust()
+	return OBLITERATION
 
+/obj/item/storage/bible/fart_act(mob/living/M)
+	if(QDELETED(M) || M.stat == DEAD)
+		return
+	M.visible_message("<span class='danger'>[M] farts on \the [name]!</span>")
+	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
+	M.suiciding = TRUE
+	do_sparks(3, 1, M)
+	M.gib()
+	return TRUE // Don't run the fart emote
 
 /obj/item/storage/bible/booze
 	name = "bible"
@@ -44,7 +54,7 @@
 	else
 		M.LAssailant = user
 
-	if(!(istype(user, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
+	if(!(istype(user, /mob/living/carbon/human) || SSticker) && SSticker.mode.name != "monkey")
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(!user.mind || !user.mind.isholy)

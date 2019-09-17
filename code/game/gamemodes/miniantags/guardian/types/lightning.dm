@@ -19,8 +19,8 @@
 	var/successfulshocks = 0
 
 /mob/living/simple_animal/hostile/guardian/beam/AttackingTarget()
-	..()
-	if(isliving(target) && target != src && target != summoner)
+	. = ..()
+	if(. && isliving(target) && target != src && target != summoner)
 		cleardeletedchains()
 		for(var/chain in enemychains)
 			var/datum/beam/B = chain
@@ -99,7 +99,6 @@
 				if(istype(G) && G.summoner == summoner)
 					continue
 				if(successfulshocks > 4)
-					//L.electrocute_act(30, src) //shocks for 30 burn damage
 					L.visible_message(
 						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
 						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \

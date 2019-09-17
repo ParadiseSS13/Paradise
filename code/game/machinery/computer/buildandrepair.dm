@@ -48,13 +48,24 @@
 	var/frame_desc = null
 	var/contain_parts = 1
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/circuitboard/computer
 	board_type = "computer"
 
 /obj/item/circuitboard/machine
 	board_type = "machine"
+
+/obj/item/circuitboard/examine(mob/user)
+	..()
+	if(LAZYLEN(req_components))
+		var/list/nice_list = list()
+		for(var/B in req_components)
+			var/atom/A = B
+			if(!ispath(A))
+				continue
+			nice_list += list("[req_components[A]] [initial(A.name)]")
+		to_chat(user,"<span class='notice'>Required components: [english_list(nice_list)].</span>")
 
 /obj/item/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
@@ -207,6 +218,10 @@
 	name = "Circuit board (Power Monitor)"
 	build_path = /obj/machinery/computer/monitor
 	origin_tech = "programming=2;powerstorage=2"
+/obj/item/circuitboard/powermonitor/secret
+	name = "Circuit board (Outdated Power Monitor)"
+	build_path = /obj/machinery/computer/monitor/secret
+	origin_tech = "programming=2;powerstorage=2"
 /obj/item/circuitboard/olddoor
 	name = "Circuit board (DoorMex)"
 	build_path = /obj/machinery/computer/pod/old
@@ -219,6 +234,9 @@
 /obj/item/circuitboard/prisoner
 	name = "Circuit board (Prisoner Management)"
 	build_path = /obj/machinery/computer/prisoner
+/obj/item/circuitboard/brigcells
+	name = "Circuit board (Brig Cell Control)"
+	build_path = /obj/machinery/computer/brigcells
 
 
 // RD console circuits, so that {de,re}constructing one of the special consoles doesn't ruin everything forever
@@ -325,7 +343,9 @@
 /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	name = "circuit board (Syndicate Drop Pod)"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
-
+/obj/item/circuitboard/shuttle/golem_ship
+	name = "circuit Board (Golem Ship)"
+	build_path = /obj/machinery/computer/shuttle/golem_ship
 
 /obj/item/circuitboard/HolodeckControl
 	name = "Circuit board (Holodeck Control)"

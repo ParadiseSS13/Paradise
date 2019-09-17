@@ -46,7 +46,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 
 // You aren't allowed to move.
 /obj/machinery/gravity_generator/Move()
-	..()
+	. = ..()
 	qdel(src)
 
 /obj/machinery/gravity_generator/proc/set_broken()
@@ -85,8 +85,8 @@ var/const/GRAV_NEEDS_WRENCH = 3
 // Generator which spawns with the station.
 //
 
-/obj/machinery/gravity_generator/main/station/Initialize()
-	..()
+/obj/machinery/gravity_generator/main/station/Initialize(mapload)
+	. = ..()
 	setup_parts()
 	middle.overlays += "activated"
 	update_list()
@@ -331,7 +331,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 				charge_count -= 2
 
 			if(charge_count % 4 == 0 && prob(75)) // Let them know it is charging/discharging.
-				playsound(src.loc, 'sound/effects/EMPulse.ogg', 100, 1)
+				playsound(src.loc, 'sound/effects/empulse.ogg', 100, 1)
 
 			updateDialog()
 			if(prob(25)) // To help stop "Your clothes feel warm" spam.

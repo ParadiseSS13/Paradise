@@ -23,6 +23,7 @@
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	var/mob/living/carbon/occupant = null
@@ -76,6 +77,15 @@
 
 	var/stepsound = 'sound/mecha/mechstep.ogg'
 	var/turnsound = 'sound/mecha/mechturn.ogg'
+	var/nominalsound = 'sound/mecha/nominal.ogg'
+	var/zoomsound = 'sound/mecha/imag_enh.ogg'
+	var/critdestrsound = 'sound/mecha/critdestr.ogg'
+	var/weapdestrsound = 'sound/mecha/weapdestr.ogg'
+	var/lowpowersound = 'sound/mecha/lowpower.ogg'
+	var/longactivationsound = 'sound/mecha/nominal.ogg'
+	var/starting_voice = /obj/item/mecha_modkit/voice
+	var/activated = FALSE
+	var/power_warned = FALSE
 
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
@@ -109,7 +119,7 @@
 	smoke_system.attach(src)
 	add_cell()
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	log_message("[src] created.")
 	GLOB.mechas_list += src //global mech list
@@ -121,9 +131,17 @@
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
 
+	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
+	V.install(src)
+	qdel(V)
+
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
+
+/obj/mecha/get_cell()
+	return cell
+
 /obj/mecha/proc/add_airtank()
 	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
 	return internal_tank
@@ -232,7 +250,7 @@
 	if(M.damtype =="brute")
 		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
 	else if(M.damtype == "fire")
-		playsound(src, 'sound/items/Welder.ogg', 50, 1)
+		playsound(src, 'sound/items/welder.ogg', 50, 1)
 	else
 		return
 	M.occupant_message("<span class='danger'>You hit [src].</span>")
@@ -657,7 +675,7 @@
 		QDEL_NULL(cell)
 		QDEL_NULL(internal_tank)
 
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	equipment.Cut()
 	cell = null
@@ -708,6 +726,7 @@
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
 /obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > max_temperature)
 		log_message("Exposed to dangerous temperature.", 1)
 		take_damage(5, "fire")
@@ -872,6 +891,16 @@
 		user.drop_item()
 		qdel(P)
 
+	else if(istype(W, /obj/item/mecha_modkit))
+		if(occupant)
+			to_chat(user, "<span class='notice'>You can't access the mech's modification port while it is occupied.</span>")
+			return
+		var/obj/item/mecha_modkit/M = W
+		if(do_after_once(user, M.install_time, target = src))
+			M.install(src, user)
+		else
+			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
+
 	else
 		return attacked_by(W, user)
 
@@ -993,7 +1022,7 @@
 	icon_state = initial(icon_state)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
-		occupant << sound('sound/mecha/nominal.ogg',volume=50)
+		occupant << sound(nominalsound, volume = 50)
 	AI.cancel_camera()
 	AI.controlled_mech = src
 	AI.remote_control = src
@@ -1151,8 +1180,13 @@
 		icon_state = reset_icon()
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
-		if(!hasInternalDamage())
-			occupant << sound('sound/mecha/nominal.ogg', volume = 50)
+		if(!activated)
+			occupant << sound(longactivationsound, volume = 50)
+			activated = TRUE
+		else if(!hasInternalDamage())
+			occupant << sound(nominalsound, volume = 50)
+		if(state)
+			H.throw_alert("locked", /obj/screen/alert/mech_maintenance)
 		return 1
 	else
 		return 0
@@ -1208,7 +1242,7 @@
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
-			to_chat(occupant, sound('sound/mecha/nominal.ogg',volume=50))
+			to_chat(occupant, sound(nominalsound, volume=50))
 		GrantActions(brainmob)
 		return 1
 	else
@@ -1235,6 +1269,7 @@
 		return
 	var/atom/movable/mob_container
 	occupant.clear_alert("charge")
+	occupant.clear_alert("locked")
 	occupant.clear_alert("mech damage")
 	occupant.clear_alert("mechaport")
 	occupant.clear_alert("mechaport_d")
@@ -1349,14 +1384,40 @@
 /obj/mecha/proc/use_power(amount)
 	if(get_charge())
 		cell.use(amount)
+		if(occupant)
+			update_cell()
 		return 1
 	return 0
 
 /obj/mecha/proc/give_power(amount)
 	if(!isnull(get_charge()))
 		cell.give(amount)
+		if(occupant)
+			update_cell()
 		return 1
 	return 0
+
+/obj/mecha/proc/update_cell()
+	if(cell)
+		var/cellcharge = cell.charge/cell.maxcharge
+		switch(cellcharge)
+			if(0.75 to INFINITY)
+				occupant.clear_alert("charge")
+			if(0.5 to 0.75)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 1)
+			if(0.25 to 0.5)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 2)
+				if(power_warned)
+					power_warned = FALSE
+			if(0.01 to 0.25)
+				occupant.throw_alert("charge", /obj/screen/alert/mech_lowcell, 3)
+				if(!power_warned)
+					occupant << sound(lowpowersound, volume = 50)
+					power_warned = TRUE
+			else
+				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
+	else
+		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
 
 /obj/mecha/proc/reset_icon()
 	if(initial_icon)
@@ -1461,6 +1522,8 @@
 	if(occupant_sight_flags)
 		if(user == occupant)
 			user.sight |= occupant_sight_flags
+
+	..()
 
 /obj/mecha/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, end_pixel_y)
 	if(!no_effect)

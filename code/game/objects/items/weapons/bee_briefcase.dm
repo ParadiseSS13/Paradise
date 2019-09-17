@@ -56,6 +56,7 @@
 		playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 
 /obj/item/bee_briefcase/attack_self(mob/user as mob)
+	var/bees_released
 	if(!bees_left)
 		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
 		return
@@ -69,4 +70,5 @@
 			var/mob/living/simple_animal/hostile/poison/bees/syndi/B = new /mob/living/simple_animal/hostile/poison/bees/syndi(null)
 			B.master_and_friends = blood_list.Copy()	//Doesn't automatically add the person who opens the case, so the bees will attack the user unless they gave their blood
 			B.forceMove(get_turf(user))			//RELEASE THE BEES!
-		bees_left -= 5
+			bees_released++
+		bees_left -= bees_released

@@ -39,3 +39,6 @@
 
 /obj/item/stack/telecrystal/twenty
 	amount = 20
+
+/obj/item/stack/telecrystal/fifty
+	amount = 50

@@ -88,40 +88,6 @@
 
 	return 1
 
-/mob/living/silicon/robot/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
-	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
-	sight = initial(sight)
-
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
-			return
-
-	if(sight_mode & BORGMESON)
-		sight |= SEE_TURFS
-		see_invisible = min(see_invisible, SEE_INVISIBLE_MINIMUM)
-		see_in_dark = 1
-
-	if(sight_mode & BORGXRAY)
-		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_invisible = SEE_INVISIBLE_LIVING
-		see_in_dark = 8
-
-	if(sight_mode & BORGTHERM)
-		sight |= SEE_MOBS
-		see_invisible = min(see_invisible, SEE_INVISIBLE_LIVING)
-		see_in_dark = 8
-
-	if(see_override)
-		see_invisible = see_override
-
 /mob/living/silicon/robot/handle_hud_icons()
 	update_items()
 	update_cell()
@@ -230,7 +196,7 @@
 	if(on_fire)
 		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
 
-/mob/living/silicon/robot/fire_act()
+/mob/living/silicon/robot/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
 		IgniteMob()
 

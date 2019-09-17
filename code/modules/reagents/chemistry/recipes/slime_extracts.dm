@@ -250,7 +250,7 @@
 
 /datum/chemical_reaction/slimestabilizer/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/slimepotion/stabilizer/P = new /obj/item/slimepotion/stabilizer
+	var/obj/item/slimepotion/slime/stabilizer/P = new /obj/item/slimepotion/slime/stabilizer
 	P.forceMove(get_turf(holder.my_atom))
 
 //Dark Blue
@@ -380,7 +380,7 @@
 
 /datum/chemical_reaction/slimepsteroid/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/slimepotion/steroid/P = new /obj/item/slimepotion/steroid
+	var/obj/item/slimepotion/slime/steroid/P = new /obj/item/slimepotion/slime/steroid
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimejam
@@ -423,7 +423,7 @@
 
 /datum/chemical_reaction/slimemutator/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/slimepotion/mutator/P = new /obj/item/slimepotion/mutator
+	var/obj/item/slimepotion/slime/mutator/P = new /obj/item/slimepotion/slime/mutator
 	P.forceMove(get_turf(holder.my_atom))
 
 /datum/chemical_reaction/slimebloodlust
@@ -469,7 +469,7 @@
 
 /datum/chemical_reaction/docility/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/item/slimepotion/docility/P = new /obj/item/slimepotion/docility
+	var/obj/item/slimepotion/slime/docility/P = new /obj/item/slimepotion/slime/docility
 	P.forceMove(get_turf(holder.my_atom))
 
 
@@ -531,9 +531,7 @@
 
 /datum/chemical_reaction/slimegolem/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/obj/effect/golemrune/Z = new /obj/effect/golemrune
-	Z.forceMove(get_turf(holder.my_atom))
-	notify_ghosts("Golem rune created in [get_area(Z)].", source = Z)
+	new /obj/item/stack/sheet/mineral/adamantine(get_turf(holder.my_atom))
 
 //Bluespace
 /datum/chemical_reaction/slimefloor2

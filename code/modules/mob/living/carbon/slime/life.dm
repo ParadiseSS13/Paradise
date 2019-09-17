@@ -174,11 +174,11 @@
 	else
 		health = 150 - (getOxyLoss() + getToxLoss() + getFireLoss() + getBruteLoss() + getCloneLoss())
 
-	if(health < config.health_threshold_dead && stat != 2)
+	if(health < HEALTH_THRESHOLD_DEAD && check_death_method() && stat != DEAD)
 		death()
 		return
 
-	else if(src.health <= config.health_threshold_crit)
+	else if(src.health <= HEALTH_THRESHOLD_CRIT && check_death_method())
 
 		if(!src.reagents.has_reagent("epinephrine"))
 			src.adjustOxyLoss(10)

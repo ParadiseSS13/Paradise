@@ -25,6 +25,11 @@
 	port_id = "ferry"
 	name = "Base Shuttle Template (Ferry)"
 
+/datum/map_template/shuttle/admin
+	port_id = "admin"
+	name = "Base Shuttle Template (Admin)"
+
+
 
 // Shuttles start here:
 
@@ -117,3 +122,13 @@
 		definitely no zombifyin' reagents!"
 	admin_notes = "Meat currently contains no zombifying reagents, people on \
 		meatspike must be spawned in."
+
+/datum/map_template/shuttle/admin/hospital
+	suffix = "hospital"
+	name = "NHV Asclepius"
+	description = "Nanostrasen Hospital ship, for medical assistance during disasters."
+
+/datum/map_template/shuttle/admin/admin
+	suffix = "admin"
+	name = "NTV Argos"
+	description = "Default Admin ship. An older ship used for special operations."

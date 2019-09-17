@@ -112,7 +112,7 @@
 		occupantData["stat"] = occupant.stat
 		occupantData["health"] = occupant.health
 		occupantData["maxHealth"] = occupant.maxHealth
-		occupantData["minHealth"] = config.health_threshold_dead
+		occupantData["minHealth"] = HEALTH_THRESHOLD_DEAD
 		occupantData["bruteLoss"] = occupant.getBruteLoss()
 		occupantData["oxyLoss"] = occupant.getOxyLoss()
 		occupantData["toxLoss"] = occupant.getToxLoss()
@@ -221,6 +221,6 @@
 				if(crit && victim.health <= -50 )
 					playsound(src.loc, 'sound/machines/defib_success.ogg', 50, 0)
 				if(oxy && victim.getOxyLoss()>oxyAlarm)
-					playsound(src.loc, 'sound/machines/defib_saftyOff.ogg', 50, 0)
+					playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
 				if(healthAnnounce && victim.health <= healthAlarm)
 					atom_say("[round(victim.health)]")

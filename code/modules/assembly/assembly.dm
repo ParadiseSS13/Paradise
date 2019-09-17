@@ -11,7 +11,7 @@
 	throw_range = 10
 	origin_tech = "magnets=1;engineering=1"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 	var/bomb_name = "bomb" // used for naming bombs / mines
 
@@ -125,7 +125,7 @@
 	..()
 
 /obj/item/assembly/process()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/assembly/examine(mob/user)
 	..()

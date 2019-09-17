@@ -47,7 +47,7 @@
 
 /mob/living/carbon/slime/proc/Feedon(var/mob/living/M)
 	Victim = M
-	src.loc = M.loc
+	forceMove(M.loc)
 	canmove = 0
 	anchored = 1
 	var/lastnut = nutrition
@@ -64,7 +64,7 @@
 		canmove = 0
 
 		if(Adjacent(Victim))
-			loc = M.loc
+			forceMove(M.loc)
 
 			if(iscarbon(Victim))
 				Victim.adjustCloneLoss(rand(5,6))
@@ -163,7 +163,7 @@
 /mob/living/carbon/slime/proc/UpdateFeed(var/mob/M)
 	if(Victim)
 		if(Victim == M)
-			loc = M.loc // simple "attach to head" effect!
+			forceMove(M.loc) // simple "attach to head" effect!
 
 
 /mob/living/carbon/slime/verb/Evolve()

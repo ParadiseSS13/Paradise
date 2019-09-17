@@ -50,7 +50,7 @@
 	if(!physical)
 		physical = src
 	..()
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 	all_components = list()
 	idle_threads = list()
 
@@ -64,7 +64,7 @@
 			all_components.Remove(CH.device_type)
 			qdel(CH)
 	physical = null
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 

@@ -10,6 +10,7 @@ var/list/robot_verbs_default = list(
 	maxHealth = 100
 	health = 100
 	universal_understand = 1
+	deathgasp_on_death = TRUE
 
 	var/sight_mode = 0
 	var/custom_name = ""
@@ -92,7 +93,7 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, NATIONS_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
@@ -101,6 +102,9 @@ var/list/robot_verbs_default = list(
 
 	var/datum/action/item_action/toggle_research_scanner/scanner = null
 	var/list/module_actions = list()
+
+/mob/living/silicon/robot/get_cell()
+	return cell
 
 /mob/living/silicon/robot/New(loc,var/syndie = 0,var/unfinished = 0, var/alien = 0)
 	spark_system = new /datum/effect_system/spark_spread()
@@ -113,7 +117,9 @@ var/list/robot_verbs_default = list(
 
 	robot_modules_background = new()
 	robot_modules_background.icon_state = "block"
-	robot_modules_background.layer = 19	//Objects that appear on screen are on layer 20, UI should be just below it.
+	robot_modules_background.layer = HUD_LAYER	//Objects that appear on screen are on layer 20, UI should be just below it.
+	robot_modules_background.plane = HUD_PLANE
+
 	ident = rand(1, 999)
 	rename_character(null, get_default_name())
 	update_icons()
@@ -156,6 +162,7 @@ var/list/robot_verbs_default = list(
 		var/datum/robot_component/cell_component = components["power cell"]
 		cell_component.wrapped = cell
 		cell_component.installed = 1
+		cell_component.install()
 
 	diag_hud_set_borgcell()
 	scanner = new(src)
@@ -285,12 +292,8 @@ var/list/robot_verbs_default = list(
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "<span class='warning'>Crisis mode active. Combat module available.</span>")
+		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
 		modules += "Combat"
-	if(ticker && ticker.mode && ticker.mode.name == "nations")
-		var/datum/game_mode/nations/N = ticker.mode
-		if(N.kickoff)
-			modules = list("Nations")
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -389,11 +392,6 @@ var/list/robot_verbs_default = list(
 			module.channels = list("Security" = 1)
 			icon_state =  "droidcombat"
 
-		if("Nations")
-			module = new /obj/item/robot_module/nations(src)
-			module.channels = list()
-			icon_state = "droidpeace"
-
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
 			icon_state = "xenoborg-state-a"
@@ -414,13 +412,38 @@ var/list/robot_verbs_default = list(
 	feedback_inc("cyborg_[lowertext(modtype)]",1)
 	rename_character(real_name, get_default_name())
 
-	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat" || modtype == "Nations")
+	if(modtype == "Medical" || modtype == "Security" || modtype == "Combat")
 		status_flags &= ~CANPUSH
 
 	choose_icon(6,module_sprites)
 	if(!static_radio_channels)
 		radio.config(module.channels)
 	notify_ai(2)
+
+/mob/living/silicon/robot/proc/reset_module()
+	notify_ai(2)
+
+	uneq_all()
+	sight_mode = null
+	hands.icon_state = "nomod"
+	icon_state = "robot"
+	module.remove_subsystems_and_actions(src)
+	QDEL_NULL(module)
+
+	camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
+	rename_character(real_name, get_default_name("Default"))
+	languages = list()
+	speech_synthesizer_langs = list()
+
+	update_icons()
+	update_headlamp()
+
+	speed = 0 // Remove upgrades.
+	ionpulse = FALSE
+	magpulse = FALSE
+	add_language("Robot Talk", 1)
+
+	status_flags |= CANPUSH
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -446,8 +469,10 @@ var/list/robot_verbs_default = list(
 	var/dat = "<HEAD><TITLE>[src.name] Self-Diagnosis Report</TITLE></HEAD><BODY>\n"
 	for(var/V in components)
 		var/datum/robot_component/C = components[V]
-		dat += "<b>[C.name]</b><br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
-
+		if(C.installed == 0)
+			dat += "<b>[C.name]</b><br>MISSING<br>"
+		else
+			dat += "<b>[C.name]</b>[C.installed == -1 ? "<br>DESTROYED" : ""]<br><table><tr><td>Brute Damage:</td><td>[C.brute_damage]</td></tr><tr><td>Electronics Damage:</td><td>[C.electronics_damage]</td></tr><tr><td>Powered:</td><td>[C.is_powered() ? "Yes" : "No"]</td></tr><tr><td>Toggled:</td><td>[ C.toggled ? "Yes" : "No"]</td></table><br>"
 	return dat
 
 /mob/living/silicon/robot/verb/self_diagnosis_verb()
@@ -551,6 +576,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/restrained()
 	return 0
 
+/mob/living/silicon/robot/InCritical()
+	return low_power_mode
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
@@ -599,6 +626,9 @@ var/list/robot_verbs_default = list(
 		if(!getBruteLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
 			return
+		else if(!getBruteLoss(TRUE))
+			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+			return
 		var/obj/item/weldingtool/WT = W
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(WT.remove_fuel(0))
@@ -611,10 +641,13 @@ var/list/robot_verbs_default = list(
 			return
 
 
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src,/mob/living/silicon/robot/drone)))
+	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+			return
+		else if(!getFireLoss(TRUE))
+			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
 			return
 		var/obj/item/stack/cable_coil/coil = W
 		adjustFireLoss(-30)
@@ -662,10 +695,10 @@ var/list/robot_verbs_default = list(
 					I.burn = C.electronics_damage
 
 				I.loc = src.loc
-
-				if(C.installed == 1)
-					C.uninstall()
+				var/was_installed = C.installed
 				C.installed = 0
+				if(was_installed == 1)
+					C.uninstall()
 
 		else
 			if(locked)
@@ -852,6 +885,8 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
 		wires.Interact(user)
+	else
+		..() //this calls the /mob/living/attack_ghost proc for the ghost health/cyborg analyzer
 
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
@@ -890,7 +925,7 @@ var/list/robot_verbs_default = list(
 		else
 			overlays += "[panelprefix]-openpanel -c"
 
-	var/combat = list("Combat","Nations")
+	var/combat = list("Combat")
 	if(modtype in combat)
 		if(base_icon == "")
 			base_icon = icon_state
@@ -1293,61 +1328,6 @@ var/list/robot_verbs_default = list(
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-
-
-/mob/living/silicon/robot/syndicate
-	base_icon = "syndie_bloodhound"
-	icon_state = "syndie_bloodhound"
-	lawupdate = 0
-	scrambledcodes = 1
-	pdahide = 1
-	faction = list("syndicate")
-	designation = "Syndicate Assault"
-	modtype = "Syndicate"
-	req_access = list(access_syndicate)
-	ionpulse = 1
-	magpulse = 1
-	lawchannel = "State"
-	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
-							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
-							<i>Help the operatives secure the disk at all costs!</i></b>"
-
-/mob/living/silicon/robot/syndicate/New(loc)
-	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
-
-/mob/living/silicon/robot/syndicate/init()
-	laws = new /datum/ai_laws/syndicate_override
-	module = new /obj/item/robot_module/syndicate(src)
-
-	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
-	radio = new /obj/item/radio/borg/syndicate(src)
-	radio.recalculateChannels()
-
-	spawn(5)
-		if(playstyle_string)
-			to_chat(src, playstyle_string)
-
-	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
-
-/mob/living/silicon/robot/syndicate/medical
-	base_icon = "syndi-medi"
-	icon_state = "syndi-medi"
-	modtype = "Syndicate Medical"
-	designation = "Syndicate Medical"
-	playstyle_string = "<span class='userdanger'>You are a Syndicate medical cyborg!</span><br>\
-						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
-						Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
-						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
-
-/mob/living/silicon/robot/syndicate/medical/init()
-	..()
-	module = new /obj/item/robot_module/syndicate_medical(src)
-
 /mob/living/silicon/robot/combat
 	base_icon = "droidcombat"
 	icon_state = "droidcombat"
@@ -1403,30 +1383,12 @@ var/list/robot_verbs_default = list(
 	mind.special_role = SPECIAL_ROLE_ERT
 	if(cyborg_unlock)
 		crisis = 1
-	if(!(mind in ticker.minds))
-		ticker.minds += mind
-	ticker.mode.ert += mind
+	if(!(mind in SSticker.minds))
+		SSticker.minds += mind
+	SSticker.mode.ert += mind
 
 /mob/living/silicon/robot/ert/gamma
 	crisis = 1
-
-/mob/living/silicon/robot/nations
-	base_icon = "droidpeace"
-	icon_state = "droidpeace"
-	modtype = "Nations"
-	designation = "Nations"
-
-/mob/living/silicon/robot/nations/init()
-	..()
-	module = new /obj/item/robot_module/nations(src)
-	//languages
-	module.add_languages(src)
-	//subsystems
-	module.add_subsystems_and_actions(src)
-
-	status_flags &= ~CANPUSH
-
-	notify_ai(2)
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()
@@ -1436,11 +1398,14 @@ var/list/robot_verbs_default = list(
 		if(2)
 			disable_component("comms", 60)
 
+/mob/living/silicon/robot/extinguish_light()
+	update_headlamp(1, 150)
+
 /mob/living/silicon/robot/rejuvenate()
 	..()
 	var/brute = 1000
 	var/burn = 1000
-	var/list/datum/robot_component/borked_parts = get_damaged_components(brute,burn,1)
+	var/list/datum/robot_component/borked_parts = get_damaged_components(TRUE, TRUE, TRUE, TRUE)
 	for(var/datum/robot_component/borked_part in borked_parts)
 		brute = borked_part.brute_damage
 		burn = borked_part.electronics_damage
@@ -1461,3 +1426,38 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/check_ear_prot()
 	return ear_protection
+
+/mob/living/silicon/robot/update_sight()
+	if(!client)
+		return
+
+	if(stat == DEAD)
+		grant_death_vision()
+		return
+
+	see_invisible = initial(see_invisible)
+	see_in_dark = initial(see_in_dark)
+	sight = initial(sight)
+	lighting_alpha = initial(lighting_alpha)
+
+	if(client.eye != src)
+		var/atom/A = client.eye
+		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
+			return
+
+	if(sight_mode & BORGMESON)
+		sight |= SEE_TURFS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+	if(sight_mode & BORGXRAY)
+		sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
+		see_invisible = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		see_in_dark = 8
+
+	if(sight_mode & BORGTHERM)
+		sight |= SEE_MOBS
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+
+	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
+	sync_lighting_plane_alpha()
+	

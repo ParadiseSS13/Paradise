@@ -12,6 +12,8 @@
 	var/open = FALSE
 	var/brightness_on = 14
 
+/obj/machinery/floodlight/get_cell()
+	return cell
 
 /obj/machinery/floodlight/Initialize()
 	. = ..()
@@ -132,3 +134,7 @@
 				cell = W
 				to_chat(user, "You insert the power cell.")
 	updateicon()
+
+/obj/machinery/floodlight/extinguish_light()
+	on = 0
+	set_light(0)

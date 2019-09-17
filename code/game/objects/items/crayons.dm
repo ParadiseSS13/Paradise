@@ -23,7 +23,7 @@
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (BRUTELOSS|OXYLOSS)
+	return BRUTELOSS|OXYLOSS
 
 /obj/item/toy/crayon/New()
 	..()

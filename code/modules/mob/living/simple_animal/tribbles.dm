@@ -176,7 +176,7 @@ var/global/totaltribbles = 0   //global variable so it updates for all tribbles,
 			playsound(src, "shatter", 70, 1)
 			Break()
 	else
-		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/glasshit.ogg', 75, 1)
 	return
 
 /obj/structure/tribble_cage/update_icon()

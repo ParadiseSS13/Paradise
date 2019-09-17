@@ -51,12 +51,12 @@
 	charges = max_charges
 	chambered = new ammo_type(src)
 	if(can_charge)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 
 
 /obj/item/gun/magic/Destroy()
 	if(can_charge)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 

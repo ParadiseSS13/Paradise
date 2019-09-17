@@ -5,13 +5,13 @@
 /obj/machinery/porta_turret/tag
 	// Reasonable defaults, in case someone manually spawns us
 	var/lasercolor = "r"	//Something to do with lasertag turrets, blame Sieve for not adding a comment.
-	installation = /obj/item/gun/energy/laser/redtag
+	installation = /obj/item/gun/energy/laser/tag/red
 
 /obj/machinery/porta_turret/tag/red
 
 /obj/machinery/porta_turret/tag/blue
 	lasercolor = "b"
-	installation = /obj/item/gun/energy/laser/bluetag
+	installation = /obj/item/gun/energy/laser/tag/blue
 
 /obj/machinery/porta_turret/tag/New()
 	..()
@@ -19,8 +19,8 @@
 
 /obj/machinery/porta_turret/tag/weapon_setup(var/obj/item/gun/energy/E)
 	switch(E.type)
-		if(/obj/item/gun/energy/laser/bluetag)
-			eprojectile = /obj/item/gun/energy/laser/bluetag
+		if(/obj/item/gun/energy/laser/tag/blue)
+			eprojectile = /obj/item/gun/energy/laser/tag/blue
 			lasercolor = "b"
 			req_access = list(access_maint_tunnels, access_theatre)
 			check_arrest = 0
@@ -30,8 +30,8 @@
 			check_anomalies = 0
 			shot_delay = 30
 
-		if(/obj/item/gun/energy/laser/redtag)
-			eprojectile = /obj/item/gun/energy/laser/redtag
+		if(/obj/item/gun/energy/laser/tag/red)
+			eprojectile = /obj/item/gun/energy/laser/tag/red
 			lasercolor = "r"
 			req_access = list(access_maint_tunnels, access_theatre)
 			check_arrest = 0
@@ -81,13 +81,13 @@
 	..()
 
 	if(lasercolor == "b" && disabled == 0)
-		if(istype(Proj, /obj/item/gun/energy/laser/redtag))
+		if(istype(Proj, /obj/item/gun/energy/laser/tag/red))
 			disabled = 1
 			qdel(Proj) // qdel
 			sleep(100)
 			disabled = 0
 	if(lasercolor == "r" && disabled == 0)
-		if(istype(Proj, /obj/item/gun/energy/laser/bluetag))
+		if(istype(Proj, /obj/item/gun/energy/laser/tag/blue))
 			disabled = 1
 			qdel(Proj) // qdel
 			sleep(100)
@@ -105,10 +105,10 @@
 	switch(lasercolor)
 		if("b")
 			target_suit = /obj/item/clothing/suit/redtag
-			target_weapon = /obj/item/gun/energy/laser/redtag
+			target_weapon = /obj/item/gun/energy/laser/tag/red
 		if("r")
 			target_suit = /obj/item/clothing/suit/bluetag
-			target_weapon = /obj/item/gun/energy/laser/bluetag
+			target_weapon = /obj/item/gun/energy/laser/tag/blue
 
 
 	if(target_suit)//Lasertag turrets target the opposing team, how great is that? -Sieve

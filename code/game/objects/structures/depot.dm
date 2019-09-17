@@ -64,7 +64,7 @@
 		depotarea.activate_self_destruct("Fusion reactor cracked open. Core loose!", TRUE)
 	var/obj/effect/overload/O = new /obj/effect/overload(get_turf(src))
 	if(containment_failure)
-		playsound(loc, 'sound/machines/Alarm.ogg', 100, 0, 0)
+		playsound(loc, 'sound/machines/alarm.ogg', 100, 0, 0)
 		O.deliberate = TRUE
 		O.max_cycles = 6
 	if(!skip_qdel)
@@ -87,7 +87,7 @@
 /obj/effect/overload/New()
 	. = ..()
 	// Do not attempt to put the code below into Initialize() or even LateInitialize() with a "return INITIALIZE_HINT_LATELOAD". It won't work!
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	depotarea = areaMaster
 	if(istype(depotarea))
 		if(!depotarea.used_self_destruct)
@@ -122,6 +122,6 @@
 	for(var/obj/mecha/E in range(30, T))
 		E.Destroy()
 	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 

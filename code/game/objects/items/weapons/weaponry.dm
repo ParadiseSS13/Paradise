@@ -12,8 +12,8 @@
 
 
 /obj/item/banhammer/suicide_act(mob/user)
-		to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
-		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
+	to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
+	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 /obj/item/sord
 	name = "\improper SORD"
@@ -49,7 +49,7 @@
 
 /obj/item/claymore/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/claymore/ceremonial
 	name = "ceremonial claymore"
@@ -76,7 +76,7 @@
 
 /obj/item/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
-	return(BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/harpoon
 	name = "harpoon"
@@ -89,7 +89,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("jabbed","stabbed","ripped")
 
-obj/item/wirerod
+/obj/item/wirerod
 	name = "Wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
@@ -101,7 +101,7 @@ obj/item/wirerod
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
-obj/item/wirerod/attackby(obj/item/I, mob/user, params)
+/obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
@@ -157,6 +157,8 @@ obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	icon = 'icons/obj/items.dmi'
 	icon_state = "baseball_bat"
 	item_state = "baseball_bat"
+	var/deflectmode = FALSE // deflect small/medium thrown objects
+	var/lastdeflect
 	force = 10
 	throwforce = 12
 	attack_verb = list("beat", "smacked")
@@ -169,14 +171,54 @@ obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
 	homerun_able = 1
 
+/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type, atom/movable/AM)
+	. = ..()
+	if(!istype(AM, /obj/item) || attack_type != THROWN_PROJECTILE_ATTACK)
+		return FALSE
+	var/obj/item/I = AM
+	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
+		if(deflectmode)
+			if(prob(10))
+				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
+				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
+				do_attack_animation(I, ATTACK_EFFECT_DISARM)
+				I.throw_at(I.thrownby, 20, 20, owner)
+				deflectmode = FALSE
+				if(!istype(I, /obj/item/beach_ball))
+					lastdeflect = world.time + 3000
+				return TRUE
+			else if(prob(30))
+				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
+				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				do_attack_animation(get_step(owner, pick(alldirs)), ATTACK_EFFECT_DISARM)
+				deflectmode = FALSE
+				if(!istype(I, /obj/item/beach_ball))
+					lastdeflect = world.time + 3000
+				return FALSE
+			else
+				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
+				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
+				do_attack_animation(I, ATTACK_EFFECT_DISARM)
+				I.throw_at(get_edge_target_turf(owner, pick(cardinal)), rand(8,10), 14, owner)
+				deflectmode = FALSE
+				if(!istype(I, /obj/item/beach_ball))
+					lastdeflect = world.time + 3000
+				return TRUE
+
 /obj/item/melee/baseball_bat/attack_self(mob/user)
 	if(!homerun_able)
-		..()
-		return
+		if(!deflectmode && world.time >= lastdeflect)
+			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
+			deflectmode = TRUE
+		else if(deflectmode && world.time >= lastdeflect)
+			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
+			deflectmode = FALSE
+		else
+			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "m:ss")]</span>")
+		return ..()
 	if(homerun_ready)
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
-		..()
-		return
+		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
 	if(do_after(user, 90, target = user))
@@ -185,16 +227,19 @@ obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 
 /obj/item/melee/baseball_bat/attack(mob/living/target, mob/living/user)
+	if(deflectmode)
+		to_chat(user, "<span class='warning'>You cannot attack in deflect mode!</span>")
+		return
 	. = ..()
 	var/atom/throw_target = get_edge_target_turf(target, user.dir)
 	if(homerun_ready)
 		user.visible_message("<span class='userdanger'>It's a home run!</span>")
 		target.throw_at(throw_target, rand(8,10), 14, user)
 		target.ex_act(2)
-		playsound(get_turf(src), 'sound/weapons/HOMERUN.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
-	else
+	else if(!target.anchored)
 		target.throw_at(throw_target, rand(1,2), 7, user)
 
 /obj/item/melee/baseball_bat/ablative

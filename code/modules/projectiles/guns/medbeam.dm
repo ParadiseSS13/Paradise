@@ -1,6 +1,6 @@
 /obj/item/gun/medbeam
 	name = "Medical Beamgun"
-	desc = "Delivers medical nanites in a focused beam."
+	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams!"
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
@@ -17,10 +17,10 @@
 
 /obj/item/gun/medbeam/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/gun/medbeam/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/medbeam/handle_suicide()
@@ -54,8 +54,8 @@
 	feedback_add_details("gun_fired","[type]")
 
 /obj/item/gun/medbeam/process()
-	var/mob/living/carbon/human/H = loc
-	if(!istype(H))
+	var/source = loc
+	if(!ishuman(source) && !isrobot(source))
 		LoseTarget()
 		return
 
@@ -68,9 +68,9 @@
 
 	last_check = world.time
 
-	if(get_dist(H,current_target)>max_range || !los_check(H,current_target))
+	if(get_dist(source,current_target)>max_range || !los_check(source,current_target))
 		LoseTarget()
-		to_chat(H, "<span class='warning'>You lose control of the beam!</span>")
+		to_chat(source, "<span class='warning'>You lose control of the beam!</span>")
 		return
 
 	if(current_target)
@@ -92,6 +92,7 @@
 				return 0
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
 			if(B.owner != current_beam)
+				turf.visible_message("<span class='boldwarning'>The medbeams cross and EXPLODE!</span>")
 				explosion(B.loc,0,3,5,8)
 				qdel(dummy)
 				return 0

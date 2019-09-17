@@ -4,13 +4,14 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/meatballsoup
-	name = "Meatball soup"
+	name = "meatball soup"
 	desc = "You've got balls kid, BALLS!"
 	icon_state = "meatballsoup"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#785210"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	tastes = list("meatball" = 1)
 
 /obj/item/reagent_containers/food/snacks/slimesoup
 	name = "slime soup"
@@ -19,40 +20,45 @@
 	filling_color = "#C4DBA0"
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "slimejelly" = 5, "water" = 5, "vitamin" = 4)
+	tastes = list("slime" = 1)
 
 /obj/item/reagent_containers/food/snacks/bloodsoup
-	name = "Tomato soup"
+	name = "tomato soup"
 	desc = "Smells like copper."
 	icon_state = "tomatosoup"
 	filling_color = "#FF0000"
 	bitesize = 5
 	list_reagents = list("nutriment" = 2, "blood" = 10, "water" = 5, "vitamin" = 4)
+	tastes = list("iron" = 1)
 
 /obj/item/reagent_containers/food/snacks/clownstears
-	name = "Clown's Tears"
+	name = "clown's tears"
 	desc = "Not very funny."
 	icon_state = "clownstears"
 	filling_color = "#C4FBFF"
 	bitesize = 5
 	list_reagents = list("nutriment" = 4, "banana" = 5, "water" = 5, "vitamin" = 8)
+	tastes = list("a bad joke" = 1)
 
 /obj/item/reagent_containers/food/snacks/vegetablesoup
-	name = "Vegetable soup"
+	name = "vegetable soup"
 	desc = "A true vegan meal." //TODO
 	icon_state = "vegetablesoup"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#AFC4B5"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	tastes = list("vegetables" = 1)
 
 /obj/item/reagent_containers/food/snacks/nettlesoup
-	name = "Nettle soup"
-	desc = "To think, the botanist would've beat you to death with one of these."
+	name = "nettle soup"
+	desc = "To think, the botanist would've beaten you to death with one of these."
 	icon_state = "nettlesoup"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#AFC4B5"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "water" = 5, "vitamin" = 4)
+	tastes = list("nettles" = 1)
 
 /obj/item/reagent_containers/food/snacks/mysterysoup
 	name = "mystery soup"
@@ -61,6 +67,7 @@
 	var/extra_reagent = null
 	bitesize = 5
 	list_reagents = list("nutriment" = 6)
+	tastes = list("chaos" = 1)
 
 /obj/item/reagent_containers/food/snacks/mysterysoup/New()
 	..()
@@ -75,6 +82,7 @@
 	filling_color = "#D1F4FF"
 	bitesize = 5
 	list_reagents = list("water" = 10)
+	tastes = list("wishes" = 1)
 
 /obj/item/reagent_containers/food/snacks/wishsoup/New()
 	..()
@@ -84,21 +92,23 @@
 		reagents.add_reagent("vitamin", 1)
 
 /obj/item/reagent_containers/food/snacks/tomatosoup
-	name = "Tomato Soup"
+	name = "tomato soup"
 	desc = "Drinking this feels like being a vampire! A tomato vampire..."
 	icon_state = "tomatosoup"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#D92929"
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "tomatojuice" = 10, "vitamin" = 3)
+	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/milosoup
-	name = "Milosoup"
+	name = "milosoup"
 	desc = "The universe's best soup! Yum!!!"
 	icon_state = "milosoup"
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	tastes = list("milo" = 1)
 
 /obj/item/reagent_containers/food/snacks/mushroomsoup
 	name = "chantrelle soup"
@@ -108,6 +118,7 @@
 	filling_color = "#E386BF"
 	bitesize = 5
 	list_reagents = list("nutriment" = 8, "vitamin" = 4)
+	tastes = list("mushroom" = 1)
 
 /obj/item/reagent_containers/food/snacks/beetsoup
 	name = "beet soup"
@@ -117,6 +128,7 @@
 	bitesize = 5
 	filling_color = "#FAC9FF"
 	list_reagents = list("nutriment" = 7, "vitamin" = 2)
+	tastes = list("beet" = 1)
 
 /obj/item/reagent_containers/food/snacks/beetsoup/New()
 	..()
@@ -128,19 +140,21 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/stew
-	name = "Stew"
+	name = "stew"
 	desc = "A nice and warm stew. Healthy and strong."
 	icon_state = "stew"
 	filling_color = "#9E673A"
 	bitesize = 7
 	list_reagents = list("nutriment" = 10, "oculine" = 5, "tomatojuice" = 5, "vitamin" = 5)
+	tastes = list("tomato" = 1, "carrot" = 1)
 
 /obj/item/reagent_containers/food/snacks/stewedsoymeat
-	name = "Stewed Soy Meat"
+	name = "stewed soy meat"
 	desc = "Even non-vegetarians will LOVE this!"
 	icon_state = "stewedsoymeat"
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 8)
+	tastes = list("soy" = 1, "vegetables" = 1)
 
 
 //////////////////////
@@ -148,19 +162,21 @@
 //////////////////////
 
 /obj/item/reagent_containers/food/snacks/hotchili
-	name = "Hot Chili"
+	name = "hot chili"
 	desc = "A five alarm Texan Chili!"
 	icon_state = "hotchili"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#FF3C00"
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "capsaicin" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	tastes = list("hot peppers" = 1, "tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/coldchili
-	name = "Cold Chili"
+	name = "cold chili"
 	desc = "This slush is barely a liquid!"
 	icon_state = "coldchili"
 	filling_color = "#2B00FF"
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
 	list_reagents = list("nutriment" = 5, "frostoil" = 1, "tomatojuice" = 2, "vitamin" = 2)
+	tastes = list("tomato" = 1, "mint" = 1)

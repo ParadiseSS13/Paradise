@@ -125,6 +125,7 @@
 	name = "Portable Seed Extractor"
 	desc = "For the enterprising botanist on the go. Less efficient than the stationary model, it creates one seed per plant."
 	build_type = PROTOLATHE
+	id = "portaseeder"
 	req_tech = list("biotech" = 3, "engineering" = 2)
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 400)
 	build_path = /obj/item/storage/bag/plants/portaseeder
@@ -268,4 +269,14 @@
 	build_path = /obj/item/multitool/abductor
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 5000, MAT_SILVER = 2500, MAT_PLASMA = 5000, MAT_TITANIUM = 2000, MAT_DIAMOND = 2000)
+	category = list("Equipment")
+
+/datum/design/bluespace_closet
+	name = "Bluespace Closet"
+	desc = "A storage unit that moves and stores through the fourth dimension."
+	id = "bluespace_closet"
+	req_tech = list("engineering" = 4, "programming" = 5, "bluespace" = 5, "magnets" = 4, "plasmatech" = 3)
+	build_path = /obj/structure/closet/bluespace
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 	category = list("Equipment")

@@ -58,12 +58,6 @@
 			<div class="line">
 				{{:helper.link('Restart Nano-Mob Hunter GO! Server', 'power-off', {'PRG_operation' : 'RestartNanoMob'})}}
 			</div>
-			{{if data.dock_request}}
-			<div class="line">
-				{{:helper.link('Accept Docking Request', 'signal', {'PRG_operation' : 'AcceptDocking'})}}
-				{{:helper.link('Deny Docking Request', 'signal', {'PRG_operation' : 'DenyDocking'})}}
-			</div>
-			{{/if}}
 		</div>
 	{{else data.screen==2}}
 		<!-- STATUS DISPLAYS -->

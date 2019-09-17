@@ -11,6 +11,7 @@
 	{{:helper.link('Job Management', 'gear', {'action' : 'PRG_mode', 'mode_target' : 1}, data.mode == 1 ? 'disabled' : null)}}
 	{{:helper.link('Crew Manifest', 'folder-open', {'action' : 'PRG_mode', 'mode_target' : 2}, data.mode == 2 ? 'disabled' : null)}}
 	{{:helper.link('Print', 'print', {'action' : 'PRG_print'}, data.printer && (data.mode == 2 || data.has_modify && !data.mode) ? null : 'disabled')}}
+	{{:helper.link('Records', 'file', {'action' : 'PRG_mode', 'mode_target' : 3}, (data.mode == 3) ? 'disabled' : null)}}
 
 	{{if data.mode == 1}}
 	<div class='item'>
@@ -51,6 +52,31 @@
 		</div>
 		<div class='item'>
 			{{:data.manifest}}
+		</div>
+	{{else data.mode == 3}}
+		<div class='item'>
+		    <h2>Records</h2>
+        </div>
+        <div class='item'>
+		    <div class='itemLabel'>
+				Authorized Identity:
+		    </div>
+		    <div class='itemContent'>
+				{{:helper.link(data.scan_name, 'eject', {'action' : 'scan'})}}
+		    </div>
+		</div>
+		<div class='item'>
+		    {{if data.authenticated}}
+				{{:data.id_change_html}}
+				{{if data.centcom_access}}
+					{{:helper.link('Delete Records By: ' + data.scan_owner, null, {'action' : 'PRG_wipe_my_logs'}, null, 'linkDanger')}}
+				{{/if}}
+				{{if !data.target_dept}}
+					{{:helper.link('Delete ALL Records', null, {'action' : 'PRG_wipe_all_logs'}, null, 'linkDanger')}}
+				{{/if}}
+		    {{else}}
+				<span class='exclamation-triangle'><i>Please insert an authorized ID into the terminal to proceed.</i></span><br>
+		    {{/if}}
 		</div>
 	{{else}}
     <div class='item'>
@@ -149,7 +175,11 @@
             Terminations:
           </div>
           <div class='itemContent'>
-            {{:helper.link('Terminate ' + data.target_owner, 'gear', {'action' : 'PRG_terminate'}, data.target_rank == "Terminated" ? 'disabled' : null, data.target_rank == "Terminated" ? 'disabled' : 'linkDanger')}}
+			{{if data.target_rank == "Terminated"}}
+				<span class='bad'>{{:data.target_owner}} has already been terminated!</span>
+			{{else}}
+				{{:helper.link('Terminate ' + data.target_owner, 'gear', {'action' : 'PRG_terminate'}, data.target_rank == "Terminated" ? 'disabled' : null, data.target_rank == "Terminated" ? 'disabled' : 'linkDanger')}}
+			{{/if}}
           </div>
         </div>
 
@@ -168,15 +198,16 @@
               <tr>
                 <th>Special</th>
                 <td>
-                  {{:helper.link("Captain", '', {'action' : 'PRG_assign', 'assign_target' : 'Captain'}, data.target_rank == 'Captain' ? 'disabled' : null)}}
-                  {{:helper.link("Custom", '', {'action' : 'PRG_assign', 'assign_target' : 'Custom'})}}
+					{{for data.top_jobs}}
+						{{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
+					{{/for}}
                 </td>
               </tr>
               <tr>
                 <th style="color: '#FFA500';">Engineering</th>
                 <td>
                   {{for data.engineering_jobs}}
-                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -184,7 +215,7 @@
                 <th style="color: '#008000';">Medical</th>
                 <td>
                   {{for data.medical_jobs}}
-                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -192,7 +223,7 @@
                 <th style="color: '#DD0000';">Security</th>
                 <td>
                   {{for data.security_jobs}}
-                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -200,7 +231,7 @@
                 <th style="color: '#C060C0';">Science</th>
                 <td>
                   {{for data.science_jobs}}
-                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -208,7 +239,7 @@
                 <th style="color: '#A0A0A0';">Support</th>
                 <td>
                   {{for data.support_jobs}}
-                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -216,7 +247,7 @@
                 <th style="color: '#808080';">Civilian</th>
                 <td>
                   {{for data.civilian_jobs}}
-                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
+                    {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                   {{/for}}
                 </td>
               </tr>
@@ -225,7 +256,7 @@
                   <th style="color: '#A52A2A';">CentComm</th>
                   <td>
                     {{for data.centcom_jobs}}
-                      {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, data.target_rank == value.job ? 'disabled' : null)}}
+                      {{:helper.link(value.display_name, '', {'action' : 'PRG_assign', 'assign_target' : value.job}, value.jlinkformat == 'disabled' ? 'disabled' : null, value.jlinkformat ? value.jlinkformat : null)}}
                     {{/for}}
                   </td>
                 </tr>

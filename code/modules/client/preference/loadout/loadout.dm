@@ -4,7 +4,6 @@ var/list/gear_datums = list()
 /datum/loadout_category
 	var/category = ""
 	var/list/gear = list()
-	var/donor_only = FALSE
 
 /datum/loadout_category/New(cat)
 	category = cat
@@ -34,8 +33,6 @@ var/list/gear_datums = list()
 		if(!loadout_categories[use_category])
 			loadout_categories[use_category] = new /datum/loadout_category(use_category)
 		var/datum/loadout_category/LC = loadout_categories[use_category]
-		if(initial(G.donor_only))
-			LC.donor_only = TRUE
 		gear_datums[use_name] = new geartype
 		LC.gear[use_name] = gear_datums[use_name]
 
@@ -57,7 +54,7 @@ var/list/gear_datums = list()
 	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
 	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
-	var/donor_only = FALSE // if it's only available to donors
+	var/donator_tier = 0
 
 /datum/gear/New()
 	..()

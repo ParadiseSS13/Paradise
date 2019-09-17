@@ -43,6 +43,7 @@
 	remove_language("Galactic Common")
 	add_language("Drone Talk", 1)
 	add_language("Drone", 1)
+	universal_understand = 0
 
 	// Disable the microphone wire on Drones
 	if(radio)
@@ -99,7 +100,7 @@
 
 /mob/living/silicon/robot/drone/update_icons()
 	overlays.Cut()
-	if(stat == 0)
+	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
@@ -124,7 +125,7 @@
 
 	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 
-		if(stat == 2)
+		if(stat == DEAD)
 
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
@@ -166,7 +167,7 @@
 	..()
 
 /mob/living/silicon/robot/drone/emag_act(user as mob)
-	if(!client || stat == 2)
+	if(!client || stat == DEAD)
 		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
 		return
 
@@ -182,7 +183,7 @@
 	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
 
 	if(jobban_isbanned(src, ROLE_SYNDICATE))
-		ticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
+		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 
@@ -223,12 +224,12 @@
 
 /mob/living/silicon/robot/drone/death(gibbed)
 	. = ..(gibbed)
-	ghostize(can_reenter_corpse = 0)
+	adjustBruteLoss(health)
 
 
 //CONSOLE PROCS
 /mob/living/silicon/robot/drone/proc/law_resync()
-	if(stat != 2)
+	if(stat != DEAD)
 		if(emagged)
 			to_chat(src, "<span class='warning'>You feel something attempting to modify your programming, but your hacked subroutines are unaffected.</span>")
 		else
@@ -237,7 +238,7 @@
 			show_laws()
 
 /mob/living/silicon/robot/drone/proc/shut_down(force=FALSE)
-	if(stat == 2)
+	if(stat == DEAD)
 		return
 
 	if(emagged && !force)
@@ -248,9 +249,9 @@
 	death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
-	clear_supplied_laws()
-	clear_inherent_laws()
-	clear_ion_laws()
+	clear_supplied_laws(TRUE)
+	clear_inherent_laws(TRUE)
+	clear_ion_laws(TRUE)
 	laws = new /datum/ai_laws/drone
 
 //Reboot procs.
@@ -287,12 +288,12 @@
 	lawupdate = 0
 	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
 	full_law_reset()
-	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
-	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>:d</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
-	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
-	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
-	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
+	to_chat(src, "<br><b>Eres un drone de mantenimiento, una pequeña máquina de reparación con un sencillo cerebro electrónico</b>.")
+	to_chat(src, "No tienes voluntad, personalidad ni motivaciones personales excepto mantener la estación en perfecto estado de funcionamiento.")
+	to_chat(src, "Usa <b>:d</b> para hablar con otros drones remotamente, o <b>say</b> para hablar localmente en un lenguaje que solo otros drones entienden.")
+	to_chat(src, "Recuerda <b>estás programado para no interferir con la estación</b>. ADemás, <b>you No tomas órdenes de la IA.</b>")
+	to_chat(src, "<b>No invadas sus espacios de trabajos, no robes sus materiales, no le digas sobre el changeling que hay en los baños.</b>")
+	to_chat(src, "<b>Asegúrate de que la tripulación ni siquiera note tu existencia.</b>.")
 
 /*
 	sprite["Default"] = "repairbot"

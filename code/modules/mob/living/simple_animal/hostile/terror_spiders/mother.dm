@@ -13,18 +13,20 @@
 	desc = "An enormous spider. Hundreds of tiny spiderlings are crawling all over it. Their beady little eyes all stare at you. The horror!"
 	spider_role_summary = "Schmuck bait. Extremely weak in combat, but spawns many spiderlings when it dies."
 	ai_target_method = TS_DAMAGE_SIMPLE
-	icon_state = "terror_gray2"
-	icon_living = "terror_gray2"
-	icon_dead = "terror_gray2_dead"
+	icon_state = "terror_mother"
+	icon_living = "terror_mother"
+	icon_dead = "terror_mother_dead"
 	maxHealth = 50
 	health = 50
 	melee_damage_lower = 10
 	melee_damage_upper = 20
-	move_to_delay = 5
 	idle_ventcrawl_chance = 5
 	spider_tier = TS_TIER_3
 	spider_opens_doors = 2
-	var/canspawn = 1
+	web_type = null
+	var/canspawn = TRUE
+	var/spawn_count = 30
+	var/spawn_pc_stillborn = 50
 	var/datum/action/innate/terrorspider/ventsmash/ventsmash_action
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/New()
@@ -34,24 +36,22 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/death(gibbed)
 	if(can_die())
-		var/always_stillborn = FALSE
 		if(spider_awaymission && !is_away_level(z))
-			always_stillborn = TRUE
+			canspawn = FALSE
+		if(degenerate)
+			canspawn = FALSE
 		if(canspawn)
-			canspawn = 0
-			for(var/i in 0 to 30)
+			canspawn = FALSE
+			for(var/i in 0 to spawn_count)
 				var/obj/structure/spider/spiderling/terror_spiderling/S = new /obj/structure/spider/spiderling/terror_spiderling(get_turf(src))
-				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray)
-				if(always_stillborn || prob(66))
+				if(prob(spawn_pc_stillborn))
 					S.stillborn = 1
-				else if(prob(10))
-					S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/black, /mob/living/simple_animal/hostile/poison/terror_spider/green)
+				S.grow_as = pick(/mob/living/simple_animal/hostile/poison/terror_spider/red, /mob/living/simple_animal/hostile/poison/terror_spider/gray, /mob/living/simple_animal/hostile/poison/terror_spider/green)
 				S.amount_grown = 50 // double speed growth
-				S.immediate_ventcrawl = 1
 			visible_message("<span class='userdanger'>[src] breaks apart, the many spiders on its back scurrying everywhere!</span>")
 			degenerate = 1
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/Destroy()
-	canspawn = 0
+	canspawn = FALSE
 	return ..()

@@ -42,7 +42,7 @@
 				<table>
 					<tr>
 						<td>
-							{{:helper.link('Create pill (50u max)', 'arrow-right', {'createpill': 1})}}
+							{{:helper.link('Create pill (100u max)', 'arrow-right', {'createpill': 1})}}
 						</td>
 						<td>
 							{{:helper.link('Multiple', 'arrow-right', {'createpill_multiple': 1})}}
@@ -64,7 +64,7 @@
 					</tr>
 					<tr>
 						<td>
-							{{:helper.link('Create bottle (30u max)', 'arrow-right', {'createbottle': 1})}}
+							{{:helper.link('Create bottle (50u max)', 'arrow-right', {'createbottle': 1})}}
 						</td>
 						<td>
 							{{:helper.link('Style', 'pencil', {'change_bottle': 1})}}
@@ -80,10 +80,27 @@
 {{else}}
 	<span class='item'>No beaker loaded</span><br>
 {{/if}}
-<span class='item'>
-	{{if data.loaded_pill_bottle}}
-		{{:helper.link('Pill Bottle (' + data.loaded_pill_bottle_contents_len + '/' + data.loaded_pill_bottle_storage_slots + ')', 'eject', {'ejectp': 1})}}
-	{{else}}
-		{{:helper.link('No Pill Bottle', 'eject', {}, 'disabled')}}
-	{{/if}}
-</span>
+<div class='statusDisplay'>
+	<span class='item'>
+		{{if data.loaded_pill_bottle}}
+		<table>
+			<tr>
+				<td>
+					{{:helper.link('Pill Bottle (' + data.loaded_pill_bottle_contents_len + '/' + data.loaded_pill_bottle_storage_slots + ')', 'eject', {'ejectp': 1})}}
+				</td>
+				<td>
+					{{:helper.link('Change Wrapper', 'pencil', {'change_pillbottle': 1})}}
+				</td>
+			</tr>
+		</table>
+		{{else}}
+			<table>
+				<tr>
+					<td>
+						{{:helper.link('No Pill Bottle', 'eject', {}, 'disabled')}}
+					</td>
+				</tr>
+			</table>
+		{{/if}}
+	</span>
+</div>

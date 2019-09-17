@@ -35,7 +35,7 @@
  * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
  */
 /proc/classic_worldtime2text(time = world.time)
-	time = (round_start_time ? (time - round_start_time) : (time - world.time))
+	time = (SSticker.round_start_time ? (time - SSticker.round_start_time) : (time - world.time))
 	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
 
 //Returns the world time in english
@@ -59,7 +59,7 @@
  - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
    which is much more useful for a player)*/
 /proc/station_time(time=world.time, display_only=FALSE)
-	return ((((time - round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
+	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
 
 /proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
 	return time2text(station_time(time, TRUE), format)
@@ -101,6 +101,10 @@ proc/isDay(var/month, var/day)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
 	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds."
+
+//Take a value in seconds and makes it display like a clock
+/proc/seconds_to_clock(var/seconds as num)
+	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
 //Takes a value of time in deciseconds.
 //Returns a text value of that number in hours, minutes, or seconds.

@@ -9,9 +9,11 @@
 /obj/screen
 	name = ""
 	icon = 'icons/mob/screen_gen.dmi'
-	layer = HUD_LAYER_SCREEN
+	layer = HUD_LAYER
 	plane = HUD_PLANE
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE
+	burn_state = LAVA_PROOF
+	unacidable = TRUE
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
@@ -36,6 +38,8 @@
 
 /obj/screen/close
 	name = "close"
+	layer = ABOVE_HUD_LAYER
+	plane = ABOVE_HUD_PLANE
 
 /obj/screen/close/Click()
 	if(master)
@@ -47,7 +51,6 @@
 /obj/screen/drop
 	name = "drop"
 	icon_state = "act_drop"
-	layer = 19
 
 /obj/screen/drop/Click()
 	usr.drop_item_v()
@@ -93,13 +96,19 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
+/obj/screen/act_intent/robot/AI
+	screen_loc = "EAST-1:32,SOUTH:70"
+
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
 
-
 /obj/screen/act_intent/simple_animal
 	icon = 'icons/mob/screen_simplemob.dmi'
+	screen_loc = ui_acti
+
+/obj/screen/act_intent/guardian
+	icon = 'icons/mob/guardian.dmi'
 	screen_loc = ui_acti
 
 /obj/screen/mov_intent/Click()
@@ -140,7 +149,6 @@
 	name = "resist"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "act_resist"
-	layer = 19
 
 /obj/screen/resist/Click()
 	if(isliving(usr))
@@ -324,7 +332,6 @@
 /obj/screen/inventory
 	var/slot_id	//The indentifier for the slot. It has nothing to do with ID cards.
 	var/list/object_overlays = list()
-	layer = 19
 
 /obj/screen/inventory/MouseEntered()
 	..()
@@ -414,7 +421,6 @@
 	return 1
 
 /obj/screen/swap_hand
-	layer = 19
 	name = "swap hand"
 
 /obj/screen/swap_hand/Click()
@@ -451,6 +457,11 @@
 /obj/screen/healths/corgi
 	icon = 'icons/mob/screen_corgi.dmi'
 
+/obj/screen/healths/slime
+	icon = 'icons/mob/screen_slime.dmi'
+	icon_state = "slime_health0"
+	screen_loc = ui_slime_health
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/healths/guardian
 	name = "summoner health"
@@ -465,9 +476,13 @@
 	screen_loc = ui_healthdoll
 	var/list/cached_healthdoll_overlays = list() // List of icon states (strings) for overlays
 
+/obj/screen/healthdoll/Click()
+	if(ishuman(usr))
+		var/mob/living/carbon/H = usr
+		H.check_self_for_injuries()
+
 /obj/screen/component_button
 	var/obj/screen/parent
-
 
 /obj/screen/component_button/Initialize(mapload, obj/screen/new_parent)
 	. = ..()

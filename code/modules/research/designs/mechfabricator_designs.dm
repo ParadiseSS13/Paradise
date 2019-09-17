@@ -974,9 +974,9 @@
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demolishing solid obstacles."
 	id = "mech_plasma_cutter"
 	build_type = MECHFAB
-	req_tech = list("engineering" = 3, "materials" = 3, "plasmatech" = 4)
+	req_tech = list("engineering" = 4, "materials" = 5, "plasmatech" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	materials = list(MAT_METAL = 8000, MAT_GLASS = 1000, MAT_PLASMA = 2000)
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 2000, MAT_PLASMA = 6000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -1135,7 +1135,7 @@
 	id = "integrated_robotic_chassis"
 	build_type = MECHFAB
 	build_path = /mob/living/carbon/human/machine/created
-	materials = list(MAT_METAL = 40000)
+	materials = list(MAT_METAL = 40000, MAT_TITANIUM = 7000) //for something made from lego, they sure need a lot of metal
 	construction_time = 400
 	category = list("Misc")
 
@@ -1184,4 +1184,55 @@
 	materials = list(MAT_METAL = 750, MAT_GLASS = 750)
 	construction_time = 100
 	build_path = /obj/item/flash/synthetic
+	category = list("Misc")
+
+/datum/design/voice_standard
+	name = "Voice Modkit : Standard"
+	desc = "A modification kit that updates a mech's onboard voice to Standard."
+	id = "voice_standard"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 500)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice
+	category = list("Misc")
+
+/datum/design/voice_nanotrasen
+	name = "Voice Modkit : Nanotrasen"
+	desc = "A modification kit that updates a mech's onboard voice to Nanotrasen."
+	id = "voice_nanotrasen"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 500)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/nanotrasen
+	category = list("Misc")
+
+/datum/design/voice_silent
+	name = "Voice Modkit : Silent"
+	desc = "A modification kit that silences a mech's onboard voice."
+	id = "voice_silent"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 500)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/silent
+	category = list("Misc")
+
+/datum/design/voice_honk
+	name = "Voice Modkit : Honk"
+	desc = "A modification kit that updates a mech's onboard voice to Honk. This is a terrible idea."
+	id = "voice_honk"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/honk
+	category = list("Misc")
+
+/datum/design/voice_syndicate
+	name = "Voice Modkit : Syndicate"
+	desc = "A modification kit that updates a mech's onboard voice to Syndicate."
+	id = "voice_syndicate"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
+	req_tech = list("syndicate" = 2)
+	construction_time = 50
+	build_path = /obj/item/mecha_modkit/voice/syndicate
 	category = list("Misc")

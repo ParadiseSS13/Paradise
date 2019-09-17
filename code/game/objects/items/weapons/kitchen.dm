@@ -9,11 +9,15 @@
  *		Rolling Pins
  *		Candy Moulds
  *		Sushi Mat
+ *		Circular cutter
  */
 
 /obj/item/kitchen
 	icon = 'icons/obj/kitchen.dmi'
 	origin_tech = "materials=1"
+
+
+
 
 /*
  * Utensils
@@ -111,13 +115,14 @@
 	throw_range = 6
 	materials = list(MAT_METAL=12000)
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
-	sharp = 1
+	sharp = TRUE
+	var/bayonet = FALSE	//Can this be attached to a gun?
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>", \
 						"<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>"))
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/kitchen/knife/plastic
 	name = "plastic knife"
@@ -160,6 +165,23 @@
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
+	bayonet = TRUE
+
+/obj/item/kitchen/knife/combat/survival
+	name = "survival knife"
+	icon_state = "survivalknife"
+	desc = "A hunting grade survival knife."
+	force = 15
+	throwforce = 15
+
+/obj/item/kitchen/knife/combat/survival/bone
+	name = "bone dagger"
+	item_state = "bone_dagger"
+	icon_state = "bone_dagger"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	desc = "A sharpened bone. The bare minimum in survival."
+	materials = list()
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
@@ -178,6 +200,7 @@
 	materials = list()
 	origin_tech = "biotech=3;combat=2"
 	attack_verb = list("shanked", "shivved")
+
 
 /*
  * Rolling Pins
@@ -251,7 +274,7 @@
 	desc = "It has the shape of a sucker imprinted into it."
 	icon_state = "mould_loli"
 
-/* 
+/*
  * Sushi Mat
  */
 /obj/item/kitchen/sushimat
@@ -264,3 +287,19 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("rolled", "cracked", "battered", "thrashed")
+
+
+
+/// circular cutter by Ume
+
+/obj/item/kitchen/cutter
+	name = "generic circular cutter"
+	desc = "A generic circular cutter for cookies and other things."
+	icon = 'icons/obj/kitchen.dmi'
+	icon_state = "circular_cutter"
+	force = 5
+	throwforce = 5
+	throw_speed = 3
+	throw_range = 3
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("bashed", "slashed", "pricked", "thrashed")

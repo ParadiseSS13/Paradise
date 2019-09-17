@@ -21,7 +21,7 @@
 	crushed_can.is_glass = is_glass
 	crushed_can.is_plastic = is_plastic
 	if(is_glass)
-		playsound(user.loc, 'sound/effects/Glassbr3.ogg', rand(10, 50), 1)
+		playsound(user.loc, 'sound/effects/glassbr3.ogg', rand(10, 50), 1)
 		crushed_can.name = "broken bottle"
 	else
 		playsound(user.loc, 'sound/weapons/pierce.ogg', rand(10, 50), 1)
@@ -59,34 +59,34 @@
 		return ..(target, user, proximity)
 
 /obj/item/reagent_containers/food/drinks/cans/cola
-	name = "Space Cola"
+	name = "space cola"
 	desc = "Cola. in space."
 	icon_state = "cola"
 	list_reagents = list("cola" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/beer
-	name = "Space Beer"
+	name = "space beer"
 	desc = "Contains only water, malt and hops."
 	icon_state = "beer"
 	is_glass = 1
 	list_reagents = list("beer" = 30)
 
 /obj/item/reagent_containers/food/drinks/cans/adminbooze
-	name = "Admin Booze"
+	name = "admin booze"
 	desc = "Bottled Griffon tears. Drink with caution."
 	icon_state = "adminbooze"
 	is_glass = 1
 	list_reagents = list("adminordrazine" = 5, "capsaicin" = 5, "methamphetamine"= 20, "thirteenloko" = 20)
 
 /obj/item/reagent_containers/food/drinks/cans/madminmalt
-	name = "Madmin Malt"
+	name = "madmin malt"
 	desc = "Bottled essence of angry admins. Drink with <i>EXTREME</i> caution."
 	icon_state = "madminmalt"
 	is_glass = 1
 	list_reagents = list("hell_water" = 20, "neurotoxin" = 15, "thirteenloko" = 15)
 
 /obj/item/reagent_containers/food/drinks/cans/badminbrew
-	name = "Badmin Brew"
+	name = "badmin brew"
 	desc = "Bottled trickery and terrible admin work. Probably shouldn't drink this one at all."
 	icon_state = "badminbrew"
 	is_glass = 1
@@ -156,7 +156,7 @@
 	list_reagents = list("tonic" = 50)
 
 /obj/item/reagent_containers/food/drinks/cans/sodawater
-	name = "Soda Water"
+	name = "soda water"
 	desc = "A can of soda water. Still water's more refreshing cousin."
 	icon_state = "sodawater"
 	list_reagents = list("sodawater" = 50)

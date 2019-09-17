@@ -64,8 +64,8 @@
 
 // the inlet stage of the gas turbine electricity generator
 
-/obj/machinery/power/compressor/New()
-	..()
+/obj/machinery/power/compressor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/power_compressor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -80,10 +80,6 @@
 
 	gas_contained = new
 	inturf = get_step(src, dir)
-
-
-/obj/machinery/power/compressor/Initialize()
-	..()
 	locate_machinery()
 	if(!turbine)
 		stat |= BROKEN
@@ -185,8 +181,8 @@
 #define TURBGENQ 100000
 #define TURBGENG 0.5
 
-/obj/machinery/power/turbine/New()
-	..()
+/obj/machinery/power/turbine/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/power_turbine(src)
 	component_parts += new /obj/item/stock_parts/capacitor(src)
@@ -200,10 +196,6 @@
 // The outlet is pointed at the direction of the turbine component
 
 	outturf = get_step(src, dir)
-
-
-/obj/machinery/power/turbine/Initialize()
-	..()
 	locate_machinery()
 	if(!compressor)
 		stat |= BROKEN

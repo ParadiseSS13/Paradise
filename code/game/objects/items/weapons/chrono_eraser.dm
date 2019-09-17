@@ -177,7 +177,7 @@
 		update_icon()
 
 		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/effect/chrono_field/Destroy()
 	if(gun && gun.field_check(src))

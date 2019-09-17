@@ -100,6 +100,7 @@ var/global/list/bad_blocks[0]
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
+	var/list/default_blocks = list() //list of all blocks toggled at roundstart
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -437,3 +438,17 @@ var/global/list/bad_blocks[0]
 	species = new S
 	b_type = data["b_type"]
 	real_name = data["real_name"]
+
+/datum/dna/proc/transfer_identity(mob/living/carbon/human/destination)
+	if(!istype(destination))
+		return
+
+	// We manually set the species to ensure all proper species change procs are called.
+	destination.set_species(species.type, retain_damage = TRUE)
+	var/datum/dna/new_dna = Clone()
+	new_dna.species = destination.dna.species
+	destination.dna = new_dna
+	destination.dna.species.handle_dna(destination) // Handle DNA has to be re-called as the DNA was changed.
+
+	destination.UpdateAppearance()
+	domutcheck(destination, null, MUTCHK_FORCED)

@@ -246,7 +246,7 @@
 		return
 
 	// Clumsy folks can only flush it.
-	if(user.IsAdvancedToolUser(1))
+	if(user.IsAdvancedToolUser())
 		ui_interact(user)
 	else
 		flush = !flush
@@ -417,6 +417,9 @@
 	for(var/mob/living/silicon/robot/drone/D in src)
 		wrapcheck = 1
 
+	for(var/mob/living/silicon/robot/syndicate/saboteur/R in src)
+		wrapcheck = 1
+
 	for(var/obj/item/smallDelivery/O in src)
 		wrapcheck = 1
 
@@ -461,7 +464,7 @@
 
 			AM.loc = src.loc
 			AM.pipe_eject(0)
-			if(!istype(AM,/mob/living/silicon/robot/drone)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
+			if(!istype(AM, /mob/living/silicon/robot/drone) && !istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Poor drones kept smashing windows and taking system damage being fired out of disposals. ~Z
 				spawn(1)
 					if(AM)
 						AM.throw_at(target, 5, 1)
@@ -523,7 +526,7 @@
 	//Check for any living mobs trigger hasmob.
 	//hasmob effects whether the package goes to cargo or its tagged destination.
 	for(var/mob/living/M in D)
-		if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
+		if(M && M.stat != 2 && !istype(M, /mob/living/silicon/robot/drone) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
 			hasmob = 1
 
 	//Checks 1 contents level deep. This means that players can be sent through disposals...
@@ -531,7 +534,7 @@
 	for(var/obj/O in D)
 		if(O.contents)
 			for(var/mob/living/M in O.contents)
-				if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone))
+				if(M && M.stat != 2 && !istype(M,/mob/living/silicon/robot/drone) && !istype(M, /mob/living/silicon/robot/syndicate/saboteur))
 					hasmob = 1
 
 	// now everything inside the disposal gets put into the holder
@@ -553,6 +556,9 @@
 		if(istype(AM, /mob/living/silicon/robot/drone))
 			var/mob/living/silicon/robot/drone/drone = AM
 			destinationTag = drone.mail_destination
+		if(istype(AM, /mob/living/silicon/robot/syndicate/saboteur))
+			var/mob/living/silicon/robot/syndicate/saboteur/S = AM
+			destinationTag = S.mail_destination
 		if(istype(AM, /obj/item/shippingPackage) && !hasmob)
 			var/obj/item/shippingPackage/sp = AM
 			if(sp.sealed)	//only sealed packages get delivered to their intended destination
@@ -674,7 +680,7 @@
 	dir = 0				// dir will contain dominant direction for junction pipes
 	var/health = 10 	// health points 0-10
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100)
-	layer = 2.3			// slightly lower than wires and other pipes
+	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	var/base_icon_state	// initial icon state on map
 
 	// new pipe, set the icon_state as on map
@@ -686,11 +692,9 @@
 // pipe is deleted
 // ensure if holder is present, it is expelled
 /obj/structure/disposalpipe/Destroy()
-	var/obj/structure/disposalholder/H = locate() in src
-	if(H)
-		// holder was present
+	for(var/obj/structure/disposalholder/H in contents)
 		H.active = 0
-		var/turf/T = src.loc
+		var/turf/T = loc
 		if(T.density)
 			// deleting pipe is inside a dense turf (wall)
 			// this is unlikely, but just dump out everything into the turf in case
@@ -703,8 +707,7 @@
 			return
 
 		// otherwise, do normal expel from turf
-		if(H)
-			expel(H, T, 0)
+		expel(H, T, 0)
 	return ..()
 
 /obj/structure/disposalpipe/singularity_pull(S, current_size)
@@ -1033,6 +1036,7 @@
 
 		if(O.currTag > 0)// Tag set
 			sortType = O.currTag
+			name = GLOB.TAGGERLOCATIONS[O.currTag]
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")
@@ -1304,7 +1308,7 @@
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
-		if(istype(AM,/mob/living/silicon/robot/drone)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+		if(istype(AM,/mob/living/silicon/robot/drone) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 			return
 		spawn(5)
 			if(QDELETED(AM))

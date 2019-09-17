@@ -20,7 +20,7 @@
 	burn_state = FLAMMABLE
 	burntime = 5
 	attack_verb = list("bapped")
-
+	dog_fashion = /datum/dog_fashion/head
 	var/info		//What's actually written on the paper.
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
@@ -54,34 +54,38 @@
 
 /obj/item/paper/update_icon()
 	..()
-	if(icon_state == "paper_talisman")
-		return
 	if(info)
 		icon_state = "paper_words"
 		return
 	icon_state = "paper"
 
 /obj/item/paper/examine(mob/user)
-	if(in_range(user, src) || istype(user, /mob/dead/observer))
-		show_content(user)
+	if(user.is_literate())
+		if(in_range(user, src) || istype(user, /mob/dead/observer))
+			show_content(user)
+		else
+			to_chat(user, "<span class='notice'>You have to go closer if you want to read it.</span>")
 	else
-		to_chat(user, "<span class='notice'>You have to go closer if you want to read it.</span>")
+		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
 
 /obj/item/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
 	var/data
-	if((!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars) //assuming all paper is written in common is better than hardcoded type checks
-		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>"
-		if(view)
-			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
-			onclose(usr, "[name]")
+	var/stars = (!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars
+	if(stars) //assuming all paper is written in common is better than hardcoded type checks
+		data = "[stars(info)][stamps]"
 	else
-		data = "<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[infolinks ? info_links : info][stamps]</BODY></HTML>"
-		if(view)
-			usr << browse(data, "window=[name];size=[paper_width]x[paper_height]")
-			onclose(usr, "[name]")
+		data = "<div id='markdown'>[infolinks ? info_links : info]</div>[stamps]"
+	if(view)
+		var/datum/browser/popup = new(user, name, , paper_width, paper_height)
+		popup.stylesheets = list()
+		popup.set_content(data)
+		if(!stars)
+			popup.add_script("marked.js", 'html/browser/marked.js')
+		popup.add_head_content("<title>[name]</title>")
+		popup.open()
 	return data
 
 /obj/item/paper/verb/rename()
@@ -91,6 +95,9 @@
 
 	if((CLUMSY in usr.mutations) && prob(50))
 		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
+		return
+	if(!usr.is_literate())
+		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
 		return
 	var/n_name = sanitize(copytext(input(usr, "What would you like to label the paper?", "Paper Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	if((loc == usr && usr.stat == 0))
@@ -102,7 +109,7 @@
 
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
-	if(rigged && (holiday_master.holidays && holiday_master.holidays[APRIL_FOOLS]))
+	if(rigged && (SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS]))
 		if(spam_flag == 0)
 			spam_flag = 1
 			playsound(loc, 'sound/items/bikehorn.ogg', 50, 1)
@@ -206,7 +213,7 @@
 
 
 /obj/item/paper/proc/parsepencode(var/t, var/obj/item/pen/P, mob/user as mob)
-	t = pencode_to_html(t, usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
+	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
 	return t
 
 /obj/item/paper/proc/populatefields()
@@ -276,7 +283,6 @@
 				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
 */
-		t = html_encode(t)
 		t = parsepencode(t, i, usr) // Encode everything from pencode to html
 
 		if(id!="end")
@@ -328,15 +334,15 @@
 			else if(h_user.l_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
-				B.layer = 20
-				B.plane = HUD_PLANE
+				B.layer = ABOVE_HUD_LAYER
+				B.plane = ABOVE_HUD_PLANE
 				h_user.l_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.r_store == src)
 				h_user.unEquip(src)
 				B.loc = h_user
-				B.layer = 20
-				B.plane = HUD_PLANE
+				B.layer = ABOVE_HUD_LAYER
+				B.plane = ABOVE_HUD_PLANE
 				h_user.r_store = B
 				h_user.update_inv_pockets()
 			else if(h_user.head == src)
@@ -353,13 +359,16 @@
 		B.update_icon()
 
 	else if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		var/obj/item/pen/multi/robopen/RP = P
-		if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
-			RP.RenamePaper(user,src)
+		if(user.is_literate())
+			var/obj/item/pen/multi/robopen/RP = P
+			if(istype(P, /obj/item/pen/multi/robopen) && RP.mode == 2)
+				RP.RenamePaper(user,src)
+			else
+				show_content(user, infolinks = 1)
+			//openhelp(user)
+			return
 		else
-			show_content(user, infolinks = 1)
-		//openhelp(user)
-		return
+			to_chat(user, "<span class='warning'>You don't know how to write!</span>")
 
 	else if(istype(P, /obj/item/stamp))
 		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
@@ -392,9 +401,10 @@
 
 	add_fingerprint(user)
 
-/obj/item/paper/fire_act()
+/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
-	info = "[stars(info)]"
+	if(burn_state >= FLAMMABLE) //Renders paper that has been lit on fire to be illegible.
+		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 /obj/item/paper/proc/stamp(var/obj/item/stamp/S)
 	stamps += (!stamps || stamps == "" ? "<HR>" : "") + "<img src=large_[S.icon_state].png>"
@@ -611,11 +621,11 @@
 
 /obj/item/paper/evilfax/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 
 /obj/item/paper/evilfax/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	if(mytarget && !used)
 		var/mob/living/carbon/target = mytarget
 		target.ForceContractDisease(new /datum/disease/transformation/corgi(0))
@@ -701,4 +711,16 @@
 			H.reagents.add_reagent(contact_poison, contact_poison_volume)
 			contact_poison = null
 			add_attack_logs(src, user, "Picked up [src], the paper poisoned by [contact_poison_poisoner]")
-	..()
+	. = ..()
+
+/obj/item/paper/researchnotes
+	name = "paper - 'Research Notes'"
+	info = "<b>The notes appear gibberish to you. Perhaps a destructive analyzer in R&D could make sense of them.</b>"
+	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
+
+/obj/item/paper/researchnotes/New()
+	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
+	var/mytech = pick(possible_techs)
+	var/mylevel = rand(7, 9)
+	origin_tech = "[mytech]=[mylevel]"
+	name = "research notes - [mytech] [mylevel]"

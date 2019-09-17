@@ -28,4 +28,5 @@
 /mob/living/simple_animal/pet/sloth/paperwork
 	name = "Paperwork"
 	desc = "Cargo's pet sloth. About as useful as the rest of the techs."
+	unique_pet = TRUE
 	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID

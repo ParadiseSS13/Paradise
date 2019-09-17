@@ -30,7 +30,9 @@ var/global/max_secret_rooms = 6
 				T.ChangeTurf(floor)
 				room_turfs["floors"] += T
 
+			var/old_area = T.loc
 			A.contents += T
+			T.change_area(old_area, A)
 
 	return room_turfs
 
@@ -87,7 +89,7 @@ var/global/max_secret_rooms = 6
 		if("cavein")
 			theme = "cavein"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
-			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
+			floortypes = list(/turf/simulated/floor/plating/asteroid/airless, /turf/simulated/floor/beach/sand)
 			treasureitems = list(/obj/mecha/working/ripley/mining=1, /obj/item/pickaxe/drill/diamonddrill=2,
 							/obj/item/resonator/upgraded=1, /obj/item/pickaxe/drill/jackhammer=5)
 			fluffitems = list(/obj/effect/decal/cleanable/blood=3,/obj/effect/decal/remains/human=1,/obj/item/clothing/under/overalls=1,
@@ -96,7 +98,7 @@ var/global/max_secret_rooms = 6
 		if("xenoden")
 			theme = "xenoden"
 			walltypes = list(/turf/simulated/mineral/random/high_chance=1)
-			floortypes = list(/turf/simulated/floor/plating/airless/asteroid, /turf/simulated/floor/beach/sand)
+			floortypes = list(/turf/simulated/floor/plating/asteroid/airless, /turf/simulated/floor/beach/sand)
 			treasureitems = list(/obj/item/clothing/mask/facehugger=1,/obj/item/stack/sheet/animalhide/xeno=2,/obj/item/clothing/suit/xenos=2,/obj/item/clothing/head/xenos=2,/obj/item/guardiancreator/biological/choose=1)
 			fluffitems = list(/obj/effect/decal/remains/human=1,/obj/effect/decal/cleanable/blood/xeno=5)
 
@@ -104,7 +106,7 @@ var/global/max_secret_rooms = 6
 			theme = "hitech"
 			walltypes = list(/turf/simulated/wall/r_wall=5,/turf/simulated/mineral/random=1)
 			floortypes = list(/turf/simulated/floor/greengrid,/turf/simulated/floor/bluegrid)
-			treasureitems = list(/obj/item/stock_parts/cell/hyper=1, /obj/machinery/chem_dispenser/constructable=1,/obj/machinery/computer/telescience=1, /obj/machinery/r_n_d/protolathe=1,
+			treasureitems = list(/obj/item/stock_parts/cell/hyper=1, /obj/item/circuitboard/chem_dispenser=1,/obj/machinery/computer/telescience=1, /obj/machinery/r_n_d/protolathe=1,
 								/obj/machinery/biogenerator=1)
 			fluffitems = list(/obj/structure/table/reinforced=2,/obj/item/stock_parts/scanning_module/phasic=3,
 							  /obj/item/stock_parts/matter_bin/super=3,/obj/item/stock_parts/manipulator/pico=3,
@@ -139,7 +141,7 @@ var/global/max_secret_rooms = 6
 	possiblethemes -= theme //once a theme is selected, it's out of the running!
 	var/floor = pick(floortypes)
 
-	turfs = get_area_turfs(/area/mine/dangerous/unexplored)
+	turfs = get_area_turfs(/area/mine/unexplored)
 
 	if(!turfs.len)
 		return 0
@@ -177,7 +179,7 @@ var/global/max_secret_rooms = 6
 			valid = 0
 			continue
 
-		if(locate(/turf/simulated/floor/plating/airless/asteroid) in range(5,T))//A little less strict than the other checks due to tunnels
+		if(locate(/turf/simulated/floor/plating/asteroid/airless) in range(5,T))//A little less strict than the other checks due to tunnels
 			valid = 0
 			continue
 
@@ -188,10 +190,6 @@ var/global/max_secret_rooms = 6
 
 	if(room)//time to fill it with stuff
 		var/list/emptyturfs = room["floors"]
-		for(var/turf/simulated/floor/A in emptyturfs) //remove pls doesn't fix problem
-			if(istype(A))
-				spawn(2)
-					A.fullUpdateMineralOverlays()
 		T = pick(emptyturfs)
 		if(T)
 			new /obj/structure/glowshroom/single(T) //Just to make it a little more visible

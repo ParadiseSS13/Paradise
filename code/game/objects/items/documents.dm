@@ -39,6 +39,9 @@
 	var/poison_dose = 20
 	var/poison_total = 60
 
+/obj/item/documents/syndicate/mining
+	desc = "\"Top Secret\" documents detailing Syndicate plasma mining operations."
+
 /obj/item/documents/syndicate/yellow/trapped/pickup(user)
 	if(ishuman(user) && poison_total > 0)
 		var/mob/living/carbon/human/H = user
@@ -47,4 +50,4 @@
 			H.reagents.add_reagent(poison_type, poison_dose)
 			poison_total -= poison_dose
 			add_attack_logs(src, user, "Picked up [src], the trapped syndicate documents")
-	..()
+	return ..()

@@ -97,6 +97,9 @@
 		to_chat(usr, "The maintenance panel is [open ? "open" : "closed"].")
 		to_chat(usr, "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</font>"].")
 
+/obj/item/rig/get_cell()
+	return cell
+
 /obj/item/rig/New()
 	..()
 
@@ -110,7 +113,7 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 	if(initial_modules && initial_modules.len)
 		for(var/path in initial_modules)
@@ -166,7 +169,7 @@
 		if(istype(M))
 			M.unEquip(piece)
 		qdel(piece)
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(wires)
 	QDEL_NULL(spark_system)
 	return ..()

@@ -154,7 +154,6 @@ var/global/current_date_string
 			if("toggle_suspension")
 				if(detailed_account_view)
 					detailed_account_view.suspended = !detailed_account_view.suspended
-					callHook("change_account_status", list(detailed_account_view))
 
 			if("finalise_create_account")
 				var/account_name = href_list["holder_name"]

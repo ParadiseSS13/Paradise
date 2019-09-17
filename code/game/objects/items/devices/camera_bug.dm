@@ -32,7 +32,7 @@
 
 /obj/item/camera_bug/New()
 	..()
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/item/camera_bug/Destroy()
 	get_cameras()

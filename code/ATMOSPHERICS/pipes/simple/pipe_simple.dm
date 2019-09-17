@@ -137,6 +137,8 @@
 		node2.update_underlays()
 
 /obj/machinery/atmospherics/pipe/simple/update_icon(var/safety = 0)
+	..()
+	
 	if(!check_icon_cache())
 		return
 
