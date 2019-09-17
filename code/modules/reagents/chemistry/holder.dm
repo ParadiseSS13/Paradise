@@ -750,6 +750,13 @@ var/const/INGEST = 2
 		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
+//helper for attack logs, tells you if all reagents are harmless or not. returns true if harmless.
+/datum/reagents/proc/harmless_helper()
+	for(var/datum/reagent/r in reagent_list)
+		if(!r.harmless)
+			return FALSE
+	return TRUE
+
 //two helper functions to preserve data across reactions (needed for xenoarch)
 /datum/reagents/proc/get_data(reagent_id)
 	for(var/datum/reagent/D in reagent_list)

@@ -294,9 +294,7 @@ This is always put in the attack log.
 	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
-		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
-			loglevel = ATKLOG_FEW
-		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+		if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 			loglevel = ATKLOG_ALL
 		else if(!user.ckey || !target.ckey || (user.ckey == target.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
 			loglevel = ATKLOG_ALMOSTALL
@@ -304,6 +302,8 @@ This is always put in the attack log.
 			var/area/A = get_area(target)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
+	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+		loglevel = ATKLOG_FEW
 
 	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
