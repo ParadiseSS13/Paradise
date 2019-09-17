@@ -576,8 +576,10 @@
 		"visible_message" = message, "self_message" = self_message, "examine_message" = examine_message)
 
 /mob/living/proc/absorb_stun(amount, ignoring_flag_presence)
-	if(!amount || amount <= 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
+	if(amount < 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
 		return FALSE
+	if(!amount)
+		amount = 0
 	var/priority_absorb_key
 	var/highest_priority
 	for(var/i in stun_absorption)
@@ -585,12 +587,13 @@
 			priority_absorb_key = stun_absorption[i]
 			highest_priority = priority_absorb_key["priority"]
 	if(priority_absorb_key)
-		if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
-			if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
-				visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-			else if(priority_absorb_key["visible_message"])
-				visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
-			else if(priority_absorb_key["self_message"])
-				to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-		priority_absorb_key["stuns_absorbed"] += amount
+		if(amount) //don't spam up the chat for continuous stuns
+			if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
+				if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
+					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+				else if(priority_absorb_key["visible_message"])
+					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
+				else if(priority_absorb_key["self_message"])
+					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE
