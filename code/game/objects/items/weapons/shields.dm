@@ -1,13 +1,17 @@
 /obj/item/shield
 	name = "shield"
-	block_chance = 50
+	block_chance = 40
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 30, bio = 0, rad = 0)
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
+	if(attack_type == MELEE_ATTACK)
+		final_block_chance += 10
+	else if(owner.get_active_hand())
+		final_block_chance += 30
 	if(attack_type == LEAP_ATTACK)
-		final_block_chance = 100
+		final_block_chance = 90
 	return ..()
 
 /obj/item/shield/riot
