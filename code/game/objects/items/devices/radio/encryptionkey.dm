@@ -17,6 +17,7 @@
 /obj/item/encryptionkey/attackby(obj/item/W as obj, mob/user as mob, params)
 
 /obj/item/encryptionkey/syndicate
+	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"
 	channels = list("Syndicate" = 1)
 	origin_tech = "syndicate=1;engineering=3;bluespace=2"
@@ -36,6 +37,7 @@
 	change_voice = FALSE
 
 /obj/item/encryptionkey/syndteam
+	name = "syndicate encryption key"
 	icon_state = "syn_cypherkey"
 	channels = list("SyndTeam" = 1, "Syndicate" = 1)
 	origin_tech = "syndicate=4"
