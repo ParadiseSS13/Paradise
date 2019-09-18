@@ -23,10 +23,12 @@
 
 	eyes = "vox_eyes_s"
 
-	species_traits = list(NO_SCAN, IS_WHITELISTED, NOTRANSSTING)
+	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, IS_WHITELISTED, NOTRANSSTING)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS //Species-fitted 'em all.
 	dietflags = DIET_OMNI
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_BODY_MARKINGS | HAS_TAIL_MARKINGS
+
+	silent_steps = TRUE
 
 	blood_color = "#2299FC"
 	flesh_color = "#808D11"
@@ -36,7 +38,7 @@
 	default_hair_colour = "#614f19" //R: 97, G: 79, B: 25
 	butt_sprite = "vox"
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = PROCESS_ORG | PROCESS_SYN
 	scream_verb = "shrieks"
 	male_scream_sound = 'sound/voice/shriek1.ogg'
 	female_scream_sound = 'sound/voice/shriek1.ogg'
@@ -59,10 +61,9 @@
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver/vox,
 		"kidneys" =  /obj/item/organ/internal/kidneys/vox,
-		"brain" =    /obj/item/organ/internal/brain/vox,
+		"cortical stack" =    /obj/item/organ/internal/brain/vox,
 		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 2.
-		"stack" =    /obj/item/organ/internal/stack //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
+		"eyes" =     /obj/item/organ/internal/eyes/vox, //Default darksight of 3.
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
@@ -165,7 +166,7 @@
 
 	eyes = "blank_eyes"
 
-	species_traits = list(NO_SCAN, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
+	species_traits = list(NO_SCAN, NO_GERMS, NO_DECAY, NO_BLOOD, NO_PAIN, IS_WHITELISTED)
 	clothing_flags = 0 //IDK if you've ever seen underwear on an Armalis, but it ain't pretty.
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
@@ -183,9 +184,8 @@
 		"lungs" =    /obj/item/organ/internal/lungs/vox,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"cortical stack" =    /obj/item/organ/internal/brain/vox,
 		"eyes" =     /obj/item/organ/internal/eyes, //Default darksight of 2.
-		"stack" =    /obj/item/organ/internal/stack //Not the same as the cortical stack implant Vox Raiders spawn with. The cortical stack implant is used
 		)												//for determining the success of the heist game-mode's 'leave nobody behind' objective, while this is just an organ.
 
 	suicide_messages = list(
