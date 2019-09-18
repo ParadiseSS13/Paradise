@@ -1252,9 +1252,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/suit/beekeeper_suit,
 					/obj/item/melee/flyswatter)
 	cost = 15
-	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "beekeeping starter kit"
-	access = access_hydroponics
 
 /datum/supply_packs/organic/hydroponics/beekeeping_suits
 	name = "2 Beekeeper suits"
@@ -1755,8 +1753,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	special = TRUE
 	containername = "empty station goal crate"
-	containertype = /obj/structure/closet/crate/secure/engineering
-	access = access_engine
+	containertype = /obj/structure/closet/crate/engineering
 
 /datum/supply_packs/misc/station_goal/bsa
 	name = "Bluespace Artillery Parts"
@@ -1786,13 +1783,10 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/dna_probe
 					)
 	containername = "dna samplers crate"
-	containertype = /obj/structure/closet/crate/engineering
-	access = null
 
 /datum/supply_packs/misc/station_goal/shield_sat
 	name = "Shield Generator Satellite"
 	cost = 30
-	special = TRUE
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
@@ -1803,7 +1797,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 /datum/supply_packs/misc/station_goal/shield_sat_control
 	name = "Shield System Control Board"
 	cost = 50
-	special = TRUE
 	contains = list(
 					/obj/item/circuitboard/computer/sat_control
 					)
