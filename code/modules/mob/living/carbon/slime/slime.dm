@@ -235,7 +235,7 @@
 			Feedon(Food)
 	..()
 
-/mob/living/carbon/slime/unEquip(obj/item/W as obj)
+/mob/living/carbon/slime/unEquip(obj/item/W as obj, force)
 	return
 
 /mob/living/carbon/slime/attack_ui(slot)

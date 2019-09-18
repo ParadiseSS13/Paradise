@@ -610,7 +610,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return
 
 
-/mob/living/carbon/unEquip(obj/item/I) //THIS PROC DID NOT CALL ..()
+/mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
