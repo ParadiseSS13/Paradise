@@ -17921,7 +17921,7 @@
 	name = "EVA External Access";
 	req_access_txt = "13"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aFZ" = (
 /obj/structure/cable{
@@ -56987,6 +56987,14 @@
 /area/crew_quarters/hor)
 "ceP" = (
 /obj/structure/closet/secure_closet/ntrep,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "NT Representative";
+	departmentType = 5;
+	dir = 2;
+	name = "NT Representative Requests Console";
+	pixel_x = 30
+	},
 /turf/simulated/floor/wood,
 /area/ntrep)
 "ceQ" = (
@@ -57193,6 +57201,13 @@
 "cfp" = (
 /obj/structure/closet/secure_closet/blueshield,
 /obj/machinery/disposal,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Blueshield";
+	departmentType = 5;
+	name = "Blueshield Requests Console";
+	pixel_x = -30
+	},
 /turf/simulated/floor/wood,
 /area/blueshield)
 "cfq" = (
@@ -59188,7 +59203,9 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/south)
 "cjc" = (
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/comfy/brown{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cjd" = (
@@ -63251,15 +63268,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "cqK" = (
-/obj/structure/filingcabinet,
+/obj/item/flag/nt,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cqL" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
-	},
 /obj/machinery/light/small,
+/obj/item/reagent_containers/food/drinks/mug/novelty,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "cqM" = (
@@ -68725,9 +68740,7 @@
 "cEL" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cEO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -69148,11 +69161,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/aft)
-"cGt" = (
-/turf/space,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
 "cGw" = (
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
@@ -69858,9 +69866,7 @@
 	id_tag = "engineering_west_pump"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cIR" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -70453,9 +70459,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cKI" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -71508,21 +71512,13 @@
 /area/engine/foyer)
 "cPk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cPl" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/item/radio/intercom{
 	name = "station intercom (General)";
 	pixel_y = -28
@@ -71537,6 +71533,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel,
 /area/engine/reception)
 "cPm" = (
@@ -71753,18 +71750,11 @@
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cQk" = (
 /turf/simulated/wall/r_wall,
 /area/medical/virology)
@@ -71935,18 +71925,11 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cQN" = (
 /obj/structure/rack{
 	dir = 8;
@@ -71999,9 +71982,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cQW" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -72157,9 +72138,7 @@
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cRH" = (
 /obj/structure/chair{
 	dir = 4
@@ -72329,7 +72308,7 @@
 	icon_state = "darkyellow";
 	dir = 1
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "cSq" = (
 /obj/machinery/computer/shuttle/engineering,
 /turf/simulated/shuttle/floor{
@@ -72372,6 +72351,7 @@
 	pixel_y = 7
 	},
 /obj/item/pen/multi,
+/obj/item/stamp/ce,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -72474,9 +72454,7 @@
 "cTc" = (
 /obj/machinery/power/rad_collector,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cTd" = (
 /obj/machinery/computer/operating{
 	icon_state = "operatingb";
@@ -72703,9 +72681,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cUi" = (
 /obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
@@ -72894,9 +72870,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cUZ" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -72960,9 +72934,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/particle_accelerator/particle_emitter/right,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cVj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -72982,9 +72954,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cVt" = (
 /obj/structure/chair{
 	dir = 8
@@ -73118,9 +73088,7 @@
 	dir = 2;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cWg" = (
 /obj/machinery/light{
 	dir = 1
@@ -73232,16 +73200,12 @@
 /obj/machinery/power/rad_collector,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cWz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/particle_accelerator/fuel_chamber,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cWA" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -73462,9 +73426,7 @@
 	pixel_y = 0
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cXv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -73494,9 +73456,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cXx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -73609,9 +73569,7 @@
 "cXP" = (
 /obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cXQ" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/cans/sodawater,
@@ -73725,9 +73683,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cYw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -74130,9 +74086,7 @@
 	dir = 1;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "cZI" = (
 /obj/structure/chair{
 	dir = 4
@@ -74377,7 +74331,7 @@
 "daG" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plating,
-/area/engine/engineering)
+/area/engine/equipmentstorage)
 "daH" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -74462,7 +74416,7 @@
 	icon_state = "darkyellow";
 	dir = 5
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "dbf" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -74774,6 +74728,11 @@
 	dir = 8;
 	name = "Mix to Gas"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "dcA" = (
@@ -74857,9 +74816,7 @@
 	icon_state = "darkyellow";
 	dir = 1
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dcS" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -74869,7 +74826,7 @@
 	icon_state = "darkyellow";
 	dir = 9
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "dcT" = (
 /obj/structure/table,
 /obj/item/rad_laser,
@@ -74889,13 +74846,11 @@
 	icon_state = "darkyellow";
 	dir = 1
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "dcU" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dcV" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable/yellow{
@@ -75015,6 +74970,11 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
+/obj/machinery/alarm{
+	dir = 8;
+	icon_state = "alarm0";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75133,9 +75093,7 @@
 	level = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ddI" = (
 /obj/structure/table,
 /obj/item/folder,
@@ -75409,6 +75367,9 @@
 "dey" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -75983,9 +75944,7 @@
 	req_access_txt = "10"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dgx" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable/yellow{
@@ -76002,9 +75961,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dgy" = (
 /obj/effect/landmark{
 	name = "blobstart"
@@ -76026,11 +75983,6 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/cable/yellow{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/item/radio/intercom{
 	name = "station intercom (General)";
 	pixel_y = 28
@@ -76038,9 +75990,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dgH" = (
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -76160,9 +76110,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dhe" = (
 /obj/machinery/computer/shuttle/trade/sol,
 /obj/machinery/door_control{
@@ -76754,9 +76702,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "diL" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters{
@@ -76824,13 +76770,13 @@
 	dir = 6
 	},
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "djd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 10
 	},
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "dje" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -77054,7 +77000,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "djF" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -77174,7 +77120,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "djV" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -77284,7 +77230,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "dkk" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 10;
@@ -77361,7 +77307,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "dky" = (
 /obj/machinery/camera{
 	c_tag = "Central Hallway North-East"
@@ -77484,7 +77430,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "dkY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79331,9 +79277,7 @@
 "dsO" = (
 /obj/structure/particle_accelerator/particle_emitter/left,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dsP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -79348,9 +79292,7 @@
 /obj/structure/particle_accelerator/power_box,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dta" = (
 /obj/item/cartridge/engineering{
 	pixel_x = 3
@@ -79435,13 +79377,15 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dtt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79452,10 +79396,11 @@
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
 	icon_state = "closed";
-	id_tag = "solar_chapel_inner";
+	id_tag = "robotics_solar_outer";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access_txt = "13"
+	req_access = null;
+	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -79595,10 +79540,13 @@
 	initialize_directions = 11;
 	level = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dGe" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -79610,9 +79558,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dHi" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
@@ -79890,9 +79836,7 @@
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "dTj" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -79917,7 +79861,7 @@
 "dTy" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "dTI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -80502,9 +80446,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "eAw" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -80630,7 +80572,7 @@
 /area/maintenance/apmaint)
 "eFP" = (
 /obj/docking_port/mobile/pod{
-	dir = 4;
+	dir = 8;
 	id = "pod4";
 	name = "escape pod 4"
 	},
@@ -80849,9 +80791,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "eRm" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/visible/red{
@@ -80879,9 +80819,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "eRM" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -81002,18 +80940,14 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "eWj" = (
 /obj/item/tank/plasma,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "eWH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
@@ -81022,9 +80956,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "eXf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81060,7 +80992,7 @@
 "eXU" = (
 /obj/item/bodybag,
 /obj/structure/table,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/maintenance/aft)
 "eYe" = (
 /obj/effect/decal/warning_stripes/south,
@@ -81095,16 +81027,14 @@
 	icon_state = "darkyellow";
 	dir = 2
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "eZy" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "faf" = (
 /turf/simulated/wall/r_wall,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "fah" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -81263,7 +81193,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "fiq" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
@@ -81420,9 +81350,7 @@
 	req_access_txt = "10"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "fpi" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -81584,9 +81512,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "fyf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -81628,7 +81554,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "fzk" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
@@ -81737,17 +81663,10 @@
 	dir = 5;
 	level = 1
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "fED" = (
 /obj/structure/table,
 /obj/item/tank/oxygen,
@@ -81761,9 +81680,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "fEN" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -82108,7 +82025,7 @@
 "fWf" = (
 /obj/effect/decal/warning_stripes/white,
 /obj/machinery/constructable_frame/machine_frame,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/maintenance/abandonedrobotics)
 "fYb" = (
 /obj/structure/table,
@@ -82145,9 +82062,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "gam" = (
 /obj/structure/rack,
 /obj/item/clothing/head/welding,
@@ -82191,21 +82106,13 @@
 /area/maintenance/engi_shuttle)
 "gbw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "gbB" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -82610,9 +82517,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "gya" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor_switch{
@@ -82629,16 +82534,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "gzd" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/alarm{
-	dir = 4;
-	icon_state = "alarm0";
-	pixel_x = -22
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6;
 	level = 1
@@ -82690,20 +82588,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = 0;
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "gBl" = (
 /obj/machinery/power/emitter,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -82796,7 +82687,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "gFj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow{
 	icon_state = "intact";
@@ -82854,8 +82745,6 @@
 	},
 /area/engine/foyer)
 "gHI" = (
-/obj/structure/table/reinforced,
-/obj/item/stamp/ce,
 /obj/machinery/door_control{
 	desc = "A remote control-switch for secure storage.";
 	id = "Secure Storage";
@@ -82881,6 +82770,13 @@
 	},
 /obj/machinery/light_switch{
 	pixel_y = -28
+	},
+/obj/machinery/computer/monitor{
+	name = "Engine Power Monitoring Computer"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -83038,13 +82934,8 @@
 /area/shuttle/administration)
 "gNF" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "gNP" = (
 /obj/machinery/power/grounding_rod,
 /obj/effect/decal/warning_stripes/north,
@@ -83177,7 +83068,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "gTK" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 4;
@@ -83261,9 +83152,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "gYQ" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -83273,9 +83162,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "gZh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/spot{
@@ -83297,9 +83184,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/air,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "haI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/structure/cable{
@@ -83329,9 +83214,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "haY" = (
 /obj/structure/table,
 /obj/item/ashtray/glass{
@@ -83411,15 +83294,13 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hcX" = (
 /obj/effect/countdown/supermatter,
 /obj/item/radio/beacon/engine/supermatter,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "hdR" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -83432,9 +83313,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "heU" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 4;
@@ -83500,9 +83379,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hhE" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4;
@@ -83553,9 +83430,7 @@
 	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hjG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -83592,24 +83467,15 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/machinery/power/apc{
-	cell_type = 25000;
-	dir = 1;
-	name = "Engineering Engine Super APC";
-	pixel_x = 0;
-	pixel_y = 24;
-	shock_proof = 1
-	},
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1;
 	name = "Gas to Filter"
 	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "hmt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
@@ -83623,12 +83489,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engine/foyer)
-"hnr" = (
-/obj/machinery/computer/security/engineering,
-/turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
 "hnP" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -83930,6 +83790,9 @@
 /obj/effect/landmark/start{
 	name = "Blueshield"
 	},
+/obj/machinery/keycard_auth{
+	pixel_y = -35
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bcarpet05"
 	},
@@ -83965,7 +83828,7 @@
 	icon_state = "darkyellow";
 	dir = 2
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "hDS" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -83993,26 +83856,16 @@
 	id_tag = "engineering_east_pump"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hEg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hEG" = (
 /obj/machinery/light{
 	dir = 1
@@ -84112,9 +83965,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hNo" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
@@ -84122,7 +83973,7 @@
 "hOL" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "hPh" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/structure/cable{
@@ -84285,12 +84136,6 @@
 /area/maintenance/abandonedrobotics)
 "hXr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -84314,9 +84159,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hXT" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/machinery/door/airlock/atmos{
@@ -84331,9 +84174,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "hZh" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 9
@@ -84383,6 +84224,11 @@
 	dir = 1;
 	pixel_x = 0;
 	pixel_y = -24
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -84498,9 +84344,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ikP" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 2
@@ -84542,9 +84386,7 @@
 	},
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "imF" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -84620,9 +84462,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iok" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -84664,9 +84504,7 @@
 	dir = 2;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iqG" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -84732,9 +84570,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ixl" = (
 /obj/item/weldingtool,
 /obj/effect/decal/cleanable/dirt,
@@ -84756,9 +84592,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ixU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -84845,9 +84679,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iAp" = (
 /obj/machinery/cooker/deepfryer,
 /obj/machinery/light/small{
@@ -84861,21 +84693,13 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iCN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -85025,9 +84849,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iJf" = (
 /obj/machinery/atmospherics/pipe/simple/insulated,
 /obj/machinery/door/poddoor{
@@ -85072,6 +84894,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
+"iLg" = (
+/obj/machinery/door/airlock/maintenance{
+	req_access_txt = "26"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint)
 "iLy" = (
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedrobotics)
@@ -85108,14 +84936,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iOB" = (
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iPQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -85209,9 +85033,7 @@
 	level = 1
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iUR" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -85230,9 +85052,7 @@
 	id_tag = "engineering_east_pump"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iWg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
@@ -85284,7 +85104,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "iXE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -85319,9 +85139,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "iYD" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -85694,12 +85512,6 @@
 	dir = 8;
 	name = "Gas to Filter"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
-	},
 /turf/simulated/floor/engine,
 /area/engine/supermatter)
 "jut" = (
@@ -85778,7 +85590,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "jAs" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -85971,7 +85783,7 @@
 	name = "HIGH VOLTAGE"
 	},
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "jMi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -86037,14 +85849,8 @@
 	req_access_txt = "10";
 	req_one_access_txt = "0"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0
-	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "jPA" = (
 /obj/structure/window/reinforced{
 	dir = 4;
@@ -86137,19 +85943,11 @@
 	pixel_x = 0;
 	pixel_y = -24
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "jSD" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
@@ -86263,9 +86061,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kbP" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -86304,6 +86100,13 @@
 	},
 /area/engine/engineering)
 "kef" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/lattice/catwalk,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1379;
@@ -86313,13 +86116,9 @@
 	pixel_y = 25;
 	req_access_txt = "13"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/structure/lattice/catwalk,
+/turf/space,
+/area/maintenance/portsolar)
+"kek" = (
 /turf/space,
 /area/maintenance/portsolar)
 "keO" = (
@@ -86339,9 +86138,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kfG" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
@@ -86509,9 +86306,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kmJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -86560,13 +86355,16 @@
 	icon_state = "tube1"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "koH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -86623,11 +86421,6 @@
 	},
 /area/maintenance/asmaint)
 "kqe" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -86635,12 +86428,15 @@
 	dir = 4;
 	initialize_directions = 11
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kqk" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -86652,9 +86448,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kri" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -86686,9 +86480,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ksN" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -86809,6 +86601,20 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/maintenance/portsolar)
+"kxK" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/meter,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/supermatter)
 "kxR" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -86827,9 +86633,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kyj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -86897,7 +86701,7 @@
 /area/blueshield)
 "kzp" = (
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "kAh" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -86945,9 +86749,7 @@
 	level = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kAA" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/visible/red{
@@ -87017,7 +86819,7 @@
 	icon_state = "darkyellow";
 	dir = 2
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "kFx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87158,25 +86960,15 @@
 	pixel_y = -32;
 	req_access_txt = "0"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kLZ" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kMp" = (
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -87189,12 +86981,6 @@
 	d2 = 8;
 	icon_state = "4-8";
 	pixel_y = 0
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4;
@@ -87232,9 +87018,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kNN" = (
 /turf/simulated/shuttle/wall,
 /area/shuttle/constructionsite)
@@ -87275,9 +87059,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kQt" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -87321,9 +87103,7 @@
 /obj/structure/cable/yellow,
 /obj/machinery/power/emitter,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "kUd" = (
 /obj/machinery/air_sensor{
 	frequency = 1441;
@@ -87373,12 +87153,12 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "kXl" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/folder/yellow,
-/obj/item/book/manual/sop_engineering,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/modular_computer/console/preset/engineering,
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -87428,7 +87208,7 @@
 "kZm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/white,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/maintenance/abandonedrobotics)
 "lab" = (
 /obj/structure/disposalpipe/trunk{
@@ -87480,9 +87260,7 @@
 	pixel_x = -32
 	},
 /turf/simulated/wall/r_wall,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lcD" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
@@ -87538,7 +87316,7 @@
 	dir = 1;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "lgQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -87561,12 +87339,6 @@
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "liI" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -87637,20 +87409,13 @@
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedrobotics)
 "lnf" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4;
 	level = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lno" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -87925,16 +87690,8 @@
 "lxa" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lxs" = (
 /obj/machinery/light{
 	dir = 8
@@ -87963,7 +87720,7 @@
 	dir = 4;
 	icon_state = "darkyellow"
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "lAh" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
@@ -88035,9 +87792,7 @@
 	level = 1
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lCI" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/structure/cable{
@@ -88136,9 +87891,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lHu" = (
 /obj/structure/table,
 /obj/item/screwdriver{
@@ -88229,7 +87982,7 @@
 	pixel_y = 0
 	},
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "lMg" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -88251,9 +88004,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lMs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -88429,6 +88180,9 @@
 	c_tag = "Engineering Chief Engineer's Office";
 	dir = 1
 	},
+/obj/machinery/keycard_auth{
+	pixel_y = -26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88513,7 +88267,8 @@
 	pixel_y = 24;
 	shock_proof = 1
 	},
-/obj/structure/cable{
+/obj/structure/cable/yellow{
+	d1 = 0;
 	d2 = 8;
 	icon_state = "0-8"
 	},
@@ -88521,9 +88276,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lUQ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -88540,11 +88293,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "lWg" = (
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -88553,9 +88301,7 @@
 	level = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lWp" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 4
@@ -88623,9 +88369,7 @@
 	initialize_directions = 10
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "lZd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -88717,9 +88461,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mdL" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
@@ -88767,9 +88509,7 @@
 	id_tag = "engineering_west_pump"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mir" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -88861,7 +88601,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "mnx" = (
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/wood{
@@ -89283,9 +89023,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mKY" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -89317,7 +89055,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "mLO" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -89349,9 +89087,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mNx" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -89362,9 +89098,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mOk" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -89436,9 +89170,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mRY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/structure/lattice,
@@ -89456,13 +89188,11 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mTj" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "mTs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -89485,9 +89215,7 @@
 "mUv" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mUF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -89503,9 +89231,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "mVz" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -89747,13 +89473,16 @@
 	dir = 4;
 	initialize_directions = 11
 	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 2
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "npk" = (
 /obj/machinery/light/small,
 /obj/item/radio/intercom{
@@ -89906,19 +89635,11 @@
 /area/atmos)
 "nwW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "nya" = (
 /obj/structure/reflector/box{
 	anchored = 1;
@@ -90219,9 +89940,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "nFi" = (
 /obj/structure/reagent_dispensers/watertank/high,
 /obj/machinery/status_display{
@@ -90244,9 +89963,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "nFZ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -90329,20 +90046,29 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"nKa" = (
+/obj/effect/decal/warning_stripes/east,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/engine,
+/area/engine/supermatter)
 "nLK" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "nLX" = (
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "nMa" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -90482,9 +90208,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "nUS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -90627,6 +90351,11 @@
 	icon_state = "dark"
 	},
 /area/maintenance/aft)
+"nZR" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
+/area/maintenance/aft)
 "nZY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -90756,9 +90485,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ogx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -90864,7 +90591,7 @@
 	dir = 5
 	},
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "oiC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90903,9 +90630,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ojX" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable{
@@ -91041,9 +90766,7 @@
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "omr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -91077,9 +90800,7 @@
 "ooq" = (
 /obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "opw" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -91159,9 +90880,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ota" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -91201,9 +90920,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "owV" = (
 /obj/machinery/door/window,
 /turf/simulated/floor/wood,
@@ -91455,9 +91172,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "oJg" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -91483,9 +91198,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "oKb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -91783,7 +91496,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "oWO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -91827,7 +91540,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/flag/nt,
+/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "oYX" = (
@@ -92201,18 +91914,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
-"prE" = (
-/obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1;
-	name = "Supermatter Chamber";
-	req_access_txt = "10";
-	req_one_access_txt = "0"
-	},
-/turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/tesling)
 "prJ" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -92333,9 +92035,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "pvz" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -92344,9 +92044,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "pvF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -92391,7 +92089,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "pwN" = (
 /obj/effect/spawner/random_barrier/floor_probably,
 /turf/simulated/floor/plating,
@@ -92446,21 +92144,13 @@
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "pAU" = (
 /obj/machinery/power/emitter,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
 /area/storage/secure)
 "pBb" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_x = 0
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -92486,16 +92176,21 @@
 /area/engine/engineering)
 "pDc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "pDU" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -92626,7 +92321,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "pJf" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -92649,9 +92344,7 @@
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "pJs" = (
 /obj/structure/table/reinforced,
 /obj/structure/barricade/wooden,
@@ -92788,9 +92481,7 @@
 	opacity = 0
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "pSA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -92858,9 +92549,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "pUG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
@@ -93105,9 +92794,7 @@
 	network = list("ERT","CentComm")
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "qeg" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -93162,16 +92849,12 @@
 	},
 /area/shuttle/constructionsite)
 "qmG" = (
-/obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer"
-	},
+/obj/machinery/computer/security/engineering,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "qmS" = (
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
@@ -93230,11 +92913,6 @@
 	},
 /area/engine/supermatter)
 "qpb" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -93264,7 +92942,7 @@
 /area/maintenance/apmaint)
 "qpG" = (
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "qqB" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -93310,7 +92988,7 @@
 "qtW" = (
 /obj/machinery/status_display,
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "qur" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -93338,9 +93016,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "qvB" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -93446,9 +93122,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "qDX" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -93583,9 +93257,7 @@
 	},
 /obj/structure/grille,
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "qRe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -93617,15 +93289,16 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
 	icon_state = "closed";
-	id_tag = "solar_chapel_outer";
+	id_tag = "robotics_solar_inner";
 	locked = 1;
 	name = "Engineering External Access";
-	req_access_txt = "10;13"
+	req_access = null;
+	req_access_txt = "13"
 	},
-/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "qRO" = (
@@ -93761,9 +93434,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "qZu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -93825,9 +93496,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rbR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -93915,9 +93584,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ril" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -93966,9 +93633,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rlb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -94043,6 +93708,7 @@
 /obj/item/enginepicker{
 	layer = 3.1
 	},
+/obj/item/folder/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellowfull"
@@ -94104,16 +93770,8 @@
 	dir = 5;
 	level = 1
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rsw" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood{
@@ -94180,9 +93838,7 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rua" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -94253,9 +93909,7 @@
 	req_one_access_txt = null
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rAU" = (
 /obj/effect/decal/warning_stripes/red/partial,
 /obj/machinery/power/apc{
@@ -94347,7 +94001,7 @@
 	req_one_access_txt = null
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter)
+/area/engine/engineering)
 "rHD" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/sign/poster/contraband/donut_corp{
@@ -94493,18 +94147,11 @@
 /area/atmos)
 "rNv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rNR" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
@@ -94519,9 +94166,7 @@
 	pixel_x = 0
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rNY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/beerkeg,
@@ -94669,9 +94314,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rXd" = (
 /turf/simulated/wall/r_wall,
 /area/engine/mechanic_workshop/hanger)
@@ -94689,9 +94332,7 @@
 	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "rZc" = (
 /obj/structure/table,
 /obj/item/storage/box/cups,
@@ -94800,9 +94441,7 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "sgl" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4;
@@ -94818,9 +94457,7 @@
 "sgr" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/r_wall,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "shZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -94899,9 +94536,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "slk" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -94930,9 +94565,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "smE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -95047,12 +94680,6 @@
 "ssx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -95230,9 +94857,7 @@
 	id_tag = "atmospherics_south_pump"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "sDN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -95311,22 +94936,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plating,
 /area/storage/tech)
-"sGU" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5;
-	level = 1
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/aft)
 "sHl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
@@ -95489,9 +95098,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "sPF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -95545,6 +95152,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/clipboard,
+/obj/item/book/manual/sop_engineering,
 /mob/living/simple_animal/parrot/Poly,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -95666,6 +95275,9 @@
 	pixel_y = -24;
 	req_access_txt = "73"
 	},
+/obj/machinery/keycard_auth{
+	pixel_y = -35
+	},
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "sYx" = (
@@ -95709,9 +95321,7 @@
 	pixel_y = -22
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "sZZ" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
@@ -95779,7 +95389,7 @@
 	name = "Gas to Chamber"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "tfD" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95801,9 +95411,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "tgA" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -95813,9 +95421,7 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "tgL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -95884,9 +95490,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/rad_collector,
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "tjc" = (
 /obj/machinery/power/smes{
 	capacity = 9e+006;
@@ -96003,17 +95607,15 @@
 /area/engine/supermatter)
 "tmY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/radiation,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9;
 	level = 1
 	},
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "toS" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -96022,6 +95624,10 @@
 	icon_state = "dark"
 	},
 /area/engine/supermatter)
+"toZ" = (
+/obj/effect/spawner/window/reinforced/plasma,
+/turf/simulated/floor/plating,
+/area/engine/supermatter/chamber)
 "tpE" = (
 /obj/item/kitchen/knife,
 /obj/effect/decal/cleanable/blood,
@@ -96035,9 +95641,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "tqn" = (
 /obj/structure/rack{
 	dir = 1
@@ -96089,7 +95693,7 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "tuE" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 4;
@@ -96224,7 +95828,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "tBE" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -96250,6 +95854,9 @@
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -23
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "NT Representative's Office"
 	},
 /turf/simulated/floor/wood,
 /area/ntrep)
@@ -96301,9 +95908,7 @@
 "tGg" = (
 /obj/structure/lattice,
 /turf/space,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "tHi" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -96331,9 +95936,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "tIR" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96504,6 +96107,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/assembly/assembly_line)
+"tVm" = (
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 1;
+	name = "Engineering Engine Super APC";
+	pixel_x = 0;
+	pixel_y = 24;
+	shock_proof = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-2";
+	d2 = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engine/supermatter)
 "tVQ" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -96722,9 +96342,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ufD" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plating,
@@ -96781,9 +96399,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ulR" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -96933,13 +96549,11 @@
 	dir = 9
 	},
 /turf/simulated/wall/r_wall/coated,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "uti" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "utm" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -97005,9 +96619,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "uvb" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97070,7 +96682,7 @@
 	icon_state = "darkyellow";
 	dir = 2
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "uxG" = (
 /obj/machinery/power/compressor{
 	comp_id = "incineratorturbine";
@@ -97372,9 +96984,7 @@
 	scrub_Toxins = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "uMl" = (
 /obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -97502,9 +97112,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "uXM" = (
 /obj/structure/table,
 /obj/item/book/manual/engineering_hacking{
@@ -97571,9 +97179,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"uZn" = (
-/turf/space,
-/area/maintenance/aft)
 "uZs" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -97721,9 +97326,7 @@
 	req_one_access_txt = null
 	},
 /turf/simulated/floor/plasteel,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vgI" = (
 /obj/structure/table,
 /obj/machinery/light/small,
@@ -97765,9 +97368,7 @@
 "vlT" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vmm" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Aft Port Solar Access";
@@ -97842,13 +97443,11 @@
 	},
 /area/engine/engineering)
 "vpj" = (
-/obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Computer"
-	},
 /obj/structure/cable{
 	icon_state = "0-4";
 	d2 = 4
 	},
+/obj/machinery/modular_computer/console/preset/engineering,
 /turf/simulated/floor/plasteel,
 /area/engine/reception)
 "vpG" = (
@@ -97913,12 +97512,6 @@
 	},
 /area/hallway/primary/aft)
 "vtx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/item/radio/intercom{
@@ -97930,9 +97523,7 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vtY" = (
 /obj/structure/chair/stool,
 /obj/structure/disposalpipe/segment,
@@ -98049,9 +97640,7 @@
 "vxx" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vxL" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -98062,9 +97651,7 @@
 "vAO" = (
 /obj/effect/turf_decal/box/corners,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vBe" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -98268,7 +97855,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 "vNU" = (
 /obj/effect/decal/warning_stripes/northwestcorner,
 /obj/structure/cable/yellow{
@@ -98280,9 +97867,7 @@
 	dir = 8;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vOd" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel,
@@ -98340,9 +97925,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vPp" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -98486,9 +98069,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "vYq" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/item/radio/beacon/engine/tesling,
@@ -98589,17 +98170,9 @@
 	dir = 4;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wfx" = (
 /obj/structure/grille,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -98617,9 +98190,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wgo" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -98647,9 +98218,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wgJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -98695,6 +98264,14 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK";
+	pixel_x = -32;
+	pixel_y = 0
+	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
 "whD" = (
@@ -98706,9 +98283,7 @@
 "whJ" = (
 /obj/structure/particle_accelerator/end_cap,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wkk" = (
 /turf/simulated/wall/r_wall,
 /area/engine/chiefs_office)
@@ -98735,7 +98310,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "wmt" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -98836,9 +98411,7 @@
 	},
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wqa" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -98960,9 +98533,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wur" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal{
@@ -99088,24 +98659,27 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/airlock_sensor{
-	id_tag = "solar_chapel_sensor";
-	pixel_x = 25;
-	pixel_y = 12
-	},
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 1;
 	frequency = 1379;
-	id_tag = "solar_chapel_pump"
+	id_tag = "robotics_solar_pump"
 	},
 /obj/machinery/embedded_controller/radio/airlock/airlock_controller{
-	id_tag = "solar_chapel_airlock";
+	frequency = 1379;
+	id_tag = "robotics_solar_airlock";
 	pixel_x = 25;
+	pixel_y = 0;
 	req_access_txt = "13";
-	tag_airpump = "solar_chapel_pump";
-	tag_chamber_sensor = "solar_chapel_sensor";
-	tag_exterior_door = "solar_chapel_outer";
-	tag_interior_door = "solar_chapel_inner"
+	tag_airpump = "robotics_solar_pump";
+	tag_chamber_sensor = "robotics_solar_sensor";
+	tag_exterior_door = "robotics_solar_outer";
+	tag_interior_door = "robotics_solar_inner"
+	},
+/obj/machinery/airlock_sensor{
+	frequency = 1379;
+	id_tag = "robotics_solar_sensor";
+	pixel_x = 25;
+	pixel_y = -12
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/portsolar)
@@ -99196,7 +98770,7 @@
 	icon_state = "darkyellow";
 	dir = 6
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "wCX" = (
 /obj/structure/chair/wood/wings,
 /turf/simulated/floor/wood{
@@ -99288,6 +98862,11 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "yellowcorner"
@@ -99362,11 +98941,6 @@
 	},
 /area/engine/supermatter)
 "wLk" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
 	level = 1
@@ -99386,9 +98960,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wNq" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -99569,9 +99141,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "wXz" = (
 /obj/structure/closet,
 /obj/item/reagent_containers/food/snacks/spaghetti,
@@ -99781,9 +99351,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "xlG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -99940,7 +99508,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/engine/supermatter)
+/area/engine/engineering)
 "xxY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
@@ -99952,9 +99520,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "xyu" = (
 /obj/structure/rack,
 /obj/item/tank/oxygen,
@@ -100055,9 +99621,7 @@
 	dir = 1;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "xFM" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 1;
@@ -100087,9 +99651,7 @@
 /area/atmos)
 "xHa" = (
 /turf/simulated/floor/plating/airless,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "xHI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/terminal,
@@ -100278,9 +99840,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "xUn" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/supermatter_engine,
@@ -100496,19 +100056,11 @@
 	},
 /area/hallway/primary/aft)
 "yka" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "neutral"
 	},
-/area/engine/supermatter{
-	name = "\improper Tesla and Singularity Engine"
-	})
+/area/engine/tesling)
 "ykd" = (
 /obj/structure/table,
 /turf/simulated/floor/plating,
@@ -100595,7 +100147,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
-/area/engine/supermatter)
+/area/engine/supermatter/chamber)
 
 (1,1,1) = {"
 aaa
@@ -114143,7 +113695,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kek
 aaa
 aaa
 aaa
@@ -114400,7 +113952,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kek
 aaa
 aaa
 aaa
@@ -114657,7 +114209,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+kek
 aaa
 aaa
 aaa
@@ -118759,7 +118311,7 @@ teL
 cNB
 jYs
 hln
-uZn
+aaa
 abP
 aaa
 abp
@@ -119016,7 +118568,7 @@ cNB
 cPb
 jYs
 hln
-uZn
+aaa
 aaa
 aaa
 aaa
@@ -119273,7 +118825,7 @@ cNB
 iGr
 iGr
 cLi
-uZn
+aaa
 aaa
 aaa
 aaa
@@ -123412,7 +122964,7 @@ faf
 faf
 faf
 faf
-cGt
+aaa
 aaa
 aaa
 aaa
@@ -123669,7 +123221,7 @@ faf
 hMY
 gyZ
 faf
-cGt
+aaa
 aaa
 aaa
 aaa
@@ -123926,7 +123478,7 @@ wpS
 iVx
 iOB
 faf
-cGt
+aaa
 aaa
 aaa
 aaa
@@ -124149,15 +123701,15 @@ cDS
 cLi
 iGr
 wLk
-vrt
-vrt
-vrt
-vrt
+nZR
+nZR
+nZR
+nZR
 ssx
 ssx
 wfx
-vrt
-sGU
+nZR
+cgZ
 faf
 hgY
 wLK
@@ -124183,7 +123735,7 @@ imq
 tgf
 iOB
 faf
-cGt
+aaa
 aaa
 aaa
 aaa
@@ -124414,7 +123966,7 @@ cKb
 cKb
 cKb
 jCD
-tIR
+vZZ
 faf
 faf
 cRG
@@ -124440,7 +123992,7 @@ faf
 nTu
 vAO
 faf
-cGt
+aaa
 aaa
 aaa
 aaa
@@ -124662,7 +124214,7 @@ cNB
 cNB
 cLi
 vlN
-tIR
+vZZ
 cOX
 coL
 cKb
@@ -124671,7 +124223,7 @@ cTd
 cNH
 cKb
 cKb
-tIR
+vZZ
 cQy
 tqe
 lHg
@@ -124695,8 +124247,8 @@ mNx
 hcQ
 lcC
 faf
-mjC
-mjC
+faf
+faf
 aaa
 aaa
 aaa
@@ -125433,7 +124985,7 @@ cNB
 cNB
 cNB
 cNB
-tIR
+vZZ
 cNK
 cJx
 cJx
@@ -125931,7 +125483,7 @@ cfm
 cfi
 cgQ
 coL
-coL
+gyF
 gyF
 gyF
 rfU
@@ -126736,7 +126288,7 @@ faf
 faf
 dtq
 oHL
-hnr
+cXP
 dfo
 jDu
 daK
@@ -126988,9 +126540,9 @@ cOE
 cOE
 dJZ
 dsP
-cSU
+vbB
 daG
-cSU
+vbB
 oJw
 cKH
 qmG
@@ -131340,7 +130892,7 @@ chc
 chc
 chc
 chc
-chi
+iLg
 chc
 chc
 cvx
@@ -134455,7 +134007,7 @@ kyT
 jcS
 toS
 dhE
-gep
+cZS
 cZS
 eRM
 eRM
@@ -136245,8 +135797,8 @@ dcM
 fBD
 gaO
 ohJ
-gep
-gep
+cSU
+cSU
 cYb
 pfl
 gep
@@ -136502,7 +136054,7 @@ dcM
 vYy
 lnX
 leT
-gep
+cSU
 dcS
 lfr
 eZn
@@ -136759,7 +136311,7 @@ dcM
 jrM
 lnX
 yfH
-gep
+cSU
 cSn
 mLi
 kFl
@@ -137016,7 +136568,7 @@ pGg
 gRh
 lnX
 lKV
-gep
+cSU
 dcT
 xxO
 uxk
@@ -137026,11 +136578,11 @@ kMA
 juc
 jPp
 gNF
-prE
+jPp
 kzp
 hcX
 kzp
-kfX
+toZ
 wLa
 kAA
 kAA
@@ -137273,7 +136825,7 @@ wgK
 nfH
 uOs
 nzb
-gep
+cSU
 cSn
 wlp
 hCA
@@ -137530,7 +137082,7 @@ dgS
 dgS
 cZu
 htp
-gep
+cSU
 dbb
 lzD
 wCW
@@ -137787,10 +137339,10 @@ tjc
 dgS
 gRh
 sPF
-gep
-gep
+cSU
+cSU
 rFt
-gep
+cSU
 gep
 smO
 rrA
@@ -138826,7 +138378,7 @@ nhL
 cTX
 nhL
 dcA
-dda
+nKa
 nhL
 nhL
 dda
@@ -139083,7 +138635,7 @@ gtM
 gep
 gep
 gep
-dez
+kxK
 oZS
 oZS
 dlm
@@ -139339,7 +138891,7 @@ dfd
 dcw
 ger
 dfd
-oZS
+tVm
 dey
 ddj
 ddj

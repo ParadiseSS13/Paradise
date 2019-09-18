@@ -989,19 +989,6 @@
 	tag = "icon-rampbottom"
 	},
 /area/holodeck/source_theatre)
-"cN" = (
-/obj/docking_port/stationary/transit{
-	dir = 4;
-	dwidth = 1;
-	height = 4;
-	id = "pod4_transit";
-	name = "pod 4 in transit";
-	width = 3
-	},
-/turf/space/transit/east{
-	dir = 8
-	},
-/area/space)
 "cO" = (
 /obj/structure/flora/tree/pine,
 /turf/simulated/floor/holofloor{
@@ -12499,6 +12486,19 @@
 	icon_state = "dark"
 	},
 /area/centcom/specops)
+"Nb" = (
+/obj/docking_port/stationary/transit{
+	dir = 8;
+	dwidth = 1;
+	height = 4;
+	id = "pod4_transit";
+	name = "pod 4 in transit";
+	width = 3
+	},
+/turf/space/transit/horizontal{
+	dir = 4
+	},
+/area/space)
 "Nz" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/unsimulated/floor{
@@ -14588,11 +14588,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (8,1,1) = {"
 ck
@@ -14845,11 +14845,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (9,1,1) = {"
 ck
@@ -15102,11 +15102,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (10,1,1) = {"
 ck
@@ -15359,11 +15359,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (11,1,1) = {"
 ck
@@ -15616,11 +15616,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (12,1,1) = {"
 ck
@@ -15873,11 +15873,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (13,1,1) = {"
 ck
@@ -16130,11 +16130,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (14,1,1) = {"
 ck
@@ -16387,11 +16387,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (15,1,1) = {"
 ck
@@ -16644,11 +16644,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (16,1,1) = {"
 ck
@@ -16901,11 +16901,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (17,1,1) = {"
 ck
@@ -17158,11 +17158,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (18,1,1) = {"
 ck
@@ -17415,11 +17415,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (19,1,1) = {"
 ck
@@ -17672,11 +17672,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (20,1,1) = {"
 ck
@@ -17929,11 +17929,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (21,1,1) = {"
 ck
@@ -18186,11 +18186,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (22,1,1) = {"
 ck
@@ -18443,11 +18443,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (23,1,1) = {"
 ck
@@ -18700,11 +18700,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (24,1,1) = {"
 ck
@@ -18957,11 +18957,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (25,1,1) = {"
 ck
@@ -19214,11 +19214,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (26,1,1) = {"
 ck
@@ -19471,11 +19471,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (27,1,1) = {"
 ck
@@ -19728,11 +19728,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (28,1,1) = {"
 aN
@@ -19985,11 +19985,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (29,1,1) = {"
 aN
@@ -20242,11 +20242,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (30,1,1) = {"
 aN
@@ -20494,16 +20494,16 @@ aq
 aq
 aq
 aq
+Nb
 aq
 aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
 "}
 (31,1,1) = {"
 aN
@@ -20756,11 +20756,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (32,1,1) = {"
 aN
@@ -21013,11 +21013,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (33,1,1) = {"
 aN
@@ -21270,11 +21270,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (34,1,1) = {"
 aN
@@ -21527,11 +21527,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (35,1,1) = {"
 aN
@@ -21784,11 +21784,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (36,1,1) = {"
 aN
@@ -22041,11 +22041,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (37,1,1) = {"
 aN
@@ -22298,11 +22298,11 @@ aq
 aq
 aq
 aq
-aN
-aN
-aN
-aN
-aN
+aq
+aq
+aq
+aq
+aq
 "}
 (38,1,1) = {"
 aN
@@ -22833,7 +22833,7 @@ ap
 ap
 ap
 ap
-cN
+ap
 ap
 ap
 ap
@@ -30799,7 +30799,7 @@ ck
 ck
 ck
 ck
-ck
+cz
 ck
 ck
 ck
@@ -31056,7 +31056,7 @@ ck
 ck
 ck
 ck
-cz
+ck
 ck
 ck
 ck

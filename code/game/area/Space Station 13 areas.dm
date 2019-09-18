@@ -1163,9 +1163,18 @@ var/list/ghostteleportlocs = list()
 	icon_state = "engine"
 
 /area/engine/supermatter
-	name = "\improper Supermatter Engine"
-	icon_state = "engine"
+	name = "\improper Supermatter Engine Monitoring"
+	icon_state = "sm_monitor"
 
+/area/engine/supermatter/chamber
+	name = "\improper Supermatter Engine Chamber"
+	requires_power = FALSE //This area is meant to have operatable, distinct & independant scrubbers / vents, it ONLY holds the SM shard itself
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	icon_state = "sm_chamber"
+
+/area/engine/tesling
+	name = "\improper Tesla and Singularity Engine"
+	icon_state = "engine_tesling"
 /area/engine/reception
 	name = "\improper Engineering Reception"
 	icon_state = "engine_reception"
