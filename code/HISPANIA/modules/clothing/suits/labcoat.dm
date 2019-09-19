@@ -77,7 +77,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/item/clothing/suit/storage/labcoat/RDlargeroundcutdark
 	name = "Research Director's large labcoat"
-	desc = "One purple dark long labcoat."
+	desc = "One purple dark long labcoat. Made by D&N Corp."
 	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "labcoatlonground_RD_dark_open"
 	item_state = "labcoatlonground_RD_dark_open"
@@ -86,7 +86,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/item/clothing/suit/storage/labcoat/RDlargedark
 	name = "Research Director's large labcoat"
-	desc = "One purple dark long labcoat."
+	desc = "One purple dark long labcoat. Made by D&N Corp."
 	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "labcoatlong_RD_dark_open"
 	item_state = "labcoatlong_RD_dark_open"
