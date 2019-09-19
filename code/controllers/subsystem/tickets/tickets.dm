@@ -121,8 +121,8 @@ SUBSYSTEM_DEF(tickets)
 
 	var/datum/ticket/T = allTickets[N]
 	var/client/C = usr.client
-	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || T.ticketState != TICKET_OPEN) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
-		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "This ticket is already marked as closed or resolved" : "Another admin appears to already be handling this."] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
+	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || ((T.ticketState != TICKET_OPEN) && (T.ticketState != TICKET_STALE))) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
+		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "Another admin appears to already be handling this." : "This ticket is already marked as closed or resolved"] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
 			return
 	T.assignStaff(C)
 	
