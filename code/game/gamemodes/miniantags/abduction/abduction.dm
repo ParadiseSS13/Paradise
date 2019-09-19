@@ -235,7 +235,7 @@
 /datum/objective/stay_hidden
 
 /datum/objective/stay_hidden/New()
-	explanation_text = "Disrupt the primitives as little as possible."
+	explanation_text = "Limit contact with your targets outside of conducting your experiments and abduction."
 	completed = TRUE
 //No check completion, it defaults to being completed unless an admin sets it to failed.
 
