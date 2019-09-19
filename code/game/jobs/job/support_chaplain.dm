@@ -24,9 +24,9 @@
 	pda = /obj/item/pda/chaplain
 	backpack_contents = list(
 		/obj/item/camera/spooky = 1
+		/obj/item/nullrod = 1
 	)
-	r_hand = /obj/item/nullrod
-
+	
 /datum/outfit/job/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 
