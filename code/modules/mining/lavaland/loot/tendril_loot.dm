@@ -312,6 +312,12 @@
 		to_chat(user, "[src] fizzles uselessly.")
 		return
 
+	var/area/A = get_area(user)
+	var/area/B = get_area(linked)
+	if(A.tele_proof || B.tele_proof)
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
+
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, user.loc)
 	smoke.start()
