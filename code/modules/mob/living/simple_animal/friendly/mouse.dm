@@ -179,7 +179,7 @@
 	minbodytemp = 0
 	gold_core_spawnable = NO_SPAWN
 	var/cycles_alive = 0
-	var/cycles_limit = 30
+	var/cycles_limit = 60
 	var/has_burst = FALSE
 
 /mob/living/simple_animal/mouse/blobinfected/Life()
