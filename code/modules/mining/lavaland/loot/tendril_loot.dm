@@ -312,9 +312,7 @@
 		to_chat(user, "[src] fizzles uselessly.")
 		return
 
-	var/area/A = get_area(user)
-	var/area/B = get_area(linked)
-	if(A.tele_proof || B.tele_proof)
+	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
 

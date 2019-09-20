@@ -114,8 +114,7 @@
 	if(user.is_in_active_hand(src) && user.is_in_inactive_hand(src)) //you need to hold the staff to teleport
 		to_chat(user, "<span class='warning'>You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!</span>")
 		return
-	var/area/A = get_area(user)
-	if(A.tele_proof)
+	if(is_in_teleport_proof_area(user))
 		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
 	if(!beacon || QDELETED(beacon))
