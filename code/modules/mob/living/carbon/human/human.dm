@@ -1015,6 +1015,10 @@
 		else
 			target_zone = user.zone_sel.selecting
 
+
+	if(PIERCEIMMUNE in dna.species.species_traits)
+		. = 0
+
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)

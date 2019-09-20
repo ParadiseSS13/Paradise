@@ -163,3 +163,6 @@
 #define NO_EXAMINE		18
 #define CAN_WINGDINGS	19
 #define NOZOMBIE 20
+
+
+#define PIERCEIMMUNE	23

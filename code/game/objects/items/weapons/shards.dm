@@ -25,6 +25,7 @@
 
 /obj/item/shard/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/caltrop, force)
 	icon_state = pick("large", "medium", "small")
 	switch(icon_state)
 		if("small")
@@ -48,7 +49,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(!H.gloves)
+		if(!H.gloves && !(PIERCEIMMUNE in H.dna.species.species_traits))
 			var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
 			if(affecting.is_robotic())
 				return
@@ -82,29 +83,6 @@
 		if(L.incorporeal_move || L.flying)
 			return
 		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
-		if(ishuman(L))
-			var/mob/living/carbon/human/H = L
-			var/obj/item/organ/external/affecting = H.get_organ(pick("l_foot", "r_foot"))
-			if(!affecting)
-				return
-			if(affecting.is_robotic())
-				return
-			var/feetCover = (H.wear_suit && H.wear_suit.body_parts_covered & FEET) || (H.w_uniform && H.w_uniform.body_parts_covered & FEET)
-			if(H.shoes || feetCover || H.buckled)
-				return
-			if(affecting.receive_damage(force, 0))
-				H.UpdateDamageIcon()
-
-			if(cooldown < world.time - 10) //cooldown to avoid message spam.
-				if(!H.incapacitated(ignore_restraints = TRUE))
-					H.visible_message("<span class='danger'>[H] steps on [src]!</span>", \
-							"<span class='userdanger'>You step on [src]!</span>")
-				else
-					H.visible_message("<span class='danger'>[H] slides on [src]!</span>", \
-							"<span class='userdanger'>You slide on [src]!</span>")
-
-				cooldown = world.time
-			H.Weaken(3)
 	return ..()
 
 /obj/item/shard/plasma
