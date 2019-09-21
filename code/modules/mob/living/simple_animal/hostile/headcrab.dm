@@ -94,7 +94,7 @@
 
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()
-	..()
+	. = ..()
 	if(is_zombie)
 		overlays.Cut()
 		overlays = human_overlays
@@ -122,7 +122,7 @@
 	speak_emote = list("screech")
 
 /mob/living/simple_animal/hostile/headcrab/fast/update_icons()
-	..()
+	. = ..()
 	if(is_zombie)
 		overlays.Cut()
 		overlays = human_overlays
@@ -134,7 +134,7 @@
 		overlays += I
 
 /mob/living/simple_animal/hostile/headcrab/fast/Zombify(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	speak = list('sound/creatures/fast_zombie_idle1.ogg','sound/creatures/fast_zombie_idle2.ogg','sound/creatures/fast_zombie_idle3.ogg')
 
 /mob/living/simple_animal/hostile/headcrab/poison
@@ -153,7 +153,7 @@
 	speak_emote = list("screech")
 
 /mob/living/simple_animal/hostile/headcrab/poison/update_icons()
-	..()
+	. = ..()
 	if(is_zombie)
 		overlays.Cut()
 		overlays = human_overlays
