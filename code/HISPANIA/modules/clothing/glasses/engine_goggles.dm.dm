@@ -42,15 +42,15 @@
 #define MODE_TRAY "t-ray"
 
 /obj/item/clothing/glasses/meson/engine
-	icon = 'icons/HISPANIA/obj/clothing/glasses.dmi'
+	icon = 'icons/hispania/obj/clothing/glasses.dmi'
 	name = "engineering scanner goggles"
 	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
 	icon_state = "trayson-meson"
 	item_state = "trayson-meson"
 	origin_tech = "magnets=3;plasmatech=3;materials=2;engineering=4"
 	var/icon_state_base = "trayson-"
-	lefthand_file = 'icons/HISPANIA/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/HISPANIA/mob/inhands/clothing_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/clothing_righthand.dmi'
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	hispania_icon = TRUE
 
