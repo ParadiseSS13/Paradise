@@ -137,16 +137,7 @@
 
 	modes = list(MODE_NONE = MODE_TRAY, MODE_TRAY = MODE_NONE)
 
-/obj/item/clothing/glasses/meson/engine/ce
-	name = "superior engineering scanner goggles"
-	desc = "A engineering scanner goggles whith welding protection"
-	origin_tech = "magnets=3;plasmatech=3;materials=4;engineering=4"
-	icon_state_base = "traysonce-"
-	icon_state = "traysonce-"
-	item_state = "traysonce-"
-	init_flash_protect = 2
-	flash_protect = 2
-	tint = 0
+
 
 
 #undef MODE_NONE
