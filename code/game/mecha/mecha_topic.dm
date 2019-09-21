@@ -350,7 +350,8 @@
 		var/obj/item/card/id/mycard = afilter.getObj("id_card")
 		var/list/myaccess = mycard.access
 		for(var/a in myaccess)
-			operation_req_access += a
+			if(get_access_desc(a))
+				operation_req_access += a
 		output_access_dialog(afilter.getObj("id_card"),afilter.getMob("user"))
 		return
 	if(href_list["del_req_access"] && add_req_access && afilter.getObj("id_card"))
