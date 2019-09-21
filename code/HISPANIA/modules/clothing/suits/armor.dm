@@ -7,7 +7,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 //Code by Danaleja2005
 
 /obj/item/clothing/suit/armor/vest/captrenchcoat
-	name = "Captain's trench coat"
+	name = "captain's trench coat"
 	desc = "A special trenchcoat made with nanofibers of high resistance to melee, laser and projectile attacks, exclusive use for station captains. Made by D&N Corp"
 	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "Captain_TrenchCoat"
