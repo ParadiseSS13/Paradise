@@ -1,8 +1,10 @@
 /mob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
-	if(istype(mover, /obj/item/projectile) || mover.throwing)
-		return (mover.throwing.thrower == src || !density || lying)
+	if(istype(mover, /obj/item/projectile))
+		return (!density || lying)
+	if(mover.throwing)
+		return (!density || lying || (mover.throwing.thrower == src))
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
@@ -431,10 +433,10 @@
 /client/verb/body_l_arm()
 	set name = "body-l-arm"
 	set hidden = 1
-	
+
 	if(!check_has_body_select())
 		return
-		
+
 	var/next_in_line
 	if(mob.zone_sel.selecting == BODY_ZONE_L_ARM)
 		next_in_line = BODY_ZONE_PRECISE_L_HAND
@@ -450,7 +452,7 @@
 
 	if(!check_has_body_select())
 		return
-		
+
 	var/next_in_line
 	if(mob.zone_sel.selecting == BODY_ZONE_R_LEG)
 		next_in_line = BODY_ZONE_PRECISE_R_FOOT
@@ -476,7 +478,7 @@
 
 	if(!check_has_body_select())
 		return
-		
+
 	var/next_in_line
 	if(mob.zone_sel.selecting == BODY_ZONE_L_LEG)
 		next_in_line = BODY_ZONE_PRECISE_L_FOOT
