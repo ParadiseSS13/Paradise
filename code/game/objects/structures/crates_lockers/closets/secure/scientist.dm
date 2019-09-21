@@ -22,6 +22,7 @@
 	new /obj/item/tank/air(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
+	new /obj/item/storage/bag/gadgets(src)
 
 /obj/structure/closet/secure_closet/roboticist
 	name = "roboticist's locker"
