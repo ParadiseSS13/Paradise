@@ -621,6 +621,19 @@
 	var/brightness_power = 1
 	var/brightness_color = null
 
+/obj/item/light/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+
+/obj/item/light/Crossed(mob/living/L)
+	if(istype(L) && has_gravity(loc))
+		if(L.incorporeal_move || L.flying)
+			return
+		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+		if(status == LIGHT_BURNED || status == LIGHT_OK)
+			shatter()
+	return ..()
+
 /obj/item/light/tube
 	name = "light tube"
 	desc = "A replacement light tube."
