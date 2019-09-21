@@ -1,0 +1,4 @@
+author: "datlo"
+delete-after: True
+changes: 
+  - tweak: "Replaced the red emergency toolbox in hermit ruin by a regular blue toolbox."
