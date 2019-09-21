@@ -1,0 +1,4 @@
+author: "Evankhell561"
+delete-after: True
+changes: 
+  - rscadd: "Mech ID upload panels now come with [add all] and [delete all] options"
