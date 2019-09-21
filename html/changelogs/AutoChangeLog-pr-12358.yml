@@ -1,0 +1,12 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Golems have been buffed."
+  - tweak: "Golems are faster, better protected against damage, and have limbs that cannot break or be dismembered."
+  - tweak: "Golems are no longer virus immune"
+  - tweak: "Golems can now wear labcoats and boxing gloves"
+  - bugfix: "Fixes golems being able to be healed/injected on parts other than the chest"
+  - tweak: "Having a robotic chest allow you to wear an ID, PDA, and belt without a jumpsuit. Having a robotic right leg allows you to use your right pocket without a jumpsuit; same for your left"
+  - rscadd: "stepping on glass tubes now shatters them; can trip you up if you aren't wearing shoes"
+  - rscadd: "Stepping on a D4 will deal between 1 and 4 damage to you if you aren't wearing shoes and trip you up"
+  - tweak: "skeletons have built in pierce immunity"
