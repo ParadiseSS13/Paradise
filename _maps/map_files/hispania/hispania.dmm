@@ -63148,7 +63148,7 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
-/obj/machinery/vending/walldrobe/RD{
+/obj/machinery/vending/walldrobe/rd{
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{

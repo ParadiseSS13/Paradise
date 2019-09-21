@@ -7,7 +7,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 //code by Danaleja2005
 
 /obj/machinery/vending/walldrobe
-	name = "\improper walldrobe"
+	name = "\improper WallDrobe"
 	desc = "Wall-mounted Clothes dispenser. Made by D&N Corp."
 	product_ads = "Dress up in fashion and wear our amazing uniforms, hats, suits made of the best material, only with us N&D Corp!."
 	icon = 'icons/hispania/obj/vending.dmi'
@@ -18,7 +18,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	vend_delay = 12
 
 /obj/machinery/vending/walldrobe/cap
-	name = "\improper captain's walldrobe"
+	name = "\improper Captain's WallDrobe"
 	req_access = list(access_captain)
 	products = list(/obj/item/clothing/under/rank/command/captain/formal/light = 2,
 					/obj/item/clothing/under/rank/command/captain/formal/dark = 2,
@@ -26,8 +26,8 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/head/caphat/light = 2,
 					/obj/item/clothing/suit/armor/vest/captrenchcoat = 2)
 
-/obj/machinery/vending/walldrobe/RD
-	name = "\improper Research Director's walldrobe"
+/obj/machinery/vending/walldrobe/rd
+	name = "\improper Research Director's WallDrobe"
 	req_access = list(access_rd)
 	products = list(/obj/item/clothing/suit/storage/labcoat/RDlargedark = 2,
 					/obj/item/clothing/suit/storage/labcoat/RDlargeroundcutdark = 2)
