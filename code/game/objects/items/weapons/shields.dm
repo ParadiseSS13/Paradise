@@ -11,7 +11,7 @@
 	else if(owner.get_active_hand())
 		final_block_chance += 25
 	if(attack_type == LEAP_ATTACK)
-		final_block_chance = 90
+		final_block_chance = 100
 	return ..()
 
 /obj/item/shield/riot
