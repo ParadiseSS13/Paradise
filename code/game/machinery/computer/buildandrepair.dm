@@ -362,7 +362,7 @@
 /obj/item/circuitboard/telesci_console
 	name = "Circuit board (Telepad Control Console)"
 	build_path = /obj/machinery/computer/telescience
-	origin_tech = "programming=3;bluespace=7;plasmatech=4"
+	origin_tech = "programming=5;bluespace=7;plasmatech=6"
 
 /obj/item/circuitboard/atmos_automation
 	name = "Circuit board (Atmospherics Automation)"
