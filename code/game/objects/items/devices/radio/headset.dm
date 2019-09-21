@@ -20,6 +20,7 @@
 
 	var/ks1type = null
 	var/ks2type = null
+	dog_fashion = null
 
 /obj/item/radio/headset/New()
 	..()

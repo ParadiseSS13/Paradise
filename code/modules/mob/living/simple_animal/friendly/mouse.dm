@@ -33,7 +33,7 @@
 	can_hide = 1
 	holder_type = /obj/item/holder/mouse
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	var/chew_probability = 1
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
@@ -168,7 +168,8 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
 
 
 /mob/living/simple_animal/mouse/blobinfected
@@ -176,7 +177,7 @@
 	health = 100
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	var/cycles_alive = 0
 	var/cycles_limit = 30
 	var/has_burst = FALSE
@@ -230,6 +231,6 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	can_collar = 0
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)

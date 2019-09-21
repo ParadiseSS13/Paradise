@@ -235,7 +235,7 @@
 			Feedon(Food)
 	..()
 
-/mob/living/carbon/slime/unEquip(obj/item/W as obj)
+/mob/living/carbon/slime/unEquip(obj/item/W as obj, force)
 	return
 
 /mob/living/carbon/slime/attack_ui(slot)
@@ -258,7 +258,8 @@
 		M.updatehealth()
 
 /mob/living/carbon/slime/attack_animal(mob/living/simple_animal/M)
-	if(..())
+	. = ..()
+	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attacked += 10
 		adjustBruteLoss(damage)

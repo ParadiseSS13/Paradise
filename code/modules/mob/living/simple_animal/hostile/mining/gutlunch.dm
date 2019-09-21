@@ -1,3 +1,4 @@
+//Gutlunches, passive mods that devour blood and gibs
 /mob/living/simple_animal/hostile/asteroid/gutlunch
 	name = "gutlunch"
 	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, nutritious milk."
@@ -5,49 +6,47 @@
 	icon_state = "gutlunch"
 	icon_living = "gutlunch"
 	icon_dead = "gutlunch"
-	icon_aggro = "gutlunch"
 	speak_emote = list("warbles", "quavers")
 	emote_hear = list("trills.")
 	emote_see = list("sniffs.", "burps.")
 	weather_immunities = list("lava","ash")
 	faction = list("mining", "ashwalker")
-	density = 0
+	density = FALSE
 	speak_chance = 1
 	turns_per_move = 8
 	obj_damage = 0
-	environment_smash = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
 	move_to_delay = 15
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "squishes"
 	friendly = "pinches"
 	a_intent = INTENT_HELP
-	ventcrawler = 2
-	gold_core_spawnable = 2
-	stat_attack = 1
+	ventcrawler = VENTCRAWLER_ALWAYS
+	gold_core_spawnable = FRIENDLY_SPAWN
+	stat_attack = UNCONSCIOUS
 	gender = NEUTER
 	stop_automated_movement = FALSE
 	stop_automated_movement_when_pulled = TRUE
 	stat_exclusive = TRUE
 	robust_searching = TRUE
-	search_objects = 3
+	search_objects = 3 //Ancient simplemob AI shitcode. This makes them ignore all other mobs.
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	deathmessage = "is pulped into bugmash."
 
 	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
-	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck = 45, /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen = 55)
+	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
 
 	wanted_objects = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/organ/internal)
 	var/obj/item/udder/gutlunch/udder = null
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/New()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/Initialize(mapload)
 	udder = new()
-	..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
-	qdel(udder)
-	udder = null
+	QDEL_NULL(udder)
 	return ..()
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/regenerate_icons()
@@ -96,7 +95,8 @@
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
 
-/obj/item/udder/gutlunch/New()
+/obj/item/udder/gutlunch/Initialize(mapload)
+	. = ..()
 	reagents = new(50)
 	reagents.my_atom = src
 
@@ -112,8 +112,8 @@
 	name = "gubbuck"
 	gender = MALE
 
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/New()
-	..()
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
+	. = ..()
 	add_atom_colour(pick("#E39FBB", "#D97D64", "#CF8C4A"), FIXED_COLOUR_PRIORITY)
 	resize = 0.85
 	update_transform()
@@ -133,3 +133,34 @@
 	if(.)
 		udder.reagents.clear_reagents()
 		regenerate_icons()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
+	name = "grublunch"
+	wanted_objects = list() //They don't eat.
+	gold_core_spawnable = NO_SPAWN
+	var/growth = 0
+
+//Baby gutlunch
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Initialize(mapload)
+	. = ..()
+	add_atom_colour("#9E9E9E", FIXED_COLOUR_PRIORITY) //Somewhat hidden
+	resize = 0.45
+	update_transform()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/Life()
+	..()
+	growth++
+	if(growth > 50) //originally used a timer for this but was more problem that it's worth.
+		growUp()
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch/proc/growUp()
+	var/mob/living/L
+	if(prob(45))
+		L = new /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck(loc)
+	else
+		L = new /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen(loc)
+	mind?.transfer_to(L)
+	L.faction = faction.Copy()
+	L.setDir(dir)
+	visible_message("<span class='notice'>[src] grows up into [L].</span>")
+	qdel(src)

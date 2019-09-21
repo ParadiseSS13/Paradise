@@ -1,0 +1,9 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Ripleys are slightly faster on station, but dramatically faster on Lavaland"
+  - tweak: "Mech mining drings can no longer drill through floors; they also don't just drill once. After a short delay, they'll attempt to drill the target, repeatedly."
+  - tweak: "Mech mining drills no longer instantly knock out mobs; if the mob is dead and has over 200 brute, the drill will attempt to harvest or gib the mob; can also disembowel"
+  - tweak: "Mech plasma gun has a lower cooldown"
+  - tweak: "Mining scanners apply a much brighter and visible overlay; mining a turf will now instantly clear the overlay"
+  - tweak: "Mining mech (the one that's a lavaland find) has a partially depleted cell; it'll also no longer have multiple mining tools on it"

@@ -46,8 +46,8 @@
 	desc = "Taste so good, you could die!"
 	icon_state = "poisonberrypile"
 	filling_color = "#C71585"
-	distill_reagent = null
 	tastes = list("poison-berry" = 1)
+	distill_reagent = null
 	wine_power = 0.35
 
 // Death Berries
@@ -70,8 +70,8 @@
 	desc = "Taste so good, you could die!"
 	icon_state = "deathberrypile"
 	filling_color = "#708090"
-	distill_reagent = null
 	tastes = list("death-berry" = 1)
+	distill_reagent = null
 	wine_power = 0.5
 
 // Glow Berries
@@ -130,8 +130,8 @@
 	gender = PLURAL
 	filling_color = "#FF0000"
 	bitesize_mod = 2
-	wine_power = 0.3
 	tastes = list("cherry" = 1)
+	wine_power = 0.3
 
 // Blue Cherries
 /obj/item/seeds/cherry/blue
@@ -152,8 +152,8 @@
 	icon_state = "bluecherry"
 	filling_color = "#6495ED"
 	bitesize_mod = 2
-	wine_power = 0.5
 	tastes = list("blue cherry" = 1)
+	wine_power = 0.5
 
 // Grapes
 /obj/item/seeds/grape
@@ -184,8 +184,8 @@
 	dried_type = /obj/item/reagent_containers/food/snacks/no_raisin
 	filling_color = "#FF1493"
 	bitesize_mod = 2
-	distill_reagent = "wine"
 	tastes = list("grapes" = 1)
+	distill_reagent = "wine"
 
 // Green Grapes
 /obj/item/seeds/grape/green

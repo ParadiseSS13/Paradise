@@ -8,7 +8,7 @@
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
 	mutations = list(BREATHLESS)
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -22,7 +22,7 @@
 	health = 250
 	obj_damage = 50
 	robust_searching = 1
-	stat_attack = 1
+	stat_attack = UNCONSCIOUS
 	attacktext = "savages"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
@@ -126,4 +126,4 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	environment_smash = 2
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN

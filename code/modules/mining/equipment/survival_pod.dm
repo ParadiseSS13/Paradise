@@ -160,11 +160,10 @@
 	RefreshParts()
 
 //NanoMed
-/obj/machinery/vending/wallmed1/survival_pod
+/obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
-	refill_canister = null
 
 	products = list(/obj/item/reagent_containers/food/pill/patch/styptic = 5,
 					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 5,
@@ -295,7 +294,8 @@
 
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE
+	burn_state = LAVA_PROOF
 	unacidable = TRUE
 	invisibility = INVISIBILITY_ABSTRACT
 
@@ -341,7 +341,7 @@
 						/obj/item/shield/changeling,
 						/obj/item/lava_staff,
 						/obj/item/katana/energy,
-						/obj/item/hierophant_staff,
+						/obj/item/hierophant_club,
 						/obj/item/storage/toolbox/green/memetic,
 						/obj/item/gun/projectile/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,

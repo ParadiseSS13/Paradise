@@ -228,6 +228,7 @@
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
 	actions_types = list(/datum/action/item_action/pontificate)
+	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -258,6 +259,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
+
 
 /obj/item/clothing/mask/redscarf
 	name = "red scarf"

@@ -87,53 +87,41 @@
 	new /obj/item/stack/sheet/glass (location, 15)
 
 //Gold
-/datum/chemical_reaction/slimecrit
+/datum/chemical_reaction/slimemobspawn
 	name = "Slime Crit"
 	id = "m_tele"
 	result = null
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/gold
-	required_other = 1
+	required_other = TRUE
 
-/datum/chemical_reaction/slimecrit/on_reaction(datum/reagents/holder)
-	feedback_add_details("slime_cores_used","[type]")
+/datum/chemical_reaction/slimemobspawn/on_reaction(datum/reagents/holder)
+	feedback_add_details("slime_cores_used", "[type]")
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
-	spawn(50)
-		chemical_mob_spawn(holder, 5, "Gold Slime")
+	summon_mobs(holder, T)
 
-/datum/chemical_reaction/slimecritlesser
+/datum/chemical_reaction/slimemobspawn/proc/summon_mobs(datum/reagents/holder, turf/T)
+	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
+	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 5, "Gold Slime", HOSTILE_SPAWN), 50)
+
+/datum/chemical_reaction/slimemobspawn/lesser
 	name = "Slime Crit Lesser"
 	id = "m_tele3"
-	result = null
 	required_reagents = list("blood" = 1)
-	result_amount = 1
-	required_container = /obj/item/slime_extract/gold
-	required_other = 1
 
-/datum/chemical_reaction/slimecritlesser/on_reaction(datum/reagents/holder)
-	feedback_add_details("slime_cores_used","[type]")
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
-	spawn(50)
-		chemical_mob_spawn(holder, 3, "Lesser Gold Slime", "neutral")
+/datum/chemical_reaction/slimemobspawn/lesser/summon_mobs(datum/reagents/holder, turf/T)
+	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
+	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 3, "Lesser Gold Slime", HOSTILE_SPAWN, "neutral"), 50)
 
-/datum/chemical_reaction/slimecritfriendly
+/datum/chemical_reaction/slimemobspawn/friendly
 	name = "Slime Crit Friendly"
 	id = "m_tele5"
-	result = null
 	required_reagents = list("water" = 1)
-	result_amount = 1
-	required_container = /obj/item/slime_extract/gold
-	required_other = 1
 
-/datum/chemical_reaction/slimecritfriendly/on_reaction(datum/reagents/holder)
-	feedback_add_details("slime_cores_used","[type]")
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably !</span>")
-	spawn(50)
-		chemical_mob_spawn(holder, 1, "Friendly Gold Slime", "neutral")
+/datum/chemical_reaction/slimemobspawn/friendly/summon_mobs(datum/reagents/holder, turf/T)
+	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably!</span>")
+	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
 
 //Silver
 /datum/chemical_reaction/slimebork

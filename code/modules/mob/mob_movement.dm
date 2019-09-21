@@ -2,7 +2,7 @@
 	if(height==0)
 		return 1
 	if(istype(mover, /obj/item/projectile) || mover.throwing)
-		return (!density || lying)
+		return (mover.throwing.thrower == src || !density || lying)
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)

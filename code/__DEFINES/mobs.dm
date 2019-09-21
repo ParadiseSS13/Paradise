@@ -64,7 +64,7 @@
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
 
-// Taste sensitivity - lower is more sensitive 
+// Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense
 #define TASTE_SENSITIVITY_NORMAL 15
 #define TASTE_SENSITIVITY_SHARP 7.5
@@ -129,9 +129,10 @@
 
 #define IGNORE_ACCESS -1
 
-#define CHEM_MOB_SPAWN_INVALID   0
-#define CHEM_MOB_SPAWN_HOSTILE   1
-#define CHEM_MOB_SPAWN_FRIENDLY  2
+//gold slime core spawning
+#define NO_SPAWN 0
+#define HOSTILE_SPAWN 1
+#define FRIENDLY_SPAWN 2
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
@@ -182,7 +183,8 @@
 #define isdrask(A) (is_species(A, /datum/species/drask))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
-#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
+#define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
+#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
 #define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))

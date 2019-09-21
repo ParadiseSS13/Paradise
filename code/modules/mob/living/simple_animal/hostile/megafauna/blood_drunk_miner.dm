@@ -29,8 +29,9 @@ Difficulty: Medium
 	icon_living = "miner"
 	icon = 'icons/mob/alienqueen.dmi'
 	light_color = "#E4C7C5"
+	flying = FALSE
 	speak_emote = list("roars")
-	speed = 1
+	speed = 3
 	move_to_delay = 3
 	projectiletype = /obj/item/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
@@ -42,6 +43,8 @@ Difficulty: Medium
 	wander = FALSE
 	del_on_death = TRUE
 	blood_volume = BLOOD_VOLUME_NORMAL
+	internal_type = /obj/item/gps/internal/miner
+	medal_type = BOSS_MEDAL_MINER
 	var/obj/item/melee/energy/cleaving_saw/miner/miner_saw
 	var/time_until_next_transform = 0
 	var/dashing = FALSE
@@ -63,7 +66,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
 	miner_saw = new(src)
-	internal_gps = new/obj/item/gps/internal/miner(src)
 
 	// Add a zone selection UI; otherwise the mob can't melee attack properly.
 	zone_sel = new /obj/screen/zone_sel()
