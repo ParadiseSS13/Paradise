@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Can now pick the species you want to play as for lavaland ghost roles"
