@@ -1,9 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Updates moonflower, sunflower, novaflower, and pineapple sprites"
-  - rscadd: "Adds in Garlic"
-  - bugfix: "Fixes a few issues with incorrect values from the wine PR"
-  - rscadd: "Can now grow and extract the reagents/traits of Lavaland flora"
-  - tweak: "Slightly tweaks soybean oil production on soybeans"
-  - rscadd: "Adds amusing garlic suicide"

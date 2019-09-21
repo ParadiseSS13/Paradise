@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - tweak: "Global admin midis will now silence lobby music for those who have midis enabled."

@@ -1,7 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "Plasma glass shards do less damage when attacking, but slightly more when stepping on them"
-  - tweak: "Spears made out of plasma glass do slightly more damage"
-  - tweak: "Light replacer can now be used in-hand to attempt to reload empty lighting fixtures around you in addition to showing how many lights it has"
-  - tweak: "Light replacer needs less shards to increment bulbs"

@@ -1,4 +1,0 @@
-author: "AzuleUtama"
-delete-after: True
-changes: 
-  - bugfix: "Syndie and Binary keys now use their own sprites rather than the default ones."

@@ -1,6 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - rscadd: "configurable limit to amount of monkeys that can be spawned by monkey cubes"
-  - tweak: "handle_death is passed the gibbed variable"
-  - tweak: "spec_death replaced with handle_death in romerol"

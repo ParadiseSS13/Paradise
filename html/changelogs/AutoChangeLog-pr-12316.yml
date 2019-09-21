@@ -1,5 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - bugfix: "Fixes a runtime preventing walls from being repaired properly"
-  - rscadd: "Adds the ability to repair and remove bullet holes from reinforced walls that have no structural damage"

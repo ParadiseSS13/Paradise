@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - bugfix: "Autoreponses now show up as the last admin response in tickets"

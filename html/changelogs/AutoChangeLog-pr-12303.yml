@@ -1,6 +1,0 @@
-author: "TheMadTrickster"
-delete-after: True
-changes: 
-  - bugfix: "fixed wonky/bugged sprites for custom guitar and hair gel"
-  - rscadd: "new improved clean sprites for custom items"
-  - rscdel: "old messy sprites for custom items"

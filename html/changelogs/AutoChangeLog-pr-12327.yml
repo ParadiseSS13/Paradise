@@ -1,5 +1,0 @@
-author: "Dave-TH"
-delete-after: True
-changes: 
-  - bugfix: "Crayon drawings can stack again."
-  - bugfix: "Crayons can no longer draw on multiple tiles at the same time, sorry octo-artist!"
