@@ -139,8 +139,9 @@
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
 	item_color = "rainbow"
-	clown
-		item_color = "clown"
+
+/obj/item/clothing/gloves/color/rainbow/clown
+	item_color = "clown"
 
 /obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
@@ -170,11 +171,11 @@
 	item_state = "graygloves"
 	item_color="grey"
 
-	rd
-		item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
+/obj/item/clothing/gloves/color/grey/rd
+	item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
 
-	hop
-		item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
+/obj/item/clothing/gloves/color/grey/hop
+	item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
 
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
@@ -190,8 +191,8 @@
 	item_state = "browngloves"
 	item_color="brown"
 
-	cargo
-		item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
+/obj/item/clothing/gloves/color/brown/cargo
+	item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
@@ -219,8 +220,8 @@
 	item_state = "wgloves"
 	item_color="mime"
 
-	redcoat
-		item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
+/obj/item/clothing/gloves/color/white/redcoat
+	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
 
 
 /obj/item/clothing/gloves/color/captain

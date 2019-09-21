@@ -52,7 +52,7 @@
 	if(!ishuman(user))
 		return TRUE
 	var/mob/living/carbon/human/H = user
-	if(H.gloves)
+	if(H.gloves && !H.gloves.transfer_prints) //exclude fingerless gloves, rings, bracers, etc.
 		return TRUE
 	if(PIERCEIMMUNE in H.dna.species.species_traits)
 		return TRUE
