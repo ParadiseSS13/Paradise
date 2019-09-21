@@ -1,4 +1,0 @@
-author: "Dave-TH"
-delete-after: True
-changes: 
-  - bugfix: "Fixes some vending machines (namely miner nanomeds) from adding all of their product twice."

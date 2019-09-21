@@ -1,8 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Ash Drake reworked; it's much more powerful now and has a diverse set of attacks--its fire breath is more random, it moves faster, it can turn the ground into lava, and once it's lower on health, will seal you into an arena and make you play the \"only one turf is safe; stand on it or suffer\" mini-game"
-  - rscadd: "Bubblegum is now much more difficult; instead of just spraying blood at you and attempting to endlessly charge you (walking backwards essentially counters it), it's now faster, engages in zig-zag attacks, uses a hallucination multi-attack, and can rapidly melee attack you in range"
-  - bugfix: "Fixes megafauana endlessly attacking dead mobs"
-  - tweak: "Blood drunk Colossus, and Ash Drake made to be more player friendly if they control the fauna"
-  - rscadd: "Adds in Space dragon; a very weak version of the Ash drake which can't swoop, but can still breathe fire--has a spell that whips you back with its tail, too (not currently used anywhere)"

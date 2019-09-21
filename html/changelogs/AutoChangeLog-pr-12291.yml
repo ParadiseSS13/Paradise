@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Hierophant has been updated--it'll be a bit tougher and will attempt to trap you if you run for it."
-  - tweak: "Heirophant is no longer a weird bird thing, but a massive, indecipherable piece of machinery that will make you dance to ITS tune"
-  - tweak: "Hierophant club is weaker up front, but becomes stronger the lower health you are"

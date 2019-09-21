@@ -1,5 +1,0 @@
-author: "Ionward"
-delete-after: True
-changes: 
-  - bugfix: "Plasmamen Librarians now have visible helmets."
-  - bugfix: "Atmos Hardsuits now have inhand sprites again."

@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - rscdel: "Removed custom admin event info that only admins could view due to confusion with the regular non-admin verb."

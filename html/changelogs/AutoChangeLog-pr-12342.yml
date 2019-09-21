@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscdel: "Completely transitions to Lavaland for all maps. The mining asteroid and it's related bits are removed"

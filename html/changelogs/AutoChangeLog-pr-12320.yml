@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes blood drunk buff not making you slow immune"
-  - rscadd: "Regenerative core will give you 1 minute of slow immunity on application"
