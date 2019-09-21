@@ -32,6 +32,7 @@
 	<br><i>You are free to attack anyone not aligned with the Syndicate in the vicinity of your base. <font size=6>DO NOT</font> work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. <font size=6>DO NOT</font> leave your base without admin permission.</i>"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
+	allow_species_pick = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))

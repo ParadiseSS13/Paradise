@@ -1482,7 +1482,9 @@
 				   /obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
 				   /obj/item/clothing/under/roman = 1,
 				   /obj/item/clothing/shoes/roman = 1,
-				   /obj/item/shield/riot/roman/fake = 1)
+				   /obj/item/shield/riot/roman/fake = 1,
+				   /obj/item/clothing/under/cuban_suit = 1,
+				   /obj/item/clothing/head/cuban_hat = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/autodrobe/Initialize(mapload)

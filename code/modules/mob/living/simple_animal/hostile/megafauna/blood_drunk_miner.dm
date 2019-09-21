@@ -29,6 +29,7 @@ Difficulty: Medium
 	icon_living = "miner"
 	icon = 'icons/mob/alienqueen.dmi'
 	light_color = "#E4C7C5"
+	flying = FALSE
 	speak_emote = list("roars")
 	speed = 3
 	move_to_delay = 3

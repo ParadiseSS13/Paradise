@@ -304,6 +304,7 @@
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
+	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
@@ -612,6 +613,19 @@
 	var/brightness_range = 2 //how much light it gives off
 	var/brightness_power = 1
 	var/brightness_color = null
+
+/obj/item/light/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+
+/obj/item/light/Crossed(mob/living/L)
+	if(istype(L) && has_gravity(loc))
+		if(L.incorporeal_move || L.flying)
+			return
+		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+		if(status == LIGHT_BURNED || status == LIGHT_OK)
+			shatter()
+	return ..()
 
 /obj/item/light/tube
 	name = "light tube"

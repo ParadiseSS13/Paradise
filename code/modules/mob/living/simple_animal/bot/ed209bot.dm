@@ -551,7 +551,7 @@
 			retaliate(H)
 	..()
 
-/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A, params)
 	if(!on)
 		return
 	shootAt(A)

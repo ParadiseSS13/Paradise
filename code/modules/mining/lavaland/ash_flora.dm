@@ -149,18 +149,10 @@
 	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
-/obj/structure/flora/ash/cacti/Crossed(mob/AM, oldloc)
-	if(ishuman(AM) && has_gravity(loc) && prob(70))
-		var/mob/living/carbon/human/H = AM
-		if(!H.shoes && !H.lying) //ouch, my feet.
-			var/picked_def_zone = pick("l_leg", "r_leg")
-			var/obj/item/organ/external/affected = H.get_organ(picked_def_zone)
-			if(!istype(affected))
-				return
-			H.apply_damage(rand(3, 6), BRUTE, picked_def_zone)
-			H.Weaken(2)
-			H.visible_message("<span class='danger'>[H] steps on a cactus!</span>", \
-				"<span class='userdanger'>You step on a cactus!</span>")
+/obj/structure/flora/ash/cacti/Initialize(mapload)
+	. = ..()
+	// min dmg 3, max dmg 6, prob(70)
+	AddComponent(/datum/component/caltrop, 3, 6, 70)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
 	name = "mushroom shavings"

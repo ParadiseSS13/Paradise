@@ -1,4 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - bugfix: "Refactored wooden chair so placing them won't make you see normal metallic chair anymore."

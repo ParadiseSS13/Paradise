@@ -20,9 +20,6 @@
 			wizardstart += loc
 			qdel(src)
 
-		if("avatarspawn")
-			avatarspawn += loc
-
 		if("JoinLate")
 			latejoin += loc
 			qdel(src)

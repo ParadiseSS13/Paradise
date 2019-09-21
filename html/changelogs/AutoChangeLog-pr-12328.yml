@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - bugfix: "recycled monkeys were not being subtracted from the monkey cap"

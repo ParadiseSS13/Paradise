@@ -30,20 +30,21 @@
 /mob/living/carbon/RestrainedClickOn(var/atom/A)
 	return 0
 
-// Commented out to prevent overwriting RangedAttack in click.dm ~ Bone White
-/*
-/mob/living/carbon/human/RangedAttack(var/atom/A)
-	if(!gloves && !mutations.len) return
-	var/obj/item/clothing/gloves/G = gloves
+/mob/living/carbon/human/RangedAttack(atom/A, params)
+	. = ..()
+	if(gloves)
+		var/obj/item/clothing/gloves/G = gloves
+		if(istype(G) && G.Touch(A, 0)) // for magic gloves
+			return
+
 	if((LASER in mutations) && a_intent == INTENT_HARM)
-		LaserEyes(A) // moved into a proc below
+		LaserEyes(A)
 
-	else if(istype(G) && G.Touch(A,0)) // for magic gloves
-		return
-
-	else if(TK in mutations)
+	if(TK in mutations)
 		A.attack_tk(src)
-*/
+
+	if(isturf(A) && get_dist(src, A) <= 1)
+		Move_Pulled(A)
 
 /*
 	Animals & All Unspecified

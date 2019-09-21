@@ -845,3 +845,10 @@
 	item_state = "durathread"
 	item_color = "durathread"
 	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/cuban_suit
+	name = "rhumba outfit"
+	desc = "A satin shirt and high-waisted pants, worn by dancers in the Rhumba style. It smells oddly like... sulfur?"
+	icon_state = "cuban_suit"
+	item_state = "cuban_suit"
+	item_color = "cuban_suit"
