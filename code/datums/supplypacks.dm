@@ -1237,7 +1237,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/seeds/banana,
 					/obj/item/seeds/eggplant/eggy,
 					/obj/item/seeds/random,
-					/obj/item/seeds/random)
+					/obj/item/seeds/random,
+					/obj/item/seeds/glowshroom)
 	cost = 15
 	containername = "exotic seeds crate"
 
