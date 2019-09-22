@@ -78,7 +78,7 @@
 		if(!ismob(G.affecting))
 			return
 		var/mob/M = G.affecting
-		if(M.buckled_mob)
+		if(M.has_buckled_mobs())
 			to_chat(usr, "[M] will not fit into [src] because [M.p_they()] [M.p_have()] a slime latched onto [M.p_their()] head.")
 			return
 		if(put_mob(M))

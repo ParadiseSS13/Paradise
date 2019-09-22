@@ -533,7 +533,7 @@
 	if(!isturf(picked))
 		return
 	if(H.buckled)
-		H.buckled.unbuckle_mob()
+		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	return TRUE
 
@@ -617,7 +617,7 @@
 	if(!isturf(picked))
 		return
 	if(H.buckled)
-		H.buckled.unbuckle_mob()
+		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
 	UpdateButtonIcon() //action icon looks unavailable

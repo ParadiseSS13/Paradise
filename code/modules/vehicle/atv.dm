@@ -16,10 +16,13 @@
 		atvcover.layer = MOB_LAYER + 0.1
 
 /obj/vehicle/atv/post_buckle_mob(mob/living/M)
-	if(buckled_mob)
-		overlays += atvcover
-	else
-		overlays -= atvcover
+	add_overlay(atvcover)
+	return ..()
+
+/obj/vehicle/atv/post_unbuckle_mob(mob/living/M)
+	if(!has_buckled_mobs())
+		cut_overlay(atvcover)
+	return ..()
 
 /obj/vehicle/atv/handle_vehicle_layer()
 	if(dir == SOUTH)

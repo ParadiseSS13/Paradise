@@ -78,19 +78,20 @@
 		qdel(src)
 
 /obj/structure/chair/attack_tk(mob/user as mob)
-	if(buckled_mob)
+	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
 		..()
 	else
 		rotate()
-	return
 
-/obj/structure/chair/proc/handle_rotation(direction)	//making this into a seperate proc so office chairs can call it on Move()
+/obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
-	if(buckled_mob)
-		buckled_mob.dir = dir
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
-	if(buckled_mob && dir == NORTH)
+	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
@@ -229,12 +230,12 @@
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
-	if(!buckled_mob)
+	if(!has_buckled_mobs())
 		return
 
 	if(propelled)
-		var/mob/living/occupant = buckled_mob
-		unbuckle_mob()
+		var/mob/living/occupant = buckled_mobs[1]
+		unbuckle_mob(occupant)
 		occupant.throw_at(A, 3, propelled)
 		occupant.apply_effect(6, STUN, 0)
 		occupant.apply_effect(6, WEAKEN, 0)
