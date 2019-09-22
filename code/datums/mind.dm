@@ -132,10 +132,13 @@
 	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
 	output += memory
 
+	var/antag_datum_objectives = FALSE
 	for(var/datum/antagonist/A in antag_datums)
 		output += A.antag_memory
+		if(LAZYLEN(A.objectives))
+			antag_datum_objectives = TRUE
 
-	if(LAZYLEN(objectives))
+	if(LAZYLEN(objectives) || antag_datum_objectives)
 		output += "<HR><B>Objectives:</B>"
 		output += gen_objective_text()
 
