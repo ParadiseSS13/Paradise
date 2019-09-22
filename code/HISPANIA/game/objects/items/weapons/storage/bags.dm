@@ -5,10 +5,10 @@
 /obj/item/storage/bag/gadgets
 	icon = 'icons/hispania/obj/storage/storage.dmi'
 	icon_state = "gadget_bag"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_BELT | SLOT_POCKET
 	name = "gadget bag"
 	desc = "This bag can be used to store many machine components."
-	storage_slots = 25
+	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list("/obj/item/stock_parts", "/obj/item/reagent_containers/glass/beaker", "/obj/item/circuitboard",
@@ -26,3 +26,13 @@
 		if(B.get_rating() > lowest_rating)
 			continue
 		remove_from_storage(B, A)
+
+/obj/item/storage/bag/kitchenbag
+	name = "Kitchen bag"
+	icon = 'icons/hispania/obj/storage/storage.dmi'
+	icon_state = "kitchenbag"
+	desc = "A simple bag with a cute logo to transport your food"
+	storage_slots = 50
+	max_combined_w_class = 200
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list("/obj/item/reagent_containers/food")
