@@ -11,7 +11,9 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list("/obj/item/stock_parts", "/obj/item/reagent_containers/glass/beaker")
+	can_hold = list("/obj/item/stock_parts", "/obj/item/reagent_containers/glass/beaker", "/obj/item/circuitboard",
+					"/obj/item/apc_electronics", "/obj/item/airlock_electronics", "/obj/item/firelock_electronics",
+					"/obj/item/firealarm_electronics", "/obj/item/airalarm_electronics")
 	display_contents_with_number = TRUE
 
 /obj/item/storage/bag/gadgets/mass_remove(atom/A)
