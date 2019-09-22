@@ -42,7 +42,6 @@
 #define MODE_TRAY "t-ray"
 
 /obj/item/clothing/glasses/meson/engine
-	icon = 'icons/hispania/obj/clothing/glasses.dmi'
 	name = "engineering scanner goggles"
 	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes."
 	icon_state = "trayson-meson"
@@ -57,6 +56,7 @@
 	vision_flags = NONE
 	see_in_dark = 2
 	invis_view = SEE_INVISIBLE_LIVING
+	lighting_alpha = null
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_NONE)
 	var/mode = MODE_NONE
@@ -97,6 +97,7 @@
 			see_in_dark = 2
 			vision_flags = NONE
 			flash_protect = init_flash_protect
+			lighting_alpha = null
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
