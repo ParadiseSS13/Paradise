@@ -144,8 +144,7 @@
 	allowed = list (/obj/item/kitchen/knife)
   
 	flags_size = ONESIZEFITSALL
-	species_fit = list("Vox")
-  
+	
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)
