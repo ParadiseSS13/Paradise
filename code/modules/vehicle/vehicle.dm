@@ -105,6 +105,23 @@
 			return
 		step(src, direction)
 
+		if(has_buckled_mobs())
+			for(var/m in buckled_mobs)
+				var/mob/living/buckled_mob = m
+				if(buckled_mob.loc != loc)
+					buckled_mob.buckled = null //Temporary, so Move() succeeds.
+					buckled_mob.buckled = src //Restoring
+
+			if(issimulatedturf(loc))
+				var/turf/simulated/T = loc
+				if(T.wet == TURF_WET_LUBE)	//Lube! Fall off!
+					playsound(src, 'sound/misc/slip.ogg', 50, 1, -3)
+					for(var/m in buckled_mobs)
+						var/mob/living/buckled_mob = m
+						buckled_mob.Weaken(5)
+					unbuckle_all_mobs()
+					step(src, dir)
+
 		handle_vehicle_layer()
 		handle_vehicle_offsets()
 	else

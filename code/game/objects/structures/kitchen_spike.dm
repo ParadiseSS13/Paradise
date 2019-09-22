@@ -46,7 +46,7 @@
 	else
 		..()
 
-/obj/structure/kitchenspike/attackby(obj/item/grab/G as obj, mob/user as mob)
+/obj/structure/kitchenspike/attackby(obj/item/grab/G, mob/user)
 	if(istype(G, /obj/item/crowbar))
 		if(!has_buckled_mobs())
 			playsound(loc, G.usesound, 100, 1)
@@ -74,32 +74,29 @@
 		to_chat(user, "<span class='danger'>You can't use that on the spike!</span>")
 		return
 
-/obj/structure/kitchenspike/proc/spike(var/mob/living/victim)
+/obj/structure/kitchenspike/proc/spike(mob/living/victim)
 
 	if(!istype(victim))
-		return
-
+		return FALSE
 
 	if(has_buckled_mobs()) //to prevent spam/queing up attacks
-		return 0
+		return FALSE
 	if(victim.buckled)
-		return 0
-	var/mob/living/H = victim
+		return FALSE
 	playsound(loc, 'sound/effects/splat.ogg', 25, 1)
-	H.forceMove(loc)
-	H.emote("scream")
-	if(ishuman(H))
+	victim.forceMove(drop_location())
+	victim.emote("scream")
+	if(ishuman(victim))
+		var/mob/living/carbon/human/H = victim
 		H.add_splatter_floor()
-	H.adjustBruteLoss(30)
-	H.buckled = src
-	H.dir = 2
-	buckle_mob(H, force = TRUE)
-	var/matrix/m180 = matrix()
+	victim.adjustBruteLoss(30)
+	victim.setDir(2)
+	buckle_mob(victim, force = TRUE)
+	var/matrix/m180 = matrix(victim.transform)
 	m180.Turn(180)
-	animate(H, transform = m180, time = 3)
-	H.pixel_y = H.get_standard_pixel_y_offset(180)
-	return 1
-
+	animate(victim, transform = m180, time = 3)
+	victim.pixel_y = victim.get_standard_pixel_y_offset(180)
+	return TRUE
 
 
 /obj/structure/kitchenspike/user_buckle_mob(mob/living/M, mob/living/user) //Don't want them getting put on the rack other than by spiking

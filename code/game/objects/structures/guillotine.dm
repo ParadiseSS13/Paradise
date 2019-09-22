@@ -28,6 +28,10 @@
 	var/force_clap = FALSE //You WILL clap if I want you to
 	var/current_action = 0 // What's currently happening to the guillotine
 
+/obj/structure/guillotine/Initialize(mapload)
+	LAZYINITLIST(buckled_mobs)
+	return ..()
+
 /obj/structure/guillotine/examine(mob/user)
 	..()
 
@@ -237,8 +241,8 @@
 /obj/structure/guillotine/post_buckle_mob(mob/living/M)
 	if(!ishuman(M))
 		return
-	else
-		unbuckle_all_mobs()
+	M.pixel_y += -GUILLOTINE_HEAD_OFFSET // Offset their body so it looks like they're in the guillotine
+	M.layer += GUILLOTINE_LAYER_DIFF
 	..()
 
 /obj/structure/guillotine/post_unbuckle_mob(mob/living/M)
