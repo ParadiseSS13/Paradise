@@ -17,7 +17,7 @@
 	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
-	ventcrawler = 1
+	ventcrawler = VENTCRAWLER_NUDE
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."

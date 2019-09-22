@@ -61,7 +61,7 @@
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/list/default_genes = list()
 
-	var/ventcrawler = 0 //Determines if the mob can go through the vents.
+	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
@@ -280,10 +280,12 @@
 			H.unEquip(thing)
 	if(H.hud_used)
 		H.hud_used.update_locked_slots()
+	H.ventcrawler = ventcrawler
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
 	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
+	H.ventcrawler = initial(H.ventcrawler)
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
