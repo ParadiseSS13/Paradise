@@ -52,10 +52,8 @@
 	if(!ishuman(user))
 		return TRUE
 	var/mob/living/carbon/human/H = user
-	if(H.gloves && istype(H.gloves, /obj/item/clothing/gloves))
-		var/obj/item/clothing/gloves/G = H.gloves //exclude fingerless gloves, rings, bracers, etc.
-		if(!G.transfer_prints)
-			return TRUE
+	if(H.gloves)
+		return TRUE
 	if(PIERCEIMMUNE in H.dna.species.species_traits)
 		return TRUE
 	var/organ = ((H.hand ? "l_":"r_") + "arm")
