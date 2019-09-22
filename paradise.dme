@@ -1236,6 +1236,7 @@
 #include "code\modules\antagonists\_common\antag_hud.dm"
 #include "code\modules\antagonists\_common\antag_spawner.dm"
 #include "code\modules\antagonists\_common\antag_team.dm"
+#include "code\modules\antagonists\survivalist\survivalist.dm"
 #include "code\modules\antagonists\traitor\datum_mindslave.dm"
 #include "code\modules\antagonists\traitor\datum_traitor.dm"
 #include "code\modules\antagonists\wishgranter\wishgranter.dm"
