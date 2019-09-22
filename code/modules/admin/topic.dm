@@ -37,7 +37,7 @@
 			return
 		var/ticketID = text2num(href_list["openmentorticket"])
 		SSmentor_tickets.showDetailUI(usr, ticketID)
-	
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
@@ -1002,6 +1002,7 @@
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
 				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&[json_encode(reason)]&This will be removed in [mins] minutes.")
+				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 
 				del(M.client)
 				//qdel(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
@@ -1019,10 +1020,10 @@
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
-				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&[json_encode(reason)]&nThis ban does not expire automatically and must be appealed.")
+				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&[json_encode(reason)]&This ban does not expire automatically and must be appealed.")
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
-
+				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 				del(M.client)
 				//qdel(M)
 			if("Cancel")
