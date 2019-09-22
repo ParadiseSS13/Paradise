@@ -135,7 +135,7 @@
 	var/antag_datum_objectives = FALSE
 	for(var/datum/antagonist/A in antag_datums)
 		output += A.antag_memory
-		if(LAZYLEN(A.objectives))
+		if(!antag_datum_objectives && LAZYLEN(A.objectives))
 			antag_datum_objectives = TRUE
 
 	if(LAZYLEN(objectives) || antag_datum_objectives)
