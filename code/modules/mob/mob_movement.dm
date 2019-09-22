@@ -10,6 +10,9 @@
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover))
+		var/mob/moving_mob = mover
+		if((other_mobs && moving_mob.other_mobs))
+			return TRUE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || lying)
