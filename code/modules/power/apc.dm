@@ -740,7 +740,7 @@
 
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
-	if(istype(malf) && malf.malf_picker)
+	if(istype(malf) && malf.mind.has_antag_datum(/datum/antagonist/traitor))
 		if(malfai == (malf.parent || malf))
 			if(occupier == malf)
 				return 3 // 3 = User is shunted in this APC
