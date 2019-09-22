@@ -8,8 +8,7 @@
 		final_block_chance += 30
 	if(owner.get_active_hand())
 		final_block_chance += 25
-		playsound(user.loc, 'sound/hispania/effects/shieldactivehand.ogg', 50, 1)
-		sound
+		playsound(owner.loc, 'sound/hispania/effects/shieldactivehand.ogg', 50, 1)
 	if(attack_type == LEAP_ATTACK)
 		final_block_chance = 100
 	return ..()
