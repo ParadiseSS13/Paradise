@@ -1,4 +1,4 @@
-/obj/item/clothing/glasses/meson/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
+/obj/item/clothing/glasses/meson/engine/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
 	if(!ismob(viewer) || !viewer.client)
 		return
 	for(var/turf/T in range(scan_range, viewer.loc) )
