@@ -132,17 +132,14 @@
 	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
 	output += memory
 
-	if(objectives.len)   // Delete this line when we handle objectives in the antag datum
-	//var/list/all_objectives = objectives
-	// for(var/datum/antagonist/A in antag_datums)   // Uncomment these 5 lines when antags are datumized and the objectives are handled in the antag datum -SteelSlayer
-	// 	output += A.antag_memory
-	// 	all_objectives |= A.objectives
+	for(var/datum/antagonist/A in antag_datums)
+		output += A.antag_memory
 
-	// if(LAZYLEN(all_objectives))
-		output += "<HR><B>Objectives:</B><BR>"
+	if(LAZYLEN(objectives))
+		output += "<HR><B>Objectives:</B>"
 		output += gen_objective_text()
 
-	if(job_objectives.len)
+	if(LAZYLEN(job_objectives))
 		output += "<HR><B>Job Objectives:</B><UL>"
 
 		var/obj_count = 1
@@ -155,18 +152,19 @@
 	else
 		to_chat(recipient, "<i>[output]</i>")
 
-/datum/mind/proc/get_all_objectives()
-	var/list/all_objectives = list()
-	for(var/datum/antagonist/A in antag_datums)
-		all_objectives |= A.objectives
-	return all_objectives
-
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	. = ""
 	var/obj_count = 1
-	//objectives = get_all_objectives() TODO: Move handling of objectives from the mind to /datum/antagonist/objectives, then we can use this function
+	var/list/all_objectives = list()
+	for(var/datum/antagonist/A in antag_datums)
+		all_objectives |= A.objectives
+
+	if(LAZYLEN(all_objectives))
+		for(var/datum/objective/objective in all_objectives)
+			. += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+
 	for(var/datum/objective/objective in objectives)
-		. += "<b>Objective #[obj_count]</b>: [objective.explanation_text]"
+		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
 		if(admin)
 			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
 			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
@@ -175,7 +173,6 @@
 			. += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
 			. += "</a>"
 		. += "<br>"
-		obj_count++
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
