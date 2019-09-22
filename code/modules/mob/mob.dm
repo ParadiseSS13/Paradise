@@ -1373,3 +1373,11 @@ var/list/slot_equipment_priority = list( \
 				suffix = "_8"
 
 		S.icon_state = "[initial(S.icon_state)][suffix]"
+
+///Adjust the nutrition of a mob
+/mob/proc/adjust_nutrition(change)
+	nutrition = max(0, nutrition + change)
+
+///Force set the mob nutrition
+/mob/proc/set_nutrition(change)
+	nutrition = max(0, change)

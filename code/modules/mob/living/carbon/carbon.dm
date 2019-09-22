@@ -26,9 +26,9 @@
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD)
-			nutrition -= hunger_drain / 10
+			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
-				nutrition -= hunger_drain / 10
+				adjust_nutrition(-(hunger_drain * 0.1))
 		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
@@ -110,7 +110,7 @@
 			else
 				if(T)
 					T.add_vomit_floor()
-				nutrition -= lost_nutrition
+				adjust_nutrition(-lost_nutrition)
 				if(stun)
 					adjustToxLoss(-3)
 			T = get_step(T, dir)

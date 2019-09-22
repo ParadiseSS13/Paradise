@@ -67,8 +67,8 @@
 // Taste sensitivity - lower is more sensitive
 // Represents the minimum portion of total taste the mob can sense
 #define TASTE_SENSITIVITY_NORMAL 15
-#define TASTE_SENSITIVITY_SHARP 7.5
-#define TASTE_SENSITIVITY_DULL 20
+#define TASTE_SENSITIVITY_SHARP 10
+#define TASTE_SENSITIVITY_DULL 25
 #define TASTE_SENSITIVITY_NO_TASTE 101
 
 // Reagent type flags, defines the types of mobs this reagent will affect

@@ -37,7 +37,7 @@
 			return
 		var/ticketID = text2num(href_list["openmentorticket"])
 		SSmentor_tickets.showDetailUI(usr, ticketID)
-	
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
@@ -1934,7 +1934,7 @@
 				H.reagents.add_reagent("ice", 40)
 				logmsg = "cold."
 			if("Hunger")
-				H.nutrition = NUTRITION_LEVEL_CURSED
+				H.set_nutrition(NUTRITION_LEVEL_CURSED)
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
