@@ -1187,6 +1187,8 @@
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\alcohol.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\drinks.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\recipes\drinks.dm"
+#include "code\HISPANIA\modules\research\designs\comp_board_designs.dm"
+#include "code\HISPANIA\modules\research\designs\machine_designs.dm"
 #include "code\HISPANIA\modules\research\designs\mechfabricator_designs.dm"
 #include "code\HISPANIA\modules\research\designs\misc_designs.dm"
 #include "code\HISPANIA\modules\research\designs\power_designs.dm"
