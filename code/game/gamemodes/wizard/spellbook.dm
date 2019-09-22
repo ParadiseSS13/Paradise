@@ -312,6 +312,7 @@
 	dat += "<i>[desc]</i><br>"
 	if(active)
 		dat += "<b>Already cast!</b><br>"
+	return dat
 
 /datum/spellbook_entry/summon/ghosts
 	name = "Summon Ghosts"

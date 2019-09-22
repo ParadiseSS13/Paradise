@@ -542,10 +542,14 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return FALSE
 	var/list/all_items = owner.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
 	for(var/obj/I in all_items) //Check for wanted items
-		if(istype(I, /obj/item/spellbook))
+		if(istype(I, /obj/item/spellbook) && !istype(I, /obj/item/spellbook/oneuse))
 			var/obj/item/spellbook/spellbook = I
 			if(spellbook.uses) //if the book still has powers...
 				stolen_count++ //it counts. nice.
+		if(istype(I, /obj/item/spellbook/oneuse))
+			var/obj/item/spellbook/oneuse/oneuse = I
+			if(!oneuse.used)
+				stolen_count++
 		else if(is_type_in_typecache(I, wanted_items))
 			stolen_count++
 	return stolen_count >= 5
