@@ -375,7 +375,8 @@
 			timer_start()
 		else
 			timer_end()
-			Radio.autosay("Timer stopped manually by [usr.name].", name, "Security", list(z))
+			if(!isobserver(usr)) //spooky admin ghosts are in your brig, releasing your prisoners
+				Radio.autosay("Timer stopped manually by [usr.name].", name, "Security", list(z))
 
 	else
 		if(href_list["settime"])
