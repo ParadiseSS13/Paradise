@@ -1,4 +1,4 @@
-/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
+/obj/item/clothing/glasses/meson/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
 	if(!ismob(viewer) || !viewer.client)
 		return
 	for(var/turf/T in range(scan_range, viewer.loc) )
@@ -71,6 +71,10 @@
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/clothing/glasses/meson/engine/item_action_slot_check(slot)
+	if(slot == slot_glasses)
+		return 1
 
 /obj/item/clothing/glasses/meson/engine/proc/toggle_mode(mob/user, voluntary)
 	mode = modes[mode]
