@@ -81,8 +81,8 @@
 	desc = "Equipment for medical exosuits. A upgraded exosuit syringe gun"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "rapidsyringegun"
-	max_syringes = 60
-	max_volume = 450
+	max_syringes = 20
+	max_volume = 150
 	energy_drain = 100
 
 	origin_tech = "materials=4;biotech=5;magnets=4,engineering=4"
