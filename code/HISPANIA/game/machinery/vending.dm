@@ -20,16 +20,35 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/machinery/vending/walldrobe/cap
 	name = "\improper Captain's WallDrobe"
 	req_access = list(access_captain)
-	products = list(/obj/item/clothing/under/rank/command/captain/formal/light = 2,
-					/obj/item/clothing/under/rank/command/captain/formal/dark = 2,
-					/obj/item/clothing/head/caphat/dark = 2,
-					/obj/item/clothing/head/caphat/light = 2,
-					/obj/item/clothing/suit/armor/vest/captrenchcoat = 2)
+	products = list(/obj/item/clothing/under/rank/command/captain/formal/light = 1,
+					/obj/item/clothing/under/rank/command/captain/formal/dark = 1,
+					/obj/item/clothing/head/caphat/dark = 1,
+					/obj/item/clothing/head/caphat/light = 1,
+					/obj/item/clothing/suit/armor/vest/captrenchcoat = 1,
+					/obj/item/clothing/suit/captunic = 1,
+					/obj/item/clothing/suit/captunic/capjacket = 1,
+					/obj/item/clothing/under/captainparade = 1,
+					/obj/item/clothing/under/rank/captain = 1,
+					/obj/item/clothing/head/caphat/parade = 1,
+					/obj/item/clothing/under/rank/captain = 1,
+					/obj/item/clothing/under/rank/captain = 1,
+					/obj/item/clothing/under/dress/dress_cap = 1,
+					/obj/item/clothing/under/dress/dress_cap = 1,
+					/obj/item/clothing/suit/armor/vest/capcarapace/alt = 1,
+					/obj/item/clothing/shoes/brown = 1,
+					/obj/item/clothing/shoes/laceup = 1,
+					/obj/item/clothing/suit/mantle/armor/captain = 1,
+					/obj/item/clothing/gloves/color/captain)
 
 /obj/machinery/vending/walldrobe/rd
 	name = "\improper Research Director's WallDrobe"
 	req_access = list(access_rd)
-	products = list(/obj/item/clothing/suit/storage/labcoat/RDlargedark = 2,
-					/obj/item/clothing/suit/storage/labcoat/RDlargeroundcutdark = 2)
+	products = list(/obj/item/clothing/suit/storage/labcoat/RDlargedark = 1,
+					/obj/item/clothing/suit/storage/labcoat/RDlargeroundcutdark = 1,
+					/obj/item/clothing/suit/bio_suit/scientist = 1,
+					/obj/item/clothing/head/bio_hood/scientist = 1,
+					/obj/item/clothing/under/rank/research_director = 1,
+					/obj/item/clothing/suit/storage/labcoat = 1,
+					/obj/item/clothing/suit/mantle/labcoat = 1)
 
 
