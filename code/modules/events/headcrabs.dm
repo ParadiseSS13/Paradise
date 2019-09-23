@@ -16,15 +16,14 @@
 #define LOC_GENETICS 15
 #define LOC_ELECTRICAL 16
 #define LOC_ABANDONEDBAR 17
-#define LOC_ELECTRICAL_SHOP 18
-#define LOC_GAMBLING_DEN 19
 
 #define HEADCRAB_NORMAL 0
 #define HEADCRAB_FASTMIX 1
 #define HEADCRAB_FAST 2
 #define HEADCRAB_POISONMIX 3
 #define HEADCRAB_POISON 4
-/*#define HEADCRAB_CLOWN 5 */ //Planned for the future. maybe
+#define HEADCRAB_SPAWNER 5
+/*#define HEADCRAB_CLOWN 6 */ //Planned for the future. maybe
 
 /datum/event/headcrabs
 	announceWhen = 10
@@ -35,7 +34,7 @@
 
 /datum/event/headcrabs/start()
 
-	location = rand(0,19)
+	location = rand(0,17)
 	var/list/turf/simulated/floor/turfs = list()
 	var/spawn_area_type
 	switch(location)
@@ -93,12 +92,6 @@
 		if(LOC_ABANDONEDBAR)
 			spawn_area_type = /area/maintenance/abandonedbar
 			locstring = "Maintenance Bar"
-		if(LOC_ELECTRICAL_SHOP)
-			spawn_area_type = /area/maintenance/electrical_shop
-			locstring ="Electronics Den"
-		if(LOC_GAMBLING_DEN)
-			spawn_area_type = /area/maintenance/gambling_den
-			locstring = "Gambling Den"
 	for(var/areapath in typesof(spawn_area_type))
 		var/area/A = locate(areapath)
 		for(var/turf/simulated/floor/F in A.contents)
@@ -107,7 +100,7 @@
 
 	var/list/spawn_types = list()
 	var/max_number
-	headcrab = rand(0, 4) //rand(0,x) for the future
+	headcrab = rand(0, 5) //rand(0,x) for the future
 	switch(headcrab) //Switch is for the future
 		if(HEADCRAB_NORMAL)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab)
@@ -124,6 +117,9 @@
 		if(HEADCRAB_POISON)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/poison)
 			max_number = 3
+		if(HEADCRAB_SPAWNER)
+			spawn_types = list(/obj/structure/spawner/headcrab)
+			max_number = 2
 
 
 	var/num = rand(2,max_number)
@@ -136,7 +132,7 @@
 
 
 /datum/event/headcrabs/announce()
-	event_announcement.Announce("Bioscans indicate that creatures have been breeding in [locstring]. Clear them out, before this starts to affect productivity", "Lifesign Alert")
+	event_announcement.Announce("Bioscans indicate that headcrabs have been breeding in [locstring]. Clear them out, before this starts to affect productivity", "Lifesign Alert")
 
 #undef LOC_ATMOS_CONTROL
 #undef LOC_FPMAINT
@@ -156,11 +152,10 @@
 #undef LOC_GENETICS 
 #undef LOC_ELECTRICAL 
 #undef LOC_ABANDONEDBAR 
-#undef LOC_ELECTRICAL_SHOP 
-#undef LOC_GAMBLING_DEN 
 
 #undef HEADCRAB_NORMAL
 #undef HEADCRAB_FASTMIX
 #undef HEADCRAB_FAST
 #undef HEADCRAB_POISONMIX
 #undef HEADCRAB_POISON
+#undef HEADCRAB_SPAWNER
