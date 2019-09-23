@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - bugfix: "fixed brig door timers from announcing admin names when stopped via admin powers."

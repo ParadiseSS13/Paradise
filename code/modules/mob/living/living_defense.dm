@@ -217,6 +217,9 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
+/mob/living/can_be_pulled(user, grab_state, force)
+	return ..() && !(buckled && buckled.buckle_prevents_pull)
+
 /mob/living/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))

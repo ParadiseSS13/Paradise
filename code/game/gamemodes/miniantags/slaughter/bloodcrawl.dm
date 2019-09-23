@@ -35,8 +35,6 @@
 		animation.dir = dir
 
 		ExtinguishMob()
-		if(buckled)
-			buckled.unbuckle_mob()
 		if(pulling && bloodcrawl == BLOODCRAWL_EAT)
 			if(istype(pulling, /mob/living/))
 				var/mob/living/victim = pulling
@@ -50,8 +48,9 @@
 					kidnapped = victim
 					stop_pulling()
 		flick("jaunt",animation)
-		loc = holder
-		holder = holder
+
+		src.holder = holder
+		forceMove(holder)
 
 		if(kidnapped)
 			to_chat(src, "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>")

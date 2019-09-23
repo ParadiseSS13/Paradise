@@ -12,7 +12,7 @@
 	var/strapped = 0.0
 
 	var/obj/machinery/computer/operating/computer = null
-	buckle_lying = 90
+	buckle_lying = -1
 	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1

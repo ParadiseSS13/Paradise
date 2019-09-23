@@ -259,7 +259,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	if(!direction || !(direction in cardinal)) //cant go this way.
 		return
 
-	if(buckled_mob == user)
+	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)

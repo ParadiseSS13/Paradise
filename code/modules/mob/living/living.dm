@@ -450,12 +450,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.buckled_mob = null
-		buckled = null
-		anchored = initial(anchored)
-		update_canmove()
-		clear_alert("buckled")
-		post_buckle_mob(src)
+		buckled.unbuckle_mob(src, force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -641,11 +636,14 @@
 	START RESIST PROCS
 *///////////////////////
 
+/mob/living/can_resist()
+	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+
 /mob/living/verb/resist()
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
+	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
