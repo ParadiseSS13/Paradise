@@ -135,8 +135,9 @@
 
 /obj/item/clothing/glasses/meson/engine/tray //atmos techs have lived far too long without tray goggles while those damned engineers get their dual-purpose gogles all to themselves
 	name = "optical t-ray scanner"
-	icon_state = "trayson-t-ray"
-	item_state = "trayson-t-ray"
+	icon_state_base = "traysonbasic-"
+	icon_state = "traysonbasic-t-ray"
+	item_state = "traysonbasic-t-ray"
 	desc = "Used by engineering staff to see underfloor objects such as cables and pipes."
 	origin_tech = "magnets=2;plasmatech=2;engineering=2"
 
