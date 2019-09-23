@@ -11,9 +11,9 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	desc = "Wall-mounted Clothes dispenser. Made by D&N Corp."
 	product_ads = "Dress up in fashion and wear our amazing uniforms, hats, suits made of the best material, only with us N&D Corp!."
 	icon = 'icons/hispania/obj/vending.dmi'
-	icon_state = "WallDrobe"
-	icon_deny = "WallDrobe-deny"
-	icon_vend = "WallDrobe-vend"
+	icon_state = "walldrobe"
+	icon_deny = "walldrobe-deny"
+	icon_vend = "walldrobe-vend"
 	density = FALSE //It is wall-mounted, and thus, not dense. --SuperxpdudeS
 	vend_delay = 12
 
