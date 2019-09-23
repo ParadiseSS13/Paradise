@@ -1284,9 +1284,9 @@
 						/obj/item/seeds/lime = 3, /obj/item/seeds/onion = 3, /obj/item/seeds/orange = 3, /obj/item/seeds/peanuts = 3, /obj/item/seeds/pineapple = 3, /obj/item/seeds/potato = 3, /obj/item/seeds/poppy = 3,
 						/obj/item/seeds/pumpkin = 3, /obj/item/seeds/replicapod = 3, /obj/item/seeds/wheat/rice = 3, /obj/item/seeds/soya = 3, /obj/item/seeds/sunflower = 3, /obj/item/seeds/sugarcane = 3,
 						/obj/item/seeds/tea = 3, /obj/item/seeds/tobacco = 3, /obj/item/seeds/tomato = 3,
-						/obj/item/seeds/tower = 3, /obj/item/seeds/watermelon = 3, /obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3)
+						/obj/item/seeds/tower = 3, /obj/item/seeds/watermelon = 3, /obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3, /obj/item/seeds/fungus = 3)
 	contraband = list(/obj/item/seeds/amanita = 2, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2,
-						/obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/cannabis = 3, /obj/item/seeds/starthistle = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/random = 2)
+						/obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/cannabis = 3, /obj/item/seeds/starthistle = 2, /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
