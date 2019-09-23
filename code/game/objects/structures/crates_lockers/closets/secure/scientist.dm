@@ -58,7 +58,7 @@
 	icon_broken = "rdsecurebroken"
 	icon_off = "rdsecureoff"
 
-/obj/structure/closet/secure_closet/RD/New()
+/obj/structure/closet/secure_closet/rd/New()
 	..()
 	new /obj/item/cartridge/rd(src)
 	new /obj/item/clothing/shoes/white(src)

@@ -43,8 +43,8 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 /obj/machinery/vending/walldrobe/rd
 	name = "\improper Research Director's WallDrobe"
 	req_access = list(access_rd)
-	products = list(/obj/item/clothing/suit/storage/labcoat/RDlargedark = 1,
-					/obj/item/clothing/suit/storage/labcoat/RDlargeroundcutdark = 1,
+	products = list(/obj/item/clothing/suit/storage/labcoat/rdlargedark = 1,
+					/obj/item/clothing/suit/storage/labcoat/rdlargeroundcutdark = 1,
 					/obj/item/clothing/suit/bio_suit/scientist = 1,
 					/obj/item/clothing/head/bio_hood/scientist = 1,
 					/obj/item/clothing/under/rank/research_director = 1,
