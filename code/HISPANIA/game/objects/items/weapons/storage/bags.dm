@@ -2,17 +2,17 @@
 //          Gadget Bag
 // -----------------------------
 
-/obj/item/storage/bag/gadgets
+/obj/item/storage/bag/component
 	icon = 'icons/hispania/obj/storage/storage.dmi'
-	icon_state = "gadget_bag"
+	icon_state = "component_bag"
 	slot_flags = SLOT_BELT | SLOT_POCKET
-	name = "gadget bag"
-	desc = "This bag can be used to store many machine components."
+	name = "component bag"
+	desc = "This bag with sciences colors can be used to store many machine components."
 	storage_slots = 50
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list("/obj/item/stock_parts", "/obj/item/reagent_containers/glass/beaker", "/obj/item/circuitboard",
-					"/obj/item/apc_electronics", "/obj/item/airlock_electronics", "/obj/item/firelock_electronics",
+	can_hold = list("/obj/item/stock_parts", "/obj/item/circuitboard", "/obj/item/apc_electronics",
+					"/obj/item/airlock_electronics", "/obj/item/firelock_electronics",
 					"/obj/item/firealarm_electronics", "/obj/item/airalarm_electronics")
 	display_contents_with_number = TRUE
 
@@ -26,6 +26,15 @@
 		if(B.get_rating() > lowest_rating)
 			continue
 		remove_from_storage(B, A)
+
+/obj/item/storage/bag/component/inge
+	icon_state = "component_bag_inge"
+	desc = "This bag with engineers colors can be used to store many machine components."
+
+
+// -----------------------------
+//          Kitchen Bag
+// -----------------------------
 
 /obj/item/storage/bag/kitchenbag
 	name = "Kitchen bag"
