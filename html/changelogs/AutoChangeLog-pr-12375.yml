@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Buckling has its own icon"
+  - bugfix: "Fixes Xenobio monkey shortcuts not working"
