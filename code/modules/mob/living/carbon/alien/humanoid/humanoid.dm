@@ -65,15 +65,6 @@
 
 	take_overall_damage(b_loss, f_loss)
 
-/mob/living/carbon/alien/humanoid/attack_slime(mob/living/simple_animal/slime/M)
-	if(..()) //successful slime attack
-		var/damage = rand(5, 35)
-		if(M.is_adult)
-			damage = rand(10, 40)
-		adjustBruteLoss(damage)
-		add_attack_logs(src, M, "Slime'd for [damage] damage")
-		updatehealth("slime attack")
-
 /mob/living/carbon/alien/humanoid/restrained()
 	if(handcuffed)
 		return 1

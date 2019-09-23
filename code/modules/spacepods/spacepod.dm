@@ -766,7 +766,7 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 		return 0
 
 	if(user.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>[usr] will not fit into [src] because [user.p_they()] [user.p_have()] creatures attached to [user.p_them()]!</span>")
+		to_chat(user, "<span class='warning'>[user] will not fit into [src] because [user.p_they()] [user.p_have()] creatures attached to [user.p_them()]!</span>")
 		return
 
 	move_inside(user)
