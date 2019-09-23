@@ -130,7 +130,7 @@
 	else
 		Tempstun = 0
 
-	updatehealth()
+	updatehealth("handle environment")
 
 
 	return //TODO: DEFERRED
