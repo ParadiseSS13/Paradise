@@ -135,16 +135,16 @@
 		qdel(src)
 	return
 
-/mob/living/carbon/human/proc/slimeize(adult as num, reproduce as num)
+/mob/living/carbon/human/proc/slimeize(reproduce as num)
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		unEquip(W)
+	notransform = TRUE
+	canmove = FALSE
+	for(var/obj/item/I in src)
+		unEquip(I)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_MAXIMUM
 	for(var/t in bodyparts)
 		qdel(t)
 
@@ -160,16 +160,13 @@
 		new_slime = pick(babies)
 	else
 		new_slime = new /mob/living/simple_animal/slime(loc)
-		if(adult)
-			new_slime.is_adult = 1
-		else
+	new_slime.a_intent = INTENT_HARM
 	new_slime.key = key
 
 	to_chat(new_slime, "<B>You are now a slime. Skreee!</B>")
 	new_slime.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	. = new_slime
+	qdel(src)
 
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)

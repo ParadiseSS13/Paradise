@@ -197,9 +197,8 @@
 				break
 			if(!S.ckey)
 				if(S.buckled)
-					S.buckled.unbuckle_mob(S, force = TRUE)
-				S.Feedstop()
-				S.visible_message("[S] vanishes in a flash of light!")
+					S.Feedstop(silent = TRUE)
+				S.visible_message("<span class='notice'>[S] vanishes in a flash of light!</span>")
 				S.forceMove(X)
 				X.stored_slimes += S
 	else
@@ -377,14 +376,16 @@
 	var/area/mobarea = get_area(S.loc)
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(X.stored_slimes.len >= X.max_slimes)
+			to_chat(C, "<span class='warning'>Slime storage is full.</span>")
 			return
-		if(!S.ckey)
-			if(S.buckled)
-				S.buckled.unbuckle_mob(S, force = TRUE)
-			S.Feedstop()
-			S.visible_message("[S] vanishes in a flash of light!")
-			S.forceMove(X)
-			X.stored_slimes += S
+		if(S.ckey)
+			to_chat(C, "<span class='warning'>The slime wiggled free!</span>")
+			return
+		if(S.buckled)
+			S.Feedstop(silent = TRUE)
+		S.visible_message("<span class='notice'>[S] vanishes in a flash of light!</span>")
+		S.forceMove(X)
+		X.stored_slimes += S
 
 //Place slimes
 /obj/machinery/computer/camera_advanced/xenobio/proc/XenoTurfClickShift(mob/living/user, turf/T)
@@ -398,7 +399,7 @@
 	if(turfarea.name == E.allowed_area || turfarea.xenobiology_compatible)
 		for(var/mob/living/simple_animal/slime/S in X.stored_slimes)
 			S.forceMove(T)
-			S.visible_message("[S] warps in!")
+			S.visible_message("<span class='notice'>[S] warps in!</span>")
 			X.stored_slimes -= S
 
 //Place monkey

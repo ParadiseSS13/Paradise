@@ -493,3 +493,9 @@
 
 /mob/living/simple_animal/slime/random/Initialize(mapload, new_colour, new_is_adult)
 	. = ..(mapload, pick(slime_colours), prob(50))
+
+/mob/living/simple_animal/slime/handle_ventcrawl(atom/A)
+	if(buckled)
+		to_chat(src, "<i>I can't vent crawl while feeding...</i>")
+		return
+	..()
