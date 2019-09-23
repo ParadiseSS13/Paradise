@@ -869,16 +869,6 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/console_screen = 2)
 
-/obj/item/circuitboard/bodyscanner_console
-	name = "circuit board (Body Scanner Console)"
-	build_path = /obj/machinery/body_scanconsole
-	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3"
-	frame_desc = "Requires 2 pieces of cable and 2 Console Screens."
-	req_components = list(
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/console_screen = 2)
-
 /obj/item/circuitboard/cryo_tube
 	name = "circuit board (Cryotube)"
 	build_path = /obj/machinery/atmospherics/unary/cryo_cell
