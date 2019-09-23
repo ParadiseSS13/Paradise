@@ -190,8 +190,8 @@
 		if(occupant)
 			to_chat(user, "<span class='notice'>The [src] is already occupied!</span>")
 			return
-		if(grabbed.has_buckled_mobs()) //mob attached to us
-			to_chat(user, "<span class='warning'>[grabbed] will not fit into [src] because [grabbed.p_they()] [grabbed.p_have()] a slime latched onto [grabbed.p_their()] head.</span>")
+		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
+			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
 			return
 		visible_message("[user] puts [grabbed.affecting] into the [src].")
 		var/mob/living/carbon/human/H = grabbed.affecting
