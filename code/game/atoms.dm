@@ -272,7 +272,7 @@
 
 
 //All atoms
-/atom/proc/examine(mob/user, var/infix = "", var/suffix = "")
+/atom/proc/examine(mob/user, infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
