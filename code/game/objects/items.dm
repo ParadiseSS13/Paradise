@@ -346,6 +346,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+		playsound(owner.loc, 'sound/hispania/effects/shieldactivehand.ogg', 50, 1)
 		return 1
 	return 0
 
