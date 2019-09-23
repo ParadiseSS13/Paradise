@@ -5,15 +5,17 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 */
 /obj/machinery/r_n_d/circuit_imprinter/inge
-	name = "Circuit Imprinter"
+	name = "Engineers Circuit Imprinter"
 	desc = "Manufactures circuit boards for the construction of machines."
 	icon_state = "circuit_imprinter"
-	container_type = OPENCONTAINER
 
-	list/categories = list(
+	categories = list(
+								"Computer Parts",
 								"Engineering Machinery",
+								"Hydroponics Machinery",
+								"Medical Machinery",
 								"Misc. Machinery",
-								"Subspace Telecomms",
+								"Subspace Telecomms"
 								)
 
 	reagents = new()
