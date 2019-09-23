@@ -124,6 +124,11 @@
 	securityActive2 = null
 	return ..()
 
+/mob/living/silicon/pai/can_unbuckle()
+	return FALSE
+
+/mob/living/silicon/pai/can_buckle()
+	return FALSE
 
 /mob/living/silicon/pai/movement_delay()
 	. = ..()

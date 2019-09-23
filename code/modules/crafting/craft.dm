@@ -268,7 +268,8 @@
 
 /datum/personal_crafting/proc/close(mob/user)
 	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
-	ui.close()
+	if(ui)
+		ui.close()
 
 /datum/personal_crafting/ui_data(mob/user)
 	var/list/data = list()

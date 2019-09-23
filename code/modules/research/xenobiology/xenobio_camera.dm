@@ -92,17 +92,17 @@
 		potion_action.target = src
 		potion_action.Grant(user)
 		actions += potion_action
-	
+
 	if(hotkey_help)
 		hotkey_help.target = src
 		hotkey_help.Grant(user)
 		actions += hotkey_help
 
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, .proc/XenoSlimeClickCtrl)	
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, .proc/XenoSlimeClickAlt)	
-	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, .proc/XenoSlimeClickShift)	
-	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, .proc/XenoTurfClickShift)	
-	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, .proc/XenoTurfClickCtrl)	
+	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL, .proc/XenoSlimeClickCtrl)
+	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT, .proc/XenoSlimeClickAlt)
+	RegisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT, .proc/XenoSlimeClickShift)
+	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT, .proc/XenoTurfClickShift)
+	RegisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL, .proc/XenoTurfClickCtrl)
 	RegisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL, .proc/XenoMonkeyClickCtrl)
 
 	if(!connected_recycler)
@@ -112,12 +112,12 @@
 				connected_recycler.connected += src
 
 /obj/machinery/computer/camera_advanced/xenobio/remove_eye_control(mob/living/user)
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL)	
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT)	
-	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT)	
-	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT)	
-	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL)	
-	UnregisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL)	
+	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_CTRL)
+	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_ALT)
+	UnregisterSignal(user, COMSIG_XENO_SLIME_CLICK_SHIFT)
+	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_SHIFT)
+	UnregisterSignal(user, COMSIG_XENO_TURF_CLICK_CTRL)
+	UnregisterSignal(user, COMSIG_XENO_MONKEY_CLICK_CTRL)
 	..()
 
 /obj/machinery/computer/camera_advanced/xenobio/attack_hand(mob/user)
@@ -197,7 +197,7 @@
 				break
 			if(!S.ckey)
 				if(S.buckled)
-					S.buckled.unbuckle_mob()
+					S.buckled.unbuckle_mob(S, force = TRUE)
 				S.Feedstop()
 				S.visible_message("[S] vanishes in a flash of light!")
 				S.forceMove(X)
@@ -240,7 +240,7 @@
 	var/mob/camera/aiEye/remote/xenobio/remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/xenobio/X = target
 	var/obj/machinery/monkey_recycler/recycler = X.connected_recycler
-	
+
 	if(!recycler)
 		to_chat(owner, "<span class='notice'>There is no connected monkey recycler.  Use a multitool to link one.</span>")
 		return
@@ -335,8 +335,9 @@
 	..()
 
 //Pick up monkey
-/mob/living/carbon/monkey/CtrlClick(mob/user)
-	SEND_SIGNAL(user, COMSIG_XENO_MONKEY_CLICK_CTRL, src)
+/mob/living/carbon/human/CtrlClick(mob/user)
+	if(issmall(src))
+		SEND_SIGNAL(user, COMSIG_XENO_MONKEY_CLICK_CTRL, src)
 	..()
 
 // Scans slime
@@ -379,7 +380,7 @@
 			return
 		if(!S.ckey)
 			if(S.buckled)
-				S.buckled.unbuckle_mob()
+				S.buckled.unbuckle_mob(S, force = TRUE)
 			S.Feedstop()
 			S.visible_message("[S] vanishes in a flash of light!")
 			S.forceMove(X)
@@ -419,7 +420,7 @@
 			to_chat(user, "[X] now has [X.monkeys] monkeys left.")
 
 //Pick up monkey
-/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/monkey/M)
+/obj/machinery/computer/camera_advanced/xenobio/proc/XenoMonkeyClickCtrl(mob/living/user, mob/living/carbon/human/M)
 	if(!cameranet.checkTurfVis(M.loc))
 		to_chat(user, "<span class='warning'>Target is not near a camera. Cannot proceed.</span>")
 		return

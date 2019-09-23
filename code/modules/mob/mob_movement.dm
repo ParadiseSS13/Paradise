@@ -8,13 +8,13 @@
 	if(mover.checkpass(PASSMOB))
 		return 1
 	if(buckled == mover)
-		return 1
+		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
 		if((other_mobs && moving_mob.other_mobs))
-			return 1
-		if(mover == buckled_mob)
-			return 1
+			return TRUE
+		if(mover in buckled_mobs)
+			return TRUE
 	return (!mover.density || !density || lying)
 
 
@@ -362,10 +362,14 @@
 /mob/proc/Move_Pulled(atom/A)
 	if(!canmove || restrained() || !pulling)
 		return
-	if(pulling.anchored)
+	if(pulling.anchored || pulling.move_resist > move_force || !pulling.Adjacent(src))
+		stop_pulling()
 		return
-	if(!pulling.Adjacent(src))
-		return
+	if(isliving(pulling))
+		var/mob/living/L = pulling
+		if(L.buckled && L.buckled.buckle_prevents_pull) //if they're buckled to something that disallows pulling, prevent it
+			stop_pulling()
+			return
 	if(A == loc && pulling.density)
 		return
 	if(!Process_Spacemove(get_dir(pulling.loc, A)))

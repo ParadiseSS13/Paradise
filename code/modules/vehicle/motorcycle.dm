@@ -16,11 +16,14 @@
 		bikecover.layer = MOB_LAYER + 0.1
 
 
-obj/vehicle/motorcycle/post_buckle_mob(mob/living/M)
-	if(buckled_mob)
-		overlays += bikecover
-	else
-		overlays -= bikecover
+/obj/vehicle/motorcycle/post_buckle_mob(mob/living/M)
+	add_overlay(bikecover)
+	return ..()
+
+/obj/vehicle/motorcycle/post_unbuckle_mob(mob/living/M)
+	if(!has_buckled_mobs())
+		cut_overlay(bikecover)
+	return ..()
 
 
 /obj/vehicle/motorcycle/handle_vehicle_layer()
