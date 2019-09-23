@@ -35,8 +35,8 @@
 	// To be clear, if it's grinding, then it can't suck them up
 	if(processing)
 		return
-	var/mob/living/carbon/slime/picked_slime
-	for(var/mob/living/carbon/slime/slime in range(1, src))
+	var/mob/living/simple_animal/slime/picked_slime
+	for(var/mob/living/simple_animal/slime/slime in range(1, src))
 		if(slime.loc == src)
 			continue
 		if(slime.stat)
@@ -110,11 +110,11 @@
 /////MOB RECIPIES/////
 //////////////////////
 /datum/food_processor_process/mob/slime
-	input = /mob/living/carbon/slime
+	input = /mob/living/simple_animal/slime
 	output = null
 
 /datum/food_processor_process/mob/slime/process_food(loc, what, obj/machinery/processor/processor)
-	var/mob/living/carbon/slime/S = what
+	var/mob/living/simple_animal/slime/S = what
 	var/C = S.cores
 	if(S.stat != DEAD)
 		S.loc = loc

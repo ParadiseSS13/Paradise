@@ -1146,10 +1146,6 @@
 	if(user.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
 		return
-	for(var/mob/living/carbon/slime/S in range(1,user))
-		if(S.Victim == user)
-			to_chat(user, "You're too busy getting your life sucked out of you.")
-			return
 
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 

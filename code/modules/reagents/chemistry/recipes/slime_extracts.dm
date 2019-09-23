@@ -11,7 +11,7 @@
 
 /datum/chemical_reaction/slimespawn/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/mob/living/carbon/slime/S = new /mob/living/carbon/slime
+	var/mob/living/simple_animal/slime/S = new /mob/living/simple_animal/slime
 	S.forceMove(get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>")
 
@@ -425,7 +425,7 @@
 
 /datum/chemical_reaction/slimebloodlust/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	for(var/mob/living/carbon/slime/slime in viewers(get_turf(holder.my_atom), null))
+	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom), null))
 		slime.rabid = 1
 		slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
 
@@ -667,7 +667,7 @@
 
 /datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/mob/living/carbon/slime/random/S = new /mob/living/carbon/slime/random
+	var/mob/living/simple_animal/slime/random/S = new /mob/living/simple_animal/slime/random
 	S.forceMove(get_turf(holder.my_atom))
 	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>")
 

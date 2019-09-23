@@ -1,5 +1,8 @@
-/mob/living/carbon/slime/emote(act, m_type = 1, message = null, force)
-	if(findtext(act, "-", 1, null))
+/mob/living/simple_animal/slime/emote(act)
+	if(stat)
+		return
+
+	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
 		//param = copytext(act, t1 + 1, length(act) + 1)
 		act = copytext(act, 1, t1)
@@ -7,31 +10,14 @@
 	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
 		act = copytext(act,1,length(act))
 
-	act = lowertext(act)
-
+	var/m_type = 1
 	var/regenerate_icons
+	var/message
 
 	switch(act) //Alphabetical please
-		if("me")
-			if(silent)
-				return
-			if(src.client)
-				if(client.prefs.muted & MUTE_IC)
-					to_chat(src, "<span class='warning'>You cannot send IC messages (muted).</span>")
-					return
-				if(src.client.handle_spam_prevention(message,MUTE_IC))
-					return
-				if(stat)
-					return
-				if(!(message))
-					return
-				return custom_emote(m_type, message)
 		if("bounce")
 			message = "<B>The [src.name]</B> bounces in place."
 			m_type = 1
-
-		if("custom")
-			return custom_emote(m_type, message)
 
 		if("jiggle")
 			message = "<B>The [src.name]</B> jiggles!"
@@ -85,20 +71,19 @@
 			mood = "angry"
 			regenerate_icons = 1
 
-		if("help") //This is an exception
-			to_chat(src, "Help for slime emotes. You can use these emotes with say \"*emote\":\n\nbounce, custom, jiggle, light, moan, shiver, sway, twitch, vibrate. \n\nYou may also change your face with: \n\nsmile, :3, pout, frown, scowl, noface")
+		if ("help") //This is an exception
+			src << "Help for slime emotes. You can use these emotes with say \"*emote\":\n\nbounce, jiggle, light, moan, shiver, sway, twitch, vibrate. \n\nYou may also change your face with: \n\nsmile, :3, pout, frown, scowl, noface"
 
 		else
-			to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
+			src << "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>"
+
 	if((message && stat == CONSCIOUS))
 		if(client)
-			log_emote("[name]/[key] : [message]", src)
-		if(m_type & 1)
+			log_emote("[name]/[key] : [message]")
+		if (m_type & 1)
 			visible_message(message)
 		else
-			loc.audible_message(message)
+			audible_message(message)
 
 	if(regenerate_icons)
 		regenerate_icons()
-
-	return

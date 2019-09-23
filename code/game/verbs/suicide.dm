@@ -209,7 +209,7 @@
 		adjustOxyLoss(max(175 - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
 
-/mob/living/carbon/slime/verb/suicide()
+/mob/living/simple_animal/slime/verb/suicide()
 	set hidden = 1
 	if(stat == 2)
 		to_chat(src, "You're already dead!")
