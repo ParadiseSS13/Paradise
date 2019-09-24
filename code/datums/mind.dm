@@ -139,7 +139,7 @@
 			antag_datum_objectives = TRUE
 
 	if(LAZYLEN(objectives) || antag_datum_objectives)
-		output += "<HR><B>Objectives:</B>"
+		output += "<HR><B>Objectives:</B><BR>"
 		output += gen_objective_text()
 
 	if(LAZYLEN(job_objectives))
