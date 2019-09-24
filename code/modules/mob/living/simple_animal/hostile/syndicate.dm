@@ -116,7 +116,9 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Aggro()
 	. = ..()
-	if(target && istype(depotarea))
+	if(!istype(depotarea))
+		return .
+	if(target)
 		if(!seen_enemy)
 			seen_enemy = TRUE
 			if(!ranged)
@@ -148,11 +150,13 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_movement()
 	. = ..()
+	if(!istype(depotarea))
+		return .
 	if(seen_enemy)
 		aggro_cycles++
 		if(alert_on_timeout && !raised_alert && aggro_cycles >= 60)
 			raise_alert("[name] has reported contact with hostile entity: [seen_enemy_name]")
-	if(scan_cycles >= 15 && istype(depotarea))
+	if(scan_cycles >= 15)
 		scan_cycles = 0
 		if(!atoms_share_level(src, spawn_turf))
 			if(istype(loc, /obj/structure/closet))
@@ -187,6 +191,8 @@
 		depotarea.increase_alert(reason)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
+	if(!istype(depotarea))
+		return ..()
 	if(alert_on_death)
 		if(seen_enemy_name)
 			raise_alert("[name] has died in combat with [seen_enemy_name].")
