@@ -41,7 +41,7 @@
 /datum/reagent/consumable/ethanol/vampire
 	name= "Vampire"
 	id = "vampire"
-	description = "You did not have vodka and now you have a pi�ata."
+	description = "You did not have vodka and now you have a piñata."
 	color = "#E6502F"
 	alcohol_perc = 0.2
 	drink_icon = "vampire"
