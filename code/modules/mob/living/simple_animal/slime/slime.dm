@@ -94,9 +94,12 @@
 	add_language("Bubblish")
 
 /mob/living/simple_animal/slime/Destroy()
-	for (var/A in actions)
+	for(var/A in actions)
 		var/datum/action/AC = A
 		AC.Remove(src)
+	for(var/obj/machinery/computer/camera_advanced/xenobio/X in GLOB.machines)
+		if(src in X.stored_slimes)
+			X.stored_slimes -= src
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
