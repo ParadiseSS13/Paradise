@@ -427,7 +427,7 @@
 	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
-	nutrition = NUTRITION_LEVEL_FED + 50
+	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
 	CureBlind()
 	CureNearsighted()
