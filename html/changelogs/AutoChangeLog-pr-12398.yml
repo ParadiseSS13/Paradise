@@ -1,0 +1,9 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Slimes are a simple mob subtype"
+  - rscadd: "using a bloodlust slime potion on a docile slime removes the docility"
+  - rscadd: "using a docility potion on a rabid slime calms them down"
+  - tweak: "slime core removal surgery steps are now just scalpel->hemostat"
+  - rscadd: "Slimes have action buttons to feed on, evolve, or reproduce"
+  - bugfix: "Fixes beepsky arresting slimes (maybe it should be a feature....)"
