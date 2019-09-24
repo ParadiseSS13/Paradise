@@ -166,3 +166,4 @@
 #define NO_GERMS		21
 #define NO_DECAY		22
 #define PIERCEIMMUNE	23
+#define NO_HUNGER		24

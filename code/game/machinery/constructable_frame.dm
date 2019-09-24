@@ -382,6 +382,8 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/console_screen = 1,
 							/obj/item/stock_parts/scanning_module = 1)
 
+/obj/item/circuitboard/plantgenes/vault
+
 /obj/item/circuitboard/seed_extractor
 	name = "circuit board (Seed Extractor)"
 	build_path = /obj/machinery/seed_extractor

@@ -814,6 +814,8 @@
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
+	if(NO_HUNGER in species_traits)
+		return FALSE
 	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
 		switch(H.nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)

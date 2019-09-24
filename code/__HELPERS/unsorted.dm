@@ -166,6 +166,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 	return destination
 
+
+/proc/is_in_teleport_proof_area(atom/O)
+	if(!O)
+		return FALSE
+	var/area/A = get_area(O)
+	if(!A)
+		return FALSE
+	if(A.tele_proof)
+		return TRUE
+	else
+		return FALSE
+
 // Returns true if direction is blocked from loc
 // Checks if doors are open
 /proc/DirBlocked(turf/loc,var/dir)
