@@ -229,7 +229,7 @@
 	if(owner.nutrition <= hunger_threshold)
 		synthesizing = 1
 		to_chat(owner, "<span class='notice'>You feel less hungry...</span>")
-		owner.nutrition += 50
+		owner.adjust_nutrition(50)
 		spawn(50)
 			synthesizing = 0
 

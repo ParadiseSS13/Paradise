@@ -108,7 +108,7 @@
 	icon_state = "bonfire"
 	density = FALSE
 	anchored = TRUE
-	buckle_lying = 0
+	buckle_lying = FALSE
 	var/burning = 0
 	var/fire_stack_strength = 5
 
@@ -119,8 +119,8 @@
 	if(istype(W, /obj/item/stack/rods) && !can_buckle)
 		var/obj/item/stack/rods/R = W
 		R.use(1)
-		can_buckle = 1
-		buckle_requires_restraints = 1
+		can_buckle = TRUE
+		buckle_requires_restraints = TRUE
 		to_chat(user, "<span class='italics'>You add a rod to [src].")
 		var/image/U = image(icon='icons/obj/hydroponics/equipment.dmi',icon_state="bonfire_rod",pixel_y=16)
 		underlays += U
@@ -191,11 +191,10 @@
 		set_light(0)
 		STOP_PROCESSING(SSobj, src)
 
-/obj/structure/bonfire/buckle_mob(mob/living/M, force = 0)
+/obj/structure/bonfire/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(..())
 		M.pixel_y += 13
 
-/obj/structure/bonfire/unbuckle_mob(force=0)
-	if(buckled_mob)
+/obj/structure/bonfire/unbuckle_mob(mob/living/buckled_mob, force = FALSE)
+	if(..())
 		buckled_mob.pixel_y -= 13
-	. = ..()

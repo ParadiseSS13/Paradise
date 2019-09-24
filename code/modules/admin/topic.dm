@@ -37,7 +37,7 @@
 			return
 		var/ticketID = text2num(href_list["openmentorticket"])
 		SSmentor_tickets.showDetailUI(usr, ticketID)
-	
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
@@ -1934,7 +1934,7 @@
 				H.reagents.add_reagent("ice", 40)
 				logmsg = "cold."
 			if("Hunger")
-				H.nutrition = NUTRITION_LEVEL_CURSED
+				H.set_nutrition(NUTRITION_LEVEL_CURSED)
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
@@ -1963,39 +1963,37 @@
 				usr.client.create_eventmob_for(H, 1)
 				logmsg = "hunter."
 			if("Crew Traitor")
-				if(!H.mind)
-					to_chat(usr, "<span class='warning'><i>This mob has no mind!</i></span>")
-					return
-
 				var/list/possible_traitors = list()
 				for(var/mob/living/player in GLOB.living_mob_list)
-					if(player.client && player.mind && player.stat != DEAD && player != H)
-						if(ishuman(player) && !player.mind.special_role)
+					if(player.client && player.mind && !player.mind.special_role && player.stat != DEAD && player != H)
+						if(ishuman(player))
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 								possible_traitors += player.mind
-
 				for(var/datum/mind/player in possible_traitors)
 					if(player.current)
 						if(ismindshielded(player.current))
 							possible_traitors -= player
-
 				if(possible_traitors.len)
 					var/datum/mind/newtraitormind = pick(possible_traitors)
-					var/datum/objective/assassinate/kill_objective = new()
-					kill_objective.target = H.mind
+					var/mob/living/newtraitor = newtraitormind.current
+					var/datum/objective/assassinate/kill_objective = new
 					kill_objective.owner = newtraitormind
-					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
-					var/datum/antagonist/traitor/T = new()
-					T.give_objectives = FALSE
-					T.add_objective(kill_objective)
-					to_chat(newtraitormind, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitormind, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
-					newtraitormind.add_antag_datum(T)
+					kill_objective.target = H.mind
+					kill_objective.explanation_text = "Assassinate [H.real_name], the [H.mind.assigned_role]."
+					newtraitormind.objectives += kill_objective
+					SSticker.mode.equip_traitor(newtraitor)
+					SSticker.mode.traitors |= newtraitor.mind
+					to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+					to_chat(newtraitor, "<B>You are now a traitor.</B>")
+					to_chat(newtraitor, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>");
+					newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
+					var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
+					tatorhud.join_hud(newtraitor)
+					set_antag_hud(newtraitor, "hudsyndicate")
 				else
 					to_chat(usr, "ERROR: Failed to create a traitor.")
 					return
 				logmsg = "crew traitor."
-
 			if("Floor Cluwne")
 				var/turf/T = get_turf(M)
 				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
@@ -2689,16 +2687,28 @@
 					return
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","TA([objective])")
-
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					if(H.stat == 2 || !H.client || !H.mind) continue
 					if(is_special_character(H)) continue
 					//traitorize(H, objective, 0)
-					H.mind.add_antag_datum(/datum/antagonist/traitor)
-
+					SSticker.mode.traitors += H.mind
+					H.mind.special_role = SPECIAL_ROLE_TRAITOR
+					var/datum/objective/new_objective = new
+					new_objective.owner = H
+					new_objective.explanation_text = objective
+					H.mind.objectives += new_objective
+					SSticker.mode.greet_traitor(H.mind)
+					//ticker.mode.forge_traitor_objectives(H.mind)
+					SSticker.mode.finalize_traitor(H.mind)
 				for(var/mob/living/silicon/A in GLOB.player_list)
-					A.mind.add_antag_datum(/datum/antagonist/traitor)
-
+					SSticker.mode.traitors += A.mind
+					A.mind.special_role = SPECIAL_ROLE_TRAITOR
+					var/datum/objective/new_objective = new
+					new_objective.owner = A
+					new_objective.explanation_text = objective
+					A.mind.objectives += new_objective
+					SSticker.mode.greet_traitor(A.mind)
+					SSticker.mode.finalize_traitor(A.mind)
 				message_admins("<span class='notice'>[key_name_admin(usr)] used everyone is a traitor secret. Objective is [objective]</span>", 1)
 				log_admin("[key_name(usr)] used everyone is a traitor secret. Objective is [objective]")
 
@@ -2850,19 +2860,25 @@
 			if("guns")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SG")
-				usr.rightandwrong(FALSE)
+				var/survivor_probability = 0
+				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+					if("Some Antags")
+						survivor_probability = 25
+					if("All Antags!")
+						survivor_probability = 100
+
+				rightandwrong(SUMMON_GUNS, usr, survivor_probability)
 			if("magic")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SM")
-				usr.rightandwrong(TRUE)
-			if("revolver")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "SRD")
-				usr.rightandwrong(FALSE, revolver_fight = TRUE)
-			if("fakerevolver")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "SFD")
-				usr.rightandwrong(FALSE, fake_revolver_fight = TRUE)
+				var/survivor_probability = 0
+				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+					if("Some Antags")
+						survivor_probability = 25
+					if("All Antags!")
+						survivor_probability = 100
+
+				rightandwrong(SUMMON_MAGIC, usr, survivor_probability)
 			if("tdomereset")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")

@@ -1,6 +1,6 @@
 /datum/event/blob
-	announceWhen	= 120
-	endWhen			= 180
+	announceWhen	= 180
+	endWhen			= 240
 
 /datum/event/blob/announce()
 	event_announcement.Announce("Confirmed outbreak of level 5 biohazard aboard [station_name()]. All personnel must contain the outbreak.", "Biohazard Alert", 'sound/AI/outbreak5.ogg')

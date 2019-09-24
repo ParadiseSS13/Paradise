@@ -41,7 +41,7 @@
 			owner.visible_message("<span class='notice'>[owner] fades to dark.</span>")
 			return
 
-		owner.nutrition = max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST)
+		owner.set_nutrition(max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST))
 
 		var/new_light = calculate_glow(KIDAN_LANTERN_LIGHT)
 

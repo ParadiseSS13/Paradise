@@ -1,0 +1,4 @@
+author: "Kyep"
+delete-after: True
+changes: 
+  - bugfix: "The Hierophant club and warp cubes (lavaland loot) no longer allow you to teleport into or out of areas that are set to forbid teleports."

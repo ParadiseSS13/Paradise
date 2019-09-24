@@ -1900,6 +1900,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
 	. += "---"
 
+/mob/living/carbon/human/adjust_nutrition(change)
+	if(NO_HUNGER in dna.species.species_traits)
+		return FALSE
+	return ..()
+
+/mob/living/carbon/human/set_nutrition(change)
+	if(NO_HUNGER in dna.species.species_traits)
+		return FALSE
+	return ..()
+
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops
 		makeCluwne()

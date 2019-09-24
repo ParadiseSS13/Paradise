@@ -398,24 +398,26 @@
 
 
 /datum/outfit/clownsoldier
-		uniform = /obj/item/clothing/under/soldieruniform
-		suit = /obj/item/clothing/suit/soldiercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/stalhelm
+	name = "Clown Soldier"
+	uniform = /obj/item/clothing/under/soldieruniform
+	suit = /obj/item/clothing/suit/soldiercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/stalhelm
 
 /datum/outfit/clownofficer
-		uniform = /obj/item/clothing/under/officeruniform
-		suit = /obj/item/clothing/suit/officercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/naziofficer
+	name = "Clown Officer"
+	uniform = /obj/item/clothing/under/officeruniform
+	suit = /obj/item/clothing/suit/officercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/naziofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"

@@ -1,0 +1,4 @@
+author: "Markolie"
+delete-after: True
+changes: 
+  - bugfix: "Fixed naked equipment selection and reincarnation not working."

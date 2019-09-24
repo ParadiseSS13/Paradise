@@ -1,0 +1,5 @@
+author: "AzuleUtama"
+delete-after: True
+changes: 
+  - tweak: "Reorganises products in seed vendor."
+  - bugfix: "Fixes Durathread mutating into more Durathread"

@@ -312,6 +312,10 @@
 		to_chat(user, "[src] fizzles uselessly.")
 		return
 
+	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
+
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, user.loc)
 	smoke.start()

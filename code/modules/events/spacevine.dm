@@ -455,8 +455,8 @@
 	master = null
 	mutations.Cut()
 	set_opacity(0)
-	if(buckled_mob)
-		unbuckle_mob()
+	if(has_buckled_mobs())
+		unbuckle_all_mobs(force = TRUE)
 	return ..()
 
 /obj/structure/spacevine/proc/add_mutation(datum/spacevine_mutation/mutation)
@@ -639,7 +639,7 @@
 		SM.on_grow(src)
 
 /obj/structure/spacevine/proc/entangle_mob()
-	if(!buckled_mob && prob(25))
+	if(!has_buckled_mobs() && prob(25))
 		for(var/mob/living/V in loc)
 			entangle(V)
 			if(has_buckled_mobs())
