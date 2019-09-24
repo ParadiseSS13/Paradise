@@ -1,0 +1,7 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Wizard's hardsuit is now battlemage armor"
+  - tweak: "Battlemage armor protects you from pressure of space (but not the cold), has no slowdown, and a moderate amount of armor, however, it has 16 shields to block incoming attacks"
+  - rscadd: "Can purchase additional charges for your battlemage armor for 1 spell point"
+  - tweak: "Shielded hardsuits now show the shield  on the mob"
