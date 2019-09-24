@@ -1,7 +1,26 @@
 /datum/personal_crafting
 	var/busy
 	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
-	var/list/categories = list(CAT_WEAPON,CAT_AMMO,CAT_ROBOT,CAT_FOOD,CAT_MISC,CAT_PRIMAL)
+	var/viewing_subcategory = 1
+	var/list/categories = list(
+				CAT_WEAPONRY,
+				CAT_ROBOT,
+				CAT_MISC,
+				CAT_PRIMAL,
+				CAT_FOOD,
+				CAT_CLOTHING)
+	var/list/subcategories = list(
+						list(	//Weapon subcategories
+							CAT_WEAPON,
+							CAT_AMMO),
+						CAT_NONE, //Robot subcategories
+						CAT_NONE, //Misc subcategories
+						CAT_NONE, //Tribal subcategories
+						list(	//Food subcategories
+							CAT_CAKE,
+							CAT_SUSHI,
+							CAT_SANDWICH),
+                        CAT_CLOTHING) //Clothing subcategories
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
 
@@ -22,11 +41,14 @@
 
 
 /datum/personal_crafting/proc/check_contents(datum/crafting_recipe/R, list/contents)
+	contents = contents["other"]
 	main_loop:
 		for(var/A in R.reqs)
 			var/needed_amount = R.reqs[A]
 			for(var/B in contents)
 				if(ispath(B, A))
+					if (R.blacklist.Find(B))
+						continue
 					if(contents[B] >= R.reqs[A])
 						continue main_loop
 					else
@@ -56,45 +78,47 @@
 				if(AM.flags_2 & HOLOGRAM_2)
 					continue
 				. += AM
+	for(var/slot in list(slot_r_store, slot_l_store))
+		. += user.get_item_by_slot(slot)
 
 
 /datum/personal_crafting/proc/get_surroundings(mob/user)
 	. = list()
+	.["other"] = list()
 	for(var/obj/item/I in get_environment(user))
 		if(I.flags_2 & HOLOGRAM_2)
 			continue
 		if(istype(I, /obj/item/stack))
 			var/obj/item/stack/S = I
-			.[I.type] += S.amount
+			.["other"][I.type] += S.amount
 		else
 			if(istype(I, /obj/item/reagent_containers))
 				var/obj/item/reagent_containers/RC = I
-				if(RC.container_type & OPENCONTAINER)
+				if(RC.is_drainable())
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
-						.[A.type] += A.volume
-			.[I.type] += 1
+						.["other"][A.type] += A.volume
+			.["other"][I.type] += 1
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len)
-		return 1
+		return TRUE
 	var/list/possible_tools = list()
 	for(var/obj/item/I in user.contents)
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
 				possible_tools += SI.type
 		possible_tools += I.type
-	possible_tools += contents
+	possible_tools |= contents["other"]
 
 	main_loop:
 		for(var/A in R.tools)
 			for(var/I in possible_tools)
 				if(ispath(I,A))
 					continue main_loop
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
-	for(var/A in R.parts)
 	var/list/contents = get_surroundings(user)
 	var/send_feedback = 1
 	if(check_contents(R, contents))
@@ -108,6 +132,8 @@
 				var/list/parts = del_reqs(R, user)
 				var/atom/movable/I = new R.result (get_turf(user.loc))
 				I.CheckParts(parts, R)
+				if(isitem(I))
+					user.put_in_hands(I)
 				if(send_feedback)
 					feedback_add_details("object_crafted","[I.type]")
 				return 0
@@ -173,6 +199,7 @@
 							RGNT.volume += RG.volume
 							RGNT.data += RG.data
 							qdel(RG)
+						RC.on_reagent_change()
 					else
 						surroundings -= RC
 			else if(ispath(A, /obj/item/stack))
@@ -195,7 +222,7 @@
 						else
 							data = S.amount
 							S = locate(S.type) in Deletion
-							S.amount += data
+							S.add(data)
 						surroundings -= S
 			else
 				var/atom/movable/I
@@ -241,11 +268,19 @@
 
 /datum/personal_crafting/ui_data(mob/user)
 	var/list/data = list()
+	var/list/subs = list()
+	var/cur_subcategory = CAT_NONE
 	var/cur_category = categories[viewing_category]
+	if(islist(subcategories[viewing_category]))
+		subs = subcategories[viewing_category]
+		cur_subcategory = subs[viewing_subcategory]
 	data["busy"] = busy
 	data["prev_cat"] = categories[prev_cat()]
+	data["prev_subcat"] = subs[prev_subcat()]
 	data["category"] = cur_category
+	data["subcategory"] = cur_subcategory
 	data["next_cat"] = categories[next_cat()]
+	data["next_subcat"] = subs[next_subcat()]
 	data["display_craftable_only"] = display_craftable_only
 	data["display_compact"] = display_compact
 
@@ -254,7 +289,11 @@
 	var/list/cant_craft = list()
 	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
-		if(R.category != cur_category)
+
+		if(!R.always_availible && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
+			continue
+
+		if((R.category != cur_category) || (R.subcategory != cur_subcategory))
 			continue
 		if(check_contents(R, surroundings))
 			can_craft += list(build_recipe_data(R))
@@ -269,47 +308,72 @@
 		return
 
 	if(href_list["make"])
-		var/datum/crafting_recipe/TR = locate(href_list["make"])
-		busy = 1
+		var/datum/crafting_recipe/TR = locate(href_list["make"]) in GLOB.crafting_recipes
+		busy = TRUE
 		SSnanoui.update_uis(src)
 		var/fail_msg = construct_item(usr, TR)
 		if(!fail_msg)
 			to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
 		else
 			to_chat(usr, "<span class ='warning'>Construction failed[fail_msg]</span>")
-		busy = 0
+		busy = FALSE
 		SSnanoui.update_uis(src)
 	if(href_list["forwardCat"])
-		viewing_category = next_cat()
-		to_chat(usr, "<span class='notice'>Category is now [categories[viewing_category]].</span>")
+		viewing_category = next_cat(FALSE)
 		. = TRUE
 	if(href_list["backwardCat"])
-		viewing_category = prev_cat()
-		to_chat(usr, "<span class='notice'>Category is now [categories[viewing_category]].</span>")
+		viewing_category = prev_cat(FALSE)
+		. = TRUE
+	if(href_list["forwardSubCat"])
+		viewing_subcategory = next_subcat()
+		. = TRUE
+	if(href_list["backwardSubCat"])
+		viewing_subcategory = prev_subcat()
 		. = TRUE
 	if(href_list["toggle_recipes"])
 		display_craftable_only = !display_craftable_only
-		to_chat(usr, "<span class='notice'>You will now [display_craftable_only ? "only see recipes you can craft":"see all recipes"].</span>")
 		. = TRUE
 	if(href_list["toggle_compact"])
 		display_compact = !display_compact
-		to_chat(usr, "<span class='notice'>Crafting menu is now [display_compact? "compact" : "full size"].</span>")
 		. = TRUE
 
 	SSnanoui.update_uis(src)
 
 //Next works nicely with modular arithmetic
-/datum/personal_crafting/proc/next_cat()
+//Next works nicely with modular arithmetic
+/datum/personal_crafting/proc/next_cat(readonly = TRUE)
+	if (!readonly)
+		viewing_subcategory = 1
 	. = viewing_category % categories.len + 1
 
+/datum/personal_crafting/proc/next_subcat()
+	if(islist(subcategories[viewing_category]))
+		var/list/subs = subcategories[viewing_category]
+		. = viewing_subcategory % subs.len + 1
+
+
 //Previous can go fuck itself
-/datum/personal_crafting/proc/prev_cat()
+/datum/personal_crafting/proc/prev_cat(readonly = TRUE)
+	if (!readonly)
+		viewing_subcategory = 1
 	if(viewing_category == categories.len)
 		. = viewing_category-1
 	else
 		. = viewing_category % categories.len - 1
 	if(. <= 0)
 		. = categories.len
+
+/datum/personal_crafting/proc/prev_subcat()
+	if(islist(subcategories[viewing_category]))
+		var/list/subs = subcategories[viewing_category]
+		if(viewing_subcategory == subs.len)
+			. = viewing_subcategory-1
+		else
+			. = viewing_subcategory % subs.len - 1
+		if(. <= 0)
+			. = subs.len
+	else
+		. = null
 
 /datum/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)
 	var/list/data = list()
@@ -334,9 +398,19 @@
 	data["catalyst_text"] = catalyst_text
 
 	for(var/a in R.tools)
-		var/atom/A = a //cheat-typecast
-		tool_text += " [R.tools[A]] [initial(A.name)],"
+		if(ispath(a, /obj/item))
+			var/obj/item/b = a
+			tool_text += " [initial(b.name)],"
+		else
+			tool_text += " [a],"
 	tool_text = replacetext(tool_text, ",", "", -1)
 	data["tool_text"] = tool_text
 
 	return data
+
+//Mind helpers
+
+/datum/mind/proc/teach_crafting_recipe(R)
+	if(!learned_recipes)
+		learned_recipes = list()
+	learned_recipes |= R

@@ -43,6 +43,7 @@
 	M.actions += src
 	if(M.client)
 		M.client.screen += button
+		button.locked = TRUE
 	M.update_action_buttons()
 
 /datum/action/proc/Remove(mob/M)
@@ -52,6 +53,7 @@
 	if(M.client)
 		M.client.screen -= button
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
+	button.locked = FALSE
 	M.actions -= src
 	M.update_action_buttons()
 
@@ -193,6 +195,14 @@
 
 /datum/action/item_action/toggle_helmet_light
 	name = "Toggle Helmet Light"
+
+/datum/action/item_action/toggle_welding_screen/plasmaman
+	name = "Toggle Welding Screen"
+
+/datum/action/item_action/toggle_welding_screen/plasmaman/Trigger()
+	var/obj/item/clothing/head/helmet/space/plasmaman/H = target
+	if(istype(H))
+		H.toggle_welding_screen(owner)
 
 /datum/action/item_action/toggle_helmet_mode
 	name = "Toggle Helmet Mode"

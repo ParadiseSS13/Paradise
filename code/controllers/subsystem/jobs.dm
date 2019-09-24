@@ -25,9 +25,9 @@ SUBSYSTEM_DEF(jobs)
 // Only fires every 5 minutes
 /datum/controller/subsystem/jobs/fire()
 	if(!config.sql_enabled || !config.use_exp_tracking)
-		return 
+		return
 	update_exp(5,0)
-	
+
 /datum/controller/subsystem/jobs/proc/SetupOccupations(var/list/faction = list("Station"))
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
@@ -284,7 +284,7 @@ SUBSYSTEM_DEF(jobs)
 
 	//Get the players who are ready
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.ready && player.mind && !player.mind.assigned_role)
+		if(player.ready && player.has_valid_preferences() && player.mind && !player.mind.assigned_role)
 			unassigned += player
 			if(player.client.prefs.randomslot)
 				player.client.prefs.load_random_character_slot(player.client)

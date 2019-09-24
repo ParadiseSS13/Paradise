@@ -50,6 +50,12 @@
 	var/obj/item/flashlight/gun_light = null
 	var/can_flashlight = 0
 
+	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
+	var/obj/item/kitchen/knife/bayonet
+	var/mutable_appearance/knife_overlay
+	var/knife_x_offset = 0
+	var/knife_y_offset = 0
+
 	var/list/upgrades = list()
 
 	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
@@ -73,12 +79,27 @@
 		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
 
+/obj/item/gun/Destroy()
+	QDEL_NULL(bayonet)
+	return ..()
+
+/obj/item/gun/handle_atom_del(atom/A)
+	if(A == bayonet)
+		clear_bayonet()
+	return ..()
+
 /obj/item/gun/examine(mob/user)
 	..()
 	if(unique_reskin && !current_skin)
 		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
 	if(unique_rename)
 		to_chat(user, "<span class='notice'>Use a pen on it to rename it.</span>")
+	if(bayonet)
+		to_chat(user, "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
+		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
+			to_chat(user, "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>")
+	else if(can_bayonet)
+		to_chat(user, "It has a <b>bayonet</b> lug on it.")
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -106,12 +127,6 @@
 			user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", "<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
 		else
 			user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
-
-	if(weapon_weight >= WEAPON_MEDIUM)
-		if(user.get_inactive_hand())
-			if(prob(15))
-				if(user.drop_item())
-					user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
 
 /obj/item/gun/emp_act(severity)
 	for(var/obj/O in contents)
@@ -157,7 +172,20 @@
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
 
-	process_fire(target,user,1,params)
+	//DUAL WIELDING
+	var/bonus_spread = 0
+	var/loop_counter = 0
+	if(ishuman(user) && user.a_intent == INTENT_HARM)
+		var/mob/living/carbon/human/H = user
+		for(var/obj/item/gun/G in get_both_hands(H))
+			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+				continue
+			else if(G.can_trigger_gun(user))
+				bonus_spread += 24 * G.weapon_weight
+				loop_counter++
+				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+
+	process_fire(target,user,1,params, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
@@ -167,20 +195,20 @@
 		return 0
 	return 1
 
-obj/item/gun/proc/newshot()
+/obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	add_fingerprint(user)
 
 	if(semicd)
 		return
 
-	if(weapon_weight)
-		if(user.get_inactive_hand())
-			recoil = 4 //one-handed kick
-		else
-			recoil = initial(recoil)
+	var/sprd = 0
+	var/randomized_gun_spread = 0
+	if(spread)
+		randomized_gun_spread =	rand(0,spread)
+	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)
 		firing_burst = 1
@@ -191,11 +219,10 @@ obj/item/gun/proc/newshot()
 				if( i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
-				var/sprd = 0
 				if(randomspread)
-					sprd = round((rand() - 0.5) * spread)
+					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
 				else
-					sprd = round((i / burst_size - 0.5) * spread)
+					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
 				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
 					shoot_with_empty_chamber(user)
 					break
@@ -213,7 +240,8 @@ obj/item/gun/proc/newshot()
 		firing_burst = 0
 	else
 		if(chambered)
-			if(!chambered.fire(target, user, params, , suppressed, zone_override, spread))
+			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
+			if(!chambered.fire(target, user, params, , suppressed, zone_override, sprd))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -237,11 +265,19 @@ obj/item/gun/proc/newshot()
 			user.update_inv_r_hand()
 	feedback_add_details("gun_fired","[type]")
 
-/obj/item/gun/attack(mob/M as mob, mob/user)
+/obj/item/gun/attack(mob/M, mob/user)
 	if(user.a_intent == INTENT_HARM) //Flogging
-		..()
-	else
-		return
+		if(bayonet)
+			M.attackby(bayonet, user)
+		else
+			return ..()
+
+/obj/item/gun/attack_obj(obj/O, mob/user)
+	if(user.a_intent == INTENT_HARM)
+		if(bayonet)
+			O.attackby(bayonet, user)
+			return
+	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flashlight/seclite))
@@ -261,7 +297,7 @@ obj/item/gun/proc/newshot()
 				if(loc == user)
 					A.Grant(user)
 
-	if(istype(I, /obj/item/screwdriver))
+	if(isscrewdriver(I))
 		if(gun_light && can_flashlight)
 			for(var/obj/item/flashlight/seclite/S in src)
 				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
@@ -272,11 +308,32 @@ obj/item/gun/proc/newshot()
 				update_icon()
 				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
 					qdel(TGL)
+		else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
+			bayonet.forceMove(get_turf(user))
+			clear_bayonet()
 
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
 			rename_gun(user)
-	..()
+	if(istype(I, /obj/item/kitchen/knife))
+		var/obj/item/kitchen/knife/K = I
+		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
+			return ..()
+		if(!user.drop_item())
+			return
+		K.forceMove(src)
+		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
+		bayonet = K
+		var/state = "bayonet"							//Generic state.
+		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
+			state = bayonet.icon_state
+		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
+		knife_overlay = mutable_appearance(bayonet_icons, state)
+		knife_overlay.pixel_x = knife_x_offset
+		knife_overlay.pixel_y = knife_y_offset
+		overlays += knife_overlay
+	else
+		return ..()
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"
@@ -308,6 +365,15 @@ obj/item/gun/proc/newshot()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+
+/obj/item/gun/proc/clear_bayonet()
+	if(!bayonet)
+		return
+	bayonet = null
+	if(knife_overlay)
+		overlays -= knife_overlay
+		knife_overlay = null
+	return TRUE
 
 /obj/item/gun/extinguish_light()
 	if(gun_light.on)

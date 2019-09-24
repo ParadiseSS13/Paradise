@@ -15,6 +15,10 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
+/obj/machinery/defibrillator_mount/get_cell()
+	if(defib)
+		return defib.get_cell()
+
 /obj/machinery/defibrillator_mount/New(location, direction, building = 0)
 	..()
 
@@ -27,7 +31,6 @@
 	if(building)
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
 		pixel_y = (dir & 3)? (dir == 1 ? -30 : 30) : 0
-
 
 /obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
 	..()

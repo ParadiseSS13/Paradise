@@ -53,6 +53,7 @@
 	icon_state = "cabbage"
 	filling_color = "#90EE90"
 	bitesize_mod = 2
+	tastes = list("cabbage" = 1)
 	wine_power = 0.2
 
 
@@ -79,6 +80,7 @@
 	icon_state = "sugarcane"
 	filling_color = "#FFD700"
 	bitesize_mod = 2
+	tastes = list("sugarcane" = 1)
 	distill_reagent = "rum"
 
 
@@ -109,6 +111,7 @@
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
 	trash = /obj/item/gun/projectile/revolver
+	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.
 
@@ -131,6 +134,7 @@
 	filling_color = rgb(20, 20, 20)
 	seed = /obj/item/seeds/cherry/bomb
 	bitesize_mod = 2
+	tastes = list("cherry" = 1, "explosion" = 1)
 	volume = 125 //Gives enough room for the black powder at max potency
 	wine_power = 0.8
 

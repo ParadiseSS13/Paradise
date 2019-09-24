@@ -5,6 +5,7 @@
 	reagent_state = LIQUID
 	color = "#FFAF00"
 	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "burning"
 	var/temp_fire = 4000
 	var/temp_deviance = 1000
 	var/size_divisor = 40
@@ -49,6 +50,7 @@
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#C86432"
+	taste_description = "burning"
 
 /datum/reagent/napalm/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > T0C + 100)
@@ -84,7 +86,7 @@
 	drink_icon = "dr_gibb_glass"
 	drink_name = "Glass of welder fuel"
 	drink_desc = "Unless you are an industrial tool, this is probably not safe for consumption."
-	taste_message = "mistakes"
+	taste_description = "mistakes"
 	process_flags = ORGANIC | SYNTHETIC
 	var/max_radius = 7
 	var/min_radius = 0
@@ -140,7 +142,8 @@
 	description = "The liquid phase of an unusual extraterrestrial compound."
 	reagent_state = LIQUID
 	color = "#7A2B94"
-	taste_message = "corporate assets going to waste"
+	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)
@@ -171,7 +174,7 @@
 	reagent_state = SOLID
 	color = "#673910" // rgb: 103, 57, 16
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = "rust"
+	taste_description = "rust"
 
 /datum/reagent/thermite/reaction_mob(mob/living/M, method= TOUCH, volume)
 	if(method == TOUCH)
@@ -206,7 +209,7 @@
 	description = "Glycerol is a simple polyol compound. Glycerol is sweet-tasting and of low toxicity."
 	reagent_state = LIQUID
 	color = "#808080" // rgb: 128, 128, 128
-	taste_message = "sweetness"
+	taste_description = "sweetness"
 
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
@@ -214,7 +217,7 @@
 	description = "A chemical that stabilises normally volatile compounds, preventing them from reacting immediately."
 	reagent_state = LIQUID
 	color = "#FFFF00"
-	taste_message = "long-term stability"
+	taste_description = "long-term stability"
 
 /datum/reagent/clf3
 	name = "Chlorine Trifluoride"
@@ -224,7 +227,7 @@
 	color = "#FF0000"
 	metabolization_rate = 4
 	process_flags = ORGANIC | SYNTHETIC
-	taste_message = null
+	taste_mult = 0
 
 /datum/reagent/clf3/on_mob_life(mob/living/M)
 	if(M.on_fire)
@@ -252,6 +255,7 @@
 	description = "Sends everything flying from the detonation point."
 	reagent_state = LIQUID
 	color = "#FFA500"
+	taste_description = "air and bitterness"
 
 /datum/reagent/sorium/reaction_turf(turf/T, volume) // oh no
 	if(prob(75))
@@ -268,7 +272,7 @@
 	description = "Sucks everything into the detonation point."
 	reagent_state = LIQUID
 	color = "#800080"
-	taste_message = "the end of the world"
+	taste_description = "compressed bitterness"
 
 /datum/reagent/liquid_dark_matter/reaction_turf(turf/T, volume) //Oh gosh, why
 	if(prob(75))
@@ -287,7 +291,7 @@
 	color = "#000000"
 	metabolization_rate = 0.05
 	penetrates_skin = TRUE
-	taste_message = "explosions"
+	taste_description = "explosions"
 
 /datum/reagent/blackpowder/reaction_turf(turf/T, volume) //oh shit
 	if(volume >= 5 && !isspaceturf(T))
@@ -301,6 +305,7 @@
 	reagent_state = LIQUID
 	color = "#FFFF00"
 	penetrates_skin = TRUE
+	taste_description = "salt"
 
 /datum/reagent/smoke_powder
 	name = "Smoke Powder"
@@ -308,6 +313,7 @@
 	description = "Makes a large cloud of smoke that can carry reagents."
 	reagent_state = LIQUID
 	color = "#808080"
+	taste_description = "smoke"
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
@@ -316,6 +322,7 @@
 	reagent_state = LIQUID
 	color = "#0000FF"
 	penetrates_skin = TRUE
+	taste_description = "loud noises"
 
 /datum/reagent/cryostylane
 	name = "Cryostylane"
@@ -323,6 +330,7 @@
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Cryostylane slowly cools all other reagents in the mob down to 0K."
 	color = "#B2B2FF" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "bitterness"
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent("oxygen"))
@@ -357,6 +365,7 @@
 	description = "Comes into existence at 20K. As long as there is sufficient oxygen for it to react with, Pyrosium slowly heats all other reagents."
 	color = "#B20000" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "bitterness"
 
 /datum/reagent/pyrosium/on_mob_life(mob/living/M)
 	if(M.reagents.has_reagent("oxygen"))
@@ -379,6 +388,7 @@
 	reagent_state = LIQUID
 	color = "#A0A090"
 	var/cooling_temperature = 3 // more effective than water
+	taste_description = "the inside of a fire extinguisher"
 
 /datum/reagent/firefighting_foam/reaction_mob(mob/living/M, method=TOUCH, volume)
 // Put out fire
@@ -406,7 +416,8 @@
 	id = "plasma_dust"
 	description = "A fine dust of plasma. This chemical has unusual mutagenic properties for viruses and slimes alike."
 	color = "#500064" // rgb: 80, 0, 100
-	taste_message = "corporate assets going to waste"
+	taste_description = "corporate assets going to waste"
+	taste_mult = 1.5
 
 /datum/reagent/plasma_dust/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature >= T0C + 100)

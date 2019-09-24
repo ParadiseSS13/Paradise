@@ -51,11 +51,6 @@ SUBSYSTEM_DEF(ticker)
 	'sound/music/title10.ogg',\
 	'sound/music/title11.ogg',\
 	'sound/music/title12.ogg',)
-	// Setup codephrase
-	if(!GLOB.syndicate_code_phrase)
-		GLOB.syndicate_code_phrase = generate_code_phrase()
-	if(!GLOB.syndicate_code_response)
-		GLOB.syndicate_code_response	= generate_code_phrase()
 
 	// Map name
 	if(using_map && using_map.name)
@@ -82,8 +77,14 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
+			if(!going)
+				return
+
 			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
-			pregame_timeleft = max(0,round_start_time - world.time)
+			if(!delay_end)
+				pregame_timeleft = max(0,round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed			
+			else
+				pregame_timeleft = max(0,pregame_timeleft - 20) // If roundstart was delayed, we should resume the countdown where it left off
 
 			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
@@ -97,6 +98,7 @@ SUBSYSTEM_DEF(ticker)
 				current_state = GAME_STATE_STARTUP
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
 		if(GAME_STATE_PLAYING)
+			delay_end = 0 // reset this in case round start was delayed
 			mode.process()
 			mode.process_job_tasks()
 			var/game_finished = SSshuttle.emergency.mode >= SHUTTLE_ENDGAME || mode.station_was_nuked
@@ -206,6 +208,10 @@ SUBSYSTEM_DEF(ticker)
 	//shuttle_controller.setup_shuttle_docks()
 
 	spawn(0)//Forking here so we dont have to wait for this to finish
+		if(!GLOB.syndicate_code_phrase)
+			GLOB.syndicate_code_phrase = generate_code_phrase()
+		if(!GLOB.syndicate_code_response)
+			GLOB.syndicate_code_response	= generate_code_phrase()
 		mode.post_setup()
 		//Cleanup some stuff
 		for(var/obj/effect/landmark/start/S in GLOB.landmarks_list)

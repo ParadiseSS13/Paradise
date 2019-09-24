@@ -27,6 +27,17 @@
 	if(prob(15))
 		harvest(null, TRUE)
 
+/obj/structure/flora/ash/ex_act(severity, target)	
+	switch(severity)	
+		if(1)	
+			qdel(src)	
+		if(2)	
+			if(prob(80))	
+				qdel(src)	
+		if(3)	
+			if(prob(50))	
+				qdel(src)
+
 /obj/structure/flora/ash/proc/harvest(user, no_drop)
 	if(harvested)
 		return 0
@@ -137,7 +148,7 @@
 	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
-/obj/structure/flora/ash/cacti/Crossed(mob/AM)
+/obj/structure/flora/ash/cacti/Crossed(mob/AM, oldloc)
 	if(ishuman(AM) && has_gravity(loc) && prob(70))
 		var/mob/living/carbon/human/H = AM
 		if(!H.shoes && !H.lying) //ouch, my feet.

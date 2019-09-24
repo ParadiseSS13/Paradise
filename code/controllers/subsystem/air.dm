@@ -30,6 +30,7 @@ SUBSYSTEM_DEF(air)
 	var/list/networks = list()
 	var/list/atmos_machinery = list()
 	var/list/pipe_init_dirs_cache = list()
+	var/list/machinery_to_construct = list()
 
 
 
@@ -67,8 +68,9 @@ SUBSYSTEM_DEF(air)
 	setup_allturfs()
 	setup_atmos_machinery(GLOB.machines)
 	setup_pipenets(GLOB.machines)
+	for(var/obj/machinery/atmospherics/A in machinery_to_construct)
+		A.initialize_atmos_network()
 	return ..()
-
 
 /datum/controller/subsystem/air/fire(resumed = 0)
 	var/timer = TICK_USAGE_REAL

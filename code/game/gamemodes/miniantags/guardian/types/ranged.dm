@@ -11,10 +11,9 @@
 	melee_damage_upper = 10
 	damage_transfer = 0.9
 	projectiletype = /obj/item/projectile/guardian
-	ranged_cooldown_time = 10
+	ranged_cooldown_time = 1 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
-	rapid = 1
 	range = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	see_in_dark = 8
@@ -103,7 +102,7 @@
 	invisibility = 1
 
 
-/obj/item/effect/snare/Crossed(AM as mob|obj)
+/obj/item/effect/snare/Crossed(AM as mob|obj, oldloc)
 	if(isliving(AM))
 		var/turf/snare_loc = get_turf(loc)
 		if(spawner)

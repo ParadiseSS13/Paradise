@@ -334,9 +334,6 @@
 /obj/item/circuitboard/white_ship
 	name = "circuit Board (White Ship)"
 	build_path = /obj/machinery/computer/shuttle/white_ship
-/obj/item/circuitboard/golem_ship
-	name = "circuit Board (Golem Ship)"
-	build_path = /obj/machinery/computer/shuttle/golem_ship
 /obj/item/circuitboard/shuttle/syndicate
 	name = "circuit board (Syndicate Shuttle)"
 	build_path = /obj/machinery/computer/shuttle/syndicate
@@ -346,7 +343,9 @@
 /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	name = "circuit board (Syndicate Drop Pod)"
 	build_path = /obj/machinery/computer/shuttle/syndicate/drop_pod
-
+/obj/item/circuitboard/shuttle/golem_ship
+	name = "circuit Board (Golem Ship)"
+	build_path = /obj/machinery/computer/shuttle/golem_ship
 
 /obj/item/circuitboard/HolodeckControl
 	name = "Circuit board (Holodeck Control)"
@@ -363,7 +362,7 @@
 /obj/item/circuitboard/telesci_console
 	name = "Circuit board (Telepad Control Console)"
 	build_path = /obj/machinery/computer/telescience
-	origin_tech = "programming=3;bluespace=3;plasmatech=4"
+	origin_tech = "programming=5;bluespace=7;plasmatech=6"
 
 /obj/item/circuitboard/atmos_automation
 	name = "Circuit board (Atmospherics Automation)"

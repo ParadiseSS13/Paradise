@@ -11,10 +11,11 @@
 
 	//Do we have a working jetpack?
 	var/obj/item/tank/jetpack/thrust
-	if(istype(back,/obj/item/tank/jetpack))
+	if(istype(back, /obj/item/tank/jetpack))
 		thrust = back
-	else if(istype(s_store,/obj/item/tank/jetpack))
-		thrust = s_store
+	else if(istype(wear_suit, /obj/item/clothing/suit/space/hardsuit))
+		var/obj/item/clothing/suit/space/hardsuit/C = wear_suit
+		thrust = C.jetpack
 	else if(istype(back,/obj/item/rig))
 		var/obj/item/rig/rig = back
 		for(var/obj/item/rig_module/maneuvering_jets/module in rig.installed_modules)
@@ -57,26 +58,31 @@
 
 	if(shoes)
 		if(S.bloody_shoes && S.bloody_shoes[S.blood_state])
-			var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
-			if(oldFP && oldFP.blood_state == S.blood_state && oldFP.basecolor == S.blood_color)
-				return
-			else
-				//No oldFP or it's a different kind of blood
-				S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
+			for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
+				if(oldFP && oldFP.blood_state == S.blood_state && oldFP.basecolor == S.blood_color)
+					return
+			//No oldFP or it's a different kind of blood
+			S.bloody_shoes[S.blood_state] = max(0, S.bloody_shoes[S.blood_state] - BLOOD_LOSS_PER_STEP)
+			if(S.bloody_shoes[S.blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(shoes, dir, T)
-				update_inv_shoes()
+			update_inv_shoes()
 	else if(hasfeet)
 		if(bloody_feet && bloody_feet[blood_state])
-			var/obj/effect/decal/cleanable/blood/footprints/oldFP = locate(/obj/effect/decal/cleanable/blood/footprints) in T
-			if(oldFP && oldFP.blood_state == blood_state && oldFP.basecolor == feet_blood_color)
-				return
-			else
-				bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
+			for(var/obj/effect/decal/cleanable/blood/footprints/oldFP in T)
+				if(oldFP && oldFP.blood_state == blood_state && oldFP.basecolor == feet_blood_color)
+					return
+			bloody_feet[blood_state] = max(0, bloody_feet[blood_state] - BLOOD_LOSS_PER_STEP)
+			if(bloody_feet[blood_state] > BLOOD_LOSS_IN_SPREAD)
 				createFootprintsFrom(src, dir, T)
-				update_inv_shoes()
+			update_inv_shoes()
 	//End bloody footprints
 	if(S)
 		S.step_action(src)
+
+	// Si encuentras una mejor forma de hacer esto, no lo pienses mucho y borra esto de aquí.
+	var/obj/item/organ/internal/adrenal/murghal/adrenal = get_int_organ(/obj/item/organ/internal/adrenal/murghal)
+	if(adrenal)
+		adrenal.on_species_walk(NewLoc, direct)
 
 /mob/living/carbon/human/handle_footstep(turf/T)
 	if(..())

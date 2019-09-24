@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/hunter
 	name = "alien hunter"
 	caste = "h"
-	maxHealth = 100
-	health = 100
+	maxHealth = 125
+	health = 125
 	icon_state = "alienh_s"
 
 /mob/living/carbon/alien/humanoid/hunter/New()
@@ -14,20 +14,20 @@
 	..()
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
-	. = -0.5		//hunters are sanic
+	. = -1		//hunters are sanic
 	. += ..()	//but they still need to slow down on stun
 
-/mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()
+/mob/living/carbon/alien/humanoid/hunter/handle_hud_icons_health()
 	..() //-Yvarov
 
 	if(healths)
 		if(stat != 2)
 			switch(health)
-				if(100 to INFINITY)
+				if(125 to INFINITY)
 					healths.icon_state = "health0"
-				if(75 to 100)
+				if(100 to 125)
 					healths.icon_state = "health1"
-				if(50 to 75)
+				if(50 to 100)
 					healths.icon_state = "health2"
 				if(25 to 50)
 					healths.icon_state = "health3"

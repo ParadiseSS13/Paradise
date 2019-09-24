@@ -59,8 +59,7 @@
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
 	if(client)
-		//regular_hud_updates() //THIS DOESN'T FUCKING UPDATE SHIT
-		handle_regular_hud_updates() //IT JUST REMOVES FUCKING HUD IMAGES
+		handle_regular_hud_updates()
 
 	..()
 

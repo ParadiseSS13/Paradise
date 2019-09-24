@@ -328,6 +328,9 @@
 /atom/proc/emag_act()
 	return
 
+/atom/proc/fart_act(mob/living/M)
+	return FALSE
+
 /atom/proc/rpd_act()
 	return
 
@@ -361,7 +364,7 @@
 				fingerprintshidden += text("\[[time_stamp()]\] (Wearing gloves). Real name: [], Key: []",H.real_name, H.key)
 				fingerprintslast = H.ckey
 			return 0
-		if(!( fingerprints ))
+		if(!fingerprints)
 			if(fingerprintslast != H.ckey)
 				//Add the list if it does not exist.
 				if(!fingerprintshidden)

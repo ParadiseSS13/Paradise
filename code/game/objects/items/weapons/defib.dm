@@ -22,6 +22,9 @@
 	var/obj/item/stock_parts/cell/high/bcell = null
 	var/combat = 0 //can we revive through space suits?
 
+/obj/item/defibrillator/get_cell()
+	return bcell
+
 /obj/item/defibrillator/New() //starts without a cell for rnd
 	..()
 	paddles = make_paddles()
@@ -42,7 +45,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	..(user)
-	to_chat(user,"<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.")
+	to_chat(user, "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>")
 
 /obj/item/defibrillator/proc/update_power()
 	if(bcell)

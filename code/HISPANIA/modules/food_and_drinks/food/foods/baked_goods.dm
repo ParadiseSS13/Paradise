@@ -244,3 +244,18 @@
 	icon_state = "arepa_magma"
 	bitesize = 6
 	list_reagents = list("nutriment" = 6, "vitamin" = 6, "capsaicin" = 20, "condensedcapsaicin" = 20)  //666,el diablo
+
+
+//////////////////////
+//       Pies       //
+//////////////////////
+
+/obj/item/reagent_containers/food/snacks/pie/honey
+	name = "honey pie"
+	desc = "A honey pie!"
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "honey_pie"
+	trash = /obj/item/trash/plate
+	filling_color = "#FBFFB8"
+	bitesize = 3
+	list_reagents = list("nutriment" = 10, "vitamin" = 5)

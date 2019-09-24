@@ -1,0 +1,13 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Legion body loot adjusted; may find rare alternative mining belt or primitive one; bone bracers also show up on Ashwalkers; mini pickaxe spawn also possible"
+  - tweak: "Large legions can damage objects"
+  - tweak: "Small legion skulls no longer block mob movement"
+  - rscadd: "Basilisks are now gold core spawnable"
+  - rscadd: "Gutlunches no longer produce adult version of themselves, but have babies that grow into gutlunches"
+  - tweak: "Mining belts can now hold pillbottles and shovels"
+  - tweak: "Goliath cloaks hold different items now; more inclined to what Ashwalkers would use and not miners"
+  - bugfix: "Swarmer megafauna now has its proper GPS"
+  - bugfix: "Can't kill mining fauna by overheating them"
+  - tweak: "new sprite for the Hierophant"

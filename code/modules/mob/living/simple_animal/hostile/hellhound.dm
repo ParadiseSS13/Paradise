@@ -22,7 +22,7 @@
 	health = 250
 	obj_damage = 50
 	robust_searching = 1
-	stat_attack = 1
+	stat_attack = UNCONSCIOUS
 	attacktext = "savages"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
@@ -42,19 +42,16 @@
 	whisper_action.Grant(src)
 
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
-	. = ..()
+	if(!..())
+		return
 	if(resting)
 		if(!wants_to_rest())
 			custom_emote(1, "growls, and gets up.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			icon_state = "[icon_living]"
-			resting = 0
-			update_canmove()
+			StopResting()
 	else if(wants_to_rest())
 		custom_emote(1, "lays down, and starts to lick their wounds.")
-		icon_state = "[icon_resting]"
-		resting = 1
-		update_canmove()
+		StartResting()
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
@@ -97,7 +94,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/AttackingTarget()
 	. = ..()
-	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
+	if(. && ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
 
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)

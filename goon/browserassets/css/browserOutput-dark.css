@@ -261,6 +261,7 @@ em						{font-style: normal;	font-weight: bold;}
 .mentorhelp				{color: #0077bb;	font-weight: bold;}
 .adminhelp				{color: #aa0000;	font-weight: bold;}
 .playerreply			{color: #8800bb;	font-weight: bold;}
+.pmsend					{color: #0000ff;}
 .name					{					font-weight: bold;}
 .say					{}
 .yell					{					font-weight: bold;}
@@ -326,7 +327,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .sans					{font-family: 'Comic Sans MS', cursive, sans-serif;}
 .wingdings				{font-family: Wingdings, Webdings;}
 .robot					{font-family: 'PxPlus IBM MDA'; font-size: 1.15em;}
-.ancient				{color: #008B8B;	font-stye: italic;}
+.ancient				{color: #008B8B;	font-style: italic;}
 .newscaster				{color: #CC0000;}
 .mod					{color: #735638;	font-weight: bold;}
 .modooc					{color: #184880;	font-weight: bold;}
@@ -335,6 +336,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .skrell					{color: #00CED1;}
 .solcom					{color: #8282FB;}
 .com_srus				{color: #7c4848;}
+.zombie					{color: #ff0000;}
 .soghun					{color: #228B22;}
 .changeling				{color: #800080;}
 .vox					{color: #AA00AA;}
@@ -346,6 +348,7 @@ h1.alert, h2.alert			{color: #FFF;}
 .clown					{color: #ff0000;}
 .shadowling				{color: #Cb2799;}
 .vulpkanin				{color: #B97A57;}
+.yakar					{color: #bda60f;}
 .abductor				{color: #800080; font-style: italic;}
 .mind_control				{color: #A00D6F; font-size: 3; font-weight: bold; font-style: italic;}
 .rough					{font-family: 'Trebuchet MS', cursive, sans-serif;}
@@ -388,7 +391,6 @@ h1.alert, h2.alert			{color: #FFF;}
 .whisper				{font-style:italic;color:#CCCCCC;}
 /* Recruiting stuff */
 .recruit 				{color: #5c00e6; font-weight: bold; font-style: italic;}
-"}
 
 .memo					{color: #638500;	text-align: center;}
 .memoedit				{text-align: center;	font-size: 75%;}
