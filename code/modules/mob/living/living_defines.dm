@@ -28,7 +28,6 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/update_slimes = 1
 	var/implanting = 0 //Used for the mind-slave implant
 	var/floating = 0
 	var/mob_size = MOB_SIZE_HUMAN

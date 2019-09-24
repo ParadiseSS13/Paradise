@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
-#define isslime(A)		(istype((A), /mob/living/carbon/slime))
+#define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

@@ -277,33 +277,21 @@
 
 	return G
 
-/mob/living/attack_slime(mob/living/carbon/slime/M)
+/mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if(M.Victim)
+	if(M.buckled)
+		if(M in buckled_mobs)
+			M.Feedstop()
 		return // can't attack while eating!
 
 	if(stat != DEAD)
+		add_attack_logs(src, M, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
-
-		if(M.powerlevel > 0)
-			var/stunprob = M.powerlevel * 7 + 10  // 17 at level 1, 80 at level 10
-			if(prob(stunprob))
-				M.powerlevel -= 3
-				if(M.powerlevel < 0)
-					M.powerlevel = 0
-
-				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
-				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
-
-				do_sparks(5, 1, src)
-				return 1
-	add_attack_logs(src, M, "Slime'd")
-	return
+		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
+		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
 	M.face_atom(src)

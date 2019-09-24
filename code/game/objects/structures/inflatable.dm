@@ -90,7 +90,7 @@
 	attack_generic(M, M.melee_damage_upper)
 
 /obj/structure/inflatable/attack_slime(mob/user as mob)
-	var/mob/living/carbon/slime/S = user
+	var/mob/living/simple_animal/slime/S = user
 	if(!S.is_adult)
 		return
 	attack_generic(user, rand(10, 15))

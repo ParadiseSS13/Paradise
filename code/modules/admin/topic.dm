@@ -345,7 +345,7 @@
 				var/mob/living/carbon/human/newmob = M.change_mob_type(/mob/living/carbon/human, null, null, delmob, 1)
 				if(posttransformoutfit && istype(newmob))
 					newmob.equipOutfit(posttransformoutfit)
-			if("slime")				M.change_mob_type( /mob/living/carbon/slime , null, null, delmob, 1 )
+			if("slime")				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob, 1 )
 			if("monkey")			M.change_mob_type( /mob/living/carbon/human/monkey , null, null, delmob, 1 )
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1 )

@@ -451,22 +451,22 @@ emp_act
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 
-/mob/living/carbon/human/attack_slime(mob/living/carbon/slime/M)
-	..()
-	var/damage = rand(1, 3)
+/mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
+	if(..()) //successful slime attack
+		var/damage = rand(5, 25)
+		if(M.is_adult)
+			damage = rand(10, 35)
 
-	if(M.is_adult)
-		damage = rand(10, 35)
-	else
-		damage = rand(5, 25)
+		if(check_shields(M, damage, "the [M.name]"))
+			return FALSE
 
-	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 
-	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	var/armor_block = run_armor_check(affecting, "melee")
-	apply_damage(damage, BRUTE, affecting, armor_block)
-
-	return
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		if(!affecting)
+			affecting = get_organ("chest")
+		var/armor_block = run_armor_check(affecting, "melee")
+		apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)

@@ -279,8 +279,8 @@
 
 /datum/reagent/consumable/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
-		for(var/mob/living/carbon/slime/M in T)
-			M.adjustToxLoss(rand(15,30))
+		for(var/mob/living/simple_animal/slime/M in T)
+			M.adjustToxLoss(rand(15, 30))
 
 /datum/reagent/consumable/sodiumchloride
 	name = "Salt"
