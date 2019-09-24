@@ -80,7 +80,7 @@ var/const/INGEST = 2
 		var/part = amount / total_volume
 		for(var/reagent in cached_reagents)
 			var/datum/reagent/R = reagent
-			remove_reagent(R.type, R.volume * part)
+			remove_reagent(R.id, R.volume * part)
 
 		update_total()
 		handle_reactions()
