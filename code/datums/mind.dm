@@ -1524,6 +1524,10 @@
 
 	SSticker.mode.abductors |= src
 
+	var/datum/objective/stay_hidden/hidden_obj = new
+	hidden_obj.owner = src
+	objectives += hidden_obj
+
 	var/datum/objective/experiment/O = new
 	O.owner = src
 	objectives += O
@@ -1725,7 +1729,7 @@
 	mind.active = 1    //indicates that the mind is currently synced with a client
 
 //slime
-/mob/living/carbon/slime/mind_initialize()
+/mob/living/simple_animal/slime/mind_initialize()
 	..()
 	mind.assigned_role = "slime"
 

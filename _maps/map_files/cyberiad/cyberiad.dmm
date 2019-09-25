@@ -3961,12 +3961,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
-"ahx" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
 "ahy" = (
 /obj/structure/shuttle/engine/heater,
 /obj/structure/window/reinforced{
@@ -5330,10 +5324,6 @@
 "ajH" = (
 /obj/machinery/bodyscanner,
 /obj/machinery/light/spot,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
-"ajI" = (
-/obj/machinery/body_scanconsole,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ajJ" = (
@@ -28853,7 +28843,7 @@
 /area/chapel/office)
 "baA" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -31966,13 +31956,13 @@
 /area/chapel/office)
 "bfW" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
-/obj/item/storage/fancy/candle_box{
+/obj/item/storage/fancy/candle_box/full{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/fancy/candle_box{
-	pixel_x = 3;
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -3;
 	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
@@ -35632,7 +35622,7 @@
 /area/chapel/main)
 "bmU" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -45995,7 +45985,6 @@
 	},
 /area/medical/morgue)
 "bHL" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -25
@@ -58771,18 +58760,11 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
-	},
-/area/medical/sleeper)
-"ccw" = (
-/obj/machinery/bodyscanner,
-/turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue";
-	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "ccx" = (
@@ -61165,12 +61147,6 @@
 /area/crew_quarters/hor)
 "cgw" = (
 /obj/machinery/bodyscanner,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"cgx" = (
-/obj/machinery/body_scanconsole,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -63837,7 +63813,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "ckU" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery West";
 	dir = 1;
@@ -63979,7 +63954,6 @@
 	},
 /area/medical/surgery2)
 "clf" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery East";
 	dir = 1;
@@ -72124,7 +72098,6 @@
 	pixel_y = -3
 	},
 /obj/item/circuitboard/bodyscanner,
-/obj/item/circuitboard/bodyscanner_console,
 /obj/item/circuitboard/sleeper{
 	pixel_x = 3
 	},
@@ -79001,7 +78974,7 @@
 "cKD" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cKE" = (
@@ -79766,7 +79739,7 @@
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cMh" = (
@@ -81193,7 +81166,7 @@
 	},
 /area/toxins/xenobiology)
 "cOS" = (
-/obj/machinery/optable,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -81960,10 +81933,8 @@
 /area/toxins/xenobiology)
 "cQt" = (
 /obj/structure/table/reinforced,
-/obj/item/circular_saw{
-	pixel_y = 0
-	},
 /obj/item/scalpel,
+/obj/item/hemostat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -106627,7 +106598,7 @@ bRA
 bPI
 cdo
 ceR
-cgx
+ceR
 cii
 ckf
 clE
@@ -107567,7 +107538,7 @@ abV
 abV
 agF
 ahg
-ahx
+abV
 ahy
 ahP
 aaa
@@ -133098,7 +133069,7 @@ bXG
 bZi
 cgM
 caI
-ccw
+ccu
 ceg
 cfI
 cho
@@ -154860,7 +154831,7 @@ agZ
 ail
 aiL
 aha
-ajI
+aha
 ajY
 akp
 aaa

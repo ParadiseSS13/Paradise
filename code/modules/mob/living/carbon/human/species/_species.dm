@@ -53,7 +53,6 @@
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
 	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
-	var/armor = 0		// overall defense for the race... or less defense, if it's negative.
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/obj/item/mutanthands
 	var/total_health = 100
@@ -62,7 +61,7 @@
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/list/default_genes = list()
 
-	var/ventcrawler = 0 //Determines if the mob can go through the vents.
+	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
@@ -74,6 +73,10 @@
 	var/clothing_flags = 0 // Underwear and socks.
 	var/exotic_blood
 	var/skinned_type
+	var/list/no_equip = list()	// slots the race can't equip stuff to
+	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
+	var/can_craft = TRUE // Can this mob using crafting or not?
+
 	var/bodyflags = 0
 	var/dietflags  = 0	// Make sure you set this, otherwise it won't be able to digest a lot of foods
 
@@ -271,11 +274,18 @@
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
-	return
+	for(var/slot_id in no_equip)
+		var/obj/item/thing = H.get_item_by_slot(slot_id)
+		if(thing && (!thing.species_exception || !is_type_in_list(src, thing.species_exception)))
+			H.unEquip(thing)
+	if(H.hud_used)
+		H.hud_used.update_locked_slots()
+	H.ventcrawler = ventcrawler
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
 	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
+	H.ventcrawler = initial(H.ventcrawler)
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
@@ -304,10 +314,7 @@
 /datum/species/proc/handle_dna(mob/living/carbon/human/H, remove) //Handles DNA mutations, as that doesn't work at init. Make sure you call genemutcheck on any blocks changed here
 	return
 
-/datum/species/proc/handle_death(mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
-	return
-
-/datum/species/proc/spec_death(gibbed, mob/living/carbon/human/C)
+/datum/species/proc/handle_death(gibbed, mob/living/carbon/human/H) //Handles any species-specific death events (such as dionaea nymph spawns).
 	return
 
 /datum/species/proc/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = 0, mob/living/carbon/human/H, sharp = 0, obj/used_weapon = null)
@@ -522,7 +529,7 @@
 			to_chat(M, "<span class='warning'>You can't use your hand.</span>")
 			return
 
-	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(0, M.name, attack_type = UNARMED_ATTACK))
+	if((M != H) && M.a_intent != INTENT_HELP && H.check_shields(M, 0, M.name, attack_type = UNARMED_ATTACK))
 		add_attack_logs(M, H, "Melee attacked with fists (miss/block)")
 		H.visible_message("<span class='warning'>[M] attempted to touch [H]!</span>")
 		return FALSE
@@ -588,8 +595,158 @@
 	attack_verb = list("slash", "claw")
 	damage = 6
 
-/datum/species/proc/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
-	return FALSE
+/datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
+	if(slot in no_equip)
+		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
+			return FALSE
+
+	if(!H.has_organ_for_slot(slot))
+		return FALSE
+
+	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
+		if(FAT in H.mutations)
+			if(!(I.flags_size & ONESIZEFITSALL))
+				if(!disable_warning)
+					to_chat(H, "<span class='alert'>You're too fat to wear the [I].</span>")
+				return FALSE
+
+	switch(slot)
+		if(slot_l_hand)
+			return !H.l_hand && !H.incapacitated()
+		if(slot_r_hand)
+			return !H.r_hand && !H.incapacitated()
+		if(slot_wear_mask)
+			return !H.wear_mask && (I.slot_flags & SLOT_MASK)
+		if(slot_back)
+			return !H.back && (I.slot_flags & SLOT_BACK)
+		if(slot_wear_suit)
+			return !H.wear_suit && (I.slot_flags & SLOT_OCLOTHING)
+		if(slot_gloves)
+			return !H.gloves && (I.slot_flags & SLOT_GLOVES)
+		if(slot_shoes)
+			return !H.shoes && (I.slot_flags & SLOT_FEET)
+		if(slot_belt)
+			if(H.belt)
+				return FALSE
+			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
+
+			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+				return FALSE
+			if(!(I.slot_flags & SLOT_BELT))
+				return
+			return TRUE
+		if(slot_glasses)
+			return !H.glasses && (I.slot_flags & SLOT_EYES)
+		if(slot_head)
+			return !H.head && (I.slot_flags & SLOT_HEAD)
+		if(slot_l_ear)
+			return !H.l_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.r_ear)
+		if(slot_r_ear)
+			return !H.r_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.l_ear)
+		if(slot_w_uniform)
+			return !H.w_uniform && (I.slot_flags & SLOT_ICLOTHING)
+		if(slot_wear_id)
+			if(H.wear_id)
+				return FALSE
+			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
+
+			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+				return FALSE
+			if(!(I.slot_flags & SLOT_ID))
+				return FALSE
+			return TRUE
+		if(slot_wear_pda)
+			if(H.wear_pda)
+				return FALSE
+			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
+
+			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+				return FALSE
+			if(!(I.slot_flags & SLOT_PDA))
+				return FALSE
+			return TRUE
+		if(slot_l_store)
+			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
+				return FALSE
+			if(H.l_store)
+				return FALSE
+			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_L_LEG)
+
+			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+				return FALSE
+			if(I.slot_flags & SLOT_DENYPOCKET)
+				return
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
+				return TRUE
+		if(slot_r_store)
+			if(I.flags & NODROP)
+				return FALSE
+			if(H.r_store)
+				return FALSE
+			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_R_LEG)
+
+			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+				if(!disable_warning)
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+				return FALSE
+			if(I.slot_flags & SLOT_DENYPOCKET)
+				return FALSE
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
+				return TRUE
+			return FALSE
+		if(slot_s_store)
+			if(I.flags & NODROP) //Suit storage NODROP items drop if you take a suit off, this is to prevent people exploiting this.
+				return FALSE
+			if(H.s_store)
+				return FALSE
+			if(!H.wear_suit)
+				if(!disable_warning)
+					to_chat(H, "<span class='alert'>You need a suit before you can attach this [name].</span>")
+				return FALSE
+			if(!H.wear_suit.allowed)
+				if(!disable_warning)
+					to_chat(H, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
+				return FALSE
+			if(I.w_class > WEIGHT_CLASS_BULKY)
+				if(!disable_warning)
+					to_chat(H, "The [name] is too big to attach.")
+				return FALSE
+			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
+				return TRUE
+			return FALSE
+		if(slot_handcuffed)
+			return !H.handcuffed && istype(I, /obj/item/restraints/handcuffs)
+		if(slot_legcuffed)
+			return !H.legcuffed && istype(I, /obj/item/restraints/legcuffs)
+		if(slot_in_backpack)
+			if(H.back && istype(H.back, /obj/item/storage/backpack))
+				var/obj/item/storage/backpack/B = H.back
+				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+					return TRUE
+			return FALSE
+		if(slot_tie)
+			if(!H.w_uniform)
+				if(!disable_warning)
+					to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
+				return FALSE
+			var/obj/item/clothing/under/uniform = H.w_uniform
+			if(uniform.accessories.len && !uniform.can_attach_accessory(H))
+				if(!disable_warning)
+					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
+				return FALSE
+			if(!(I.slot_flags & SLOT_TIE))
+				return FALSE
+			return TRUE
+
+	return FALSE //Unsupported slot
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
 	return H.health - H.getStaminaLoss()
@@ -657,6 +814,8 @@
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
+	if(NO_HUNGER in species_traits)
+		return FALSE
 	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
 		switch(H.nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)

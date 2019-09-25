@@ -110,7 +110,8 @@
 			src.transfer_fingerprints_to(newlight)
 			qdel(src)
 			return
-	..()
+	else
+		return ..()
 
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
@@ -299,17 +300,16 @@
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE) //does not call parent requires manual definition
+	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
 		LR.ReplaceLight(src, user)
 
 	// attempt to insert light
-	if(istype(W, /obj/item/light))
+	else if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
 			to_chat(user, "There is a [fitting] already inserted.")
-			return
 		else
 			src.add_fingerprint(user)
 			var/obj/item/light/L = W
@@ -388,6 +388,8 @@
 			do_sparks(3, 1, src)
 			if(prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
+	else
+		return ..()
 
 
 // returns whether this light has power
@@ -619,6 +621,19 @@
 	var/brightness_power = 1
 	var/brightness_color = null
 
+/obj/item/light/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+
+/obj/item/light/Crossed(mob/living/L)
+	if(istype(L) && has_gravity(loc))
+		if(L.incorporeal_move || L.flying)
+			return
+		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+		if(status == LIGHT_BURNED || status == LIGHT_OK)
+			shatter()
+	return ..()
+
 /obj/item/light/tube
 	name = "light tube"
 	desc = "A replacement light tube."
@@ -681,8 +696,7 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode
-/obj/item/light/attackby(var/obj/item/I, var/mob/user, params)
-	..()
+/obj/item/light/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 
@@ -697,8 +711,7 @@
 
 		S.reagents.clear_reagents()
 	else
-		..()
-	return
+		return ..()
 
 // called after an attack with a light item
 // shatter light, unless it was an attempt to put it in a light socket

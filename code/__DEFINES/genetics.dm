@@ -162,4 +162,8 @@
 #define RESISTCOLD		17
 #define NO_EXAMINE		18
 #define CAN_WINGDINGS	19
-#define NOZOMBIE 20
+#define NOZOMBIE 		20
+#define NO_GERMS		21
+#define NO_DECAY		22
+#define PIERCEIMMUNE	23
+#define NO_HUNGER		24

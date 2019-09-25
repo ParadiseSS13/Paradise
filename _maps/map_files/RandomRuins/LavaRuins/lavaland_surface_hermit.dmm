@@ -50,7 +50,7 @@
 	},
 /area/ruin/powered)
 "l" = (
-/obj/item/storage/toolbox/emergency,
+/obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plating/asteroid{
 	name = "dirt"
 	},

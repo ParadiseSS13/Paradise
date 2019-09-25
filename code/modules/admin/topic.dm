@@ -37,7 +37,7 @@
 			return
 		var/ticketID = text2num(href_list["openmentorticket"])
 		SSmentor_tickets.showDetailUI(usr, ticketID)
-	
+
 	if(href_list["stickyban"])
 		stickyban(href_list["stickyban"],href_list)
 
@@ -345,7 +345,7 @@
 				var/mob/living/carbon/human/newmob = M.change_mob_type(/mob/living/carbon/human, null, null, delmob, 1)
 				if(posttransformoutfit && istype(newmob))
 					newmob.equipOutfit(posttransformoutfit)
-			if("slime")				M.change_mob_type( /mob/living/carbon/slime , null, null, delmob, 1 )
+			if("slime")				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob, 1 )
 			if("monkey")			M.change_mob_type( /mob/living/carbon/human/monkey , null, null, delmob, 1 )
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )
 			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1 )
@@ -1569,6 +1569,12 @@
 		else //Ahelp
 			SStickets.resolveTicket(index)
 
+	else if(href_list["autorespond"])
+		var/index = text2num(href_list["autorespond"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
+		SStickets.autoRespond(index)
+
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return
@@ -1928,7 +1934,7 @@
 				H.reagents.add_reagent("ice", 40)
 				logmsg = "cold."
 			if("Hunger")
-				H.nutrition = NUTRITION_LEVEL_CURSED
+				H.set_nutrition(NUTRITION_LEVEL_CURSED)
 				logmsg = "starvation."
 			if("Cluwne")
 				H.makeCluwne()
@@ -2854,19 +2860,25 @@
 			if("guns")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SG")
-				usr.rightandwrong(FALSE)
+				var/survivor_probability = 0
+				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+					if("Some Antags")
+						survivor_probability = 25
+					if("All Antags!")
+						survivor_probability = 100
+
+				rightandwrong(SUMMON_GUNS, usr, survivor_probability)
 			if("magic")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","SM")
-				usr.rightandwrong(TRUE)
-			if("revolver")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "SRD")
-				usr.rightandwrong(FALSE, revolver_fight = TRUE)
-			if("fakerevolver")
-				feedback_inc("admin_secrets_fun_used", 1)
-				feedback_add_details("admin_secrets_fun_used", "SFD")
-				usr.rightandwrong(FALSE, fake_revolver_fight = TRUE)
+				var/survivor_probability = 0
+				switch(alert("Do you want this to create survivors antagonists?", , "No Antags", "Some Antags", "All Antags!"))
+					if("Some Antags")
+						survivor_probability = 25
+					if("All Antags!")
+						survivor_probability = 100
+
+				rightandwrong(SUMMON_MAGIC, usr, survivor_probability)
 			if("tdomereset")
 				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
 				if(delete_mobs == "Cancel")

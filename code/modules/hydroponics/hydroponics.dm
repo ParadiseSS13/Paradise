@@ -636,9 +636,10 @@
 
 	// why, just why
 	if(S.has_reagent("napalm", 1))
-		adjustHealth(-round(S.get_reagent_amount("napalm") * 6))
-		adjustToxic(round(S.get_reagent_amount("napalm") * 7))
-		adjustWeeds(-rand(5,9))
+		if(!(myseed.resistance_flags & FIRE_PROOF))
+			adjustHealth(-round(S.get_reagent_amount("napalm") * 6))
+			adjustToxic(round(S.get_reagent_amount("napalm") * 7))
+		adjustWeeds(-rand(5, 9)) //At least give them a small reward if they bother
 
 	//Weed Spray
 	if(S.has_reagent("atrazine", 1))
@@ -990,12 +991,12 @@
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))
 		if(weedlevel > 0)
-			user.nutrition += weedlevel * 15
+			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
 			update_icon()
 			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
 		else if(nutrilevel < 10)
-			user.nutrition -= ((10 - nutrilevel) * 5)
+			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
 			update_icon()
 			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")

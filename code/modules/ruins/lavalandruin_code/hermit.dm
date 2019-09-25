@@ -8,6 +8,7 @@
 	roundstart = FALSE
 	death = FALSE
 	random = TRUE
+	allow_species_pick = TRUE
 	mob_species = /datum/species/human
 	flavour_text = "<span class='big bold'>You've been stranded in this godless prison of a planet for longer than you can remember.</span><b> Each day you barely scrape by, and between the terrible \
 	conditions of your makeshift shelter, the hostile creatures, and the ash drakes swooping down from the cloudless skies, all you can wish for is the feel of soft grass between your toes and \

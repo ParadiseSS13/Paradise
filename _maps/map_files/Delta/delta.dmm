@@ -1274,12 +1274,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"acV" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
 "acW" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -6077,10 +6071,6 @@
 "ane" = (
 /obj/machinery/bodyscanner,
 /obj/machinery/light/spot,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
-"anf" = (
-/obj/machinery/body_scanconsole,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ang" = (
@@ -78847,7 +78837,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cKn" = (
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
 "cKo" = (
@@ -93584,7 +93574,6 @@
 /area/medical/medbay)
 "dll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitebluecorner";
@@ -93598,7 +93587,7 @@
 	dir = 1;
 	network = list("SS13")
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitepurplecorner"
@@ -96747,7 +96736,6 @@
 	pixel_x = 0;
 	pixel_y = -32
 	},
-/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96760,7 +96748,7 @@
 	pixel_y = 0;
 	req_access_txt = "0"
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -145341,7 +145329,7 @@ aaa
 aaa
 acA
 acN
-acV
+acW
 acW
 acW
 acW
@@ -176978,7 +176966,7 @@ akm
 alU
 ams
 akn
-anf
+akn
 anD
 aok
 aaa

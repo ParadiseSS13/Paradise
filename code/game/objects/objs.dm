@@ -6,6 +6,7 @@
 	animate_movement = 2
 	var/throwforce = 1
 	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = 0		// whether this object cuts
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
 	var/can_deconstruct = TRUE
@@ -270,6 +271,10 @@ a {
 	user << browse(dat, "window=mtcomputer")
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
+
+/obj/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	extinguish()
 
 /obj/singularity_pull(S, current_size)
 	if(anchored)
