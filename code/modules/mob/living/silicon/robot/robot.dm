@@ -572,6 +572,10 @@ var/list/robot_verbs_default = list(
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_cell_power()
+	var/total_user_contents = GetAllContents()
+	if(locate(/obj/item/gps/cyborg) in total_user_contents)
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
 
 /mob/living/silicon/robot/restrained()
 	return 0
