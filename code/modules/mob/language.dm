@@ -773,8 +773,13 @@
 	flags = RESTRICTED
 	syllables = list("BRAAAAAAAAAAAAAAAAINS", "BRAAINS", "BRAINS")
 
-/mob/proc/grant_all_languages()
+/mob/proc/grant_all_nonhivemind_languages()
 	for(var/la in GLOB.all_languages)
-		add_language(la)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(!istype(new_language) || (new_language in languages))
+			continue
+		if(new_language.flags & HIVEMIND)
+			continue
+		languages |= new_language
 
 #undef SCRAMBLE_CACHE_LEN
