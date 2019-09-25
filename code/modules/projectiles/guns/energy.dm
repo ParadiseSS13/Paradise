@@ -198,7 +198,8 @@
 		if(R && R.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
-				power_supply.give(shot.e_cost)	//... to recharge the shot
+				if(!istype(src, /obj/item/gun/energy/kinetic_accelerator/cyborg)) // Mining borg KA's can be spammed with no cooldown without this check
+					power_supply.give(shot.e_cost)	//... to recharge the shot
 
 /obj/item/gun/energy/proc/get_external_power_supply()
 	if(istype(loc, /obj/item/rig_module))
