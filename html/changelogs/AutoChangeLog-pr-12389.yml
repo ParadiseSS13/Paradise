@@ -1,8 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Abductors, Skeletons, Shadowlings, and Plasmamen never get hungry"
-  - tweak: "Abductors, Skeleton, and Plasmamen can't taste anything"
-  - tweak: "Wood Golems now have a diet and taste sensitivity much like Diona"
-  - tweak: "Unathi are more sensitive to tastes"
-  - tweak: "Adjusted the sensitivity of \"sharp\" and \"dull\" tastes a bit"

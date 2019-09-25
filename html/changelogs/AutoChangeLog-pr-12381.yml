@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Summon guns/magic is no longer free, but costs 2 spells points"
-  - rscadd: "Summon guns/magic makes 10% of the crew antags with the objective to collect guns/magical items and kill anyone who gets in their way"
-  - rscadd: "If a wizard (or admin) summons guns/magic, latejoiners to the round will also acquire summoned items"

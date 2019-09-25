@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed a small bug that caused coins named \"syndicate coin\" or \"antag token\" to both incorrectly appear as \"valid coin\"."
