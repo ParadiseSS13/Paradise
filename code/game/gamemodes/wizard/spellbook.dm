@@ -349,7 +349,7 @@
 		return TRUE
 
 /datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
@@ -370,7 +370,7 @@
 		return TRUE
 
 /datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	feedback_add_details("wizard_spell_learned", log_name)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, log_name)
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)

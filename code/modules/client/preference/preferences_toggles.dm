@@ -212,7 +212,8 @@
 	else
 		to_chat(src, "You will no longer hear or dance to the radiant dance machine.")
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
-	feedback_add_details("admin_verb","Tdd") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Tdd") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/setup_character()
 	set name = "Game Preferences"
@@ -287,7 +288,7 @@
 	to_chat(src, "As a ghost, you will now [(prefs.toggles & CHAT_GHOSTPDA) ? "see all PDA messages" : "no longer see PDA messages"].")
 	prefs.save_preferences(src)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "TGP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	
+
 /client/verb/silence_current_midi()
 	set name = "Silence Current Midi"
 	set category = "Preferences"

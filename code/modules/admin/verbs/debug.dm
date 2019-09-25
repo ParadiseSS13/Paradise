@@ -611,8 +611,7 @@ GLOBAL_PROTECT(AdminProcCaller)
 		H.equipOutfit(dresscode)
 
 	H.regenerate_icons()
-
-	feedback_add_details("admin_verb", "SE") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "SE")
 	log_admin("[key_name(usr)] changed the equipment of [key_name(M)] to [dresscode].")
 	message_admins("<span class='notice'>[key_name_admin(usr)] changed the equipment of [key_name_admin(M)] to [dresscode].</span>", 1)
 
