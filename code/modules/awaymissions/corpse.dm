@@ -48,12 +48,13 @@
 	if(!O.can_reenter_corpse)
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
-	if(QDELETED(src) || QDELETED(user))
-		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No" || !loc)
+	if(ghost_role == "No")
 		return
 	if(!species_prompt())
+		return
+	if(!loc || !uses || QDELETED(src) || QDELETED(user))
+		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)

@@ -16,7 +16,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.can_eat(diet_flags))	//Make sure the species has it's dietflag set, otherwise it can't digest any nutrients
-				H.nutrition += nutriment_factor	// For hunger and fatness
+				H.adjust_nutrition(nutriment_factor)	// For hunger and fatness
 	return ..()
 
 /datum/reagent/consumable/nutriment		// Pure nutriment, universally digestable and thus slightly less effective
@@ -279,8 +279,8 @@
 
 /datum/reagent/consumable/frostoil/reaction_turf(turf/T, volume)
 	if(volume >= 5)
-		for(var/mob/living/carbon/slime/M in T)
-			M.adjustToxLoss(rand(15,30))
+		for(var/mob/living/simple_animal/slime/M in T)
+			M.adjustToxLoss(rand(15, 30))
 
 /datum/reagent/consumable/sodiumchloride
 	name = "Salt"
@@ -838,13 +838,16 @@
 	color = "#63DE63"
 	taste_description = "burned food"
 
-/datum/reagent/questionmark/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
-		M.Stun(2, FALSE)
-		M.Weaken(2, FALSE)
-		M.update_canmove()
-		to_chat(M, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
-		M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+/datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = TOUCH, volume)
+	if(istype(H) && method == INGEST)
+		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
+			H.Stun(2, FALSE)
+			H.Weaken(2, FALSE)
+			H.update_canmove()
+			to_chat(H, "<span class='danger'>Ugh! Eating that was a terrible idea!</span>")
+		if(NO_HUNGER in H.dna.species.species_traits) //If you don't eat, then you can't get food poisoning
+			return
+		H.ForceContractDisease(new /datum/disease/food_poisoning(0))
 
 /datum/reagent/msg
 	name = "Monosodium glutamate"

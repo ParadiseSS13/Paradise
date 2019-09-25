@@ -91,9 +91,9 @@
 			H.clear_alert("nolight")
 		else
 			H.throw_alert("nolight", /obj/screen/alert/nolight)
-		H.nutrition += light_amount * 10
+		H.adjust_nutrition(light_amount * 10)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
-			H.nutrition = NUTRITION_LEVEL_ALMOST_FULL
+			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			if(!pod && H.health <= 0)
 				return

@@ -79739,7 +79739,7 @@
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cMh" = (
@@ -81166,7 +81166,7 @@
 	},
 /area/toxins/xenobiology)
 "cOS" = (
-/obj/machinery/optable,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -81933,10 +81933,8 @@
 /area/toxins/xenobiology)
 "cQt" = (
 /obj/structure/table/reinforced,
-/obj/item/circular_saw{
-	pixel_y = 0
-	},
 /obj/item/scalpel,
+/obj/item/hemostat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

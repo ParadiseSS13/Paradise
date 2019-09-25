@@ -77,10 +77,9 @@
 		if(occupant)
 			to_chat(user, "<span class='notice'>The scanner is already occupied!</span>")
 			return
-		for(var/mob/living/carbon/slime/M in range(1, TYPECAST_YOUR_SHIT.affecting))
-			if(M.Victim == TYPECAST_YOUR_SHIT.affecting)
-				to_chat(user, "<span class='danger'>[TYPECAST_YOUR_SHIT.affecting.name] has a fucking slime attached to [TYPECAST_YOUR_SHIT.affecting.p_them()], deal with that first.</span>")
-				return
+		if(TYPECAST_YOUR_SHIT.affecting.has_buckled_mobs()) //mob attached to us
+			to_chat(user, "<span class='warning'>[TYPECAST_YOUR_SHIT.affecting] will not fit into [src] because [TYPECAST_YOUR_SHIT.affecting.p_they()] [TYPECAST_YOUR_SHIT.affecting.p_have()] a fucking slime latched onto [TYPECAST_YOUR_SHIT.affecting.p_their()] head.</span>")
+			return
 		var/mob/living/carbon/human/M = TYPECAST_YOUR_SHIT.affecting
 		if(M.abiotic())
 			to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
@@ -117,10 +116,9 @@
 	if(H.abiotic())
 		to_chat(user, "<span class='notice'>Subject cannot have abiotic items on.</span>")
 		return FALSE
-	for(var/mob/living/carbon/slime/M in range(1, H))
-		if(M.Victim == H)
-			to_chat(user, "<span class='danger'>[H] has a fucking slime attached to [H.p_them()], deal with that first.</span>")
-			return FALSE
+	if(H.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[H] will not fit into [src] because [H.p_they()] [H.p_have()] a slime latched onto [H.p_their()] head.</span>")
+		return
 
 	if(H == user)
 		visible_message("[user] climbs into [src].")

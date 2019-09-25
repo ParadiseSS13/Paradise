@@ -427,7 +427,7 @@
 	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
-	nutrition = NUTRITION_LEVEL_FED + 50
+	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
 	CureBlind()
 	CureNearsighted()
@@ -540,10 +540,6 @@
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-	if(update_slimes)
-		for(var/mob/living/carbon/slime/M in view(1,src))
-			M.UpdateFeed(src)
 
 
 /mob/living/proc/handle_footstep(turf/T)

@@ -1573,7 +1573,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
 		threatcount += 2
 
 
@@ -1899,6 +1899,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
 	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
 	. += "---"
+
+/mob/living/carbon/human/adjust_nutrition(change)
+	if(NO_HUNGER in dna.species.species_traits)
+		return FALSE
+	return ..()
+
+/mob/living/carbon/human/set_nutrition(change)
+	if(NO_HUNGER in dna.species.species_traits)
+		return FALSE
+	return ..()
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops

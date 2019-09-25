@@ -1,5 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - bugfix: "Fixed clown changelings not losing comic sans on transformation"
-  - tweak: "Clowns can now lose the clumsy and comic genes through DNA manipulation (but not mutadone)"

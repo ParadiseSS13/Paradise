@@ -33,14 +33,14 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
-/obj/machinery/plantgenes/upgraded/New()
+/obj/machinery/plantgenes/seedvault/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/plantgenes(null)
+	component_parts += new /obj/item/circuitboard/plantgenes/vault(null)
 	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
-	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
+	component_parts += new /obj/item/stock_parts/scanning_module(null)
+	component_parts += new /obj/item/stock_parts/micro_laser(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
 
 /obj/machinery/plantgenes/Destroy()
@@ -73,6 +73,14 @@
 		var/wratemod = ML.rating * 2.5
 		min_wrate = Floor(10-wratemod) // 7,5,2,0	Clamps at 0 and 10	You want this low
 		min_wchance = 67-(ML.rating*16) // 48,35,19,3 	Clamps at 0 and 67	You want this low
+	for(var/obj/item/circuitboard/plantgenes/vaultcheck in component_parts)
+		if(istype(vaultcheck, /obj/item/circuitboard/plantgenes/vault)) // TRAIT_DUMB BOTANY TUTS
+			max_potency = 100
+			max_yield = 10
+			min_production = 1
+			max_endurance = 100
+			min_wchance = 0
+			min_wrate = 0
 
 /obj/machinery/plantgenes/update_icon()
 	..()

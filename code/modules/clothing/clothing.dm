@@ -579,6 +579,9 @@ BLIND     // can't see anything
 	else
 		..() //This is required in order to ensure that the UI buttons for items that have alternate functions tied to UI buttons still work.
 
+/obj/item/clothing/suit/proc/special_overlays() // Does it have special overlays when worn?
+	return FALSE
+
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
 //      Meaning the the suit is defined directly after the corrisponding helmet. Just like below!

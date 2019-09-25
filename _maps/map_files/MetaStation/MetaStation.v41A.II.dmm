@@ -23103,7 +23103,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "aOE" = (
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"

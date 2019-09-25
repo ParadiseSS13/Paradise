@@ -341,8 +341,7 @@
 	heat_level_2 = 340
 	heat_level_3 = 400
 
-	dietflags = 0		//Regenerate nutrition in light, no diet necessary
-	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+	dietflags = DIET_HERB		// Plants eat...plants?
 
 	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
@@ -361,9 +360,9 @@
 			H.clear_alert("nolight")
 		else
 			H.throw_alert("nolight", /obj/screen/alert/nolight)
-		H.nutrition += light_amount * 10
+		H.adjust_nutrition(light_amount * 10)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
-			H.nutrition = NUTRITION_LEVEL_ALMOST_FULL
+			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			H.adjustBruteLoss(-1)
 			H.adjustFireLoss(-1)
