@@ -236,7 +236,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 			if(istype(T, /turf/simulated/floor))
 				T.ChangeTurf(/turf/simulated/floor/engine/cult)
 			if(istype(T, /turf/simulated/wall))
-				T.ChangeTurf(/turf/simulated/wall/cult/artificer)
+				T.ChangeTurf(/turf/simulated/wall/cult)
 		else
 			var/turf/simulated/floor/engine/cult/F = safepick(cultturfs)
 			if(F)
