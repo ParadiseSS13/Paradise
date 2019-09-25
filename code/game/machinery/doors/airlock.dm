@@ -1191,8 +1191,8 @@ About the new airlock wires panel:
 	return 1
 
 /obj/machinery/door/airlock/CanAStarPass(obj/item/card/id/ID)
-//Airlock is passable if it is open (!density), bot has access, and is not bolted shut)
-	return !density || (check_access(ID) && !locked && arePowerSystemsOn())
+//Airlock is passable if it is open (!density), bot has access, and is not bolted or welded shut)
+	return !density || (check_access(ID) && !locked && !welded && arePowerSystemsOn())
 
 /obj/machinery/door/airlock/emag_act(mob/user)
 	if(!operating && density && arePowerSystemsOn() && !emagged)
