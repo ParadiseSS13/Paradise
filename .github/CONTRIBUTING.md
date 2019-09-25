@@ -327,6 +327,21 @@ This prevents nesting levels from getting deeper then they need to be.
   * WRONG: list(a = "b")
   * RIGHT: list("a" = "b")
 
+#### Bitflags
+* We prefer using bitshift operators instead of directly typing out the value. I.E.
+    ``` 
+    #define MACRO_ONE (1<<0)
+    #define MACRO_TWO (1<<1)
+    #define MACRO_THREE (1<<2)
+    ```
+    Is preferable to
+    ``` 
+    #define MACRO_ONE 0
+    #define MACRO_TWO 1
+    #define MACRO_THREE 2
+    ```
+    This make the code more readable and less prone to error
+
 ### Legacy Code
 SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
   * To display messages to all mobs that can view `src`, you should use
@@ -551,3 +566,6 @@ pull requests/issues, and merging/closing pull requests.
  hours, to allow other coders and the community time to discuss the proposed changes.
 * If the discussion is active, or the change is controversial, the pull request is to be
  put on hold until a consensus is reached.
+* To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge 
+is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy 
+to understand and read. Modify it if needed.
