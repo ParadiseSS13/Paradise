@@ -1,4 +1,0 @@
-author: "Dave-TH"
-delete-after: True
-changes: 
-  - bugfix: "Mob spawners will no longer sometimes send players to the void."

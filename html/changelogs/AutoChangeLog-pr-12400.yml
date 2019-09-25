@@ -1,6 +1,0 @@
-author: "Ionward"
-delete-after: True
-changes: 
-  - bugfix: "Fixed Tajaran fat sprites, they are no longer duplicates of their slim torso."
-  - bugfix: "Fixed fat aqua jumpsuit only using one direction."
-  - bugfix: "Fixed missing Lasagna icon."

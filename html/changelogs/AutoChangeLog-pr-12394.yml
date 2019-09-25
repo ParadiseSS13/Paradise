@@ -1,4 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - rscadd: "You can now silence the current midi with a verb in the preferences tab, without affecting your prefrence to hear midis in the future."
