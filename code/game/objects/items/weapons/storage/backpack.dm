@@ -18,8 +18,10 @@
 	burn_state = FLAMMABLE
 	burntime = 20
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/species/vox/back.dmi'
-		)
+		"Vox" = 'icons/mob/species/vox/back.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/back.dmi',
+		"Grey" = 'icons/mob/species/grey/back.dmi'
+		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	playsound(src.loc, "rustle", 50, 1, -5)
@@ -387,6 +389,7 @@
 	..()
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
+	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/gun/projectile/automatic/c20r(src)
 	new /obj/item/suppressor/specialoffer(src)
 
@@ -398,16 +401,16 @@
 	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
-	new /obj/item/clothing/glasses/thermal/syndi(src)
+	new /obj/item/clothing/glasses/chameleon/thermal(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	desc = "A large duffel bag containing a tactical medkit, a Donksoft machine gun and a big jumbo box of riot darts."
+	desc = "A large duffel bag containing a tactical medkit, a medical beam gun and a pair of syndicate magboots."
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle/New()
 	..()
 	new /obj/item/storage/firstaid/tactical(src)
-	new /obj/item/gun/projectile/automatic/l6_saw/toy(src)
-	new /obj/item/ammo_box/foambox/riot(src)
+	new /obj/item/clothing/shoes/magboots/syndie(src)
+	new /obj/item/gun/medbeam(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/New()
 	..()

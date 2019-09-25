@@ -23,6 +23,9 @@
 	pixel_x = -16
 	see_in_dark = 8
 
+	emote_taunt = list("nashes")
+	taunt_chance = 20
+
 	harm_intent_damage = 8
 	melee_damage_lower = 15
 	melee_damage_upper = 15
@@ -31,20 +34,15 @@
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
-
-/mob/living/simple_animal/hostile/panther/FindTarget(var/list/possible_targets)
-	. = ..()
-	if(.)
-		emote("nashes at [.]")
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/panther/AttackingTarget()
-	. =..()
-	var/mob/living/L = .
-	if(istype(L))
-		if(prob(15))
-			L.Weaken(3)
-			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
+	. = ..()
+	if(.)
+		if(prob(15) && iscarbon(target))
+			var/mob/living/carbon/C = target
+			C.Weaken(3)
+			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")
 
 //*******//
 // Snake //
@@ -67,6 +65,9 @@
 	maxHealth = 25
 	health = 25
 
+	emote_taunt = list("hisses wickedly")
+	taunt_chance = 20
+
 	harm_intent_damage = 2
 	melee_damage_lower = 3
 	melee_damage_upper = 10
@@ -75,15 +76,11 @@
 
 	layer = 3.1		//so they can stay hidde under the /obj/structure/bush
 	var/stalk_tick_delay = 3
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
-
-/mob/living/simple_animal/hostile/snake/FindTarget()
-	. = ..()
-	if(.)
-		emote("hisses wickedly")
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/snake/AttackingTarget()
 	. =..()
-	var/mob/living/L = .
-	if(istype(L))
-		L.apply_damage(rand(3,12), TOX)
+	if(.)
+		if(iscarbon(target))
+			var/mob/living/carbon/C = target
+			C.apply_damage(rand(3, 12), TOX)

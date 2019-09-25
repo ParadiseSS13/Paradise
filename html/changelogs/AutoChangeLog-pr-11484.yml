@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - rscadd: "Re-adds the ability to see in the dark. Adds overlays for each level of darksight (>=8,7,6,5,4,3,<=2)."

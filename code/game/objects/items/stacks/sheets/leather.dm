@@ -54,6 +54,14 @@ var/global/list/datum/stack_recipe/human_recipes = list( \
 	singular_name = "alien hide piece"
 	icon_state = "sheet-xeno"
 
+GLOBAL_LIST_INIT(xeno_recipes, list (
+	new/datum/stack_recipe("alien helmet", /obj/item/clothing/head/xenos, 1),
+	new/datum/stack_recipe("alien suit", /obj/item/clothing/suit/xenos, 2)))
+
+/obj/item/stack/sheet/animalhide/xeno/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.xeno_recipes
+	return ..()
+
 //don't see anywhere else to put these, maybe together they could be used to make the xenos suit?
 /obj/item/stack/sheet/xenochitin
 	name = "alien chitin"
@@ -133,12 +141,9 @@ var/global/list/datum/stack_recipe/sinew_recipes = list ( \
 		can_strengthen_clothing = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
 			/obj/item/clothing/head/helmet/space/hardsuit/mining,
-			/obj/item/clothing/suit/space/eva/plasmaman/miner,
-			/obj/item/clothing/head/helmet/space/eva/plasmaman/miner,
 			/obj/item/clothing/suit/hooded/explorer,
 			/obj/item/clothing/head/hooded/explorer,
-			/obj/item/clothing/suit/space/eva/plasmaman/explorer,
-			/obj/item/clothing/head/helmet/space/eva/plasmaman/explorer
+			/obj/item/clothing/head/helmet/space/plasmaman/mining
 		))
 
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag)

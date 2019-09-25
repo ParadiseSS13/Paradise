@@ -17,13 +17,12 @@
 	var/on = 0 //Are we currently active??
 	var/menu_message = ""
 
-/obj/item/integrated_radio/New()
-	..()
+/obj/item/integrated_radio/Initialize(mapload)
+	. = ..()
 	if(istype(loc.loc, /obj/item/pda))
 		hostpda = loc.loc
 	if(bot_filter)
-		spawn(5)
-			add_to_radio(bot_filter)
+		add_to_radio(bot_filter)
 
 /obj/item/integrated_radio/Destroy()
 	if(SSradio)
@@ -176,7 +175,8 @@
 	radio_connection = null
 	return ..()
 
-/obj/item/integrated_radio/signal/Initialize()
+/obj/item/integrated_radio/signal/Initialize(mapload)
+	. = ..()
 	if(!SSradio)
 		return
 	if(src.frequency < PUBLIC_LOW_FREQ || src.frequency > PUBLIC_HIGH_FREQ)

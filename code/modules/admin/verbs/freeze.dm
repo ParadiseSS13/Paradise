@@ -7,8 +7,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 var/global/list/frozen_mob_list = list()
 /client/proc/freeze(var/mob/living/M as mob in GLOB.mob_list)
-	set category = "Admin"
 	set name = "Freeze"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -61,14 +61,12 @@ var/global/list/frozen_mob_list = list()
 	update_icons()
 
 
-/mob/living/carbon/slime/admin_Freeze(admin)
+/mob/living/simple_animal/slime/admin_Freeze(admin)
 	..(admin)
-	adjustToxLoss(1010101010) //arbitrary large value
+	adjustHealth(1000) //arbitrary large value
 
-/mob/living/carbon/slime/admin_unFreeze(admin)
+/mob/living/simple_animal/slime/admin_unFreeze(admin)
 	..(admin)
-	adjustToxLoss(-1010101010)
-	stat = 0
 	revive()
 
 
@@ -87,8 +85,8 @@ var/global/list/frozen_mob_list = list()
 //////////////////////////Freeze Mech
 
 /client/proc/freezemecha(var/obj/mecha/O as obj in GLOB.mechas_list)
-	set category = "Admin"
 	set name = "Freeze Mech"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return

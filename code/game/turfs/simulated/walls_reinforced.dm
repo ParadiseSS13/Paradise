@@ -40,7 +40,7 @@
 	return ..()
 
 /turf/simulated/wall/r_wall/proc/try_repair(obj/item/I, mob/user, params)
-	if(damage && iswelder(I))
+	if((damage || LAZYLEN(dent_decals)) && iswelder(I))
 		var/obj/item/weldingtool/WT = I
 		if(!WT.remove_fuel(0, user))
 			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
@@ -50,6 +50,8 @@
 		playsound(src, WT.usesound, 100, 1)
 		if(do_after(user, max(5, damage / 5) * WT.toolspeed, target = src) && WT && WT.isOn())
 			to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
+			cut_overlay(dent_decals)
+			dent_decals?.Cut()
 			take_damage(-damage)
 			return TRUE
 

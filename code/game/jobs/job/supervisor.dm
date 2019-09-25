@@ -175,7 +175,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/heads/blueshield/alt
-	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/nanotrasen
 	pda = /obj/item/pda/heads/blueshield
 	backpack_contents = list(

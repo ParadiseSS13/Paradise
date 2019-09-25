@@ -2,6 +2,7 @@
 	. = ..()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
+	faction += "\ref[src]"
 
 /mob/living/prepare_huds()
 	..()
@@ -256,8 +257,10 @@
 		death()
 		to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
+
 /mob/living/proc/InCritical()
 	return (health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD && stat == UNCONSCIOUS)
+
 
 /mob/living/ex_act(severity)
 	..()
@@ -424,7 +427,7 @@
 	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
-	nutrition = NUTRITION_LEVEL_FED + 50
+	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
 	CureBlind()
 	CureNearsighted()
@@ -443,12 +446,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.buckled_mob = null
-		buckled = null
-		anchored = initial(anchored)
-		update_canmove()
-		clear_alert("buckled")
-		post_buckle_mob(src)
+		buckled.unbuckle_mob(src, force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -543,10 +541,6 @@
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
-	if(update_slimes)
-		for(var/mob/living/carbon/slime/M in view(1,src))
-			M.UpdateFeed(src)
-
 
 /mob/living/proc/handle_footstep(turf/T)
 	if(istype(T))
@@ -601,18 +595,51 @@
 	else
 		return pick("trails_1", "trails_2")
 
+/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+	if(buckled)
+		return
+	if(client && client.move_delay >= world.time + world.tick_lag * 2)
+		pressure_resistance_prob_delta -= 30
+
+	var/list/turfs_to_check = list()
+
+	if(has_limbs)
+		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
+		if (T)
+			turfs_to_check += T
+
+		T = get_step(src, angle2dir(dir2angle(direction) - 90))
+		if(T)
+			turfs_to_check += T
+
+		for(var/t in turfs_to_check)
+			T = t
+			if(T.density)
+				pressure_resistance_prob_delta -= 20
+				continue
+			for(var/atom/movable/AM in T)
+				if(AM.density && AM.anchored)
+					pressure_resistance_prob_delta -= 20
+					break
+
+	..(pressure_difference, direction, pressure_resistance_prob_delta)
 
 /*//////////////////////
 	START RESIST PROCS
 *///////////////////////
 
+/mob/living/can_resist()
+	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+
 /mob/living/verb/resist()
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
+	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 
 	if(!restrained())
 		if(resist_grab())
@@ -913,44 +940,6 @@
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
 		stop_pulling()
-
-/mob/living/proc/get_taste_sensitivity()
-	return 1
-
-/mob/living/proc/taste_reagents(datum/reagents/tastes)
-	if(!get_taste_sensitivity())//this also works for IPCs and stuff that returns 0 here
-		return
-
-	var/do_not_taste_at_all = 1//so we don't spam with recent tastes
-
-	var/taste_sum = 0
-	var/list/taste_list = list()//associative list so we can stack stuff that tastes the same
-	var/list/final_taste_list = list()//final list of taste strings
-
-	for(var/datum/reagent/R in tastes.reagent_list)
-		taste_sum += R.volume * R.taste_strength
-		if(!R.taste_message)//set to null; no taste, like water
-			continue
-		taste_list[R.taste_message] += R.volume * R.taste_strength
-
-	for(var/R in taste_list)
-		if(recent_tastes[R] && (world.time - recent_tastes[R] < 12 SECONDS))
-			continue
-
-		do_not_taste_at_all = 0//something was fresh enough to taste; could still be bland enough to be unrecognizable
-
-		if(taste_list[R] / taste_sum >= 0.15 / get_taste_sensitivity())//we return earlier if the proc returns a 0; won't break the universe
-			final_taste_list += R
-			recent_tastes[R] = world.time
-
-	if(do_not_taste_at_all)
-		return //no message spam
-
-	if(final_taste_list.len == 0)//too many reagents - none meet their thresholds
-		to_chat(src, "<span class='notice'>You can't really make out what you're tasting...</span>")
-		return
-
-	to_chat(src, "<span class='notice'>You can taste [english_list(final_taste_list)].</span>")
 
 /mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
 	if(registered_z != new_z)

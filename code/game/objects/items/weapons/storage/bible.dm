@@ -14,6 +14,15 @@
 	user.dust()
 	return OBLITERATION
 
+/obj/item/storage/bible/fart_act(mob/living/M)
+	if(QDELETED(M) || M.stat == DEAD)
+		return
+	M.visible_message("<span class='danger'>[M] farts on \the [name]!</span>")
+	M.visible_message("<span class='userdanger'>A mysterious force smites [M]!</span>")
+	M.suiciding = TRUE
+	do_sparks(3, 1, M)
+	M.gib()
+	return TRUE // Don't run the fart emote
 
 /obj/item/storage/bible/booze
 	name = "bible"

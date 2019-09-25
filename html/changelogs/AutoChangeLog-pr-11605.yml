@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - tweak: "Reworks the biohazard event to have a chance of giving a randomized advanced disease with 6 varying symptoms instead of a preset disease."

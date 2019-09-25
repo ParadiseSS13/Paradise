@@ -348,6 +348,6 @@
 		return
 	density = 0 //this is reset every canmove update otherwise
 
-/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
+/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()

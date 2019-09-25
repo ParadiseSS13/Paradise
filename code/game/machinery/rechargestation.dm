@@ -164,7 +164,7 @@
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
-				H.nutrition = min(H.nutrition+recharge_speed_nutrition, 450)
+				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
 				if(repairs)
 					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
@@ -203,6 +203,7 @@
 						if(D.power_supply.charge < D.power_supply.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
 							D.power_supply.give(E.e_cost)
+							D.on_recharge()
 							D.update_icon()
 						else
 							D.charge_tick = 0

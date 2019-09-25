@@ -127,6 +127,7 @@
 							karma_purchase(karma,45,"job","Magistrate")
 						if("9")
 							karma_purchase(karma,30,"job","Security Pod Pilot")
+					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
 					if(isnull(karma)) //Doesn't display anything if karma database is down.
@@ -143,9 +144,10 @@
 						if("5")
 							karma_purchase(karma,45,"species","Slime People")
 						if("6")
-							karma_purchase(karma,100,"species","Plasmaman")
+							karma_purchase(karma,45,"species","Plasmaman")
 						if("7")
 							karma_purchase(karma,30,"species","Drask")
+					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
 					var/job = href_list["KarmaRefund"]
@@ -345,8 +347,6 @@
 		on_holder_add()
 		add_admin_verbs()
 		admin_memo_output("Show", 0, 1)
-		if(custom_event_admin_msg && custom_event_admin_msg != "" && check_rights(R_EVENT))
-			cmd_view_custom_event_info()
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
@@ -401,12 +401,22 @@
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
-	
+
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
 	Master.UpdateTickRate()
+
+	// Check total playercount
+	var/playercount = 0
+	for(var/mob/M in GLOB.player_list)
+		if(M.client)
+			playercount += 1
+	
+	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
+		GLOB.panic_bunker_enabled = 1
+		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
@@ -423,6 +433,9 @@
 		GLOB.admins -= src
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	if(movingmob)
+		movingmob.client_mobs_in_contents -= mob
+		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	Master.UpdateTickRate()
 	return ..()
 
@@ -531,6 +544,14 @@
 			message_admins("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
 	else
 		//New player!! Need to insert all the stuff
+
+		// Check new peeps for panic bunker
+		if(GLOB.panic_bunker_enabled)
+			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
+			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
+			del(src)
+			return // Dont insert or they can just go in again
+		
 		var/datum/DBQuery/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		if(!query_insert.Execute())
 			var/err = query_insert.ErrorMsg()

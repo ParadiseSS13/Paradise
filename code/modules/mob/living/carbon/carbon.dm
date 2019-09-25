@@ -26,9 +26,9 @@
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD)
-			nutrition -= hunger_drain / 10
+			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
-				nutrition -= hunger_drain / 10
+				adjust_nutrition(-(hunger_drain * 0.1))
 		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
@@ -110,7 +110,7 @@
 			else
 				if(T)
 					T.add_vomit_floor()
-				nutrition -= lost_nutrition
+				adjust_nutrition(-lost_nutrition)
 				if(stun)
 					adjustToxLoss(-3)
 			T = get_step(T, dir)
@@ -213,7 +213,6 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
 			check_self_for_injuries()
@@ -222,6 +221,7 @@
 				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
 				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
 			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
 				if(ishuman(src))
 					var/mob/living/carbon/human/H = src
 					if(H.w_uniform)
@@ -398,12 +398,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(ventcrawler)
 		ventcrawlerlocal = ventcrawler
 
-	if(!ventcrawler)
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			ventcrawlerlocal = H.dna.species.ventcrawler
-
-	if(!ventcrawlerlocal)	return
+	if(!ventcrawlerlocal)
+		return
 
 	if(stat)
 		to_chat(src, "You must be conscious to do this!")
@@ -413,8 +409,11 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
 
-	if(buckled_mob)
-		to_chat(src, "You can't vent crawl with [buckled_mob] on you!")
+	if(has_buckled_mobs())
+		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		return
+	if(buckled)
+		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
 		return
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
@@ -448,6 +447,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
 			if(!do_after(src, 45, target = src))
+				return
+
+			if(has_buckled_mobs())
+				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
 				return
 
 			if(buckled)
@@ -610,7 +613,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return
 
 
-/mob/living/carbon/unEquip(obj/item/I) //THIS PROC DID NOT CALL ..()
+/mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
 	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
 		return
@@ -626,7 +629,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else if(I == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob()
+			buckled.unbuckle_mob(src)
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
@@ -934,7 +937,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		var/obj/item/W = handcuffed
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob()
+			buckled.unbuckle_mob(src)
 		update_handcuffed()
 		if(client)
 			client.screen -= W
@@ -1000,7 +1003,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else
 		if(!forceFed(toEat, user, fullness))
 			return 0
-	consume(toEat, bitesize_override, taste = toEat.taste)
+	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
 	score_foodeaten++
 	return 1
 
@@ -1042,7 +1045,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return 1
 
 /mob/living/carbon/proc/forceFedAttackLog(var/obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", ATKLOG_MOST)
+	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 	if(!iscarbon(user))
 		LAssailant = null
 	else
@@ -1051,7 +1054,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(var/obj/item/reagent_containers/food/toEat, var/bitesize_override, var/taste = TRUE)
+/mob/living/carbon/proc/consume(var/obj/item/reagent_containers/food/toEat, var/bitesize_override, var/can_taste_container = TRUE)
 	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
 	if(!toEat.reagents)
 		return
@@ -1060,8 +1063,8 @@ so that different stomachs can handle things in different ways VB*/
 	if(toEat.consume_sound)
 		playsound(loc, toEat.consume_sound, rand(10,50), 1)
 	if(toEat.reagents.total_volume)
-		if(taste)
-			taste_reagents(toEat.reagents)
+		if(can_taste_container)
+			taste(toEat.reagents)
 		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
 		toEat.reagents.reaction(src, toEat.apply_type, fraction)
 		toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
@@ -1128,6 +1131,7 @@ so that different stomachs can handle things in different ways VB*/
 		var/obj/item/clothing/C = I
 		if(C.tint || initial(C.tint))
 			update_tint()
+		update_sight()
 	if(I.flags_inv & HIDEMASK || forced)
 		update_inv_wear_mask()
 	update_inv_head()

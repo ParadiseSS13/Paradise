@@ -28,9 +28,12 @@ var/list/sounds_cache = list()
 
 	log_admin("[key_name(src)] played sound [S]")
 	message_admins("[key_name_admin(src)] played sound [S]", 1)
+
 	for(var/mob/M in GLOB.player_list)
 		if(M.client.prefs.sound & SOUND_MIDI)
-			M << uploaded_sound
+			if(isnewplayer(M) && (M.client.prefs.sound & SOUND_LOBBY))
+				M.stop_sound_channel(CHANNEL_LOBBYMUSIC)
+			SEND_SOUND(M, uploaded_sound)
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "PGS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

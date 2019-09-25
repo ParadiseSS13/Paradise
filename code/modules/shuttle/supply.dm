@@ -247,7 +247,8 @@
 		/obj/machinery/clonepod,
 		/obj/effect/hierophant,
 		/obj/item/warp_cube,
-		/obj/machinery/quantumpad
+		/obj/machinery/quantumpad,
+		/obj/structure/extraction_point
 	)
 	if(A)
 		if(is_type_in_list(A, blacklist))

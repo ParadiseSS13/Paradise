@@ -328,6 +328,9 @@
 /atom/proc/emag_act()
 	return
 
+/atom/proc/fart_act(mob/living/M)
+	return FALSE
+
 /atom/proc/rpd_act()
 	return
 

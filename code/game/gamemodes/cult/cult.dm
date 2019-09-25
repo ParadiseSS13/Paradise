@@ -29,7 +29,7 @@ var/global/list/all_cults = list()
 	return 1
 
 /proc/is_sacrifice_target(datum/mind/mind)
-	if(istype(SSticker.mode.name, "cult"))
+	if(SSticker.mode.name == "cult")
 		var/datum/game_mode/cult/cult_mode = SSticker.mode
 		if(mind == cult_mode.sacrifice_target)
 			return 1
@@ -43,7 +43,6 @@ var/global/list/all_cults = list()
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 4
-	free_golems_disabled = TRUE
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0

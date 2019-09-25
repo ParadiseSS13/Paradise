@@ -175,7 +175,7 @@
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)
-			if(player.stat != DEAD)
+			if(player.stat != DEAD || !iszombie(player))
 				if(issilicon(player)) //Borgs are technically dead anyways
 					continue
 				if(isanimal(player)) //Poly does not own the shuttle

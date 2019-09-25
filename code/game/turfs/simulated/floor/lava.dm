@@ -41,6 +41,11 @@
 /turf/simulated/floor/plating/lava/remove_plating()
 	return
 
+/turf/simulated/floor/plating/lava/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/floors.dmi'
+	underlay_appearance.icon_state = "basalt"
+	return TRUE
+
 /turf/simulated/floor/plating/lava/proc/is_safe()
 	var/static/list/lava_safeties_typecache = typecacheof(list(/obj/structure/lattice/catwalk, /obj/structure/stone_tile))
 	var/list/found_safeties = typecache_filter_list(contents, lava_safeties_typecache)
@@ -79,17 +84,20 @@
 			var/mob/living/L = thing
 			if(L.flying)
 				continue	//YOU'RE FLYING OVER IT
+			var/buckle_check = L.buckling
+			if(!buckle_check)
+				buckle_check = L.buckled
+			if(isobj(buckle_check))
+				var/obj/O = buckle_check
+				if(O.resistance_flags & LAVA_PROOF)
+					continue
+			else if(isliving(buckle_check))
+				var/mob/living/live = buckle_check
+				if("lava" in live.weather_immunities)
+					continue
+
 			if("lava" in L.weather_immunities)
 				continue
-			if(L.buckled)
-				if(isobj(L.buckled))
-					var/obj/O = L.buckled
-					if(O.resistance_flags & LAVA_PROOF)
-						continue
-				if(isliving(L.buckled)) //Goliath riding
-					var/mob/living/live = L.buckled
-					if("lava" in live.weather_immunities)
-						continue
 
 			L.adjustFireLoss(20)
 			if(L) //mobs turning into object corpses could get deleted here.

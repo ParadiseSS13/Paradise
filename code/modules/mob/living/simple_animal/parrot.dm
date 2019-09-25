@@ -86,7 +86,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 
 /mob/living/simple_animal/parrot/New()
@@ -135,7 +135,7 @@
 	dat += "<tr><td><B>Headset:</B></td><td><A href='?src=[UID()];[ears?"remove_inv":"add_inv"]=ears'>[(ears && !(ears.flags&ABSTRACT)) ? ears : "<font color=grey>Empty</font>"]</A></td></tr>"
 	if(can_collar)
 		dat += "<tr><td>&nbsp;</td></tr>"
-		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[collar?"remove_inv":"add_inv"]=collar'>[(collar && !(collar.flags&ABSTRACT)) ? collar : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Collar:</B></td><td><A href='?src=[UID()];[pcollar ? "remove_inv" : "add_inv"]=collar'>[(pcollar && !(pcollar.flags&ABSTRACT)) ? pcollar : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -697,7 +697,8 @@
 		"What were the wires again?",
 		"Goddam emaggers!"
 		)
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/radio/headset/headset_eng(src)

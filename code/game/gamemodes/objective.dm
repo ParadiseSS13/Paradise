@@ -66,7 +66,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 /datum/objective/assassinate/check_completion()
 	if(target && target.current)
-		if(target.current.stat == DEAD)
+		if(target.current.stat == DEAD || iszombie(target))
 			return 1
 		if(issilicon(target.current) || isbrain(target.current)) //Borgs/brains/AIs count as dead for traitor objectives. --NeoFite
 			return 1
@@ -110,7 +110,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 
 /datum/objective/maroon/check_completion()
 	if(target && target.current)
-		if(target.current.stat == DEAD)
+		if(target.current.stat == DEAD || iszombie(target))
 			return 1
 		if(!target.current.ckey)
 			return 1
@@ -167,7 +167,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	if(!target) //If it's a free objective.
 		return 1
 	if(target.current)
-		if(target.current.stat == DEAD)
+		if(target.current.stat == DEAD || iszombie(target))
 			return 0
 		if(issilicon(target.current))
 			return 0
@@ -262,7 +262,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 		return 0
 	if(isbrain(owner.current))
 		return 0
-	if(!owner.current || owner.current.stat == DEAD)
+	if(!owner.current || owner.current.stat == DEAD || iszombie(owner))
 		return 0
 	if(SSticker.force_ending) //This one isn't their fault, so lets just assume good faith
 		return 1
@@ -317,7 +317,7 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	explanation_text = "Die a glorious death."
 
 /datum/objective/die/check_completion()
-	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current))
+	if(!owner.current || owner.current.stat == DEAD || isbrain(owner.current) || iszombie(owner))
 		return 1
 	if(issilicon(owner.current) && owner.current != owner.original)
 		return 1
@@ -505,6 +505,54 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 			return 1
 		return 0
 	return 1
+
+/datum/objective/steal_five_of_type
+	explanation_text = "Steal at least five items!"
+	var/list/wanted_items = list()
+
+/datum/objective/steal_five_of_type/New()
+	..()
+	wanted_items = typecacheof(wanted_items)
+
+/datum/objective/steal_five_of_type/check_completion()
+	var/stolen_count = 0
+	if(!isliving(owner.current))
+		return FALSE
+	var/list/all_items = owner.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+	for(var/obj/I in all_items) //Check for wanted items
+		if(is_type_in_typecache(I, wanted_items))
+			stolen_count++
+	return stolen_count >= 5
+
+/datum/objective/steal_five_of_type/summon_guns
+	explanation_text = "Steal at least five guns!"
+	wanted_items = list(/obj/item/gun)
+
+/datum/objective/steal_five_of_type/summon_magic
+	explanation_text = "Steal at least five magical artefacts!"
+	wanted_items = list()
+
+/datum/objective/steal_five_of_type/summon_magic/New()
+	wanted_items = GLOB.summoned_magic_objectives
+	..()
+
+/datum/objective/steal_five_of_type/summon_magic/check_completion()
+	var/stolen_count = 0
+	if(!isliving(owner.current))
+		return FALSE
+	var/list/all_items = owner.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+	for(var/obj/I in all_items) //Check for wanted items
+		if(istype(I, /obj/item/spellbook) && !istype(I, /obj/item/spellbook/oneuse))
+			var/obj/item/spellbook/spellbook = I
+			if(spellbook.uses) //if the book still has powers...
+				stolen_count++ //it counts. nice.
+		if(istype(I, /obj/item/spellbook/oneuse))
+			var/obj/item/spellbook/oneuse/oneuse = I
+			if(!oneuse.used)
+				stolen_count++
+		else if(is_type_in_typecache(I, wanted_items))
+			stolen_count++
+	return stolen_count >= 5
 
 /datum/objective/blood
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)

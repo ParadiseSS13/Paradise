@@ -80,6 +80,8 @@
 	//zealot_master is a reference to the mob that converted them into a zealot (for ease of investigation and such)
 	var/mob/living/carbon/human/zealot_master = null
 
+	var/list/learned_recipes //List of learned recipe TYPES.
+
 /datum/mind/New(new_key)
 	key = new_key
 	soulOwner = src
@@ -1151,7 +1153,7 @@
 						A.set_zeroth_law("")
 						A.show_laws()
 						A.verbs -= /mob/living/silicon/ai/proc/choose_modules
-						A.malf_picker.remove_verbs(A)
+						A.malf_picker.remove_malf_verbs(A)
 						qdel(A.malf_picker)
 					SSticker.mode.update_traitor_icons_removed(src)
 
@@ -1522,6 +1524,10 @@
 
 	SSticker.mode.abductors |= src
 
+	var/datum/objective/stay_hidden/hidden_obj = new
+	hidden_obj.owner = src
+	objectives += hidden_obj
+
 	var/datum/objective/experiment/O = new
 	O.owner = src
 	objectives += O
@@ -1723,7 +1729,7 @@
 	mind.active = 1    //indicates that the mind is currently synced with a client
 
 //slime
-/mob/living/carbon/slime/mind_initialize()
+/mob/living/simple_animal/slime/mind_initialize()
 	..()
 	mind.assigned_role = "slime"
 
@@ -1778,7 +1784,7 @@
 	..()
 	mind.assigned_role = "Animal"
 
-/mob/living/simple_animal/pet/corgi/mind_initialize()
+/mob/living/simple_animal/pet/dog/corgi/mind_initialize()
 	..()
 	mind.assigned_role = "Corgi"
 

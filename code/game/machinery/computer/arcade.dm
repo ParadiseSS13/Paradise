@@ -367,7 +367,7 @@
 			if(food <= 0)
 				dat += "<br>You ran out of food and starved."
 				if(emagged)
-					user.nutrition = 0 //yeah you pretty hongry
+					user.set_nutrition(0) //yeah you pretty hongry
 					to_chat(user, "<span class='userdanger'><font size=3>Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor.</span>")
 			if(fuel <= 0)
 				dat += "<br>You ran out of fuel, and drift, slowly, into a star."
@@ -467,7 +467,7 @@
 						sleep(30)
 						atom_say("[M] violently throws up!")
 						playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-						M.nutrition -= 50 //lose a lot of food
+						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
 							location.add_vomit_floor(TRUE)
@@ -492,7 +492,7 @@
 							playsound(src.loc, 'sound/weapons/genhit.ogg', 100, 1)
 							var/turf/space/T
 							for(T in orange(1, src))
-								T.ChangeTurf(/turf/simulated/floor/plating/)
+								T.ChangeTurf(/turf/simulated/floor/plating)
 					else
 						atom_say("Something slams into the floor around [src] - luckily, it didn't get through!")
 						playsound(src.loc, 'sound/effects/bang.ogg', 20, 1)

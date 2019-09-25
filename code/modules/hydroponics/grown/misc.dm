@@ -14,18 +14,18 @@
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
-	mutatelist = list(/obj/item/seeds/harebell)
 
 /obj/item/seeds/starthistle/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = loc
+	var/seed_count = yield
 	if(prob(getYield() * 20))
+		seed_count++
 		var/output_loc = parent.Adjacent(user) ? user.loc : parent.loc
-		for(var/i in 1 to yield+1)
+		for(var/i in 1 to seed_count)
 			var/obj/item/seeds/starthistle/harvestseeds = Copy()
 			harvestseeds.forceMove(output_loc)
 
 	parent.update_tray()
-
 
 // Cabbage
 /obj/item/seeds/cabbage
@@ -53,6 +53,7 @@
 	icon_state = "cabbage"
 	filling_color = "#90EE90"
 	bitesize_mod = 2
+	tastes = list("cabbage" = 1)
 	wine_power = 0.2
 
 
@@ -79,6 +80,7 @@
 	icon_state = "sugarcane"
 	filling_color = "#FFD700"
 	bitesize_mod = 2
+	tastes = list("sugarcane" = 1)
 	distill_reagent = "rum"
 
 
@@ -109,6 +111,7 @@
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
 	trash = /obj/item/gun/projectile/revolver
+	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.
 
@@ -131,6 +134,7 @@
 	filling_color = rgb(20, 20, 20)
 	seed = /obj/item/seeds/cherry/bomb
 	bitesize_mod = 2
+	tastes = list("cherry" = 1, "explosion" = 1)
 	volume = 125 //Gives enough room for the black powder at max potency
 	wine_power = 0.8
 

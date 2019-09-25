@@ -89,7 +89,7 @@
 	else if((fall_over || resting) && !lying)
 		fall(fall_over)
 
-	canmove = !(fall_over || resting || stunned || buckled)
+	canmove = !(fall_over || resting || stunned || IsFrozen() || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))

@@ -117,7 +117,6 @@
 				exchange_blue = traitor
 				assign_exchange_role(exchange_red)
 				assign_exchange_role(exchange_blue)
-			objective_count += 1					//Exchange counts towards number of objectives
 		var/list/active_ais = active_ais()
 		for(var/i = objective_count, i < config.traitor_objectives_amount, i++)
 			if(prob(50))

@@ -1423,7 +1423,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
@@ -1491,7 +1491,7 @@
 	on = 1;
 	pressure_checks = 1
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
@@ -3362,7 +3362,7 @@
 	on = 1;
 	pressure_checks = 1
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a1{
 	has_gravity = 1;
@@ -8156,7 +8156,7 @@
 	pixel_y = 23;
 	req_access = null
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -8519,7 +8519,7 @@
 	req_access_txt = "0";
 	specialfunctions = 4
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
@@ -11135,7 +11135,7 @@
 	name = "UO45 Crew Quarters"
 	})
 "qt" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a2{
 	has_gravity = 1;
@@ -11629,7 +11629,7 @@
 	name = "UO45 Crew Quarters"
 	})
 "ra" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -15331,7 +15331,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -15833,7 +15833,7 @@
 	name = "UO45 Engineering"
 	})
 "wN" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/awaycontent/a4{
 	has_gravity = 1;
