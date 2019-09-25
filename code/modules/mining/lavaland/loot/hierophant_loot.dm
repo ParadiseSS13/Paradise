@@ -27,8 +27,8 @@
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/examine(mob/user)
-	..()
-	to_chat(user, "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>")
+	. = ..()
+	. += "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>"
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")

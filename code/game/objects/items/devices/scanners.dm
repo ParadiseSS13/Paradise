@@ -339,8 +339,8 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 	var/accuracy // 0 is the best accuracy.
 
 /obj/item/analyzer/examine(mob/user)
-	.=..()
-	to_chat(user, "<span class='info'>Alt-click [src] to activate the barometer function.</span>")
+	. = ..()
+	. += "<span class='info'>Alt-click [src] to activate the barometer function.</span>"
 
 /obj/item/analyzer/attack_self(mob/user as mob)
 

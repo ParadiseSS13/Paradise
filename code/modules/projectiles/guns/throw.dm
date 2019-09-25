@@ -12,7 +12,7 @@
 	var/projectile_speed = 1
 	var/projectile_range = 1
 
-/obj/item/gun/throw/proc/notify_ammo_count(mob/user)
+/obj/item/gun/throw/proc/notify_ammo_count()
 	return
 
 /obj/item/gun/throw/proc/get_throwrange()
@@ -33,7 +33,7 @@
 /obj/item/gun/throw/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].</span>"
-	notify_ammo_count(user)
+	. += notify_ammo_count()
 
 /obj/item/gun/throw/Destroy()
 	QDEL_NULL(to_launch)
@@ -53,7 +53,7 @@
 			to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 			if(!to_launch)
 				process_chamber()
-			notify_ammo_count(user)
+			to_chat(user, notify_ammo_count())
 		else
 			to_chat(user, "<span class='warning'>[src] cannot hold any more projectiles.</span>")
 	else
