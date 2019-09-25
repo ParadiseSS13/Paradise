@@ -117,7 +117,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Aggro()
 	. = ..()
 	if(!istype(depotarea))
-		return .
+		return
 	if(target)
 		if(!seen_enemy)
 			seen_enemy = TRUE
@@ -151,7 +151,7 @@
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_movement()
 	. = ..()
 	if(!istype(depotarea))
-		return .
+		return
 	if(seen_enemy)
 		aggro_cycles++
 		if(alert_on_timeout && !raised_alert && aggro_cycles >= 60)
