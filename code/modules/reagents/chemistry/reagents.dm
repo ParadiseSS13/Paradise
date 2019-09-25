@@ -16,6 +16,7 @@
 	//Processing flags, defines the type of mobs the reagent will affect
 	//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
 	var/process_flags = ORGANIC
+	var/harmless = FALSE //flag used for attack logs
 	var/can_synth = TRUE //whether or not a mech syringe gun and synthesize this reagent
 	var/overdose_threshold = 0
 	var/addiction_chance = 0

@@ -345,7 +345,7 @@
 				if(do_after(user, max(5, damage / 5) * WT.toolspeed, target = src) && WT && WT.isOn())
 					to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
 					cut_overlay(dent_decals)
-					dent_decals.Cut()
+					dent_decals?.Cut()
 					take_damage(-damage)
 			else
 				to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")

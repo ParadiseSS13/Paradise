@@ -1,0 +1,4 @@
+author: "TDSSS"
+delete-after: True
+changes: 
+  - tweak: "all huds are the first option when ghosts cycle through huds"

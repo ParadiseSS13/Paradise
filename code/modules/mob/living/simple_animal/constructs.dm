@@ -79,7 +79,7 @@
 			else
 				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
 	else if(src != M)
-		..()
+		return ..()
 
 
 /mob/living/simple_animal/hostile/construct/narsie_act()

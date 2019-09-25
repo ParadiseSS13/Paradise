@@ -5,6 +5,7 @@
 /datum/reagent/consumable
 	name = "Consumable"
 	id = "consumable"
+	harmless = TRUE
 	taste_description = "generic food"
 	taste_mult = 4
 	var/nutriment_factor = 1 * REAGENTS_METABOLISM
@@ -287,6 +288,7 @@
 	description = "Sodium chloride, common table salt."
 	reagent_state = SOLID
 	color = "#B1B0B0"
+	harmless = FALSE
 	overdose_threshold = 100
 	taste_mult = 2
 	taste_description = "salt"
@@ -335,6 +337,31 @@
 	if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
 		M.bodytemperature = min(310, M.bodytemperature + (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..()
+
+/datum/reagent/consumable/garlic
+	name = "Garlic Juice"
+	id = "garlic"
+	description = "Crushed garlic. Chefs love it, but it can make you smell bad."
+	color = "#FEFEFE"
+	taste_description = "garlic"
+	metabolization_rate = 0.15 * REAGENTS_METABOLISM
+
+/datum/reagent/consumable/garlic/on_mob_life(mob/living/carbon/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.mind && H.mind.vampire && !H.mind.vampire.get_ability(/datum/vampire_passive/full)) //incapacitating but not lethal.
+			if(prob(min(25, current_cycle)))
+				to_chat(H, "<span class='danger'>You can't get the scent of garlic out of your nose! You can barely think...</span>")
+				H.Weaken(1)
+				H.Jitter(10)
+				H.fakevomit()
+		else
+			if(H.job == "Chef")
+				if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
+					update_flags |= H.adjustBruteLoss(-1, FALSE)
+					update_flags |= H.adjustFireLoss(-1, FALSE)
+	return ..() | update_flags
 
 /datum/reagent/consumable/sprinkles
 	name = "Sprinkles"
@@ -579,6 +606,7 @@
 	color = "#AB5D5D"
 	metabolization_rate = 0.2
 	overdose_threshold = 133
+	harmless = FALSE
 	taste_description = "bacon"
 
 /datum/reagent/consumable/porktonium/overdose_process(mob/living/M, severity)
@@ -623,6 +651,7 @@
 	reagent_state = LIQUID
 	color = "#B2B139"
 	overdose_threshold = 50
+	harmless = FALSE
 	taste_description = "cheese?"
 
 /datum/reagent/consumable/fake_cheese/overdose_process(mob/living/M, severity)
@@ -689,6 +718,7 @@
 	color = "#B1B0B0"
 	metabolization_rate = 0.2
 	overdose_threshold = 75
+	harmless = FALSE
 	taste_description = "oil"
 
 /datum/reagent/consumable/hydrogenated_soybeanoil/on_mob_life(mob/living/M)
@@ -941,7 +971,7 @@
 	id = "entpoly"
 	description = "An ichor, derived from a certain mushroom, makes for a bad time."
 	color = "#1d043d"
-	taste_description = "mold"
+	taste_description = "bitter mushroom"
 
 /datum/reagent/consumable/entpoly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -960,13 +990,13 @@
 	id = "tinlux"
 	description = "A stimulating ichor which causes luminescent fungi to grow on the skin. "
 	color = "#b5a213"
-	var/light_activated = 0
-	taste_description = "mold"
+	var/light_activated = FALSE
+	taste_description = "tingling mushroom"
 
 /datum/reagent/consumable/tinlux/on_mob_life(mob/living/M)
 	if(!light_activated)
 		M.set_light(2)
-		light_activated = 1
+		light_activated = TRUE
 	return ..()
 
 /datum/reagent/consumable/tinlux/on_mob_delete(mob/living/M)
@@ -978,7 +1008,7 @@
 	description = "A bubbly paste that heals wounds of the skin."
 	color = "#d3a308"
 	nutriment_factor = 3 * REAGENTS_METABOLISM
-	taste_description = "sweetness"
+	taste_description = "fruity mushroom"
 
 /datum/reagent/consumable/vitfro/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

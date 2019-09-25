@@ -129,9 +129,10 @@
 
 #define IGNORE_ACCESS -1
 
-#define CHEM_MOB_SPAWN_INVALID   0
-#define CHEM_MOB_SPAWN_HOSTILE   1
-#define CHEM_MOB_SPAWN_FRIENDLY  2
+//gold slime core spawning
+#define NO_SPAWN 0
+#define HOSTILE_SPAWN 1
+#define FRIENDLY_SPAWN 2
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully

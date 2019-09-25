@@ -991,7 +991,7 @@
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
-	if(isSynthetic())
+	if(NO_DECAY in dna.species.species_traits)
 		return
 
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay

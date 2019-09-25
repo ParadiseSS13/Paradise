@@ -119,7 +119,7 @@
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
 
-/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
 	return 0
@@ -156,7 +156,7 @@
 	..()
 	item_color = null
 
-/obj/item/melee/energy/sword/cyborg/saw/hit_reaction()
+/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/melee/energy/sword/saber

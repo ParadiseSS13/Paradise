@@ -210,7 +210,7 @@
 	brightness_on = 0
 	sharp_when_wielded = FALSE // It's a toy
 
-/obj/item/twohanded/dualsaber/toy/hit_reaction()
+/obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles

@@ -334,14 +334,6 @@
 	icon_state = "britcup"
 	volume = 30
 
-/obj/item/reagent_containers/food/drinks/mushroom_bowl
-	name = "mushroom bowl"
-	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
-	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "mushroom_bowl"
-	w_class = WEIGHT_CLASS_SMALL
-
-
 /obj/item/reagent_containers/food/drinks/bag
 	name = "drink bag"
 	desc = "Normally put in wine boxes, or down pants at stadium events."

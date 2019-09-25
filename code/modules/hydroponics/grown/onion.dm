@@ -26,7 +26,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/onion_slice
 	tastes = list("onion" = 1, "pungentness" = 1)
 	slices_num = 2
-	wine_power = 0.2
+	wine_power = 0.3
 	wine_flavor = "pungentness"
 
 /obj/item/seeds/onion/red

@@ -1569,6 +1569,12 @@
 		else //Ahelp
 			SStickets.resolveTicket(index)
 
+	else if(href_list["autorespond"])
+		var/index = text2num(href_list["autorespond"])
+		if(!check_rights(R_ADMIN|R_MOD))
+			return
+		SStickets.autoRespond(index)
+
 	else if(href_list["cult_nextobj"])
 		if(alert(usr, "Validate the current Cult objective and unlock the next one?", "Cult Cheat Code", "Yes", "No") != "Yes")
 			return

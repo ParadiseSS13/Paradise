@@ -1524,6 +1524,10 @@
 
 	SSticker.mode.abductors |= src
 
+	var/datum/objective/stay_hidden/hidden_obj = new
+	hidden_obj.owner = src
+	objectives += hidden_obj
+
 	var/datum/objective/experiment/O = new
 	O.owner = src
 	objectives += O

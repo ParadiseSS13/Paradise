@@ -36,6 +36,7 @@
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	flying = TRUE
+	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!
 
 	//Spaceborn beings don't get hurt by space

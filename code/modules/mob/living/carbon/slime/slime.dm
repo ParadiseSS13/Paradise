@@ -72,6 +72,16 @@
 			X.stored_slimes -= src
 	return ..()
 
+/mob/living/carbon/slime/can_unbuckle()
+	return FALSE
+
+/mob/living/carbon/slime/can_buckle()
+	return FALSE
+
+/mob/living/carbon/slime/get_mob_buckling_height(mob/seat)
+	if(..())
+		return 3
+
 /mob/living/carbon/slime/regenerate_icons()
 	icon_state = "[colour] [is_adult ? "adult" : "baby"] slime"
 	overlays.len = 0
@@ -235,7 +245,7 @@
 			Feedon(Food)
 	..()
 
-/mob/living/carbon/slime/unEquip(obj/item/W as obj)
+/mob/living/carbon/slime/unEquip(obj/item/W as obj, force)
 	return
 
 /mob/living/carbon/slime/attack_ui(slot)
@@ -258,7 +268,8 @@
 		M.updatehealth()
 
 /mob/living/carbon/slime/attack_animal(mob/living/simple_animal/M)
-	if(..())
+	. = ..()
+	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		attacked += 10
 		adjustBruteLoss(damage)
