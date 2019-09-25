@@ -29,6 +29,6 @@
 
 /obj/item/reagent_containers/food/snacks/grown/money/attack_self(mob/user)
 	new /obj/item/stack/spacecash/c10(get_turf(user))
-	to_chat(user, "<span class='notice'>You open [src], revealing 10 credits.</span>")
+	to_chat(user, "<span class='notice'>You open [src] revealing 10 credits.</span>")
 	user.drop_item()
 	qdel(src)
