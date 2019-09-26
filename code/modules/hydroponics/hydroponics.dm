@@ -274,7 +274,7 @@
 
 // GHOST INTERACTIONS
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/O)
-	if(myseed != null)
+	if(myseed)
 		myseed.GhostAttackWhenPlanted(O, src)
 
 /obj/machinery/hydroponics/update_icon()

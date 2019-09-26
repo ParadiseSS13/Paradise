@@ -15,10 +15,10 @@
 // If the nymph pods are fully grown, allow ghosts that click on them to spawn as a nymph (decreases yield by 1 and kills the plant when yield reaches 0)
 /obj/item/seeds/nymph/GhostAttackWhenPlanted(mob/dead/observer/O, obj/machinery/hydroponics/T)
 	if(!T.harvest) 
-		to_chat(O, "The Diona nymph pod is not yet ready.")
+		to_chat(O, "[src] is not yet ready.")
 		return
 	if(T.dead)
-		to_chat(O, "The Diona nymph pod is dead!")
+		to_chat(O, "[src] is dead!")
 		return
 	if(!(O in GLOB.respawnable_list))
 		to_chat(O, "You are not permitted to rejoin the round.")
@@ -29,7 +29,7 @@
 	var/nymph_ask = alert("Become a Diona Nymph? You will not be able to be cloned!", "Diona Nymph Pod", "Yes", "No")
 	if(nymph_ask == "No" || !src || QDELETED(src))
 		return
-	if(!(T.myseed == null) && yield > 0 && !T.dead)
+	if(T.myseed && yield > 0 && !T.dead)
 		yield -= 1
 		var/mob/living/simple_animal/diona/D = new /mob/living/simple_animal/diona(get_turf(T))
 		D.key = O.key
@@ -41,7 +41,6 @@
 		spawn(5)
 			GLOB.respawnable_list += usr
 	else
-		to_chat(O, "Seed: [T.myseed.name], Yield: [yield], Dead: [T.dead]")
 		to_chat(O, "The seed pod is no longer functional. It has probably been used up or destroyed in some way.")
 
 /obj/item/reagent_containers/food/snacks/grown/nymph_pod
