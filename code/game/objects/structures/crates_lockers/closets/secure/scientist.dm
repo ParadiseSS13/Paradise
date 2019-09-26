@@ -58,15 +58,11 @@
 	icon_broken = "rdsecurebroken"
 	icon_off = "rdsecureoff"
 
-/obj/structure/closet/secure_closet/rd/New()
+/obj/structure/closet/secure_closet/RD/New()
 	..()
 	new /obj/item/cartridge/rd(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/radio/headset/heads/rd(src)
 	new /obj/item/tank/air(src)
-	new /obj/item/clothing/mask/gas(src)
-	new /obj/item/clothing/suit/armor/reactive/teleport(src)
 	new /obj/item/flash(src)
 	new /obj/item/laser_pointer(src)
 	new /obj/item/door_remote/research_director(src)
