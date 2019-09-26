@@ -427,34 +427,35 @@
 		++Discipline
 
 /mob/living/simple_animal/slime/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*\nThis is [bicon(src)] \a <EM>[src]</EM>!")
+	. = ..()
+	. += "<span class='info'>*---------*\nThis is [bicon(src)] \a <EM>[src]</EM>!"
 	if(stat == DEAD)
-		to_chat(user, "<span class='deadsay'>It is limp and unresponsive.</span>")
+		. += "<span class='deadsay'>It is limp and unresponsive.</span>"
 	else
 		if(stat == UNCONSCIOUS) // Slime stasis
-			to_chat(user, "<span class='deadsay'>It appears to be alive but unresponsive.</span>")
+			. += "<span class='deadsay'>It appears to be alive but unresponsive.</span>"
 		if(getBruteLoss())
-			to_chat(user, "<span class='warning'>")
+			. += "<span class='warning'>"
 			if (getBruteLoss() < 40)
-				to_chat(user, "It has some punctures in its flesh!")
+				. += "It has some punctures in its flesh!"
 			else
-				to_chat(user, "<B>It has severe punctures and tears in its flesh!</B>")
-			to_chat(user, "</span>\n")
+				. += "<B>It has severe punctures and tears in its flesh!</B>"
+			. += "</span>\n"
 
 		switch(powerlevel)
 			if(2 to 3)
-				to_chat(user, "It is flickering gently with a little electrical activity.")
+				. += "It is flickering gently with a little electrical activity."
 
 			if(4 to 5)
-				to_chat(user, "It is glowing gently with moderate levels of electrical activity.")
+				. += "It is glowing gently with moderate levels of electrical activity."
 
 			if(6 to 9)
-				to_chat(user, "<span class='warning'>It is glowing brightly with high levels of electrical activity.</span>")
+				. += "<span class='warning'>It is glowing brightly with high levels of electrical activity.</span>"
 
 			if(10)
-				to_chat(user, "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>")
+				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
 
-	to_chat(user, "*---------*</span>")
+	. += "*---------*</span>"
 
 /mob/living/simple_animal/slime/proc/discipline_slime(mob/user)
 	if(stat)

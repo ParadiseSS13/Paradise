@@ -47,7 +47,7 @@
 /obj/item/nullrod/examine(mob/living/user)
 	. = ..()
 	if(sanctify_force)
-		to_chat(user, "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>")
+		. += "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>"
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
 	var/list/holy_weapons_list = typesof(/obj/item/nullrod)

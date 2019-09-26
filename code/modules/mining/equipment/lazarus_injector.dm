@@ -59,11 +59,11 @@
 		malfunctioning = 1
 
 /obj/item/lazarus_injector/examine(mob/user)
-	..(user)
+	. = ..()
 	if(!loaded)
-		to_chat(user, "<span class='info'>[src] is empty.</span>")
+		. += "<span class='info'>[src] is empty.</span>"
 	if(malfunctioning)
-		to_chat(user, "<span class='info'>The display on [src] seems to be flickering.</span>")
+		. += "<span class='info'>The display on [src] seems to be flickering.</span>"
 
 /*********************Mob Capsule*************************/
 

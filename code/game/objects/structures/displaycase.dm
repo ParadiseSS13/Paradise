@@ -148,12 +148,12 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 
 /obj/structure/displaycase/examine(mob/user)
-	..(user)
-	to_chat(user, "<span class='notice'>Peering through the glass, you see that it contains:</span>")
+	. = ..()
+	. += "<span class='notice'>Peering through the glass, you see that it contains:</span>"
 	if(occupant)
-		to_chat(user, "[bicon(occupant)] <span class='notice'>\A [occupant].</span>")
+		. += "[bicon(occupant)] <span class='notice'>\A [occupant].</span>"
 	else
-		to_chat(user, "Nothing.")
+		. += "Nothing."
 
 /obj/structure/displaycase/proc/dump()
 	if(occupant)

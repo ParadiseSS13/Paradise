@@ -37,7 +37,7 @@
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
-	..(user)
+	. = ..()
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
 
 

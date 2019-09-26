@@ -20,11 +20,11 @@
 	var/obj/item/possessed_item
 
 /mob/living/simple_animal/possessed_object/examine(mob/user)
-	possessed_item.examine(user)
+	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		to_chat(usr, "<span class='warning'>[src] appears to be floating without any support!</span>")
+		. += "<span class='warning'>[src] appears to be floating without any support!</span>"
 	else
-		to_chat(usr, "<span class='warning'>[src] appears to be having trouble staying afloat!</span>")
+		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
 
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect, end_pixel_y)

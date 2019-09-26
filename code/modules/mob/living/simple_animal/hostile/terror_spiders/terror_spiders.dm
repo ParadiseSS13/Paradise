@@ -220,7 +220,7 @@ var/global/list/ts_spiderling_list = list()
 // --------------------------------------------------------------------------------
 
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
-	..()
+	. = ..()
 	var/list/msgs = list()
 	if(stat == DEAD)
 		msgs += "<span class='notice'>It appears to be dead.</span>\n"
@@ -241,7 +241,7 @@ var/global/list/ts_spiderling_list = list()
 			msgs += "<span class='notice'>It appears to be regenerating quickly.</span>"
 		if(killcount >= 1)
 			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
-	to_chat(usr,msgs.Join("<BR>"))
+	. += msgs.Join("<BR>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()

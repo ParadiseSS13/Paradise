@@ -159,9 +159,9 @@
 	can_charge = 0
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
-	..()
+	. = ..()
 	if(power_supply)
-		to_chat(user, "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>")
+		. += "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>"
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))

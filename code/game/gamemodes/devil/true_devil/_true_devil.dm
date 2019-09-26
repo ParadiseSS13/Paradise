@@ -93,7 +93,7 @@
 	else if(health < (maxHealth/2))
 		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
 	msg += "*---------*</span>"
-	to_chat(user, msg)
+	. = list(msg)
 
 
 /mob/living/carbon/true_devil/IsAdvancedToolUser()
