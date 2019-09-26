@@ -336,9 +336,9 @@ This prevents nesting levels from getting deeper then they need to be.
     ```
     Is preferable to
     ``` 
-    #define MACRO_ONE 0
-    #define MACRO_TWO 1
-    #define MACRO_THREE 2
+    #define MACRO_ONE 1
+    #define MACRO_TWO 2
+    #define MACRO_THREE 4
     ```
     This make the code more readable and less prone to error
 
