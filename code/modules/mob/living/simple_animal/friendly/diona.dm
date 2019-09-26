@@ -92,19 +92,6 @@
 /mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
 	if (isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
-	else if (istype(A, /obj/item/reagent_containers/food/snacks/grown)) // Nymphs can consume grown food as well as weeds.
-		if (nutrition >= nutrition_need) // Prevents griefing by overeating plant items without evolving.
-			to_chat(src, "<span class='warning'>You're too full to consume this! Perhaps it's time to grow bigger...</span>")
-		else
-			if(do_after(src, 20, target = A))
-				visible_message("[src] ravenously consumes [A].")
-				playsound(loc, 'sound/misc/demon_consume.ogg', 30, 0, frequency = 1.5)
-				var/obj/item/reagent_containers/I = A
-				if (I.reagents.get_reagent_amount("nutriment")+I.reagents.get_reagent_amount("plantmatter") < 1)
-					nutrition += 2
-				else
-					nutrition += (I.reagents.get_reagent_amount("nutriment")+I.reagents.get_reagent_amount("plantmatter"))*2
-				qdel(A)
 	else
 		..()
 

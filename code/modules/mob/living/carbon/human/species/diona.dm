@@ -72,11 +72,15 @@
 		return 1
 	return 0
 
+// Only roundstart and arriving dionaea should have had time to prepare a seed pod. 
+// Terrarium and Pod dionaea will likely have access to botany and won't need this ability. 
+/datum/species/diona/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	repro = new
+	repro.Grant(H)
+
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.gender = NEUTER
-	repro = new
-	repro.Grant(H)
 
 /datum/species/diona/on_species_loss(mob/living/carbon/human/H)
 	..()
