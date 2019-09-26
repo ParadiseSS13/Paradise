@@ -1,0 +1,8 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - rscadd: "Slime lungs and heart"
+  - rscdel: "Slimes no longer take toxins damage from blood loss"
+  - rscdel: "Slimes no longer take brute damage in crit"
+  - rscadd: "Slimes now breathe"
+  - tweak: "slimes now use new crit"
