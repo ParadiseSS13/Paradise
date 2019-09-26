@@ -1663,7 +1663,6 @@
 #include "code\modules\hydroponics\grown\tobacco.dm"
 #include "code\modules\hydroponics\grown\tomato.dm"
 #include "code\modules\hydroponics\grown\towercap.dm"
-#include "code\modules\hydroponics\grown\hispania-grown\money.dm"
 #include "code\modules\karma\karma.dm"
 #include "code\modules\keybindings\bindings_admin.dm"
 #include "code\modules\keybindings\bindings_ai.dm"
