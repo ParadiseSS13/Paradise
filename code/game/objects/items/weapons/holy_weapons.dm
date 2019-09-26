@@ -619,6 +619,7 @@
 
 /obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 6000		//10 min
+
 	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
 		return
 	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave
