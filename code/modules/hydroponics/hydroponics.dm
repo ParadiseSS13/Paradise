@@ -272,6 +272,11 @@
 		return
 	return
 
+// GHOST INTERACTIONS
+/obj/machinery/hydroponics/attack_ghost(mob/dead/observer/O)
+	if(myseed != null)
+		myseed.GhostAttackWhenPlanted(O, src)
+
 /obj/machinery/hydroponics/update_icon()
 	//Refreshes the icon and sets the luminosity
 	overlays.Cut()
@@ -466,8 +471,8 @@
 	harvest = 0
 	adjustPests(-10) // Pests die
 	if(!dead)
-		update_icon()
 		dead = 1
+		update_icon()
 	plant_hud_set_health()
 	plant_hud_set_status()
 
