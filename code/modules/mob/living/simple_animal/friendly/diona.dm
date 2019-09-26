@@ -90,7 +90,7 @@
 	steal_blood_action.Grant(src)
 
 /mob/living/simple_animal/diona/UnarmedAttack(var/atom/A)
-	if (isdiona(A) && (src in A.contents)) //can't attack your gestalt
+	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
 		visible_message("[src] wiggles around a bit.")
 	else
 		..()
