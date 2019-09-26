@@ -109,10 +109,6 @@
 	if(prob(traitmut))
 		add_random_traits(1, 1)
 
-// How the seeds react when touched by a ghost if planted in a hydroponics tray. Usually does nothing.
-/obj/item/seeds/proc/GhostAttackWhenPlanted(mob/dead/observer/O, obj/machinery/hydroponics/T)
-	return
-
 /obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(istype(Proj, /obj/item/projectile/energy/florayield))
 		var/rating = 1

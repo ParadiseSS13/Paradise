@@ -471,11 +471,6 @@
 	plant_hud_set_health()
 	plant_hud_set_status()
 
-// Calls a proc defined for each seed when a ghost touches it (usually does nothing).
-/obj/machinery/hydroponics/attack_ghost(mob/dead/observer/O)
-	if (myseed != null)
-		myseed.GhostAttackWhenPlanted(O, src)
-
 /obj/machinery/hydroponics/proc/mutatepest(mob/user)
 	if(pestlevel > 5)
 		message_admins("[ADMIN_LOOKUPFLW(user)] caused spiderling pests to spawn in a hydro tray")
@@ -990,7 +985,7 @@
 	var/datum/species/diona/S = D.dna.species
 	if (S.reproduce)
 		to_chat(M, "<span class='notice'>You bid farewell to a part of yourself as you send it forth to grow and reproduce.</span>")
-		M.visible_message(M, "[M] produces a small lump of seeds, which [M.p_they()] places in [src].")
+		visible_message("[M] produces a small lump of seeds, which [M.p_they()] places in [src].")
 		attackby(new/obj/item/seeds/nymph/diona_innate(), D)
 		S.repro.Remove(D)
 		S.reproduce = FALSE

@@ -360,6 +360,8 @@
 		return FALSE
 	if(istype(S, /obj/item/seeds/replicapod))
 		return FALSE
+	if(istype(S, /obj/item/seeds/nymph/diona_innate))
+		return FALSE
 	return TRUE
 
 /datum/plant_gene/trait/battery
