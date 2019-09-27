@@ -1,0 +1,5 @@
+author: "MrMagolor"
+delete-after: True
+changes: 
+  - bugfix: "Cult pylons no longer delete unsimulated walls and turn them into floors."
+  - tweak: "Cult pylons now turn simulated walls into cult walls."
