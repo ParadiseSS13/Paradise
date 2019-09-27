@@ -5205,9 +5205,8 @@
 	pixel_x = 0;
 	pixel_y = 10
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /obj/effect/decal/warning_stripes/east,
 /obj/item/clothing/glasses/welding,
@@ -24484,13 +24483,11 @@
 "aRZ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
@@ -49466,9 +49463,8 @@
 "bNN" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /obj/item/radio/intercom{
 	frequency = 1459;
@@ -50524,13 +50520,11 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
-/obj/item/stock_parts/cell/high{
+/obj/item/stock_parts/cell/high/plus{
 	charge = 100;
-	maxcharge = 15000;
 	pixel_x = 5;
 	pixel_y = -5
 	},
@@ -53785,9 +53779,8 @@
 "bUQ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -70403,9 +70396,8 @@
 "cvA" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -74447,9 +74439,8 @@
 	pixel_y = 3
 	},
 /obj/item/stack/cable_coil,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /turf/simulated/floor/plating,
 /area/storage/tech)
@@ -84452,13 +84443,11 @@
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /obj/item/clothing/glasses/meson{
 	pixel_y = 4
@@ -85173,9 +85162,8 @@
 	},
 /obj/item/airlock_electronics,
 /obj/item/airlock_electronics,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
@@ -88466,13 +88454,11 @@
 "dbO" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
+/obj/item/stock_parts/cell/high/plus{
+	charge = 100
 	},
 /obj/item/stack/cable_coil{
 	pixel_x = 3;
