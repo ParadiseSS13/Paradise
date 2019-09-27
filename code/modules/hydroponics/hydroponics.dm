@@ -272,10 +272,10 @@
 		return
 	return
 
-// GHOST INTERACTIONS
+// GHOST INTERACTIONS - passes on a ghost click to the growing seed if present.
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/O)
 	if(myseed)
-		myseed.GhostAttackWhenPlanted(O, src)
+		myseed.attack_ghost(O)
 
 /obj/machinery/hydroponics/update_icon()
 	//Refreshes the icon and sets the luminosity
@@ -810,6 +810,7 @@
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
+			myseed.planted_tray = src
 			age = 1
 			plant_health = myseed.endurance
 			plant_hud_set_health()

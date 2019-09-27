@@ -34,6 +34,7 @@
 
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+	var/obj/machinery/hydroponics/planted_tray // Null if it hasn't been planted, contains a ref to the growing tray if it has.
 
 /obj/item/seeds/New(loc, nogenes = 0)
 	..()
@@ -108,10 +109,6 @@
 	adjust_weed_chance(rand(-wcmut, wcmut))
 	if(prob(traitmut))
 		add_random_traits(1, 1)
-
-// How the seeds react when touched by a ghost if planted in a hydroponics tray. Usually does nothing.
-/obj/item/seeds/proc/GhostAttackWhenPlanted(mob/dead/observer/O, obj/machinery/hydroponics/T)
-	return
 
 /obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(istype(Proj, /obj/item/projectile/energy/florayield))

@@ -11,13 +11,21 @@
 	production = 1
 	yield = 1
 	reagents_add = list("plantmatter" = 0.1)
+	var/twitched = FALSE //Allows ghosts to cause this seed packet to twitch, on a 10 second cooldown.
 
 // If the nymph pods are fully grown, allow ghosts that click on them to spawn as a nymph (decreases yield by 1 and kills the plant when yield reaches 0)
-/obj/item/seeds/nymph/GhostAttackWhenPlanted(mob/dead/observer/O, obj/machinery/hydroponics/T)
-	if(!T.harvest) 
+/obj/item/seeds/nymph/attack_ghost(mob/dead/observer/O)
+	if(!planted_tray)
+		if(!twitched)
+			visible_message("[src] twitches slightly, as if pushed by a gentle breeze.")
+			twitched = TRUE
+			spawn(100)
+				twitched = FALSE
+		return
+	if(!planted_tray.harvest) 
 		to_chat(O, "[src] is not yet ready.")
 		return
-	if(T.dead)
+	if(planted_tray.dead)
 		to_chat(O, "[src] is dead!")
 		return
 	if(!(O in GLOB.respawnable_list))
@@ -29,19 +37,20 @@
 	var/nymph_ask = alert("Become a Diona Nymph? You will not be able to be cloned!", "Diona Nymph Pod", "Yes", "No")
 	if(nymph_ask == "No" || !src || QDELETED(src))
 		return
-	if(T.myseed && yield > 0 && !T.dead)
-		yield -= 1
-		var/mob/living/simple_animal/diona/D = new /mob/living/simple_animal/diona(get_turf(T))
-		D.key = O.key
-		GLOB.respawnable_list -= O
+	if(planted_tray.myseed && yield > 0 && !planted_tray.dead)
+		adjust_yield(-1)
+		var/mob/living/simple_animal/diona/D = new /mob/living/simple_animal/diona(get_turf(planted_tray))
+		if(O.mind)
+			O.mind.transfer_to(D)
+			GLOB.non_respawnable_keys -= O.ckey
+			O.reenter_corpse()
 		visible_message(D, "A new diona nymph emerges from the pod, its antennae waving excitedly.")
 		if(yield <= 0)
 			visible_message("The seed pod withers away, now merely an empty husk.")
-			T.plantdies()
-		spawn(5)
-			GLOB.respawnable_list += usr
+			planted_tray.plantdies()
+		GLOB.respawnable_list += usr
 	else
-		to_chat(O, "The seed pod is no longer functional. It has probably been used up or destroyed in some way.")
+		to_chat(O, "The seed pod is no longer functional.")
 
 /obj/item/reagent_containers/food/snacks/grown/nymph_pod
 	seed = /obj/item/seeds/nymph
