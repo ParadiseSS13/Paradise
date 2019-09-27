@@ -65,6 +65,7 @@ var/list/robot_verbs_default = list(
 
 	var/wiresexposed = 0
 	var/locked = 1
+	var/list/req_one_access = null
 	var/list/req_access = list(access_robotics)
 	var/ident = 0
 	//var/list/laws = list()
@@ -891,6 +892,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
 	dummy.req_access = req_access
+	dummy.req_one_access = req_one_access
 
 	if(dummy.check_access(I))
 		qdel(dummy)
