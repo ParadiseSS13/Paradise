@@ -466,8 +466,8 @@
 	harvest = 0
 	adjustPests(-10) // Pests die
 	if(!dead)
-		dead = 1
 		update_icon()
+		dead = 1
 	plant_hud_set_health()
 	plant_hud_set_status()
 
@@ -918,9 +918,6 @@
 		update_icon()
 		plant_hud_set_status()
 		plant_hud_set_health()
-	// Allows a diona with its reproduce ability toggled on to plant itself. This can and will kill a diona if overused without time to heal.
-	else if(isdiona(user))
-		DionaReproduction(user)
 	else
 		examine(user)
 
@@ -979,19 +976,7 @@
 	self_sustaining = TRUE
 	update_icon()
 
-///Diona and Diona Nymph Related Procs///
-/obj/machinery/hydroponics/proc/DionaReproduction(mob/living/M)
-	var/mob/living/carbon/human/D = M
-	var/datum/species/diona/S = D.dna.species
-	if (S.reproduce)
-		to_chat(M, "<span class='notice'>You bid farewell to a part of yourself as you send it forth to grow and reproduce.</span>")
-		visible_message("[M] produces a small lump of seeds, which [M.p_they()] places in [src].")
-		attackby(new/obj/item/seeds/nymph/diona_innate(), D)
-		S.repro.Remove(D)
-		S.reproduce = FALSE
-	else
-		examine(D)
-
+///Diona Nymph Related Procs///
 /obj/machinery/hydroponics/CanPass(atom/movable/mover, turf/target, height=0) //So nymphs can climb over top of trays.
 	if(height==0)
 		return 1
