@@ -1,5 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "Morphs examine text now stays true to the humanoid target they choose."
-  - tweak: "Cult constructs now show their examine text when you're next to it. Instead of on top of it."
