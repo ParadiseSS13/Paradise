@@ -12,8 +12,6 @@
 	burn_mod = 1.25
 	heatmod = 1.5
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
-	var/reproduce = FALSE // Can be toggled by an ability. If true, the diona will plant a diona nymph pod when clicking with an empty hand on an empty hydroponics tray and take brute damage.
-	var/datum/action/innate/reproduction/repro
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange collective species hailing from Epsilon Ursae \
 	Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; there is no effective upper limit to the \
@@ -72,42 +70,21 @@
 		return 1
 	return 0
 
-// Only roundstart and arriving dionaea should have had time to prepare a seed pod. 
-// Terrarium and Pod dionaea will likely have access to botany and won't need this ability. 
 /datum/species/diona/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	repro = new
-	repro.Grant(H)
+	var/obj/item/seeds/nymph/diona_innate/seedpod = new /obj/item/seeds/nymph/diona_innate
+	seedpod.name = "Diona Seed Pod ([H])"
+	H.equip_or_collect(seedpod)
+	to_chat(H, "<span class='notice'>You carry with you a seed pod made by your gestalt. Planting it somewhere will cause it to grow into a nymph, with proper care, though it will not be subservient to you.</span>")
 
 /datum/species/diona/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.gender = NEUTER
-
-/datum/species/diona/on_species_loss(mob/living/carbon/human/H)
-	..()
-	if(repro)
-		repro.Remove(H)
 
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "glyphosate" || R.id == "atrazine")
 		H.adjustToxLoss(3) //Deal aditional damage
 		return TRUE
 	return ..()
-
-/datum/action/innate/reproduction
-	name = "Reproduce"
-	desc = "Produce a Diona Nymph seed pod within your gestalt, ready to plant in an available growing spot. Producing these pods is very slow; you only have one available."
-	icon_icon = 'icons/obj/hydroponics/harvest.dmi'
-	button_icon_state = "mushy"
-
-/datum/action/innate/reproduction/Activate()
-	var/mob/living/carbon/human/user = owner
-	var/datum/species/diona/D = user.dna.species
-	if (D.reproduce)
-		to_chat(user, "<span class='notice'>You absorb the prepared seeds back into your gestalt.</span>")
-		D.reproduce = FALSE
-	else
-		to_chat(user, "<span class='notice'>You prepare a small part of your gestalt for reproduction. Now to find somewhere to plant it.</span>")
-		D.reproduce = TRUE
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)

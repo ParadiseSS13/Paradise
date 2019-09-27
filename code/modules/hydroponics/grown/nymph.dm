@@ -25,7 +25,7 @@
 	user.drop_item()
 	qdel(src)
 
-// The seeds used when using the diona's "reproduce" ability.
+// The seed granted to a diona at round start.
 /obj/item/seeds/nymph/diona_innate
 	desc = "A single seed produced by a small diona gestalt. It can typically only grow one nymph."
 	name = "diona nymph seed"
