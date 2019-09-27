@@ -13,6 +13,7 @@
 	heatmod = 1.5
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
+
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange collective species hailing from Epsilon Ursae \
 	Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; there is no effective upper limit to the \
 	number that can fuse in gestalt, and reports exist	of the Epsilon Ursae Minoris primary being ringed with a cloud of singing \
@@ -80,11 +81,13 @@
 	..()
 	H.gender = NEUTER
 
+
 /datum/species/diona/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "glyphosate" || R.id == "atrazine")
 		H.adjustToxLoss(3) //Deal aditional damage
 		return TRUE
 	return ..()
+
 
 /datum/species/diona/handle_life(mob/living/carbon/human/H)
 	if(H.stat == DEAD)
