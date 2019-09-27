@@ -3,7 +3,6 @@
 	icon = 'icons/obj/bike.dmi'
 	icon_state = "speedbike_blue"
 	layer = MOB_LAYER - 0.1
-	keytype = null
 	vehicle_move_delay = 0
 	var/overlay_state = "cover_blue"
 	var/image/overlay = null

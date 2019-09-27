@@ -3,10 +3,10 @@
 	desc = "An all-terrain vehicle built for traversing rough terrain with ease. One of the few old-earth technologies that are still relevant on most planet-bound outposts."
 	icon = 'icons/vehicles/4wheeler.dmi'
 	icon_state = "fourwheel"
-	keytype = /obj/item/key
+	key_type = /obj/item/key
 	generic_pixel_x = 0
 	generic_pixel_y = 4
-	vehicle_move_delay = 1
+	vehicle_move_delay = 1.5
 	var/static/image/atvcover = null
 
 /obj/vehicle/atv/New()

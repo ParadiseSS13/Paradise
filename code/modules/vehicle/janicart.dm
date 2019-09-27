@@ -3,9 +3,9 @@
 	name = "janicart (pimpin' ride)"
 	desc = "A brave janitor cyborg gave its life to produce such an amazing combination of speed and utility."
 	icon_state = "pussywagon"
-	keytype = /obj/item/key/janitor
-	var/obj/item/storage/bag/trash/mybag = null
-	var/floorbuffer = 0
+	key_type = /obj/item/key/janitor
+	var/obj/item/storage/bag/trash/mybag
+	var/floorbuffer = FALSE
 
 
 /obj/vehicle/janicart/handle_vehicle_offsets()
@@ -63,21 +63,20 @@
 
 /obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bag/trash))
-		if(keytype == /obj/item/key/janitor)
-			if(!user.drop_item())
-				return
-			to_chat(user, "<span class='notice'>You hook the trashbag onto \the [name].</span>")
-			I.loc = src
-			mybag = I
-	else if(istype(I, /obj/item/janiupgrade))
-		if(keytype == /obj/item/key/janitor)
-			floorbuffer = 1
-			qdel(I)
-			to_chat(user,"<span class='notice'>You upgrade \the [name] with the floor buffer.</span>")
-	update_icon()
-
-	..()
-
+		if(!user.drop_item())
+			return
+		to_chat(user, "<span class='notice'>You hook the trashbag onto \the [name].</span>")
+		I.forceMove(src)
+		mybag = I
+		update_icon()
+		return
+	if(istype(I, /obj/item/janiupgrade))
+		floorbuffer = TRUE
+		qdel(I)
+		to_chat(user,"<span class='notice'>You upgrade [src] with the floor buffer.</span>")
+		update_icon()
+		return
+	return ..()
 
 /obj/vehicle/janicart/update_icon()
 	overlays.Cut()
