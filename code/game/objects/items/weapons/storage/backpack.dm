@@ -359,11 +359,11 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
-/obj/item/storage/backpack/duffel/mining_conscript/noid
+/obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
 	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
 
-/obj/item/storage/backpack/duffel/mining_conscript/noid/New()
+/obj/item/storage/backpack/duffel/mining_conscript/New()
 	..()
 	new /obj/item/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
@@ -371,7 +371,7 @@
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
-	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
