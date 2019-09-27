@@ -71,8 +71,8 @@
 	return 0
 
 /datum/species/diona/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	var/obj/item/seeds/nymph/diona_innate/seedpod = new /obj/item/seeds/nymph/diona_innate
-	seedpod.name = "Diona Seed Pod ([H])"
+	var/obj/item/seeds/nymph/diona_innate/seedpod = new 
+	seedpod.name = "\improper Diona Seed Pod ([H])"
 	H.equip_or_collect(seedpod)
 	to_chat(H, "<span class='notice'>You carry with you a seed pod made by your gestalt. Planting it somewhere will cause it to grow into a nymph, with proper care, though it will not be subservient to you.</span>")
 
