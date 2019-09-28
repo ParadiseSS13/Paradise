@@ -111,6 +111,13 @@
 	chambered = null //either way, released the prepared shot
 	newshot()
 
+/obj/item/gun/energy/kinetic_accelerator/process_chamber()
+	if(chambered && !chambered.BB)
+		var/obj/item/ammo_casing/energy/shot = chambered
+		power_supply.use(shot.e_cost)
+	chambered = null
+	newshot()
+
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++
 	if(select > ammo_type.len)
@@ -198,8 +205,7 @@
 		if(R && R.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
-				if(!istype(src, /obj/item/gun/energy/kinetic_accelerator/cyborg)) // Mining borg KA's can be spammed with no cooldown without this check
-					power_supply.give(shot.e_cost)	//... to recharge the shot
+				power_supply.give(shot.e_cost)	//... to recharge the shot
 
 /obj/item/gun/energy/proc/get_external_power_supply()
 	if(istype(loc, /obj/item/rig_module))
