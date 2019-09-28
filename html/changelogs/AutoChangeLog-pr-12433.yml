@@ -1,4 +1,0 @@
-author: "PidgeyThePirate"
-delete-after: True
-changes: 
-  - tweak: "bluespace anomalies no longer teleport ghosts when their event fires."
