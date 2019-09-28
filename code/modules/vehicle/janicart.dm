@@ -7,6 +7,9 @@
 	var/obj/item/storage/bag/trash/mybag
 	var/floorbuffer = FALSE
 
+/obj/vehicle/janicart/Destroy()
+	QDEL_NULL(mybag)
+	return ..()
 
 /obj/vehicle/janicart/handle_vehicle_offsets()
 	..()
@@ -65,7 +68,7 @@
 	if(istype(I, /obj/item/storage/bag/trash))
 		if(!user.drop_item())
 			return
-		to_chat(user, "<span class='notice'>You hook the trashbag onto \the [name].</span>")
+		to_chat(user, "<span class='notice'>You hook [I] onto [src].</span>")
 		I.forceMove(src)
 		mybag = I
 		update_icon()
@@ -73,24 +76,24 @@
 	if(istype(I, /obj/item/janiupgrade))
 		floorbuffer = TRUE
 		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with the floor buffer.</span>")
+		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
 		update_icon()
 		return
 	return ..()
 
 /obj/vehicle/janicart/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	if(mybag)
-		overlays += "cart_garbage"
+		add_overlay("cart_garbage")
 	if(floorbuffer)
-		overlays += "cart_buffer"
+		add_overlay("cart_buffer")
 
 
 /obj/vehicle/janicart/attack_hand(mob/user)
 	if(..())
-		return 1
+		return TRUE
 	else if(mybag)
-		mybag.loc = get_turf(user)
+		mybag.forceMove(get_turf(user))
 		user.put_in_hands(mybag)
 		mybag = null
 		update_icon()
