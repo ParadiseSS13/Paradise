@@ -128,6 +128,9 @@
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom, access_mechanic)
 	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks, access_mineral_storeroom)
 	outfit = /datum/outfit/job/mechanic
+	required_objectives = list(
+		/datum/job_objective/make_pod
+	)
 
 /datum/outfit/job/mechanic
 	name = "Mechanic"
