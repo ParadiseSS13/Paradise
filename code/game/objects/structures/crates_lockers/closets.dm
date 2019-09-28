@@ -19,6 +19,7 @@
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
+	drag_slowdown = 1.5
 
 /obj/structure/closet/New()
 	..()
