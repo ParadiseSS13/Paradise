@@ -10,9 +10,11 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, PIERCEIMMUNE)
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NO_HUNGER, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
+
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG

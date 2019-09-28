@@ -26,8 +26,9 @@
 	return ..()
 
 /obj/item/taperecorder/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, "The wire panel is [open_panel ? "opened" : "closed"].")
+	. = ..()
+	if(in_range(user, src))
+		. += "The wire panel is [open_panel ? "opened" : "closed"]."
 
 
 /obj/item/taperecorder/attackby(obj/item/I, mob/user)

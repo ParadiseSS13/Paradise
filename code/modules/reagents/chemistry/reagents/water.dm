@@ -80,8 +80,8 @@
 		if(floor_only)
 			T.clean_blood()
 
-		for(var/mob/living/carbon/slime/M in T)
-			M.adjustToxLoss(rand(5,10))
+		for(var/mob/living/simple_animal/slime/M in T)
+			M.adjustToxLoss(rand(5, 10))
 		if(istype(T, /turf/simulated))
 			var/turf/simulated/S = T
 			S.dirt = 0

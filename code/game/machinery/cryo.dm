@@ -108,10 +108,9 @@
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
 		return
-	for(var/mob/living/carbon/slime/M in range(1,L))
-		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo cell because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
-			return
+	if(L.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		return
 	if(put_mob(L))
 		if(L == user)
 			visible_message("[user] climbs into the cryo cell.")
@@ -305,10 +304,9 @@
 			return
 		if(!ismob(GG.affecting))
 			return
-		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
-			if(M.Victim == GG.affecting)
-				to_chat(usr, "[GG.affecting.name] will not fit into the cryo because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
-				return
+		if(GG.affecting.has_buckled_mobs()) //mob attached to us
+			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
+			return
 		var/mob/M = GG.affecting
 		if(put_mob(M))
 			qdel(GG)
@@ -468,10 +466,9 @@
 	set category = "Object"
 	set src in oview(1)
 
-	for(var/mob/living/carbon/slime/M in range(1,usr))
-		if(M.Victim == usr)
-			to_chat(usr, "You're too busy getting your life sucked out of you.")
-			return
+	if(usr.has_buckled_mobs()) //mob attached to us
+		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		return
 
 	if(stat & (NOPOWER|BROKEN))
 		return

@@ -78837,7 +78837,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cKn" = (
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
 "cKo" = (

@@ -207,8 +207,8 @@
 	return
 
 /obj/structure/blob/examine(mob/user)
-	..(user)
-	to_chat(user, "It looks like it's made of [get_chem_name()].")
+	. = ..()
+	. += "It looks like it's made of [get_chem_name()]."
 
 
 /obj/structure/blob/proc/get_chem_name()

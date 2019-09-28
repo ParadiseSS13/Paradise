@@ -33,8 +33,8 @@
 	return flags & NOSLIP
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
-	..(user)
-	to_chat(user, "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"].")
+	. = ..()
+	. += "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"]."
 
 
 /obj/item/clothing/shoes/magboots/advance

@@ -87,11 +87,13 @@
 	Slimes
 	Nothing happening here
 */
-/mob/living/carbon/slime/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/slime/UnarmedAttack(atom/A)
 	A.attack_slime(src)
-/atom/proc/attack_slime(mob/user as mob)
+
+/atom/proc/attack_slime(mob/user)
 	return
-/mob/living/carbon/slime/RestrainedClickOn(var/atom/A)
+
+/mob/living/simple_animal/slime/RestrainedClickOn(atom/A)
 	return
 
 /*

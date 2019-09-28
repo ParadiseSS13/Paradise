@@ -403,9 +403,9 @@
 
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
-	..(user)
+	. = ..()
 	if(welded)
-		to_chat(user, "It seems welded shut.")
+		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
 	var/old_stat = stat

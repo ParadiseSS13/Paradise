@@ -157,10 +157,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		else
 	return
 
-/obj/item/water_act(volume, temperature, source, method = TOUCH)
-	. = ..()
-	extinguish()
-
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
 	set category = null
@@ -175,7 +171,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	src.loc = T
 
-/obj/item/examine(mob/user, var/distance = -1)
+/obj/item/examine(mob/user)
 	var/size
 	switch(src.w_class)
 		if(WEIGHT_CLASS_TINY)
@@ -191,7 +187,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "gigantic"
 
-	. = ..(user, distance, "", "It is a [size] item.")
+	. = ..(user, "", "It is a [size] item.")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -212,7 +208,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		else
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
-		to_chat(user, msg)
+		. += msg
 
 /obj/item/burn()
 	if(!QDELETED(src))
@@ -499,7 +495,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
 		return
 
-	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/carbon/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
+	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/simple_animal/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 

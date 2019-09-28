@@ -17,7 +17,7 @@
 
 /obj/structure/closet/fireaxecabinet/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>Use a multitool to lock/unlock it.</span>")
+	. += "<span class='notice'>Use a multitool to lock/unlock it.</span>"
 
 /obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)

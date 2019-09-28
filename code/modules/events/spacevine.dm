@@ -423,7 +423,7 @@
 	color = "#ffffff"
 
 /obj/structure/spacevine/examine(mob/user)
-	..()
+	. = ..()
 	var/text = "This one is a"
 	if(mutations.len)
 		for(var/A in mutations)
@@ -432,7 +432,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	to_chat(user, text)
+	. += text
 
 /obj/structure/spacevine/proc/wither()
 	for(var/datum/spacevine_mutation/SM in mutations)

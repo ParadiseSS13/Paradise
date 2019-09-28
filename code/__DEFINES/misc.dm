@@ -417,3 +417,6 @@
 #define ENGTYPE_SING 		"Singularity"
 #define ENGTYPE_SM		"Supermatter"
 #define ENGTYPE_TESLA		"Tesla"
+
+#define SUMMON_GUNS "guns"
+#define SUMMON_MAGIC "magic"

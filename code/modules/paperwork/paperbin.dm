@@ -100,11 +100,12 @@
 
 
 /obj/item/paper_bin/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		if(amount)
-			to_chat(usr, "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>")
+			. += "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
 		else
-			to_chat(usr, "<span class='notice'>There are no papers in the bin.</span>")
+			. += "<span class='notice'>There are no papers in the bin.</span>"
 
 
 /obj/item/paper_bin/update_icon()

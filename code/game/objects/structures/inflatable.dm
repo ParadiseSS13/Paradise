@@ -41,48 +41,8 @@
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			deflate(1)
-			return
-		if(3.0)
-			if(prob(50))
-				deflate(1)
-				return
-
 /obj/structure/inflatable/attack_hand(mob/user as mob)
 	add_fingerprint(user)
-	return
-
-/obj/structure/inflatable/attack_generic(mob/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
-	health -= damage
-	if(health <= 0)
-		user.visible_message("<span class='danger'>[user] tears open [src]!</span>")
-		deflate(1)
-	else	//for nicer text~
-		user.visible_message("<span class='danger'>[user] tears at [src]!</span>")
-
-/obj/structure/inflatable/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!istype(W))
-		return
-	if(is_pointed(W))
-		visible_message("<span class='danger'>[user] pierces [src] with [W]!</span>")
-		deflate(1)
-	if(W.damtype == BRUTE || W.damtype == BURN)
-		hit(W.force)
-		..()
-	return
-
-/obj/structure/inflatable/proc/hit(var/damage, var/sound_effect = 1)
-	health = max(0, health - damage)
-	if(sound_effect)
-		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
-	if(health <= 0)
-		deflate(1)
 
 /obj/structure/inflatable/AltClick()
 	if(usr.stat || usr.restrained())

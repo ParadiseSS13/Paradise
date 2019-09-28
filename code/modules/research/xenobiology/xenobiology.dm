@@ -139,7 +139,7 @@
 	icon_state = "bottle19"
 	var/being_used = 0
 
-/obj/item/slimepotion/slime/docility/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
 		return
@@ -149,9 +149,14 @@
 	if(being_used)
 		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
 		return
-
+	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
+		to_chat(M, "<span class='warning'>You absorb the potion, and your rabid hunger finally settles to a normal desire to feed.</span>")
+		to_chat(user, "<span class='notice'>You feed the slime the potion, calming its rabid rage.</span>")
+		M.rabid = FALSE
+		qdel(src)
+		return
 	M.docile = 1
-	M.nutrition = 700
+	M.set_nutrition(700)
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = 1
@@ -272,7 +277,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/slime/steroid/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))//If target is not a slime.
 		to_chat(user, "<span class='warning'>The steroid only works on baby slimes!</span>")
 		return ..()
@@ -302,7 +307,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
 
-/obj/item/slimepotion/slime/stabilizer/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The stabilizer only works on slimes!</span>")
 		return ..()
@@ -323,7 +328,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/slime/mutator/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The mutator only works on slimes!</span>")
 		return ..()

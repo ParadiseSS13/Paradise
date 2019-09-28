@@ -13,7 +13,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
-	req_access = list(access_engine, access_robotics)
+	req_one_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL

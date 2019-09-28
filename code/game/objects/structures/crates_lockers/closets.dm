@@ -105,7 +105,7 @@
 			continue
 		if(istype(M, /mob/living/simple_animal/bot/mulebot))
 			continue
-		if(M.buckled || M.anchored)
+		if(M.buckled || M.anchored || M.has_buckled_mobs())
 			continue
 
 		M.forceMove(src)

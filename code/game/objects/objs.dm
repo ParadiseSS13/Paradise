@@ -273,6 +273,10 @@ a {
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
 
+/obj/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	extinguish()
+
 /obj/singularity_pull(S, current_size)
 	..()
 	if(!anchored || current_size >= STAGE_FIVE)

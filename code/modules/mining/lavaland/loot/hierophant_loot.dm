@@ -27,8 +27,8 @@
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/examine(mob/user)
-	..()
-	to_chat(user, "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>")
+	. = ..()
+	. += "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>"
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
@@ -113,6 +113,9 @@
 		return
 	if(user.is_in_active_hand(src) && user.is_in_inactive_hand(src)) //you need to hold the staff to teleport
 		to_chat(user, "<span class='warning'>You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!</span>")
+		return
+	if(is_in_teleport_proof_area(user))
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))

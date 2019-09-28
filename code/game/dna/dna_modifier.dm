@@ -155,6 +155,9 @@
 	if(usr.abiotic())
 		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 		return
+	if(usr.has_buckled_mobs()) //mob attached to us
+		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		return
 	usr.stop_pulling()
 	usr.forceMove(src)
 	src.occupant = usr
@@ -190,10 +193,9 @@
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
 		return
-	for(var/mob/living/carbon/slime/M in range(1,L))
-		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
-			return
+	if(L.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		return
 	if(L == user)
 		visible_message("[user] climbs into the [src].")
 	else
@@ -241,6 +243,9 @@
 		return
 	if(G.affecting.abiotic())
 		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+		return
+	if(G.affecting.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
 		return
 	if(panel_open)
 		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")

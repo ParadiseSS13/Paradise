@@ -81,6 +81,7 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
+
 /obj/item/mounted/mirror
 	name = "mirror"
 	desc = "Some reflective glass ready to be hung on a wall. Don't break it!"

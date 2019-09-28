@@ -369,7 +369,7 @@
 //////////////////////////////			Feel free to try cleaning it up if you think of a better way to do it.
 
 /obj/machinery/fishtank/examine(mob/user)
-	..(user)
+	. = ..()
 	var/examine_message = ""
 	//Approximate water level
 
@@ -474,8 +474,7 @@
 
 
 	//Finally, report the full examine_message constructed from the above reports
-	to_chat(user, "<span class='notice'>[examine_message]</span>")
-	return examine_message
+	. += "<span class='notice'>[examine_message]</span>"
 
 //////////////////////////////
 //		ATACK PROCS			//

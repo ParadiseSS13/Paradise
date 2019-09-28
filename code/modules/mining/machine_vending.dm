@@ -275,8 +275,8 @@
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)
-	..(user)
-	to_chat(user, "There's [points] points on the card.")
+	. = ..()
+	. += "There's [points] points on the card."
 
 /**********************Conscription Kit**********************/
 
