@@ -1,4 +1,0 @@
-author: "PidgeyThePirate"
-delete-after: True
-changes: 
-  - bugfix: "Rebooting a drone no longer requires both engineering and robotics access."
