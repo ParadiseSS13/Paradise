@@ -27,8 +27,8 @@
 
 /datum/surgery_step/internal/extract_organ/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/I in target.internal_organs)
-		// Allows for multiple subtypes of heart and the removal of an IPC's cell.
-		if(istype(I, /obj/item/organ/internal/heart) || istype(I, /obj/item/organ/internal/cell))
+		// Allows for multiple subtypes of heart.
+		if(istype(I, /obj/item/organ/internal/heart))
 			IC = I
 			break
 	user.visible_message("[user] starts to remove [target]'s organs.", "<span class='notice'>You start to remove [target]'s organs...</span>")
@@ -41,7 +41,7 @@
 		user.put_in_hands(IC)
 		IC.remove(target, special = 1)
 		return TRUE
-	else if(NO_INTORGANS in AB.dna.species.species_traits)
+	if(NO_INTORGANS in AB.dna.species.species_traits)
 		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
 		return TRUE
 	else
