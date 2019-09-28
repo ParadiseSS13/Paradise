@@ -5,7 +5,7 @@
 	key_type = /obj/item/key/security
 	generic_pixel_x = 0
 	generic_pixel_y = 4
-	vehicle_move_delay = 1.5
+	vehicle_move_delay = 1
 
 
 /obj/item/key/security

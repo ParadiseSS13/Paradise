@@ -6,7 +6,7 @@
 	key_type = /obj/item/key
 	generic_pixel_x = 0
 	generic_pixel_y = 4
-	vehicle_move_delay = 1.5
+	vehicle_move_delay = 1
 	var/static/mutable_appearance/atvcover
 
 /obj/vehicle/atv/Initialize(mapload)
