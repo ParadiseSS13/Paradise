@@ -45,9 +45,7 @@
 				for(var/atom/movable/A in range(12, FROM )) // iterate thru list of mobs in the area
 					if(istype(A, /obj/item/radio/beacon)) // don't teleport beacons because that's just insanely stupid
 						continue 
-					if(isobserver(A)) // don't teleport ghosts.
-						continue
-					if(A.anchored) 
+					if(A.anchored || A.move_resist == INFINITY)
 						continue
 					var/turf/newloc = locate(A.x + x_distance, A.y + y_distance, TO.z) // calculate the new place
 					if(!A.Move(newloc)) // if the atom, for some reason, can't move, FORCE them to move! :) We try Move() first to invoke any movement-related checks the atom needs to perform after moving
