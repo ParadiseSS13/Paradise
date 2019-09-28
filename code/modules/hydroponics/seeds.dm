@@ -34,7 +34,7 @@
 
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
-	var/obj/machinery/hydroponics/planted_tray // Null if it hasn't been planted, contains a ref to the growing tray if it has.
+	var/planted = FALSE // FALSE if it hasn't been planted, TRUE if it has.
 
 /obj/item/seeds/New(loc, nogenes = 0)
 	..()
