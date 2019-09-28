@@ -1,11 +1,11 @@
 /obj/item/organ/internal/heart/slime
 	icon = 'icons/obj/species_organs/slime.dmi'
-	name = "osmotic pressure regulator"
+	name = "slime heart"
 	icon_state = "heart"
-	desc = "It appears to be some kind of biological pump that uses osmotic pressure to regulate water flow. It seems to work similar to a heart."
+	desc = "This is a slime's osmotic pressure regulator, it appears to be some kind of biological pump that uses osmotic pressure to regulate water flow. It seems to work similar to a heart."
 
 /obj/item/organ/internal/lungs/slime
 	icon = 'icons/obj/species_organs/slime.dmi'    
-	name = "gas exchange membrane"
+	name = "slime lungs"
 	icon_state = "lungs"
-	desc = "Membrane used for oxygen intake and gas exchange. These seem to work similar to lungs."
+	desc = "This is a slime's gas exchange membrane, this membrane used for oxygen intake and gas exchange. These seem to work similar to lungs."
