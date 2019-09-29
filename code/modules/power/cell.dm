@@ -376,7 +376,8 @@
 
 /obj/item/stock_parts/cell/thermal/process()
 	if(self_recharge)
-		if(get_area(src) == /area/lavaland/surface/outdoors || T.temperature >= 340)
+		T = get_turf(loc)
+		if(istype(T.loc, /area/lavaland/surface/outdoors) || T.temperature >= 340)
 			give(chargerate * 0.1)
 	else
 		return PROCESS_KILL
