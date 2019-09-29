@@ -1,0 +1,4 @@
+author: "PidgeyThePirate"
+delete-after: True
+changes: 
+  - bugfix: "changelings no longer go bald after reviving."
