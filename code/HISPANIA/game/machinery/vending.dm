@@ -38,7 +38,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/shoes/brown = 1,
 					/obj/item/clothing/shoes/laceup = 1,
 					/obj/item/clothing/suit/mantle/armor/captain = 1,
-					/obj/item/clothing/gloves/color/captain)
+					/obj/item/clothing/gloves/color/captain = 1)
 
 /obj/machinery/vending/walldrobe/rd
 	name = "\improper Research Director's WallDrobe"
