@@ -33,7 +33,7 @@
 
 /obj/item/clothing/glasses/meson/engine/item_action_slot_check(slot)
 	if(slot == slot_glasses)
-		return 1
+		return TRUE
 
 /obj/item/clothing/glasses/meson/engine/proc/toggle_mode(mob/user, voluntary)
 	mode = modes[mode]
