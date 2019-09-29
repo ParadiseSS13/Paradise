@@ -1,42 +1,3 @@
-/obj/item/clothing/glasses/meson/engine/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
-	if(!ismob(viewer) || !viewer.client)
-		return
-	for(var/turf/T in range(scan_range, viewer.loc) )
-
-		if(!T.intact)
-			continue
-
-		for(var/obj/O in T.contents)
-
-			if(O.level != 1)
-				continue
-
-			if(O.invisibility == 101)
-				O.invisibility = 0
-				O.alpha = 128
-				spawn(pulse_duration)
-					if(O)
-						var/turf/U = O.loc
-						if(U && U.intact)
-							O.invisibility = 101
-							O.alpha = 255
-		for(var/mob/living/M in T.contents)
-			var/oldalpha = M.alpha
-			if(M.alpha < 255 && istype(M))
-				M.alpha = 255
-				spawn(10)
-					if(M)
-						M.alpha = oldalpha
-
-		var/mob/living/M = locate() in T
-
-		if(M && M.invisibility == 2)
-			M.invisibility = 0
-			spawn(2)
-				if(M)
-					M.invisibility = INVISIBILITY_LEVEL_TWO
-//Engineering Mesons
-
 #define MODE_NONE ""
 #define MODE_MESON "meson"
 #define MODE_TRAY "t-ray"
@@ -48,8 +9,6 @@
 	item_state = "trayson-meson"
 	origin_tech = "magnets=3;plasmatech=3;materials=2;engineering=4"
 	var/icon_state_base = "trayson-"
-	lefthand_file = 'icons/hispania/mob/inhands/clothing_lefthand.dmi'
-	righthand_file = 'icons/hispania/mob/inhands/clothing_righthand.dmi'
 	actions_types = list(/datum/action/item_action/toggle_mode)
 	hispania_icon = TRUE
 
@@ -60,7 +19,7 @@
 
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_NONE)
 	var/mode = MODE_NONE
-	var/range = 5
+	var/range = 4
 	var/init_flash_protect = 0
 
 /obj/item/clothing/glasses/meson/engine/Initialize()
@@ -120,7 +79,7 @@
 		return
 	switch(mode)
 		if(MODE_TRAY)
-			t_ray_scan(user, range, 45)
+			t_ray_scan(user, range, 25)
 
 /obj/item/clothing/glasses/meson/engine/update_icon()
 	icon_state = icon_state_base+"[mode]"
