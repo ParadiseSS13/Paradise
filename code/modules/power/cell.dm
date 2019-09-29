@@ -360,3 +360,23 @@
 	desc = "A standard ninja-suit power cell."
 	maxcharge = 10000
 	materials = list(MAT_GLASS = 60)
+
+// Self-recharges while outside in lavaland at ~third speed of a charged slime core. 
+// Tried to have it work off temp only but it turns out lavaland is a lovely temperate 300k.
+/obj/item/stock_parts/cell/thermal
+	name = "Thermal Power Cell"
+	desc = "A power cell equipped with a thermal energy siphon ideal for working in hot conditions."
+	origin_tech = "powerstorage=4;plasmatech=4"
+	icon_state = "icell"
+	rating = 4
+	self_recharge = 1
+	chargerate = 500
+	maxcharge = 10000
+	var/turf/T
+
+/obj/item/stock_parts/cell/thermal/process()
+	if(self_recharge)
+		if(get_area(src) == /area/lavaland/surface/outdoors || T.temperature >= 340)
+			give(chargerate * 0.1)
+	else
+		return PROCESS_KILL

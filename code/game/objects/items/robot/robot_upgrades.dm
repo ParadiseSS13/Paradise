@@ -183,6 +183,19 @@
 
 	return 1
 
+/obj/item/borg/upgrade/ablative
+	name = "mining cyborg emergency ablative plating"
+	desc = "A set of cheap replaceable armor plates designed for one-time protection of critical systems."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=3;materials=4"
+	require_module = 1
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+	
+
 /obj/item/borg/upgrade/syndicate
 	name = "illegal equipment module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg. Also prevents emag subversion."
@@ -301,3 +314,6 @@
 			msg_cooldown = world.time
 	else
 		deactivate()
+
+
+
