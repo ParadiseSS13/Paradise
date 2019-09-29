@@ -301,6 +301,3 @@
 			msg_cooldown = world.time
 	else
 		deactivate()
-
-
-

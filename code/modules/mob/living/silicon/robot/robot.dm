@@ -39,7 +39,7 @@ var/list/robot_verbs_default = list(
 	var/obj/item/stock_parts/cell/cell = null
 	var/obj/machinery/camera/camera = null
 
-// Components are basically robot organs.
+	// Components are basically robot organs.
 	var/list/components = list()
 
 	var/obj/item/robot_parts/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
