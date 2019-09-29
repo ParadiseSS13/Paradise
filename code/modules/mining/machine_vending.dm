@@ -138,6 +138,11 @@
 	dat +="<div class='statusDisplay'>"
 	if(istype(inserted_id))
 		dat += "You have [inserted_id.mining_points] mining points collected. <A href='?src=[UID()];choice=eject'>Eject ID.</A><br>"
+	else if(isrobot(user)) // Allow mining borgs to spend points at the vendor if they want to. Prioritizes the card in the machine.
+		var/mob/living/silicon/robot/R = user
+		if(istype(R.module, /obj/item/robot_module/miner))
+			var/obj/item/robot_module/miner/M = R.module
+			dat += "You have [M.mining_points] mining points collected.<br>"
 	else
 		dat += "No ID inserted.  <A href='?src=[UID()];choice=insert'>Insert ID.</A><br>"
 	dat += "</div>"
@@ -170,12 +175,23 @@
 				to_chat(usr, "<span class='danger'>No valid ID.</span>")
 
 	if(href_list["purchase"])
+		var/obj/item/robot_module/miner/borg_module // Null if not a borg
+		if(isrobot(usr))
+			var/mob/living/silicon/robot/R = usr
+			if(istype(R.module, /obj/item/robot_module/miner))
+				borg_module = R.module
+
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
 			if(!prize || !(prize in prize_list) || prize.cost > inserted_id.mining_points)
 				return
-
 			inserted_id.mining_points -= prize.cost
+			new prize.equipment_path(src.loc)
+		else if(borg_module)
+			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
+			if(!prize || !(prize in prize_list) || prize.cost > borg_module.mining_points)
+				return
+			borg_module.mining_points -= prize.cost
 			new prize.equipment_path(src.loc)
 	updateUsrDialog()
 

@@ -235,6 +235,12 @@
 	if(inserted_id)
 		dat += "You have [inserted_id.mining_points] mining points collected. <A href='?src=[UID()];eject_id=1'>Eject ID.</A><br>"
 		dat += "<A href='?src=[UID()];claim=1'>Claim points.</A><br><br>"
+	else if(isrobot(user)) //Allow mining bots to claim points. Prioritizes the card in the machine so it's harder to steal points.
+		var/mob/living/silicon/robot/R = user
+		if(istype(R.module, /obj/item/robot_module/miner))
+			var/obj/item/robot_module/miner/M = R.module
+			dat += "You have [M.mining_points] mining points collected.<br>"
+			dat += "<A href='?src=[UID()];claim_borg=1'>Claim points.</A><br><br>"
 	else
 		dat += "No ID inserted.  <A href='?src=[UID()];insert_id=1'>Insert ID.</A><br><br>"
 
@@ -293,6 +299,12 @@
 	if(href_list["eject_id"])
 		usr.put_in_hands(inserted_id)
 		inserted_id = null
+	if(href_list["claim_borg"] && isrobot(usr)) // Allow mining borgs to claim points.
+		var/mob/living/silicon/robot/R = usr
+		if(istype(R.module, /obj/item/robot_module/miner))
+			var/obj/item/robot_module/miner/M = R.module
+			M.mining_points += points
+			points=0
 	if(href_list["claim"])
 		if(inserted_id)
 			if(req_access_reclaim in inserted_id.access)
