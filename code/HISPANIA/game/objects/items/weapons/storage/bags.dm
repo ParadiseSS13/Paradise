@@ -9,7 +9,7 @@
 	name = "component bag"
 	desc = "This bag with sciences colors can be used to store many machine components."
 	storage_slots = 50
-	max_combined_w_class = 200
+	max_combined_w_class = 100
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list("/obj/item/stock_parts", "/obj/item/circuitboard", "/obj/item/apc_electronics",
 					"/obj/item/airlock_electronics", "/obj/item/firelock_electronics",
@@ -29,8 +29,8 @@
 	name = "kitchen bag"
 	icon = 'icons/hispania/obj/storage/storage.dmi'
 	icon_state = "kitchenbag"
-	desc = "A simple bag with a cute logo to transport your food"
+	desc = "A simple bag with a cute logo to transport your food."
 	storage_slots = 50
-	max_combined_w_class = 200
+	max_combined_w_class = 100
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list("/obj/item/reagent_containers/food/snacks")
