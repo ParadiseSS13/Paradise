@@ -51,7 +51,6 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/suit/storage/labcoat = 1,
 					/obj/item/clothing/suit/mantle/labcoat = 1,
 					/obj/item/clothing/mask/gas = 1,
-					/obj/item/clothing/suit/armor/reactive/teleport = 1,
 					/obj/item/clothing/shoes/white = 1,
 					/obj/item/clothing/gloves/color/latex = 1)
 
