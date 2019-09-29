@@ -26,7 +26,7 @@
 // -----------------------------
 
 /obj/item/storage/bag/kitchenbag
-	name = "Kitchen bag"
+	name = "kitchen bag"
 	icon = 'icons/hispania/obj/storage/storage.dmi'
 	icon_state = "kitchenbag"
 	desc = "A simple bag with a cute logo to transport your food"
