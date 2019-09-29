@@ -21,6 +21,9 @@
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
+	required_objectives = list(
+		/datum/job_objective/make_station_goal
+	)
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"

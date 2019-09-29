@@ -10,7 +10,7 @@
 
 //BOT
 /datum/job_objective/make_bot
-	completion_payment = 25
+	completion_payment = 20
 	per_unit = 1
 
 /datum/job_objective/make_bot/get_description()
