@@ -209,19 +209,23 @@
 /atom/proc/Bumped(AM as mob|obj)
 	return
 
-// Convenience procs to see if a container is open for chemistry handling
+/// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
 
-/atom/proc/is_injectable(allowmobs = TRUE)
+/// Is this atom injectable into other atoms
+/atom/proc/is_injectable(mob/user, allowmobs = TRUE)
 	return reagents && (container_type & (INJECTABLE | REFILLABLE))
 
-/atom/proc/is_drawable(allowmobs = TRUE)
+/// Can we draw from this atom with an injectable atom
+/atom/proc/is_drawable(mob/user, allowmobs = TRUE)
 	return reagents && (container_type & (DRAWABLE | DRAINABLE))
 
+/// Can this atoms reagents be refilled
 /atom/proc/is_refillable()
 	return reagents && (container_type & REFILLABLE)
 
+/// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 

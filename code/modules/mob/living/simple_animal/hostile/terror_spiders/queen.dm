@@ -339,7 +339,7 @@
 	if(ismob(target))
 		var/mob/living/L = target
 		if(L.reagents)
-			if(L.can_inject(null, 0, "chest", 0))
+			if(L.can_inject(null, FALSE, "chest", FALSE))
 				L.Hallucinate(400)
 		if(!isterrorspider(L))
 			L.adjustToxLoss(bonus_tox)
@@ -351,6 +351,6 @@
 /obj/structure/spider/terrorweb/queen/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		var/inject_target = pick("chest","head")
-		if(C.can_inject(null, 0, inject_target, 0))
+		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.Hallucinate(400)
 			C.adjustToxLoss(30)
