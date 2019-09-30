@@ -32,6 +32,7 @@
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
+	new /obj/item/autoimplanter/hos(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/emergency_oxygen/double(src)
 
@@ -127,7 +128,7 @@
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
-	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
+	new /obj/item/autoimplanter/hos(src)
 	new /obj/item/clothing/accessory/medal/security(src)
 
 /obj/structure/closet/secure_closet/warden
