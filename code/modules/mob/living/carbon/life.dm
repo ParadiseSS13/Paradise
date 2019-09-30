@@ -436,15 +436,3 @@
 			overlay_fullscreen("brute", /obj/screen/fullscreen/brute, severity)
 		else
 			clear_fullscreen("brute")
-
-		if(bodytemperature < dna.species.cold_level_1)
-			var/severity = 0
-			if(bodytemperature >= dna.species.cold_level_2 && bodytemperature <= dna.species.cold_level_1)
-				severity = 1
-			if(bodytemperature >= dna.species.cold_level_3 && bodytemperature < dna.species.cold_level_2)
-				severity = 2
-			if(bodytemperature > -INFINITY && bodytemperature < dna.species.cold_level_3)
-				severity = 3
-			overlay_fullscreen("freeze", /obj/screen/fullscreen/freeze, severity)
-		else
-			clear_fullscreen("freeze")

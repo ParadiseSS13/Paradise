@@ -1152,7 +1152,6 @@
 #include "code\game\verbs\randomtip.dm"
 #include "code\game\verbs\suicide.dm"
 #include "code\game\verbs\who.dm"
-#include "code\HISPANIA\_onclick\hud\fullscreen.dm"
 #include "code\HISPANIA\defines\procs\discord.dm"
 #include "code\HISPANIA\game\hispania_items.dm"
 #include "code\HISPANIA\game\machinery\jukebox.dm"
