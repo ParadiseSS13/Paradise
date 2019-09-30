@@ -15,9 +15,6 @@
 	potency = 30
 	weed_chance = 15 //Percentage chance per tray update to grow weeds
 	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
-	icon_grow = "money-grow"
-	icon_dead = "money-dead"
-	genes = list()
 
 //When it grows
 /obj/item/reagent_containers/food/snacks/grown/money
