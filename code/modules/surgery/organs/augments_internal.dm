@@ -274,10 +274,10 @@
 		if(owner.health <= HEALTH_THRESHOLD_CRIT)
 			addtimer(CALLBACK(src, .proc/heal), 30)
 		else
-			reviving = 0
+			reviving = FALSE
 			return
 	cooldown = revive_cost + world.time
-	revive_cost = FALSE
+	revive_cost = 0
 	reviving = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
