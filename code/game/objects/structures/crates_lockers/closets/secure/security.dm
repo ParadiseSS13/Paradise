@@ -380,8 +380,8 @@
 
 /obj/structure/closet/secure_closet/injection/New()
 	..()
-	new /obj/item/reagent_containers/ld50_syringe/lethal(src)
-	new /obj/item/reagent_containers/ld50_syringe/lethal(src)
+	new /obj/item/storage/box/lethalinjection(src)
+	new /obj/item/storage/box/lethalinjection(src)
 
 
 /obj/structure/closet/secure_closet/brig

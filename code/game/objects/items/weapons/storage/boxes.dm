@@ -1105,6 +1105,18 @@
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
 
+/obj/item/storage/box/lethalinjection
+	icon_state = "syringe"
+	name = "lethal injection kit"
+	desc = "Contains a set of ominous looking syringes and a small leaflet."
+
+/obj/item/storage/box/lethalinjection/New()
+	..()
+	new /obj/item/reagent_containers/syringe/lethal1(src)
+	new /obj/item/reagent_containers/syringe/lethal2(src)
+	new /obj/item/reagent_containers/syringe/lethal3(src)
+	new /obj/item/paper/lethalinjection(src)
+
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."

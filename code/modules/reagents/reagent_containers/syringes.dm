@@ -182,120 +182,10 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		overlays += filling
 
-/obj/item/reagent_containers/ld50_syringe
-	name = "Lethal Injection Syringe"
-	desc = "A syringe used for lethal injections."
-	icon = 'icons/goonstation/objects/syringe.dmi'
-	item_state = "syringe_0"
-	icon_state = "0"
-	amount_per_transfer_from_this = 50
-	possible_transfer_amounts = null //list(5,10,15)
-	volume = 50
-	var/mode = SYRINGE_DRAW
-
-/obj/item/reagent_containers/ld50_syringe/on_reagent_change()
-	update_icon()
-
-/obj/item/reagent_containers/ld50_syringe/pickup(mob/user)
-	. = ..()
-	update_icon()
-
-/obj/item/reagent_containers/ld50_syringe/dropped(mob/user)
-	..()
-	update_icon()
-
-/obj/item/reagent_containers/ld50_syringe/attack_self(mob/user)
-	mode = !mode
-	update_icon()
-
-/obj/item/reagent_containers/ld50_syringe/attack_hand()
-	..()
-	update_icon()
-
-/obj/item/reagent_containers/ld50_syringe/attackby(obj/item/I, mob/user)
-	return
-
-/obj/item/reagent_containers/ld50_syringe/afterattack(obj/target, mob/user , flag)
-	if(!target.reagents)
-		return
-
-	switch(mode)
-		if(SYRINGE_DRAW)
-
-			if(reagents.total_volume >= reagents.maximum_volume)
-				to_chat(user, "<span class='warning'>The syringe is full.</span>")
-				return
-
-			if(ismob(target))
-				if(istype(target, /mob/living/carbon))//I Do not want it to suck 50 units out of people
-					to_chat(usr, "This needle isn't designed for drawing blood.")
-					return
-			else //if not mob
-				if(!target.reagents.total_volume)
-					to_chat(user, "<span class='warning'>[target] is empty.</span>")
-					return
-
-				if(!target.is_open_container() && !istype(target,/obj/structure/reagent_dispensers))
-					to_chat(user, "<span class='warning'>You cannot directly remove reagents from this object.</span>")
-					return
-
-				var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this) // transfer from, transfer to - who cares?
-
-				to_chat(user, "<span class='notice'>You fill the syringe with [trans] units of the solution.</span>")
-			if(reagents.total_volume >= reagents.maximum_volume)
-				mode=!mode
-				update_icon()
-
-		if(SYRINGE_INJECT)
-			if(!reagents.total_volume)
-				to_chat(user, "<span class='warning'>The Syringe is empty.</span>")
-				return
-			if(istype(target, /obj/item/implantcase/chem))
-				return
-			if(!target.is_open_container() && !ismob(target) && !istype(target, /obj/item/reagent_containers/food))
-				to_chat(user, "<span class='warning'>You cannot directly fill this object.</span>")
-				return
-			if(target.reagents.total_volume >= target.reagents.maximum_volume)
-				to_chat(user, "<span class='warning'>[target] is full.</span>")
-				return
-
-			if(ismob(target) && target != user)
-				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("<span class='danger'>[] is trying to inject [] with a giant syringe!</span>", user, target), 1)
-				if(!do_mob(user, target, 300)) return
-				for(var/mob/O in viewers(world.view, user))
-					O.show_message(text("<span class='warning'>[] injects [] with a giant syringe!</span>", user, target), 1)
-				reagents.reaction(target, INGEST)
-			if(ismob(target) && target == user)
-				reagents.reaction(target, INGEST)
-			spawn(5)
-				var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-				to_chat(user, "<span class='notice'>You inject [trans] units of the solution. The syringe now contains [reagents.total_volume] units.</span>")
-				if(reagents.total_volume >= reagents.maximum_volume && mode==SYRINGE_INJECT)
-					mode = SYRINGE_DRAW
-					update_icon()
-
-/obj/item/reagent_containers/ld50_syringe/update_icon()
-	var/rounded_vol = round(reagents.total_volume,50)
-	if(ismob(loc))
-		var/mode_t
-		switch(mode)
-			if(SYRINGE_DRAW)
-				mode_t = "d"
-			if(SYRINGE_INJECT)
-				mode_t = "i"
-		icon_state = "[mode_t][rounded_vol]"
-	else
-		icon_state = "[rounded_vol]"
-	item_state = "syringe_[rounded_vol]"
-
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
 	list_reagents = list("spaceacillin" = 15)
-
-/obj/item/reagent_containers/ld50_syringe/lethal
-	list_reagents = list("cyanide" = 10, "neurotoxin2" = 40)
 
 /obj/item/reagent_containers/syringe/charcoal
 	name = "Syringe (charcoal)"
@@ -343,3 +233,19 @@
 	name = "pancuronium syringe"
 	desc = "A powerful paralyzing poison."
 	list_reagents = list("pancuronium" = 15)
+
+// Lethal Injection Kit - Replacement for the lethal injection which is rather slow and not that lethal.
+/obj/item/reagent_containers/syringe/lethal1
+	name = "Syringe (Step 1)"
+	desc = "A VERY sinister-looking syringe. It's marked with a '1'."
+	list_reagents = list("sodium_thiopental" = 15)
+
+/obj/item/reagent_containers/syringe/lethal2
+	name = "Syringe (Step 2)"
+	desc = "A VERY sinister-looking syringe. It's marked with a '2'."
+	list_reagents = list("neurotoxin2" = 10, "mercury" = 5)
+
+/obj/item/reagent_containers/syringe/lethal3
+	name = "Syringe (Step 3)"
+	desc = "A VERY sinister-looking syringe. It's marked with a '3'."
+	list_reagents = list("initropidril" = 12, "cyanide" = 3)
