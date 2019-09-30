@@ -1,5 +1,0 @@
-author: "PidgeyThePirate"
-delete-after: True
-changes: 
-  - bugfix: "Abductor surgery will now remove heart subtypes."
-  - tweak: "Capitalized abductor surgery names for consistency with the surgery UI."

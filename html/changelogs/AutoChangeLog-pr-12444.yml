@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - bugfix: "slime heart and fleshy masses no longer go invisible after being removed through surgery or being eaten or necrotizing"
