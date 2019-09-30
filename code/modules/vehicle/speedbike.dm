@@ -3,16 +3,14 @@
 	icon = 'icons/obj/bike.dmi'
 	icon_state = "speedbike_blue"
 	layer = MOB_LAYER - 0.1
-	keytype = null
 	vehicle_move_delay = 0
 	var/overlay_state = "cover_blue"
-	var/image/overlay = null
+	var/mutable_appearance/overlay
 
-/obj/vehicle/space/speedbike/New()
-	..()
-	overlay = image("icons/obj/bike.dmi", overlay_state)
-	overlay.layer = MOB_LAYER + 0.1
-	overlays += overlay
+/obj/vehicle/space/speedbike/Initialize(mapload)
+	. = ..()
+	overlay = mutable_appearance(icon, overlay_state, ABOVE_MOB_LAYER)
+	add_overlay(overlay)
 
 /obj/vehicle/space/speedbike/Move(newloc,move_dir)
 	if(has_buckled_mobs())
