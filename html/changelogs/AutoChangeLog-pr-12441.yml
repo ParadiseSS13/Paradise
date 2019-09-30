@@ -1,0 +1,9 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "can insert keys into vehicles instead of having to hold them in your hand (alt-click while riding a vehicle to remove the key); lava boat still requires holding the key in your hand"
+  - bugfix: "Fixes moving diagonally with vehicles making you super fast"
+  - tweak: "Vehicles now factor in the configured human movement delay; this means all vehicles are slower than they previously were"
+  - bugfix: "fixes a bug with mobs on vehicles causing incorrect space transitions"
+  - tweak: "ATV sprites updated"
+  - rscadd: "Slime speed potions can now apply to vehicles, which makes them faster"
