@@ -2,7 +2,7 @@
 	startWhen = 12
 	announceWhen = 3
 	endWhen = 160
-	var/temperature = 215.15
+	var/temperature = 185.15
 
 /datum/event/temperature_change/start()
 	alarm_controller()
