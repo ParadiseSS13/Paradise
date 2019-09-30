@@ -276,6 +276,9 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	if(!completed)
 		return
 	var/datum/species/S = H.dna.species
+	if(NO_DNA in S.species_traits)
+		to_chat(H, "<span class='warning'>Erorr, no DNA detected.</span>")
+		return
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
 			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
@@ -288,20 +291,20 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 			S.species_traits |= NO_BREATHE
 		if(VAULT_FIREPROOF)
 			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
-			S.burn_mod = max(S.burn_mod - 0.5, 0)
+			S.burn_mod *= 0.5
 			S.species_traits |= RESISTHOT
 		if(VAULT_STUNTIME)
 			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
-			S.stun_mod = max(S.stun_mod - 0.5, 0)
+			S.stun_mod *= 0.5
 		if(VAULT_ARMOUR)
 			to_chat(H, "<span class='notice'>You feel tough.</span>")
-			S.brute_mod = max(S.brute_mod - 0.3, 0)
-			S.burn_mod = max(S.burn_mod - 0.3, 0)
-			S.tox_mod = max(S.tox_mod - 0.3, 0)
-			S.oxy_mod = max(S.oxy_mod - 0.3, 0)
-			S.clone_mod = max(S.clone_mod - 0.3, 0)
-			S.brain_mod = max(S.brain_mod - 0.3, 0)
-			S.stamina_mod = max(S.stamina_mod - 0.3, 0)
+			S.brute_mod *= 0.7
+			S.burn_mod *= 0.7
+			S.tox_mod *= 0.7
+			S.oxy_mod *= 0.7
+			S.clone_mod *= 0.7
+			S.brain_mod *= 0.7
+			S.stamina_mod *= 0.7
 			S.species_traits |= PIERCEIMMUNE
 		if(VAULT_SPEED)
 			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
