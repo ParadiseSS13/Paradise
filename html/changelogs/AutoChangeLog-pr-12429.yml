@@ -1,0 +1,4 @@
+author: "JKnutson101"
+delete-after: True
+changes: 
+  - bugfix: "Allows for robotic hands, feet, and groin to undergo customization surgery."
