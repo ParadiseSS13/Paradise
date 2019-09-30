@@ -277,8 +277,8 @@
 			reviving = 0
 			return
 	cooldown = revive_cost + world.time
-	revive_cost = 0
-	reviving = 1
+	revive_cost = FALSE
+	reviving = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
 	if(prob(90) && owner.getOxyLoss())
