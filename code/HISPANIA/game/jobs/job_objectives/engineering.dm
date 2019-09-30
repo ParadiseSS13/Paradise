@@ -8,7 +8,7 @@
 	desc += "([units_completed] created.)"
 	return desc
 
-//ESTATION GOLAS
+//ESTATION GOALS
 /datum/job_objective/make_station_goal
 	completion_payment = 20000
 	per_unit = 1
