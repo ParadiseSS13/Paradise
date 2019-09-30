@@ -20,7 +20,7 @@
 	cold_level_3 = 200
 	coldmod = 3
 
-	brain_mod = 2.5
+	brain_mod = 1.5
 
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
@@ -40,8 +40,8 @@
 
 	has_organ = list(
 		"brain" = /obj/item/organ/internal/brain/slime,
-		"osmatic pressure regulator" = /obj/item/organ/internal/heart/slime,
-		"gas exchange membrane" = /obj/item/organ/internal/lungs/slime
+		"heart" = /obj/item/organ/internal/heart/slime,
+		"lungs" = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null
 	has_limbs = list(

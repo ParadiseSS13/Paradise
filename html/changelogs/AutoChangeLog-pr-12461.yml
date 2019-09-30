@@ -1,0 +1,4 @@
+author: "PidgeyThePirate"
+delete-after: True
+changes: 
+  - bugfix: "The Ripley now collects all the ore it unearths after drilling."
