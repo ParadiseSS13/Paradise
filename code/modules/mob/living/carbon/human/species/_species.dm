@@ -18,7 +18,6 @@
 	var/tail                     // Name of tail image in species effects icon file.
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
-	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
 
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
@@ -52,7 +51,7 @@
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/obj/item/mutanthands
 	var/total_health = 100
@@ -232,8 +231,8 @@
 		gravity = 1
 
 	if(!ignoreslow && gravity)
-		if(slowdown)
-			. = slowdown
+		if(speed_mod)
+			. = speed_mod
 
 		if(H.wear_suit)
 			. += H.wear_suit.slowdown

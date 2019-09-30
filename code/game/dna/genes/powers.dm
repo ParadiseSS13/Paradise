@@ -39,7 +39,7 @@
 		return 0
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.dna.species && H.dna.species.slowdown && !(flags & MUTCHK_FORCED))
+		if(H.dna.species && H.dna.species.speed_mod && !(flags & MUTCHK_FORCED))
 			return 0
 	return 1
 
