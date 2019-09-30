@@ -2,12 +2,12 @@
 	name = "ambulance"
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
-	keytype = /obj/item/key/ambulance
+	key_type = /obj/item/key/ambulance
 	var/obj/structure/bed/amb_trolley/bed = null
 	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
 
-/obj/vehicle/ambulance/New()
+/obj/vehicle/ambulance/Initialize(mapload)
 	. = ..()
 	AA = new(src)
 	soundloop = new(list(src), FALSE)

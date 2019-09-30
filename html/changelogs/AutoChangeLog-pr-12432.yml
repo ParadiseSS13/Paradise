@@ -1,4 +1,0 @@
-author: "PidgeyThePirate"
-delete-after: True
-changes: 
-  - bugfix: "fixed a rare glitch in which a guardian that is killed instantly (i.e by a wand of death) may draw its charge into null space."
