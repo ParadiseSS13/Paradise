@@ -438,6 +438,7 @@
 	icon_opened = "bluespaceopen"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	drag_slowdown = 0
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
 	UpdateTransparency(AM, loc)
