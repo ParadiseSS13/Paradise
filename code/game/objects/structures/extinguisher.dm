@@ -47,7 +47,7 @@
 /obj/structure/extinguisher_cabinet/Destroy()
 	QDEL_NULL(has_extinguisher)
 	return ..()
-	
+
 /obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user, params)
 	if(isrobot(user) || isalien(user))
 		return
@@ -82,9 +82,7 @@
 			visible_message("<span class='notice'>[user] slices apart [src].</span>",
 							"<span class='notice'>You cut [src] apart with [WT].</span>",
 							"<span class='italics'>You hear welding.</span>")
-			var/turf/T = get_turf(src)
-			new material_drop(T)
-			qdel(src)
+			deconstruct(TRUE)
 	else
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
@@ -127,6 +125,13 @@
 		opened = !opened
 	update_icon()
 
+/obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc)
+		if(has_extinguisher)
+			has_extinguisher.forceMove(loc)
+			has_extinguisher = null
+	qdel(src)
 
 /obj/structure/extinguisher_cabinet/update_icon()
 	if(!opened)

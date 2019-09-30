@@ -214,7 +214,7 @@
 		close()
 
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN

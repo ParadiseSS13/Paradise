@@ -387,17 +387,18 @@ Class Procs:
 /obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
 	if(istype(C) && (panel_open || ignore_panel))
 		playsound(loc, C.usesound, 50, 1)
-		deconstruct()
+		deconstruct(TRUE)
 		return 1
 	return 0
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
 		if(component_parts && component_parts.len)
 			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
+			component_parts.Cut()
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
@@ -411,7 +412,7 @@ Class Procs:
 	M.icon_state = "box_1"
 
 /obj/machinery/obj_break(damage_flag)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)

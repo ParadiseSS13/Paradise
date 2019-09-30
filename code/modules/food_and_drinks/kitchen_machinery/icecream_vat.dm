@@ -248,3 +248,8 @@
 	var/datum/browser/popup = new(user, "cream_master","Cream-Master Deluxe", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
+
+/obj/machinery/icemachine/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)

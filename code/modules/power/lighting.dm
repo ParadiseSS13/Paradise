@@ -114,9 +114,14 @@
 	else
 		return ..()
 
-/obj/structure/light_construct/blob_act(obj/structure/blob/B)
+/obj/machinery/light_construct/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
 		qdel(src)
+
+/obj/machinery/light_construct/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, sheets_refunded)
+	qdel(src)
 
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
@@ -372,21 +377,7 @@
 			playsound(src.loc, W.usesound, 75, 1)
 			user.visible_message("[user.name] opens [src]'s casing.", \
 				"You open [src]'s casing.", "You hear a noise.")
-			var/obj/machinery/light_construct/newlight = null
-			switch(fitting)
-				if("tube")
-					newlight = new /obj/machinery/light_construct(src.loc)
-					newlight.icon_state = "tube-construct-stage2"
-
-				if("bulb")
-					newlight = new /obj/machinery/light_construct/small(src.loc)
-					newlight.icon_state = "bulb-construct-stage2"
-			newlight.dir = src.dir
-			newlight.stage = 2
-			newlight.fingerprints = src.fingerprints
-			newlight.fingerprintshidden = src.fingerprintshidden
-			newlight.fingerprintslast = src.fingerprintslast
-			qdel(src)
+			deconstruct()
 			return
 
 		to_chat(user, "You stick \the [W] into the light socket!")
@@ -397,6 +388,38 @@
 	else
 		return ..()
 
+/obj/machinery/light/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		var/obj/machinery/light_construct/newlight = null
+		var/cur_stage = 2
+		if(!disassembled)
+			cur_stage = 1
+		switch(fitting)
+			if("tube")
+				newlight = new /obj/machinery/light_construct(src.loc)
+				newlight.icon_state = "tube-construct-stage2"
+
+			if("bulb")
+				newlight = new /obj/machinery/light_construct/small(src.loc)
+				newlight.icon_state = "bulb-construct-stage2"
+		newlight.setDir(src.dir)
+		newlight.stage = cur_stage
+		if(!disassembled)
+			newlight.obj_integrity = newlight.max_integrity * 0.5
+			if(status != LIGHT_BROKEN)
+				break_light_tube()
+			if(status != LIGHT_EMPTY)
+				drop_light_tube()
+			new /obj/item/stack/cable_coil(loc, 1, "red")
+		transfer_fingerprints_to(newlight)
+	qdel(src)
+
+/obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
+	..()
+	if(status == LIGHT_BROKEN || status == LIGHT_EMPTY)
+		if(on && (I.flags & CONDUCT))
+			if(prob(12))
+				electrocute_mob(user, get_area(src), src, 0.3, TRUE)
 
 /obj/machinery/light/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	. = ..()
@@ -483,38 +506,12 @@
 				return
 	else
 		to_chat(user, "You remove the light [fitting].")
-
-
 	// create a light tube/bulb item and put it in the user's hand
-	var/obj/item/light/L = new light_type(get_turf(user))
-	L.status = status
-	L.rigged = rigged
-	L.brightness_range = brightness_range
-	L.brightness_power = brightness_power
-	L.brightness_color = brightness_color
-	L.materials = lightmaterials
-
-	// light item inherits the switchcount, then zero it
-	L.switchcount = switchcount
-	switchcount = 0
-
-	L.update()
-	L.add_fingerprint(user)
-
-	user.put_in_hands(L)	//puts it in our active hand
-
-	status = LIGHT_EMPTY
-	update()
+	drop_light_tube(user)
 
 // break the light and make sparks if was on
 
-/obj/machinery/light/attack_tk(mob/user)
-	if(status == LIGHT_EMPTY)
-		to_chat(user, "There is no [fitting] in this light.")
-		return
-
-	to_chat(user, "You telekinetically remove the light [fitting].")
-	// create a light tube/bulb item and put it in the user's hand
+/obj/machinery/light/proc/drop_light_tube(mob/user)
 	var/obj/item/light/L = new light_type()
 	L.status = status
 	L.rigged = rigged
@@ -528,11 +525,25 @@
 	switchcount = 0
 
 	L.update()
-	L.add_fingerprint(user)
-	L.loc = loc
+	L.forceMove(loc)
+
+	if(user) //puts it in our active hand
+		L.add_fingerprint(user)
+		user.put_in_active_hand(L)
 
 	status = LIGHT_EMPTY
 	update()
+	return L
+
+/obj/machinery/light/attack_tk(mob/user)
+	if(status == LIGHT_EMPTY)
+		to_chat(user, "There is no [fitting] in this light.")
+		return
+
+	to_chat(user, "You telekinetically remove the light [fitting].")
+	// create a light tube/bulb item and put it in the user's hand
+	var/obj/item/light/L = drop_light_tube()
+	L.attack_tk(user)
 
 /obj/machinery/light/proc/break_light_tube(skip_sound_and_sparks = 0, overloaded = 0)
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)

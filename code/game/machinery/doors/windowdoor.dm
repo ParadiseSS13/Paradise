@@ -185,7 +185,7 @@
 			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && !disassembled)
+	if(!(flags & NODECONSTRUCT) && !disassembled)
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)

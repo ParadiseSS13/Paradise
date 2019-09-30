@@ -136,8 +136,12 @@
 			"[user] unfastens \the [src].", \
 			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear ratchet.")
-		new /obj/item/pipe_meter(src.loc)
-		qdel(src)
+		deconstruct(TRUE)
+
+/obj/machinery/meter/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/pipe_meter(loc)
+	qdel(src)
 
 /obj/machinery/meter/singularity_pull(S, current_size)
 	..()

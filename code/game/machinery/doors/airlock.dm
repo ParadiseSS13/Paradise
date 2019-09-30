@@ -1291,7 +1291,7 @@ About the new airlock wires panel:
 		update_icon()
 
 /obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/obj/structure/door_assembly/DA
 		if(assemblytype)
 			DA = new assemblytype(loc)

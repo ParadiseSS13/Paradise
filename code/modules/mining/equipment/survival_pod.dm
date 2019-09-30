@@ -271,8 +271,9 @@
 	return !arbitraryatmosblockingvar
 
 /obj/structure/fans/deconstruct()
-	if(buildstacktype)
-		new buildstacktype(loc, buildstackamount)
+	if(!(flags & NODECONSTRUCT))
+		if(buildstacktype)
+			new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
 /obj/structure/fans/attackby(obj/item/W, mob/user, params)

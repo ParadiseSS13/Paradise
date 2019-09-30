@@ -51,10 +51,18 @@
 		SK.loc = E
 		SK.master = E
 		qdel(src)
-	if(istype(W, /obj/item/wrench))
+		return
+	if(iswrench(W) && !(flags & NODECONSTRUCT))
 		playsound(loc, W.usesound, 50, 1)
+		deconstruct(TRUE)
+		return
+	return ..()
+
+/obj/structure/chair/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && (!(flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+	..()
 
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()

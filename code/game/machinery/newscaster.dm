@@ -625,6 +625,19 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
+/obj/machinery/newscaster/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 2)
+		new /obj/item/shard(loc)
+		new /obj/item/shard(loc)
+	qdel(src)
+
+/obj/machinery/newscaster/obj_break()
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		stat |= BROKEN
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		update_icon()
+
 /obj/machinery/newscaster/proc/AttachPhoto(mob/user)
 	if(photo)
 		if(!issilicon(user))

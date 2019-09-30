@@ -214,6 +214,12 @@ var/list/ingredients_source = list(
 		usr << browse(null,"window=icecreamvat")
 	return
 
+/obj/machinery/icecream_vat/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)
+
+
 /obj/item/reagent_containers/food/snacks/icecream
 	name = "ice cream cone"
 	desc = "Delicious waffle cone, but no ice cream."

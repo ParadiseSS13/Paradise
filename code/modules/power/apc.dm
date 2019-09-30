@@ -660,6 +660,20 @@
 		return 0
 	. = ..()
 
+/obj/machinery/power/apc/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT))
+		set_broken()
+
+/obj/machinery/power/apc/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			set_broken()
+		if(opened != 2)
+			opened = 2
+			coverlocked = FALSE
+			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
+			update_icon()
+
 /obj/machinery/power/apc/emag_act(user as mob)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card
 		if(opened)

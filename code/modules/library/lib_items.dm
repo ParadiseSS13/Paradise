@@ -61,7 +61,7 @@
 			"<span class='notice'>You disassemble \the [src].</span>")
 			busy = 0
 			density = 0
-			qdel(src)
+			deconstruct(TRUE)
 		else
 			busy = 0
 		return 1
@@ -71,15 +71,6 @@
 			name = ("bookcase ([sanitize(newname)])")
 		return 1
 	else
-		switch(O.damtype)
-			if("fire")
-				health -= O.force * 1
-			if("brute")
-				health -= O.force * 0.75
-			else
-		if(health <= 0)
-			visible_message("<span class='warning'>The bookcase is smashed apart!</span>")
-			qdel(src)
 		return ..()
 
 /obj/structure/bookcase/attack_hand(var/mob/user as mob)
@@ -94,32 +85,12 @@
 				choice.forceMove(get_turf(src))
 			update_icon()
 
-/obj/structure/bookcase/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/obj/item/I in contents)
-				qdel(I)
-			qdel(src)
-			return
-		if(2.0)
-			for(var/obj/item/I in contents)
-				if(prob(50))
-					qdel(I)
-			qdel(src)
-			return
-		if(3.0)
-			if(prob(50))
-				qdel(src)
-			return
-	return
-
-/obj/structure/bookcase/Destroy()
-	for(var/i in 1 to 5)
-		new /obj/item/stack/sheet/wood(get_turf(src))
+/obj/structure/bookcase/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/wood(loc, 5)
 	for(var/obj/item/I in contents)
 		if(is_type_in_list(I, allowed_books))
 			I.forceMove(get_turf(src))
-	return ..()
+	qdel(src)
 
 /obj/structure/bookcase/update_icon()
 	if(contents.len < 5)

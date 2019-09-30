@@ -345,7 +345,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		return
 	if(!disassembled)
 		playsound(src, breaksound, 70, 1)
-		if(can_deconstruct)
+		if(!(flags & NODECONSTRUCT))
 			for(var/i in debris)
 				var/obj/item/I = i
 				I.forceMove(loc)

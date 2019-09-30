@@ -63,10 +63,6 @@
 		to_chat(usr, "<span class='notice'>You empty the box.</span>")
 	updateUsrDialog()
 
-obj/structure/ore_box/ex_act(severity, target)
-	if(prob(100 / severity) && severity < 3)
-		qdel(src) //nothing but ores can get inside unless its a bug and ores just return nothing on ex_act, not point in calling it on them
-
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
 	var/obj/item/stack/sheet/wood/W = new (loc, 4)
 	if(user)
@@ -84,7 +80,7 @@ obj/structure/ore_box/ex_act(severity, target)
 		CHECK_TICK
 
 /obj/structure/ore_box/onTransitZ()
-	return 
+	return
 
 /obj/structure/ore_box/verb/empty_box()
 	set name = "Empty Ore Box"

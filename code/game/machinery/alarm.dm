@@ -1033,6 +1033,19 @@
 	spawn(rand(0,15))
 		update_icon()
 
+/obj/machinery/alarm/obj_break(damage_flag)
+	..()
+	update_icon()
+
+/obj/machinery/alarm/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 2)
+		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
+		if(!disassembled)
+			I.obj_integrity = I.max_integrity * 0.5
+		new /obj/item/stack/cable_coil(loc, 3)
+	qdel(src)
+
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
 	if(buildstage < 2)

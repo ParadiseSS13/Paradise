@@ -118,3 +118,11 @@
 	else
 		SSnanoui.close_user_uis(usr,src)
 	return 1
+
+/obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		for(var/X in src)
+			var/obj/item/I = X
+			I.forceMove(loc)
+		new /obj/item/stack/sheet/metal(loc, 2)
+	qdel(src)

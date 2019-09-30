@@ -124,6 +124,11 @@
 	if(!(opened ? close() : open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
+/obj/structure/closet/deconstruct(disassembled = TRUE)
+	if(ispath(material_drop) && material_drop_amount && !(flags & NODECONSTRUCT))
+		new material_drop(loc, material_drop_amount)
+	qdel(src)
+
 /obj/structure/closet/ex_act(severity)
 	switch(severity)
 		if(1)
@@ -239,9 +244,7 @@
 					visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
 									"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
 									"<span class='italics'>You hear welding.</span>")
-					var/turf/T = get_turf(src)
-					new material_drop(T, material_drop_amount)
-					qdel(src)
+					deconstruct(TRUE)
 				return
 		if(isrobot(user))
 			return

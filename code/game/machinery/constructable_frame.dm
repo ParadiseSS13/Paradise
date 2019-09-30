@@ -17,13 +17,14 @@
 	var/pattern_idx=0
 
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/sheet/metal(src.loc, 5)
-	if(state >= 3)
-		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
-		A.amount = 5
-	if(circuit)
-		circuit.forceMove(loc)
-		circuit = null
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 5)
+		if(state >= 3)
+			var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
+			A.amount = 5
+		if(circuit)
+			circuit.forceMove(loc)
+			circuit = null
 	return ..()
 
 /obj/machinery/constructable_frame/obj_break(damage_flag)

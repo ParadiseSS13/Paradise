@@ -20,7 +20,8 @@
 	var/stacktype = /obj/item/stack/sheet/metal
 
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
-	make_debris()
+	if(!(flags & NODECONSTRUCT))
+		make_debris()
 	qdel(src)
 
 

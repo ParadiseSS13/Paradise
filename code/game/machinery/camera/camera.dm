@@ -245,17 +245,18 @@
 		wires.CutAll()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
-	if(disassembled)
-		if(!assembly)
-			assembly = new()
-		assembly.forceMove(loc)
-		assembly.state = 1
-		assembly.setDir(dir)
-		assembly.update_icon()
-		assembly = null
-	else
-		new /obj/item/camera_assembly(loc)
-		new /obj/item/stack/cable_coil(loc, 2)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			if(!assembly)
+				assembly = new()
+			assembly.forceMove(drop_location())
+			assembly.state = 1
+			assembly.setDir(dir)
+			assembly.update_icon()
+			assembly = null
+		else
+			new /obj/item/camera_assembly(loc)
+			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
 /obj/machinery/camera/update_icon()

@@ -246,30 +246,38 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > temperature_resistance)
-		health -= 5
-		healthcheck()
+		take_damage(5, BURN, 0)
 
-/obj/machinery/portable_atmospherics/canister/proc/healthcheck()
-	if(destroyed)
-		return 1
+/obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			canister_break()
+		if(disassembled)
+			new /obj/item/stack/sheet/metal (loc, 10)
+		else
+			new /obj/item/stack/sheet/metal (loc, 5)
+	qdel(src)
 
-	if(src.health <= 10)
-		var/atom/location = src.loc
-		location.assume_air(air_contents)
-		air_update_turf()
+/obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
+	if((stat & BROKEN) || (flags & NODECONSTRUCT))
+		return
+	canister_break()
 
-		src.destroyed = 1
-		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
-		src.density = 0
-		update_icon()
+/obj/machinery/portable_atmospherics/canister/proc/canister_break()
+	disconnect()
+	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
+	var/turf/T = get_turf(src)
+	T.assume_air(expelled_gas)
+	air_update_turf()
 
-		if(src.holding)
-			src.holding.loc = src.loc
-			src.holding = null
+	stat |= BROKEN
+	density = FALSE
+	playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+	update_icon()
 
-		return 1
-	else
-		return 1
+	if(holding)
+		holding.forceMove(T)
+		holding = null
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	if(destroyed)
@@ -336,28 +344,8 @@ update_flag
 			qdel(src)
 		return
 
-	if(!istype(W, /obj/item/wrench) && !istype(W, /obj/item/tank) && !istype(W, /obj/item/analyzer) && !istype(W, /obj/item/pda))
-		visible_message("<span class='warning'>[user] hits the [src] with a [W]!</span>")
-		src.health -= W.force
-		src.add_fingerprint(user)
-		healthcheck()
-
-	if(istype(user, /mob/living/silicon/robot) && istype(W, /obj/item/tank/jetpack))
-		var/datum/gas_mixture/thejetpack = W:air_contents
-		var/env_pressure = thejetpack.return_pressure()
-		var/pressure_delta = min(10*ONE_ATMOSPHERE - env_pressure, (air_contents.return_pressure() - env_pressure)/2)
-		//Can not have a pressure delta that would cause environment pressure > tank pressure
-		var/transfer_moles = 0
-		if((air_contents.temperature > 0) && (pressure_delta > 0))
-			transfer_moles = pressure_delta*thejetpack.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)//Actually transfer the gas
-			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-			thejetpack.merge(removed)
-			to_chat(user, "You pulse-pressurize your jetpack from the tank.")
-		return
-
-	..()
-
-	SSnanoui.update_uis(src) // Update all NanoUIs attached to src
+	if(istype(W, /obj/item/wrench) && !istype(W, /obj/item/tank) && !istype(W, /obj/item/analyzer) && !istype(W, /obj/item/pda))
+		return ..()
 
 /obj/machinery/portable_atmospherics/canister/replace_tank(mob/living/user, close_valve)
 	. = ..()

@@ -40,16 +40,12 @@
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
-/obj/structure/reagent_dispensers/ex_act(severity)
-	switch(severity)
-		if(1)
+/obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!disassembled)
 			boom()
-		if(2)
-			if(prob(50))
-				boom()
-		if(3)
-			if(prob(5))
-				boom()
+	else
+		qdel(src)
 
 //Dispensers
 /obj/structure/reagent_dispensers/watertank

@@ -37,6 +37,10 @@
 	user << browse("<HEAD><TITLE>Notices</TITLE></HEAD>[dat]","window=noticeboard")
 	onclose(user, "noticeboard")
 
+/obj/structure/noticeboard/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal (loc, 1)
+	qdel(src)
 
 /obj/structure/noticeboard/Topic(href, href_list)
 	..()

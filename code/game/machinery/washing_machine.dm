@@ -320,3 +320,7 @@
 
 
 	update_icon()
+
+/obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(drop_location(), 2)
+	qdel(src)

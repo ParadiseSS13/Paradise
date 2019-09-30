@@ -40,11 +40,20 @@
 /obj/structure/bed/proc/handle_rotation()
 	return
 
-/obj/structure/bed/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+/obj/structure/bed/attackby(obj/item/W, mob/user, params)
+	if(iswrench(W) && !(flags & NODECONSTRUCT))
+		playsound(loc, W.usesound, 50, TRUE)
+		deconstruct(TRUE)
+	else
+		return ..()
+
+/obj/structure/bed/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(buildstacktype)
+			new buildstacktype(loc, buildstackamount)
+	..()
+
+
 /*
  * Roller beds
  */

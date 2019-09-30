@@ -460,6 +460,9 @@ var/list/turret_icons
 /obj/machinery/porta_turret/proc/reset_attacked()
 	attacked = FALSE
 
+/obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
+	qdel(src)
+
 /obj/machinery/porta_turret/ex_act(severity)
 	switch(severity)
 		if(1)

@@ -55,24 +55,15 @@
 
 
 /obj/machinery/power/solar/attackby(obj/item/W, mob/user, params)
-
-	if(istype(W, /obj/item/crowbar))
+	if(iscrowbar(W))
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 		user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
 		if(do_after(user, 50 * W.toolspeed, target = src))
-			var/obj/item/solar_assembly/S = locate() in src
-			if(S)
-				S.loc = src.loc
-				S.give_glass()
 			playsound(src.loc, W.usesound, 50, 1)
 			user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
-			qdel(src)
+			deconstruct(TRUE)
 		return
-	else if(W)
-		src.add_fingerprint(user)
-		src.health -= W.force
-		src.healthcheck()
-	..()
+	return ..()
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -84,17 +75,25 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/machinery/power/solar/proc/healthcheck()
-	if(src.health <= 0)
-		if(!(stat & BROKEN))
-			broken()
-		else
-			new /obj/item/shard(src.loc)
-			new /obj/item/shard(src.loc)
-			qdel(src)
-			return
-	return
+/obj/machinery/power/solar/obj_break(damage_flag)
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		stat |= BROKEN
+		unset_control()
+		update_icon()
 
+/obj/machinery/power/solar/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			var/obj/item/solar_assembly/S = locate() in src
+			if(S)
+				S.forceMove(loc)
+				S.give_glass(stat & BROKEN)
+		else
+			playsound(src, "shatter", 70, TRUE)
+			new /obj/item/shard(src.loc)
+			new /obj/item/shard(src.loc)
+	qdel(src)
 
 /obj/machinery/power/solar/update_icon()
 	..()

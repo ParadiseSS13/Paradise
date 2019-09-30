@@ -562,6 +562,11 @@
 		else
 	return
 
+/obj/machinery/clonepod/deconstruct(disassembled = TRUE)
+	if(occupant)
+		go_out()
+	..()
+
 /obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
 	if(occupant && L == clonemind.current)
 		// The old body's back in shape, time to ditch the cloning one

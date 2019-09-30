@@ -244,7 +244,7 @@
 		return ..()
 
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 		if(!wrench_disassembly)
@@ -422,13 +422,13 @@
 	qdel(src)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		if(disassembled)
 			..()
 			return
 		else
 			var/turf/T = get_turf(src)
-			playsound(T, "shatter", 50, 1)
+			playsound(T, "shatter", 50, TRUE)
 			for(var/X in debris)
 				var/atom/movable/AM = X
 				AM.forceMove(T)
@@ -680,7 +680,7 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W) && can_deconstruct)
+	if(iswrench(W) && !(flags & NODECONSTRUCT) && user.a_intent != INTENT_HELP)
 		playsound(loc, W.usesound, 50, 1)
 		deconstruct(TRUE)
 		return
@@ -729,7 +729,7 @@
  */
 
 /obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		density = FALSE
 		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)

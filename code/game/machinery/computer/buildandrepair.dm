@@ -8,10 +8,10 @@
 	var/state = 0
 	var/obj/item/circuitboard/circuit = null
 	var/base_mineral = /obj/item/stack/sheet/metal
-//	weight = 1.0E8
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	drop_computer_parts()
+	if(!(flags & NODECONSTRUCT))
+		drop_computer_parts()
 	return ..() // will qdel the frame
 
 /obj/structure/computerframe/obj_break(damage_flag)
