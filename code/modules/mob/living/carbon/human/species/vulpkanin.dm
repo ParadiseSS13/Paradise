@@ -50,5 +50,5 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-/datum/species/vulpkanin/handle_death(mob/living/carbon/human/H)
+/datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)

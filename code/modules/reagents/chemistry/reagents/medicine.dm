@@ -2,6 +2,7 @@
 	name = "Medicine"
 	id = "medicine"
 	taste_description = "bitterness"
+	harmless = TRUE
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
@@ -44,6 +45,7 @@
 	reagent_state = LIQUID
 	color = "#FA46FA"
 	overdose_threshold = 40
+	harmless = FALSE
 	taste_description = "stimulant"
 
 /datum/reagent/medicine/synaptizine/on_mob_life(mob/living/M)
@@ -135,6 +137,7 @@
 	reagent_state = SOLID
 	color = "#669900" // rgb: 102, 153, 0
 	overdose_threshold = 30
+	harmless = FALSE
 	taste_description = "reformation"
 
 /datum/reagent/medicine/rezadone/on_mob_life(mob/living/M)
@@ -173,6 +176,7 @@
 	reagent_state = LIQUID
 	color = "#F0C814"
 	metabolization_rate = 3
+	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
 	taste_description = "burn cream"
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/M)
@@ -199,6 +203,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 3
+	harmless = FALSE
 	taste_description = "wound cream"
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/M)
@@ -289,12 +294,8 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 30
 	addiction_chance = 5
+	harmless = FALSE
 	taste_description = "health"
-
-/datum/reagent/medicine/omnizine/godblood
-	name = "Godblood"
-	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
-	overdose_threshold = 150
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -350,6 +351,7 @@
 	reagent_state = LIQUID
 	color = "#22AB35"
 	metabolization_rate = 0.8
+	harmless = FALSE
 	taste_description = "a painful cleansing"
 
 /datum/reagent/medicine/calomel/on_mob_life(mob/living/M)
@@ -382,6 +384,7 @@
 	description = "Pentetic Acid is an aggressive chelation agent. May cause tissue damage. Use with caution."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
+	harmless = FALSE
 	taste_description = "a purge"
 
 /datum/reagent/medicine/pen_acid/on_mob_life(mob/living/M)
@@ -406,6 +409,7 @@
 	metabolization_rate = 0.1
 	shock_reduction = 25
 	overdose_threshold = 25
+	harmless = FALSE
 	taste_description = "relief"
 
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
@@ -437,6 +441,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
 	addiction_chance = 20
+	harmless = FALSE
 	taste_description = "oxygenation"
 
 /datum/reagent/medicine/perfluorodecalin/on_mob_life(mob/living/carbon/human/M)
@@ -458,6 +463,7 @@
 	metabolization_rate = 0.3
 	overdose_threshold = 35
 	addiction_chance = 25
+	harmless = FALSE
 	taste_description = "stimulation"
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
@@ -507,6 +513,7 @@
 	reagent_state = LIQUID
 	color = "#5BCBE1"
 	addiction_chance = 10
+	harmless = FALSE
 	taste_description = "antihistamine"
 
 /datum/reagent/medicine/diphenhydramine/on_mob_life(mob/living/M)
@@ -530,6 +537,7 @@
 	overdose_threshold = 20
 	addiction_chance = 50
 	shock_reduction = 50
+	harmless = FALSE
 	taste_description = "a delightful numbing"
 
 /datum/reagent/medicine/morphine/on_mob_life(mob/living/M)
@@ -584,6 +592,7 @@
 	color = "#000000"
 	metabolization_rate = 0.2
 	overdose_threshold = 25
+	harmless = FALSE
 	taste_description = "a moment of respite"
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
@@ -612,6 +621,7 @@
 	color = "#96B1AE"
 	metabolization_rate = 0.2
 	overdose_threshold = 20
+	harmless = FALSE
 	taste_description = "borrowed time"
 
 /datum/reagent/medicine/epinephrine/on_mob_life(mob/living/M)
@@ -669,6 +679,7 @@
 	color = "#A0E85E"
 	metabolization_rate = 0.2
 	taste_description = "life"
+	harmless = FALSE
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it
 
 /datum/reagent/medicine/strange_reagent/on_mob_life(mob/living/M)
@@ -786,6 +797,7 @@
 	id = "stimulants"
 	description = "Increases run speed and eliminates stuns, can heal minor damage. If overdosed it will deal toxin damage and stun."
 	color = "#C8A5DC"
+	harmless = FALSE
 	can_synth = FALSE
 	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
@@ -824,6 +836,7 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
+	harmless = FALSE
 	can_synth = FALSE
 
 /datum/reagent/medicine/stimulative_agent/on_mob_life(mob/living/M)
@@ -919,6 +932,7 @@
 	reagent_state = LIQUID
 	color = "#96DEDE"
 	metabolization_rate = 0.1
+	harmless = FALSE
 	taste_description = "sleepiness"
 
 /datum/reagent/medicine/ether/on_mob_life(mob/living/M)
@@ -962,7 +976,14 @@
 	color = "#DCDCDC"
 	overdose_threshold = 30
 	metabolization_rate = 0.1
+	harmless = FALSE
 	taste_description = "faint hope"
+
+/datum/reagent/medicine/omnizine_diluted/godblood
+	name = "Godblood"
+	id = "godblood"
+	description = "Slowly heals all damage types. Has a rather high overdose threshold. Glows with mysterious power."
+	overdose_threshold = 150
 
 /datum/reagent/medicine/omnizine_diluted/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1040,6 +1061,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
+	harmless = FALSE
 	taste_description = "knitting wounds"
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/M)
@@ -1059,6 +1081,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 30
+	harmless = FALSE
 	taste_description = "soothed burns"
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/M)
@@ -1078,6 +1101,7 @@
 	description = "Ichor from an extremely powerful plant. Great for restoring wounds, but it's a little heavy on the brain."
 	color = "#FFAF00"
 	overdose_threshold = 25
+	harmless = FALSE
 	taste_description = "a gift from nature"
 
 /datum/reagent/medicine/earthsblood/on_mob_life(mob/living/M)
@@ -1115,6 +1139,7 @@
 	color = "#9b3401"
 	metabolization_rate = 0.5
 	can_synth = FALSE
+	harmless = FALSE
 	taste_description = "wholeness"
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
@@ -1154,6 +1179,7 @@
 	description = "An extract of lavaland atmospheric and mineral elements. Heals the user in small doses, but is extremely toxic otherwise."
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
+	harmless = FALSE
 	can_synth = FALSE
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)

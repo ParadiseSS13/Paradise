@@ -142,8 +142,8 @@ var/global/list/image/splatter_cache = list()
 		icon_state = "writing1"
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
-	..(user)
-	to_chat(user, "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>")
+	. = ..()
+	. += "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>"
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"

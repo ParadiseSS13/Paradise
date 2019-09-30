@@ -238,7 +238,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aL" = (
-/obj/item/clothing/suit/space/hardsuit/wizard,
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 /obj/structure/table/wood,
 /obj/item/stack/sheet/mineral/silver{
 	amount = 20
@@ -1134,7 +1134,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "ds" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -2204,7 +2204,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "gb" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "gc" = (

@@ -31,7 +31,6 @@
 	icon_state = "lime"
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
-	distill_reagent = "triple_sec"
 
 // Orange
 /obj/item/seeds/orange
@@ -59,6 +58,7 @@
 	icon_state = "orange"
 	tastes = list("orange" = 1)
 	filling_color = "#FFA500"
+	distill_reagent = "triple_sec"
 
 // Lemon
 /obj/item/seeds/lemon

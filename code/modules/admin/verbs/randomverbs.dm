@@ -440,9 +440,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	switch(new_character.mind.special_role)
 		if("traitor")
-			SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
-			SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)
-			SSticker.mode.equip_traitor(new_character)
+			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
+				var/datum/antagonist/traitor/T = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
+				T.equip_traitor(src)
+			else
+				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
 			new_character.loc = pick(wizardstart)
 			//ticker.mode.learn_basic_spells(new_character)
@@ -462,13 +464,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if("Cyborg")//More rigging to make em' work and check if they're traitor.
 					new_character = new_character.Robotize()
 					if(new_character.mind.special_role=="traitor")
-						call(/datum/game_mode/proc/add_law_zero)(new_character)
+						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				if("AI")
 					new_character = new_character.AIize()
 					var/mob/living/silicon/ai/ai_character = new_character
 					ai_character.moveToAILandmark()
 					if(new_character.mind.special_role=="traitor")
-						call(/datum/game_mode/proc/add_law_zero)(new_character)
+						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				//Add aliens.
 				else
 					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)

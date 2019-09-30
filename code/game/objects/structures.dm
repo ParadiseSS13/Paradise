@@ -4,8 +4,6 @@
 	var/climbable
 	var/mob/climber
 	var/broken = FALSE
-	var/pixel_buckled_x = 0 //All dirs show this pixel_x for the driver
-	var/pixel_buckled_y = 0 //All dirs shwo this pixel_y for the driver
 
 /obj/structure/blob_act()
 	if(prob(50))
@@ -162,15 +160,15 @@
 	return 1
 
 /obj/structure/examine(mob/user)
-	..()
+	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(burn_state == ON_FIRE)
-			to_chat(user, "<span class='warning'>It's on fire!</span>")
+			. += "<span class='warning'>It's on fire!</span>"
 		if(broken)
-			to_chat(user, "<span class='notice'>It appears to be broken.</span>")
+			. += "<span class='notice'>It appears to be broken.</span>"
 		var/examine_status = examine_status(user)
 		if(examine_status)
-			to_chat(user, examine_status)
+			. += examine_status
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -182,26 +180,3 @@
 		if(0 to 25)
 			if(!broken)
 				return  "<span class='warning'>It's falling apart!</span>"
-
-/obj/structure/proc/handle_buckled_offsets()
-	if(buckled_mob)
-		buckled_mob.dir = dir
-		buckled_mob.pixel_x = pixel_buckled_x
-		buckled_mob.pixel_y = pixel_buckled_y
-
-/obj/structure/unbuckle_mob(force = 0)
-	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-	. = ..()
-
-/obj/structure/user_buckle_mob(mob/living/M, mob/user)
-	if(user.incapacitated())
-		return
-	for(var/atom/movable/A in get_turf(src))
-		if(A.density)
-			if(A != src && A != M)
-				return
-	M.loc = get_turf(src)
-	..()
-	handle_buckled_offsets()

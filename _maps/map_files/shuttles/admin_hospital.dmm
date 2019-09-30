@@ -947,12 +947,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"bS" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
 "bT" = (
 /obj/machinery/light,
 /obj/structure/closet/crate/can,
@@ -1494,7 +1488,7 @@ aw
 aw
 aw
 aw
-bS
+aw
 ac
 "}
 (11,1,1) = {"
@@ -1569,12 +1563,12 @@ ac
 bx
 aw
 aw
-bS
+aw
 ac
 bx
 aw
 aw
-bS
+aw
 Kq
 "}
 (15,1,1) = {"

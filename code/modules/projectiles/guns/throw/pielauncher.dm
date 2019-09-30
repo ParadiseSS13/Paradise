@@ -21,8 +21,8 @@
 		loaded_projectiles += P
 	process_chamber()
 
-/obj/item/gun/throw/piecannon/notify_ammo_count(mob/user)
-	to_chat(user, "<span class='notice'>[src] has [get_ammocount()] of [max_capacity] pies left.")
+/obj/item/gun/throw/piecannon/notify_ammo_count()
+	return "<span class='notice'>[src] has [get_ammocount()] of [max_capacity] pies left.</span>"
 
 /obj/item/gun/throw/piecannon/update_icon()
 	if(to_launch)

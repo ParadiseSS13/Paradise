@@ -405,8 +405,8 @@ h1.alert, h2.alert			{color: #FFF;}
 
 /* MEGAFAUNA */
 .colossus				{color: #7F282A; font-size: 175%;}
-.hierophant				{color: #660099; font-weight: bold; font-size: 150%;}
-.hierophant_warning		{color: #660099; font-weight: bold; font-style: italic;}
+.hierophant				{color: #660099; font-weight: bold; font-style: italic;}
+.hierophant_warning		{color: #660099; font-style: italic;}
 
 /* EMOJI STUFF */
 .emoji {max-height: 16px; max-width: 16px}
@@ -414,3 +414,5 @@ h1.alert, h2.alert			{color: #FFF;}
 /* ADMIN TICKETS */
 
 .adminticket {color: #3daf21; font-weight: bold}
+
+.adminticketalt {color: #ccb847; font-weight: bold}

@@ -540,12 +540,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"bj" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
 "bk" = (
 /obj/structure/window/plasmareinforced{
 	color = "#FF0000";
@@ -847,7 +841,7 @@ am
 ac
 bc
 bg
-bj
+bg
 bo
 bt
 bz

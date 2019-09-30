@@ -810,7 +810,7 @@
 
 /datum/outfit/admin/hardsuit/wizard
 	name = "Wizard Hardsuit"
-	suit = /obj/item/clothing/suit/space/hardsuit/wizard
+	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	shoes = /obj/item/clothing/shoes/magboots
 
 /datum/outfit/admin/hardsuit/medical
@@ -1100,7 +1100,7 @@
 	l_hand = null
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
-		/obj/item/clothing/suit/space/hardsuit/wizard = 1,
+		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
 		/obj/item/clothing/suit/wizrobe/red = 1,
