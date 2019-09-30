@@ -84,6 +84,7 @@
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
+	var/initial_density //Whether the density of a simple animal starts as 0 or 1. Used for revive().
 
 	var/allow_movement_on_non_turfs = FALSE
 
@@ -101,6 +102,7 @@
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
+	initial_density = density
 	GLOB.simple_animals[AIStatus] += src
 	if(gender == PLURAL)
 		gender = pick(MALE, FEMALE)
@@ -336,7 +338,8 @@
 
 /mob/living/simple_animal/revive()
 	..()
-	density = 1
+	if(initial_density)
+		density = 1
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
