@@ -43,8 +43,12 @@
 	..()
 	update_icon()
 
-/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
+/obj/item/reagent_containers/syringe/attack(mob/living/M, mob/living/user, def_zone)
 	return
+
+/obj/item/reagent_containers/syringe/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/storage/bag))
+		..()
 
 /obj/item/reagent_containers/syringe/afterattack(atom/target, mob/user , proximity)
 	if(!proximity)
@@ -147,7 +151,7 @@
 	if(reagents && reagents.total_volume)
 		rounded_vol = Clamp(round((reagents.total_volume / volume * 15), 5), 1, 15)
 		var/image/filling_overlay = mutable_appearance('icons/obj/reagentfillings.dmi', "syringe[rounded_vol]")
-		filling_overlay.color = mix_color_from_reagents(reagents.reagent_list)
+		filling_overlay.icon += mix_color_from_reagents(reagents.reagent_list)
 		add_overlay(filling_overlay)
 	else
 		rounded_vol = 0
