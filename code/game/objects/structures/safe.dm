@@ -17,7 +17,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	anchored = TRUE
 	density = TRUE
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = TRUE
 
 	var/open = FALSE
@@ -79,9 +79,9 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/examine(mob/user)
 	. = ..()
 
-	to_chat(user, "This model appears to have [number_of_tumblers] tumblers.")
+	. += "This model appears to have [number_of_tumblers] tumblers."
 	if(open)
-		to_chat(user, "The inside of the the door has numbers written on it: <b>[get_combination()]</b>")
+		. += "The inside of the the door has numbers written on it: <b>[get_combination()]</b>"
 
 /obj/structure/safe/blob_act()
 	return

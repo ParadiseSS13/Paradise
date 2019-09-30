@@ -20,6 +20,9 @@
 
 /obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
 	..()
+	if(!tastes)
+		tastes = list("[name]" = 1)
+
 	if(new_seed)
 		seed = new_seed.Copy()
 	else if(ispath(seed))
@@ -52,11 +55,11 @@
 	return 0
 
 /obj/item/reagent_containers/food/snacks/grown/examine(user)
-	..()
+	. = ..()
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			if(T.examine_line)
-				to_chat(user, T.examine_line)
+				. += T.examine_line
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
@@ -68,7 +71,7 @@
 
 			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
 				to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-				return TRUE	
+				return TRUE
 
 			var/slices_lost = 0
 			if(!inaccurate)

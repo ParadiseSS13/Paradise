@@ -90,6 +90,10 @@
 /obj/effect/temp_visual/dir_setting/wraith/out
 	icon_state = "phase_shift"
 
+/obj/effect/temp_visual/dir_setting/tailsweep
+	icon_state = "tailsweep"
+	duration = 4
+
 /obj/effect/temp_visual/wizard
 	name = "water"
 	icon = 'icons/mob/mob.dmi'
@@ -139,6 +143,15 @@
 /obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
 	..()
 	animate(src, alpha = 0, time = duration)
+
+/obj/effect/temp_visual/decoy/fading/threesecond
+	duration = 40
+
+/obj/effect/temp_visual/decoy/fading/fivesecond
+	duration = 50
+
+/obj/effect/temp_visual/decoy/fading/halfsecond
+	duration = 5
 
 /obj/effect/temp_visual/fire
 	icon = 'icons/goonstation/effects/fire.dmi'

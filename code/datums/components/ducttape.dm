@@ -17,8 +17,8 @@
 	if(I.loc == user)
 		RT.Grant(user)
 
-/datum/component/proc/add_tape_text(datum/source, mob/user)
-	to_chat(user, "<span class='notice'>There's some sticky tape attached to [source].</span>")
+/datum/component/proc/add_tape_text(datum/source, mob/user, list/examine_list)
+	examine_list += "<span class='notice'>There's some sticky tape attached to [source].</span>"
 
 /datum/component/ducttape/proc/add_tape_overlay(obj/item/O)
 	tape_overlay = new('icons/obj/bureaucracy.dmi', "tape")

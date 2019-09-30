@@ -105,7 +105,12 @@
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
-
+		if(istype(I, /obj/item/shard/plasma))
+			S.force_wielded = 19
+			S.force_unwielded = 11
+			S.throwforce = 21
+			S.icon_prefix = "spearplasma"
+			S.update_icon()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
 		user.unEquip(I)
@@ -171,26 +176,26 @@
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
 	homerun_able = 1
 
-/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type, atom/movable/AM)
+/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
-	if(!istype(AM, /obj/item) || attack_type != THROWN_PROJECTILE_ATTACK)
+	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
 		return FALSE
-	var/obj/item/I = AM
+	var/obj/item/I = hitby
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
 			if(prob(10))
 				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)				
+				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(I.thrownby, 20, 20, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 3000
-				return TRUE				
+				return TRUE
 			else if(prob(30))
 				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				do_attack_animation(get_step(owner, pick(alldirs)), ATTACK_EFFECT_DISARM)			
+				do_attack_animation(get_step(owner, pick(alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
 					lastdeflect = world.time + 3000
@@ -198,7 +203,7 @@
 			else
 				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
-				do_attack_animation(I, ATTACK_EFFECT_DISARM)					
+				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(cardinal)), rand(8,10), 14, owner)
 				deflectmode = FALSE
 				if(!istype(I, /obj/item/beach_ball))
@@ -239,7 +244,7 @@
 		playsound(get_turf(src), 'sound/weapons/homerun.ogg', 100, 1)
 		homerun_ready = 0
 		return
-	else
+	else if(!target.anchored)
 		target.throw_at(throw_target, rand(1,2), 7, user)
 
 /obj/item/melee/baseball_bat/ablative

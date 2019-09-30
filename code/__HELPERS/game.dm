@@ -1,12 +1,3 @@
-/proc/dopage(src,target)
-	var/href_list
-	var/href
-	href_list = params2list("src=[src:UID()]&[target]=1")
-	href = "src=[src:UID()];[target]=1"
-	src:temphtml = null
-	src:Topic(href, href_list)
-	return null
-
 /proc/get_area(atom/A)
 	if(isarea(A))
 		return A

@@ -152,6 +152,8 @@
 /datum/hud/proc/update_parallax()
 	var/client/C = mymob.client
 	var/turf/posobj = get_turf(C.eye)
+	if(!posobj)
+		return
 	var/area/areaobj = posobj.loc
 
 	// Update the movement direction of the parallax if necessary (for shuttles)
@@ -309,9 +311,3 @@
 		0, 0, 0, 0
 		)
 	screen_loc = "CENTER-7,CENTER-7"
-
-
-#undef LOOP_NONE
-#undef LOOP_NORMAL
-#undef LOOP_REVERSE
-#undef LOOP_TIME

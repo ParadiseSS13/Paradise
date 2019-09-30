@@ -119,7 +119,8 @@
 */
 /mob/living/silicon/ai/UnarmedAttack(atom/A)
 	A.attack_ai(src)
-/mob/living/silicon/ai/RangedAttack(atom/A)
+
+/mob/living/silicon/ai/RangedAttack(atom/A, params)
 	A.attack_ai(src)
 
 /atom/proc/attack_ai(mob/user as mob)
@@ -209,13 +210,11 @@
 /atom/proc/AIMiddleClick()
 	return
 
-/obj/machinery/door/airlock/AIMiddleClick() // Toggles door safety.
-	if(safe)
-		Topic(src, list("src" = UID(), "command"="safeties", "activate" = "1"), 1) // 1 meaning no window (consistency!)
-		to_chat(usr, "The door safeties have been overridden.")
+/obj/machinery/door/airlock/AIMiddleClick() // Toggles door bolt lights.
+	if(!src.lights)
+		Topic(src, list("src" = UID(), "command"="lights", "activate" = "1"), 1) // 1 meaning no window (consistency!)
 	else
-		Topic(src, list("src" = UID(), "command"="safeties", "activate" = "0"), 1)
-		to_chat(usr, "The door safeties have been reset.")
+		Topic(src, list("src" = UID(), "command"="lights", "activate" = "0"), 1)
 	return
 
 /obj/machinery/ai_slipper/AICtrlClick() //Turns liquid dispenser on or off

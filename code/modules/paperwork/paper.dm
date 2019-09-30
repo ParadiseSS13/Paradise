@@ -20,7 +20,7 @@
 	burn_state = FLAMMABLE
 	burntime = 5
 	attack_verb = list("bapped")
-
+	dog_fashion = /datum/dog_fashion/head
 	var/info		//What's actually written on the paper.
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
@@ -60,13 +60,14 @@
 	icon_state = "paper"
 
 /obj/item/paper/examine(mob/user)
+	. = ..()
 	if(user.is_literate())
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
 		else
-			to_chat(user, "<span class='notice'>You have to go closer if you want to read it.</span>")
+			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
 	else
-		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
+		. += "<span class='notice'>You don't know how to read.</span>"
 
 /obj/item/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)

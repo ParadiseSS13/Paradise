@@ -13,7 +13,8 @@
 	bound_height = 64
 	pixel_y = -10
 	unacidable = TRUE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE
+	burn_state = LAVA_PROOF
 
 // An "overlay" used by clockwork walls and floors to appear normal to mesons.
 /obj/effect/clockwork/overlay
@@ -22,7 +23,7 @@
 
 /obj/effect/clockwork/overlay/examine(mob/user)
 	if(linked)
-		linked.examine(user)
+		return linked.examine(user)
 
 /obj/effect/clockwork/overlay/ex_act()
 	return FALSE
@@ -78,7 +79,7 @@
 	anchored = TRUE
 	density = TRUE
 	unacidable = TRUE
-	resistance_flags = FIRE_PROOF
+	burn_state = FIRE_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 
 /obj/structure/clockwork/wall_gear/displaced
@@ -149,7 +150,7 @@
 	desc = "Broken shards of some oddly malleable metal. They occasionally move and seem to glow."
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "alloy_shards"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = TRUE
 	var/randomsinglesprite = FALSE
 	var/randomspritemax = 2

@@ -16,5 +16,5 @@
 	harm_intent_damage = 3
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-
+	unique_pet = TRUE
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 2, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)

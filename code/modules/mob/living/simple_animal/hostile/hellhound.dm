@@ -8,7 +8,7 @@
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
 	mutations = list(BREATHLESS)
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -22,7 +22,7 @@
 	health = 250
 	obj_damage = 50
 	robust_searching = 1
-	stat_attack = 1
+	stat_attack = UNCONSCIOUS
 	attacktext = "savages"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
@@ -42,19 +42,16 @@
 	whisper_action.Grant(src)
 
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
-	. = ..()
+	if(!..())
+		return
 	if(resting)
 		if(!wants_to_rest())
 			custom_emote(1, "growls, and gets up.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			icon_state = "[icon_living]"
-			resting = 0
-			update_canmove()
+			StopResting()
 	else if(wants_to_rest())
 		custom_emote(1, "lays down, and starts to lick their wounds.")
-		icon_state = "[icon_resting]"
-		resting = 1
-		update_canmove()
+		StartResting()
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
@@ -75,7 +72,7 @@
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
 				msgs += "<span class='notice'>It is currently resting.</span>"
-		to_chat(usr,msgs.Join("<BR>"))
+		. += msgs.Join("<BR>")
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
@@ -97,7 +94,7 @@
 
 /mob/living/simple_animal/hostile/hellhound/AttackingTarget()
 	. = ..()
-	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
+	if(. && ishuman(target) && (!client || a_intent == INTENT_HARM))
 		special_aoe()
 
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
@@ -129,4 +126,4 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	environment_smash = 2
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN

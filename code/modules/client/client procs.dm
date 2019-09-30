@@ -127,6 +127,7 @@
 							karma_purchase(karma,45,"job","Magistrate")
 						if("9")
 							karma_purchase(karma,30,"job","Security Pod Pilot")
+					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
 					if(isnull(karma)) //Doesn't display anything if karma database is down.
@@ -143,9 +144,10 @@
 						if("5")
 							karma_purchase(karma,45,"species","Slime People")
 						if("6")
-							karma_purchase(karma,100,"species","Plasmaman")
+							karma_purchase(karma,45,"species","Plasmaman")
 						if("7")
 							karma_purchase(karma,30,"species","Drask")
+					return
 				if(href_list["KarmaRefund"])
 					var/type = href_list["KarmaRefundType"]
 					var/job = href_list["KarmaRefund"]
@@ -345,8 +347,6 @@
 		on_holder_add()
 		add_admin_verbs()
 		admin_memo_output("Show", 0, 1)
-		if(custom_event_admin_msg && custom_event_admin_msg != "" && check_rights(R_EVENT))
-			cmd_view_custom_event_info()
 
 	// Forcibly enable hardware-accelerated graphics, as we need them for the lighting overlays.
 	// (but turn them off first, since sometimes BYOND doesn't turn them on properly otherwise)
@@ -401,7 +401,7 @@
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
-	
+
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)

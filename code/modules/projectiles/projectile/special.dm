@@ -143,7 +143,6 @@
 				M.apply_effect((rand(30,80)),IRRADIATE)
 				M.Weaken(5)
 				M.visible_message("<span class='warning'>[M] writhes in pain as [M.p_their()] vacuoles boil.</span>", "<span class='userdanger'>You writhe in pain as your vacuoles boil!</span>", "<span class='italics'>You hear the crunching of leaves.</span>")
-			if(prob(35))
 				if(prob(80))
 					randmutb(M)
 					domutcheck(M,null)
@@ -172,7 +171,7 @@
 	if(ishuman(target)) //These rays make plantmen fat.
 		var/mob/living/carbon/human/H = M
 		if(IS_PLANT in H.dna.species.species_traits)
-			H.nutrition = min(H.nutrition+30, NUTRITION_LEVEL_FULL)
+			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
 	else

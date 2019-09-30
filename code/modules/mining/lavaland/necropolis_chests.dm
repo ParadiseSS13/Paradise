@@ -6,7 +6,7 @@
 	icon_state = "necrocrate"
 	icon_opened = "necrocrateopen"
 	icon_closed = "necrocrate"
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	burn_state = LAVA_PROOF
 	unacidable = 1
 
 /obj/structure/closet/crate/necropolis/tendril
@@ -18,7 +18,7 @@
 	if(!add_loot)
 		return
 
-	var/loot = rand(1,25)
+	var/loot = rand(1, 26)
 	switch(loot)
 		if(1)
 			new /obj/item/shared_storage/red(src)
@@ -46,10 +46,9 @@
 		if(10)
 			new /obj/item/ship_in_a_bottle(src)
 		if(11)
-			new /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/berserker(src)
 			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/berserker(src)
 		if(12)
-			new /obj/item/sord(src)
+			new /obj/item/jacobs_ladder(src)
 		if(13)
 			new /obj/item/nullrod/scythe/talking(src)
 		if(14)
@@ -75,11 +74,12 @@
 			new /obj/item/grenade/clusterbuster/inferno(src)
 		if(23)
 			new /obj/item/reagent_containers/food/drinks/bottle/holywater/hell(src)
-			new /obj/item/clothing/head/helmet/space/hardsuit/ert/paranormal/inquisitor(src)
 			new /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor(src)
 		if(24)
 			new /obj/item/spellbook/oneuse/summonitem(src)
 		if(25)
+			new /obj/item/book_of_babel(src)
+		if(26)
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
@@ -126,7 +126,6 @@
 	modkit_design = /datum/design/unique_modkit/bounty
 
 /datum/design/unique_modkit
-	category = list("Mining", "Cyborg Upgrade Modules") //can't be normally obtained
 	build_type = PROTOLATHE | MECHFAB
 
 /datum/design/unique_modkit/offensive_turf_aoe
@@ -135,6 +134,7 @@
 	id = "hyperaoemod"
 	materials = list(MAT_METAL = 7000, MAT_GLASS = 3000, MAT_SILVER= 3000, MAT_GOLD = 3000, MAT_DIAMOND = 4000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
+	category = list("Mining", "Cyborg Upgrade Modules")
 
 /datum/design/unique_modkit/rapid_repeater
 	name = "Kinetic Accelerator Rapid Repeater Mod"
@@ -142,6 +142,7 @@
 	id = "repeatermod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_URANIUM = 8000, MAT_BLUESPACE = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
+	category = list("Mining", "Cyborg Upgrade Modules")
 
 /datum/design/unique_modkit/resonator_blast
 	name = "Kinetic Accelerator Resonator Blast Mod"
@@ -149,6 +150,7 @@
 	id = "resonatormod"
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 5000, MAT_SILVER= 5000, MAT_URANIUM = 5000)
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
+	category = list("Mining", "Cyborg Upgrade Modules")
 
 /datum/design/unique_modkit/bounty
 	name = "Kinetic Accelerator Death Syphon Mod"
@@ -157,3 +159,4 @@
 	materials = list(MAT_METAL = 4000, MAT_SILVER = 4000, MAT_GOLD = 4000, MAT_BLUESPACE = 4000)
 	reagents_list = list("blood" = 40)
 	build_path = /obj/item/borg/upgrade/modkit/bounty
+	category = list("Mining", "Cyborg Upgrade Modules")

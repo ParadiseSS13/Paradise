@@ -15,7 +15,6 @@
 	a_intent = INTENT_HARM
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	idle_vision_range = 5
 	move_to_delay = 10
 	health = 125
 	maxHealth = 125
@@ -145,7 +144,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
 	mode = MINEDRONE_COLLECT
-	idle_vision_range = 9
+	vision_range = 9
 	search_objects = 2
 	wander = TRUE
 	ranged = FALSE
@@ -156,7 +155,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
 	mode = MINEDRONE_ATTACK
-	idle_vision_range = 7
+	vision_range = 7
 	search_objects = 0
 	wander = FALSE
 	ranged = TRUE
@@ -192,7 +191,7 @@
 	for(var/obj/item/stack/ore/O in contents)
 		O.forceMove(drop_location())
 
-/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount)
+/mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount, updating_health = TRUE)
 	if(mode != MINEDRONE_ATTACK && amount > 0)
 		SetOffenseBehavior()
 	. = ..()
@@ -303,6 +302,7 @@
 	qdel(src)
 
 //AI
+
 /obj/item/slimepotion/sentience/mining
 	name = "minebot AI upgrade"
 	desc = "Can be used to grant sentience to minebots."
@@ -324,6 +324,22 @@
 		M.move_to_delay = initial(M.move_to_delay) + base_speed_add
 		if(M.stored_gun)
 			M.stored_gun.overheat_time += base_cooldown_add
+
+/**********************Mining drone cube**********************/
+
+/obj/item/mining_drone_cube
+	name = "mining drone cube"
+	desc = "Compressed mining drone, ready for deployment. Just press the button to activate!"
+	w_class = WEIGHT_CLASS_SMALL
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "minedronecube"
+	item_state = "electronic"
+
+/obj/item/mining_drone_cube/attack_self(mob/user)
+	user.visible_message("<span class='warning'>\The [src] suddenly expands into a fully functional mining drone!</span>", \
+	"<span class='warning'>You press center button on \the [src]. The device suddenly expands into a fully functional mining drone!</span>")
+	new /mob/living/simple_animal/hostile/mining_drone(get_turf(src))
+	qdel(src)
 
 #undef MINEDRONE_COLLECT
 #undef MINEDRONE_ATTACK

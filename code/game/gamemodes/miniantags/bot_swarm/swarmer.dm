@@ -158,9 +158,9 @@
 ////CTRL CLICK FOR SWARMERS AND SWARMER_ACT()'S////
 /mob/living/simple_animal/hostile/swarmer/AttackingTarget()
 	if(!isliving(target))
-		target.swarmer_act(src)
+		return target.swarmer_act(src)
 	else
-		..()
+		return ..()
 
 /mob/living/simple_animal/hostile/swarmer/CtrlClickOn(atom/A)
 	face_atom(A)
@@ -346,17 +346,17 @@
 	S.DisperseTarget(src)
 	return TRUE
 
-/mob/living/carbon/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/mob/living/simple_animal/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This biological resource is somehow resisting our bluespace transceiver. Aborting.</span>")
 	return FALSE
 
 /obj/structure/lattice/catwalk/swarmer_catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>We have created these for our own benefit. Aborting.</span>")
-	return FALSE	
+	return FALSE
 
 /obj/structure/shuttle/engine/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, "<span class='warning'>This shuttle may be important to us later. Aborting.</span>")
-	return FALSE	
+	return FALSE
 
 ////END CTRL CLICK FOR SWARMERS////
 

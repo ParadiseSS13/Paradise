@@ -37,7 +37,7 @@ var/global/list/ts_spiderling_list = list()
 
 	// Movement
 	pass_flags = PASSTABLE
-	turns_per_move = 5 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
+	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
 	// 5 = 4 tiles/sec, 6 = 3.3 tiles/sec. 3 = 6.6 tiles/sec.
@@ -49,14 +49,10 @@ var/global/list/ts_spiderling_list = list()
 	// '1' (default for most simple_mobs, including terror spiders) converts to 3.5, or 2.8 tiles/sec.
 	// '2' converts to 4.5, or 2.2 tiles/sec.
 
-	// Atmos
-	pressure_resistance = 50    //50 kPa difference required to push
-	throw_pressure_limit = 100  //100 kPa difference required to throw
-
 	// Ventcrawling
 	ventcrawler = 1 // allows player ventcrawling
-	var/ai_ventcrawls = 1
-	var/idle_ventcrawl_chance = 3 // default 3% chance to ventcrawl when not in combat to a random exit vent
+	var/ai_ventcrawls = TRUE
+	var/idle_ventcrawl_chance = 15
 	var/freq_ventcrawl_combat = 1800 // 3 minutes
 	var/freq_ventcrawl_idle =  9000 // 15 minutes
 	var/last_ventcrawl_time = -9000 // Last time the spider crawled. Used to prevent excessive crawling. Setting to freq*-1 ensures they can crawl once on spawn.
@@ -92,32 +88,29 @@ var/global/list/ts_spiderling_list = list()
 	var/degenerate = 0 // if 1, they slowly degen until they all die off. Used by high-level abilities only.
 
 	// Vision
-	idle_vision_range = 10
+	vision_range = 10
 	aggro_vision_range = 10
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	sight = SEE_MOBS
 
 	// AI aggression settings
-	var/ai_type = TS_AI_AGGRESSIVE // 0 = aggressive to everyone, 1 = defends self only
 	var/ai_target_method = TS_DAMAGE_SIMPLE
 
 	// AI player control by ghosts
 	var/ai_playercontrol_allowtype = 1 // if 0, this specific class of spider is not player-controllable. Default set in code for each class, cannot be changed.
 
-	var/ai_break_lights = 1 // AI lightbreaking behavior
+	var/ai_break_lights = TRUE // AI lightbreaking behavior
 	var/freq_break_light = 600
 	var/last_break_light = 0 // leave this, changed by procs.
 
-	var/ai_spins_webs = 1 // AI web-spinning behavior
+	var/ai_spins_webs = TRUE // AI web-spinning behavior
 	var/freq_spins_webs = 600
 	var/last_spins_webs = 0 // leave this, changed by procs.
 	var/delay_web = 40 // delay between starting to spin web, and finishing
 
 	var/freq_cocoon_object = 1200 // two minutes between each attempt
 	var/last_cocoon_object = 0 // leave this, changed by procs.
-
-	var/prob_ai_hides_in_vents = 15 // probabily of a gray spider hiding in a vent
 
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
 	faction = list("terrorspiders")
@@ -227,7 +220,7 @@ var/global/list/ts_spiderling_list = list()
 // --------------------------------------------------------------------------------
 
 /mob/living/simple_animal/hostile/poison/terror_spider/examine(mob/user)
-	..()
+	. = ..()
 	var/list/msgs = list()
 	if(stat == DEAD)
 		msgs += "<span class='notice'>It appears to be dead.</span>\n"
@@ -248,7 +241,7 @@ var/global/list/ts_spiderling_list = list()
 			msgs += "<span class='notice'>It appears to be regenerating quickly.</span>"
 		if(killcount >= 1)
 			msgs += "<span class='warning'>It has blood dribbling from its mouth.</span>"
-	to_chat(usr,msgs.Join("<BR>"))
+	. += msgs.Join("<BR>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
@@ -271,12 +264,12 @@ var/global/list/ts_spiderling_list = list()
 		spider_awaymission = 1
 		ts_count_alive_awaymission++
 		if(spider_tier >= 3)
-			ai_ventcrawls = 0 // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
+			ai_ventcrawls = FALSE // means that pre-spawned bosses on away maps won't ventcrawl. Necessary to keep prince/mother in one place.
 		if(istype(get_area(src), /area/awaymission/UO71)) // if we are playing the away mission with our special spiders...
 			spider_uo71 = 1
 			if(world.time < 600)
 				// these are static spiders, specifically for the UO71 away mission, make them stay in place
-				ai_ventcrawls = 0
+				ai_ventcrawls = FALSE
 				spider_placed = 1
 	else
 		ts_count_alive_station++
@@ -364,7 +357,7 @@ var/global/list/ts_spiderling_list = list()
 			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
-	if(faction.len != 1 || (!("terrorspiders" in faction)) || master_commander != null)
+	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
 		to_chat(src, "<span class='userdanger'>Your connection to the hive mind has been severed!</span>")
 		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
 		gib()

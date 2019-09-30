@@ -85,17 +85,17 @@
 	return ..()
 
 /obj/item/gun/examine(mob/user)
-	..()
+	. = ..()
 	if(unique_reskin && !current_skin)
-		to_chat(user, "<span class='notice'>Alt-click it to reskin it.</span>")
+		. += "<span class='notice'>Alt-click it to reskin it.</span>"
 	if(unique_rename)
-		to_chat(user, "<span class='notice'>Use a pen on it to rename it.</span>")
+		. += "<span class='notice'>Use a pen on it to rename it.</span>"
 	if(bayonet)
-		to_chat(user, "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
+		. += "It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it."
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			to_chat(user, "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>")
+			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
-		to_chat(user, "It has a <b>bayonet</b> lug on it.")
+		. += "It has a <b>bayonet</b> lug on it."
 
 /obj/item/gun/proc/process_chamber()
 	return 0
@@ -123,12 +123,6 @@
 			user.visible_message("<span class='danger'>[user] fires [src] point blank at [pbtarget]!</span>", "<span class='danger'>You fire [src] point blank at [pbtarget]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
 		else
 			user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
-
-	if(weapon_weight >= WEAPON_MEDIUM)
-		if(user.get_inactive_hand())
-			if(prob(15))
-				if(user.drop_item())
-					user.visible_message("<span class='danger'>[src] flies out of [user]'s hands!</span>", "<span class='userdanger'>[src] kicks out of your grip!</span>")
 
 /obj/item/gun/emp_act(severity)
 	for(var/obj/O in contents)
@@ -174,7 +168,20 @@
 		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
 		return
 
-	process_fire(target,user,1,params)
+	//DUAL WIELDING
+	var/bonus_spread = 0
+	var/loop_counter = 0
+	if(ishuman(user) && user.a_intent == INTENT_HARM)
+		var/mob/living/carbon/human/H = user
+		for(var/obj/item/gun/G in get_both_hands(H))
+			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+				continue
+			else if(G.can_trigger_gun(user))
+				bonus_spread += 24 * G.weapon_weight
+				loop_counter++
+				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+
+	process_fire(target,user,1,params, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
 	if(!user.can_use_guns(src))
@@ -184,20 +191,20 @@
 		return 0
 	return 1
 
-obj/item/gun/proc/newshot()
+/obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	add_fingerprint(user)
 
 	if(semicd)
 		return
 
-	if(weapon_weight)
-		if(user.get_inactive_hand())
-			recoil = 4 //one-handed kick
-		else
-			recoil = initial(recoil)
+	var/sprd = 0
+	var/randomized_gun_spread = 0
+	if(spread)
+		randomized_gun_spread =	rand(0,spread)
+	var/randomized_bonus_spread = rand(0, bonus_spread)
 
 	if(burst_size > 1)
 		firing_burst = 1
@@ -208,11 +215,10 @@ obj/item/gun/proc/newshot()
 				if( i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
-				var/sprd = 0
 				if(randomspread)
-					sprd = round((rand() - 0.5) * spread)
+					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
 				else
-					sprd = round((i / burst_size - 0.5) * spread)
+					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
 				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
 					shoot_with_empty_chamber(user)
 					break
@@ -230,7 +236,8 @@ obj/item/gun/proc/newshot()
 		firing_burst = 0
 	else
 		if(chambered)
-			if(!chambered.fire(target, user, params, , suppressed, zone_override, spread))
+			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
+			if(!chambered.fire(target, user, params, , suppressed, zone_override, sprd))
 				shoot_with_empty_chamber(user)
 				return
 			else

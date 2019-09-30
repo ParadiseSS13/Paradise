@@ -56,13 +56,14 @@
 	update_icon()
 
 /obj/item/gun/dartgun/examine(mob/user)
-	if(..(user, 2))
+	. = ..()
+	if(get_dist(user, src) <= 2)
 		if(beakers.len)
-			to_chat(user, "<span class='notice'>[src] contains:</span>")
+			. += "<span class='notice'>[src] contains:</span>"
 			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
 				if(B.reagents && B.reagents.reagent_list.len)
 					for(var/datum/reagent/R in B.reagents.reagent_list)
-						to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
+						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
 
 /obj/item/gun/dartgun/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I, /obj/item/dart_cartridge))

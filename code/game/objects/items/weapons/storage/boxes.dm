@@ -1059,6 +1059,15 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 
+/obj/item/storage/box/emptysandbags
+	name = "box of empty sandbags"
+
+/obj/item/storage/box/emptysandbags/New()
+	..()
+	contents = list()
+	for(var/i in 1 to 7)
+		new /obj/item/emptysandbag(src)
+
 /obj/item/storage/box/rndboards
 	name = "the Liberator's legacy"
 	desc = "A box containing a gift for worthy golems."
@@ -1095,15 +1104,6 @@
 		new /obj/item/stock_parts/manipulator/femto(src)
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
-
-/obj/item/storage/box/mininghardsuit
-	name = "Boxed Mining Hardsuit"
-	desc = "Contains a mining hardsuit and helmet. For mining."
-
-/obj/item/storage/box/mininghardsuit/New()
-	..()
-	new /obj/item/clothing/suit/space/hardsuit/mining(src)
-	new /obj/item/clothing/head/helmet/space/hardsuit/mining(src)
 
 /obj/item/storage/box/hug
 	name = "box of hugs"

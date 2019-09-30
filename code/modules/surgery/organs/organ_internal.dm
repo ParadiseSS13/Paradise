@@ -8,7 +8,7 @@
 	var/non_primary = 0
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
-/obj/item/organ/internal/New(var/mob/living/carbon/holder)
+/obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
 	if(istype(holder))
 		insert(holder)
@@ -285,7 +285,7 @@
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
 	owner.setBrainLoss(80)
-	owner.nutrition = 9000
+	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 
 

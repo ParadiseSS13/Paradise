@@ -694,7 +694,6 @@
 /obj/structure/rack,
 /obj/item/clothing/suit/space/hardsuit/medical,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/medical,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -1275,12 +1274,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"acV" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
 "acW" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -1856,7 +1849,7 @@
 	},
 /area/shuttle/syndicate)
 "aem" = (
-/obj/machinery/vending/wallmed1/syndicate{
+/obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/shuttle/floor{
@@ -3304,7 +3297,6 @@
 /obj/item/tank/oxygen,
 /obj/item/clothing/suit/space/hardsuit/security,
 /obj/item/clothing/mask/breath,
-/obj/item/clothing/head/helmet/space/hardsuit/security,
 /obj/item/clothing/shoes/magboots,
 /obj/item/tank/jetpack/oxygen,
 /obj/item/radio/intercom{
@@ -6079,10 +6071,6 @@
 "ane" = (
 /obj/machinery/bodyscanner,
 /obj/machinery/light/spot,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
-"anf" = (
-/obj/machinery/body_scanconsole,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ang" = (
@@ -22516,7 +22504,7 @@
 	},
 /area/crew_quarters/bar/atrium)
 "aRy" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/bar/atrium)
 "aRz" = (
@@ -23424,7 +23412,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -24307,7 +24295,7 @@
 	},
 /area/crew_quarters/bar/atrium)
 "aUH" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -32128,7 +32116,7 @@
 	},
 /obj/machinery/iv_drip,
 /obj/structure/bed,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	pixel_y = 28
 	},
 /obj/item/bedsheet/blue,
@@ -49654,8 +49642,8 @@
 /obj/item/radio/intercom{
 	pixel_y = 28
 	},
-/obj/machinery/deployable/barrier,
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
@@ -49675,8 +49663,8 @@
 	},
 /area/security/armoury)
 "bLK" = (
-/obj/machinery/deployable/barrier,
-/obj/machinery/deployable/barrier,
+/obj/item/grenade/barrier,
+/obj/item/grenade/barrier,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
@@ -51454,7 +51442,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63303,7 +63291,7 @@
 	icon_state = "alarm0";
 	pixel_x = 24
 	},
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -78582,7 +78570,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cKn" = (
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
 "cKo" = (
@@ -88694,7 +88682,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -88704,12 +88692,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "dcT" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -90225,7 +90213,7 @@
 /area/maintenance/gambling_den)
 "dfP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood{
@@ -91059,7 +91047,7 @@
 	},
 /area/maintenance/gambling_den)
 "dhw" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -91068,7 +91056,7 @@
 /area/maintenance/gambling_den)
 "dhx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -92015,7 +92003,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "diY" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -92034,7 +92022,7 @@
 /area/maintenance/gambling_den)
 "dja" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -92809,7 +92797,7 @@
 	},
 /area/maintenance/gambling_den)
 "dkr" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -93272,7 +93260,6 @@
 /area/medical/medbay)
 "dll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitebluecorner";
@@ -93286,7 +93273,7 @@
 	dir = 1;
 	network = list("SS13")
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitepurplecorner"
@@ -93993,7 +93980,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/construction)
 "dmM" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/gambling_den)
 "dmN" = (
@@ -94150,7 +94137,7 @@
 	},
 /area/toxins/explab)
 "dnd" = (
-/mob/living/simple_animal/pet/pug,
+/mob/living/simple_animal/pet/dog/pug,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -95841,7 +95828,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
 "dpR" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -96435,20 +96422,19 @@
 	pixel_x = 0;
 	pixel_y = -32
 	},
-/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/medical/surgery)
 "dqS" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
 	pixel_y = 0;
 	req_access_txt = "0"
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96536,7 +96522,7 @@
 	},
 /area/maintenance/gambling_den)
 "dra" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -98536,7 +98522,7 @@
 	pixel_x = 12;
 	pixel_y = 0
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
@@ -99078,7 +99064,7 @@
 /area/medical/morgue)
 "dvF" = (
 /obj/structure/table/glass,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 0;
@@ -101100,7 +101086,7 @@
 	},
 /area/crew_quarters/theatre)
 "dzq" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -101864,7 +101850,7 @@
 	dir = 4;
 	level = 1
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -102307,7 +102293,7 @@
 	},
 /area/crew_quarters/theatre)
 "dBq" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -107255,7 +107241,7 @@
 /area/medical/virology)
 "dKC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -108636,21 +108622,21 @@
 	},
 /area/chapel/office)
 "dMT" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dMU" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dMV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
@@ -108658,14 +108644,14 @@
 /area/chapel/main)
 "dMW" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dMX" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 28
@@ -109005,14 +108991,14 @@
 	},
 /area/chapel/office)
 "dNJ" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
 	},
 /area/chapel/main)
 "dNK" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -109020,7 +109006,7 @@
 /area/chapel/main)
 "dNL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -109028,7 +109014,7 @@
 /area/chapel/main)
 "dNM" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "chapel"
@@ -109380,7 +109366,7 @@
 	},
 /area/chapel/office)
 "dOq" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 8
@@ -109403,7 +109389,7 @@
 	},
 /area/chapel/main)
 "dOt" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/light{
 	icon_state = "tube1";
 	dir = 4
@@ -111458,7 +111444,7 @@
 /area/chapel/office)
 "dSf" = (
 /obj/machinery/light/small,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /obj/machinery/newscaster{
@@ -111471,7 +111457,7 @@
 /area/chapel/main)
 "dSg" = (
 /obj/machinery/light/small,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /obj/machinery/newscaster{
@@ -111673,7 +111659,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
@@ -145834,7 +145820,7 @@ aaa
 aaa
 acA
 acN
-acV
+acW
 acW
 acW
 acW
@@ -177471,7 +177457,7 @@ akm
 alU
 ams
 akn
-anf
+akn
 anD
 aok
 aaa

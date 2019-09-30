@@ -66,6 +66,12 @@
 	l_ear = /obj/item/radio/headset/headset_service
 	pda = /obj/item/pda/chef
 
+/datum/outfit/job/chef/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	var/datum/martial_art/cqc/under_siege/justacook = new
+	justacook.teach(H)
 
 
 /datum/job/hydro
@@ -280,9 +286,14 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	H.mutations.Add(CLUMSY)
+	H.dna.SetSEState(CLUMSYBLOCK, TRUE)
+	genemutcheck(H, CLUMSYBLOCK, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(CLUMSYBLOCK)
 	if(!ismachine(H))
-		H.mutations.Add(COMIC)
+		H.dna.SetSEState(COMICBLOCK, TRUE)
+		genemutcheck(H, COMICBLOCK, null, MUTCHK_FORCED)
+		H.dna.default_blocks.Add(COMICBLOCK)
+	H.check_mutations = TRUE
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy

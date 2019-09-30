@@ -228,6 +228,7 @@
 	icon_state = "fake-moustache"
 	flags_inv = HIDEFACE
 	actions_types = list(/datum/action/item_action/pontificate)
+	dog_fashion = /datum/dog_fashion/head/not_ian
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
@@ -258,6 +259,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_SMALL
 	gas_transfer_coefficient = 0.90
+
 
 /obj/item/clothing/mask/redscarf
 	name = "red scarf"
@@ -482,6 +484,11 @@
 	icon_state = "bandblack"
 	item_color = "black"
 	desc = "It's a black bandana."
+
+/obj/item/clothing/mask/bandana/durathread
+	name = "durathread bandana"
+	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
+	icon_state = "banddurathread"
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"

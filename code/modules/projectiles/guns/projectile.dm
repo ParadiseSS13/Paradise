@@ -149,8 +149,8 @@
 	return
 
 /obj/item/gun/projectile/examine(mob/user)
-	..()
-	to_chat(user, "Has [get_ammo()] round\s remaining.")
+	. = ..()
+	. += "Has [get_ammo()] round\s remaining."
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people

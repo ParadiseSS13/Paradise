@@ -19,8 +19,7 @@
 	ventcrawler = 1
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
-	ai_type = TS_AI_AGGRESSIVE
-	rapid = 1
+	rapid = 3
 	canlay = 1000
 	spider_tier = TS_TIER_5
 	projectiletype = /obj/item/projectile/terrorqueenspit/empress
@@ -39,7 +38,7 @@
 	empresserase_action = new()
 	empresserase_action.Grant(src)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/handle_automated_action()
+/mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/spider_special_action()
 	return
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress/NestMode()

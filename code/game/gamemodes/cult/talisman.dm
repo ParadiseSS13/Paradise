@@ -12,12 +12,13 @@
 	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /obj/item/paper/talisman/examine(mob/user)
+	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		to_chat(user, "<b>Name:</b> [cultist_name]")
-		to_chat(user, "<b>Effect:</b> [cultist_desc]")
-		to_chat(user, "<b>Uses Remaining:</b> [uses]")
+		. += "<b>Name:</b> [cultist_name]"
+		. += "<b>Effect:</b> [cultist_desc]"
+		. += "<b>Uses Remaining:</b> [uses]"
 	else
-		to_chat(user, "You see strange symbols on the paper. Are they supposed to mean something?")
+		. += "You see strange symbols on the paper. Are they supposed to mean something?"
 
 /obj/item/paper/talisman/attack_self(mob/living/user)
 	if(!iscultist(user))
@@ -291,11 +292,8 @@
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [user]!</span>", \
 						 "<span class='cultitalic'>You speak the words of the talisman, arming yourself!</span>")
-	if(isplasmaman(H))
-		H.equip_to_slot(new /obj/item/clothing/suit/space/eva/plasmaman/cultist(H), slot_wear_suit)
-		H.equip_to_slot(new /obj/item/clothing/head/helmet/space/eva/plasmaman/cultist(H), slot_head)
-	else
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
+
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), slot_back)
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)
 	H.put_in_hands(new /obj/item/melee/cultblade(user))

@@ -27,8 +27,8 @@
 /obj/item/survivalcapsule/examine(mob/user)
 	. = ..()
 	get_template()
-	to_chat(user, "This capsule has the [template.name] stored.")
-	to_chat(user, template.description)
+	. += "This capsule has the [template.name] stored."
+	. += template.description
 
 /obj/item/survivalcapsule/attack_self()
 	// Can't grab when capsule is New() because templates aren't loaded then
@@ -77,6 +77,7 @@
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 100
 	fulltile = TRUE
+	flags = PREVENT_CLICK_UNDER
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100)
@@ -159,11 +160,10 @@
 	RefreshParts()
 
 //NanoMed
-/obj/machinery/vending/wallmed1/survival_pod
+/obj/machinery/vending/wallmed/survival_pod
 	name = "survival pod medical supply"
 	desc = "Wall-mounted Medical Equipment dispenser. This one seems just a tiny bit smaller."
 	req_access = list()
-	refill_canister = null
 
 	products = list(/obj/item/reagent_containers/food/pill/patch/styptic = 5,
 					/obj/item/reagent_containers/food/pill/patch/silver_sulf = 5,
@@ -294,9 +294,10 @@
 
 /obj/structure/fans/tiny/invisible
 	name = "air flow blocker"
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
+	resistance_flags = INDESTRUCTIBLE
+	burn_state = LAVA_PROOF
 	unacidable = TRUE
-	invisibility = INVISIBILITY_ABSTRACT	
+	invisibility = INVISIBILITY_ABSTRACT
 
 //Signs
 /obj/structure/sign/mining
@@ -340,7 +341,7 @@
 						/obj/item/shield/changeling,
 						/obj/item/lava_staff,
 						/obj/item/katana/energy,
-						/obj/item/hierophant_staff,
+						/obj/item/hierophant_club,
 						/obj/item/storage/toolbox/green/memetic,
 						/obj/item/gun/projectile/automatic/l6_saw,
 						/obj/item/gun/magic/staff/chaos,
