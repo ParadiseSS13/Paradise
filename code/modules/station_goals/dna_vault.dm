@@ -212,7 +212,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	if(user in power_lottery)
 		return
 	var/list/L = list()
-	var/list/possible_powers = list(VAULT_TOXIN,VAULT_NOBREATH,VAULT_FIREPROOF,VAULT_STUNTIME,VAULT_ARMOUR,VAULT_SPEED,VAULT_QUICK)
+	var/list/possible_powers = list(VAULT_TOXIN, VAULT_NOBREATH, VAULT_FIREPROOF, VAULT_STUNTIME, VAULT_ARMOUR, VAULT_SPEED, VAULT_QUICK)
 	L += pick_n_take(possible_powers)
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
@@ -277,7 +277,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		return
 	var/datum/species/S = H.dna.species
 	if(NO_DNA in S.species_traits)
-		to_chat(H, "<span class='warning'>Erorr, no DNA detected.</span>")
+		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
 		return
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
