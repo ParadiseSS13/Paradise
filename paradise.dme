@@ -1155,6 +1155,8 @@
 #include "code\HISPANIA\datums\diseases\spacepox.dm"
 #include "code\HISPANIA\defines\procs\discord.dm"
 #include "code\HISPANIA\game\hispania_items.dm"
+#include "code\HISPANIA\game\jobs\job_objectives\engineering.dm"
+#include "code\HISPANIA\game\jobs\job_objectives\science.dm"
 #include "code\HISPANIA\game\machinery\jukebox.dm"
 #include "code\HISPANIA\game\machinery\vending.dm"
 #include "code\HISPANIA\game\mecha\equipament\tools\medical_tools.dm"
