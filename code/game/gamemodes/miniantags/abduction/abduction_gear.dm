@@ -268,8 +268,9 @@
 	for(var/obj/I in all_items)
 		if(istype(I, /obj/item/radio))
 			var/obj/item/radio/r = I
+			I.emp_act(1)
 			r.listening = 0
-			if(!istype(I, /obj/item/radio/headset))
+			if(istype(I, /obj/item/radio/headset))
 				r.broadcasting = 0 //goddamned headset hacks
 
 /obj/item/abductor/mind_device
