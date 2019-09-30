@@ -51257,6 +51257,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/machinery/vending/walldrobe/cap{
+	pixel_y = 28
+	},
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
 "bQA" = (
@@ -63145,6 +63148,9 @@
 	dir = 4
 	},
 /obj/structure/table/glass,
+/obj/machinery/vending/walldrobe/rd{
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
