@@ -1098,25 +1098,23 @@ var/list/slot_equipment_priority = list( \
 				if(!L.key)
 					creatures += L
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
+		var/mob/dead/observer/O = src
 		switch(picked)
 			if("Mouse")
-				GLOB.respawnable_list -= usr
-				become_mouse()
-				spawn(5)
-					GLOB.respawnable_list += usr
+				become_mouse(O)
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					GLOB.respawnable_list -= usr
-					NPC.key = key
-					spawn(5)
-						GLOB.respawnable_list += usr
+					if(mind)
+						O.mind.transfer_to(picked)
+						GLOB.non_respawnable_keys -= ckey
+						O.reenter_corpse()
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
 		return
 
 
-/mob/proc/become_mouse()
+/mob/proc/become_mouse(mob/dead/observer/O)
 	var/timedifference = world.time - client.time_died_as_mouse
 	if(client.time_died_as_mouse && timedifference <= mouse_respawn_time * 600)
 		var/timedifference_text
@@ -1137,8 +1135,10 @@ var/list/slot_equipment_priority = list( \
 	else
 		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 
-	if(host)
-		host.ckey = src.ckey
+	if(mind && host)
+		O.mind.transfer_to(host)
+		GLOB.non_respawnable_keys -= ckey
+		O.reenter_corpse()
 		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 
 /mob/proc/assess_threat() //For sec bot threat assessment

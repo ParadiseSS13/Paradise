@@ -96,7 +96,7 @@
 	else
 		if("neutral" in S.faction)
 			S.forceMove(src)
-			S.name = "[M.name]'s [initial(S.name)]"
+			S.name = "[M.name]&#39s [initial(S.name)]"
 			S.cancel_camera()
 			name = "Lazarus Capsule: [initial(S.name)]"
 			to_chat(M, "<span class='notice'>You placed a [S.name] inside the Lazarus Capsule!</span>")
