@@ -14355,7 +14355,7 @@
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
 /obj/machinery/door_control{
-	id = "magistrate";
+	id = "magistrateofficedoor";
 	name = "Office Door";
 	normaldoorcontrol = 1;
 	pixel_x = -6;
@@ -16600,6 +16600,7 @@
 "aBC" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
+	id_tag = "magistrateofficedoor";
 	name = "Magistrate's Office";
 	req_access_txt = "74"
 	},
