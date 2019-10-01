@@ -102,7 +102,6 @@
 
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
-	initial_density = density
 	GLOB.simple_animals[AIStatus] += src
 	if(gender == PLURAL)
 		gender = pick(MALE, FEMALE)
