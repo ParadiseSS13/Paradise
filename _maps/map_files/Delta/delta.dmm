@@ -2679,16 +2679,13 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "afL" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/machinery/hispaniabox{
+	anchored = 1
 	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
+/turf/simulated/floor/plasteel{
+	icon_state = "redyellowfull"
 	},
-/area/shuttle/pod_3)
+/area/crew_quarters/bar/atrium)
 "afM" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
@@ -5703,8 +5700,8 @@
 	},
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
 	dir = 2
 	},
 /area/shuttle/pod_3)
@@ -97446,6 +97443,17 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/medical/genetics)
+"dsb" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/pod_3)
 "dsc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
@@ -154917,7 +154925,7 @@ aJb
 aKs
 aZZ
 aNj
-aNi
+afL
 aNi
 aRG
 aNi
@@ -174970,9 +174978,9 @@ aaa
 abi
 abj
 aMq
-afL
-bbI
 ami
+bbI
+dsb
 aMq
 abj
 abj
