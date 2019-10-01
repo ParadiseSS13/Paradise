@@ -1,0 +1,4 @@
+author: "TheSardele"
+delete-after: True
+changes: 
+  - tweak: "MULEbots no longer cause any damage when running over SSDs."
