@@ -42,4 +42,4 @@
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/door_remote/quartermaster(src)
-	new /obj/item/autoimplanter/meson(src)
+	new /obj/item/autoimplanter/head/meson(src)
