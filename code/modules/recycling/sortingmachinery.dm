@@ -10,6 +10,18 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 
+/obj/structure/bigDelivery/Destroy()
+	var/turf/T = get_turf(src)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
+	return ..()
+
+/obj/structure/bigDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
+
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
@@ -74,6 +86,12 @@
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
+
+/obj/item/smallDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
 
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0

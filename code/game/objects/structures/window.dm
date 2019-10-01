@@ -257,7 +257,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 					take_damage(75)
 			return
 
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		if(isscrewdriver(I))
 			playsound(src, I.usesound, 75, 1)
 			if(reinf)

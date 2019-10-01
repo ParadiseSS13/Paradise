@@ -176,20 +176,6 @@ Class Procs:
 		new /obj/effect/temp_visual/emp(loc)
 	..()
 
-/obj/machinery/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				qdel(src)
-
-
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
 	use_power = new_use_power
@@ -385,7 +371,7 @@ Class Procs:
 	gl_uid++
 
 /obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
-	if(istype(C) && (panel_open || ignore_panel))
+	if(istype(C) && (panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
 		playsound(loc, C.usesound, 50, 1)
 		deconstruct(TRUE)
 		return 1
@@ -416,7 +402,7 @@ Class Procs:
 		stat |= BROKEN
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)
-	if(istype(S))
+	if(!(flags & NODECONSTRUCT) && istype(S))
 		playsound(loc, S.usesound, 50, 1)
 		if(!panel_open)
 			panel_open = 1
@@ -438,7 +424,7 @@ Class Procs:
 	return 0
 
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench/W, time = 20)
-	if(istype(W))
+	if(!(flags & NODECONSTRUCT) && istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		playsound(loc, W.usesound, 50, 1)
 		if(do_after(user, time * W.toolspeed, target = src))
@@ -453,6 +439,8 @@ Class Procs:
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
+	if((flags & NODECONSTRUCT))
+		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)
 			var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts

@@ -286,35 +286,18 @@
 	src.occupant.forceMove(src.loc)
 	src.occupant = null
 	src.icon_state = "scanner_open"
-	return
 
 /obj/machinery/dna_scannernew/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				ex_act(severity)
-				//Foreach goto(35)
-			//SN src = null
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					ex_act(severity)
-					//Foreach goto(108)
-				//SN src = null
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					ex_act(severity)
-					//Foreach goto(181)
-				//SN src = null
-				qdel(src)
+	if(occupant)
+		occupant.ex_act(severity)
+	..()
+
+/obj/machinery/dna_scannernew/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
 
 // Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
 /obj/machinery/dna_scannernew/proc/radiation_check()
@@ -371,18 +354,6 @@
 			return
 	else
 		..()
-	return
-
-/obj/machinery/computer/scan_consolenew/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			//SN src = null
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				//SN src = null
-				qdel(src)
 
 /obj/machinery/computer/scan_consolenew/New()
 	..()

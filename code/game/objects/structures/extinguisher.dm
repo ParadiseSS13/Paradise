@@ -48,6 +48,16 @@
 	QDEL_NULL(has_extinguisher)
 	return ..()
 
+/obj/structure/extinguisher_cabinet/ex_act(severity)
+	if(has_extinguisher)
+		has_extinguisher.ex_act(severity)
+	..()
+
+/obj/structure/extinguisher_cabinet/handle_atom_del(atom/A)
+	if(A == has_extinguisher)
+		has_extinguisher = null
+		update_icon()
+
 /obj/structure/extinguisher_cabinet/attackby(obj/item/O, mob/user, params)
 	if(isrobot(user) || isalien(user))
 		return
@@ -124,6 +134,15 @@
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
 	update_icon()
+
+/obj/structure/extinguisher_cabinet/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		broken = 1
+		opened = 1
+		if(has_extinguisher)
+			has_extinguisher.forceMove(loc)
+			has_extinguisher = null
+		update_icon()
 
 /obj/structure/extinguisher_cabinet/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

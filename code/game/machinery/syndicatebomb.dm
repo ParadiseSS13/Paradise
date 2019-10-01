@@ -37,6 +37,14 @@
 	if(.)
 		payload.detonate()
 
+/obj/machinery/syndicatebomb/obj_break()
+	if(!try_detonate())
+		..()
+
+/obj/machinery/syndicatebomb/obj_destruction()
+	if(!try_detonate())
+		..()
+
 /obj/machinery/syndicatebomb/process()
 	if(!active)
 		STOP_PROCESSING(SSfastprocess, src)

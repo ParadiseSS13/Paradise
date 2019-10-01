@@ -34,6 +34,17 @@
 /obj/effect/experience_pressure_difference()
 	return
 
+/obj/effect/ex_act(severity)
+	switch(severity)
+		if(1)
+			qdel(src)
+		if(2)
+			if(prob(60))
+				qdel(src)
+		if(3)
+			if(prob(25))
+				qdel(src)
+
 /obj/effect/decal
 	plane = FLOOR_PLANE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -68,7 +79,7 @@
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			R.on_ex_act()
-	..()
+	qdel(src)
 
 /obj/effect/decal/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(reagents)

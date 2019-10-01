@@ -49,15 +49,6 @@
 /obj/structure/lattice/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/lattice/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			qdel(src)
-		if(3)
-			return
-
 /obj/structure/lattice/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FOUR)
 		deconstruct()

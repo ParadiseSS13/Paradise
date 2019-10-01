@@ -26,18 +26,6 @@
 	master_commander = null
 	return ..()
 
-//similar to weeds, but only barfed out by nurses manually
-/obj/structure/spider/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(5))
-				qdel(src)
-
 /obj/structure/spider/attackby(obj/item/W, mob/user, params)
 	if(W.attack_verb.len)
 		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] [src] with [W]!</span>")

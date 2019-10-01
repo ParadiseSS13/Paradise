@@ -42,13 +42,6 @@
 	//height=42
 	icon='icons/fence-ns.dmi'
 
-/obj/structure/grille/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		else
-			take_damage(rand(5,10), BRUTE, 0)
-
 /obj/structure/grille/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	update_icon()
@@ -234,9 +227,9 @@
 	..()
 
 /obj/structure/grille/obj_break()
-	if(!broken && can_deconstruct)
+	if(!broken && !(flags & NODECONSTRUCT))
 		new broken_type(loc)
-		var/obj/R = new rods_type(loc, rods_broken)
+		var/obj/R = new rods_type(drop_location(), rods_broken)
 		transfer_fingerprints_to(R)
 		qdel(src)
 

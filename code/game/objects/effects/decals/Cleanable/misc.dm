@@ -75,6 +75,9 @@
 	. = ..()
 	QDEL_IN(src, 2 MINUTES)
 
+/obj/effect/decal/cleanable/greenglow/ex_act()
+	return
+
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"
 	desc = "Somebody should remove that."

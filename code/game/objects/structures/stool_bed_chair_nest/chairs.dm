@@ -295,21 +295,6 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
-/obj/structure/chair/stool/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(70))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(50))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."

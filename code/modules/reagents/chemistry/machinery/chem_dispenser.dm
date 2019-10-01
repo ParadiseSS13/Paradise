@@ -56,7 +56,7 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	can_deconstruct = FALSE
+	flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
 		"mutagen",
@@ -134,12 +134,16 @@
 	SSnanoui.update_uis(src) // update all UIs attached to src
 
 /obj/machinery/chem_dispenser/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
+	if(severity < 3)
+		if(beaker)
+			beaker.ex_act(severity)
+		..()
+
+/obj/machinery/chem_dispenser/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		overlays.Cut()
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found

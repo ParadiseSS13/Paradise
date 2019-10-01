@@ -333,9 +333,6 @@ var/bomb_set
 
 	SSnanoui.update_uis(src)
 
-/obj/machinery/nuclearbomb/ex_act(severity)
-	return
-
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(timing == -1.0)
 		return

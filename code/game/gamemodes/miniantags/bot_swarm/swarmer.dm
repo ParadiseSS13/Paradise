@@ -516,17 +516,6 @@
 	spawn(5)
 		qdel(src)
 
-/obj/structure/swarmer/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item))
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
-		take_damage(I.force)
-	return
-
-/obj/structure/swarmer/ex_act()
-	qdel(src)
-	return
-
 /obj/structure/swarmer/emp_act()
 	qdel(src)
 

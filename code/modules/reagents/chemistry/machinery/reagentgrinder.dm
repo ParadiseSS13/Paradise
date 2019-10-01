@@ -122,6 +122,11 @@
 		beaker.ex_act(severity)
 	..()
 
+/obj/machinery/reagentgrinder/handle_atom_del(atom/A)
+	if(A == beaker)
+		beaker = null
+		update_icon()
+
 /obj/machinery/reagentgrinder/update_icon()
 	if(beaker)
 		icon_state = "juicer1"

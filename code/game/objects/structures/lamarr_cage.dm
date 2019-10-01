@@ -10,21 +10,6 @@
 	var/occupied = 1
 	var/destroyed = 0
 
-/obj/structure/lamarr/ex_act(severity)
-	switch(severity)
-		if(1)
-			new /obj/item/shard(loc)
-			Break()
-			qdel(src)
-		if(2)
-			if(prob(50))
-				src.health -= 15
-				src.healthcheck()
-		if(3)
-			if(prob(50))
-				src.health -= 5
-				src.healthcheck()
-
 /obj/structure/lamarr/proc/healthcheck()
 	if(src.health <= 0)
 		if(!( src.destroyed ))

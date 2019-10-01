@@ -239,7 +239,7 @@
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status)
+	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
 		wires.CutAll()

@@ -124,6 +124,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
 	qdel(src)
 
+/obj/item/stack/ore/glass/ex_act(severity)
+	if(severity == EXPLODE_NONE)
+		return
+	qdel(src)
+
 /obj/item/stack/ore/glass/basalt
 	name = "volcanic ash"
 	icon_state = "volcanic_sand"

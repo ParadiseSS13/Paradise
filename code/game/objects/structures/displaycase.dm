@@ -178,21 +178,14 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 			burglar_alarm()
 	qdel(src)
 
-/obj/structure/displaycase/ex_act(severity)
-	switch(severity)
-		if(1)
-			new /obj/item/shard(loc)
-			if(occupant)
-				dump()
-			qdel(src)
-		if(2)
-			if(prob(50))
-				src.health -= 15
-				src.healthcheck()
-		if(3)
-			if(prob(50))
-				src.health -= 5
-				src.healthcheck()
+/obj/structure/displaycase/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		density = FALSE
+		broken = 1
+		new /obj/item/shard( src.loc )
+		playsound(src, "shatter", 70, TRUE)
+		update_icon()
+		burglar_alarm()
 
 /obj/structure/displaycase/proc/healthcheck()
 	if(src.health <= 0)

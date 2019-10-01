@@ -30,31 +30,6 @@
 		return 0
 	return 1
 
-/obj/machinery/computer/emp_act(severity)
-	if(prob(20/severity)) set_broken()
-	..()
-
-
-/obj/machinery/computer/ex_act(severity)
-	if(!(resistance_flags & INDESTRUCTIBLE))
-		switch(severity)
-			if(1.0)
-				qdel(src)
-				return
-			if(2.0)
-				if(prob(25))
-					qdel(src)
-					return
-				if(prob(50))
-					for(var/x in verbs)
-						verbs -= x
-					set_broken()
-			if(3.0)
-				if(prob(25))
-					for(var/x in verbs)
-						verbs -= x
-					set_broken()
-
 /obj/machinery/computer/extinguish_light()
 	set_light(0)
 	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")

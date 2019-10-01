@@ -43,6 +43,21 @@
 	QDEL_NULL(storedpda)
 	return ..()
 
+/obj/machinery/pdapainter/on_deconstruction()
+	if(storedpda)
+		storedpda.forceMove(loc)
+		storedpda = null
+
+/obj/machinery/pdapainter/ex_act(severity)
+	if(storedpda)
+		storedpda.ex_act(severity)
+	..()
+
+/obj/machinery/pdapainter/handle_atom_del(atom/A)
+	if(A == storedpda)
+		storedpda = null
+		update_icon()
+
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		power_change()

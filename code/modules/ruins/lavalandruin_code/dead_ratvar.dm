@@ -77,7 +77,6 @@
 	icon_state = "wall_gear"
 	climbable = TRUE
 	max_integrity = 100
-	can_deconstruct = TRUE
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -141,7 +140,7 @@
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && disassembled)
+	if(!(flags & NODECONSTRUCT) && disassembled)
 		new /obj/item/stack/tile/brass(loc, 3)
 	return ..()
 

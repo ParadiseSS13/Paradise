@@ -87,6 +87,11 @@ var/list/holopads = list()
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
 
+/obj/machinery/hologram/holopad/obj_break()
+	. = ..()
+	if(outgoing_call)
+		outgoing_call.ConnectionFailure(src)
+
 /obj/machinery/hologram/holopad/RefreshParts()
 	var/holograph_range = 4
 	for(var/obj/item/stock_parts/capacitor/B in component_parts)
@@ -480,7 +485,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)
 		. = Impersonation.examine(user)
-	else 
+	else
 		. = ..()
 
 

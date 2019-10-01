@@ -50,6 +50,7 @@
 	max_equip = 4
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
+	destruction_sleep_duration = 1
 
 /obj/mecha/combat/gygax/dark/loaded/New()
 	..()

@@ -569,19 +569,6 @@
 		explosion(loc,0,0,0,flame_range = 5, adminlog = 0)
 	qdel(src)
 
-// explosion effect
-// destroy the whole light fixture or just shatter it
-
-/obj/machinery/light/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			break_light_tube()
-		if(3.0)
-			break_light_tube()
-
 // timed process
 // use power
 

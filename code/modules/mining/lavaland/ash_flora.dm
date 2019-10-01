@@ -26,17 +26,6 @@
 	base_icon = "[icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
-/obj/structure/flora/ash/ex_act(severity, target)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(80))
-				qdel(src)
-		if(3)
-			if(prob(50))
-				qdel(src)
-
 /obj/structure/flora/ash/proc/harvest(user)
 	if(harvested)
 		return 0

@@ -22,9 +22,7 @@
 
 /obj/effect/decal/mecha_wreckage/ex_act(severity)
 	if(severity < 2)
-		spawn
-			qdel(src)
-	return
+		qdel(src)
 
 /obj/effect/decal/mecha_wreckage/bullet_act(obj/item/projectile/Proj)
 	return

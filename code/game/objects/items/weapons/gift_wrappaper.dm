@@ -33,11 +33,6 @@
 	else
 		to_chat(user, "<span class='notice'>The gift was empty!</span>")
 	qdel(src)
-	return
-
-/obj/item/a_gift/ex_act()
-	qdel(src)
-	return
 
 /obj/effect/spresent/relaymove(mob/user as mob)
 	if(user.stat)

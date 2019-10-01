@@ -60,7 +60,7 @@
 	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
-/obj/effect/countdown/ex_act(severity, target) //immune to explosions
+/obj/effect/countdown/ex_act(severity) //immune to explosions
 	return
 
 /obj/effect/countdown/singularity_pull()

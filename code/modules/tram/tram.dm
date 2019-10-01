@@ -237,25 +237,6 @@
 	gen_collision() //Generate collision again
 	return 1
 
-//////////////////////DAMAGE PROCS
-/obj/tram/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-			return
-		if(3.0)
-			if(prob(25))
-				qdel(src)
-			return
-
-/obj/tram/blob_act(obj/structure/blob/B)
-	if(prob(50))
-		qdel(src)
-
 /obj/tram/attack_animal(var/mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)	return
 	if(prob(M.melee_damage_upper))

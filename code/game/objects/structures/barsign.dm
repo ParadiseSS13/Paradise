@@ -38,6 +38,10 @@
 	else
 		desc = "It displays \"[name]\"."
 
+/obj/structure/sign/barsign/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		broken = TRUE
+
 /obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
 	new /obj/item/stack/cable_coil(drop_location(), 2)

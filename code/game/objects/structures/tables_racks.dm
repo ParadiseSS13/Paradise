@@ -210,7 +210,7 @@
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
 		return
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		if(isscrewdriver(I) && deconstruction_ready)
 			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
 			playsound(loc, I.usesound, 50, 1)
@@ -386,7 +386,7 @@
 
 /obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!can_deconstruct)
+	if(flags & NODECONSTRUCT)
 		return
 	if(!isliving(AM))
 		return
@@ -616,7 +616,7 @@
 		held_items += item.UID()
 
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 	qdel(src)

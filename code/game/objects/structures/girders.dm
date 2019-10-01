@@ -370,26 +370,6 @@
 		new /obj/structure/girder/cult(loc)
 		qdel(src)
 
-/obj/structure/girder/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-			return
-		if(2)
-			if(prob(75))
-				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
-				new remains(loc)
-				qdel(src)
-			return
-		if(3)
-			if(prob(40))
-				var/remains = pick(/obj/item/stack/rods,/obj/item/stack/sheet/metal)
-				new remains(loc)
-				qdel(src)
-			return
-		else
-	return
-
 /obj/structure/girder/displaced
 	name = "displaced girder"
 	icon_state = "displaced"

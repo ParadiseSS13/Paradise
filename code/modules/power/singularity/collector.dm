@@ -96,13 +96,10 @@ var/global/list/rad_collectors = list()
 		..()
 		return 1
 
-
-/obj/machinery/power/rad_collector/ex_act(severity)
-	switch(severity)
-		if(2, 3)
-			eject()
-	return ..()
-
+/obj/machinery/power/rad_collector/obj_break(damage_flag)
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		eject()
+		stat |= BROKEN
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = 0

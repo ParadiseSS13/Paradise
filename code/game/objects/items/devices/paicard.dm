@@ -335,12 +335,6 @@
 		M.emp_act(severity)
 	..()
 
-/obj/item/paicard/ex_act(severity)
-	if(pai)
-		pai.ex_act(severity)
-	else
-		qdel(src)
-
 /obj/item/paicard/extinguish_light()
 	pai.extinguish_light()
 	set_light(0)

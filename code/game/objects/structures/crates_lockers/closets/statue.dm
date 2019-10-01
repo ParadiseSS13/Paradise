@@ -92,12 +92,6 @@
 		for(var/mob/M in src)
 			shatter(M)
 
-/obj/structure/closet/statue/ex_act(severity)
-	for(var/mob/M in src)
-		M.ex_act(severity)
-		health -= 60 / severity
-		check_health()
-
 /obj/structure/closet/statue/attackby(obj/item/I as obj, mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	health -= I.force

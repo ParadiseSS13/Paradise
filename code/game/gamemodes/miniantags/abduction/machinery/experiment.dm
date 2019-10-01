@@ -201,6 +201,18 @@
 		add_fingerprint(user)
 		qdel(G)
 
+/obj/machinery/abductor/experiment/ex_act(severity)
+	if(occupant)
+		occupant.ex_act(severity)
+	..()
+
+/obj/machinery/abductor/experiment/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
+
 /obj/machinery/abductor/experiment/proc/eject_abductee()
 	if(!occupant)
 		return

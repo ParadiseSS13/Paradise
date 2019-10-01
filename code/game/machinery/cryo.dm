@@ -73,14 +73,30 @@
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
-	var/turf/T = get_turf(src)
-	if(istype(T))
-		T.contents += contents
-		var/obj/item/reagent_containers/glass/B = beaker
-		if(beaker)
-			B.forceMove(get_step(T, SOUTH)) //Beaker is carefully ejected from the wreckage of the cryotube
-			beaker = null
+	QDEL_NULL(beaker)
 	return ..()
+
+/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
+	if(occupant)
+		occupant.ex_act(severity)
+	if(beaker)
+		beaker.ex_act(severity)
+	..()
+
+/obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		updateUsrDialog()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
+
+/obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
+	if(beaker)
+		beaker.forceMove(drop_location())
+		beaker = null
 
 /obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/living/user as mob)
 	if(O.loc == user) //no you can't pull things out of your ass

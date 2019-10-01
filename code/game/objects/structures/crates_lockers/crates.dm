@@ -178,23 +178,6 @@
 			return
 	else return attack_hand(user)
 
-/obj/structure/closet/crate/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/obj/O in src.contents)
-				qdel(O)
-			qdel(src)
-			return
-		if(2.0)
-			for(var/obj/O in src.contents)
-				if(prob(50))
-					qdel(O)
-			qdel(src)
-			return
-		if(3.0)
-			if(prob(50))
-				qdel(src)
-
 /obj/structure/closet/singularity_act()
 	dump_contents()
 	..()

@@ -18,6 +18,7 @@
 	force = 45
 	max_equip = 5
 	starting_voice = /obj/item/mecha_modkit/voice/nanotrasen
+	destruction_sleep_duration = 1
 
 /obj/mecha/combat/marauder/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()

@@ -34,16 +34,16 @@
 			ui_users[user] = AC
 		AC.ui_interact(user)
 
-/obj/structure/mirror/proc/shatter()
-	if(broken)
-		return
-	broken = TRUE
-	icon_state = "mirror_broke"
-	playsound(src, "shatter", 70, 1)
-	desc = "Oh no, seven years of bad luck!"
+/obj/structure/mirror/obj_break(damage_flag, mapload)
+	if(!broken && !(flags & NODECONSTRUCT))
+		icon_state = "mirror_broke"
+		if(!mapload)
+			playsound(src, "shatter", 70, TRUE)
+		if(desc == initial(desc))
+			desc = "Oh no, seven years of bad luck!"
+		broken = TRUE
 
 /obj/structure/mirror/attackby(obj/item/I, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
 	if(isscrewdriver(I))
 		user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
 		if(do_after(user, 30 * I.toolspeed, target = src))
@@ -54,19 +54,8 @@
 				user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
 				new /obj/item/mounted/mirror(get_turf(user))
 			qdel(src)
-			return
-
-	user.do_attack_animation(src)
-	if(broken)
-		playsound(src.loc, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 		return
-
-	if(prob(I.force * 2))
-		visible_message("<span class='warning'>[user] smashes [src] with [I]!</span>")
-		shatter()
-	else
-		visible_message("<span class='warning'>[user] hits [src] with [I]!</span>")
-		playsound(src.loc, 'sound/effects/Glasshit.ogg', 70, 1)
+	return ..()
 
 /obj/structure/mirror/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -166,9 +155,6 @@
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
 	return
-
-/obj/structure/mirror/magic/shatter()
-	return //can't be broken. it's magic, i ain't gotta explain shit
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

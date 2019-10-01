@@ -142,19 +142,6 @@
 	stat |= BROKEN
 	unset_control()
 	update_icon()
-	return
-
-
-/obj/machinery/power/solar/ex_act(severity, target)
-	..()
-	if(!QDELETED(src))
-		switch(severity)
-			if(2)
-				if(prob(50) && broken())
-					new /obj/item/shard(src.loc)
-			if(3)
-				if(prob(25) && broken())
-					new /obj/item/shard(src.loc)
 
 /obj/machinery/power/solar/fake/New(var/turf/loc, var/obj/item/solar_assembly/S)
 	..(loc, S, 0)
@@ -447,6 +434,12 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
+/obj/machinery/power/solar_control/obj_break(damage_flag)
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
+		stat |= BROKEN
+		update_icon()
+
 /obj/machinery/power/solar_control/process()
 	lastgen = gen
 	gen = 0
@@ -517,18 +510,6 @@
 /obj/machinery/power/solar_control/proc/broken()
 	stat |= BROKEN
 	update_icon()
-
-
-/obj/machinery/power/solar_control/ex_act(severity, target)
-	..()
-	if(!QDELETED(src))
-		switch(severity)
-			if(2)
-				if(prob(50))
-					broken()
-			if(3)
-				if(prob(25))
-					broken()
 
 //
 // MISC

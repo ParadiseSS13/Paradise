@@ -1294,27 +1294,6 @@
 		update()
 	..()
 
-/obj/machinery/power/apc/ex_act(severity)
-
-	switch(severity)
-		if(1.0)
-			//set_broken() //now Destroy() do what we need
-			if(cell)
-				cell.ex_act(1.0) // more lags woohoo
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				set_broken()
-				if(cell && prob(50))
-					cell.ex_act(2.0)
-		if(3.0)
-			if(prob(25))
-				set_broken()
-				if(cell && prob(25))
-					cell.ex_act(3.0)
-	return
-
 /obj/machinery/power/apc/blob_act(obj/structure/blob/B)
 	set_broken()
 

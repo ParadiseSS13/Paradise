@@ -129,18 +129,13 @@
 		A.blob_act(src)
 	return 1
 
-/obj/structure/blob/ex_act(severity)
-	..()
-	var/damage = 150 - 20 * severity
-	take_damage(damage, BRUTE)
-
 /obj/structure/blob/Crossed(var/mob/living/L, oldloc)
 	..()
 	L.blob_act(src)
 
 /obj/structure/blob/tesla_act(power)
 	..()
-	take_damage(power/400, BURN)
+	take_damage(power / 400, BURN, "energy")
 
 /obj/structure/blob/hulk_damage()
 	return 15

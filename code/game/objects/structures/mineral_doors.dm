@@ -136,23 +136,7 @@
 	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
 	else
-		attacked_by(W, user)
-
-/obj/structure/mineral_door/attacked_by(obj/item/I, mob/user)
-	if(I.damtype != STAMINA)
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
-		visible_message("<span class='notice'>[user] hits \the [src] with \the [I].</span>")
-		if(damageSound)
-			playsound(loc, damageSound, 100, 1)
-		else
-			playsound(loc, I.hitsound, 100, 1)
-		hardness -= I.force / 100
-		CheckHardness()
-
-/obj/structure/mineral_door/proc/CheckHardness()
-	if(hardness <= 0)
-		deconstruct(FALSE)
+		return ..()
 
 /obj/structure/mineral_door/deconstruct(disassembled = TRUE)
 	var/turf/T = get_turf(src)
@@ -162,20 +146,6 @@
 		else
 			new sheetType(T, max(sheetAmount - 2, 1))
 	qdel(src)
-
-/obj/structure/mineral_door/ex_act(severity = 1)
-	switch(severity)
-		if(1)
-			deconstruct(FALSE)
-		if(2)
-			if(prob(20))
-				deconstruct(FALSE)
-			else
-				hardness--
-				CheckHardness()
-		if(3)
-			hardness -= 0.1
-			CheckHardness()
 
 /obj/structure/mineral_door/iron
 	hardness = 3

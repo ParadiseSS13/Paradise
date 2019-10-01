@@ -347,7 +347,7 @@
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
 /obj/structure/table/holotable
-	can_deconstruct = FALSE
+	flags = NODECONSTRUCT
 	canSmoothWith = list(/obj/structure/table/holotable)
 
 /obj/structure/table/holotable/wood
@@ -375,7 +375,7 @@
 	flags = ON_BORDER
 
 /obj/structure/rack/holorack
-	can_deconstruct = FALSE
+	flags = NODECONSTRUCT
 
 /obj/item/holo
 	damtype = STAMINA

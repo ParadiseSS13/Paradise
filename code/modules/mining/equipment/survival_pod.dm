@@ -213,7 +213,7 @@
 	light_color = "#DDFFD3"
 	max_n_of_items = 10
 	pixel_y = -4
-	can_deconstruct = FALSE
+	flags = NODECONSTRUCT
 	var/empty = FALSE
 
 /obj/machinery/smartfridge/survival_pod/Initialize(mapload)

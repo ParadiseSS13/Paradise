@@ -124,32 +124,20 @@
 	if(!(opened ? close() : open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
+/obj/structure/closet/proc/bust_open()
+	welded = FALSE //applies to all lockers
+	locked = FALSE //applies to critter crates and secure lockers only
+	broken = TRUE //applies to secure lockers only
+	open()
+
 /obj/structure/closet/deconstruct(disassembled = TRUE)
 	if(ispath(material_drop) && material_drop_amount && !(flags & NODECONSTRUCT))
 		new material_drop(loc, material_drop_amount)
 	qdel(src)
 
-/obj/structure/closet/ex_act(severity)
-	switch(severity)
-		if(1)
-			for(var/atom/movable/A in src)//pulls everything out of the locker and hits it with an explosion
-				A.ex_act(severity++)
-			dump_contents()
-			qdel(src)
-		if(2)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.ex_act(severity++)
-				dump_contents()
-				new /obj/item/stack/sheet/metal(loc)
-				qdel(src)
-		if(3)
-			if(prob(5))
-				for(var/atom/movable/A in src)
-					A.ex_act(severity++)
-				dump_contents()
-				new /obj/item/stack/sheet/metal(loc)
-				qdel(src)
+/obj/structure/closet/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		bust_open()
 
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
@@ -406,6 +394,16 @@
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
+
+/obj/structure/closet/ex_act(severity)
+	for(var/atom/A in contents)
+		A.ex_act(severity)
+		CHECK_TICK
+	..()
+
+/obj/structure/closet/singularity_act()
+	dump_contents()
+	..()
 
 /obj/structure/closet/AllowDrop()
 	return TRUE

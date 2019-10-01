@@ -42,12 +42,21 @@
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
+	if(severity < 3)
+		if(beaker)
+			beaker.ex_act(severity)
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.ex_act(severity)
+		..()
+
+/obj/machinery/chem_master/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		reagents.clear_reagents()
+		update_icon()
+	else if(A == loaded_pill_bottle)
+		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon()
 	overlays.Cut()

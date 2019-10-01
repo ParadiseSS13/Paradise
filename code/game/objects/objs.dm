@@ -8,7 +8,6 @@
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = 0		// whether this object cuts
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
 	var/list/armor

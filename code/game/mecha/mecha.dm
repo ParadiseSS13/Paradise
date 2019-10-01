@@ -82,6 +82,8 @@
 	var/activated = FALSE
 	var/power_warned = FALSE
 
+	var/destruction_sleep_duration = 1 //Time that mech pilot is put to sleep for if mech is destroyed
+
 	var/melee_cooldown = 10
 	var/melee_can_hit = 1
 
@@ -620,6 +622,8 @@
 
 
 /obj/mecha/Destroy()
+	if(occupant)
+		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
@@ -627,36 +631,15 @@
 		else
 			M.forceMove(loc)
 
-	if(prob(30))
-		explosion(get_turf(loc), 0, 0, 1, 3)
-
-	if(wreckage)
-		var/obj/effect/decal/mecha_wreckage/WR = new wreckage(loc)
-		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-			if(E.salvageable && prob(30))
-				WR.crowbar_salvage += E
-				E.forceMove(WR)
-				E.equip_ready = 1
-			else
-				E.forceMove(loc)
-				qdel(E)
-		if(cell)
-			WR.crowbar_salvage += cell
-			cell.forceMove(WR)
-			cell.charge = rand(0, cell.charge)
-		if(internal_tank)
-			WR.crowbar_salvage += internal_tank
-			internal_tank.forceMove(WR)
-	else
-		QDEL_LIST(equipment)
-		QDEL_NULL(cell)
-		QDEL_NULL(internal_tank)
+	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+		E.detach(loc)
+		qdel(E)
+	equipment.Cut()
+	QDEL_NULL(cell)
+	QDEL_NULL(internal_tank)
 
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
-	equipment.Cut()
-	cell = null
-	internal_tank = null
 	if(loc)
 		loc.assume_air(cabin_air)
 		air_update_turf()
@@ -1491,6 +1474,32 @@
 			else if(damtype == TOX)
 				visual_effect_icon = ATTACK_EFFECT_MECHTOXIN
 	..()
+
+/obj/mecha/obj_destruction()
+	if(wreckage)
+		var/mob/living/silicon/ai/AI
+		if(isAI(occupant))
+			AI = occupant
+			occupant = null
+		var/obj/effect/decal/mecha_wreckage/WR = new wreckage(loc, AI)
+		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+			if(E.salvageable && prob(30))
+				WR.crowbar_salvage += E
+				E.detach(WR) //detaches from src into WR
+				E.equip_ready = 1
+			else
+				E.detach(loc)
+				qdel(E)
+		if(cell)
+			WR.crowbar_salvage += cell
+			cell.forceMove(WR)
+			cell.charge = rand(0, cell.charge)
+			cell = null
+		if(internal_tank)
+			WR.crowbar_salvage += internal_tank
+			internal_tank.forceMove(WR)
+			cell = null
+	. = ..()
 
 /obj/mecha/CtrlClick(mob/living/L)
 	if(occupant != L || !istype(L))

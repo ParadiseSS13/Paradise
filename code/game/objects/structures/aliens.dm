@@ -301,8 +301,9 @@
 							break
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(status != BURST)
-		Burst(kill = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(status != BURST)
+			Burst(kill = TRUE)
 
 /obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
