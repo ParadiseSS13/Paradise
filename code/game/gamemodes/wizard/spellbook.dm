@@ -15,12 +15,12 @@
 /datum/spellbook_entry/proc/IsSpellAvailable() // For config prefs / gamemode restrictions - these are round applied
 	return 1
 
-/datum/spellbook_entry/proc/CanBuy(var/mob/living/carbon/human/user, var/obj/item/spellbook/book) // Specific circumstances
+/datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return 0
 	return 1
 
-/datum/spellbook_entry/proc/Buy(var/mob/living/carbon/human/user, var/obj/item/spellbook/book) //return 1 on success
+/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user, obj/item/spellbook/book) //return 1 on success
 	if(!S)
 		S = new spell_type()
 
@@ -58,7 +58,7 @@
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
 	return 1
 
-/datum/spellbook_entry/proc/CanRefund(var/mob/living/carbon/human/user, var/obj/item/spellbook/book)
+/datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(!refundable)
 		return 0
 	if(!S)
@@ -68,7 +68,7 @@
 			return 1
 	return 0
 
-/datum/spellbook_entry/proc/Refund(var/mob/living/carbon/human/user, var/obj/item/spellbook/book) //return point value or -1 for failure
+/datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = locate()
 	if(!(user in A.contents))
 		to_chat(user, "<span clas=='warning'>You can only refund spells at the wizard lair</span>")
@@ -386,7 +386,7 @@
 	buy_word = "Summon"
 	var/item_path = null
 
-/datum/spellbook_entry/item/Buy(var/mob/living/carbon/human/user, var/obj/item/spellbook/book)
+/datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	user.put_in_hands(new item_path)
 	feedback_add_details("wizard_spell_learned", log_name)
 	return 1
@@ -415,7 +415,7 @@
 	log_name = "SO"
 	category = "Artefacts"
 
-/datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user, var/obj/item/spellbook/book)
+/datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
 		if(!(XRAY in user.mutations))
 			user.mutations.Add(XRAY)
@@ -432,7 +432,7 @@
 	log_name = "SS"
 	category = "Artefacts"
 
-/datum/spellbook_entry/item/soulstones/Buy(var/mob/living/carbon/human/user, var/obj/item/spellbook/book)
+/datum/spellbook_entry/item/soulstones/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
 	if(.)
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
@@ -639,7 +639,7 @@
 				OB.limit++
 		qdel(O)
 
-/obj/item/spellbook/proc/GetCategoryHeader(var/category)
+/obj/item/spellbook/proc/GetCategoryHeader(category)
 	var/dat = ""
 	switch(category)
 		if("Offensive")
@@ -674,7 +674,7 @@
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
 	return dat
 
-/obj/item/spellbook/proc/wrap(var/content)
+/obj/item/spellbook/proc/wrap(content)
 	var/dat = ""
 	dat +="<html><head><title>Spellbook</title></head>"
 	dat += {"
