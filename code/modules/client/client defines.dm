@@ -95,3 +95,8 @@
 
 	// Has the client been varedited by an admin? [Inherits from datum now]
 	// var/var_edited = FALSE
+
+	var/client_keysend_amount = 0
+	var/next_keysend_reset = 0
+	var/next_keysend_trip_reset = 0
+	var/keysend_tripped = FALSE

@@ -39,11 +39,11 @@
 		icon_state = "[initial(icon_state)]-drawn"
 
 /obj/item/gun/throw/crossbow/examine(mob/user)
-	..()
+	. = ..()
 	if(cell)
-		to_chat(user, "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]")
+		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
 	else
-		to_chat(user, "<span class='notice'>It has an empty mount for a battery cell.</span>")
+		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))

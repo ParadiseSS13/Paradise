@@ -17,15 +17,15 @@
 		return temp_access
 
 /obj/item/card/id/guest/examine(mob/user)
-	..(user)
+	. = ..()
 	if(world.time < expiration_time)
-		to_chat(user, "<span class='notice'>This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>")
+		. += "<span class='notice'>This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
 	else
-		to_chat(user, "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>")
-	to_chat(user, "<span class='notice'>It grants access to following areas:</span>")
+		. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].</span>"
+	. += "<span class='notice'>It grants access to following areas:</span>"
 	for(var/A in temp_access)
-		to_chat(user, "<span class='notice'>[get_access_desc(A)].</span>")
-	to_chat(user, "<span class='notice'>Issuing reason: [reason].</span>")
+		. += "<span class='notice'>[get_access_desc(A)].</span>"
+	. += "<span class='notice'>Issuing reason: [reason].</span>"
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////

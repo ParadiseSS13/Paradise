@@ -36,6 +36,7 @@
 	density = FALSE
 	mob_size = MOB_SIZE_TINY
 	flying = TRUE
+	gold_core_spawnable = HOSTILE_SPAWN
 	search_objects = TRUE //have to find those plant trays!
 
 	//Spaceborn beings don't get hurt by space
@@ -78,9 +79,9 @@
 		beehome = null
 
 /mob/living/simple_animal/hostile/poison/bees/examine(mob/user)
-	..()
+	. = ..()
 	if(!bee_syndicate && !beehome)
-		to_chat(user, "<span class='warning'>This bee is homeless!</span>")
+		. += "<span class='warning'>This bee is homeless!</span>"
 
 /mob/living/simple_animal/hostile/poison/bees/proc/generate_bee_visuals()
 	overlays.Cut()

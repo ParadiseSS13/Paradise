@@ -334,6 +334,7 @@
 	new /obj/item/grenade/gluon(src)
 	new /obj/item/grenade/gluon(src)
 	new /obj/item/grenade/chem_grenade/facid(src) //1
+	new /obj/item/grenade/chem_grenade/saringas(src) //1
 	new /obj/item/grenade/gas/plasma(src) //2
 	new /obj/item/grenade/gas/plasma(src)
 	new /obj/item/grenade/frag(src) //10

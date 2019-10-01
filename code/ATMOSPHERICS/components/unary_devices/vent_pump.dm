@@ -80,7 +80,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/update_icon(var/safety = 0)
 	..()
-	
+
 	plane = FLOOR_PLANE
 
 	if(!check_icon_cache())
@@ -152,7 +152,7 @@
 
 		if(pressure_delta > 0.5)
 			if(air_contents.temperature > 0)
-				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION) / 5
+				var/transfer_moles = pressure_delta*environment.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
 
 				var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
@@ -170,7 +170,7 @@
 
 		if(pressure_delta > 0.5)
 			if(environment.temperature > 0)
-				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION) / 5
+				var/transfer_moles = pressure_delta*air_contents.volume/(environment.temperature * R_IDEAL_GAS_EQUATION)
 
 				var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
 				if(isnull(removed)) //in space
@@ -393,9 +393,9 @@
 
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
-	..(user)
+	. = ..()
 	if(welded)
-		to_chat(user, "It seems welded shut.")
+		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_pump/power_change()
 	var/old_stat = stat

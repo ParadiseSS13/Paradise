@@ -545,7 +545,7 @@
 /datum/surgery/cybernetic_customization
 	name = "Cybernetic Appearance Customization"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch, /datum/surgery_step/robotics/external/customize_appearance)
-	possible_locs = list("head", "chest", "l_arm", "r_arm", "r_leg", "l_leg")
+	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 	requires_organic_bodypart = FALSE
 
 /datum/surgery/cybernetic_customization/can_start(mob/user, mob/living/carbon/human/target)

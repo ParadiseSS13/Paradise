@@ -65,9 +65,9 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
-	..(user)
+	. = ..()
 	if(welded)
-		to_chat(user, "It seems welded shut.")
+		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
 	if(!powered(power_channel))
@@ -98,7 +98,7 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
 	..()
-	
+
 	plane = FLOOR_PLANE
 
 	if(!check_icon_cache())
@@ -227,7 +227,7 @@
 
 	if(scrubbing)
 		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.trace_gases.len>0))
-			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles() / 5
+			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
 
 			//Take a gas sample
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
@@ -269,7 +269,7 @@
 		if(air_contents.return_pressure()>=50*ONE_ATMOSPHERE)
 			return
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume) / 5
+		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume)
 
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 

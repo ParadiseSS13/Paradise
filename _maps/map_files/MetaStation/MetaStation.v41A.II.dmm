@@ -5504,10 +5504,6 @@
 	icon_state = "vault"
 	},
 /area/security/hos)
-"ajA" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
 "ajB" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/auxsolarport)
@@ -13578,7 +13574,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "aya" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood,
 /area/crew_quarters/mrchangs)
 "ayb" = (
@@ -14935,7 +14931,7 @@
 	name = "Port Maintenance"
 	})
 "aAB" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -14952,7 +14948,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -15652,7 +15648,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/sleep)
 "aBS" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -21926,7 +21922,7 @@
 	name = "\improper Warehouse"
 	})
 "aMA" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -23107,7 +23103,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "aOE" = (
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
@@ -69143,7 +69139,6 @@
 	},
 /area/medical/exam_room)
 "cok" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -69151,20 +69146,6 @@
 	c_tag = "Medbay Surgery 1 North";
 	network = list("SS13")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/exam_room)
-"col" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Medbay Surgery 1 North";
-	network = list("SS13")
-	},
-/obj/machinery/body_scanconsole,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -74937,12 +74918,6 @@
 	icon_state = "white"
 	},
 /area/medical/surgery1)
-"cxn" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/surgery1)
 "cxo" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -80670,12 +80645,6 @@
 /area/medical/research{
 	name = "Research Division"
 	})
-"cGE" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/surgery2)
 "cGF" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/effect/decal/warning_stripes/south,
@@ -116445,7 +116414,7 @@ crE
 crE
 cvb
 crE
-cxo
+crE
 cyo
 czs
 czU
@@ -116453,7 +116422,7 @@ cAT
 cCM
 czs
 cEZ
-cGO
+cGo
 cGo
 cKc
 cGo
@@ -116702,7 +116671,7 @@ crV
 ctX
 cva
 cvS
-cxn
+cxo
 cyo
 czu
 cBl
@@ -116710,7 +116679,7 @@ cCu
 cAU
 cEj
 cEZ
-cGE
+cGO
 cFw
 cKb
 cKH
@@ -118494,7 +118463,7 @@ ceQ
 chH
 cdT
 cmX
-col
+cok
 cpb
 crg
 csN
@@ -148747,7 +148716,7 @@ aeF
 agJ
 ahv
 aeG
-ajA
+aeG
 akq
 all
 aaa

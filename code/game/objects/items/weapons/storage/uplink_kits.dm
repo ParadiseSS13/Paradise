@@ -357,3 +357,14 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
+
+/obj/item/storage/box/syndie_kit/dart_gun
+	name = "dart gun kit"
+
+/obj/item/storage/box/syndie_kit/dart_gun/New()
+	..()
+	new /obj/item/gun/syringe/syndicate(src)
+	new /obj/item/reagent_containers/syringe/capulettium_plus(src)
+	new /obj/item/reagent_containers/syringe/sarin(src)
+	new /obj/item/reagent_containers/syringe/pancuronium(src)
+

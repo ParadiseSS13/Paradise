@@ -18,6 +18,7 @@
 	minbodytemp = 0
 	faction = list("cult")
 	flying = 1
+	pressure_resistance = 100
 	universal_speak = 1
 	AIStatus = AI_OFF //normal constructs don't have AI
 	var/const_type = "shade"
@@ -47,8 +48,7 @@
 		updateglow()
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*</span>")
-	..(user)
+	. = ..()
 
 	var/msg = ""
 	if(src.health < src.maxHealth)
@@ -60,7 +60,7 @@
 		msg += "</span>"
 	msg += "*---------*</span>"
 
-	to_chat(user, msg)
+	. += msg
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
@@ -79,7 +79,7 @@
 			else
 				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
 	else if(src != M)
-		..()
+		return ..()
 
 
 /mob/living/simple_animal/hostile/construct/narsie_act()

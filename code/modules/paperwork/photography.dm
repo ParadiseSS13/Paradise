@@ -74,10 +74,11 @@
 				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
 /obj/item/photo/examine(mob/user)
-	if(..(user, 1) || isobserver(user))
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
 		show(user)
 	else
-		to_chat(user, "<span class='notice'>It is too far away.</span>")
+		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/photo/proc/show(mob/user as mob)
 	usr << browse_rsc(img, "tmp_photo.png")
@@ -539,8 +540,9 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 
 /obj/item/videocam/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active.")
+	. = ..()
+	if(in_range(user, src))
+		. += "This video camera can send live feeds to the entertainment network. It's [camera ? "" : "in"]active."
 
 /obj/item/videocam/hear_talk(mob/M as mob, list/message_pieces)
 	var/msg = multilingual_to_message(message_pieces)

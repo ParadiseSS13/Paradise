@@ -116,10 +116,9 @@
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user)
-	if(!..(user, 2))
-		return
-	if(rig)
-		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.</span>")
+	. = ..()
+	if(get_dist(user, src) <= 2 && rig)
+		. += "<span class='notice'>There is some kind of device rigged to the tank.</span>"
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if(rig)
@@ -224,9 +223,9 @@
 	var/paper_cups = 25 //Paper cups left from the cooler
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
-	if(!..(user, 2))
-		return
-	to_chat(user, "There are [paper_cups ? paper_cups : "no"] paper cups left.")
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		. += "There are [paper_cups ? paper_cups : "no"] paper cups left."
 
 /obj/structure/reagent_dispensers/water_cooler/attack_hand(mob/living/user)
 	if(!paper_cups)

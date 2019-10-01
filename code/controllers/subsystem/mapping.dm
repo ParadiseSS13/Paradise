@@ -26,16 +26,10 @@ SUBSYSTEM_DEF(mapping)
 	// Setup the Z-level linkage
 	space_manager.do_transition_setup()
 
-	// Handle the mining z-level ruins or secrets.
-	var/mining_type = MINETYPE
-	if (mining_type == "lavaland")
-		// Spawn Lavaland ruins and rivers.
-		seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates)
-		spawn_rivers(list(level_name_to_num(MINING)))
-	else
-		// Populate mining Z-level hidden rooms
-		for(var/i = 0, i < max_secret_rooms, i++)
-			make_mining_asteroid_secret()
+	// Spawn Lavaland ruins and rivers.
+	seedRuins(list(level_name_to_num(MINING)), config.lavaland_budget, /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates)
+	spawn_rivers(list(level_name_to_num(MINING)))
+
 	return ..()
 
 /datum/controller/subsystem/mapping/Recover()

@@ -48,10 +48,13 @@
 	if(!O.can_reenter_corpse)
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
-	if(QDELETED(src) || QDELETED(user))
-		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No" || !loc)
+	if(ghost_role == "No")
+		return
+	if(!species_prompt())
+		return
+	if(!loc || !uses || QDELETED(src) || QDELETED(user))
+		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
@@ -71,6 +74,9 @@
 	if(!LAZYLEN(spawners))
 		GLOB.mob_spawners -= name
 	return ..()
+
+/obj/effect/mob_spawn/proc/species_prompt()
+	return TRUE
 
 /obj/effect/mob_spawn/proc/special(mob/M)
 	return
@@ -124,6 +130,8 @@
 	mob_type = /mob/living/carbon/human
 	//Human specific stuff.
 	var/mob_species = null		//Set species
+	var/allow_species_pick = FALSE
+	var/list/pickable_species = list("Human", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -170,10 +178,19 @@
 		mob_name = id_job
 	return ..()
 
+/obj/effect/mob_spawn/human/species_prompt()
+	if(allow_species_pick)
+		var/selected_species = input("Select a species", "Species Selection") as null|anything in pickable_species
+		if(!selected_species)
+			return	TRUE	// You didn't pick, so just continue on with the spawning process as a human
+		var/datum/species/S = GLOB.all_species[selected_species]
+		mob_species = S.type
+	return TRUE
+
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)
-		if(H.set_species(mob_species))
-			H.regenerate_icons()
+		H.set_species(mob_species)
+
 	if(husk)
 		H.ChangeToHusk()
 	else //Because for some reason I can't track down, things are getting turned into husks even if husk = false. It's in some damage proc somewhere.
@@ -186,19 +203,23 @@
 		if(hair_style)
 			D.h_style = hair_style
 		else
-			D.h_style = random_hair_style(gender)
+			D.h_style = random_hair_style(gender, D.dna.species.name)
 		D.hair_colour = rand_hex_color()
 		if(facial_hair_style)
 			D.f_style = facial_hair_style
 		else
-			D.f_style = random_facial_hair_style(gender)
+			D.f_style = random_facial_hair_style(gender, D.dna.species.name)
 		D.facial_colour = rand_hex_color()
 	if(skin_tone)
-		H.s_tone = skin_tone
+		H.change_skin_tone(skin_tone)
 	else
-		H.s_tone = random_skin_tone()
+		H.change_skin_tone(random_skin_tone())
+		H.change_skin_color(rand_hex_color())
 	H.update_hair()
+	H.update_fhair()
 	H.update_body()
+	H.update_dna()
+	H.regenerate_icons()
 	if(outfit)
 		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
@@ -378,24 +399,26 @@
 
 
 /datum/outfit/clownsoldier
-		uniform = /obj/item/clothing/under/soldieruniform
-		suit = /obj/item/clothing/suit/soldiercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/stalhelm
+	name = "Clown Soldier"
+	uniform = /obj/item/clothing/under/soldieruniform
+	suit = /obj/item/clothing/suit/soldiercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/stalhelm
 
 /datum/outfit/clownofficer
-		uniform = /obj/item/clothing/under/officeruniform
-		suit = /obj/item/clothing/suit/officercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/naziofficer
+	name = "Clown Officer"
+	uniform = /obj/item/clothing/under/officeruniform
+	suit = /obj/item/clothing/suit/officercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/naziofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"
@@ -444,6 +467,7 @@
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
+	allow_species_pick = TRUE
 	name = "bartender sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
@@ -474,6 +498,7 @@
 	death = FALSE
 	roundstart = FALSE
 	random = TRUE
+	allow_species_pick = TRUE
 	mob_name = "Beach Bum"
 	name = "beach bum sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'

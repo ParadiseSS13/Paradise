@@ -234,7 +234,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/jobspecific/meatcleaver
 	name = "Meat Cleaver"
-	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died and the chance to stun when thrown."
+	desc = "A mean looking meat cleaver that does damage comparable to an Energy Sword but with the added benefit of chopping your victim into hunks of meat after they've died."
 	reference = "MC"
 	item = /obj/item/kitchen/knife/butcher/meatcleaver
 	cost = 10
@@ -925,10 +925,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
-	name = "Dart Pistol"
-	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can."
+	name = "Dart Pistol Kit"
+	desc = "A miniaturized version of a normal syringe gun. It is very quiet when fired and can fit into any space a small item can. Comes with 3 syringes, a knockout poison, a silencing agent and a deadly neurotoxin."
 	reference = "DART"
-	item = /obj/item/gun/syringe/syndicate
+	item = /obj/item/storage/box/syndie_kit/dart_gun
 	cost = 4
 	surplus = 50
 	excludefrom = list(/datum/game_mode/nuclear)
@@ -1037,7 +1037,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/explosives/grenadier
 	name = "Grenadier's belt"
-	desc = "A belt containing 25 lethally dangerous and destructive grenades."
+	desc = "A belt containing 26 lethally dangerous and destructive grenades."
 	item = /obj/item/storage/belt/grenade/full
 	cost = 30
 	surplus = 0
@@ -1051,15 +1051,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 6
 	gamemodes = list(/datum/game_mode/nuclear)
 	surplus = 35
-
-/datum/uplink_item/explosives/saringrenades
-	name = "Sarin Gas Grenades"
-	desc = "A box of four (4) grenades filled with Sarin, a deadly neurotoxin. Use extreme caution when handling and be sure to vacate the premise after using; ensure communication is maintained with team to avoid accidental gassings."
-	reference = "TGG"
-	item = /obj/item/storage/box/syndie_kit/sarin
-	cost = 12
-	gamemodes = list(/datum/game_mode/nuclear)
-	surplus = 0
 
 /datum/uplink_item/explosives/atmosn2ogrenades
 	name = "Knockout Gas Grenades"
@@ -1108,21 +1099,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 35
 
-/datum/uplink_item/stealthy_tools/syndigaloshes
-	name = "No-Slip Chameleon Shoes"
-	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
-			They do not work on heavily lubricated surfaces."
-	reference = "NSSS"
-	item = /obj/item/clothing/shoes/chameleon/noslip
-	cost = 2
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
-	reference = "TNSSS"
-	cost = 4 //but they aren't
-	excludefrom = list()
-	gamemodes = list(/datum/game_mode/nuclear)
-
 /datum/uplink_item/stealthy_tools/chamsechud
 	name = "Chameleon Security HUD"
 	desc = "A stolen Nanotrasen Security HUD with Syndicate chameleon technology implemented into it. Similarly to a chameleon jumpsuit, the HUD can be morphed into various other eyewear, while retaining the HUD qualities when worn."
@@ -1168,7 +1144,29 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Due to budget cuts, the shoes don't provide protection against slipping. The set comes with a complementary chameleon stamp."
 	reference = "CHAM"
 	item = /obj/item/storage/box/syndie_kit/chameleon
+	cost = 4
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/chameleon/nuke
+	reference = "NCHAM"
+	cost = 6
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes
+	name = "No-Slip Chameleon Shoes"
+	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. \
+			They do not work on heavily lubricated surfaces."
+	reference = "NSSS"
+	item = /obj/item/clothing/shoes/chameleon/noslip
 	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
+	reference = "NNSSS"
+	cost = 4
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/chameleon_proj
 	name = "Chameleon-Projector"
@@ -1208,6 +1206,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/flashlight/emp
 	cost = 2
 	surplus = 30
+
+/datum/uplink_item/stealthy_tools/syndigaloshes
+	name = "No-Slip Chameleon Shoes"
+	desc = "These shoes will allow the wearer to run on wet floors and slippery objects without falling down. They do not work on heavily lubricated surfaces."
+	reference = "NOCS"
+	item = /obj/item/clothing/shoes/chameleon/noslip
+	cost = 2
+	excludefrom = list(/datum/game_mode/nuclear)
+
+/datum/uplink_item/stealthy_tools/syndigaloshes/nuke
+	reference = "NOCSN"
+	item = /obj/item/clothing/shoes/chameleon/noslip
+	cost = 4
+	excludefrom = list()
+	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/stealthy_tools/cutouts
 	name = "Adaptive Cardboard Cutouts"
@@ -1373,16 +1386,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	These reverse-engineered knockoffs of Nanotrasen's 'Advanced Magboots' slow you down in simulated-gravity environments much like the standard issue variety."
 	reference = "BRMB"
 	item = /obj/item/clothing/shoes/magboots/syndie
-	cost = 3
-	excludefrom = list(/datum/game_mode/nuclear)
-
-/datum/uplink_item/device_tools/magboots/advance
-	name = "Advanced Blood-Red Magboots"
-	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
-	reference = "ABRMB"
-	item = /obj/item/clothing/shoes/magboots/syndie/advance
-	cost = 3
-	excludefrom = list()
+	cost = 2
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/device_tools/powersink
@@ -1455,7 +1459,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/device_tools/shield
 	name = "Energy Shield"
-	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles and defending against other attacks."
+	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles, but it cannot block other attacks. Pair with an Energy Sword for a killer combination."
 	item = /obj/item/shield/energy
 	reference = "ESD"
 	cost = 16
@@ -1638,10 +1642,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/bundles_TC/c20r
 	name = "C-20r Bundle"
-	desc = "Old Faithful: The classic C-20r, bundled with two magazines and a (surplus) suppressor at discount price."
+	desc = "Old Faithful: The classic C-20r, bundled with three magazines and a (surplus) suppressor at discount price."
 	reference = "C20B"
 	item = /obj/item/storage/backpack/duffel/syndie/c20rbundle
-	cost = 14 // normally 17
+	cost = 18 // normally 21
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/bundles_TC/cyber_implants
@@ -1656,10 +1660,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/bundles_TC/medical
 	name = "Medical Bundle"
 	desc = "The support specialist: Aid your fellow operatives with this medical bundle. Contains a tactical medkit, \
-			a Donksoft LMG and a box of riot darts."
+			a medical beam gun and a pair of syndicate magboots."
 	reference = "MEDB"
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	cost = 15 // normally 20
+	cost = 20 // normally 24
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/bundles_TC/sniper

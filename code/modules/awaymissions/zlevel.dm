@@ -156,11 +156,13 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 		for(var/i in get_affected_turfs(central_turf, 1))
 			var/turf/T = i
+			for(var/obj/structure/spawner/nest in T)
+				qdel(nest)
 			for(var/mob/living/simple_animal/monster in T)
 				qdel(monster)
 			for(var/obj/structure/flora/ash/plant in T)
 				qdel(plant)
-		
+
 		load(central_turf,centered = TRUE)
 		loaded++
 
@@ -229,7 +231,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			//TODO : handle forced ruins with multiple variants
 			forced_ruins -= current_pick
 			forced = FALSE
-		
+
 		if(failed_to_place)
 			for(var/datum/map_template/ruin/R in ruins_availible)
 				if(R.id == current_pick.id)
@@ -252,5 +254,5 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		for(var/datum/map_template/ruin/R in ruins_availible)
 			if(R.cost > budget)
 				ruins_availible -= R
-	
+
 	log_world("Ruin loader finished with [budget] left to spend.")

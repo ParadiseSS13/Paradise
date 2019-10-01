@@ -10,7 +10,6 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
-	pressure_resistance = INFINITY
 	burn_state = LAVA_PROOF
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
@@ -98,7 +97,7 @@
 		var/turf/simulated/wall/W = target_loca
 		if(impact_effect_type)
 			new impact_effect_type(target_loca, hitx, hity)
-		
+
 		W.add_dent(WALL_DENT_SHOT, hitx, hity)
 		return 0
 	if(alwayslog)
@@ -334,3 +333,6 @@ obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile wi
 /obj/item/projectile/proc/setAngle(new_angle)	//wrapper for overrides.
 	Angle = new_angle
 	return TRUE
+
+/obj/item/projectile/experience_pressure_difference()
+	return
