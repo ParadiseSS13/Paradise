@@ -84,7 +84,6 @@
 	var/del_on_death = 0 //causes mob to be deleted on death, useful for mobs that spawn lootable corpses
 	var/deathmessage = ""
 	var/death_sound = null //The sound played on death
-	var/initial_density //Whether the density of a simple animal starts as 0 or 1. Used for revive().
 
 	var/allow_movement_on_non_turfs = FALSE
 
