@@ -119,8 +119,7 @@
 /mob/living/simple_animal/hostile/hellhound/greater/New()
 	. = ..()
 	// Movement
-	var/obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift/shiftspell = new
-	AddSpell(shiftspell)
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
 	var/obj/effect/proc_holder/spell/targeted/area_teleport/teleport/telespell = new
 	telespell.clothes_req = FALSE
 	telespell.invocation_type = "none"
