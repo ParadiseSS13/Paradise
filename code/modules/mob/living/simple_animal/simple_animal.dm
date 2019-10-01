@@ -338,8 +338,7 @@
 
 /mob/living/simple_animal/revive()
 	..()
-	if(initial_density)
-		density = 1
+	density = initial(density)
 
 /mob/living/simple_animal/death(gibbed)
 	// Only execute the below if we successfully died
