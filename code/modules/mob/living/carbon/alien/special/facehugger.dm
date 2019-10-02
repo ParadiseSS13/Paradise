@@ -18,11 +18,12 @@ var/const/MAX_ACTIVE_TIME = 400
 	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
+	max_integrity = 100
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
-	var/sterile = 0
-	var/real = 1 //0 for the toy, 1 for real. Sure I could istype, but fuck that.
+	var/sterile = FALSE
+	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
 
 	var/attached = 0
@@ -31,6 +32,9 @@ var/const/MAX_ACTIVE_TIME = 400
 	..()
 	if(obj_integrity < 90)
 		Die()
+
+/obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
+	return O.attack_obj(src, user)
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -56,10 +60,6 @@ var/const/MAX_ACTIVE_TIME = 400
 				. += "<span class='boldannounce'>[src] seems to be active!</span>"
 		if(sterile)
 			. += "<span class='boldannounce'>It looks like the proboscis has been removed.</span>"
-
-/obj/item/clothing/mask/facehugger/attackby(obj/item/O,mob/m, params)
-	if(O.force)
-		Die()
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
@@ -234,9 +234,6 @@ var/const/MAX_ACTIVE_TIME = 400
 
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
-	desc = "The worst she might do is attempt to... couple with your head."//hope we don't get sued over a harmless reference, rite?
+	desc = "The worst she might do is attempt to... couple with your head." //hope we don't get sued over a harmless reference, rite?
 	sterile = 1
 	gender = FEMALE
-
-/obj/item/clothing/mask/facehugger/lamarr/New()//to prevent deleting it if aliums are disabled
-	return

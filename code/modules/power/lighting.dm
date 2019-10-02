@@ -706,17 +706,12 @@
 	else
 		return ..()
 
-// called after an attack with a light item
-// shatter light, unless it was an attempt to put it in a light socket
-// now only shatter if the intent was harm
+/obj/item/light/attack(mob/living/M, mob/living/user, def_zone)
+	..()
+	shatter()
 
-/obj/item/light/afterattack(atom/target, mob/user, proximity)
-	if(!proximity) return
-	if(istype(target, /obj/machinery/light))
-		return
-	if(user.a_intent != INTENT_HARM)
-		return
-
+/obj/item/light/attack_obj(obj/O, mob/living/user)
+	..()
 	shatter()
 
 /obj/item/light/proc/shatter()

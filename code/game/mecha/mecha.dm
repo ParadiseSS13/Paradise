@@ -837,26 +837,7 @@
 			to_chat(user, "<span class='notice'>You stop installing [M].</span>")
 
 	else
-		return attacked_by(W, user)
-
-/obj/mecha/attacked_by(obj/item/I, mob/user)
-	log_message("Attacked by [I]. Attacker - [user]")
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	var/deflection = deflect_chance
-	var/dam_coeff = 1
-	for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)
-		if(B.attack_react(user))
-			deflection *= B.deflect_coeff
-			dam_coeff *= B.damage_coeff
-			break
-	if(prob(deflection))
-		to_chat(user, "<span class='danger'>[I] bounces off [src]\s armor.</span>")
-		log_append_to_last("Armor saved.")
-	else
-		user.visible_message("<span class='danger'>[user] hits [src] with [I].</span>", "<span class='danger'>You hit [src] with [I].</span>")
-		take_damage(round(I.force * dam_coeff), I.damtype)
-		check_for_internal_damage(list(MECHA_INT_TEMP_CONTROL,MECHA_INT_TANK_BREACH,MECHA_INT_CONTROL_LOST))
+		return ..()
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))

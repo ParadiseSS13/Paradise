@@ -197,15 +197,7 @@
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, "<span class='notice'>You place the [W] on [src].</span>")
 		W.update_nearby_icons()
-	return
 
-/obj/structure/grille/attacked_by(obj/item/I, mob/living/user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	if(!(I.flags&NOBLUDGEON))
-		if(I.force)
-			visible_message("<span class='danger'>[user] has hit [src] with [I]!</span>")
-	take_damage(I.force * 0.3, I.damtype)
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

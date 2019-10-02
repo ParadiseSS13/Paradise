@@ -150,3 +150,10 @@
 		atmosanalyzer_scan(air_contents, user)
 
 	return
+
+/obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
+	if(I.force < 10 && !(stat & BROKEN))
+		take_damage(0)
+	else
+		add_fingerprint(user)
+		..()
