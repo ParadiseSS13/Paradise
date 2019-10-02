@@ -1,0 +1,5 @@
+author: "PidgeyThePirate"
+delete-after: True
+changes: 
+  - tweak: "replaced the Lavaland winter dome ATV with a snowmobile."
+  - bugfix: "The snowmobile key in the winterdome now accompanies an actual snowmobile instead of an incompatible vehicle."
