@@ -39,7 +39,7 @@
 	name = "Super-Capacity Power Cell"
 	desc = "A power cell that holds 20 kW of power."
 	id = "super_cell"
-	req_tech = list("powerstorage" = 4, "materials" = 3)
+	req_tech = list("powerstorage" = 3, "materials" = 3)
 	build_type = PROTOLATHE | MECHFAB | PODFAB
 	materials = list(MAT_METAL = 700, MAT_GLASS = 70)
 	build_path = /obj/item/stock_parts/cell/super/empty
