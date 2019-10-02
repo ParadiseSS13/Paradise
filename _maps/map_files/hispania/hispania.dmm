@@ -19694,29 +19694,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 "aHV" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon = 'icons/hispania/turf/floors.dmi';
+	icon_state = "L1"
 	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding2 (NORTH)";
-	icon_state = "siding2";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "siding1";
-	dir = 1
-	},
-/area/hydroponics)
+/area/hallway/primary/central/north)
 "aHW" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -20770,9 +20752,8 @@
 	},
 /mob/living/simple_animal/pig,
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon = 'icons/hispania/turf/floors.dmi';
+	icon_state = "L3"
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-siding1 (NORTH)";
@@ -20845,28 +20826,11 @@
 	},
 /area/lawoffice)
 "aKx" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "asteroid";
-	tag = "icon-asteroid (NORTH)"
+	icon = 'icons/hispania/turf/floors.dmi';
+	icon_state = "L5"
 	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "siding1";
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding2 (NORTH)";
-	icon_state = "siding2";
-	dir = 1
-	},
-/area/hydroponics)
+/area/hallway/primary/central/north)
 "aKy" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -22582,10 +22546,11 @@
 	},
 /area/civilian/barber)
 "aOa" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon = 'icons/hispania/turf/floors.dmi';
+	icon_state = "L7"
 	},
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -24188,17 +24153,11 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aRm" = (
-/obj/structure/shuttle/engine/propulsion{
-	dir = 8;
-	icon_state = "propulsion";
-	tag = "icon-propulsion (EAST)"
+/turf/simulated/floor/plasteel{
+	icon = 'icons/hispania/turf/floors.dmi';
+	icon_state = "L9"
 	},
-/turf/space,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/transport)
+/area/hallway/primary/central/north)
 "aRn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -32675,15 +32634,53 @@
 	},
 /area/hallway/primary/central/north)
 "bhb" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "L3"
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/area/hallway/primary/central/north)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "asteroid";
+	tag = "icon-asteroid (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/area/hydroponics)
 "bhc" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "L5"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/area/hallway/primary/central/north)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/mob/living/simple_animal/pig,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "asteroid";
+	tag = "icon-asteroid (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/area/hydroponics)
 "bhd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -33532,12 +33529,28 @@
 	},
 /area/hallway/primary/central/nw)
 "biI" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "L7"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/area/hallway/primary/central/north)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "asteroid";
+	tag = "icon-asteroid (NORTH)"
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/area/hydroponics)
 "biJ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -35970,6 +35983,30 @@
 	icon_state = "L14"
 	},
 /area/hallway/primary/central/north)
+"bnj" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion";
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/transport)
+"bnk" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion";
+	tag = "icon-propulsion (EAST)"
+	},
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/transport)
 "bnl" = (
 /obj/machinery/camera{
 	c_tag = "Bar East";
@@ -45473,7 +45510,6 @@
 /area/medical/chemistry)
 "bGw" = (
 /obj/machinery/r_n_d/circuit_imprinter,
-/obj/item/reagent_containers/glass/beaker/sulphuric,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -49458,6 +49494,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood/oil,
+/obj/structure/piano,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bNC" = (
@@ -53769,8 +53806,9 @@
 /area/assembly/robotics)
 "bUI" = (
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitepurplecorner"
+	dir = 1;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bUJ" = (
@@ -53785,7 +53823,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "whitepurplecorner"
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bUK" = (
@@ -54534,7 +54573,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurplecorner"
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bVV" = (
@@ -54566,23 +54606,6 @@
 /area/medical/genetics)
 "bVW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10;
-	initialize_directions = 10;
-	level = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	pixel_y = 0
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
-	},
-/area/medical/genetics)
-"bVX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -54601,8 +54624,23 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
+	icon_state = "white"
+	},
+/area/medical/genetics)
+"bVX" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10;
+	level = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
 /area/medical/genetics)
 "bVY" = (
@@ -54635,8 +54673,9 @@
 	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitepurplecorner"
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bWa" = (
@@ -55475,15 +55514,9 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (EAST)";
-	icon_state = "whitepurple";
-	dir = 4
-	},
-/area/medical/genetics)
 "bXw" = (
 /obj/structure/cable{
 	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -55801,9 +55834,9 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (WEST)";
-	icon_state = "whitepurple";
-	dir = 8
+	dir = 1;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bXW" = (
@@ -56005,9 +56038,9 @@
 	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (EAST)";
-	icon_state = "whitepurple";
-	dir = 4
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bYl" = (
@@ -57884,16 +57917,14 @@
 	},
 /area/medical/cmo)
 "caW" = (
-/obj/structure/chair/office/light{
-	dir = 8
-	},
-/obj/effect/landmark/start{
-	name = "Geneticist"
+/obj/machinery/dna_scannernew,
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (SOUTHWEST)";
-	icon_state = "whitepurple";
-	dir = 10
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "caX" = (
@@ -57907,15 +57938,15 @@
 /area/medical/genetics)
 "caY" = (
 /obj/structure/chair/office/light{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/landmark/start{
 	name = "Geneticist"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (SOUTHEAST)";
-	icon_state = "whitepurple";
-	dir = 6
+	dir = 1;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "caZ" = (
@@ -57929,9 +57960,9 @@
 /obj/structure/cable,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whitepurplefull";
-	tag = "icon-whitepurple (WEST)"
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "cba" = (
@@ -59162,10 +59193,16 @@
 /turf/simulated/floor/plasteel,
 /area/escapepodbay)
 "ccQ" = (
+/obj/structure/chair/office/light{
+	dir = 4
+	},
+/obj/effect/landmark/start{
+	name = "Geneticist"
+	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitepurple (WEST)";
-	icon_state = "whitepurple";
-	dir = 8
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "ccR" = (
@@ -60216,16 +60253,14 @@
 	},
 /area/toxins/server_coldroom)
 "ceJ" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/machinery/computer/scan_consolenew,
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/pod_4)
+/area/medical/genetics)
 "ceK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -61270,16 +61305,31 @@
 	},
 /area/shuttle/administration)
 "cgx" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/structure/table/glass,
+/obj/item/storage/belt/medical,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer{
+	pixel_x = 2;
+	pixel_y = 2
 	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
+/obj/item/clothing/glasses/hud/health,
+/obj/machinery/embedded_controller/radio/airlock/access_controller{
+	id_tag = "viro_lab_airlock_control";
+	name = "Virology Lab Access Console";
+	pixel_x = 24;
+	pixel_y = 0;
+	req_one_access_txt = "39";
+	tag_exterior_door = "viro_lab_airlock_exterior";
+	tag_interior_door = "viro_lab_airlock_interior"
 	},
-/area/shuttle/pod_4)
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/item/storage/fancy/vials,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitegreen";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/medical/virology)
 "cgy" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
@@ -61649,6 +61699,31 @@
 "chf" = (
 /turf/simulated/wall,
 /area/maintenance/asmaint)
+"chg" = (
+/obj/machinery/door_control{
+	id = "mechpod";
+	name = "Mechanic's Inner Door Control";
+	pixel_x = 0;
+	pixel_y = -24;
+	req_access_txt = "70"
+	},
+/obj/structure/table,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
+	},
+/obj/item/pod_paint_bucket,
+/obj/item/pod_paint_bucket,
+/turf/simulated/floor/plasteel,
+/area/engine/mechanic_workshop)
 "chh" = (
 /turf/simulated/wall,
 /area/medical/paramedic)
@@ -61808,6 +61883,28 @@
 	icon_state = "showroomfloor"
 	},
 /area/medical/surgery1)
+"chv" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/pod_4)
+"chw" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/pod_4)
 "chx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -69687,31 +69784,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
-	},
-/area/medical/virology)
-"cun" = (
-/obj/structure/table/glass,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "viro_lab_airlock_control";
-	name = "Virology Lab Access Console";
-	pixel_x = 24;
-	pixel_y = 0;
-	req_one_access_txt = "39";
-	tag_exterior_door = "viro_lab_airlock_exterior";
-	tag_interior_door = "viro_lab_airlock_interior"
-	},
-/obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitegreen";
-	tag = "icon-whitehall (WEST)"
 	},
 /area/medical/virology)
 "cuo" = (
@@ -79391,29 +79463,6 @@
 	icon_state = "white"
 	},
 /area/assembly/assembly_line)
-"cLr" = (
-/obj/machinery/door_control{
-	id = "mechpod";
-	name = "Mechanic's Inner Door Control";
-	pixel_x = 0;
-	pixel_y = -24;
-	req_access_txt = "70"
-	},
-/obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 30
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/mechanic_workshop)
 "cLs" = (
 /obj/machinery/light_switch{
 	name = "light switch ";
@@ -105287,9 +105336,9 @@ aaa
 aaa
 aaa
 aaa
-aOa
+bnj
 bvi
-aRm
+bnk
 aaa
 aaa
 aaa
@@ -105543,11 +105592,11 @@ aab
 aaa
 aaa
 aaa
-aOa
+bnj
 btv
 bvj
 bwE
-aRm
+bnk
 aaa
 bAQ
 bCa
@@ -118182,7 +118231,7 @@ cEL
 cFP
 cGF
 cJV
-cLr
+chg
 cEY
 cLm
 cLi
@@ -124811,8 +124860,8 @@ bor
 cRN
 aRw
 dix
-bha
-bne
+aHV
+biK
 bpv
 blY
 bnW
@@ -125068,8 +125117,8 @@ aRw
 aRw
 aRw
 diw
-bhb
-bnd
+aKp
+biO
 bkz
 blU
 bnV
@@ -125325,8 +125374,8 @@ aZx
 bbr
 dcb
 bdv
-bhc
-bnh
+aKx
+bnd
 bkz
 bma
 bnY
@@ -125582,8 +125631,8 @@ baE
 beu
 bhd
 bhd
-biI
-bnf
+aOa
+bne
 bkB
 bma
 bnX
@@ -125839,8 +125888,8 @@ baF
 bev
 bhh
 bhV
-biK
-bnj
+aRm
+bnf
 bkz
 bma
 boa
@@ -129015,9 +129064,9 @@ dfR
 dcq
 dcq
 dcq
-ceJ
+chv
 doL
-cgx
+chw
 dcq
 aaa
 aaa
@@ -133338,7 +133387,7 @@ cpy
 cpN
 cru
 ctc
-cun
+cgx
 cQn
 cwe
 cxu
@@ -135091,7 +135140,7 @@ bbC
 aGY
 beb
 djw
-aHV
+bhb
 boX
 bpH
 bqH
@@ -135348,7 +135397,7 @@ bbh
 aGY
 beb
 dju
-aKp
+bhc
 bjv
 dnD
 bmy
@@ -135605,7 +135654,7 @@ bbh
 aGY
 beb
 djx
-aKx
+biI
 bjv
 dnE
 bmy
@@ -135862,7 +135911,7 @@ bbI
 aGY
 beb
 bfH
-aKx
+biI
 bjx
 bfH
 bmy
@@ -136119,7 +136168,7 @@ bbV
 aGY
 beb
 bfJ
-aKx
+biI
 bjy
 bkY
 bmy
@@ -137948,8 +137997,8 @@ bUI
 bVU
 bXs
 bXV
-ccQ
-caW
+bUI
+caY
 bWg
 ceo
 cfY
@@ -138202,7 +138251,7 @@ bEu
 bSH
 bUf
 bUI
-bVX
+bVW
 cdn
 bXW
 bXW
@@ -138459,11 +138508,11 @@ bEu
 bSG
 bUd
 bUI
-bVW
+bVX
 cdj
 bXQ
 bXQ
-caY
+ccQ
 bWg
 ceq
 cfZ
@@ -138719,8 +138768,8 @@ bUJ
 bVZ
 bXv
 bYk
-bZB
-caX
+caW
+ceJ
 bWi
 clp
 clp
