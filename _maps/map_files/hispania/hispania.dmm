@@ -20744,11 +20744,28 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "aKp" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/mob/living/simple_animal/pig,
 /turf/simulated/floor/plasteel{
 	icon = 'icons/hispania/turf/floors.dmi';
 	icon_state = "L3"
 	},
-/area/hallway/primary/central/north)
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "siding1";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding2 (NORTH)";
+	icon_state = "siding2";
+	dir = 1
+	},
+/area/hydroponics)
 "aKq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -22535,7 +22552,12 @@
 	icon = 'icons/hispania/turf/floors.dmi';
 	icon_state = "L7"
 	},
-/area/hallway/primary/central/north)
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/transport)
 "aOb" = (
 /obj/machinery/prize_counter,
 /obj/machinery/light{
@@ -32566,7 +32588,6 @@
 	tag = ""
 	},
 /turf/simulated/floor/plasteel{
-	icon = 'icons/hispania/turf/floors.dmi';
 	icon_state = "L11"
 	},
 /area/hallway/primary/central/north)
@@ -32609,10 +32630,7 @@
 /area/crew_quarters/dorms)
 "bha" = (
 /turf/simulated/floor/plasteel{
-	desc = "";
-	icon = 'icons/hispania/turf/floors.dmi';
-	icon_state = "L13";
-	name = "floor"
+	icon_state = "L1"
 	},
 /area/hallway/primary/central/north)
 "bhb" = (
@@ -33548,17 +33566,8 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "biK" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1;
-	initialize_directions = 11;
-	level = 1
-	},
 /turf/simulated/floor/plasteel{
-	icon = 'icons/hispania/turf/floors.dmi';
-	icon_state = "L2"
+	icon_state = "L9"
 	},
 /area/hallway/primary/central/north)
 "biL" = (
@@ -33629,15 +33638,10 @@
 	},
 /area/ai_monitored/storage/eva)
 "biO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon = 'icons/hispania/turf/floors.dmi';
-	icon_state = "L4"
+	desc = "";
+	icon_state = "L13";
+	name = "floor"
 	},
 /area/hallway/primary/central/north)
 "biP" = (
@@ -35881,10 +35885,6 @@
 	},
 /area/shuttle/escape)
 "bnd" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Lockers";
-	location = "EVA"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -35892,32 +35892,27 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon = 'icons/hispania/turf/floors.dmi';
-	icon_state = "L6"
+	icon_state = "L4"
 	},
 /area/hallway/primary/central/north)
 "bne" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon = 'icons/hispania/turf/floors.dmi';
-	icon_state = "L8"
-	},
-/area/hallway/primary/central/north)
-"bnf" = (
-/obj/machinery/navbeacon{
-	codes_txt = "patrol;next_patrol=Security";
-	location = "EVA2"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1;
+	initialize_directions = 11;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon = 'icons/hispania/turf/floors.dmi';
-	icon_state = "L10"
+	icon_state = "L2"
+	},
+/area/hallway/primary/central/north)
+"bnf" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	icon_state = "L8"
 	},
 /area/hallway/primary/central/north)
 "bng" = (
@@ -35930,6 +35925,21 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bnh" = (
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Lockers";
+	location = "EVA"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "L6"
+	},
+/area/hallway/primary/central/north)
+"bni" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -35943,11 +35953,25 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon = 'icons/hispania/turf/floors.dmi';
 	icon_state = "L12"
 	},
 /area/hallway/primary/central/north)
-"bni" = (
+"bnj" = (
+/obj/machinery/navbeacon{
+	codes_txt = "patrol;next_patrol=Security";
+	location = "EVA2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "L10"
+	},
+/area/hallway/primary/central/north)
+"bnk" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
@@ -35956,7 +35980,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "";
-	icon = 'icons/hispania/turf/floors.dmi';
 	icon_state = "L14"
 	},
 /area/hallway/primary/central/north)
@@ -55448,9 +55471,9 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	tag = "icon-whitepurple (WEST)";
+	icon_state = "whitepurple";
+	dir = 8
 	},
 /area/medical/genetics)
 "bXt" = (
@@ -55491,15 +55514,9 @@
 	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
-	},
-/area/medical/genetics)
 "bXw" = (
 /obj/structure/cable{
 	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
@@ -126129,7 +126146,7 @@ aDN
 dco
 bdw
 bgW
-bnh
+bni
 bkC
 bma
 aYf
@@ -126385,8 +126402,8 @@ bpQ
 cSW
 aDN
 dje
-bha
-bni
+biO
+bnk
 bpy
 blY
 brS
