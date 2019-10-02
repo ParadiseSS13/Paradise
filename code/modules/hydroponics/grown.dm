@@ -189,4 +189,4 @@
 		var/mob/living/simple_animal/diona/D = M
 		D.consume(src)
 	else
-		..()
+		return ..()
