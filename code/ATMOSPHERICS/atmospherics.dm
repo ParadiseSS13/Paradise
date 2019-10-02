@@ -197,20 +197,20 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
 //with it's locs air contents.
-/obj/machinery/atmospherics/proc/unsafe_pressure_release(var/mob/user,var/pressures)
+/obj/machinery/atmospherics/proc/unsafe_pressure_release(mob/user, pressures)
 	if(!user)
 		return
 
 	if(!pressures)
 		var/datum/gas_mixture/int_air = return_air()
 		var/datum/gas_mixture/env_air = loc.return_air()
-		pressures = int_air.return_pressure()-env_air.return_pressure()
+		pressures = int_air.return_pressure() - env_air.return_pressure()
 
-	var/fuck_you_dir = get_dir(src,user)
-	var/turf/general_direction = get_edge_target_turf(user,fuck_you_dir)
+	var/fuck_you_dir = get_dir(src, user)
+	var/turf/general_direction = get_edge_target_turf(user, fuck_you_dir)
 	user.visible_message("<span class='danger'>[user] is sent flying by pressure!</span>","<span class='userdanger'>The pressure sends you flying!</span>")
 	//Values based on 2*ONE_ATMOS (the unsafe pressure), resulting in 20 range and 4 speed
-	user.throw_at(general_direction,pressures/10,pressures/50)
+	user.throw_at(general_direction, pressures/10, pressures/50)
 
 /obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
 	if(can_deconstruct)
