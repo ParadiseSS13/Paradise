@@ -158,12 +158,12 @@
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "aJ" = (
-/obj/vehicle/snowmobile,
+/obj/vehicle/atv,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere,
 /area/ruin/powered/snow_biodome)
 "aK" = (
 /obj/structure/table/wood,
-/obj/item/key/snowmobile,
+/obj/item/key,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aL" = (
