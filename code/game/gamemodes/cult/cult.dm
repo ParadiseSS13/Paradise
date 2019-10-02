@@ -126,8 +126,8 @@ var/global/list/all_cults = list()
 	..()
 
 
-/datum/game_mode/cult/proc/memorize_cult_objectives(var/datum/mind/cult_mind)
-	for(var/obj_count = 1,obj_count <= objectives.len,obj_count++)
+/datum/game_mode/cult/proc/memorize_cult_objectives(datum/mind/cult_mind)
+	for(var/obj_count in 1 to objectives.len)
 		var/explanation
 		switch(objectives[obj_count])
 			if("survive")
