@@ -131,6 +131,9 @@
 /obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
 	return
 
+/obj/item/gun/energy/kinetic_accelerator/proc/robocharge()
+	return
+
 /obj/item/gun/energy/kinetic_accelerator/proc/reload()
 	power_supply.give(500)
 	on_recharge()

@@ -192,9 +192,6 @@
 				STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/obj/item/gun/energy/kinetic_accelerator/proc/robocharge()
-	return
-
 /obj/item/gun/energy/proc/robocharge()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
