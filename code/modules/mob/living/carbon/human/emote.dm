@@ -895,9 +895,13 @@
 
 		//HISPANIA EMOTES START HERE
 		if("puke")
-			var/mob/living/carbon/human/H = src
-			H.vomit()
-			on_CD = handle_emote_CD(50) //5 seconds cooldown
+			if (handle_emote_CD())
+				to_chat(src, "<span class='danger'>You are still recovering from the last puking.</span>")
+				return
+			else
+				src.vomit()
+				handle_emote_CD()
+				return
 
 		//HISPANIA EMOTES END HERE
 
