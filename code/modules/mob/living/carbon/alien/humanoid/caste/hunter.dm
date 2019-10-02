@@ -14,7 +14,7 @@
 	..()
 
 /mob/living/carbon/alien/humanoid/hunter/movement_delay()
-	. = -1		//hunters are sanic
+	. = -0.5		//hunters are sanic but our movespeed is different!
 	. += ..()	//but they still need to slow down on stun
 
 /mob/living/carbon/alien/humanoid/hunter/handle_hud_icons_health()
