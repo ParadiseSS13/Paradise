@@ -230,17 +230,20 @@
 				if(T.stat == 0)
 					to_chat(U, "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!")
 				else
-					if(T.client == null)
-						to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
-						C.getCultGhost(T,U)
+					if(!T.client_mobs_in_contents?.len)
+						to_chat(U, "<span class='warning'>They have no soul!</span>")
 					else
-						if(C.contents.len)
-							to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
+						if(T.client == null)
+							to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
+							C.getCultGhost(T,U)
 						else
-							for(var/obj/item/W in T)
-								T.unEquip(W)
-							C.init_shade(T, U, vic = 1)
-							qdel(T)
+							if(C.contents.len)
+								to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
+							else
+								for(var/obj/item/W in T)
+									T.unEquip(W)
+								C.init_shade(T, U, vic = 1)
+								qdel(T)
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			var/obj/item/soulstone/C = src
