@@ -129,6 +129,11 @@ var/const/MAX_ACTIVE_TIME = 400
 								"<span class='userdanger'>[src] smashes against [H]'s [H.head]!</span>")
 			Die()
 			return 0
+		else if(H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSMOUTH)
+			H.visible_message("<span class='danger'>[src] smashes against [H]'s [H.wear_mask]!</span>", \
+								"<span class='userdanger'>[src] smashes against [H]'s [H.wear_mask]!</span>")
+			Die()
+			return 0
 	if(iscarbon(M))
 		var/mob/living/carbon/target = M
 		if(target.wear_mask)
