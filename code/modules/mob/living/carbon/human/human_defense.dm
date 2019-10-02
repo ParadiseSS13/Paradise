@@ -421,20 +421,16 @@ emp_act
 			updatehealth("alien attack")
 
 		if(M.a_intent == INTENT_DISARM)
-			if(prob(80))
+			var/obj/item/I = get_active_hand()
+			if(I && drop_item())
+				playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+				visible_message("<span class='danger'>[M] disarmed [src]!</span>")
+			else
 				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
 				add_attack_logs(M, src, "Alien tackled")
 				visible_message("<span class='danger'>[M] has tackled down [src]!</span>")
-			else
-				if(prob(99)) //this looks fucking stupid but it was previously 'var/randn = rand(1, 100); if(randn <= 99)'
-					playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-					drop_item()
-					visible_message("<span class='danger'>[M] disarmed [src]!</span>")
-				else
-					playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
-					visible_message("<span class='danger'>[M] has tried to disarm [src]!</span>")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
 	. = ..()
