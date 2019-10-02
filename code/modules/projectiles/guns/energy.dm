@@ -111,13 +111,6 @@
 	chambered = null //either way, released the prepared shot
 	newshot()
 
-/obj/item/gun/energy/kinetic_accelerator/process_chamber()
-	if(chambered && !chambered.BB)
-		var/obj/item/ammo_casing/energy/shot = chambered
-		power_supply.use(shot.e_cost)
-	chambered = null
-	newshot()
-
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++
 	if(select > ammo_type.len)
@@ -198,6 +191,9 @@
 			else
 				STOP_PROCESSING(SSobj, src)
 	. = ..()
+
+/obj/item/gun/energy/kinetic_accelerator/proc/robocharge()
+	return
 
 /obj/item/gun/energy/proc/robocharge()
 	if(isrobot(loc))
