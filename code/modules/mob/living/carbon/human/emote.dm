@@ -896,11 +896,11 @@
 		//HISPANIA EMOTES START HERE
 		if("puke")
 			if (handle_emote_CD())
-				to_chat(src, "<span class='danger'>You are still recovering from the last puking.</span>")
+				to_chat(src, "<span class='warning'>You are still recovering from the last puking.</span>")
 				return
 			else
 				src.vomit()
-				handle_emote_CD()
+				handle_emote_CD() //20 deciseconds cooldown by default
 				return
 
 		//HISPANIA EMOTES END HERE
