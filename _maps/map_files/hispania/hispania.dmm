@@ -54601,7 +54601,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "white"
 	},
 /area/medical/genetics)
@@ -54618,7 +54617,6 @@
 	pixel_y = 0
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "white"
 	},
 /area/medical/genetics)
@@ -55486,17 +55484,16 @@
 	},
 /area/engine/gravitygenerator)
 "bXv" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bXw" = (
@@ -55750,15 +55747,7 @@
 	},
 /area/medical/medbay2)
 "bXQ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 1;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "white"
 	},
 /area/medical/genetics)
@@ -55816,19 +55805,6 @@
 /area/medical/cmo)
 "bXV" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/syringes,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
-	},
-/area/medical/genetics)
-"bXW" = (
-/obj/structure/table/glass,
 /obj/item/hand_labeler,
 /obj/item/roller,
 /obj/machinery/alarm{
@@ -55844,6 +55820,16 @@
 	dir = 1;
 	icon_state = "whitebluecorner";
 	tag = "icon-whitebluecorner"
+	},
+/area/medical/genetics)
+"bXW" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
 	},
 /area/medical/genetics)
 "bXX" = (
@@ -56028,14 +56014,16 @@
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/hor)
 "bYk" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers,
+/obj/item/reagent_containers/spray/cleaner,
+/obj/machinery/light_switch{
+	pixel_x = 27
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "bYl" = (
@@ -57912,9 +57900,14 @@
 	},
 /area/medical/cmo)
 "caW" = (
+/obj/machinery/dna_scannernew,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "white"
+	dir = 2;
+	icon_state = "whitebluecorner";
+	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "caX" = (
@@ -57927,23 +57920,28 @@
 	},
 /area/medical/genetics)
 "caY" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers,
-/obj/item/reagent_containers/spray/cleaner,
-/obj/machinery/light_switch{
-	pixel_x = 27
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Geneticist"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
+	dir = 1;
 	icon_state = "whitebluecorner";
 	tag = "icon-whitebluecorner"
 	},
 /area/medical/genetics)
 "caZ" = (
-/obj/machinery/dna_scannernew,
-/obj/structure/window/reinforced{
-	dir = 1
+/obj/structure/table/glass,
+/obj/item/storage/box/disks,
+/obj/machinery/power/apc{
+	dir = 2;
+	name = "south bump";
+	pixel_y = -24
 	},
+/obj/structure/cable,
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitebluecorner";
@@ -59179,13 +59177,13 @@
 /area/escapepodbay)
 "ccQ" = (
 /obj/structure/chair/office/light{
-	dir = 8
+	dir = 4
 	},
 /obj/effect/landmark/start{
 	name = "Geneticist"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
+	dir = 2;
 	icon_state = "whitebluecorner";
 	tag = "icon-whitebluecorner"
 	},
@@ -59463,19 +59461,15 @@
 	},
 /area/crew_quarters/hor)
 "cdj" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/disks,
-/obj/machinery/power/apc{
-	dir = 2;
-	name = "south bump";
-	pixel_y = -24
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 1;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
 	},
-/obj/structure/cable,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "white"
 	},
 /area/medical/genetics)
 "cdk" = (
@@ -59503,16 +59497,16 @@
 	},
 /area/shuttle/administration)
 "cdn" = (
-/obj/structure/chair/office/light{
-	dir = 4
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/effect/landmark/start{
-	name = "Geneticist"
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "white"
 	},
 /area/medical/genetics)
 "cdo" = (
@@ -61294,30 +61288,31 @@
 	},
 /area/shuttle/administration)
 "cgx" = (
-/obj/machinery/door_control{
-	id = "mechpod";
-	name = "Mechanic's Inner Door Control";
-	pixel_x = 0;
-	pixel_y = -24;
-	req_access_txt = "70"
+/obj/structure/table/glass,
+/obj/item/storage/belt/medical,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer{
+	pixel_x = 2;
+	pixel_y = 2
 	},
-/obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
+/obj/item/clothing/glasses/hud/health,
+/obj/machinery/embedded_controller/radio/airlock/access_controller{
+	id_tag = "viro_lab_airlock_control";
+	name = "Virology Lab Access Console";
+	pixel_x = 24;
+	pixel_y = 0;
+	req_one_access_txt = "39";
+	tag_exterior_door = "viro_lab_airlock_exterior";
+	tag_interior_door = "viro_lab_airlock_interior"
 	},
-/obj/item/stack/sheet/glass{
-	amount = 50
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/item/storage/fancy/vials,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitegreen";
+	tag = "icon-whitehall (WEST)"
 	},
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 30
-	},
-/obj/item/pod_paint_bucket,
-/obj/item/pod_paint_bucket,
-/turf/simulated/floor/plasteel,
-/area/engine/mechanic_workshop)
+/area/medical/virology)
 "cgy" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ToxinsVenting";
@@ -61688,33 +61683,30 @@
 /turf/simulated/wall,
 /area/maintenance/asmaint)
 "chg" = (
-/obj/structure/table/glass,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer{
-	pixel_x = 2;
-	pixel_y = 2
+/obj/machinery/door_control{
+	id = "mechpod";
+	name = "Mechanic's Inner Door Control";
+	pixel_x = 0;
+	pixel_y = -24;
+	req_access_txt = "70"
 	},
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "viro_lab_airlock_control";
-	name = "Virology Lab Access Console";
-	pixel_x = 24;
-	pixel_y = 0;
-	req_one_access_txt = "39";
-	tag_exterior_door = "viro_lab_airlock_exterior";
-	tag_interior_door = "viro_lab_airlock_interior"
+/obj/structure/table,
+/obj/item/stack/sheet/metal{
+	amount = 50
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
-/obj/item/storage/fancy/vials{
-	contents = newlist()
+/obj/item/stack/sheet/glass{
+	amount = 50
 	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitegreen";
-	tag = "icon-whitehall (WEST)"
+/obj/item/stack/rods{
+	amount = 50
 	},
-/area/medical/virology)
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
+	},
+/obj/item/pod_paint_bucket,
+/obj/item/pod_paint_bucket,
+/turf/simulated/floor/plasteel,
+/area/engine/mechanic_workshop)
 "chh" = (
 /turf/simulated/wall,
 /area/medical/paramedic)
@@ -118222,7 +118214,7 @@ cEL
 cFP
 cGF
 cJV
-cgx
+chg
 cEY
 cLm
 cLi
@@ -133378,7 +133370,7 @@ cpy
 cpN
 cru
 ctc
-chg
+cgx
 cQn
 cwe
 cxu
@@ -137987,9 +137979,9 @@ bUd
 bUI
 bVU
 bXs
-bXW
+bXV
 bUI
-ccQ
+caY
 bWg
 ceo
 cfY
@@ -138243,10 +138235,10 @@ bSH
 bUf
 bUI
 bVW
-bXv
-bYk
-bYk
-cdj
+cdn
+bXW
+bXW
+caZ
 bWg
 cer
 cga
@@ -138500,10 +138492,10 @@ bSG
 bUd
 bUI
 bVX
+cdj
 bXQ
-caW
-caW
-cdn
+bXQ
+ccQ
 bWg
 ceq
 cfZ
@@ -138757,9 +138749,9 @@ bGr
 bWi
 bUJ
 bVZ
-bXV
-caY
-caZ
+bXv
+bYk
+caW
 ceJ
 bWi
 clp
