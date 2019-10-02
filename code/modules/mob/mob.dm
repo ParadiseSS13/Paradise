@@ -580,7 +580,8 @@ var/list/slot_equipment_priority = list( \
 		client.update_description_holders(A, is_antag)
 
 	face_atom(A)
-	A.examine(src)
+	var/list/result = A.examine(src)
+	to_chat(src, result.Join("\n"))
 
 //same as above
 //note: ghosts can point, this is intended

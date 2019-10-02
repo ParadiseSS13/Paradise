@@ -6,14 +6,11 @@
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
-	var/static/image/carcover = null
+	var/mutable_appearance/carcover
 
-
-/obj/vehicle/car/New()
-	..()
-	if(!carcover)
-		carcover = image("icons/vehicles/sportscar.dmi", "sportscar_cover")
-		carcover.layer = MOB_LAYER + 0.1
+/obj/vehicle/car/Initialize(mapload)
+	. = ..()
+	carcover = mutable_appearance(icon, "sportscar_cover", ABOVE_MOB_LAYER)
 
 /obj/vehicle/car/post_buckle_mob(mob/living/M)
 	add_overlay(carcover)
@@ -46,6 +43,6 @@
 
 /obj/vehicle/car/handle_vehicle_layer()
 	if(dir == SOUTH)
-		layer = MOB_LAYER+0.1
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER

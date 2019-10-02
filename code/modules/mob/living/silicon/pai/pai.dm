@@ -525,8 +525,7 @@
 	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*</span>")
-	..(user)
+	. = ..()
 
 	var/msg = "<span class='info'>"
 
@@ -544,7 +543,7 @@
 		msg += "\nIt is [pose]"
 	msg += "\n*---------*</span>"
 
-	to_chat(user, msg)
+	. += msg
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)
