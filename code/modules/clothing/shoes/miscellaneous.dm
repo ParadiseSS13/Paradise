@@ -102,6 +102,7 @@
 	can_cut_open = 1
 	icon_state = "jackboots"
 	item_state = "jackboots"
+	armor = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 10, rad = 0)
 	item_color = "hosred"
 	strip_delay = 50
 	put_on_delay = 50

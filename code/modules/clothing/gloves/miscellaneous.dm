@@ -29,6 +29,7 @@
 	name = "combat gloves"
 	icon_state = "combat"
 	item_state = "swat_gl"
+	armor = list(melee = 5, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 10, rad = 0)
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80
