@@ -1,0 +1,4 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - bugfix: "Cultists no longer get more than one summon objective"
