@@ -1,0 +1,5 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - rscadd: "Added GPS coordinates under that status tab for cyborgs which have a GPS"
+  - bugfix: "You can no longer fire mining cyborg's KA with no cooldown"
