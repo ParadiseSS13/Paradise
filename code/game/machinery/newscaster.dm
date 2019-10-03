@@ -79,6 +79,8 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
 	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
+	max_integrity = 200
+	integrity_failure = 50
 	var/screen = NEWSCASTER_MAIN
 	var/paper_remaining = 15
 	var/securityCaster = 0
@@ -139,21 +141,24 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	return ..()
 
 /obj/machinery/newscaster/update_icon()
-	overlays.Cut()
+	cut_overlays()
 	if(inoperable())
 		icon_state = "newscaster_off"
-		if(stat & BROKEN) //If the thing is smashed, add crack overlay on top of the unpowered sprite.
-			overlays += image(icon, "crack3")
 	else
 		if(!news_network.wanted_issue) //wanted icon state, there can be no overlays on it as it's a priority message
 			icon_state = "newscaster_normal"
 			if(alert) //new message alert overlay
-				overlays += "newscaster_alert"
+				add_overlay("newscaster_alert")
+	var/hp_percent = obj_integrity * 100 /max_integrity
+	switch(hp_percent)
+		if(75 to 100)
+			return
+		if(50 to 75)
+			add_overlay("crack1")
+		if(25 to 50)
+			add_overlay("crack2")
 		else
-			icon_state = "newscaster_wanted"
-
-		if(hitstaken > 0) //Cosmetic damage overlay
-			overlays += image(icon, "crack[hitstaken]")
+			add_overlay("crack3")
 
 /obj/machinery/newscaster/power_change()
 	..()

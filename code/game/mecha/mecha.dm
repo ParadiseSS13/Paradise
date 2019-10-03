@@ -15,6 +15,7 @@
 	layer = MOB_LAYER //icon draw layer
 	infra_luminosity = 15 //byond implementation is bugged.
 	force = 5
+	max_integrity = 300 //max_integrity is base health
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
@@ -27,10 +28,7 @@
 	var/step_energy_drain = 10
 	var/melee_energy_drain = 15
 	var/overload_step_energy_drain_min = 100
-	var/health = 300 //health is health
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
-	//the values in this list show how much damage will pass through, not how much will be absorbed.
-	var/list/damage_absorption = list("brute"=0.8,"fire"=1.2,"bullet"=0.9,"laser"=1,"energy"=1,"bomb"=1)
 	var/obj/item/stock_parts/cell/cell
 	var/state = 0
 	var/list/log = new
@@ -167,7 +165,7 @@
 
 /obj/mecha/examine(mob/user)
 	. = ..()
-	var/integrity = health/initial(health)*100
+	var/integrity = obj_integrity * 100 / max_integrity
 	switch(integrity)
 		if(85 to 100)
 			. += "It's fully intact."
@@ -328,8 +326,7 @@
 		else
 			occupant.clear_alert("mechaport")
 	if(leg_overload_mode)
-		take_damage(1)
-		if(health < initial(health) - initial(health) / 3)
+		if(obj_integrity < max_integrity - max_integrity / 3)
 			leg_overload_mode = FALSE
 			step_in = initial(step_in)
 			step_energy_drain = initial(step_energy_drain)
@@ -436,10 +433,11 @@
 ////////  Internal damage  ////////
 ///////////////////////////////////
 
-/obj/mecha/proc/check_for_internal_damage(var/list/possible_int_damage,var/ignore_threshold=null)
-	if(!islist(possible_int_damage) || isemptylist(possible_int_damage)) return
+/obj/mecha/proc/check_for_internal_damage(list/possible_int_damage, ignore_threshold=null)
+	if(!islist(possible_int_damage) || isemptylist(possible_int_damage))
+		return
 	if(prob(20))
-		if(ignore_threshold || health*100/initial(health)<internal_damage_threshold)
+		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
 			for(var/T in possible_int_damage)
 				if(internal_damage & T)
 					possible_int_damage -= T
@@ -447,11 +445,10 @@
 			if(int_dam_flag)
 				setInternalDamage(int_dam_flag)
 	if(prob(5))
-		if(ignore_threshold || health*100/initial(health)<internal_damage_threshold)
-			var/obj/item/mecha_parts/mecha_equipment/destr = safepick(equipment)
-			if(destr)
-				qdel(destr)
-	return
+		if(ignore_threshold || obj_integrity*100/max_integrity < internal_damage_threshold)
+			var/obj/item/mecha_parts/mecha_equipment/ME = safepick(equipment)
+			if(ME)
+				qdel(ME)
 
 /obj/mecha/proc/hasInternalDamage(int_dam_flag=null)
 	return int_dam_flag ? internal_damage&int_dam_flag : internal_damage
@@ -533,21 +530,6 @@
 		return 0
 	if(.)
 		. *= booster_damage_modifier
-
-/obj/mecha/proc/absorbDamage(damage,damage_type)
-	return call((proc_res["dynabsorbdamage"]||src), "dynabsorbdamage")(damage,damage_type)
-
-/obj/mecha/proc/dynabsorbdamage(damage,damage_type)
-	return damage*(listgetindex(damage_absorption,damage_type) || 1)
-
-
-/obj/mecha/proc/update_health()
-	if(health > 0)
-		spark_system.start()
-		diag_hud_set_mechhealth()
-	else
-		qdel(src)
-	return
 
 /obj/mecha/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -773,7 +755,7 @@
 
 	else if(iswelder(W) && user.a_intent != INTENT_HARM)
 		var/obj/item/weldingtool/WT = W
-		if(health < initial(health))
+		if(obj_integrity < max_integrity)
 			if(WT.remove_fuel(0, user))
 				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
 				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
@@ -782,7 +764,7 @@
 						user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
 					else
 						user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
-						health += min(20, initial(health) - health)
+						obj_integrity += min(10, max_integrity - obj_integrity)
 			else
 				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
 		else
@@ -1073,7 +1055,7 @@
 	visible_message("<span class='notice'>[user] starts to climb into [src]")
 
 	if(do_after(user, 40, target = src))
-		if(health <= 0)
+		if(obj_integrity <= 0)
 			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
 		else if(occupant)
 			to_chat(user, "<span class='danger'>[occupant] was faster! Try better next time, loser.</span>")

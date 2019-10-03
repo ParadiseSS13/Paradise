@@ -47,6 +47,8 @@
 	desc = "A control terminal for the area electrical systems."
 	icon_state = "apc0"
 	use_power = NO_POWER_USE
+	max_integrity = 200
+	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
 	req_access = list(access_engine_equip)
 	siemens_strength = 1

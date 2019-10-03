@@ -53,6 +53,7 @@ var/list/ingredients_source = list(
 	icon_state = "icecream_vat"
 	density = 1
 	anchored = 0
+	max_integrity = 300
 	var/list/ingredients = list()
 	var/dispense_flavour = 1
 	var/obj/item/reagent_containers/glass/held_container

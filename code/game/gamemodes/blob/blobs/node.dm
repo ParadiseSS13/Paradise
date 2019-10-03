@@ -2,9 +2,8 @@
 	name = "blob node"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blank_blob"
-	health = 100
+	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 65, "acid" = 90)
-	fire_resist = 2
 	point_return = 18
 
 /obj/structure/blob/node/New(loc, var/h = 100)

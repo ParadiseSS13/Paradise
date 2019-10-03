@@ -7,12 +7,14 @@
 	density = 0
 	opacity = 0
 	anchored = 1
+	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
 	var/health = 30
 	var/health_timestamp = 0
 	var/brute_resist = 4
 	var/fire_resist = 1
+	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
 
@@ -23,15 +25,22 @@
 	..(loc)
 	for(var/atom/A in loc)
 		A.blob_act(src)
+	if(atmosblock)
+		air_update_turf(1)
 	return
 
 
 /obj/structure/blob/Destroy()
+	if(atmosblock)
+		atmosblock = FALSE
+		air_update_turf(1)
 	blobs -= src
 	if(isturf(loc)) //Necessary because Expand() is retarded and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()
 
+/obj/structure/blob/BlockSuperconductivity()
+	return atmosblock
 
 /obj/structure/blob/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
@@ -39,6 +48,9 @@
 	if(istype(mover) && mover.checkpass(PASSBLOB))
 		return 1
 	return 0
+
+/obj/structure/blob/CanAtmosPass(turf/T)
+	return !atmosblock
 
 /obj/structure/blob/CanAStarPass(ID, dir, caller)
 	. = 0
@@ -215,15 +227,27 @@
 /obj/structure/blob/normal
 	icon_state = "blob"
 	light_range = 0
-	health = 21
+	obj_integrity = 21 //doesn't start at full health
+	max_integrity = 25
+	brute_resist = 0.25
 
 /obj/structure/blob/normal/update_icon()
-	if(health <= 0)
-		qdel(src)
-	else if(health <= 15)
+	..()
+	if(obj_integrity <= 15)
 		icon_state = "blob_damaged"
+		name = "fragile blob"
+		desc = "A thin lattice of slightly twitching tendrils."
+		brute_resist = 0.5
+	else if(overmind)
+		icon_state = "blob"
+		name = "blob"
+		desc = "A thick wall of writhing tendrils."
+		brute_resist = 0.25
 	else
 		icon_state = "blob"
+		name = "dead blob"
+		desc = "A thick wall of lifeless tendrils."
+		brute_resist = 0.25
 
 /* // Used to create the glow sprites. Remember to set the animate loop to 1, instead of infinite!
 

@@ -15,6 +15,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/inhand_x_dimension = 32
 	var/inhand_y_dimension = 32
 
+	max_integrity = 200
+
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 

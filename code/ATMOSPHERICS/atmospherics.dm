@@ -13,6 +13,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	anchored = 1
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
 	resistance_flags = FIRE_PROOF
+	max_integrity = 200
 	plane = FLOOR_PLANE
 	idle_power_usage = 0
 	active_power_usage = 0

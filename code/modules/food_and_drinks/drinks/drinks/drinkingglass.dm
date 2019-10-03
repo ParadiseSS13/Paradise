@@ -10,6 +10,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
+	max_integrity = 20
 	resistance_flags = ACID_PROOF
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)

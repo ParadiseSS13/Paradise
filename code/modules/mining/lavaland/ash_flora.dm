@@ -150,6 +150,7 @@
 	icon_state = "mushroom_shavings"
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
+	max_integrity = 100
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
 

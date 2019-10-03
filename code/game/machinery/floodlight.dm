@@ -4,6 +4,8 @@
 	icon_state = "flood00"
 	anchored = FALSE
 	density = TRUE
+	max_integrity = 100
+	integrity_failure = 80
 	light_power = 20
 	var/on = FALSE
 	var/obj/item/stock_parts/cell/high/cell = null

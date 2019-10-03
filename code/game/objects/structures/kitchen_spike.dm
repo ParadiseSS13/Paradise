@@ -8,6 +8,7 @@
 	desc = "The frame of a meat spike."
 	density = 1
 	anchored = 0
+	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -37,6 +38,7 @@
 	anchored = 1
 	buckle_lying = FALSE
 	can_buckle = TRUE
+	max_integrity = 250
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/kitchenspike/attack_hand(mob/user)

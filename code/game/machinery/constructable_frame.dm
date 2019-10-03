@@ -5,7 +5,7 @@
 	density = 1
 	anchored = 1
 	use_power = NO_POWER_USE
-	max_integrity = 100
+	max_integrity = 250
 	var/obj/item/circuitboard/circuit = null
 	var/list/components = null
 	var/list/req_components = null

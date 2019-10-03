@@ -1,6 +1,7 @@
 /obj/machinery/portable_atmospherics
 	name = "atmoalter"
 	use_power = NO_POWER_USE
+	max_integrity = 250
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30)
 	var/datum/gas_mixture/air_contents = new
 

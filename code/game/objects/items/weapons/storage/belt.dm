@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
+	max_integrity = 300
 	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
 
 /obj/item/storage/belt/update_icon()

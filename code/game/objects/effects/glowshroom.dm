@@ -3,13 +3,13 @@
 /obj/structure/glowshroom
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
-	anchored = 1
+	anchored = TRUE
 	opacity = 0
-	density = 0
+	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "glowshroom" //replaced in New
-	layer = 2.1
-	var/endurance = 30
+	layer = ABOVE_NORMAL_TURF_LAYER
+	max_integrity = 30
 	var/delay = 1200
 	var/floor = 0
 	var/generation = 1
@@ -52,7 +52,8 @@
 		myseed.adjust_production(rand(-3,6))
 		myseed.adjust_endurance(rand(-3,6))
 	delay = delay - myseed.production * 100 //So the delay goes DOWN with better stats instead of up. :I
-	endurance = myseed.endurance
+	obj_integrity = myseed.endurance
+	max_integrity = myseed.endurance
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
 		set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
@@ -151,23 +152,6 @@
 	floor = 1
 	return 1
 
-/obj/structure/glowshroom/attackby(obj/item/I, mob/user)
-	..()
-	var/damage_to_do = I.force
-	if(istype(I, /obj/item/scythe))
-		var/obj/item/scythe/S = I
-		if(S.extend)	//so folded telescythes won't get damage boosts / insta-clears (they instead will instead be treated like non-scythes)
-			damage_to_do *= 4
-			for(var/obj/structure/glowshroom/G in range(1,src))
-				G.endurance -= damage_to_do
-				G.CheckEndurance()
-			return
-	else if(I.sharp)
-		damage_to_do = I.force * 3 // wirecutter: 6->18, knife 10->30, hatchet 12->36
-	if(I.damtype != STAMINA)
-		endurance -= damage_to_do
-		CheckEndurance()
-
 /obj/structure/glowshroom/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	if(damage_type == BURN && damage_amount)
 		playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
@@ -175,12 +159,7 @@
 /obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
-		endurance -= 5
-		CheckEndurance()
-
-/obj/structure/glowshroom/proc/CheckEndurance()
-	if(endurance <= 0)
-		qdel(src)
+		take_damage(5, BURN, 0, 0)
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1

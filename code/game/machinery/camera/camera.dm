@@ -255,7 +255,8 @@
 			assembly.update_icon()
 			assembly = null
 		else
-			new /obj/item/camera_assembly(loc)
+			var/obj/item/I = new /obj/item/camera_assembly(loc)
+			I.obj_integrity = I.max_integrity * 0.5
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 

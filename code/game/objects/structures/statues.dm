@@ -5,6 +5,7 @@
 	icon_state = ""
 	density = 1
 	anchored = 0
+	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
@@ -61,6 +62,7 @@
 	qdel(src)
 
 /obj/structure/statue/uranium
+	max_integrity = 300
 	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0
@@ -98,6 +100,7 @@
 			active = null
 
 /obj/structure/statue/plasma
+	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
 
@@ -145,6 +148,7 @@
 		PlasmaBurn()
 
 /obj/structure/statue/gold
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/gold
 	desc = "This is a highly valuable statue made from gold."
 
@@ -169,6 +173,7 @@
 	icon_state = "rd"
 
 /obj/structure/statue/silver
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/silver
 	desc = "This is a valuable statue made from silver."
 
@@ -193,6 +198,7 @@
 	icon_state = "medborg"
 
 /obj/structure/statue/diamond
+	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
 	desc = "This is a very expensive diamond statue."
 
@@ -209,6 +215,7 @@
 	icon_state = "ai2"
 
 /obj/structure/statue/bananium
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
 	var/spam_flag = 0
@@ -237,6 +244,7 @@
 			spam_flag = 0
 
 /obj/structure/statue/sandstone
+	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
 
 /obj/structure/statue/sandstone/assistant
@@ -251,6 +259,7 @@
 	icon_state = "venus"
 
 /obj/structure/statue/tranquillite
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite
 	desc = "..."
 
@@ -278,10 +287,10 @@
 	icon_state = "snowman"
 	anchored = TRUE
 	density = TRUE
+	max_integrity = 50
 
 /obj/structure/snowman/built
 	desc = "Just like the ones you remember from childhood!"
-	max_integrity = 50
 
 /obj/structure/snowman/built/Destroy()
 	new /obj/item/reagent_containers/food/snacks/grown/carrot(drop_location())

@@ -22,6 +22,7 @@
 	sound = 'sound/items/zip.ogg'
 	var/item_path = /obj/item/bodybag
 	density = 0
+	integrity_failure = 0
 
 
 /obj/structure/closet/body_bag/attackby(W as obj, mob/user as mob, params)

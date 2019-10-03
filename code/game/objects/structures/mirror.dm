@@ -6,6 +6,8 @@
 	icon_state = "mirror"
 	density = 0
 	anchored = 1
+	max_integrity = 200
+	integrity_failure = 100
 	var/list/ui_users = list()
 
 /obj/structure/mirror/New(turf/T, newdir = SOUTH, building = FALSE)

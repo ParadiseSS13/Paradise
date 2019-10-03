@@ -284,7 +284,6 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
-	max_integrity = 300
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 

@@ -10,6 +10,8 @@
 	icon_state = "extinguisher_closed"
 	anchored = 1
 	density = 0
+	max_integrity = 200
+	integrity_failure = 50
 	var/obj/item/extinguisher/has_extinguisher = null
 	var/extinguishertype
 	var/opened = 0

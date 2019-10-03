@@ -5,6 +5,7 @@
 	icon_state = "pdapainter"
 	density = 1
 	anchored = 1
+	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	var/list/colorlist = list()
 

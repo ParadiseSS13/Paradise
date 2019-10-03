@@ -4,6 +4,7 @@
 	name = "AI core"
 	icon = 'icons/mob/AI.dmi'
 	icon_state = "0"
+	max_integrity = 500
 	var/state = 0
 	var/datum/ai_laws/laws = null
 	var/obj/item/circuitboard/circuit = null

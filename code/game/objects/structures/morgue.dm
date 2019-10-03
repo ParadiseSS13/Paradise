@@ -16,6 +16,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue1"
 	density = 1
+	max_integrity = 400
 	dir = EAST
 	var/obj/structure/m_tray/connected = null
 	var/list/status_descriptors = list(
@@ -184,6 +185,7 @@
 	var/obj/structure/morgue/connected = null
 	anchored = 1.0
 	pass_flags = LETPASSTHROW
+	max_integrity = 350
 
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)

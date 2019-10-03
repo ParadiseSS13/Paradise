@@ -97,6 +97,7 @@ Class Procs:
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
 	pressure_resistance = 15
+	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
 	var/emagged = 0

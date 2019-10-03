@@ -1,5 +1,7 @@
 /obj/item/clothing
 	name = "clothing"
+	max_integrity = 200
+	integrity_failure = 80
 	resistance_flags = FLAMMABLE
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/scan_reagents = 0 //Can the wearer see reagents while it's equipped?

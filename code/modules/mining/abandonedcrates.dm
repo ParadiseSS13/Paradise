@@ -8,6 +8,7 @@
 	var/lastattempt = null
 	var/attempts = 10
 	var/codelen = 4
+	integrity_failure = 0 //no breaking open the crate
 
 /obj/structure/closet/crate/secure/loot/New()
 	..()

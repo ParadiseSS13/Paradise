@@ -5,7 +5,7 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	density = FALSE
-	var/health = 15
+	max_integrity = 15
 	var/mob/living/carbon/human/master_commander = null
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -26,31 +26,10 @@
 	master_commander = null
 	return ..()
 
-/obj/structure/spider/attackby(obj/item/W, mob/user, params)
-	if(W.attack_verb.len)
-		visible_message("<span class='danger'>[user] has [pick(W.attack_verb)] [src] with [W]!</span>")
-	else
-		visible_message("<span class='danger'>[user] has attacked [src] with [W]!</span>")
-	var/damage = W.force / 4
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			damage = 15
-			playsound(loc, WT.usesound, 100, 1)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	health -= damage
-	healthcheck()
-
-/obj/structure/spider/proc/healthcheck()
-	if(health <= 0)
-		qdel(src)
-
 /obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
-		health -= 5
-		healthcheck()
+		take_damage(5, BURN, 0, 0)
 
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
@@ -105,7 +84,7 @@
 	icon_state = "spiderling"
 	anchored = 0
 	layer = 2.75
-	health = 3
+	max_integrity = 3
 	var/amount_grown = 0
 	var/grow_as = null
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
@@ -123,6 +102,7 @@
 /obj/structure/spider/spiderling/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	entry_vent = null
+	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
 
 /obj/structure/spider/spiderling/Bump(atom/user)
@@ -130,15 +110,6 @@
 		loc = user.loc
 	else
 		..()
-
-/obj/structure/spider/spiderling/proc/die()
-	visible_message("<span class='alert'>[src] dies!</span>")
-	new /obj/effect/decal/cleanable/spiderling_remains(loc)
-	qdel(src)
-
-/obj/structure/spider/spiderling/healthcheck()
-	if(health <= 0)
-		die()
 
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
@@ -229,7 +200,7 @@
 	name = "cocoon"
 	desc = "Something wrapped in silky spider web"
 	icon_state = "cocoon1"
-	health = 60
+	max_integrity = 60
 
 /obj/structure/spider/cocoon/New()
 	..()

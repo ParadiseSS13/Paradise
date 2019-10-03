@@ -6,7 +6,7 @@
 	layer = BELOW_OBJ_LAYER
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
-	var/health = 200
+	max_integrity = 200
 	var/can_displace = TRUE //If the girder can be moved around by crowbarring it
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
 
@@ -376,14 +376,14 @@
 	anchored = 0
 	state = GIRDER_DISPLACED
 	girderpasschance = 25
-	health = 120
+	max_integrity = 120
 
 /obj/structure/girder/reinforced
 	name = "reinforced girder"
 	icon_state = "reinforced"
 	state = GIRDER_REINF
 	girderpasschance = 0
-	health = 350
+	max_integrity = 350
 
 /obj/structure/girder/cult
 	name = "runed girder"

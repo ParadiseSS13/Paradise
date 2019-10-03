@@ -5,7 +5,7 @@
 	desc = "It's a gruesome pile of thick, sticky resin shaped like a nest."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "nest"
-	var/health = 100
+	max_integrity = 120
 	var/image/nest_overlay
 	comfort = 0
 

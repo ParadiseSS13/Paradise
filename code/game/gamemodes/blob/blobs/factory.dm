@@ -2,8 +2,7 @@
 	name = "factory blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_factory"
-	health = 100
-	fire_resist = 2
+	max_integrity = 200
 	point_return = 18
 	var/list/spores = list()
 	var/max_spores = 3

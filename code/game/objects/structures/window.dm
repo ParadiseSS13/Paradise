@@ -482,7 +482,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	cancolor = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
-	max_integrity = 50
+	max_integrity = 75
 	explosion_block = 1
 	damage_deflection = 11
 	glass_type = /obj/item/stack/sheet/rglass
@@ -554,7 +554,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
-	max_integrity = 120
+	max_integrity = 200
 	explosion_block = 1
 	armor = list("melee" = 80, "bullet" = 5, "laser" = 0, "energy" = 0, "bomb" = 45, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
@@ -568,7 +568,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	reinf = TRUE
-	max_integrity = 160
+	max_integrity = 500
 	explosion_block = 2
 	armor = list("melee" = 80, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 	damage_deflection = 21
@@ -603,7 +603,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	shardtype = /obj/item/shard/plasma
 	glass_type = /obj/item/stack/sheet/plasmaglass
 	heat_resistance = 32000
-	max_integrity = 240
+	max_integrity = 300
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
 	explosion_block = 1
@@ -618,7 +618,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	glass_type = /obj/item/stack/sheet/plasmarglass
 	smooth = SMOOTH_TRUE
 	reinf = TRUE
-	max_integrity = 320
+	max_integrity = 1000
 	explosion_block = 2
 	armor = list("melee" = 80, "bullet" = 20, "laser" = 0, "energy" = 0, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 99, "acid" = 100)
 
@@ -632,7 +632,7 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 	icon_state = "r_window"
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/full/basic, /obj/structure/window/full/reinforced, /obj/structure/window/full/reinforced/tinted, /obj/structure/window/full/plasmabasic, /obj/structure/window/full/plasmareinforced)
-	max_integrity = 100
+	max_integrity = 150
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 80, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 25, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100)
@@ -658,7 +658,7 @@ obj/structure/window/full/reinforced/ice
 	desc = "A reinforced, air-locked pod window."
 	icon = 'icons/obj/smooth_structures/shuttle_window.dmi'
 	icon_state = "shuttle_window"
-	max_integrity = 160
+	max_integrity = 150
 	reinf = TRUE
 	heat_resistance = 1600
 	explosion_block = 3
