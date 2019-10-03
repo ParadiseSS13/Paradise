@@ -7,8 +7,9 @@
 	var/special_role = ROLE_MINDSLAVE
 
 /datum/antagonist/mindslave/on_gain()
-	// Handling mindslave objectives on top of other antag objective sucks, so Im just gonna do it like this
-	to_chat(owner.current, "<b>New Objective:</b> [objectives[objectives.len].explanation_text]")
+	owner.special_role = special_role
+	// Will print the most recent objective which is probably going the mindslave objective
+	to_chat(owner.current, "<b>New Objective:</b> [owner.objectives[owner.objectives.len].explanation_text]")
 	update_mindslave_icons_added()
 
 /datum/antagonist/mindslave/on_removal()
@@ -37,10 +38,10 @@
 			slave_mob.mutations.Add(CLUMSY)
 
 /datum/antagonist/mindslave/proc/add_objective(datum/objective/O)
-	objectives += O
+	owner.objectives += O
 
 /datum/antagonist/mindslave/proc/remove_objective(datum/objective/O)
-	objectives -= O
+	owner.objectives -= O
 
 /datum/antagonist/mindslave/proc/update_mindslave_icons_added()
 	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
