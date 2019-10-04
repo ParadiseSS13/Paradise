@@ -1,0 +1,4 @@
+author: "Couls"
+delete-after: True
+changes: 
+  - tweak: "reviver implant now heals even when you're conscious"
