@@ -249,7 +249,6 @@
 	volume = 50
 	list_reagents = list("suicider" = 50)
 
-
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice

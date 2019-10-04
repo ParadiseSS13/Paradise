@@ -99,6 +99,7 @@
 /datum/hud/proc/show_hud(version = 0)
 	if(!ismob(mymob))
 		return FALSE
+
 	if(!mymob.client)
 		return FALSE
 
@@ -172,6 +173,7 @@
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
+	update_parallax_pref(mymob)
 	plane_masters_update()
 
 /datum/hud/proc/plane_masters_update()
@@ -209,3 +211,6 @@
 		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
 	else
 		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
+
+/datum/hud/proc/update_locked_slots()
+	return

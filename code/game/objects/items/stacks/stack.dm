@@ -31,7 +31,7 @@
 			if(S.merge_type == merge_type)
 				merge(S)
 
-/obj/item/stack/Crossed(obj/O)
+/obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
 		return
 	if(istype(O, merge_type) && !O.throwing)
@@ -49,12 +49,13 @@
 	return ..()
 
 /obj/item/stack/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		if(singular_name)
-			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
+			. += "There are [amount] [singular_name]\s in the stack."
 		else
-			to_chat(user, "There are [amount] [name]\s in the stack.")
-		to_chat(user,"<span class='notice'>Alt-click to take a custom amount.</span>")
+			. += "There are [amount] [name]\s in the stack."
+		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
 
 /obj/item/stack/proc/add(newamount)
 	amount += newamount

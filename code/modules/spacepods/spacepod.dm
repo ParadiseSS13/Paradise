@@ -765,10 +765,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 		to_chat(user, "<span class='danger'><B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b></span>")
 		return 0
 
-	for(var/mob/living/carbon/slime/S in range(1,usr))
-		if(S.Victim == user)
-			to_chat(user, "You're too busy getting your life sucked out of you.")
-			return 0
+	if(user.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[user] will not fit into [src] because [user.p_they()] [user.p_have()] creatures attached to [user.p_them()]!</span>")
+		return
 
 	move_inside(user)
 

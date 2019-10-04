@@ -30,7 +30,7 @@
 /area/survivalpod)
 "g" = (
 /obj/machinery/sleeper/survival_pod,
-/obj/machinery/vending/wallmed1/survival_pod{
+/obj/machinery/vending/wallmed/survival_pod{
 	pixel_x = -24
 	},
 /turf/simulated/floor/pod,

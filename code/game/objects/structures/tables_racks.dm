@@ -41,11 +41,11 @@
 		update_icon()
 
 /obj/structure/table/examine(mob/user)
-	..()
-	deconstruction_hints(user)
+	. = ..()
+	. += deconstruction_hints(user)
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>")
+	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
 
 /obj/structure/table/update_icon()
 	if(smooth && !flipped)
@@ -91,6 +91,12 @@
 	if(climber)
 		climber.Weaken(2)
 		climber.visible_message("<span class='warning'>[climber.name] has been knocked off the table", "You've been knocked off the table", "You see [climber.name] get knocked off the table</span>")
+	else if(Adjacent(user) && user.pulling && user.pulling.pass_flags & PASSTABLE)
+		user.Move_Pulled(src)
+		if(user.pulling.loc == loc)
+			user.visible_message("<span class='notice'>[user] places [user.pulling] onto [src].</span>",
+				"<span class='notice'>You place [user.pulling] onto [src].</span>")
+			user.stop_pulling()
 
 /obj/structure/table/attack_tk() // no telehulk sorry
 	return
@@ -377,7 +383,7 @@
 		qdel(i)
 	. = ..()
 
-/obj/structure/table/glass/Crossed(atom/movable/AM)
+/obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(!can_deconstruct)
 		return
@@ -642,8 +648,8 @@
 	max_integrity = 20
 
 /obj/structure/rack/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>")
+	. = ..()
+	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
 /obj/structure/rack/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)

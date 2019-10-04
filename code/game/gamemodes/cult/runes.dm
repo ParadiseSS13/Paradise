@@ -50,13 +50,13 @@ To draw a rune, use an arcane tome.
 		AI.client.images += blood
 
 /obj/effect/rune/examine(mob/user)
-	..()
+	. = ..()
 	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
-		to_chat(user, "<b>Name:</b> [cultist_name]")
-		to_chat(user, "<b>Effects:</b> [capitalize(cultist_desc)]")
-		to_chat(user, "<b>Required Acolytes:</b> [req_cultists]")
+		. += "<b>Name:</b> [cultist_name]"
+		. += "<b>Effects:</b> [capitalize(cultist_desc)]"
+		. += "<b>Required Acolytes:</b> [req_cultists]"
 		if(req_keyword && keyword)
-			to_chat(user, "<b>Keyword:</b> [keyword]")
+			. += "<b>Keyword:</b> [keyword]"
 
 /obj/effect/rune/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/tome) && iscultist(user))
@@ -434,7 +434,7 @@ var/list/teleport_runes = list()
 	var/sacrifice_fulfilled
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	if(T)
-		if(istype(T, /mob/living/simple_animal/pet/corgi))
+		if(isdog(T)) // Doggos are the best, but not cats
 			for(var/M in invokers)
 				var/mob/living/L = M
 				to_chat(L, "<span class='cultlarge'>\"Even I have standards, such as they are!\"</span>")
@@ -494,9 +494,8 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/narsie/New()
 	..()
-	cultist_name = "Summon [SSticker.cultdat.entity_name]"
-	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat.entity_title3]. Requires 9 invokers."
-
+	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
+	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]. Requires 9 invokers."
 
 /obj/effect/rune/narsie/check_icon()
 	return
@@ -755,9 +754,9 @@ var/list/teleport_runes = list()
 	var/mob/living/affecting = null
 
 /obj/effect/rune/astral/examine(mob/user)
-	..()
+	. = ..()
 	if(affecting)
-		to_chat(user, "<span class='cultitalic'>A translucent field encases [user] above the rune!</span>")
+		. += "<span class='cultitalic'>A translucent field encases [user] above the rune!</span>"
 
 /obj/effect/rune/astral/can_invoke(mob/living/user)
 	if(rune_in_use)
@@ -827,9 +826,9 @@ var/list/teleport_runes = list()
 	invoke_damage = 2
 
 /obj/effect/rune/wall/examine(mob/user)
-	..()
+	. = ..()
 	if(density)
-		to_chat(user, "<span class='cultitalic'>There is a barely perceptible shimmering of the air above [src].</span>")
+		. += "<span class='cultitalic'>There is a barely perceptible shimmering of the air above [src].</span>"
 
 /obj/effect/rune/wall/invoke(var/list/invokers)
 	var/mob/living/user = invokers[1]

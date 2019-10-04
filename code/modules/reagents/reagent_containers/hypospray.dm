@@ -44,7 +44,7 @@
 
 			var/contained = english_list(injected)
 
-			add_attack_logs(user, M, "Injected with [src] containing ([contained])")
+			add_attack_logs(user, M, "Injected with [src] containing ([contained])", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 		return TRUE
 
@@ -82,12 +82,12 @@
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(10)
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = list(15)
 	icon_state = "combat_hypo"
-	volume = 75
+	volume = 90
 	ignore_flags = 1 // So they can heal their comrades.
-	list_reagents = list("epinephrine" = 30, "omnizine" = 30, "teporone" = 15)
+	list_reagents = list("epinephrine" = 30, "weak_omnizine" = 30, "salglu_solution" = 30)
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
@@ -122,11 +122,11 @@
 		icon_state = "[initial(icon_state)]0"
 
 /obj/item/reagent_containers/hypospray/autoinjector/examine()
-	..()
+	. = ..()
 	if(reagents && reagents.reagent_list.len)
-		to_chat(usr, "<span class='notice'>It is currently loaded.</span>")
+		. += "<span class='notice'>It is currently loaded.</span>"
 	else
-		to_chat(usr, "<span class='notice'>It is spent.</span>")
+		. += "<span class='notice'>It is spent.</span>"
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
@@ -155,9 +155,9 @@
 	name = "survival medipen"
 	desc = "A medipen for surviving in the harshest of environments, heals and protects from environmental hazards. <br><span class='boldwarning'>WARNING: Do not inject more than one pen in quick succession.</span>"
 	icon_state = "stimpen"
-	volume = 22
-	amount_per_transfer_from_this = 22
-	list_reagents = list("salbutamol" = 10, "epinephrine" = 5, "lavaland_extract" = 2, "salglu_solution" = 5) //Short burst of healing, followed by minor healing from the saline
+	volume = 42
+	amount_per_transfer_from_this = 42
+	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
 
 /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	name = "nanocalcium autoinjector"

@@ -15,7 +15,8 @@
 		standard_outfit_options = list()
 		for(var/path in subtypesof(/datum/outfit/job))
 			var/datum/outfit/O = path
-			standard_outfit_options[initial(O.name)] = path
+			if(initial(O.can_be_admin_equipped))
+				standard_outfit_options[initial(O.name)] = path
 		sortTim(standard_outfit_options, /proc/cmp_text_asc)
 	outfit_options = standard_outfit_options
 
@@ -273,6 +274,34 @@
 	chameleon_action.emp_randomise()
 
 /obj/item/clothing/glasses/chameleon/broken/Initialize()
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
+/obj/item/clothing/glasses/chameleon/thermal
+	origin_tech = "magnets=3;syndicate=4"
+	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	flash_protect = -1
+	prescription_upgradable = TRUE
+
+/obj/item/clothing/glasses/hud/security/chameleon
+	flash_protect = 1
+
+	var/datum/action/item_action/chameleon/change/chameleon_action
+
+/obj/item/clothing/glasses/hud/security/chameleon/Initialize()
+	. = ..()
+	chameleon_action = new(src)
+	chameleon_action.chameleon_type = /obj/item/clothing/glasses
+	chameleon_action.chameleon_name = "HUD"
+	chameleon_action.chameleon_blacklist = list()
+	chameleon_action.initialize_disguises()
+
+/obj/item/clothing/glasses/hud/security/chameleon/emp_act(severity)
+	. = ..()
+	chameleon_action.emp_randomise()
+
+/obj/item/clothing/glasses/hud/security/chameleon/broken/Initialize()
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
 

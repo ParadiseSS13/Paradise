@@ -26,7 +26,7 @@
 	var/inertia_move_delay = 5
 
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
-
+	var/list/client_mobs_in_contents
 	var/area/areaMaster
 
 /atom/movable/New()
@@ -41,17 +41,12 @@
 	. = ..()
 
 /atom/movable/Destroy()
+	unbuckle_all_mobs(force = TRUE)
 	if(loc)
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
 		qdel(AM)
-	var/turf/un_opaque
-	if(opacity && isturf(loc))
-		un_opaque = loc
-
 	loc = null
-	if(un_opaque)
-		un_opaque.recalc_atom_opacity()
 	if(pulledby)
 		if(pulledby.pulling == src)
 			pulledby.pulling = null
@@ -115,12 +110,12 @@
 			log_game("DEBUG:[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 			stop_pulling()
 			return
-		if(pulling.anchored)
+		if(pulling.anchored || pulling.move_resist > move_force)
 			stop_pulling()
 			return
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
-		
+
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
 		return FALSE
@@ -129,6 +124,7 @@
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		return FALSE
 	return TRUE
+
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
@@ -206,7 +202,7 @@
 	src.move_speed = world.time - src.l_move_time
 	src.l_move_time = world.time
 
-	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
+	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
@@ -215,11 +211,13 @@
 	if(!inertia_moving)
 		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
+	if(length(client_mobs_in_contents))
+		update_parallax_contents()
 	return TRUE
 
 // Previously known as HasEntered()
 // This is automatically called when something enters your square
-/atom/movable/Crossed(atom/movable/AM)
+/atom/movable/Crossed(atom/movable/AM, oldloc)
 	SEND_SIGNAL(src, COMSIG_MOVABLE_CROSSED, AM)
 
 /atom/movable/Bump(atom/A, yes) //the "yes" arg is to differentiate our Bump proc from byond's, without it every Bump() call would become a double Bump().
@@ -245,7 +243,9 @@
 	if(destination)
 		destination.Entered(src)
 		for(var/atom/movable/AM in destination)
-			AM.Crossed(src)
+			if(AM == src)
+				continue
+			AM.Crossed(src, old_loc)
 		var/turf/oldturf = get_turf(old_loc)
 		var/turf/destturf = get_turf(destination)
 		var/old_z = (oldturf ? oldturf.z : null)
@@ -272,8 +272,10 @@
 /mob/living/forceMove(atom/destination)
 	if(buckled)
 		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
-	if(buckled_mob)
-		addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(pulling)
 		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
 	. = ..()
@@ -425,12 +427,14 @@
 	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
-	if(!buckled_mob.Move(newloc, direct))
-		loc = buckled_mob.loc
-		last_move = buckled_mob.last_move
-		inertia_dir = last_move
-		buckled_mob.inertia_dir = last_move
-		return 0
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		if(!buckled_mob.Move(newloc, direct))
+			forceMove(buckled_mob.loc)
+			last_move = buckled_mob.last_move
+			inertia_dir = last_move
+			buckled_mob.inertia_dir = last_move
+			return 0
 	return 1
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
@@ -450,7 +454,7 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(buckled_mob == mover)
+	if(mover in buckled_mobs)
 		return 1
 	return ..()
 

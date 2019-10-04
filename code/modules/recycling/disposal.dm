@@ -175,7 +175,7 @@
 // mouse drop another mob or self
 //
 /obj/machinery/disposal/MouseDrop_T(mob/target, mob/user)
-	if(!istype(target) || target.buckled || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
+	if(!istype(target) || target.buckled || target.has_buckled_mobs() || get_dist(user, src) > 1 || get_dist(user, target) > 1 || user.stat || istype(user, /mob/living/silicon/ai))
 		return
 	if(isanimal(user) && target != user) return //animals cannot put mobs other than themselves into disposal
 	src.add_fingerprint(user)
@@ -1036,6 +1036,7 @@
 
 		if(O.currTag > 0)// Tag set
 			sortType = O.currTag
+			name = GLOB.TAGGERLOCATIONS[O.currTag]
 			playsound(src.loc, 'sound/machines/twobeep.ogg', 100, 1)
 			var/tag = uppertext(GLOB.TAGGERLOCATIONS[O.currTag])
 			to_chat(user, "<span class='notice'>Changed filter to [tag]</span>")

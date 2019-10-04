@@ -16,23 +16,8 @@
 		new /obj/item/storage/backpack/satchel_cap(src)
 	new /obj/item/book/manual/faxes(src)
 	new /obj/item/storage/backpack/duffel/captain(src)
-	new /obj/item/clothing/suit/captunic(src)
-	new /obj/item/clothing/suit/captunic/capjacket(src)
-	new /obj/item/clothing/suit/mantle/armor/captain(src)
-	new /obj/item/clothing/under/captainparade(src)
-	new /obj/item/clothing/head/caphat/parade(src)
-	new /obj/item/clothing/under/rank/captain(src)
-	new /obj/item/clothing/under/dress/dress_cap(src)
-	new /obj/item/clothing/under/dress/dark(src)
-	new /obj/item/clothing/under/dress/light(src)
-	new /obj/item/clothing/head/caphat/dark(src)
-	new /obj/item/clothing/head/caphat/light(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
 	new /obj/item/cartridge/captain(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/laceup(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
-	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/storage/belt/rapier(src)
 	new /obj/item/gun/energy/gun(src)
 	new /obj/item/door_remote/captain(src)
@@ -64,7 +49,7 @@
 	new /obj/item/clothing/accessory/petcollar(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
-
+	new /obj/item/clothing/accessory/medal/service(src)
 
 /obj/structure/closet/secure_closet/hop2
 	name = "head of personnel's attire"
@@ -132,7 +117,7 @@
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/security(src)
-
+	new /obj/item/clothing/accessory/medal/security(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -255,7 +240,7 @@
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
-	new /obj/item/clothing/glasses/hud/health/health_advanced
+	new /obj/item/clothing/glasses/hud/health/sunglasses
 	new /obj/item/clothing/head/beret/centcom/officer(src)
 	new /obj/item/clothing/head/beret/centcom/officer/navy(src)
 	new /obj/item/clothing/suit/armor/vest/blueshield(src)
@@ -469,3 +454,4 @@
 	new /obj/item/gavelblock(src)
 	new /obj/item/gavelhammer(src)
 	new /obj/item/clothing/head/justice_wig(src)
+	new /obj/item/clothing/accessory/medal/legal(src)

@@ -22,13 +22,16 @@
 	icon_state = "eggplant"
 	filling_color = "#800080"
 	bitesize_mod = 2
+	tastes = list("eggplant" = 1)
 	wine_power = 0.2
 
 // Egg-Plant
 /obj/item/seeds/eggplant/eggy
+	name = "pack of egg-plant seeds"
 	desc = "These seeds grow to produce berries that look a lot like eggs."
 	icon_state = "seed-eggy"
 	species = "eggy"
+	plantname = "Egg-Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/shell/eggy
 	lifespan = 75
 	production = 12
@@ -43,4 +46,5 @@
 	trash = /obj/item/reagent_containers/food/snacks/egg
 	filling_color = "#F8F8FF"
 	bitesize_mod = 2
+	tastes = list("egg-plant" = 1)
 	distill_reagent = "eggnog"

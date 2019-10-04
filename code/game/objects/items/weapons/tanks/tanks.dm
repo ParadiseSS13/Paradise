@@ -1,5 +1,4 @@
 #define TANK_MAX_RELEASE_PRESSURE (3*ONE_ATMOSPHERE)
-#define TANK_DEFAULT_RELEASE_PRESSURE 24
 
 /obj/item/tank
 	name = "tank"
@@ -8,7 +7,7 @@
 	slot_flags = SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
-	pressure_resistance = ONE_ATMOSPHERE*5
+	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5.0
 	throwforce = 10.0
 	throw_speed = 1
@@ -77,8 +76,7 @@
 
 
 /obj/item/tank/examine(mob/user)
-	if(!..(user, 0))
-		return
+	. = ..()
 
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))
@@ -86,7 +84,7 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			to_chat(user, "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>")
+			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
 		return
 
 	var/celsius_temperature = air_contents.temperature-T0C
@@ -105,9 +103,7 @@
 	else
 		descriptive = "furiously hot"
 
-	to_chat(user, "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>")
-
-	return
+	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
 
 /obj/item/tank/blob_act()
 	if(prob(50))

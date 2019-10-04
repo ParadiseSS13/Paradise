@@ -420,7 +420,7 @@
 /obj/item/holo/esword/red/New()
 	item_color = "red"
 
-/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
 	return 0
@@ -459,6 +459,12 @@
 	item_state = "basketball"
 	desc = "Here's your chance, do your dance at the Space Jam."
 	w_class = WEIGHT_CLASS_BULKY //Stops people from hiding it in their bags/pockets
+
+/obj/item/beach_ball/holoball/baseball
+	icon_state = "baseball"
+	name = "baseball"
+	item_state = "baseball"
+	desc = "Take me out to the ball game."
 
 /obj/structure/holohoop
 	name = "basketball hoop"

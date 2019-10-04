@@ -113,6 +113,24 @@
 		return U.sensor_mode
 	return SUIT_SENSOR_OFF
 
+/proc/offer_control(mob/M)
+	to_chat(M, "Control of your mob has been offered to dead players.")
+	log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
+	var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name ? M.real_name : M.name]?", poll_time = 100, min_hours = minhours)
+	var/mob/dead/observer/theghost = null
+
+	if(LAZYLEN(candidates))
+		theghost = pick(candidates)
+		to_chat(M, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		M.ghostize()
+		M.key = theghost.key
+	else
+		to_chat(M, "There were no ghosts willing to take control.")
+		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+
 /proc/check_zone(zone)
 	if(!zone)	return "chest"
 	switch(zone)
@@ -369,7 +387,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 			if(hud_used && hud_used.action_intent)
 				hud_used.action_intent.icon_state = "[a_intent]"
 
-		else if(isrobot(src) || islarva(src) || isanimal(src))
+		else if(isrobot(src) || islarva(src) || isanimal(src) || isAI(src))
 			switch(input)
 				if(INTENT_HELP)
 					a_intent = INTENT_HELP
@@ -482,6 +500,8 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 				if(A)
 					if(O.client.prefs && O.client.prefs.UI_style)
 						A.icon = ui_style2icon(O.client.prefs.UI_style)
+					if(title)
+						A.name = title
 					A.desc = message
 					A.action = action
 					A.target = source
@@ -565,9 +585,9 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 		for(var/i=1,i<=3,i++)	//we get 3 attempts to pick a suitable name.
 			if(force)
-				newname = input(src, "Pick a new name.", "Name Change", oldname) as text
+				newname = clean_input("Pick a new name.", "Name Change", oldname, src)
 			else
-				newname = input(src, "You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname) as text
+				newname = clean_input("You are a [role]. Would you like to change your name to something else? (You have 3 minutes to select a new name.)", "Name Change", oldname, src)
 			if(((world.time - time_passed) > 1800) && !force)
 				alert(src, "Unfortunately, more than 3 minutes have passed for selecting your name. If you are a robot, use the Namepick verb; otherwise, adminhelp.", "Name Change")
 				return	//took too long

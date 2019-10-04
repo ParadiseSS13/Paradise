@@ -180,7 +180,7 @@
 	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
-	supervisors = "the chief medical officer and the research director"
+	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
 	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
@@ -289,8 +289,8 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
-	minimal_access=list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_chemistry, access_surgery, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	minimal_access=list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue, access_surgery)
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW

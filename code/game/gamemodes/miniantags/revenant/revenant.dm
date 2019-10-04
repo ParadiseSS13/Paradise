@@ -85,7 +85,7 @@
 /mob/living/simple_animal/revenant/narsie_act()
 	return //most humans will now be either bones or harvesters, but we're still un-alive.
 
-/mob/living/simple_animal/revenant/adjustHealth(amount)
+/mob/living/simple_animal/revenant/adjustHealth(amount, updating_health = TRUE)
 	if(!revealed)
 		return
 	essence = max(0, essence-amount)
@@ -374,11 +374,11 @@
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
-	..(user)
+	. = ..()
 	if(inert)
-		to_chat(user, "<span class='revennotice'>It seems inert.</span>")
+		. += "<span class='revennotice'>It seems inert.</span>"
 	else if(reforming)
-		to_chat(user, "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>")
+		. += "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>"
 
 /obj/item/ectoplasm/revenant/proc/reform()
 	if(inert || !src)

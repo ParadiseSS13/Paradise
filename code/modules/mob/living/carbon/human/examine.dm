@@ -338,17 +338,8 @@
 		msg += "[p_they(TRUE)] [p_are()] mostly dessicated now, with only bones remaining of what used to be a person.\n"
 
 	if(hasHUD(user,"security"))
-		var/perpname = "wot"
+		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
-
-		if(wear_id)
-			var/obj/item/card/id/I = wear_id.GetID()
-			if(I)
-				perpname = I.registered_name
-			else
-				perpname = name
-		else
-			perpname = name
 
 		if(perpname)
 			for(var/datum/data/record/E in data_core.general)
@@ -361,17 +352,8 @@
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecord=`'>\[View\]</a>  <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user,"medical"))
-		var/perpname = "wot"
+		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
-
-		if(wear_id)
-			if(istype(wear_id,/obj/item/card/id))
-				perpname = wear_id:registered_name
-			else if(istype(wear_id,/obj/item/pda))
-				var/obj/item/pda/tempPda = wear_id
-				perpname = tempPda.owner
-		else
-			perpname = src.name
 
 		for(var/datum/data/record/E in data_core.general)
 			if(E.fields["name"] == perpname)
@@ -392,7 +374,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
-	to_chat(user, msg)
+	. = list(msg)
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M as mob, hudtype)
@@ -408,7 +390,7 @@
 					S = H.glasses
 				return !istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/security) && S && S.read_only
 			if("medical")
-				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(H.glasses, /obj/item/clothing/glasses/hud/health/health_advanced) ||  istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
+				return istype(H.glasses, /obj/item/clothing/glasses/hud/health) || istype(CIH,/obj/item/organ/internal/cyberimp/eyes/hud/medical)
 			else
 				return 0
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system

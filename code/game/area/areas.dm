@@ -65,6 +65,10 @@
 
 	var/fast_despawn = FALSE
 	var/can_get_auto_cryod = TRUE
+	var/hide_attacklogs = FALSE // For areas such as thunderdome, lavaland syndiebase, etc which generate a lot of spammy attacklogs. Reduces log priority.
+
+	var/parallax_movedir = 0
+	var/moving = FALSE
 
 /area/Initialize(mapload)
 	GLOB.all_areas += src

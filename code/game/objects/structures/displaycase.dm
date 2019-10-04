@@ -6,7 +6,7 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 
 /proc/updateDisplaycase(mob/living/carbon/human/captain)
 	if(!GLOB.captain_display_cases.len)
-		return 
+		return
 	var/fingerprint = captain.get_full_print()
 	for(var/item in GLOB.captain_display_cases)
 		var/obj/structure/displaycase/CASE = item
@@ -113,6 +113,11 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 		occupant = new start_showpiece_type(src)
 	update_icon()
 
+/obj/structure/displaycase/Destroy()
+	dump()
+	QDEL_NULL(circuit)
+	return ..()
+
 /obj/structure/displaycase/captains_laser
 	name = "captain's display case"
 	desc = "A display case for the captain's antique laser gun. Hooked up with an anti-theft system."
@@ -125,6 +130,16 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	. = ..()
 	GLOB.captain_display_cases += src
 
+/obj/structure/displaycase/captains_laser/Destroy()
+	GLOB.captain_display_cases -= src
+	return ..()
+
+/obj/structure/displaycase/lavaland_winter
+	burglar_alarm = TRUE
+	locked = TRUE
+	req_access = list(access_cent_specops)
+	start_showpiece_type = /obj/item/gun/energy/laser/captain
+
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."
@@ -132,22 +147,13 @@ GLOBAL_LIST_INIT(captain_display_cases, list())
 	req_access = list(access_syndicate_command)
 	start_showpiece_type = /obj/item/gun/projectile/automatic/pistol
 
-/obj/structure/displaycase/Destroy()
-	dump()
-	QDEL_NULL(circuit)
-	return ..()
-
-/obj/structure/displaycase/captains_laser/Destroy()
-	GLOB.captain_display_cases -= src
-	return ..()
-
 /obj/structure/displaycase/examine(mob/user)
-	..(user)
-	to_chat(user, "<span class='notice'>Peering through the glass, you see that it contains:</span>")
+	. = ..()
+	. += "<span class='notice'>Peering through the glass, you see that it contains:</span>"
 	if(occupant)
-		to_chat(user, "[bicon(occupant)] <span class='notice'>\A [occupant].</span>")
+		. += "[bicon(occupant)] <span class='notice'>\A [occupant].</span>"
 	else
-		to_chat(user, "Nothing.")
+		. += "Nothing."
 
 /obj/structure/displaycase/proc/dump()
 	if(occupant)

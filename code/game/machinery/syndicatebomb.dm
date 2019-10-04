@@ -90,8 +90,8 @@
 	return ..()
 
 /obj/machinery/syndicatebomb/examine(mob/user)
-	..(user)
-	to_chat(user, "A digital display on it reads \"[seconds_remaining()]\".")
+	. = ..()
+	. += "A digital display on it reads \"[seconds_remaining()]\"."
 
 /obj/machinery/syndicatebomb/update_icon()
 	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
@@ -201,6 +201,9 @@
 		return FALSE
 	if(!Adjacent(user))
 		return FALSE
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied!</span>")
+		return FALSE
 	return TRUE
 
 /obj/machinery/syndicatebomb/proc/activate()
@@ -273,6 +276,7 @@
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self destruct device"
 	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
+	req_access = list(access_syndicate)
 	payload = /obj/item/bombcore/large
 	can_unanchor = FALSE
 	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE // If set, this bomb will also cause explosive walls in the same group to explode

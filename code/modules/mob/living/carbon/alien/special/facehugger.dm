@@ -43,16 +43,15 @@ var/const/MAX_ACTIVE_TIME = 400
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
-	..(user)
-	if(!real)//So that giant red text about probisci doesn't show up.
-		return
-	switch(stat)
-		if(DEAD,UNCONSCIOUS)
-			to_chat(user, "<span class='boldannounce'>[src] is not moving.</span>")
-		if(CONSCIOUS)
-			to_chat(user, "<span class='boldannounce'>[src] seems to be active!</span>")
-	if(sterile)
-		to_chat(user, "<span class='boldannounce'>It looks like the proboscis has been removed.</span>")
+	. = ..()
+	if(real)//So that giant red text about probisci doesn't show up for fake ones
+		switch(stat)
+			if(DEAD,UNCONSCIOUS)
+				. += "<span class='boldannounce'>[src] is not moving.</span>"
+			if(CONSCIOUS)
+				. += "<span class='boldannounce'>[src] seems to be active!</span>"
+		if(sterile)
+			. += "<span class='boldannounce'>It looks like the proboscis has been removed.</span>"
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O,mob/m, params)
 	if(O.force)
@@ -72,7 +71,7 @@ var/const/MAX_ACTIVE_TIME = 400
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	Attach(M)
 
-/obj/item/clothing/mask/facehugger/Crossed(atom/target)
+/obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
 	HasProximity(target)
 	return
 
@@ -152,14 +151,6 @@ var/const/MAX_ACTIVE_TIME = 400
 		target.equip_to_slot(src, slot_wear_mask,,0)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
-	else if(iscorgi(M))
-		var/mob/living/simple_animal/pet/corgi/C = M
-		if(C.facehugger)
-			var/obj/item/F = C.facehugger
-			F.forceMove(C.loc)
-		forceMove(C)
-		C.facehugger = src
-		C.regenerate_icons()
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
@@ -192,11 +183,6 @@ var/const/MAX_ACTIVE_TIME = 400
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
-
-		if(iscorgi(target))
-			var/mob/living/simple_animal/pet/corgi/C = target
-			src.loc = get_turf(C)
-			C.facehugger = null
 	else
 		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \
 								"<span class='userdanger'>[src] violates [target]'s face!</span>")

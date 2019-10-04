@@ -19,8 +19,11 @@
 			            access_ce, access_RC_announce, access_keycard_auth, access_tcomsat, access_minisat, access_mechanic, access_mineral_storeroom)
 	minimal_player_age = 15
 	exp_requirements = 2880
-	exp_type = EXP_TYPE_CREW
+	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
+	required_objectives = list(
+		/datum/job_objective/make_station_goal
+	)
 
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
@@ -128,6 +131,9 @@
 	access = list(access_eva, access_engine, access_engine_equip, access_tech_storage, access_maint_tunnels, access_external_airlocks, access_construction, access_atmospherics, access_mineral_storeroom, access_mechanic)
 	minimal_access = list(access_maint_tunnels, access_emergency_storage, access_mechanic, access_external_airlocks, access_mineral_storeroom)
 	outfit = /datum/outfit/job/mechanic
+	required_objectives = list(
+		/datum/job_objective/make_pod
+	)
 
 /datum/outfit/job/mechanic
 	name = "Mechanic"

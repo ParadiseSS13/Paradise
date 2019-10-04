@@ -42,15 +42,15 @@
 	return ..()
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
-	..()
+	. = ..()
 	if(defib)
-		to_chat(user, "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>")
+		. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>"
 		if(security_level >= SEC_LEVEL_RED)
-			to_chat(user, "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>")
+			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
 		else
-			to_chat(user, "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>")
+			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 	else
-		to_chat(user, "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>")
+		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>"
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib && defib.bcell && defib.bcell.charge < defib.bcell.maxcharge && is_operational())

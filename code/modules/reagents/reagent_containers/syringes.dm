@@ -146,7 +146,7 @@
 					rinject += R.name
 				var/contained = english_list(rinject)
 
-				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units")
+				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 			var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
 			reagents.reaction(L, INGEST, fraction)
@@ -289,12 +289,6 @@
 		icon_state = "[rounded_vol]"
 	item_state = "syringe_[rounded_vol]"
 
-
-////////////////////////////////////////////////////////////////////////////////
-/// Syringes. END
-////////////////////////////////////////////////////////////////////////////////
-
-
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
@@ -327,3 +321,25 @@
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
 	list_reagents = list("neurotoxin" = 5, "capulettium_plus" = 5, "sodium_thiopental" = 5)
+
+/obj/item/reagent_containers/syringe/gluttony
+	name = "Gluttony's Blessing"
+	desc = "A syringe recovered from a dread place. It probably isn't wise to use."
+	amount_per_transfer_from_this = 1
+	volume = 1
+	list_reagents = list("gluttonytoxin" = 1)
+
+/obj/item/reagent_containers/syringe/capulettium_plus
+	name = "capulettium plus syringe"
+	desc = "For silencing targets. Allows for fake deaths."
+	list_reagents = list("capulettium_plus" = 15)
+
+/obj/item/reagent_containers/syringe/sarin
+	name = "sarin syringe"
+	desc = "A deadly neurotoxin, for killing."
+	list_reagents = list("sarin" = 15)
+
+/obj/item/reagent_containers/syringe/pancuronium
+	name = "pancuronium syringe"
+	desc = "A powerful paralyzing poison."
+	list_reagents = list("pancuronium" = 15)
