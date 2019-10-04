@@ -60,13 +60,13 @@
 	return
 
 /obj/structure/blob/core/update_icon()
-	if(health <= 0)
-		qdel(src)
-		return
-	// update_icon is called when health changes so... call update_health in the overmind
+	cut_overlays()
+	color = null
+	var/mutable_appearance/blob_overlay = mutable_appearance('icons/mob/blob.dmi', "blob")
 	if(overmind)
-		overmind.update_health_hud()
-	return
+		blob_overlay.color = overmind.blob_reagent_datum.color
+	add_overlay(blob_overlay)
+	add_overlay(mutable_appearance('icons/mob/blob.dmi', "blob_core_overlay"))
 
 /obj/structure/blob/core/RegenHealth()
 	return // Don't regen, we handle it in Life()
@@ -78,7 +78,7 @@
 		if(resource_delay <= world.time)
 			resource_delay = world.time + 10 // 1 second
 			overmind.add_points(point_rate)
-	health = min(initial(health), health + 1)
+	obj_integrity = min(max_integrity, obj_integrity + 1)
 	if(overmind)
 		overmind.update_health_hud()
 	if(overmind)

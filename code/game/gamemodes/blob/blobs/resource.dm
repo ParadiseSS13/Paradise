@@ -6,10 +6,6 @@
 	point_return = 12
 	var/resource_delay = 0
 
-/obj/structure/blob/resource/update_icon()
-	if(health <= 0)
-		qdel(src)
-
 /obj/structure/blob/resource/run_action()
 	if(resource_delay > world.time)
 		return

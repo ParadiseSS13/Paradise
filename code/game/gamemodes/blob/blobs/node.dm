@@ -35,11 +35,14 @@
 	else
 		for(var/i = 1; i < 8; i += i)
 			Pulse(5, i, color)
-	health = min(initial(health), health + 1)
+	obj_integrity = min(max_integrity, obj_integrity + 1)
 	color = null
 
 /obj/structure/blob/node/update_icon()
-	if(health <= 0)
-		qdel(src)
-		return
-	return
+	cut_overlays()
+	color = null
+	var/mutable_appearance/blob_overlay = mutable_appearance('icons/mob/blob.dmi', "blob")
+	if(overmind)
+		blob_overlay.color = overmind.blob_reagent_datum.color
+	add_overlay(blob_overlay)
+	add_overlay(mutable_appearance('icons/mob/blob.dmi', "blob_node_overlay"))

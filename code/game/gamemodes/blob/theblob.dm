@@ -10,25 +10,20 @@
 	max_integrity = 30
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 	var/point_return = 0 //How many points the blob gets back when it removes a blob of that type. If less than 0, blob cannot be removed.
-	var/health = 30
 	var/health_timestamp = 0
-	var/brute_resist = 4
-	var/fire_resist = 1
+	var/brute_resist = 0.5 //multiplies brute damage by this
+	var/fire_resist = 1 //multiplies burn damage by this
 	var/atmosblock = FALSE //if the blob blocks atmos and heat spread
 	var/mob/camera/blob/overmind
 
-
 /obj/structure/blob/New(loc)
+	..()
 	blobs += src
-	src.dir = pick(1, 2, 4, 8)
-	src.update_icon()
-	..(loc)
-	for(var/atom/A in loc)
-		A.blob_act(src)
+	setDir(pick(cardinal))
+	update_icon()
 	if(atmosblock)
 		air_update_turf(1)
-	return
-
+	ConsumeTile()
 
 /obj/structure/blob/Destroy()
 	if(atmosblock)
@@ -58,6 +53,12 @@
 		var/atom/movable/mover = caller
 		. = . || mover.checkpass(PASSBLOB)
 
+/obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
+	if(overmind)
+		add_atom_colour(overmind.blob_reagent_datum.color, FIXED_COLOUR_PRIORITY)
+	else
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+
 /obj/structure/blob/process()
 	Life()
 	return
@@ -72,8 +73,8 @@
 	// All blobs heal over time when pulsed, but it has a cool down
 	if(health_timestamp > world.time)
 		return 0
-	if(health < initial(health))
-		health++
+	if(obj_integrity < max_integrity)
+		obj_integrity = min(max_integrity, obj_integrity + 1)
 		update_icon()
 		health_timestamp = world.time + 10 // 1 seconds
 
@@ -112,9 +113,15 @@
 /obj/structure/blob/proc/run_action()
 	return 0
 
+/obj/structure/blob/proc/ConsumeTile()
+	for(var/atom/A in loc)
+		A.blob_act(src)
+	if(iswallturf(loc))
+		loc.blob_act(src) //don't ask how a wall got on top of the core, just eat it
 
 /obj/structure/blob/proc/expand(var/turf/T = null, var/prob = 1, var/a_color)
-	if(prob && !prob(health))	return
+	if(prob && !prob(obj_integrity))
+		return
 	if(istype(T, /turf/space) && prob(75)) 	return
 	if(!T)
 		var/list/dirs = list(1,2,4,8)
@@ -126,7 +133,7 @@
 			else	T = null
 
 	if(!T)	return 0
-	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(src.health, 30))
+	var/obj/structure/blob/normal/B = new /obj/structure/blob/normal(src.loc, min(obj_integrity, 30))
 	B.color = a_color
 	B.density = 1
 	if(T.Enter(B,src))//Attempt to move into the tile
@@ -151,15 +158,6 @@
 
 /obj/structure/blob/hulk_damage()
 	return 15
-
-/obj/structure/blob/attackby(var/obj/item/W, var/mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	user.do_attack_animation(src)
-	playsound(src.loc, 'sound/effects/attackblob.ogg', 50, 1)
-	visible_message("<span class='danger'>[user] has attacked the [src.name] with \the [W]!</span>")
-	if(W.damtype == BURN)
-		playsound(src.loc, 'sound/items/welder.ogg', 100, 1)
-	take_damage(W.force, W.damtype)
 
 /obj/structure/blob/attack_animal(mob/living/simple_animal/M)
 	if(ROLE_BLOB in M.faction) //sorry, but you can't kill the blob as a blobbernaut
@@ -248,17 +246,3 @@
 		name = "dead blob"
 		desc = "A thick wall of lifeless tendrils."
 		brute_resist = 0.25
-
-/* // Used to create the glow sprites. Remember to set the animate loop to 1, instead of infinite!
-
-var/datum/blob_colour/B = new()
-
-/datum/blob_colour/New()
-	..()
-	var/icon/I = 'icons/mob/blob.dmi'
-	I += rgb(35, 35, 0)
-	if(isfile("icons/mob/blob_result.dmi"))
-		fdel("icons/mob/blob_result.dmi")
-	fcopy(I, "icons/mob/blob_result.dmi")
-
-*/

@@ -97,7 +97,6 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	var/obj/item/photo/photo = null
 	var/channel_name = "" //the feed channel which will be receiving the feed, or being created
 	var/c_locked = 0 //Will our new channel be locked to public submissions?
-	var/hitstaken = 0 //Death at 3 hits from an item with force>=15
 	var/datum/feed_channel/viewing_channel = null
 	var/silence = 0
 	var/temp = null
@@ -574,35 +573,36 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
 		playsound(loc, I.usesound, 50, 1)
 		if(do_after(user, 60 * I.toolspeed, target = src))
-			new /obj/item/mounted/frame/newscaster_frame(loc)
-			playsound(loc, I.usesound, 50, 1)
-			qdel(src)
-		return
-
-	if(stat & BROKEN)
-		playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
-		visible_message("<span class='danger'>[user.name] further abuses the shattered [name].</span>", null, 5)
-	else
-		if(istype(I, /obj/item) )
-			var/obj/item/W = I
-			if(W.damtype == STAMINA)
-				return
-			if(W.force < 15)
-				visible_message("<span class='danger'>[user.name] hits the [name] with the [W.name] with no visible effect.</span>", null , 5)
-				playsound(loc, 'sound/effects/glasshit.ogg', 100, 1)
+			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+			if(stat & BROKEN)
+				to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
+				new /obj/item/stack/sheet/metal(loc, 5)
+				new /obj/item/shard(loc)
+				new /obj/item/shard(loc)
 			else
-				hitstaken++
-				if(hitstaken == 3)
-					visible_message("<span class='danger'>[user.name] smashes the [name]!</span>", null, 5)
-					stat |= BROKEN
-					playsound(loc, 'sound/effects/Glassbr3.ogg', 100, 1)
-				else
-					visible_message("<span class='danger'>[user.name] forcefully slams the [name] with the [I.name]!</span>", null, 5)
-					playsound(loc, 'sound/effects/glasshit.ogg', 100, 1)
+				to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+				new /obj/item/mounted/frame/newscaster_frame(loc)
+			qdel(src)
+	else if(iswelder(I) && user.a_intent != INTENT_HARM)
+		var/obj/item/weldingtool/WT = I
+		if(stat & BROKEN)
+			if(WT.remove_fuel(0, user))
+				user.visible_message("[user] is repairing [src].",
+								"<span class='notice'>You begin repairing [src]...</span>",
+								"<span class='italics'>You hear welding.</span>")
+				playsound(loc, WT.usesound, 40, 1)
+				if(do_after(user,40 * WT.toolspeed, 1, target = src))
+					if(!WT.isOn() || !(stat & BROKEN))
+						return
+					to_chat(user, "<span class='notice'>You repair [src].</span>")
+					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
+					obj_integrity = max_integrity
+					stat &= ~BROKEN
+					update_icon()
 		else
-			to_chat(user, "<span class='notice'>This does nothing.</span>")
-	update_icon()
-	..()
+			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+	else
+		return ..()
 
 /obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

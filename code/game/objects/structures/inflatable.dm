@@ -19,12 +19,11 @@
 	density = 1
 	anchored = 1
 	opacity = 0
-
+	max_integrity = 50
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
-	var/health = 50.0
 
 /obj/structure/inflatable/Initialize(location)
 	..()
@@ -49,20 +48,20 @@
 		return
 	if(!Adjacent(usr))
 		return
-	deflate()
+	deconstruct(TRUE)
 
-/obj/structure/inflatable/proc/deflate(var/violent=0)
+/obj/structure/inflatable/deconstruct(disassembled = TRUE)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
-	if(violent)
+	if(!disassembled)
 		visible_message("[src] rapidly deflates!")
 		var/obj/item/inflatable/torn/R = new torn(loc)
-		src.transfer_fingerprints_to(R)
+		transfer_fingerprints_to(R)
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
 		spawn(50)
 			var/obj/item/inflatable/R = new intact(loc)
-			src.transfer_fingerprints_to(R)
+			transfer_fingerprints_to(R)
 			qdel(src)
 
 /obj/structure/inflatable/verb/hand_deflate()
@@ -73,7 +72,7 @@
 	if(usr.stat || usr.restrained())
 		return
 
-	deflate()
+	deconstruct(TRUE)
 
 /obj/item/inflatable/door
 	name = "inflatable door"

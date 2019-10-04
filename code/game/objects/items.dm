@@ -20,8 +20,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
-	var/r_speed = 1.0
-	var/health = null
 	var/hitsound = null
 	var/usesound = null
 	var/throwhitsound

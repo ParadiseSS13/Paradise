@@ -48,7 +48,6 @@ var/datum/canister_icons/canister_icon_container = new()
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "yellow"
 	density = 1
-	var/health = 100.0
 	flags = CONDUCT
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 50)
 	max_integrity = 250
@@ -265,6 +264,22 @@ update_flag
 		return
 	canister_break()
 
+/obj/machinery/portable_atmospherics/canister/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent != INTENT_HARM && iswelder(I))
+		var/obj/item/weldingtool/WT = I
+		if(stat & BROKEN)
+			if(!WT.remove_fuel(0, user))
+				return
+			playsound(loc, WT.usesound, 40, 1)
+			to_chat(user, "<span class='notice'>You begin cutting [src] apart...</span>")
+			if(do_after(user, 30, target = src))
+				deconstruct(TRUE)
+		else
+			to_chat(user, "<span class='notice'>You cannot slice [src] apart when it isn't broken.</span>")
+		return TRUE
+	else
+		return ..()
+
 /obj/machinery/portable_atmospherics/canister/proc/canister_break()
 	disconnect()
 	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
@@ -335,19 +350,6 @@ update_flag
 	if(GM && GM.volume>0)
 		return GM.return_pressure()
 	return 0
-
-/obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(iswelder(W) && src.destroyed)
-		if(weld(W, user))
-			to_chat(user, "<span class='notice'>You salvage whats left of \the [src]</span>")
-			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
-			M.amount = 3
-			qdel(src)
-		return
-
-	if(istype(W, /obj/item/wrench) && !istype(W, /obj/item/tank) && !istype(W, /obj/item/analyzer) && !istype(W, /obj/item/pda))
-		return ..()
 
 /obj/machinery/portable_atmospherics/canister/replace_tank(mob/living/user, close_valve)
 	. = ..()

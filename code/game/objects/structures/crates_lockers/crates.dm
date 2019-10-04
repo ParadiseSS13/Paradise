@@ -226,7 +226,6 @@
 	var/tamperproof = 0
 	broken = 0
 	locked = 1
-	health = 1000
 
 /obj/structure/closet/crate/secure/update_icon()
 	..()

@@ -13,7 +13,6 @@
 	var/welded = FALSE
 	var/locked = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
-	var/health = 100
 	var/lastbang
 	var/cutting_tool = /obj/item/weldingtool
 	var/sound = 'sound/machines/click.ogg'

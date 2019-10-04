@@ -43111,7 +43111,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -75994,7 +75994,7 @@
 	name = "Aft Maintenance"
 	})
 "cze" = (
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/machinery/light/small{
 	dir = 1
 	},

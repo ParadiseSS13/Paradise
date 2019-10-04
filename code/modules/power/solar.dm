@@ -13,7 +13,6 @@
 	max_integrity = 150
 	integrity_failure = 50
 	var/id = 0
-	var/health = 10
 	var/obscured = 0
 	var/sunfrac = 0
 	var/adir = SOUTH // actual dir

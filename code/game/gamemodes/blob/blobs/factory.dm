@@ -8,10 +8,6 @@
 	var/max_spores = 3
 	var/spore_delay = 0
 
-/obj/structure/blob/factory/update_icon()
-	if(health <= 0)
-		qdel(src)
-
 /obj/structure/blob/factory/Destroy()
 	for(var/mob/living/simple_animal/hostile/blob/blobspore/spore in spores)
 		if(spore.factory == src)

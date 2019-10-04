@@ -89,17 +89,6 @@
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 					return
-			else if(istype(P, /obj/item/stack/sheet/glass))
-				var/obj/item/stack/sheet/glass/G = P
-				if(G.amount < 5)
-					to_chat(user, "<span class='warning'>You do not have enough glass to build a display case.</span>")
-					return
-				G.use(5)
-				to_chat(user, "<span class='notice'>You add the glass to the frame.</span>")
-				playsound(get_turf(src), G.usesound, 50, 1)
-				new /obj/structure/displaycase_frame(src.loc)
-				qdel(src)
-				return
 
 			if(istype(P, /obj/item/wrench))
 				playsound(src.loc, P.usesound, 75, 1)
