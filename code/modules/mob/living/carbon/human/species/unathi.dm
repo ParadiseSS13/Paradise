@@ -19,6 +19,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	dietflags = DIET_CARN
+	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 
 	cold_level_1 = 280 //Default 260 - Lower is better
 	cold_level_2 = 220 //Default 200
@@ -102,7 +103,7 @@
 				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
 				return
 
-/datum/species/unathi/handle_death(mob/living/carbon/human/H)
+/datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging(1)
 
 /datum/species/unathi/ashwalker
@@ -110,7 +111,7 @@
 	name_plural = "Ash Walkers"
 
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
-	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners." 
+	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
 
 	language = "Sinta'unathi"
 	default_language = "Sinta'unathi"

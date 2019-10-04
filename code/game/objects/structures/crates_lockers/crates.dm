@@ -69,7 +69,7 @@
 			continue
 		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
 			var/obj/structure/bed/B = O
-			if(B.buckled_mob)
+			if(B.has_buckled_mobs())
 				continue
 		O.forceMove(src)
 		itemcount++
@@ -161,7 +161,7 @@
 		if(C.use(15))
 			to_chat(user, "<span class='notice'>You rig [src].</span>")
 			rigged = TRUE
-		else 
+		else
 			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
 			return
 	else if(istype(W, /obj/item/radio/electropack))

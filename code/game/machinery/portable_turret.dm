@@ -554,7 +554,10 @@ var/list/turret_icons
 
 		if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A
-			assess_and_assign(T.buckled_mob, targets, secondarytargets)
+			if(T.has_buckled_mobs())
+				for(var/m in T.buckled_mobs)
+					var/mob/living/buckled_mob = m
+					assess_and_assign(buckled_mob, targets, secondarytargets)
 
 		if(isliving(A))
 			var/mob/living/C = A

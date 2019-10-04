@@ -95,6 +95,16 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		to_chat(usr, "<font color='blue'>[procname] returned: [!isnull(returnval) ? returnval : "null"]</font>")
 		feedback_add_details("admin_verb","APC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+GLOBAL_VAR(AdminProcCaller)
+GLOBAL_PROTECT(AdminProcCaller)
+
+/proc/IsAdminAdvancedProcCall()
+#ifdef TESTING
+	return FALSE
+#else
+	return usr && usr.client && GLOB.AdminProcCaller == usr.client.ckey
+#endif
+
 /client/proc/callproc_datum(var/A as null|area|mob|obj|turf)
 	set category = "Debug"
 	set name = "Atom ProcCall"

@@ -22,18 +22,18 @@
 		qdel(src)
 
 /obj/machinery/arcade/examine(mob/user)
-	..(user)
+	. = ..()
 	if(freeplay)
-		to_chat(user, "Someone enabled freeplay on this machine!")
+		. += "Someone enabled freeplay on this machine!"
 	else
 		if(token_price)
-			to_chat(user, "\The [src.name] costs [token_price] credits per play.")
+			. += "\The [src.name] costs [token_price] credits per play."
 		if(!tokens)
-			to_chat(user, "\The [src.name] has no available play credits. Better feed the machine!")
+			. += "\The [src.name] has no available play credits. Better feed the machine!"
 		else if(tokens == 1)
-			to_chat(user, "\The [src.name] has only 1 play credit left!")
+			. += "\The [src.name] has only 1 play credit left!"
 		else
-			to_chat(user, "\The [src.name] has [tokens] play credits!")
+			. += "\The [src.name] has [tokens] play credits!"
 
 /obj/machinery/arcade/attack_hand(mob/user as mob)
 	if(..())

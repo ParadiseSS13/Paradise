@@ -4443,7 +4443,7 @@
 "mp" = (
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/wizard,
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 /turf/unsimulated/floor{
 	tag = "icon-cultdamage";
 	icon_state = "cultdamage"

@@ -18,7 +18,7 @@
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
 	var/is_zombie = 0
-	stat_attack = DEAD //so they continue to attack when they are on the ground.
+	stat_attack = DEAD //so they continue to attack when they are on the ground. 
 	var/host_species = ""
 	var/list/human_overlays = list()
 
@@ -94,7 +94,7 @@
 
 
 /mob/living/simple_animal/hostile/headcrab/update_icons()
-	..()
+	. = ..()
 	if(is_zombie)
 		overlays.Cut()
 		overlays = human_overlays
@@ -104,3 +104,69 @@
 		else if(host_species == "Gray")
 			I = image('icons/mob/headcrab.dmi', icon_state = "headcrabpod_gray")
 		overlays += I
+
+
+
+/mob/living/simple_animal/hostile/headcrab/fast
+	name = "fast headcrab"
+	desc = "A fast parasitic creature that would like to connect with your brain stem."
+	icon = 'icons/mob/headcrab.dmi'
+	icon_state = "fast_headcrab"
+	icon_living = "fast_headcrab"
+	icon_dead = "fast_headcrab_dead"
+	health = 30
+	maxHealth = 30
+	ranged_cooldown_time = 30
+	jumpdistance = 8
+	jumpspeed = 2
+	speak_emote = list("screech")
+
+/mob/living/simple_animal/hostile/headcrab/fast/update_icons()
+	. = ..()
+	if(is_zombie)
+		overlays.Cut()
+		overlays = human_overlays
+		var/image/I = image('icons/mob/headcrab.dmi', icon_state = "fast_headcrabpod")
+		if(host_species == "Vox")
+			I = image('icons/mob/headcrab.dmi', icon_state = "fast_headcrabpod_vox")
+		else if(host_species == "Gray")
+			I = image('icons/mob/headcrab.dmi', icon_state = "fast_headcrabpod_gray")
+		overlays += I
+
+/mob/living/simple_animal/hostile/headcrab/fast/Zombify(mob/living/carbon/human/H)
+	. = ..()
+	speak = list('sound/creatures/fast_zombie_idle1.ogg','sound/creatures/fast_zombie_idle2.ogg','sound/creatures/fast_zombie_idle3.ogg')
+
+/mob/living/simple_animal/hostile/headcrab/poison
+	name = "poison headcrab"
+	desc = "A poison parasitic creature that would like to connect with your brain stem."
+	icon = 'icons/mob/headcrab.dmi'
+	icon_state = "poison_headcrab"
+	icon_living = "poison_headcrab"
+	icon_dead = "poison_headcrab_dead"
+	health = 60
+	maxHealth = 60
+	ranged_cooldown_time = 50
+	jumpdistance = 3
+	jumpspeed = 1
+	attack_sound = 'sound/creatures/ph_scream1.ogg'
+	speak_emote = list("screech")
+
+/mob/living/simple_animal/hostile/headcrab/poison/update_icons()
+	. = ..()
+	if(is_zombie)
+		overlays.Cut()
+		overlays = human_overlays
+		var/image/I = image('icons/mob/headcrab.dmi', icon_state = "poison_headcrabpod")
+		if(host_species == "Vox")
+			I = image('icons/mob/headcrab.dmi', icon_state = "poison_headcrabpod_vox")
+		else if(host_species == "Gray")
+			I = image('icons/mob/headcrab.dmi', icon_state = "poison_headcrabpod_gray")
+		overlays += I
+
+
+/mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()
+	. = ..()
+	var/mob/living/carbon/C = target
+	if(C.can_inject(null, 0, "head", 0))
+		C.reagents.add_reagent("lsd", 5)

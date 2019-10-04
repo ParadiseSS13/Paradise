@@ -26,8 +26,9 @@
 		to_chat(user, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 
 /obj/item/clothing/head/helmet/space/hardsuit/ert/examine(mob/user)
-	if(..(user, 1) && has_camera)
-		to_chat(user, "This helmet has a built-in camera. It's [camera ? "" : "in"]active.")
+	. = ..()
+	if(in_range(user, src) && has_camera)
+		. += "This helmet has a built-in camera. It's [camera ? "" : "in"]active."
 
 /obj/item/clothing/suit/space/hardsuit/ert
 	name = "emergency response team suit"

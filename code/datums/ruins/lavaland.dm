@@ -124,8 +124,8 @@ datum/map_template/ruin/lavaland/ash_walker
 	id = "hierophant"
 	description = "A strange, square chunk of metal of massive size. Inside awaits only death and many, many squares."
 	suffix = "lavaland_surface_hierophant.dmm"
-	allow_duplicates = FALSE
 	always_place = TRUE
+	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner
 	name = "Blood-Drunk Miner"

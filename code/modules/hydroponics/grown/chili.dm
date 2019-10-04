@@ -51,7 +51,7 @@
 	filling_color = "#0000CD"
 	bitesize_mod = 2
 	origin_tech = "biotech=4"
-	tastes = list("chilli" = 1)
+	tastes = list("chilly" = 1)
 	wine_power = 0.3
 
 // Ghost Chili

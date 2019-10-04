@@ -36,6 +36,7 @@
 	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
+	harmless = TRUE
 	taste_description = "cherry"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
@@ -49,6 +50,7 @@
 	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
+	harmless = TRUE
 	taste_description = "floor cleaner"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
@@ -74,8 +76,8 @@
 		if(floor_only)
 			T.clean_blood()
 
-		for(var/mob/living/carbon/slime/M in T)
-			M.adjustToxLoss(rand(5,10))
+		for(var/mob/living/simple_animal/slime/M in T)
+			M.adjustToxLoss(rand(5, 10))
 		if(istype(T, /turf/simulated))
 			var/turf/simulated/S = T
 			S.dirt = 0

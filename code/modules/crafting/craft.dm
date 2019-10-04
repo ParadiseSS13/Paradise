@@ -266,6 +266,11 @@
 		ui = new(user, src, ui_key, "personal_crafting.tmpl", "Crafting Menu", 700, 800, state = state)
 		ui.open()
 
+/datum/personal_crafting/proc/close(mob/user)
+	var/datum/nanoui/ui = SSnanoui.get_open_ui(user, src, "main")
+	if(ui)
+		ui.close()
+
 /datum/personal_crafting/ui_data(mob/user)
 	var/list/data = list()
 	var/list/subs = list()

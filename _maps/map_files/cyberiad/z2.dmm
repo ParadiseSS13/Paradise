@@ -1867,7 +1867,7 @@
 	icon_state = "tube1";
 	dir = 1
 	},
-/obj/machinery/computer/syndicate_depot/teleporter/targeted,
+/obj/machinery/computer/syndicate_depot/teleporter,
 /turf/unsimulated/floor{
 	icon_state = "dark"
 	},
@@ -4300,6 +4300,9 @@
 /obj/structure/table/abductor,
 /obj/item/surgicaldrill/alien,
 /obj/item/circular_saw/alien,
+/obj/item/FixOVein/alien,
+/obj/item/bonesetter/alien,
+/obj/item/bonegel/alien,
 /turf/unsimulated/floor/abductor,
 /area/abductor_ship)
 "ll" = (
@@ -9053,7 +9056,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/clothing/suit/space/hardsuit/wizard,
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 /obj/item/clothing/suit/space/santa{
 	pixel_x = 3;
 	pixel_y = -3

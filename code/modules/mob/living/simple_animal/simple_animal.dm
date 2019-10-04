@@ -36,7 +36,7 @@
 	//Temperature effect
 	var/minbodytemp = 250
 	var/maxbodytemp = 350
-	var/heat_damage_per_tick = 3	//amount of damage applied if animal's body temperature is higher than maxbodytemp
+	var/heat_damage_per_tick = 2	//amount of damage applied if animal's body temperature is higher than maxbodytemp
 	var/cold_damage_per_tick = 2	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 
 	//Healable by medical stacks? Defaults to yes.
@@ -72,7 +72,7 @@
 	var/animal_species //Sorry, no spider+corgi buttbabies.
 
 	var/buffed = 0 //In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to 1, so we have something to check against
-	var/gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //if CHEM_MOB_SPAWN_HOSTILE can be spawned by plasma with gold core, CHEM_MOB_SPAWN_FRIENDLY are 'friendlies' spawned with blood
+	var/gold_core_spawnable = NO_SPAWN //If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood
 
 	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 
@@ -140,7 +140,7 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		to_chat(user, "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>")
+		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
 
 /mob/living/simple_animal/updatehealth(reason = "none given")
 	..(reason)
@@ -277,8 +277,10 @@
 	handle_temperature_damage()
 
 /mob/living/simple_animal/proc/handle_temperature_damage()
-	if((bodytemperature < minbodytemp) || (bodytemperature > maxbodytemp))
-		adjustHealth(unsuitable_atmos_damage)
+	if(bodytemperature < minbodytemp)
+		adjustHealth(cold_damage_per_tick)
+	else if(bodytemperature > maxbodytemp)
+		adjustHealth(heat_damage_per_tick)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
@@ -603,7 +605,7 @@
 		real_name = P.tagname
 
 /mob/living/simple_animal/regenerate_icons()
-	cut_overlays()
 	if(pcollar && collar_type)
+		cut_overlays()
 		add_overlay("[collar_type]collar")
 		add_overlay("[collar_type]tag")
