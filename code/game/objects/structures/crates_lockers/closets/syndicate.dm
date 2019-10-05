@@ -32,19 +32,11 @@
 
 /obj/structure/closet/syndicate/nuclear/New()
 	..()
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
+	for(var/i in 1 to 5)
+		new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/storage/box/teargas(src)
 	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/backpack/duffel/syndie/med(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
-	new /obj/item/gun/projectile/automatic/shotgun/bulldog(src)
 	new /obj/item/pda/syndicate(src)
 
 /obj/structure/closet/syndicate/sst

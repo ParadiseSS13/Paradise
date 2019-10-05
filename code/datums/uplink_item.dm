@@ -472,6 +472,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 13
 	surplus = 50
 
+/datum/uplink_item/dangerous/bulldog
+	name = "Bulldog Shotgun"
+	reference = "BDS"
+	desc = "A compact automatic shotgun that fires various different kinds of 12 gauge shells with an 8-round magazine."
+	item = /obj/item/gun/projectile/automatic/shotgun/bulldog
+	cost = 6
+	gamemodes = list(/datum/game_mode/nuclear)
+
 /datum/uplink_item/dangerous/smg
 	name = "C-20r Submachine Gun"
 	reference = "SMG"
@@ -1637,7 +1645,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			Bulldog shotgun, two 12g buckshot drums, and a pair of Thermal imaging goggles."
 	reference = "BULB"
 	item = /obj/item/storage/backpack/duffel/syndie/bulldogbundle
-	cost = 9 // normally 12
+	cost = 12 // normally 16
 	gamemodes = list(/datum/game_mode/nuclear)
 
 /datum/uplink_item/bundles_TC/c20r
