@@ -32,14 +32,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 // Who likes #defines?
 // I don't!
 // but I gotta add 'em anyways because we have a bias against /const statements for some reason
-#define TECH_UPDATE_DELAY 50
-#define DESIGN_UPDATE_DELAY 50
+#define TECH_UPDATE_DELAY 25
+#define DESIGN_UPDATE_DELAY 25
 #define PROTOLATHE_CONSTRUCT_DELAY 32
-#define SYNC_RESEARCH_DELAY 30
-#define DECONSTRUCT_DELAY 24
-#define SYNC_DEVICE_DELAY 20
-#define RESET_RESEARCH_DELAY 20
-#define IMPRINTER_DELAY 16
+#define SYNC_RESEARCH_DELAY 15
+#define DECONSTRUCT_DELAY 12
+#define SYNC_DEVICE_DELAY 10
+#define RESET_RESEARCH_DELAY 10
+#define IMPRINTER_DELAY 10
 
 /obj/machinery/computer/rdconsole
 	name = "\improper R&D console"
