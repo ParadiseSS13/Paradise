@@ -33,18 +33,10 @@
 		insisting = TRUE
 
 	else
-		//to_chat(user, "<span class='notice'>You speak. [pick("I want the station to disappear", "Humanity is corrupt, mankind must be destroyed", "I want to be rich", "I want to rule the world", "I want immortality.")]. The Wish Granter answers.</span>")
-		//to_chat(user, "<span class='notice'>Your head pounds for a moment, before your vision clears.  You are the avatar of the Wish Granter, and your power is LIMITLESS!  And it's all yours.  You need to make sure no one can take it from you.  No one can know, first.</span>")
-
 		charges--
 		insisting = FALSE
-
-		//user.mind.add_antag_datum(/datum/antagonist/wishgranter)
-
-		//to_chat(user, "You have a very bad feeling about this.")
 		to_chat(user, "You wish for a better tool to help you in your adventure.")
 		to_chat(user, "<span class='notice'>The Wish Granter listens and materializes an experimetal kinetic accerelator!</span>")
-
 		new /obj/item/gun/energy/kinetic_accelerator/experimental(get_turf(src))
 
 /obj/machinery/wish_granter/super
