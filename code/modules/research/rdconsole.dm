@@ -32,14 +32,14 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 // Who likes #defines?
 // I don't!
 // but I gotta add 'em anyways because we have a bias against /const statements for some reason
-#define TECH_UPDATE_DELAY 25
-#define DESIGN_UPDATE_DELAY 25
+#define TECH_UPDATE_DELAY 20
+#define DESIGN_UPDATE_DELAY 20
 #define PROTOLATHE_CONSTRUCT_DELAY 32
-#define SYNC_RESEARCH_DELAY 15
-#define DECONSTRUCT_DELAY 12
+#define SYNC_RESEARCH_DELAY 10
+#define DECONSTRUCT_DELAY 18
 #define SYNC_DEVICE_DELAY 10
 #define RESET_RESEARCH_DELAY 10
-#define IMPRINTER_DELAY 10
+#define IMPRINTER_DELAY 16
 
 /obj/machinery/computer/rdconsole
 	name = "\improper R&D console"
@@ -335,7 +335,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(choice == "Cancel" || !linked_destroy)
 					return
 			linked_destroy.busy = 1
-			add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
+			add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY/2)
 			SSnanoui.update_uis(src)
 			flick("d_analyzer_process", linked_destroy)
 			spawn(DECONSTRUCT_DELAY)
@@ -433,7 +433,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * new_coeff * amount ** 0.8
 					var/enough_materials = 1
 
-					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
+					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct/2)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
 					use_power(power)
@@ -505,7 +505,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, TRUE)]!")
 
 				if(g2g) //Again, if input is wrong, do nothing
-					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY)
+					var/new_coeff = (coeff * (1-(7.6/7))) + (7.6/7)
+					var/time_to_construct = IMPRINTER_DELAY * new_coeff * being_built.lathe_time_factor
+					add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct/2)
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
@@ -531,7 +533,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							linked_imprinter.reagents.remove_reagent(R, being_built.reagents_list[R]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-					spawn(IMPRINTER_DELAY)
+					spawn(time_to_construct)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.loc = linked_imprinter.loc
