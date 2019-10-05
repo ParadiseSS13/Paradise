@@ -335,7 +335,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(choice == "Cancel" || !linked_destroy)
 					return
 			linked_destroy.busy = 1
-			add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY/2)
+			add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
 			SSnanoui.update_uis(src)
 			flick("d_analyzer_process", linked_destroy)
 			spawn(DECONSTRUCT_DELAY)
@@ -433,7 +433,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/time_to_construct = PROTOLATHE_CONSTRUCT_DELAY * new_coeff * amount ** 0.8
 					var/enough_materials = 1
 
-					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct/2)
+					add_wait_message("Constructing Prototype. Please Wait...", time_to_construct)
 					linked_lathe.busy = 1
 					flick("protolathe_n",linked_lathe)
 					use_power(power)
@@ -507,7 +507,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				if(g2g) //Again, if input is wrong, do nothing
 					var/new_coeff = (coeff * (1-(7.6/7))) + (7.6/7)
 					var/time_to_construct = IMPRINTER_DELAY * new_coeff * being_built.lathe_time_factor
-					add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct/2)
+					add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
