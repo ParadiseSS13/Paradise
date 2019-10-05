@@ -1,0 +1,4 @@
+author: "AffectedArc07"
+delete-after: True
+changes: 
+  - bugfix: "SQL now properly disconnects at end round"
