@@ -46,8 +46,8 @@
 		user.visible_message("<span class='notice'>[user] fills the [HD] up with some dye.</span>","<span class='notice'>You fill the [HD] up with some hair dye.</span>")
 		HD.dye_color = dye_color
 		HD.update_dye_overlay()
-	else
-		return ..()
+		return
+	return ..()
 
 //Hair Dye Bottle
 

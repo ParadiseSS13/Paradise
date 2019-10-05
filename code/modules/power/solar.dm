@@ -243,14 +243,14 @@
 			qdel(W)
 			user.visible_message("[user] inserts the electronics into the solar assembly.", "<span class='notice'>You insert the electronics into the solar assembly.</span>")
 			return 1
+	else if(istype(W, /obj/item/crowbar))
+		new /obj/item/tracker_electronics(src.loc)
+		tracker = 0
+		playsound(loc, W.usesound, 50, 1)
+		user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
+		return 1
 	else
-		if(istype(W, /obj/item/crowbar))
-			new /obj/item/tracker_electronics(src.loc)
-			tracker = 0
-			playsound(loc, W.usesound, 50, 1)
-			user.visible_message("[user] takes out the electronics from the solar assembly.", "<span class='notice'>You take out the electronics from the solar assembly.</span>")
-			return 1
-	..()
+		return ..()
 
 //
 // Solar Control Computer
@@ -425,8 +425,7 @@
 				A.anchored = 1
 				qdel(src)
 	else
-		src.attack_hand(user)
-	return
+		return ..()
 
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

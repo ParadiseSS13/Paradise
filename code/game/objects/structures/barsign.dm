@@ -74,9 +74,6 @@
 
 
 /obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
-	if(!allowed(user))
-		to_chat(user, "<span class = 'info'>Access denied.</span>")
-		return
 	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
@@ -106,6 +103,8 @@
 			broken = 0
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+	else
+		return ..()
 
 
 

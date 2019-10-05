@@ -10,10 +10,7 @@
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/t_scanner/adv_mining_scanner))
-		attack_hand(user)
-		return
-	else if(istype(W, /obj/item/stack/ore))
+	if(istype(W, /obj/item/stack/ore))
 		if(!user.drop_item())
 			return
 		W.forceMove(src)
@@ -30,6 +27,8 @@
 		if(do_after(user, 50 * C.toolspeed, target = src))
 			user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
 			deconstruct(TRUE, user)
+	else
+		return ..()
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))

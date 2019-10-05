@@ -87,6 +87,8 @@
 			eject_beaker()
 			default_deconstruction_crowbar(I)
 			return 1
+		return
+	return ..()
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
 	ui_interact(user)

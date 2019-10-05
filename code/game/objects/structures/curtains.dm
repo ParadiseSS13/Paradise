@@ -68,7 +68,7 @@
 				to_chat(user, "<span class='notice'>You cut apart [src].</span>")
 				deconstruct()
 	else
-		. = ..()
+		return ..()
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cloth(loc, 2)

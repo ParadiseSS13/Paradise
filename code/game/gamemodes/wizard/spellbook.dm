@@ -614,6 +614,7 @@
 			to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
 			uses+=2
 			qdel(O)
+		return
 
 	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
@@ -628,6 +629,7 @@
 				if(!isnull(BB.limit))
 					BB.limit++
 		qdel(O)
+		return
 
 	if(istype(O, /obj/item/antag_spawner/morph))
 		to_chat(user, "<span class='notice'>On second thought, maybe awakening a morph is a bad idea. You refund your points.</span>")
@@ -636,6 +638,8 @@
 			if(!isnull(OB.limit))
 				OB.limit++
 		qdel(O)
+		return
+	return ..()
 
 /obj/item/spellbook/proc/GetCategoryHeader(var/category)
 	var/dat = ""

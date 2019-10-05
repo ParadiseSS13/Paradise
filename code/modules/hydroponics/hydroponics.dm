@@ -1023,4 +1023,4 @@
 		to_chat(user, "<span class='notice'>You clear up [src]!</span>")
 		qdel(src)
 	else
-		..()
+		return ..()

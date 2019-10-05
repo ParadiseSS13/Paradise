@@ -63,6 +63,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 		SSnanoui.update_uis(src)
+		return
 	if(istype(I, /obj/item/tank/plasma))
 		if(plasmatanks < 10)
 			user.drop_item()
@@ -74,6 +75,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] is full.</span>")
 		SSnanoui.update_uis(src)
+		return
 	if(istype(I, /obj/item/wrench))
 		if(anchored)
 			to_chat(user, "<span class='notice'>You lean down and unwrench [src].</span>")
@@ -81,6 +83,8 @@
 		else
 			to_chat(user, "<span class='notice'>You wrench [src] into place.</span>")
 			anchored = 1
+		return
+	return ..()
 
 /obj/structure/dispenser/Topic(href, href_list)
 	if(..())

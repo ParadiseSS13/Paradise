@@ -172,7 +172,7 @@
 		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
 		qdel(src)
 		return
-	..()
+	return ..()
 
 /obj/effect/rend/singularity_pull()
 	return
@@ -806,7 +806,8 @@ var/global/list/multiverse = list()
 			link = I
 			to_chat(user, "You attach [I] to the doll.")
 			update_targets()
-	..()
+		return
+	return ..()
 
 /obj/item/voodoo/check_eye(mob/user as mob)
 	if(loc != user)

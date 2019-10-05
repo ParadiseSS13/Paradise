@@ -133,8 +133,9 @@
 		else
 			name = "Morgue"
 			overlays.Cut()
-	add_fingerprint(user)
-	return
+		add_fingerprint(user)
+		return
+	return ..()
 
 /obj/structure/morgue/relaymove(mob/user as mob)
 	if(user.stat)
@@ -325,8 +326,9 @@
 			name = text("Crematorium- '[]'", t)
 		else
 			name = "Crematorium"
-	add_fingerprint(user)
-	return
+		add_fingerprint(user)
+		return
+	return ..()
 
 /obj/structure/crematorium/relaymove(mob/user as mob)
 	if(user.stat || locked)

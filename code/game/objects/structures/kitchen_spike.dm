@@ -27,6 +27,9 @@
 			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
+		return
+	else
+		return ..()
 
 
 /obj/structure/kitchenspike
@@ -62,16 +65,15 @@
 		return
 	if(has_buckled_mobs())
 		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
-	else
-		if(isliving(G.affecting))
-			if(!has_buckled_mobs())
-				if(do_mob(user, src, 120))
-					if(spike(G.affecting))
-						G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
-						qdel(G)
-						return
-		to_chat(user, "<span class='danger'>You can't use that on the spike!</span>")
 		return
+	if(isliving(G.affecting))
+		if(!has_buckled_mobs())
+			if(do_mob(user, src, 120))
+				if(spike(G.affecting))
+					G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
+					qdel(G)
+		return
+	return ..()
 
 /obj/structure/kitchenspike/proc/spike(mob/living/victim)
 

@@ -213,6 +213,7 @@
 		else
 			to_chat(user, "<span class='warning'>Out of charges.</span>")
 			return
+		return
 
 	if(opened)
 		if(istype(W, /obj/item/grab))
@@ -258,8 +259,10 @@
 		update_icon()
 		for(var/mob/M in viewers(src))
 			M.show_message("<span class='warning'>[src] has been [welded?"welded shut":"unwelded"] by [user.name].</span>", 3, "You hear welding.", 2)
-	else
+	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
+	else
+		return ..()
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/user)
 	..()

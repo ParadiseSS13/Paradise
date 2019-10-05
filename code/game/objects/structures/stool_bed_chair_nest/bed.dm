@@ -78,6 +78,8 @@
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new/obj/item/roller(get_turf(src))
 			qdel(src)
+	else
+		return ..()
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE

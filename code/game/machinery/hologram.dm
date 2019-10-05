@@ -111,8 +111,7 @@ var/list/holopads = list()
 
 	if(default_deconstruction_crowbar(I))
 		return
-	else
-		return ..()
+	return ..()
 
 
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)

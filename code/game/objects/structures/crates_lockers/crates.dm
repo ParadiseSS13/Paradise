@@ -176,7 +176,10 @@
 			playsound(loc, W.usesound, 100, 1)
 			rigged = FALSE
 			return
-	else return attack_hand(user)
+	else if(user.a_intent != INTENT_HARM)
+		attack_hand(user)
+	else
+		return ..()
 
 /obj/structure/closet/singularity_act()
 	dump_contents()
@@ -464,7 +467,7 @@
 						 								"<span class='notice'>You have secured [src]'s floor casters.</span>")
 				anchored = TRUE
 	else
-		..()
+		return ..()
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."

@@ -33441,7 +33441,6 @@
 "bgD" = (
 /obj/item/book/manual/security_space_law,
 /obj/machinery/newscaster{
-	hitstaken = 1;
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

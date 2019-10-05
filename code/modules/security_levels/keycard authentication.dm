@@ -48,6 +48,8 @@
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+	return ..()
 
 /obj/machinery/keycard_auth/power_change()
 	if(powered(ENVIRON))

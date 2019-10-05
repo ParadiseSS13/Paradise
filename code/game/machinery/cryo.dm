@@ -300,6 +300,7 @@
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
+		return
 
 
 	if(istype(G, /obj/item/screwdriver))
@@ -312,7 +313,8 @@
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)
+	if(default_deconstruction_crowbar(G))
+		return
 
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/GG = G
@@ -327,7 +329,8 @@
 		var/mob/M = GG.affecting
 		if(put_mob(M))
 			qdel(GG)
-	return
+		return
+	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
 	handle_update_icon()

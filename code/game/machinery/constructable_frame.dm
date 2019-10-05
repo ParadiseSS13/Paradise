@@ -94,6 +94,7 @@
 				playsound(src.loc, P.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				deconstruct(TRUE)
+			return
 		if(2)
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
@@ -111,6 +112,7 @@
 					update_req_desc()
 				else
 					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
+				return
 			if(istype(P, /obj/item/wirecutters))
 				playsound(src.loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the cables.</span>")
@@ -118,6 +120,8 @@
 				icon_state = "box_0"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
 				A.amount = 5
+				return
+			return
 
 		if(3)
 			if(istype(P, /obj/item/crowbar))
@@ -135,6 +139,7 @@
 				req_components = null
 				components = null
 				icon_state = "box_1"
+				return
 
 			if(istype(P, /obj/item/screwdriver))
 				var/component_check = 1
@@ -155,7 +160,7 @@
 					circuit.loc = null
 					new_machine.RefreshParts()
 					qdel(src)
-					return
+				return
 
 			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
@@ -208,6 +213,8 @@
 				if(!success)
 					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
 					return 0
+			return
+	return ..()
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
@@ -329,6 +336,8 @@ to destroy them and players will be able to make replacements.
 			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
 			name = "circuit board (Freezer)"
 			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
+		return
+	return ..()
 
 /obj/item/circuitboard/recharger
 	name = "circuit board (Recharger)"
@@ -515,6 +524,8 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/screwdriver))
 		set_type(null, user)
+		return
+	return ..()
 
 /obj/item/circuitboard/smartfridge/proc/set_type(typepath, mob/user)
 	var/new_name = ""
@@ -804,6 +815,8 @@ to destroy them and players will be able to make replacements.
 		if(L.locked_location)
 			target = get_turf(L.locked_location)
 			to_chat(user, "<span class='caution'>You upload the data from [L]</span>")
+		return
+	return ..()
 
 /obj/item/circuitboard/telesci_pad
 	name = "Circuit board (Telepad)"
@@ -1057,6 +1070,8 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/logic_gate/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/screwdriver))
 		set_type(null, user)
+		return
+	return ..()
 
 /obj/item/circuitboard/logic_gate/proc/set_type(typepath, mob/user)
 	var/new_name = "Logic Base"

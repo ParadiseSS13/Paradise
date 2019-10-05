@@ -90,8 +90,8 @@
 				icon_state = "[base_state]"
 			else
 				icon_state = "[base_state]-p"
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/sparker/attack_ai()
 	if(src.anchored)

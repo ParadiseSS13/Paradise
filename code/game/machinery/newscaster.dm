@@ -799,6 +799,7 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 			scribble = s
 			attack_self(user)
 		return
+	return ..()
 
 
 ////////////////////////////////////helper procs

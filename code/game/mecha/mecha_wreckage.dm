@@ -76,8 +76,7 @@
 		else
 			to_chat(user, "You don't see anything that can be pried with [W].")
 	else
-		..()
-	return
+		return ..()
 
 
 /obj/effect/decal/mecha_wreckage/gygax

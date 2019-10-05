@@ -77,8 +77,8 @@
 				break
 		build_network()
 		update_icon()
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -244,8 +244,8 @@
 				break
 		build_network()
 		update_icon()
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)

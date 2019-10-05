@@ -162,6 +162,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	if(istype(W,/obj/item/multitool))
 		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 		return
+	return ..()
 
 /////////////////////////////////////Away////////////////////////
 
@@ -290,4 +291,5 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 		else
 			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
 			calibrated = 1
-			return
+		return
+	return ..()

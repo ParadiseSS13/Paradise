@@ -138,7 +138,7 @@
 
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
 	ActivationReaction(user,"weapon")
-	..()
+	return ..()
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
 	..()

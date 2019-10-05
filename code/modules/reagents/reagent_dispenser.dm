@@ -21,7 +21,7 @@
 /obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
 	if(I.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
-	. = ..()
+	return ..()
 
 /obj/structure/reagent_dispensers/New()
 	create_reagents(tank_volume)
@@ -260,6 +260,8 @@
 				user.visible_message("[user] has secured [src]'s floor casters.", \
 									 "<span class='notice'>You have secured [src]'s floor casters.</span>")
 				anchored = 1
+		return
+	return ..()
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"

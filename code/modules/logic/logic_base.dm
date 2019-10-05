@@ -212,6 +212,7 @@
 	if(panel_open && istype(O, /obj/item/crowbar))
 		default_deconstruction_crowbar(O)
 		return 1
+	return ..()
 
 //////////////////////////////////////
 //			Attack procs			//

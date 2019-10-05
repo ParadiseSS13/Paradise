@@ -200,6 +200,8 @@
 		icon_state = "experiment"
 		add_fingerprint(user)
 		qdel(G)
+		return
+	return ..()
 
 /obj/machinery/abductor/experiment/ex_act(severity)
 	if(occupant)

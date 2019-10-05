@@ -76,6 +76,8 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
+	else
+		return ..()
 
 /obj/item/smallDelivery
 	name = "small parcel"
@@ -141,6 +143,8 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
+	else
+		return ..()
 
 /obj/item/stack/packageWrap
 	name = "package wrapper"

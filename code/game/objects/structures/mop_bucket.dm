@@ -33,3 +33,5 @@
 			playsound(src.loc, 'sound/effects/slosh.ogg', 25, 1)
 		if(src.reagents.total_volume < 1)
 			to_chat(user, "<span class='notice'>Out of water!</span>")
+		return
+	return ..()

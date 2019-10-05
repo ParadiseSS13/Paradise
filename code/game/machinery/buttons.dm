@@ -82,7 +82,7 @@
 			qdel(src)
 		return 1
 
-	return attack_hand(user)
+	return ..()
 
 /obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
@@ -177,9 +177,6 @@
 /obj/machinery/ignition_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
-
-/obj/machinery/ignition_switch/attackby(obj/item/W, mob/user, params)
-	return attack_hand(user)
 
 /obj/machinery/ignition_switch/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN))

@@ -182,6 +182,8 @@
 				copyitem.forceMove(get_turf(src))
 				copyitem = null
 		updateUsrDialog()
+	else
+		return ..()
 
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)

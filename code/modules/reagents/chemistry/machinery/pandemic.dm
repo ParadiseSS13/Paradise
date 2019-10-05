@@ -343,8 +343,6 @@
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(beaker)
-			beaker.loc = get_turf(src)
-		..()
-		return
+			beaker.forceMove(get_turf(src))
 	else
-		..()
+		return ..()

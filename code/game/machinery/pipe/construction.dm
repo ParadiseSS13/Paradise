@@ -324,8 +324,6 @@
 	return rotate()
 
 /obj/item/pipe/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	..()
-
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 
@@ -526,8 +524,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	..()
-
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
@@ -553,7 +549,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	..()
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )

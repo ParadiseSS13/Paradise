@@ -76,6 +76,7 @@
 		else
 			playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 			opened = !opened
+		update_icon()
 	else if(istype(O, /obj/item/weldingtool))
 		if(has_extinguisher)
 			to_chat(user, "<span class='warning'>You need to remove the extinguisher before deconstructing the cabinet!</span>")
@@ -95,10 +96,13 @@
 							"<span class='notice'>You cut [src] apart with [WT].</span>",
 							"<span class='italics'>You hear welding.</span>")
 			deconstruct(TRUE)
-	else
+	else if(user.a_intent != INTENT_HARM)
 		playsound(loc, 'sound/machines/click.ogg', 15, TRUE, -3)
 		opened = !opened
-	update_icon()
+		update_icon()
+	else
+		return ..()
+
 
 /obj/structure/extinguisher_cabinet/attack_hand(mob/user)
 	if(isrobot(user) || isalien(user))

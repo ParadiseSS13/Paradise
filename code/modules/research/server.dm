@@ -148,6 +148,8 @@
 			griefProtection()
 			default_deconstruction_crowbar(O)
 			return 1
+	else
+		return ..()
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
 	if(disabled)

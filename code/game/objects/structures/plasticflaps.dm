@@ -53,7 +53,7 @@
 				P.add_fingerprint(user)
 				qdel(src)
 	else
-		. = ..()
+		return ..()
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))

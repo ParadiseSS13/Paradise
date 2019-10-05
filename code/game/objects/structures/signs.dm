@@ -28,7 +28,8 @@
 		//S.icon = I.Scale(24, 24)
 		S.sign_state = icon_state
 		qdel(src)
-	else ..()
+	else
+		return ..()
 
 /obj/item/sign
 	name = "sign"
@@ -62,7 +63,8 @@
 		S.icon_state = sign_state
 		to_chat(user, "You fasten \the [S] with your [tool].")
 		qdel(src)
-	else ..()
+	else
+		return ..()
 
 /obj/structure/sign/double/map
 	name = "station map"

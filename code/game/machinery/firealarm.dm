@@ -142,8 +142,8 @@ FIRE ALARM
 					playsound(get_turf(src), I.usesound, 50, 1)
 					qdel(src)
 
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()

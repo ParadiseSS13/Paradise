@@ -82,8 +82,8 @@
 			new /obj/item/pipe_gsensor(src.loc)
 			qdel(src)
 			return 1
-	if(..())
-		return 1
+		return
+	return ..()
 
 /obj/machinery/air_sensor/process_atmos()
 	if(on)
@@ -182,8 +182,8 @@
 /obj/machinery/computer/general_air_control/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/multitool))
 		update_multitool_menu(user)
-	if(..())
 		return 1
+	return ..()
 
 
 /obj/machinery/computer/general_air_control/receive_signal(datum/signal/signal)
@@ -386,8 +386,8 @@
 /obj/machinery/computer/general_air_control/large_tank_control/attackby(I as obj, user as mob)
 	if(istype(I, /obj/item/multitool))
 		update_multitool_menu(user)
-	if(..())
 		return 1
+	return ..()
 
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_menu(mob/user, obj/item/multitool/P)
@@ -598,8 +598,8 @@
 /obj/machinery/computer/general_air_control/fuel_injection/attackby(I as obj, user as mob, params)
 	if(istype(I, /obj/item/multitool))
 		update_multitool_menu(user)
-	if(..())
 		return 1
+	return ..()
 
 /obj/machinery/computer/general_air_control/fuel_injection/process()
 	if(automation)

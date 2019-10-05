@@ -140,8 +140,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(istool(W))
 		if(process_tool_hit(W,user))
 			return
-	..()
-	return
+	return..()
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -310,7 +309,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(istool(W))
 		if(process_tool_hit(W,user))
 			return
-	..()
+	return ..()
 
 /obj/machinery/particle_accelerator/proc/update_state()
 	return 0

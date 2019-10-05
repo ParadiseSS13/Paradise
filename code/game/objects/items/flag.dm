@@ -11,7 +11,7 @@
 	var/rolled = FALSE
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
-	..()
+	. = ..()
 	if(is_hot(W) && !(resistance_flags & ON_FIRE))
 		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
 		fire_act()
@@ -251,7 +251,7 @@
 		boobytrap = null
 		trapper = null
 	else
-		..()
+		return ..()
 
 /obj/item/flag/chameleon/attackby(obj/item/W, mob/user, params)
 	if(is_hot(W) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
@@ -260,7 +260,7 @@
 		message_admins("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
-	..()
+	return ..()
 
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)

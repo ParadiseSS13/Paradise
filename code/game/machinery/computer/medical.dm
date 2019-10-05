@@ -34,7 +34,8 @@
 		O.forceMove(src)
 		scan = O
 		ui_interact(user)
-	..()
+		return
+	return ..()
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())

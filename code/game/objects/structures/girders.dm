@@ -451,6 +451,8 @@
 			var/turf/T = get_turf(src)
 			T.ChangeTurf(/turf/simulated/wall/cult)
 			qdel(src)
+	else
+		return ..()
 
 /obj/structure/girder/cult/narsie_act()
 	return

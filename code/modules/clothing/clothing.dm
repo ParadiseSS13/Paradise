@@ -276,7 +276,7 @@ BLIND     // can't see anything
 			to_chat(user, "<span class='notice'>[src] have already been clipped!</span>")
 		return
 	else
-		..()
+		return ..()
 
 /obj/item/clothing/under/proc/set_sensors(mob/user as mob)
 	var/mob/M = user
@@ -474,9 +474,9 @@ BLIND     // can't see anything
 				update_icon()
 			else
 				to_chat(user, "<span class='notice'>[src] have already had [p_their()] toes cut open!</span>")
-			return
+		return
 	else
-		..()
+		return ..()
 
 /obj/item/clothing/shoes/proc/step_action(var/mob/living/carbon/human/H) //squeek squeek
 	SEND_SIGNAL(src, COMSIG_SHOES_STEP_ACTION)

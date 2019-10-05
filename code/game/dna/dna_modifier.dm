@@ -210,7 +210,7 @@
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", item)
-
+		return
 	if(exchange_parts(user, item))
 		return
 
@@ -233,27 +233,27 @@
 		item.forceMove(src)
 		user.visible_message("[user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
 		return
-	else if(!istype(item, /obj/item/grab))
+	if(istype(item, /obj/item/grab))
+		var/obj/item/grab/G = item
+		if(!ismob(G.affecting))
+			return
+		if(src.occupant)
+			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
+			return
+		if(G.affecting.abiotic())
+			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+			return
+		if(G.affecting.has_buckled_mobs()) //mob attached to us
+			to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			return
+		if(panel_open)
+			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			return
+		put_in(G.affecting)
+		src.add_fingerprint(user)
+		qdel(G)
 		return
-	var/obj/item/grab/G = item
-	if(!ismob(G.affecting))
-		return
-	if(src.occupant)
-		to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
-		return
-	if(G.affecting.abiotic())
-		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-		return
-	if(G.affecting.has_buckled_mobs()) //mob attached to us
-		to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
-		return
-	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-		return
-	put_in(G.affecting)
-	src.add_fingerprint(user)
-	qdel(G)
-	return
+	return ..()
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
 	if(user.incapacitated())
@@ -353,7 +353,7 @@
 			SSnanoui.update_uis(src) // update all UIs attached to src()
 			return
 	else
-		..()
+		return ..()
 
 /obj/machinery/computer/scan_consolenew/New()
 	..()

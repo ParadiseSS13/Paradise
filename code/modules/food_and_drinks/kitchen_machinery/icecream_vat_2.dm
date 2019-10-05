@@ -137,7 +137,7 @@ var/list/ingredients_source = list(
 				R.reagents.clear_reagents()
 		return 1
 	else
-		..()
+		return ..()
 
 /obj/machinery/icecream_vat/proc/add(var/add_type, var/amount)
 	if(add_type <= ingredients.len)

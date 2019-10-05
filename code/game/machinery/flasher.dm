@@ -135,9 +135,6 @@
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
 
-/obj/machinery/flasher_button/attackby(obj/item/W, mob/user as mob, params)
-	return attack_hand(user)
-
 /obj/machinery/flasher_button/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))
 		return

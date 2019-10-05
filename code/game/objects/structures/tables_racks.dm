@@ -542,7 +542,7 @@
 					to_chat(user, "<span class='notice'>You weaken the table.</span>")
 					deconstruction_ready = TRUE
 	else
-		. = ..()
+		return ..()
 
 /obj/structure/table/reinforced/brass
 	name = "brass table"
@@ -753,7 +753,7 @@
 		new /obj/item/stack/sheet/metal(user.loc)
 		qdel(src)
 	else
-		. = ..()
+		return ..()
 
 /obj/item/rack_parts/attack_self(mob/user)
 	if(building)

@@ -13,9 +13,6 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
-
-	max_integrity = 160		//the turret's health
-	integrity_failure = 80
 	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 	var/raised = 0			//if the turret cover is "open" and the turret is raised
 	var/raising= 0			//if the turret is currently opening or closing its cover
@@ -418,6 +415,29 @@ var/list/turret_icons
 
 		..()
 
+/obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(M.melee_damage_upper == 0 || (M.melee_damage_type != BRUTE && M.melee_damage_type != BURN))
+		return
+	if(!(stat & BROKEN))
+		visible_message("<span class='danger'>[M] [M.attacktext] [src]!</span>")
+		take_damage(M.melee_damage_upper)
+	else
+		to_chat(M, "<span class='danger'>That object is useless to you.</span>")
+	return
+
+/obj/machinery/porta_turret/attack_alien(mob/living/carbon/alien/humanoid/M)
+	M.changeNext_move(CLICK_CD_MELEE)
+	M.do_attack_animation(src)
+	if(!(stat & BROKEN))
+		playsound(src.loc, 'sound/weapons/slash.ogg', 25, 1, -1)
+		visible_message("<span class='danger'>[M] has slashed at [src]!</span>")
+		take_damage(15)
+	else
+		to_chat(M, "<span class='noticealien'>That object is useless to you.</span>")
+	return
+
 /obj/machinery/porta_turret/emag_act(user as mob)
 	if(!emagged)
 		//Emagging the turret makes it go bonkers and stun everyone. It also makes
@@ -431,6 +451,33 @@ var/list/turret_icons
 		enabled = 0 //turns off the turret temporarily
 		sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
 		enabled = 1 //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
+
+/obj/machinery/porta_turret/take_damage(force)
+	if(!raised && !raising)
+		force = force / 8
+		if(force < 5)
+			return
+
+	health -= force
+	if(force > 5 && prob(45) && spark_system)
+		spark_system.start()
+	if(health <= 0)
+		die()	//the death process :(
+
+/obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
+	if(Proj.damage_type == STAMINA)
+		return
+
+	if(enabled)
+		if(!attacked && !emagged)
+			attacked = 1
+			spawn(60)
+				attacked = 0
+
+	..()
+
+	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
+		take_damage(Proj.damage)
 
 /obj/machinery/porta_turret/emp_act(severity)
 	if(enabled && emp_vulnerable)
@@ -450,21 +497,6 @@ var/list/turret_icons
 				enabled=1
 
 	..()
-
-/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
-	. = ..()
-	if(. && obj_integrity > 0) //damage received
-		if(prob(30))
-			spark_system.start()
-		if(enabled && !attacked && !emagged)
-			attacked = TRUE
-			addtimer(CALLBACK(src, .proc/reset_attacked), 60)
-
-/obj/machinery/porta_turret/proc/reset_attacked()
-	attacked = FALSE
-
-/obj/machinery/porta_turret/deconstruct(disassembled = TRUE)
-	qdel(src)
 
 /obj/machinery/porta_turret/ex_act(severity)
 	switch(severity)

@@ -80,7 +80,7 @@
 
 /obj/structure/statue/uranium/attackby(obj/item/W, mob/user, params)
 	radiate()
-	..()
+	return ..()
 
 /obj/structure/statue/uranium/Bumped(atom/user)
 	radiate()
@@ -137,7 +137,7 @@
 		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
 		ignite(is_hot(W))
 		return
-	..()
+	return ..()
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 160)
@@ -230,7 +230,7 @@
 
 /obj/structure/statue/bananium/attackby(obj/item/W, mob/user, params)
 	honk()
-	..()
+	return ..()
 
 /obj/structure/statue/bananium/attack_hand(mob/user)
 	honk()

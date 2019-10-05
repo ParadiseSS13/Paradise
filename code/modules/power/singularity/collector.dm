@@ -95,8 +95,7 @@ var/global/list/rad_collectors = list()
 			to_chat(user, "<span class='warning'>Access denied!</span>")
 			return 1
 	else
-		..()
-		return 1
+		return ..()
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))

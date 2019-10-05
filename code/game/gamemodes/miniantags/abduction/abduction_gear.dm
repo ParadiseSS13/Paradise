@@ -692,7 +692,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			for(var/i = 1, i <= framestackamount, i++)
 				new framestack(get_turf(src))
 			qdel(src)
-			return
+		return
 	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
 		var/obj/item/stack/sheet/P = I
 		if(P.get_amount() < 1)
@@ -714,6 +714,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			P.use(1)
 			new /obj/machinery/optable/abductor(loc)
 			qdel(src)
+		return
+	return ..()
 
 /obj/structure/table/abductor
 	name = "alien table"

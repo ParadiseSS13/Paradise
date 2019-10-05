@@ -342,10 +342,10 @@
 	if(exchange_parts(user, W))
 		return
 
-	default_deconstruction_crowbar(W)
+	if(default_deconstruction_crowbar(W))
+		return
 
-	..()
-	return
+	return ..()
 
 /obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
 	if(!emagged)

@@ -37,21 +37,18 @@
 		return
 	if(istype(user, /mob/living/silicon))
 		return attack_hand(user)
-	else // trying to unlock the interface
-		if(allowed(usr))
-			locked = !locked
-			to_chat(user, "You [locked ? "lock" : "unlock"] the device.")
-			if(locked)
-				if(user.machine == src)
-					user.unset_machine()
-					user << browse(null, "window=ai_slipper")
-			else
-				if(user.machine == src)
-					attack_hand(usr)
+	if(allowed(usr)) // trying to unlock the interface
+		locked = !locked
+		to_chat(user, "You [locked ? "lock" : "unlock"] the device.")
+		if(locked)
+			if(user.machine == src)
+				user.unset_machine()
+				user << browse(null, "window=ai_slipper")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
-	return
+			if(user.machine == src)
+				attack_hand(usr)
+		return
+	return ..()
 
 /obj/machinery/ai_slipper/proc/ToggleOn()
 	if(stat & (NOPOWER|BROKEN))

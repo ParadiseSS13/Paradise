@@ -125,8 +125,7 @@
 			T.loc = src
 			src.holding = T
 			update_icon()
-			return
-
+		return
 	else if(istype(W, /obj/item/wrench))
 		if(connected_port)
 			disconnect()
@@ -145,12 +144,11 @@
 					return
 			else
 				to_chat(user, "<span class='notice'>Nothing happens.</span>")
-				return
-
-	else if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
+		return
+	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
-
-	return
+		return
+	return ..()
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(stat & BROKEN))

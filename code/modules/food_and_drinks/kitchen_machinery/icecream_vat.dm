@@ -50,6 +50,8 @@
 			I.desc += ". This also has sprinkles."
 		else
 			to_chat(user, "<span class='notice'>This [I] already has sprinkles.</span>")
+		return
+	return ..()
 
 
 /obj/machinery/icemachine/proc/validexchange(reag)

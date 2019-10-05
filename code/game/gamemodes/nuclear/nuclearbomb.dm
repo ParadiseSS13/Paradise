@@ -88,7 +88,7 @@ var/bomb_set
 			return attack_hand(user)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy \the [src] first. Right click on the sprite, select 'Make Deployable' then click on \the [src] with an empty hand.</span>")
-			return
+		return
 
 	if(anchored)
 		switch(removal_stage)
@@ -157,7 +157,8 @@ var/bomb_set
 						anchored = 0
 						removal_stage = 5
 				return
-	..()
+		return
+	return ..()
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	if(extended)

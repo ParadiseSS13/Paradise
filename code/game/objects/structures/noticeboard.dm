@@ -30,6 +30,8 @@
 			to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
 		else
 			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
+		return
+	return ..()
 
 /obj/structure/noticeboard/attack_hand(user as mob)
 	var/dat = "<B>Noticeboard</B><BR>"

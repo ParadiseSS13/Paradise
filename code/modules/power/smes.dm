@@ -224,7 +224,9 @@
 				return
 
 	//crowbarring it !
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
+	return ..()
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
