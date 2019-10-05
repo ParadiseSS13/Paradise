@@ -1041,6 +1041,8 @@ var/list/teleport_runes = list()
 	while(user in get_turf(src))
 		if(user.stat)
 			break
+		if(new_human.z != user.z)
+			break
 		user.apply_damage(0.1, BRUTE)
 		sleep(3)
 
