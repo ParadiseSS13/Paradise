@@ -303,3 +303,79 @@
 	new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
 	new /obj/item/assembly/signaler(src)
 	return
+
+// --------------------------------------
+//  BSA Signaller
+// --------------------------------------
+
+/obj/item/grenade/bsa
+	name = "bluespace artillery signal beacon"
+	desc = "Call in a one time strike with bluespace artillery. It is filled with various biometric security measures."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "batterer"
+	item_state = "batterer"
+	req_one_access = list(access_cent_commander)
+	var/strike_init_time = 8 //in seconds, we multiply by 10 below so we can use this var in the messages we send. so a value of 8 here would be a value of 80 for the timer.
+	var/caller
+	var/centcom_cancast = FALSE //incase admin wants to varedit to allow on Z 2 for whatever reason.
+
+/obj/item/grenade/bsa/attack_self()
+	var/mob/user = usr
+	var/turf/bombturf = get_turf(src)
+	if(active)
+		return
+
+	if(is_admin_level(bombturf.z) && !centcom_cancast)
+		to_chat(user, "<span class = 'warning'>The strike craft is not authorized to fire on that Z level!</span>")
+		return
+
+	if((!ismindshielded(user)) || ((user.mind.special_role != SPECIAL_ROLE_ERT) && (user.mind.special_role != SPECIAL_ROLE_DEATHSQUAD) && (!allowed(user)))) //if is not mindshielded, or is not an ERT/DS AND does not have high level CC access. naval officers have access_cent_commander, but not special role so we don't want to lock them out.
+		to_chat(user, "<span class = 'warning'>Unauthorized user detected.</span>")
+	else
+		for(var/obj/item/grenade/bsa/B in world) //check if anyone else is calling a strike currently, we don't want to spam the announcements
+			if(B.active && B != src)
+				to_chat(user, "<span class = 'warning'>Another strike is already in progress!</span>")
+				return
+		active = TRUE
+
+		var/area/A = get_area(bombturf)
+		to_chat(user, "<span class = 'warning'>Calibrating GPS, remain still to continue with strike.</span>")
+		
+		//tell admins and ghosts we are initiating a strike
+		message_admins("[key_name_admin(user)] is initiating a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>") 
+		notify_ghosts("[user] is initiating a Bluespace Artillery Strike in [get_area(src)]!", source = src)
+		log_game("[key_name_admin(user)] is initiating a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+		
+		playsound(src, 'sound/effects/bsainit.ogg', 50, 0)
+		
+		//make sure they stay still, if they move it's cancelled
+		if(do_after(user, 60, target = user))
+			playsound(src, 'sound/effects/bsainbound.ogg', 70, 0, 6, 3)
+			light_power = 8
+			light_color = "red"
+			light_range = 10
+			update_light()
+			priority_announcement.Announce("This is NDV Brutus, we've received your strike signal loud and clear, [user]! Bluespace Artillery Strike incoming near [A.name]!", "Bluespace Artillery Strike", 'sound/effects/engine_alert2.ogg')
+			to_chat(user, "<span class = 'warning'>Strike sequence initiated! Deploy beacon to target! [strike_init_time] seconds!</span>")
+			caller = user
+			if(iscarbon(user))
+				var/mob/living/carbon/C = user
+				C.throw_mode_on()
+			addtimer(CALLBACK(src, .proc/prime), strike_init_time * 10)
+		else
+			active = FALSE
+			to_chat(user, "<span class = 'warning'>Calibration cancelled. Strike sequence aborted.</span>")
+			message_admins("[key_name_admin(user)] has cancelled a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+		
+		
+/obj/item/grenade/bsa/prime()
+	update_mob()
+	var/ex_power = 3
+	var/turf/bombturf = get_turf(src)
+	var/area/A = get_area(bombturf)
+	explosion(get_turf(src), ex_power,ex_power * 2, ex_power * 4)
+	message_admins("[key_name_admin(caller)] has sucessfully called a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+	log_game("[key_name_admin(caller)] has sucessfully called a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
+	investigate_log("[key_name(caller)] has sucessfully called a Bluespace Artillery Strike at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
+	
+	qdel(src)
