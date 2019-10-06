@@ -365,26 +365,27 @@
 	playsound(src, 'sound/effects/bsainit.ogg', 50, 0)
 	
 	//make sure they stay still, if they move it's cancelled
-	if(do_after(user, arm_time, target = user))
-		playsound(src, 'sound/effects/bsainbound.ogg', 70, 0, 6, 3)
-		light_power = 8
-		light_color = "blue"
-		light_range = 10
-		update_light()
-		priority_announcement.Announce("This is NDV Brutus, we've received your strike signal loud and clear, [user]! Bluespace Artillery Strike incoming near [A.name]!", "Bluespace Artillery Strike", 'sound/effects/engine_alert2.ogg')
-		to_chat(user, "<span class = 'warning'>Strike sequence initiated! Deploy beacon to target! [det_time] seconds!</span>")
-		caller = user
-		if(iscarbon(user))
-			var/mob/living/carbon/C = user
-			C.throw_mode_on()
-		addtimer(CALLBACK(src, .proc/prime), det_time * 10)
-	else
+	if(!do_after(user, arm_time, target = user))
 		active = FALSE
 		to_chat(user, "<span class = 'warning'>Calibration cancelled. Strike sequence aborted.</span>")
 		message_admins("[key_name_admin(user)] has cancelled a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
+		return
 
+	playsound(src, 'sound/effects/bsainbound.ogg', 70, 0, 6, 3)
+	light_power = 8
+	light_color = "blue"
+	light_range = 10
+	update_light()
+	priority_announcement.Announce("This is NDV Brutus, we've received your strike signal loud and clear, [user]! Bluespace Artillery Strike incoming near [A.name]!", "Bluespace Artillery Strike", 'sound/effects/engine_alert2.ogg')
+	to_chat(user, "<span class = 'warning'>Strike sequence initiated! Deploy beacon to target! [det_time] seconds!</span>")
+	caller = user
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.throw_mode_on()
+	addtimer(CALLBACK(src, .proc/prime), det_time * 10)
+	
 /obj/item/grenade/bsa/prime()
 	var/turf/bombturf = get_turf(src)
 	var/area/A = get_area(bombturf)
