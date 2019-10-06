@@ -74,6 +74,7 @@
 		trigger_alarm()
 
 /obj/structure/displaycase/proc/trigger_alarm()
+	set waitfor = FALSE
 	if(alert && is_station_contact(z))
 		var/area/alarmed = get_area(src)
 		alarmed.burglaralert(src)

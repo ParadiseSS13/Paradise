@@ -113,7 +113,6 @@
 	smoke_system.set_up(3, src)
 	smoke_system.attach(src)
 	add_cell()
-
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	log_message("[src] created.")
@@ -602,24 +601,31 @@
 	if(occupant)
 		occupant.ex_act(severity)
 
+/obj/mecha/handle_atom_del(atom/A)
+	if(A == occupant)
+		occupant = null
+		icon_state = initial(icon_state)+"-open"
+		setDir(dir_in)
 
 /obj/mecha/Destroy()
 	if(occupant)
 		occupant.SetSleeping(destruction_sleep_duration)
 	go_out()
+	var/mob/living/silicon/ai/AI
 	for(var/mob/M in src) //Let's just be ultra sure
 		if(isAI(M))
-			M.gib() //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. Forever.
+			occupant = null
+			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
 		else
 			M.forceMove(loc)
-
 	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 		E.detach(loc)
 		qdel(E)
 	equipment.Cut()
 	QDEL_NULL(cell)
 	QDEL_NULL(internal_tank)
-
+	if(AI)
+		AI.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	if(loc)
@@ -638,7 +644,7 @@
 /obj/mecha/emp_act(severity)
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
-		take_damage(50 / severity, "energy")
+		take_damage(30 / severity, BURN, "energy", 1)
 	log_message("EMP detected", 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
@@ -646,7 +652,7 @@
 	..()
 	if(exposed_temperature > max_temperature)
 		log_message("Exposed to dangerous temperature.", 1)
-		take_damage(5, "fire")
+		take_damage(5, BURN, 0, 1)
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
 //////////////////////
@@ -1355,7 +1361,7 @@
 			if(cabin_air && cabin_air.return_volume()>0)
 				cabin_air.temperature = min(6000+T0C, cabin_air.return_temperature()+rand(10,15))
 				if(cabin_air.return_temperature() > max_temperature/2)
-					take_damage(4/round(max_temperature/cabin_air.return_temperature(),0.1),"fire")
+					take_damage(4/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
 
 	if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 		if(internal_tank)
@@ -1444,7 +1450,7 @@
 		if(isAI(occupant))
 			AI = occupant
 			occupant = null
-		var/obj/effect/decal/mecha_wreckage/WR = new wreckage(loc, AI)
+		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E

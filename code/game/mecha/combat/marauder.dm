@@ -11,7 +11,7 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	infra_luminosity = 3
 	operation_req_access = list(access_cent_specops)
-	wreckage = /obj/effect/decal/mecha_wreckage/marauder
+	wreckage = /obj/structure/mecha_wreckage/marauder
 	add_req_access = 0
 	internal_damage_threshold = 25
 	force = 45
@@ -52,7 +52,7 @@
 	operation_req_access = list(access_cent_commander)
 	step_in = 3
 	max_integrity = 550
-	wreckage = /obj/effect/decal/mecha_wreckage/seraph
+	wreckage = /obj/structure/mecha_wreckage/seraph
 	internal_damage_threshold = 20
 	force = 80
 	max_equip = 8
@@ -89,7 +89,7 @@
 	icon_state = "mauler"
 	initial_icon = "mauler"
 	operation_req_access = list(access_syndicate)
-	wreckage = /obj/effect/decal/mecha_wreckage/mauler
+	wreckage = /obj/structure/mecha_wreckage/mauler
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 
 /obj/mecha/combat/marauder/mauler/loaded/New()

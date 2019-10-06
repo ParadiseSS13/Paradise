@@ -19,7 +19,7 @@
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
-		if(state >= 3)
+		if(state >= 2)
 			var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
 			A.amount = 5
 		if(circuit)
@@ -88,13 +88,13 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-					return
+				return
 
 			if(istype(P, /obj/item/wrench))
 				playsound(src.loc, P.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
 				deconstruct(TRUE)
-			return
+				return
 		if(2)
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
@@ -121,8 +121,6 @@
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
 				A.amount = 5
 				return
-			return
-
 		if(3)
 			if(istype(P, /obj/item/crowbar))
 				playsound(src.loc, P.usesound, 50, 1)
@@ -213,8 +211,10 @@
 				if(!success)
 					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
 					return 0
-			return
-	return ..()
+				return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,

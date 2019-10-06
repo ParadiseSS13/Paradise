@@ -11,7 +11,7 @@
 	max_temperature = 25000
 	infra_luminosity = 6
 	leg_overload_coeff = 2
-	wreckage = /obj/effect/decal/mecha_wreckage/gygax
+	wreckage = /obj/structure/mecha_wreckage/gygax
 	internal_damage_threshold = 35
 	max_equip = 3
 	maxsize = 2
@@ -44,7 +44,7 @@
 	max_temperature = 35000
 	leg_overload_coeff = 100
 	operation_req_access = list(access_syndicate)
-	wreckage = /obj/effect/decal/mecha_wreckage/gygax/dark
+	wreckage = /obj/structure/mecha_wreckage/gygax/dark
 	max_equip = 4
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate

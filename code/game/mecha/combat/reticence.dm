@@ -9,7 +9,7 @@
 	deflect_chance = 30
 	armor = list("melee" = 25, "bullet" = 20, "laser" = 30, "energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_temperature = 15000
-	wreckage = /obj/effect/decal/mecha_wreckage/reticence
+	wreckage = /obj/structure/mecha_wreckage/reticence
 	operation_req_access = list(access_mime)
 	add_req_access = 0
 	internal_damage_threshold = 60

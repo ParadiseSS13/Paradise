@@ -169,7 +169,7 @@
 	if(!user.drop_item())
 		return
 	if(I)
-		I.loc = src
+		I.forceMove(src)
 
 	to_chat(user, "You place \the [I] into the [src].")
 	for(var/mob/M in viewers(src))
@@ -833,14 +833,14 @@
 // will expel any holder inside at the time
 // then delete the pipe
 // remains : set to leave broken pipe pieces in place
-/obj/structure/disposalpipe/proc/broken(var/remains = 0)
+/obj/structure/disposalpipe/proc/broken(remains = 0)
 	if(remains)
 		for(var/D in cardinal)
 			if(D & dpdir)
 				var/obj/structure/disposalpipe/broken/P = new(src.loc)
-				P.dir = D
+				P.setDir(D)
 
-	src.invisibility = 101	// make invisible (since we won't delete the pipe immediately)
+	invisibility = 101	// make invisible (since we won't delete the pipe immediately)
 	var/obj/structure/disposalholder/H = locate() in src
 	if(H)
 		// holder was present
@@ -862,6 +862,18 @@
 
 	spawn(2)	// delete pipe after 2 ticks to ensure expel proc finished
 		qdel(src)
+
+// pipe affected by explosion
+/obj/structure/disposalpipe/ex_act(severity)
+	switch(severity)
+		if(1)
+			broken(0)
+		if(2)
+			health -= rand(5, 15)
+			healthcheck()
+		if(3)
+			health -= rand(0, 15)
+			healthcheck()
 
 // test health for brokenness
 /obj/structure/disposalpipe/proc/healthcheck()

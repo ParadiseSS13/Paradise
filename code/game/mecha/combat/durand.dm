@@ -11,7 +11,7 @@
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
-	wreckage = /obj/effect/decal/mecha_wreckage/durand
+	wreckage = /obj/structure/mecha_wreckage/durand
 
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()
@@ -41,4 +41,4 @@
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
-	wreckage = /obj/effect/decal/mecha_wreckage/durand/old
+	wreckage = /obj/structure/mecha_wreckage/durand/old

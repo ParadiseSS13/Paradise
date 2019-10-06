@@ -12,7 +12,7 @@
 	deflect_chance = 15
 	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_equip = 6
-	wreckage = /obj/effect/decal/mecha_wreckage/ripley
+	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/list/cargo = new
 	var/cargo_capacity = 15
 	var/hides = 0
@@ -72,7 +72,7 @@
 	lights_power = 7
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100)
 	max_equip = 5 // More armor, less tools
-	wreckage = /obj/effect/decal/mecha_wreckage/ripley/firefighter
+	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
 
 /obj/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
@@ -86,7 +86,7 @@
 	max_integrity = 300
 	lights_power = 7
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 0, "bomb" = 70, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
-	wreckage = /obj/effect/decal/mecha_wreckage/ripley/deathripley
+	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
 

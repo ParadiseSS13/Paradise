@@ -150,7 +150,7 @@
 	else
 		bound_width = world.icon_size
 		bound_height = width * world.icon_size
-	update_icon()
+	..()
 
 /obj/structure/door_assembly/multi_tile/Move()
 	. = ..()

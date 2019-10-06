@@ -20,9 +20,6 @@
 	var/image/C = new('icons/mob/blob.dmi', "blob_node_overlay")
 	src.overlays += C
 
-/obj/structure/blob/node/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	return
-
 /obj/structure/blob/node/Destroy()
 	blob_nodes -= src
 	STOP_PROCESSING(SSobj, src)
@@ -37,12 +34,3 @@
 			Pulse(5, i, color)
 	obj_integrity = min(max_integrity, obj_integrity + 1)
 	color = null
-
-/obj/structure/blob/node/update_icon()
-	cut_overlays()
-	color = null
-	var/mutable_appearance/blob_overlay = mutable_appearance('icons/mob/blob.dmi', "blob")
-	if(overmind)
-		blob_overlay.color = overmind.blob_reagent_datum.color
-	add_overlay(blob_overlay)
-	add_overlay(mutable_appearance('icons/mob/blob.dmi', "blob_node_overlay"))

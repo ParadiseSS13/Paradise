@@ -69,6 +69,7 @@
 			if(occupant.health >= 0 && occupant.stat == DEAD)
 				occupant.update_revive()
 				occupant.lying = 0
+				update_icon()
 			sleep(10)
 		active = 0
 		add_fingerprint(usr)

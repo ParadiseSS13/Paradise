@@ -1,7 +1,7 @@
 /obj/structure/blob/shield
 	name = "strong blob"
 	icon = 'icons/mob/blob.dmi'
-	icon_state = "blob_idle"
+	icon_state = "blob_shield"
 	desc = "Some blob creature thingy"
 	max_integrity = 150
 	brute_resist = 0.25
@@ -26,9 +26,6 @@
 		atmosblock = TRUE
 	air_update_turf(1)
 
-/obj/structure/blob/shield/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	return
-
 /obj/structure/blob/shield/CanPass(atom/movable/mover, turf/target, height=0)
 	if(istype(mover) && mover.checkpass(PASSBLOB))	return 1
 	return 0
@@ -36,7 +33,7 @@
 /obj/structure/blob/shield/reflective
 	name = "reflective blob"
 	desc = "A solid wall of slightly twitching tendrils with a reflective glow."
-	icon_state = "blob_idle_glow"
+	icon_state = "blob_glow"
 	max_integrity = 100
 	brute_resist = 0.5
 	explosion_block = 2

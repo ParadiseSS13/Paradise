@@ -6,7 +6,7 @@
 	step_in = 3
 	max_temperature = 15000
 	max_integrity = 120
-	wreckage = /obj/effect/decal/mecha_wreckage/odysseus
+	wreckage = /obj/structure/mecha_wreckage/odysseus
 	internal_damage_threshold = 35
 	deflect_chance = 15
 	step_energy_drain = 6

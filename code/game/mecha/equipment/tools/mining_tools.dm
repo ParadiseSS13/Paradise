@@ -40,10 +40,9 @@
 			if(isliving(target))
 				drill_mob(target, chassis.occupant)
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
-			else if(istype(target, /obj))
+			else if(isobj(target))
 				var/obj/O = target
-				//O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
-				O.ex_act(2)//TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
+				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else
 				set_ready_state(TRUE)

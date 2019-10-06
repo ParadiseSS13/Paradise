@@ -56,18 +56,6 @@
 		if(overmind) //we should have an overmind, but...
 			overmind.update_health_hud()
 
-/obj/structure/blob/core/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	return
-
-/obj/structure/blob/core/update_icon()
-	cut_overlays()
-	color = null
-	var/mutable_appearance/blob_overlay = mutable_appearance('icons/mob/blob.dmi', "blob")
-	if(overmind)
-		blob_overlay.color = overmind.blob_reagent_datum.color
-	add_overlay(blob_overlay)
-	add_overlay(mutable_appearance('icons/mob/blob.dmi', "blob_core_overlay"))
-
 /obj/structure/blob/core/RegenHealth()
 	return // Don't regen, we handle it in Life()
 

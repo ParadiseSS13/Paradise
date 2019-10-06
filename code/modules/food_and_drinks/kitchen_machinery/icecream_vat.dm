@@ -25,6 +25,7 @@
 
 
 /obj/machinery/icemachine/New()
+	..()
 	create_reagents(500)
 
 /obj/machinery/icemachine/attackby(obj/item/I, mob/user, params)
