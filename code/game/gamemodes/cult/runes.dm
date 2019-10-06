@@ -314,6 +314,8 @@ var/list/teleport_runes = list()
 	var/movedsomething = 0
 	var/moveuserlater = 0
 	for(var/atom/movable/A in T)
+		if(isAIEye(A))
+			continue // no teleporting ai eyes thankyouverymuch
 		if(A == user)
 			moveuserlater = 1
 			movedsomething = 1
