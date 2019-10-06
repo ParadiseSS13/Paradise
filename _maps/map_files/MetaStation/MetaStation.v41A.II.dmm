@@ -59270,7 +59270,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "bXy" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},

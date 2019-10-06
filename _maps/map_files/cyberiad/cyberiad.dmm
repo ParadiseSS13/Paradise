@@ -35446,7 +35446,7 @@
 	},
 /area/library)
 "bmF" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/item/videocam,
 /obj/machinery/light_switch{
 	pixel_y = -25

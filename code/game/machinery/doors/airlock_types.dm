@@ -470,15 +470,18 @@
 /obj/machinery/door/airlock/cult
 	name = "cult airlock"
 	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/runed/overlays.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
 	hackProof = TRUE
 	aiControlDisabled = TRUE
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 
-/obj/machinery/door/airlock/cult/New()
-	..()
+/obj/machinery/door/airlock/cult/Initialize()
+	. = ..()
+	icon = SSticker.cultdat?.airlock_runed_icon_file
+	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	update_icon()
 	new openingoverlaytype(loc)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
@@ -510,14 +513,24 @@
 	glass = TRUE
 	opacity = 0
 
+/obj/machinery/door/airlock/cult/glass/Initialize()
+	. = ..()
+	update_icon()
+
 /obj/machinery/door/airlock/cult/glass/friendly
 	friendly = TRUE
 
 /obj/machinery/door/airlock/cult/unruned
 	icon = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/overlays.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
+
+/obj/machinery/door/airlock/cult/unruned/Initialize()
+	. = ..()
+	icon = SSticker.cultdat?.airlock_unruned_icon_file
+	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
+	update_icon()
 
 /obj/machinery/door/airlock/cult/unruned/friendly
 	friendly = TRUE
@@ -525,6 +538,10 @@
 /obj/machinery/door/airlock/cult/unruned/glass
 	glass = TRUE
 	opacity = 0
+
+/obj/machinery/door/airlock/cult/unruned/glass/Initialize()
+	. = ..()
+	update_icon()
 
 /obj/machinery/door/airlock/cult/unruned/glass/friendly
 	friendly = TRUE
