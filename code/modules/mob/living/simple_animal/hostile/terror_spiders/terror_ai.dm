@@ -42,7 +42,7 @@
 					else
 						targets3 += C
 				else if(ai_target_method == TS_DAMAGE_POISON)
-					if(C.can_inject(null,0,"chest",0))
+					if(C.can_inject(null, FALSE, "chest", FALSE))
 						targets1 += C
 					else if(C in enemies)
 						targets2 += C

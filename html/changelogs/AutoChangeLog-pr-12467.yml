@@ -1,0 +1,6 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "Fix syringe in-hand icon not updating"
+  - bugfix: "Fixes syringes not having materials"
+  - tweak: "Lethal injection syringes should be a bit more...lethal"

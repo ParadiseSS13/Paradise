@@ -28,7 +28,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
 
-		if(!H.can_inject(user, 1))
+		if(!H.can_inject(user, TRUE))
 			return 1
 
 		if(!affecting)

@@ -1,0 +1,4 @@
+author: "farie82"
+delete-after: True
+changes: 
+  - rscadd: "Tickets can now be unassigned by staff members."
