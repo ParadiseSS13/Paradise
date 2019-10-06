@@ -64530,7 +64530,7 @@
 	})
 "cgG" = (
 /obj/structure/table,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/airlock_electronics,
 /obj/item/assembly/timer{
 	pixel_x = -4;
@@ -73592,9 +73592,9 @@
 /area/medical/medbay3)
 "cvl" = (
 /obj/structure/table,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/cell/high{
 	charge = 100;
 	maxcharge = 15000
