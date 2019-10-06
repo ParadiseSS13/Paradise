@@ -275,6 +275,7 @@ a {
 /obj/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	extinguish()
+	acid_level = 0
 
 /obj/singularity_pull(S, current_size)
 	..()

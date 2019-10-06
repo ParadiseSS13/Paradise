@@ -31,7 +31,6 @@
 		A.acid_level = max(A.acid_level - volume*  50, 0)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
-	O.acid_level = 0
 	O.water_act(volume, water_temperature, src)
 
 /datum/reagent/lube

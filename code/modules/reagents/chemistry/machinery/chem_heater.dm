@@ -75,6 +75,7 @@
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 			icon_state = "mixer1b"
 			SSnanoui.update_uis(src)
+			return
 
 	if(default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I))
 		return
@@ -87,7 +88,6 @@
 			eject_beaker()
 			default_deconstruction_crowbar(I)
 			return 1
-		return
 	return ..()
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
