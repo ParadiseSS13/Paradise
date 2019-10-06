@@ -316,6 +316,7 @@
 	item_state = "batterer"
 	req_one_access = list(access_cent_commander)
 	var/strike_init_time = 8 //in seconds, we multiply by 10 below so we can use this var in the messages we send. so a value of 8 here would be a value of 80 for the timer.
+	var/arm_time = 40 //in deciseconds, so 40 would equal 4 seconds.
 	var/caller
 	var/centcom_cancast = FALSE //incase admin wants to varedit to allow on Z 2 for whatever reason.
 
@@ -326,7 +327,7 @@
 		return
 
 	if(is_admin_level(bombturf.z) && !centcom_cancast)
-		to_chat(user, "<span class = 'warning'>The strike craft is not authorized to fire on that Z level!</span>")
+		to_chat(user, "<span class = 'warning'>The strike craft isn't authorized to fire near Central Command!</span>")
 		return
 
 	if((!ismindshielded(user)) || ((user.mind.special_role != SPECIAL_ROLE_ERT) && (user.mind.special_role != SPECIAL_ROLE_DEATHSQUAD) && (!allowed(user)))) //if is not mindshielded, or is not an ERT/DS AND does not have high level CC access. naval officers have access_cent_commander, but not special role so we don't want to lock them out.
@@ -339,7 +340,7 @@
 		active = TRUE
 
 		var/area/A = get_area(bombturf)
-		to_chat(user, "<span class = 'warning'>Calibrating GPS, remain still to continue with strike.</span>")
+		to_chat(user, "<span class = 'warning'>Calibrating GPS, remain still to continue with the strike.</span>")
 		
 		//tell admins and ghosts we are initiating a strike
 		message_admins("[key_name_admin(user)] is initiating a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>") 
@@ -349,7 +350,7 @@
 		playsound(src, 'sound/effects/bsainit.ogg', 50, 0)
 		
 		//make sure they stay still, if they move it's cancelled
-		if(do_after(user, 60, target = user))
+		if(do_after(user, arm_time, target = user))
 			playsound(src, 'sound/effects/bsainbound.ogg', 70, 0, 6, 3)
 			light_power = 8
 			light_color = "red"
@@ -373,9 +374,12 @@
 	var/ex_power = 3
 	var/turf/bombturf = get_turf(src)
 	var/area/A = get_area(bombturf)
-	explosion(get_turf(src), ex_power,ex_power * 2, ex_power * 4)
+	explosion(get_turf(src), ex_power * 2, ex_power * 5, ex_power * 6)
 	message_admins("[key_name_admin(caller)] has sucessfully called a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 	log_game("[key_name_admin(caller)] has sucessfully called a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 	investigate_log("[key_name(caller)] has sucessfully called a Bluespace Artillery Strike at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
 	
 	qdel(src)
+	
+/obj/item/grenade/bsa/blob_act()
+	return
