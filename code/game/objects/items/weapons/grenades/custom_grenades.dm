@@ -327,11 +327,9 @@
 	//mindshield check
 	if(mindshield_check && !ismindshielded(user))
 		return FALSE
-
 	//access check
 	if(access_check && !allowed(user))
 		return FALSE
-
 	//special role check
 	if(role_check)
 		var/role = FALSE
@@ -341,30 +339,24 @@
 				break
 		if(!role)
 			return FALSE
-
 	return TRUE
-		
 
 /obj/item/grenade/bsa/attack_self()
 	var/mob/user = usr
 	var/turf/bombturf = get_turf(src)
 	if(active)
 		return
-
 	if(is_admin_level(bombturf.z) && !centcom_cancast)
 		to_chat(user, "<span class = 'warning'>The strike craft isn't authorized to fire near Central Command!</span>")
 		return
-
 	if(!authenticate(user, require_mindshield, authorized_special_roles, FALSE) && (ID_access_override && !authenticate(user, FALSE, FALSE, TRUE))) //if is not mindshielded, not an ERT/DS AND does not have high level CC access. naval officers have access_cent_commander, but not special role so we don't want to lock them out.
 		to_chat(user, "<span class = 'warning'>Unauthorized user detected.</span>")
 		return
-	
 	active = TRUE
 	icon_state = initial(icon_state) + "_active"
 	item_state = initial(item_state) + "_active"
 	var/area/A = get_area(bombturf)
 	to_chat(user, "<span class = 'warning'>Calibrating GPS, remain still to continue with the strike.</span>")
-	
 	//tell admins and ghosts we are initiating a strike
 	message_admins("[key_name_admin(user)] is initiating a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>") 
 	notify_ghosts("[user] is initiating a Bluespace Artillery Strike in [get_area(src)]!", source = src)
@@ -392,8 +384,7 @@
 		message_admins("[key_name_admin(user)] has cancelled a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 		icon_state = initial(icon_state)
 		item_state = initial(item_state)
-	
-	
+
 /obj/item/grenade/bsa/prime()
 	var/turf/bombturf = get_turf(src)
 	var/area/A = get_area(bombturf)
@@ -401,7 +392,6 @@
 	message_admins("[key_name_admin(caller)] has sucessfully called a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 	log_game("[key_name_admin(caller)] has sucessfully called a Bluespace Artillery Strike at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>")
 	investigate_log("[key_name(caller)] has sucessfully called a Bluespace Artillery Strike at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z])", INVESTIGATE_BOMB)
-	
 	qdel(src)
 
 /obj/item/grenade/bsa/blob_act()
