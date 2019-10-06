@@ -101,7 +101,8 @@
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/storage/lockbox/mindshield = 1,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
-		/obj/item/ammo_box/magazine/enforcer/lethal = 2
+		/obj/item/ammo_box/magazine/enforcer/lethal = 2,
+		/obj/item/grenade/bsa = 1
 		)
 
 	cybernetic_implants = list(
