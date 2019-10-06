@@ -119,8 +119,6 @@
 
 	var/report_danger_level = TRUE
 
-	var/automatic_emergency = TRUE //Does the alarm automaticly respond to an emergency condition
-
 /obj/machinery/alarm/monitor
 	report_danger_level = FALSE
 
@@ -315,12 +313,6 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
-		if(automatic_emergency && mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
-			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
-				mode = AALARM_MODE_OFF
-				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)
-					mode = AALARM_MODE_PANIC
-		apply_mode()
 
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
@@ -1041,11 +1033,11 @@
 		update_icon()
 
 /obj/machinery/alarm/examine(mob/user)
-	..(user)
+	. = ..()
 	if(buildstage < 2)
-		to_chat(user, "It is not wired.")
+		. += "It is not wired."
 	if(buildstage < 1)
-		to_chat(user, "The circuit is missing.")
+		. += "The circuit is missing."
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"

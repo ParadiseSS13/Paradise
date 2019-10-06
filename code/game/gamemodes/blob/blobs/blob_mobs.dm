@@ -13,7 +13,7 @@
 	maxbodytemp = 360
 	universal_speak = 1 //So mobs can understand them when a blob uses Blob Broadcast
 	sentience_type = SENTIENCE_OTHER
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	var/mob/camera/blob/overmind = null
 
 /mob/living/simple_animal/hostile/blob/proc/adjustcolors(var/a_color)
@@ -45,8 +45,6 @@
 	var/obj/structure/blob/factory/factory = null
 	var/list/human_overlays = list()
 	var/is_zombie = 0
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120  //120 kPa difference required to throw
 
 /mob/living/simple_animal/hostile/blob/blobspore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -97,8 +95,6 @@
 	human_overlays = H.overlays
 	update_icons()
 	H.forceMove(src)
-	pressure_resistance = 20  //5 kPa difference required to push lowered
-	throw_pressure_limit = 30  //15 kPa difference required to throw lowered
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
 /mob/living/simple_animal/hostile/blob/blobspore/death(gibbed)
@@ -176,8 +172,7 @@
 	force_threshold = 10
 	mob_size = MOB_SIZE_LARGE
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120  //120 kPa difference required to throw
+	pressure_resistance = 50
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 

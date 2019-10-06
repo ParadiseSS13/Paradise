@@ -1,5 +1,6 @@
 /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
+	pressure_resistance = 10
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
@@ -27,7 +28,6 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/update_slimes = 1
 	var/implanting = 0 //Used for the mind-slave implant
 	var/floating = 0
 	var/mob_size = MOB_SIZE_HUMAN
@@ -65,7 +65,7 @@
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
 
 	var/list/status_effects //a list of all status effects the mob has
-	
+
 	var/deathgasp_on_death = FALSE
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added

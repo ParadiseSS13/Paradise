@@ -74,6 +74,18 @@ var/const/INGEST = 2
 	handle_reactions()
 	return total_transfered
 
+/datum/reagents/proc/remove_all(amount = 1)
+	var/list/cached_reagents = reagent_list
+	if(total_volume > 0)
+		var/part = amount / total_volume
+		for(var/reagent in cached_reagents)
+			var/datum/reagent/R = reagent
+			remove_reagent(R.id, R.volume * part)
+
+		update_total()
+		handle_reactions()
+		return amount
+
 /datum/reagents/proc/get_master_reagent()
 	var/the_reagent = null
 	var/the_volume = 0
@@ -750,6 +762,13 @@ var/const/INGEST = 2
 		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
+//helper for attack logs, tells you if all reagents are harmless or not. returns true if harmless.
+/datum/reagents/proc/harmless_helper()
+	for(var/datum/reagent/r in reagent_list)
+		if(!r.harmless)
+			return FALSE
+	return TRUE
+
 //two helper functions to preserve data across reactions (needed for xenoarch)
 /datum/reagents/proc/get_data(reagent_id)
 	for(var/datum/reagent/D in reagent_list)
@@ -796,7 +815,7 @@ var/const/INGEST = 2
 		if(!R.taste_mult)
 			continue
 		//nutriment carries a list of tastes that originates from the snack food that the nutriment came from
-		if(istype(R, /datum/reagent/consumable/nutriment)) 
+		if(istype(R, /datum/reagent/consumable/nutriment))
 			var/list/nutriment_taste_data = R.data
 			for(var/nutriment_taste in nutriment_taste_data)
 				var/ratio = nutriment_taste_data[nutriment_taste]

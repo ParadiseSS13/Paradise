@@ -126,7 +126,7 @@ menu "menu"
 		saved-params = "is-checked"
 	elem 
 		name = "&Hotkeys"
-		command = "hotkeys-help"
+		command = "Hotkey-Help"
 		category = "&Help"
 		saved-params = "is-checked"
 

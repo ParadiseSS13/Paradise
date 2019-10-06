@@ -382,6 +382,8 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/console_screen = 1,
 							/obj/item/stock_parts/scanning_module = 1)
 
+/obj/item/circuitboard/plantgenes/vault
+
 /obj/item/circuitboard/seed_extractor
 	name = "circuit board (Seed Extractor)"
 	build_path = /obj/machinery/seed_extractor
@@ -817,7 +819,7 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Telepad)"
 	build_path = /obj/machinery/telepad
 	board_type = "machine"
-	origin_tech = "programming=4;engineering=3;plasmatech=4;bluespace=4"
+	origin_tech = "programming=6;engineering=5;plasmatech=6;bluespace=7"
 	frame_desc = "Requires 2 Bluespace Crystals, 1 Capacitor, 1 piece of cable and 1 Console Screen."
 	req_components = list(
 							/obj/item/stack/ore/bluespace_crystal = 2,
@@ -866,16 +868,6 @@ to destroy them and players will be able to make replacements.
 	frame_desc = "Requires 1 Scanning Module, 2 pieces of cable and 2 Console Screens."
 	req_components = list(
 							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/console_screen = 2)
-
-/obj/item/circuitboard/bodyscanner_console
-	name = "circuit board (Body Scanner Console)"
-	build_path = /obj/machinery/body_scanconsole
-	board_type = "machine"
-	origin_tech = "programming=3;biotech=2;engineering=3"
-	frame_desc = "Requires 2 pieces of cable and 2 Console Screens."
-	req_components = list(
 							/obj/item/stack/cable_coil = 2,
 							/obj/item/stock_parts/console_screen = 2)
 

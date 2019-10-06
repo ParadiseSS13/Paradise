@@ -216,6 +216,9 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
+/mob/living/can_be_pulled(user, grab_state, force)
+	return ..() && !(buckled && buckled.buckle_prevents_pull)
+
 /mob/living/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))
@@ -274,46 +277,34 @@
 
 	return G
 
-/mob/living/attack_slime(mob/living/carbon/slime/M)
+/mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if(M.Victim)
+	if(M.buckled)
+		if(M in buckled_mobs)
+			M.Feedstop()
 		return // can't attack while eating!
 
 	if(stat != DEAD)
+		add_attack_logs(src, M, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
-
-		if(M.powerlevel > 0)
-			var/stunprob = M.powerlevel * 7 + 10  // 17 at level 1, 80 at level 10
-			if(prob(stunprob))
-				M.powerlevel -= 3
-				if(M.powerlevel < 0)
-					M.powerlevel = 0
-
-				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
-				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
-
-				do_sparks(5, 1, src)
-				return 1
-	add_attack_logs(src, M, "Slime'd")
-	return
+		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
+		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
+	M.face_atom(src)
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src].")
-		return 0
-	else
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-						"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_attack_logs(M, src, "Animal attacked")
-		return 1
+		return FALSE
+	if(M.attack_sound)
+		playsound(loc, M.attack_sound, 50, 1, 1)
+	M.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
+					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
+	add_attack_logs(M, src, "Animal attacked")
+	return TRUE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)

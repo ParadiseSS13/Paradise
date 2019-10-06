@@ -210,7 +210,7 @@
 	brightness_on = 0
 	sharp_when_wielded = FALSE // It's a toy
 
-/obj/item/twohanded/dualsaber/toy/hit_reaction()
+/obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
@@ -641,13 +641,14 @@ obj/item/toy/cards/singlecard
 
 
 obj/item/toy/cards/singlecard/examine(mob/user)
-	if(..(user, 0))
+	. = ..()
+	if(get_dist(user, src) <= 0)
 		if(ishuman(user))
 			var/mob/living/carbon/human/cardUser = user
 			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 				cardUser.visible_message("<span class='notice'>[cardUser] checks [cardUser.p_their()] card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
 			else
-				to_chat(cardUser, "<span class='notice'>You need to have the card in your hand to check it.</span>")
+				. += "<span class='notice'>You need to have the card in your hand to check it.</span>"
 
 
 obj/item/toy/cards/singlecard/verb/Flip()
@@ -1470,9 +1471,9 @@ obj/item/toy/cards/deck/syndicate/black
 	fake_bullets = rand(2, 7)
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
-	..()
-	to_chat(user, "Has [fake_bullets] round\s remaining.")
-	to_chat(user, "[fake_bullets] of those are live rounds.")
+	. = ..()
+	. += "Has [fake_bullets] round\s remaining."
+	. += "[fake_bullets] of those are live rounds."
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")

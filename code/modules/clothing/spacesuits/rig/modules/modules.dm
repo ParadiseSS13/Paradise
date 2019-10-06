@@ -55,15 +55,15 @@
 
 	var/list/stat_rig_module/stat_modules = new()
 
-/obj/item/rig_module/examine()
-	..()
+/obj/item/rig_module/examine(mob/user)
+	. = ..()
 	switch(damage)
 		if(0)
-			to_chat(usr, "It is undamaged.")
+			. += "It is undamaged."
 		if(1)
-			to_chat(usr, "It is badly damaged.")
+			. += "It is badly damaged."
 		if(2)
-			to_chat(usr, "It is almost completely destroyed.")
+			. += "It is almost completely destroyed."
 
 /obj/item/rig_module/attackby(obj/item/W as obj, mob/user as mob)
 

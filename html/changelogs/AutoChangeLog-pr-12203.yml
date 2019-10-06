@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscdel: "comments out romerol (much like zombies, it will rise again, don't worry!)"
-  - tweak: "zombies are high and lower pressure immune in addition to immune to heat and tox damage"

@@ -57,6 +57,7 @@
 
 /mob/living/carbon/human/Destroy()
 	. = ..()
+	SSmobs.cubemonkeys -= src
 	QDEL_LIST(bodyparts)
 	splinted_limbs.Cut()
 
@@ -408,7 +409,7 @@
 		else
 			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? w_uniform : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(w_uniform == null || (slot_w_uniform in obscured))
+		if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (slot_w_uniform in obscured))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
@@ -1017,6 +1018,10 @@
 		else
 			target_zone = user.zone_sel.selecting
 
+
+	if(PIERCEIMMUNE in dna.species.species_traits)
+		. = 0
+
 	var/obj/item/organ/external/affecting = get_organ(target_zone)
 	var/fail_msg
 	if(!affecting)
@@ -1572,7 +1577,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 					threatcount += 2
 
 	//Check for dresscode violations
-	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/wizard))
+	if(istype(head, /obj/item/clothing/head/wizard) || istype(head, /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
 		threatcount += 2
 
 
@@ -1898,6 +1903,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
 	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
 	. += "---"
+
+/mob/living/carbon/human/adjust_nutrition(change)
+	if(NO_HUNGER in dna.species.species_traits)
+		return FALSE
+	return ..()
+
+/mob/living/carbon/human/set_nutrition(change)
+	if(NO_HUNGER in dna.species.species_traits)
+		return FALSE
+	return ..()
 
 /mob/living/carbon/human/proc/special_post_clone_handling()
 	if(mind && mind.assigned_role == "Cluwne") //HUNKE your suffering never stops

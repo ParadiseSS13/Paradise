@@ -2048,7 +2048,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("ghost_radio")
 					toggles ^= CHAT_GHOSTRADIO
-				
+
 				if("ghost_pda")
 					toggles ^= CHAT_GHOSTPDA
 
@@ -2102,7 +2102,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						"High" = PARALLAX_HIGH,
 						"Insane" = PARALLAX_INSANE
 					)
-					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]	
+					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 
@@ -2187,12 +2187,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
 	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
 	if(!l_foot && !r_foot)
-		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair (character.loc)
-		character.buckled = W
-		character.update_canmove()
-		W.dir = character.dir
-		W.buckled_mob = character
-		W.add_fingerprint(character)
+		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
+		W.buckle_mob(character, TRUE)
 
 	character.underwear = underwear
 	character.undershirt = undershirt

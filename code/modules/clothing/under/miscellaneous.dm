@@ -435,21 +435,6 @@
 	icon_state = "dress_cap"
 	item_color = "dress_cap"
 
-// Captain Formal uniform by Danaleja
-/obj/item/clothing/under/dress/dark
-	name = "captain's formal blue uniform"
-	desc = "Worn only by Captains with an abundance of class."
-	icon_state = "captain_dark"
-	item_color = "captain_dark"
-	hispania_icon = TRUE
-
-/obj/item/clothing/under/dress/light
-	name = "captain's formal white uniform"
-	desc = "Worn only by Captains with an abundance of class."
-	icon_state = "captain_light"
-	item_color = "captain_light"
-	hispania_icon = TRUE
-	
 /obj/item/clothing/under/dress/dress_hop
 	name = "head of personal dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
@@ -912,3 +897,10 @@
 	item_state = "durathread"
 	item_color = "durathread"
 	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0)
+
+/obj/item/clothing/under/cuban_suit
+	name = "rhumba outfit"
+	desc = "A satin shirt and high-waisted pants, worn by dancers in the Rhumba style. It smells oddly like... sulfur?"
+	icon_state = "cuban_suit"
+	item_state = "cuban_suit"
+	item_color = "cuban_suit"

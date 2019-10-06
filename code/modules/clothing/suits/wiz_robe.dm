@@ -155,3 +155,56 @@
 	unacidable = 0
 	burn_state = FLAMMABLE
 	magical = FALSE
+
+//Shielded Armour
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	name = "battlemage armour"
+	desc = "Not all wizards are afraid of getting up close and personal."
+	icon_state = "hardsuit-wiz"
+	item_state = "wiz_hardsuit"
+	recharge_rate = 0
+	current_charges = 15
+	recharge_cooldown = INFINITY
+	shield_state = "shield-red"
+	shield_on = "shield-red"
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
+	slowdown = 0
+	unacidable = TRUE
+	burn_state = FIRE_PROOF
+	magical = TRUE
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
+	name = "battlemage helmet"
+	desc = "A suitably impressive helmet."
+	icon_state = "hardsuit0-wiz"
+	item_state = "wiz_helm"
+	item_color = "wiz"
+	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
+	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
+	actions_types = null //No inbuilt light
+	unacidable = TRUE
+	burn_state = FIRE_PROOF
+	magical = TRUE
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
+	return
+
+/obj/item/wizard_armour_charge
+	name = "battlemage shield charges"
+	desc = "A powerful rune that will increase the number of hits a suit of battlemage armour can take before failing.."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "electricity2"
+
+/obj/item/wizard_armour_charge/afterattack(obj/item/clothing/suit/space/hardsuit/shielded/wizard/W, mob/user)
+	. = ..()
+	if(!istype(W))
+		to_chat(user, "<span class='warning'>The rune can only be used on battlemage armour!</span>")
+		return
+	W.current_charges += 8
+	to_chat(user, "<span class='notice'>You charge [W]. It can now absorb [W.current_charges] hits.</span>")
+	qdel(src)

@@ -57,7 +57,7 @@
 	board_type = "machine"
 
 /obj/item/circuitboard/examine(mob/user)
-	..()
+	. = ..()
 	if(LAZYLEN(req_components))
 		var/list/nice_list = list()
 		for(var/B in req_components)
@@ -65,7 +65,7 @@
 			if(!ispath(A))
 				continue
 			nice_list += list("[req_components[A]] [initial(A.name)]")
-		to_chat(user,"<span class='notice'>Required components: [english_list(nice_list)].</span>")
+		. += "<span class='notice'>Required components: [english_list(nice_list)].</span>"
 
 /obj/item/circuitboard/message_monitor
 	name = "Circuit board (Message Monitor)"
@@ -362,7 +362,7 @@
 /obj/item/circuitboard/telesci_console
 	name = "Circuit board (Telepad Control Console)"
 	build_path = /obj/machinery/computer/telescience
-	origin_tech = "programming=3;bluespace=3;plasmatech=4"
+	origin_tech = "programming=5;bluespace=7;plasmatech=6"
 
 /obj/item/circuitboard/atmos_automation
 	name = "Circuit board (Atmospherics Automation)"
