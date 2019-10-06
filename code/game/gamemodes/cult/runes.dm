@@ -1054,7 +1054,7 @@ var/list/teleport_runes = list()
 			new_human.unEquip(I)
 		summoned_guys -= new_human
 		ghosts--
-		SSticker.mode.remove_cultist(new_human.mind, 0)
+		SSticker.mode.remove_cultist(new_human.mind, FALSE)
 		new_human.dust()
 
 /obj/effect/rune/manifest/Destroy()
