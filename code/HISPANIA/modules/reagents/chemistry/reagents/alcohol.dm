@@ -14,6 +14,17 @@
 	drink_desc = "A crystal clear glass of Fernet Branca."
 	taste_description = "pure bitter oil"
 
+/datum/reagent/consumable/ethanol/mezcal /// By mazapan
+	name = "Mezcal"
+	id = "mezcal"
+	description = "it's mezcal, like tequila, but hipster"
+	color = "15140f" // rgb: 102, 67, 0
+	dizzy_adj = 3
+	alcohol_perc = 0.6
+	drink_icon = "mezcal_glass"
+	drink_name = "Glass of Mezcal"
+	drink_desc = "A crystal clear glass of 400 Conejos with a little worm inside."
+	taste_description = "tasty worm"
 
 /datum/reagent/consumable/ethanol/fernetcola
 	name= "Fernet with cola"
