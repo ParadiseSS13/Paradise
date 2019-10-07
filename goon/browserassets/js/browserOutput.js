@@ -160,11 +160,13 @@ function setHighlightColor(match) {
 function highlightTerms(el) {
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			var rexp = new RegExp("("+opts.highlightTerms[i]+")","gmi")
+			var rexp = new RegExp(opts.highlightTerms[i],"gmi")
 			if(!opts.highlightRegexEnable){
 				rexp = new RegExp("("+opts.highlightTerms[i].replace(new RegExp("([^a-zA-Z0-9])","gmi"),"\\$1")+")","gmi")
+				el.innerText = el.innerText.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>") //disabling regex disables html matching too
+				continue;
 			}
-			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>")
+			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$0</span>") //i cant figure out a proper, non snowflakey way to let people select the group that gets highlighted
 		}
 	}
 }
