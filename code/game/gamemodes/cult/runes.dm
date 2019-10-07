@@ -1033,7 +1033,7 @@ var/list/teleport_runes = list()
 	N.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	new_human.key = ghost_to_spawn.key
 	SSticker.mode.add_cultist(new_human.mind, FALSE)
-	new_human.mind.special_role = "SPECIAL_ROLE_CULTIST"
+	new_human.mind.special_role = SPECIAL_ROLE_CULTIST
 	summoned_guys |= new_human
 	ghosts++
 	to_chat(new_human, "<span class='cultitalic'><b>You are a servant of [SSticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [SSticker.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
