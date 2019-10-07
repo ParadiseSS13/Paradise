@@ -14,6 +14,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	attack_verb = null
+	resistance_flags = FIRE_PROOF
 	var/lit = 0
 
 /obj/item/lighter/zippo

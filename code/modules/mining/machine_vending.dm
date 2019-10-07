@@ -194,7 +194,7 @@
 			return
 		else
 			RedeemVoucher(I, user)
-			return
+		return
 	if(istype(I,/obj/item/card/id))
 		if(!powered())
 			return
@@ -206,8 +206,8 @@
 				C.forceMove(src)
 				inserted_id = C
 				interact(user)
-			return
-	..()
+		return
+	return ..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
 	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")

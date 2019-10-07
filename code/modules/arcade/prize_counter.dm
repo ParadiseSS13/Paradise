@@ -53,6 +53,8 @@
 			if(tickets)		//save the tickets!
 				print_tickets()
 			default_deconstruction_crowbar(O)
+		return
+	return ..()
 
 /obj/machinery/prize_counter/attack_hand(mob/user as mob)
 	if(..())

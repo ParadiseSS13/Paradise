@@ -46,7 +46,8 @@
 	. = ..()
 
 /obj/item/organ/internal/headpocket/proc/empty_contents()
-	pocket.empty_object_contents(0, get_turf(owner))
+	for(var/obj/item/I in pocket.contents)
+		pocket.remove_from_storage(I, get_turf(owner))
 
 /obj/item/organ/internal/headpocket/proc/get_contents()
 	return pocket.contents

@@ -305,6 +305,7 @@
 		return
 	if(panel_open)
 		wires.Interact(user)
+		return
 
 	if(state_open)
 		if(store_item(I, user))
@@ -313,6 +314,8 @@
 			to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
 		else
 			to_chat(user, "<span class='notice'>The unit already contains that item.</span>")
+		return
+	return ..()
 
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
@@ -354,9 +357,10 @@
 	occupant = null
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)
-	open_machine()
-	dump_contents()
-	new /obj/item/stack/sheet/metal (loc, 2)
+	if(!(flags & NODECONSTRUCT))
+		open_machine()
+		dump_contents()
+		new /obj/item/stack/sheet/metal (loc, 2)
 	qdel(src)
 
 /obj/machinery/suit_storage_unit/MouseDrop_T(atom/A, mob/user)

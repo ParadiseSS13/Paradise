@@ -126,7 +126,7 @@
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 			interact(user)
 	else
-		..()
+		return ..()
 
 
 /obj/machinery/plantgenes/attack_hand(mob/user)

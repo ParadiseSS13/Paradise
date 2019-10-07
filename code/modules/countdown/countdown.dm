@@ -63,6 +63,12 @@
 /obj/effect/countdown/ex_act(severity) //immune to explosions
 	return
 
+/obj/effect/countdown/singularity_pull()
+	return
+
+/obj/effect/countdown/singularity_act()
+	return
+
 /obj/effect/countdown/syndicatebomb
 	name = "syndicate bomb countdown"
 

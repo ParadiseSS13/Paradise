@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - rscadd: "Most things are universally damageable"
+  - tweak: "Acid melts things a bit differently now"
+  - bugfix: "Lava actually sets most things on fire."
+  - tweak: "Captain no longer has access to his display case by default"
+  - rscadd: "Xenos can break open vents"

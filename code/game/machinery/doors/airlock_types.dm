@@ -359,7 +359,7 @@
 	name = "gamma level hatch"
 	hackProof = 1
 	aiControlDisabled = 1
-	unacidable = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	is_special = 1
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
@@ -472,6 +472,7 @@
 	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
+	damage_deflection = 10
 	hackProof = TRUE
 	aiControlDisabled = TRUE
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door

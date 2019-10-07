@@ -159,7 +159,7 @@
 		enabled = 1
 		user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
 	else
-		..()
+		return ..()
 
 /*
 ///////////////////////////////////////
@@ -272,4 +272,4 @@
 		else
 			to_chat(user, "<span class='warning'>This key is already ground!</span>")
 	else
-		..()
+		return ..()

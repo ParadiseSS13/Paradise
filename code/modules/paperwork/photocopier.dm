@@ -11,6 +11,8 @@
 	idle_power_usage = 30
 	active_power_usage = 200
 	power_channel = EQUIP
+	max_integrity = 300
+	integrity_failure = 100
 	var/emag_cooldown
 	atom_say_verb = "bleeps"
 	var/obj/item/copyitem = null	//what's in the copier!
@@ -180,34 +182,8 @@
 				copyitem.forceMove(get_turf(src))
 				copyitem = null
 		updateUsrDialog()
-	return
-
-/obj/machinery/photocopier/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-			else
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-		else
-			if(prob(50))
-				if(toner > 0)
-					new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-					toner = 0
-	return
-
-/obj/machinery/photocopier/blob_act()
-	if(prob(50))
-		qdel(src)
 	else
-		if(toner > 0)
-			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
-			toner = 0
-	return
+		return ..()
 
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
@@ -328,6 +304,11 @@
 	P.pixel_x = rand(-9, 9)
 	return P
 
+/obj/machinery/photocopier/obj_break(damage_flag)
+	if(!(flags & NODECONSTRUCT))
+		if(toner > 0)
+			new /obj/effect/decal/cleanable/blood/oil(get_turf(src))
+			toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.

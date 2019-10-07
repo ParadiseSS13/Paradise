@@ -26,17 +26,6 @@
 	base_icon = "[icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
-/obj/structure/flora/ash/ex_act(severity, target)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(80))
-				qdel(src)
-		if(3)
-			if(prob(50))
-				qdel(src)
-
 /obj/structure/flora/ash/proc/harvest(user)
 	if(harvested)
 		return 0
@@ -160,6 +149,8 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
 	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
 

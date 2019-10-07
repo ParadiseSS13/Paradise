@@ -7,7 +7,7 @@
 /mob/living/simple_animal/hostile/blob
 	icon = 'icons/mob/blob.dmi'
 	pass_flags = PASSBLOB
-	faction = list("blob")
+	faction = list(ROLE_BLOB)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 360
@@ -21,7 +21,14 @@
 		color = a_color
 
 /mob/living/simple_animal/hostile/blob/blob_act()
-	return
+	if(stat != DEAD && health < maxHealth)
+		for(var/i in 1 to 2)
+			var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(src)) //hello yes you are being healed
+			if(overmind)
+				H.color = overmind.blob_reagent_datum.complementary_color
+			else
+				H.color = "#000000"
+		adjustHealth(-maxHealth * 0.0125)
 
 
 ////////////////
@@ -184,9 +191,6 @@
 		else
 			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
 			adjustFireLoss(0.2)
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/blob_act()
-	return
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/New()
 	..()

@@ -142,7 +142,6 @@
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	density = 1
-	unacidable = 1
 	anchored = 1.0
 	var/spawn_path = /mob/living/simple_animal/cow //defaulty cows to prevent unintentional narsies
 	var/spawn_amt_left = 20
@@ -173,7 +172,13 @@
 		user.visible_message("<span class='danger'>[user] seals \the [src] with \the [I].</span>")
 		qdel(src)
 		return
-	..()
+	return ..()
+
+/obj/effect/rend/singularity_pull()
+	return
+
+/obj/effect/rend/singularity_pull()
+	return
 
 /obj/item/veilrender/vealrender
 	name = "veal render"
@@ -637,7 +642,7 @@ var/global/list/multiverse = list()
 	if(M.stat != DEAD)
 		to_chat(user, "<span class='warning'>This artifact can only affect the dead!</span>")
 		return
-		
+
 	if((!M.mind || !M.client) && !M.grab_ghost())
 		to_chat(user,"<span class='warning'>There is no soul connected to this body...</span>")
 		return
@@ -773,8 +778,8 @@ var/global/list/multiverse = list()
 	var/obj/item/link = null
 	var/cooldown_time = 30 //3s
 	var/cooldown = 0
-	burntime = 0
-	burn_state = FLAMMABLE
+	max_integrity = 10
+	resistance_flags = FLAMMABLE
 
 /obj/item/voodoo/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(target && cooldown < world.time)
@@ -801,7 +806,8 @@ var/global/list/multiverse = list()
 			link = I
 			to_chat(user, "You attach [I] to the doll.")
 			update_targets()
-	..()
+		return
+	return ..()
 
 /obj/item/voodoo/check_eye(mob/user as mob)
 	if(loc != user)
