@@ -59,32 +59,9 @@
 		if(!anchored)
 			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
 		else
-
-			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]")
-	else
-		return ..()
-
-/obj/structure/cult/functional/proc/updatehealth()
-	if(health <= 0)
-		destroy_structure()
-
-/obj/structure/cult/functional/take_damage(damage, damage_type = BRUTE)
-	if(damage_type == BRUTE || damage_type == BURN)
-		health -= damage
-		updatehealth()
-
-/obj/structure/cult/functional/attackby(obj/item/I, mob/living/user)
-	..()
-	take_damage(I.force, I.damtype)
-	playsound(loc, I.hitsound, 80, 1)
-
-/obj/structure/cult/functional/bullet_act(var/obj/item/projectile/P)
-	take_damage(P.damage, P.damage_type)
-
 			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]")
 		return
 	return ..()
-
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
 	if(!iscultist(user))
