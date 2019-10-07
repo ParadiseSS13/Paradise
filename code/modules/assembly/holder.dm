@@ -198,14 +198,3 @@
 	if(master)
 		master.receive_signal()
 	return TRUE
-
-/obj/item/assembly_holder/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(25))
-				qdel(src)

@@ -177,9 +177,6 @@ var/syndicate_elite_shuttle_timeleft = 0
 	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
 
-/obj/machinery/computer/syndicate_elite_shuttle/attackby(I as obj, user as mob, params)
-	return attack_hand(user)
-
 /obj/machinery/computer/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
 	to_chat(user, "<span class='warning'>Access Denied.</span>")
 	return 1
@@ -188,7 +185,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 	if(istype(I,/obj/item/card/emag))
 		to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
 	else
-		return attack_hand(user)
+		return ..()
 
 /obj/machinery/computer/syndicate_elite_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))

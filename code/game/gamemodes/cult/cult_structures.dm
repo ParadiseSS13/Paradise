@@ -29,23 +29,21 @@
 
 //Cult versions cuase fuck map conflicts
 /obj/structure/cult/functional
+	max_integrity = 100
 	var/cooldowntime = 0
-	var/health = 100
 	var/death_message = "<span class='warning'>The structure falls apart.</span>" //The message shown when the structure is destroyed
 	var/death_sound = 'sound/items/bikehorn.ogg'
 	var/heathen_message = "You're a huge nerd, go away. Also, a coder forgot to put a message here."
 	var/selection_title = "Oops"
 	var/selection_prompt = "Choose your weapon, nerdwad"
 	var/creation_delay = 2400
-	var/list/choosable_items = list(
-	    "A coder forgot to set this" = /obj/item/grown/bananapeel
-	)
+	var/list/choosable_items = list("A coder forgot to set this" = /obj/item/grown/bananapeel)
 	var/creation_message = "A dank smoke comes out, and you pass out. When you come to, you notice a %ITEM%!"
 
-/obj/structure/cult/functional/proc/destroy_structure()
+/obj/structure/cult/functional/obj_destruction()
 	visible_message(death_message)
 	playsound(src, death_sound, 50, 1)
-	qdel(src)
+	..()
 
 /obj/structure/cult/functional/examine(mob/user)
 	. = ..()
@@ -54,10 +52,6 @@
 	. += "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>"
 
 /obj/structure/cult/functional/attackby(obj/I, mob/user, params)
-	if(HULK in user.mutations)
-		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
-		return
-
 	if(istype(I, /obj/item/tome) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
@@ -66,29 +60,15 @@
 			icon_state = "[initial(icon_state)]_off"
 		else
 			icon_state = initial(icon_state)
-	else
-		return ..()
-
-/obj/structure/cult/functional/proc/updatehealth()
-	if(health <= 0)
-		destroy_structure()
-
-/obj/structure/cult/functional/take_damage(damage, damage_type = BRUTE)
-	if(damage_type == BRUTE || damage_type == BURN)
-		health -= damage
-		updatehealth()
-
-/obj/structure/cult/functional/attackby(obj/item/I, mob/living/user)
-	..()
-	take_damage(I.force, I.damtype)
-	playsound(loc, I.hitsound, 80, 1)
-
-/obj/structure/cult/functional/bullet_act(var/obj/item/projectile/P)
-	take_damage(P.damage, P.damage_type)
+		return
+	return ..()
 
 /obj/structure/cult/functional/attack_hand(mob/living/user)
 	if(!iscultist(user))
 		to_chat(user, "[heathen_message]")
+		return
+	if(HULK in user.mutations)
+		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
 		return
 	if(!anchored)
 		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a tome first.</span>")
@@ -115,7 +95,7 @@
 	name = "altar"
 	desc = "A bloodstained altar dedicated to a cult."
 	icon_state = "talismanaltar"
-	health = 150 //Sturdy
+	max_integrity = 150 //Sturdy
 	death_message = "<span class='warning'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
 	death_sound = 'sound/effects/altar_break.ogg'
 	heathen_message = "<span class='warning'>There is a foreboding aura to the altar and you want nothing to do with it.</span>"
@@ -129,7 +109,7 @@
 	name = "daemon forge"
 	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
 	icon_state = "forge"
-	health = 300 //Made of metal
+	max_integrity = 300 //Made of metal
 	death_message = "<span class='warning'>The forge falls apart, its lava cooling and winking away!</span>"
 	death_sound = 'sound/effects/forge_destroy.ogg'
 	heathen_message = "<span class='warning'>Your hand feels like it's melting off as you try to touch the forge.</span>"
@@ -163,8 +143,7 @@
 			C.apply_damage(30, BURN, "head") //30 fire damage because it's FUCKING LAVA
 			head.disfigure() //Your face is unrecognizable because it's FUCKING LAVA
 		return 1
-	else
-		..()
+	return ..()
 
 var/list/blacklisted_pylon_turfs = typecacheof(list(
     /turf/simulated/floor/engine/cult,
@@ -182,7 +161,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	icon_state = "pylon"
 	light_range = 5
 	light_color = "#3e0000"
-	health = 50 //Very fragile
+	max_integrity = 50 //Very fragile
 	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
 
@@ -252,7 +231,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	name = "archives"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
 	icon_state = "tomealtar"
-	health = 125 //Slightly sturdy
+	max_integrity = 125 //Slightly sturdy
 	death_message = "<span class='warning'>The desk breaks apart, its books falling to the floor.</span>"
 	death_sound = 'sound/effects/wood_break.ogg'
 	heathen_message = "<span class='cultlarge'>What do you hope to seek?</span>"
@@ -268,8 +247,13 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = 1
-	unacidable = 1
 	anchored = 1.0
+
+/obj/effect/gateway/singularity_act()
+	return
+
+/obj/effect/gateway/singularity_pull()
+	return
 
 /obj/effect/gateway/Bumped(mob/M as mob|obj)
 	spawn(0)

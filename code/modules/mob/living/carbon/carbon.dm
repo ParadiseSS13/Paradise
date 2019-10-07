@@ -15,7 +15,7 @@
 		qdel(B)
 	return ..()
 
-/mob/living/carbon/blob_act()
+/mob/living/carbon/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)
 		return
 	else
@@ -1174,3 +1174,10 @@ so that different stomachs can handle things in different ways VB*/
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/carbon/ExtinguishMob()
+	for(var/X in get_equipped_items())
+		var/obj/item/I = X
+		I.acid_level = 0 //washes off the acid on our clothes
+		I.extinguish() //extinguishes our clothes
+	..()

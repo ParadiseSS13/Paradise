@@ -4,7 +4,6 @@
 	desc = ""
 	locked = 0
 	anchored = 1
-	health = 200
 	req_access = list()
 	layer = 2.9 // ensures the loot they drop always appears on top of them.
 	var/is_armory = FALSE
@@ -40,7 +39,7 @@
 	if(isanimal(M) && "syndicate" in M.faction)
 		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
 		return
-	return ..(M)
+	return ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs))

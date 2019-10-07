@@ -18,9 +18,9 @@ To draw a rune, use an arcane tome.
 	anchored = 1
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/visibility = 0
 	var/view_range = 7
-	unacidable = 1
 	layer = TURF_LAYER
 
 	var/invocation = "Aiy ele-mayo!" //This is said by cultists when the rune is invoked.
@@ -63,7 +63,7 @@ To draw a rune, use an arcane tome.
 		to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
 		qdel(src)
 		return
-	else if(istype(I, /obj/item/nullrod))
+	if(istype(I, /obj/item/nullrod))
 		if(iscultist(user))//cultist..what are doing..cultist..staph...
 			user.drop_item()
 			user.visible_message("<span class='warning'>[I] suddenly glows with white light, forcing [user] to drop it in pain!</span>", \
@@ -72,6 +72,7 @@ To draw a rune, use an arcane tome.
 		to_chat(user,"<span class='danger'>You disrupt the magic of [src] with [I].</span>")
 		qdel(src)
 		return
+	return ..()
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	if(!iscultist(user))
@@ -541,14 +542,12 @@ var/list/teleport_runes = list()
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
 			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
-			..()
-			return
-	else
-		if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
-			message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
-			..()
-	return
+		return
+	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
+		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
+		return
+	return ..()
 
 
 
@@ -579,14 +578,12 @@ var/list/teleport_runes = list()
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
 			log_game("Summon demon rune erased by [key_name(user)] with a tome")
 			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
-			..()
-			return
-	else
-		if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-			log_game("Summon demon rune erased by [key_name(user)] using a null rod")
-			message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
-			..()
-	return
+		return
+	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+		log_game("Summon demon rune erased by [key_name(user)] using a null rod")
+		message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
+		return
+	return ..()
 
 
 /obj/effect/rune/slaughter/invoke(var/list/invokers)

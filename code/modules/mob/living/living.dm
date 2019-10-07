@@ -266,6 +266,10 @@
 	..()
 	flash_eyes()
 
+/mob/living/acid_act(acidpwr, acid_volume)
+	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
+	return 1
+
 /mob/living/proc/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
@@ -791,13 +795,16 @@
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
-	var/gain = 20
 	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
 	gib()
-	return(gain)
+	return 20
 
-/mob/living/singularity_pull(S)
-	step_towards(src,S)
+/mob/living/singularity_pull(S, current_size)
+	..()
+	if(current_size >= STAGE_SIX) //your puny magboots/wings/whatever will not save you against supermatter singularity
+		throw_at(S, 14, 3, src, TRUE)
+	else if(!mob_negates_gravity())
+		step_towards(src,S)
 
 /mob/living/narsie_act()
 	if(client)

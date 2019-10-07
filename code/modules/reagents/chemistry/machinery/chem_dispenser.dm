@@ -6,6 +6,7 @@
 	icon_state = "dispenser"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/ui_title = "Chem Dispenser 5000"
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
@@ -55,7 +56,7 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	can_deconstruct = FALSE
+	flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
 		"mutagen",
@@ -133,16 +134,16 @@
 	SSnanoui.update_uis(src) // update all UIs attached to src
 
 /obj/machinery/chem_dispenser/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
+	if(severity < 3)
+		if(beaker)
+			beaker.ex_act(severity)
+		..()
 
-/obj/machinery/chem_dispenser/blob_act()
-	if(prob(50))
-		qdel(src)
+/obj/machinery/chem_dispenser/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		overlays.Cut()
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found

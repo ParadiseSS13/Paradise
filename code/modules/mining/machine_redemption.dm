@@ -368,14 +368,9 @@
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 	updateUsrDialog()
 
-/obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	do_sparks(5, 1, src)
-	if(severity == 1)
-		if(prob(50))
-			qdel(src)
-	else if(severity == 2)
-		if(prob(25))
-			qdel(src)
+/obj/machinery/mineral/ore_redemption/ex_act(severity)
+	do_sparks(5, TRUE, src)
+	..()
 
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()

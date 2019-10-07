@@ -40,6 +40,13 @@
 		beaker.ex_act(severity)
 	..()
 
+/obj/machinery/biogenerator/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		update_icon()
+		updateUsrDialog()
+
 /obj/machinery/biogenerator/RefreshParts()
 	var/E = 0
 	var/P = 0

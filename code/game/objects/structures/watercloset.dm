@@ -671,6 +671,7 @@
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0
+	resistance_flags = UNACIDABLE
 
 /obj/structure/sink/puddle/attack_hand(mob/M as mob)
 	icon_state = "puddle-splash"

@@ -5,8 +5,6 @@
 	icon_state = "dresser"
 	density = 1
 	anchored = 1
-	burn_state = FLAMMABLE
-	burntime = 25
 
 /obj/structure/dresser/attack_hand(mob/user as mob)
 	if(!Adjacent(user))//no tele-grooming
@@ -82,11 +80,15 @@
 				user.visible_message("[user] has secured [src]'s bolts.", \
 									 "<span class='notice'>You have secured [src]'s bolts.</span>")
 				anchored = 1
-	else
-		if(iscrowbar(W) && !anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is attempting to dismantle [src].", \
-								"<span class='notice'>You begin to dismantle [src]...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				new /obj/item/stack/sheet/wood (loc, 30)
-				qdel(src)
+		return
+	if(iscrowbar(W) && !anchored)
+		playsound(loc, W.usesound, 100, 1)
+		user.visible_message("[user] is attempting to dismantle [src].", "<span class='notice'>You begin to dismantle [src]...</span>")
+		if(do_after(user, 40 * W.toolspeed, target = src))
+			deconstruct()
+		return
+	return ..()
+
+/obj/structure/dresser/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/wood(drop_location(), 30)
+	qdel(src)

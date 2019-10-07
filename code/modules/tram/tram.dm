@@ -135,13 +135,13 @@
 				tram += src
 
 /obj/tram/tram_controller/proc/check_validity(var/atom/movable/AM)
-	if(!AM)	
+	if(!AM)
 		return FALSE
 
-	if(!AM.simulated)	
+	if(!AM.simulated)
 		return FALSE
 
-	if(is_type_in_list(AM, blacklist))	
+	if(is_type_in_list(AM, blacklist))
 		return FALSE
 
 	if(AM.anchored)
@@ -236,25 +236,6 @@
 			A.set_light()
 	gen_collision() //Generate collision again
 	return 1
-
-//////////////////////DAMAGE PROCS
-/obj/tram/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-			return
-		if(3.0)
-			if(prob(25))
-				qdel(src)
-			return
-
-/obj/tram/blob_act()
-	if(prob(50))
-		qdel(src)
 
 /obj/tram/attack_animal(var/mob/living/simple_animal/M as mob)
 	if(M.melee_damage_upper == 0)	return

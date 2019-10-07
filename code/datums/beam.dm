@@ -119,6 +119,12 @@
 	owner = null
 	return ..()
 
+/obj/effect/ebeam/singularity_pull()
+	return
+
+/obj/effect/ebeam/singularity_act()
+	return
+
 /obj/effect/ebeam/deadly/Crossed(atom/A, oldloc)
 	..()
 	A.ex_act(1)
