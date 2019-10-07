@@ -438,6 +438,8 @@ HIGH_POP_MC_MODE_AMOUNT 65
 ##Disengage high pop mode if player count drops below this
 DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
+##Developer options
+
 ##Uncomment to enable developer start. Auto starts the server after initialization
 ##DEVELOPER_EXPRESS_START
 
@@ -449,3 +451,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Stickyban all brazilian and portugues
 #BR_OPERATION
+
+## If uncommented, all gamemodes will respect the number of required players. Defaults to no.
+#ENABLE_GAMEMODE_PLAYER_LIMIT

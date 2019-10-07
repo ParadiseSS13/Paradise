@@ -28,7 +28,7 @@
 	move_to_delay = 9
 
 	var/is_electronic = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
@@ -110,7 +110,7 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 	var/destroy_objects = 0
 	var/knockdown_people = 0
 	var/image/googly_eyes = null
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/mimic/copy/New(loc, obj/copy, mob/living/creator, destroy_original = 0)
 	..(loc)

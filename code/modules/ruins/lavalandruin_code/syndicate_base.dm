@@ -32,6 +32,7 @@
 	<br><i>Eres libre de atacar a cualquiera que no esté alineado en las cercanías alrededor de la base. <font size=4>NO</font> trabajes en contra de agentes del sindicato (como traidores u operativos nucleares). Puedes trabajar con otros antagonistas dependiendo del caso. <font size=4>NO</font> abandones la base sin permiso de un admin.</i>"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
+	allow_species_pick = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))

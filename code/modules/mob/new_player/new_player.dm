@@ -380,6 +380,11 @@
 			AnnounceArrival(character, rank, join_message)
 			AddEmploymentContract(character)
 
+			if(GLOB.summon_guns_triggered)
+				give_guns(character)
+			if(GLOB.summon_magic_triggered)
+				give_magic(character)
+
 	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)

@@ -85,11 +85,11 @@
 	return power_used
 
 /obj/item/stock_parts/cell/examine(mob/user)
-	..()
+	. = ..()
 	if(rigged)
-		to_chat(user, "<span class='danger'>This power cell seems to be faulty!</span>")
+		. += "<span class='danger'>This power cell seems to be faulty!</span>"
 	else
-		to_chat(user, "The charge meter reads [round(percent() )]%.")
+		. += "The charge meter reads [round(percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")

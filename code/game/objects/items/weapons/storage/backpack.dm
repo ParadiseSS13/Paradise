@@ -29,20 +29,20 @@
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
-	if(!..(user, 1))
-		return
-	for(var/obj/item/I in contents)
-		space_used += I.w_class
-	if(!space_used)
-		to_chat(user, "<span class='notice'> [src] is empty.</span>")
-	else if(space_used <= max_combined_w_class*0.6)
-		to_chat(user, "<span class='notice'> [src] still has plenty of remaining space.</span>")
-	else if(space_used <= max_combined_w_class*0.8)
-		to_chat(user, "<span class='notice'> [src] is beginning to run out of space.</span>")
-	else if(space_used < max_combined_w_class)
-		to_chat(user, "<span class='notice'> [src] doesn't have much space left.</span>")
-	else
-		to_chat(user, "<span class='notice'> [src] is full.</span>")
+	. = ..()
+	if(in_range(user, src))
+		for(var/obj/item/I in contents)
+			space_used += I.w_class
+		if(!space_used)
+			. += "<span class='notice'> [src] is empty.</span>"
+		else if(space_used <= max_combined_w_class*0.6)
+			. += "<span class='notice'> [src] still has plenty of remaining space.</span>"
+		else if(space_used <= max_combined_w_class*0.8)
+			. += "<span class='notice'> [src] is beginning to run out of space.</span>"
+		else if(space_used < max_combined_w_class)
+			. += "<span class='notice'> [src] doesn't have much space left.</span>"
+		else
+			. += "<span class='notice'> [src] is full.</span>"
 
 /*
  * Backpack Types
@@ -359,11 +359,11 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
-/obj/item/storage/backpack/duffel/mining_conscript/noid
+/obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
 	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
 
-/obj/item/storage/backpack/duffel/mining_conscript/noid/New()
+/obj/item/storage/backpack/duffel/mining_conscript/New()
 	..()
 	new /obj/item/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
@@ -371,7 +371,7 @@
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
-	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
@@ -389,6 +389,7 @@
 	..()
 	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/ammo_box/magazine/smgm45(src)
+	new /obj/item/ammo_box/magazine/smgm45(src)
 	new /obj/item/gun/projectile/automatic/c20r(src)
 	new /obj/item/suppressor/specialoffer(src)
 
@@ -403,13 +404,13 @@
 	new /obj/item/clothing/glasses/chameleon/thermal(src)
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	desc = "A large duffel bag containing a tactical medkit, a Donksoft machine gun and a big jumbo box of riot darts."
+	desc = "A large duffel bag containing a tactical medkit, a medical beam gun and a pair of syndicate magboots."
 
 /obj/item/storage/backpack/duffel/syndie/med/medicalbundle/New()
 	..()
 	new /obj/item/storage/firstaid/tactical(src)
-	new /obj/item/gun/projectile/automatic/l6_saw/toy(src)
-	new /obj/item/ammo_box/foambox/riot(src)
+	new /obj/item/clothing/shoes/magboots/syndie(src)
+	new /obj/item/gun/medbeam(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/New()
 	..()

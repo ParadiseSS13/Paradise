@@ -47,14 +47,16 @@ REAGENT SCANNER
 
 
 /obj/item/t_scanner/process()
+	var/mob/user = loc
 	if(!on)
 		STOP_PROCESSING(SSobj, src)
 		return null
-	scan()
+	t_ray_scan(user, scan_range, pulse_duration)
 
-/obj/item/t_scanner/proc/scan()
-
-	for(var/turf/T in range(scan_range, src.loc) )
+/obj/item/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
+	if(!ismob(viewer) || !viewer.client)
+		return
+	for(var/turf/T in range(scan_range, viewer.loc) )
 
 		if(!T.intact)
 			continue
@@ -338,6 +340,10 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 	var/cooldown_time = 250
 	var/accuracy // 0 is the best accuracy.
 
+/obj/item/analyzer/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Alt-click [src] to activate the barometer function.</span>"
+
 /obj/item/analyzer/attack_self(mob/user as mob)
 
 	if(user.stat)
@@ -543,39 +549,46 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 	throw_range = 7
 	materials = list(MAT_METAL=30, MAT_GLASS=20)
 
-/obj/item/slime_scanner/attack(mob/living/M as mob, mob/living/user as mob)
-	slime_scan(M, user)
-
-/proc/slime_scan(mob/living/carbon/slime/M, mob/living/user)
-	if(!isslime(M))
-		user.show_message("<span class='warning'>This device can only scan slimes!</span>", 1)
+/obj/item/slime_scanner/attack(mob/living/M, mob/living/user)
+	if(user.incapacitated() || user.eye_blind)
 		return
-	var/mob/living/carbon/slime/T = M
-	user.show_message("Slime scan results:", 1)
-	user.show_message(text("[T.colour] [] slime", T.is_adult ? "adult" : "baby"), 1)
-	user.show_message(text("Nutrition: [T.nutrition]/[]", T.get_max_nutrition()), 1)
+	if(!isslime(M))
+		to_chat(user, "<span class='warning'>This device can only scan slimes!</span>")
+		return
+	var/mob/living/simple_animal/slime/T = M
+	slime_scan(T, user)
+
+/proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
+	to_chat(user, "========================")
+	to_chat(user, "<b>Slime scan results:</b>")
+	to_chat(user, "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>")
+	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
 	if(T.nutrition < T.get_starve_nutrition())
-		user.show_message("<span class='warning'>Warning: slime is starving!</span>", 1)
+		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
 	else if(T.nutrition < T.get_hunger_nutrition())
-		user.show_message("<span class='warning'>Warning: slime is hungry</span>", 1)
-	user.show_message("Electric change strength: [T.powerlevel]", 1)
-	user.show_message("Health: [T.health]", 1)
+		to_chat(user, "<span class='warning'>Warning: slime is hungry</span>")
+	to_chat(user, "Electric change strength: [T.powerlevel]")
+	to_chat(user, "Health: [round(T.health/T.maxHealth,0.01)*100]%")
 	if(T.slime_mutation[4] == T.colour)
-		user.show_message("This slime does not evolve any further.", 1)
+		to_chat(user, "This slime does not evolve any further.")
 	else
 		if(T.slime_mutation[3] == T.slime_mutation[4])
 			if(T.slime_mutation[2] == T.slime_mutation[1])
-				user.show_message("Possible mutation: [T.slime_mutation[3]]", 1)
-				user.show_message("Genetic destability: [T.mutation_chance/2]% chance of mutation on splitting", 1)
+				to_chat(user, "Possible mutation: [T.slime_mutation[3]]")
+				to_chat(user, "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting")
 			else
-				user.show_message("Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)", 1)
-				user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting", 1)
+				to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)")
+				to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
 		else
-			user.show_message("Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]", 1)
-			user.show_message("Genetic destability: [T.mutation_chance]% chance of mutation on splitting", 1)
+			to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]")
+			to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
 	if(T.cores > 1)
-		user.show_message("Anomalous slime core amount detected", 1)
-	user.show_message("Growth progress: [T.amount_grown]/10", 1)
+		to_chat(user, "Multiple cores detected")
+	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
+	if(T.effectmod)
+		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
+		to_chat(user, "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
+	to_chat(user, "========================")
 
 /obj/item/bodyanalyzer
 	name = "handheld body analyzer"

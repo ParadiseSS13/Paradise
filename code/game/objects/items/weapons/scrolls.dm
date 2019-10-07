@@ -51,7 +51,7 @@
 
 	if(!A)
 		return
-	
+
 	var/area/thearea = teleportlocs[A]
 
 	if(user.stat || user.restrained())
@@ -83,7 +83,10 @@
 		return
 
 	if(user && user.buckled)
-		user.buckled.unbuckle_mob()
+		user.buckled.unbuckle_mob(user, force = TRUE)
+
+	if(user && user.has_buckled_mobs())
+		user.unbuckle_all_mobs(force = TRUE)
 
 	var/list/tempL = L
 	var/attempt = null

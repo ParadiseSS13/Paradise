@@ -86,7 +86,7 @@
 
 	//Parrots are kleptomaniacs. This variable ... stores the item a parrot is holding.
 	var/obj/item/held_item = null
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 
 /mob/living/simple_animal/parrot/New()
@@ -698,7 +698,7 @@
 		"Goddam emaggers!"
 		)
 	unique_pet = TRUE
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/parrot/Poly/New()
 	ears = new /obj/item/radio/headset/headset_eng(src)

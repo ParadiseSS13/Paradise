@@ -1,4 +1,0 @@
-author: "Shadow-Quill"
-delete-after: True
-changes: 
-  - bugfix: "Fixed ATM withdrawals doubling."

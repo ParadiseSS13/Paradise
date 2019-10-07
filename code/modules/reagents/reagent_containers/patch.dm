@@ -28,8 +28,8 @@
 	list_reagents = list("silver_sulfadiazine" = 40)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
-	name = "syntheflesh patch"
-	desc = "Helps with burn injuries."
+	name = "synthflesh patch"
+	desc = "Helps with brute and burn injuries."
 	icon_state = "bandaid_med"
 	instant_application = 1
 	list_reagents = list("synthflesh" = 20)

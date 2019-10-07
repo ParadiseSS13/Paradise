@@ -34,7 +34,7 @@ emp_act
 			return -1 // complete projectile permutation
 
 	//Shields
-	if(check_shields(P.damage, "the [P.name]", P, PROJECTILE_ATTACK, P.armour_penetration))
+	if(check_shields(P, P.damage, "the [P.name]", PROJECTILE_ATTACK, P.armour_penetration))
 		P.on_hit(src, 100, def_zone)
 		return 2
 
@@ -136,24 +136,24 @@ emp_act
 
 //End Here
 
-/mob/living/carbon/human/proc/check_shields(damage = 0, attack_text = "the attack", atom/movable/AM, attack_type = MELEE_ATTACK, armour_penetration = 0)
+/mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
 	var/block_chance_modifier = round(damage / -3)
 
 	if(l_hand && !istype(l_hand, /obj/item/clothing))
 		var/final_block_chance = l_hand.block_chance - (Clamp((armour_penetration-l_hand.armour_penetration)/2,0,100)) + block_chance_modifier //So armour piercing blades can still be parried by other blades, for example
-		if(l_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
+		if(l_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(r_hand && !istype(r_hand, /obj/item/clothing))
 		var/final_block_chance = r_hand.block_chance - (Clamp((armour_penetration-r_hand.armour_penetration)/2,0,100)) + block_chance_modifier //Need to reset the var so it doesn't carry over modifications between attempts
-		if(r_hand.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
+		if(r_hand.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(wear_suit)
 		var/final_block_chance = wear_suit.block_chance - (Clamp((armour_penetration-wear_suit.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(wear_suit.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
+		if(wear_suit.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	if(w_uniform)
 		var/final_block_chance = w_uniform.block_chance - (Clamp((armour_penetration-w_uniform.armour_penetration)/2,0,100)) + block_chance_modifier
-		if(w_uniform.hit_reaction(src, attack_text, final_block_chance, damage, attack_type, AM))
+		if(w_uniform.hit_reaction(src, AM, attack_text, final_block_chance, damage, attack_type))
 			return 1
 	return 0
 
@@ -217,7 +217,7 @@ emp_act
 
 	if(user != src)
 		user.do_attack_animation(src)
-		if(check_shields(I.force, "the [I.name]", I, MELEE_ATTACK, I.armour_penetration))
+		if(check_shields(I, I.force, "the [I.name]", MELEE_ATTACK, I.armour_penetration))
 			return 0
 
 	if(check_block())
@@ -311,14 +311,14 @@ emp_act
 		throwpower = I.throwforce
 		if(I.thrownby == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
-	if(check_shields(throwpower, "\the [AM.name]", AM, THROWN_PROJECTILE_ATTACK))
+	if(check_shields(AM, throwpower, "\the [AM.name]", THROWN_PROJECTILE_ATTACK))
 		hitpush = 0
 		skipcatch = 1
 		blocked = 1
 	else if(I)
 		if(I.throw_speed >= EMBED_THROWSPEED_THRESHOLD)
 			if(can_embed(I))
-				if(prob(I.embed_chance))
+				if(prob(I.embed_chance) && !(PIERCEIMMUNE in dna.species.species_traits))
 					throw_alert("embeddedobject", /obj/screen/alert/embeddedobject)
 					var/obj/item/organ/external/L = pick(bodyparts)
 					L.embedded_objects |= I
@@ -392,7 +392,7 @@ emp_act
 			updatehealth("larva attack")
 
 /mob/living/carbon/human/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if(check_shields(0, M.name))
+	if(check_shields(M, 0, M.name))
 		visible_message("<span class='danger'>[M] attempted to touch [src]!</span>")
 		return 0
 
@@ -437,35 +437,36 @@ emp_act
 					visible_message("<span class='danger'>[M] has tried to disarm [src]!</span>")
 
 /mob/living/carbon/human/attack_animal(mob/living/simple_animal/M)
-	if(..())
+	. = ..()
+	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		if(check_shields(damage, "the [M.name]", null, MELEE_ATTACK, M.armour_penetration))
-			return 0
+		if(check_shields(M, damage, "the [M.name]", MELEE_ATTACK, M.armour_penetration))
+			return FALSE
 		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		if(!affecting)
+			affecting = get_organ("chest")
+		affecting.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		var/armor = run_armor_check(affecting, "melee", armour_penetration = M.armour_penetration)
-		var/obj/item/organ/external/affected = src.get_organ(dam_zone)
-		if(affected)
-			affected.add_autopsy_data(M.name, damage) // Add the mob's name to the autopsy data
 		apply_damage(damage, M.melee_damage_type, affecting, armor)
 		updatehealth("animal attack")
 
-/mob/living/carbon/human/attack_slime(mob/living/carbon/slime/M)
-	..()
-	var/damage = rand(1, 3)
+/mob/living/carbon/human/attack_slime(mob/living/simple_animal/slime/M)
+	if(..()) //successful slime attack
+		var/damage = rand(5, 25)
+		if(M.is_adult)
+			damage = rand(10, 35)
 
-	if(M.is_adult)
-		damage = rand(10, 35)
-	else
-		damage = rand(5, 25)
+		if(check_shields(M, damage, "the [M.name]"))
+			return FALSE
 
-	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
+		var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
 
-	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	var/armor_block = run_armor_check(affecting, "melee")
-	apply_damage(damage, BRUTE, affecting, armor_block)
-
-	return
+		var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
+		if(!affecting)
+			affecting = get_organ("chest")
+		var/armor_block = run_armor_check(affecting, "melee")
+		apply_damage(damage, BRUTE, affecting, armor_block)
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
@@ -500,11 +501,12 @@ emp_act
 	return
 
 /mob/living/carbon/human/experience_pressure_difference(pressure_difference, direction)
-	playsound(src, 'sound/effects/space_wind.ogg', 50, 1)
-	if(shoes)
-		if(istype(shoes,/obj/item/clothing/shoes/magboots) && (shoes.flags & NOSLIP)) //TODO: Make a not-shit shoe var system to negate airflow.
-			return 0
-	..()
+	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
+	if(shoes && istype(shoes, /obj/item/clothing))
+		var/obj/item/clothing/S = shoes
+		if (S.flags & NOSLIP)
+			return FALSE
+	return ..()
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()

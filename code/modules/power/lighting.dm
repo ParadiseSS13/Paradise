@@ -28,14 +28,15 @@
 		icon_state = "bulb-construct-stage1"
 
 /obj/machinery/light_construct/examine(mob/user)
-	if(..(user, 2))
-		switch(src.stage)
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		switch(stage)
 			if(1)
-				to_chat(usr, "It's an empty frame.")
+				. += "It's an empty frame."
 			if(2)
-				to_chat(usr, "It's wired.")
+				. += "It's wired."
 			if(3)
-				to_chat(usr, "The casing is closed.")
+				. += "The casing is closed."
 
 /obj/machinery/light_construct/attackby(obj/item/W as obj, mob/living/user as mob, params)
 	src.add_fingerprint(user)
@@ -110,7 +111,8 @@
 			src.transfer_fingerprints_to(newlight)
 			qdel(src)
 			return
-	..()
+	else
+		return ..()
 
 /obj/machinery/light_construct/small
 	name = "small light fixture frame"
@@ -283,36 +285,33 @@
 
 // examine verb
 /obj/machinery/light/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		switch(status)
 			if(LIGHT_OK)
-				to_chat(user, "[desc] It is turned [on? "on" : "off"].")
+				. += "[desc] It is turned [on? "on" : "off"]."
 			if(LIGHT_EMPTY)
-				to_chat(user, "[desc] The [fitting] has been removed.")
+				. += "[desc] The [fitting] has been removed."
 			if(LIGHT_BURNED)
-				to_chat(user, "[desc] The [fitting] is burnt out.")
+				. += "[desc] The [fitting] is burnt out."
 			if(LIGHT_BROKEN)
-				to_chat(user, "[desc] The [fitting] has been smashed.")
+				. += "[desc] The [fitting] has been smashed."
 
 
 
 // attack with item - insert light (if right type), otherwise try to break the light
 
 /obj/machinery/light/attackby(obj/item/W, mob/living/user, params)
-	user.changeNext_move(CLICK_CD_MELEE) //does not call parent requires manual definition
+	user.changeNext_move(CLICK_CD_MELEE) // This is an ugly hack and I hate it forever
 	//Light replacer code
 	if(istype(W, /obj/item/lightreplacer))
 		var/obj/item/lightreplacer/LR = W
-		if(isliving(user))
-			var/mob/living/U = user
-			LR.ReplaceLight(src, U)
-			return
+		LR.ReplaceLight(src, user)
 
 	// attempt to insert light
-	if(istype(W, /obj/item/light))
+	else if(istype(W, /obj/item/light))
 		if(status != LIGHT_EMPTY)
 			to_chat(user, "There is a [fitting] already inserted.")
-			return
 		else
 			src.add_fingerprint(user)
 			var/obj/item/light/L = W
@@ -391,6 +390,8 @@
 			do_sparks(3, 1, src)
 			if(prob(75))
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
+	else
+		return ..()
 
 
 // returns whether this light has power
@@ -622,6 +623,19 @@
 	var/brightness_power = 1
 	var/brightness_color = null
 
+/obj/item/light/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, force)
+
+/obj/item/light/Crossed(mob/living/L)
+	if(istype(L) && has_gravity(loc))
+		if(L.incorporeal_move || L.flying)
+			return
+		playsound(loc, 'sound/effects/glass_step.ogg', 50, TRUE)
+		if(status == LIGHT_BURNED || status == LIGHT_OK)
+			shatter()
+	return ..()
+
 /obj/item/light/tube
 	name = "light tube"
 	desc = "A replacement light tube."
@@ -684,8 +698,7 @@
 
 // attack bulb/tube with object
 // if a syringe, can inject plasma to make it explode
-/obj/item/light/attackby(var/obj/item/I, var/mob/user, params)
-	..()
+/obj/item/light/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))
 		var/obj/item/reagent_containers/syringe/S = I
 
@@ -700,8 +713,7 @@
 
 		S.reagents.clear_reagents()
 	else
-		..()
-	return
+		return ..()
 
 // called after an attack with a light item
 // shatter light, unless it was an attempt to put it in a light socket

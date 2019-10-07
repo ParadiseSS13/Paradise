@@ -11,9 +11,8 @@
 
 /datum/chemical_reaction/slimespawn/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/mob/living/carbon/slime/S = new /mob/living/carbon/slime
-	S.forceMove(get_turf(holder.my_atom))
-	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>")
+	var/mob/living/simple_animal/slime/S = new(get_turf(holder.my_atom), "grey")
+	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")
 
 /datum/chemical_reaction/slimeinaprov
 	name = "Slime epinephrine"
@@ -87,53 +86,41 @@
 	new /obj/item/stack/sheet/glass (location, 15)
 
 //Gold
-/datum/chemical_reaction/slimecrit
+/datum/chemical_reaction/slimemobspawn
 	name = "Slime Crit"
 	id = "m_tele"
 	result = null
 	required_reagents = list("plasma_dust" = 1)
 	result_amount = 1
 	required_container = /obj/item/slime_extract/gold
-	required_other = 1
+	required_other = TRUE
 
-/datum/chemical_reaction/slimecrit/on_reaction(datum/reagents/holder)
-	feedback_add_details("slime_cores_used","[type]")
+/datum/chemical_reaction/slimemobspawn/on_reaction(datum/reagents/holder)
+	feedback_add_details("slime_cores_used", "[type]")
 	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
-	spawn(50)
-		chemical_mob_spawn(holder, 5, "Gold Slime")
+	summon_mobs(holder, T)
 
-/datum/chemical_reaction/slimecritlesser
+/datum/chemical_reaction/slimemobspawn/proc/summon_mobs(datum/reagents/holder, turf/T)
+	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
+	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 5, "Gold Slime", HOSTILE_SPAWN), 50)
+
+/datum/chemical_reaction/slimemobspawn/lesser
 	name = "Slime Crit Lesser"
 	id = "m_tele3"
-	result = null
 	required_reagents = list("blood" = 1)
-	result_amount = 1
-	required_container = /obj/item/slime_extract/gold
-	required_other = 1
 
-/datum/chemical_reaction/slimecritlesser/on_reaction(datum/reagents/holder)
-	feedback_add_details("slime_cores_used","[type]")
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently !</span>")
-	spawn(50)
-		chemical_mob_spawn(holder, 3, "Lesser Gold Slime", "neutral")
+/datum/chemical_reaction/slimemobspawn/lesser/summon_mobs(datum/reagents/holder, turf/T)
+	T.visible_message("<span class='danger'>The slime extract begins to vibrate violently!</span>")
+	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 3, "Lesser Gold Slime", HOSTILE_SPAWN, "neutral"), 50)
 
-/datum/chemical_reaction/slimecritfriendly
+/datum/chemical_reaction/slimemobspawn/friendly
 	name = "Slime Crit Friendly"
 	id = "m_tele5"
-	result = null
 	required_reagents = list("water" = 1)
-	result_amount = 1
-	required_container = /obj/item/slime_extract/gold
-	required_other = 1
 
-/datum/chemical_reaction/slimecritfriendly/on_reaction(datum/reagents/holder)
-	feedback_add_details("slime_cores_used","[type]")
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably !</span>")
-	spawn(50)
-		chemical_mob_spawn(holder, 1, "Friendly Gold Slime", "neutral")
+/datum/chemical_reaction/slimemobspawn/friendly/summon_mobs(datum/reagents/holder, turf/T)
+	T.visible_message("<span class='danger'>The slime extract begins to vibrate adorably!</span>")
+	addtimer(CALLBACK(src, .proc/chemical_mob_spawn, holder, 1, "Friendly Gold Slime", FRIENDLY_SPAWN, "neutral"), 50)
 
 //Silver
 /datum/chemical_reaction/slimebork
@@ -437,7 +424,12 @@
 
 /datum/chemical_reaction/slimebloodlust/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	for(var/mob/living/carbon/slime/slime in viewers(get_turf(holder.my_atom), null))
+	for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(holder.my_atom), null))
+		if(slime.docile) //Undoes docility, but doesn't make rabid.
+			slime.visible_message("<span class='danger'>[slime] forgets its training, becoming wild once again!</span>")
+			slime.docile = FALSE
+			slime.update_name()
+			continue
 		slime.rabid = 1
 		slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
 
@@ -679,9 +671,8 @@
 
 /datum/chemical_reaction/slimeRNG/on_reaction(datum/reagents/holder)
 	feedback_add_details("slime_cores_used","[type]")
-	var/mob/living/carbon/slime/random/S = new /mob/living/carbon/slime/random
-	S.forceMove(get_turf(holder.my_atom))
-	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and soon a new baby slime emerges from it!</span>")
+	var/mob/living/simple_animal/slime/random/S = new (get_turf(holder.my_atom))
+	S.visible_message("<span class='danger'>Infused with plasma, the core begins to quiver and grow, and a new baby slime emerges from it!</span>")
 
 /datum/chemical_reaction/slime_transfer
 	name = "Transfer Potion"

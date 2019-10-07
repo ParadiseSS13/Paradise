@@ -224,7 +224,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "aH" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
@@ -873,7 +873,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
@@ -921,7 +921,7 @@
 	on = 1;
 	pressure_checks = 1
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
@@ -2216,7 +2216,7 @@
 	on = 1;
 	pressure_checks = 1
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/plaza)
 "eW" = (
@@ -6161,7 +6161,7 @@
 	pixel_y = 23;
 	req_access = null
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /obj/item/paper/terrorspiders4,
@@ -6479,7 +6479,7 @@
 	req_access_txt = "0";
 	specialfunctions = 4
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
@@ -8632,7 +8632,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "qL" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "qM" = (
@@ -9040,7 +9040,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/centralhall)
 "ru" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -12136,13 +12136,6 @@
 	icon_state = "whitecorner"
 	},
 /area/awaymission/UO71/medical)
-"wQ" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitehall"
-	},
-/area/awaymission/UO71/medical)
 "wR" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -12195,7 +12188,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -12540,7 +12533,7 @@
 	},
 /area/awaymission/UO71/eng)
 "xF" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/mining)
 "xG" = (
@@ -13396,7 +13389,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
 "zt" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/item/clothing/shoes/chameleon/noslip,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO71/loot)
@@ -13506,12 +13499,12 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zW" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
@@ -13523,7 +13516,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zZ" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (EAST)";
 	icon_state = "wooden_chair";
 	dir = 4
@@ -13531,7 +13524,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Aa" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -13544,7 +13537,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Ac" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	tag = "icon-wooden_chair (NORTH)";
 	icon_state = "wooden_chair";
 	dir = 1
@@ -13568,7 +13561,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "Ag" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /obj/machinery/light,
@@ -20566,7 +20559,7 @@ qa
 vr
 qJ
 qJ
-wQ
+wT
 qa
 ab
 ab

@@ -594,7 +594,7 @@
 			if(ismob(AM))
 				var/mob/M = AM
 				if(M.buckled)
-					M.buckled.unbuckle_mob(M, 1)
+					M.buckled.unbuckle_mob(M, force = TRUE)
 				if(isliving(AM))
 					var/mob/living/L = AM
 					L.stop_pulling()

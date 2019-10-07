@@ -83,8 +83,9 @@
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
-	if(..(user, 0) && user == loc)
-		to_chat(user, "[round(reagents.total_volume)] units left.")
+	. = ..()
+	if(get_dist(user, src) && user == loc)
+		. += "[round(reagents.total_volume)] units left."
 
 /obj/item/reagent_containers/spray/verb/empty()
 

@@ -424,8 +424,6 @@
 	var/jaunt_duration = 50 //in deciseconds
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/user = usr)
-	if(user.buckled)
-		user.buckled.unbuckle_mob()
 	spawn(0)
 		var/mob/living/U = user
 		var/originalloc = get_turf(user.loc)
@@ -439,8 +437,6 @@
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
-		if(user.buckled)
-			user.buckled.unbuckle_mob()
 		flick("liquify", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
@@ -513,8 +509,6 @@
 	perform(turfs, user = user)
 
 /obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
-	if(usr.buckled)
-		user.buckled.unbuckle_mob()
 	spawn(0)
 		var/turf/picked = pick(targets)
 
@@ -522,8 +516,6 @@
 			return
 		var/mob/living/U = user
 		U.ExtinguishMob()
-		if(user.buckled)
-			user.buckled.unbuckle_mob()
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(get_turf(user))
 		animation.name = user.name
 		animation.density = 0
