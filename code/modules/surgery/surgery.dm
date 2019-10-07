@@ -194,8 +194,7 @@
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
-			if(!istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common
-				germs++
+			germs++
 
 	if(tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
 		germs += 30
