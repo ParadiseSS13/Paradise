@@ -1,0 +1,4 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - bugfix: "Fixed a single pixel offset on Grey's Bags of Holding sprite."
