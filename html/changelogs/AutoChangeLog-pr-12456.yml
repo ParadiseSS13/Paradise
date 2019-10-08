@@ -1,4 +1,0 @@
-author: "PidgeyThePirate"
-delete-after: True
-changes: 
-  - bugfix: "Revived simple animals keep their ability to pull things and their density if they originally had it."
