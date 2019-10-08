@@ -1,5 +1,0 @@
-author: "JKnutson101"
-delete-after: True
-changes: 
-  - tweak: "Soul Shards fail when used on mobs that have never had a ckey."
-  - bugfix: "Soul Stone Shards properly poll dead chat to be filled."

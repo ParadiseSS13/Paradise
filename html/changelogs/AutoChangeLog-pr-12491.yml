@@ -1,6 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - tweak: "Mindslaves now show up in their own \"Mindslaves\" section in the check antagonists panel"
-  - bugfix: "Mindslaves will now get their objectives added to their notes and announced in their chat properly"
-  - bugfix: "Mindslaves will now have the red (A) in admin attack logs, which shows that the attacker is an antag"
