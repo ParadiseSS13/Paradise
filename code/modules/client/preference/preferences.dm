@@ -2145,7 +2145,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.change_gender(gender)
 	character.age = age
-	character.b_type = b_type
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
@@ -2188,7 +2187,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if(status == "cybernetic")
 					I.robotize()
 
-	character.dna.b_type = b_type
+	character.dna.blood_type = b_type
 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")

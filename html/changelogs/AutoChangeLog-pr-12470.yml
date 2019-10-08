@@ -1,4 +1,0 @@
-author: "SteelSlayer"
-delete-after: True
-changes: 
-  - tweak: "Bought items from the wizard spell book are first placed into any empty hands. If all hands are full, it places the item on the ground."
