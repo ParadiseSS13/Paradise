@@ -78,7 +78,7 @@ effective or pretty fucking useless.
 	icon_state = "health2"
 	item_state = "healthanalyzer"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject. A strange microlaser is hooked on to the scanning end."
-	flags = CONDUCT
+	flags = CONDUCT | NOBLUDGEON
 	slot_flags = SLOT_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
@@ -93,7 +93,7 @@ effective or pretty fucking useless.
 /obj/item/rad_laser/attack(mob/living/M, mob/living/user)
 	if(!used)
 		add_attack_logs(user, M, "Irradiated by [src]")
-		user.visible_message("<span class='notice'>[user] has analyzed [M]'s vitals.</span>")
+		user.visible_message("<span class='notice'>[user] analyzes [M]'s vitals.</span>")
 		var/cooldown = round(max(100,(((intensity*8)-(wavelength/2))+(intensity*2))*10))
 		used = 1
 		icon_state = "health1"
