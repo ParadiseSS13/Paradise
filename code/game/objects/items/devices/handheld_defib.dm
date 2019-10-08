@@ -1,9 +1,9 @@
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
 	desc = "Used to restart stopped hearts."
-	icon = 'icons/goonstation/objects/objects.dmi'
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
+	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "defib-on"
 	item_state = "defib"
 
