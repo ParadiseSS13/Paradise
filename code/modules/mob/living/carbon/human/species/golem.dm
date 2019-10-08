@@ -733,4 +733,3 @@
 
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
-	miss_sound = null

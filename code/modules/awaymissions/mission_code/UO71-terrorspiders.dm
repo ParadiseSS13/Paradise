@@ -256,4 +256,5 @@
 					to_chat(user, "<span class='danger'>Activating the machine has unlocked a way forward!</span>")
 		else
 			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
-		. = 1
+		return
+	return ..()

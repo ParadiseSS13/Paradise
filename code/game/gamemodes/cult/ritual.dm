@@ -315,6 +315,6 @@
 			qdel(S)
 	var/obj/effect/rune/R = new rune_to_scribe(runeturf, chosen_keyword)
 	R.blood_DNA = list()
-	R.blood_DNA[H.dna.unique_enzymes] = H.dna.b_type
+	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
 	R.add_hiddenprint(H)
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune_to_scribe.cultist_name))] rune [initial(rune_to_scribe.cultist_desc)]</span>")

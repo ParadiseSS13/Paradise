@@ -264,15 +264,6 @@
 		add_fingerprint(usr)
 	return 1
 
-/obj/machinery/sleeper/blob_act()
-	if(prob(75))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
-		qdel(src)
-	return
-
-
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!beaker)
@@ -355,27 +346,7 @@
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
 		toggle_filter()
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
+	..()
 
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)

@@ -172,46 +172,21 @@
 		A.forceMove(loc)
 
 /obj/machinery/bodyscanner/ex_act(severity)
-	switch(severity)
-		if(1)
-			for(var/atom/movable/A in src)
-				A.forceMove(loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3)
-			if(prob(25))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
+	if(occupant)
+		occupant.ex_act(severity)
+	..()
 
-/obj/machinery/bodyscanner/blob_act()
-	if(prob(50))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
-		qdel(src)
+/obj/machinery/bodyscanner/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
 
 /obj/machinery/bodyscanner/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
-
-/obj/machinery/bodyscanner/attack_animal(mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
-	if(M.environment_smash)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
-		go_out()
-		qdel(src)
 
 /obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

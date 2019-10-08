@@ -177,6 +177,15 @@
 	S.DisIntegrate(src)
 	return TRUE
 
+/obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+	if(resistance_flags & INDESTRUCTIBLE)
+		return FALSE
+	for(var/mob/living/L in contents)
+		if(!issilicon(L) && !isbrain(L))
+			to_chat(S, "<span class='warning'>An organism has been detected inside this object. Aborting.</span>")
+			return FALSE
+	return ..()
+
 /obj/item/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	S.Integrate(src)
 	return FALSE
@@ -466,16 +475,23 @@
 	icon_state = "ui_light"
 	layer = MOB_LAYER
 	anchored = 1
-	unacidable = 1
 	light_range = 1
 	mouse_opacity = MOUSE_OPACITY_ICON
-	var/health = 30
+	max_integrity = 30
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_color = LIGHT_COLOR_CYAN
 	var/lon_range = 1
 
 /obj/structure/swarmer/New()
 	. = ..()
 	set_light(lon_range)
+
+/obj/structure/swarmer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+		if(BURN)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/swarmer/disintegration
 	icon_state = "disintegrate"
@@ -499,43 +515,8 @@
 	spawn(5)
 		qdel(src)
 
-/obj/structure/swarmer/take_damage(damage)
-	health -= damage
-	if(health <= 0)
-		qdel(src)
-
-/obj/structure/swarmer/bullet_act(obj/item/projectile/Proj)
-	if(Proj.damage)
-		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-			take_damage(Proj.damage)
-	..()
-
-/obj/structure/swarmer/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item))
-		user.changeNext_move(CLICK_CD_MELEE)
-		user.do_attack_animation(src)
-		take_damage(I.force)
-	return
-
-/obj/structure/swarmer/ex_act()
-	qdel(src)
-	return
-
-/obj/structure/swarmer/blob_act()
-	qdel(src)
-	return
-
 /obj/structure/swarmer/emp_act()
 	qdel(src)
-	return
-/obj/structure/swarmer/attack_animal(mob/living/user)
-	if(isanimal(user))
-		var/mob/living/simple_animal/S = user
-		S.do_attack_animation(src)
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(S.melee_damage_type == BRUTE || S.melee_damage_type == BURN)
-			take_damage(rand(S.melee_damage_lower, S.melee_damage_upper))
-	return
 
 /obj/structure/swarmer/trap
 	name = "swarmer trap"
@@ -543,7 +524,7 @@
 	icon_state = "trap"
 	light_range = 1
 	light_color = LIGHT_COLOR_CYAN
-	health = 10
+	max_integrity = 10
 
 /obj/structure/swarmer/trap/Crossed(var/atom/movable/AM, oldloc)
 	if(isliving(AM))
@@ -584,7 +565,7 @@
 	icon_state = "barricade"
 	light_range = 1
 	light_color = LIGHT_COLOR_CYAN
-	health = 50
+	max_integrity = 50
 	density = 1
 	anchored = 1
 

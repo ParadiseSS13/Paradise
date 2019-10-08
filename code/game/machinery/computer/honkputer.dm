@@ -115,5 +115,4 @@
 				A.icon_state = "4"
 			qdel(src)
 	else
-		src.attack_hand(user)
-	return
+		return ..()
