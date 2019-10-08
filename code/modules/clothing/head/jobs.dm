@@ -169,6 +169,9 @@
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs."
 	icon_state = "surgcap_blue"
 	flags = BLOCKHEADHAIR
+	sprite_sheets = list(
+		"Drask" = 'icons/mob/species/drask/head.dmi'
+		)
 
 /obj/item/clothing/head/surgery/purple
 	desc = "A cap surgeons wear during operations. Keeps their hair from tickling your internal organs. This one is deep purple."

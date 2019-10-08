@@ -215,7 +215,7 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
 		)
 
 
