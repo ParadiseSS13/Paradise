@@ -161,9 +161,9 @@
 
 	var/obj/item/I = new D.build_path(loc)
 	if(D.locked)
-		var/obj/item/storage/lockbox/large/L = new /obj/item/storage/lockbox/large(get_step(src, SOUTH)) //(Don't use capitals in paths, or single letters.
+		var/obj/item/storage/lockbox/research/large/L = new /obj/item/storage/lockbox/research/large(get_step(src, SOUTH))
 		I.forceMove(L)
-		L.name += " [initial(I.name)]"
+		L.name += " ([I.name])"
 		L.origin_tech = I.origin_tech
 	else
 		I.forceMove(get_step(src, SOUTH))

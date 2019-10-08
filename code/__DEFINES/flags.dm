@@ -59,6 +59,8 @@
 
 #define OVERLAY_QUEUED_2		4096
 
+#define CHECK_RICOCHET_2		8192
+
 //Reagent flags
 #define REAGENT_NOREACT			1
 
@@ -141,7 +143,5 @@
 #define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
-
-#define CHECK_RICOCHET_1			(1<<4)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))

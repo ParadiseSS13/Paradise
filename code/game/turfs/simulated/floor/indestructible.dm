@@ -1,5 +1,4 @@
 /turf/simulated/floor/indestructible
-	unacidable = TRUE
 
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return

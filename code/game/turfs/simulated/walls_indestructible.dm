@@ -1,5 +1,4 @@
 /turf/simulated/wall/indestructible
-	unacidable = TRUE
 
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
