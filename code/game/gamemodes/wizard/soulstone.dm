@@ -223,10 +223,6 @@
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
 			var/obj/item/soulstone/C = src
-			if(!C.can_use(U))
-				U.Paralyse(5)
-				to_chat(U, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
-				return
 			if(T.stat == 0)
 				to_chat(U, "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!")
 			else
