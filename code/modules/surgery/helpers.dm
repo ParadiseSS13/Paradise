@@ -2,7 +2,7 @@
 	if(istype(M))
 		var/mob/living/carbon/human/H
 		var/obj/item/organ/external/affecting
-		var/selected_zone = user.zone_sel.selecting
+		var/selected_zone = user.zone_selected
 		var/list/cautery_tools = list(
 								/obj/item/scalpel/laser = 100, \
 								/obj/item/cautery = 100,			\

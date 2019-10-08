@@ -395,7 +395,7 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
@@ -438,7 +438,7 @@
 			return FALSE
 
 
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, "melee")
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
@@ -465,7 +465,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/randn = rand(1, 100)
 		if(randn <= 25)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))

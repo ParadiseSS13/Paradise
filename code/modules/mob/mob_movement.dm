@@ -388,7 +388,7 @@
 /mob/proc/update_gravity()
 	return
 /client/proc/check_has_body_select()
-	return mob && mob.hud_used && mob.zone_sel && istype(mob.zone_sel, /obj/screen/zone_sel)
+	return mob && mob.hud_used && mob.hud_used.zone_select && istype(mob.hud_used.zone_select, /obj/screen/zone_sel)
 
 /client/verb/body_toggle_head()
 	set name = "body-toggle-head"
@@ -398,7 +398,7 @@
 		return
 
 	var/next_in_line
-	switch(mob.zone_sel.selecting)
+	switch(mob.zone_selected)
 		if(BODY_ZONE_HEAD)
 			next_in_line = BODY_ZONE_PRECISE_EYES
 		if(BODY_ZONE_PRECISE_EYES)
@@ -406,7 +406,7 @@
 		else
 			next_in_line = BODY_ZONE_HEAD
 
-	var/obj/screen/zone_sel/selector = mob.zone_sel
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/body_r_arm()
@@ -416,12 +416,12 @@
 		return
 
 	var/next_in_line
-	if(mob.zone_sel.selecting == BODY_ZONE_R_ARM)
+	if(mob.zone_selected == BODY_ZONE_R_ARM)
 		next_in_line = BODY_ZONE_PRECISE_R_HAND
 	else
 		next_in_line = BODY_ZONE_R_ARM
 
-	var/obj/screen/zone_sel/selector = mob.zone_sel
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/body_chest()
@@ -431,7 +431,7 @@
 	if(!check_has_body_select())
 		return
 
-	var/obj/screen/zone_sel/selector = mob.zone_sel
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_CHEST, mob)
 
 /client/verb/body_l_arm()
@@ -442,12 +442,12 @@
 		return
 
 	var/next_in_line
-	if(mob.zone_sel.selecting == BODY_ZONE_L_ARM)
+	if(mob.zone_selected == BODY_ZONE_L_ARM)
 		next_in_line = BODY_ZONE_PRECISE_L_HAND
 	else
 		next_in_line = BODY_ZONE_L_ARM
 
-	var/obj/screen/zone_sel/selector = mob.zone_sel
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/body_r_leg()
@@ -458,12 +458,12 @@
 		return
 
 	var/next_in_line
-	if(mob.zone_sel.selecting == BODY_ZONE_R_LEG)
+	if(mob.zone_selected == BODY_ZONE_R_LEG)
 		next_in_line = BODY_ZONE_PRECISE_R_FOOT
 	else
 		next_in_line = BODY_ZONE_R_LEG
 
-	var/obj/screen/zone_sel/selector = mob.zone_sel
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/body_groin()
@@ -473,7 +473,7 @@
 	if(!check_has_body_select())
 		return
 
-	var/obj/screen/zone_sel/selector = mob.zone_sel
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(BODY_ZONE_PRECISE_GROIN, mob)
 
 /client/verb/body_l_leg()
@@ -484,12 +484,12 @@
 		return
 
 	var/next_in_line
-	if(mob.zone_sel.selecting == BODY_ZONE_L_LEG)
+	if(mob.zone_selected == BODY_ZONE_L_LEG)
 		next_in_line = BODY_ZONE_PRECISE_L_FOOT
 	else
 		next_in_line = BODY_ZONE_L_LEG
 
-	var/obj/screen/zone_sel/selector = mob.zone_sel
+	var/obj/screen/zone_sel/selector = mob.hud_used.zone_select
 	selector.set_selected_zone(next_in_line, mob)
 
 /client/verb/toggle_walk_run()

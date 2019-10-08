@@ -376,15 +376,6 @@
 /mob/living/is_drawable(mob/user, allowmobs = TRUE)
 	return (allowmobs && reagents && can_inject(user))
 
-/mob/living/proc/get_organ_target()
-	var/mob/shooter = src
-	var/t = shooter:zone_sel.selecting
-	if((t in list( "eyes", "mouth" )))
-		t = "head"
-	var/obj/item/organ/external/def_zone = ran_zone(t)
-	return def_zone
-
-
 /mob/living/proc/restore_all_organs()
 	return
 

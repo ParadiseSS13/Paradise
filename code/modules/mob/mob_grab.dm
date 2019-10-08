@@ -106,7 +106,7 @@
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
-	var/hit_zone = assailant.zone_sel.selecting
+	var/hit_zone = assailant.zone_selected
 	last_hit_zone = hit_zone
 
 	if(assailant.pulling == affecting)

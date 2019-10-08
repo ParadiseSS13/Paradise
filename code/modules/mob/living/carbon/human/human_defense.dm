@@ -355,7 +355,7 @@ emp_act
 
 			qdel(src)
 
-	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_sel.selecting))
+	var/obj/item/organ/external/affecting = get_organ(ran_zone(user.zone_selected))
 	if(!affecting)
 		to_chat(user, "<span class='danger'>They are missing that limb!</span>")
 		return 1
@@ -382,7 +382,7 @@ emp_act
 
 	var/armor = run_armor_check(affecting, "melee", "<span class='warning'>Your armour has protected your [hit_area].</span>", "<span class='warning'>Your armour has softened hit to your [hit_area].</span>", armour_penetration = I.armour_penetration)
 	var/weapon_sharp = is_sharp(I)
-	if(weapon_sharp && prob(getarmor(user.zone_sel.selecting, "melee")))
+	if(weapon_sharp && prob(getarmor(user.zone_selected, "melee")))
 		weapon_sharp = 0
 	if(armor >= 100)
 		return 0
@@ -532,7 +532,7 @@ emp_act
 		var/damage = rand(1, 3)
 		if(stat != DEAD)
 			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
-			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(L.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
 			apply_damage(damage, BRUTE, affecting, armor_block)
 			updatehealth("larva attack")
@@ -551,7 +551,7 @@ emp_act
 				playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
 				visible_message("<span class='danger'>[M] has lunged at [src]!</span>")
 				return 0
-			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+			var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 			var/armor_block = run_armor_check(affecting, "melee")
 
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
@@ -568,7 +568,7 @@ emp_act
 
 		if(M.a_intent == INTENT_DISARM)
 			if(prob(80))
-				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_sel.selecting))
+				var/obj/item/organ/external/affecting = get_organ(ran_zone(M.zone_selected))
 				playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 				apply_effect(5, WEAKEN, run_armor_check(affecting, "melee"))
 				add_attack_logs(M, src, "Alien tackled")
