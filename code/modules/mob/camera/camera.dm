@@ -11,7 +11,7 @@
 	invisibility = 101  // No one can see us
 	sight = SEE_SELF
 	move_on_shuttle = 0
-	simulated = false;  //why wasnt this a thing before?
+	simulated = FALSE;  //why wasnt this a thing before?
 
 /mob/camera/experience_pressure_difference()
 	return
