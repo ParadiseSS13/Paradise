@@ -13,7 +13,7 @@ z7 = empty
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\Cyberiad\cyberiad.dmm"
+	#include "map_files\Cyberiad\Cyberiad.dmm"
 	#include "map_files\generic\admin-centcomm.dmm"
 	#include "map_files\generic\tcommsat-blown.dmm"
 	#include "map_files\generic\construction-site.dmm"
@@ -21,6 +21,9 @@ z7 = empty
 	#include "map_files\generic\derelict.dmm"
 	#include "map_files\generic\space.dmm"
 
+	#define MAP_FILE "Cyberiad.dmm"
+	#define MAP_NAME "Cyberiad"
+	// TODO: Remove "BOOSTS_SIGNAL" from these lists
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\

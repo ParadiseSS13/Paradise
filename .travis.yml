@@ -22,9 +22,9 @@ env:
     - BYOND_MINOR="1454"
     - BYOND_MACRO_COUNT=4
   matrix:
-    - DM_MAPFILE="cyberiad"
-    - DM_MAPFILE="metastation"
-    - DM_MAPFILE="delta"
+    - DM_MAPFILE="Cyberiad"
+    - DM_MAPFILE="MetaStation"
+    - DM_MAPFILE="DeltaStation"
     - DM_MAPFILE="test_all_maps"
 
 stages:

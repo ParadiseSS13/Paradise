@@ -22,8 +22,9 @@ z7 = empty space
 	#include "map_files\generic\derelict.dmm"
 	#include "map_files\generic\space.dmm"
 
-	#define MAP_FILE "MetaStation.v41A.II.dmm"
-	#define MAP_NAME "MetaStation"
+	#define MAP_FILE "MetaStation.dmm"
+	#define MAP_NAME "Cerebron"
+	// TODO: Remove "BOOSTS_SIGNAL" from these lists
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\

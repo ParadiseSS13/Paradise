@@ -16,7 +16,7 @@ Lovingly ported by Purpose2 to Paradise
 */
 
 #if !defined(USING_MAP_DATUM)
-	#include "map_files\DeltaStation\delta.dmm"
+	#include "map_files\DeltaStation\DeltaStation.dmm"
 	#include "map_files\generic\admin-centcomm.dmm"
 	#include "map_files\generic\tcommsat-blown.dmm"
 	#include "map_files\generic\construction-site.dmm"
@@ -24,8 +24,9 @@ Lovingly ported by Purpose2 to Paradise
 	#include "map_files\generic\derelict.dmm"
 	#include "map_files\generic\space.dmm"
 
-	#define MAP_FILE "delta.dmm"
+	#define MAP_FILE "DeltaStation.dmm"
 	#define MAP_NAME "Kerberos"
+	// TODO: Remove "BOOSTS_SIGNAL" from these lists
 	#define MAP_TRANSITION_CONFIG list(\
 DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK)),\
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
