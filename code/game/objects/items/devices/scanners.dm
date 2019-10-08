@@ -245,7 +245,7 @@ REAGENT SCANNER
 		if(H.bleed_rate)
 			to_chat(user, "<span class='danger'>Subject is bleeding!</span>")
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-		var/blood_type = H.b_type
+		var/blood_type = H.dna.blood_type
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
