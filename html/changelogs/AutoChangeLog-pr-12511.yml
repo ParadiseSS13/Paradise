@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "PDA health scans should be more in line with regular health analyzer scans"
