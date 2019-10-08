@@ -246,7 +246,7 @@ proc/healthscan(mob/user, mob/living/M, mode = 1, upgraded = FALSE)
 		if(H.bleed_rate)
 			user.show_message("<span class='danger'>Subject is bleeding!</span>")
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
-		var/blood_type = H.b_type
+		var/blood_type = H.dna.blood_type
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)

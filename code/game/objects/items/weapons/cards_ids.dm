@@ -162,7 +162,7 @@
 
 	sex = capitalize(H.gender)
 	age = H.age
-	blood_type = H.dna.b_type
+	blood_type = H.dna.blood_type
 	dna_hash = H.dna.unique_enzymes
 	fingerprint_hash = md5(H.dna.uni_identity)
 
@@ -526,7 +526,7 @@
 						if(ishuman(user))
 							var/mob/living/carbon/human/H = user
 							if(H.dna)
-								default = H.dna.b_type
+								default = H.dna.blood_type
 
 						var/new_blood_type = sanitize(input(user,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
 						if(!Adjacent(user))
