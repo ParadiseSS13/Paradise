@@ -222,7 +222,7 @@
 			interact(usr)
 			return
 
-/obj/item/stack/proc/use(used, check = TRUE)
+/obj/item/stack/use(used, check = TRUE)
 	if(check && zero_amount())
 		return FALSE
 	if(amount < used)

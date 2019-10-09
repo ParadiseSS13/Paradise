@@ -83,6 +83,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
 	var/embedded_ignore_throwspeed_threshold = FALSE
 
+	var/tool_behaviour = NONE
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
@@ -350,6 +351,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
 		return 1
 	return 0
+
+// Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
+// Returns TRUE on success, FALSE on failure.
+/obj/item/proc/use(used)
+	return !used
 
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
