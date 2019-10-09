@@ -510,7 +510,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/attack(mob/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_sel.selecting]
+		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
 
 		if(!S)
 			return

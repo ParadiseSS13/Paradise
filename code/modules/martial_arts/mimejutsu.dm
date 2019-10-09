@@ -30,7 +30,7 @@
 			return 0
 
 
-		var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_sel.selecting))
+		var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 		var/armor_block = D.run_armor_check(affecting, "melee")
 
 		D.visible_message("<span class='danger'>[A] has hit [D] with invisible nuncucks!</span>", \

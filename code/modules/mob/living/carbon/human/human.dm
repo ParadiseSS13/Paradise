@@ -1013,7 +1013,7 @@
 		if(!user)
 			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
 		else
-			target_zone = user.zone_sel.selecting
+			target_zone = user.zone_selected
 
 
 	if(PIERCEIMMUNE in dna.species.species_traits)
