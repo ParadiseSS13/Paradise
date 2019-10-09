@@ -247,6 +247,7 @@
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 		H.reset_markings() //...Or markings.
 		H.dna.ResetUIFrom(H)
+		H.flavor_text = ""
 	user.update_icons()
 
 /obj/effect/proc_holder/spell/vampire/self/screech
