@@ -12,7 +12,6 @@
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
-	unacidable = TRUE
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 

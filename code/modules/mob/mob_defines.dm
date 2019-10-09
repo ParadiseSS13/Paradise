@@ -49,7 +49,6 @@
 	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
-	var/unacidable = 0
 	var/can_strip = 1
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
