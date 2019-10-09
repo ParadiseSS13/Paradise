@@ -1,0 +1,4 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Zone selection tweaked; shouldn't notice anything different"
