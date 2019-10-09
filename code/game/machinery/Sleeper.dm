@@ -346,7 +346,19 @@
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
 		toggle_filter()
+	if(occupant)
+		occupant.ex_act(severity)
 	..()
+
+/obj/machinery/sleeper/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
+	if(A == beaker)
+		beaker = null
+		updateUsrDialog()
 
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)

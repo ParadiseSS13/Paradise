@@ -567,3 +567,9 @@
 
 /obj/item/storage/AllowDrop()
 	return TRUE
+
+/obj/item/storage/ex_act(severity)
+	for(var/atom/A in contents)
+		A.ex_act(severity)
+		CHECK_TICK
+	..()
