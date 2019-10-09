@@ -55,7 +55,6 @@
 
 /obj/item/soap/proc/clean_turf(turf/simulated/T)
 	T.clean_blood()
-	T.dirt = 0
 	for(var/obj/effect/O in T)
 		if(is_cleanable(O))
 			qdel(O)
