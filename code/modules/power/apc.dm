@@ -77,7 +77,6 @@
 	var/lastused_environ = 0
 	var/lastused_total = 0
 	var/main_status = 0
-	var/wiresexposed = 0
 	powernet = 0		// set so that APCs aren't found as powernet nodes //Hackish, Horrible, was like this before I changed it :(
 	var/malfhack = 0 //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
@@ -364,7 +363,7 @@
 			update_state |= UPSTATE_OPENED2
 	else if(emagged || malfai)
 		update_state |= UPSTATE_BLUESCREEN
-	else if(wiresexposed)
+	else if(panel_open)
 		update_state |= UPSTATE_WIREEXP
 	if(update_state <= 1)
 		update_state |= UPSTATE_ALLGOOD
@@ -421,7 +420,7 @@
 			updating_icon = 0
 
 /obj/machinery/power/apc/get_spooked(second_pass = FALSE)
-	if(opened || wiresexposed)
+	if(opened || panel_open)
 		return
 	if(stat & (NOPOWER | BROKEN))
 		return
@@ -695,7 +694,7 @@
 	if(!(emagged || malfhack))		// trying to unlock with an emag card
 		if(opened)
 			to_chat(user, "You must close the cover to swipe an ID card.")
-		else if(wiresexposed)
+		else if(panel_open)
 			to_chat(user, "You must close the panel first.")
 		else if(stat & (BROKEN|MAINT))
 			to_chat(user, "Nothing happens.")
@@ -735,7 +734,7 @@
 	src.interact(user)
 
 /obj/machinery/power/apc/attack_ghost(mob/user)
-	if(wiresexposed)
+	if(panel_open)
 		wires.Interact(user)
 	return ui_interact(user)
 
@@ -743,7 +742,7 @@
 	if(!user)
 		return
 
-	if(wiresexposed)
+	if(panel_open)
 		wires.Interact(user)
 
 	return ui_interact(user)
