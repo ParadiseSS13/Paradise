@@ -1,9 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes AI swarmers not doing anything"
-  - tweak: "swarmers can eat circuitboards and their own shells now"
-  - bugfix: "Fixed being able to eat soil"
-  - tweak: "de-activated swarmer shells give 10,000 metal and 4,000 glass instead of 100 metal and 400 glass."
-  - bugfix: "Fixes lavaland swarmers not being able to teleport people away"
-  - rscadd: "Swarmers can place lattice over lava"

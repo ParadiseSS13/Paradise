@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscadd: "Adds being able to make leather with the bio-generator"
-  - tweak: "removed a lot of leather-related recipes from the bio-generator; these have been moved to leather crafting"
-  - rscadd: "can make hide mantles with leather"
