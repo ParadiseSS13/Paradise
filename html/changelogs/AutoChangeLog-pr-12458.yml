@@ -1,4 +1,0 @@
-author: "PidgeyThePirate"
-delete-after: True
-changes: 
-  - bugfix: "The abductor's silencer now actually silences radios for 10-20 seconds."

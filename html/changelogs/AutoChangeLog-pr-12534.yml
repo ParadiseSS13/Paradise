@@ -1,4 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - bugfix: "Fixes an issue with the Tajaran striped tail's wagging animation by removing an extra frame."
