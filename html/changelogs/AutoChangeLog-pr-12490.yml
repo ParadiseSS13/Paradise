@@ -1,4 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "Toxic compensation now deals the right amount of toxic damage. Instead of just the last healed damage"
