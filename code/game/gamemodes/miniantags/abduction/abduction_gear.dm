@@ -267,10 +267,9 @@
 
 	for(var/obj/I in all_items)
 		if(istype(I, /obj/item/radio))
-			var/obj/item/radio/r = I
-			r.listening = 0
-			if(!istype(I, /obj/item/radio/headset))
-				r.broadcasting = 0 //goddamned headset hacks
+			var/obj/item/radio/R = I
+			R.listening = 0 // Prevents the radio from buzzing due to the EMP, preserving possible stealthiness.
+			R.emp_act(1)
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"
