@@ -1,0 +1,6 @@
+author: "JKnutson101"
+delete-after: True
+changes: 
+  - tweak: "Shades can be stored in any Soul Stone."
+  - bugfix: "Shades can once again be stored in Soul Stones."
+  - bugfix: "Non-cultists and Non-wizards can no longer use most Soul Stones."
