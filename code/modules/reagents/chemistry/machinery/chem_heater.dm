@@ -16,7 +16,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_heater(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/chem_heater/process()
