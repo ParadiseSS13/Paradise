@@ -1,0 +1,5 @@
+author: "JKnutson101"
+delete-after: True
+changes: 
+  - bugfix: "Cult Specters properly log as antags."
+  - bugfix: "Cult Specters are properly removed from the cult on death."
