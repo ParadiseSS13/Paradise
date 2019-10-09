@@ -1,0 +1,8 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "DNA vault requires 5 pico manipulators and 5 super capacitors instead of quadratic capacitors"
+  - tweak: "Powers of the DNA vault adjusted"
+  - rscdel: "DNA vault no longer allows you to have unlimited genetics powers."
+  - rscdel: "All previous powers removed with the exception of no breathing"
+  - rscadd: "New powers: breathable plasma immunity+virus immunity, heat immunity+burn reduction, speed increase, species armoring+pierce immunity, stun reduction, and action speed increase"
