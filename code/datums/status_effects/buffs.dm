@@ -187,6 +187,13 @@
 				L.adjustStaminaLoss(-3.5)
 				L.adjustBrainLoss(-3.5)
 				L.adjustCloneLoss(-1) //Becasue apparently clone damage is the bastion of all health
+				if(ishuman(L))
+					var/var/mob/living/carbon/human/H = L
+					for(var/obj/item/organ/external/E in H.bodyparts)
+						if(prob(10))
+							if(E.mend_fracture())
+								E.perma_injury = 0
+							E.internal_bleeding = FALSE
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
 				L.adjustFireLoss(-3.5)

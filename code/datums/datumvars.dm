@@ -1254,7 +1254,7 @@
 		if(!check_rights(NONE))
 			return
 		var/datum/A = locateUID(href_list["traitmod"])
-		if(!A)
+		if(!istype(A))
 			return
 		holder.modify_traits(A)
 
