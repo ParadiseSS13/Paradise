@@ -1,0 +1,7 @@
+author: "SteelSlayer and McRamon"
+delete-after: True
+changes: 
+  - rscadd: "Added a new subtype of shade used exclusively by cultists to prevent chaplains metagaming with their shade sprites"
+  - tweak: "Renamed path names for the altar and archives to be less confusing, and replaced all instances of the path names to reflect the change"
+  - imageadd: "Replaced nearly every sprite for reaper cult, including constructs, structures, airlocks and the reaper himself."
+  - imagedel: "Removed the old reaper cult construct sprites"
