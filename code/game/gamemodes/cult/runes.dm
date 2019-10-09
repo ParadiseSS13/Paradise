@@ -314,8 +314,8 @@ var/list/teleport_runes = list()
 	var/movedsomething = 0
 	var/moveuserlater = 0
 	for(var/atom/movable/A in T)
-		if(!A.simulated)
-			continue  //unsimulated objects should not be teleported
+		if(A.move_resist == INFINITY)
+			continue  //object cant move, shouldnt teleport
 		if(A == user)
 			moveuserlater = 1
 			movedsomething = 1
