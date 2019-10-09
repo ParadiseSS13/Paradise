@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - bugfix: "melting research lockboxes no longer dumps the contents"
+  - bugfix: "Fixes reflective blobs using horrifying code that didn't reflect things *properly*"
