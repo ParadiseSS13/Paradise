@@ -389,9 +389,13 @@
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."
 	icon = 'icons/obj/cult.dmi'
-	icon_state= "cultgirder"
+	icon_state = "cultgirder"
 	can_displace = FALSE
 	metalUsed = 1
+
+/obj/structure/girder/cult/New()
+	. = ..()
+	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
 /obj/structure/girder/cult/refundMetal(metalAmount)
 	for(var/i=0;i < metalAmount;i++)

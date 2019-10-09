@@ -5,10 +5,10 @@
 	icon = 'icons/obj/cult.dmi'
 
 //Noncult As we may have this on maps
-/obj/structure/cult/talisman
+/obj/structure/cult/altar
 	name = "Altar"
 	desc = "A bloodstained altar dedicated to Nar-Sie"
-	icon_state = "talismanaltar"
+	icon_state = "altar"
 
 /obj/structure/cult/forge
 	name = "Daemon forge"
@@ -22,10 +22,10 @@
 	light_range = 5
 	light_color = "#3e0000"
 
-/obj/structure/cult/tome
+/obj/structure/cult/archives
 	name = "Desk"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl"
-	icon_state = "tomealtar"
+	icon_state = "archives"
 
 //Cult versions cuase fuck map conflicts
 /obj/structure/cult/functional
@@ -57,9 +57,9 @@
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
 		playsound(loc, 'sound/hallucinations/wail.ogg', 75, 1)
 		if(!anchored)
-			icon_state = "[initial(icon_state)]_off"
+			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
 		else
-			icon_state = initial(icon_state)
+			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]")
 		return
 	return ..()
 
@@ -91,10 +91,10 @@
 		eta = "[round(time, 1)] seconds"
 	return eta
 
-/obj/structure/cult/functional/talisman
+/obj/structure/cult/functional/altar
 	name = "altar"
 	desc = "A bloodstained altar dedicated to a cult."
-	icon_state = "talismanaltar"
+	icon_state = "altar"
 	max_integrity = 150 //Sturdy
 	death_message = "<span class='warning'>The altar breaks into splinters, releasing a cascade of spirits into the air!</span>"
 	death_sound = 'sound/effects/altar_break.ogg'
@@ -104,6 +104,10 @@
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with an %ITEM%!</span>"
 	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, "Zealot's Blindfold" = /obj/item/clothing/glasses/night/cultblind, \
 							"Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, "Cultist Dagger" = /obj/item/melee/cultblade/dagger)
+
+/obj/structure/cult/functional/altar/New()
+	. = ..()
+	icon_state = SSticker.cultdat?.altar_icon_state
 
 /obj/structure/cult/functional/forge
 	name = "daemon forge"
@@ -119,6 +123,9 @@
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
 							"Cultist Hardsuit" = /obj/item/storage/box/cult)
 
+/obj/structure/cult/functional/forge/New()
+	. = ..()
+	icon_state = SSticker.cultdat?.forge_icon_state
 
 /obj/structure/cult/functional/forge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
@@ -169,6 +176,10 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	var/last_heal = 0
 	var/corrupt_delay = 50
 	var/last_corrupt = 0
+
+/obj/structure/cult/functional/pylon/New()
+	. = ..()
+	icon_state = SSticker.cultdat?.pylon_icon_state
 
 /obj/structure/cult/functional/pylon/attack_hand(mob/living/user)//override as it should not create anything
 	return
@@ -227,10 +238,10 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 
 
 
-/obj/structure/cult/functional/tome
+/obj/structure/cult/functional/archives
 	name = "archives"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
-	icon_state = "tomealtar"
+	icon_state = "archives"
 	max_integrity = 125 //Slightly sturdy
 	death_message = "<span class='warning'>The desk breaks apart, its books falling to the floor.</span>"
 	death_sound = 'sound/effects/wood_break.ogg'
@@ -240,6 +251,10 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating %ITEM%!</span>"
 	choosable_items = list("Supply Talisman" = /obj/item/paper/talisman/supply/weak, "Shuttle Curse" = /obj/item/shuttle_curse, \
 							"Veil Shifter" = /obj/item/cult_shift)
+
+/obj/structure/cult/functional/archives/New()
+	. = ..()
+	icon_state = SSticker.cultdat?.archives_icon_state
 
 /obj/effect/gateway
 	name = "gateway"

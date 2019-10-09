@@ -351,7 +351,8 @@
 	animation.master = T
 	flick("dust-h", animation)
 	qdel(animation)
-	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
+	var/path = get_shade_type()
+	var/mob/living/simple_animal/shade/S = new path(src)
 	S.status_flags |= GODMODE //So they won't die inside the stone somehow
 	S.canmove = 0//Can't move out of the soul stone
 	S.name = "Shade of [T.real_name]"
@@ -370,6 +371,12 @@
 		to_chat(S, "Your soul has been captured! You are now bound to the cult's will. Help [U.p_them()] succeed in their goals at all costs.")
 	if(vic && U)
 		to_chat(U, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from [U.p_their()] body and stored within the soul stone.")
+
+/obj/item/soulstone/proc/get_shade_type()
+	return /mob/living/simple_animal/shade/cult
+	
+/obj/item/soulstone/anybody/get_shade_type()
+	return /mob/living/simple_animal/shade
 
 /obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
 	var/mob/dead/observer/chosen_ghost

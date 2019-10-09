@@ -348,8 +348,8 @@ var/global/list/datum/stack_recipe/cult = list ( \
 	new/datum/stack_recipe/cult("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe/cult("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe/cult("forge", /obj/structure/cult/functional/forge, 5, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("archives", /obj/structure/cult/functional/tome, 2, time = 40, one_per_turf = 1, on_floor = 1), \
-	new/datum/stack_recipe/cult("altar", /obj/structure/cult/functional/talisman, 5, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("archives", /obj/structure/cult/functional/archives, 2, time = 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe/cult("altar", /obj/structure/cult/functional/altar, 5, time = 40, one_per_turf = 1, on_floor = 1), \
 	)
 
 /obj/item/stack/sheet/runed_metal
@@ -360,6 +360,10 @@ var/global/list/datum/stack_recipe/cult = list ( \
 	item_state = "sheet-metal"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
+
+/obj/item/stack/sheet/runed_metal/New()
+	. = ..()
+	icon_state = SSticker.cultdat?.runed_metal_icon_state
 
 /obj/item/stack/sheet/runed_metal/ratvar_act()
 	new /obj/item/stack/tile/brass(loc, amount)

@@ -34,12 +34,12 @@
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aj" = (
-/obj/structure/cult/talisman,
+/obj/structure/cult/altar,
 /obj/item/veilrender/crabrender,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ak" = (
-/obj/structure/cult/talisman,
+/obj/structure/cult/altar,
 /obj/item/tome,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)

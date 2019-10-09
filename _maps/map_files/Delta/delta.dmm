@@ -70643,7 +70643,7 @@
 	},
 /area/library)
 "cvo" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/machinery/newscaster{
 	pixel_x = -32;
 	pixel_y = 0
@@ -107594,7 +107594,7 @@
 /area/library/abandoned)
 "dKF" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/library/abandoned)
 "dKG" = (
