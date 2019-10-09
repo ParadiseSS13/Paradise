@@ -92,22 +92,6 @@ var/bomb_set
 
 	if(anchored)
 		switch(removal_stage)
-			if(0)
-				if(istype(O,/obj/item/weldingtool))
-					var/obj/item/weldingtool/WT = O
-					if(!WT.isOn()) return
-					if(WT.get_fuel() < 5) // uses up 5 fuel.
-						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
-						return
-
-					user.visible_message("[user] starts cutting loose the anchoring bolt covers on [src].", "You start cutting loose the anchoring bolt covers with [O]...")
-
-					if(do_after(user,40, target = src))
-						if(!src || !user || !WT.remove_fuel(5, user)) return
-						user.visible_message("[user] cuts through the bolt covers on [src].", "You cut through the bolt cover.")
-						removal_stage = 1
-				return
-
 			if(1)
 				if(istype(O,/obj/item/crowbar))
 					user.visible_message("[user] starts forcing open the bolt covers on [src].", "You start forcing open the anchoring bolt covers with [O]...")
@@ -116,23 +100,6 @@ var/bomb_set
 						if(!src || !user) return
 						user.visible_message("[user] forces open the bolt covers on [src].", "You force open the bolt covers.")
 						removal_stage = 2
-				return
-
-			if(2)
-				if(istype(O,/obj/item/weldingtool))
-
-					var/obj/item/weldingtool/WT = O
-					if(!WT.isOn()) return
-					if(WT.get_fuel() < 5) // uses up 5 fuel.
-						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
-						return
-
-					user.visible_message("[user] starts cutting apart the anchoring system sealant on [src].", "You start cutting apart the anchoring system's sealant with [O]...")
-
-					if(do_after(user,40, target = src))
-						if(!src || !user || !WT.remove_fuel(5, user)) return
-						user.visible_message("[user] cuts apart the anchoring system sealant on [src].", "You cut apart the anchoring system's sealant.")
-						removal_stage = 3
 				return
 
 			if(3)
@@ -159,6 +126,31 @@ var/bomb_set
 				return
 		return
 	return ..()
+
+/obj/machinery/nuclearbomb/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(removal_stage != 0 && removal_stage != 2)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	if(removal_stage == 0)
+		visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
+		"<span class='notice'>You start cutting loose the anchoring bolt covers with [I]...</span>",\
+		"<span class='warning'>You hear welding.</span>")
+		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume))
+			return
+		visible_message("<span class='notice'>[user] cuts through the bolt covers on [src].</span>",\
+		"<span class='notice'>You cut through the bolt cover.</span>")
+		removal_stage = 1
+	else if(removal_stage == 2)
+		visible_message("<span class='notice'>[user] starts cutting apart the anchoring system sealant on [src].</span>",\
+		"<span class='notice'>You start cutting apart the anchoring system's sealant with [I]...</span>",\
+		"<span class='warning'>You hear welding.</span>")
+		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume))
+			return
+		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
+		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
+		removal_stage = 3
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	if(extended)

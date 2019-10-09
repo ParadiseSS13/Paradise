@@ -364,6 +364,9 @@
 					egg_list.Add(parent2.egg_item)
 	egg_count++
 
+/obj/machinery/fishtank/welder_act(mob/user, obj/item/I)
+	default_welder_repair(user, I)
+
 //////////////////////////////		Note from FalseIncarnate:
 //		EXAMINE PROC		//			This proc is massive, messy, and probably could be handled better.
 //////////////////////////////			Feel free to try cleaning it up if you think of a better way to do it.
@@ -558,25 +561,8 @@
 	qdel(src)
 
 /obj/machinery/fishtank/attackby(obj/item/O, mob/user)
-	//Welders repair damaged tanks on help intent, damage on all others
-	if(iswelder(O))
-		var/obj/item/weldingtool/W = O
-		if(user.a_intent == INTENT_HELP)
-			if(W.isOn())
-				if(obj_integrity < max_integrity)
-					playsound(loc, W.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You repair some of the cracks on [src].</span>")
-					obj_integrity = min(obj_integrity + 20, max_integrity)
-					check_health()
-				else
-					to_chat(user, "<span class='notice'>There is no damage to fix!</span>")
-			else
-				if(obj_integrity < max_integrity)
-					to_chat(user, "<span class='notice'>[W] must be on to repair this damage.</span>")
-		else
-			return ..()
 	//Open reagent containers add and remove water
-	else if(O.is_drainable())
+	if(O.is_drainable())
 		//Containers with any reagents will get dumped in
 		if(O.reagents.total_volume)
 			var/water_value = 0

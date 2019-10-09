@@ -44,9 +44,9 @@
 
 /datum/construction/proc/custom_action(step, used_atom, user)
 	if(istype(used_atom, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = used_atom
-		if(W.remove_fuel(0, user))
-			playsound(holder, W.usesound, 50, 1)
+		var/obj/item/weldingtool/WT = used_atom
+		if(WT.tool_use_check(user, 0))
+			WT.play_tool_sound(holder)
 		else
 			return 0
 	else if(istype(used_atom, /obj/item/wrench))
@@ -117,14 +117,10 @@
 				to_chat(user, "<span class='warning'>You don't have enough cable! You need at least [amount] coils.</span>")
 				return 0
 		// WELDER
-		if(istype(used_atom,/obj/item/weldingtool))
-			var/obj/item/weldingtool/welder=used_atom
-			if(!welder.isOn())
-				to_chat(user, "<span class='notice'>You tap the [src] with your unlit welder. [pick("Ding","Dong")].</span>")
-				return 0
-			if(!welder.remove_fuel(amount,user))
-				to_chat(user, "<span class='warning'>You don't have enough fuel!</span>")
-				return 0
+		if(isitem(used_atom))
+			var/obj/item/I = used_atom
+			if(!I.tool_use_check(user, amount))
+				return
 		// STACKS
 		if(istype(used_atom,/obj/item/stack))
 			var/obj/item/stack/stack=used_atom

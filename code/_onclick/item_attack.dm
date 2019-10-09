@@ -6,6 +6,7 @@
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
 
 //Checks if the item can work as a tool, calling the appropriate tool behavior on the target
+//Note that if tool_act returns TRUE, then the tool won't call attack_by.
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)
 	if(!tool_behaviour)
 		return FALSE

@@ -63,45 +63,6 @@
 		created_name = t
 		return
 
-	else if(iswelder(W) && (mineral || glass || !anchored ))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			playsound(loc, WT.usesound, 50, 1)
-			if(mineral)
-				var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
-				user.visible_message("[user] welds the [mineral] plating off the airlock assembly.", "You start to weld the [mineral] plating off the airlock assembly...")
-				if(do_after(user, 40 * WT.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You weld the [mineral] plating off.</span>")
-					new mineral_path(loc, 2)
-					var/obj/structure/door_assembly/PA = new previous_assembly(loc)
-					transfer_assembly_vars(src, PA)
-
-			else if(glass)
-				user.visible_message("[user] welds the glass panel out of the airlock assembly.", "You start to weld the glass panel out of the airlock assembly...")
-				if(do_after(user, 40 * WT.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You weld the glass panel out.</span>")
-					if(heat_proof_finished)
-						new /obj/item/stack/sheet/rglass(get_turf(src))
-						heat_proof_finished = FALSE
-					else
-						new /obj/item/stack/sheet/glass(get_turf(src))
-					glass = FALSE
-			else if(!anchored)
-				user.visible_message("<span class='warning'>[user] disassembles the airlock assembly.</span>", \
-									"You start to disassemble the airlock assembly...")
-				if(do_after(user, 40 * WT.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
-					deconstruct(TRUE)
-		else
-			to_chat(user, "<span class='notice'>You need more welding fuel.</span>")
-			return
-
 	else if(iswrench(W) && state == AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		playsound(loc, W.usesound, 100, 1)
 		if(anchored)
@@ -244,6 +205,45 @@
 		return ..()
 	update_name()
 	update_icon()
+
+
+/obj/structure/door_assembly/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(mineral)
+		var/obj/item/stack/sheet/mineral/mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
+		visible_message("<span class='notice'>[user] welds the [mineral] plating off [src].</span>",\
+			"<span class='notice'>You start to weld the [mineral] plating off [src]...</span>",\
+			"<span class='warning'>You hear welding.</span>")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+			return
+		to_chat(user, "<span class='notice'>You weld the [mineral] plating off.</span>")
+		new mineral_path(loc, 2)
+		var/obj/structure/door_assembly/PA = new previous_assembly(loc)
+		transfer_assembly_vars(src, PA)
+	else if(glass)
+		visible_message("<span class='notice'>[user] welds the glass panel out of [src].</span>",\
+			"<span class='notice'>You start to weld the glass panel out of the [src]...</span>",\
+			"<span class='warning'>You hear welding.</span>")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+			return
+		to_chat(user, "<span class='notice'>You weld the glass panel out.</span>")
+		if(heat_proof_finished)
+			new /obj/item/stack/sheet/rglass(get_turf(src))
+			heat_proof_finished = FALSE
+		else
+			new /obj/item/stack/sheet/glass(get_turf(src))
+		glass = FALSE
+	else if(!anchored)
+		visible_message("<span class='warning'>[user] disassembles [src].</span>", \
+			"<span class='notice'>You start to disassemble [src]...</span>",\
+			"<span class='warning'>You hear welding.</span>")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+			return
+		to_chat(user, "<span class='notice'>You disassemble the airlock assembly.</span>")
+		deconstruct(TRUE)
+
 
 /obj/structure/door_assembly/update_icon()
 	overlays.Cut()

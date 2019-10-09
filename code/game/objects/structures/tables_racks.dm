@@ -524,27 +524,14 @@
 	else
 		return ..()
 
-/obj/structure/table/reinforced/attackby(obj/item/W, mob/user, params)
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			playsound(loc, W.usesound, 50, 1)
-			if(deconstruction_ready)
-				to_chat(user, "<span class='notice'>You start strengthening the reinforced table...</span>")
-				if (do_after(user, 50*W.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You strengthen the table.</span>")
-					deconstruction_ready = FALSE
-			else
-				to_chat(user, "<span class='notice'>You start weakening the reinforced table...</span>")
-				if (do_after(user, 50*W.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You weaken the table.</span>")
-					deconstruction_ready = TRUE
-	else
-		return ..()
+/obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
+		deconstruction_ready = !deconstruction_ready
 
 /obj/structure/table/reinforced/brass
 	name = "brass table"

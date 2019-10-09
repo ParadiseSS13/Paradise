@@ -197,17 +197,19 @@
 					to_chat(user, "<span class='notice'>You insert \the [W] into \the [src]!</span>")
 					buildstage = 1
 				return 1
-			if(iswelder(W))
-				var/obj/item/weldingtool/WT=W
-				playsound(get_turf(src), WT.usesound, 50, 1)
-				if(!WT.remove_fuel(3, user))
-					to_chat(user, "<span class='warning'>You're out of welding fuel.</span>")
-					return 1
-				if(do_after(user, 10 * WT.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You cut the intercom frame from the wall!</span>")
-					new /obj/item/mounted/frame/intercom(get_turf(src))
-					qdel(src)
-					return 1
+
+
+/obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
+	if(!buildstage)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 3))
+		return
+	to_chat(user, "<span class='notice'>You start slicing [src] from the wall...</span>")
+	if(I.use_tool(src, user, 10, amount = 3, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You cut [src] free from the wall!</span>")
+		new /obj/item/mounted/frame/intercom(get_turf(src))
+		qdel(src)
 
 /obj/item/radio/intercom/update_icon()
 	if(!circuitry_installed)

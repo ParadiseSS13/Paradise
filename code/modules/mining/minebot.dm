@@ -88,19 +88,6 @@
 
 
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/I, mob/user, params)
-	if(iswelder(I) && user.a_intent == INTENT_HELP)
-		var/obj/item/weldingtool/W = I
-		if(W.welding && !stat)
-			if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
-				to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
-				return
-			if(do_after_once(user, 15, target = src))
-				if(maxHealth == health)
-					to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
-				else
-					adjustBruteLoss(-20)
-					to_chat(user, "<span class='info'>You repair some of the armor on [src].</span>")
-			return
 	if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
 		DropOre()
@@ -109,6 +96,24 @@
 		I.melee_attack_chain(user, stored_gun, params)
 		return
 	..()
+
+/mob/living/simple_animal/hostile/mining_drone/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(health == maxHealth)
+		to_chat(user, "<span class='notice'>[src] doesn't need repairing!</span>")
+		return
+	if(!I.tool_use_check(user, 1))
+		return
+	if(AIStatus != AI_OFF && AIStatus != AI_IDLE)
+		to_chat(user, "<span class='info'>[src] is moving around too much to repair!</span>")
+		return
+	WELDER_REPAIR_MESSAGE
+	if(I.use_tool(src, user, 15, 1, volume = I.tool_volume) && health == maxHealth)
+		adjustBruteLoss(-20)
+		WELDER_REPAIR_SUCCESS_MESSAGE
+	return
 
 /mob/living/simple_animal/hostile/mining_drone/death()
 	DropOre(0)

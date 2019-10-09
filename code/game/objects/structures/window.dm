@@ -212,22 +212,6 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 		return 1 //skip the afterattack
 
 	add_fingerprint(user)
-
-	if(iswelder(I) && user.a_intent == INTENT_HELP)
-		var/obj/item/weldingtool/WT = I
-		if(obj_integrity < max_integrity)
-			if(WT.remove_fuel(0,user))
-				to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
-				playsound(src, WT.usesound, 40, 1)
-				if(do_after(user, 40*I.toolspeed, target = src))
-					obj_integrity = max_integrity
-					playsound(src, 'sound/items/welder2.ogg', 50, 1)
-					update_nearby_icons()
-					to_chat(user, "<span class='notice'>You repair [src].</span>")
-		else
-			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-		return
-
 	if(istype(I, /obj/item/grab) && get_dist(src, user) < 2)
 		var/obj/item/grab/G = I
 		if(isliving(G.affecting))
@@ -300,6 +284,22 @@ var/global/wcCommon = pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e", "#8f
 				qdel(src)
 			return
 	return ..()
+
+/obj/structure/window/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_REPAIR_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		obj_integrity = max_integrity
+		WELDER_REPAIR_SUCCESS_MESSAGE
+
+
 
 /obj/structure/window/proc/check_state(checked_state)
 	if(state == checked_state)

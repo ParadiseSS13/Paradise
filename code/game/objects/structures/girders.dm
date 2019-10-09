@@ -9,6 +9,7 @@
 	max_integrity = 200
 	var/can_displace = TRUE //If the girder can be moved around by crowbarring it
 	var/metalUsed = 2 //used to determine amount returned in deconstruction
+	var/metal_type = /obj/item/stack/sheet/metal
 
 /obj/structure/girder/examine(mob/user)
 	. = ..()
@@ -27,7 +28,7 @@
 
 /obj/structure/girder/proc/refundMetal(metalAmount) //refunds metal used in construction when deconstructed
 	for(var/i=0;i < metalAmount;i++)
-		new /obj/item/stack/sheet/metal(get_turf(src))
+		new metal_type(get_turf(src))
 
 /obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	..()
@@ -342,6 +343,17 @@
 	else
 		return ..()
 
+
+/obj/structure/girder/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		refundMetal(metalUsed)
+		qdel(src)
+
 /obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
 	if(height==0)
 		return 1
@@ -392,6 +404,7 @@
 	icon_state = "cultgirder"
 	can_displace = FALSE
 	metalUsed = 1
+	metal_type = /obj/item/stack/sheet/runed_metal
 
 /obj/structure/girder/cult/New()
 	. = ..()
@@ -407,21 +420,6 @@
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
 		refundMetal(metalUsed)
 		qdel(src)
-
-	else if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0,user))
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
-			if(do_after(user, 40*W.toolspeed, target = src))
-				if(!WT.isOn())
-					return
-				to_chat(user, "<span class='notice'>You slice apart the girder.</span>")
-				var/obj/item/stack/sheet/runed_metal/R = new(get_turf(src))
-				R.amount = 1
-				transfer_fingerprints_to(R)
-				qdel(src)
-
 	else if(istype(W, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You start slicing apart the girder...</span>")
 		if(do_after(user, 40* W.toolspeed, target = src))
@@ -431,7 +429,6 @@
 			R.amount = 1
 			transfer_fingerprints_to(R)
 			qdel(src)
-
 	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
 		var/obj/item/pickaxe/drill/jackhammer/D = W
 		to_chat(user, "<span class='notice'>Your jackhammer smashes through the girder!</span>")

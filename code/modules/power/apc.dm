@@ -600,32 +600,6 @@
 				has_electronics = 1
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
-				qdel(W)
-
-	else if(istype(W, /obj/item/weldingtool) && opened && has_electronics==0 && !terminal)
-		var/obj/item/weldingtool/WT = W
-		if(WT.get_fuel() < 3)
-			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
-			return
-		user.visible_message("[user.name] welds [src].", \
-							"<span class='notice'>You start welding the APC frame...</span>", \
-							"<span class='italics'>You hear welding.</span>")
-		playsound(src.loc, WT.usesound, 50, 1)
-		if(do_after(user, 50*W.toolspeed, target = src))
-			if(!src || !WT.remove_fuel(3, user))
-				return
-			if((stat & BROKEN) || opened==2)
-				new /obj/item/stack/sheet/metal(loc)
-				user.visible_message(\
-					"[user.name] has cut [src] apart with [W].",\
-					"<span class='notice'>You disassembled the broken APC frame.</span>")
-			else
-				new /obj/item/mounted/frame/apc_frame(loc)
-				user.visible_message(\
-					"[user.name] has cut [src] from the wall with [W].",\
-					"<span class='notice'>You cut the APC frame from the wall.</span>")
-			qdel(src)
-			return
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened==2 || obj_integrity < max_integrity)) // There is nothing to repair
@@ -694,6 +668,26 @@
 			coverlocked = FALSE
 			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
 			update_icon()
+
+/obj/machinery/power/apc/welder_act(mob/user, obj/item/I)
+	if(!opened || has_electronics || terminal)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 3))
+		return
+	WELDER_SLICING_MESSAGE
+	if(I.use_tool(src, user, 50, amount = 3, volume = I.tool_volume))
+		if((stat & BROKEN) || opened==2)
+			new /obj/item/stack/sheet/metal(loc)
+			user.visible_message(\
+				"[user.name] has cut [src] apart with [I].",\
+				"<span class='notice'>You disassembled the broken APC frame.</span>")
+		else
+			new /obj/item/mounted/frame/apc_frame(loc)
+			user.visible_message(\
+				"[user.name] has cut [src] from the wall with [I].",\
+				"<span class='notice'>You cut the APC frame from the wall.</span>")
+		qdel(src)
 
 /obj/machinery/power/apc/emag_act(user as mob)
 	if(!(emagged || malfhack))		// trying to unlock with an emag card

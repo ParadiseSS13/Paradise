@@ -271,6 +271,23 @@ a {
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
 
+/obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		return
+	if(I.tool_behaviour != TOOL_WELDER)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
+	WELDER_REPAIR_MESSAGE
+	if(I.use_tool(src, user, time, volume = I.tool_volume))
+		WELDER_REPAIR_SUCCESS_MESSAGE
+		obj_integrity = max_integrity
+		update_icon()
+	return TRUE
+
+
 /obj/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	extinguish()

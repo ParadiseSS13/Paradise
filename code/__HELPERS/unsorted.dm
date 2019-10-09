@@ -1203,12 +1203,10 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/is_hot(obj/item/W as obj)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/O = W
-		if(O.isOn())
-			return 2500
-		else
-			return 0
+	if(W.tool_behaviour == TOOL_WELDER && W.tool_enabled)
+		return 2500
+	else
+		return 0
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/O = W
 		if(O.lit)

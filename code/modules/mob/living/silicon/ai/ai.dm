@@ -1125,6 +1125,8 @@ var/list/ai_verbs_default = list(
 	else
 		return ..()
 
+/mob/living/silicon/ai/welder_act()
+	return
 
 /mob/living/silicon/ai/proc/control_integrated_radio()
 	set name = "Radio Settings"

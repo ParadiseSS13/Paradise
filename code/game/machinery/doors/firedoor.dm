@@ -115,14 +115,20 @@
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
 	return
 
-/obj/machinery/door/firedoor/try_to_weld(obj/item/weldingtool/W, mob/user)
-	if(W.remove_fuel(0, user))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		user.visible_message("<span class='notice'>[user] starts [welded ? "unwelding" : "welding"] [src].</span>", "<span class='notice'>You start welding [src].</span>")
-		if(do_after(user, 40 * W.toolspeed, 1, target=src))
-			welded = !welded
-			to_chat(user, "<span class='danger'>[user] [welded ? "welds" : "unwelds"] [src].</span>", "<span class='notice'>You [welded ? "weld" : "unweld"] [src].</span>")
-			update_icon()
+/obj/machinery/door/firedoor/welder_act(mob/user, obj/item/I)
+	if(!density)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_WELD_MESSAGE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
+	if(!density) //In case someone opens it while it's getting welded
+		return
+	WELDER_WELD_SUCCESS_MESSAGE
+	welded = !welded
+	update_icon()
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
@@ -427,26 +433,6 @@
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
 				return
-		if(CONSTRUCTION_NOCIRCUIT)
-			if(iswelder(C))
-				var/obj/item/weldingtool/W = C
-				if(W.remove_fuel(1,user))
-					playsound(get_turf(src), W.usesound, 50, 1)
-					user.visible_message("<span class='notice'>[user] begins cutting apart [src]'s frame...</span>", \
-										 "<span class='notice'>You begin slicing [src] apart...</span>")
-					if(!do_after(user, 40 * W.toolspeed, target = src))
-						return
-					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
-						return
-					user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
-										 "<span class='notice'>You cut [src] into metal.</span>")
-					playsound(get_turf(src), W.usesound, 50, 1)
-					var/turf/T = get_turf(src)
-					new /obj/item/stack/sheet/metal(T, 3)
-					if(reinforced)
-						new /obj/item/stack/sheet/plasteel(T, 2)
-					qdel(src)
-				return
 			if(istype(C, /obj/item/firelock_electronics))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									 "<span class='notice'>You begin adding a circuit board to [src]...</span>")
@@ -464,6 +450,23 @@
 				update_icon()
 				return
 	return ..()
+
+/obj/structure/firelock_frame/welder_act(mob/user, obj/item/I)
+	if(constructionStep != CONSTRUCTION_NOCIRCUIT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_SLICING_MESSAGE
+	if(!I.use_tool(src, user, 40, amount = 1, volume = I.tool_volume))
+		return
+	if(constructionStep != CONSTRUCTION_NOCIRCUIT)
+		return
+	WELDER_SLICING_SUCCESS_MESSAGE
+	new /obj/item/stack/sheet/metal(drop_location(), 3)
+	if(reinforced)
+		new /obj/item/stack/sheet/plasteel(drop_location(), 2)
+	qdel(src)
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"

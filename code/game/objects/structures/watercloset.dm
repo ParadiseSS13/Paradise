@@ -310,29 +310,24 @@
 					watertemp = "normal"
 			user.visible_message("<span class='notice'>[user] adjusts the shower with the [I].</span>", "<span class='notice'>You adjust the shower with the [I].</span>")
 			update_icon()	//letsa update whenever we change the temperature, since the mist might need to change
-	if(iswelder(I))
-		if(on)
-			to_chat(user, "<span class='warning'>Turn [src] off before you attempt to cut it loose.</span>")
-			return
-		var/obj/item/weldingtool/WT = I
-		if(WT.isOn())
-			user.visible_message("<span class='notice'>[user] begins to cut [src] loose.</span>", "<span class='notice'>You begin to cut [src] loose.</span>")
-			if(do_after(user, 40 * WT.toolspeed, target = src))
-				if(!src || !WT.remove_fuel(0, user))
-					return
-				if(on)	//in case someone turned it back on while you were working, make sure we shut that all down
-					on = 0
-					if(mymist)
-						qdel(mymist)
-					ismist = 0
-				user.visible_message("<span class='notice'>[user] cuts [src] loose!</span>", "<span class='notice'>You cut [src] loose!</span>")
-				var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
-				transfer_prints_to(S, TRUE)
-				qdel(src)
-		else
-			to_chat(user, "<span class='warning'>[WT] must be on for this task.</span>")
 	if(on)
 		I.water_act(100, convertHeat(), src)
+
+/obj/machinery/shower/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(on)
+		to_chat(user, "<span class='warning'>Turn [src] off before you attempt to cut it loose.</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	visible_message("<span class='notice'>[user] begins slicing [src] free...</span>", "<span class='notice'>You begin slicing [src] free...</span>", "<span class='warning'>You hear welding.</span>")
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		if(mymist)
+			qdel(mymist)
+		user.visible_message("<span class='notice'>[user] cuts [src] loose!</span>", "<span class='notice'>You cut [src] loose!</span>")
+		var/obj/item/mounted/shower/S = new /obj/item/mounted/shower(get_turf(user))
+		transfer_prints_to(S, TRUE)
+		qdel(src)
 
 /obj/machinery/shower/update_icon()	//this makes the shower mist up or clear mist (depending on water temperature)
 	overlays.Cut()					//once it's been on for a while, in addition to handling the water overlay.

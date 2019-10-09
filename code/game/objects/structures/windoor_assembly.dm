@@ -90,24 +90,6 @@ obj/structure/windoor_assembly/Destroy()
 	add_fingerprint(user)
 	switch(state)
 		if("01")
-			if(iswelder(W) && !anchored)
-				var/obj/item/weldingtool/WT = W
-				if(WT.remove_fuel(0,user))
-					user.visible_message("<span class='warning'>[user] disassembles the windoor assembly.</span>", "<span class='notice'>You start to disassemble the windoor assembly...</span>")
-					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
-
-					if(do_after(user, 40 * WT.toolspeed, target = src))
-						if(!src || !WT.isOn())
-							return
-						to_chat(user, "<span class='notice'>You disassemble the windoor assembly.</span>")
-						var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
-						RG.add_fingerprint(user)
-						if(secure)
-							var/obj/item/stack/rods/R = new (get_turf(src), 4)
-							R.add_fingerprint(user)
-						qdel(src)
-					return
-
 			//Wrenching an unsecure assembly anchors it in place. Step 4 complete
 			if(iswrench(W) && !anchored)
 				for(var/obj/machinery/door/window/WD in loc)
@@ -306,6 +288,22 @@ obj/structure/windoor_assembly/Destroy()
 
 	//Update to reflect changes(if applicable)
 	update_icon()
+
+/obj/structure/windoor_assembly/welder_act(mob/user, obj/item/I)
+	if(state != "01")
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+		var/obj/item/stack/sheet/rglass/RG = new (get_turf(src), 5)
+		RG.add_fingerprint(user)
+		if(secure)
+			var/obj/item/stack/rods/R = new (get_turf(src), 4)
+			R.add_fingerprint(user)
+		qdel(src)
 
 
 //Rotates the windoor assembly clockwise

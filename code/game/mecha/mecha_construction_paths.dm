@@ -6,11 +6,10 @@
 
 /datum/construction/mecha/custom_action(step, atom/used_atom, mob/user)
 	if(istype(used_atom, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = used_atom
-		if(W.remove_fuel(0, user))
-			playsound(holder, W.usesound, 50, 1)
-		else
+		var/obj/item/weldingtool/WT = used_atom
+		if(!WT.tool_use_check(user, 0))
 			return 0
+		WT.play_tool_sound(holder)
 	else if(istype(used_atom, /obj/item/wrench))
 		var/obj/item/wrench/W = used_atom
 		playsound(holder, W.usesound, 50, 1)
@@ -41,11 +40,9 @@
 
 /datum/construction/reversible/mecha/custom_action(index as num, diff as num, atom/used_atom, mob/user as mob)
 	if(istype(used_atom, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = used_atom
-		if(W.remove_fuel(0, user))
-			playsound(holder, W.usesound, 50, 1)
-		else
-			return 0
+		var/obj/item/weldingtool/WT = used_atom
+		if(WT.tool_use_check(user, 0))
+			WT.play_tool_sound(holder)
 	else if(istype(used_atom, /obj/item/wrench))
 		var/obj/item/wrench/W = used_atom
 		playsound(holder, W.usesound, 50, 1)

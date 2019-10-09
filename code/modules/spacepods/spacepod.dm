@@ -368,25 +368,6 @@
 				to_chat(user, "<span class='warning'>This is the wrong key!</span>")
 				return
 
-		if(istype(W, /obj/item/weldingtool))
-			if(!hatch_open)
-				to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
-				return
-			var/obj/item/weldingtool/WT = W
-			if(!WT.isOn())
-				to_chat(user, "<span class='warning'>The welder must be on for this task.</span>")
-				return
-			if(health < initial(health))
-				to_chat(user, "<span class='notice'>You start welding the spacepod...</span>")
-				playsound(loc, W.usesound, 50, 1)
-				if(do_after(user, 20 * W.toolspeed, target = src))
-					if(!src || !WT.remove_fuel(3, user)) return
-					repair_damage(10)
-					to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with [WT]</span>")
-				return
-			to_chat(user, "<span class='boldnotice'>[src] is fully repaired!</span>")
-			return
-
 		if(istype(W, /obj/item/lock_buster))
 			var/obj/item/lock_buster/L = W
 			if(L.on && equipment_system.lock_system)
@@ -410,6 +391,23 @@
 
 		if(cargo_hold.storage_slots > 0 && !hatch_open && unlocked) // must be the last option as all items not listed prior will be stored
 			cargo_hold.attackby(W, user, params)
+
+
+obj/spacepod/welder_act(mob/user, obj/item/I)
+	if(!hatch_open)
+		to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
+		return
+	if(health >= initial(health))
+		to_chat(user, "<span class='boldnotice'>[src] is fully repaired!</span>")
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start welding the spacepod...</span>")
+	if(I.use_tool(src, user, 20, 3, volume = I.tool_volume))
+		repair_damage(10)
+		to_chat(user, "<span class='notice'>You mend some [pick("dents","bumps","damage")] with [I]</span>")
+
 
 obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, var/slot)
 	if(equipment_system.vars[slot])

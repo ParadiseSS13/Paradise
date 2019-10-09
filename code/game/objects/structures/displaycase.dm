@@ -105,19 +105,6 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(iswelder(I) && user.a_intent == INTENT_HELP && !broken)
-		var/obj/item/weldingtool/WT = I
-		if(obj_integrity < max_integrity && WT.remove_fuel(5, user))
-			to_chat(user, "<span class='notice'>You begin repairing [src].</span>")
-			playsound(loc, WT.usesound, 40, 1)
-			if(do_after(user, 40 * WT.toolspeed, target = src))
-				obj_integrity = max_integrity
-				playsound(loc, 'sound/items/welder2.ogg', 50, 1)
-				update_icon()
-				to_chat(user, "<span class='notice'>You repair [src].</span>")
-		else
-			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-		return
 	else if(!alert && iscrowbar(I) && openable) //Only applies to the lab cage and player made display cases
 		if(broken)
 			if(showpiece)
@@ -149,6 +136,11 @@
 			update_icon()
 	else
 		return ..()
+
+
+obj/structure/displaycase/welder_act(mob/user, obj/item/I)
+	if(default_welder_repair(user, I))
+		broken = FALSE
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)
 	open = !open

@@ -760,24 +760,6 @@
 				to_chat(user, "<span class='notice'>There's already a powercell installed.</span>")
 		return
 
-	else if(iswelder(W) && user.a_intent != INTENT_HARM)
-		var/obj/item/weldingtool/WT = W
-		if(obj_integrity < max_integrity)
-			if(WT.remove_fuel(0, user))
-				user.visible_message("<span class='notice'>[user] starts repairing some damage to [name].</span>", "<span class='notice'>You start repairing some damage to [name]</span>")
-				if(do_after_once(user, 15 * WT.toolspeed, target = src, attempt_cancel_message = "You stop repairing [name]."))
-					if(internal_damage & MECHA_INT_TANK_BREACH)
-						clearInternalDamage(MECHA_INT_TANK_BREACH)
-						user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
-					else
-						user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
-						obj_integrity += min(10, max_integrity - obj_integrity)
-			else
-				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
-		else
-			to_chat(user, "<span class='warning'>The [name] is at full integrity!</span>")
-		return TRUE
-
 	else if(istype(W, /obj/item/mecha_parts/mecha_tracking))
 		if(!user.unEquip(W))
 			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot put it in \the [src]</span>")
@@ -827,6 +809,26 @@
 
 	else
 		return ..()
+
+/obj/mecha/welder_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if((obj_integrity >= max_integrity) && !internal_damage)
+		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
+		return
+	WELDER_REPAIR_MESSAGE
+	if(I.use_tool(src, user, 15, volume = I.tool_volume))
+		if(internal_damage & MECHA_INT_TANK_BREACH)
+			clearInternalDamage(MECHA_INT_TANK_BREACH)
+			user.visible_message("<span class='notice'>[user] repairs the damaged gas tank.</span>", "<span class='notice'>You repair the damaged gas tank.</span>")
+		else if(obj_integrity < max_integrity)
+			user.visible_message("<span class='notice'>[user] repairs some damage to [name].</span>", "<span class='notice'>You repair some damage to [name].</span>")
+			obj_integrity += min(10, max_integrity - obj_integrity)
+		else
+			to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
 
 /obj/mecha/mech_melee_attack(obj/mecha/M)
 	if(!has_charge(melee_energy_drain))

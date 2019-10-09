@@ -37,6 +37,8 @@
 #define AIRLOCK_INTEGRITY_MULTIPLIER 1.5 // How much reinforced doors health increases
 #define AIRLOCK_DAMAGE_DEFLECTION_N  21  // Normal airlock damage deflection
 #define AIRLOCK_DAMAGE_DEFLECTION_R  30  // Reinforced airlock damage deflection
+#define AIRLOCK_WELD_ME "weld"
+
 var/list/airlock_overlays = list()
 
 /obj/machinery/door/airlock
@@ -864,24 +866,6 @@ About the new airlock wires panel:
 						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 						update_icon()
 					return
-			if(AIRLOCK_SECURITY_METAL)
-				if(iswelder(C))
-					var/obj/item/weldingtool/WT = C
-					if(!WT.remove_fuel(2, user))
-						return
-					to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
-					playsound(loc, WT.usesound, 40, 1)
-					if(do_after(user, 40 * WT.toolspeed, 1, target = src))
-						if(!panel_open || !WT.isOn())
-							return
-						playsound(loc, WT.usesound, 50, 1)
-						user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
-										"<span class='notice'>You cut through \the [src]'s shielding.</span>",
-										"<span class='italics'>You hear welding.</span>")
-						security_level = AIRLOCK_SECURITY_NONE
-						spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
-						update_icon()
-					return
 			if(AIRLOCK_SECURITY_PLASTEEL_I_S)
 				if(iscrowbar(C))
 					var/obj/item/crowbar/W = C
@@ -900,22 +884,6 @@ About the new airlock wires panel:
 						spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
 						update_icon()
 					return
-			if(AIRLOCK_SECURITY_PLASTEEL_I)
-				if(iswelder(C))
-					var/obj/item/weldingtool/WT = C
-					if(!WT.remove_fuel(2, user))
-						return
-					to_chat(user, "<span class='notice'>You begin cutting the inner layer of shielding...</span>")
-					playsound(loc, WT.usesound, 40, 1)
-					if(do_after(user, 40 * WT.toolspeed, 1, target = src))
-						if(!panel_open || !WT.isOn())
-							return
-						playsound(loc, WT.usesound, 50, 1)
-						user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
-										"<span class='notice'>You cut through \the [src]'s shielding.</span>",
-										"<span class='italics'>You hear welding.</span>")
-						security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
-					return
 			if(AIRLOCK_SECURITY_PLASTEEL_O_S)
 				if(iscrowbar(C))
 					var/obj/item/crowbar/W = C
@@ -930,22 +898,6 @@ About the new airlock wires panel:
 											"<span class='notice'>You remove \the [src]'s shielding.</span>")
 						security_level = AIRLOCK_SECURITY_PLASTEEL_I
 						spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
-					return
-			if(AIRLOCK_SECURITY_PLASTEEL_O)
-				if(iswelder(C))
-					var/obj/item/weldingtool/WT = C
-					if(!WT.remove_fuel(2, user))
-						return
-					to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
-					playsound(loc, WT.usesound, 40, 1)
-					if(do_after(user, 40 * WT.toolspeed, 1, target = src))
-						if(!panel_open || !WT.isOn())
-							return
-						playsound(loc, WT.usesound, 50, 1)
-						user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
-										"<span class='notice'>You cut through \the [src]'s shielding.</span>",
-										"<span class='italics'>You hear welding.</span>")
-						security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 					return
 			if(AIRLOCK_SECURITY_PLASTEEL)
 				if(iswirecutter(C))
@@ -993,39 +945,83 @@ About the new airlock wires panel:
 	else
 		return ..()
 
-/obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/user)
-	if(!operating && density)
-		if(user.a_intent != INTENT_HELP)
-			if(W.remove_fuel(0, user))
+/obj/machinery/door/airlock/welder_act(mob/user, obj/item/I) //This is god awful but I don't care
+	if(shock_user(user, 75))
+		return
+	add_fingerprint(user)
+	if(headbutt_airlock(user))
+		return
+	var/thing_to_do
+	if(panel_open)
+		thing_to_do = security_level
+	else if(!operating && density)
+		thing_to_do = AIRLOCK_WELD_ME
+	if(!thing_to_do)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	switch(thing_to_do)
+		if(AIRLOCK_WELD_ME)
+			if(user.a_intent != INTENT_HELP)
 				user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
-								"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
-								"<span class='italics'>You hear welding.</span>")
-				playsound(loc, W.usesound, 40, 1)
-				if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
-					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
+					"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
+					"<span class='italics'>You hear welding.</span>")
+
+				if(I.use_tool(src, user, 40, volume = I.tool_volume))
+					if(!density && !welded)
+						return
 					welded = !welded
 					user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
-										"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
+						"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
 					update_icon()
-		else
-			if(obj_integrity < max_integrity)
-				if(W.remove_fuel(0, user))
-					user.visible_message("[user] is welding the airlock.", \
-									"<span class='notice'>You begin repairing the airlock...</span>", \
-									"<span class='italics'>You hear welding.</span>")
-					playsound(loc, W.usesound, 40, 1)
-					if(do_after(user, 40 * W.toolspeed, 1, target = src, extra_checks = CALLBACK(src, .proc/weld_checks, W, user)))
-						playsound(loc, 'sound/items/welder2.ogg', 50, 1)
-						obj_integrity = max_integrity
-						stat &= ~BROKEN
-						user.visible_message("[user.name] has repaired [src].", \
-											"<span class='notice'>You finish repairing the airlock.</span>")
-						update_icon()
+			else if(obj_integrity < max_integrity)
+				user.visible_message("[user] is welding the airlock.", \
+					"<span class='notice'>You begin repairing the airlock...</span>", \
+					"<span class='italics'>You hear welding.</span>")
+				if(I.use_tool(src, user, 40, volume = I.tool_volume))
+					obj_integrity = max_integrity
+					stat &= ~BROKEN
+					user.visible_message("[user.name] has repaired [src].", \
+						"<span class='notice'>You finish repairing the airlock.</span>")
+				update_icon()
 			else
 				to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
+		if(AIRLOCK_SECURITY_METAL)
+			to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
+			if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+				return
+			if(!panel_open)
+				return
+			visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+				"<span class='notice'>You cut through \the [src]'s shielding.</span>",
+				"<span class='italics'>You hear welding.</span>")
+			security_level = AIRLOCK_SECURITY_NONE
+			spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
+		if(AIRLOCK_SECURITY_PLASTEEL_O)
+			to_chat(user, "<span class='notice'>You begin cutting the outer layer of shielding...</span>")
+			if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+				return
+			if(!panel_open)
+				return
+			visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+				"<span class='notice'>You cut through \the [src]'s shielding.</span>",
+				"<span class='italics'>You hear welding.</span>")
+			security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
+		if(AIRLOCK_SECURITY_PLASTEEL_I)
+			to_chat(user, "<span class='notice'>You begin cutting the inner layer of shielding...</span>")
+			if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+				return
+			if(!panel_open)
+				return
+			user.visible_message("<span class='notice'>[user] cuts through \the [src]'s shielding.</span>",
+				"<span class='notice'>You cut through \the [src]'s shielding.</span>",
+				"<span class='italics'>You hear welding.</span>")
+			security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
+	update_icon()
 
-/obj/machinery/door/airlock/proc/weld_checks(obj/item/weldingtool/W, mob/user)
-	return !operating && density && user && W && W.isOn() && user.loc
+/obj/machinery/door/airlock/proc/weld_checks(obj/item/I, mob/user)
+	return !operating && density && user && I && I.tool_use_check() && user.loc
 
 /obj/machinery/door/airlock/try_to_crowbar(obj/item/I, mob/living/user)
 	var/beingcrowbarred = null
@@ -1391,3 +1387,4 @@ About the new airlock wires panel:
 #undef AIRLOCK_INTEGRITY_MULTIPLIER
 #undef AIRLOCK_DAMAGE_DEFLECTION_N
 #undef AIRLOCK_DAMAGE_DEFLECTION_R
+#undef AIRLOCK_WELD_ME

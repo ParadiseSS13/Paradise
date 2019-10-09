@@ -621,27 +621,6 @@ var/list/robot_verbs_default = list(
 
 				return
 
-	if(istype(W, /obj/item/weldingtool) && user.a_intent == INTENT_HELP)
-		if(W == module_active)
-			return
-		if(!getBruteLoss())
-			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-			return
-		else if(!getBruteLoss(TRUE))
-			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
-			return
-		var/obj/item/weldingtool/WT = W
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(WT.remove_fuel(0))
-			playsound(src.loc, W.usesound, 50, 1)
-			adjustBruteLoss(-30)
-			add_fingerprint(user)
-			user.visible_message("<span class='alert'>\The [user] patches some dents on \the [src] with \the [WT].</span>")
-		else
-			to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
-			return
-
-
 	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
@@ -1457,4 +1436,3 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-

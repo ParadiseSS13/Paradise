@@ -46,7 +46,7 @@
 /obj/item/proc/tool_use_check(mob/living/user, amount)
 	return !amount
 
-/obj/item/proc/play_tool_sound(atom/target, volume=50)
+/obj/item/proc/play_tool_sound(atom/target, volume = tool_volume)
 	if(target && usesound && volume)
 		var/played_sound = usesound
 

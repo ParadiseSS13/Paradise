@@ -16,15 +16,31 @@
 	var/list/obj/item/possible_upgrades = list(/obj/item/assembly/prox_sensor, /obj/item/stack/sheet/mineral/plasma, /obj/item/analyzer)
 	var/list/upgrades = list()
 	var/state = ASSEMBLY_UNBUILT
-	var/busy = FALSE
 
 
 /obj/item/camera_assembly/Destroy()
 	QDEL_LIST(upgrades)
 	return ..()
 
-/obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
+/obj/item/camera_assembly/welder_act(mob/user, obj/item/I)
+	if(state == ASSEMBLY_UNBUILT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_WELD_MESSAGE
+	if(state == ASSEMBLY_WRENCHED)
+		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+			return
+		to_chat(user, "<span class='notice'>You weld [src] into place.</span>")
+		state = ASSEMBLY_WELDED
+	else if(state == ASSEMBLY_WELDED)
+		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+			return
+		to_chat(user, "<span class='notice'>You unweld [src] from its place.</span>")
+		state = ASSEMBLY_WRENCHED
 
+/obj/item/camera_assembly/attackby(obj/item/I, mob/living/user, params)
 	switch(state)
 		if(ASSEMBLY_UNBUILT)
 			// State 0
@@ -38,15 +54,7 @@
 				return
 
 		if(ASSEMBLY_WRENCHED)
-			// State 1
-			if(iswelder(I))
-				if(weld(I, user))
-					to_chat(user, "<span class='notice'>You weld the assembly securely into place.</span>")
-					anchored = TRUE
-					state = ASSEMBLY_WELDED
-				return
-
-			else if(iswrench(I))
+			if(iswrench(I))
 				playsound(loc, I.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unattach the assembly from it's place.</span>")
 				anchored = FALSE
@@ -64,14 +72,6 @@
 				else
 					to_chat(user, "<span class='warning'>You need 2 coils of wire to wire the assembly.</span>")
 				return
-
-			else if(iswelder(I))
-				if(weld(I, user))
-					to_chat(user, "<span class='notice'>You unweld the assembly from it's place.</span>")
-					state = ASSEMBLY_WRENCHED
-					anchored = TRUE
-				return
-
 
 		if(ASSEMBLY_WIRED)
 			if(isscrewdriver(I))
@@ -155,23 +155,6 @@
 /obj/item/camera_assembly/attack_hand(mob/user as mob)
 	if(!anchored)
 		..()
-
-/obj/item/camera_assembly/proc/weld(obj/item/weldingtool/WT, mob/living/user)
-	if(busy)
-		return FALSE
-	if(!WT.remove_fuel(0, user))
-		return FALSE
-
-	to_chat(user, "<span class='notice'>You start to weld the [src]...</span>")
-	playsound(loc, WT.usesound, 50, 1)
-	busy = TRUE
-	if(do_after(user, 20 * WT.toolspeed, target = src))
-		busy = FALSE
-		if(!WT.isOn())
-			return FALSE
-		return TRUE
-	busy = FALSE
-	return FALSE
 
 /obj/item/camera_assembly/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

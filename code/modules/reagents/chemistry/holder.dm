@@ -210,7 +210,7 @@ var/const/INGEST = 2
 		return
 
 	var/datum/reagents/R = target.reagents
-	if(get_reagent_amount(reagent)<amount)
+	if(get_reagent_amount(reagent) < amount)
 		amount = get_reagent_amount(reagent)
 	amount = min(amount, R.maximum_volume-R.total_volume)
 	var/trans_data = null
@@ -350,7 +350,7 @@ var/const/INGEST = 2
 		STOP_PROCESSING(SSobj, src)
 		return
 	for(var/thing in reagents_generated_per_cycle)
-		add_reagent(thing, 1)
+		add_reagent(thing, reagents_generated_per_cycle[thing])
 	for(var/datum/reagent/R in reagent_list)
 		R.on_tick()
 

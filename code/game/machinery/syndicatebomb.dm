@@ -159,26 +159,21 @@
 			payload.forceMove(src)
 		else
 			to_chat(user, "<span class='notice'>[payload] is already loaded into [src], you'll have to remove it first.</span>")
-	else if(iswelder(I))
-		if(payload || !wires.IsAllCut() || !open_panel)
-			return
-		var/obj/item/weldingtool/WT = I
-		if(!WT.isOn())
-			return
-		if(WT.get_fuel() < 5) //uses up 5 fuel.
-			to_chat(user, "<span class='warning'>You need more fuel to complete this task!</span>")
-			return
-
-		playsound(loc, WT.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You start to cut the [src] apart...</span>")
-		if(do_after(user, 20*I.toolspeed, target = src))
-			if(!WT.isOn() || !WT.remove_fuel(5, user))
-				return
-			to_chat(user, "<span class='notice'>You cut the [src] apart.</span>")
-			new /obj/item/stack/sheet/plasteel(loc, 3)
-			qdel(src)
 	else
 		return ..()
+
+/obj/machinery/syndicatebomb/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(payload || !wires.IsAllCut() || !open_panel)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_SLICING_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		new /obj/item/stack/sheet/plasteel(drop_location(), 3)
+		qdel(src)
+
 
 /obj/machinery/syndicatebomb/attack_ghost(mob/user)
 	interact(user)

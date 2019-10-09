@@ -151,28 +151,24 @@
 				test.Shift(NORTH, 1)
 				test.Shift(EAST, 6)
 				overlays += test
-
 	if(istype(I, /obj/item/weldingtool))
 		if(!reagents.has_reagent("fuel"))
 			to_chat(user, "<span class='warning'>[src] is out of fuel!</span>")
 			return
 		var/obj/item/weldingtool/W = I
-		if(!W.welding)
-			if(W.reagents.has_reagent("fuel", W.max_fuel))
-				to_chat(user, "<span class='warning'>Your [W] is already full!</span>")
-				return
-			reagents.trans_to(W, W.max_fuel)
-			user.visible_message("<span class='notice'>[user] refills [user.p_their()] [W].</span>", "<span class='notice'>You refill [W].</span>")
-			playsound(src, 'sound/effects/refill.ogg', 50, 1)
-			W.update_icon()
-		else
-			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [W]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
-			message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
-			log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
-			investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
-			boom()
+		if(!W.tool_use_check(user, 0)) //Just in case, but this should be handled by the welder_act
+			W.refill_weldingtool(user, src, W.maximum_fuel)
 	else
 		return ..()
+
+obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, volume = I.tool_volume) && reagents.has_reagent("fuel"))
+		user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [I]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
+		message_admins("[key_name_admin(user)] triggered a fueltank explosion at [COORD(loc)]")
+		log_game("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]")
+		investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
+		boom()
+		return TRUE
 
 /obj/structure/reagent_dispensers/fueltank/Move()
 	..()

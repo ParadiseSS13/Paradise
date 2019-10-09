@@ -185,6 +185,9 @@
 	dump_contents()
 	..()
 
+/obj/structure/closet/crate/welder_act()
+	return
+
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
 		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")

@@ -136,17 +136,6 @@
 	else if((iswirecutter(I) || ismultitool(I)) && panel_open)
 		wires.Interact(user)
 
-	else if(iswelder(I) && panel_open && wires.CanDeconstruct())
-		var/obj/item/weldingtool/WT = I
-		if(!WT.remove_fuel(0, user))
-			return
-		to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
-		playsound(loc, WT.usesound, 50, 1)
-		if(do_after(user, 100 * WT.toolspeed, target = src))
-			user.visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-								"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
-			deconstruct(TRUE)
-
 	else if(istype(I, /obj/item/analyzer) && panel_open) //XRay
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
@@ -232,6 +221,19 @@
 		L.laser_act(src, user)
 	else
 		return ..()
+
+
+/obj/machinery/camera/welder_act(mob/user, obj/item/I)
+	if(!panel_open || !wires.CanDeconstruct())
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_WELD_MESSAGE
+	if(I.use_tool(src, user, 100, volume = I.tool_volume))
+		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
+						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
 	if(stat & BROKEN)

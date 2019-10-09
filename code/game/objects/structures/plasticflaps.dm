@@ -38,22 +38,21 @@
 				state = PLASTIC_FLAPS_NORMAL
 				anchored = TRUE
 				to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
-	else if(iswelder(W))
-		if(state == PLASTIC_FLAPS_DETACHED)
-			var/obj/item/weldingtool/WT = W
-			if(!WT.remove_fuel(0, user))
-				return
-			playsound(loc, WT.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] slices apart [src].</span>", "<span class='notice'>You start to slice apart [src].</span>", "You hear welding.")
-			if(do_after(user, 120*WT.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_DETACHED)
-					return
-				to_chat(user, "<span class='notice'>You slice apart [src].</span>")
-				var/obj/item/stack/sheet/plastic/five/P = new(loc)
-				P.add_fingerprint(user)
-				qdel(src)
 	else
 		return ..()
+
+/obj/structure/plasticflaps/welder_act(mob/user, obj/item/I)
+	if(state != PLASTIC_FLAPS_DETACHED)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_SLICING_MESSAGE
+	if(I.use_tool(src, user, 120, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		var/obj/item/stack/sheet/plastic/five/P = new(drop_location())
+		P.add_fingerprint(user)
+		qdel(src)
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))
