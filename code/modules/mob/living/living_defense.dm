@@ -288,6 +288,10 @@
 			M.Feedstop()
 		return // can't attack while eating!
 
+	if(HAS_TRAIT(src, TRAIT_PACIFISM))
+		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
 	if(stat != DEAD)
 		add_attack_logs(src, M, "Slime'd")
 		M.do_attack_animation(src)
@@ -299,6 +303,10 @@
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src].")
 		return FALSE
+	if(HAS_TRAIT(M, TRAIT_PACIFISM))
+		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
 	if(M.attack_sound)
 		playsound(loc, M.attack_sound, 50, 1, 1)
 	M.do_attack_animation(src)
@@ -314,6 +322,10 @@
 			return 0
 
 		else
+			if(HAS_TRAIT(L, TRAIT_PACIFISM))
+				to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
+				return
+
 			L.do_attack_animation(src)
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
@@ -335,6 +347,9 @@
 			grabbedby(M)
 			return FALSE
 		if(INTENT_HARM)
+			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+				to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+				return FALSE
 			M.do_attack_animation(src)
 			return TRUE
 		if(INTENT_DISARM)

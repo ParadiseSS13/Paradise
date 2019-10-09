@@ -50,6 +50,10 @@
 	if(user.a_intent != INTENT_HARM || !isGlass)
 		return ..()
 
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		return
+
 	force = 15 //Smashing bottles over someoen's head hurts.
 
 	var/obj/item/organ/external/affecting = user.zone_selected //Find what the player is aiming at

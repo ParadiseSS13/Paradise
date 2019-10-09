@@ -510,6 +510,9 @@ emp_act
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+			return FALSE
 		var/hulk_verb = pick("smash", "pummel")
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
