@@ -185,7 +185,7 @@
 
 // Diona Nymphs can eat these as well as weeds to gain nutrition.
 /obj/item/reagent_containers/food/snacks/grown/attack_animal(mob/living/simple_animal/M)
-	if(istype(M, /mob/living/simple_animal/diona))
+	if(isnymph(M))
 		var/mob/living/simple_animal/diona/D = M
 		D.consume(src)
 	else
