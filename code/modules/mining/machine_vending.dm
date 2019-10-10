@@ -44,7 +44,8 @@
 		new /datum/data/mining_equipment("KA Cooldown Decrease",		/obj/item/borg/upgrade/modkit/cooldown,								1000),
 		new /datum/data/mining_equipment("KA AoE Damage",				/obj/item/borg/upgrade/modkit/aoe/mobs,								2000),
 
-		new /datum/data/mining_equipment("Mining Equipment"),
+		new /datum/data/mining_equipment("Digging Tools"),
+		new /datum/data/mining_equipment("Kinetic Accelerator",			/obj/item/gun/energy/kinetic_accelerator,							750),
 		new /datum/data/mining_equipment("Kinetic Crusher",				/obj/item/twohanded/kinetic_crusher,								750),
 		new /datum/data/mining_equipment("Resonator",					/obj/item/resonator,												800),
 		new /datum/data/mining_equipment("Silver Pickaxe",				/obj/item/pickaxe/silver,											1000),
@@ -58,10 +59,7 @@
 		new /datum/data/mining_equipment("Minebot Cooldown Upgrade",	/obj/item/borg/upgrade/modkit/cooldown/minebot,						600),
 		new /datum/data/mining_equipment("Minebot AI Upgrade",			/obj/item/slimepotion/sentience/mining,								1000),
 
-		new /datum/data/mining_equipment("Cyborg"),
-		new /datum/data/mining_equipment("Thermal Power Cell",			/obj/item/stock_parts/cell/thermal,									600),
-
-		new /datum/data/mining_equipment("Luxuries"),
+		new /datum/data/mining_equipment("Misc."),
 		new /datum/data/mining_equipment("Absinthe",					/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium,	100),
 		new /datum/data/mining_equipment("Whiskey",						/obj/item/reagent_containers/food/drinks/bottle/whiskey,			100),
 		new /datum/data/mining_equipment("Cigar",						/obj/item/clothing/mask/cigarette/cigar/havana,						150),
@@ -69,6 +67,7 @@
 		new /datum/data/mining_equipment("Alien Toy",					/obj/item/clothing/mask/facehugger/toy,								300),
 		new /datum/data/mining_equipment("Laser Pointer",				/obj/item/laser_pointer,											300),
 		new /datum/data/mining_equipment("GAR Meson Scanners",			/obj/item/clothing/glasses/meson/gar,								500),
+		new /datum/data/mining_equipment("Thermal Power Cell",			/obj/item/stock_parts/cell/thermal,									600),
 		new /datum/data/mining_equipment("Space Cash",    				/obj/item/stack/spacecash/c1000,                    				2000),
 		new /datum/data/mining_equipment("Luxury Shelter Capsule",		/obj/item/survivalcapsule/luxury,									3000)
 	)
@@ -151,11 +150,6 @@
 	dat +="<div class='statusDisplay'>"
 	if(istype(inserted_id))
 		dat += "You have [inserted_id.mining_points] mining points collected. <A href='?src=[UID()];choice=eject'>Eject ID.</A><br>"
-	else if(isrobot(user)) // Allow mining borgs to spend points at the vendor if they want to. Prioritizes the card in the machine.
-		var/mob/living/silicon/robot/R = user
-		if(istype(R.module, /obj/item/robot_module/miner))
-			var/obj/item/robot_module/miner/M = R.module
-			dat += "You have [M.mining_points] mining points collected.<br>"
 	else
 		dat += "No ID inserted.  <A href='?src=[UID()];choice=insert'>Insert ID.</A><br>"
 	dat += "</div>"
@@ -193,25 +187,13 @@
 				to_chat(usr, "<span class='danger'>No valid ID.</span>")
 
 	if(href_list["purchase"])
-		var/obj/item/robot_module/miner/borg_module // Null if not a borg
-		if(isrobot(usr))
-			var/mob/living/silicon/robot/R = usr
-			if(istype(R.module, /obj/item/robot_module/miner))
-				borg_module = R.module
-
 		if(istype(inserted_id))
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
 			if(!prize || !(prize in prize_list) || prize.cost > inserted_id.mining_points)
 				return
 			inserted_id.mining_points -= prize.cost
 			new prize.equipment_path(src.loc)
-		else if(borg_module)
-			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
-			if(!prize || !(prize in prize_list) || prize.cost > borg_module.mining_points)
-				return
-			borg_module.mining_points -= prize.cost
-			new prize.equipment_path(src.loc)
-	updateUsrDialog()
+		updateUsrDialog()
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))

@@ -341,7 +341,6 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
-	var/mining_points = 0 // Putting it here ensures that points totals can't be carried across to other borgs.
 	custom_removals = list("KA modkits")
 
 /obj/item/robot_module/miner/New()
