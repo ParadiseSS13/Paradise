@@ -145,6 +145,7 @@
 				var/obj/item/rod_of_asclepius/newRod = new(itemUser.loc)
 				newRod.activated()
 				if(hand)
+					itemUser.drop_l_hand()
 					if(itemUser.put_in_l_hand(newRod))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
@@ -155,6 +156,7 @@
 						itemUser.put_in_l_hand(newRod)
 						to_chat(itemUser, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
 				else
+					itemUser.drop_r_hand()
 					if(itemUser.put_in_r_hand(newRod))
 						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
 					else
