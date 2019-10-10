@@ -206,19 +206,25 @@
 	switch(choice)
 		if("FORCE")
 			var/obj/item/soulstone/C = src
-			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
-				return 0
-			if(contents.len)
-				return 0
-			var/mob/living/carbon/T = target
-			if(T.client != null)
+			var/mob/living/T = target
+			if(issilicon(T))
+				T.Paralyse(10) //In the off chance there's no client, but it suddenly gets one while polling deadchat.
+				if(T.client == null)
+					C.getCultGhost(T,U)
+				else
+					C.init_shade(T,U)
+				playsound(T, 'sound/effects/EMPulse.ogg', 100, 1)
+				T.dust() //To prevent the MMI from remaining
+			else
+				T.Paralyse(10) //In the off chance there's no client, but it suddenly gets one while polling deadchat.
+				if(T.client == null)
+					C.getCultGhost(T,U)
+				else
+					C.init_shade(T, U)
 				for(var/obj/item/W in T)
 					T.unEquip(W)
-				C.init_shade(T, U)
-				return 1
-			else
-				to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
-				return C.getCultGhost(T,U)
+				playsound(T, 'sound/misc/demon_consume.ogg', 100, 1)
+				qdel(T)
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
@@ -339,8 +345,11 @@
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow [stoner.p_their()] orders and help [stoner.p_them()] complete [stoner.p_their()] goals at all costs.</B>")
 	newstruct.cancel_camera()
 
-/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
-	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
+/obj/item/soulstone/proc/init_shade(mob/living/T, mob/U, vic = 0)
+	if(issilicon(T))
+		new /obj/effect/decal/cleanable/blood/gibs/robot(T.loc)
+	else
+		new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.invisibility = 101
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( T.loc )
 	animation.icon_state = "blank"
@@ -375,7 +384,7 @@
 /obj/item/soulstone/anybody/get_shade_type()
 	return /mob/living/simple_animal/shade
 
-/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
+/obj/item/soulstone/proc/getCultGhost(mob/living/T, mob/U)
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body
@@ -395,8 +404,8 @@
 	if(contents.len) //If they used the soulstone on someone else in the meantime
 		return 0
 	T.ckey = chosen_ghost.ckey
-	for(var/obj/item/W in T)
-		T.unEquip(W)
+	if(ishuman(T))
+		for(var/obj/item/W in T)
+			T.unEquip(W)
 	init_shade(T, U)
-	qdel(T)
 	return 1

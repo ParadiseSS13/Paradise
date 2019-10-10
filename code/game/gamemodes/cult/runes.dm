@@ -437,12 +437,6 @@ var/list/teleport_runes = list()
 	var/sacrifice_fulfilled
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	if(T)
-		if(isdog(T)) // Doggos are the best, but not cats
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='cultlarge'>\"Even I have standards, such as they are!\"</span>")
-				if(L.reagents)
-					L.reagents.add_reagent("hell_water", 2)
 		if(T.mind)
 			sacrificed.Add(T.mind)
 			if(is_sacrifice_target(T.mind))
@@ -456,26 +450,29 @@ var/list/teleport_runes = list()
 				to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
 				cult_mode.additional_phase()
 			else
-				if(ishuman(T) || isrobot(T))
-					to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
-				else
+				if(!isdog(T) && !ishuman(T) && !(isrobot(T)))
 					to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
-		if(T.mind)
-			var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
-			stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
-			if(!stone.transfer_soul("VICTIM", T, usr)) //If it cannot be added
-				qdel(stone)
-			if(stone)
-				stone.invisibility = 0
-			if(!T)
-				rune_in_use = 0
-				return
-		if(isrobot(T))
-			playsound(T, 'sound/effects/EMPulse.ogg', 100, 1)
-			T.dust() //To prevent the MMI from remaining
-		else
+				else
+					if(isdog(T)) // Doggos are the best, but not cats
+						to_chat(M, "<span class='cultlarge'>\"Even I have standards, such as they are!\"</span>")
+						var/mob/living/L = M
+						if(L.reagents)
+							L.reagents.add_reagent("hell_water", 2)
+					else
+						if(T.client_mobs_in_contents?.len)
+							if(ishuman(T) || isrobot(T))
+								to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
+						else
+							to_chat(M, "<span class='cultlarge'>\"This shell lacks a soul.\"</span>")
+		if(T.client_mobs_in_contents?.len)
+			if(ishuman(T) || isrobot(T))
+				var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
+				stone.invisibility = INVISIBILITY_MAXIMUM //so it's not picked up during transfer_soul()
+				stone.transfer_soul("FORCE", T, usr)
+				stone.invisibility = 0	
+		if(!isdog(T) && !ishuman(T) && !(isrobot(T)))
 			playsound(T, 'sound/magic/disintegrate.ogg', 100, 1)
-			T.gib()
+			T.gib()	
 	rune_in_use = 0
 
 
