@@ -197,6 +197,15 @@
 		return 1
 	return ..()
 
+
+/obj/machinery/door/crowbar_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	try_to_crowbar(I, user)
+
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
 	if(. && obj_integrity > 0)

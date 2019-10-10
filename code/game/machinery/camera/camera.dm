@@ -127,16 +127,7 @@
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
-	// DECONSTRUCTION
-	if(isscrewdriver(I))
-		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
-		playsound(loc, I.usesound, 50, 1)
-
-	else if((iswirecutter(I) || ismultitool(I)) && panel_open)
-		wires.Interact(user)
-
-	else if(istype(I, /obj/item/analyzer) && panel_open) //XRay
+	if(istype(I, /obj/item/analyzer) && panel_open) //XRay
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
@@ -222,6 +213,27 @@
 	else
 		return ..()
 
+
+/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+
+/obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(panel_open)
+		wires.Interact(user)
+
+/obj/machinery/camera/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(panel_open)
+		wires.Interact(user)
 
 /obj/machinery/camera/welder_act(mob/user, obj/item/I)
 	if(!panel_open || !wires.CanDeconstruct())

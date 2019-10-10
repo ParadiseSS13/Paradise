@@ -1157,6 +1157,8 @@ var/global/list/common_tools = list(
 		return 1
 	return 0
 
+/*
+
 /proc/iswrench(O)
 	if(istype(O, /obj/item/wrench))
 		return 1
@@ -1164,11 +1166,6 @@ var/global/list/common_tools = list(
 
 /proc/iswelder(O)
 	if(istype(O, /obj/item/weldingtool))
-		return 1
-	return 0
-
-/proc/iscoil(O)
-	if(istype(O, /obj/item/stack/cable_coil))
 		return 1
 	return 0
 
@@ -1192,15 +1189,23 @@ var/global/list/common_tools = list(
 		return 1
 	return 0
 
-/proc/ispowertool(O)//used to check if a tool can force powered doors
-	if(istype(O, /obj/item/crowbar/power) || istype(O, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
-		return TRUE
-	return FALSE
+*/
+
+/proc/iscoil(O)
+	if(istype(O, /obj/item/stack/cable_coil))
+		return 1
+	return 0
+
 
 /proc/iswire(O)
 	if(istype(O, /obj/item/stack/cable_coil))
 		return 1
 	return 0
+
+/proc/ispowertool(O)//used to check if a tool can force powered doors
+	if(istype(O, /obj/item/crowbar/power) || istype(O, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+		return TRUE
+	return FALSE
 
 /proc/is_hot(obj/item/W as obj)
 	if(W.tool_behaviour == TOOL_WELDER && W.tool_enabled)

@@ -825,14 +825,9 @@ About the new airlock wires panel:
 	return 1
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
-	if(shock_user(user, 75))
-		return
-
 	add_fingerprint(user)
-
-	if(headbutt_airlock(user))//See if the user headbutts the airlock
+	if(!headbutt_shock_check(user))
 		return
-
 	if(panel_open)
 		switch(security_level)
 			if(AIRLOCK_SECURITY_NONE)
@@ -866,66 +861,7 @@ About the new airlock wires panel:
 						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
 						update_icon()
 					return
-			if(AIRLOCK_SECURITY_PLASTEEL_I_S)
-				if(iscrowbar(C))
-					var/obj/item/crowbar/W = C
-					to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
-					playsound(src, W.usesound, 100, 1)
-					if(do_after(user, 40 * W.toolspeed, 1, target = src))
-						if(!panel_open)
-							return
-						if(security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
-							return
-						user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
-											"<span class='notice'>You remove \the [src]'s inner shielding.</span>")
-						security_level = AIRLOCK_SECURITY_NONE
-						modify_max_integrity(normal_integrity)
-						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
-						spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
-						update_icon()
-					return
-			if(AIRLOCK_SECURITY_PLASTEEL_O_S)
-				if(iscrowbar(C))
-					var/obj/item/crowbar/W = C
-					to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
-					playsound(src, W.usesound, 100, 1)
-					if(do_after(user, 40 * W.toolspeed, 1, target = src))
-						if(!panel_open)
-							return
-						if(security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
-							return
-						user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
-											"<span class='notice'>You remove \the [src]'s shielding.</span>")
-						security_level = AIRLOCK_SECURITY_PLASTEEL_I
-						spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
-					return
-			if(AIRLOCK_SECURITY_PLASTEEL)
-				if(iswirecutter(C))
-					var/obj/item/wirecutters/W = C
-					if(arePowerSystemsOn() && shock(user, 60)) // Protective grille of wiring is electrified
-						return
-					to_chat(user, "<span class='notice'>You start cutting through the outer grille.</span>")
-					playsound(src, W.usesound, 100, 1)
-					if(do_after(user, 10 * W.toolspeed, 1, target = src))
-						if(!panel_open)
-							return
-						user.visible_message("<span class='notice'>[user] cut through \the [src]'s outer grille.</span>",
-											"<span class='notice'>You cut through \the [src]'s outer grille.</span>")
-						security_level = AIRLOCK_SECURITY_PLASTEEL_O
-					return
 
-	if(isscrewdriver(C))
-		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the airlock.</span>")
-		playsound(loc, C.usesound, 50, 1)
-		update_icon()
-	else if(iswirecutter(C))
-		if(note)
-			remove_airlock_note(user, TRUE)
-		else
-			return interact_with_panel(user)
-	else if(ismultitool(C))
-		return interact_with_panel(user)
 	else if(istype(C, /obj/item/assembly/signaler))
 		return interact_with_panel(user)
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
@@ -945,11 +881,86 @@ About the new airlock wires panel:
 	else
 		return ..()
 
-/obj/machinery/door/airlock/welder_act(mob/user, obj/item/I) //This is god awful but I don't care
-	if(shock_user(user, 75))
+/obj/machinery/door/airlock/screwdriver_act(mob/user, obj/item/I)
+	if(!headbutt_shock_check(user))
 		return
-	add_fingerprint(user)
-	if(headbutt_airlock(user))
+	if(user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] [src]'s maintenance panel.</span>")
+	update_icon()
+
+/obj/machinery/door/airlock/crowbar_act(mob/user, obj/item/I)
+	if(!headbutt_shock_check(user))
+		return
+	if(!panel_open || user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
+		to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
+		playsound(src, W.usesound, 100, 1)
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
+				return
+			user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
+								"<span class='notice'>You remove \the [src]'s inner shielding.</span>")
+			security_level = AIRLOCK_SECURITY_NONE
+			modify_max_integrity(normal_integrity)
+			damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
+			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
+			update_icon()
+	else if(security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
+		to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
+		playsound(src, W.usesound, 100, 1)
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
+				return
+			user.visible_message("<span class='notice'>[user] remove \the [src]'s shielding.</span>",
+								"<span class='notice'>You remove \the [src]'s shielding.</span>")
+			security_level = AIRLOCK_SECURITY_PLASTEEL_I
+			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
+
+/obj/machinery/door/airlock/wirecutter_act(mob/user, obj/item/I)
+	if(!headbutt_shock_check(user))
+		return
+	if(!panel_open || user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(security_level == AIRLOCK_SECURITY_PLASTEEL)
+		if(arePowerSystemsOn() && shock(user, 60)) // Protective grille of wiring is electrified
+			return
+		to_chat(user, "<span class='notice'>You start cutting through the outer grille.</span>")
+		if(I.use_tool(src, user, 10, volume = I.tool_volume))
+			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL)
+				return
+			user.visible_message("<span class='notice'>[user] cut through \the [src]'s outer grille.</span>",
+								"<span class='notice'>You cut through \the [src]'s outer grille.</span>")
+			security_level = AIRLOCK_SECURITY_PLASTEEL_O
+		return
+	if(note)
+		remove_airlock_note(user, TRUE)
+	else
+		return interact_with_panel(user)
+
+/obj/machinery/door/airlock/multitool_act(mob/user, obj/item/I)
+	if(!headbutt_shock_check(user))
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	interact_with_panel(user)
+
+/obj/machinery/door/airlock/welder_act(mob/user, obj/item/I) //This is god awful but I don't care
+	if(!headbutt_shock_check(user))
+		return
+	if(user.a_intent == INTENT_HARM)
 		return
 	var/thing_to_do
 	if(panel_open)
@@ -1023,9 +1034,16 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/proc/weld_checks(obj/item/I, mob/user)
 	return !operating && density && user && I && I.tool_use_check() && user.loc
 
+/obj/machinery/door/airlock/proc/headbutt_shock_check(mob/user)
+	if(shock_user(user, 75))
+		return
+	if(headbutt_airlock(user))//See if the user headbutts the airlock
+		return
+	return TRUE
+
 /obj/machinery/door/airlock/try_to_crowbar(obj/item/I, mob/living/user)
 	var/beingcrowbarred = null
-	if(iscrowbar(I))
+	if(I.tool_behaviour == TOOL_CROWBAR && W.tool_enabled)
 		beingcrowbarred = 1
 	else
 		beingcrowbarred = 0
