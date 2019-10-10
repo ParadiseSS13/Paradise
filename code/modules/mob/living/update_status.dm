@@ -97,7 +97,7 @@
 	else
 		if(layer == LYING_MOB_LAYER)
 			layer = initial(layer)
-
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_CAN_MOVE)
 	update_transform()
 	if(!delay_action_updates)
 		update_action_buttons_icon()

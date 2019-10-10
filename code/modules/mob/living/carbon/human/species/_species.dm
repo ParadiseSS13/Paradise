@@ -365,6 +365,7 @@
 
 	// Will set our damageoverlay icon to the next level, which will then be set back to the normal level the next mob.Life().
 	H.updatehealth("apply damage")
+	SEND_SIGNAL(src, COMSIG_HUMAN_APPLY_DAMAGE, damage, damagetype, def_zone, blocked, sharp, used_weapon)
 	return 1
 
 /datum/species/proc/spec_stun(mob/living/carbon/human/H,amount)
