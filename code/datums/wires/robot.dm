@@ -23,16 +23,16 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 	switch(index)
 		if(BORG_WIRE_MAIN_POWER)
 			return "Main Power"
-		
+
 		if(BORG_WIRE_LOCKED_DOWN)
 			return "Lockdown"
-		
+
 		if(BORG_WIRE_CAMERA)
 			return "Camera"
-			
+
 		if(BORG_WIRE_AI_CONTROL)
 			return "AI Control"
-		
+
 		if(BORG_WIRE_LAWCHECK)
 			return "Law Check"
 
@@ -54,13 +54,16 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 					to_chat(R, "LawSync protocol engaged.")
 					R.show_laws()
 			else
-				if(R.lawupdate == 0 && !R.emagged)
+				if(!R.deployed) //AI shells must always have the same laws as the AI
+					R.lawupdate = 0
+				else if(R.lawupdate == 0 && !R.emagged)
 					R.lawupdate = 1
 
 		if(BORG_WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mended)
 				if(R.connected_ai)
 					R.connected_ai = null
+					R.undeploy() //Forced disconnect of an AI should this body be a shell.
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
@@ -83,7 +86,11 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 		if(BORG_WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
 			if(!R.emagged)
 				R.connected_ai = select_active_ai()
-				R.notify_ai(1)
+				if(R.shell)
+					R.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
+					R.notify_ai(AI_SHELL)
+				else
+					R.notify_ai(NEW_BORG)
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && R.camera.can_use() && !R.scrambledcodes)
