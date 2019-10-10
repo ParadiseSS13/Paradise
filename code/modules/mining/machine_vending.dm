@@ -191,9 +191,10 @@
 			var/datum/data/mining_equipment/prize = locate(href_list["purchase"])
 			if(!prize || !(prize in prize_list) || prize.cost > inserted_id.mining_points)
 				return
+			
 			inserted_id.mining_points -= prize.cost
 			new prize.equipment_path(src.loc)
-		updateUsrDialog()
+	updateUsrDialog()
 
 /obj/machinery/mineral/equipment_vendor/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "mining-open", "mining", I))
