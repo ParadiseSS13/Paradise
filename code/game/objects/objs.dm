@@ -3,7 +3,6 @@
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = 0
 	animate_movement = 2
-	var/throwforce = 1
 	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = 0		// whether this object cuts

@@ -218,6 +218,7 @@
 			if(!issilicon(user))
 				if( i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
+			if(chambered)
 				if(randomspread)
 					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
 				else

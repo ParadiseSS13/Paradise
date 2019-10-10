@@ -48,13 +48,7 @@
 
 /obj/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
-	var/tforce = 0
-	if(ismob(AM))
-		tforce = 10
-	else if(istype(AM, /obj))
-		var/obj/O = AM
-		tforce = O.throwforce
-	take_damage(tforce, BRUTE, "melee", 1, get_dir(src, AM))
+	take_damage(AM.throwforce, BRUTE, "melee", 1, get_dir(src, AM))
 
 /obj/ex_act(severity)
 	if(resistance_flags & INDESTRUCTIBLE)

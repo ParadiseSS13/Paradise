@@ -17,6 +17,7 @@
 	var/moved_recently = 0
 	var/mob/pulledby = null
 	var/atom/movable/pulling
+	var/throwforce = 0
 	var/canmove = 1
 
 	var/inertia_dir = 0
