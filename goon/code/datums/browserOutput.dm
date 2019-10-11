@@ -152,10 +152,9 @@ var/list/chatResources = list(
 				if(world.IsBanned(row["ckey"], row["ip"], row["compid"], FALSE))
 					found = row
 					break
-
+			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				AddBan(owner.ckey, owner.computer_id, "Ban evasion on account: [found["ckey"]]", "System", 0, 0, owner.address)
 				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
