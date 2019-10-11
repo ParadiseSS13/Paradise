@@ -578,7 +578,7 @@ var/list/ai_verbs_default = list(
 	return FALSE
 
 /mob/living/silicon/ai/emp_act(severity)
-//	disconnect_shell()
+	disconnect_shell()
 	if(prob(30))
 		switch(pick(1,2))
 			if(1)
@@ -1171,7 +1171,7 @@ var/list/ai_verbs_default = list(
 	if(!..())
 		return
 	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
-//		disconnect_shell() //If the AI is controlling a borg, force the player back to core!
+		disconnect_shell() //If the AI is controlling a borg, force the player back to core!
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return

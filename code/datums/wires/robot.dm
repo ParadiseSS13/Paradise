@@ -64,7 +64,7 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 			if(!mended)
 				if(R.connected_ai)
 					R.connected_ai = null
-//					R.undeploy() //Forced disconnect of an AI should this body be a shell.
+					R.undeploy() //Forced disconnect of an AI should this body be a shell.
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
@@ -88,7 +88,7 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 			if(!R.emagged)
 				R.connected_ai = select_active_ai()
 				if(R.shell)
-//					R.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
+					R.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
 					R.notify_ai(AI_SHELL)
 				else
 					R.notify_ai(NEW_BORG)
