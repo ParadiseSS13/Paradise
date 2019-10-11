@@ -50,13 +50,14 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 	switch(index)
 		if(BORG_WIRE_LAWCHECK) //Cut the law wire, and the borg will no longer receive law updates from its AI
 			if(!mended)
+				if(!R.deployed) //AI shells must always have the same laws as the AI
+					R.lawupdate = FALSE
+
 				if(R.lawupdate == 1)
 					to_chat(R, "LawSync protocol engaged.")
 					R.show_laws()
 			else
-				if(!R.deployed) //AI shells must always have the same laws as the AI
-					R.lawupdate = 0
-				else if(R.lawupdate == 0 && !R.emagged)
+				if(R.lawupdate == 0 && !R.emagged)
 					R.lawupdate = 1
 
 		if(BORG_WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
