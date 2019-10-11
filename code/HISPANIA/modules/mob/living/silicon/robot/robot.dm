@@ -39,7 +39,7 @@ var/global/list/available_ai_shells = list()
 	lawsync()
 	if(radio && AI.aiRadio) //AI keeps all channels, including Syndie if it is a Traitor
 		if(AI.aiRadio.syndie)
-			radio.set_frequency(SYND_FREQ)
+			radio.make_syndie()
 		radio.subspace_transmission = TRUE
 		radio.channels = AI.aiRadio.channels
 		for(var/chan in radio.channels)
