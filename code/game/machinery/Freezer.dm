@@ -60,25 +60,26 @@
 
 	if(default_deconstruction_crowbar(I))
 		return
-
-	if(iswrench(I))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
-			return
-		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
-		dir = choices[selected]
-		playsound(src.loc, I.usesound, 50, 1)
-		var/node_connect = dir
-		initialize_directions = dir
-		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-			if(target.initialize_directions & get_dir(target,src))
-				node = target
-				break
-		build_network()
-		update_icon()
-		return
 	return ..()
+
+/obj/machinery/atmospherics/unary/cold_sink/freezer/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		return
+	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	dir = choices[selected]
+	var/node_connect = dir
+	initialize_directions = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
+			break
+	build_network()
+	update_icon()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -228,24 +229,26 @@
 	if(default_deconstruction_crowbar(I))
 		return
 
-	if(iswrench(I))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
-			return
-		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
-		dir = choices[selected]
-		playsound(src.loc, I.usesound, 50, 1)
-		var/node_connect = dir
-		initialize_directions = dir
-		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-			if(target.initialize_directions & get_dir(target,src))
-				node = target
-				break
-		build_network()
-		update_icon()
-		return
 	return ..()
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		return
+	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	dir = choices[selected]
+	var/node_connect = dir
+	initialize_directions = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
+			break
+	build_network()
+	update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)

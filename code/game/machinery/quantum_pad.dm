@@ -42,29 +42,34 @@
 	teleport_cooldown -= (E * 100)
 
 /obj/machinery/quantumpad/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I))
-		return
-
-	if(panel_open)
-		if(ismultitool(I))
-			var/obj/item/multitool/M = I
-			M.buffer = src
-			to_chat(user, "<span class='notice'>You save the data in the [I.name]'s buffer.</span>")
-			return 1
-	else if(ismultitool(I))
-		var/obj/item/multitool/M = I
-		if(istype(M.buffer, /obj/machinery/quantumpad))
-			linked_pad = M.buffer
-			to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
-			return 1
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	return ..()
+
+/obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	default_deconstruction_crowbar(I)
+
+/obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(!multitool_check_buffer(user, I))
+		return
+	var/obj/item/multitool/M = I
+	if(panel_open)
+		M.set_multitool_buffer(user, src)
+	else
+		linked_pad = M.buffer
+		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
+
+/obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(panel_open)

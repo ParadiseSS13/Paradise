@@ -549,16 +549,15 @@
 
 /obj/machinery/power/apc/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(opened) // a) on open apc
 		if(has_electronics==1)
 			if(terminal)
 				to_chat(user, "<span class='warning'>Disconnect the wires first!</span>")
 				return
-			playsound(src.loc, W.usesound, 50, 1)
 			to_chat(user, "<span class='notice'>You are trying to remove the power control board...</span>" )
-			if(do_after(user, 50*W.toolspeed, target = src))
+			if(I.use_tool(src, user, 50, volume = I.tool_volume))
 				if(has_electronics==1)
 					has_electronics = 0
 					if(stat & BROKEN)
@@ -606,7 +605,7 @@
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(opened)
 		if(cell)
@@ -616,12 +615,10 @@
 			if(has_electronics==1)
 				has_electronics = 2
 				stat &= ~MAINT
-				playsound(src.loc, W.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit electronics into place.</span>")
 			else if(has_electronics==2)
 				has_electronics = 1
 				stat |= MAINT
-				playsound(src.loc, W.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the electronics.</span>")
 			else /* has_electronics==0 */
 				to_chat(user, "<span class='warning'>There is nothing to secure!</span>")
@@ -639,16 +636,16 @@
 
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)
 	else if(terminal && opened)
-		terminal.dismantle(user, W)
+		terminal.dismantle(user, I)
 
 /obj/machinery/power/apc/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)

@@ -92,10 +92,18 @@
 		to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
 		DropOre()
 		return
-	if(iscrowbar(I) || istype(I, /obj/item/borg/upgrade/modkit))
+	if(istype(I, /obj/item/borg/upgrade/modkit))
 		I.melee_attack_chain(user, stored_gun, params)
 		return
 	..()
+
+/mob/living/simple_animal/hostile/mining_drone/crowbar_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	I.melee_attack_chain(user, stored_gun)
 
 /mob/living/simple_animal/hostile/mining_drone/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)

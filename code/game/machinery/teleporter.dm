@@ -520,8 +520,27 @@
 	return ..()
 
 /obj/machinery/teleport/station/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I) && !panel_open)
-		var/obj/item/multitool/M = I
+	if(exchange_parts(user, I))
+		return
+	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		var/obj/item/circuitboard/teleporter_perma/C = I
+		C.target = teleporter_console.target
+		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
+		return
+	return ..()
+
+/obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	default_deconstruction_crowbar(I)
+
+/obj/machinery/teleport/station/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	var/obj/item/multitool/M = I
+	if(!panel_open)
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(M.buffer)
@@ -530,34 +549,24 @@
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 		return
+	M.buffer = src
+	to_chat(user, "<span class='caution'>You download the data to [src]'s buffer.</span>")
 
+/obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
 		update_icon()
-		return
 
-	if(exchange_parts(user, I))
+/obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	if(panel_open)
-		if(ismultitool(I))
-			var/obj/item/multitool/M = I
-			M.buffer = src
-			to_chat(user, "<span class='caution'>You download the data to the [M]'s buffer.</span>")
-			return
-		if(iswirecutter(I))
-			link_console_and_hub()
-			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
-			return
-		if(istype(I, /obj/item/circuitboard/teleporter_perma))
-			var/obj/item/circuitboard/teleporter_perma/C = I
-			C.target = teleporter_console.target
-			to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
-			return
+		link_console_and_hub()
+		to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
 
-	return ..()
 
 /obj/machinery/teleport/station/attack_ai()
 	src.attack_hand()

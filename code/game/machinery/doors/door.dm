@@ -189,7 +189,7 @@
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && (iscrowbar(I) || istype(I, /obj/item/twohanded/fireaxe)))
+	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(I, user)
 		return 1
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
@@ -202,7 +202,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	try_to_crowbar(I, user)
 

@@ -98,7 +98,7 @@
 	if(operating || !welded)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts.</span>", \
 						 "<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
@@ -110,7 +110,7 @@
 	if(operating || !welded)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(boltslocked)
 		to_chat(user, "<span class='notice'>There are screws locking the bolts in place!</span>")
@@ -385,7 +385,7 @@
 	if(!(constructionStep in list(CONSTRUCTION_WIRES_EXPOSED, CONSTRUCTION_PANEL_OPEN, CONSTRUCTION_GUTTED)))
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(constructionStep == CONSTRUCTION_WIRES_EXPOSED)
 		user.visible_message("<span class='notice'>[user] starts prying a metal plate into [src]...</span>", \
@@ -397,8 +397,6 @@
 		user.visible_message("<span class='notice'>[user] pries the metal plate into [src].</span>", \
 							 "<span class='notice'>You pry [src]'s cover plate into place, hiding the wires.</span>")
 		constructionStep = CONSTRUCTION_PANEL_OPEN
-		update_icon()
-
 	else if(constructionStep == CONSTRUCTION_PANEL_OPEN)
 		user.visible_message("<span class='notice'>[user] starts prying something out from [src]...</span>", \
 							 "<span class='notice'>You begin prying out the wire cover...</span>")
@@ -409,8 +407,6 @@
 		user.visible_message("<span class='notice'>[user] pries out a metal plate from [src], exposing the wires.</span>", \
 							 "<span class='notice'>You remove the cover plate from [src], exposing the wires.</span>")
 		constructionStep = CONSTRUCTION_WIRES_EXPOSED
-		update_icon()
-
 	else if(constructionStep == CONSTRUCTION_GUTTED)
 		user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", \
 							 "<span class='notice'>You begin prying out the circuit board from [src]...</span>")
@@ -422,14 +418,13 @@
 							 "<span class='notice'>You remove the circuit board from [src].</span>")
 		new /obj/item/firelock_electronics(get_turf(src))
 		constructionStep = CONSTRUCTION_NOCIRCUIT
-		update_icon()
+	update_icon()
 
 /obj/structure/firelock_frame/wirecutter_act(mob/user, obj/item/I)
 	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 		return
-
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 
 	user.visible_message("<span class='notice'>[user] starts cutting the wires from [src]...</span>", \
@@ -452,7 +447,7 @@
 	if(locate(/obj/machinery/door/firedoor) in get_turf(src))
 		to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
 		return
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	user.visible_message("<span class='notice'>[user] starts bolting down [src]...</span>", \
 						 "<span class='notice'>You begin bolting [src]...</span>")

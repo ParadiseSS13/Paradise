@@ -246,25 +246,6 @@
 			SSnanoui.update_uis(src)
 			return // don't smack that machine with your 2 thalers
 
-	if(default_unfasten_wrench(user, I, time = 60))
-		return
-
-	if(isscrewdriver(I) && anchored)
-		playsound(loc, I.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		overlays.Cut()
-		if(panel_open)
-			overlays += image(icon, "[initial(icon_state)]-panel")
-		SSnanoui.update_uis(src)  // Speaker switch is on the main UI, not wires UI
-		return
-
-	if(panel_open)
-		if(ismultitool(I) || iswirecutter(I))
-			return attack_hand(user)
-		if(component_parts && iscrowbar(I))
-			default_deconstruction_crowbar(I)
-			return
 	if(istype(I, /obj/item/coin) && premium.len)
 		if(!user.drop_item())
 			return
@@ -295,6 +276,48 @@
 		insert_item(user, I)
 		return
 	return ..()
+
+
+
+/obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
+	if(!component_parts)
+		return
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	default_deconstruction_crowbar(I)
+
+/obj/machinery/vending/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(panel_open)
+		return attack_hand(user)
+
+/obj/machinery/vending/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(anchored)
+		panel_open = !panel_open
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+		overlays.Cut()
+		if(panel_open)
+			overlays += image(icon, "[initial(icon_state)]-panel")
+		SSnanoui.update_uis(src)  // Speaker switch is on the main UI, not wires UI
+
+/obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(panel_open)
+		return attack_hand(user)
+
+/obj/machinery/vending/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, time = 60)
 
 //Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)

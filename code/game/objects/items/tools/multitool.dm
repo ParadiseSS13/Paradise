@@ -32,6 +32,14 @@
 		return 0
 	return istype(buffer,typepath)
 
+/obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)
+	if(!ismachinery(M))
+		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		return
+	buffer = M
+	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
+	return TRUE
+
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 
 /obj/item/multitool/Destroy()

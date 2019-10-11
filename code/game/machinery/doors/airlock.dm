@@ -887,7 +887,7 @@ About the new airlock wires panel:
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] [src]'s maintenance panel.</span>")
@@ -899,11 +899,10 @@ About the new airlock wires panel:
 	if(!panel_open || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
 		to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
-		playsound(src, W.usesound, 100, 1)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
 				return
@@ -916,7 +915,6 @@ About the new airlock wires panel:
 			update_icon()
 	else if(security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
 		to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
-		playsound(src, W.usesound, 100, 1)
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
 				return
@@ -931,7 +929,7 @@ About the new airlock wires panel:
 	if(!panel_open || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(security_level == AIRLOCK_SECURITY_PLASTEEL)
 		if(arePowerSystemsOn() && shock(user, 60)) // Protective grille of wiring is electrified
@@ -953,7 +951,7 @@ About the new airlock wires panel:
 	if(!headbutt_shock_check(user))
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	interact_with_panel(user)
 
@@ -1043,15 +1041,14 @@ About the new airlock wires panel:
 
 /obj/machinery/door/airlock/try_to_crowbar(obj/item/I, mob/living/user)
 	var/beingcrowbarred = null
-	if(I.tool_behaviour == TOOL_CROWBAR && W.tool_enabled)
+	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_enabled)
 		beingcrowbarred = 1
 	else
 		beingcrowbarred = 0
 	if(beingcrowbarred && panel_open && ((emagged) || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
-		playsound(loc, I.usesound, 100, 1)
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
-		if(do_after(user, 40 * I.toolspeed, target = src))
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 			return
 	else if(arePowerSystemsOn())

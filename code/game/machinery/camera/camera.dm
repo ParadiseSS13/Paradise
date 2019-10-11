@@ -216,21 +216,21 @@
 
 /obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(panel_open)
 		wires.Interact(user)
 
 /obj/machinery/camera/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.tool_start_check(user, 0))
 		return
 	if(panel_open)
 		wires.Interact(user)
