@@ -7,25 +7,25 @@
 	component_parts += new /obj/item/stock_parts/scanning_module/adv(null)
 	RefreshParts()
 
-/obj/machinery/doppler_array/undirectional
-	name = "undirectional tachyon-doppler array"
+/obj/machinery/doppler_array/range
+	name = "long range tachyon-doppler array"
 	desc = "A highly precise sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array."
 
-/obj/machinery/doppler_array/undirectional/New()
+/obj/machinery/doppler_array/range/New()
 	..()
 	component_parts = list()
-	component_parts += new /obj/item/circuitboard/doppler_array/undirectional(null)
+	component_parts += new /obj/item/circuitboard/doppler_array/range(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	RefreshParts()
 
-/obj/machinery/doppler_array/undirectional/attackby(obj/item/I, mob/user, params)
+/obj/machinery/doppler_array/range/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/disk/tech_disk))
 		return
 
-/obj/machinery/doppler_array/undirectional/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
+/obj/machinery/doppler_array/range/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
 												  var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
 	..()
 	if(stat & NOPOWER)
@@ -46,14 +46,14 @@
 	for(var/message in messages)
 		atom_say(message)
 
-/obj/machinery/doppler_array/undirectional/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
+/obj/machinery/doppler_array/range/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "doppler_array_undirectional.tmpl", "Tachyon-doppler array", 500, 650)
+		ui = new(user, src, ui_key, "doppler_array_longrange.tmpl", "Long range Tachyon-doppler array", 500, 650)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/doppler_array/undirectional/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/doppler_array/range/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 	var/list/explosion_data = list()
 	for(var/D in logged_explosions)
