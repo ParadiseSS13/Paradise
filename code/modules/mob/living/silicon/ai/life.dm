@@ -143,7 +143,6 @@
 		update_stat("updatehealth([reason])")
 		diag_hud_set_status()
 		diag_hud_set_health()
-//		disconnect_shell() //esto da putos problemas. creo que se supone te regresa al  core al recibir daño pero siempre lo hace aun sin recibir daño
 
 /mob/living/silicon/ai/proc/lacks_power()
 	var/turf/T = get_turf(src)
