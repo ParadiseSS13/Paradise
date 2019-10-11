@@ -14,7 +14,7 @@ var/global/list/available_ai_shells = list()
 /mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
 		return
-	undeploy()
+//	undeploy()
 	for(var/obj/item/borg/upgrade/ai/boris in src)
 	//A player forced reset of a borg would drop the module before this is called, so this is for catching edge cases
 		qdel(boris)
@@ -58,7 +58,7 @@ var/global/list/available_ai_shells = list()
 		return FALSE
 	var/mob/living/silicon/robot/R = owner
 
-	R.undeploy()
+//	R.undeploy()
 	return TRUE
 
 
