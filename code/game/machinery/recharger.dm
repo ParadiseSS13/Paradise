@@ -29,16 +29,6 @@
 		recharge_coeff = C.rating
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
-	if(iswrench(G))
-		if(charging)
-			to_chat(user, "<span class='notice'>Remove the charging item first!</span>")
-			return
-		anchored = !anchored
-		power_change()
-		to_chat(user, "<span class='notice'>You [anchored ? "attached" : "detached"] [src].</span>")
-		playsound(loc, G.usesound, 75, 1)
-		return
-
 	var/allowed = is_type_in_list(G, allowed_devices)
 
 	if(allowed)
@@ -67,7 +57,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
-		
+
 	if(anchored && !charging)
 		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
 			return
@@ -77,6 +67,19 @@
 			return
 
 	return ..()
+
+/obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(charging)
+		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
+		return
+	if(!I.tool_start_check(user, 0))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))

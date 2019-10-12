@@ -1004,7 +1004,7 @@
 	if(buildstage != AIR_ALARM_BUILDING)
 		return
 	to_chat(user, "You pry out the circuit!")
-	var/obj/item/airalarm_electronics/circuit = new /obj/item/airalarm_electronics(user.drop_location())
+	new /obj/item/airalarm_electronics(user.drop_location())
 	buildstage = AIR_ALARM_FRAME
 	update_icon()
 
@@ -1050,7 +1050,7 @@
 	. = TRUE
 	if(!I.tool_start_check(user, 0))
 		return
-	var/obj/item/mounted/frame/alarm_frame/AF = new(get_turf(user))
+	new /obj/item/mounted/frame/alarm_frame(get_turf(user))
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	qdel(src)
 

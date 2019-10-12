@@ -49,26 +49,17 @@
 		return
 	. += "<span class='notice'>The AI recovery beacon is active.</span>"
 
-/obj/structure/mecha_wreckage/attackby(obj/item/I, mob/user, params)
-	if(iswirecutter(I))
-		if(wires_removed)
-			to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
-			return
-		var/N = new /obj/item/stack/cable_coil(get_turf(user), rand(1, 3))
-		user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
-		wires_removed = TRUE
+/obj/structure/mecha_wreckage/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
 		return
-
-	if(iscrowbar(I))
-		if(crowbar_salvage.len)
-			var/obj/S = pick(crowbar_salvage)
-			S.forceMove(user.drop_location())
-			user.visible_message("<span class='notice'>[user] pries [S] from [src].</span>", "<span class='notice'>You pry [S] from [src].</span>")
-			crowbar_salvage -= S
-			return
-		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
+	if(crowbar_salvage.len)
+		var/obj/S = pick(crowbar_salvage)
+		S.forceMove(user.drop_location())
+		user.visible_message("<span class='notice'>[user] pries [S] from [src].</span>", "<span class='notice'>You pry [S] from [src].</span>")
+		crowbar_salvage -= S
 		return
-	return ..()
+	to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
 
 /obj/structure/mecha_wreckage/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -86,6 +77,17 @@
 	if(!istype(N, /obj/item/stack))
 		welder_salvage -= type
 	salvage_num--
+
+/obj/structure/mecha_wreckage/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(wires_removed)
+		to_chat(user, "<span class='notice'>You don't see anything that can be cut with [I]!</span>")
+		return
+	var/N = new /obj/item/stack/cable_coil(get_turf(user), rand(1, 3))
+	user.visible_message("[user] cuts [N] from [src].", "<span class='notice'>You cut [N] from [src].</span>")
+	wires_removed = TRUE
 
 /obj/structure/mecha_wreckage/transfer_ai(interaction, mob/user, null, obj/item/aicard/card)
 	if(!..())

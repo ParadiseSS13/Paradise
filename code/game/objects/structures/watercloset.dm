@@ -63,54 +63,6 @@
 			layer = FLY_LAYER
 
 /obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
-	if(iswrench(I))
-		var/choices = list()
-		if(cistern)
-			choices += "Stash"
-		if(anchored)
-			choices += "Disconnect"
-		else
-			choices += "Connect"
-			choices += "Rotate"
-
-		var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
-		if(!Adjacent(user) || !response)	//moved away or cancelled
-			return
-		switch(response)
-			if("Stash")
-				stash_goods(I, user)
-			if("Disconnect")
-				user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
-				if(do_after(user, 40 * I.toolspeed, target = src))
-					if(!loc || !anchored)
-						return
-					user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-					anchored = 0
-					update_icon()
-			if("Connect")
-				user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
-				if(do_after(user, 40 * I.toolspeed, target = src))
-					if(!loc || anchored)
-						return
-					user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-					anchored = 1
-					update_icon()
-			if("Rotate")
-				var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-				var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
-				dir = dir_choices[selected]
-				update_icon()	//is this necessary? probably not
-		return
-
-	if(istype(I, /obj/item/crowbar))
-		to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
-		playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
-		if(do_after(user, 30 * I.toolspeed, target = src))
-			user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
-			cistern = !cistern
-			update_icon()
-			return
-
 	if(istype(I, /obj/item/reagent_containers))
 		if(!open)
 			return
@@ -158,6 +110,58 @@
 		stash_goods(I, user)
 		return
 
+
+/obj/structure/toilet/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start to [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]...</span>")
+	playsound(loc, 'sound/effects/stonedoor_openclose.ogg', 50, 1)
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
+		cistern = !cistern
+		update_icon()
+		return
+
+/obj/structure/toilet/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	var/choices = list()
+	if(cistern)
+		choices += "Stash"
+	if(anchored)
+		choices += "Disconnect"
+	else
+		choices += "Connect"
+		choices += "Rotate"
+
+	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	if(!Adjacent(user) || !response)	//moved away or cancelled
+		return
+	switch(response)
+		if("Stash")
+			stash_goods(I, user)
+		if("Disconnect")
+			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
+			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(!loc || !anchored)
+					return
+				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
+				anchored = 0
+		if("Connect")
+			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
+			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(!loc || anchored)
+					return
+				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
+				anchored = 1
+		if("Rotate")
+			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
+			var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in dir_choices
+			dir = dir_choices[selected]
+	update_icon()	//is this necessary? probably not
+
 /obj/structure/toilet/proc/stash_goods(obj/item/I, mob/user)
 	if(!I)
 		return
@@ -196,27 +200,6 @@
 
 
 /obj/structure/urinal/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		if(anchored)
-			user.visible_message("<span class='notice'>[user] begins disconnecting [src]...</span>", "<span class='notice'>You begin to disconnect [src]...</span>")
-			if(do_after(user, 40 * I.toolspeed, target = src))
-				if(!loc || !anchored)
-					return
-				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-				anchored = 0
-				pixel_x = 0
-				pixel_y = 0
-		else
-			user.visible_message("<span class='notice'>[user] begins connecting [src]...</span>", "<span class='notice'>You begin to connect [src]...</span>")
-			if(do_after(user, 40 * I.toolspeed, target = src))
-				if(!loc || anchored)
-					return
-				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-				anchored = 1
-				pixel_x = 0
-				pixel_y = 32
-		return
-
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!G.confirm())
@@ -234,7 +217,28 @@
 			else
 				to_chat(user, "<span class='warning'>You need a tighter grip!</span>")
 
-
+/obj/structure/urinal/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(anchored)
+		user.visible_message("<span class='notice'>[user] begins disconnecting [src]...</span>", "<span class='notice'>You begin to disconnect [src]...</span>")
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(!loc || !anchored)
+				return
+			user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
+			anchored = 0
+			pixel_x = 0
+			pixel_y = 0
+	else
+		user.visible_message("<span class='notice'>[user] begins connecting [src]...</span>", "<span class='notice'>You begin to connect [src]...</span>")
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(!loc || anchored)
+				return
+			user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
+			anchored = 1
+			pixel_x = 0
+			pixel_y = 32
 
 /obj/machinery/shower
 	name = "shower"
@@ -572,53 +576,6 @@
 	if(!(istype(O)))
 		return
 
-	if(iswrench(O))
-		var/obj/item/wrench/W = O
-
-		var/choices = list()
-		if(anchored)
-			choices += "Wash"
-			if(can_move)
-				choices += "Disconnect"
-		else
-			choices += "Connect"
-			if(can_rotate)
-				choices += "Rotate"
-
-		var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
-		if(!Adjacent(user) || !response)	//moved away or cancelled
-			return
-		switch(response)
-			if("Wash")
-				busy = 1
-				var/wateract = 0
-				wateract = (W.wash(user, src))
-				busy = 0
-				if(wateract)
-					W.water_act(20, COLD_WATER_TEMPERATURE, src)
-			if("Disconnect")
-				user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
-				if(do_after(user, 40 * O.toolspeed, target = src))
-					if(!loc || !anchored)
-						return
-					user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
-					anchored = 0
-					update_icon()
-			if("Connect")
-				user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
-				if(do_after(user, 40 * O.toolspeed, target = src))
-					if(!loc || anchored)
-						return
-					user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
-					anchored = 1
-					update_icon()
-			if("Rotate")
-				var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
-				var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
-				dir = dir_choices[selected]
-				update_icon()	//is this necessary? probably not
-		return
-
 	if(!anchored)
 		to_chat(user, "<span class='warning'>[src] isn't connected, wrench it into position first!</span>")
 		return
@@ -629,6 +586,51 @@
 	busy = 0
 	if(wateract)
 		O.water_act(20, COLD_WATER_TEMPERATURE, src)
+
+/obj/structure/sink/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	var/choices = list()
+	if(anchored)
+		choices += "Wash"
+		if(can_move)
+			choices += "Disconnect"
+	else
+		choices += "Connect"
+		if(can_rotate)
+			choices += "Rotate"
+
+	var/response = input(user, "What do you want to do?", "[src]") as null|anything in choices
+	if(!Adjacent(user) || !response)	//moved away or cancelled
+		return
+	switch(response)
+		if("Wash")
+			busy = 1
+			var/wateract = 0
+			wateract = (I.wash(user, src))
+			busy = 0
+			if(wateract)
+				I.water_act(20, COLD_WATER_TEMPERATURE, src)
+		if("Disconnect")
+			user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
+			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(!loc || !anchored)
+					return
+				user.visible_message("<span class='notice'>[user] disconnects [src]!</span>", "<span class='notice'>You disconnect [src]!</span>")
+				anchored = FALSE
+		if("Connect")
+			user.visible_message("<span class='notice'>[user] starts connecting [src].</span>", "<span class='notice'>You begin connecting [src]...</span>")
+			if(I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(!loc || anchored)
+					return
+				user.visible_message("<span class='notice'>[user] connects [src]!</span>", "<span class='notice'>You connect [src]!</span>")
+				anchored = TRUE
+		if("Rotate")
+			var/list/dir_choices = list("North" = NORTH, "East" = EAST, "South" = SOUTH, "West" = WEST)
+			var/selected = input(user, "Select a direction for the connector.", "Connector Direction") in dir_choices
+			dir = dir_choices[selected]
+	update_icon()	//is this necessary? probably not
 
 /obj/structure/sink/update_icon()
 	..()

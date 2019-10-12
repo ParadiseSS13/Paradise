@@ -669,10 +669,6 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W) && !(flags & NODECONSTRUCT) && user.a_intent != INTENT_HELP)
-		playsound(loc, W.usesound, 50, 1)
-		deconstruct(TRUE)
-		return
 	if(isrobot(user))
 		return
 	if(user.a_intent == INTENT_HARM)
@@ -681,6 +677,15 @@
 		if(user.drop_item())
 			W.Move(loc)
 	return
+
+/obj/structure/rack/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
+		return
+	if(!I.tool_start_check(user, 0))
+		return
+	deconstruct(TRUE)
 
 /obj/structure/rack/attack_hand(mob/living/user)
 	if(user.IsWeakened() || user.resting || user.lying)

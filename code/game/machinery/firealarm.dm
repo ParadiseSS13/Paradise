@@ -118,7 +118,7 @@ FIRE ALARM
 	CROWBAR_PRYING_CIRCUIT_MESSAGE
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume) || buildstage != FIRE_ALARM_UNWIRED)
 		return
-	var/obj/item/firealarm_electronics/circuit = new /obj/item/firealarm_electronics(drop_location())
+	new /obj/item/firealarm_electronics(drop_location())
 	buildstage = FIRE_ALARM_FRAME
 	update_icon()
 	CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE

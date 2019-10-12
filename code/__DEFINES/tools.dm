@@ -10,6 +10,9 @@
 //Crowbar messages
 #define CROWBAR_PRYING_CIRCUIT_MESSAGE		user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", "<span class='notice'>You begin removing the circuitboard from [src]...</span>", "<span class='warning'>You hear prying noises.</span>")
 #define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] pries out the circuit board from [src]!</span>", "<span class='notice'>You pry out the circuit board from [src]!</span>", "<span class='warning'>You hear prying noises.</span>")
+#define CROWBAR_DISMANTLE_MESSAGE			user.visible_message("<span class='notice'>[user] begins dismantling [src]...</span>", "<span class='notice'>You begin dismantling [src]...</span>", "<span class='warning'>You hear prying noises.</span>")
+#define CROWBAR_DISMANTLE_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] dismantles [src]!</span>", "<span class='notice'>You dismantle [src]!</span>", "<span class='warning'>You hear prying noises.</span>")
+
 
 
 //Screwdriver messages
@@ -18,10 +21,10 @@
 #define SCREWDRIVER_OPEN_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] opens the panel on [src]!</span>", "<span class='notice'>You close the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
 #define SCREWDRIVER_CLOSE_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] closes the panel on [src]!</span>", "<span class='notice'>You loosen the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
 
-
-
 //Wirecutter messages
-#define WIRECUTTER_SNIP_MESSAGE		user.visible_message("<span class='notice'>[user] cuts the wires from [src]!</span>", "<span class='notice'>You cut the wires from [src]!</span>", "<span class='warning'>You hear snipping.</span>")
+#define WIRECUTTER_SNIP_MESSAGE					user.visible_message("<span class='notice'>[user] cuts the wires from [src]!</span>", "<span class='notice'>You cut the wires from [src]!</span>", "<span class='warning'>You hear snipping.</span>")
+#define WIRECUTTER_DISMANTLE_MESSAGE			user.visible_message("<span class='notice'>[user] begins cutting [src] apart... </span>", "<span class='notice'>You begin cutting [src] apart...</span>", "<span class='warning'>You hear snipping.</span>")
+#define WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] cuts [src] apart!</span>", "<span class='notice'>You cut [src] apart!</span>", "<span class='warning'>You hear snipping.</span>")
 
 //Welder messages and other stuff
 #define HEALPERWELD 15
