@@ -602,15 +602,6 @@
 					O.reagents.add_reagent("fishwater", water_level)
 					adjust_water_level(-water_level)
 					user.visible_message("<span class='notice'>[user.name] scoops out some water from [src].</span>", "<span class='notice'>You fill [O.name] with the last of the water in [src].</span>")
-	//Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
-	else if(iswrench(O))
-		if(!water_level)
-			to_chat(user, "<span class='notice'>Now disassembling [src].</span>")
-			playsound(loc, O.usesound, 50, 1)
-			if(do_after(user, 50 * O.toolspeed, target = src))
-				deconstruct(TRUE)
-		else
-			to_chat(user, "<span class='warning'>[src] must be empty before you disassemble it!</span>")
 	//Fish eggs
 	else if(istype(O, /obj/item/fish_eggs))
 		var/obj/item/fish_eggs/egg = O
@@ -657,3 +648,14 @@
 			user.visible_message("<span class='notice'>[user.name] scrubs the inside of [src], cleaning the filth.</span>", "<span class='notice'>You scrub the inside of [src], cleaning the filth.</span>")
 	else
 		return ..()
+
+/obj/machinery/fishtank/wrench_act(mob/user, obj/item/I) //Wrenches can deconstruct empty tanks, but not tanks with any water. Kills any fish left inside and destroys any unharvested eggs in the process
+	. = TRUE
+	if(water_level)
+		to_chat(user, "<span class='warning'>[src] must be empty before you disassemble it!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>Now disassembling [src].</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		deconstruct(TRUE)

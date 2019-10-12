@@ -265,7 +265,7 @@
 
 /obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	is_open = !is_open
 	if(is_open)
@@ -278,7 +278,7 @@
 	if(locked)
 		to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
 		WRENCH_UNANCHOR_MESSAGE

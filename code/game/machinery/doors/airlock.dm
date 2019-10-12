@@ -887,7 +887,7 @@ About the new airlock wires panel:
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] [src]'s maintenance panel.</span>")
@@ -951,7 +951,7 @@ About the new airlock wires panel:
 	if(!headbutt_shock_check(user))
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	interact_with_panel(user)
 

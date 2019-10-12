@@ -174,21 +174,12 @@
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return 1
-
+	if(exchange_parts(user, O))
+		return
 	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
 		SSnanoui.update_uis(src)
 		return
 
-	if(exchange_parts(user, O))
-		return
-
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			default_deconstruction_crowbar(O)
-			return 1
-		else
-			attack_hand(user)
-			return 1
 	if(stat)
 		return 1
 
@@ -214,6 +205,13 @@
 			return 1
 
 	return ..()
+
+/obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
+	if(busy)
+		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		return TRUE
+	if(panel_open && default_deconstruction_crowbar(user, I))
+		return TRUE
 
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	switch(id_inserted)

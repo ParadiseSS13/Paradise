@@ -120,15 +120,11 @@
 /obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
 		return
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
 
 /obj/machinery/chem_master/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
 	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
 		if(beaker)
 			beaker.forceMove(get_turf(src))
@@ -137,15 +133,14 @@
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(get_turf(src))
 			loaded_pill_bottle = null
+		return TRUE
 
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
 		return
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
 	if(default_unfasten_wrench(user, I))
 		power_change()
+		return TRUE
 
 /obj/machinery/chem_master/Topic(href, href_list)
 	if(..())

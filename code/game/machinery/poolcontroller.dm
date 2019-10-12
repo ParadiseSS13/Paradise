@@ -59,7 +59,7 @@
 
 /obj/machinery/poolcontroller/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(emagged) //Check the emag status
 		to_chat(user, "<span class='warning'>You re-enable [src]'s temperature safeguards.</span>")//Inform the user that they have just fixed the safeguards.

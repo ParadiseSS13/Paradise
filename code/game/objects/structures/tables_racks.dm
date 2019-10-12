@@ -683,7 +683,7 @@
 	if(flags & NODECONSTRUCT)
 		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	deconstruct(TRUE)
 
@@ -742,12 +742,12 @@
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
 
-/obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W))
-		new /obj/item/stack/sheet/metal(user.loc)
-		qdel(src)
-	else
-		return ..()
+/obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	new /obj/item/stack/sheet/metal(user.loc)
+	qdel(src)
 
 /obj/item/rack_parts/attack_self(mob/user)
 	if(building)

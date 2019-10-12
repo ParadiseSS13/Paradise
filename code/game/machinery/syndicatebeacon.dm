@@ -158,7 +158,7 @@
 	if(active)
 		to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
 		anchored = FALSE

@@ -57,23 +57,23 @@
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
-
-	if(anchored && !charging)
-		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
-			return
-
-		if(panel_open && istype(G, /obj/item/crowbar))
-			default_deconstruction_crowbar(G)
-			return
-
 	return ..()
+
+
+/obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
+	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)
+	if(anchored && !charging && default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", I))
+		return TRUE
 
 /obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
 	if(anchored)

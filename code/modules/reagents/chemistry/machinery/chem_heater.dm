@@ -86,7 +86,7 @@
 	if(panel_open)
 		if(istype(I, /obj/item/crowbar))
 			eject_beaker()
-			default_deconstruction_crowbar(I)
+			default_deconstruction_crowbar(user, I)
 			return 1
 	return ..()
 

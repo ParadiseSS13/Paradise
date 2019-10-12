@@ -160,7 +160,7 @@
 
 /obj/machinery/power/generator/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(cold_dir == WEST)
 		cold_dir = EAST
@@ -180,7 +180,7 @@
 
 /obj/machinery/power/generator/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
 	if(!anchored)

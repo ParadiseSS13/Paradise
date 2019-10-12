@@ -12,7 +12,7 @@
 
 /obj/machinery/computer/telecomms/traffic/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	unlocked = !unlocked
 	to_chat(user, "<span class='notice'>This computer is now [unlocked ? "<span class='good'>Unlocked</span>" : "<span class='bad'>Locked</span>"]. Reopen the UI to see the difference.</span>")

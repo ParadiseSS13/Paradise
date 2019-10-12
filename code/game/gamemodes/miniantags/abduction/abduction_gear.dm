@@ -587,10 +587,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	..()
 	make_syndie()
 
-/obj/item/radio/headset/abductor/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		return // Stops humans from disassembling abductor headsets.
-	return ..()
+/obj/item/radio/headset/abductor/screwdriver_act()
+	return// Stops humans from disassembling abductor headsets.
 
 /obj/item/scalpel/alien
 	name = "alien scalpel"

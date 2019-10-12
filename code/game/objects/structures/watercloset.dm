@@ -302,20 +302,25 @@
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(I.type == /obj/item/analyzer)
 		to_chat(user, "<span class='notice'>The water temperature seems to be [watertemp].</span>")
-	if(iswrench(I))
-		to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with the [I].</span>")
-		if(do_after(user, 50 * I.toolspeed, target = src))
-			switch(watertemp)
-				if("normal")
-					watertemp = "freezing"
-				if("freezing")
-					watertemp = "boiling"
-				if("boiling")
-					watertemp = "normal"
-			user.visible_message("<span class='notice'>[user] adjusts the shower with the [I].</span>", "<span class='notice'>You adjust the shower with the [I].</span>")
-			update_icon()	//letsa update whenever we change the temperature, since the mist might need to change
 	if(on)
 		I.water_act(100, convertHeat(), src)
+	return ..()
+
+/obj/machinery/shower/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You begin to adjust the temperature valve with the [I].</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		switch(watertemp)
+			if("normal")
+				watertemp = "freezing"
+			if("freezing")
+				watertemp = "boiling"
+			if("boiling")
+				watertemp = "normal"
+	user.visible_message("<span class='notice'>[user] adjusts the shower with the [I].</span>", "<span class='notice'>You adjust [src] to [watertemp].</span>")
+	update_icon()	//letsa update whenever we change the temperature, since the mist might need to change
 
 /obj/machinery/shower/welder_act(mob/user, obj/item/I)
 	. = TRUE

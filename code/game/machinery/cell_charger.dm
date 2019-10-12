@@ -76,7 +76,7 @@
 	if(charging)
 		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
 	if(anchored)

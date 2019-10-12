@@ -61,7 +61,7 @@
 	if(active)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!anchored && !isinspace())
 		anchored = TRUE

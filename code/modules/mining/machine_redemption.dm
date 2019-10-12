@@ -212,10 +212,8 @@
 
 
 /obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
 
 /obj/machinery/mineral/ore_redemption/multitool_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -230,17 +228,13 @@
 	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 
 /obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
 		updateUsrDialog()
+		return TRUE
 
 /obj/machinery/mineral/ore_redemption/wrench_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_unfasten_wrench(user, I)
+	if(default_unfasten_wrench(user, I))
+		return TRUE
 
 /obj/machinery/mineral/ore_redemption/attack_hand(mob/user)
 	if(..())

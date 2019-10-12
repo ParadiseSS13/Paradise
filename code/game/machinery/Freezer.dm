@@ -50,21 +50,23 @@
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
-		on = 0
-		update_icon()
-		return
-
 	if(exchange_parts(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
 
+/obj/machinery/atmospherics/unary/cold_sink/freezer/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/atmospherics/unary/cold_sink/freezer/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
+		on = 0
+		update_icon()
+		return TRUE
+
 /obj/machinery/atmospherics/unary/cold_sink/freezer/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
@@ -218,22 +220,23 @@
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user, params)
+	if(exchange_parts(user, I))
+		return
+	return ..()
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "heater-o", "heater", I))
 		on = 0
 		update_icon()
-		return
-
-	if(exchange_parts(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
-	return ..()
+		return TRUE
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!panel_open)
 		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")

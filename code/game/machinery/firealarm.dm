@@ -130,7 +130,7 @@ FIRE ALARM
 	if(!wiresexposed)
 		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(detecting)
 		user.visible_message("<span class='warning'>[user] has reconnected [src]'s detecting unit!</span>", "You have reconnected [src]'s detecting unit.")
@@ -141,7 +141,7 @@ FIRE ALARM
 	if(buildstage != FIRE_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wiresexposed = !wiresexposed
 	if(wiresexposed)
@@ -157,7 +157,7 @@ FIRE ALARM
 	if(!wiresexposed)
 		to_chat(user, "<span class='warning'>You need to expose the wires first!</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(drop_location())
@@ -169,7 +169,7 @@ FIRE ALARM
 	if(buildstage != FIRE_ALARM_FRAME)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/firealarm(get_turf(user))

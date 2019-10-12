@@ -44,7 +44,7 @@
 	return ..()
 
 /obj/machinery/snow_machine/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/snow_machine/screwdriver_act(mob/user, obj/item/I)
@@ -54,7 +54,7 @@
 
 /obj/machinery/snow_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
 	to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src]'s wheels.</span>")

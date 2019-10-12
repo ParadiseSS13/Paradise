@@ -605,7 +605,7 @@
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(opened)
 		if(cell)
@@ -636,7 +636,7 @@
 
 /obj/machinery/power/apc/wirecutter_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)
@@ -645,7 +645,7 @@
 
 /obj/machinery/power/apc/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(panel_open && !opened)
 		wires.Interact(user)

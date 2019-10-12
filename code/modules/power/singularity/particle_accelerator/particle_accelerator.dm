@@ -207,10 +207,10 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	update_icon()
 
 /obj/structure/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
-	if(construction_state != 2 && construction_state != ACCELERATOR_READY)
+	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
@@ -226,7 +226,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
@@ -235,7 +235,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_UNWRENCHED)
 		anchored = TRUE
@@ -308,10 +308,10 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	update_icon()
 
 /obj/machinery/particle_accelerator/screwdriver_act(mob/user, obj/item/I)
-	if(construction_state != 2 && construction_state != ACCELERATOR_READY)
+	if(construction_state != ACCELERATOR_WIRED && construction_state != ACCELERATOR_READY)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_WIRED)
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
@@ -328,7 +328,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_WIRED)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	construction_state = ACCELERATOR_WRENCHED
@@ -337,7 +337,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	if(construction_state != ACCELERATOR_UNWRENCHED && construction_state != ACCELERATOR_WRENCHED)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(construction_state == ACCELERATOR_UNWRENCHED)
 		anchored = TRUE

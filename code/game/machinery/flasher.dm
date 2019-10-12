@@ -91,7 +91,7 @@
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/portable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	disable = !disable
 	if(disable)
@@ -101,7 +101,7 @@
 
 /obj/machinery/flasher/portable/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	anchored = !anchored
 	if(anchored)

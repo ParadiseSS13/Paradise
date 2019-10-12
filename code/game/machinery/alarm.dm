@@ -1012,7 +1012,7 @@
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wiresexposed)
 		attack_hand(user)
@@ -1021,7 +1021,7 @@
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	wiresexposed = !wiresexposed
 	update_icon()
@@ -1034,7 +1034,7 @@
 	if(buildstage != AIR_ALARM_READY)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(wires.wires_status == 31) // all wires cut
 		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
@@ -1048,7 +1048,7 @@
 	if(buildstage != AIR_ALARM_FRAME)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	new /obj/item/mounted/frame/alarm_frame(get_turf(user))
 	WRENCH_UNANCHOR_WALL_MESSAGE

@@ -28,22 +28,23 @@
 	if(istype(W, /obj/item/analyzer))
 		bombtank.attackby(W, user, params)
 		return
-	if(iswrench(W) && !status)	//This is basically bomb assembly code inverted. apparently it works.
+	return ..()
 
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-
-		bombassembly.loc = user.loc
-		bombassembly.master = null
-		bombassembly = null
-
-		bombtank.loc = user.loc
-		bombtank.master = null
-		bombtank = null
-
-		qdel(src)
+/obj/item/onetankbomb/wrench_act(mob/user, obj/item/I)	//This is basically bomb assembly code inverted. apparently it works.
+	if(status)
 		return
-	add_fingerprint(user)
-	..()
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	bombassembly.loc = user.loc
+	bombassembly.master = null
+	bombassembly = null
+	bombtank.loc = user.loc
+	bombtank.master = null
+	bombtank = null
+	qdel(src)
+
 /obj/item/onetankbomb/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))

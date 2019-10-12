@@ -35,6 +35,16 @@ emp_act
 
 	return (..(P , def_zone))
 
+/mob/living/carbon/human/screwdriver_act(mob/user, obj/item/I)
+	if(!can_operate(src))  //Checks if mob is lying down on table for surgery
+		return
+	if(!ismachine(src))
+		return
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(attempt_initiate_surgery(I, src, user))
+		return TRUE
+
 /mob/living/carbon/human/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
 		return ..()

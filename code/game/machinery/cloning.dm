@@ -389,12 +389,12 @@
 		return ..()
 
 /obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/clonepod/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!multitool_check_buffer(user, I))
 		return
@@ -409,7 +409,7 @@
 
 /obj/machinery/clonepod/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(occupant)
 		to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")

@@ -353,7 +353,7 @@
 	return ..()
 
 /obj/machinery/teleport/hub/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/teleport/hub/screwdriver_act(mob/user, obj/item/I)
@@ -451,16 +451,17 @@
 		icon_state = "tele0"
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
-		return
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	return ..()
+
+/obj/machinery/teleport/perma/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/teleport/perma/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
+		return TRUE
 
 /obj/machinery/teleport/station
 	name = "station"
@@ -531,12 +532,12 @@
 	return ..()
 
 /obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/teleport/station/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!multitool_check_buffer(user, I))
 		return
@@ -559,7 +560,7 @@
 
 /obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(panel_open)
 		link_console_and_hub()

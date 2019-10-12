@@ -117,7 +117,7 @@
 		return ..()
 
 /obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/recharge_station/screwdriver_act(mob/user, obj/item/I)

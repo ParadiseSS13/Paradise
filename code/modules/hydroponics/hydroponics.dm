@@ -89,13 +89,12 @@
 		return ..()
 
 /obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
+
 	if(using_irrigation)
 		to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-	else
-		default_deconstruction_crowbar(I, 1)
+		return TRUE
+	if(default_deconstruction_crowbar(user, I, 1))
+		return TRUE
 
 /obj/machinery/hydroponics/proc/FindConnected()
 	var/list/connected = list()
@@ -878,7 +877,7 @@
 
 /obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	else if(wrenchable)
 		using_irrigation = !using_irrigation

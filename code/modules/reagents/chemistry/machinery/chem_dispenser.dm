@@ -274,20 +274,19 @@
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
 		return
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	if(beaker)
-		beaker.forceMove(loc)
-		beaker = null
-	if(cell)
-		cell.forceMove(loc)
-		cell = null
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(user, I))
+		if(beaker)
+			beaker.forceMove(loc)
+			beaker = null
+		if(cell)
+			cell.forceMove(loc)
+			cell = null
+		return TRUE
+
 
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!hackedcheck)
 		to_chat(user, hack_message)
@@ -301,14 +300,12 @@
 
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I)
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
+		return TRUE
 
 /obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(anchored)
 		anchored = FALSE

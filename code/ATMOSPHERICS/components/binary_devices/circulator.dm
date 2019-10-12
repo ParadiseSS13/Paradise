@@ -100,7 +100,7 @@
 
 /obj/machinery/atmospherics/binary/circulator/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(side_inverted == 0)
 		side_inverted = 1

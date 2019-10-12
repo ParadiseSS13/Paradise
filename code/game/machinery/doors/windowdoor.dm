@@ -240,7 +240,7 @@
 	if(density || operating)
 		to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")

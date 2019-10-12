@@ -440,7 +440,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	var/typelist = list("iron" = /obj/item/clothing/gloves/ring,
 						"silver" = /obj/item/clothing/gloves/ring/silver,

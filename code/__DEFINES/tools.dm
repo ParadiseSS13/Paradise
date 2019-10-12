@@ -18,8 +18,8 @@
 //Screwdriver messages
 #define SCREWDRIVER_SCREW_MESSAGE			user.visible_message("<span class='notice'>[user] tightens the screws on [src]!</span>", "<span class='notice'>You tighten the screws on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
 #define SCREWDRIVER_UNSCREW_MESSAGE			user.visible_message("<span class='notice'>[user] loosens the screws on [src]!</span>", "<span class='notice'>You loosen the screws on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
-#define SCREWDRIVER_OPEN_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] opens the panel on [src]!</span>", "<span class='notice'>You close the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
-#define SCREWDRIVER_CLOSE_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] closes the panel on [src]!</span>", "<span class='notice'>You loosen the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
+#define SCREWDRIVER_OPEN_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] opens the panel on [src]!</span>", "<span class='notice'>You open the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
+#define SCREWDRIVER_CLOSE_PANEL_MESSAGE		user.visible_message("<span class='notice'>[user] closes the panel on [src]!</span>", "<span class='notice'>You close the panel on [src]!</span>", "<span class='warning'>You hear a screwdriver.</span>")
 
 //Wirecutter messages
 #define WIRECUTTER_SNIP_MESSAGE					user.visible_message("<span class='notice'>[user] cuts the wires from [src]!</span>", "<span class='notice'>You cut the wires from [src]!</span>", "<span class='warning'>You hear snipping.</span>")
@@ -44,3 +44,4 @@
 #define WRENCH_ANCHOR_MESSAGE			user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
 #define WRENCH_UNANCHOR_MESSAGE			user.visible_message("<span class='notice'>[user] loosens the bolts on [src]!</span>", "<span class='notice'>You loosen the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
 #define WRENCH_UNANCHOR_WALL_MESSAGE	user.visible_message("<span class='notice'>[user] unwrenches [src] from the wall!</span>", "<span class='notice'>You unwrench [src] from the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_ANCHOR_TO_WALL_MESSAGE	user.visible_message("<span class='notice'>[user] affixes [src] to the wall!</span>", "<span class='notice'>You affix [src] to the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")

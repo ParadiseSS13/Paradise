@@ -76,28 +76,7 @@
 			flame_turf(turflist)
 
 /obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I) && !status)//Taking this apart
-		var/turf/T = get_turf(src)
-		if(weldtool)
-			weldtool.forceMove(T)
-			weldtool = null
-		if(igniter)
-			igniter.forceMove(T)
-			igniter = null
-		if(ptank)
-			ptank.forceMove(T)
-			ptank = null
-		new /obj/item/stack/rods(T)
-		qdel(src)
-		return
-
-	else if(isscrewdriver(I) && igniter && !lit)
-		status = !status
-		to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
-		update_icon()
-		return
-
-	else if(isigniter(I))
+	if(isigniter(I))
 		var/obj/item/assembly/igniter/IG = I
 		if(IG.secured)
 			return
@@ -130,6 +109,34 @@
 	else
 		return ..()
 
+/obj/item/flamethrower/wrench_act(mob/user, obj/item/I)
+	if(status)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/turf/T = get_turf(src)
+	if(weldtool)
+		weldtool.forceMove(T)
+		weldtool = null
+	if(igniter)
+		igniter.forceMove(T)
+		igniter = null
+	if(ptank)
+		ptank.forceMove(T)
+		ptank = null
+	new /obj/item/stack/rods(T)
+	qdel(src)
+
+/obj/item/flamethrower/screwdriver_act(mob/user, obj/item/I)
+	if(!igniter || lit)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	status = !status
+	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
+	update_icon()
 
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)

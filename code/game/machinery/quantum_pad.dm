@@ -47,12 +47,12 @@
 	return ..()
 
 /obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(I))
+	if(default_deconstruction_crowbar(user, I))
 		return TRUE
 
 /obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!multitool_check_buffer(user, I))
 		return
