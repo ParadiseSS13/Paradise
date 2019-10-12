@@ -63,8 +63,10 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 		if(BORG_WIRE_AI_CONTROL) //Cut the AI wire to reset AI control
 			if(!mended)
 				if(R.connected_ai)
+					R.notify_ai(DISCONNECT)
+					if(R.shell)
+						R.undeploy() //Forced disconnect of an AI should this body be a shell.
 					R.connected_ai = null
-					R.undeploy() //Forced disconnect of an AI should this body be a shell.
 
 		if(BORG_WIRE_CAMERA)
 			if(!isnull(R.camera) && !R.scrambledcodes)
@@ -86,10 +88,14 @@ var/const/BORG_WIRE_LAWCHECK    = 16 // Not used on MoMMIs
 	switch(index)
 		if(BORG_WIRE_AI_CONTROL) //pulse the AI wire to make the borg reselect an AI
 			if(!R.emagged)
-				R.connected_ai = select_active_ai()
-				if(R.shell)
-					R.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
-					R.notify_ai(AI_SHELL)
+				var/new_ai
+				new_ai = select_active_ai(R)
+				R.notify_ai(DISCONNECT)
+				if(new_ai && (new_ai != R.connected_ai))
+					R.connected_ai = new_ai
+					if(R.shell)
+						R.undeploy() //If this borg is an AI shell, disconnect the controlling AI and assign ti to a new AI
+						R.notify_ai(AI_SHELL)
 				else
 					R.notify_ai(NEW_BORG)
 

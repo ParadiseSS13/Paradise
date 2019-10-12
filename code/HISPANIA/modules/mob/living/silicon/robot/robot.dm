@@ -65,7 +65,7 @@ var/global/list/available_ai_shells = list()
 
 /mob/living/silicon/robot/proc/undeploy()
 
-	if(!deployed || !mainframe)
+	if(!deployed || !mind || !mainframe)
 		return
 	mainframe.redeploy_action.Grant(mainframe)
 	mainframe.redeploy_action.last_used_shell = src
@@ -79,7 +79,8 @@ var/global/list/available_ai_shells = list()
 		camera.c_tag = real_name	//update the camera name too
 	diag_hud_set_aishell()
 	mainframe.diag_hud_set_deployed()
-	mainframe.show_laws() //Always remind the AI when switching
+	if(mainframe.laws)
+		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)
