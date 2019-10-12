@@ -1421,6 +1421,8 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()
+	if(shell)
+		undeploy()
 	switch(severity)
 		if(1)
 			disable_component("comms", 160)
