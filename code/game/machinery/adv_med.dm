@@ -70,23 +70,12 @@
 	return ..()
 
 /obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
 	if(default_deconstruction_crowbar(I))
-		return
-
-
+		return TRUE
 
 /obj/machinery/bodyscanner/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	if(occupant)
-		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-		return
-	default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I)
-
+	if(default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I))
+		return TRUE
 
 /obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/I)
 	. = TRUE

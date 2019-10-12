@@ -8,7 +8,7 @@
 #define MIN_TOOL_SOUND_DELAY 20
 
 //Crowbar messages
-#define CROWBAR_PRYING_CIRCUIT_MESSAGE		user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", "<span class='notice'>You begin removing the circuitboard from [src]...</span>", "<span class='warning'>You hear prying noises.</span>")
+#define CROWBAR_PRYING_CIRCUIT_MESSAGE		user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", "<span class='notice'>You begin removing the circuit board from [src]...</span>", "<span class='warning'>You hear prying noises.</span>")
 #define CROWBAR_PRY_CIRCUIT_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] pries out the circuit board from [src]!</span>", "<span class='notice'>You pry out the circuit board from [src]!</span>", "<span class='warning'>You hear prying noises.</span>")
 #define CROWBAR_DISMANTLE_MESSAGE			user.visible_message("<span class='notice'>[user] begins dismantling [src]...</span>", "<span class='notice'>You begin dismantling [src]...</span>", "<span class='warning'>You hear prying noises.</span>")
 #define CROWBAR_DISMANTLE_SUCCESS_MESSAGE	user.visible_message("<span class='notice'>[user] dismantles [src]!</span>", "<span class='notice'>You dismantle [src]!</span>", "<span class='warning'>You hear prying noises.</span>")

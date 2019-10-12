@@ -44,17 +44,13 @@
 	return ..()
 
 /obj/machinery/snow_machine/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return TRUE
 
 /obj/machinery/snow_machine/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
 	if(default_deconstruction_screwdriver(user, "snow_machine_openpanel", "snow_machine_off", I))
 		turn_on_or_off(FALSE)
+		return TRUE
 
 /obj/machinery/snow_machine/wrench_act(mob/user, obj/item/I)
 	. = TRUE

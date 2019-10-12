@@ -389,10 +389,8 @@
 		return ..()
 
 /obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return TRUE
 
 /obj/machinery/clonepod/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -406,10 +404,8 @@
 /obj/machinery/clonepod/screwdriver_act(mob/user, obj/item/I)
 	if(occupant || mess)
 		return
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I)
+	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
+		return TRUE
 
 /obj/machinery/clonepod/wrench_act(mob/user, obj/item/I)
 	. = TRUE

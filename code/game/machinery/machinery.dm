@@ -374,13 +374,6 @@ Class Procs:
 	uid = gl_uid
 	gl_uid++
 
-/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
-	if(istype(C) && (panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
-		playsound(loc, C.usesound, 50, 1)
-		deconstruct(TRUE)
-		return 1
-	return 0
-
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
@@ -405,9 +398,22 @@ Class Procs:
 	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
 
-/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)
-	if(!(flags & NODECONSTRUCT) && istype(S))
-		playsound(loc, S.usesound, 50, 1)
+/obj/machinery/proc/default_deconstruction_crowbar(obj/item/I, ignore_panel = 0)
+	if(I.tool_behaviour != TOOL_CROWBAR)
+		return FALSE
+	if(!I.tool_start_check(user, 0))
+		return FALSE
+	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
+		deconstruct(TRUE)
+		return 1
+	return 0
+
+/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	if(I.tool_behaviour != TOOL_SCREWDRIVER)
+		return FALSE
+	if(!I.tool_start_check(user, 0))
+		return FALSE
+	if(!(flags & NODECONSTRUCT))
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open

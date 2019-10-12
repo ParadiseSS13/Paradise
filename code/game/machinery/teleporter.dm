@@ -348,16 +348,17 @@
 	return
 
 /obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
-		return
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	return ..()
+
+/obj/machinery/teleport/hub/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(I))
+		return TRUE
+
+/obj/machinery/teleport/hub/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
+		return TRUE
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	. = TRUE
@@ -530,14 +531,14 @@
 	return ..()
 
 /obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return TRUE
 
 /obj/machinery/teleport/station/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_start_check(user, 0))
+		return
+	if(!multitool_check_buffer(user, I))
 		return
 	var/obj/item/multitool/M = I
 	if(!panel_open)
@@ -549,15 +550,12 @@
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 		return
-	M.buffer = src
-	to_chat(user, "<span class='caution'>You download the data to [src]'s buffer.</span>")
+	M.set_multitool_buffer(user, src)
 
 /obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
-	. = TRUE
-	if(!I.tool_start_check(user, 0))
-		return
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
 		update_icon()
+		return TRUE
 
 /obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
