@@ -368,20 +368,20 @@ What are the archived variables for?
 
 	var/delta_temperature = (temperature_archived - model.temperature)
 
-	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= oxygen_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= carbon_dioxide_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins_archived*MINIMUM_AIR_RATIO_TO_SUSPEND)))
-		return 0
+	if(((abs(delta_oxygen) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_oxygen) >= oxygen_archived*MINIMUM_AIR_RATIO_TO_MOVE)) \
+		|| ((abs(delta_carbon_dioxide) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_carbon_dioxide) >= carbon_dioxide_archived*MINIMUM_AIR_RATIO_TO_MOVE)) \
+		|| ((abs(delta_nitrogen) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_nitrogen) >= nitrogen_archived*MINIMUM_AIR_RATIO_TO_MOVE)) \
+		|| ((abs(delta_toxins) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_toxins) >= toxins_archived*MINIMUM_AIR_RATIO_TO_MOVE)))
+		return TRUE
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
-		return 0
+		return TRUE
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
-		if(trace_gas.moles_archived > MINIMUM_AIR_TO_SUSPEND*4)
-			return 0
+		if(trace_gas.moles_archived > MINIMUM_MOLES_DELTA_TO_MOVE*4)
+			return TRUE
 
-	return 1
+	return FALSE
 
 /datum/gas_mixture/proc/check_turf_total(turf/model) //I want this proc to die a painful death
 	var/delta_oxygen = (oxygen - model.oxygen)
@@ -391,20 +391,20 @@ What are the archived variables for?
 
 	var/delta_temperature = (temperature - model.temperature)
 
-	if(((abs(delta_oxygen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_oxygen) >= oxygen*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_carbon_dioxide) >= carbon_dioxide*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_nitrogen) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_nitrogen) >= nitrogen*MINIMUM_AIR_RATIO_TO_SUSPEND)) \
-		|| ((abs(delta_toxins) > MINIMUM_AIR_TO_SUSPEND) && (abs(delta_toxins) >= toxins*MINIMUM_AIR_RATIO_TO_SUSPEND)))
-		return 0
+	if(((abs(delta_oxygen) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_oxygen) >= oxygen*MINIMUM_AIR_RATIO_TO_MOVE)) \
+		|| ((abs(delta_carbon_dioxide) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_carbon_dioxide) >= carbon_dioxide*MINIMUM_AIR_RATIO_TO_MOVE)) \
+		|| ((abs(delta_nitrogen) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_nitrogen) >= nitrogen*MINIMUM_AIR_RATIO_TO_MOVE)) \
+		|| ((abs(delta_toxins) > MINIMUM_MOLES_DELTA_TO_MOVE) && (abs(delta_toxins) >= toxins*MINIMUM_AIR_RATIO_TO_MOVE)))
+		return TRUE
 	if(abs(delta_temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
-		return 0
+		return TRUE
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
-		if(trace_gas.moles > MINIMUM_AIR_TO_SUSPEND*4)
-			return 0
+		if(trace_gas.moles > MINIMUM_MOLES_DELTA_TO_MOVE*4)
+			return TRUE
 
-	return 1
+	return FALSE
 
 /datum/gas_mixture/share(datum/gas_mixture/sharer, atmos_adjacent_turfs = 4)
 	if(!sharer)	return 0
@@ -638,46 +638,53 @@ What are the archived variables for?
 			sharer.temperature += heat/sharer.heat_capacity
 
 /datum/gas_mixture/compare(datum/gas_mixture/sample)
-	if((abs(oxygen-sample.oxygen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((oxygen < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.oxygen) || (oxygen > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.oxygen)))
-		return 0
-	if((abs(nitrogen-sample.nitrogen) > MINIMUM_AIR_TO_SUSPEND) && \
-		((nitrogen < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.nitrogen) || (nitrogen > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.nitrogen)))
-		return 0
-	if((abs(carbon_dioxide-sample.carbon_dioxide) > MINIMUM_AIR_TO_SUSPEND) && \
-		((carbon_dioxide < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.carbon_dioxide) || (oxygen > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.carbon_dioxide)))
-		return 0
-	if((abs(toxins-sample.toxins) > MINIMUM_AIR_TO_SUSPEND) && \
-		((toxins < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.toxins) || (toxins > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*sample.toxins)))
-		return 0
+	var/delta = abs(oxygen - sample.oxygen)
+	if(delta > MINIMUM_MOLES_DELTA_TO_MOVE && delta > oxygen * MINIMUM_AIR_RATIO_TO_MOVE)
+		return TRUE
 
-	if(total_moles() > MINIMUM_AIR_TO_SUSPEND)
-		if((abs(temperature-sample.temperature) > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND) && \
-			((temperature < (1-MINIMUM_TEMPERATURE_RATIO_TO_SUSPEND)*sample.temperature) || (temperature > (1+MINIMUM_TEMPERATURE_RATIO_TO_SUSPEND)*sample.temperature)))
-			return 0
+	delta = abs(nitrogen - sample.nitrogen)
+	if(delta > MINIMUM_MOLES_DELTA_TO_MOVE && delta > nitrogen * MINIMUM_AIR_RATIO_TO_MOVE)
+		return TRUE
 
-	for(var/gas in sample.trace_gases)
-		var/datum/gas/trace_gas = gas
-		if(trace_gas.moles_archived > MINIMUM_AIR_TO_SUSPEND)
-			var/datum/gas/corresponding = locate(trace_gas.type) in trace_gases
-			if(corresponding)
-				if((abs(trace_gas.moles - corresponding.moles) > MINIMUM_AIR_TO_SUSPEND) && \
-					((corresponding.moles < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*trace_gas.moles) || (corresponding.moles > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*trace_gas.moles)))
-					return 0
-			else
-				return 0
+	delta = abs(carbon_dioxide - sample.carbon_dioxide)
+	if(delta > MINIMUM_MOLES_DELTA_TO_MOVE && delta > carbon_dioxide * MINIMUM_AIR_RATIO_TO_MOVE)
+		return TRUE
+
+	delta = abs(toxins - sample.toxins)
+	if(delta > MINIMUM_MOLES_DELTA_TO_MOVE && delta > toxins * MINIMUM_AIR_RATIO_TO_MOVE)
+		return TRUE
+
+	if(total_moles() > MINIMUM_MOLES_DELTA_TO_MOVE)
+		var/temp = temperature
+		var/sample_temp = sample.temperature
+
+		var/temperature_delta = abs(temp - sample_temp)
+		if(temperature_delta > MINIMUM_TEMPERATURE_DELTA_TO_SUSPEND)
+			return TRUE
 
 	for(var/gas in trace_gases)
 		var/datum/gas/trace_gas = gas
-		if(trace_gas.moles > MINIMUM_AIR_TO_SUSPEND)
-			var/datum/gas/corresponding = locate(trace_gas.type) in sample.trace_gases
-			if(corresponding)
-				if((abs(trace_gas.moles - corresponding.moles) > MINIMUM_AIR_TO_SUSPEND) && \
-					((trace_gas.moles < (1-MINIMUM_AIR_RATIO_TO_SUSPEND)*corresponding.moles) || (trace_gas.moles > (1+MINIMUM_AIR_RATIO_TO_SUSPEND)*corresponding.moles)))
-					return 0
-			else
-				return 0
-	return 1
+		var/datum/gas/corresponding = locate(trace_gas.type) in sample.trace_gases
+		if(corresponding)
+			delta = abs(trace_gas.moles - corresponding.moles)
+			if(delta > MINIMUM_MOLES_DELTA_TO_MOVE && delta > trace_gas.moles * MINIMUM_AIR_RATIO_TO_MOVE)
+				return TRUE
+		else
+			if(trace_gas.moles > MINIMUM_MOLES_DELTA_TO_MOVE)
+				return TRUE
+
+	for(var/gas in sample.trace_gases)
+		var/datum/gas/trace_gas = gas
+		var/datum/gas/corresponding = locate(trace_gas.type) in trace_gases
+		if(corresponding)
+			delta = abs(trace_gas.moles - corresponding.moles)
+			if(delta > MINIMUM_MOLES_DELTA_TO_MOVE && delta > trace_gas.moles * MINIMUM_AIR_RATIO_TO_MOVE)
+				return TRUE
+		else
+			if(trace_gas.moles > MINIMUM_MOLES_DELTA_TO_MOVE)
+				return TRUE
+
+	return FALSE
 
 
 

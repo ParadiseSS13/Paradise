@@ -49,6 +49,7 @@
 	var/icy = 0
 	var/icyoverlay
 	var/obj/effect/hotspot/active_hotspot
+	var/atmos_cooldown  = 0
 	var/planetary_atmos = FALSE //air will revert to its initial mix over time
 
 	var/temperature_archived //USED ONLY FOR SOLIDS
@@ -145,8 +146,10 @@
 
 	var/remove = 1 //set by non simulated turfs who are sharing with this turf
 
+	atmos_cooldown++
+
 	var/planet_atmos = planetary_atmos
-	if (planet_atmos)
+	if(planet_atmos)
 		atmos_adjacent_turfs_amount++
 
 	for(var/direction in cardinal)
@@ -170,22 +173,22 @@
 							excited_group.merge_groups(enemy_simulated.excited_group) //combine groups
 						share_air(enemy_simulated) //share
 					else
-						if((recently_active == 1 && enemy_simulated.recently_active == 1) || !air.compare(enemy_simulated.air))
+						if((recently_active == 1 && enemy_simulated.recently_active == 1) || air.compare(enemy_simulated.air))
 							excited_group.add_turf(enemy_simulated) //add enemy to our group
 							share_air(enemy_simulated) //share
 				else
 					if(enemy_simulated.excited_group)
-						if((recently_active == 1 && enemy_simulated.recently_active == 1) || !air.compare(enemy_simulated.air))
+						if((recently_active == 1 && enemy_simulated.recently_active == 1) || air.compare(enemy_simulated.air))
 							enemy_simulated.excited_group.add_turf(src) //join self to enemy group
 							share_air(enemy_simulated) //share
 					else
-						if((recently_active == 1 && enemy_simulated.recently_active == 1) || !air.compare(enemy_simulated.air))
+						if((recently_active == 1 && enemy_simulated.recently_active == 1) || air.compare(enemy_simulated.air))
 							var/datum/excited_group/EG = new //generate new group
 							EG.add_turf(src)
 							EG.add_turf(enemy_simulated)
 							share_air(enemy_simulated) //share
 			else
-				if(!air.compare(enemy_simulated.air)) //compare if
+				if(air.compare(enemy_simulated.air)) //compare if
 					SSair.add_to_active(enemy_simulated) //excite enemy
 					if(excited_group)
 						excited_group.add_turf(enemy_simulated) //add enemy to group
@@ -198,7 +201,7 @@
 		/******************* GROUP HANDLING FINISH *********************************************************************/
 
 		else
-			if(!air.check_turf(enemy_tile, atmos_adjacent_turfs_amount))
+			if(air.check_turf(enemy_tile, atmos_adjacent_turfs_amount))
 				var/difference = air.mimic(enemy_tile,atmos_adjacent_turfs_amount)
 				if(difference)
 					if(difference > 0)
@@ -234,6 +237,8 @@
 		if(consider_superconductivity(starting = 1))
 			remove = 0
 
+	if(atmos_cooldown > EXCITED_GROUP_DISMANTLE_CYCLES*2)
+		SSair.remove_from_active(src)
 	if(!excited_group && remove == 1)
 		SSair.remove_from_active(src)
 
@@ -296,6 +301,10 @@
 /turf/simulated/proc/last_share_check()
 	if(air.last_share > MINIMUM_AIR_TO_SUSPEND)
 		excited_group.reset_cooldowns()
+		atmos_cooldown = 0
+	else if(air.last_share > MINIMUM_MOLES_DELTA_TO_MOVE)
+		excited_group.dismantle_cooldown = 0
+		atmos_cooldown = 0
 
 /turf/proc/high_pressure_movements()
 	var/atom/movable/M
@@ -328,6 +337,7 @@
 /datum/excited_group
 	var/list/turf_list = list()
 	var/breakdown_cooldown = 0
+	var/dismantle_cooldown = 0
 
 /datum/excited_group/New()
 	if(SSair)
@@ -355,37 +365,32 @@
 
 /datum/excited_group/proc/reset_cooldowns()
 	breakdown_cooldown = 0
+	dismantle_cooldown = 0
 
 /datum/excited_group/proc/self_breakdown()
 	var/datum/gas_mixture/A = new
-	var/datum/gas/sleeping_agent/S = new
-	A.trace_gases += S
-	for(var/turf/simulated/T in turf_list)
-		A.oxygen 		+= T.air.oxygen
-		A.carbon_dioxide+= T.air.carbon_dioxide
-		A.nitrogen 		+= T.air.nitrogen
-		A.toxins 		+= T.air.toxins
 
-		if(T.air.trace_gases.len)
-			for(var/datum/gas/N in T.air.trace_gases)
-				S.moles += N.moles
+	//make local for sanic speed
+	var/list/turf_list = src.turf_list
+	var/turflen = turf_list.len
 
 	for(var/turf/simulated/T in turf_list)
-		T.air.oxygen		= A.oxygen/turf_list.len
-		T.air.carbon_dioxide= A.carbon_dioxide/turf_list.len
-		T.air.nitrogen		= A.nitrogen/turf_list.len
-		T.air.toxins		= A.toxins/turf_list.len
+		A.merge(T.air)
 
-		if(S.moles > 0)
-			if(T.air.trace_gases.len)
-				for(var/datum/gas/G in T.air.trace_gases)
-					G.moles = S.moles/turf_list.len
-			else
-				var/datum/gas/sleeping_agent/G = new
-				G.moles = S.moles/turf_list.len
-				T.air.trace_gases += G
+	A.oxygen		= A.oxygen /turflen
+	A.carbon_dioxide= A.carbon_dioxide /turflen
+	A.nitrogen		= A.nitrogen /turflen
+	A.toxins		= A.toxins /turflen
+	if(A.trace_gases.len)
+		for(var/datum/gas/G in A.trace_gases)
+			G.moles = G.moles / turflen
 
+	for(var/turf/simulated/T in turf_list)
+		T.air.copy_from(A)
+		T.atmos_cooldown = 0
 		T.update_visuals()
+
+	breakdown_cooldown = 0
 
 
 /datum/excited_group/proc/dismantle()
@@ -505,11 +510,11 @@ turf/simulated/proc/radiate_to_spess() //Radiate excess tile heat to space
 		var/turf/enemy_tile = get_step(src, direction)
 		if(istype(enemy_tile, /turf/simulated))
 			var/turf/simulated/enemy_simulated = enemy_tile
-			if(!air.compare(enemy_simulated.air))
+			if(air.compare(enemy_simulated.air))
 				excited = 1
 				SSair.active_turfs |= src
 				break
 		else
-			if(!air.check_turf_total(enemy_tile))
+			if(air.check_turf_total(enemy_tile))
 				excited = 1
 				SSair.active_turfs |= src
