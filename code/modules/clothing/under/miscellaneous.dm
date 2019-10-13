@@ -861,3 +861,11 @@
 	item_color = "captainfreedom_suit"
 	armor = list(melee = 60, bullet = 35, laser = 35, energy = 80, bomb = 20, bio = 100, rad = 100, fire = 5, acid = 5)
 	strip_delay = 90
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi',
+		"Grey" = 'icons/mob/species/grey/helmet.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
+		"Drask" = 'icons/mob/species/drask/helmet.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/helmet.dmi'
+		)
+		
