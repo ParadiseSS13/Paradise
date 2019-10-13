@@ -447,7 +447,7 @@ Class Procs:
 			var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
 			var/P
 			if(W.works_from_distance)
-				display_parts(user)
+				to_chat(user, display_parts().Join("\n"))
 			for(var/obj/item/stock_parts/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
@@ -466,7 +466,7 @@ Class Procs:
 							break
 			RefreshParts()
 		else
-			display_parts(user)
+			to_chat(user, display_parts().Join("\n"))
 		if(shouldplaysound)
 			W.play_rped_sound()
 		return 1
