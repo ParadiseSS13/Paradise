@@ -612,7 +612,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(type == "Custom")
 		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = clean_input("Pick a title for the report.", "Title", MsgType[type])
+	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
 	if(!customname)
 		return
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
