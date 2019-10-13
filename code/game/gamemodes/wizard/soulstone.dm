@@ -206,19 +206,14 @@
 	switch(choice)
 		if("FORCE")
 			var/obj/item/soulstone/C = src
-			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
-				return 0
-			if(contents.len)
-				return 0
-			var/mob/living/carbon/T = target
+			var/mob/living/T = target
 			if(T.client != null)
-				for(var/obj/item/W in T)
-					T.unEquip(W)
 				C.init_shade(T, U)
-				return 1
 			else
 				to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
-				return C.getCultGhost(T,U)
+				T.Paralyse(10)
+				if(!C.getCultGhost(T,U))
+					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
@@ -236,10 +231,8 @@
 						if(C.contents.len)
 							to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 						else
-							for(var/obj/item/W in T)
-								T.unEquip(W)
 							C.init_shade(T, U, vic = 1)
-							qdel(T)
+
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			var/obj/item/soulstone/C = src
@@ -339,7 +332,7 @@
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow [stoner.p_their()] orders and help [stoner.p_them()] complete [stoner.p_their()] goals at all costs.</B>")
 	newstruct.cancel_camera()
 
-/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
+/obj/item/soulstone/proc/init_shade(mob/living/T, mob/U, vic = 0)
 	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.invisibility = 101
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( T.loc )
@@ -368,6 +361,12 @@
 		to_chat(S, "Your soul has been captured! You are now bound to the cult's will. Help [U.p_them()] succeed in their goals at all costs.")
 	if(vic && U)
 		to_chat(U, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from [U.p_their()] body and stored within the soul stone.")
+	if(isrobot(T))//Robots have to dust or else they spill out an empty robot brain, and unequiping them spills robot components that shouldn't spawn.
+		T.dust()
+	else
+		for(var/obj/item/W in T)
+			T.unEquip(W)
+		qdel(T)
 
 /obj/item/soulstone/proc/get_shade_type()
 	return /mob/living/simple_animal/shade/cult
@@ -375,7 +374,7 @@
 /obj/item/soulstone/anybody/get_shade_type()
 	return /mob/living/simple_animal/shade
 
-/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
+/obj/item/soulstone/proc/getCultGhost(mob/living/T, mob/U)
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body
@@ -395,8 +394,5 @@
 	if(contents.len) //If they used the soulstone on someone else in the meantime
 		return 0
 	T.ckey = chosen_ghost.ckey
-	for(var/obj/item/W in T)
-		T.unEquip(W)
 	init_shade(T, U)
-	qdel(T)
 	return 1
