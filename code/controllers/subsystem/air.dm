@@ -249,9 +249,10 @@ SUBSYSTEM_DEF(air)
 		var/datum/excited_group/EG = currentrun[currentrun.len]
 		currentrun.len--
 		EG.breakdown_cooldown++
-		if(EG.breakdown_cooldown == 10)
+		EG.dismantle_cooldown++
+		if(EG.breakdown_cooldown >= EXCITED_GROUP_BREAKDOWN_CYCLES)
 			EG.self_breakdown()
-		else if(EG.breakdown_cooldown >= 20)
+		else if(EG.dismantle_cooldown >= EXCITED_GROUP_DISMANTLE_CYCLES)
 			EG.dismantle()
 		if(MC_TICK_CHECK)
 			return
