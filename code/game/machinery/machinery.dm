@@ -437,21 +437,9 @@ Class Procs:
 		return TRUE
 	return FALSE
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
-	if(I.tool_behaviour != TOOL_WRENCH)
-		return FALSE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return FALSE
-	if(!(flags & NODECONSTRUCT))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-		if(I.use_tool(src, user, time, volume = I.tool_volume))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
-			anchored = !anchored
-			if(istype(src, /obj/machinery))
-				var/obj/machinery/M = src
-				M.power_change() //Turn on or off the machine depending on the status of power in the new area.
-		return TRUE
-	return FALSE
+/obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
+	if(..())
+		power_change()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0

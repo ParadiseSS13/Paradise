@@ -17,8 +17,6 @@
 	return ..()
 
 /obj/structure/AIcore/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/wrench))
-		return default_unfasten_wrench(user, P, 20)
 	switch(state)
 		if(EMPTY_CORE)
 			if(istype(P, /obj/item/circuitboard/aicore))
@@ -31,28 +29,7 @@
 				P.forceMove(src)
 				circuit = P
 				return
-		if(CIRCUIT_CORE)
-			if(isscrewdriver(P))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
-				state = SCREWED_CORE
-				update_icon()
-				return
-			if(iscrowbar(P))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				state = EMPTY_CORE
-				update_icon()
-				circuit.forceMove(loc)
-				circuit = null
-				return
 		if(SCREWED_CORE)
-			if(iswirecutter(P) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
-				state = CIRCUIT_CORE
-				update_icon()
-				return
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.get_amount() >= 5)
@@ -66,18 +43,6 @@
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
 				return
 		if(CABLED_CORE)
-			if(iswirecutter(P))
-				if(brain)
-					to_chat(user, "<span class='warning'>Get that [brain.name] out of there first!</span>")
-				else
-					playsound(loc, P.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You remove the cables.</span>")
-					state = SCREWED_CORE
-					update_icon()
-					var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-					A.amount = 5
-				return
-
 			if(istype(P, /obj/item/stack/sheet/rglass))
 				var/obj/item/stack/sheet/rglass/G = P
 				if(G.get_amount() >= 2)
@@ -143,54 +108,90 @@
 				update_icon()
 				return
 
-			if(iscrowbar(P) && brain)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the brain.</span>")
-				brain.forceMove(loc)
-				brain = null
-				update_icon()
-				return
-
-		if(GLASS_CORE)
-			if(istype(P, /obj/item/crowbar))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
-				state = CABLED_CORE
-				update_icon()
-				new /obj/item/stack/sheet/rglass(loc, 2)
-				return
-
-			if(isscrewdriver(P))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				if(!brain)
-					var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
-					var/obj/structure/AIcore/deactivated/D = new(loc)
-					if(open_for_latejoin)
-						empty_playable_ai_cores += D
-				else
-					if(brain.brainmob.mind)
-						SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
-						SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
-
-					var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
-					if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
-						A.rename_self("AI", 1)
-				feedback_inc("cyborg_ais_created",1)
-				qdel(src)
-
 		if(AI_READY_CORE)
 			if(istype(P, /obj/item/aicard))
 				P.transfer_ai("INACTIVE", "AICARD", src, user)
 				return
-
-			if(isscrewdriver(P))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				state = GLASS_CORE
-				update_icon()
-				return
 	return ..()
+
+/obj/structure/AIcore/crowbar_act(mob/living/user, obj/item/I)
+	if(state !=CIRCUIT_CORE || state != GLASS_CORE || !(state == CABLED_CORE && brain))
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(state)
+		if(CIRCUIT_CORE)
+			to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+			state = EMPTY_CORE
+			circuit.forceMove(loc)
+			circuit = null
+			return
+		if(GLASS_CORE)
+			to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+			state = CABLED_CORE
+			new /obj/item/stack/sheet/rglass(loc, 2)
+			return
+		if(CABLED_CORE)
+			if(brain)
+				to_chat(user, "<span class='notice'>You remove the brain.</span>")
+				brain.forceMove(loc)
+				brain = null
+	update_icon()
+
+/obj/structure/AIcore/screwdriver_act(mob/living/user, obj/item/I)
+	if(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE))
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(state)
+		if(SCREWED_CORE)
+			to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+			state = CIRCUIT_CORE
+		if(CIRCUIT_CORE)
+			to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+			state = SCREWED_CORE
+		if(GLASS_CORE)
+			to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+			if(!brain)
+				var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+				var/obj/structure/AIcore/deactivated/D = new(loc)
+				if(open_for_latejoin)
+					empty_playable_ai_cores += D
+			else
+				if(brain.brainmob.mind)
+					SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+					SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
+
+				var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
+				if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
+					A.rename_self("AI", 1)
+			feedback_inc("cyborg_ais_created",1)
+			qdel(src)
+		if(AI_READY_CORE)
+			to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+			state = GLASS_CORE
+	update_icon()
+
+
+/obj/structure/AIcore/wirecutter_act(mob/living/user, obj/item/I)
+	if(state != CABLED_CORE)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(brain)
+		to_chat(user, "<span class='warning'>Get that [brain.name] out of there first!</span>")
+	else
+		to_chat(user, "<span class='notice'>You remove the cables.</span>")
+		state = SCREWED_CORE
+		update_icon()
+		var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
+		A.amount = 5
+
+/obj/structure/AIcore/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, P, 20)
 
 /obj/structure/AIcore/update_icon()
 	switch(state)

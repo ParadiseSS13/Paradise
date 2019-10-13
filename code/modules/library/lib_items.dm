@@ -245,7 +245,7 @@
 					to_chat(user, "[W]'s screen flashes: 'Book stored in buffer. Title added to general inventory.'")
 		return 1
 	else if(istype(W, /obj/item/kitchen/knife) && !carved)
-		carve_book(user, I)
+		carve_book(user, W)
 	else
 		return ..()
 

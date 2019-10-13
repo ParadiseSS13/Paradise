@@ -777,7 +777,6 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	switch(state)
 	if(state == 2)
 		state = 3
 		to_chat(user, "You open the hatch to the power unit")

@@ -212,21 +212,6 @@
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
 		return
-	if(!(flags & NODECONSTRUCT))
-		if(isscrewdriver(I) && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-			playsound(loc, I.usesound, 50, 1)
-			if(do_after(user, 20*I.toolspeed, target = src))
-				deconstruct(TRUE)
-			return
-
-		if(iswrench(I) && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
-			playsound(loc, I.usesound, 50, 1)
-			if(do_after(user, 40*I.toolspeed, target = src))
-				playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-				deconstruct(TRUE, 1)
-			return
 
 	if(isrobot(user))
 		return
@@ -244,6 +229,33 @@
 			item_placed(I)
 	else
 		return ..()
+
+
+/obj/structure/table/screwdriver_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	if(!deconstruction_ready)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume) && deconstruction_ready)
+		deconstruct(TRUE, 1)
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+
+/obj/structure/table/wrench_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	if(!deconstruction_ready)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume) && deconstruction_ready)
+		deconstruct(TRUE, 1)
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))

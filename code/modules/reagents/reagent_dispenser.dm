@@ -229,35 +229,8 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	user.put_in_hands(S)
 	paper_cups--
 
-/obj/structure/reagent_dispensers/water_cooler/attackby(obj/item/W, mob/living/user, params)
-	add_fingerprint(user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(iswrench(W))
-		if(anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] starts loosening [src]'s floor casters.", \
-								 "<span class='notice'>You start loosening [src]'s floor casters...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				if(!loc || !anchored)
-					return
-				user.visible_message("[user] loosened [src]'s floor casters.", \
-									 "<span class='notice'>You loosen [src]'s floor casters.</span>")
-				anchored = 0
-		else
-			if(!isfloorturf(loc))
-				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
-				return
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] start securing [src]'s floor casters...", \
-								 "<span class='notice'>You start securing [src]'s floor casters...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				if(!loc || anchored)
-					return
-				user.visible_message("[user] has secured [src]'s floor casters.", \
-									 "<span class='notice'>You have secured [src]'s floor casters.</span>")
-				anchored = 1
-		return
-	return ..()
+/obj/structure/reagent_dispensers/water_cooler/wrench_act(mob/user, obj/item/I)
+	return default_unfasten_wrench(user, W, 40)
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"

@@ -681,15 +681,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	density = TRUE
 
 /obj/structure/table_frame/abductor/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(user, 30*I.toolspeed, target = src))
-			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-			for(var/i = 1, i <= framestackamount, i++)
-				new framestack(get_turf(src))
-			qdel(src)
-		return
 	if(istype(I, /obj/item/stack/sheet/mineral/abductor))
 		var/obj/item/stack/sheet/P = I
 		if(P.get_amount() < 1)

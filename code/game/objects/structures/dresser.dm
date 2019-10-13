@@ -58,9 +58,9 @@
 	. = TRUE
 	if(!I.tool_start_check(user, 0))
 		return
-	CROWBAR_DISMANTLE_MESSAGE
+	TOOL_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		CROWBAR_DISMANTLE_SUCCESS_MESSAGE
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
 
 /obj/structure/dresser/wrench_act(mob/user, obj/item/I)
