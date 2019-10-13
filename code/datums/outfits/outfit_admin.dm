@@ -186,6 +186,35 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Nanotrasen Navy Captain"), "Nanotrasen Navy Captain")
 	H.sec_hud_set_ID()
+	
+/datum/outfit/admin/captain_nt
+	name = "Captain Nanotrasen"
+	uniform = /obj/item/clothing/under/rank/centcom/captain
+	suit = /obj/item/clothing/suit/captain_nt
+	mask = /obj/item/clothing/mask/captain_nt
+	shoes = /obj/item/clothing/shoes/captain_nt
+	gloves = /obj/item/clothing/gloves/combat
+	l_ear = 	/obj/item/radio/headset/ert
+	back = /obj/item/shield/captain_nt
+	l_pocket = /obj/item/tank/emergency_oxygen/double/full
+	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
+	implants = list (
+		/obj/item/implant/mindshield,
+		/obj/item/implant/adrenalin
+	)
+	cybernetic_implants = list (
+		/obj/item/organ/internal/cyberimp/brain/anti_stun,
+		/obj/item/organ/internal/cyberimp/brain/anti_drop
+	)
+	id = /obj/item/card/id/centcom
+
+/datum/outfit/admin/captain_nt/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	var/datum/martial_art/cqc/CQC = new(null) //captain nanotrasen is skilled in the art of hand to hand combat
+	CQC.teach(H)
+	var/obj/item/card/id/I = H.wear_id
+	apply_to_card(I, H, get_centcom_access("Emergency Response Team Leader"), "Captain Nanotrasen")
+	H.sec_hud_set_ID()
 
 /datum/outfit/admin/nt_diplomat
 	name = "NT Diplomat"
@@ -304,7 +333,10 @@
 
 	suit = /obj/item/clothing/suit/pirate_black
 	head = /obj/item/clothing/head/pirate
+	
 
+
+	
 /datum/outfit/admin/vox
 	name = "Vox Raider"
 	uniform = /obj/item/clothing/under/vox/vox_robes

@@ -46,6 +46,7 @@
 	block_chance = 0
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 
+
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
 	desc = "A medieval wooden buckler."
@@ -55,6 +56,19 @@
 	origin_tech = "materials=1;combat=3;biotech=2"
 	resistance_flags = FLAMMABLE
 	block_chance = 30
+
+/obj/item/shield/captain_nt
+	name = "Captain's Shield"
+	desc = "Extremley strong shield made from exotic materials."
+	icon_state = "freedom_shield"
+	item_state = "freedom_shield"
+	force = 40
+	throwforce = 80
+	block_chance = 80
+	throw_range = 7
+	armor = list(melee = 70, bullet = 60, laser = 80, energy = 80, bomb = 30, bio = 0, rad = 0, fire = 10, acid = 30)
+	slot_flags = SLOT_BACK
+	hitsound = 'sound/effects/clangsingle.ogg'
 
 /obj/item/shield/energy
 	name = "energy combat shield"

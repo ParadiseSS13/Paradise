@@ -20,6 +20,14 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
 	flags = NOSLIP
 
+/obj/item/clothing/shoes/captain_nt
+	desc = "A sturdy set of boots made from exotic materials."
+	name = "Captain Nanotrasen's Boots"
+	icon_state = "captainfreedom_boot"
+	item_state = "captainfreedom_boot"
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 25, "energy" = 25, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 90, "acid" = 50)
+	strip_delay = 70
+
 /obj/item/clothing/shoes/sandal
 	desc = "A pair of rather plain, wooden sandals."
 	name = "sandals"

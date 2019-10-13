@@ -195,7 +195,28 @@
 	if(trigger)
 		trigger.hear_message(M, msg)
 
-
+/obj/item/clothing/mask/captain_nt
+	name = "Captain Nanotrasen's mask"
+	desc = "A sexy yet functional mask"
+	icon_state = "captainfreedom_hood"
+	item_state = "captainfreedom_hood"
+	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 80, "bomb" = 25, "bio" = 100, "rad" = 80, "fire" = 50, "acid" = 50)
+	flags_inv = HIDEEARS
+	flags = AIRTIGHT|BLOCKHAIR
+	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
+	cold_protection = HEAD
+	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
+	heat_protection = HEAD
+	strip_delay = 90
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
+		)
+	
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"

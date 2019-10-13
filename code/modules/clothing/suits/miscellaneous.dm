@@ -91,6 +91,16 @@
 	icon_state = "johnny"
 	item_state = "johnny"
 
+/obj/item/clothing/suit/captain_nt
+	name = "Captain Nanotrasen's suit"
+	desc = "A sturdy suit with exotic reinforcing fibers to protect the Captain."
+	icon_state = "captainfreedom_suit"
+	item_state = "captainfreedom_suit"
+	item_color = "captainfreedom_suit"
+	armor = list(melee = 60, bullet = 35, laser = 35, energy = 80, bomb = 20, bio = 100, rad = 100, fire = 5, acid = 5)
+	flags_inv = HIDEJUMPSUIT
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	strip_delay = 110
 
 /obj/item/clothing/suit/justice
 	name = "justice suit"
