@@ -9,24 +9,28 @@ var/global/list/all_cults = list()
 
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)
-		return 0
+		return FALSE
 	if(!mind.current)
-		return 0
+		return FALSE
 	if(iscultist(mind.current))
-		return 1 //If they're already in the cult, assume they are convertable
+		return TRUE //If they're already in the cult, assume they are convertable
 	if(ishuman(mind.current) && (mind.assigned_role in list("Captain", "Chaplain")))
-		return 0
+		return FALSE
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current
-		if(ismindshielded(H))
-			return 0
+		if(ismindshielded(H)) //mindshield protects against conversions unless removed
+			return FALSE
+		if(mind.offstation_role) //cant convert offstation roles such as ghost spawns...
+			if(isgolem(mind.current) && owner && iscultist(owner)) //... unless it's a servant golem of a cultist
+				return TRUE
+			return FALSE
 	if(issilicon(mind.current))
-		return 0 //can't convert machines, that's ratvar's thing
+		return FALSE //can't convert machines, that's ratvar's thing
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
 		if(!iscultist(G.summoner))
-			return 0 //can't convert it unless the owner is converted
-	return 1
+			return FALSE //can't convert it unless the owner is converted
+	return TRUE
 
 /proc/is_sacrifice_target(datum/mind/mind)
 	if(SSticker.mode.name == "cult")
