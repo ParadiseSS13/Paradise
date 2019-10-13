@@ -94,11 +94,11 @@
 		return
 	return ..()
 
-/obj/machinery/atmospherics/deconstruct(disassembled = TRUE)
+/obj/machinery/telepad_cargo/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 		new /obj/item/stack/sheet/glass(loc)
-	qdel(src)
+	..()
 
 
 ///TELEPAD CALLER///
