@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscdel: "Removed admin-only \"show duplicate discord links\" verb."
