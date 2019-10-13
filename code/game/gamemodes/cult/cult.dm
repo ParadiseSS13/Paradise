@@ -20,10 +20,8 @@ var/global/list/all_cults = list()
 		var/mob/living/carbon/human/H = mind.current
 		if(ismindshielded(H)) //mindshield protects against conversions unless removed
 			return FALSE
-		if(mind.offstation_role) //cant convert offstation roles such as ghost spawns...
-			if(isgolem(mind.current) && owner && iscultist(owner)) //... unless it's a servant golem of a cultist
-				return TRUE
-			return FALSE
+	if(mind.offstation_role) //cant convert offstation roles such as ghost spawns
+		return FALSE
 	if(issilicon(mind.current))
 		return FALSE //can't convert machines, that's ratvar's thing
 	if(isguardian(mind.current))
