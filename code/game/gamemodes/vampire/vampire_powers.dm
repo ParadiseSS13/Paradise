@@ -579,8 +579,8 @@
 		adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in bodyparts)
 			if(prob(25))
-				if(E.mend_fracture())
-					E.perma_injury = 0
+				E.mend_fracture()
+
 		return
 	if(stat != DEAD)
 		if(weakened)

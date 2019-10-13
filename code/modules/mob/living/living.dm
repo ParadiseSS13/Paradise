@@ -474,6 +474,16 @@
 		human_mob.update_dna()
 	return
 
+/mob/living/proc/remove_CC(should_update_canmove = TRUE)
+	SetWeakened(0, FALSE)
+	SetWeaken(0, FALSE)
+	SetParalysis(0, FALSE)
+	SetSleeping(0, FALSE)
+	setStaminaLoss(0)
+	SetSlowed(0)
+	if(should_update_canmove)
+		update_canmove()
+
 /mob/living/proc/UpdateDamageIcon()
 	return
 

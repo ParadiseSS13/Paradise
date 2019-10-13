@@ -22,8 +22,7 @@
 			var/obj/item/organ/internal/I = thing
 			I.receive_damage(-5, FALSE)
 		for(var/obj/item/organ/external/E in H.bodyparts)
-			if(E.mend_fracture())
-				E.perma_injury = 0
+			E.mend_fracture()
 	M.SetEyeBlind(0, FALSE)
 	M.CureNearsighted(FALSE)
 	M.CureBlind(FALSE)
