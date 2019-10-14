@@ -191,7 +191,10 @@
 		A.amount = 5
 
 /obj/structure/AIcore/wrench_act(mob/living/user, obj/item/I)
-	return default_unfasten_wrench(user, P, 20)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, P, 20)
 
 /obj/structure/AIcore/update_icon()
 	switch(state)

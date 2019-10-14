@@ -568,25 +568,28 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	SSnanoui.update_uis(src)
 	return 1
 
-/obj/machinery/newscaster/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(user, 60 * I.toolspeed, target = src))
-			playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
-			if(stat & BROKEN)
-				to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
-				new /obj/item/stack/sheet/metal(loc, 5)
-				new /obj/item/shard(loc)
-				new /obj/item/shard(loc)
-			else
-				to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
-				new /obj/item/mounted/frame/newscaster_frame(loc)
-			qdel(src)
+/obj/machinery/newscaster/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name]</span>")
+	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
+		return
+	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
+		new /obj/item/stack/sheet/metal(loc, 5)
+		new /obj/item/shard(loc)
+		new /obj/item/shard(loc)
 	else
-		return ..()
+		to_chat(user, "<span class='notice'>You [anchored ? "un" : ""]secure [name].</span>")
+		new /obj/item/mounted/frame/newscaster_frame(loc)
+	qdel(src)
 
 /obj/machinery/newscaster/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
 	default_welder_repair(user, I)
 
 /obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)

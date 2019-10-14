@@ -199,7 +199,10 @@
 	return ..()
 
 /obj/structure/beebox/wrench_act(mob/user, obj/item/I)
-	return default_unfasten_wrench(user, I, time = 20)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, time = 20)
 
 /obj/structure/beebox/attack_hand(mob/user)
 	if(ishuman(user))

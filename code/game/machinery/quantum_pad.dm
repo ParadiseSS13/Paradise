@@ -47,8 +47,10 @@
 	return ..()
 
 /obj/machinery/quantumpad/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
+		. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/quantumpad/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -64,8 +66,7 @@
 		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I))
-		return TRUE
+	return default_deconstruction_screwdriver(user, "pad-idle-o", "qpad-idle", I)
 
 /obj/machinery/quantumpad/attack_hand(mob/user)
 	if(panel_open)

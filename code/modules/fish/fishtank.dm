@@ -365,6 +365,9 @@
 	egg_count++
 
 /obj/machinery/fishtank/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
 	default_welder_repair(user, I)
 
 //////////////////////////////		Note from FalseIncarnate:

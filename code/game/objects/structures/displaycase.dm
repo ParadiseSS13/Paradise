@@ -139,7 +139,8 @@
 
 
 obj/structure/displaycase/welder_act(mob/user, obj/item/I)
-	if(default_welder_repair(user, I))
+	. = default_welder_repair(user, I)
+	if(.)
 		broken = FALSE
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)

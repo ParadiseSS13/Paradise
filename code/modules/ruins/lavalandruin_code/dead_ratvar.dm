@@ -105,7 +105,10 @@
 		deconstruct(TRUE)
 
 /obj/structure/clockwork/wall_gear/wrench_act(mob/user, obj/item/I)
-	return default_unfasten_wrench(user, I, 10)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 10)
 
 /obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/tile/brass))

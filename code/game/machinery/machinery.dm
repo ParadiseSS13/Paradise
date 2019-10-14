@@ -177,7 +177,8 @@ Class Procs:
 		new /obj/effect/temp_visual/emp(loc)
 	..()
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
-	if(..())
+	. = ..()
+	if(.)
 		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update

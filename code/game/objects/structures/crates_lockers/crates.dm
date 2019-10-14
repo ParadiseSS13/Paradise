@@ -443,7 +443,10 @@
 	anchored = TRUE
 
 /obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
-	return default_unfasten_wrench(user, W, 40)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, W, 40)
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
