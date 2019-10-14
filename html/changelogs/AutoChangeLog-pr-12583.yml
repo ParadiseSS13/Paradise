@@ -1,0 +1,4 @@
+author: "Tayyyyyyy"
+delete-after: True
+changes: 
+  - bugfix: "single quotes showing up weird in names and announcement titles"
