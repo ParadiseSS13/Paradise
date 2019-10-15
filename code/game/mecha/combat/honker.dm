@@ -2,7 +2,7 @@
 	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. Used to spread the fun and joy of life. HONK!"
 	name = "H.O.N.K"
 	icon_state = "honker"
-	initial_icon = "honker"
+	base_icon_state = "honker"
 	step_in = 3
 	max_integrity = 140
 	deflect_chance = 60
@@ -17,6 +17,27 @@
 	starting_voice = /obj/item/mecha_modkit/voice/honk
 	var/squeak = 0
 
+	basecoat_icon = "honker-shell"
+	basecoat_colour = "#880000"
+	glow_icon = "honker-glow"
+	glow_colour = "#FF0000"
+	icon_decal_root	= "honker-decal"
+	decals = list()
+	fast_render_mode = TRUE
+	default_decals = list(
+		new /datum/mecha/mecha_decal/honker_nose,
+		new /datum/mecha/mecha_decal/honker_hair,
+		new /datum/mecha/mecha_decal/honker_arms,
+		new /datum/mecha/mecha_decal/honker_braces,
+		new /datum/mecha/mecha_decal/honker_horn,
+		new /datum/mecha/mecha_decal/honker_legs,
+		new /datum/mecha/mecha_decal/honker_mortar,
+		new /datum/mecha/mecha_decal/honker_mouth,
+		new /datum/mecha/mecha_decal/honker_shoes,
+		new /datum/mecha/mecha_decal/honker_vest,
+		new /datum/mecha/mecha_decal/honker_stripes
+	)
+
 /obj/mecha/combat/honker/loaded/New()
 	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/honker
@@ -25,6 +46,15 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar
 	ME.attach(src)
+
+// Customizing is slow. A spawned loaded honker gets this ability to quickly generate a suitably eye-melting colour scheme.
+/obj/mecha/combat/honker/loaded/GrantActions(mob/living/user, human_occupant = 0)
+	..()
+	colourize_action.Grant(user, src)
+
+/obj/mecha/combat/honker/loaded/RemoveActions(mob/living/user, human_occupant = 0)
+	..()
+	colourize_action.Remove(user)
 
 /obj/mecha/combat/honker/get_stats_part()
 	var/integrity = obj_integrity/max_integrity*100

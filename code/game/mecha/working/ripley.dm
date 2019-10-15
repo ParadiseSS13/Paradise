@@ -2,7 +2,7 @@
 	desc = "Autonomous Power Loader Unit. This newer model is refitted with powerful armour against the dangers of the EVA mining process."
 	name = "APLU \"Ripley\""
 	icon_state = "ripley"
-	initial_icon = "ripley"
+	base_icon_state = "ripley"
 	step_in = 4 //Move speed, lower is faster.
 	var/fast_pressure_step_in = 2 //step_in while in normal pressure conditions
 	var/slow_pressure_step_in = 4 //step_in while in better pressure conditions
@@ -16,6 +16,13 @@
 	var/list/cargo = new
 	var/cargo_capacity = 15
 	var/hides = 0
+
+	basecoat_icon = "ripley-shell"
+	basecoat_colour = "#8a7810"
+	glow_icon = "ripley-glow"
+	glow_colour = "#00FF00"
+	icon_decal_root	= "ripley-decal"
+	decals = list()
 
 /obj/mecha/working/ripley/Move()
 	. = ..()
@@ -52,20 +59,24 @@
 	..()
 	update_icon()
 
+// Goliath hides will always go on top of layer 2 or below decals, but layer 3+ can go on top (i.e Titan's Fist).
 /obj/mecha/working/ripley/update_icon()
 	..()
 	if(hides)
-		cut_overlays()
+		var/basedecal
 		if(hides < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+			basedecal = (occupant ? "[icon_decal_root]-goliath" : "[icon_decal_root]-goliath-open")
 		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+			basedecal = (occupant ? "[icon_decal_root]-goliath_full" : "[icon_decal_root]-goliath_full-open")
+			
+		visible_message("Creating overlay: [basedecal]")
+		overlays += create_overlay(basedecal, decal_layer = 2)
 
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
 	name = "APLU \"Firefighter\""
-	icon_state = "firefighter"
-	initial_icon = "firefighter"
+	icon_state = "ripley"
+	base_icon_state = "ripley"
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -73,12 +84,13 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+	basecoat_colour = "#53684b"
+	glow_colour = "#9b0000"
 
 /obj/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
 	name = "DEATH-RIPLEY"
-	icon_state = "deathripley"
-	initial_icon = "deathripley"
+	base_icon_state = "ripley"
 	step_in = 3
 	slow_pressure_step_in = 3
 	opacity=0
@@ -89,6 +101,9 @@
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
+	basecoat_colour = "#000000"
+	glow_colour = "#FF0000"
+	default_decals = list(new/datum/mecha/mecha_decal/deathripley)
 
 /obj/mecha/working/ripley/deathripley/New()
 	..()

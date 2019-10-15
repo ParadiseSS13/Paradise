@@ -1,5 +1,5 @@
-/obj/item/paintkit //Please don't use this for anything, it's a base type for custom mech paintjobs.
-	name = "mecha customisation kit"
+/obj/item/overhaul_kit //Please don't use this for anything, it's a base type for custom mech paintjobs.
+	name = "mecha overhaul kit"
 	desc = "A generic kit containing all the needed tools and parts to turn a mech into another mech."
 	icon = 'icons/obj/paintkit.dmi'
 	icon_state = "paintkit"
@@ -10,8 +10,8 @@
 	var/removable = null     //Can the kit be removed?
 	var/list/allowed_types = list() //Types of mech that the kit will work on.
 
-/obj/item/paintkit/titansfist
-	name = "APLU \"Ripley\" customisation kit"
+/obj/item/overhaul_kit/titansfist
+	name = "APLU \"Ripley\" Titan's Fist overhaul kit"
 	desc = "A kit containing all the needed tools and parts to turn an APLU \"Ripley\" into a Titan's Fist worker mech."
 	icon_state = "paintkit_2"
 
@@ -20,8 +20,8 @@
 	new_icon = "titan"
 	allowed_types = list("ripley","firefighter")
 
-/obj/item/paintkit/mercenary
-	name = "Mercenary APLU \"Ripley\" kit"
+/obj/item/overhaul_kit/mercenary
+	name = "APLU \"Ripley\" Mercenary overhaul kit"
 	desc = "A kit containing all the needed tools and parts to turn an APLU \"Ripley\" into an old Mercenaries APLU."
 
 

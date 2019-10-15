@@ -14,7 +14,6 @@
 	bubble_icon = "machine"
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
-	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
 	var/can_move = 0 // time of next allowed movement
 	var/mob/living/carbon/occupant = null
 	var/step_in = 10 //make a step in step_in/10 sec.
@@ -93,14 +92,39 @@
 	var/zoom_mode = FALSE
 	var/phasing = FALSE
 	var/phasing_energy_drain = 200
-	var/phase_state = "" //icon_state when phasing
+	var/icon/phase_mask
+	var/icon/phase_icon
+	var/next_colourize_at = 0
+
+	var/base_icon_state
+
+	// Holding vars for cosmetic mods
+	var/cosmetics_enabled = TRUE // If false, will not show overlays nor open the paintgun UI.
+	var/basecoat_icon		// Base mech overlay (for colouring)
+	var/basecoat_colour = "#000000"
+
+	var/glow_icon		// The basic glowing bits.
+	var/glow_colour = "#000000"
+
+	var/decal_icons = 'icons/mecha/mecha_decals.dmi'	// The file where the decal icons are stored. Seperated for neatness.
+	var/icon_decal_root	// Decals. Flame decals, anyone? Might have to make these as datums to hold colour info.
+	var/list/datum/mecha/mecha_decal/decals = list() 
+	var/list/datum/mecha/mecha_decal/default_decals = list() // Decals that come with the mech by default go here.
+
+	// Frontloads all the needed image processing to cut down on update checks.
+	var/icon/mech_icon_cache  // Contains the flattened new mech appearance after customization.
+	var/icon/glow_icon_cache  // Contains the glowy bits to be rendered on top.
+
+	// Some mechs with unreasonable numbers of decals can briefly halt the system while it processes. 
+	// This mode stops some of the more extraneous blends to speed up processing.
+	// This will reduce colour depth and may lead to layering issues if decals are not controlled.
+	var/fast_render_mode = FALSE 
 
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
 
 /obj/mecha/Initialize()
 	. = ..()
 	events = new
-	icon_state += "-open"
 	add_radio()
 	add_cabin()
 	add_airtank()
@@ -120,10 +144,239 @@
 	diag_hud_set_mechcell()
 	diag_hud_set_mechstat()
 	diag_hud_set_mechtracking()
+	if(default_decals.len)
+		for(var/datum/mecha/mecha_decal/MD in default_decals)
+			var/datum/mecha/mecha_decal/MDclone = MD.clone()
+			MDclone.can_strip = FALSE
+			decals.Add(MDclone)
+	redraw_cache()
 
 	var/obj/item/mecha_modkit/voice/V = new starting_voice(src)
 	V.install(src)
 	qdel(V)
+
+////////////////////////
+//// Mech Overlays /////
+////////////////////////
+// See mecha_decals.dm for more info.
+
+/obj/mecha/update_icon()
+	. = ..()
+	overlays.Cut()
+	icon_state = occupant ? "[base_icon_state]" : "[base_icon_state]-open"
+	if(cosmetics_enabled)
+		icon = mech_icon_cache
+		if(glow_icon_cache)
+			overlays += mutable_appearance(glow_icon_cache, (occupant ? "[glow_icon]" : "[glow_icon]-open"), ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
+
+#define FORCE_OCCUPIED ""
+#define FORCE_OPEN "-open"
+#define FORCE_BROKEN "-broken"
+
+/obj/mecha/proc/redraw_cache()
+	if(cosmetics_enabled)
+		icon = 'icons/mecha/mecha.dmi'
+		generate_mech_icon_cache()
+		generate_mech_glow_cache()
+		update_icon()
+
+// Generates and caches all four directions and the open and broken states after altering the mech's appearance.
+/obj/mecha/proc/generate_mech_icon_cache()
+	mech_icon_cache = new()
+	var/list/mech_icon_directions = list(NORTH, SOUTH, EAST, WEST)
+	var/obj/icon_holder = new()
+	// OCCUPIED
+	icon_holder.overlays.Cut()
+	var/icon/temp_icon = new(icon, base_icon_state)
+	icon_holder.icon = temp_icon
+	if(basecoat_icon)
+		icon_holder.overlays += create_overlay("[basecoat_icon]", basecoat_colour, force_state = FORCE_OCCUPIED)
+	if(glow_icon)
+		icon_holder.overlays += create_overlay("[glow_icon]", glow_colour, force_state = FORCE_OCCUPIED)
+	if(icon_decal_root && decals)
+		for(var/datum/mecha/mecha_decal/decal in decals)
+			icon_holder.overlays += get_overlay_from_decal(decal, FORCE_OCCUPIED)
+	if(icon_holder.overlays.len)
+		for(var/direction in mech_icon_directions)
+			mech_icon_cache.Insert(getFlatIcon(icon_holder, direction), base_icon_state, direction)
+	// OPEN
+	icon_holder.overlays.Cut()
+	temp_icon = new(icon, "[base_icon_state]-open")
+	icon_holder.icon = temp_icon
+	if(basecoat_icon)
+		icon_holder.overlays += create_overlay("[basecoat_icon]-open", basecoat_colour, force_state = FORCE_OPEN)
+	if(glow_icon)
+		icon_holder.overlays += create_overlay("[glow_icon]-open", glow_colour, force_state = FORCE_OPEN)
+	if(icon_decal_root && decals)
+		for(var/datum/mecha/mecha_decal/decal in decals)
+			icon_holder.overlays += get_overlay_from_decal(decal, FORCE_OPEN)
+	mech_icon_cache.Insert(getFlatIcon(icon_holder), "[base_icon_state]-open")
+	// BROKEN
+	icon_holder.overlays.Cut()
+	temp_icon = new(icon, "[base_icon_state]-broken")
+	icon_holder.icon = temp_icon
+	if(basecoat_icon)
+		icon_holder.overlays += create_overlay("[basecoat_icon]-broken", basecoat_colour, force_state = FORCE_BROKEN)
+	if(glow_icon)
+		icon_holder.overlays += create_overlay("[glow_icon]-broken", glow_colour, force_state = FORCE_BROKEN)
+	if(icon_decal_root && decals)
+		for(var/datum/mecha/mecha_decal/decal in decals)
+			icon_holder.overlays += get_overlay_from_decal(decal, FORCE_BROKEN)
+	mech_icon_cache.Insert(getFlatIcon(icon_holder), "[base_icon_state]-broken")
+
+	icon = mech_icon_cache
+
+// Creates the glowy bits overlay including all the glowy decals.
+// TODO: glow layer doesn't show up when any decal is present. Likely a stencil mask problem.
+/obj/mecha/proc/generate_mech_glow_cache()
+	glow_icon_cache = new()
+	var/list/mech_icon_directions = list(NORTH, SOUTH, EAST, WEST)
+	var/obj/icon_holder = new()
+	// OCCUPIED
+	icon_holder.overlays.Cut()
+	icon_holder.icon = create_overlay("[glow_icon]", glow_colour, glow = TRUE, force_state = FORCE_OCCUPIED)
+	if(icon_decal_root && decals)
+		for(var/datum/mecha/mecha_decal/decal in decals)
+			if(decal.glowing)
+				icon_holder.overlays += get_overlay_from_decal(decal, FORCE_OCCUPIED)
+	for(var/direction in mech_icon_directions)
+		glow_icon_cache.Insert(getFlatIcon(icon_holder, direction), glow_icon, direction)
+	// OPEN
+	icon_holder.overlays.Cut()
+	icon_holder.icon = create_overlay("[glow_icon]-open", glow_colour, glow = TRUE, force_state = FORCE_OPEN)
+	if(icon_decal_root && decals)
+		for(var/datum/mecha/mecha_decal/decal in decals)
+			if(decal.glowing)
+				icon_holder.overlays += get_overlay_from_decal(decal, FORCE_OPEN)
+	glow_icon_cache.Insert(getFlatIcon(icon_holder), "[glow_icon]-open")
+	// BROKEN
+	icon_holder.overlays.Cut()
+	icon_holder.icon = create_overlay("[glow_icon]-broken", glow_colour, glow = TRUE, force_state = FORCE_BROKEN)
+	if(icon_decal_root && decals)
+		for(var/datum/mecha/mecha_decal/decal in decals)
+			if(decal.glowing)
+				icon_holder.overlays += get_overlay_from_decal(decal, FORCE_BROKEN)
+	glow_icon_cache.Insert(getFlatIcon(icon_holder), "[glow_icon]-broken")
+
+#define NO_COLOUR null
+#define SUBTRACT_BALANCE "#333333"
+// Takes the data from the supplied decal and passes it into create_overlay, then returns the result as a Mutable Appearance.
+/obj/mecha/proc/get_overlay_from_decal(var/datum/mecha/mecha_decal/decal, var/force_state)
+	var/new_icon_name
+	if(force_state == FORCE_OCCUPIED)
+		if(!decal.has_state_occupied)
+			return
+	else if(force_state == FORCE_OPEN)
+		if(!decal.has_state_open)
+			return
+	else if(force_state == FORCE_BROKEN)
+		if(!decal.has_state_broken)
+			return
+
+	new_icon_name = "[icon_decal_root]-[decal.decal_string][force_state]"
+	var/colour_state = decal.mutable_colour ? decal.decal_colour : NO_COLOUR
+	return create_overlay(new_icon_name, colour_state, decal.glowing, decal.decal_layer, force_state)
+
+
+// Returns a Mutable Appearance based on icon_name to be applied to the base sprite as an overlay.
+/obj/mecha/proc/create_overlay(var/icon_name, var/added_colour = NO_COLOUR, var/glow = FALSE, var/decal_layer = 0, var/force_state)
+	var/icon/I = new(decal_icons, icon_name)
+	if(I)
+		if(added_colour != NO_COLOUR)
+			if(!fast_render_mode)
+				I.Blend(SUBTRACT_BALANCE, ICON_SUBTRACT)
+			I.Blend(added_colour, ICON_ADD)
+			I.Blend(I, ICON_MULTIPLY)
+			if(!fast_render_mode)
+				for(var/datum/mecha/mecha_decal/decal in decals)
+					if(force_state == FORCE_OCCUPIED && !decal.has_state_occupied)
+						continue
+					if(force_state == FORCE_OPEN && !decal.has_state_open)
+						continue
+					if(force_state == FORCE_BROKEN && !decal.has_state_broken)
+						continue
+					if(decal.decal_layer > decal_layer && glow)
+						var/icon/stencil_icon = new(decal_icons, "[icon_decal_root]-[decal.decal_string][force_state]")
+						I = get_icon_difference(I, stencil_icon)
+		var/mutable_appearance/MA = mutable_appearance(I, "")
+		return MA
+	return
+
+#undef FORCE_NONE
+#undef FORCE_OCCUPIED
+#undef FORCE_UNOCCUPIED
+#undef FORCE_BROKEN
+#undef NO_COLOUR
+
+// Add decal to the list and order it according to its layer.
+/obj/mecha/proc/add_decal(var/datum/mecha/mecha_decal/decal)
+	if(!decals)
+		return FALSE
+	for(var/datum/mecha/mecha_decal/checked_decal in decals)
+		if(checked_decal.decal_string == decal.decal_string)
+			checked_decal = decal.clone()
+			return TRUE
+		if(checked_decal.decal_layer > decal.decal_layer)
+			decals.Insert(decals.Find(checked_decal), decal)
+			update_icon(redraw_cache = TRUE)
+			return TRUE
+	decals.Add(decal)
+	redraw_cache()
+	return TRUE
+	
+/obj/mecha/proc/strip_decal(var/datum/mecha/mecha_decal/decal)
+	if(decals)
+		decals.Remove(decal)
+		redraw_cache()
+
+// Returns a list of decal strings for easy comparison.
+/obj/mecha/proc/get_decal_strings()
+    var/list/decalstrings = list()
+    if(decals.len)
+        for(var/datum/mecha/mecha_decal/MD in decals)
+            decalstrings.Add(MD.decal_string)
+    return decalstrings
+
+// Applies decals and colouring to wreckage on destruction.
+/obj/mecha/proc/paint_wreckage(var/obj/structure/mecha_wreckage/wreck)
+	if(wreckage && wreck && cosmetics_enabled)
+		wreck.wreck_cache_icon = icon(mech_icon_cache, "[base_icon_state]-broken")
+		wreck.wreck_cache_glow = icon(glow_icon_cache, "[glow_icon]-broken")
+		wreck.update_icon()
+
+////////////////////////
+/// Phazon Animators ///
+////////////////////////
+// Visual glitches for the phazon while phasing.
+// Should probably be on the phazon object, but the phasing code is on the base mech so ehhhh
+/obj/mecha/proc/toggle_phasing()
+	phasing = !phasing
+	if(phasing)
+		glow_icon_cache.Blend("#333333", ICON_ADD)
+		alpha = 160
+		update_icon()
+		animate_glitch()
+	else
+		redraw_cache()
+		alpha = 255
+
+// generates a small glitch in a random position on the mech for a fraction of a second.
+/obj/mecha/proc/animate_glitch()
+	var/chosen_glitch = rand(1,5)
+	var/chosen_glitch_state = "glitch-[chosen_glitch]"
+	var/icon/glitch_icon = icon('icons/mecha/mecha_decals.dmi', chosen_glitch_state)
+	glitch_icon.Shift(NORTH,rand(-16, 16),TRUE) 
+	glitch_icon.Shift(EAST,rand(-16, 16),TRUE) 
+	var/icon/glitch_mech = icon(mech_icon_cache, icon_state)
+	glitch_mech.AddAlphaMask(icon(glitch_icon))
+	var/icon/glitch_overlay = icon(glow_icon_cache, icon_state)
+	glitch_overlay.AddAlphaMask(icon(glitch_icon))
+	overlays.Cut()
+	overlays += mutable_appearance(glitch_overlay, (occupant ? "[glow_icon]" : "[glow_icon]-open"), ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
+	addtimer(CALLBACK(src, .proc/update_icon), 2)
+	flick(glitch_mech, src)
+	if(phasing)
+		addtimer(CALLBACK(src, .proc/animate_glitch), rand(1,15))
 
 ////////////////////////
 ////// Helpers /////////
@@ -160,6 +413,8 @@
 
 /obj/mecha/examine(mob/user)
 	. = ..()
+	if(basecoat_colour && (basecoat_colour != initial(basecoat_colour) || decals.len > 0))
+		. += "<span class='notice'>It looks slightly different to the standard model.</span>"
 	var/integrity = obj_integrity * 100 / max_integrity
 	switch(integrity)
 		if(85 to 100)
@@ -346,7 +601,6 @@
 		if(phasing && get_charge() >= phasing_energy_drain)
 			if(can_move < world.time)
 				. = FALSE // We lie to mech code and say we didn't get to move, because we want to handle power usage + cooldown ourself
-				flick("phazon-phase", src)
 				forceMove(get_step(src, direction))
 				use_power(phasing_energy_drain)
 				playsound(src, stepsound, 40, 1)
@@ -608,7 +862,7 @@
 /obj/mecha/handle_atom_del(atom/A)
 	if(A == occupant)
 		occupant = null
-		icon_state = initial(icon_state)+"-open"
+		update_icon()
 		setDir(dir_in)
 	if(A in trackers)
 		trackers -= A
@@ -735,16 +989,18 @@
 		diag_hud_set_mechtracking()
 		return
 
-	else if(istype(W, /obj/item/paintkit))
+// Legacy support: adding paintkits disables the cosmetic modification system. 
+// Still has some use for major visual overhauls.
+	else if(istype(W, /obj/item/overhaul_kit))
 		if(occupant)
 			to_chat(user, "You can't customize a mech while someone is piloting it - that would be unsafe!")
 			return
 
-		var/obj/item/paintkit/P = W
+		var/obj/item/overhaul_kit/P = W
 		var/found = null
 
 		for(var/type in P.allowed_types)
-			if(type == initial_icon)
+			if(type == base_icon_state)
 				found = 1
 				break
 
@@ -753,11 +1009,11 @@
 			return
 
 		user.visible_message("[user] opens [P] and spends some quality time customising [src].")
-
+		cosmetics_enabled = FALSE
 		name = P.new_name
 		desc = P.new_desc
-		initial_icon = P.new_icon
-		reset_icon()
+		base_icon_state = P.new_icon
+		update_icon()
 
 		user.drop_item()
 		qdel(P)
@@ -919,7 +1175,7 @@
 			occupant = null
 			AI.controlled_mech = null
 			AI.remote_control = null
-			icon_state = initial(icon_state)+"-open"
+			update_icon()
 			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
 			to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
@@ -953,7 +1209,7 @@
 	AI.aiRestorePowerRoutine = 0
 	AI.loc = src
 	occupant = AI
-	icon_state = initial(icon_state)
+	update_icon()
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!hasInternalDamage())
 		occupant << sound(nominalsound, volume = 50)
@@ -1109,7 +1365,7 @@
 		GrantActions(H, human_occupant = 1)
 		forceMove(loc)
 		log_append_to_last("[H] moved in as pilot.")
-		icon_state = reset_icon()
+		update_icon()
 		dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 		if(!activated)
@@ -1170,7 +1426,7 @@
 		mmi_as_oc.mecha = src
 		Entered(mmi_as_oc)
 		Move(loc)
-		icon_state = reset_icon()
+		update_icon()
 		dir = dir_in
 		log_message("[mmi_as_oc] moved in as pilot.")
 		if(!hasInternalDamage())
@@ -1251,7 +1507,7 @@
 				var/obj/item/mmi/robotic_brain/R = mmi
 				if(R.imprinted_master)
 					to_chat(L, "<span class='notice'>Imprint re-enabled, you are once again bound to [R.imprinted_master]'s commands.</span>")
-		icon_state = initial(icon_state)+"-open"
+		update_icon()
 		dir = dir_in
 
 	if(L && L.client)
@@ -1350,13 +1606,6 @@
 				occupant.throw_alert("charge", /obj/screen/alert/mech_emptycell)
 	else
 		occupant.throw_alert("charge", /obj/screen/alert/mech_nocell)
-
-/obj/mecha/proc/reset_icon()
-	if(initial_icon)
-		icon_state = initial_icon
-	else
-		icon_state = initial(icon_state)
-	return icon_state
 
 //////////////////////////////////////////
 ////////  Mecha global iterators  ////////
@@ -1478,6 +1727,7 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		paint_wreckage(WR)
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E

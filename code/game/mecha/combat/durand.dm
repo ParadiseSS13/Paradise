@@ -2,7 +2,7 @@
 	desc = "It's time to light some fires and kick some tires."
 	name = "Durand Mk. II"
 	icon_state = "durand"
-	initial_icon = "durand"
+	base_icon_state = "durand"
 	step_in = 4
 	dir_in = 1 //Facing North.
 	max_integrity = 400
@@ -12,6 +12,14 @@
 	infra_luminosity = 8
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
+
+	basecoat_icon = "durand-shell"
+	basecoat_colour = "#5b616e"
+	glow_icon = "durand-glow"
+	glow_colour = "#00AE00"
+	icon_decal_root	= "durand-decal"
+	decals = list()
+	default_decals = list()
 
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()
@@ -32,7 +40,7 @@
 	desc = "A retired, third-generation combat exosuit utilized by the Nanotrasen corporation. Originally developed to combat hostile alien lifeforms."
 	name = "Durand"
 	icon_state = "old_durand"
-	initial_icon = "old_durand"
+	base_icon_state = "old_durand"
 	step_in = 4
 	dir_in = 1 //Facing North.
 	max_integrity = 400
@@ -42,3 +50,4 @@
 	infra_luminosity = 8
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/old
+	cosmetics_enabled = FALSE

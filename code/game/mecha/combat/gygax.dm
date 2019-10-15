@@ -2,7 +2,7 @@
 	desc = "A lightweight, security exosuit. Popular among private and corporate security."
 	name = "Gygax"
 	icon_state = "gygax"
-	initial_icon = "gygax"
+	base_icon_state = "gygax"
 	step_in = 3
 	dir_in = 1 //Facing North.
 	max_integrity = 250
@@ -17,6 +17,14 @@
 	maxsize = 2
 	step_energy_drain = 3
 	normal_step_energy_drain = 3
+
+	basecoat_icon = "gygax-shell"
+	basecoat_colour = "#7f3617"
+	glow_icon = "gygax-glow"
+	glow_colour = "#008E00"
+	icon_decal_root	= "gygax-decal"
+	decals = list()
+	default_decals = list()
 
 /obj/mecha/combat/gygax/GrantActions(mob/living/user, human_occupant = 0)
 	..()
@@ -37,7 +45,7 @@
 	desc = "A lightweight exosuit, painted in a dark scheme. This model appears to have some modifications."
 	name = "Dark Gygax"
 	icon_state = "darkgygax"
-	initial_icon = "darkgygax"
+	base_icon_state = "darkgygax"
 	max_integrity = 300
 	deflect_chance = 20
 	armor = list(melee = 40, bullet = 40, laser = 50, energy = 35, bomb = 20, bio = 0, rad =20, fire = 100, acid = 100)
@@ -49,6 +57,7 @@
 	maxsize = 2
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
 	destruction_sleep_duration = 1
+	cosmetics_enabled = FALSE
 
 /obj/mecha/combat/gygax/dark/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()

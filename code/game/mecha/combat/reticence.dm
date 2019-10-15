@@ -2,7 +2,7 @@
 	desc = "A silent, fast, and nigh-invisible miming exosuit. Popular among mimes and mime assassins."
 	name = "\improper Reticence"
 	icon_state = "mime"
-	initial_icon = "mime"
+	base_icon_state = "mime"
 	step_in = 2
 	dir_in = 1 //Facing North.
 	max_integrity = 150

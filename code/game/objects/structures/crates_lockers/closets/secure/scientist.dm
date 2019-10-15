@@ -47,6 +47,8 @@
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/reagent_containers/food/drinks/oilcan(src)
 	new /obj/item/reagent_containers/food/drinks/oilcan(src)
+	new /obj/item/mecha_paint_gun(src)
+	new /obj/item/mecha_paint_gun(src)
 
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"

@@ -12,6 +12,7 @@
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
 	var/datum/action/innate/mecha/mech_switch_damtype/switch_damtype_action = new
+	var/datum/action/innate/mecha/mech_colourize/colourize_action = new
 
 /obj/mecha/proc/GrantActions(mob/living/user, human_occupant = 0)
 	if(human_occupant)
@@ -198,7 +199,7 @@
 /datum/action/innate/mecha/mech_toggle_phasing/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
-	chassis.phasing = !chassis.phasing
+	chassis.toggle_phasing()
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
 	chassis.occupant_message("<font color=\"[chassis.phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")
 	UpdateButtonIcon()
@@ -226,3 +227,22 @@
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
 	UpdateButtonIcon()
+
+/datum/action/innate/mecha/mech_colourize
+	name = "Colourize"
+	button_icon_state = "mech_colourize"
+
+/datum/action/innate/mecha/mech_colourize/Activate()
+	if(!owner || !chassis || chassis.occupant != owner)
+		return
+	if(world.time < chassis.next_colourize_at)
+		chassis.occupant_message("<span class='warning'>The colour cells are still recovering from the sudden reconfiguration.</span>")
+		return
+	chassis.basecoat_colour = rgb(rand(55,155), rand(55,155), rand(55,155))
+	chassis.glow_colour = rgb(rand(55,155), rand(55,155), rand(55,155))
+	for(var/datum/mecha/mecha_decal/D in chassis.decals)
+		if(D.mutable_colour)
+			D.decal_colour = rgb(rand(55,155), rand(55,155), rand(55,155))
+	chassis.occupant_message("<span class='notice'>The plating on the exosuit ripples nauseatingly as the colours shift wildly. Tasteful.</span>")
+	chassis.redraw_cache()
+	chassis.next_colourize_at = world.time + 120 SECONDS

@@ -1245,3 +1245,25 @@
 	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/syndicate
 	category = list("Misc")
+
+/datum/design/mecha_paint_gun
+	name = "Exosuit Paint Gun"
+	desc = "An automated gun-shaped device used to apply or strip off paint and other decals, compatible with most standard exosuit models."
+	id = "mecha_paint_gun"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 4000, MAT_GLASS = 2000)
+	construction_time = 200
+	build_path = /obj/item/mecha_paint_gun
+	category = list("Misc")
+
+/datum/design/syndicate_logo_decal
+	name = "Pattern Chip (Syndicate Logo)"
+	desc = "A wafer-thin card made to slot into an exosuit paint gun. This one looks quite suspicious."
+	id = "syndicate_logo_decal"
+	build_type = MECHFAB
+	materials = list(MAT_METAL = 200, MAT_GLASS = 200, MAT_TITANIUM = 400)
+	construction_time = 50
+	req_tech = list("syndicate" = 2)
+	build_path = /obj/item/mecha_decal_container/syndicate_logo
+	category = list("Misc")
+

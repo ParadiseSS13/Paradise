@@ -2,7 +2,7 @@
 	desc = "An exosuit which can only be described as 'WTF?'."
 	name = "Phazon"
 	icon_state = "phazon"
-	initial_icon = "phazon"
+	base_icon_state = "phazon"
 	step_in = 2
 	dir_in = 2 //Facing south.
 	step_energy_drain = 3
@@ -17,8 +17,15 @@
 	//operation_req_access = list()
 	internal_damage_threshold = 25
 	force = 15
-	phase_state = "phazon-phase"
 	max_equip = 3
+
+	basecoat_icon = "phazon-shell"
+	basecoat_colour = "#336699"
+	glow_icon = "phazon-glow"
+	glow_colour = "#b06900"
+	icon_decal_root	= "phazon-decal"
+	decals = list()
+	default_decals = list()
 
 /obj/mecha/combat/phazon/GrantActions(mob/living/user, human_occupant = 0)
 	..()
@@ -36,6 +43,7 @@
 	ME.attach(src)
 	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
 	ME.attach(src)
+	phase_mask = new(icon, "phazon-phasemask")
 
 /obj/mecha/combat/phazon/get_commands()
 	var/output = {"<div class='wr'>

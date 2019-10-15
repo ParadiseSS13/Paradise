@@ -2,7 +2,7 @@
 	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "Marauder"
 	icon_state = "marauder"
-	initial_icon = "marauder"
+	base_icon_state = "marauder"
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25
@@ -48,7 +48,7 @@
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
 	name = "Seraph"
 	icon_state = "seraph"
-	initial_icon = "seraph"
+	base_icon_state = "seraph"
 	operation_req_access = list(ACCESS_CENT_COMMANDER)
 	step_in = 3
 	max_integrity = 550
@@ -85,7 +85,7 @@
 	desc = "Heavy-duty, combat exosuit, developed off of the existing Marauder model."
 	name = "Mauler"
 	icon_state = "mauler"
-	initial_icon = "mauler"
+	base_icon_state = "mauler"
 	operation_req_access = list(ACCESS_SYNDICATE)
 	wreckage = /obj/structure/mecha_wreckage/mauler
 	starting_voice = /obj/item/mecha_modkit/voice/syndicate
