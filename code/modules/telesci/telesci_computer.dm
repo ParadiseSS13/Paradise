@@ -341,13 +341,13 @@
 		if(..()) // Check after we input a value, as they could've moved after they entered something
 			return
 		rotation = Clamp(new_rot, -900, 900)
-		rotation = round(rotation, 0.01)
+		rotation = round(rotation, 0.001)
 
 	if(href_list["setangle"])
 		var/new_angle = input("Please input desired elevation in degrees.", name, angle) as num
 		if(..())
 			return
-		angle = Clamp(round(new_angle, 0.1), 1, 9999)
+		angle = Clamp(round(new_angle, 0.001), 1, 9999)
 
 	if(href_list["setpower"])
 		var/index = href_list["setpower"]
