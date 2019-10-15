@@ -118,8 +118,8 @@
 	var/obj/item/I = get_active_hand()
 	if(istype(I, /obj/item/gripper))
 		var/obj/item/gripper/G = I
-		G.drop_item_p(silent = 1)
-	return
+		G.drop_gripped_item(silent = 1)
+	return TRUE
 
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.
