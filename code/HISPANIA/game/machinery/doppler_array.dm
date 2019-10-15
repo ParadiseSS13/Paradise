@@ -10,6 +10,7 @@
 /obj/machinery/doppler_array/range
 	name = "long range tachyon-doppler array"
 	desc = "A highly precise sensor array which measures the release of quants from decaying tachyons. The doppler shifting of the mirror-image formed by these quants can reveal the size, location and temporal affects of energetic disturbances within a large radius ahead of the array."
+	icon = 'icons/hispania/obj/machines/research.dmi'
 
 /obj/machinery/doppler_array/range/New()
 	..()
@@ -24,6 +25,13 @@
 	..()
 	if(istype(I, /obj/item/disk/tech_disk))
 		return
+
+/obj/machinery/doppler_array/range/AltClick(mob/user)
+	return
+
+obj/machinery/doppler_array/range/rotate(mob/user)
+	..()
+	return
 
 /obj/machinery/doppler_array/range/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
 												  var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
