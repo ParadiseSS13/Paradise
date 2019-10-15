@@ -193,8 +193,7 @@
 					var/var/mob/living/carbon/human/H = L
 					for(var/obj/item/organ/external/E in H.bodyparts)
 						if(prob(10))
-							if(E.mend_fracture())
-								E.perma_injury = 0
+							E.mend_fracture()
 							E.internal_bleeding = FALSE
 			else if(issilicon(L))
 				L.adjustBruteLoss(-3.5)
