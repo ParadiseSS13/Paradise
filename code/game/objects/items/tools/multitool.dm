@@ -4,8 +4,6 @@
 
 /**
  * Multitool -- A multitool is used for hacking electronic devices.
- * TO-DO -- Using it as a power measurement tool for cables etc. Nannek.
- *
  */
 
 /obj/item/multitool
@@ -32,7 +30,7 @@
 		return 0
 	return istype(buffer,typepath)
 
-/obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)
+/obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
 		to_chat(user, "<span class='warning'>That's not a machine!</span>")
 		return
