@@ -12,8 +12,8 @@
 	// VARIABLES //
 	var/teles_left	// How many teleports left until it becomes uncalibrated
 	var/datum/projectile_data/last_tele_data = null
-	var/power_off
 	var/z_co = 1
+	var/power_off
 	var/rotation_off
 	//var/angle_off
 	var/last_target
@@ -22,7 +22,7 @@
 	var/angle = 45
 	var/power = 5
 
-	//Modulo de resistencia a la teleportación
+	//Modulo de resistencia a la teleportaciÃ³n
 	var/power_off_factor
 
 	// Based on the power used
