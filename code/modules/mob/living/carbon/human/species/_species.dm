@@ -246,7 +246,7 @@
 		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
 			. += H.r_hand.slowdown
 
-		var/health_deficiency = (H.maxHealth - H.health + H.staminaloss)
+		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
 		if(H.reagents)
 			for(var/datum/reagent/R in H.reagents.reagent_list)
@@ -748,7 +748,7 @@
 	return FALSE //Unsupported slot
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return H.health - H.getStaminaLoss()
+	return min(H.health, H.maxHealth - H.getStaminaLoss())
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)

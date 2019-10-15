@@ -383,7 +383,7 @@
 						message = "<B>[src]</B> flips in [M]'s general direction."
 						SpinAnimation(5,1)
 				else
-					if(lying || weakened)
+					if(lying || IsWeakened())
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						var/obj/item/grab/G
