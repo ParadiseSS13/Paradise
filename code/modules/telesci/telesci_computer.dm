@@ -12,8 +12,8 @@
 	// VARIABLES //
 	var/teles_left	// How many teleports left until it becomes uncalibrated
 	var/datum/projectile_data/last_tele_data = null
-	var/z_co = 1
 	var/power_off
+	var/z_co = 1
 	var/rotation_off
 	//var/angle_off
 	var/last_target
@@ -22,12 +22,15 @@
 	var/angle = 45
 	var/power = 5
 
+	//Modulo de resistencia a la teleportación
+	var/power_off_factor
+
 	// Based on the power used
-	var/teleport_cooldown = 0 // every index requires a bluespace crystal
-	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80)
+	var/teleport_cooldown = 0
+	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 60, 70, 80) // every index requires a bluespace crystal
 	var/teleporting = 0
 	var/crystals = 0
-	var/max_crystals = 4
+	var/max_crystals = 6
 	var/obj/item/gps/inserted_gps
 
 /obj/machinery/computer/telescience/New()
@@ -169,7 +172,7 @@
 
 	if(telepad)
 
-		var/truePower = Clamp(power + power_off, 1, 1000)
+		var/truePower = Clamp(power + power * power_off_factor + power_off, 1, 1000)
 		var/trueRotation = rotation + rotation_off
 		var/trueAngle = Clamp(angle, 1, 90)
 
@@ -291,7 +294,7 @@
 			return
 
 
-	var/truePower = Clamp(power + power_off, 1, 1000)
+	var/truePower = Clamp(power + power * power_off_factor + power_off, 1, 1000)
 	var/trueRotation = rotation + rotation_off
 	var/trueAngle = Clamp(angle, 1, 90)
 
@@ -390,7 +393,8 @@
 	updateUsrDialog()
 
 /obj/machinery/computer/telescience/proc/recalibrate()
-	teles_left = rand(30, 40)
+	teles_left = rand(35, 40)
 	//angle_off = rand(-25, 25)
 	power_off = rand(-4, 0)
 	rotation_off = rand(-10, 10)
+	power_off_factor = rand(-15, -5)/100
