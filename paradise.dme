@@ -90,6 +90,7 @@
 #include "code\__HELPERS\sanitize_values.dm"
 #include "code\__HELPERS\text.dm"
 #include "code\__HELPERS\time.dm"
+#include "code\__HELPERS\tool_helpers.dm"
 #include "code\__HELPERS\traits.dm"
 #include "code\__HELPERS\type2type.dm"
 #include "code\__HELPERS\typelists.dm"
