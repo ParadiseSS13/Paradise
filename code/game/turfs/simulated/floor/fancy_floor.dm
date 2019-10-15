@@ -1,6 +1,7 @@
 /turf/simulated/floor/wood
 	icon_state = "wood"
 	floor_tile = /obj/item/stack/tile/wood
+	prying_tool_list = list(TOOL_CROWBAR, TOOL_SCREWDRIVER)
 	broken_states = list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
 	footstep_sounds = list(
@@ -8,32 +9,17 @@
 		"xeno"  = list('sound/effects/footstep/wood_all.ogg')  //@RonaldVanWonderen of Freesound.org
 	)
 
-/turf/simulated/floor/wood/attackby(obj/item/C, mob/user, params)
-	if(..())
+/turf/simulated/floor/wood/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(isscrewdriver(C))
-		pry_tile(C, user)
-		return
+	remove_tile(user, FALSE, TRUE)
 
-/turf/simulated/floor/wood/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
-	if(T.turf_type == type)
+/turf/simulated/floor/wood/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/obj/item/tool
-	if(isscrewdriver(user.get_inactive_hand()))
-		tool = user.get_inactive_hand()
-	if(!tool && iscrowbar(user.get_inactive_hand()))
-		tool = user.get_inactive_hand()
-	if(!tool)
-		return
-	var/turf/simulated/floor/plating/P = pry_tile(tool, user, TRUE)
-	if(!istype(P))
-		return
-	P.attackby(T, user, params)
-
-/turf/simulated/floor/wood/pry_tile(obj/item/C, mob/user, silent = FALSE)
-	var/is_screwdriver = isscrewdriver(C)
-	playsound(src, C.usesound, 80, 1)
-	return remove_tile(user, silent, make_tile = is_screwdriver)
+	remove_tile(user, TRUE, FALSE)
 
 /turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)

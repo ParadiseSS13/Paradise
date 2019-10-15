@@ -832,7 +832,7 @@
 	if((obj_integrity >= max_integrity) && !internal_damage)
 		to_chat(user, "<span class='notice'>[src] is at full integrity!</span>")
 		return
-	WELDER_REPAIR_MESSAGE
+	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)

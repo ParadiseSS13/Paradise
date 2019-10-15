@@ -67,7 +67,7 @@
 	. = TRUE
 	if(!I.tool_start_check(user, 0))
 		return
-	WIRECUTTER_DISMANTLE_MESSAGE
+	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
 		deconstruct()

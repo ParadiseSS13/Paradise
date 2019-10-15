@@ -37,7 +37,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_REPAIR_MESSAGE
+	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		obj_integrity = Clamp(obj_integrity + 20, 0, max_integrity)

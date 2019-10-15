@@ -113,9 +113,9 @@ field_generator power level display
 	if(!I.tool_use_check(user, 0))
 		return
 	if(state == FG_SECURED)
-		WELDER_FLOOR_SLICE_MESSAGE
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	else if(state == FG_WELDED)
-		WELDER_FLOOR_WELD_MESSAGE
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		if(state == FG_SECURED)
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE

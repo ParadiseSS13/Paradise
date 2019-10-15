@@ -280,7 +280,7 @@ a {
 	if(!I.tool_use_check(user, 0))
 		return
 	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
-	WELDER_REPAIR_MESSAGE
+	WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, time, volume = I.tool_volume))
 		WELDER_REPAIR_SUCCESS_MESSAGE
 		obj_integrity = max_integrity

@@ -167,7 +167,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_FLOOR_SLICE_MESSAGE
+	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/structure/disposalconstruct/C = new (src.loc)
@@ -895,7 +895,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_SLICING_MESSAGE
+	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	WELDER_SLICING_SUCCESS_MESSAGE
@@ -1322,7 +1322,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_FLOOR_SLICE_MESSAGE
+	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		var/obj/structure/disposalconstruct/C = new (src.loc)

@@ -58,7 +58,7 @@
 	. = TRUE
 	if(!I.tool_start_check(user, 0))
 		return
-	TOOL_DISMANTLE_MESSAGE
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 

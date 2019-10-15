@@ -72,18 +72,21 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
-	else if(isscrewdriver(C))
-		var/obj/item/screwdriver/screwdriver = C
-		to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
-		playsound(src, screwdriver.usesound, 50, 1)
-		if(do_after(user, 20 * screwdriver.toolspeed, target = src) && screwdriver)
-			to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
-			unfastened = !unfastened
-		return TRUE
+/turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
+	. = TRUE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+	unfastened = !unfastened
 
 /turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
 	if(!broken && !burnt && !unfastened)
 		return
+	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	if(unfastened)

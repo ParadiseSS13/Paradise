@@ -143,7 +143,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_WELD_MESSAGE
+	WELDER_ATTEMPT_WELD_MESSAGE
 	if(state == ASSEMBLY_WRENCHED)
 		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
 			return

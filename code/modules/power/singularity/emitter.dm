@@ -331,9 +331,9 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(state == 1)
-		WELDER_FLOOR_WELD_MESSAGE
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 	else if(state == 2)
-		WELDER_FLOOR_SLICE_MESSAGE
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 		return
 	if(state == 1)

@@ -604,10 +604,12 @@
 
 
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
+	if(stat & MAINT) //It's just a frame...
+		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(opened)
+	else if(opened)
 		if(cell)
 			to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
 			return
@@ -626,8 +628,6 @@
 			update_icon()
 	else if(emagged)
 		to_chat(user, "<span class='warning'>The interface is broken!</span>")
-	else if((stat & MAINT) && !opened)
-		..() //its an empty closed frame... theres no wires to expose!
 	else
 		panel_open = !panel_open
 		to_chat(user, "The wires have been [panel_open ? "exposed" : "unexposed"]")
@@ -692,7 +692,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
 		return
-	WELDER_SLICING_MESSAGE
+	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 50, amount = 3, volume = I.tool_volume))
 		if((stat & BROKEN) || opened==2)
 			new /obj/item/stack/sheet/metal(loc)

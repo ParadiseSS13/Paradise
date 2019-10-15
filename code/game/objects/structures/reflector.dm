@@ -39,17 +39,6 @@
 
 
 /obj/structure/reflector/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W))
-		if(anchored)
-			to_chat(user, "Unweld [src] first!")
-			return
-		playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
-		to_chat(user, "You begin to dismantle [src].")
-		if(do_after(user, 80, target = src))
-			playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
-			to_chat(user, "You dismantle [src].")
-			new /obj/item/stack/sheet/metal(src.loc, 5)
-			qdel(src)
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)
@@ -79,19 +68,33 @@
 		return
 	return ..()
 
+/obj/structure/reflector/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		to_chat(user, "Unweld [src] first!")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
+		return
+	playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	new /obj/item/stack/sheet/metal(src.loc, 5)
+	qdel(src)
 
 /obj/structure/reflector/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	if(anchored)
-		WELDER_FLOOR_SLICE_MESSAGE
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		anchored = FALSE
 	else
-		WELDER_FLOOR_WELD_MESSAGE
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
 			return
 		WELDER_FLOOR_WELD_SUCCESS_MESSAGE

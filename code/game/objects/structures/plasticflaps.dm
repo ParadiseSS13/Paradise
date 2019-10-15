@@ -17,29 +17,24 @@
 		if(PLASTIC_FLAPS_DETACHED)
 			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
 
-/obj/structure/plasticflaps/attackby(obj/item/W, mob/user, params)
-	add_fingerprint(user)
-	if(isscrewdriver(W))
-		if(state == PLASTIC_FLAPS_NORMAL)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 180*W.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_NORMAL)
-					return
-				state = PLASTIC_FLAPS_DETACHED
-				anchored = FALSE
-				to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
-		else if(state == PLASTIC_FLAPS_DETACHED)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 40*W.toolspeed, target = src))
-				if(state != PLASTIC_FLAPS_DETACHED)
-					return
-				state = PLASTIC_FLAPS_NORMAL
-				anchored = TRUE
-				to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
-	else
-		return ..()
+/obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(state == PLASTIC_FLAPS_NORMAL)
+		user.visible_message("<span class='warning'>[user] starts unscrewing [src] from the floor...</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)
+			return
+		state = PLASTIC_FLAPS_DETACHED
+		anchored = FALSE
+		to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+	else if(state == PLASTIC_FLAPS_DETACHED)
+		user.visible_message("<span class='warning'>[user] starts screwing [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != PLASTIC_FLAPS_DETACHED)
+			return
+		state = PLASTIC_FLAPS_NORMAL
+		anchored = TRUE
+		to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
 
 /obj/structure/plasticflaps/welder_act(mob/user, obj/item/I)
 	if(state != PLASTIC_FLAPS_DETACHED)
@@ -47,7 +42,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_SLICING_MESSAGE
+	WELDER_ATTEMPT_SLICING_MESSAGE
 	if(I.use_tool(src, user, 120, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		var/obj/item/stack/sheet/plastic/five/P = new(drop_location())

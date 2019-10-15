@@ -233,7 +233,7 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_unfasten_wrench(user, W, 40)
+	default_unfasten_wrench(user, I, 40)
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"

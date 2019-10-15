@@ -69,7 +69,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	TOOL_DISMANTLE_MESSAGE
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 30, volume = I.tool_volume))
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		for(var/i = 1, i <= framestackamount, i++)

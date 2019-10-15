@@ -194,7 +194,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_unfasten_wrench(user, P, 20)
+	default_unfasten_wrench(user, I, 20)
 
 /obj/structure/AIcore/update_icon()
 	switch(state)
@@ -231,7 +231,7 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	WELDER_WELD_MESSAGE
+	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 		new /obj/item/stack/sheet/plasteel(drop_location(), 4)

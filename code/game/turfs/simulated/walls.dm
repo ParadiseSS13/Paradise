@@ -357,9 +357,9 @@
 	if(!intention)
 		return
 	if(intention == "Dismantle")
-		WELDER_SLICING_MESSAGE
+		WELDER_ATTEMPT_SLICING_MESSAGE
 	else
-		WELDER_REPAIR_MESSAGE
+		WELDER_ATTEMPT_REPAIR_MESSAGE
 	if(I.use_tool(src, user, time_required, volume = I.tool_volume))
 		if(intention == "Dismantle")
 			WELDER_SLICING_SUCCESS_MESSAGE

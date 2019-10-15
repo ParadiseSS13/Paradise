@@ -179,18 +179,18 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	if(build == 0) //can deconstruct
-		WELDER_SLICING_MESSAGE
+		WELDER_ATTEMPT_SLICING_MESSAGE
 		if(I.use_tool(src, user, 30, volume = I.tool_volume))
 			WELDER_SLICING_SUCCESS_MESSAGE
 			new /obj/item/stack/sheet/plasteel(drop_location(),3)
 			qdel(src)
 	else if(build == 1) //wrenched but not welded down
-		WELDER_FLOOR_WELD_MESSAGE
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
 		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 1)
 			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
 			build = 2
 	else if(build == 2) //welded down
-		WELDER_FLOOR_SLICE_MESSAGE
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 		if(I.use_tool(src, user, 40, volume = I.tool_volume) && build == 2)
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = 1
