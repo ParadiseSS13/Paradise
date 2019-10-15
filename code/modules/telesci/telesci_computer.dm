@@ -26,11 +26,11 @@
 	var/power_off_factor
 
 	// Based on the power used
-	var/teleport_cooldown = 0
-	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 60, 70, 80) // every index requires a bluespace crystal
+	var/teleport_cooldown = 0 // every index requires 5 bluespace crystal
+	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 60, 70, 80)
 	var/teleporting = 0
 	var/crystals = 0
-	var/max_crystals = 6
+	var/max_crystals = 30
 	var/obj/item/gps/inserted_gps
 
 /obj/machinery/computer/telescience/New()
@@ -118,7 +118,7 @@
 		t += "<div class='statusDisplay'>"
 
 		for(var/i = 1; i <= power_options.len; i++)
-			if(crystals + telepad.efficiency < i)
+			if(crystals/5 + telepad.efficiency < i)
 				t += "<span class='linkOff'>[power_options[i]]</span>"
 				continue
 			if(power == power_options[i])
@@ -319,12 +319,13 @@
 	return
 
 /obj/machinery/computer/telescience/proc/eject()
-	var/to_eject
-	for(var/i in 1 to crystals)
-		to_eject += 1
-		crystals -= 1
-	new /obj/item/stack/ore/bluespace_crystal/artificial(drop_location(), to_eject)
-	power = 0
+	var/to_eject = 0
+	if(crystals > 0)
+		for(var/i in 1 to crystals)
+			to_eject += 1
+			crystals -= 1
+		new /obj/item/stack/ore/bluespace_crystal/artificial(drop_location(), to_eject)
+		power = 0
 
 /obj/machinery/computer/telescience/Topic(href, href_list)
 	if(..())
@@ -352,7 +353,7 @@
 		var/index = href_list["setpower"]
 		index = text2num(index)
 		if(index != null && power_options[index])
-			if(crystals + telepad.efficiency >= index)
+			if(crystals/5 + telepad.efficiency >= index)
 				power = power_options[index]
 
 	if(href_list["setz"])

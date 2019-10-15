@@ -1,6 +1,6 @@
 /obj/machinery/computer/telescience/proto
 	name = "proto telepad control console"
-	desc = "Used to teleport objects to and from the telescience telepad."
+	desc = "Used to teleport living beings and bluespace containers to and from the telescience telepad."
 	icon_keyboard = "telesci_key"
 	icon_screen = "telesci"
 	circuit = /obj/item/circuitboard/telesci_console/proto
