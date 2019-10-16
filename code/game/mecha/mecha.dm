@@ -793,6 +793,12 @@
 			if(do_after(user, 80 * W.toolspeed, target=src))
 				user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
 				go_out()
+		else if(state==4 && istype(occupant, /mob/living/carbon))
+			user.visible_message("[user] begins levering out the pilot from the [src].", "You begin to lever out the pilot from the [src].")
+			to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
+			if(do_after(user, 80 * W.toolspeed, target=src))
+				user.visible_message("<span class='notice'>[user] pries the pilot out of the [src]!</span>", "<span class='notice'>You finish removing the pilot from the [src]!</span>")
+				go_out()
 		return
 
 	else if(istype(W, /obj/item/stack/cable_coil))
