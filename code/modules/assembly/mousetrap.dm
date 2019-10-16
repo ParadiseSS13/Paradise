@@ -9,9 +9,9 @@
 	bomb_name = "contact mine"
 
 /obj/item/assembly/mousetrap/examine(mob/user)
-	..(user)
+	. = ..()
 	if(armed)
-		to_chat(user, "It looks like it's armed.")
+		. += "It looks like it's armed."
 
 /obj/item/assembly/mousetrap/activate()
 	if(..())
@@ -121,10 +121,10 @@
 		return TRUE	//end the search!
 	return FALSE
 
-/obj/item/assembly/mousetrap/hitby(atom/movable/A)
+/obj/item/assembly/mousetrap/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(!armed)
 		return ..()
-	visible_message("<span class='warning'>[src] is triggered by [A].</span>")
+	visible_message("<span class='warning'>[src] is triggered by [AM].</span>")
 	triggered(null)
 
 /obj/item/assembly/mousetrap/armed

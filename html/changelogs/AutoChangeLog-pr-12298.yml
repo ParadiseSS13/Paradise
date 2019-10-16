@@ -1,6 +1,0 @@
-author: "Ty-Omaha"
-delete-after: True
-changes: 
-  - rscadd: "Admins can now autoreply with common answers to common questions / issues."
-  - soundadd: "Opening an adminhelp/mentorhelp ticket will play a sound"
-  - tweak: "Adminhelp ticket information color changed from neon green to a more toned down green"

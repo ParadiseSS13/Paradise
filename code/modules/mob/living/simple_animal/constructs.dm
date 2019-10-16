@@ -29,7 +29,7 @@
 	deathmessage = "collapses in a shattered heap."
 
 /mob/living/simple_animal/hostile/construct/New()
-	..()
+	. = ..()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		name = "[const_type] ([rand(1, 1000)])"
 		real_name = const_type
@@ -44,12 +44,11 @@
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	if(SSticker.cultdat.theme == "blood")
+	if(SSticker.cultdat?.theme == "blood")
 		updateglow()
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*</span>")
-	..(user)
+	. = ..()
 
 	var/msg = ""
 	if(src.health < src.maxHealth)
@@ -61,7 +60,7 @@
 		msg += "</span>"
 	msg += "*---------*</span>"
 
-	to_chat(user, msg)
+	. += msg
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))

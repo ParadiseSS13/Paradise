@@ -1,5 +1,6 @@
 /obj/item/organ/external/chest/unbreakable
 	cannot_break = TRUE
+	encased = null
 
 /obj/item/organ/external/groin/unbreakable
 	cannot_break = TRUE
@@ -30,6 +31,7 @@
 
 /obj/item/organ/external/head/unbreakable
 	cannot_break = TRUE
+	encased = null
 
 // Cannot dismember or break
 /obj/item/organ/external/chest/unbreakable/sturdy

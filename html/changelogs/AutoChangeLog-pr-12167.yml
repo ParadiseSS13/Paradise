@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - bugfix: "blood no longer stacks on itself endlessly"

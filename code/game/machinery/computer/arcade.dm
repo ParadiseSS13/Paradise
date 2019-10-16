@@ -8,18 +8,17 @@
 	light_color = "#00FF00"
 	var/prize = /obj/item/stack/tickets
 
-/obj/machinery/computer/arcade/power_change()
-	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
-	else
-		set_light(0)
+/obj/machinery/computer/arcade/proc/Reset()
+	return
 
 /obj/machinery/computer/arcade/New()
 	..()
-	var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
-	new choice(loc)
-	qdel(src)
+	if(!circuit)
+		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
+		new choice(loc)
+		qdel(src)
+		return
+	Reset()
 
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
@@ -65,7 +64,7 @@
 	var/blocked = 0 //Player cannot attack/heal while set
 	var/turtle = 0
 
-/obj/machinery/computer/arcade/battle/New()
+/obj/machinery/computer/arcade/battle/Reset()
 	var/name_action
 	var/name_part1
 	var/name_part2
@@ -166,7 +165,7 @@
 		turtle = 0
 
 		if(emagged)
-			New()
+			Reset()
 			emagged = 0
 
 	add_fingerprint(usr)
@@ -186,7 +185,7 @@
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				New()
+				Reset()
 				emagged = 0
 			else
 				feedback_inc("arcade_win_normal")
@@ -311,7 +310,7 @@
 	var/spaceport_freebie = 0
 	var/last_spaceport_action = ""
 
-/obj/machinery/computer/arcade/orion_trail/New()
+/obj/machinery/computer/arcade/orion_trail/Reset()
 	// Sets up the main trail
 	stops = list("Pluto","Asteroid Belt","Proxima Centauri","Dead Space","Rigel Prime","Tau Ceti Beta","Black Hole","Space Outpost Beta-9","Orion Prime")
 	stopblurbs = list(
@@ -367,7 +366,7 @@
 			if(food <= 0)
 				dat += "<br>You ran out of food and starved."
 				if(emagged)
-					user.nutrition = 0 //yeah you pretty hongry
+					user.set_nutrition(0) //yeah you pretty hongry
 					to_chat(user, "<span class='userdanger'><font size=3>Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor.</span>")
 			if(fuel <= 0)
 				dat += "<br>You ran out of fuel, and drift, slowly, into a star."
@@ -467,7 +466,7 @@
 						sleep(30)
 						atom_say("[M] violently throws up!")
 						playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-						M.nutrition -= 50 //lose a lot of food
+						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
 							location.add_vomit_floor(TRUE)
@@ -980,13 +979,12 @@
 	var/active = 0 //if the ship is on
 
 /obj/item/orion_ship/examine(mob/user)
-	..()
-	if(!(in_range(user, src)))
-		return
-	if(!active)
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>")
-	else
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>")
+	. = ..()
+	if(in_range(user, src))
+		if(!active)
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
+		else
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)

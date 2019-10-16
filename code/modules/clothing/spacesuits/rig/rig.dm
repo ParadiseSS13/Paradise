@@ -22,7 +22,6 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0.2
 	permeability_coefficient = 0.1
-	unacidable = 1
 
 	var/interface_path = "hardsuit.tmpl"
 	var/ai_interface_path = "hardsuit.tmpl"
@@ -84,18 +83,18 @@
 	var/datum/wires/rig/wires
 	var/datum/effect_system/spark_spread/spark_system
 
-/obj/item/rig/examine()
-	to_chat(usr, "This is [bicon(src)][src.name].")
-	to_chat(usr, "[src.desc]")
+/obj/item/rig/examine(mob/user)
+	. = list("This is [src].")
+	. += "[desc]"
 	if(wearer)
 		for(var/obj/item/piece in list(helmet,gloves,chest,boots))
 			if(!piece || piece.loc != wearer)
 				continue
-			to_chat(usr, "[bicon(piece)] \The [piece] [piece.gender == PLURAL ? "are" : "is"] deployed.")
+			. += "[bicon(piece)] \The [piece] [piece.gender == PLURAL ? "are" : "is"] deployed."
 
-	if(src.loc == usr)
-		to_chat(usr, "The maintenance panel is [open ? "open" : "closed"].")
-		to_chat(usr, "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</font>"].")
+	if(loc == usr)
+		. += "The maintenance panel is [open ? "open" : "closed"]."
+		. += "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</font>"]."
 
 /obj/item/rig/get_cell()
 	return cell
@@ -156,7 +155,6 @@
 		if(piece.siemens_coefficient > siemens_coefficient) //So that insulated gloves keep their insulation.
 			piece.siemens_coefficient = siemens_coefficient
 		piece.permeability_coefficient = permeability_coefficient
-		piece.unacidable = unacidable
 		if(islist(armor))
 			var/list/L = armor
 			piece.armor = L.Copy()

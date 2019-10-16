@@ -18,7 +18,6 @@
 	var/tail                     // Name of tail image in species effects icon file.
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
-	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
 
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
@@ -52,7 +51,7 @@
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/obj/item/mutanthands
 	var/total_health = 100
@@ -61,7 +60,7 @@
 	var/punchstunthreshold = 9	 //damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
 	var/list/default_genes = list()
 
-	var/ventcrawler = 0 //Determines if the mob can go through the vents.
+	var/ventcrawler = VENTCRAWLER_NONE //Determines if the mob can go through the vents.
 	var/has_fine_manipulation = 1 // Can use small items.
 
 	var/list/allowed_consumed_mobs = list() //If a species can consume mobs, put the type of mobs it can consume here.
@@ -232,8 +231,8 @@
 		gravity = 1
 
 	if(!ignoreslow && gravity)
-		if(slowdown)
-			. = slowdown
+		if(speed_mod)
+			. = speed_mod
 
 		if(H.wear_suit)
 			. += H.wear_suit.slowdown
@@ -280,10 +279,12 @@
 			H.unEquip(thing)
 	if(H.hud_used)
 		H.hud_used.update_locked_slots()
+	H.ventcrawler = ventcrawler
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
 	if(H.butcher_results) //clear it out so we don't butcher a actual human.
 		H.butcher_results = null
+	H.ventcrawler = initial(H.ventcrawler)
 
 /datum/species/proc/updatespeciescolor(mob/living/carbon/human/H) //Handles changing icobase for species that have multiple skin colors.
 	return
@@ -392,8 +393,11 @@
 		return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		return FALSE
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
@@ -436,7 +440,7 @@
 			return FALSE
 
 
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, "melee")
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
@@ -463,7 +467,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/randn = rand(1, 100)
 		if(randn <= 25)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
@@ -812,6 +816,8 @@
 			H.healthdoll.cached_healthdoll_overlays = new_overlays
 
 /datum/species/proc/handle_hud_icons_nutrition(mob/living/carbon/human/H)
+	if(NO_HUNGER in species_traits)
+		return FALSE
 	if(H.mind && H.mind.vampire && (H.mind in SSticker.mode.vampires)) //Vampires
 		switch(H.nutrition)
 			if(NUTRITION_LEVEL_FULL to INFINITY)

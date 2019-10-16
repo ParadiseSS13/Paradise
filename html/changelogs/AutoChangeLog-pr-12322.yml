@@ -1,5 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "carp sprites now support a wider range of colors"
-  - tweak: "Megacarp names randomized in addition to their stats"

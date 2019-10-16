@@ -12,12 +12,13 @@
 	SEND_SIGNAL(src, COMSIG_OBJ_UPDATE_ICON)
 
 /obj/item/paper/talisman/examine(mob/user)
+	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		to_chat(user, "<b>Name:</b> [cultist_name]")
-		to_chat(user, "<b>Effect:</b> [cultist_desc]")
-		to_chat(user, "<b>Uses Remaining:</b> [uses]")
+		. += "<b>Name:</b> [cultist_name]"
+		. += "<b>Effect:</b> [cultist_desc]"
+		. += "<b>Uses Remaining:</b> [uses]"
 	else
-		to_chat(user, "You see strange symbols on the paper. Are they supposed to mean something?")
+		. += "You see strange symbols on the paper. Are they supposed to mean something?"
 
 /obj/item/paper/talisman/attack_self(mob/living/user)
 	if(!iscultist(user))

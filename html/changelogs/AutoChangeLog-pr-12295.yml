@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - tweak: "Brig timers now display the job of brigged people. E.g. \"Joe Schmoe (Chemist) was incarcerated\" as opposed to just \"Joe Schmoe was incarcerated\"."
-  - rscadd: "Brig timers now notify a person's boss via PDA when they are incarcerated. E.g. if a chemist is temporarily brigged, the CMO is notified of the brigging via PDA."

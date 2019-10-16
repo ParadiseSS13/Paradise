@@ -10,6 +10,9 @@
 /datum/reagent/blob/reaction_mob(mob/living/M, method=TOUCH, volume, show_message, touch_protection)
 	return round(volume * min(1.5 - touch_protection, 1), 0.1) //full touch protection means 50% volume, any prot below 0.5 means 100% volume.
 
+/datum/reagent/blob/proc/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag) //when the blob takes damage, do this
+	return damage
+
 /datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
 	name = "Ripping Tendrils"
 	description = "Deals High Brute damage, as well as Stamina damage."

@@ -7,7 +7,7 @@
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
-	slowdown = 2
+	speed_mod = 2
 	brute_mod = 0.45 //55% damage reduction
 	burn_mod = 0.45
 	tox_mod = 0.45
@@ -214,7 +214,7 @@
 /datum/species/golem/gold
 	name = "Gold Golem"
 	golem_colour = rgb(204, 204, 0)
-	slowdown = 1
+	speed_mod = 1
 	brute_mod = 0.75 //25% damage reduction down from 55%
 	burn_mod = 0.75
 	tox_mod = 0.75
@@ -244,7 +244,7 @@
 	punchdamagelow = 12
 	punchdamagehigh = 21
 	punchstunthreshold = 18 //still 40% stun chance
-	slowdown = 4 //pretty fucking slow
+	speed_mod = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
 	info_text = "As a <span class='danger'>Plasteel Golem</span>, you are slower, but harder to stun, and hit very hard when punching."
 	prefix = "Plasteel"
@@ -300,7 +300,7 @@
 	skinned_type = /obj/item/stack/sheet/mineral/abductor
 	language = "Golem Mindlink"
 	default_language = "Golem Mindlink"
-	slowdown = 1 //faster
+	speed_mod = 1 //faster
 	info_text = "As an <span class='danger'>Alloy Golem</span>, you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to speak telepathically to other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
@@ -341,8 +341,7 @@
 	heat_level_2 = 340
 	heat_level_3 = 400
 
-	dietflags = 0		//Regenerate nutrition in light, no diet necessary
-	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+	dietflags = DIET_HERB		// Plants eat...plants?
 
 	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
@@ -361,9 +360,9 @@
 			H.clear_alert("nolight")
 		else
 			H.throw_alert("nolight", /obj/screen/alert/nolight)
-		H.nutrition += light_amount * 10
+		H.adjust_nutrition(light_amount * 10)
 		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
-			H.nutrition = NUTRITION_LEVEL_ALMOST_FULL
+			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
 		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
 			H.adjustBruteLoss(-1)
 			H.adjustFireLoss(-1)
@@ -404,17 +403,10 @@
 	name = "Plastic Golem"
 	prefix = "Plastic"
 	special_names = null
+	ventcrawler = VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
 	info_text = "As a <span class='danger'>Plastic Golem</span>, you are capable of ventcrawling if you're naked."
-
-/datum/species/golem/plastic/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.ventcrawler = VENTCRAWLER_NUDE
-
-/datum/species/golem/plastic/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.ventcrawler = initial(C.ventcrawler)
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
@@ -533,7 +525,7 @@
 	if(!isturf(picked))
 		return
 	if(H.buckled)
-		H.buckled.unbuckle_mob()
+		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	return TRUE
 
@@ -617,7 +609,7 @@
 	if(!isturf(picked))
 		return
 	if(H.buckled)
-		H.buckled.unbuckle_mob()
+		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
 	UpdateButtonIcon() //action icon looks unavailable
@@ -741,4 +733,3 @@
 
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
-	miss_sound = null

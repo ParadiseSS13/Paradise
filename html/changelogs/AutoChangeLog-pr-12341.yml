@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - rscdel: "Removes unused, highly buggy VR code"

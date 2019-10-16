@@ -12,6 +12,8 @@
 	is_reflectable = TRUE
 	light_range = 2
 	light_color = LIGHT_COLOR_RED
+	ricochets_max = 50	//Honk!
+	ricochet_chance = 80
 
 /obj/item/projectile/beam/laser
 
@@ -72,8 +74,6 @@
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
-	legacy = 1
-	animate_movement = SLIDE_STEPS
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
 

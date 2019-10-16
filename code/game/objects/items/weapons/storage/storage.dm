@@ -317,7 +317,7 @@
 	return 1
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
-/obj/item/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location, burn = 0)
+/obj/item/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location)
 	if(!istype(W)) return 0
 
 	if(istype(src, /obj/item/storage/fancy))
@@ -351,17 +351,19 @@
 	W.on_exit_storage(src)
 	update_icon()
 	W.mouse_opacity = initial(W.mouse_opacity)
-	if(burn)
-		W.fire_act()
 	return 1
 
 /obj/item/storage/Exited(atom/A, loc)
 	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
 	..()
 
-/obj/item/storage/empty_object_contents(burn, loc)
-	for(var/obj/item/Item in contents)
-		remove_from_storage(Item, loc, burn)
+/obj/item/storage/deconstruct(disassembled = TRUE)
+	var/drop_loc = loc
+	if(ismob(loc))
+		drop_loc = get_turf(src)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, drop_loc)
+	qdel(src)
 
 //This proc is called when you want to place an item into the storage item.
 /obj/item/storage/attackby(obj/item/I, mob/user, params)
@@ -565,3 +567,9 @@
 
 /obj/item/storage/AllowDrop()
 	return TRUE
+
+/obj/item/storage/ex_act(severity)
+	for(var/atom/A in contents)
+		A.ex_act(severity)
+		CHECK_TICK
+	..()

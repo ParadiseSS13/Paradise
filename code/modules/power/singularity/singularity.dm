@@ -8,7 +8,6 @@
 	layer = MASSIVE_OBJ_LAYER
 	light_range = 6
 	appearance_flags = 0
-	unacidable = 1 //Don't comment this out.
 	var/current_size = 1
 	var/allowed_size = 1
 	var/contained = 1 //Are we going to move around?
@@ -27,7 +26,7 @@
 	var/last_warning
 	var/consumedSupermatter = 0 //If the singularity has eaten a supermatter shard and can go to stage six
 	allow_spin = 0
-	burn_state = LAVA_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.
@@ -76,7 +75,7 @@
 /obj/singularity/Process_Spacemove() //The singularity stops drifting for no man!
 	return 0
 
-/obj/singularity/blob_act(severity)
+/obj/singularity/blob_act(obj/structure/blob/B)
 	return
 
 /obj/singularity/ex_act(severity)
@@ -96,6 +95,7 @@
 
 
 /obj/singularity/bullet_act(obj/item/projectile/P)
+	qdel(P)
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
 
@@ -275,7 +275,7 @@
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
-		light_range = 10
+		set_light(10)
 	return
 
 

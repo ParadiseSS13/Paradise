@@ -19,7 +19,7 @@
 	opacity = 0
 
 	anchored = 1
-	unacidable = 1
+	resistance_flags = ACID_PROOF
 
 	layer = 3.9
 	infra_luminosity = 15
@@ -204,27 +204,26 @@
 /obj/spacepod/AllowDrop()
 	return TRUE
 
-/obj/spacepod/blob_act()
+/obj/spacepod/blob_act(obj/structure/blob/B)
 	deal_damage(30)
-	return
 
 /obj/spacepod/attack_animal(mob/living/simple_animal/user)
 	if((user.a_intent == INTENT_HELP && user.ckey) || user.melee_damage_upper == 0)
 		user.custom_emote(1, "[user.friendly] [src].")
+		return FALSE
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
 		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
 		user.create_attack_log("<font color='red'>attacked [src.name]</font>")
-	return
+		return TRUE
 
-/obj/spacepod/attack_alien(mob/user as mob)
+/obj/spacepod/attack_alien(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	deal_damage(15)
 	playsound(src.loc, 'sound/weapons/slash.ogg', 50, 1, -1)
 	to_chat(user, "<span class='warning'>You slash at [src]!</span>")
 	visible_message("<span class='warning'>The [user] slashes at [src.name]'s armor!</span>")
-	return
 
 /obj/spacepod/proc/deal_damage(var/damage)
 	var/oldhealth = health
@@ -765,10 +764,9 @@ obj/spacepod/proc/add_equipment(mob/user, var/obj/item/spacepod_equipment/SPE, v
 		to_chat(user, "<span class='danger'><B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b></span>")
 		return 0
 
-	for(var/mob/living/carbon/slime/S in range(1,usr))
-		if(S.Victim == user)
-			to_chat(user, "You're too busy getting your life sucked out of you.")
-			return 0
+	if(user.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[user] will not fit into [src] because [user.p_they()] [user.p_have()] creatures attached to [user.p_them()]!</span>")
+		return
 
 	move_inside(user)
 

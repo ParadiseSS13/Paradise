@@ -76,7 +76,7 @@
 		return
 	if(!istype(M))
 		return
-	if(R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
+	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick = bypass_protection))
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 
@@ -102,16 +102,15 @@
 	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
-	if(!..(user, 2))
-		return
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		var/empty = TRUE
 
-	var/empty = 1
+		for(var/datum/reagents/RS in reagent_list)
+			var/datum/reagent/R = locate() in RS.reagent_list
+			if(R)
+				. += "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
+				empty = FALSE
 
-	for(var/datum/reagents/RS in reagent_list)
-		var/datum/reagent/R = locate() in RS.reagent_list
-		if(R)
-			to_chat(user, "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>")
-			empty = 0
-
-	if(empty)
-		to_chat(user, "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>")
+		if(empty)
+			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"

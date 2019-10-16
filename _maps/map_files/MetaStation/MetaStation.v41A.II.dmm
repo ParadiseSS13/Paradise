@@ -5504,10 +5504,6 @@
 	icon_state = "vault"
 	},
 /area/security/hos)
-"ajA" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
 "ajB" = (
 /turf/simulated/wall/r_wall,
 /area/maintenance/auxsolarport)
@@ -23107,7 +23103,7 @@
 /turf/simulated/floor/plasteel,
 /area/storage/tools)
 "aOE" = (
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{
 	name = "\improper Secure Lab"
@@ -33445,7 +33441,6 @@
 "bgD" = (
 /obj/item/book/manual/security_space_law,
 /obj/machinery/newscaster{
-	hitstaken = 1;
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -43115,7 +43110,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -59274,7 +59269,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "bXy" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -64534,7 +64529,7 @@
 	})
 "cgG" = (
 /obj/structure/table,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/airlock_electronics,
 /obj/item/assembly/timer{
 	pixel_x = -4;
@@ -69143,7 +69138,6 @@
 	},
 /area/medical/exam_room)
 "cok" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -69151,20 +69145,6 @@
 	c_tag = "Medbay Surgery 1 North";
 	network = list("SS13")
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/medical/exam_room)
-"col" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/camera{
-	c_tag = "Medbay Surgery 1 North";
-	network = list("SS13")
-	},
-/obj/machinery/body_scanconsole,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -73611,9 +73591,9 @@
 /area/medical/medbay3)
 "cvl" = (
 /obj/structure/table,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/cell/high{
 	charge = 100;
 	maxcharge = 15000
@@ -74937,12 +74917,6 @@
 	icon_state = "white"
 	},
 /area/medical/surgery1)
-"cxn" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/surgery1)
 "cxo" = (
 /obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
@@ -76019,7 +75993,7 @@
 	name = "Aft Maintenance"
 	})
 "cze" = (
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -80670,12 +80644,6 @@
 /area/medical/research{
 	name = "Research Division"
 	})
-"cGE" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/medical/surgery2)
 "cGF" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/effect/decal/warning_stripes/south,
@@ -94706,8 +94674,7 @@
 	})
 "dds" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	unacidable = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{
@@ -116445,7 +116412,7 @@ crE
 crE
 cvb
 crE
-cxo
+crE
 cyo
 czs
 czU
@@ -116453,7 +116420,7 @@ cAT
 cCM
 czs
 cEZ
-cGO
+cGo
 cGo
 cKc
 cGo
@@ -116702,7 +116669,7 @@ crV
 ctX
 cva
 cvS
-cxn
+cxo
 cyo
 czu
 cBl
@@ -116710,7 +116677,7 @@ cCu
 cAU
 cEj
 cEZ
-cGE
+cGO
 cFw
 cKb
 cKH
@@ -118494,7 +118461,7 @@ ceQ
 chH
 cdT
 cmX
-col
+cok
 cpb
 crg
 csN
@@ -148747,7 +148714,7 @@ aeF
 agJ
 ahv
 aeG
-ajA
+aeG
 akq
 all
 aaa

@@ -48,12 +48,13 @@
 	if(!O.can_reenter_corpse)
 		to_chat(user, "<span class='warning'>You have forfeited the right to respawn.</span>")
 		return
-	if(QDELETED(src) || QDELETED(user))
-		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(ghost_role == "No" || !loc)
+	if(ghost_role == "No")
 		return
 	if(!species_prompt())
+		return
+	if(!loc || !uses || QDELETED(src) || QDELETED(user))
+		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
 	log_game("[user.ckey] became [mob_name]")
 	create(ckey = user.ckey)
@@ -398,24 +399,26 @@
 
 
 /datum/outfit/clownsoldier
-		uniform = /obj/item/clothing/under/soldieruniform
-		suit = /obj/item/clothing/suit/soldiercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/stalhelm
+	name = "Clown Soldier"
+	uniform = /obj/item/clothing/under/soldieruniform
+	suit = /obj/item/clothing/suit/soldiercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/stalhelm
 
 /datum/outfit/clownofficer
-		uniform = /obj/item/clothing/under/officeruniform
-		suit = /obj/item/clothing/suit/officercoat
-		shoes = /obj/item/clothing/shoes/clown_shoes
-		l_ear = /obj/item/radio/headset
-		mask = /obj/item/clothing/mask/gas/clown_hat
-		l_pocket = /obj/item/bikehorn
-		back = /obj/item/storage/backpack/clown
-		head = /obj/item/clothing/head/naziofficer
+	name = "Clown Officer"
+	uniform = /obj/item/clothing/under/officeruniform
+	suit = /obj/item/clothing/suit/officercoat
+	shoes = /obj/item/clothing/shoes/clown_shoes
+	l_ear = /obj/item/radio/headset
+	mask = /obj/item/clothing/mask/gas/clown_hat
+	l_pocket = /obj/item/bikehorn
+	back = /obj/item/storage/backpack/clown
+	head = /obj/item/clothing/head/naziofficer
 
 /obj/effect/mob_spawn/human/mime
 	name = "Mime"

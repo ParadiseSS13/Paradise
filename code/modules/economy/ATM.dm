@@ -105,7 +105,7 @@ log transactions
 			SSnanoui.update_uis(src)
 			C.use(C.amount)
 	else
-		..()
+		return ..()
 
 /obj/machinery/atm/attack_hand(mob/user)
 	if(..())

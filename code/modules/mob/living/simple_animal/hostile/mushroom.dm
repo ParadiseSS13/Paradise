@@ -36,11 +36,11 @@
 	var/image/cap_dead = null
 
 /mob/living/simple_animal/hostile/mushroom/examine(mob/user)
-	..(user)
+	. = ..()
 	if(health >= maxHealth)
-		to_chat(user, "<span class='info'>It looks healthy.</span>")
+		. += "<span class='info'>It looks healthy.</span>"
 	else
-		to_chat(user, "<span class='info'>It looks like it's been roughed up.</span>")
+		. += "<span class='info'>It looks like it's been roughed up.</span>"
 
 /mob/living/simple_animal/hostile/mushroom/Life(seconds, times_fired)
 	..()
@@ -167,7 +167,7 @@
 	if(M.a_intent == INTENT_HARM)
 		Bruise()
 
-/mob/living/simple_animal/hostile/mushroom/hitby(atom/movable/AM)
+/mob/living/simple_animal/hostile/mushroom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
 	if(istype(AM, /obj/item))
 		var/obj/item/T = AM

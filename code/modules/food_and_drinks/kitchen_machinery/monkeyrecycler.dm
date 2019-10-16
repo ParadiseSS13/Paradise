@@ -29,8 +29,10 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler/Destroy()
 	GLOB.monkey_recyclers -= src
-	for(var/obj/machinery/computer/camera_advanced/xenobio/console in connected)
+	for(var/thing in connected)
+		var/obj/machinery/computer/camera_advanced/xenobio/console = thing
 		console.connected_recycler = null
+	connected.Cut()
 	return ..()
 
 /obj/machinery/monkey_recycler/RefreshParts()
@@ -54,7 +56,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 		power_change()
 		return
 
-	default_deconstruction_crowbar(O)
+	if(default_deconstruction_crowbar(O))
+		return
 
 	if(istype(O, /obj/item/multitool))
 		if(!panel_open)
@@ -76,6 +79,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			var/obj/item/multitool/M = O
 			M.buffer = src
 			to_chat(user, "<span class='notice'>You log [src] in the [M]'s buffer.</span>")
+		return
 	if(stat != 0) //NOPOWER etc
 		return
 	if(istype(O, /obj/item/grab))
@@ -102,7 +106,8 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 				to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
-	return
+		return
+	return ..()
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc

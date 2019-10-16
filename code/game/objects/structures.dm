@@ -1,34 +1,14 @@
 /obj/structure
 	icon = 'icons/obj/structures.dmi'
 	pressure_resistance = 8
+	max_integrity = 300
 	var/climbable
 	var/mob/climber
 	var/broken = FALSE
 
-/obj/structure/blob_act()
-	if(prob(50))
-		qdel(src)
-
-/obj/structure/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			return
-
-/obj/structure/mech_melee_attack(obj/mecha/M)
-	if(M.damtype == "brute")
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
-		return 1
-	return 0
-
 /obj/structure/New()
+	if (!armor)
+		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	..()
 	if(smooth)
 		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
@@ -160,15 +140,15 @@
 	return 1
 
 /obj/structure/examine(mob/user)
-	..()
+	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
-		if(burn_state == ON_FIRE)
-			to_chat(user, "<span class='warning'>It's on fire!</span>")
+		if(resistance_flags & ON_FIRE)
+			. += "<span class='warning'>It's on fire!</span>"
 		if(broken)
-			to_chat(user, "<span class='notice'>It appears to be broken.</span>")
+			. += "<span class='notice'>It appears to be broken.</span>"
 		var/examine_status = examine_status(user)
 		if(examine_status)
-			to_chat(user, examine_status)
+			. += examine_status
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100

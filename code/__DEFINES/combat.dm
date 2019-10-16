@@ -102,6 +102,9 @@
 #define BODY_ZONE_PRECISE_L_FOOT	"l_foot"
 #define BODY_ZONE_PRECISE_R_FOOT	"r_foot"
 
+//We will round to this value in damage calculations.
+#define DAMAGE_PRECISION 0.1
+
 //Gun Stuff
 #define SAWN_INTACT  0
 #define SAWN_OFF     1

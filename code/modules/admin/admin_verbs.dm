@@ -79,7 +79,6 @@ var/list/admin_verbs_admin = list(
 	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/show_discord_duplicates, // This needs removing at some point, ingame discord linking got removed in #11359
 	/client/proc/toggle_panic_bunker
 )
 var/list/admin_verbs_ban = list(
@@ -1019,15 +1018,6 @@ var/list/admin_verbs_ticket = list(
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 
-/client/proc/show_discord_duplicates()
-	set name = "Show Duplicate Discord Links"
-	set category = "Admin"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	holder.discord_duplicates()
-
 /client/proc/toggle_panic_bunker()
 	set name = "Toggle Panic Bunker"
 	set category = "Admin"
@@ -1036,7 +1026,7 @@ var/list/admin_verbs_ticket = list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled 
+	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled
 
 	log_admin("[key_name(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
 	message_admins("[key_name_admin(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")

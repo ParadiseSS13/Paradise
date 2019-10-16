@@ -84,8 +84,8 @@
 	return boolets
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
-	..()
-	to_chat(user, "[get_ammo(0,0)] of those are live rounds.")
+	. = ..()
+	. += "[get_ammo(0,0)] of those are live rounds."
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
@@ -286,7 +286,7 @@
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire(user, user))
 				playsound(user, fire_sound, 50, 1)
-				var/zone = check_zone(user.zone_sel.selecting)
+				var/zone = check_zone(user.zone_selected)
 				if(zone == "head" || zone == "eyes" || zone == "mouth")
 					shoot_self(user, zone)
 				else
@@ -467,7 +467,7 @@
 			f_name = "a "
 		f_name += "<span class='danger'>blood-stained</span> [name]!"
 
-	to_chat(user, "[bicon(src)] That's [f_name]")
+	. = list("[bicon(src)] That's [f_name]")
 
 	if(desc)
-		to_chat(user, desc)
+		. += desc

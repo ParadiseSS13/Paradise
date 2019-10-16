@@ -15,7 +15,7 @@
 		qdel(B)
 	return ..()
 
-/mob/living/carbon/blob_act()
+/mob/living/carbon/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)
 		return
 	else
@@ -26,9 +26,9 @@
 	. = ..()
 	if(.)
 		if(nutrition && stat != DEAD)
-			nutrition -= hunger_drain / 10
+			adjust_nutrition(-(hunger_drain * 0.1))
 			if(m_intent == MOVE_INTENT_RUN)
-				nutrition -= hunger_drain / 10
+				adjust_nutrition(-(hunger_drain * 0.1))
 		if((FAT in mutations) && m_intent == MOVE_INTENT_RUN && bodytemperature <= 360)
 			bodytemperature += 2
 
@@ -110,7 +110,7 @@
 			else
 				if(T)
 					T.add_vomit_floor()
-				nutrition -= lost_nutrition
+				adjust_nutrition(-lost_nutrition)
 				if(stun)
 					adjustToxLoss(-3)
 			T = get_step(T, dir)
@@ -241,7 +241,7 @@
 			// BEGIN HUGCODE - N3X
 			else
 				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_sel.selecting == "head")
+				if(M.zone_selected == "head")
 					M.visible_message(\
 					"<span class='notice'>[M] pats [src] on the head.</span>",\
 					"<span class='notice'>You pat [src] on the head.</span>",\
@@ -398,12 +398,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	if(ventcrawler)
 		ventcrawlerlocal = ventcrawler
 
-	if(!ventcrawler)
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			ventcrawlerlocal = H.dna.species.ventcrawler
-
-	if(!ventcrawlerlocal)	return
+	if(!ventcrawlerlocal)
+		return
 
 	if(stat)
 		to_chat(src, "You must be conscious to do this!")
@@ -413,8 +409,11 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		to_chat(src, "You can't vent crawl while you're stunned!")
 		return
 
-	if(buckled_mob)
-		to_chat(src, "You can't vent crawl with [buckled_mob] on you!")
+	if(has_buckled_mobs())
+		to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
+		return
+	if(buckled)
+		to_chat(src, "<span class='warning'>You can't vent crawl while buckled!</span>")
 		return
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
@@ -448,6 +447,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 							"<span class='notice'>You begin climbing into the ventilation system...</span>")
 
 			if(!do_after(src, 45, target = src))
+				return
+
+			if(has_buckled_mobs())
+				to_chat(src, "<span class='warning'>You can't vent crawl with other creatures on you!</span>")
 				return
 
 			if(buckled)
@@ -579,6 +582,9 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		qdel(G)	//We delete the grab.
 		if(throwable_mob)
 			thrown_thing = throwable_mob
+			if(HAS_TRAIT(src, TRAIT_PACIFISM))
+				to_chat(src, "<span class='notice'>You gently let go of [throwable_mob].</span>")
+				return
 			var/turf/start_T = get_turf(loc) //Get the start and target tile for the descriptors
 			var/turf/end_T = get_turf(target)
 			throwable_mob.forceMove(start_T)
@@ -591,6 +597,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else if(!(I.flags & ABSTRACT)) //can't throw abstract items
 		thrown_thing = I
 		unEquip(I)
+
+		if(HAS_TRAIT(src, TRAIT_PACIFISM) && I.throwforce)
+			to_chat(src, "<span class='notice'>You set [I] down gently on the ground.</span>")
+			return
 
 	if(thrown_thing)
 		visible_message("<span class='danger'>[src] has thrown [thrown_thing].</span>")
@@ -626,7 +636,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	else if(I == handcuffed)
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob()
+			buckled.unbuckle_mob(src)
 		update_handcuffed()
 	else if(I == legcuffed)
 		legcuffed = null
@@ -934,7 +944,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		var/obj/item/W = handcuffed
 		handcuffed = null
 		if(buckled && buckled.buckle_requires_restraints)
-			buckled.unbuckle_mob()
+			buckled.unbuckle_mob(src)
 		update_handcuffed()
 		if(client)
 			client.screen -= W
@@ -1171,3 +1181,10 @@ so that different stomachs can handle things in different ways VB*/
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/mob/living/carbon/ExtinguishMob()
+	for(var/X in get_equipped_items())
+		var/obj/item/I = X
+		I.acid_level = 0 //washes off the acid on our clothes
+		I.extinguish() //extinguishes our clothes
+	..()

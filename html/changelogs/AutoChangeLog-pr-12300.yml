@@ -1,4 +1,0 @@
-author: "kazboo"
-delete-after: True
-changes: 
-  - bugfix: "candle boxes on the station are now properly filled"

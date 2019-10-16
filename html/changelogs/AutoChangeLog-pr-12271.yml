@@ -1,9 +1,0 @@
-author: "AzuleUtama"
-delete-after: True
-changes: 
-  - rscdel: "Sarin gas grenades no longer purchasable for nuke ops.
-balance: Grenadier belt now contains a sarin gas grenade.
-balance: Tactical medkit's hypospray tweaked to contain chems better for dealing with newcrit.
-balance: C20 bundle increased in price to 18TC, contains an additional clip of ammo.
-balance: Medical bundle increased in price to 20TC, Donk LMG removed, replaced with medbeam gun and magboots."
-  - spellcheck: "Fixed some minor spelling/grammar errors with synthflesh patches and sarin gas grenades."

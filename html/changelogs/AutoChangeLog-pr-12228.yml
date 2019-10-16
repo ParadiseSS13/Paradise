@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - bugfix: "removes zombie from the secondary language list"
