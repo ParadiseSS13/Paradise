@@ -38,6 +38,7 @@
 	M.SetParalysis(0, FALSE)
 	M.SetSilence(0, FALSE)
 	M.SetHallucinate(0)
+	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT))
 	M.SetDizzy(0)
 	M.SetDrowsy(0)
 	M.SetStuttering(0)
