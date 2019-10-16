@@ -30,13 +30,17 @@
 			if(H.stat == DEAD || (!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD))
 				Zombify(H)
 				break
-	for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
-		if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
-			visible_message("<span class='danger'>[src] consumes [target] whole!</span>")
-			if(health < maxHealth)
-				health += 10
-			qdel(K)	
-			break
+	var/cycles = 4
+	if(cycles >= 4)
+		for(var/mob/living/simple_animal/K in oview(src, 1)) //Only for corpse right next to/on same tile
+			if(K.stat == DEAD || (!K.check_death_method() && K.health <= HEALTH_THRESHOLD_DEAD))
+				visible_message("<span class='danger'>[src] consumes [target] whole!</span>")
+				if(health < maxHealth)
+					health += 10
+				qdel(K)	
+				break
+			cycles = 0
+	cycles++
 	..()
 
 /mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
@@ -181,7 +185,7 @@
 	if(iscarbon(target) && target.reagents)
 		var/inject_target = pick("chest", "head")
 		var/mob/living/carbon/C = target
-		if(C.stunned || C.can_inject(null, 0, inject_target, 0))
+		if(C.stunned || C.can_inject(null, FALSE, inject_target, FALSE))
 			if(C.eye_blurry < 60)
 				C.AdjustEyeBlurry(10)
 				visible_message("<span class='danger'>[src] buries its fangs deep into the [inject_target] of [target]!</span>")
