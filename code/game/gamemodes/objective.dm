@@ -1,4 +1,4 @@
-var/global/list/all_objectives = list()
+GLOBAL_LIST_EMPTY(all_objectives)
 
 var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datum/theft_objective/steal - /datum/theft_objective/number - /datum/theft_objective/unique
 
@@ -10,13 +10,13 @@ var/list/potential_theft_objectives = subtypesof(/datum/theft_objective) - /datu
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 
-/datum/objective/New(var/text)
-	all_objectives |= src
+/datum/objective/New(text)
+	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
 
 /datum/objective/Destroy()
-	all_objectives -= src
+	GLOB.all_objectives -= src
 	return ..()
 
 /datum/objective/proc/check_completion()
