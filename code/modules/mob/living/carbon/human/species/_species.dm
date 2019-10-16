@@ -194,28 +194,22 @@
 		/**HANDLE INTERNAL ORGANS**/
 		for(var/organ_type in species_organs) //Account for switching from a species with less organs to a species with more, excepting amputations.
 			if(!H.get_organ_slot(organ_type) && !(organ_type in oldspecies_organs))
-				to_chat(H, "PI1 - [organ_type]")
 				add_after["organs"][organ_type] = TRUE //Make sure missing stuff is regenerated or we DIE!
 
 		for(var/O in H.internal_organs) //Same as above but for innards. Gotta go inside out to avoid runtimes.
 			var/obj/item/organ/internal/I = O
 			if(I.is_robotic() && !(initial(I.status) & ORGAN_ROBOT)) //Were ya born that way? Allows for correct removal of IPC/Vox organs.
-				to_chat(H, "I1 - [I.slot]")
 				continue
 			if((I?.dna.species.name != OS.name) || (I?.dna.real_name != H.real_name)) //Same slot, different species?
-				to_chat(H, "I2 - [I.slot]")
 				continue
 			if(I.slot in oldspecies_organs)
 				if(I.type != oldspecies_organs[I.slot]) //Organs with cybernetic in the type should be preserved because of this. Augments/implants etc. survive too.
-					to_chat(H, "I3 - [I.slot]")
 					continue
 				if(!(I.slot in species_organs)) //Liquidate surplus.
-					to_chat(H, "I4 - [I.slot]")
 					remove_after["organs"] |= I
 					I.prep_replace(H)
 					continue
 			else //if(I.slot in species_organs) Organ's already the right kind and belongs to us, don't screw with it. Also accounts for additional non-synthetic augmentations.
-				to_chat(H, "I5 - [I.slot]")
 				continue
 
 			//You ran the gauntlet and survived, I am pleased.
@@ -223,46 +217,32 @@
 			remove_after["organs"] |= I
 			I.prep_replace(H)
 
-		for(var/I in remove_after["organs"])
-			to_chat(H, "Remove - [I]")
-		for(var/I in add_after["organs"])
-			to_chat(H, "Replace - [I]")
 		QDEL_LIST(remove_after["organs"]) //This needs to be broken out here because it made the loops above unable to read properties properly.
 
 		/**HANDLE LIMBS**/
 		for(var/limb_type in has_limbs) //Just doing this 'cause I don't know what the future holds. Something about third leg jokes.
 			if(!H.get_organ(limb_type) && !(limb_type in OS.has_limbs))
-				to_chat(H, "PE1 - [limb_type]")
 				add_after["limbs"][limb_type] = TRUE //Just need to fill this in with something.
 
 		for(var/B in H.bodyparts) //Is it mine?
 			var/obj/item/organ/external/E = B
 			if(E.is_robotic() && !(initial(E.status) & ORGAN_ROBOT)) //Preserves augmented or prosthetic limbs. FBPs will be fine due to rebuild_on_gain == true and their limbs starting robotic.
-				to_chat(H, "E1 - [E.limb_name]")
 				continue
 			if((E?.dna.species.name != OS.name) || (E?.dna.real_name != H.real_name))
-				to_chat(H, "E2 - [E.limb_name]")
 				continue
 			if(E.limb_name in OS.has_limbs)
 				if(E.type != OS.has_limbs[E.limb_name]["path"])
-					to_chat(H, "E3 - [E.limb_name]")
 					continue
 				if(!(E.limb_name in has_limbs))
-					to_chat(H, "E4 - [E.limb_name]")
 					remove_after["limbs"] |= E
 					E.prep_replace(H)
 			else //if(E.limb_name in has_limbs)
-				to_chat(H, "E5 - [E.limb_name]")
 				continue
 
 			add_after["limbs"][E.limb_name] = E
 			remove_after["limbs"] |= E
 			E.prep_replace(H) //Planned parenthood is important, even in space.
 
-		for(var/E in remove_after["limbs"])
-			to_chat(H, "Remove - [E]")
-		for(var/E in add_after["limbs"])
-			to_chat(H, "Replace - [E]")
 		QDEL_LIST(remove_after["limbs"])
 
 	else //Maintain old behaviour. Legacy support
