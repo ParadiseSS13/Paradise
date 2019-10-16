@@ -132,6 +132,7 @@ FIRE ALARM
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	detecting = !detecting
 	if(detecting)
 		user.visible_message("<span class='warning'>[user] has reconnected [src]'s detecting unit!</span>", "You have reconnected [src]'s detecting unit.")
 	else

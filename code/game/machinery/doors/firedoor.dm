@@ -110,17 +110,18 @@
 	if(operating || !welded)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_use_check(user, 0))
 		return
 	if(boltslocked)
 		to_chat(user, "<span class='notice'>There are screws locking the bolts in place!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] starts undoing [src]'s bolts...</span>", \
 						 "<span class='notice'>You start unfastening [src]'s floor bolts...</span>")
-	if(I.use_tool(src, user, 50, volume = I.tool_volume) && boltslocked)
-		user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
-							 "<span class='notice'>You undo [src]'s floor bolts.</span>")
-		deconstruct(TRUE)
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || boltslocked)
+		return
+	user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
+							"<span class='notice'>You undo [src]'s floor bolts.</span>")
+	deconstruct(TRUE)
 
 /obj/machinery/door/firedoor/welder_act(mob/user, obj/item/I)
 	if(!density)
@@ -377,15 +378,11 @@
 				return
 	return ..()
 
-
-
-
-
 /obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/I)
 	if(!(constructionStep in list(CONSTRUCTION_WIRES_EXPOSED, CONSTRUCTION_PANEL_OPEN, CONSTRUCTION_GUTTED)))
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_use_check(user, 0))
 		return
 	if(constructionStep == CONSTRUCTION_WIRES_EXPOSED)
 		user.visible_message("<span class='notice'>[user] starts prying a metal plate into [src]...</span>", \

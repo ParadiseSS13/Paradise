@@ -252,7 +252,7 @@
 	if(flags & NODECONSTRUCT)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_use_check(user, 0))
 		return
 	if(panel_open && !density && !operating)
 		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
@@ -301,6 +301,8 @@
 					ae.forceMove(loc)
 
 				qdel(src)
+	else
+		try_to_crowbar(I, user)
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
 	if(!hasPower())

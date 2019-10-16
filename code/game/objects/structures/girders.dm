@@ -309,6 +309,21 @@
 			to_chat(user, "<span class='notice'>You secure the support struts.</span>")
 			state = GIRDER_REINF
 
+/obj/structure/girder/wirecutter_act(mob/user, obj/item/I)
+	if(state != GIRDER_REINF_STRUTS)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start removing the inner grille...</span>")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != GIRDER_REINF_STRUTS)
+		return
+	to_chat(user, "<span class='notice'>You remove the inner grille.</span>")
+	new /obj/item/stack/sheet/plasteel(get_turf(src))
+	var/obj/structure/girder/G = new (loc)
+	transfer_fingerprints_to(G)
+	qdel(src)
+
 /obj/structure/girder/wrench_act(mob/user, obj/item/I)
 	if(state != GIRDER_NORMAL && state != GIRDER_DISPLACED)
 		return

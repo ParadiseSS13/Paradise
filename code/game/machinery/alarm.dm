@@ -62,9 +62,9 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
-#define AIR_ALARM_FRAME		1
-#define AIR_ALARM_BUILDING	2
-#define AIR_ALARM_READY		3
+#define AIR_ALARM_FRAME		0
+#define AIR_ALARM_BUILDING	1
+#define AIR_ALARM_READY		2
 
 //all air alarms in area are connected via magic
 /area
@@ -115,7 +115,7 @@
 	var/danger_level = ATMOS_ALARM_NONE
 	var/alarmActivated = 0 // Manually activated (independent from danger level)
 
-	var/buildstage = 2 //2 is built, 1 is building, 0 is frame.
+	var/buildstage = AIR_ALARM_READY
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
@@ -1042,7 +1042,7 @@
 		buildstage = AIR_ALARM_BUILDING
 		update_icon()
 	if(wiresexposed)
-		attack_hand(user)
+		wires.Interact(user)
 
 /obj/machinery/alarm/wrench_act(mob/user, obj/item/I)
 	if(buildstage != AIR_ALARM_FRAME)

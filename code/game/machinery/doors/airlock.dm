@@ -899,7 +899,7 @@ About the new airlock wires panel:
 	if(!panel_open || user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_use_check(user, 0))
 		return
 	if(security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
 		to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
@@ -922,6 +922,8 @@ About the new airlock wires panel:
 								"<span class='notice'>You remove \the [src]'s shielding.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
+	else
+		try_to_crowbar(user, I)
 
 /obj/machinery/door/airlock/wirecutter_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
@@ -958,13 +960,11 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/welder_act(mob/user, obj/item/I) //This is god awful but I don't care
 	if(!headbutt_shock_check(user))
 		return
-	if(user.a_intent == INTENT_HARM)
-		return
 	var/thing_to_do
-	if(panel_open)
-		thing_to_do = security_level
-	else if(!operating && density)
+	if(!operating && density)
 		thing_to_do = AIRLOCK_WELD_ME
+	else
+		thing_to_do = security_level
 	if(!thing_to_do)
 		return
 	. = TRUE
@@ -977,7 +977,7 @@ About the new airlock wires panel:
 					"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 					"<span class='italics'>You hear welding.</span>")
 
-				if(I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
 					if(!density && !welded)
 						return
 					welded = !welded
@@ -988,7 +988,7 @@ About the new airlock wires panel:
 				user.visible_message("[user] is welding the airlock.", \
 					"<span class='notice'>You begin repairing the airlock...</span>", \
 					"<span class='italics'>You hear welding.</span>")
-				if(I.use_tool(src, user, 40, volume = I.tool_volume))
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
 					obj_integrity = max_integrity
 					stat &= ~BROKEN
 					user.visible_message("[user.name] has repaired [src].", \
@@ -1039,24 +1039,24 @@ About the new airlock wires panel:
 		return
 	return TRUE
 
-/obj/machinery/door/airlock/try_to_crowbar(obj/item/I, mob/living/user)
+/obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I) //*scream
 	var/beingcrowbarred = null
-	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_enabled)
-		beingcrowbarred = 1
+	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
+		beingcrowbarred = TRUE
 	else
-		beingcrowbarred = 0
+		beingcrowbarred = FALSE
 	if(beingcrowbarred && panel_open && ((emagged) || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			deconstruct(TRUE, user)
-			return
+		return
 	else if(arePowerSystemsOn())
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
 	else if(!welded && !operating)
-		if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific
+		if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific 
 			var/obj/item/twohanded/fireaxe/F = I
 			if(F.wielded)
 				spawn(0)

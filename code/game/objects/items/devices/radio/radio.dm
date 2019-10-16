@@ -603,22 +603,30 @@ var/global/list/default_medbay_channels = list(
 		else
 			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
 
-/obj/item/radio/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	user.set_machine(src)
-	if(!( istype(W, /obj/item/screwdriver) ))
+/obj/item/radio/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	b_stat = !( b_stat )
+	user.set_machine(src)
+	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
 			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
 		else
 			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
 		updateDialog()
-			//Foreach goto(83)
-		add_fingerprint(user)
+
+/obj/item/radio/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	else return
+	interact(user)
+
+/obj/item/radio/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	interact(user)
 
 /obj/item/radio/emp_act(severity)
 	on = 0

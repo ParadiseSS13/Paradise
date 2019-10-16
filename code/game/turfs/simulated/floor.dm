@@ -181,20 +181,18 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	pry_tile(I, user)
+	pry_tile(I, user, TRUE)
 
 /turf/simulated/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
 	var/obj/item/thing = user.get_inactive_hand()
-	if(!istype(thing))
-		return
-	if(!locate(thing in prying_tool_list))
+	if(!prying_tool_list.Find(thing.tool_behaviour))
 		return
 	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))
 		return
-	P.tool_act(user, thing, thing.tool_behaviour)
+	P.attackby(T, user, params)
 
 /turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	playsound(src, C.usesound, 80, 1)

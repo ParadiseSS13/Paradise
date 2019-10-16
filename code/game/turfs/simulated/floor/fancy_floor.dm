@@ -1,7 +1,7 @@
 /turf/simulated/floor/wood
 	icon_state = "wood"
 	floor_tile = /obj/item/stack/tile/wood
-	prying_tool_list = list(TOOL_CROWBAR, TOOL_SCREWDRIVER)
+	prying_tool_list = list(TOOL_SCREWDRIVER)
 	broken_states = list("wood-broken", "wood-broken2", "wood-broken3", "wood-broken4", "wood-broken5", "wood-broken6", "wood-broken7")
 
 	footstep_sounds = list(
@@ -19,24 +19,24 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	remove_tile(user, TRUE, FALSE)
+	remove_tile(user, FALSE, FALSE)
 
 /turf/simulated/floor/wood/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
 	if(broken || burnt)
 		broken = 0
 		burnt = 0
 		if(user && !silent)
-			to_chat(user, "<span class='danger'>You remove the broken planks.</span>")
+			to_chat(user, "<span class='notice'>You remove the broken planks.</span>")
 	else
 		if(make_tile)
 			if(user && !silent)
-				to_chat(user, "<span class='danger'>You unscrew the planks.</span>")
+				to_chat(user, "<span class='notice'>You unscrew the planks.</span>")
 			if(builtin_tile)
 				builtin_tile.forceMove(src)
 				builtin_tile = null
 		else
 			if(user && !silent)
-				to_chat(user, "<span class='danger'>You forcefully pry off the planks, destroying them in the process.</span>")
+				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
 	return make_plating()
 
 /turf/simulated/floor/wood/cold

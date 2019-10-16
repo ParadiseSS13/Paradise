@@ -283,15 +283,13 @@
 	if(!component_parts)
 		return
 	. = TRUE
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/vending/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(panel_open)
-		return attack_hand(user)
+	wires.Interact(user)
 
 /obj/machinery/vending/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -299,18 +297,19 @@
 		return
 	if(anchored)
 		panel_open = !panel_open
-		SCREWDRIVER_OPEN_PANEL_MESSAGE
-		overlays.Cut()
 		if(panel_open)
+			SCREWDRIVER_OPEN_PANEL_MESSAGE
 			overlays += image(icon, "[initial(icon_state)]-panel")
+		else
+			SCREWDRIVER_CLOSE_PANEL_MESSAGE
+			overlays.Cut()
 		SSnanoui.update_uis(src)  // Speaker switch is on the main UI, not wires UI
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(panel_open)
-		return attack_hand(user)
+	wires.Interact(user)
 
 /obj/machinery/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE

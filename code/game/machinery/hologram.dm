@@ -105,19 +105,17 @@ var/list/holopads = list()
 	return ..()
 
 /obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I))
-		return TRUE
+	. = TRUE
+	default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I)
 
 
 /obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/I)
-	if(default_unfasten_wrench(user, I))
-		return TRUE
+	. = TRUE
+	default_unfasten_wrench(user, I)
 
 /obj/machinery/hologram/holopad/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
-
-
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
 	if(..())

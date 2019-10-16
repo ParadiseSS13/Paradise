@@ -173,7 +173,7 @@
 
 /obj/item/radio/intercom/screwdriver_act(mob/user, obj/item/I)
 	if(buildstage != 2)
-		return
+		return ..()
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
