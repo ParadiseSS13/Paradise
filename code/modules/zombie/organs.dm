@@ -83,7 +83,7 @@
 		return
 
 	Z.grab_ghost()
-	Z.visible_message("<span class='danger'>[Z] suddenly convulses, as [Z.p_they()][stand_up ? " stagger to [Z.p_their()] feet and" : ""] gain a ravenous hunger in [Z.p_their()] eyes!</span>", "<span class='alien'>You HUNGER!</span>")
+	Z.visible_message("<span class='danger'>[Z] suddenly convulses[stand_up ? ", staggers to [Z.p_their()] feet" : ""] and gains a ravenous hunger in [Z.p_their()] eyes!</span>", "<span class='alien'>You HUNGER!</span>")
 	playsound(Z.loc, 'sound/hallucinations/far_noise.ogg', 50, TRUE)
 	Z.do_jitter_animation(living_transformation_time)
 	Z.Stun(living_transformation_time * 0.05)

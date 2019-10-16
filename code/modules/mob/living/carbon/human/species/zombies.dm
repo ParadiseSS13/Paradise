@@ -9,7 +9,11 @@
 	dies_at_threshold = TRUE
 	language = "Zombie"
 	species_traits = list(NO_BLOOD, NOZOMBIE, NOTRANSSTING, NO_BREATHE, RADIMMUNE, NO_SCAN)
-	var/static/list/spooks = list('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg','sound/hallucinations/veryfar_noise.ogg','sound/hallucinations/wail.ogg')
+	speech_sounds = list('sound/hallucinations/growl1.ogg', 'sound/hallucinations/growl2.ogg', 'sound/hallucinations/growl3.ogg', 'sound/hallucinations/veryfar_noise.ogg', 'sound/hallucinations/wail.ogg')
+	speech_chance = 20
+	male_scream_sound = 'sound/hallucinations/wail.ogg'
+	female_scream_sound = 'sound/hallucinations/wail.ogg'
+	scream_verb = "wails"
 	warning_low_pressure = -1
 	hazard_low_pressure = -1
 	hazard_high_pressure = 999999999
@@ -68,7 +72,7 @@
 		H.heal_overall_damage(heal_amt,heal_amt)
 		H.adjustToxLoss(-heal_amt)
 	if(!H.InCritical() && prob(4))
-		playsound(H, pick(spooks), 50, TRUE, 10)
+		playsound(H, pick(speech_sounds), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie
 /datum/species/zombie/infectious/handle_death(gibbed, mob/living/carbon/C)
