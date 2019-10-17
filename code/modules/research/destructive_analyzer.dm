@@ -33,7 +33,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	var/T = 0
 	for(var/obj/item/stock_parts/S in component_parts)
 		T += S.rating
-	decon_mod = T
+	decon_mod = min(T, 9)	//hardcapped so at most 90% of mats can be retrieved.
 
 
 /obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(var/list/source_list)
