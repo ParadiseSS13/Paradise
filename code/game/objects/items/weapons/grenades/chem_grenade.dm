@@ -37,7 +37,7 @@
 	return ..()
 
 /obj/item/grenade/chem_grenade/examine(mob/user)
-	..(user)
+	. = ..()
 	display_timer = (stage == READY && !nadeassembly)	//show/hide the timer based on assembly state
 
 
@@ -113,9 +113,13 @@
 			spawn(det_time)
 				prime()
 
-/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
-	if(damage && attack_type == PROJECTILE_ATTACK && prob(15))
+/obj/item/grenade/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	var/obj/item/projectile/P = hitby
+	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits [owner]'s [src], setting it off! What a shot!</span>")
+		var/turf/T = get_turf(src)
+		log_game("A projectile ([hitby]) detonated a grenade held by [key_name(owner)] at [COORD(T)]")
+		message_admins("A projectile ([hitby]) detonated a grenade held by [key_name_admin(owner)] at [ADMIN_COORDJMP(T)]")
 		prime()
 		return 1 //It hit the grenade, not them
 
@@ -235,13 +239,13 @@
 		nadeassembly.process_movement()
 
 /obj/item/grenade/chem_grenade/pickup()
-	..()
+	. = ..()
 	if(nadeassembly)
 		nadeassembly.process_movement()
 
-/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM)
+/obj/item/grenade/chem_grenade/Crossed(atom/movable/AM, oldloc)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM)
+		nadeassembly.Crossed(AM, oldloc)
 
 /obj/item/grenade/chem_grenade/on_found(mob/finder)
 	if(nadeassembly)
@@ -289,7 +293,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([admin_jump_link(M)]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([admin_jump_link(last)]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>. [contained]")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z]) [contained]")
 
 	update_mob()
@@ -419,7 +423,7 @@
 		var/mob/last = get_mob_by_ckey(nadeassembly.fingerprintslast)
 		var/turf/T = get_turf(src)
 		var/area/A = get_area(T)
-		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)][ADMIN_QUE(M,"(?)")] ([ADMIN_FLW(M,"FLW")]) and last touched by [key_name_admin(last)][ADMIN_QUE(last,"(?)")] ([ADMIN_FLW(last,"FLW")]) ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
+		message_admins("grenade primed by an assembly, attached by [key_name_admin(M)] and last touched by [key_name_admin(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>[A.name] (JMP)</a>.")
 		log_game("grenade primed by an assembly, attached by [key_name(M)] and last touched by [key_name(last)] ([nadeassembly.a_left.name] and [nadeassembly.a_right.name]) at [A.name] ([T.x], [T.y], [T.z])")
 	else
 		addtimer(CALLBACK(src, .proc/prime), det_time)
@@ -445,6 +449,23 @@
 	beakers += B2
 	update_icon()
 
+
+/obj/item/grenade/chem_grenade/firefighting
+	payload_name = "fire fighting grenade"
+	desc = "Can help to put out dangerous fires from a distance."
+	stage = READY
+
+/obj/item/grenade/chem_grenade/firefighting/New()
+	..()
+	var/obj/item/reagent_containers/glass/beaker/B1 = new(src)
+	var/obj/item/reagent_containers/glass/beaker/B2 = new(src)
+
+	B1.reagents.add_reagent("firefighting_foam", 30)
+	B2.reagents.add_reagent("firefighting_foam", 30)
+
+	beakers += B1
+	beakers += B2
+	update_icon()
 
 /obj/item/grenade/chem_grenade/incendiary
 	payload_name = "incendiary"
@@ -546,7 +567,7 @@
 	update_icon()
 
 /obj/item/grenade/chem_grenade/saringas
-	payload_name = "saringas"
+	payload_name = "sarin gas"
 	desc = "Contains sarin gas; extremely deadly and fast acting; use with extreme caution."
 	stage = READY
 

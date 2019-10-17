@@ -23,6 +23,7 @@
 	power_channel = ENVIRON
 
 	req_access = list(access_keycard_auth)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
@@ -47,6 +48,8 @@
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+	return ..()
 
 /obj/machinery/keycard_auth/power_change()
 	if(powered(ENVIRON))
@@ -183,7 +186,7 @@
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
 
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
-	return ticker.mode && ticker.mode.ert_disabled
+	return SSticker.mode && SSticker.mode.ert_disabled
 
 var/global/maint_all_access = 0
 var/global/station_all_access = 0

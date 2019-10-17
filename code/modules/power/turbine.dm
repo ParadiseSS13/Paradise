@@ -29,6 +29,7 @@
 	icon_state = "compressor"
 	anchored = 1
 	density = 1
+	resistance_flags = FIRE_PROOF
 	var/obj/machinery/power/turbine/turbine
 	var/datum/gas_mixture/gas_contained
 	var/turf/simulated/inturf
@@ -47,6 +48,7 @@
 	icon_state = "turbine"
 	anchored = 1
 	density = 1
+	resistance_flags = FIRE_PROOF
 	var/opened = 0
 	var/obj/machinery/power/compressor/compressor
 	var/turf/simulated/outturf
@@ -64,8 +66,8 @@
 
 // the inlet stage of the gas turbine electricity generator
 
-/obj/machinery/power/compressor/New()
-	..()
+/obj/machinery/power/compressor/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/power_compressor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -80,10 +82,6 @@
 
 	gas_contained = new
 	inturf = get_step(src, dir)
-
-
-/obj/machinery/power/compressor/Initialize()
-	..()
 	locate_machinery()
 	if(!turbine)
 		stat |= BROKEN
@@ -130,7 +128,9 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
+	return ..()
 
 /obj/machinery/power/compressor/CanAtmosPass(turf/T)
 	return !density
@@ -185,8 +185,8 @@
 #define TURBGENQ 100000
 #define TURBGENG 0.5
 
-/obj/machinery/power/turbine/New()
-	..()
+/obj/machinery/power/turbine/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/power_turbine(src)
 	component_parts += new /obj/item/stock_parts/capacitor(src)
@@ -200,10 +200,6 @@
 // The outlet is pointed at the direction of the turbine component
 
 	outturf = get_step(src, dir)
-
-
-/obj/machinery/power/turbine/Initialize()
-	..()
 	locate_machinery()
 	if(!compressor)
 		stat |= BROKEN
@@ -289,7 +285,9 @@
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
+	return ..()
 
 /obj/machinery/power/turbine/interact(mob/user)
 

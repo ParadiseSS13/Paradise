@@ -43,19 +43,20 @@
 
 /obj/machinery/camera/proc/cancelAlarm()
 	if(!status || (stat & NOPOWER))
-		return 0
-	if(detectTime == -1)
-		motion_alarm.clearAlarm(loc, src)
+		return FALSE
+	if(detectTime == -1 && is_station_contact(z))
+		SSalarms.motion_alarm.clearAlarm(loc, src)
 	detectTime = 0
-	return 1
+	return TRUE
 
 /obj/machinery/camera/proc/triggerAlarm()
 	if(!status || (stat & NOPOWER))
-		return 0
-	if(!detectTime) return 0
-	motion_alarm.triggerAlarm(loc, src)
+		return FALSE
+	if(!detectTime || !is_station_contact(z))
+		return FALSE
+	SSalarms.motion_alarm.triggerAlarm(loc, src)
 	detectTime = -1
-	return 1
+	return TRUE
 
 /obj/machinery/camera/HasProximity(atom/movable/AM as mob|obj)
 	// Motion cameras outside of an "ai monitored" area will use this to detect stuff.

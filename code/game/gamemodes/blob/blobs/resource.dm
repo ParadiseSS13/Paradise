@@ -2,23 +2,14 @@
 	name = "resource blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
-	health = 30
-	fire_resist = 2
-	var/mob/camera/blob/overmind = null
+	max_integrity = 60
+	point_return = 12
 	var/resource_delay = 0
 
-/obj/structure/blob/resource/update_icon()
-	if(health <= 0)
-		qdel(src)
-
 /obj/structure/blob/resource/run_action()
-
 	if(resource_delay > world.time)
-		return 0
-
+		return
+	flick("blob_resource_glow", src)
 	resource_delay = world.time + 40 // 4 seconds
-
 	if(overmind)
 		overmind.add_points(1)
-	return 0
-

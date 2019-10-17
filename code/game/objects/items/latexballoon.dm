@@ -40,19 +40,21 @@
 /obj/item/latexballon/ex_act(severity)
 	burst()
 	switch(severity)
-		if(1)
+		if (1)
 			qdel(src)
-		if(2)
-			if(prob(50))
+		if (2)
+			if (prob(50))
 				qdel(src)
 
-/obj/item/latexballon/bullet_act()
-	burst()
+/obj/item/latexballon/bullet_act(obj/item/projectile/P)
+	if(!P.nodamage)
+		burst()
+	return ..()
 
 /obj/item/latexballon/temperature_expose(datum/gas_mixture/air, temperature, volume)
+	..()
 	if(temperature > T0C+100)
 		burst()
-	return
 
 /obj/item/latexballon/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))

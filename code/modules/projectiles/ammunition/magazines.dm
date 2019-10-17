@@ -236,10 +236,10 @@
 	if(ammo && is_rubber())
 		overlays += image('icons/obj/ammo.dmi', icon_state = "enforcer-r")
 
-/obj/item/ammo_box/magazine/enforcer/examine(mob/user, var/distance)
-	..()
-	if(distance <= 2)
-		to_chat(user, "It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets.")//only can see the topmost one.
+/obj/item/ammo_box/magazine/enforcer/examine(mob/user)
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		. += "It seems to be loaded with [is_rubber() ? "rubber" : "lethal"] bullets."//only can see the topmost one.
 
 /obj/item/ammo_box/magazine/enforcer/proc/is_rubber()//if the topmost bullet is a rubber one
 	var/ammo = ammo_count()
@@ -478,6 +478,9 @@
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
 
+/obj/item/ammo_box/magazine/toy/m762/riot
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot
+
 /obj/item/ammo_box/magazine/laser
 	name = "encased laser projector magazine"
 	desc = "Fits experimental laser ammo casings."
@@ -499,3 +502,6 @@
 /obj/item/ammo_box/magazine/toy/smgm45/update_icon()
 	..()
 	icon_state = "c20r45-[round(ammo_count(),2)]"
+
+/obj/item/ammo_box/magazine/toy/smgm45/riot
+	ammo_type = /obj/item/ammo_casing/caseless/foam_dart/riot

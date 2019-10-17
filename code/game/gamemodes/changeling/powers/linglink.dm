@@ -1,12 +1,14 @@
-/obj/effect/proc_holder/changeling/linglink
+/datum/action/changeling/linglink
 	name = "Hivemind Link"
-	desc = "Link your victim's mind into the hivemind for personal interrogation"
+	desc = "We link our victim's mind into the hivemind for personal interrogation."
+	helptext = "If we find a human mad enough to support our cause, this can be a helpful tool to stay in touch."
+	button_icon_state = "hivemind_link"
 	chemical_cost = 0
 	dna_cost = 0
 	req_human = 1
 	max_genetic_damage = 100
 
-/obj/effect/proc_holder/changeling/linglink/can_sting(mob/living/carbon/user)
+/datum/action/changeling/linglink/can_sting(mob/living/carbon/user)
 	if(!..())
 		return
 	var/datum/changeling/changeling = user.mind.changeling
@@ -34,7 +36,7 @@
 			return
 		return changeling.can_absorb_dna(user,target)
 
-/obj/effect/proc_holder/changeling/linglink/sting_action(mob/user)
+/datum/action/changeling/linglink/sting_action(mob/user)
 	var/datum/changeling/changeling = user.mind.changeling
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/target = G.affecting

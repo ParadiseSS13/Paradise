@@ -17,7 +17,7 @@
 	. = -1		//hunters are sanic
 	. += ..()	//but they still need to slow down on stun
 
-/mob/living/carbon/alien/humanoid/hunter/handle_regular_hud_updates()
+/mob/living/carbon/alien/humanoid/hunter/handle_hud_icons_health()
 	..() //-Yvarov
 
 	if(healths)
@@ -99,7 +99,7 @@
 			var/blocked = 0
 			if(ishuman(A))
 				var/mob/living/carbon/human/H = A
-				if(H.check_shields(0, "the [name]", src, attack_type = LEAP_ATTACK))
+				if(H.check_shields(src, 0, "the [name]", attack_type = LEAP_ATTACK))
 					blocked = 1
 			if(!blocked)
 				L.visible_message("<span class ='danger'>[src] pounces on [L]!</span>", "<span class ='userdanger'>[src] pounces on you!</span>")

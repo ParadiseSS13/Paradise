@@ -24,7 +24,7 @@
 /obj/item/seeds/kudzu/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide..</span>")
 	plant(user)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/seeds/kudzu/proc/plant(mob/user)
 	if(istype(user.loc, /turf/space))
@@ -95,4 +95,5 @@
 	icon_state = "kudzupod"
 	filling_color = "#6B8E23"
 	bitesize_mod = 2
+	tastes = list("kudzu" = 1)
 	wine_power = 0.2

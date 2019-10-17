@@ -1,13 +1,15 @@
 /datum/vision_override
 	var/name = "vision override"
-	var/see_in_dark = 0
-	var/see_invisible = 0
-	var/light_sensitive = 0
+
 	var/sight_flags = 0
+	var/see_in_dark = 0
+	var/lighting_alpha
+	
+	var/light_sensitive = 0
 
 /datum/vision_override/nightvision
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /datum/vision_override/nightvision/thermals
 	sight_flags = SEE_MOBS

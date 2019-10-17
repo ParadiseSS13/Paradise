@@ -19,18 +19,13 @@
 		else
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
 	else
-		..()
+		return ..()
 
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
 	ui_interact(user)
 
 /obj/machinery/computer/aifixer/attack_hand(var/mob/user as mob)
-	var/datum/game_mode/nations/mode = get_nations_mode()
-	if(!mode)
-		ui_interact(user)
-	else
-		if(mode.kickoff)
-			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
+	ui_interact(user)
 
 /obj/machinery/computer/aifixer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -74,6 +69,7 @@
 			if(occupant.health >= 0 && occupant.stat == DEAD)
 				occupant.update_revive()
 				occupant.lying = 0
+				update_icon()
 			sleep(10)
 		active = 0
 		add_fingerprint(usr)

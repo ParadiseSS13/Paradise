@@ -10,6 +10,17 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 
+/obj/structure/bigDelivery/Destroy()
+	var/turf/T = get_turf(src)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
+	return ..()
+
+/obj/structure/bigDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
 
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
@@ -23,7 +34,6 @@
 		AM.loc = T
 
 	qdel(src)
-
 
 /obj/structure/bigDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/destTagger))
@@ -66,17 +76,24 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
-
+	else
+		return ..()
 
 /obj/item/smallDelivery
 	name = "small parcel"
 	desc = "A small wrapped package."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "deliverycrateSmall"
+	item_state = "deliverypackage"
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
 
+/obj/item/smallDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
 
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
@@ -87,7 +104,6 @@
 			wrapped.loc = get_turf(src)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	qdel(src)
-
 
 /obj/item/smallDelivery/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/destTagger))
@@ -127,8 +143,8 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
-
-
+	else
+		return ..()
 
 /obj/item/stack/packageWrap
 	name = "package wrapper"
@@ -138,8 +154,7 @@
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
-	burn_state = FLAMMABLE
-
+	resistance_flags = FLAMMABLE
 
 /obj/item/stack/packageWrap/afterattack(var/obj/target as obj, mob/user as mob, proximity)
 	if(!proximity) return
@@ -152,8 +167,6 @@
 		return
 	if(target in user)
 		return
-
-
 
 	if(istype(target, /obj/item) && !(istype(target, /obj/item/storage) && !istype(target,/obj/item/storage/box) && !istype(target, /obj/item/shippingPackage)))
 		var/obj/item/O = target
@@ -177,7 +190,9 @@
 		var/obj/structure/closet/crate/O = target
 		if(O.opened)
 			return
-		if(use(3))
+		if(amount >= 3 && do_after_once(user, 15, target = target))
+			if(O.opened || !use(3))
+				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.icon_state = "deliverycrate"
 			P.wrapped = O
@@ -189,7 +204,9 @@
 		var/obj/structure/closet/O = target
 		if(O.opened)
 			return
-		if(use(3))
+		if(amount >= 3 && do_after_once(user, 15, target = target))
+			if(O.opened || !use(3))
+				return
 			var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(O.loc))
 			P.wrapped = O
 			P.init_welded = O.welded
@@ -359,7 +376,6 @@
 		else
 			to_chat(user, "You need more welding fuel to complete this task.")
 			return
-
 
 /obj/item/shippingPackage
 	name = "Shipping package"

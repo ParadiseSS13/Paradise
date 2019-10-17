@@ -1,5 +1,0 @@
-author: "datlo"
-delete-after: True
-changes: 
-  - tweak: "Shuttle hijacking is no longer interrupted by people cuffed, straight jacketed, or locked inside a welded/locked locker or wall locker."
-  - tweak: "Updated hijack's objective description to reflect the change."

@@ -32,7 +32,7 @@
 
 	integrity_failure = 50
 	max_integrity = 100
-	armor = list(melee = 0, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 100, rad = 100)
+	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
 
 	// Important hardware (must be installed for computer to work)
 
@@ -50,7 +50,7 @@
 	if(!physical)
 		physical = src
 	..()
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 	all_components = list()
 	idle_threads = list()
 
@@ -64,7 +64,7 @@
 			all_components.Remove(CH.device_type)
 			qdel(CH)
 	physical = null
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 
@@ -178,11 +178,11 @@
 		return 1
 
 /obj/item/modular_computer/examine(mob/user)
-	..()
+	. = ..()
 	if(obj_integrity <= integrity_failure)
-		to_chat(user, "<span class='danger'>It is heavily damaged!</span>")
+		. += "<span class='danger'>It is heavily damaged!</span>"
 	else if(obj_integrity < max_integrity)
-		to_chat(user, "<span class='warning'>It is damaged.</span>")
+		. += "<span class='warning'>It is damaged.</span>"
 
 /obj/item/modular_computer/update_icon()
 	overlays.Cut()

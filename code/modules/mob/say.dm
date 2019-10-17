@@ -98,7 +98,7 @@
 	return verb
 
 
-/mob/proc/emote(var/act, var/type, var/message)
+/mob/proc/emote(act, type, message, force)
 	if(act == "me")
 		return custom_emote(type, message)
 
@@ -184,7 +184,7 @@
 		var/current = prefix_locations[i] // ["Common", keypos]
 
 		// There are a few things that will make us want to ignore all other languages in - namely, HIVEMIND languages.
-		var/datum/language/L = current[1] 
+		var/datum/language/L = current[1]
 		if(L && L.flags & HIVEMIND)
 			. = new /datum/multilingual_say_piece(L, trim(strip_prefixes(message)))
 			break

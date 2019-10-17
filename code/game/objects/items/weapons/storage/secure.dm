@@ -28,8 +28,9 @@
 	max_combined_w_class = 14
 
 /obj/item/storage/secure/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, text("The service panel is [open ? "open" : "closed"]."))
+	. = ..()
+	if(in_range(user, src))
+		. += "The service panel is [open ? "open" : "closed"]."
 
 /obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(locked)

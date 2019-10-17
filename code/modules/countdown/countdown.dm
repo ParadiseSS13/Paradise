@@ -20,7 +20,7 @@
 
 /obj/effect/countdown/examine(mob/user)
 	. = ..()
-	to_chat(user, "This countdown is displaying: [displayed_text]")
+	. += "This countdown is displaying: [displayed_text]"
 
 /obj/effect/countdown/proc/attach(atom/A)
 	attached_to = A
@@ -28,13 +28,13 @@
 
 /obj/effect/countdown/proc/start()
 	if(!started)
-		GLOB.fast_processing += src
+		START_PROCESSING(SSfastprocess, src)
 		started = TRUE
 
 /obj/effect/countdown/proc/stop()
 	if(started)
 		maptext = null
-		GLOB.fast_processing -= src
+		STOP_PROCESSING(SSfastprocess, src)
 		started = FALSE
 
 /obj/effect/countdown/proc/get_value()
@@ -57,10 +57,16 @@
 
 /obj/effect/countdown/Destroy()
 	attached_to = null
-	GLOB.fast_processing -= src
+	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/effect/countdown/ex_act(severity) //immune to explosions
+	return
+
+/obj/effect/countdown/singularity_pull()
+	return
+
+/obj/effect/countdown/singularity_act()
 	return
 
 /obj/effect/countdown/syndicatebomb

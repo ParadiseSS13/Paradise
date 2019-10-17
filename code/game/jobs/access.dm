@@ -126,7 +126,7 @@ var/const/access_free_golems = 300
 
 	var/acc = M.get_access() //see mob.dm
 
-	if(acc == IGNORE_ACCESS)
+	if(acc == IGNORE_ACCESS || M.can_admin_interact())
 		return 1 //Mob ignores access
 
 	else
@@ -601,28 +601,29 @@ proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
 
 /obj/proc/GetJobName() //Used in secHUD icon generation
-	var/obj/item/card/id/I
+	var/assignmentName = "Unknown"
+	var/rankName = "Unknown"
 	if(istype(src, /obj/item/pda))
 		var/obj/item/pda/P = src
-		I = P.id
+		assignmentName = P.ownjob
+		rankName = P.ownrank
 	else if(istype(src, /obj/item/card/id))
-		I = src
+		var/obj/item/card/id/I = src
+		assignmentName = I.assignment
+		rankName = I.rank
+		
 
-	if(I)
-		var/job_icons = get_all_job_icons()
-		var/centcom = get_all_centcom_jobs()
+	var/job_icons = get_all_job_icons()
+	var/centcom = get_all_centcom_jobs()
 
-		if(I.assignment	in centcom) //Return with the NT logo if it is a Centcom job
-			return "Centcom"
-		if(I.rank in centcom)
-			return "Centcom"
+	if(assignmentName in centcom) //Return with the NT logo if it is a Centcom job
+		return "Centcom"
+	if(rankName in centcom)
+		return "Centcom"
 
-		if(I.assignment	in job_icons) //Check if the job has a hud icon
-			return I.assignment
-		if(I.rank in job_icons)
-			return I.rank
-
-	else
-		return
-
+	if(assignmentName	in job_icons) //Check if the job has a hud icon
+		return assignmentName
+	if(rankName in job_icons)
+		return rankName
+	
 	return "Unknown" //Return unknown if none of the above apply

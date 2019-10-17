@@ -291,6 +291,8 @@
 
 /mob/camera/aiEye/remote/shuttle_docker/update_remote_sight(mob/living/user)
 	user.sight = SEE_TURFS
+
+	..()
 	return TRUE
 
 /datum/action/innate/shuttledocker_rotate

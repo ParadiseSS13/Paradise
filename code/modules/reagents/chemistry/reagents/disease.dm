@@ -5,6 +5,7 @@
 	reagent_state = SOLID
 	color = "#FFFFFF"
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/spider_eggs/on_mob_life(mob/living/M)
 	if(volume > 2.5)
@@ -20,6 +21,7 @@
 	description = "Microscopic construction robots."
 	color = "#535E66" // rgb: 83, 94, 102
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
@@ -33,6 +35,7 @@
 	description = "Microbes with an entirely alien cellular structure."
 	color = "#535E66" // rgb: 83, 94, 102
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
@@ -45,6 +48,7 @@
 	description = "Active fungal spores."
 	color = "#92D17D" // rgb: 146, 209, 125
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
@@ -58,6 +62,7 @@
 	reagent_state = SOLID
 	color = "#FA0000" // rgb: 250, 0, 0
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
 	M.ForceContractDisease(new /datum/disease/berserker(0))
@@ -70,6 +75,7 @@
 	reagent_state = LIQUID
 	color = "#1E4600"
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
 	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
@@ -82,6 +88,7 @@
 	reagent_state = LIQUID
 	color = "#FF0000"
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
@@ -95,6 +102,7 @@
 	reagent_state = LIQUID
 	color = "#FFFFFF"
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/prions/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
@@ -108,10 +116,25 @@
 	reagent_state = LIQUID
 	color = "#465046"
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
 		M.ForceContractDisease(new /datum/disease/vampire(0))
+	return ..()
+
+/datum/reagent/bacon_grease
+	name = "pure bacon grease"
+	id = "bacon_grease"
+	description = "Hook me up to an IV of that sweet, sweet stuff!"
+	reagent_state = LIQUID
+	color = "#F7E6B1"
+	can_synth = FALSE
+	taste_description = "bacon"
+
+/datum/reagent/bacon_grease/on_mob_life(mob/living/carbon/M)
+	if(volume > 4.5)
+		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
 	return ..()
 
 /datum/reagent/heartworms
@@ -121,6 +144,7 @@
 	reagent_state = SOLID
 	color = "#925D6C"
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/heartworms/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
@@ -139,6 +163,7 @@
 	reagent_state = LIQUID
 	color = "#AB1CCF"
 	can_synth = FALSE
+	taste_mult = 0
 
 /datum/reagent/concentrated_initro/on_mob_life(mob/living/M)
 	if(volume >= 5)
@@ -157,6 +182,7 @@
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#899613" // rgb: 137, 150, 19
+	taste_description = "watery milk"
 
 /datum/reagent/mutagen/mutagenvirusfood
 	name = "mutagenic agar"
@@ -168,6 +194,7 @@
 	name = "sucrose agar"
 	id = "sugarvirusfood"
 	color = "#41B0C0" // rgb: 65,176,192
+	taste_mult = 1.5
 
 /datum/reagent/medicine/diphenhydramine/diphenhydraminevirusfood
 	name = "virus rations"

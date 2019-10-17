@@ -9,7 +9,8 @@
 	throw_range = 1
 	throw_speed = 1
 	layer = 4
-	pressure_resistance = 1
+	pressure_resistance = 2
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."
@@ -39,6 +40,9 @@
 	var/poison_dose = 20
 	var/poison_total = 60
 
+/obj/item/documents/syndicate/mining
+	desc = "\"Top Secret\" documents detailing Syndicate plasma mining operations."
+
 /obj/item/documents/syndicate/yellow/trapped/pickup(user)
 	if(ishuman(user) && poison_total > 0)
 		var/mob/living/carbon/human/H = user
@@ -47,4 +51,4 @@
 			H.reagents.add_reagent(poison_type, poison_dose)
 			poison_total -= poison_dose
 			add_attack_logs(src, user, "Picked up [src], the trapped syndicate documents")
-	..()
+	return ..()

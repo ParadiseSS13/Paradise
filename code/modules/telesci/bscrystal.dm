@@ -66,6 +66,7 @@ var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/st
 	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+	point_value = 30
 
 /obj/item/stack/sheet/bluespace_crystal/New()
 	..()

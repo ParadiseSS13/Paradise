@@ -12,7 +12,7 @@
 	var/strapped = 0.0
 
 	var/obj/machinery/computer/operating/computer = null
-	buckle_lying = 90
+	buckle_lying = -1
 	var/no_icon_updates = 0 //set this to 1 if you don't want the icons ever changing
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
@@ -34,27 +34,6 @@
 	if(victim)
 		victim = null
 	return ..()
-
-/obj/machinery/optable/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			//SN src = null
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				//SN src = null
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				src.density = 0
-		else
-	return
-
-/obj/machinery/optable/blob_act()
-	if(prob(75))
-		qdel(src)
 
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
@@ -99,7 +78,7 @@
 		icon_state = "table2-idle"
 	return 0
 
-/obj/machinery/optable/Crossed(atom/movable/AM)
+/obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(iscarbon(AM) && LAZYLEN(injected_reagents))
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")

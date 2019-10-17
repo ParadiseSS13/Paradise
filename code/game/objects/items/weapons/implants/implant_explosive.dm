@@ -20,8 +20,8 @@
 				"}
 	return dat
 
-/obj/item/implant/explosive/trigger(emote, mob/source)
-	if(emote == "deathgasp")
+/obj/item/implant/explosive/trigger(emote, mob/source, force)
+	if(force && emote == "deathgasp")
 		activate("death")
 
 /obj/item/implant/explosive/activate(cause)
@@ -148,8 +148,8 @@
 				"}
 	return dat
 
-/obj/item/implant/dust/trigger(emote, mob/source)
-	if(emote == "deathgasp")
+/obj/item/implant/dust/trigger(emote, mob/source, force)
+	if(force && emote == "deathgasp")
 		activate("death")
 
 /obj/item/implant/dust/activate(cause)

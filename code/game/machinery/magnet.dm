@@ -36,8 +36,8 @@
 	center = T
 
 	spawn(10)	// must wait for map loading to finish
-		if(radio_controller)
-			radio_controller.add_object(src, freq, RADIO_MAGNETS)
+		if(SSradio)
+			SSradio.add_object(src, freq, RADIO_MAGNETS)
 
 	spawn()
 		magnetic_process()
@@ -208,8 +208,8 @@
 
 
 	spawn(45)	// must wait for map loading to finish
-		if(radio_controller)
-			radio_connection = radio_controller.add_object(src, frequency, RADIO_MAGNETS)
+		if(SSradio)
+			radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
 
 	if(path) // check for default path
@@ -217,8 +217,8 @@
 
 
 /obj/machinery/magnetic_controller/Destroy()
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 

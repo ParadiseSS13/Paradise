@@ -71,16 +71,6 @@
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
 
-/mob/living/carbon/alien/larva/attack_slime(mob/living/carbon/slime/M)
-	..()
-	var/damage = rand(5, 35)
-	if(M.is_adult)
-		damage = rand(20, 40)
-	adjustBruteLoss(damage)
-	add_attack_logs(src, M, "Slime'd for [damage] damage")
-	updatehealth()
-	return
-
 /mob/living/carbon/alien/larva/restrained()
 	return 0
 
@@ -92,6 +82,9 @@
 
 /mob/living/carbon/alien/larva/show_inv(mob/user as mob)
 	return
+
+/mob/living/carbon/alien/larva/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
+	return FALSE
 
 /* Commented out because it's duplicated in life.dm
 /mob/living/carbon/alien/larva/proc/grow() // Larvae can grow into full fledged Xenos if they survive long enough -- TLE

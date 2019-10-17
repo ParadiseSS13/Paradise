@@ -1,9 +1,9 @@
-/datum/controller/gameticker/proc/scoreboard()
+/datum/controller/subsystem/ticker/proc/scoreboard()
 
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
 	//Look into all mobs in world, dead or alive
-	for(var/datum/mind/Mind in minds)
+	for(var/datum/mind/Mind in SSticker.minds)
 		var/temprole = Mind.special_role
 		if(temprole)							//if they are an antagonist of some sort.
 			if(temprole in total_antagonists)	//If the role exists already, add the name to it
@@ -59,15 +59,15 @@
 					score_richestjob = E.job
 					score_richestkey = E.key
 
-				dmg_score = E.bruteloss + E.fireloss + E.toxloss + E.oxyloss
+				dmg_score = E.getBruteLoss() + E.getFireLoss() + E.getToxLoss() + E.getOxyLoss()
 				if(dmg_score > score_dmgestdamage)
 					score_dmgestdamage = dmg_score
 					score_dmgestname = E.real_name
 					score_dmgestjob = E.job
 					score_dmgestkey = E.key
 
-	if(ticker && ticker.mode)
-		ticker.mode.set_scoreboard_gvars()
+	if(SSticker && SSticker.mode)
+		SSticker.mode.set_scoreboard_gvars()
 
 
 	// Check station's power levels
@@ -147,7 +147,7 @@
 			E.scorestats()
 
 // A recursive function to properly determine the wealthiest escapee
-/datum/controller/gameticker/proc/get_score_container_worth(atom/C, level=0)
+/datum/controller/subsystem/ticker/proc/get_score_container_worth(atom/C, level=0)
 	if(level >= 5)
 		// in case the containers recurse or something
 		return 0
@@ -171,8 +171,8 @@
 
 /mob/proc/scorestats()
 	var/dat = "<b>Round Statistics and Score</b><br><hr>"
-	if(ticker && ticker.mode)
-		dat += ticker.mode.get_scoreboard_stats()
+	if(SSticker && SSticker.mode)
+		dat += SSticker.mode.get_scoreboard_stats()
 
 	dat += {"
 	<b><u>General Statistics</u></b><br>
@@ -208,7 +208,7 @@
 		else
 			dat += "No-one escaped!<br>"
 
-	dat += ticker.mode.declare_job_completion()
+	dat += SSticker.mode.declare_job_completion()
 
 	dat += {"
 	<hr><br>

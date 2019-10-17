@@ -1,5 +1,4 @@
 #define TANK_MAX_RELEASE_PRESSURE (3*ONE_ATMOSPHERE)
-#define TANK_DEFAULT_RELEASE_PRESSURE 24
 
 /obj/item/tank
 	name = "tank"
@@ -8,12 +7,12 @@
 	slot_flags = SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
 	w_class = WEIGHT_CLASS_NORMAL
-	pressure_resistance = ONE_ATMOSPHERE*5
+	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5.0
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 4
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
@@ -27,13 +26,13 @@
 	air_contents.volume = volume //liters
 	air_contents.temperature = T20C
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)
 
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 
 	return ..()
 
@@ -77,8 +76,7 @@
 
 
 /obj/item/tank/examine(mob/user)
-	if(!..(user, 0))
-		return
+	. = ..()
 
 	var/obj/icon = src
 	if(istype(loc, /obj/item/assembly))
@@ -86,7 +84,7 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			to_chat(user, "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>")
+			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
 		return
 
 	var/celsius_temperature = air_contents.temperature-T0C
@@ -105,20 +103,27 @@
 	else
 		descriptive = "furiously hot"
 
-	to_chat(user, "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>")
+	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
 
-	return
-
-/obj/item/tank/blob_act()
-	if(prob(50))
-		var/turf/location = loc
-		if(!( istype(location, /turf) ))
+/obj/item/tank/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
+		var/turf/location = get_turf(src)
+		if(!location)
 			qdel(src)
 
 		if(air_contents)
 			location.assume_air(air_contents)
 
 		qdel(src)
+
+/obj/item/tank/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		var/turf/T = get_turf(src)
+		if(T)
+			T.assume_air(air_contents)
+			air_update_turf()
+		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+	qdel(src)
 
 /obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

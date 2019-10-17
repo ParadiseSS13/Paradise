@@ -16,6 +16,7 @@ Used In File(s): \code\modules\reagents\Chemistry-Machinery.dm
 		Dispense:
 	</div>
 	<div class="itemContent">
+		{{:helper.link('1', 'gear', {'amount' : 1}, (data.amount == 1) ? 'selected' : null)}}
 		{{:helper.link('5', 'gear', {'amount' : 5}, (data.amount == 5) ? 'selected' : null)}}
 		{{:helper.link('10', 'gear', {'amount' : 10}, (data.amount == 10) ? 'selected' : null)}}
 		{{:helper.link('20', 'gear', {'amount' : 20}, (data.amount == 20) ? 'selected' : null)}}
@@ -70,6 +71,7 @@ Used In File(s): \code\modules\reagents\Chemistry-Machinery.dm
 							</span>
 						</div>
 						<div class="floatRight">
+							{{:helper.link('Isolate', null, {'remove' : value.id, 'removeamount' : -1})}}
 							{{:helper.link('1', null, {'remove' : value.id, 'removeamount' : 1})}}
 							{{:helper.link('5', null, {'remove' : value.id, 'removeamount' : 5})}}
 							{{:helper.link('10', null, {'remove' : value.id, 'removeamount' : 10})}}

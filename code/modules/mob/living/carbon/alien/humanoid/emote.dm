@@ -1,4 +1,4 @@
-/mob/living/carbon/alien/humanoid/emote(var/act,var/m_type=1,var/message = null)
+/mob/living/carbon/alien/humanoid/emote(act, m_type = 1, message = null, force)
 	var/param = null
 	if(findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
@@ -25,7 +25,7 @@
 		if("flip")
 			on_CD = handle_emote_CD()
 
-	if(on_CD)
+	if(!force && on_CD == 1)
 		return
 
 	switch(act)
@@ -138,4 +138,4 @@
 			playsound(src.loc, 'sound/voice/hiss1.ogg', 30, 1, 1)
 		if(act == "gnarl")
 			playsound(src.loc, 'sound/voice/hiss4.ogg', 30, 1, 1)
-		..(act, m_type, message)
+		..()

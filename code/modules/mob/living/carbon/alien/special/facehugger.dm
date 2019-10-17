@@ -18,18 +18,26 @@ var/const/MAX_ACTIVE_TIME = 400
 	flags = AIRTIGHT
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	layer = MOB_LAYER
+	max_integrity = 100
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
-	var/sterile = 0
-	var/real = 1 //0 for the toy, 1 for real. Sure I could istype, but fuck that.
+	var/sterile = FALSE
+	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
 
 	var/attached = 0
 
+/obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	..()
+	if(obj_integrity < 90)
+		Die()
+
+/obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
+	return O.attack_obj(src, user)
+
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
-	attack_hand(user)
-	return
+	return attack_hand(user)
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))
@@ -43,36 +51,25 @@ var/const/MAX_ACTIVE_TIME = 400
 	Attach(M)
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
-	..(user)
-	if(!real)//So that giant red text about probisci doesn't show up.
-		return
-	switch(stat)
-		if(DEAD,UNCONSCIOUS)
-			to_chat(user, "<span class='boldannounce'>[src] is not moving.</span>")
-		if(CONSCIOUS)
-			to_chat(user, "<span class='boldannounce'>[src] seems to be active!</span>")
-	if(sterile)
-		to_chat(user, "<span class='boldannounce'>It looks like the proboscis has been removed.</span>")
-
-/obj/item/clothing/mask/facehugger/attackby(obj/item/O,mob/m, params)
-	if(O.force)
-		Die()
-	return
-
-/obj/item/clothing/mask/facehugger/bullet_act(obj/item/projectile/P)
-	if(P.damage)
-		Die()
-	return
+	. = ..()
+	if(real)//So that giant red text about probisci doesn't show up for fake ones
+		switch(stat)
+			if(DEAD,UNCONSCIOUS)
+				. += "<span class='boldannounce'>[src] is not moving.</span>"
+			if(CONSCIOUS)
+				. += "<span class='boldannounce'>[src] seems to be active!</span>"
+		if(sterile)
+			. += "<span class='boldannounce'>It looks like the proboscis has been removed.</span>"
 
 /obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > 300)
 		Die()
-	return
 
 /obj/item/clothing/mask/facehugger/equipped(mob/M)
 	Attach(M)
 
-/obj/item/clothing/mask/facehugger/Crossed(atom/target)
+/obj/item/clothing/mask/facehugger/Crossed(atom/target, oldloc)
 	HasProximity(target)
 	return
 
@@ -152,14 +149,6 @@ var/const/MAX_ACTIVE_TIME = 400
 		target.equip_to_slot(src, slot_wear_mask,,0)
 		if(!sterile)
 			M.Paralyse(MAX_IMPREGNATION_TIME/6) //something like 25 ticks = 20 seconds with the default settings
-	else if(iscorgi(M))
-		var/mob/living/simple_animal/pet/corgi/C = M
-		if(C.facehugger)
-			var/obj/item/F = C.facehugger
-			F.forceMove(C.loc)
-		forceMove(C)
-		C.facehugger = src
-		C.regenerate_icons()
 
 	GoIdle() //so it doesn't jump the people that tear it off
 
@@ -192,11 +181,6 @@ var/const/MAX_ACTIVE_TIME = 400
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
-
-		if(iscorgi(target))
-			var/mob/living/simple_animal/pet/corgi/C = target
-			src.loc = get_turf(C)
-			C.facehugger = null
 	else
 		target.visible_message("<span class='danger'>[src] violates [target]'s face!</span>", \
 								"<span class='userdanger'>[src] violates [target]'s face!</span>")
@@ -250,9 +234,6 @@ var/const/MAX_ACTIVE_TIME = 400
 
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
-	desc = "The worst she might do is attempt to... couple with your head."//hope we don't get sued over a harmless reference, rite?
+	desc = "The worst she might do is attempt to... couple with your head." //hope we don't get sued over a harmless reference, rite?
 	sterile = 1
 	gender = FEMALE
-
-/obj/item/clothing/mask/facehugger/lamarr/New()//to prevent deleting it if aliums are disabled
-	return

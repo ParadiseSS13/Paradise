@@ -30,22 +30,6 @@
 	E.insert()
 	..()
 
-
-/mob/living/carbon/true_devil/update_sight()
-	if(stat == DEAD)
-		sight |= SEE_TURFS
-		sight |= SEE_MOBS
-		sight |= SEE_OBJS
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_LEVEL_TWO
-	else
-		sight = (SEE_TURFS | SEE_OBJS)
-		see_in_dark = 2
-		see_invisible = SEE_INVISIBLE_LIVING
-
-		if(see_override)
-			see_invisible = see_override
-
 // inventory system could use some love
 /mob/living/carbon/true_devil/put_in_hands(obj/item/W)
 	if(!W)
@@ -109,7 +93,7 @@
 	else if(health < (maxHealth/2))
 		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
 	msg += "*---------*</span>"
-	to_chat(user, msg)
+	. = list(msg)
 
 
 /mob/living/carbon/true_devil/IsAdvancedToolUser()
@@ -118,7 +102,7 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
+/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(mind && has_bane(BANE_LIGHT))
 		mind.disrupt_spells(-500)
 		return ..() //flashes don't stop devils UNLESS it's their bane.

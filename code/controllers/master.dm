@@ -194,8 +194,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	to_chat(world, "<span class='boldannounce'>[msg]</span>")
 	log_world(msg)
 
-	if(config.developer_express_start & ticker.current_state == GAME_STATE_PREGAME)
-		ticker.current_state = GAME_STATE_SETTING_UP
+	if(config.developer_express_start & SSticker.current_state == GAME_STATE_PREGAME)
+		SSticker.current_state = GAME_STATE_SETTING_UP
 
 	if(!current_runlevel)
 		SetRunLevel(1)
@@ -203,12 +203,14 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	// Sort subsystems by display setting for easy access.
 	sortTim(subsystems, /proc/cmp_subsystem_display)
 	// Set world options.
-	if(sleep_offline_after_initializations)
-		world.sleep_offline = TRUE
 	// world.fps = CONFIG_GET(number/fps) // TIGER TODO
 	world.tick_lag = config.Ticklag
 	var/initialized_tod = REALTIMEOFDAY
+
+	if(sleep_offline_after_initializations)
+		world.sleep_offline = TRUE
 	sleep(1)
+
 	initializations_finished_with_no_players_logged_in = initialized_tod < REALTIMEOFDAY - 10
 	// Loop.
 	Master.StartProcessing(0)
@@ -249,7 +251,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 	//all this shit is here so that flag edits can be refreshed by restarting the MC. (and for speed)
 	var/list/tickersubsystems = list()
-	var/list/runlevel_sorted_subsystems = list(list(), list(), list(), list(), list(), list(), list(), list())	//ensure we always have as many runlevels as we need to operate with no subsystems (8 currently)
+	var/list/runlevel_sorted_subsystems = list(list())	//ensure we always have at least one runlevel
 	var/timer = world.time
 	for(var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing
@@ -470,7 +472,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			else
 				tick_precentage = tick_remaining
 
-			tick_precentage = max(tick_precentage*0.5, tick_precentage - queue_node.tick_overrun)
+			tick_precentage = max(tick_precentage * 0.5, tick_precentage - queue_node.tick_overrun)
 
 			current_ticklimit = round(TICK_USAGE + tick_precentage)
 
@@ -584,10 +586,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/stat_entry()
 	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(src, "Initializing...")
+		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
 
-	stat("Byond", "(FPS:[world.fps]) (TickCount:[world.time/world.tick_lag]) (TickDrift:[round(Master.tickdrift,1)]([round((Master.tickdrift/(world.time/world.tick_lag))*100,0.1)]%))")
-	stat("Master Controller", statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration])"))
+	stat("Byond:", "(FPS:[world.fps]) (TickCount:[world.time / world.tick_lag]) (TickDrift:[round(Master.tickdrift, 1)]([round((Master.tickdrift / (world.time / world.tick_lag)) * 100, 0.1)]%))")
+	stat("Master Controller:", statclick.update("(TickRate:[Master.processing]) (Iteration:[Master.iteration])"))
 
 // Currently unimplemented
 /datum/controller/master/StartLoadingMap()

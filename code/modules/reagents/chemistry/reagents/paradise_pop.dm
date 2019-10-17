@@ -15,7 +15,7 @@
 	description = "Tastes just how you'd think Paradise would if you could bottle it."
 	reagent_state = LIQUID
 	color = "#cc0044"
-	taste_message = "paradise"
+	taste_description = "paradise"
 
 //Apple-pocalypse: Low chance to cause a goonchem vortex that pulls things within a very small radius (2 tiles?) towards the drinker
 /datum/reagent/consumable/drink/apple_pocalypse
@@ -24,14 +24,14 @@
 	description = "If doomsday came in fruit form, it'd probably be apples."
 	reagent_state = LIQUID
 	color = "#44FF44"
-	taste_message = "doomsday"
+	taste_description = "doomsday"
 
 /datum/reagent/consumable/drink/apple_pocalypse/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
-		goonchem_vortex(T, 0, 2, 1)
+		goonchem_vortex(T, 1, 0)
 		to_chat(M, "<span class='notice'>You briefly feel super-massive, like a black hole. Probably just your imagination...</span>")
-	..()
+	return ..()
 
 //Berry Banned: This one is tasty and safe to drink, might have a low chance of healing a random damage type?
 /datum/reagent/consumable/drink/berry_banned
@@ -40,7 +40,7 @@
 	description = "Reason for ban: Excessive Flavor."
 	reagent_state = LIQUID
 	color = "#FF44FF"
-	taste_message = "a permaban"
+	taste_description = "a permaban"
 
 /datum/reagent/consumable/drink/berry_banned/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -69,7 +69,7 @@
 	description = "Reason for ban: Excessive Flavor."
 	reagent_state = LIQUID
 	color = "#FF44FF"
-	taste_message = "a permaban"
+	taste_description = "a permaban"
 
 /datum/reagent/consumable/drink/berry_banned2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -91,7 +91,7 @@
 	description = "Creamy, smooth flavor, just like the bald heads of the masses. Supposedly aged for 30 years."
 	reagent_state = LIQUID
 	color = "#4d2600"
-	taste_message = "greytide"
+	taste_description = "greytide"
 
 /datum/reagent/consumable/drink/blackeye_brew/on_mob_life(mob/living/M)
 	if(prob(25))
@@ -114,12 +114,12 @@
 	description = "Exploding with grape flavor and a favorite among ERT members system-wide."
 	reagent_state = LIQUID
 	color = "#9933ff"
-	taste_message = "old people"
+	taste_description = "old people"
 
 /datum/reagent/consumable/drink/grape_granade/on_mob_life(mob/living/M)
 	if(prob(1))
 		var/turf/simulated/T = get_turf(M)
-		goonchem_vortex(T, 1, 1, 2)
+		goonchem_vortex(T, 0, 0)
 		M.emote("burp")
 		to_chat(M, "<span class='notice'>You feel ready to burst! Oh wait, just a burp...</span>")
 	else if(prob(25))
@@ -133,7 +133,7 @@
 	description = "Soft drinks have been detected on collision course with your tastebuds."
 	reagent_state = LIQUID
 	color = "#cc9900"
-	taste_message = "flying space rocks"
+	taste_description = "flying space rocks"
 
 /datum/reagent/consumable/drink/meteor_malt/on_mob_life(mob/living/M)
 	if(prob(25))

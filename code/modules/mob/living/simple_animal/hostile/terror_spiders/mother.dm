@@ -38,6 +38,8 @@
 	if(can_die())
 		if(spider_awaymission && !is_away_level(z))
 			canspawn = FALSE
+		if(degenerate)
+			canspawn = FALSE
 		if(canspawn)
 			canspawn = FALSE
 			for(var/i in 0 to spawn_count)

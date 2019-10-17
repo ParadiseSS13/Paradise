@@ -11,7 +11,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=4"
 	actions_types = list(/datum/action/item_action/toggle_paddles)
-	species_fit = list("Vox")
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi'
 		)
@@ -22,6 +22,9 @@
 	var/obj/item/twohanded/shockpaddles/paddles
 	var/obj/item/stock_parts/cell/high/bcell = null
 	var/combat = 0 //can we revive through space suits?
+
+/obj/item/defibrillator/get_cell()
+	return bcell
 
 /obj/item/defibrillator/New() //starts without a cell for rnd
 	..()
@@ -40,6 +43,10 @@
 	update_power()
 	update_overlays()
 	update_charge()
+
+/obj/item/defibrillator/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Ctrl-click to remove the paddles from the defibrillator.</span>"
 
 /obj/item/defibrillator/proc/update_power()
 	if(bcell)
@@ -253,6 +260,7 @@
 	force = 0
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
+	resistance_flags = INDESTRUCTIBLE
 	toolspeed = 1
 
 	var/revivecost = 1000
@@ -279,7 +287,7 @@
 	user.visible_message("<span class='danger'>[user] is putting the live paddles on [user.p_their()] chest! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/twohanded/shockpaddles/dropped(mob/user as mob)
 	if(user)
@@ -309,7 +317,7 @@
 
 /obj/item/twohanded/shockpaddles/attack(mob/M, mob/user)
 	var/tobehealed
-	var/threshold = -config.health_threshold_dead
+	var/threshold = -HEALTH_THRESHOLD_DEAD
 	var/mob/living/carbon/human/H = M
 
 	if(busy)
@@ -468,7 +476,7 @@
 
 /obj/item/borg_defib/attack(mob/M, mob/user)
 	var/tobehealed
-	var/threshold = -config.health_threshold_dead
+	var/threshold = -HEALTH_THRESHOLD_DEAD
 	var/mob/living/carbon/human/H = M
 
 	if(busy)

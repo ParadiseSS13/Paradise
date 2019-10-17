@@ -39,6 +39,8 @@
 	icon_state = "map_universal"
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_icon(var/safety = 0)
+	..()
+	
 	if(!check_icon_cache())
 		return
 

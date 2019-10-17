@@ -21,10 +21,10 @@
 /obj/item/assembly/health/toggle_secure()
 	secured = !secured
 	if(secured && scanning)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	else
 		scanning = FALSE
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	update_icon()
 	return secured
 
@@ -66,9 +66,9 @@
 		return FALSE
 	scanning = !scanning
 	if(scanning)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	else
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return
 
 /obj/item/assembly/health/interact(mob/user)//TODO: Change this to the wires thingy

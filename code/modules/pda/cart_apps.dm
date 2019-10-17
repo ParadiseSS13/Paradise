@@ -21,14 +21,14 @@
 				if("alert")
 					post_status("alert", href_list["alert"])
 				if("setmsg1")
-					message1 = input("Line 1", "Enter Message Text", message1) as text|null
+					message1 = clean_input("Line 1", "Enter Message Text", message1)
 				if("setmsg2")
-					message2 = input("Line 2", "Enter Message Text", message2) as text|null
+					message2 = clean_input("Line 2", "Enter Message Text", message2)
 				else
 					post_status(href_list["statdisp"])
 
 /datum/data/pda/app/status_display/proc/post_status(var/command, var/data1, var/data2)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(DISPLAY_FREQ)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
 	if(!frequency)
 		return
 
@@ -392,7 +392,7 @@
 		BucketData[++BucketData.len] = list("x" = 0, "y" = 0, dir=null, status = null)
 
 	var/CbotData[0]
-	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.simple_animal_list)
+	for(var/mob/living/simple_animal/bot/cleanbot/B in GLOB.simple_animals)
 		var/turf/bl = get_turf(B)
 		if(bl)
 			if(bl.z != cl.z)

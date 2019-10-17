@@ -62,27 +62,38 @@
 	return ..()
 
 /mob/living/carbon/human/proc/HasVoiceChanger()
-	if(istype(back,/obj/item/rig))
+	if(istype(back, /obj/item/rig))
 		var/obj/item/rig/rig = back
 		if(rig.speech && rig.speech.voice_holder && rig.speech.voice_holder.active && rig.speech.voice_holder.voice)
 			return rig.speech.voice_holder.voice
 
-	for(var/obj/item/gear in list(wear_mask,wear_suit,head))
+	for(var/obj/item/gear in list(wear_mask, wear_suit, head))
 		if(!gear)
 			continue
+
 		var/obj/item/voice_changer/changer = locate() in gear
-		if(changer && changer.active && changer.voice)
-			return changer.voice
-	return 0
+		if(changer && changer.active)
+			if(changer.voice)
+				return changer.voice
+			else if(wear_id)
+				var/obj/item/card/id/idcard = wear_id.GetID()
+				if(istype(idcard))
+					return idcard.registered_name
+
+	return FALSE
 
 /mob/living/carbon/human/GetVoice()
 	var/has_changer = HasVoiceChanger()
+
 	if(has_changer)
 		return has_changer
+
 	if(mind && mind.changeling && mind.changeling.mimicing)
 		return mind.changeling.mimicing
+
 	if(GetSpecialVoice())
 		return GetSpecialVoice()
+
 	return real_name
 
 /mob/living/carbon/human/IsVocal()
@@ -91,7 +102,7 @@
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
-	if(oxyloss > 10 || losebreath >= 4)
+	if(getOxyLoss() > 10 || losebreath >= 4)
 		emote("gasp")
 		return FALSE
 	if(mind)
@@ -124,7 +135,6 @@
 		span = mind.speech_span
 	if((COMIC in mutations) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
-		|| istype(get_item_by_slot(slot_wear_mask), /obj/item/clothing/mask/gas/voice/clown) \
 		|| GetComponent(/datum/component/jestosterone))
 		span = "sans"
 

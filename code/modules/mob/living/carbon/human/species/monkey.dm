@@ -13,9 +13,11 @@
 	species_traits = list(NO_EXAMINE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
+	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
+	can_craft = FALSE
 	is_small = 1
 	has_fine_manipulation = 0
-	ventcrawler = 1
+	ventcrawler = VENTCRAWLER_NUDE
 	show_ssd = 0
 	eyes = "blank_eyes"
 	death_message = "lets out a faint chimper as it collapses and stops moving..."
@@ -58,42 +60,6 @@
 		H.dna.SetSEState(MONKEYBLOCK, TRUE)
 		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
 
-/datum/species/monkey/handle_can_equip(obj/item/I, slot, disable_warning = 0, mob/living/carbon/human/user)
-	switch(slot)
-		if(slot_l_hand)
-			if(user.l_hand)
-				return 2
-			return 1
-		if(slot_r_hand)
-			if(user.r_hand)
-				return 2
-			return 1
-		if(slot_wear_mask)
-			if(user.wear_mask)
-				return 2
-			if(!(I.slot_flags & SLOT_MASK))
-				return 2
-			return 1
-		if(slot_back)
-			if(user.back)
-				return 2
-			if(!(I.slot_flags & SLOT_BACK))
-				return 2
-			return 1
-		if(slot_handcuffed)
-			if(user.handcuffed)
-				return 2
-			if(!istype(I, /obj/item/restraints/handcuffs))
-				return 2
-			return 1
-		if(slot_in_backpack)
-			if(user.back && istype(user.back, /obj/item/storage/backpack))
-				var/obj/item/storage/backpack/B = user.back
-				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
-					return 1
-			return 2
-	return 2
-
 /datum/species/monkey/tajaran
 	name = "Farwa"
 	name_plural = "Farwa"
@@ -108,11 +74,11 @@
 	tail = "farwatail"
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/tajaran,
+		"lungs" =    /obj/item/organ/internal/lungs/tajaran,
 		"liver" =    /obj/item/organ/internal/liver/tajaran,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/tajaran,
+		"brain" =    /obj/item/organ/internal/brain/tajaran,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/tajaran/farwa //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
@@ -132,11 +98,11 @@
 	tail = "wolpintail"
 	reagent_tag = PROCESS_ORG
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"lungs" =    /obj/item/organ/internal/lungs,
+		"heart" =    /obj/item/organ/internal/heart/vulpkanin,
+		"lungs" =    /obj/item/organ/internal/lungs/vulpkanin,
 		"liver" =    /obj/item/organ/internal/liver/vulpkanin,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
+		"kidneys" =  /obj/item/organ/internal/kidneys/vulpkanin,
+		"brain" =    /obj/item/organ/internal/brain/vulpkanin,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/vulpkanin/wolpin //Vulpkanin monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
@@ -156,6 +122,16 @@
 	reagent_tag = PROCESS_ORG
 	tail = null
 
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/skrell,
+		"lungs" =    /obj/item/organ/internal/lungs/skrell,
+		"liver" =    /obj/item/organ/internal/liver/skrell,
+		"kidneys" =  /obj/item/organ/internal/kidneys/skrell,
+		"brain" =    /obj/item/organ/internal/brain/skrell,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
+		)
+
 /datum/species/monkey/unathi
 	name = "Stok"
 	name_plural = "Stok"
@@ -171,3 +147,13 @@
 	reagent_tag = PROCESS_ORG
 
 	bodyflags = HAS_TAIL
+
+	has_organ = list(
+		"heart" =    /obj/item/organ/internal/heart/unathi,
+		"lungs" =    /obj/item/organ/internal/lungs/unathi,
+		"liver" =    /obj/item/organ/internal/liver/unathi,
+		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
+		"brain" =    /obj/item/organ/internal/brain/unathi,
+		"appendix" = /obj/item/organ/internal/appendix,
+		"eyes" =     /obj/item/organ/internal/eyes/unathi
+		)

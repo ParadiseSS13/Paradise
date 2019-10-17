@@ -294,7 +294,7 @@ var/record_id_num = 1001
 		var/datum/data/record/M = new()
 		M.fields["id"]			= id
 		M.fields["name"]		= H.real_name
-		M.fields["b_type"]		= H.b_type
+		M.fields["blood_type"]	= H.dna.blood_type
 		M.fields["b_dna"]		= H.dna.unique_enzymes
 		M.fields["mi_dis"]		= "None"
 		M.fields["mi_dis_d"]	= "No minor disabilities have been declared."
@@ -334,7 +334,7 @@ var/record_id_num = 1001
 		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["age"]			= H.age
 		L.fields["sex"]			= capitalize(H.gender)
-		L.fields["b_type"]		= H.b_type
+		L.fields["blood_type"]	= H.dna.blood_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["enzymes"]		= H.dna.SE // Used in respawning
 		L.fields["identity"]	= H.dna.UI // "
@@ -624,7 +624,7 @@ var/record_id_num = 1001
 			clothes_s = new /icon('icons/mob/uniform.dmi', "syndicate_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "jackboots"), ICON_UNDERLAY)
 			clothes_s.Blend(new /icon('icons/mob/hands.dmi', "swat_gl"), ICON_UNDERLAY)
-		else if(H.mind.assigned_role in get_all_centcom_jobs())
+		else if(H.mind && H.mind.assigned_role in get_all_centcom_jobs())
 			clothes_s = new /icon('icons/mob/uniform.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/feet.dmi', "laceups"), ICON_UNDERLAY)
 		else

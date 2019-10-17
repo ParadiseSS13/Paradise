@@ -25,6 +25,7 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#FF6347"
 	bitesize_mod = 3
+	tastes = list("poppy" = 1)
 	distill_reagent = "vermouth"
 
 // Lily
@@ -42,6 +43,7 @@
 	name = "lily"
 	desc = "A beautiful orange flower"
 	icon_state = "lily"
+	tastes = list("lily" = 1)
 	filling_color = "#FFA500"
 
 // Geranium
@@ -59,6 +61,7 @@
 	name = "geranium"
 	desc = "A beautiful blue flower"
 	icon_state = "geranium"
+	tastes = list("geranium" = 1)
 	filling_color = "#008B8B"
 
 
@@ -88,6 +91,7 @@
 	icon_state = "harebell"
 	slot_flags = SLOT_HEAD
 	filling_color = "#E6E6FA"
+	tastes = list("harebell" = 1)
 	bitesize_mod = 3
 	distill_reagent = "vermouth"
 
@@ -134,6 +138,8 @@
 	icon_state = "seed-moonflower"
 	species = "moonflower"
 	plantname = "Moonflowers"
+	icon_grow = "moonflower-grow"
+	icon_dead = "sunflower-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
 	mutatelist = list()
 	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "plantmatter" = 0.02)
@@ -147,7 +153,8 @@
 	slot_flags = SLOT_HEAD
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
-	distill_reagent = "absinthe" 
+	tastes = list("moonflower" = 1)
+	distill_reagent = "absinthe"  //It's made from flowers.
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower
@@ -156,6 +163,8 @@
 	icon_state = "seed-novaflower"
 	species = "novaflower"
 	plantname = "Novaflowers"
+	icon_grow = "novaflower-grow"
+	icon_dead = "sunflower-dead"
 	product = /obj/item/grown/novaflower
 	mutatelist = list()
 	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "plantmatter" = 0)
@@ -199,7 +208,7 @@
 		qdel(src)
 
 /obj/item/grown/novaflower/pickup(mob/living/carbon/human/user)
-	..()
+	. = ..()
 	if(!user.gloves)
 		to_chat(user, "<span class='danger'>The [name] burns your bare hand!</span>")
 		user.adjustFireLoss(rand(1, 5))

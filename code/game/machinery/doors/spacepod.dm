@@ -15,8 +15,9 @@
 	return 0
 
 /obj/structure/spacepoddoor/Destroy()
-	air_update_turf(1)
-	return ..()
+	var/turf/T = get_turf(src)
+	. = ..()
+	T.air_update_turf(TRUE)
 
 /obj/structure/spacepoddoor/CanPass(atom/movable/A, turf/T)
 	if(istype(A, /obj/spacepod))

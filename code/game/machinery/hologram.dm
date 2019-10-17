@@ -44,7 +44,9 @@ var/list/holopads = list()
 	idle_power_usage = 5
 	active_power_usage = 100
 	layer = TURF_LAYER+0.1 //Preventing mice and drones from sneaking under them.
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
+	plane = FLOOR_PLANE
+	max_integrity = 300
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
 	var/list/masters = list()//List of living mobs that use the holopad
 	var/list/holorays = list()//Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn
@@ -86,6 +88,11 @@ var/list/holopads = list()
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
 
+/obj/machinery/hologram/holopad/obj_break()
+	. = ..()
+	if(outgoing_call)
+		outgoing_call.ConnectionFailure(src)
+
 /obj/machinery/hologram/holopad/RefreshParts()
 	var/holograph_range = 4
 	for(var/obj/item/stock_parts/capacitor/B in component_parts)
@@ -104,8 +111,7 @@ var/list/holopads = list()
 
 	if(default_deconstruction_crowbar(I))
 		return
-	else
-		return ..()
+	return ..()
 
 
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
@@ -478,8 +484,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)
-		return Impersonation.examine(user)
-	return ..()
+		. = Impersonation.examine(user)
+	else
+		. = ..()
 
 
 /obj/effect/overlay/holoray

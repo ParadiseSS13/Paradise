@@ -36,10 +36,6 @@
 	moving = 0
 	return 1
 
-
-/obj/machinery/computer/salvage_ship/attackby(obj/item/I as obj, mob/user as mob, params)
-	return attack_hand(user)
-
 /obj/machinery/computer/salvage_ship/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
 	return attack_hand(user)
@@ -58,7 +54,6 @@
 	<a href='?src=[UID()];north=1'>North of the Station</a> |
 	<a href='?src=[UID()];east=1'>East of the Station</a> |
 	<a href='?src=[UID()];south=1'>South of the Station</a><br>
-	<a href='?src=[UID()];mining=1'>South-west of the Mining Asteroid</a> |
 	<a href='?src=[UID()];trading_post=1'>Trading Post</a><br>
 	<a href='?src=[UID()];clown_asteroid=1'>Clown Asteroid</a> |
 	<a href='?src=[UID()];derelict=1'>Derelict Station</a> |
@@ -99,8 +94,6 @@
 		salvage_move_to(/area/shuttle/salvage/south)
 	else if(href_list["commssat"])
 		salvage_move_to(/area/shuttle/salvage/commssat)
-	else if(href_list["mining"])
-		salvage_move_to(/area/shuttle/salvage/mining)
 	else if(href_list["abandoned_ship"])
 		salvage_move_to(/area/shuttle/salvage/abandoned_ship)
 	else if(href_list["clown_asteroid"])

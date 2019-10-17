@@ -54,6 +54,7 @@
 /obj/machinery/disco/Destroy()
 	dance_over()
 	selection = null
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/machinery/disco/attackby(obj/item/O, mob/user, params)
@@ -66,7 +67,7 @@
 				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
 				anchored = FALSE
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			return
+		return
 	return ..()
 
 /obj/machinery/disco/update_icon()
@@ -128,7 +129,7 @@
 				active = TRUE
 				update_icon()
 				dance_setup()
-				processing_objects.Add(src)
+				START_PROCESSING(SSobj, src)
 				lights_spin()
 				updateUsrDialog()
 			else if(active)
@@ -321,6 +322,9 @@
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
+	if(M.client && !(M.client.prefs.sound & SOUND_DISCO)) //We have a client that doesn't want to dance.
+		rangers -= M //Doing that here as it'll be checked less often than in processing.
+		return
 	switch(rand(0,9))
 		if(0 to 1)
 			dance2(M)
@@ -459,20 +463,21 @@
 		var/sound/song_played = sound(selection.song_path)
 
 		for(var/mob/M in range(10,src))
-			if(!(M in rangers))
-				rangers[M] = TRUE
-				M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
-			if(prob(5+(allowed(M) * 4)) && M.canmove && isliving(M))
-				dance(M)
+			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
+				if(!(M in rangers))
+					rangers[M] = TRUE
+					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played)
 		for(var/mob/L in rangers)
 			if(get_dist(src, L) > 10)
 				rangers -= L
 				if(!L || !L.client)
 					continue
 				L.stop_sound_channel(CHANNEL_JUKEBOX)
+			else if(prob(9) && L.canmove && isliving(L))
+				dance(L)
 	else if(active)
 		active = FALSE
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
 		icon_state = "disco0"

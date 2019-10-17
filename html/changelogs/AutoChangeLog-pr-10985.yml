@@ -1,4 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Hopefully fixes weird stack issues. Maybe. Who knows. The World can burn."

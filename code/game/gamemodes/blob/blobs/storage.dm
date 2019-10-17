@@ -2,14 +2,14 @@
 	name = "storage blob"
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blob_resource"
-	health = 30
+	max_integrity = 30
 	fire_resist = 2
-	var/mob/camera/blob/overmind = null
+	point_return = 12
 
-/obj/structure/blob/storage/update_icon()
-	if(health <= 0 && !QDELETED(src))
+/obj/structure/blob/storage/obj_destruction(damage_flag)
+	if(overmind)
 		overmind.max_blob_points -= 50
-		qdel(src)
+	..()
 
 /obj/structure/blob/storage/proc/update_max_blob_points(var/new_point_increase)
 	if(overmind)

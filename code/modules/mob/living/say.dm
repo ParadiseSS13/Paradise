@@ -216,7 +216,7 @@ proc/get_radio_key_from_channel(var/channel)
 				message_range = 1
 
 			if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
-				italics = 1
+				italics = TRUE
 				sound_vol *= 0.5 //muffle the sound a bit, so it's like we're actually talking through contact
 
 		var/list/hear = hear(message_range, T)
@@ -236,12 +236,20 @@ proc/get_radio_key_from_channel(var/channel)
 
 		for(var/mob/M in GLOB.player_list)
 			if(!M.client)
-				continue //skip monkeys and leavers
+				continue
+
 			if(isnewplayer(M))
 				continue
-			if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTEARS) && client) // client is so that ghosts don't have to listen to mice
-				listening |= M
-				continue
+
+			if(isobserver(M))
+				if(M.get_preference(CHAT_GHOSTEARS) && client) // The client check is so that ghosts don't have to listen to mice.
+					listening |= M
+					continue
+
+				if(message_range < world.view && (get_dist(T, M) <= world.view))
+					listening |= M
+					continue
+				
 			if(get_turf(M) in hearturfs)
 				listening |= M
 
@@ -275,7 +283,7 @@ proc/get_radio_key_from_channel(var/channel)
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/emote(var/act, var/type, var/message) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
+/mob/living/emote(act, type, message, force) //emote code is terrible, this is so that anything that isn't already snowflaked to shit can call the parent and handle emoting sanely
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (Muted).</span>")
@@ -284,17 +292,20 @@ proc/get_radio_key_from_channel(var/channel)
 	if(stat)
 		return 0
 
-	if(..(act, type, message))
+	if(..())
 		return 1
 
 	if(act && type && message) //parent call
 		log_emote(message, src)
 
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || istype(M, /mob/new_player))
-				continue //skip monkeys, leavers and new players //who the hell knows why new players are in the dead mob list
+			if(!M.client)
+				continue //skip monkeys and leavers
 
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+			if(isnewplayer(M))
+				continue
+
+			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(type)
@@ -306,7 +317,8 @@ proc/get_radio_key_from_channel(var/channel)
 				return 1
 
 	else //everything else failed, emote is probably invalid
-		if(act == "help")	return //except help, because help is handled individually
+		if(act == "help")
+			return //except help, because help is handled individually
 		to_chat(src, "<span class='notice'>Unusable emote '[act]'. Say *help for a list.</span>")
 
 /mob/living/whisper(message as text)
@@ -379,7 +391,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	var/list/hearturfs = list()
 
-	//Pass whispers on to anything inside the immediate listeners.
+	// Pass whispers on to anything inside the immediate listeners.
 	// This comes before the ghosts do so that ghosts don't act as whisper relays
 	for(var/atom/L in listening)
 		if(ismob(L))
@@ -390,21 +402,25 @@ proc/get_radio_key_from_channel(var/channel)
 		if(isobj(L))
 			hearturfs += get_turf(L)
 
-	//ghosts
-	for(var/mob/M in GLOB.dead_mob_list)	//does this include players who joined as observers as well?
+	// Loop through all players to see if they need to hear it.
+	for(var/mob/M in GLOB.player_list)
 		if(!M.client)
 			continue
-		if(M.stat == DEAD && M.client && M.get_preference(CHAT_GHOSTEARS))
-			listening |= M
 
-	// This, in tandem with "hearturfs", lets nested mobs hear whispers that are in range
-	// Grifted from saycode above.
-	for(var/mob/M in GLOB.player_list)
-		if(!M.client || isnewplayer(M))
-			continue //skip monkeys and leavers
+		if(isnewplayer(M))
+			continue
+
+		if(isobserver(M))
+			if(M.get_preference(CHAT_GHOSTEARS)) // The client check is so that ghosts don't have to listen to mice.
+				listening |= M
+				continue
+
+			if(message_range < world.view && (get_dist(whisper_loc, M) <= world.view))
+				listening |= M
+				continue
+
 		if(get_turf(M) in hearturfs)
 			listening |= M
-
 
 	//pass on the message to objects that can hear us.
 	for(var/obj/O in view(message_range, whisper_loc))

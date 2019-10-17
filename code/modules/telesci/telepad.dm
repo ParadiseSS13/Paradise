@@ -16,7 +16,7 @@
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -26,7 +26,7 @@
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -45,11 +45,14 @@
 			var/obj/item/multitool/M = I
 			M.buffer = src
 			to_chat(user, "<span class = 'caution'>You save the data in the [I.name]'s buffer.</span>")
+		return
 
 	if(exchange_parts(user, I))
 		return
 
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
+	return ..()
 
 
 //CARGO TELEPAD//
@@ -58,35 +61,45 @@
 	desc = "A telepad used by the Rapid Crate Sender."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "pad-idle"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 500
 	var/stage = 0
-/obj/machinery/telepad_cargo/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(src, W.usesound, 50, 1)
+
+/obj/machinery/telepad_cargo/attackby(obj/item/I, mob/user, params)
+	if(iswrench(I))
+		playsound(src, I.usesound, 50, 1)
 		if(anchored)
-			anchored = 0
+			anchored = FALSE
 			to_chat(user, "<span class = 'caution'> The [src] can now be moved.</span>")
 		else if(!anchored)
-			anchored = 1
+			anchored = TRUE
 			to_chat(user, "<span class = 'caution'> The [src] is now secured.</span>")
-	if(istype(W, /obj/item/screwdriver))
+		return
+	if(isscrewdriver(I))
 		if(stage == 0)
-			playsound(src, W.usesound, 50, 1)
+			playsound(src, I.usesound, 50, 1)
 			to_chat(user, "<span class = 'caution'> You unscrew the telepad's tracking beacon.</span>")
 			stage = 1
 		else if(stage == 1)
-			playsound(src, W.usesound, 50, 1)
+			playsound(src, I.usesound, 50, 1)
 			to_chat(user, "<span class = 'caution'> You screw in the telepad's tracking beacon.</span>")
 			stage = 0
-	if(istype(W, /obj/item/weldingtool) && stage == 1)
-		playsound(src, W.usesound, 50, 1)
+		return
+	if(iswelder(I) && stage == 1)
+		playsound(src, I.usesound, 50, 1)
 		to_chat(user, "<span class = 'caution'> You disassemble the telepad.</span>")
-		new /obj/item/stack/sheet/metal(get_turf(src))
-		new /obj/item/stack/sheet/glass(get_turf(src))
-		qdel(src)
+		deconstruct(TRUE)
+		return
+	return ..()
+
+/obj/machinery/telepad_cargo/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc)
+		new /obj/item/stack/sheet/glass(loc)
+	..()
+
 
 ///TELEPAD CALLER///
 /obj/item/telepad_beacon
@@ -128,14 +141,16 @@
 	var/teleporting = 0
 	var/chargecost = 1000
 
+/obj/item/rcs/get_cell()
+	return rcell
+
 /obj/item/rcs/New()
 	..()
 	rcell = new(src)
 
-
 /obj/item/rcs/examine(mob/user)
-	..(user)
-	to_chat(user, "There are [round(rcell.charge/chargecost)] charge\s left.")
+	. = ..()
+	. += "There are [round(rcell.charge/chargecost)] charge\s left."
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)

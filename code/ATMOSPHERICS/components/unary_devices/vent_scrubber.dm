@@ -6,6 +6,7 @@
 
 	name = "air scrubber"
 	desc = "Has a valve and pump attached to it"
+	layer = GAS_SCRUBBER_LAYER
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -40,6 +41,11 @@
 
 	connect_types = list(1,3) //connects to regular and scrubber pipes
 
+/obj/machinery/atmospherics/unary/vent_scrubber/on
+	on = TRUE
+	scrub_N2O = TRUE
+	scrub_Toxins = TRUE
+
 /obj/machinery/atmospherics/unary/vent_scrubber/New()
 	..()
 	icon = null
@@ -53,15 +59,15 @@
 	if(initial_loc && frequency == ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_pump/examine(mob/user)
-	..(user)
+	. = ..()
 	if(welded)
-		to_chat(user, "It seems welded shut.")
+		. += "It seems welded shut."
 
 /obj/machinery/atmospherics/unary/vent_scrubber/auto_use_power()
 	if(!powered(power_channel))
@@ -91,6 +97,10 @@
 	return 1
 
 /obj/machinery/atmospherics/unary/vent_scrubber/update_icon(var/safety = 0)
+	..()
+
+	plane = FLOOR_PLANE
+
 	if(!check_icon_cache())
 		return
 
@@ -127,9 +137,9 @@
 				add_underlay(T,, dir)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, radio_filter_in)
+	radio_connection = SSradio.add_object(src, frequency, radio_filter_in)
 	if(frequency != ATMOS_VENTSCRUB)
 		initial_loc.air_scrub_info -= id_tag
 		initial_loc.air_scrub_names -= id_tag
@@ -217,7 +227,7 @@
 
 	if(scrubbing)
 		if((scrub_O2 && environment.oxygen>0.001) || (scrub_N2 && environment.nitrogen>0.001) || (scrub_CO2 && environment.carbon_dioxide>0.001) || (scrub_Toxins && environment.toxins>0.001) || (environment.trace_gases.len>0))
-			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles() / 5
+			var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
 
 			//Take a gas sample
 			var/datum/gas_mixture/removed = loc.remove_air(transfer_moles)
@@ -259,7 +269,7 @@
 		if(air_contents.return_pressure()>=50*ONE_ATMOSPHERE)
 			return
 
-		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume) / 5
+		var/transfer_moles = environment.total_moles()*(volume_rate/environment.volume)
 
 		var/datum/gas_mixture/removed = tile.remove_air(transfer_moles)
 
@@ -371,6 +381,16 @@
 
 /obj/machinery/atmospherics/unary/vent_scrubber/can_crawl_through()
 	return !welded
+
+/obj/machinery/atmospherics/unary/vent_scrubber/attack_alien(mob/user)
+	if(!welded || !(do_after(user, 20, target = src)))
+		return
+	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the scrubber.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
+	welded = FALSE
+	update_icon()
+	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+	pipe_image.plane = ABOVE_HUD_PLANE
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
 	if(istype(W, /obj/item/weldingtool))

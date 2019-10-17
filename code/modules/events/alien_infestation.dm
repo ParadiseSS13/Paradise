@@ -26,9 +26,10 @@
 			if(C)
 				GLOB.respawnable_list -= C.client
 				var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
+				new_xeno.amount_grown += (0.75 * new_xeno.max_grown)	//event spawned larva start off almost ready to evolve.
 				new_xeno.key = C.key
-				if(ticker && ticker.mode)
-					ticker.mode.xenos += new_xeno.mind
+				if(SSticker && SSticker.mode)
+					SSticker.mode.xenos += new_xeno.mind
 
 				spawncount--
 				successSpawn = 1

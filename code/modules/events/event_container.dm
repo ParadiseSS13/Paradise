@@ -22,7 +22,7 @@ var/list/event_last_fired = list()
 
 	var/last_world_time = 0
 
-/datum/event_container/proc/process()
+/datum/event_container/process()
 	if(!next_event_time)
 		set_event_delay()
 

@@ -1,4 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - rscadd: "Hardsuits that can already carry RCDs in their suit storage slot can now also carry RPDs in that slot."

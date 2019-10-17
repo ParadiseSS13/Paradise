@@ -3,7 +3,6 @@ GLOBAL_LIST_EMPTY(all_species)
 GLOBAL_LIST_EMPTY(all_languages)
 GLOBAL_LIST_EMPTY(language_keys)					// Table of say codes for all languages
 GLOBAL_LIST_EMPTY(all_superheroes)
-GLOBAL_LIST_EMPTY(all_nations)
 GLOBAL_LIST_INIT(whitelisted_species, list())
 
 GLOBAL_LIST_INIT(clients, list())							//list of all clients
@@ -23,8 +22,7 @@ GLOBAL_LIST_INIT(living_mob_list, list())			//List of all alive mobs, including 
 GLOBAL_LIST_INIT(dead_mob_list, list())				//List of all dead mobs, including clientless. Excludes /mob/new_player
 GLOBAL_LIST_INIT(respawnable_list, list())			//List of all mobs, dead or in mindless creatures that still be respawned.
 GLOBAL_LIST_INIT(non_respawnable_keys, list())	//List of ckeys that are excluded from respawning for remainder of round.
-GLOBAL_LIST_INIT(simple_animal_list, list())			//List of all simple animals, including clientless
-GLOBAL_LIST_INIT(snpc_list, list())      			//List of all snpc's, including clientless
+GLOBAL_LIST_INIT(simple_animals, list(list(), list(), list(), list()))			//One for each AI_* status define, List of all simple animals, including clientless
 GLOBAL_LIST_INIT(bots_list, list()) 					//List of all bots(beepsky, medibots,etc)
 
 GLOBAL_LIST_INIT(med_hud_users, list())

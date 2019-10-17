@@ -34,16 +34,27 @@ actual development.
  * Pull requests should be atomic; Make one commit for each distinct change, so if a part
  of a pull request needs to be removed/changed, you may simply modify that single commit.
  Due to limitations of the engine, this may not always be possible; but do try your best.
- * Document and explain your pull requests thoroughly. Detail what each commit changes,
- and why it changes it. We do not want to have to read all of you commit names to figure
- out what your pull request is about.
+
+ * Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
+  we question why changes were made. This is especially important if you're porting a PR 
+  from another codebase (i.e. TG) and divert from the original. Explaining with single
+  comment on why you've made changes will help us review the PR faster and understand your
+  decision making process.
+
  * Any pull request must have a changelog, this is to allow us to know when a PR is deployed 
  on the live server. Inline changelogs are supported through the format described 
  [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
  and should be used rather than manually edited .yml file changelogs.
+
  * Pull requests should not have any merge commits except in the case of fixing merge
  conflicts for an existing pull request. New pull requests should not have any merge
  commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
+
+ * Please explain why you are submitting the pull request, and how you think your change will be beneficial to the game. Failure to do so will be grounds for rejecting the PR.
+ 
+ * If your pull request is not finished make sure it is at least testable in a live environment. Pull requests that do not at least meet this requirement may be closed at maintainer discretion. You may request a maintainer reopen the pull request when you're ready, or make a new one.
+
+ * While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes. 
 
 #### Using Changelog
  * Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck. 
@@ -209,6 +220,8 @@ Protip: 'I couldn't immediately think of a proper way so thus there must be no o
 You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and 
 then overriding them as required.
 
+The same also applies to bugfix - If an invalid value is being passed into a proc from something that shouldn't have that value, don't fix it on the proc itself, fix it at its origin! (Where feasible)
+
 ### No duplicated code
 Copying code from one place to another may be suitable for small, short-time projects, but Paradise is a long-term project and highly discourages this.
 
@@ -224,6 +237,25 @@ There are two key points here:
 2) It also consumes more memory to the point where the list is actually required, even if the object in question may never use it!
 
 Remember: although this tradeoff makes sense in many cases, it doesn't cover them all. Think carefully about your addition before deciding if you need to use it.
+
+### Prefer `Initialize()` over `New()` for atoms
+Our game controller is pretty good at handling long operations and lag, but it can't control what happens when the map is loaded, which calls `New` for all atoms on the map. If you're creating a new atom, use the `Initialize` proc to do what you would normally do in `New`. This cuts down on the number of proc calls needed when the world is loaded. 
+
+While we normally encourage (and in some cases, even require) bringing out of date code up to date when you make unrelated changes near the out of date code, that is not the case for `New` -> `Initialize` conversions. These systems are generally more dependant on parent and children procs so unrelated random conversions of existing things can cause bugs that take months to figure out.
+
+### No implicit var/
+When you declare a parameter in a proc, the var/ is implicit. Do not include any implicit var/ when declaring a variable.
+
+I.e. 
+Bad: 
+````
+obj/item/proc1(var/input1, var/input2)
+````
+Good:
+
+````
+obj/item/proc1(input1, input2)
+````
 
 ### No magic numbers or strings
 This means stuff like having a "mode" variable for an object set to "1" or "2" with no clear indicator of what that means. Make these #defines with a name that 
@@ -295,6 +327,25 @@ This is good:
 ````
 This prevents nesting levels from getting deeper then they need to be.
 
+### Uses addtimer() instead of sleep() or spawn()
+If you need to call a proc after a set amount of time, use addtimer() instead of spawn() / sleep() where feasible.
+Although it is more complex, it is more  performant and unlike spawn() or sleep(), it can be cancelled. 
+For more details, see https://github.com/tgstation/tgstation/pull/22933.
+
+Look for code example on how to properly use it.
+ 
+This is bad:
+````DM
+/datum/datum1/proc/proc1()
+  spawn(5)
+  dothing(arg1, arg2, arg3)
+````
+This is good:
+````DM
+  addtimer(CALLBACK(procsource, .proc/dothing, arg1, arg2, arg3), waittime, timertype)
+````
+This prevents nesting levels from getting deeper then they need to be.
+
 ### Operators
 #### Spacing
 * Operators that should be separated by spaces
@@ -315,6 +366,21 @@ This prevents nesting levels from getting deeper then they need to be.
 * Associated lists declarations must have their key value quoted if it's a string
   * WRONG: list(a = "b")
   * RIGHT: list("a" = "b")
+
+#### Bitflags
+* We prefer using bitshift operators instead of directly typing out the value. I.E.
+    ``` 
+    #define MACRO_ONE (1<<0)
+    #define MACRO_TWO (1<<1)
+    #define MACRO_THREE (1<<2)
+    ```
+    Is preferable to
+    ``` 
+    #define MACRO_ONE 1
+    #define MACRO_TWO 2
+    #define MACRO_THREE 4
+    ```
+    This make the code more readable and less prone to error
 
 ### Legacy Code
 SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
@@ -524,7 +590,6 @@ pull requests/issues, and merging/closing pull requests.
 ### Maintainer List
 * [Fox P McCloud](https://github.com/Fox-McCloud)
 * [Crazy Lemon](https://github.com/Crazylemon64)
-* [Tigercat2000](https://github.com/tigercat2000)
 * [Ansari](https://github.com/variableundefined)
 
 ### Maintainer instructions
@@ -541,3 +606,6 @@ pull requests/issues, and merging/closing pull requests.
  hours, to allow other coders and the community time to discuss the proposed changes.
 * If the discussion is active, or the change is controversial, the pull request is to be
  put on hold until a consensus is reached.
+* To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge 
+is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy 
+to understand and read. Modify it if needed.

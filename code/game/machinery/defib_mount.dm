@@ -15,6 +15,10 @@
 	var/obj/item/defibrillator/defib //this mount's defibrillator
 	var/clamps_locked = FALSE //if true, and a defib is loaded, it can't be removed without unlocking the clamps
 
+/obj/machinery/defibrillator_mount/get_cell()
+	if(defib)
+		return defib.get_cell()
+
 /obj/machinery/defibrillator_mount/New(location, direction, building = 0)
 	..()
 
@@ -28,7 +32,6 @@
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -30 : 30)
 		pixel_y = (dir & 3)? (dir == 1 ? -30 : 30) : 0
 
-
 /obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
 	..()
 	defib = new/obj/item/defibrillator/loaded(src)
@@ -39,15 +42,15 @@
 	return ..()
 
 /obj/machinery/defibrillator_mount/examine(mob/user)
-	..()
+	. = ..()
 	if(defib)
-		to_chat(user, "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>")
+		. += "<span class='notice'>There is a defib unit hooked up. Alt-click to remove it.<span>"
 		if(security_level >= SEC_LEVEL_RED)
-			to_chat(user, "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>")
+			. += "<span class='notice'>Due to a security situation, its locking clamps can be toggled by swiping any ID.</span>"
 		else
-			to_chat(user, "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>")
+			. += "<span class='notice'>Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.</span>"
 	else
-		to_chat(user, "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>")
+		. += "<span class='notice'>There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.<span>"
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib && defib.bcell && defib.bcell.charge < defib.bcell.maxcharge && is_operational())

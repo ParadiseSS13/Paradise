@@ -37,9 +37,12 @@
 	if(scanner.occupant && can_autoprocess())
 		scan_mob(scanner.occupant)
 
+	if(!LAZYLEN(records))
+		return
+
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
-			for(var/datum/dna2/record/R in src.records)
+			for(var/datum/dna2/record/R in records)
 				if(!(pod.occupant || pod.mess))
 					if(pod.growclone(R))
 						records.Remove(R)
@@ -100,8 +103,7 @@
 				P.name = "[initial(P.name)] #[pods.len]"
 				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
 	else
-		..()
-	return
+		return ..()
 
 
 /obj/machinery/computer/cloning/attack_ai(mob/user as mob)
@@ -391,6 +393,12 @@
 		scantemp = "Subject already in database."
 		SSnanoui.update_uis(src)
 		return
+
+	for(var/obj/machinery/clonepod/pod in pods)
+		if(pod.occupant && pod.clonemind == subject.mind)
+			scantemp = "Subject already getting cloned."
+			SSnanoui.update_uis(src)
+			return
 
 	subject.dna.check_integrity()
 

@@ -5,14 +5,14 @@
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
+	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
 	opacity = 0
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(melee = 20, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100)
-	unacidable = 1
+	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
@@ -40,8 +40,7 @@
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
-	for(var/I in debris)
-		qdel(I)
+	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	QDEL_NULL(electronics)
@@ -54,9 +53,9 @@
 		icon_state = "[base_state]open"
 
 /obj/machinery/door/window/examine(mob/user)
-	..()
+	. = ..()
 	if(emagged)
-		to_chat(user, "<span class='warning'>Its access panel is smoking slightly.</span>")
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
@@ -77,7 +76,7 @@
 			else
 				do_animate("deny")
 		return
-	if(!ticker)
+	if(!SSticker)
 		return
 	var/mob/living/M = AM
 	if(!M.restrained() && M.mob_size > MOB_SIZE_TINY && (!(isrobot(M) && M.stat)))
@@ -87,10 +86,7 @@
 	if(operating || !density)
 		return
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
-
-	if(allowed(user))
+	if(!requiresID() || allowed(user))
 		open_and_close()
 	else
 		do_animate("deny")
@@ -183,13 +179,12 @@
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+			playsound(src, 'sound/effects/glasshit.ogg', 90, TRUE)
 		if(BURN)
-			playsound(loc, 'sound/items/welder.ogg', 100, 1)
-
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && !disassembled)
+	if(!(flags & NODECONSTRUCT) && !disassembled)
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
@@ -205,9 +200,9 @@
 	qdel(src)
 
 /obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	..()
 	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
-	..()
 
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)
@@ -217,7 +212,7 @@
 		return attack_hand(user)
 
 /obj/machinery/door/window/attack_hand(mob/user)
-	return attackby(user, user)
+	return try_to_activate_door(user)
 
 /obj/machinery/door/window/emag_act(mob/user, obj/weapon)
 	if(!operating && density && !emagged)
@@ -231,14 +226,13 @@
 		return 1
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
-
 	//If it's in the process of opening/closing, ignore the click
 	if(operating)
 		return
 
 	add_fingerprint(user)
 
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		if(isscrewdriver(I))
 			if(density || operating)
 				to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
@@ -339,7 +333,7 @@
 	base_state = "clockwork"
 	shards = 0
 	rods = 0
-	burn_state = FIRE_PROOF
+	resistance_flags = ACID_PROOF | FIRE_PROOF
 	cancolor = FALSE
 	var/made_glow = FALSE
 

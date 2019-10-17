@@ -124,7 +124,7 @@
 	result = "corn_syrup"
 	required_reagents = list("corn_starch" = 1, "sacid" = 1)
 	result_amount = 2
-	min_temp = 374
+	min_temp = T0C + 100
 	mix_message = "The mixture forms a viscous, clear fluid!"
 
 /datum/chemical_reaction/vhfcs
@@ -176,7 +176,7 @@
 	result = "hydrogenated_soybeanoil"
 	required_reagents = list("soybeanoil" = 1, "hydrogen" = 1)
 	result_amount = 2
-	min_temp = 520
+	min_temp = T0C + 250
 	mix_message = "The mixture emits a burnt, oily smell."
 
 /datum/chemical_reaction/meatslurry
@@ -194,7 +194,7 @@
 	result = "gravy"
 	required_reagents = list("porktonium" = 1, "corn_starch" = 1, "milk" = 1)
 	result_amount = 3
-	min_temp = 374
+	min_temp = T0C + 100
 	mix_message = "The substance thickens and takes on a meaty odor."
 
 /datum/chemical_reaction/beff
@@ -221,7 +221,7 @@
 	result = "enzyme"
 	required_reagents = list("vomit" = 1, "sugar" = 1)
 	result_amount = 2
-	min_temp = 750
+	min_temp = T0C + 480
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
 
@@ -231,6 +231,6 @@
 	result = "enzyme"
 	required_reagents = list("green_vomit" = 1, "sugar" = 1)
 	result_amount = 2
-	min_temp = 750
+	min_temp = T0C + 480
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'

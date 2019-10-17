@@ -48,9 +48,9 @@
 /obj/item/grenade/plastic/receive_signal()
 	prime()
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM)
+/obj/item/grenade/plastic/Crossed(atom/movable/AM, oldloc)
 	if(nadeassembly)
-		nadeassembly.Crossed(AM)
+		nadeassembly.Crossed(AM, oldloc)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
@@ -116,6 +116,7 @@
 	sleep(10)
 	prime()
 	user.gib()
+	return OBLITERATION
 
 /obj/item/grenade/plastic/update_icon()
 	if(nadeassembly)

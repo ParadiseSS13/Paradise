@@ -1410,7 +1410,7 @@ proc name: throw at (/atom/movable/proc/throw_at)
   usr: Reese Marcotte (/mob/living/carbon/human)
   src: Reese Marcotte (/mob/living/carbon/human)
   call stack:
-Reese Marcotte (/mob/living/carbon/human): throw at(Asteroid (174,85,5) (/turf/simulated/floor/plating/airless/asteroid), 5, 1)
+Reese Marcotte (/mob/living/carbon/human): throw at(Asteroid (174,85,5) (/turf/simulated/floor/plating/asteroid/airless), 5, 1)
 Delivery chute (/obj/machinery/disposal/deliveryChute): expel(null)
 Rebooted server.
 Running TG Revision Number: 4060.

@@ -139,7 +139,7 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = 1 // prevents people dragging it
 	density = 0 // prevents it blocking all movement
-	health = 20 // two welders, or one laser shot (15 for the normal spider webs)
+	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	icon_state = "stickyweb1"
 	var/creator_ckey = null
 
@@ -147,12 +147,6 @@
 	..()
 	if(prob(50))
 		icon_state = "stickyweb2"
-
-/obj/structure/spider/terrorweb/proc/DeCloakNearby()
-	for(var/mob/living/simple_animal/hostile/poison/terror_spider/gray/G in view(6,src))
-		if(!G.ckey && G.stat != DEAD)
-			G.GrayDeCloak()
-			G.Aggro()
 
 /obj/structure/spider/terrorweb/CanPass(atom/movable/mover, turf/target)
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/terror_spider))
@@ -167,7 +161,6 @@
 			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
 			M.Stun(4) // 8 seconds.
 			M.Weaken(4) // 8 seconds.
-			DeCloakNearby()
 			if(iscarbon(mover))
 				var/mob/living/carbon/C = mover
 				web_special_ability(C)

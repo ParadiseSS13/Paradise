@@ -65,8 +65,8 @@ var/const/tk_maxrange = 15
 	flags = NOBLUDGEON | ABSTRACT | DROPDEL
 	//item_state = null
 	w_class = WEIGHT_CLASS_GIGANTIC
-	layer = 20
-	plane = HUD_PLANE
+	layer = ABOVE_HUD_LAYER
+	plane = ABOVE_HUD_PLANE
 
 	var/last_throw = 0
 	var/atom/movable/focus = null

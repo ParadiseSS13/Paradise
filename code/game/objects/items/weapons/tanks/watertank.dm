@@ -9,6 +9,9 @@
 	slot_flags = SLOT_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	resistance_flags = FIRE_PROOF
 
 	var/obj/item/noz
 	var/on = 0
@@ -278,22 +281,22 @@
 		if(Adj)
 			return //Safety check so you don't blast yourself trying to refill your tank
 		var/datum/reagents/R = reagents
-		if(R.total_volume < 50)
-			to_chat(user, "You need at least 50 units of water to use the nanofrost launcher!")
+		if(R.total_volume < 100)
+			to_chat(user, "You need at least 100 units of water to use the nanofrost launcher!")
 			return
 		if(nanofrost_cooldown)
 			to_chat(user, "Nanofrost launcher is still recharging")
 			return
 		nanofrost_cooldown = 1
-		R.remove_any(50)
+		R.remove_any(100)
 		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 		log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
 		for(var/a=0, a<5, a++)
 			step_towards(A, target)
-			sleep(1)
+			sleep(2)
 		A.Smoke()
-		spawn(50)
+		spawn(100)
 			if(src)
 				nanofrost_cooldown = 0
 		return

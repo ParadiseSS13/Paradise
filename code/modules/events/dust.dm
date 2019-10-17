@@ -95,4 +95,3 @@
 
 /obj/effect/space_dust/ex_act(severity)
 	qdel(src)
-	return

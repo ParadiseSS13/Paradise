@@ -24,6 +24,8 @@
 		icon_state = "[current_skin][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
 	else
 		icon_state = "[initial(icon_state)][suppressed ? "-suppressed" : ""][sawn_state ? "-sawn" : ""]"
+	if(bayonet && can_bayonet)
+		overlays += knife_overlay
 
 /obj/item/gun/projectile/process_chamber(eject_casing = 1, empty_chamber = 1)
 	var/obj/item/ammo_casing/AC = chambered //Find chambered round
@@ -55,7 +57,7 @@
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine
 
-/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)	
+/obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/AM, mob/user as mob)
 		user.remove_from_mob(AM)
 		magazine = AM
 		magazine.loc = src
@@ -66,7 +68,6 @@
 		return
 
 /obj/item/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	..()
 	if(istype(A, /obj/item/ammo_box/magazine))
 		var/obj/item/ammo_box/magazine/AM = A
 		if(istype(AM, mag_type))
@@ -81,7 +82,7 @@
 				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
 				magazine.loc = get_turf(loc)
 				magazine.update_icon()
-				magazine = null		
+				magazine = null
 				reload(AM, user)
 				return TRUE
 		else
@@ -108,7 +109,8 @@
 		else
 			to_chat(user, "<span class='warning'>You can't seem to figure out how to fit [S] on [src].</span>")
 			return
-	return 0
+	else
+		return ..()
 
 /obj/item/gun/projectile/attack_hand(mob/user)
 	if(loc == user)
@@ -147,8 +149,8 @@
 	return
 
 /obj/item/gun/projectile/examine(mob/user)
-	..()
-	to_chat(user, "Has [get_ammo()] round\s remaining.")
+	. = ..()
+	. += "Has [get_ammo()] round\s remaining."
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = 1)
 	var/boolets = 0 //mature var names for mature people
@@ -165,18 +167,21 @@
 		if(user.l_hand == src || user.r_hand == src)
 			process_fire(user, user, 0, zone_override = "head")
 			user.visible_message("<span class='suicide'>[user] blows [user.p_their()] brains out with the [name]!</span>")
-			return(BRUTELOSS)
+			return BRUTELOSS
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")
-			return(OXYLOSS)
+			return OXYLOSS
 	else
 		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
 		playsound(loc, 'sound/weapons/empty.ogg', 50, 1, -1)
-		return (OXYLOSS)
+		return OXYLOSS
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	if(sawn_state == SAWN_OFF)
 		to_chat(user, "<span class='warning'>\The [src] is already shortened!</span>")
+		return
+	if(bayonet)
+		to_chat(user, "<span class='warning'>You cannot saw-off [src] with [bayonet] attached!</span>")
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.visible_message("[user] begins to shorten \the [src].", "<span class='notice'>You begin to shorten \the [src]...</span>")

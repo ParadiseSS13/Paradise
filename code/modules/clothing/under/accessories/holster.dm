@@ -3,7 +3,7 @@
 	desc = "A handgun holster."
 	icon_state = "holster"
 	item_color = "holster"
-	slot = "utility"
+	slot = ACCESSORY_SLOT_UTILITY
 	var/holster_allow = /obj/item/gun
 	var/obj/item/gun/holstered = null
 	actions_types = list(/datum/action/item_action/accessory/holster)
@@ -87,11 +87,11 @@
 	..()
 
 /obj/item/clothing/accessory/holster/examine(mob/user)
-	..(user)
+	. = ..()
 	if(holstered)
-		to_chat(user, "A [holstered] is holstered here.")
+		. += "A [holstered] is holstered here."
 	else
-		to_chat(user, "It is empty.")
+		. += "It is empty."
 
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
 	..()

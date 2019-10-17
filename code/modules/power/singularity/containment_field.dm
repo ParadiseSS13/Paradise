@@ -5,7 +5,8 @@
 	icon_state = "Contain_F"
 	anchored = 1
 	density = 0
-	unacidable = 1
+	move_resist = INFINITY
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	use_power = NO_POWER_USE
 	light_range = 4
 	layer = OBJ_LAYER + 0.1
@@ -24,20 +25,39 @@
 		shock_field(user)
 		return 1
 
+/obj/machinery/field/containment/attackby(obj/item/W, mob/user, params)
+	shock(user)
+	return TRUE
 
-/obj/machinery/field/containment/blob_act()
-	return 0
+/obj/machinery/field/containment/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BURN)
+			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
+		if(BRUTE)
+			playsound(loc, 'sound/effects/empulse.ogg', 75, TRUE)
+
+/obj/machinery/field/containment/blob_act(obj/structure/blob/B)
+	return FALSE
 
 
 /obj/machinery/field/containment/ex_act(severity)
 	return 0
 
+/obj/machinery/field/containment/attack_animal(mob/living/simple_animal/M)
+	if(!FG1 || !FG2)
+		qdel(src)
+		return
+	if(ismegafauna(M))
+		M.visible_message("<span class='warning'>[M] glows fiercely as the containment field flickers out!</span>")
+		FG1.calc_power(INFINITY) //rip that 'containment' field
+		M.adjustHealth(-M.obj_damage)
+	else
+		..()
 
-/obj/machinery/field/containment/Crossed(mob/mover)
+/obj/machinery/field/containment/Crossed(mob/mover, oldloc)
 	if(isliving(mover))
 		shock_field(mover)
 
-/obj/machinery/field/containment/Crossed(obj/mover)
 	if(istype(mover, /obj/machinery) || istype(mover, /obj/structure) || istype(mover, /obj/mecha))
 		bump_field(mover)
 
@@ -78,7 +98,7 @@
 	if(isliving(user))
 		var/shock_damage = min(rand(30,40),rand(30,40))
 
-		if(iscarbon(user))
+		if(isliving(user) && !issilicon(user))
 			var/stun = min(shock_damage, 15)
 			user.Stun(stun)
 			user.Weaken(10)
