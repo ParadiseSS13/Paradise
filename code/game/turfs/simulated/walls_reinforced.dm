@@ -94,7 +94,7 @@
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
 	if(!(d_state in list(RWALL_COVER, RWALL_SUPPORT_RODS, RWALL_CUT_COVER)))
-		return
+		return ..()
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return

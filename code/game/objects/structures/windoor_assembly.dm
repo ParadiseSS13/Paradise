@@ -162,9 +162,12 @@ obj/structure/windoor_assembly/Destroy()
 	update_icon()
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
-	if(state != "02" || electronics)
+	if(state != "02")
 		return
 	. = TRUE
+	if(!electronics)
+		to_chat(user, "<span class='warning'>[src] is missing electronics!</span>")
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	user << browse(null, "window=windoor_access")

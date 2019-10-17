@@ -43,8 +43,8 @@
 		return ..()
 
 /obj/machinery/power/tesla_coil/crowbar_act(mob/user, obj/item/I)
-	if(default_deconstruction_crowbar(user, I))
-		return TRUE
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/power/tesla_coil/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -54,8 +54,10 @@
 		wires.Interact(user)
 
 /obj/machinery/power/tesla_coil/screwdriver_act(mob/user, obj/item/I)
-	if(default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", I))
-		return TRUE
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", I)
 
 /obj/machinery/power/tesla_coil/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -115,19 +117,20 @@
 	RefreshParts()
 
 /obj/machinery/power/grounding_rod/attackby(obj/item/W, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grounding_rod_open[anchored]", "grounding_rod[anchored]", W))
-		return
-
 	if(exchange_parts(user, W))
 		return
 
-	if(default_unfasten_wrench(user, W))
-		return
+/obj/machinery/power/grounding_rod/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "grounding_rod_open[anchored]", "grounding_rod[anchored]", I)
 
-	if(default_deconstruction_crowbar(user, W))
-		return
+/obj/machinery/power/grounding_rod/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
 
-	return ..()
+/obj/machinery/power/grounding_rod/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/power/grounding_rod/tesla_act(var/power)
 	if(anchored && !panel_open)

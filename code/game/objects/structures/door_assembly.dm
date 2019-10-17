@@ -141,19 +141,18 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is removing the electronics from the airlock assembly...", "You start to remove electronics from the airlock assembly...")
-	. = TRUE
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
-		to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
-		state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
-		name = "wired airlock assembly"
-		var/obj/item/airlock_electronics/ae
-		if(!electronics)
-			ae = new/obj/item/airlock_electronics(loc)
-		else
-			ae = electronics
-			electronics = null
-			ae.forceMove(loc)
+	to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+	state = AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS
+	name = "wired airlock assembly"
+	var/obj/item/airlock_electronics/ae
+	if(!electronics)
+		ae = new/obj/item/airlock_electronics(loc)
+	else
+		ae = electronics
+		electronics = null
+		ae.forceMove(loc)
 	update_icon()
 	update_name()
 
@@ -196,10 +195,9 @@
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
 	. = TRUE
-	if(I.tool_use_check(user, 0))
+	if(!I.tool_use_check(user, 0))
 		return
 	user.visible_message("[user] is cutting the wires from the airlock assembly...", "You start to cut the wires from airlock assembly...")
-
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
 		return
 	to_chat(user, "<span class='notice'>You cut the wires from the airlock assembly.</span>")
@@ -211,7 +209,7 @@
 	if(state != AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 		return
 	. = TRUE
-	if(I.tool_use_check(user, 0))
+	if(!I.tool_use_check(user, 0))
 		return
 	if(anchored)
 		user.visible_message("[user] is unsecuring the airlock assembly from the floor...", "You start to unsecure the airlock assembly from the floor...")
