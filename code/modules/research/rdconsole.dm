@@ -357,7 +357,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							submenu = 0
 						if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
 							for(var/material in linked_destroy.loaded_item.materials)
-								linked_lathe.materials.insert_amount(min((linked_lathe.materials.max_amount - linked_lathe.materials.total_amount), (linked_destroy.loaded_item.materials[material]*(linked_destroy.decon_mod/10))), material)
+								var/can_insert = min((linked_lathe.materials.max_amount - linked_lathe.materials.total_amount), (min(linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10), linked_destroy.loaded_item.materials[material])))
+								linked_lathe.materials.insert_amount(can_insert, material)
 						linked_destroy.loaded_item = null
 					else
 						menu = 0
