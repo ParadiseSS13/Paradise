@@ -6,7 +6,7 @@
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
-	if(owner.get_active_hand())
+	if(owner.is_in_active_hand(src))
 		final_block_chance += 25
 	else
 		final_block_chance -= 10
