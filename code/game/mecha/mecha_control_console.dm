@@ -53,9 +53,9 @@
 	if(href_list["shock"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = afilter.getObj("shock")
 		if(MT.recharging)
-			to_chat(viewers(src), "<span class='notice'>Recharging EMP Pulse....</span>")
+			to_chat(usr, "<span class='notice'>Recharging EMP Pulse...</span>")
 		else
-			to_chat(viewers(src), "<span class='notice'>EMP Pulse sent</span>")
+			to_chat(usr, "<span class='notice'>EMP Pulse sent</span>")
 		MT.shock()
 
 	if(href_list["get_log"])
