@@ -167,6 +167,16 @@
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
 				if(repairs)
 					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+			for(var/A in H.reagents.addiction_list)
+				var/datum/reagent/R = A
+
+				var/addiction_removal_chance = 5
+				if(world.timeofday > (R.last_addiction_dose + 1500)) // 2.5 minutes
+					addiction_removal_chance = 10
+				if(prob(addiction_removal_chance))
+					to_chat(H, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+					H.reagents.addiction_list.Remove(R)
+					qdel(R)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
