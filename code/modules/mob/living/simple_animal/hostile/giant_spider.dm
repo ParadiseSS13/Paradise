@@ -34,7 +34,7 @@
 	move_to_delay = 6
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
 
@@ -44,7 +44,7 @@
 	if(. && venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/carbon/C = target
 		var/inject_target = pick("chest", "head")
-		if(C.can_inject(null, 0, inject_target, 0))
+		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
 
 //nursemaids - these create webs and eggs

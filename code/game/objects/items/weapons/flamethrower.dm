@@ -13,6 +13,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=500)
+	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	var/status = FALSE
 	var/lit = FALSE	//on or off
@@ -141,9 +142,9 @@
 		update_icon()
 
 /obj/item/flamethrower/examine(mob/user)
-	..()
+	. = ..()
 	if(ptank)
-		to_chat(user, "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>")
+		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
 
 /obj/item/flamethrower/proc/toggle_igniter(mob/user)
 	if(!ptank)
@@ -231,7 +232,8 @@
 	create_with_tank = TRUE
 
 /obj/item/flamethrower/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(ptank && damage && attack_type == PROJECTILE_ATTACK && prob(15))
+	var/obj/item/projectile/P = hitby
+	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
 		var/turf/target_turf = get_turf(owner)
 		log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")

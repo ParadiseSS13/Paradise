@@ -22,7 +22,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	collar_type = "cat"
 	var/turns_since_scan = 0
 	var/mob/living/simple_animal/mouse/movement_target
@@ -37,7 +37,7 @@
 	icon_dead = "cat_dead"
 	icon_resting = "cat_rest"
 	gender = FEMALE
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/list/family = list()
 	var/memory_saved = 0
@@ -190,6 +190,8 @@
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
+	gender = MALE
+	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
 /mob/living/simple_animal/pet/cat/kitten
@@ -215,7 +217,7 @@
 	gender = FEMALE
 	mutations = list(BREATHLESS)
 	faction = list("syndicate")
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	eats_mice = 0
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0

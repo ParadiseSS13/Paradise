@@ -543,7 +543,15 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	if(istype(AM, /obj/item))
+		var/obj/item/I = AM
+		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
+			var/mob/living/carbon/human/H = I.thrownby
+			retaliate(H)
+	..()
+
+/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A, params)
 	if(!on)
 		return
 	shootAt(A)

@@ -115,25 +115,25 @@
 		var/obj/item/assembly/A = W
 		if(!A.secured && !secured)
 			attach_assembly(A, user)
-			return
+		return
 	if(isscrewdriver(W))
 		if(toggle_secure())
 			to_chat(user, "<span class='notice'>[src] is ready!</span>")
 		else
 			to_chat(user, "<span class='notice'>[src] can now be attached!</span>")
 		return
-	..()
+	return ..()
 
 /obj/item/assembly/process()
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/assembly/examine(mob/user)
-	..()
+	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			to_chat(user, "[src] is ready!")
+			. += "[src] is ready!"
 		else
-			to_chat(user, "[src] can be attached!")
+			. += "[src] can be attached!"
 
 /obj/item/assembly/attack_self(mob/user)
 	if(!user)

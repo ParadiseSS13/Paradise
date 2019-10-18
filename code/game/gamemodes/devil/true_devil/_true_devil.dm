@@ -93,7 +93,7 @@
 	else if(health < (maxHealth/2))
 		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
 	msg += "*---------*</span>"
-	to_chat(user, msg)
+	. = list(msg)
 
 
 /mob/living/carbon/true_devil/IsAdvancedToolUser()
@@ -102,7 +102,7 @@
 /mob/living/carbon/true_devil/assess_threat()
 	return 666
 
-/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
+/mob/living/carbon/true_devil/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(mind && has_bane(BANE_LIGHT))
 		mind.disrupt_spells(-500)
 		return ..() //flashes don't stop devils UNLESS it's their bane.

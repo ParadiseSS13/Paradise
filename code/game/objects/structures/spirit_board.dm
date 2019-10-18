@@ -11,8 +11,8 @@
 	var/lastuser = null
 
 /obj/structure/spirit_board/examine(mob/user)
-	..(user)
-	to_chat(user, "[initial(desc)] The planchette is sitting at \"[planchette]\".")
+	. = ..()
+	. += "[initial(desc)] The planchette is sitting at \"[planchette]\"."
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())

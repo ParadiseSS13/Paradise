@@ -11,6 +11,7 @@
 	density = 0
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	level = 2
+	max_integrity = 200
 	var/ptype = PIPE_DISPOSALS_STRAIGHT //Use the defines
 	var/base_state
 	var/dpdir = 0	// directions as disposalpipe
@@ -187,7 +188,7 @@
 		update()
 		return
 
-	
+
 	if(ptype in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE)) // Disposal or outlet
 		var/obj/structure/disposalpipe/trunk/CP = locate() in T
 		if(!CP) // There's no trunk

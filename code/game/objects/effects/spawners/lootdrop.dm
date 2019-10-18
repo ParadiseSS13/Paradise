@@ -348,8 +348,8 @@
 		return
 	var/lootspawn = pickweight(loot)
 	var/obj/vehicle/V = new lootspawn(get_turf(src))
-	if(V.keytype)
-		new V.keytype(get_turf(src))
+	if(V.key_type)
+		new V.key_type(get_turf(src))
 	qdel(src)
 
 

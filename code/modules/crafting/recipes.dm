@@ -184,8 +184,8 @@
 	result = /obj/item/ammo_casing/shotgun/frag12
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/datum/reagent/glycerol = 5,
-				/datum/reagent/sacid = 5,
-				/datum/reagent/facid = 5,)
+				/datum/reagent/acid = 5,
+				/datum/reagent/acid/facid = 5,)
 	tools = list(/obj/item/screwdriver)
 	time = 5
 	category = CAT_WEAPONRY
@@ -246,7 +246,7 @@
 	tools = list(/obj/item/screwdriver)
 	time = 100
 	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
+	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"

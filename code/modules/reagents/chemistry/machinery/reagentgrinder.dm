@@ -8,6 +8,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	pass_flags = PASSTABLE
+	resistance_flags = ACID_PROOF
 	var/operating = 0
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit = null
@@ -120,6 +121,11 @@
 	if(beaker)
 		beaker.ex_act(severity)
 	..()
+
+/obj/machinery/reagentgrinder/handle_atom_del(atom/A)
+	if(A == beaker)
+		beaker = null
+		update_icon()
 
 /obj/machinery/reagentgrinder/update_icon()
 	if(beaker)

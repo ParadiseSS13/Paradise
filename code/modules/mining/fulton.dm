@@ -14,8 +14,8 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 	var/max_force_fulton = MOVE_FORCE_STRONG
 
 /obj/item/extraction_pack/examine(mob/user)
-	..()
-	to_chat(user, "It has [uses_left] use\s remaining.")
+	. = ..()
+	. += "It has [uses_left] use\s remaining."
 
 /obj/item/extraction_pack/attack_self(mob/user)
 	var/list/possible_beacons = list()
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 				return TRUE
 	return FALSE
 
-/obj/effect/extraction_holder/singularity_pull()
+/obj/effect/extraction_holder/singularity_act()
 	return
 
 /obj/effect/extraction_holder/singularity_pull()

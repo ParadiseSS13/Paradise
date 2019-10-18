@@ -2,28 +2,28 @@
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = 0
-	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
-	var/throwforce = 1
 	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
+	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = 0		// whether this object cuts
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
 	var/list/armor
 	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = INFINITY
+	var/max_integrity = 500
 	var/integrity_failure = 0 //0 if we have no special broken behavior
+	///Damage under this value will be completely ignored
+	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+
+	var/acid_level = 0 //how much acid is on that obj
+
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
-	var/burn_state = FIRE_PROOF // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
-	var/burntime = 10 //How long it takes to burn to ashes, in seconds
-	var/burn_world_time //What world time the object will burn up completely
 	var/being_shocked = 0
 	var/speed_process = FALSE
 
@@ -34,7 +34,7 @@
 /obj/New()
 	..()
 	if(!armor)
-		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
@@ -271,24 +271,21 @@ a {
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
 
+/obj/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	extinguish()
+	acid_level = 0
+
 /obj/singularity_pull(S, current_size)
-	if(anchored)
-		if(current_size >= STAGE_FIVE)
-			anchored = 0
-			step_towards(src,S)
-	else step_towards(src,S)
+	..()
+	if(!anchored || current_size >= STAGE_FIVE)
+		step_towards(src,S)
 
 /obj/proc/container_resist(var/mob/living)
 	return
 
 /obj/proc/CanAStarPass()
 	. = !density
-
-/obj/proc/empty_object_contents(burn = 0, new_loc = loc)
-	for(var/obj/item/Item in contents) //Empty out the contents
-		Item.forceMove(new_loc)
-		if(burn)
-			Item.fire_act() //Set them on fire, too
 
 /obj/proc/on_mob_move(dir, mob/user)
 	return

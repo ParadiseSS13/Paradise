@@ -14,11 +14,13 @@
 
 /datum/spellbook_entry/proc/IsSpellAvailable() // For config prefs / gamemode restrictions - these are round applied
 	return 1
-/datum/spellbook_entry/proc/CanBuy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book) // Specific circumstances
+
+/datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return 0
 	return 1
-/datum/spellbook_entry/proc/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book) //return 1 on success
+
+/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user, obj/item/spellbook/book) //return 1 on success
 	if(!S)
 		S = new spell_type()
 
@@ -56,7 +58,7 @@
 	to_chat(user, "<span class='notice'>You have learned [S.name].</span>")
 	return 1
 
-/datum/spellbook_entry/proc/CanRefund(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+/datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(!refundable)
 		return 0
 	if(!S)
@@ -66,7 +68,7 @@
 			return 1
 	return 0
 
-/datum/spellbook_entry/proc/Refund(var/mob/living/carbon/human/user,var/obj/item/spellbook/book) //return point value or -1 for failure
+/datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
 	var/area/wizard_station/A = locate()
 	if(!(user in A.contents))
 		to_chat(user, "<span clas=='warning'>You can only refund spells at the wizard lair</span>")
@@ -295,11 +297,11 @@
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
 	category = "Rituals"
-	refundable = 0
+	refundable = FALSE
 	buy_word = "Cast"
-	var/active = 0
+	var/active = FALSE
 
-/datum/spellbook_entry/summon/CanBuy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+/datum/spellbook_entry/summon/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	return ..() && !active
 
 /datum/spellbook_entry/summon/GetInfo()
@@ -337,8 +339,7 @@
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
-	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. Just be careful not to stand still too long! You will also receive 1 extra point to use in your spellbook."
-	cost = 0
+	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
 	log_name = "SG"
 
 /datum/spellbook_entry/summon/guns/IsSpellAvailable()
@@ -349,18 +350,17 @@
 	else
 		return TRUE
 
-/datum/spellbook_entry/summon/guns/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+/datum/spellbook_entry/summon/guns/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned", log_name)
-	user.rightandwrong(0)
-	book.uses += 1
-	active = 1
-	to_chat(user, "<span class='notice'>You have cast summon guns and gained an extra charge for your spellbook.</span>")
-	return 1
+	rightandwrong(SUMMON_GUNS, user, 10)
+	active = TRUE
+	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
+	to_chat(user, "<span class='notice'>You have cast summon guns!</span>")
+	return TRUE
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
-	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time. You will also receive 1 extra point to use in your spellbook."
-	cost = 0
+	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
 	log_name = "SU"
 
 /datum/spellbook_entry/summon/magic/IsSpellAvailable()
@@ -371,13 +371,13 @@
 	else
 		return TRUE
 
-/datum/spellbook_entry/summon/magic/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+/datum/spellbook_entry/summon/magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	feedback_add_details("wizard_spell_learned", log_name)
-	user.rightandwrong(1)
-	book.uses += 1
-	active = 1
-	to_chat(user, "<span class='notice'>You have cast summon magic and gained an extra charge for your spellbook.</span>")
-	return 1
+	rightandwrong(SUMMON_MAGIC, user, 10)
+	active = TRUE
+	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
+	to_chat(user, "<span class='notice'>You have cast summon magic!</span>")
+	return TRUE
 
 //Main category - Magical Items
 /datum/spellbook_entry/item
@@ -386,8 +386,8 @@
 	buy_word = "Summon"
 	var/item_path = null
 
-/datum/spellbook_entry/item/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	new item_path(get_turf(user))
+/datum/spellbook_entry/item/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	user.put_in_hands(new item_path)
 	feedback_add_details("wizard_spell_learned", log_name)
 	return 1
 
@@ -415,7 +415,7 @@
 	log_name = "SO"
 	category = "Artefacts"
 
-/datum/spellbook_entry/item/scryingorb/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+/datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
 		if(!(XRAY in user.mutations))
 			user.mutations.Add(XRAY)
@@ -432,7 +432,7 @@
 	log_name = "SS"
 	category = "Artefacts"
 
-/datum/spellbook_entry/item/soulstones/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
+/datum/spellbook_entry/item/soulstones/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	. = ..()
 	if(.)
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/conjure/construct(null))
@@ -446,18 +446,21 @@
 	category = "Artefacts"
 
 //Weapons and Armors
-/datum/spellbook_entry/item/armor
-	name = "Mastercrafted Armor Set"
-	desc = "An artefact suit of armor that allows you to cast spells while providing more protection against attacks and the void of space. Comes bundled with Boots of Gripping."
-	item_path = /obj/item/clothing/suit/space/hardsuit/wizard
-	log_name = "HS"
+/datum/spellbook_entry/item/battlemage
+	name = "Battlemage Armour"
+	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted."
+	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	limit = 1
 	category = "Weapons and Armors"
+	log_name = "BMA"
 
-/datum/spellbook_entry/item/armor/Buy(var/mob/living/carbon/human/user,var/obj/item/spellbook/book)
-	. = ..()
-	if(.)
-		new /obj/item/clothing/shoes/sandal(get_turf(user)) //In case they've lost them.
-		new /obj/item/clothing/gloves/color/purple(get_turf(user)) // To complete the outfit
+/datum/spellbook_entry/item/battlemage_charge
+	name = "Battlemage Armour Charges"
+	desc = "A powerful defensive rune, it will grant eight additional charges to a suit of battlemage armour."
+	item_path = /obj/item/wizard_armour_charge
+	category = "Weapons and Armors"
+	cost = 1
+	log_name = "BMAC"
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
@@ -613,6 +616,7 @@
 			to_chat(user, "<span class='notice'>You feed the contract back into the spellbook, refunding your points.</span>")
 			uses+=2
 			qdel(O)
+		return
 
 	if(istype(O, /obj/item/antag_spawner/slaughter_demon))
 		to_chat(user, "<span class='notice'>On second thought, maybe summoning a demon is a bad idea. You refund your points.</span>")
@@ -627,6 +631,7 @@
 				if(!isnull(BB.limit))
 					BB.limit++
 		qdel(O)
+		return
 
 	if(istype(O, /obj/item/antag_spawner/morph))
 		to_chat(user, "<span class='notice'>On second thought, maybe awakening a morph is a bad idea. You refund your points.</span>")
@@ -635,8 +640,10 @@
 			if(!isnull(OB.limit))
 				OB.limit++
 		qdel(O)
+		return
+	return ..()
 
-/obj/item/spellbook/proc/GetCategoryHeader(var/category)
+/obj/item/spellbook/proc/GetCategoryHeader(category)
 	var/dat = ""
 	switch(category)
 		if("Offensive")
@@ -671,7 +678,7 @@
 			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
 	return dat
 
-/obj/item/spellbook/proc/wrap(var/content)
+/obj/item/spellbook/proc/wrap(content)
 	var/dat = ""
 	dat +="<html><head><title>Spellbook</title></head>"
 	dat += {"
@@ -863,10 +870,7 @@
 /obj/item/spellbook/oneuse/smoke/recoil(mob/user as mob)
 	..()
 	to_chat(user, "<span class='caution'>Your stomach rumbles...</span>")
-	if(user.nutrition)
-		user.nutrition -= 200
-		if(user.nutrition <= 0)
-			user.nutrition = 0
+	user.adjust_nutrition(-200)
 
 /obj/item/spellbook/oneuse/blind
 	spell = /obj/effect/proc_holder/spell/targeted/trigger/blind

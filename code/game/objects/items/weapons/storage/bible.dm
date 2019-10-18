@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook","creeper", 
 	throw_speed = 1
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = FLAMMABLE
+	resistance_flags = FIRE_PROOF
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 

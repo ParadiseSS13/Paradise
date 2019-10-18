@@ -114,7 +114,6 @@
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
-	preloadVRTemplates()
 
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -163,14 +162,3 @@
 
 		shuttle_templates[S.shuttle_id] = S
 		map_templates[S.shuttle_id] = S
-
-/proc/preloadVRTemplates()
-	for(var/item in subtypesof(/datum/map_template/vr))
-		var/datum/map_template/vr/vr_type = item
-		if(!initial(vr_type.suffix))
-			continue
-
-		var/datum/map_template/vr/V = new vr_type()
-
-		vr_templates[V.id] = V
-		map_templates[V.id] = V

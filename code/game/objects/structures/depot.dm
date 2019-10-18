@@ -26,17 +26,12 @@
 		if(!has_overloaded)
 			overload(TRUE, TRUE)
 		depotarea.reactor = null
-	..()
+	return ..()
 
 /obj/structure/fusionreactor/ex_act(severity)
 	if(severity < 3)
 		obj_integrity = 0
 		healthcheck()
-
-/obj/structure/fusionreactor/bullet_act(obj/item/projectile/Proj)
-	obj_integrity -= Proj.damage
-	..()
-	healthcheck()
 
 /obj/structure/fusionreactor/proc/healthcheck()
 	if(obj_integrity <= 0 && istype(depotarea))
@@ -46,13 +41,15 @@
 	if(iswrench(I))
 		playsound(loc, I.usesound, 50, 1)
 		to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
-	else if(isscrewdriver(I))
+		return
+	if(isscrewdriver(I))
 		to_chat(user, "<span class='notice'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
 		if(prob(50))
 			empulse(src, 4, 10)
 		else
 			for(var/mob/living/M in range(10, loc))
 				M.apply_effect(rand(5, 25), IRRADIATE)
+		return
 	else
 		return ..()
 

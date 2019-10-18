@@ -38,10 +38,10 @@
 		merge(O)
 	..()
 
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush)
+/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(istype(AM, merge_type) && !(amount >= max_amount))
 		merge(AM)
-	..()
+	. = ..()
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -49,12 +49,13 @@
 	return ..()
 
 /obj/item/stack/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		if(singular_name)
-			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
+			. += "There are [amount] [singular_name]\s in the stack."
 		else
-			to_chat(user, "There are [amount] [name]\s in the stack.")
-		to_chat(user,"<span class='notice'>Alt-click to take a custom amount.</span>")
+			. += "There are [amount] [name]\s in the stack."
+		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
 
 /obj/item/stack/proc/add(newamount)
 	amount += newamount
@@ -129,7 +130,7 @@
 			if(R.max_res_amount > 1 && max_multiplier > 1)
 				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
 				t1 += " |"
-				
+
 				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
 					if(max_multiplier >= n)

@@ -70,8 +70,8 @@
 			icon_state = "light0"
 
 /obj/machinery/light_switch/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, "A light switch. It is [on? "on" : "off"].")
+	. = ..()
+	. += "A light switch. It is [on? "on" : "off"]."
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -160,7 +160,7 @@
 			qdel(src)
 		return 1
 
-	return src.attack_hand(user)
+	return ..()
 
 /obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"

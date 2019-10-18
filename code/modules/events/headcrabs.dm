@@ -20,8 +20,11 @@
 #define LOC_GAMBLING_DEN 19
 
 #define HEADCRAB_NORMAL 0
-/*#define HEADCRAB_SPECIAL 1
-#define HEADCRAB_CLOWN 2 */ //Planned for the future
+#define HEADCRAB_FASTMIX 1
+#define HEADCRAB_FAST 2
+#define HEADCRAB_POISONMIX 3
+#define HEADCRAB_POISON 4
+/*#define HEADCRAB_CLOWN 5 */ //Planned for the future. maybe
 
 /datum/event/headcrabs
 	announceWhen = 10
@@ -104,11 +107,24 @@
 
 	var/list/spawn_types = list()
 	var/max_number
-	headcrab = 0 //rand(0,x) for the future
+	headcrab = rand(0, 4) //rand(0,x) for the future
 	switch(headcrab) //Switch is for the future
 		if(HEADCRAB_NORMAL)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab)
 			max_number = 6
+		if(HEADCRAB_FASTMIX)
+			spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast)
+			max_number = 8
+		if(HEADCRAB_FAST)
+			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/fast)
+			max_number = 6
+		if(HEADCRAB_POISONMIX)
+			spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/poison)
+			max_number = 4
+		if(HEADCRAB_POISON)
+			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/poison)
+			max_number = 3
+
 
 	var/num = rand(2,max_number)
 	while(turfs.len > 0 && num > 0)
@@ -144,3 +160,7 @@
 #undef LOC_GAMBLING_DEN 
 
 #undef HEADCRAB_NORMAL
+#undef HEADCRAB_FASTMIX
+#undef HEADCRAB_FAST
+#undef HEADCRAB_POISONMIX
+#undef HEADCRAB_POISON

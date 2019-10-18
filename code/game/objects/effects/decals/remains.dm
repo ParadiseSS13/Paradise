@@ -1,6 +1,12 @@
 /obj/effect/decal/remains
 	gender = PLURAL
 
+/obj/effect/decal/remains/acid_act()
+	visible_message("<span class='warning'>[src] dissolve[gender==PLURAL?"":"s"] into a puddle of sizzling goop!</span>")
+	playsound(src, 'sound/items/welder.ogg', 150, TRUE)
+	new /obj/effect/decal/cleanable/greenglow(drop_location())
+	qdel(src)
+
 /obj/effect/decal/remains/human
 	name = "remains"
 	desc = "They look like human remains. They have a strange aura about them."
