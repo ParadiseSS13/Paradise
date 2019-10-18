@@ -25,19 +25,14 @@
 		return
 	if(istype(L, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/R = O
-		if(occupant)
-			to_chat(user, "<span class='warning'>The cell is already occupied!</span>")
-			return
 		if(!R.cell)
 			to_chat(user, "<span class='warning'>Without a power cell, [R] can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
 		can_accept_user = TRUE
 	if(istype(L, /mob/living/carbon/human))
-		if(occupant)
-			to_chat(user, "<span class='warning'>The cell is already occupied!</span>")
-			return
 		if(!L.get_int_organ(/obj/item/organ/internal/cell))
+			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
 		can_accept_user = TRUE
 	if(!can_accept_user)
