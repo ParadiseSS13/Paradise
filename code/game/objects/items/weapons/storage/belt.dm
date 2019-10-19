@@ -439,7 +439,7 @@
 	desc = "A bandolier for holding shotgun ammunition."
 	icon_state = "bandolier"
 	item_state = "bandolier"
-	storage_slots = 8
+	click_to_hand = TRUE
 	can_hold = list(
 		/obj/item/ammo_casing/shotgun
 		)
@@ -450,7 +450,6 @@
 
 /obj/item/storage/belt/bandolier/full/New()
 	..()
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
 	new /obj/item/ammo_casing/shotgun/beanbag(src)
@@ -577,6 +576,7 @@
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
+	click_to_hand = TRUE
 	can_hold = list(/obj/item/melee/rapier)
 
 /obj/item/storage/belt/rapier/update_icon()

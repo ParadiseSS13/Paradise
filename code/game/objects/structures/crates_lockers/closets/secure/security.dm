@@ -124,6 +124,7 @@
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/storage/belt/security/sec(src)
+	new	/obj/item/storage/belt/bandolier(src)
 	new /obj/item/gun/energy/gun/hos(src)
 	new /obj/item/door_remote/head_of_security(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hos(src)
@@ -164,6 +165,7 @@
 	new /obj/item/melee/baton/loaded(src)
 	new /obj/item/gun/energy/gun/advtaser(src)
 	new /obj/item/storage/belt/security/sec(src)
+	new /obj/item/storage/belt/bandolier(src)
 	new /obj/item/storage/box/holobadge(src)
 	new /obj/item/clothing/gloves/color/black/krav_maga/sec(src)
 

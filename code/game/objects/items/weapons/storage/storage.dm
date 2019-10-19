@@ -9,7 +9,7 @@
 	name = "storage"
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	var/silent = 0 // No message on putting items in
+	var/silent = FALSE // No message on putting items in
 	var/list/can_hold = new/list() //List of objects which this item can store (if set, it can't store anything else)
 	var/list/cant_hold = new/list() //List of objects which this item can't store (in effect only if can_hold isn't set)
 	var/max_w_class = WEIGHT_CLASS_SMALL //Max size of objects that this object can store (in effect only if can_hold isn't set)
@@ -22,6 +22,7 @@
 	var/allow_quick_empty	//Set this variable to allow the object to have the 'empty' verb, which dumps all the contents on the floor.
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
+	var/click_to_hand = FALSE //Set this variable to TRUE to make clicking the storage item immediately pick up the first item in it, instead of opening storage
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
 
 /obj/item/storage/MouseDrop(obj/over_object as obj)
@@ -397,6 +398,13 @@
 			H.r_store = null
 			return
 
+
+	if(click_to_hand && src.loc == user)
+		for(var/obj/item/I in contents)
+			if(user.put_in_active_hand(I))
+				add_fingerprint(user)
+				return
+
 	src.orient2hud(user)
 	if(src.loc == user)
 		if(user.s_active)
@@ -407,7 +415,7 @@
 		for(var/mob/M in range(1))
 			if(M.s_active == src)
 				src.close(M)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	return
 
 /obj/item/storage/verb/toggle_gathering_mode()
