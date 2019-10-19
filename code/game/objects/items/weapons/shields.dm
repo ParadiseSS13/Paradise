@@ -7,7 +7,7 @@
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
 	if(owner.is_in_active_hand(src))
-		final_block_chance += 25
+		final_block_chance += 15
 	else
 		final_block_chance -= 10
 	if(attack_type == LEAP_ATTACK)
