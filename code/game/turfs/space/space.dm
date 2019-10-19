@@ -16,6 +16,7 @@
 	var/destination_z
 	var/destination_x
 	var/destination_y
+	plane = PLANE_SPACE
 
 /turf/space/Initialize(mapload)
 	if(!istype(src, /turf/space/transit))
@@ -24,7 +25,7 @@
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
-		
+
 	if (light_power && light_range)
 		update_light()
 
@@ -263,3 +264,12 @@
 	if(destination_z)
 		var/turf/T = locate(destination_x, destination_y, destination_z)
 		user.forceMove(T)
+
+/turf/space/acid_act(acidpwr, acid_volume)
+	return 0
+
+/turf/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
+	underlay_appearance.icon = 'icons/turf/space.dmi'
+	underlay_appearance.icon_state = SPACE_ICON_STATE
+	underlay_appearance.plane = PLANE_SPACE
+	return TRUE

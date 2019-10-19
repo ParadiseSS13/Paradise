@@ -372,8 +372,9 @@ datum/tech/robotics
 	var/default_desc = "A disk for storing device design data for construction in lathes."
 
 /obj/item/disk/design_disk/New()
-	src.pixel_x = rand(-5.0, 5)
-	src.pixel_y = rand(-5.0, 5)
+	..()
+	pixel_x = rand(-5, 5)
+	pixel_y = rand(-5, 5)
 
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
 	name = "[default_name] \[[D]\]"

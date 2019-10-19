@@ -397,6 +397,9 @@
 // STUN
 
 /mob/living/Stun(amount, updating = 1, force = 0)
+	if(status_flags & CANSTUN || force)
+		if(absorb_stun(amount, force))
+			return FALSE
 	return SetStunned(max(stunned, amount), updating, force)
 
 /mob/living/SetStunned(amount, updating = 1, force = 0) //if you REALLY need to set stun to a set amount without the whole "can't go below current stunned"
@@ -434,6 +437,9 @@
 // WEAKEN
 
 /mob/living/Weaken(amount, updating = 1, force = 0)
+	if(status_flags & CANWEAKEN || force)
+		if(absorb_stun(amount, force))
+			return FALSE
 	return SetWeakened(max(weakened, amount), updating, force)
 
 /mob/living/SetWeakened(amount, updating = 1, force = 0)
@@ -550,6 +556,11 @@
 		genemutcheck(src, block,null, MUTCHK_FORCED)
 		dna.UpdateSE()
 
+///////////////////////////////// FROZEN /////////////////////////////////////
+
+/mob/living/proc/IsFrozen()
+	return has_status_effect(/datum/status_effect/freon)
+
 ///////////////////////////////////// STUN ABSORPTION /////////////////////////////////////
 
 /mob/living/proc/add_stun_absorption(key, duration, priority, message, self_message, examine_message)
@@ -565,8 +576,10 @@
 		"visible_message" = message, "self_message" = self_message, "examine_message" = examine_message)
 
 /mob/living/proc/absorb_stun(amount, ignoring_flag_presence)
-	if(!amount || amount <= 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
+	if(amount < 0 || stat || ignoring_flag_presence || !islist(stun_absorption))
 		return FALSE
+	if(!amount)
+		amount = 0
 	var/priority_absorb_key
 	var/highest_priority
 	for(var/i in stun_absorption)
@@ -574,12 +587,13 @@
 			priority_absorb_key = stun_absorption[i]
 			highest_priority = priority_absorb_key["priority"]
 	if(priority_absorb_key)
-		if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
-			if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
-				visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-			else if(priority_absorb_key["visible_message"])
-				visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
-			else if(priority_absorb_key["self_message"])
-				to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
-		priority_absorb_key["stuns_absorbed"] += amount
+		if(amount) //don't spam up the chat for continuous stuns
+			if(priority_absorb_key["visible_message"] || priority_absorb_key["self_message"])
+				if(priority_absorb_key["visible_message"] && priority_absorb_key["self_message"])
+					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>", "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+				else if(priority_absorb_key["visible_message"])
+					visible_message("<span class='warning'>[src][priority_absorb_key["visible_message"]]</span>")
+				else if(priority_absorb_key["self_message"])
+					to_chat(src, "<span class='boldwarning'>[priority_absorb_key["self_message"]]</span>")
+			priority_absorb_key["stuns_absorbed"] += amount
 		return TRUE

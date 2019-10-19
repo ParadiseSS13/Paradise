@@ -137,6 +137,44 @@ var/global/list/datum/stack_recipe/snow_recipes = list(
 	..()
 	recipes = sandstone_recipes
 
+/*
+ * Sandbags
+ */
+
+/obj/item/stack/sheet/mineral/sandbags
+	name = "sandbags"
+	icon_state = "sandbags"
+	singular_name = "sandbag"
+	layer = LOW_ITEM_LAYER
+	merge_type = /obj/item/stack/sheet/mineral/sandbags
+
+GLOBAL_LIST_INIT(sandbag_recipes, list ( \
+	new/datum/stack_recipe("sandbags", /obj/structure/barricade/sandbags, 1, time = 25, one_per_turf = 1, on_floor = 1), \
+	))
+
+/obj/item/stack/sheet/mineral/sandbags/New()
+	recipes = GLOB.sandbag_recipes
+	..()
+
+/obj/item/emptysandbag
+	name = "empty sandbag"
+	desc = "A bag to be filled with sand."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "sandbag"
+	w_class = WEIGHT_CLASS_TINY
+
+/obj/item/emptysandbag/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/ore/glass))
+		var/obj/item/stack/ore/glass/G = I
+		to_chat(user, "<span class='notice'>You fill the sandbag.</span>")
+		var/obj/item/stack/sheet/mineral/sandbags/S = new /obj/item/stack/sheet/mineral/sandbags(drop_location())
+		qdel(src)
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(S)
+		G.use(1)
+	else
+		return ..()
+
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
@@ -170,8 +208,8 @@ var/global/list/datum/stack_recipe/snow_recipes = list(
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
 	point_value = 20
 
 /obj/item/stack/sheet/mineral/plasma/New()

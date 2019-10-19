@@ -4,6 +4,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
+	allow_wrap = FALSE
 
 /obj/item/storage/pill_bottle/dice/New()
 	..()
@@ -70,6 +71,10 @@
 	desc = "A die with four sides. The nerd's caltrop."
 	icon_state = "d4"
 	sides = 4
+
+/obj/item/dice/d4/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/caltrop, 1, 4) //1d4 damage
 
 /obj/item/dice/d6
 	name = "d6"

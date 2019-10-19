@@ -60,7 +60,7 @@
 	var/list/related_accounts_ip = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/list/related_accounts_cid = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 
-	preload_rsc = 1 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
+	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
 	var/global/obj/screen/click_catcher/void
 
@@ -95,3 +95,8 @@
 
 	// Has the client been varedited by an admin? [Inherits from datum now]
 	// var/var_edited = FALSE
+
+	var/client_keysend_amount = 0
+	var/next_keysend_reset = 0
+	var/next_keysend_trip_reset = 0
+	var/keysend_tripped = FALSE

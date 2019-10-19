@@ -470,8 +470,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 									new_item.materials = efficient_mats.Copy()
 								if(O)
-									var/obj/item/storage/lockbox/L = new/obj/item/storage/lockbox(linked_lathe.loc)
-									new_item.loc = L
+									var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(linked_lathe.loc)
+									new_item.forceMove(L)
 									L.name += " ([new_item.name])"
 									L.origin_tech = new_item.origin_tech
 									L.req_access = being_built.access_requirement

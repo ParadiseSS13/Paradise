@@ -79,11 +79,12 @@ By design, d1 is the smallest direction and d2 is the highest
 	return ..()									// then go ahead and delete the cable
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
-	var/turf/T = get_turf(src)
-	if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
-		new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
-	else
-		new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
+	if(!(flags & NODECONSTRUCT))
+		var/turf/T = get_turf(src)
+		if(d1)	// 0-X cables are 1 unit, X-X cables are 2 units long
+			new/obj/item/stack/cable_coil(T, 2, paramcolor = color)
+		else
+			new/obj/item/stack/cable_coil(T, 1, paramcolor = color)
 	qdel(src)
 
 ///////////////////////////////////
@@ -217,18 +218,6 @@ By design, d1 is the smallest direction and d2 is the highest
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
-//explosion handling
-/obj/structure/cable/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src) // qdel
-		if(2)
-			if(prob(50))
-				deconstruct()
-		if(3)
-			if(prob(25))
-				deconstruct()
 
 obj/structure/cable/proc/cable_color(var/colorC)
 	if(colorC)
@@ -521,7 +510,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/attack(mob/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_sel.selecting]
+		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
 
 		if(!S)
 			return
@@ -595,15 +584,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stack/cable_coil/examine(mob/user)
-	if(!..(user, 1))
-		return
-
-	if(get_amount() == 1)
-		to_chat(user, "A short piece of power cable.")
-	else if(get_amount() == 2)
-		to_chat(user, "A piece of power cable.")
-	else
-		to_chat(user, "A coil of power cable. There are [get_amount()] lengths of cable in the coil.")
+	. = ..()
+	if(in_range(user, src))
+		if(get_amount() == 1)
+			. += "A short piece of power cable."
+		else if(get_amount() == 2)
+			. += "A piece of power cable."
+		else
+			. += "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
 
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !

@@ -1,5 +1,5 @@
 /datum/surgery/organ_extraction
-	name = "experimental dissection"
+	name = "Experimental Dissection"
 	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw, /datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/extract_organ, /datum/surgery_step/internal/gland_insert, /datum/surgery_step/generic/cauterize)
 	possible_locs = list("chest")
 
@@ -19,17 +19,16 @@
 		return TRUE
 	return FALSE
 
-
 /datum/surgery_step/internal/extract_organ
 	name = "remove heart"
 	accept_hand = 1
 	time = 32
 	var/obj/item/organ/internal/IC = null
-	var/list/organ_types = list(/obj/item/organ/internal/heart)
 
 /datum/surgery_step/internal/extract_organ/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	for(var/obj/item/I in target.internal_organs)
-		if(I.type in organ_types)
+		// Allows for multiple subtypes of heart.
+		if(istype(I, /obj/item/organ/internal/heart))
 			IC = I
 			break
 	user.visible_message("[user] starts to remove [target]'s organs.", "<span class='notice'>You start to remove [target]'s organs...</span>")
@@ -37,13 +36,13 @@
 
 /datum/surgery_step/internal/extract_organ/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/mob/living/carbon/human/AB = target
-	if(NO_INTORGANS in AB.dna.species.species_traits)
-		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
-		return TRUE
 	if(IC)
 		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 		user.put_in_hands(IC)
 		IC.remove(target, special = 1)
+		return TRUE
+	if(NO_INTORGANS in AB.dna.species.species_traits)
+		user.visible_message("[user] prepares [target]'s [target_zone] for further dissection!", "<span class='notice'>You prepare [target]'s [target_zone] for further dissection.</span>")
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
@@ -76,7 +75,7 @@
 //IPC Gland Surgery//
 
 /datum/surgery/organ_extraction/synth
-	name = "experimental robotic dissection"
+	name = "Experimental Robotic Dissection"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/extract_organ/synth,/datum/surgery_step/internal/gland_insert,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest")
 	requires_organic_bodypart = 0
@@ -99,4 +98,3 @@
 
 /datum/surgery_step/internal/extract_organ/synth
 	name = "remove cell"
-	organ_types = list(/obj/item/organ/internal/cell)

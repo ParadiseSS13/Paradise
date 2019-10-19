@@ -11,7 +11,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	strip_delay = 70
 	put_on_delay = 70
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user)
 	if(magpulse)
@@ -33,8 +33,8 @@
 	return flags & NOSLIP
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
-	..(user)
-	to_chat(user, "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"].")
+	. = ..()
+	. += "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"]."
 
 
 /obj/item/clothing/shoes/magboots/advance
@@ -44,6 +44,7 @@
 	magboot_state = "advmag"
 	slowdown_active = SHOES_SLOWDOWN
 	origin_tech = null
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/magboots/syndie
 	desc = "Reverse-engineered magnetic boots that have a heavy magnetic pull. Property of Gorlex Marauders."
@@ -71,6 +72,30 @@ obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
 	silence_steps = 1
 	shoe_sound = "clownstep"
 	origin_tech = "magnets=4;syndicate=2"
+	var/enabled_waddle = TRUE
+	var/datum/component/waddle
+
+/obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
+	. = ..()
+	if(slot == slot_shoes && enabled_waddle)
+		waddle = user.AddComponent(/datum/component/waddling)
+
+/obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
+	. = ..()
+	QDEL_NULL(waddle)
+
+/obj/item/clothing/shoes/magboots/clown/CtrlClick(mob/living/user)
+	if(!isliving(user))
+		return
+	if(user.get_active_hand() != src)
+		to_chat(user, "You must hold [src] in your hand to do this.")
+		return
+	if(!enabled_waddle)
+		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		enabled_waddle = TRUE
+	else
+		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/magboots/wizard //bundled with the wiz hardsuit
 	name = "boots of gripping"

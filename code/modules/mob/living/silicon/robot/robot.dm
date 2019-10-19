@@ -65,7 +65,8 @@ var/list/robot_verbs_default = list(
 
 	var/wiresexposed = 0
 	var/locked = 1
-	var/list/req_access = list(access_robotics)
+	var/list/req_one_access = list(access_robotics)
+	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list())
@@ -549,14 +550,12 @@ var/list/robot_verbs_default = list(
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
-/mob/living/silicon/robot/blob_act()
+/mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
-		adjustBruteLoss(60)
-		return 1
+		adjustBruteLoss(30)
 	else
 		gib()
-		return 1
-	return 0
+	return TRUE
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
@@ -572,10 +571,16 @@ var/list/robot_verbs_default = list(
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_cell_power()
+	var/total_user_contents = GetAllContents()
+	if(locate(/obj/item/gps/cyborg) in total_user_contents)
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
 
 /mob/living/silicon/robot/restrained()
 	return 0
 
+/mob/living/silicon/robot/InCritical()
+	return low_power_mode
 
 /mob/living/silicon/robot/ex_act(severity)
 	switch(severity)
@@ -883,10 +888,13 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)
 		wires.Interact(user)
+	else
+		..() //this calls the /mob/living/attack_ghost proc for the ghost health/cyborg analyzer
 
 /mob/living/silicon/robot/proc/allowed(obj/item/I)
 	var/obj/dummy = new /obj(null) // Create a dummy object to check access on as to avoid having to snowflake check_access on every mob
 	dummy.req_access = req_access
+	dummy.req_one_access = req_one_access
 
 	if(dummy.check_access(I))
 		qdel(dummy)
@@ -1122,9 +1130,6 @@ var/list/robot_verbs_default = list(
 			var/turf/tile = loc
 			if(isturf(tile))
 				var/floor_only = TRUE
-				if(istype(tile, /turf/simulated))
-					var/turf/simulated/S = tile
-					S.dirt = 0
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
 						if(is_cleanable(A))
@@ -1298,7 +1303,7 @@ var/list/robot_verbs_default = list(
 	designation = "SpecOps"
 	lawupdate = 0
 	scrambledcodes = 1
-	req_access = list(access_cent_specops)
+	req_one_access = list(access_cent_specops)
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1
@@ -1348,7 +1353,7 @@ var/list/robot_verbs_default = list(
 	designation = "ERT"
 	lawupdate = 0
 	scrambledcodes = 1
-	req_access = list(access_cent_specops)
+	req_one_access = list(access_cent_specops)
 	ionpulse = 1
 
 	force_modules = list("Engineering", "Medical", "Security")
@@ -1456,4 +1461,4 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-	
+

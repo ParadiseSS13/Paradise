@@ -2,7 +2,6 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	armour_penetration = 0
-	damage_transfer = 0.6
 	playstyle_string = "As an <b>Assassin</b> type you do medium damage and have no damage resistance, but can enter stealth, massively increasing the damage of your next attack and causing it to ignore armor. Stealth is broken when you attack or take damage."
 	magic_fluff_string = "..And draw the Space Ninja, a lethal, invisible assassin."
 	tech_fluff_string = "Boot sequence complete. Assassin modules loaded. Holoparasite swarm online."
@@ -26,11 +25,12 @@
 			stat(null, "Stealth Cooldown Remaining: [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] seconds")
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
-	..()
-	if(toggle && (isliving(target) || istype(target, /obj/structure/window) || istype(target, /obj/structure/grille)))
-		ToggleMode(1)
+	. = ..()
+	if(.)
+		if(toggle && (isliving(target) || istype(target, /obj/structure/window) || istype(target, /obj/structure/grille)))
+			ToggleMode(1)
 
-/mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
+/mob/living/simple_animal/hostile/guardian/assassin/adjustHealth(amount, updating_health = TRUE)
 	. = ..()
 	if(. > 0 && toggle)
 		ToggleMode(1)

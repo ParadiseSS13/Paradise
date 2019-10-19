@@ -9,7 +9,7 @@
 	item_state = "gas_alt"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
@@ -30,44 +30,23 @@
 	materials = list(MAT_METAL=4000, MAT_GLASS=2000)
 	flash_protect = 2
 	tint = 2
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	flags_cover = MASKCOVERSEYES
+	visor_flags_inv = HIDEEYES
+	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/mask/gas/welding/attack_self()
-	toggle()
-
-/obj/item/clothing/mask/gas/welding/proc/toggle()
-	if(up)
-		up = !src.up
-		flags_cover |= (MASKCOVERSEYES)
-		flags_inv |= (HIDEEYES)
-		icon_state = initial(icon_state)
-		to_chat(usr, "You flip the [src] down to protect your eyes.")
-		flash_protect = 2
-		tint = 2
-	else
-		up = !up
-		flags_cover &= ~(MASKCOVERSEYES)
-		flags_inv &= ~(HIDEEYES)
-		icon_state = "[initial(icon_state)]up"
-		to_chat(usr, "You push the [src] up out of your face.")
-		flash_protect = 0
-		tint = 0
-	var/mob/living/carbon/user = usr
-	user.update_tint()
-	user.update_inv_wear_mask()	//so our mob-overlays update
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+/obj/item/clothing/mask/gas/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/mask/gas/explorer
 	name = "explorer gas mask"
 	desc = "A military-grade gas mask that can be connected to an air supply."
 	icon_state = "gas_mining"
 	actions_types = list(/datum/action/item_action/adjust)
-	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0)
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 20, "acid" = 40)
 	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
@@ -110,7 +89,7 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
-	armor = list(melee = 0, bullet = 0, laser = 2, energy = 2, bomb = 0, bio = 75, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 2, "energy" = 2, "bomb" = 0, "bio" = 75, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
@@ -129,7 +108,8 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags = BLOCK_GAS_SMOKE_EFFECT | AIRTIGHT | BLOCKHAIR
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
+	dog_fashion = /datum/dog_fashion/head/clown
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
 
@@ -162,11 +142,7 @@
 	flags_inv = HIDEEARS | HIDEEYES
 	magical = TRUE
 
-/obj/item/clothing/mask/gas/virusclown_hat
-	name = "clown wig and mask"
-	desc = "A true prankster's facial attire. A clown is incomplete without his wig and mask."
-	icon_state = "clown"
-	item_state = "clown_hat"
+/obj/item/clothing/mask/gas/clown_hat/nodrop
 	flags = NODROP
 
 /obj/item/clothing/mask/gas/mime
@@ -174,33 +150,36 @@
 	desc = "The traditional mime's mask. It has an eerie facial posture."
 	icon_state = "mime"
 	item_state = "mime"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
+
+/obj/item/clothing/mask/gas/mime/nodrop
+	flags = NODROP
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
 	desc = "A mask used when acting as a monkey."
 	icon_state = "monkeymask"
 	item_state = "monkeymask"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"
 	desc = "A traditional female mime's mask."
 	icon_state = "sexymime"
 	item_state = "sexymime"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Beep boop"
 	icon_state = "death"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/owl_mask
 	name = "owl mask"
 	desc = "Twoooo!"
 	icon_state = "owl"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/hoot)
 
 /obj/item/clothing/mask/gas/owl_mask/super_hero

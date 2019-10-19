@@ -4,8 +4,8 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
-	burn_state = LAVA_PROOF | FIRE_PROOF
-	resistance_flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	move_resist = INFINITY
 	anchored = 1
 	can_be_hit = FALSE
 
@@ -15,8 +15,39 @@
 /obj/effect/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	return FALSE
 
+/obj/effect/singularity_act()
+	qdel(src)
+	return FALSE
+
+/obj/effect/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	return
+
+/obj/effect/acid_act()
+	return
+
+/obj/effect/mech_melee_attack(obj/mecha/M)
+	return 0
+
+/obj/effect/blob_act(obj/structure/blob/B)
+	return
+
+/obj/effect/experience_pressure_difference()
+	return
+
+/obj/effect/ex_act(severity)
+	switch(severity)
+		if(1)
+			qdel(src)
+		if(2)
+			if(prob(60))
+				qdel(src)
+		if(3)
+			if(prob(25))
+				qdel(src)
+
 /obj/effect/decal
 	plane = FLOOR_PLANE
+	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/no_scoop = FALSE   //if it has this, don't let it be scooped up
 	var/no_clear = FALSE    //if it has this, don't delete it when its' scooped up
 	var/list/scoop_reagents = null
@@ -48,4 +79,14 @@
 	if(reagents)
 		for(var/datum/reagent/R in reagents.reagent_list)
 			R.on_ex_act()
-	..()
+	qdel(src)
+
+/obj/effect/decal/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	if(reagents)
+		reagents.temperature_reagents(exposed_temperature)
+	if(!(resistance_flags & FIRE_PROOF)) //non fire proof decal or being burned by lava
+		qdel(src)
+
+/obj/effect/decal/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
+		qdel(src)

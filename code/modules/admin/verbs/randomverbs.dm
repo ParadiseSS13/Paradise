@@ -58,6 +58,9 @@
 
 	if(!msg)
 		return
+
+	msg = admin_pencode_to_html(msg)
+
 	if(usr)
 		if(usr.client)
 			if(usr.client.holder)
@@ -136,7 +139,7 @@
 
 	if( !msg )
 		return
-	msg = pencode_to_html(msg)
+	msg = admin_pencode_to_html(msg)
 
 	to_chat(M, msg)
 	log_admin("DirectNarrate: [key_name(usr)] to ([key_name(M)]): [msg]")
@@ -394,7 +397,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.real_name = record_found.fields["name"]
 		new_character.change_gender(record_found.fields["sex"])
 		new_character.age = record_found.fields["age"]
-		new_character.b_type = record_found.fields["b_type"]
+		new_character.dna.blood_type = record_found.fields["blood_type"]
 	else
 		new_character.change_gender(pick(MALE,FEMALE))
 		var/datum/preferences/A = new()
@@ -437,9 +440,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	//Now for special roles and equipment.
 	switch(new_character.mind.special_role)
 		if("traitor")
-			SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
-			SSjobs.EquipRank(new_character, new_character.mind.assigned_role, 1)
-			SSticker.mode.equip_traitor(new_character)
+			if(new_character.mind.has_antag_datum(/datum/antagonist/traitor))
+				var/datum/antagonist/traitor/T = new_character.mind.has_antag_datum(/datum/antagonist/traitor)
+				T.equip_traitor(src)
+			else
+				new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 		if("Wizard")
 			new_character.loc = pick(wizardstart)
 			//ticker.mode.learn_basic_spells(new_character)
@@ -459,13 +464,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if("Cyborg")//More rigging to make em' work and check if they're traitor.
 					new_character = new_character.Robotize()
 					if(new_character.mind.special_role=="traitor")
-						call(/datum/game_mode/proc/add_law_zero)(new_character)
+						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				if("AI")
 					new_character = new_character.AIize()
 					var/mob/living/silicon/ai/ai_character = new_character
 					ai_character.moveToAILandmark()
 					if(new_character.mind.special_role=="traitor")
-						call(/datum/game_mode/proc/add_law_zero)(new_character)
+						new_character.mind.add_antag_datum(/datum/antagonist/traitor)
 				//Add aliens.
 				else
 					SSjobs.AssignRank(new_character, new_character.mind.assigned_role, 0)
@@ -607,13 +612,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(type == "Custom")
 		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = clean_input("Pick a title for the report.", "Title", MsgType[type])
+	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
 	if(!customname)
 		return
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
 	if(!input)
 		return
-	input = pencode_to_html(html_encode(input))
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No", "Cancel"))
 		if("Yes")
@@ -774,8 +778,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_check_contents(mob/living/M as mob in GLOB.mob_list)
-	set category = "Admin"
 	set name = "Check Contents"
+	set category = null
 
 	if(!check_rights(R_ADMIN))
 		return
@@ -955,21 +959,24 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	message_admins("[key_name_admin(usr)] reset NTTC scripts.")
 	feedback_add_details("admin_verb","RAT2") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/list_ssds()
+/client/proc/list_ssds_afks()
 	set category = "Admin"
-	set name = "List SSDs"
-	set desc = "Lists SSD players"
+	set name = "List SSDs and AFKs"
+	set desc = "Lists SSD and AFK players"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/msg = "<html><head><title>SSD Report</title></head><body>"
+	/* ======== SSD Section ========= */
+	var/msg = "<html><head><title>SSD & AFK Report</title></head><body>"
 	msg += "SSD Players:<BR><TABLE border='1'>"
 	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
 	var/mins_ssd
 	var/job_string
 	var/key_string
 	var/role_string
+	var/obj_count = 0
+	var/obj_string = ""
 	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
 		if(!isLivingSSD(H))
 			continue
@@ -982,8 +989,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
-		var/obj_count = 0
-		var/obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
@@ -1001,8 +1006,47 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
 		msg += "</TR>"
+	msg += "</TABLE><br></BODY></HTML>"
+
+	/* ======== AFK Section ========= */
+	msg += "AFK Players:<BR><TABLE border='1'>"
+	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins AFK</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/mins_afk
+	for(var/mob/living/carbon/human/H in GLOB.living_mob_list)
+		if(H.client == null || H.stat == DEAD) // No clientless or dead
+			continue
+		mins_afk = round(H.client.inactivity / 600)
+		if(mins_afk < config.list_afk_minimum)
+			continue
+		if(H.job)
+			job_string = H.job
+		else
+			job_string = "-"
+		key_string = H.key
+		if(job_string in command_positions)
+			job_string = "<U>" + job_string + "</U>"
+		role_string = "-"
+		obj_count = 0
+		obj_string = ""
+		if(H.mind)
+			if(H.mind.special_role)
+				role_string = "<U>[H.mind.special_role]</U>"
+			if(!H.key && H.mind.key)
+				key_string = H.mind.key
+			for(var/datum/objective/O in all_objectives)
+				if(O.target == H.mind)
+					obj_count++
+			if(obj_count > 0)
+				obj_string = "<BR><U>Obj Target</U>"
+		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_afk]</TD><TD>[role_string][obj_string]</TD>"
+		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
+		if(istype(H.loc, /obj/machinery/cryopod))
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
+		else
+			msg += "<TD><A href='?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
+		msg += "</TR>"
 	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_ssd_check")
+	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
 
 /client/proc/toggle_ert_calling()
 	set category = "Event"
@@ -1067,3 +1111,47 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	usr << browse(dat, "window=goals;size=400x400")
+
+/// Allow admin to add or remove traits of datum
+/datum/admins/proc/modify_traits(datum/D)
+	if(!D)
+		return
+
+	var/add_or_remove = input("Remove/Add?", "Trait Remove/Add") as null|anything in list("Add","Remove")
+	if(!add_or_remove)
+		return
+	var/list/availible_traits = list()
+
+	switch(add_or_remove)
+		if("Add")
+			for(var/key in GLOB.traits_by_type)
+				if(istype(D,key))
+					availible_traits += GLOB.traits_by_type[key]
+		if("Remove")
+			if(!GLOB.trait_name_map)
+				GLOB.trait_name_map = generate_trait_name_map()
+			for(var/trait in D.status_traits)
+				var/name = GLOB.trait_name_map[trait] || trait
+				availible_traits[name] = trait
+
+	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in availible_traits
+	if(!chosen_trait)
+		return
+	chosen_trait = availible_traits[chosen_trait]
+
+	var/source = "adminabuse"
+	switch(add_or_remove)
+		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
+			ADD_TRAIT(D, chosen_trait, source)
+		if("Remove")
+			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")
+			if(!specific)
+				return
+			switch(specific)
+				if("All")
+					source = null
+				if("Specific")
+					source = input("Source to be removed","Trait Remove/Add") as null|anything in D.status_traits[chosen_trait]
+					if(!source)
+						return
+			REMOVE_TRAIT(D, chosen_trait, source)

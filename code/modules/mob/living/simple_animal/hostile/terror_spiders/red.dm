@@ -58,10 +58,10 @@
 			visible_message("<span class='notice'>[src] retracts its fangs a little.</span>")
 			melee_damage_lower = melee_damage_lower_rage1
 			melee_damage_upper = melee_damage_upper_rage1
-	..()
+	return ..()
 
 
 /obj/structure/spider/terrorweb/red
-	health = 30
+	max_integrity = 30
 	name = "reinforced web"
 	desc = "This web is reinforced with extra strands, for added strength."

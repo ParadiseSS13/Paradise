@@ -14,7 +14,6 @@ var/list/blob_nodes = list()
 	required_enemies = 1
 	recommended_enemies = 1
 	restricted_jobs = list("Cyborg", "AI")
-	free_golems_disabled = TRUE
 
 	var/declared = 0
 	var/burst = 0
@@ -105,6 +104,7 @@ var/list/blob_nodes = list()
 	to_chat(blob.current, "<b>Find a good location to spawn the core and then take control and overwhelm the station!</b>")
 	to_chat(blob.current, "<b>When you have found a location, wait until you spawn; this will happen automatically and you cannot speed up the process.</b>")
 	to_chat(blob.current, "<b>If you go outside of the station level, or in space, then you will die; make sure your location has lots of ground to cover.</b>")
+	SEND_SOUND(blob.current, 'sound/magic/mutate.ogg')
 	return
 
 /datum/game_mode/blob/proc/show_message(var/message)

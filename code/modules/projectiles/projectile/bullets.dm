@@ -5,6 +5,7 @@
 	damage_type = BRUTE
 	flag = "bullet"
 	hitsound_wall = "ricochet"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect
 
 /obj/item/projectile/bullet/weakbullet //beanbag, heavy stamina damage
 	name = "beanbag slug"
@@ -232,7 +233,7 @@
 	name = "dart"
 	icon_state = "cbbolt"
 	damage = 6
-	var/piercing = 0
+	var/piercing = FALSE
 
 /obj/item/projectile/bullet/dart/New()
 	..()
@@ -243,7 +244,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(blocked != 100)
-			if(M.can_inject(null,0,hit_zone)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
+			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
 				reagents.trans_to(M, reagents.total_volume)
 				return 1

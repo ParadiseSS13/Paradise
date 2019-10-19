@@ -2,6 +2,8 @@
 	var/gc_destroyed //Time when this object was destroyed.
 	var/list/active_timers  //for SStimer
 	var/list/datum_components //for /datum/components
+	/// Status traits attached to this datum
+	var/list/status_traits
 	var/list/comp_lookup
 	var/list/signal_procs
 	var/signal_enabled = FALSE

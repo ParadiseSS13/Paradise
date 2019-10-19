@@ -24,7 +24,7 @@
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 	item_state = "syringe_kit"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/foldable = /obj/item/stack/sheet/cardboard
 	var/amt = 1
 
@@ -113,7 +113,7 @@
 	New()
 		..()
 		contents = list()
-		new /obj/item/clothing/mask/breath(src)
+		new /obj/item/clothing/mask/gas/explorer(src)
 		new /obj/item/tank/emergency_oxygen/engi(src)
 		new /obj/item/crowbar/red(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
@@ -371,6 +371,20 @@
 		new /obj/item/implanter(src)
 		new /obj/item/implantpad(src)
 		new /obj/item/locator(src)
+
+/obj/item/storage/box/minertracker
+	name = "boxed tracking implant kit"
+	desc = "For finding those who have died on the accursed lavaworld."
+	icon_state = "implant"
+
+/obj/item/storage/box/minertracker/New()
+	..()
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implanter(src)
+	new /obj/item/implantpad(src)
+	new /obj/item/locator(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"
@@ -950,6 +964,7 @@
 	desc = "A sack neatly crafted out of paper."
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
+	resistance_flags = FLAMMABLE
 	foldable = null
 	var/design = NODESIGN
 
@@ -1045,6 +1060,15 @@
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
 
+/obj/item/storage/box/emptysandbags
+	name = "box of empty sandbags"
+
+/obj/item/storage/box/emptysandbags/New()
+	..()
+	contents = list()
+	for(var/i in 1 to 7)
+		new /obj/item/emptysandbag(src)
+
 /obj/item/storage/box/rndboards
 	name = "the Liberator's legacy"
 	desc = "A box containing a gift for worthy golems."
@@ -1081,15 +1105,6 @@
 		new /obj/item/stock_parts/manipulator/femto(src)
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
-
-/obj/item/storage/box/mininghardsuit
-	name = "Boxed Mining Hardsuit"
-	desc = "Contains a mining hardsuit and helmet. For mining."
-
-/obj/item/storage/box/mininghardsuit/New()
-	..()
-	new /obj/item/clothing/suit/space/hardsuit/mining(src)
-	new /obj/item/clothing/head/helmet/space/hardsuit/mining(src)
 
 /obj/item/storage/box/hug
 	name = "box of hugs"

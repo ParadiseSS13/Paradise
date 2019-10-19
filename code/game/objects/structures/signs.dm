@@ -4,25 +4,18 @@
 	opacity = 0
 	density = 0
 	layer = 3.5
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 100
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 
-/obj/structure/sign/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			qdel(src)
-			return
-		if(3.0)
-			qdel(src)
-			return
-		else
-	return
-
-/obj/structure/sign/blob_act()
-	qdel(src)
-	return
+/obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			if(damage_amount)
+				playsound(src.loc, 'sound/weapons/slash.ogg', 80, TRUE)
+			else
+				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
+		if(BURN)
+			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/sign/attackby(obj/item/tool as obj, mob/user as mob)	//deconstruction
 	if(istype(tool, /obj/item/screwdriver) && !istype(src, /obj/structure/sign/double))
@@ -35,14 +28,15 @@
 		//S.icon = I.Scale(24, 24)
 		S.sign_state = icon_state
 		qdel(src)
-	else ..()
+	else
+		return ..()
 
 /obj/item/sign
 	name = "sign"
 	desc = ""
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/sign_state = ""
 
 /obj/item/sign/attackby(obj/item/tool as obj, mob/user as mob)	//construction
@@ -69,11 +63,13 @@
 		S.icon_state = sign_state
 		to_chat(user, "You fasten \the [S] with your [tool].")
 		qdel(src)
-	else ..()
+	else
+		return ..()
 
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "A framed picture of the station."
+	max_integrity = 500
 
 /obj/structure/sign/double/map/left
 	icon_state = "map-left"
@@ -125,11 +121,13 @@
 	name = "\improper DANGER: FIRE"
 	desc = "A warning sign which reads 'DANGER: FIRE'"
 	icon_state = "fire"
+	resistance_flags = FIRE_PROOF
 
 /obj/structure/sign/nosmoking_1
 	name = "\improper NO SMOKING"
 	desc = "A warning sign which reads 'NO SMOKING'"
 	icon_state = "nosmoking"
+	resistance_flags = FLAMMABLE
 
 /obj/structure/sign/nosmoking_2
 	name = "\improper NO SMOKING"
@@ -144,6 +142,12 @@
 /obj/structure/sign/radiation/rad_area
 	name = "\improper RADIOACTIVE AREA"
 	desc = "A warning sign which reads 'RADIOACTIVE AREA'."
+
+/obj/structure/sign/xeno_warning_mining
+	name = "DANGEROUS ALIEN LIFE"
+	desc = "A sign that warns would be travellers of hostile alien life in the vicinity."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "xeno_warning"
 
 /obj/structure/sign/redcross
 	name = "medbay"
@@ -210,7 +214,7 @@
 	desc = "A glowing dragon invites you in."
 	icon_state = "chinese"
 
-/obj/structure/sign/science	
+/obj/structure/sign/science
 	name = "\improper SCIENCE!"
 	desc = "A warning sign which reads 'SCIENCE!'"
 	icon_state = "science1"

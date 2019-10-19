@@ -88,7 +88,7 @@
 		make_podman = 0
 
 	if(make_podman)	//all conditions met!
-		var/mob/living/carbon/human/diona/podman = new /mob/living/carbon/human/diona(parent.loc)
+		var/mob/living/carbon/human/pod_diona/podman = new /mob/living/carbon/human/pod_diona(parent.loc)
 		if(realName)
 			podman.real_name = realName
 		mind.transfer_to(podman)
@@ -98,8 +98,6 @@
 			podman.ckey = ckey_holder
 		podman.gender = blood_gender
 		podman.faction |= factions
-		podman.faction |= "plants"
-		podman.faction |= "vines"   //Pod grown Diona are allied with plants and vines alike.
 
 	else //else, one packet of seeds. maybe two
 		var/seed_count = 1

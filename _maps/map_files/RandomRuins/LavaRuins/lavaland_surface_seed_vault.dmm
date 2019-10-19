@@ -30,7 +30,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "f" = (
-/obj/machinery/plantgenes/upgraded{
+/obj/machinery/plantgenes/seedvault{
 	pixel_y = 6
 	},
 /obj/structure/table/wood,

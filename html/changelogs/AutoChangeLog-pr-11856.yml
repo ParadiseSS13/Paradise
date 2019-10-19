@@ -1,5 +1,0 @@
-author: "Markolie"
-delete-after: True
-changes: 
-  - bugfix: "Drinking from a beaker now only applies the effect of five units of the ingested chemical, instead of the entire volume of the beaker."
-  - bugfix: "Resolved an issue where beaker attack logs were reversed."

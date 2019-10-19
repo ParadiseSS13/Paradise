@@ -2,7 +2,7 @@ var/global/default_martial_art = new/datum/martial_art
 /mob/living/carbon/human
 
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
-
+	pressure_resistance = 25
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
@@ -16,7 +16,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/lip_color = "white"
 
 	var/age = 30		//Player's age (pure fluff)
-	var/b_type = "A+"	//Player's bloodtype
 
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/undershirt = "Nude"	//Which undershirt the player wants

@@ -55,6 +55,7 @@
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
 	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -63,6 +64,7 @@
 	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -738,22 +740,7 @@
 		if(!istype(M))
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
-		to_chat(M, "Control of your mob has been offered to dead players.")
-		log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
-		var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
-		message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
-		var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name ? M.real_name : M.name]?", poll_time = 100, min_hours = minhours)
-		var/mob/dead/observer/theghost = null
-
-		if(candidates.len)
-			theghost = pick(candidates)
-			to_chat(M, "Your mob has been taken over by a ghost!")
-			message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
-			M.ghostize()
-			M.key = theghost.key
-		else
-			to_chat(M, "There were no ghosts willing to take control.")
-			message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+		offer_control(M)
 
 	else if(href_list["delete"])
 		if(!check_rights(R_DEBUG, 0))
@@ -1234,25 +1221,25 @@
 		switch(Text)
 			if("brute")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustBruteLoss(amount, robotic = TRUE)
 				else
 					L.adjustBruteLoss(amount)
-			if("fire")	
+			if("fire")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustFireLoss(amount, robotic = TRUE)
 				else
 					L.adjustFireLoss(amount)
-			if("toxin")	
+			if("toxin")
 				L.adjustToxLoss(amount)
 			if("oxygen")
 				L.adjustOxyLoss(amount)
-			if("brain")	
+			if("brain")
 				L.adjustBrainLoss(amount)
-			if("clone")	
+			if("clone")
 				L.adjustCloneLoss(amount)
-			if("stamina") 
+			if("stamina")
 				L.adjustStaminaLoss(amount)
 			else
 				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
@@ -1263,13 +1250,26 @@
 			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [L]")
 			href_list["datumrefresh"] = href_list["mobToDamage"]
 
+	else if(href_list["traitmod"])
+		if(!check_rights(NONE))
+			return
+		var/datum/A = locateUID(href_list["traitmod"])
+		if(!istype(A))
+			return
+		holder.modify_traits(A)
+
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])
 		if(!istype(DAT, /datum) && !isclient(DAT))
 			return
 		src.debug_variables(DAT)
 
-	return
+	if(href_list["copyoutfit"])
+		if(!check_rights(R_EVENT))
+			return
+		var/mob/living/carbon/human/H = locateUID(href_list["copyoutfit"])
+		if(istype(H))
+			H.copy_outfit()
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

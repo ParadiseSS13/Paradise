@@ -164,6 +164,10 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
+///Handle melee attack by a mech
+/atom/proc/mech_melee_attack(obj/mecha/M)
+	return
+
 /atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
 	if(does_attack_animation)
@@ -209,19 +213,23 @@
 /atom/proc/Bumped(AM as mob|obj)
 	return
 
-// Convenience procs to see if a container is open for chemistry handling
+/// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
 
-/atom/proc/is_injectable(allowmobs = TRUE)
+/// Is this atom injectable into other atoms
+/atom/proc/is_injectable(mob/user, allowmobs = TRUE)
 	return reagents && (container_type & (INJECTABLE | REFILLABLE))
 
-/atom/proc/is_drawable(allowmobs = TRUE)
+/// Can we draw from this atom with an injectable atom
+/atom/proc/is_drawable(mob/user, allowmobs = TRUE)
 	return reagents && (container_type & (DRAWABLE | DRAINABLE))
 
+/// Can this atoms reagents be refilled
 /atom/proc/is_refillable()
 	return reagents && (container_type & REFILLABLE)
 
+/// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
@@ -235,6 +243,7 @@
 	return
 
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
@@ -272,7 +281,7 @@
 
 
 //All atoms
-/atom/proc/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
+/atom/proc/examine(mob/user, infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
@@ -284,33 +293,30 @@
 			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
 		else
 			f_name += "oil-stained [name][infix]."
-
-	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
+	. = list("[bicon(src)] That's [f_name] [suffix]")
 	if(desc)
-		to_chat(user, desc)
+		. += desc
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			to_chat(user, "<span class='notice'>It contains:</span>")
+			. += "<span class='notice'>It contains:</span>"
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
+						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						to_chat(user, "<span class='notice'>[reagents.total_volume] units of various reagents.</span>")
+						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
 			else
-				to_chat(user, "<span class='notice'>Nothing.</span>	")
+				. += "<span class='notice'>Nothing.</span>"
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				to_chat(user, "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>")
+				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
-				to_chat(user, "<span class='danger'>It's empty.</span>")
+				. += "<span class='danger'>It's empty.</span>"
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
-
-	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /atom/proc/relaymove()
 	return
@@ -322,11 +328,15 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 
 /atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
 /atom/proc/emag_act()
 	return
+
+/atom/proc/fart_act(mob/living/M)
+	return FALSE
 
 /atom/proc/rpd_act()
 	return
@@ -481,8 +491,7 @@ var/list/blood_splatter_icons = list()
 		return
 	var/list/blood_dna = list()
 	if(dna)
-		var/mob/living/carbon/human/H = src
-		blood_dna[dna.unique_enzymes] = H.b_type
+		blood_dna[dna.unique_enzymes] = dna.blood_type
 	else
 		blood_dna["UNKNOWN DNA"] = "X*"
 	return blood_dna
@@ -712,8 +721,16 @@ var/list/blood_splatter_icons = list()
 /atom/proc/singularity_act()
 	return
 
-/atom/proc/singularity_pull()
-	return
+/atom/proc/singularity_pull(obj/singularity/S, current_size)
+	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
+
+/**
+  * Respond to acid being used on our atom
+  *
+  * Default behaviour is to send COMSIG_ATOM_ACID_ACT and return
+  */
+/atom/proc/acid_act(acidpwr, acid_volume)
+	SEND_SIGNAL(src, COMSIG_ATOM_ACID_ACT, acidpwr, acid_volume)
 
 /atom/proc/narsie_act()
 	return

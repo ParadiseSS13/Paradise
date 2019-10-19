@@ -42,6 +42,8 @@
 	additional_phase()
 
 /datum/game_mode/cult/proc/additional_phase()
+	if(objectives.Find("eldergod") || objectives.Find("slaughter"))
+		return
 	current_objective++
 
 	message_admins("Picking a new Cult objective.")
@@ -62,11 +64,12 @@
 		message_admins("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
 		log_admin("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
 		gtfo_phase()
+		return
 
 	if(!sacrificed.len && (new_objective != "sacrifice"))
 		sacrifice_target = null
 
-	if(new_objective == "eldergod")
+	if(new_objective == "eldergod" || new_objective == "slaughter")
 		second_phase()
 		return
 	else
@@ -162,6 +165,16 @@
 			if(player.mind && !(player.mind in cult) && (player.stat != DEAD))//make DAMN sure they are not dead
 				possible_sac_targets += player.mind
 	return possible_sac_targets
+
+// Handles the updating of sacrifice objectives after the sacrifice target goes to cryo and ghosts
+/datum/game_mode/cult/proc/update_sac_objective(previous_target, previous_role)
+	for(var/datum/mind/cult_mind in cult)
+		if(cult_mind)
+			var/updated_memory = cult_mind.memory
+			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
+			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
+			cult_mind.memory = updated_memory
+			
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()

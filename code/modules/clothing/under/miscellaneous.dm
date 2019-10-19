@@ -66,7 +66,7 @@
 	icon_state = "solgov"
 	item_state = "ro_suit"
 	item_color = "solgov"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	displays_id = 0
 
 /obj/item/clothing/under/solgov/command
@@ -165,7 +165,7 @@
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 
 /obj/item/clothing/under/rank/blueshield/skirt
 	name = "blueshield skirt"
@@ -173,7 +173,6 @@
 	icon_state = "blueshieldf"
 	item_state = "blueshieldf"
 	item_color = "blueshieldf"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 
 /obj/item/clothing/under/space
 	name = "\improper NASA jumpsuit"
@@ -189,7 +188,7 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -200,14 +199,14 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100)
+	armor = list("melee" = 100, "bullet" = 100, "laser" = 100,"energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	slowdown = -10
 	siemens_coefficient = 0
-	burn_state = LAVA_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
@@ -379,7 +378,7 @@
 	item_state = "gladiator"
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/gladiator/ash_walker
 	desc = "This gladiator uniform appears to be covered in ash and fairly dated."
@@ -524,7 +523,7 @@
 	item_color = "roman"
 	item_state = "armor"
 	strip_delay = 100
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/maid
 	name = "maid costume"
@@ -619,58 +618,6 @@
 	icon_state = "vgrey"
 	item_state = "vgrey"
 	item_color = "vgrey"
-
-/obj/item/clothing/under/vox/grey
-	name = "Grey Vox Jumpsuit"
-	desc = "An assistant's jumpsuit ripped to better fit a vox."
-	icon_state = "vgrey"
-	item_state = "vgrey"
-	item_color = "vgrey"
-
-/obj/item/clothing/under/vox/robotics
-	name = "Vox Robotics Jumpsuit"
-	desc = "A roboticist's jumpsuit ripped to better fit a vox."
-	icon_state = "vrobotics"
-	item_state = "vrobotics"
-	item_color = "vrobotics"
-
-/obj/item/clothing/under/vox/toxins
-	name = "Vox Toxins Jumpsuit"
-	desc = "A Toxin Researcher's jumpsuit ripped to better fit a vox."
-	icon_state = "vtoxinswhite"
-	item_state = "vtoxinswhite"
-	item_color = "vtoxinswhite"
-
-/obj/item/clothing/under/vox/atmos
-	name = "Vox Atmos Jumpsuit"
-	desc = "An Atmos Tech's jumpsuit ripped to better fit a vox."
-	icon_state = "vatmos"
-	item_state = "vatmos"
-	item_color = "vatmos"
-
-/obj/item/clothing/under/vox/engi
-	name = "Vox Engineer Jumpsuit"
-	desc = "An Engineer's jumpsuit ripped to better fit a vox."
-	icon_state = "vengine"
-	item_state = "vengine"
-	item_color = "vengine"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
-
-/obj/item/clothing/under/vox/sec
-	name = "Vox Security Jumpsuit"
-	desc = "A Security officer's jumpsuit ripped to better fit a vox."
-	icon_state = "vred"
-	item_state = "vred"
-	item_color = "vred"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-
-/obj/item/clothing/under/vox/chem
-	name = "Vox Chemist Jumpsuit"
-	desc = "A Chemist's jumpsuit ripped to better fit a vox."
-	icon_state = "vchem"
-	item_state = "vchem"
-	item_color = "vchem"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 
 /obj/item/clothing/under/psyjump
 	name = "Psychic Amp Jumpsuit"
@@ -774,7 +721,7 @@
 	icon_state = "atmos"
 	item_state = "atmos_suit"
 	item_color = "atmos"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
 	if(!user.ventcrawler)
@@ -806,6 +753,7 @@
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
 	flags = NODROP
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags_size = ONESIZEFITSALL
 	has_sensor = 0 // HUNKE
 
@@ -890,3 +838,17 @@
 	item_color = "hawaiianblue"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/misc/durathread
+	name = "durathread jumpsuit"
+	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
+	icon_state = "durathread"
+	item_state = "durathread"
+	item_color = "durathread"
+	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/cuban_suit
+	name = "rhumba outfit"
+	desc = "A satin shirt and high-waisted pants, worn by dancers in the Rhumba style. It smells oddly like... sulfur?"
+	icon_state = "cuban_suit"
+	item_state = "cuban_suit"
+	item_color = "cuban_suit"

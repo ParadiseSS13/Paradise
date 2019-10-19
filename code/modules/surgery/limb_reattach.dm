@@ -12,7 +12,7 @@
 /datum/surgery/amputation/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 0
 		if(affected.is_robotic())
@@ -31,7 +31,7 @@
 /datum/surgery/reattach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(ismachine(target))
 			// RIP bi-centennial man
 			return 0
@@ -47,7 +47,7 @@
 /datum/surgery/reattach_synth/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 1
 
@@ -62,7 +62,7 @@
 /datum/surgery/robo_attach/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 1
 

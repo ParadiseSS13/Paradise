@@ -1,4 +1,0 @@
-author: "Couls"
-delete-after: True
-changes: 
-  - tweak: "change how bone breakage is calculated"

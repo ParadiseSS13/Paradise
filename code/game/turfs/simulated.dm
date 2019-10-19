@@ -8,9 +8,7 @@
 	nitrogen = MOLES_N2STANDARD
 	var/to_be_destroyed = 0 //Used for fire, if a melting temperature was reached, it will be destroyed
 	var/max_fire_temperature_sustained = 0 //The max temperature of the fire which it was subjected to
-	var/dirt = 0
 	var/dirtoverlay = null
-	var/unacidable = FALSE
 
 /turf/simulated/New()
 	..()
@@ -25,7 +23,7 @@
 
 /turf/simulated/water_act(volume, temperature, source)
 	. = ..()
-	
+
 	if(volume >= 3)
 		MakeSlippery()
 
@@ -37,7 +35,7 @@
 		assume_air(lowertemp)
 		qdel(hotspot)
 
-/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
+/turf/simulated/proc/MakeSlippery(wet_setting = TURF_WET_WATER, infinite = FALSE) // 1 = Water, 2 = Lube, 3 = Ice, 4 = Permafrost
 	if(wet >= wet_setting)
 		return
 	wet = wet_setting
@@ -57,11 +55,11 @@
 			else
 				wet_overlay = image('icons/effects/water.dmi', src, "wet_static")
 		overlays += wet_overlay
-
-	spawn(rand(790, 820)) // Purely so for visual effect
-		if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
-			return
-		MakeDry(wet_setting)
+	if(!infinite)
+		spawn(rand(790, 820)) // Purely so for visual effect
+			if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
+				return
+			MakeDry(wet_setting)
 
 /turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)
@@ -73,17 +71,6 @@
 /turf/simulated/Entered(atom/A, atom/OL, ignoreRest = 0)
 	..()
 	if(!ignoreRest)
-		if(isliving(A) && prob(50))
-			dirt++
-
-		var/obj/effect/decal/cleanable/dirt/dirtoverlay = locate(/obj/effect/decal/cleanable/dirt) in src
-		if(dirt >= 100)
-			if(!dirtoverlay)
-				dirtoverlay = new/obj/effect/decal/cleanable/dirt(src)
-				dirtoverlay.alpha = 10
-			else if(dirt > 100)
-				dirtoverlay.alpha = min(dirtoverlay.alpha + 10, 200)
-
 		if(ishuman(A))
 			var/mob/living/carbon/human/M = A
 			if(M.lying)

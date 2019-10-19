@@ -7,6 +7,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
+	resistance_flags = FLAMMABLE
+	max_integrity = 40
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
@@ -26,9 +28,9 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(!H.can_inject(user, 1))
+		if(!H.can_inject(user, TRUE))
 			return 1
 
 		if(!affecting)
@@ -79,7 +81,7 @@
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
-	var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
 						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
 
@@ -123,13 +125,26 @@
 	origin_tech = "biotech=2"
 	stop_bleeding = 1800
 
+/obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
+		if(get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
+			return
+		new /obj/item/stack/sheet/cloth(user.drop_location())
+		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		use(2)
+	else
+		return ..()
+
 /obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
 	if(..())
 		return 1
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			affecting.germ_level = 0
@@ -145,6 +160,11 @@
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than a bandage!</span>")
 
+/obj/item/stack/medical/bruise_pack/improvised
+	name = "improvised gauze"
+	singular_name = "improvised gauze"
+	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
+	stop_bleeding = 900
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
@@ -174,7 +194,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			affecting.germ_level = 0
@@ -230,7 +250,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		var/limb = affecting.name
 
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))

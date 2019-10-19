@@ -30,20 +30,21 @@
 /mob/living/carbon/RestrainedClickOn(var/atom/A)
 	return 0
 
-// Commented out to prevent overwriting RangedAttack in click.dm ~ Bone White
-/*
-/mob/living/carbon/human/RangedAttack(var/atom/A)
-	if(!gloves && !mutations.len) return
-	var/obj/item/clothing/gloves/G = gloves
+/mob/living/carbon/human/RangedAttack(atom/A, params)
+	. = ..()
+	if(gloves)
+		var/obj/item/clothing/gloves/G = gloves
+		if(istype(G) && G.Touch(A, 0)) // for magic gloves
+			return
+
 	if((LASER in mutations) && a_intent == INTENT_HARM)
-		LaserEyes(A) // moved into a proc below
+		LaserEyes(A)
 
-	else if(istype(G) && G.Touch(A,0)) // for magic gloves
-		return
-
-	else if(TK in mutations)
+	if(TK in mutations)
 		A.attack_tk(src)
-*/
+
+	if(isturf(A) && get_dist(src, A) <= 1)
+		Move_Pulled(A)
 
 /*
 	Animals & All Unspecified
@@ -55,8 +56,9 @@
 	target = A
 	AttackingTarget()
 
-/atom/proc/attack_animal(mob/user as mob)
+/atom/proc/attack_animal(mob/user)
 	return
+
 /mob/living/RestrainedClickOn(var/atom/A)
 	return
 
@@ -64,18 +66,20 @@
 	Aliens
 	Defaults to same as monkey in most places
 */
-/mob/living/carbon/alien/UnarmedAttack(var/atom/A)
+/mob/living/carbon/alien/UnarmedAttack(atom/A)
 	A.attack_alien(src)
-/atom/proc/attack_alien(mob/user as mob)
+
+/atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
-	return
-/mob/living/carbon/alien/RestrainedClickOn(var/atom/A)
+
+/mob/living/carbon/alien/RestrainedClickOn(atom/A)
 	return
 
 // Babby aliens
-/mob/living/carbon/alien/larva/UnarmedAttack(var/atom/A)
+/mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
 	A.attack_larva(src)
-/atom/proc/attack_larva(mob/user as mob)
+
+/atom/proc/attack_larva(mob/user)
 	return
 
 
@@ -83,11 +87,13 @@
 	Slimes
 	Nothing happening here
 */
-/mob/living/carbon/slime/UnarmedAttack(var/atom/A)
+/mob/living/simple_animal/slime/UnarmedAttack(atom/A)
 	A.attack_slime(src)
-/atom/proc/attack_slime(mob/user as mob)
+
+/atom/proc/attack_slime(mob/user)
 	return
-/mob/living/carbon/slime/RestrainedClickOn(var/atom/A)
+
+/mob/living/simple_animal/slime/RestrainedClickOn(atom/A)
 	return
 
 /*

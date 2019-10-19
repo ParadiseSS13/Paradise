@@ -8,6 +8,7 @@
 	heal_rate = 5
 	large = 1
 	ventcrawler = 0
+	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 
 /mob/living/carbon/alien/humanoid/queen/New()
 	create_reagents(100)
@@ -53,6 +54,8 @@
 		else
 			healths.icon_state = "health6"
 
+/mob/living/carbon/alien/humanoid/queen/can_inject()
+	return FALSE
 
 //Queen verbs
 /mob/living/carbon/alien/humanoid/queen/verb/lay_egg()

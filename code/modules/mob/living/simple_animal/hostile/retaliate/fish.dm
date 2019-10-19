@@ -54,13 +54,13 @@
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	speak_emote = list("blurps")
-	butcher_results = null
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/salmonmeat = 1)
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
 
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/Initialize(mapload)
 	. = ..()

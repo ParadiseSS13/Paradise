@@ -64,11 +64,12 @@
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
 
-// Taste sensitivity - the more the more reagents you'll taste
-#define TASTE_SENSITIVITY_NORMAL 1
-#define TASTE_SENSITIVITY_SHARP 1.5
-#define TASTE_SENSITIVITY_DULL 0.75
-#define TASTE_SENSITIVITY_NO_TASTE 0
+// Taste sensitivity - lower is more sensitive
+// Represents the minimum portion of total taste the mob can sense
+#define TASTE_SENSITIVITY_NORMAL 15
+#define TASTE_SENSITIVITY_SHARP 10
+#define TASTE_SENSITIVITY_DULL 25
+#define TASTE_SENSITIVITY_NO_TASTE 101
 
 // Reagent type flags, defines the types of mobs this reagent will affect
 #define ORGANIC 1
@@ -93,6 +94,21 @@
 #define APPEARANCE_ALT_HEAD 16384
 #define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD
 #define APPEARANCE_ALL 32767
+
+//Slime evolution threshold. Controls how fast slimes can split/grow
+#define SLIME_EVOLUTION_THRESHOLD 10
+
+//Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
+#define SLIME_EXTRACT_CROSSING_REQUIRED 10
+
+//Slime commands defines
+#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
+#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
+#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
+#define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
+#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
+#define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
+#define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
 
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
 //Hostile Mob AI Status
@@ -128,9 +144,10 @@
 
 #define IGNORE_ACCESS -1
 
-#define CHEM_MOB_SPAWN_INVALID   0
-#define CHEM_MOB_SPAWN_HOSTILE   1
-#define CHEM_MOB_SPAWN_FRIENDLY  2
+//gold slime core spawning
+#define NO_SPAWN 0
+#define HOSTILE_SPAWN 1
+#define FRIENDLY_SPAWN 2
 
 #define TINT_IMPAIR 2			//Threshold of tint level to apply weld mask overlay
 #define TINT_BLIND 3			//Threshold of tint level to obscure vision fully
@@ -181,12 +198,14 @@
 #define isdrask(A) (is_species(A, /datum/species/drask))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
-#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/corgi))
+#define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
+#define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
 #define ismouse(A)		(istype((A), /mob/living/simple_animal/mouse))
 #define isbot(A)		(istype((A), /mob/living/simple_animal/bot))
 #define isswarmer(A)	(istype((A), /mob/living/simple_animal/hostile/swarmer))
 #define isguardian(A)	(istype((A), /mob/living/simple_animal/hostile/guardian))
 #define isnymph(A)      (istype((A), /mob/living/simple_animal/diona))
+#define ishostile(A) 	(istype(A, /mob/living/simple_animal/hostile))
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -196,7 +215,7 @@
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
 #define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
-#define ispathslime(A)		(ispath(A, /mob/living/carbon/slime))
+#define ispathslime(A)		(ispath(A, /mob/living/simple_animal/slime))
 #define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))
 #define ispathanimal(A)		(ispath(A, /mob/living/simple_animal))
@@ -217,3 +236,5 @@
 #define hasorgans(A)	(ishuman(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
+
+#define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;

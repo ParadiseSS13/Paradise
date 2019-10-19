@@ -20,7 +20,8 @@
 	return
 
 /mob/living/silicon/attack_animal(mob/living/simple_animal/M)
-	if(..())
+	. = ..()
+	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		switch(M.melee_damage_type)
 			if(BRUTE)
@@ -43,6 +44,9 @@
 
 /mob/living/silicon/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+			return FALSE
 		..(user, TRUE)
 		adjustBruteLoss(rand(10, 15))
 		playsound(loc, "punch", 25, 1, -1)

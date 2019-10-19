@@ -12,12 +12,12 @@
 
 /client/proc/resolveAllAdminTickets()
 	set name = "Resolve All Open Admin Tickets"
-	set category = "Admin"
+	set category = null
 
 	if(!holder || !check_rights(R_ADMIN))
 		return
 
-	if(alert("Are you sure you want to resolve ALL open tickets?","Resolve all open tickets?","Yes","No") != "Yes")
+	if(alert("Are you sure you want to resolve ALL open admin tickets?","Resolve all open admin tickets?","Yes","No") != "Yes")
 		return
 
 	SStickets.resolveAllOpenTickets()

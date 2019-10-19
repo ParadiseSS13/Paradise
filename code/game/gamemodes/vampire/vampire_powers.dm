@@ -247,6 +247,7 @@
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 		H.reset_markings() //...Or markings.
 		H.dna.ResetUIFrom(H)
+		H.flavor_text = ""
 	user.update_icons()
 
 /obj/effect/proc_holder/spell/vampire/self/screech
@@ -349,8 +350,16 @@
 	SSticker.mode.vampire_enthralled.Add(H.mind)
 	SSticker.mode.vampire_enthralled[H.mind] = user.mind
 	H.mind.special_role = SPECIAL_ROLE_VAMPIRE_THRALL
-	to_chat(H, "<span class='danger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
+
+	var/datum/objective/protect/serve_objective = new
+	serve_objective.owner = user.mind
+	serve_objective.target = H.mind
+	serve_objective.explanation_text = "You have been Enthralled by [user]. Follow [user.p_their()] every command."
+	H.mind.objectives += serve_objective
+
+	to_chat(H, "<span class='biggerdanger'>You have been Enthralled by [user]. Follow [user.p_their()] every command.</span>")
 	to_chat(user, "<span class='warning'>You have successfully Enthralled [H]. <i>If [H.p_they()] refuse[H.p_s()] to do as you say just adminhelp.</i></span>")
+	H.Stun(2)
 	add_attack_logs(user, H, "Vampire-thralled")
 
 
@@ -416,8 +425,6 @@
 	var/jaunt_duration = 50 //in deciseconds
 
 /obj/effect/proc_holder/spell/vampire/self/jaunt/cast(list/targets, mob/user = usr)
-	if(user.buckled)
-		user.buckled.unbuckle_mob()
 	spawn(0)
 		var/mob/living/U = user
 		var/originalloc = get_turf(user.loc)
@@ -431,8 +438,6 @@
 		animation.layer = 5
 		animation.master = holder
 		U.ExtinguishMob()
-		if(user.buckled)
-			user.buckled.unbuckle_mob()
 		flick("liquify", animation)
 		user.forceMove(holder)
 		user.client.eye = holder
@@ -505,8 +510,6 @@
 	perform(turfs, user = user)
 
 /obj/effect/proc_holder/spell/vampire/shadowstep/cast(list/targets, mob/user = usr)
-	if(usr.buckled)
-		user.buckled.unbuckle_mob()
 	spawn(0)
 		var/turf/picked = pick(targets)
 
@@ -514,8 +517,6 @@
 			return
 		var/mob/living/U = user
 		U.ExtinguishMob()
-		if(user.buckled)
-			user.buckled.unbuckle_mob()
 		var/atom/movable/overlay/animation = new /atom/movable/overlay(get_turf(user))
 		animation.name = user.name
 		animation.density = 0
@@ -579,8 +580,8 @@
 		adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in bodyparts)
 			if(prob(25))
-				if(E.mend_fracture())
-					E.perma_injury = 0
+				E.mend_fracture()
+
 		return
 	if(stat != DEAD)
 		if(weakened)

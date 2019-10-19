@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
+	max_integrity = 300
 	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
 
 /obj/item/storage/belt/update_icon()
@@ -293,6 +294,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"
@@ -332,6 +334,7 @@
 	new /obj/item/grenade/gluon(src)
 	new /obj/item/grenade/gluon(src)
 	new /obj/item/grenade/chem_grenade/facid(src) //1
+	new /obj/item/grenade/chem_grenade/saringas(src) //1
 	new /obj/item/grenade/gas/plasma(src) //2
 	new /obj/item/grenade/gas/plasma(src)
 	new /obj/item/grenade/frag(src) //10
@@ -733,6 +736,7 @@
 	item_state = "explorer1"
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY
+	max_combined_w_class = 20
 	use_item_overlays = 0
 	can_hold = list(
 		/obj/item/crowbar,
@@ -750,6 +754,7 @@
 		/obj/item/resonator,
 		/obj/item/mining_scanner,
 		/obj/item/pickaxe,
+		/obj/item/shovel,
 		/obj/item/stack/sheet/animalhide,
 		/obj/item/stack/sheet/sinew,
 		/obj/item/stack/sheet/bone,
@@ -764,13 +769,25 @@
 		/obj/item/survivalcapsule,
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/reagent_containers/food/pill,
+		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/food/drinks,
-		/obj/item/organ/internal/hivelord_core,
+		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon)
 
-/obj/item/storage/belt/mining/New()
-	..()
+/obj/item/storage/belt/mining/vendor/Initialize(mapload)
+	. = ..()
 	new /obj/item/survivalcapsule(src)
+
+/obj/item/storage/belt/mining/alt
+	icon_state = "explorer2"
+	item_state = "explorer2"
+
+/obj/item/storage/belt/mining/primitive
+	name = "hunter's belt"
+	desc = "A versatile belt, woven from sinew."
+	icon_state = "ebelt"
+	item_state = "ebelt"
+	storage_slots = 5

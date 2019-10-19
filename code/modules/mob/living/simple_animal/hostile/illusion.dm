@@ -40,14 +40,14 @@
 
 /mob/living/simple_animal/hostile/illusion/examine(mob/user)
 	if(parent_mob)
-		parent_mob.examine(user)
+		. = parent_mob.examine(user)
 	else
-		return ..()
+		. = ..()
 
 
 /mob/living/simple_animal/hostile/illusion/AttackingTarget()
-	..()
-	if(istype(target, /mob/living) && prob(multiply_chance))
+	. = ..()
+	if(. && isliving(target) && prob(multiply_chance))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			return

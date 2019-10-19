@@ -19,6 +19,7 @@
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
 	var/dat
+	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
 
 /obj/item/toy/crayon/suicide_act(mob/user)
@@ -80,22 +81,25 @@
 
 /obj/item/toy/crayon/afterattack(atom/target, mob/user, proximity)
 	if(!proximity) return
+	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
 		if(letters.Find(drawtype))
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, "You start drawing a [temp] on the [target.name].")
+		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
+		busy = TRUE
 		if(instant || do_after(user, 50 * toolspeed, target = target))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
-			to_chat(user, "You finish drawing [temp].")
+			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
 			if(uses)
 				uses--
 				if(!uses)
 					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
 					qdel(src)
+		busy = FALSE
 
 /obj/item/toy/crayon/attack(mob/M, mob/user)
 	var/huffable = istype(src,/obj/item/toy/crayon/spraycan)
@@ -107,7 +111,7 @@
 				return
 		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
 		to_chat(user, "<span class='notice'>You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!</span>")
-		user.nutrition += 5
+		user.adjust_nutrition(5)
 		if(uses)
 			uses -= 5
 			if(uses <= 0)

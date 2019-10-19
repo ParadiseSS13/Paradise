@@ -55,10 +55,15 @@
 	else
 		return ..()
 
+/obj/machinery/iv_drip/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc)
+	qdel(src)
+
 /obj/machinery/iv_drip/examine(mob/user)
-	..(user)
+	. = ..()
 	if(bag)
-		bag.examine(user)
+		. += bag.examine(user)
 
 /obj/machinery/iv_drip/Move(NewLoc, direct)
 	. = ..()

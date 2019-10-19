@@ -24,6 +24,7 @@
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
 	var/obj/screen/action_intent
+	var/obj/screen/zone_select
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
 
@@ -67,6 +68,7 @@
 
 	inv_slots.Cut()
 	action_intent = null
+	zone_select = null
 	move_intent = null
 
 	QDEL_LIST(toggleable_inventory)
@@ -80,7 +82,6 @@
 	mymob.healths = null
 	mymob.healthdoll = null
 	mymob.pullin = null
-	mymob.zone_sel = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null
@@ -99,6 +100,7 @@
 /datum/hud/proc/show_hud(version = 0)
 	if(!ismob(mymob))
 		return FALSE
+
 	if(!mymob.client)
 		return FALSE
 
@@ -172,6 +174,7 @@
 	mymob.update_action_buttons(1)
 	reorganize_alerts()
 	reload_fullscreen()
+	update_parallax_pref(mymob)
 	plane_masters_update()
 
 /datum/hud/proc/plane_masters_update()
@@ -209,3 +212,6 @@
 		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
 	else
 		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
+
+/datum/hud/proc/update_locked_slots()
+	return

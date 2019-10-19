@@ -74,6 +74,18 @@ var/const/INGEST = 2
 	handle_reactions()
 	return total_transfered
 
+/datum/reagents/proc/remove_all(amount = 1)
+	var/list/cached_reagents = reagent_list
+	if(total_volume > 0)
+		var/part = amount / total_volume
+		for(var/reagent in cached_reagents)
+			var/datum/reagent/R = reagent
+			remove_reagent(R.id, R.volume * part)
+
+		update_total()
+		handle_reactions()
+		return amount
+
 /datum/reagents/proc/get_master_reagent()
 	var/the_reagent = null
 	var/the_volume = 0
@@ -637,6 +649,8 @@ var/const/INGEST = 2
 		if(data)
 			R.data = data
 
+		if(isliving(my_atom))
+			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
 		update_total()
 		if(my_atom)
 			my_atom.on_reagent_change()
@@ -750,6 +764,13 @@ var/const/INGEST = 2
 		//Using IDs because SOME chemicals (I'm looking at you, chlorhydrate-beer) have the same names as other chemicals.
 	return english_list(data)
 
+//helper for attack logs, tells you if all reagents are harmless or not. returns true if harmless.
+/datum/reagents/proc/harmless_helper()
+	for(var/datum/reagent/r in reagent_list)
+		if(!r.harmless)
+			return FALSE
+	return TRUE
+
 //two helper functions to preserve data across reactions (needed for xenoarch)
 /datum/reagents/proc/get_data(reagent_id)
 	for(var/datum/reagent/D in reagent_list)
@@ -784,6 +805,55 @@ var/const/INGEST = 2
 			temp.Add(v.Copy())
 		trans_data["viruses"] = temp
 	return trans_data
+
+/datum/reagents/proc/generate_taste_message(minimum_percent = TASTE_SENSITIVITY_NORMAL)
+	var/list/out = list()
+	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
+	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
+	var/no_taste_text = "something indescribable"
+	if(minimum_percent > 100)
+		return no_taste_text
+	for(var/datum/reagent/R in reagent_list)
+		if(!R.taste_mult)
+			continue
+		//nutriment carries a list of tastes that originates from the snack food that the nutriment came from
+		if(istype(R, /datum/reagent/consumable/nutriment))
+			var/list/nutriment_taste_data = R.data
+			for(var/nutriment_taste in nutriment_taste_data)
+				var/ratio = nutriment_taste_data[nutriment_taste]
+				var/amount = ratio * R.taste_mult * R.volume
+				if(nutriment_taste in reagent_tastes)
+					reagent_tastes[nutriment_taste] += amount
+				else
+					reagent_tastes[nutriment_taste] = amount
+		else
+			var/taste_desc = R.taste_description
+			var/taste_amount = R.volume * R.taste_mult
+			if(taste_desc in reagent_tastes)
+				reagent_tastes[taste_desc] += taste_amount
+			else
+				reagent_tastes[taste_desc] = taste_amount
+	//deal with percentages
+	//TODO: may want to sort these from strong to weak
+	var/total_taste = counterlist_sum(reagent_tastes)
+	if(total_taste <= 0)
+		return no_taste_text
+	for(var/taste_desc in reagent_tastes)
+		var/percent = (reagent_tastes[taste_desc] / total_taste) * 100
+		if(percent < minimum_percent) //the lower the minimum percent, the more sensitive the message is
+			continue
+		var/intensity_desc = "a hint of"
+		if(percent > minimum_percent * 3 && percent != 100)
+			intensity_desc = "a strong flavor of"
+		else if(percent > minimum_percent * 2 || percent == 100)
+			intensity_desc = ""
+
+		if(intensity_desc != "")
+			out += "[intensity_desc] [taste_desc]"
+		else
+			out += "[taste_desc]"
+
+	return english_list(out, no_taste_text)
 
 ///////////////////////////////////////////////////////////////////////////////////
 

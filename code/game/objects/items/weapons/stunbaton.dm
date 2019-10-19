@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2"
 	attack_verb = list("beaten")
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	var/stunforce = 7
 	var/status = 0
 	var/obj/item/stock_parts/cell/high/bcell = null
@@ -73,13 +74,13 @@
 		icon_state = "[base_icon]"
 
 /obj/item/melee/baton/examine(mob/user)
-	..(user)
+	. = ..()
 	if(isrobot(loc))
-		to_chat(user, "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>")
+		. += "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>"
 	if(bcell)
-		to_chat(user, "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>")
+		. += "<span class='notice'>The baton is [round(bcell.percent())]% charged.</span>"
 	if(!bcell)
-		to_chat(user, "<span class='warning'>The baton does not have a power source installed.</span>")
+		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 
 /obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -175,7 +176,7 @@
 
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(H.check_shields(0, "[user]'s [name]", src, MELEE_ATTACK)) //No message; check_shields() handles that
+		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
 			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
 			return
 
