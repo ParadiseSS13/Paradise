@@ -399,14 +399,14 @@
 			return
 
 
-	if(click_to_hand && src.loc == user)
+	if(click_to_hand && loc == user)
 		for(var/obj/item/I in contents)
 			if(user.put_in_active_hand(I))
 				add_fingerprint(user)
 				return
 
-	src.orient2hud(user)
-	if(src.loc == user)
+	orient2hud(user)
+	if(loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
 		src.show_to(user)
