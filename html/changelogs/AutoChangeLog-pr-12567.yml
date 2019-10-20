@@ -1,0 +1,4 @@
+author: "craftxbox"
+delete-after: True
+changes: 
+  - bugfix: "quickfix to stop people using the scanner inside it"
