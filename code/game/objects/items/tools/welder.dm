@@ -29,6 +29,7 @@
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
 	var/light_intensity = 2
 	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
+	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()
@@ -87,13 +88,6 @@
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
 
-// When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
-/obj/item/weldingtool/tool_start_check(mob/living/user, amount=0)
-	. = tool_use_check(user, amount)
-	if(. && user)
-		user.flash_eyes(light_intensity)
-
-
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount)
 	if(!tool_enabled)
@@ -105,6 +99,12 @@
 		to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
 		return FALSE
 
+// When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
+/obj/item/weldingtool/tool_start_check(mob/living/user, amount=0)
+	. = tool_use_check(user, amount)
+	if(. && user)
+		user.flash_eyes(light_intensity)
+
 /obj/item/weldingtool/use(amount)
 	if(GET_FUEL < amount * requires_fuel)
 		return
@@ -115,14 +115,25 @@
 	var/did_thing = ..()
 	if(did_thing)
 		remove_fuel(1) //Consume some fuel after we do a welding action
+	if(delay)
+		progress_flash_divisor = initial(progress_flash_divisor)
 	return did_thing
+
+/obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
+	. = ..()
+	if(. && user)
+		if(progress_flash_divisor == 0)
+			user.flash_eyes(min(light_intensity, 1))
+			progress_flash_divisor = initial(progress_flash_divisor)
+		else
+			progress_flash_divisor--
 
 /obj/item/weldingtool/proc/remove_fuel(amount) //NB: doesn't check if we have enough fuel, it just removes however much is left if there's not enough
 	reagents.remove_reagent("fuel", amount * requires_fuel)
 	if(!GET_FUEL)
 		toggle_welder(TRUE)
 
-/obj/item/weldingtool/proc/refill_weldingtool(mob/user, atom/A, amount)
+/obj/item/weldingtool/refill_tool(mob/user, atom/A, amount)
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)
@@ -133,7 +144,7 @@
 		to_chat(user, "<span class='notice'>You refuel [src] by [amount_transferred] unit\s.</span>")
 		playsound(src, 'sound/effects/refill.ogg', 50, 1)
 		update_icon()
-		return TRUE
+		return amount_transferred
 	else
 		to_chat(user, "<span class='warning'>There's not enough fuel in [A] to refuel [src]!</span>")
 

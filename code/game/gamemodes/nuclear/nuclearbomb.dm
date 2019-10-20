@@ -74,7 +74,7 @@ var/bomb_set
 /obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
 	if(!anchored)
 		return
-	if(removal_stage != NUKE_UNWRENCHED || removal_stage != NUKE_COVER_OFF)
+	if(removal_stage != NUKE_UNWRENCHED && removal_stage != NUKE_COVER_OFF)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

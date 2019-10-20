@@ -794,6 +794,8 @@
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return
+	if(!(state==3 && cell) && !(state==4 && cell))
+		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return

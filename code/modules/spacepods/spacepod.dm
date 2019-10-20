@@ -385,6 +385,8 @@
 		return ..()
 
 /obj/spacepod/crowbar_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -395,13 +397,15 @@
 		to_chat(user, "<span class='warning'>The hatch is locked shut!</span>")
 
 /obj/spacepod/welder_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
 	if(!hatch_open)
 		to_chat(user, "<span class='warning'>You must open the maintenance hatch before attempting repairs.</span>")
 		return
 	if(health >= initial(health))
 		to_chat(user, "<span class='boldnotice'>[src] is fully repaired!</span>")
 		return
-	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, "<span class='notice'>You start welding the spacepod...</span>")

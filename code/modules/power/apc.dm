@@ -515,6 +515,7 @@
 				has_electronics = 1
 				locked = FALSE
 				to_chat(user, "<span class='notice'>You place the power control board inside the frame.</span>")
+				qdel(W)
 
 	else if(istype(W, /obj/item/mounted/frame/apc_frame) && opened)
 		if(!(stat & BROKEN || opened==2 || obj_integrity < max_integrity)) // There is nothing to repair
@@ -602,15 +603,12 @@
 			opened = 1
 			update_icon()
 
-
 /obj/machinery/power/apc/screwdriver_act(mob/living/user, obj/item/I)
-	if(stat & MAINT) //It's just a frame...
-		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	else if(opened)
-		if(cell)
+		if(cell && !(stat & MAINT))
 			to_chat(user, "<span class='warning'>Close the APC first!</span>") //Less hints more mystery!
 			return
 		else
@@ -622,7 +620,7 @@
 				has_electronics = 1
 				stat |= MAINT
 				to_chat(user, "<span class='notice'>You unfasten the electronics.</span>")
-			else /* has_electronics==0 */
+			else
 				to_chat(user, "<span class='warning'>There is nothing to secure!</span>")
 				return
 			update_icon()

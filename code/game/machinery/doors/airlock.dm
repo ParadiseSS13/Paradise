@@ -896,12 +896,14 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/crowbar_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
 		return
-	if(!panel_open || user.a_intent == INTENT_HARM)
+	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	if(security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
+	if(!panel_open)
+		try_to_crowbar(user, I)
+	else if(security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
 		to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
@@ -922,8 +924,6 @@ About the new airlock wires panel:
 								"<span class='notice'>You remove \the [src]'s shielding.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
-	else
-		try_to_crowbar(user, I)
 
 /obj/machinery/door/airlock/wirecutter_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
@@ -1039,67 +1039,62 @@ About the new airlock wires panel:
 		return
 	return TRUE
 
-/obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I) //*scream
-	var/beingcrowbarred = null
+/obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I)	//*scream
+	if(operating)
+		return
+	var/beingcrowbarred = FALSE
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
 		beingcrowbarred = TRUE
-	else
-		beingcrowbarred = FALSE
-	if(beingcrowbarred && panel_open && ((emagged) || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
+	if(beingcrowbarred && panel_open && (emagged || (density && welded && !operating && !arePowerSystemsOn() && !locked)))
 		user.visible_message("[user] removes the electronics from the airlock assembly.", \
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			deconstruct(TRUE, user)
 		return
-	else if(arePowerSystemsOn())
-		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
-	else if(locked)
+	if(welded)
+		to_chat(user, "<span class='warning'>[src] is welded shut!</span>")
+		return
+	if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
-	else if(!welded && !operating)
-		if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific 
-			var/obj/item/twohanded/fireaxe/F = I
-			if(F.wielded)
-				spawn(0)
-					if(density)
-						open(1)
-					else
-						close(1)
-			else
-				to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
-		else
+		return
+	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
+		var/obj/item/twohanded/fireaxe/F = I
+		if(F.wielded)
 			spawn(0)
 				if(density)
 					open(1)
 				else
 					close(1)
-
-	if(ispowertool(I)) //jaws of life and rescue claw
-		if(isElectrified())
-			shock(user, 100)//it's like sticking a forck in a power socket
+		else
+			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 			return
-
-		if(!density)//already open
-			return
-
-		if(locked)
-			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
-			return
-
-		if(welded)
-			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
-			return
-
-		var/time_to_open = 5
-		if(arePowerSystemsOn() && !prying_so_hard)
-			time_to_open = 50
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
-			prying_so_hard = TRUE
-			var/result = do_after(user, time_to_open, target = src)
-			prying_so_hard = FALSE
-			if(result)
+	else if(!arePowerSystemsOn())
+		spawn(0)
+			if(density)
 				open(1)
-				if(density && !open(1))
-					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+			else
+				close(1)
+	else if(!ispowertool(I))
+		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
+		return
+	if(isElectrified())
+		shock(user, 100)//it's like sticking a forck in a power socket
+		return
+
+	if(!density)//already open
+		return
+
+	var/time_to_open = 5
+	if(!prying_so_hard)
+		time_to_open = 50
+		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1) //is it aliens or just the CE being a dick?
+		prying_so_hard = TRUE
+		var/result = do_after(user, time_to_open, target = src)
+		prying_so_hard = FALSE
+		if(result)
+			open(1)
+			if(density && !open(1))
+				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/open(forced=0)
 	if(operating || welded || locked || emagged)

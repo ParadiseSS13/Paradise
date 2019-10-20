@@ -116,7 +116,7 @@
 					possible_tools += SI
 		if(I.tool_behaviour)
 			possible_tools += I
-	possible_tools |= contents["other"] //I don't know what this does
+	possible_tools |= contents["other"]
 	main_loop:
 		for(var/A in R.tools)
 			for(var/obj/item/I in possible_tools)
