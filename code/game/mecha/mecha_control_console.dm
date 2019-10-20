@@ -40,6 +40,7 @@
 /obj/machinery/computer/mecha/Topic(href, href_list)
 	if(..())
 		return 1
+
 	var/datum/topic_input/afilter = new /datum/topic_input(href,href_list)
 	if(href_list["send_message"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = afilter.getObj("send_message")
