@@ -47,9 +47,11 @@
 	set desc = "Visit the forum."
 	set hidden = 1
 	if(config.forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")=="No")
-			return
-		src << link(config.forumurl)
+		if(config.forum_link_url && prefs && !prefs.fuid)
+			if(alert("You need to activate your forum account. Activate now? (takes 2 seconds)",,"Yes","No")=="Yes")
+				link_forum_account()
+		if(alert("Open the forum in your browser?",,"Yes","No")=="Yes")
+			src << link(config.forumurl)
 	else
 		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
 
@@ -85,7 +87,7 @@
 		src << link(config.discordurl)
 	else
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
-	
+
 /client/verb/donate()
 	set name = "Donate"
 	set desc = "Donate to help with hosting costs."
@@ -96,7 +98,7 @@
 		src << link(config.donationsurl)
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
-	
+
 /client/verb/hotkeys_help()
 	set name = "Hotkey Help"
 	set category = "OOC"
