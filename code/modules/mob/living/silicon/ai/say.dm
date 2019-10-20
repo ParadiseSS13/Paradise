@@ -134,6 +134,22 @@ var/const/VOX_PATH = "sound/vox_fem/"
 	for(var/word in words)
 		play_vox_word(word, src.z, null)
 
+	ai_voice_announcement_to_text(words, src)
+
+
+/proc/ai_voice_announcement_to_text(words, ai)
+	var/mob/living/silicon/ai/AI = ai
+	var/words_string = jointext(words, " ")
+	var/formatted_message = "<h1 class='alert'>A.I. Announcement</h1>"
+	formatted_message += "<br><span class='alert'>[words_string]</span>"
+	formatted_message += "<br><span class='alert'> -[AI]</span>"
+
+	for(var/mob/M in GLOB.player_list)
+		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
+			var/turf/T = get_turf(M)
+			if(T && T.z == AI.z && M.can_hear())
+				M << 'sound/misc/notice2.ogg'
+				to_chat(M, formatted_message)
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
 
@@ -149,7 +165,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)
-				if(M.client)
+				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())
 						M << voice
