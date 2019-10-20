@@ -286,7 +286,7 @@ var/global/list/role_playtime_requirements = list(
 	var/new_exp = list2params(play_records)
 	prefs.exp = new_exp
 	new_exp = sanitizeSQL(new_exp)
-	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[ckey]'")
+	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]',lastseen = Now() WHERE ckey='[ckey]'")
 	if(!update_query.Execute())
 		var/err = update_query.ErrorMsg()
 		log_game("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
