@@ -413,7 +413,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			playercount += 1
-	
+
 	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
 		GLOB.panic_bunker_enabled = 1
 		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
@@ -553,7 +553,7 @@
 			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
 			del(src)
 			return // Dont insert or they can just go in again
-		
+
 		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		if(!query_insert.Execute())
 			var/err = query_insert.ErrorMsg()
@@ -601,8 +601,13 @@
 
 
 /client/proc/check_forum_link()
-	if(config.forum_link_url && prefs && !prefs.fuid)
-		to_chat(src, "<B>You do not have your forum account linked. <a href='?src=[UID()];link_forum_account=true'>LINK FORUM ACCOUNT</a></B>")
+	if(!config.forum_link_url || !prefs || prefs.fuid)
+		return
+	if(config.use_exp_tracking)
+		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
+		if(living_hours < 20)
+			return
+	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
 	var/DBQuery/query_find_token = dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
@@ -774,7 +779,7 @@
 	// Change the way they should download resources.
 	if(config.resource_urls)
 		preload_rsc = pick(config.resource_urls)
-	else 
+	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(
