@@ -3,7 +3,7 @@
 	name = "old man"
 	real_name = "old man"
 	desc = "A putrid, rotten humanoid, leaving a trail of death and decay. Has an unpleasant smile and is looking at you..."
-	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
+	speak = list("spuaj", "bletz", "grur", "hungry", "blood", "jaks", "blerg", "aj", "kreg", "geeri", "orkan", "allaq")
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
@@ -12,27 +12,26 @@
 	icon = 'icons/hispania/mob/oldman.dmi'
 	icon_state = "oldman"
 	icon_living = "oldman"
-	speed = 3
+	speed = 7
 	a_intent = INTENT_HARM
 	stop_automated_movement = 1
 	status_flags = CANPUSH
-	attack_sound = 'sound/misc/demon_attack1.ogg'
+	attack_sound = 'sound/hallucinations/growl1.ogg'
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
-	attacktext = list("flais at","lashes")
+	attacktext = "lashes"
 	maxHealth = 2000
 	health = 2000
 	environment_smash = 1
 	universal_understand = 1
-	obj_damage = 50
-	melee_damage_lower = 30
-	melee_damage_upper = 30
+	obj_damage = 500
+	melee_damage_lower = 5
+	melee_damage_upper = 5
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	var/boost = 0
 	bloodcrawl = BLOODCRAWL_EAT
 
 
@@ -60,6 +59,15 @@
 		if(!(vialspawned))
 			to_chat(src, "<B>Objective #[1]</B>: Hunt down as much of the crew as you can.")
 
-//mob/living/simple_animal/oldman/attack()
-
 /mob/living/simple_animal/oldman/CanAttack(atom/the_target)
+	if(ismob(the_target))
+		var/mob/M = the_target
+		M.gib()
+		to_chat(usr,"Epic")
+		return
+
+	if(isturf(the_target))
+		var/turf/T = the_target
+		qdel(T)
+		to_chat(usr,"Bruh")
+		return
