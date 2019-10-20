@@ -12,7 +12,7 @@
 
 
 
-/obj/item/decorations/sticky_decorations/flammable/
+/obj/item/decorations/sticky_decorations/flammable
 	resistance_flags = FLAMMABLE
 
 
@@ -31,17 +31,17 @@
 /obj/item/decorations/sticky_decorations/flammable/singleeye
 	name = "paper eye"
 	desc = "Feels like it stares into your soul."
-	icon_state = "paper-eye"
+	icon_state = "paper_eye"
 
 /obj/item/decorations/sticky_decorations/flammable/googlyeyes
 	name = "paper googly eyes"
 	desc = "Seems to be looking at something with interest."
-	icon_state = "paper-googly-eyes"
+	icon_state = "paper_googly_eyes"
 
 /obj/item/decorations/sticky_decorations/flammable/paperclock
 	name = "paper clock"
 	desc = "A paper clock. Right at least twice a day."
-	icon_state = "paper-clock"
+	icon_state = "paper_clock"
 
 
 //Holiday decorations
@@ -81,24 +81,24 @@
 /obj/item/decorations/sticky_decorations/flammable/cauldron
 	name = "paper cauldron"
 	desc = "A paper cauldron. Careful, a paper witch might be about."
-	icon_state = "paper-cauldron"
+	icon_state = "paper_cauldron"
 
-//Christmass decorations
+//Christmas decorations
 
 /obj/item/decorations/sticky_decorations/flammable/snowman
 	name = "paper snowman"
 	desc = "A paper snowman. This one won't melt when it gets warm."
 	icon_state = "decoration_snowman"
 
-/obj/item/decorations/sticky_decorations/flammable/christmass_stocking
+/obj/item/decorations/sticky_decorations/flammable/christmas_stocking
 	name = "paper stocking"
-	desc = "A paper Christmass stocking. Sadly you won't find gifts in it but at least you won't find coal either."
-	icon_state = "decoration_christmass_stocking"
+	desc = "A paper Christmas stocking. Sadly you won't find gifts in it but at least you won't find coal either."
+	icon_state = "decoration_christmas_stocking"
 
-/obj/item/decorations/sticky_decorations/flammable/christmass_tree
-	name = "paper christmass tree"
-	desc = "A paper Christmass tree. Maybe someone will leave a present under it?"
-	icon_state = "decoration_christmass_tree"
+/obj/item/decorations/sticky_decorations/flammable/christmas_tree
+	name = "paper christmas tree"
+	desc = "A paper Christmas tree. Maybe someone will leave a present under it?"
+	icon_state = "decoration_christmas_tree"
 
 /obj/item/decorations/sticky_decorations/flammable/snowflake
 	name = "paper snowflake"
@@ -122,48 +122,33 @@
 
 //Tinsel
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_white
+/obj/item/decorations/sticky_decorations/flammable/tinsel
 	name = "paper tinsel"
 	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
 	icon_state = "decoration_tinsel_white"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_red
-	name = "paper tinsel"
-	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
+/obj/item/decorations/sticky_decorations/flammable/tinsel/red
 	icon_state = "decoration_tinsel_red"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_blue
-	name = "paper tinsel"
-	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
+/obj/item/decorations/sticky_decorations/flammable/tinsel/blue
 	icon_state = "decoration_tinsel_blue"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_yellow
-	name = "paper tinsel"
-	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
+/obj/item/decorations/sticky_decorations/flammable/tinsel/yellow
 	icon_state = "decoration_tinsel_yellow"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_purple
-	name = "paper tinsel"
-	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
+/obj/item/decorations/sticky_decorations/flammable/tinsel/purple
 	icon_state = "decoration_tinsel_purple"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_green
-	name = "paper tinsel"
-	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
+/obj/item/decorations/sticky_decorations/flammable/tinsel/green
 	icon_state = "decoration_tinsel_green"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_orange
-	name = "paper tinsel"
-	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
+/obj/item/decorations/sticky_decorations/flammable/tinsel/orange
 	icon_state = "decoration_tinsel_orange"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_black
-	name = "paper tinsel"
-	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal."
+/obj/item/decorations/sticky_decorations/flammable/tinsel/black
 	icon_state = "decoration_tinsel_black"
 
-/obj/item/decorations/sticky_decorations/flammable/tinsel_halloween
-	name = "paper tinsel"
+/obj/item/decorations/sticky_decorations/flammable/tinsel/halloween
 	desc = "Paper tinsel, because Nanotrasen is too cheap to buy the real deal. At least this one is spooky."
 	icon_state = "decoration_tinsel_halloween"
 
@@ -205,29 +190,21 @@
 	desc = "A paper Easter bunny. Help him find his lost eggs!"
 	icon_state = "decoration_easter_bunny"
 
-/obj/item/decorations/sticky_decorations/flammable/easter_egg_blue
+/obj/item/decorations/sticky_decorations/flammable/easter_egg
 	name = "paper Easter egg"
 	desc = "A paper Easter egg. If the chef won't let us use their eggs, then this will have to do."
 	icon_state = "decoration_easter_egg_blue"
 
-/obj/item/decorations/sticky_decorations/flammable/easter_egg_yellow
-	name = "paper Easter egg"
-	desc = "A paper Easter egg. If the chef won't let us use their eggs, then this will have to do."
+/obj/item/decorations/sticky_decorations/flammable/easter_egg/yellow
 	icon_state = "decoration_easter_egg_yellow"
 
-/obj/item/decorations/sticky_decorations/flammable/easter_egg_red
-	name = "paper Easter egg"
-	desc = "A paper Easter egg. If the chef won't let us use their eggs, then this will have to do."
+/obj/item/decorations/sticky_decorations/flammable/easter_egg/red
 	icon_state = "decoration_easter_egg_red"
 
-/obj/item/decorations/sticky_decorations/flammable/easter_egg_purple
-	name = "paper Easter egg"
-	desc = "A paper Easter egg. If the chef won't let us use their eggs, then this will have to do."
+/obj/item/decorations/sticky_decorations/flammable/easter_egg/purple
 	icon_state = "decoration_easter_egg_purple"
 
-/obj/item/decorations/sticky_decorations/flammable/easter_egg_orange
-	name = "paper Easter egg"
-	desc = "A paper Easter egg. If the chef won't let us use their eggs, then this will have to do."
+/obj/item/decorations/sticky_decorations/flammable/easter_egg/orange
 	icon_state = "decoration_easter_egg_orange"
 
 
@@ -248,33 +225,33 @@
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT
 
-/obj/structure/decorative_structures/metal/metal_angel_statue
+/obj/structure/decorative_structures/metal/statue/metal_angel
 	name = "metal angel statue"
 	desc = "You feel a holy presence looking back at you."
 	icon_state = "metal_angel_statue"
 
-/obj/structure/decorative_structures/metal/golden_disk_statue
+/obj/structure/decorative_structures/metal/statue/golden_disk
 	name = "golden disk statue"
 	desc = "You aren't sure what the runes say around the large plasma crystal."
 	icon_state = "golden_disk_statue"
 
-/obj/structure/decorative_structures/metal/sun_statue
+/obj/structure/decorative_structures/metal/statue/sun
 	name = "sun statue"
 	desc = "You wonder if you could be so grossly incandescent."
 	icon_state = "sun_statue"
 
-/obj/structure/decorative_structures/metal/tesla_statue
+/obj/structure/decorative_structures/metal/statue/tesla
 	name = "tesla statue"
 	desc = "Lady Tesla, a powerful and dangerous mistress."
 	icon_state = "tesla_statue"
 
-/obj/structure/decorative_structures/metal/moon_statue
+/obj/structure/decorative_structures/metal/statue/moon
 	name = "moon statue"
 	desc = "Expect a lot of Vulps to howl around this thing."
 	icon_state = "moon_statue"
 
-/obj/structure/decorative_structures/metal/tesla_monument
-	name = "tesla statue"
+/obj/structure/decorative_structures/metal/statue/tesla_monument
+	name = "tesla monument"
 	desc = "Praise be to lady Tesla!"
 	icon_state = "tesla_monument"
 
