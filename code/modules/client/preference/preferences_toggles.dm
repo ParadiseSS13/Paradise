@@ -40,7 +40,6 @@
 	set name = "Hear/Silence AI Voice Announcements"
 	set category = "Preferences"
 	set desc = "Toggle hearing AI annoucements in voice form or in text form"
-	if(!holder)	return
 	prefs.sound ^= SOUND_AI_VOICE
 	prefs.save_preferences(src)
 	to_chat(usr, "[(prefs.sound & SOUND_AI_VOICE) ? "You will now hear AI announcements." : "AI annoucements will now be converted to text."] ")
