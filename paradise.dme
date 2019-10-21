@@ -1155,6 +1155,7 @@
 #include "code\HISPANIA\game\jobs\job_objectives\science.dm"
 #include "code\HISPANIA\game\machinery\jukebox.dm"
 #include "code\HISPANIA\game\machinery\vending.dm"
+#include "code\HISPANIA\game\mecha\mech_fabricator.dm"
 #include "code\HISPANIA\game\mecha\equipament\tools\medical_tools.dm"
 #include "code\HISPANIA\game\objects\items\miscellaneous\bell.dm"
 #include "code\HISPANIA\game\objects\items\weapons\chronoeraser.dm"
