@@ -449,8 +449,9 @@
 						return
 					else
 						secureprotocols = TRUE
-						to_chat(user, "<span class='notice'>You active the security protocols</span>")
+						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
 						return
+			to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
 			return
