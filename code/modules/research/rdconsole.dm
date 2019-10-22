@@ -505,9 +505,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					message_admins("Circuit imprinter exploit attempted by [key_name(usr, TRUE)]!")
 
 				if(g2g) //Again, if input is wrong, do nothing
-					var/new_coeff = (coeff * (1-(7.6/7))) + (7.6/7)
-					var/time_to_construct = IMPRINTER_DELAY * new_coeff * being_built.lathe_time_factor
-					add_wait_message("Imprinting Circuit. Please Wait...", time_to_construct)
+					add_wait_message("Imprinting Circuit. Please Wait...", IMPRINTER_DELAY)
 					linked_imprinter.busy = 1
 					flick("circuit_imprinter_ani",linked_imprinter)
 					use_power(power)
@@ -533,7 +531,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							linked_imprinter.reagents.remove_reagent(R, being_built.reagents_list[R]/coeff)
 
 					var/P = being_built.build_path //lets save these values before the spawn() just in case. Nobody likes runtimes.
-					spawn(time_to_construct)
+					spawn(IMPRINTER_DELAY)
 						if(g2g)
 							var/obj/item/new_item = new P(src)
 							new_item.loc = linked_imprinter.loc
