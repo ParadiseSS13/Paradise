@@ -46257,7 +46257,6 @@
 	dir = 2;
 	network = list("Research","SS13")
 	},
-/obj/structure/reagent_dispensers/oil,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteredcorner"

@@ -73,6 +73,15 @@
 		A.Remove(M)
 	return src
 
+/obj/item/organ/internal/emp_act(severity)
+	if(!is_robotic() || emp_proof)
+		return
+	switch(severity)
+		if(1)
+			receive_damage(20, 1)
+		if(2)
+			receive_damage(7, 1)
+
 /obj/item/organ/internal/replaced(var/mob/living/carbon/human/target)
     insert(target)
 

@@ -96593,10 +96593,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"dgF" = (
-/obj/structure/reagent_dispensers/oil,
-/turf/simulated/floor/plasteel,
-/area/assembly/robotics)
 "dgG" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/cardboard,
@@ -126709,7 +126705,7 @@ cIx
 cJn
 cMj
 cLo
-dgF
+cLo
 cLo
 cQv
 cOX
