@@ -35,8 +35,6 @@ var/list/PASS_list = list()
 		lastloc = loca
 
 	if(timing && time <= 0)
-		timing = repeat
-		timer_end()
 		alarm = 1
 		time = set_time
 
