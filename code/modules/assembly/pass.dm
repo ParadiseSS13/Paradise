@@ -16,10 +16,10 @@ var/list/PASS_list = list()
 	AddComponent(/datum/component/squeak, pass_sounds, 100)
 
 
-/obj/item/assembly/timer/pass/describe()
-	if(timing)
-		return "The PASS will go off in [time] seconds if not moved!"
-	return "The timer is set for [time] seconds."
+///obj/item/assembly/timer/pass/describe()
+//	if(timing)
+//		return "The PASS will go off in [time] seconds if not moved!"
+//	return "The timer is set for [time] seconds."
 
 
 /obj/item/assembly/timer/pass/process()
