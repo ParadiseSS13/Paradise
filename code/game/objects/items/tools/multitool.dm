@@ -30,6 +30,9 @@
 		return 0
 	return istype(buffer,typepath)
 
+/obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
+	return TRUE
+
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
 		to_chat(user, "<span class='warning'>That's not a machine!</span>")

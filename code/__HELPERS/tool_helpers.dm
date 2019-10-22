@@ -1,17 +1,4 @@
 //Quick type checks for some tools
-var/global/list/common_tools = list(
-/obj/item/stack/cable_coil,
-/obj/item/wrench,
-/obj/item/weldingtool,
-/obj/item/screwdriver,
-/obj/item/wirecutters,
-/obj/item/multitool,
-/obj/item/crowbar)
-
-/proc/istool(O)
-	if(O && is_type_in_list(O, common_tools))
-		return 1
-	return 0
 
 /proc/iswrench(O)
 	if(istype(O, /obj/item/wrench))
@@ -44,12 +31,6 @@ var/global/list/common_tools = list(
 	return 0
 
 /proc/iscoil(O)
-	if(istype(O, /obj/item/stack/cable_coil))
-		return 1
-	return 0
-
-
-/proc/iswire(O)
 	if(istype(O, /obj/item/stack/cable_coil))
 		return 1
 	return 0

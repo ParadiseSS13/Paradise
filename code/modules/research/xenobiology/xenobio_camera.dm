@@ -169,7 +169,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!multitool_check_buffer(user, I))
+	if(!I.multitool_check_buffer(user))
 		return
 	var/obj/item/multitool/M = I
 	if(istype(M.buffer, /obj/machinery/monkey_recycler))
