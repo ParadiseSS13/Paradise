@@ -11,7 +11,7 @@ var/list/PASS_list = list()
 
 
 
-/obj/item/assembly/timer/pass/Initialize
+/obj/item/assembly/timer/pass/Initialize()
 	. = ..()
 	AddComponent(/datum/component/squeak, pass_sounds, 100)
 
@@ -33,8 +33,6 @@ var/list/PASS_list = list()
 			time = set_time
 			alarm = 0
 		lastloc = loca
-
 	if(timing && time <= 0)
 		alarm = 1
 		time = set_time
-
