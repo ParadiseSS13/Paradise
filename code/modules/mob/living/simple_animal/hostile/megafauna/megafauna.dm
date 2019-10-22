@@ -47,6 +47,11 @@
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
+	maxHealth = maxHealth*(rand(25,100)/50)
+	armour_penetration = armour_penetration*(rand(25,100)/50)
+	melee_damage_lower = melee_damage_lower*(rand(25,100)/50)
+	melee_damage_upper = melee_damage_upper*(rand(25,100)/50)
+	speed = speed*(rand(25,100)/50)
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	QDEL_NULL(internal_gps)
