@@ -1,5 +1,3 @@
-var/list/PASS_list = list()
-
 /obj/item/assembly/timer/pass
 	name = "Personal Alert Safety System"
 	desc = "A device that plays a very loud alarm if it isn't moved for 30 seconds."
