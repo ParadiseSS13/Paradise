@@ -15,12 +15,6 @@ var/list/PASS_list = list()
 	. = ..()
 	AddComponent(/datum/component/squeak, pass_sounds, 100)
 
-/obj/item/assembly/timer/pass/New()
-	PASS_list.Add(src)
-
-/obj/item/assembly/timer/pass/Destroy()
-	PASS_list.Remove(src)
-	return ..()
 
 /obj/item/assembly/timer/pass/describe()
 	if(timing)
