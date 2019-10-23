@@ -1,6 +1,6 @@
 /datum/action/changeling/swap_form
 	name = "Swap Forms"
-	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals."
+	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Is blocked by mindshields. Costs 40 chemicals."
 	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
 	button_icon_state = "mindswap"
 	chemical_cost = 40
@@ -21,10 +21,13 @@
 	if(!istype(target) || issmall(target) || NO_DNA in target.dna.species.species_traits)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
+	if(target.ismindshielded)
+		to_chat(user, "<span class='warning'>We are unable to swap forms with a mindshielded lifeform!</span>")
+		return
 	if(target.mind.changeling)
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
 		return
-	return 1
+	return TRUE
 
 /datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
 	var/obj/item/grab/G = user.get_active_hand()
