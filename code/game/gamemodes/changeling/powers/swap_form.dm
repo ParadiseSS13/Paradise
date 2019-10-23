@@ -21,7 +21,7 @@
 	if(!istype(target) || issmall(target) || NO_DNA in target.dna.species.species_traits)
 		to_chat(user, "<span class='warning'>[target] is not compatible with this ability.</span>")
 		return
-	if(target.ismindshielded)
+	if(ismindshielded(target))
 		to_chat(user, "<span class='warning'>We are unable to swap forms with a mindshielded lifeform!</span>")
 		return
 	if(target.mind.changeling)
