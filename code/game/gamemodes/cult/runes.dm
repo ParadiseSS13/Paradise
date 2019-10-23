@@ -347,8 +347,8 @@ var/list/teleport_runes = list()
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	req_cultists = 1
-	allow_excess_invokers = 1
-	rune_in_use = 0
+	allow_excess_invokers = TRUE
+	rune_in_use = FALSE
 	
 /obj/effect/rune/convert/do_invoke_glow()
 	return
@@ -360,7 +360,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
 		if(!iscultist(M))
-			myriad_targets |= M
+			myriad_targets = M
 	if(!myriad_targets.len)
 		fail_invoke()
 		log_game("Offer rune failed - no eligible targets")
@@ -384,7 +384,6 @@ var/list/teleport_runes = list()
 		fail_invoke()
 		for(var/I in invokers)
 			to_chat(I, "<span class='warning'>You need at least two invokers to convert!</span>")
-		log_game("Offer rune failed - not enough invokers")
 		return
 	else
 		convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
@@ -413,7 +412,7 @@ var/list/teleport_runes = list()
 	if(offering.mind)
 		sacrificed.Add(offering.mind)
 		if(is_sacrifice_target(offering.mind))
-			sacrifice_fulfilled = 1
+			sacrifice_fulfilled = TRUE
 	new /obj/effect/temp_visual/cult/sac(loc)
 	if(SSticker && SSticker.mode && SSticker.mode.name == "cult")
 		cult_mode.harvested++

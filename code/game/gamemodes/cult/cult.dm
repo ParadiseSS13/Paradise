@@ -27,7 +27,7 @@ var/global/list/all_cults = list()
 		if(!iscultist(G.summoner))
 			return 0 //can't convert it unless the owner is converted
 	if(isgolem(mind.current))
-		return 0
+		return FALSE
 	return 1
 
 /proc/is_sacrifice_target(datum/mind/mind)

@@ -211,7 +211,7 @@
 				C.init_shade(T, U)
 			else
 				to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
-				T.Paralyse(10)
+				T.Paralyse(20)
 				if(!C.getCultGhost(T,U))
 					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
