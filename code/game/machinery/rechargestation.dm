@@ -182,8 +182,8 @@
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
-						if(B.bcell)
-							B.bcell.charge = B.bcell.maxcharge
+						if(B.cell)
+							B.cell.charge = B.cell.maxcharge
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)

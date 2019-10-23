@@ -116,8 +116,8 @@
 
 		if(istype(charging, /obj/item/melee/baton))
 			var/obj/item/melee/baton/B = charging
-			if(B.bcell)
-				if(B.bcell.give(B.bcell.chargerate))
+			if(B.cell)
+				if(B.cell.give(B.cell.chargerate))
 					use_power(200)
 					using_power = TRUE
 
@@ -160,8 +160,8 @@
 
 	else if(istype(charging, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = charging
-		if(B.bcell)
-			B.bcell.charge = 0
+		if(B.cell)
+			B.cell.charge = 0
 	..(severity)
 
 /obj/machinery/recharger/update_icon(using_power = FALSE)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
