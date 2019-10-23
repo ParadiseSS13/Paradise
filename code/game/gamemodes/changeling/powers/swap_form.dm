@@ -1,18 +1,24 @@
 /datum/action/changeling/swap_form
 	name = "Swap Forms"
-	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals."
-	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
+	desc = "We force ourselves into another form, husking our original body in the process. Costs 10 chemicals."
+	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process is slow, requires the target strangled, and will seem suspicious to observers. "
 	button_icon_state = "mindswap"
-	chemical_cost = 40
+	chemical_cost = 5 //very slow to use is already a significant downside, doesnt need a significant cost
 	dna_cost = 1
 	req_human = 1 //Monkeys can't grab
 
 /datum/action/changeling/swap_form/can_sting(var/mob/living/carbon/user)
 	if(!..())
 		return
+
+	var/datum/changeling/changeling = user.mind.changeling
+	if(changeling.isswapping)
+		to_chat(user, "<span class='warning'>We are already swapping form!</span>")
+		return
+
 	var/obj/item/grab/G = user.get_active_hand()
-	if(!istype(G) || (G.state < GRAB_AGGRESSIVE))
-		to_chat(user, "<span class='warning'>We must have an aggressive grab on creature in our active hand to do this!</span>")
+	if(!istype(G))
+		to_chat(user, "<span class='warning'>We must be grabbing a creature in our active hand to swap with them.</span>")
 		return
 	var/mob/living/carbon/human/target = G.affecting
 	if((NOCLONE || SKELETON || HUSK) in target.mutations)
@@ -24,22 +30,39 @@
 	if(target.mind.changeling)
 		to_chat(user, "<span class='warning'>We are unable to swap forms with another changeling!</span>")
 		return
-	return 1
+	if(G.state <= GRAB_NECK)
+		to_chat(user, "<span class='warning'>We must have a tighter grip to absorb this creature.</span>")
+		return
+
+	return TRUE
 
 /datum/action/changeling/swap_form/sting_action(var/mob/living/carbon/user)
 	var/obj/item/grab/G = user.get_active_hand()
 	var/mob/living/carbon/human/target = G.affecting
 	var/datum/changeling/changeling = user.mind.changeling
+	changeling.isswapping = TRUE
 
-	to_chat(user, "<span class='notice'>We tighten our grip. We must hold still....</span>")
-	target.do_jitter_animation(500)
-	user.do_jitter_animation(500)
+	for(var/stage = 1, stage <= 3, stage++)
+		switch(stage)
+			if(1)
+				to_chat(user, "<span class='notice'>This creature is compatible. We must hold still...</span>")
+			if(2)
+				to_chat(user, "<span class='notice'>We extend a proboscis.</span>")
+				user.visible_message("<span class='warning'>[user] extends a proboscis!</span>")
+			if(3)
+				to_chat(user, "<span class='notice'>We stab [target] with the proboscis.</span>")
+				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>")
+				to_chat(target, "<span class='danger'>You feel a sharp stabbing pain!</span>")
+				target.take_overall_damage(10)
+		feedback_add_details("changeling_powers","A[stage]")
+		if(!do_mob(user, target, 150))
+			to_chat(user, "<span class='warning'>Our swapping with [target] has been interrupted!</span>")
+			changeling.isswapping = FALSE
+			return
 
-	if(!do_mob(user,target,20))
-		to_chat(user, "<span class='warning'>The body swap has been interrupted!</span>")
-		return
-
-	to_chat(target, "<span class='userdanger'>[user] tightens [user.p_their()] grip as a painful sensation invades your body.</span>")
+	to_chat(user, "<span class='notice'>We have swapped forms with [target]!</span>")
+	user.visible_message("<span class='danger'>[user] suddenly drops dead and lets go of [target].</span>")
+	to_chat(target, "<span class='danger'>Your body has been taken over by the changeling!</span>")
 
 	var/lingpowers = list()
 	for(var/power in changeling.purchasedpowers)
@@ -56,10 +79,9 @@
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
-		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
+		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse
 		user.key = ghost.key
 	qdel(ghost)
-	user.Paralyse(2)
 	target.add_language("Changeling")
 	user.remove_language("Changeling")
 	user.regenerate_icons()
@@ -70,5 +92,9 @@
 		if(istype(S) && S.needs_button)
 			S.Grant(target)
 
-	to_chat(target, "<span class='warning'>Our genes cry out as we swap our [user] form for [target].</span>")
-	return 1
+	changeling.isswapping = FALSE
+
+	var/mob/living/carbon/human/H = user
+	H.death(0)
+	H.Drain()
+	return TRUE
