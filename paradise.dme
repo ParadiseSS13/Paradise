@@ -1192,6 +1192,7 @@
 #include "code\HISPANIA\modules\mob\new_player\sprite_accessories\human\human_hair.dm"
 #include "code\HISPANIA\modules\mob\new_player\sprite_accessories\murghal\murghal_hair.dm"
 #include "code\HISPANIA\modules\mob\new_player\sprite_accessories\slime\slime_hair.dm"
+#include "code\HISPANIA\modules\power\apc.dm"
 #include "code\HISPANIA\modules\power\cell.dm"
 #include "code\HISPANIA\modules\projectiles\guns\medbeam.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\alcohol.dm"
