@@ -1380,6 +1380,16 @@
 			L.update(FALSE)
 		CHECK_TICK
 
+/obj/item/storage/part_replacer/afterattack(obj/machinery/power/apc/T as obj, mob/living/carbon/human/user as mob, flag, params)
+	if(flag)
+		return
+	else if(works_from_distance)
+		if(istype(T))
+			if(T.cell)
+				T.exchange_parts(user, src)
+				user.Beam(T,icon_state="rped_upgrade",icon='icons/effects/effects.dmi',time=5)
+	return
+
 /obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
 		return FALSE
@@ -1389,10 +1399,14 @@
 	var/shouldplaysound = 0
 	if(wiresexposed || W.works_from_distance)
 		if(W.works_from_distance)
-			display_parts(user)
+			to_chat(user, "<span class='notice'> the APC has a [cell.name].</span>")
 		for(var/obj/item/stock_parts/cell/C in W.contents)
 			if(istype(C, /obj/item/stock_parts/cell))
 				if(C.rating > cell.rating)
+					if(cell.charge > C.charge)
+						var/tempcharge = cell.charge
+						cell.charge = C.charge
+						C.charge = tempcharge
 					W.remove_from_storage(C, src)
 					W.handle_item_insertion(cell, 1)
 					C.forceMove(src)
@@ -1404,7 +1418,7 @@
 					break
 		RefreshParts()
 	else
-		display_parts(user)
+		to_chat(user, "<span class='notice'> the APC has a [cell.name].</span>")
 	if(shouldplaysound)
 		W.play_rped_sound()
 	return TRUE
