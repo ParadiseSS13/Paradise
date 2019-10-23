@@ -174,23 +174,32 @@
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
 	desc = "Blood-soaked robes infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "hardsuit-berserker"
-	item_state = "hardsuit-berserker"
+	icon_state = "flagellent"
+	item_state = "flagellent"
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	armor = list("melee" = -45, "bullet" = -45, "laser" = -45,"energy" = -45, "bomb" = -45, "bio" = -45, "rad" = -45, "fire" = 0, "acid" = 0)
 	slowdown = -1
 	hoodtype = /obj/item/clothing/head/hooded/berserkerhood
+	sprite_sheets = list(
+        "Vox" = 'icons/mob/species/vox/suit.dmi',
+        "Drask" = 'icons/mob/species/drask/suit.dmi'
+    )
 
 
 /obj/item/clothing/head/hooded/berserkerhood
 	name = "flagellant's robes"
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
-	icon_state = "culthood"
+	icon_state = "flagellent_hood"
+	item_state = "flagellent_hood"
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	sprite_sheets = list(
+        "Vox" = 'icons/mob/species/vox/head.dmi',
+        "Drask" = 'icons/mob/species/drask/head.dmi'
+    )
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"
