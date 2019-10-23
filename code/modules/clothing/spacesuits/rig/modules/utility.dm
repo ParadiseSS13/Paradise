@@ -468,7 +468,7 @@
 /obj/item/rig_module/welding_tank/proc/fill_welder(obj/item/weldingtool/W)
 	if(!istype(W))
 		return
-	W.refill_tool(holder.wearer, src, W.maximum_fuel)
+	W.refill(holder.wearer, src, W.maximum_fuel)
 	if(!reagents.get_reagent_amount("fuel"))
 		to_chat(holder.wearer, "<span class='notice'>You hear a faint dripping as your hardsuit welding tank completely empties.</span>")
 

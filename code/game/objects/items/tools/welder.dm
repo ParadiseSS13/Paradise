@@ -133,7 +133,7 @@
 	if(!GET_FUEL)
 		toggle_welder(TRUE)
 
-/obj/item/weldingtool/refill_tool(mob/user, atom/A, amount)
+/obj/item/weldingtool/refill(mob/user, atom/A, amount)
 	if(!A.reagents)
 		return
 	if(GET_FUEL >= maximum_fuel)

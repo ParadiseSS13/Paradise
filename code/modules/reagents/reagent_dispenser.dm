@@ -166,7 +166,7 @@ obj/structure/reagent_dispensers/fueltank/welder_act(mob/user, obj/item/I)
 		investigate_log("[key_name(user)] triggered a fueltank explosion at [COORD(loc)]", INVESTIGATE_BOMB)
 		boom()
 	else
-		I.refill_tool(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
+		I.refill(user, src, reagents.get_reagent_amount("fuel")) //Try dump all fuel into the welder
 
 
 /obj/structure/reagent_dispensers/fueltank/Move()
