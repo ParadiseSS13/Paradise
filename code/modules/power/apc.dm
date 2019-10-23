@@ -625,10 +625,8 @@
 			if(opened==2)
 				opened = 1
 			update_icon()
-	else if(istype(W, /obj/item/storage/part_replacer))
-		exchange_parts(user, W)
-		chargecount = 0
-		update_icon()
+	else if(exchange_parts(user, W))
+		return
 	else
 		if(((stat & BROKEN) || malfhack) \
 				&& !opened \
@@ -1383,29 +1381,32 @@
 		CHECK_TICK
 
 /obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
-	var/shouldplaysound = 0
-	if(istype(W) && cell)
-		if(wiresexposed || W.works_from_distance)
-			if(W.works_from_distance)
-				display_parts(user)
-			for(var/obj/item/stock_parts/cell/C in W.contents)
-				if(istype(C, /obj/item/stock_parts/cell))
-					if(C.rating > cell.rating)
-						W.remove_from_storage(C, src)
-						W.handle_item_insertion(cell, 1)
-						C.forceMove(src)
-						cell = C
-						to_chat(user, "<span class='notice'>[cell.name] replaced with [C.name].</span>")
-						shouldplaysound = 1
-						break
-			RefreshParts()
-		else
-			display_parts(user)
-		if(shouldplaysound)
-			W.play_rped_sound()
-		return 1
-	else
+	if(!istype(W))
+		return FALSE
+	if(!cell)
 		to_chat(user, "<span class='notice'>Cell no found for remplace</span>")
-		return 0
+		return FALSE
+	var/shouldplaysound = 0
+	if(wiresexposed || W.works_from_distance)
+		if(W.works_from_distance)
+			display_parts(user)
+		for(var/obj/item/stock_parts/cell/C in W.contents)
+			if(istype(C, /obj/item/stock_parts/cell))
+				if(C.rating > cell.rating)
+					W.remove_from_storage(C, src)
+					W.handle_item_insertion(cell, 1)
+					C.forceMove(src)
+					cell = C
+					charging = 0
+					chargecount = 0
+					to_chat(user, "<span class='notice'>[cell.name] replaced with [C.name].</span>")
+					shouldplaysound = 1
+					break
+		RefreshParts()
+	else
+		display_parts(user)
+	if(shouldplaysound)
+		W.play_rped_sound()
+	return TRUE
 
 #undef APC_UPDATE_ICON_COOLDOWN
