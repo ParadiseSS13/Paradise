@@ -1,0 +1,4 @@
+author: "actioninja"
+delete-after: True
+changes: 
+  - bugfix: "Nanoui interfaces in fancy mode now open more cleanly"
