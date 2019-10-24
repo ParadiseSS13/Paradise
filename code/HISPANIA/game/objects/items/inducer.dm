@@ -88,7 +88,7 @@
 				update_icon()
 				return
 			else
-				to_chat(user, "<span class='notice'>[src] already has \a [cell] installed!</span>")
+				to_chat(user, "<span class='notice'>[src] already has a [cell] installed!</span>")
 				return
 
 	if(afterattack(W, user))
