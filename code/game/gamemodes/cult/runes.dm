@@ -360,7 +360,7 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
 		if(!iscultist(M))
-			myriad_targets = M
+			myriad_targets |= M
 	if(!myriad_targets.len)
 		fail_invoke()
 		log_game("Offer rune failed - no eligible targets")
