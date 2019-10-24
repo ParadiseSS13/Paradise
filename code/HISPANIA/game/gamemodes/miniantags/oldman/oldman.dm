@@ -59,15 +59,8 @@
 		if(!(vialspawned))
 			to_chat(src, "<B>Objective #[1]</B>: Hunt down as much of the crew as you can.")
 
-/mob/living/simple_animal/oldman/CanAttack(atom/the_target)
-	if(ismob(the_target))
-		var/mob/M = the_target
-		M.gib()
-		to_chat(usr,"Epic")
-		return
-
-	if(isturf(the_target))
-		var/turf/T = the_target
+/mob/living/simple_animal/oldman/proc/attackwall(turf/T, mob/user)
+	if(iswallturf(T))
 		qdel(T)
-		to_chat(usr,"Bruh")
+		to_chat(user,"Bruh")
 		return
