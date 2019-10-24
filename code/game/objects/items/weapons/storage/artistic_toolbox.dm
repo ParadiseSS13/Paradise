@@ -27,7 +27,8 @@
 			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
 			flags ^= NODROP
 	else if(!activated && loc == user)
-		link_user(user)
+		if(link_user(user))
+			to_chat(user, "<span class='notice'>Call to His Grace again if you wish it bound to your hand!</span>")
 	else
 		to_chat(user, "<span class='warning'>You can't seem to understand what this does.</span>")
 
@@ -64,6 +65,8 @@
 		to_chat(user, "<span class='warning'>[up_and_down]</span>")
 		to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
 		original_owner = user
+		return TRUE
+	return FALSE
 
 /obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
 	if(activated)
