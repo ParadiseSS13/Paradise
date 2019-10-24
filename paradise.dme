@@ -280,7 +280,6 @@
 #include "code\datums\cache\powermonitor.dm"
 #include "code\datums\components\_component.dm"
 #include "code\datums\components\caltrop.dm"
-#include "code\datums\components\carbon_on_life.dm"
 #include "code\datums\components\decal.dm"
 #include "code\datums\components\ducttape.dm"
 #include "code\datums\components\human_damage_callback.dm"

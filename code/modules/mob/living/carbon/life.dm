@@ -14,7 +14,7 @@
 			O.on_life()
 
 	SEND_SIGNAL(src, COMSIG_CARBON_LIFE, seconds, times_fired)
-	handle_changeling()
+	
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
