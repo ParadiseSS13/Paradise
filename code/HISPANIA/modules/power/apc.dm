@@ -12,7 +12,7 @@
 	if(!istype(W))
 		return FALSE
 	var/shouldplaysound = FALSE
-	if(wiresexposed || W.works_from_distance)
+	if(wiresexposed || opened || W.works_from_distance)
 		if(W.works_from_distance)
 			if(cell)
 				to_chat(user, "<span class='notice'> the APC has a [cell.name].</span>")
@@ -22,10 +22,6 @@
 			if(istype(C, /obj/item/stock_parts/cell))
 				if(cell)
 					if(C.rating > cell.rating)
-						if(cell.charge > C.charge)
-							var/tempcharge = cell.charge
-							cell.charge = C.charge
-							C.charge = tempcharge
 						cell.update_icon()
 						W.handle_item_insertion(cell, 1)
 						W.remove_from_storage(C, src)
@@ -39,8 +35,7 @@
 						break
 				if(!cell)
 					W.remove_from_storage(C, src)
-//					C.forceMove(src) //probamos esto en contraste a la linea de abajo //esto no se ha testeado aun
-					C.loc = src // esto funciona solo para los rped normales //testeemos esto de nuevo con cambios a la hora de ver si está vacio o no, segundo test
+					C.forceMove(src)
 					cell = C
 					charging = 0
 					chargecount = 0
