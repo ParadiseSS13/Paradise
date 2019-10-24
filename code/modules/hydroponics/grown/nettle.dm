@@ -54,6 +54,8 @@
 	var/mob/living/carbon/human/H = user
 	if(H.gloves)
 		return TRUE
+	if(PIERCEIMMUNE in H.dna.species.species_traits)
+		return TRUE
 	var/organ = ((H.hand ? "l_":"r_") + "arm")
 	var/obj/item/organ/external/affecting = H.get_organ(organ)
 	if(affecting)

@@ -197,7 +197,7 @@
 	if(to_inject && patient.reagents.get_reagent_amount(R.id) + to_inject <= inject_amount*2)
 		occupant_message("Injecting [patient] with [to_inject] units of [R.name].")
 		log_message("Injecting [patient] with [to_inject] units of [R.name].")
-		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units")
+		add_attack_logs(chassis.occupant, patient, "Injected with [name] containing [R], transferred [to_inject] units", R.harmless ? ATKLOG_ALMOSTALL : null)
 		SG.reagents.trans_id_to(patient,R.id,to_inject)
 		update_equip_info()
 	return

@@ -29,7 +29,7 @@
 	see_in_dark = 8
 	mob_size = MOB_SIZE_LARGE
 	ventcrawler = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 
 
 

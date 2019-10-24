@@ -36,7 +36,7 @@
 		new /datum/data/mining_equipment("Fulton Pack",					/obj/item/extraction_pack,											1000),
 		new /datum/data/mining_equipment("Lazarus Injector",			/obj/item/lazarus_injector,											1000),
 		new /datum/data/mining_equipment("Silver Pickaxe",				/obj/item/pickaxe/silver,											1000),
-		new /datum/data/mining_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffel/mining_conscript,					1500),
+		new /datum/data/mining_equipment("Mining Conscription Kit",		/obj/item/storage/backpack/duffel/mining_conscript/full,					1500),
 		new /datum/data/mining_equipment("Jetpack Upgrade",				/obj/item/tank/jetpack/suit,										2000),
 		new /datum/data/mining_equipment("Mining Hardsuit",				/obj/item/clothing/suit/space/hardsuit/mining,						2000),
 		new /datum/data/mining_equipment("Diamond Pickaxe",				/obj/item/pickaxe/diamond,											2000),
@@ -235,7 +235,7 @@
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
-			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
+			new /obj/item/storage/backpack/duffel/mining_conscript/full(drop_location)
 
 	qdel(voucher)
 
@@ -275,8 +275,8 @@
 	..()
 
 /obj/item/card/mining_point_card/examine(mob/user)
-	..(user)
-	to_chat(user, "There's [points] points on the card.")
+	. = ..()
+	. += "There's [points] points on the card."
 
 /**********************Conscription Kit**********************/
 
@@ -293,18 +293,13 @@
 		to_chat(user, "You upgrade [I] with mining access.")
 		qdel(src)
 
-/obj/item/storage/backpack/duffel/mining_conscript
+/obj/item/storage/backpack/duffel/mining_conscript/full
 	name = "mining conscription kit"
 	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
 
-/obj/item/storage/backpack/duffel/mining_conscript/New()
+/obj/item/storage/backpack/duffel/mining_conscript/full/New()
 	..()
-	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/suit/hooded/explorer(src)
-	new /obj/item/encryptionkey/headset_cargo(src)
-	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/card/id/mining_access_card(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)
 	new /obj/item/kitchen/knife/combat/survival(src)

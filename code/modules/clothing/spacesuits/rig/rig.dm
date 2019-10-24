@@ -84,18 +84,18 @@
 	var/datum/wires/rig/wires
 	var/datum/effect_system/spark_spread/spark_system
 
-/obj/item/rig/examine()
-	to_chat(usr, "This is [bicon(src)][src.name].")
-	to_chat(usr, "[src.desc]")
+/obj/item/rig/examine(mob/user)
+	. = list("This is [src].")
+	. += "[desc]"
 	if(wearer)
 		for(var/obj/item/piece in list(helmet,gloves,chest,boots))
 			if(!piece || piece.loc != wearer)
 				continue
-			to_chat(usr, "[bicon(piece)] \The [piece] [piece.gender == PLURAL ? "are" : "is"] deployed.")
+			. += "[bicon(piece)] \The [piece] [piece.gender == PLURAL ? "are" : "is"] deployed."
 
-	if(src.loc == usr)
-		to_chat(usr, "The maintenance panel is [open ? "open" : "closed"].")
-		to_chat(usr, "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</font>"].")
+	if(loc == usr)
+		. += "The maintenance panel is [open ? "open" : "closed"]."
+		. += "Hardsuit systems are [offline ? "<font color='red'>offline</font>" : "<font color='green'>online</font>"]."
 
 /obj/item/rig/get_cell()
 	return cell

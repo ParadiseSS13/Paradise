@@ -58,7 +58,7 @@
 		changeling.absorb_dna(target, user)
 
 	if(user.nutrition < NUTRITION_LEVEL_WELL_FED)
-		user.nutrition = min((user.nutrition + target.nutrition), NUTRITION_LEVEL_WELL_FED)
+		user.set_nutrition(min((user.nutrition + target.nutrition), NUTRITION_LEVEL_WELL_FED))
 
 	if(target.mind)//if the victim has got a mind
 

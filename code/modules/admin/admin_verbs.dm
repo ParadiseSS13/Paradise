@@ -110,8 +110,6 @@ var/list/admin_verbs_event = list(
 	/client/proc/toggle_ert_calling,
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
-	/client/proc/cmd_admin_custom_event_info,
-	/client/proc/cmd_view_custom_event_info,
 	/datum/admins/proc/access_news_network,	/*allows access of newscasters*/
 	/client/proc/cmd_admin_direct_narrate,	/*send text directly to a player with no padding. Useful for narratives and fluff-text*/
 	/client/proc/cmd_admin_world_narrate,	/*sends text to all players with no padding*/

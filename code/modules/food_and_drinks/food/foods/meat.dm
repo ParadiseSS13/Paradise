@@ -271,6 +271,12 @@
 	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
+	if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
+		if(fingerprintslast)
+			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
+		else
+			visible_message("<span class='notice'>[src] fails to expand!</span>")
+		return
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
@@ -283,6 +289,7 @@
 		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden.Copy()
 		creature.set_species(monkey_type)
+		SSmobs.cubemonkeys += creature
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/syndicate

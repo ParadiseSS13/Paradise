@@ -241,7 +241,7 @@
 		/mob/living/simple_animal/crab,
 		/mob/living/simple_animal/mouse,
 		/mob/living/carbon/human,
-		/mob/living/carbon/slime,
+		/mob/living/simple_animal/slime,
 		/mob/living/carbon/alien/larva,
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/chick,

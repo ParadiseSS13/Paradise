@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/retaliate/clown
 	name = "Clown"
 	desc = "A denizen of clown planet"
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clown"
 	icon_living = "clown"
 	icon_dead = "clown_dead"
@@ -32,6 +33,7 @@
 
 
 /mob/living/simple_animal/hostile/retaliate/clown/goblin
+	icon = 'icons/mob/animal.dmi'
 	name = "clown goblin"
 	desc = "A tiny walking mask and clown shoes. You want to honk his nose!"
 	icon_state = "clowngoblin"

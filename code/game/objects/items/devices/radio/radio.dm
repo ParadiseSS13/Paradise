@@ -595,14 +595,13 @@ var/global/list/default_medbay_channels = list(
 
 	return null
 
-/obj/item/radio/examine(mob/user, var/distance = -1)
-	. = ..(user, distance)
-	if((in_range(src, user) || loc == user))
+/obj/item/radio/examine(mob/user)
+	. = ..()
+	if(in_range(src, user) || loc == user)
 		if(b_stat)
-			user.show_message("<span class='notice'>\the [src] can be attached and modified!</span>")
+			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
 		else
-			user.show_message("<span class='notice'>\the [src] can not be modified or attached!</span>")
-	return .
+			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
 
 /obj/item/radio/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

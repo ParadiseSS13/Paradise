@@ -32,7 +32,7 @@
 
 	faction = list("scarybat")
 	var/mob/living/owner
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/scarybat/New(loc, mob/living/L as mob)
 	..()
@@ -73,4 +73,4 @@
 	pass_flags = PASSTABLE
 	universal_speak = 1
 	universal_understand = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID //badmin only
+	gold_core_spawnable = NO_SPAWN //badmin only

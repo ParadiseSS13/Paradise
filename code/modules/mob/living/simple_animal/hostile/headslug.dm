@@ -24,9 +24,9 @@
 	var/egg_lain = 0
 
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
-	..()
+	. = ..()
 	if(stat == DEAD)
-		to_chat(desc = "It appears to be dead.")
+		. += "It appears to be dead."
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)

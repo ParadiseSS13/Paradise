@@ -71,11 +71,12 @@
 	flick("echair_shock", src)
 	do_sparks(12, 1, src)
 	visible_message("<span class='danger'>The electric chair went off!</span>", "<span class='danger'>You hear a deep sharp shock!</span>")
-	if(buckled_mob)
-		buckled_mob.electrocute_act(110, src, 1)
-		to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
-		spawn(1)
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
 			buckled_mob.electrocute_act(110, src, 1)
+			to_chat(buckled_mob, "<span class='danger'>You feel a deep shock course through your body!</span>")
+			spawn(1)
+				buckled_mob.electrocute_act(110, src, 1)
 	A.power_light = light
 	A.updateicon()
-	return

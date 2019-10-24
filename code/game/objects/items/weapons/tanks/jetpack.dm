@@ -35,11 +35,9 @@
 
 
 /obj/item/tank/jetpack/examine(mob/user)
-	if(!..(user, 0))
-		return
-
-	if(air_contents.oxygen < 10)
-		to_chat(user, "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>")
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.oxygen < 10)
+		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 
@@ -156,11 +154,9 @@
 	air_contents.carbon_dioxide = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/jetpack/carbondioxide/examine(mob/user)
-	if(!..(user, 0))
-		return
-
-	if(air_contents.carbon_dioxide < 10)
-		to_chat(user, "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>")
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.carbon_dioxide < 10)
+		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
 		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 /obj/item/tank/jetpack/suit
@@ -229,8 +225,7 @@
 	actions_types = list(/datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
 
 /obj/item/tank/jetpack/rig/examine()
-	to_chat(usr, "It's a jetpack. If you can see this, report it on the bug tracker.")
-	return 0
+	. = list("It's a jetpack. If you can see this, report it on the bug tracker.")
 
 /obj/item/tank/jetpack/rig/allow_thrust(num, mob/living/user)
 	if(!on)

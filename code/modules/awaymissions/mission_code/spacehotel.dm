@@ -121,8 +121,8 @@
 	return ..()
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
-	..()
-	to_chat(user, "This room is currently [occupant ? "" : "un"]occupied.")
+	. = ..()
+	. += "This room is currently [occupant ? "" : "un"]occupied."
 
 /obj/machinery/door/unpowered/hotel_door/allowed(mob/living/carbon/user)
 	for(var/obj/item/card/hotel_card/C in user.get_all_slots())

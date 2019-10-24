@@ -138,6 +138,8 @@
 	icon_state = "seed-moonflower"
 	species = "moonflower"
 	plantname = "Moonflowers"
+	icon_grow = "moonflower-grow"
+	icon_dead = "sunflower-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
 	mutatelist = list()
 	reagents_add = list("moonshine" = 0.2, "vitamin" = 0.02, "plantmatter" = 0.02)
@@ -152,7 +154,7 @@
 	filling_color = "#E6E6FA"
 	bitesize_mod = 2
 	tastes = list("moonflower" = 1)
-	distill_reagent = "absinthe" 
+	distill_reagent = "absinthe"  //It's made from flowers.
 
 // Novaflower
 /obj/item/seeds/sunflower/novaflower
@@ -161,6 +163,8 @@
 	icon_state = "seed-novaflower"
 	species = "novaflower"
 	plantname = "Novaflowers"
+	icon_grow = "novaflower-grow"
+	icon_dead = "sunflower-dead"
 	product = /obj/item/grown/novaflower
 	mutatelist = list()
 	reagents_add = list("condensedcapsaicin" = 0.25, "capsaicin" = 0.3, "plantmatter" = 0)

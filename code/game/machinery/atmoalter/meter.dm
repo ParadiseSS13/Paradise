@@ -113,7 +113,7 @@
 	else
 		t += "The connect error light is blinking."
 
-	to_chat(user, t)
+	. = list(t)
 
 /obj/machinery/meter/Click()
 	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine

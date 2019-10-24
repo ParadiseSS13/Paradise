@@ -29,8 +29,6 @@
 	desc = "For prime comfort during psychiatric evaluations."
 	icon_state = "psychbed"
 	buildstackamount = 5
-	can_buckle = TRUE
-	buckle_lying = TRUE
 
 /obj/structure/bed/alien
 	name = "resting contraption"
@@ -66,20 +64,23 @@
 	anchored = FALSE
 	comfort = 1
 
-/obj/structure/bed/roller/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
-		if(buckled_mob)
-			user_unbuckle_mob(user)
+		if(has_buckled_mobs())
+			if(buckled_mobs.len > 1)
+				unbuckle_all_mobs()
+				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
+			else
+				user_unbuckle_mob(buckled_mobs[1], user)
 		else
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new/obj/item/roller(get_turf(src))
 			qdel(src)
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob)
-		density = TRUE
-		icon_state = "up"
-		M.pixel_y = initial(M.pixel_y)
+	density = TRUE
+	icon_state = "up"
+	M.pixel_y = initial(M.pixel_y)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	density = FALSE
@@ -112,7 +113,7 @@
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr))
 			return
-		if(buckled_mob)
+		if(has_buckled_mobs())
 			return 0
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 		new/obj/item/roller(get_turf(src))

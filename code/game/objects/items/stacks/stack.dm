@@ -49,12 +49,13 @@
 	return ..()
 
 /obj/item/stack/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		if(singular_name)
-			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
+			. += "There are [amount] [singular_name]\s in the stack."
 		else
-			to_chat(user, "There are [amount] [name]\s in the stack.")
-		to_chat(user,"<span class='notice'>Alt-click to take a custom amount.</span>")
+			. += "There are [amount] [name]\s in the stack."
+		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
 
 /obj/item/stack/proc/add(newamount)
 	amount += newamount

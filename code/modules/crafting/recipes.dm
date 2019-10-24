@@ -246,7 +246,7 @@
 	tools = list(/obj/item/screwdriver)
 	time = 100
 	category = CAT_WEAPONRY
-	subcategory = CAT_AMMO
+	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"

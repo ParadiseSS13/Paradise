@@ -367,7 +367,7 @@
 			if(food <= 0)
 				dat += "<br>You ran out of food and starved."
 				if(emagged)
-					user.nutrition = 0 //yeah you pretty hongry
+					user.set_nutrition(0) //yeah you pretty hongry
 					to_chat(user, "<span class='userdanger'><font size=3>Your body instantly contracts to that of one who has not eaten in months. Agonizing cramps seize you as you fall to the floor.</span>")
 			if(fuel <= 0)
 				dat += "<br>You ran out of fuel, and drift, slowly, into a star."
@@ -467,7 +467,7 @@
 						sleep(30)
 						atom_say("[M] violently throws up!")
 						playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-						M.nutrition -= 50 //lose a lot of food
+						M.adjust_nutrition(-50) //lose a lot of food
 						var/turf/location = usr.loc
 						if(istype(location, /turf/simulated))
 							location.add_vomit_floor(TRUE)
@@ -980,13 +980,12 @@
 	var/active = 0 //if the ship is on
 
 /obj/item/orion_ship/examine(mob/user)
-	..()
-	if(!(in_range(user, src)))
-		return
-	if(!active)
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>")
-	else
-		to_chat(user, "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>")
+	. = ..()
+	if(in_range(user, src))
+		if(!active)
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped down.</span>"
+		else
+			. += "<span class='notice'>There's a little switch on the bottom. It's flipped up.</span>"
 
 /obj/item/orion_ship/attack_self(mob/user) //Minibomb-level explosion. Should probably be more because of how hard it is to survive the machine! Also, just over a 5-second fuse
 	if(active)

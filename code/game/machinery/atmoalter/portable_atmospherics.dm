@@ -95,9 +95,9 @@
 		replace_tank(user, TRUE)
 
 /obj/machinery/portable_atmospherics/examine(mob/user)
-	..()
+	. = ..()
 	if(holding)
-		to_chat(user, "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>")
+		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"
 
 /obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
 	if(holding)

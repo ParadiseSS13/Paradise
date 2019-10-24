@@ -11,7 +11,7 @@
 	include_user = 1
 	action_icon_state = "charge"
 
-/obj/effect/proc_holder/spell/targeted/charge/cast(list/targets,mob/user = usr)
+/obj/effect/proc_holder/spell/targeted/charge/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)
 		var/list/hand_items = list(L.get_active_hand(),L.get_inactive_hand())
 		var/charged_item = null

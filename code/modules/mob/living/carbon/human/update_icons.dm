@@ -894,6 +894,11 @@ var/global/list/damage_icon_parts = list()
 			bloodsies.color = wear_suit.blood_color
 			standing.overlays += bloodsies
 
+
+		var/special_overlays = wear_suit.special_overlays()
+		if(special_overlays)
+			standing.overlays += special_overlays
+
 		standing.alpha = wear_suit.alpha
 		standing.color = wear_suit.color
 		overlays_standing[SUIT_LAYER] = standing

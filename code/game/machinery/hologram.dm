@@ -479,8 +479,9 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)
-		return Impersonation.examine(user)
-	return ..()
+		. = Impersonation.examine(user)
+	else 
+		. = ..()
 
 
 /obj/effect/overlay/holoray

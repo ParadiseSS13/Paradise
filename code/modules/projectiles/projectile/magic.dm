@@ -202,7 +202,7 @@
 				if(ishuman(M))
 					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("slime")
-				new_mob = new /mob/living/carbon/slime/random(M.loc)
+				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
 			if("xeno")
 				if(prob(50))

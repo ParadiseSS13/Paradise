@@ -1,7 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - rscadd: "Multiple food now have their own tastes"
-  - rscadd: "Corgi and mice can now taste food"
-  - rscadd: "Hallucination causes you to taste strange things"
-  - rscadd: "Nutriments now carry over the tastes of food"

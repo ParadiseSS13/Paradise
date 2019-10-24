@@ -27,13 +27,13 @@
 	mix_message = "The beer looks a little more delicious."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/bloody_mariachi /// By mazapan
-	name = "Bloody Mariachi"
-	id = "bloody_mariachi"
-	result = "bloody_mariachi"
+/datum/chemical_reaction/vampire /// By mazapan
+	name = "Vampire"
+	id = "vampire"
+	result = "vampire"
 	required_reagents = list("tequila" = 1, "tomatojuice" = 2, "limejuice" = 1)
 	result_amount = 4
-	mix_message = "mariachi sounds loudly in the container."
+	mix_message = "Mariachi sounds loudly in the container."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/acapulco_de_noche /// By mazapan
@@ -62,3 +62,13 @@
 	result_amount = 5
 	mix_message = "You should be able to drink it now."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/hanky_panky /// By mazapan
+	name = "Hanky panky"
+	id = "hanky_panky"
+	result = "hanky_panky"
+	required_reagents = list("fernet" = 1, "vermouth" = 1, "gin" = 1, "orangejuice" = 1)
+	result_amount = 4
+	mix_message = "The ingredients mix into a dark brown substance."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+

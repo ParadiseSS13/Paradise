@@ -54,9 +54,9 @@
 		icon_state = "[base_state]open"
 
 /obj/machinery/door/window/examine(mob/user)
-	..()
+	. = ..()
 	if(emagged)
-		to_chat(user, "<span class='warning'>Its access panel is smoking slightly.</span>")
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()

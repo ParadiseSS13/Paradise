@@ -84,7 +84,7 @@
 			else
 				to_chat(user, "<span class='notice'>You start to smear [src] on yourself. Disgusting tendrils hold you together and allow you to keep moving, but for how long?</span>")
 				feedback_add_details("hivelord_core","[src.type]|used|self")
-			H.revive()
+			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 			user.drop_item()
 			qdel(src)
 

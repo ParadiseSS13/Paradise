@@ -162,7 +162,7 @@ var/global/list/lawlorify = list (
 	if(soulsOwned.Find(soul))
 		return
 	soulsOwned += soul
-	owner.current.nutrition = NUTRITION_LEVEL_FULL
+	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
 	to_chat(owner.current, "<span class='warning'>You feel satiated as you received a new soul.</span>")
 	update_hud()
 	switch(SOULVALUE)

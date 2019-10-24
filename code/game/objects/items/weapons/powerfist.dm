@@ -21,12 +21,11 @@
 	return ..()
 
 /obj/item/melee/powerfist/examine(mob/user)
-	..()
+	. = ..()
 	if(!in_range(user, src))
-		to_chat(user, "<span class='notice'>You'll need to get closer to see any more.</span>")
-		return
-	if(tank)
-		to_chat(user, "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>")
+		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
+	else if(tank)
+		. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))

@@ -171,7 +171,7 @@
 	if(ishuman(target)) //These rays make plantmen fat.
 		var/mob/living/carbon/human/H = M
 		if(IS_PLANT in H.dna.species.species_traits)
-			H.nutrition = min(H.nutrition+30, NUTRITION_LEVEL_FULL)
+			H.set_nutrition(min(H.nutrition+30, NUTRITION_LEVEL_FULL))
 	else if(iscarbon(target))
 		M.show_message("<span class='notice'>The radiation beam dissipates harmlessly through your body.</span>")
 	else

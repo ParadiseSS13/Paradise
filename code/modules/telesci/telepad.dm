@@ -136,8 +136,8 @@
 	rcell = new(src)
 
 /obj/item/rcs/examine(mob/user)
-	..(user)
-	to_chat(user, "There are [round(rcell.charge/chargecost)] charge\s left.")
+	. = ..()
+	. += "There are [round(rcell.charge/chargecost)] charge\s left."
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)

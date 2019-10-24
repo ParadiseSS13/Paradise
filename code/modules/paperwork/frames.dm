@@ -137,10 +137,10 @@
 
 	playsound(PF.loc, usesound, 100, 1)
 
-/obj/item/picture_frame/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
-	..()
+/obj/item/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
+	. = ..()
 	if(displayed)
-		displayed.examine(user, distance, infix, suffix)
+		. += displayed.examine(user, infix, suffix)
 
 /obj/item/picture_frame/attack_self(mob/user)
 	if(displayed)
@@ -245,11 +245,11 @@
 	else
 		return ..()
 
-/obj/structure/sign/picture_frame/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
+/obj/structure/sign/picture_frame/examine(mob/user, var/infix = "", var/suffix = "")
 	if(frame)
-		frame.examine(user, distance, infix, suffix)
+		. += frame.examine(user, infix, suffix)
 	else
-		..()
+		. = ..()
 
 /obj/structure/sign/picture_frame/attack_hand(mob/user)
 	if(frame)

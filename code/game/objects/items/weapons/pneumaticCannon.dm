@@ -22,16 +22,14 @@
 	return ..()
 
 /obj/item/pneumatic_cannon/examine(mob/user)
-	..()
+	. = ..()
 	if(!in_range(user, src))
-		to_chat(user, "<span class='notice'>You'll need to get closer to see any more.</span>")
-		return
-	for(var/obj/item/I in loadedItems)
-		spawn(0)
-			to_chat(user, "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>")
-	if(tank)
-		to_chat(user, "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>")
-
+		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
+	else
+		if(tank)
+			. += "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>"
+		for(var/obj/item/I in loadedItems)
+			. += "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>"
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()

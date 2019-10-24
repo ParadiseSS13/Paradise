@@ -34,16 +34,27 @@ actual development.
  * Pull requests should be atomic; Make one commit for each distinct change, so if a part
  of a pull request needs to be removed/changed, you may simply modify that single commit.
  Due to limitations of the engine, this may not always be possible; but do try your best.
- * Document and explain your pull requests thoroughly. Detail what each commit changes,
- and why it changes it. We do not want to have to read all of you commit names to figure
- out what your pull request is about.
+
+ * Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
+  we question why changes were made. This is especially important if you're porting a PR 
+  from another codebase (i.e. TG) and divert from the original. Explaining with single
+  comment on why you've made changes will help us review the PR faster and understand your
+  decision making process.
+
  * Any pull request must have a changelog, this is to allow us to know when a PR is deployed 
  on the live server. Inline changelogs are supported through the format described 
  [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
  and should be used rather than manually edited .yml file changelogs.
+
  * Pull requests should not have any merge commits except in the case of fixing merge
  conflicts for an existing pull request. New pull requests should not have any merge
  commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
+
+ * Please explain why you are submitting the pull request, and how you think your change will be beneficial to the game. Failure to do so will be grounds for rejecting the PR.
+ 
+ * If your pull request is not finished make sure it is at least testable in a live environment. Pull requests that do not at least meet this requirement may be closed at maintainer discretion. You may request a maintainer reopen the pull request when you're ready, or make a new one.
+
+ * While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes. 
 
 #### Using Changelog
  * Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck. 
@@ -316,6 +327,21 @@ This prevents nesting levels from getting deeper then they need to be.
   * WRONG: list(a = "b")
   * RIGHT: list("a" = "b")
 
+#### Bitflags
+* We prefer using bitshift operators instead of directly typing out the value. I.E.
+    ``` 
+    #define MACRO_ONE (1<<0)
+    #define MACRO_TWO (1<<1)
+    #define MACRO_THREE (1<<2)
+    ```
+    Is preferable to
+    ``` 
+    #define MACRO_ONE 1
+    #define MACRO_TWO 2
+    #define MACRO_THREE 4
+    ```
+    This make the code more readable and less prone to error
+
 ### Legacy Code
 SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
   * To display messages to all mobs that can view `src`, you should use
@@ -540,3 +566,6 @@ pull requests/issues, and merging/closing pull requests.
  hours, to allow other coders and the community time to discuss the proposed changes.
 * If the discussion is active, or the change is controversial, the pull request is to be
  put on hold until a consensus is reached.
+* To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge 
+is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy 
+to understand and read. Modify it if needed.

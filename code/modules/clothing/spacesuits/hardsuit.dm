@@ -203,7 +203,7 @@
 	name = "atmospherics hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has thermal shielding."
 	icon_state = "hardsuit-atmos"
-	item_state = "atmo_hardsuit"
+	item_state = "atmos_hardsuit"
 	armor = list(melee = 30, bullet = 5, laser = 10, energy = 5, bomb = 10, bio = 100, rad = 25)
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
@@ -405,33 +405,6 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/freedom/update_icon()
 	return
 
-//Wizard hardsuit
-/obj/item/clothing/head/helmet/space/hardsuit/wizard
-	name = "gem-encrusted hardsuit helmet"
-	desc = "A bizarre gem-encrusted helmet that radiates magical energies."
-	icon_state = "hardsuit0-wiz"
-	item_state = "wiz_helm"
-	item_color = "wiz"
-	unacidable = TRUE //No longer shall our kind be foiled by lone chemists with spray bottles!
-	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
-	heat_protection = HEAD												//Uncomment to enable firesuit protection
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	magical = TRUE
-
-/obj/item/clothing/suit/space/hardsuit/wizard
-	icon_state = "hardsuit-wiz"
-	name = "gem-encrusted hardsuit"
-	desc = "A bizarre gem-encrusted suit that radiates magical energies."
-	item_state = "wiz_hardsuit"
-	w_class = WEIGHT_CLASS_NORMAL
-	unacidable = TRUE
-	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 35, bio = 100, rad = 50)
-	allowed = list(/obj/item/teleportation_scroll,/obj/item/tank)
-	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS					//Uncomment to enable firesuit protection
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/wizard
-	magical = TRUE
-
 //Medical hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/medical
 	name = "medical hardsuit helmet"
@@ -525,21 +498,22 @@
 	var/recharge_rate = 1 //How quickly the shield recharges once it starts charging
 	var/shield_state = "shield-old"
 	var/shield_on = "shield-old"
-	sprite_sheets = null
 
-/obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, attack_text)
+/obj/item/clothing/suit/space/hardsuit/shielded/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	recharge_cooldown = world.time + recharge_delay
 	if(current_charges > 0)
 		do_sparks(2, 1, src)
 		owner.visible_message("<span class='danger'>[owner]'s shields deflect [attack_text] in a shower of sparks!</span>")
 		current_charges--
-		recharge_cooldown = world.time + recharge_delay
-		START_PROCESSING(SSobj, src)
+		if(recharge_rate)
+			START_PROCESSING(SSobj, src)
 		if(current_charges <= 0)
-			owner.visible_message("[owner]'s shield overloads!")
+			owner.visible_message("<span class='warning'>[owner]'s shield overloads!</span>")
 			shield_state = "broken"
 			owner.update_inv_wear_suit()
 		return 1
 	return 0
+
 
 
 /obj/item/clothing/suit/space/hardsuit/shielded/Destroy()
@@ -549,14 +523,17 @@
 /obj/item/clothing/suit/space/hardsuit/shielded/process()
 	if(world.time > recharge_cooldown && current_charges < max_charges)
 		current_charges = Clamp((current_charges + recharge_rate), 0, max_charges)
-		playsound(loc, 'sound/magic/charge.ogg', 50, 1)
+		playsound(loc, 'sound/magic/charge.ogg', 50, TRUE)
 		if(current_charges == max_charges)
-			playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+			playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
 			STOP_PROCESSING(SSobj, src)
 		shield_state = "[shield_on]"
-		if(istype(loc, /mob/living/carbon/human))
+		if(ishuman(loc))
 			var/mob/living/carbon/human/C = loc
 			C.update_inv_wear_suit()
+
+/obj/item/clothing/suit/space/hardsuit/shielded/special_overlays()
+	return mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 //////Syndicate Version
 
@@ -571,14 +548,25 @@
 	slowdown = 0
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	jetpack = /obj/item/tank/jetpack/suit
-	sprite_sheets = list(
-		"Unathi" = 'icons/mob/species/unathi/suit.dmi',
-		"Tajaran" = 'icons/mob/species/tajaran/suit.dmi',
-		"Skrell" = 'icons/mob/species/skrell/suit.dmi',
-		"Vox" = 'icons/mob/species/vox/suit.dmi',
-		"Vulpkanin" = 'icons/mob/species/vulpkanin/suit.dmi',
-		"Drask" = 'icons/mob/species/drask/suit.dmi'
-		)
+
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/attackby(obj/item/I, mob/user, params)
+	if(ismultitool(I))
+		if(shield_state == "broken")
+			to_chat(user, "<span class='warning'>You can't interface with the hardsuit's software if the shield's broken!</span>")
+			return
+
+		if(shield_state == "shield-red")
+			shield_state = "shield-old"
+			shield_on = "shield-old"
+			to_chat(user, "<span class='warning'>You roll back the hardsuit's software, changing the shield's color!</span>")
+
+		else
+			shield_state = "shield-red"
+			shield_on = "shield-red"
+			to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing back the shield's color to red.</span>")
+		user.update_inv_wear_suit()
+		return
+	return ..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/syndi
 	name = "blood-red hardsuit helmet"

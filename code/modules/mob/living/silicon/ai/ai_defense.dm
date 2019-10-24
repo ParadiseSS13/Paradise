@@ -4,5 +4,5 @@
 		return
 	..()
 
-/mob/living/silicon/ai/attack_slime(mob/living/carbon/slime/user)
+/mob/living/silicon/ai/attack_slime(mob/living/simple_animal/slime/user)
 	return //immune to slimes

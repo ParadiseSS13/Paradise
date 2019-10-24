@@ -874,8 +874,8 @@
 				to_chat(M, "<span class='warning'>Your stomach grumbles painfully!</span>")
 	else
 		if(prob(60))
-			var/fat_to_burn = max(round(M.nutrition/100,1), 5)
-			M.nutrition = max(0, M.nutrition-fat_to_burn)
+			var/fat_to_burn = max(round(M.nutrition / 100, 1), 5)
+			M.adjust_nutrition(-fat_to_burn)
 			M.overeatduration = 0
 	return ..() | update_flags
 

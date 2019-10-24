@@ -30,8 +30,8 @@
 		transform = matrix(-1, 0, 0, 0, 1, 0)
 
 /obj/item/organ/internal/cyberimp/arm/examine(mob/user)
-	..()
-	to_chat(user, "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>")
+	. = ..()
+	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
 /obj/item/organ/internal/cyberimp/arm/attackby(obj/item/I, mob/user, params)
 	if(isscrewdriver(I))
@@ -337,11 +337,11 @@
 			break
 		A.charging = 1
 		if(A.cell.charge >= 500)
-			H.nutrition += 50
+			H.adjust_nutrition(50)
 			A.cell.charge -= 500
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
-			H.nutrition += A.cell.charge/10
+			H.adjust_nutrition(A.cell.charge * 0.1)
 			A.cell.charge = 0
 			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
 			break

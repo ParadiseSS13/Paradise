@@ -14,8 +14,9 @@
 	materials = list(MAT_METAL=2000)
 
 /obj/item/gun/grenadelauncher/examine(mob/user)
-	if(..(user, 2))
-		to_chat(user, "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>")
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		. += "<span class='notice'>[grenades.len] / [max_grenades] grenades.</span>"
 
 /obj/item/gun/grenadelauncher/attackby(obj/item/I as obj, mob/user as mob, params)
 	if((istype(I, /obj/item/grenade)))

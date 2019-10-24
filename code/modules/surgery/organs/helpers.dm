@@ -10,6 +10,9 @@
 /mob/proc/get_int_organ_tag(tag) //is it a brain, is it a brain_tumor?
 	return
 
+/mob/living/proc/get_organ(zone)
+	return
+
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 

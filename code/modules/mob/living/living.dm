@@ -427,7 +427,7 @@
 	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
-	nutrition = NUTRITION_LEVEL_FED + 50
+	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
 	CureBlind()
 	CureNearsighted()
@@ -446,12 +446,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.buckled_mob = null
-		buckled = null
-		anchored = initial(anchored)
-		update_canmove()
-		clear_alert("buckled")
-		post_buckle_mob(src)
+		buckled.unbuckle_mob(src, force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -546,10 +541,6 @@
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
-	if(update_slimes)
-		for(var/mob/living/carbon/slime/M in view(1,src))
-			M.UpdateFeed(src)
-
 
 /mob/living/proc/handle_footstep(turf/T)
 	if(istype(T))
@@ -604,16 +595,47 @@
 	else
 		return pick("trails_1", "trails_2")
 
+/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+	if(buckled)
+		return
+	if(client && client.move_delay >= world.time + world.tick_lag * 2)
+		pressure_resistance_prob_delta -= 30
+
+	var/list/turfs_to_check = list()
+
+	if(has_limbs)
+		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
+		if (T)
+			turfs_to_check += T
+
+		T = get_step(src, angle2dir(dir2angle(direction) - 90))
+		if(T)
+			turfs_to_check += T
+
+		for(var/t in turfs_to_check)
+			T = t
+			if(T.density)
+				pressure_resistance_prob_delta -= 20
+				continue
+			for(var/atom/movable/AM in T)
+				if(AM.density && AM.anchored)
+					pressure_resistance_prob_delta -= 20
+					break
+
+	..(pressure_difference, direction, pressure_resistance_prob_delta)
 
 /*//////////////////////
 	START RESIST PROCS
 *///////////////////////
 
+/mob/living/can_resist()
+	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+
 /mob/living/verb/resist()
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
+	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
 

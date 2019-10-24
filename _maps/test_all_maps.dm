@@ -126,11 +126,6 @@
 	#include "map_files\templates\small_asteroid_1.dmm"
 	#include "map_files\templates\small_shuttle_1.dmm"
 
-	// VR maps
-	#include "map_files\vr\blood_and_sand.dmm"
-	#include "map_files\vr\lobby.dmm"
-
-
 	// This is pointless, we don't run the server
 	/*#define MAP_TRANSITION_CONFIG list(AWAY_MISSION = UNAFFECTED,
 		AWAY_MISSION = UNAFFECTED,

@@ -37,7 +37,11 @@
 	mutanthands = /obj/item/zombie_hand
 	icobase = 'icons/mob/human_races/r_zombie.dmi'
 	deform = 'icons/mob/human_races/r_def_zombie.dmi'
-	armor = 20 // 120 damage to KO a zombie, which kills it
+	brute_mod = 0.8    // 120 damage to KO a zombie, which kills it
+	burn_mod = 0.8
+	clone_mod = 0.8
+	brain_mod = 0.8
+	stamina_mod = 0.8
 	speedmod = 1.6
 	default_language = "Zombie"
 	var/heal_rate = 1
@@ -67,7 +71,7 @@
 		playsound(H, pick(spooks), 50, TRUE, 10)
 
 //Congrats you somehow died so hard you stopped being a zombie
-/datum/species/zombie/infectious/spec_death(gibbed, mob/living/carbon/C)
+/datum/species/zombie/infectious/handle_death(gibbed, mob/living/carbon/C)
 	. = ..()
 	var/obj/item/organ/internal/zombie_infection/infection
 	infection = C.get_organ_slot("zombie_infection")

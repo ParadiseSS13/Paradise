@@ -16,7 +16,7 @@
 	see_in_dark = 5
 	speak_chance = 1
 	turns_per_move = 10
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	var/bark_sound = list('sound/creatures/dog_bark1.ogg','sound/creatures/dog_bark2.ogg') //Used in emote.
 	var/yelp_sound = 'sound/creatures/dog_yelp.ogg' //Used on death.
 	var/last_eaten = 0
@@ -100,7 +100,6 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/corgi = 3, /obj/item/stack/sheet/animalhide/corgi = 1)
 	childtype = list(/mob/living/simple_animal/pet/dog/corgi/puppy = 95, /mob/living/simple_animal/pet/dog/corgi/puppy/void = 5)
 	animal_species = /mob/living/simple_animal/pet/dog
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	collar_type = "corgi"
 	var/obj/item/inventory_head
 	var/obj/item/inventory_back
@@ -417,7 +416,7 @@
 	response_help  = "pets"
 	response_disarm = "bops"
 	response_harm   = "kicks"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/age = 0
 	var/record_age = 1
@@ -568,7 +567,7 @@
 	icon_living = "narsian"
 	icon_dead = "narsian_dead"
 	faction = list("neutral", "cult")
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	nofur = TRUE
 	unique_pet = TRUE
 
@@ -637,7 +636,7 @@
 	real_name = "Lisa"
 	gender = FEMALE
 	desc = "It's a corgi with a cute pink bow."
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	icon_state = "lisa"
 	icon_living = "lisa"
@@ -753,7 +752,6 @@
 	icon_living = "pug"
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
 	collar_type = "pug"
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()

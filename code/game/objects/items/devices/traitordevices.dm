@@ -31,11 +31,11 @@ effective or pretty fucking useless.
 	var/max_uses = 5
 
 /obj/item/batterer/examine(mob/user)
-	..(user)
+	. = ..()
 	if(times_used >= max_uses)
-		to_chat(user, "<span class='notice'>[src] is out of charge.</span>")
+		. += "<span class='notice'>[src] is out of charge.</span>"
 	if(times_used < max_uses)
-		to_chat(user, "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>")
+		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
 
 /obj/item/batterer/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!user)

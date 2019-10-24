@@ -331,7 +331,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 */
 /obj/item/organ/external/proc/update_germs()
 
-	if(is_robotic() || (IS_PLANT in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
+	if(is_robotic() || (NO_GERMS in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
 		germ_level = 0
 		return
 

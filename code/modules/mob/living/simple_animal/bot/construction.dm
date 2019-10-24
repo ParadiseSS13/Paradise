@@ -27,6 +27,9 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		to_chat(user, "<span class='notice'>You add the robot arm to the bucket and sensor assembly. Beep boop!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
+		var/datum/job_objective/make_bot/task = user.mind.findJobTask(/datum/job_objective/make_bot)
+		if(istype(task))
+			task.unit_completed()
 
 	else if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
@@ -298,6 +301,9 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		to_chat(user, "<span class='notice'>You add the robot arm to the odd looking toolbox assembly. Boop beep!</span>")
 		user.unEquip(src, 1)
 		qdel(src)
+		var/datum/job_objective/make_bot/task = user.mind.findJobTask(/datum/job_objective/make_bot)
+		if(istype(task))
+			task.unit_completed()
 	else if(istype(W, /obj/item/pen))
 		var/t = stripped_input(user, "Enter new robot name", name, created_name,MAX_NAME_LEN)
 		if(!t)
@@ -396,6 +402,9 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 					qdel(I)
 					build_step++
 					to_chat(user, "<span class='notice'>You complete the Medibot. Beep boop!</span>")
+					var/datum/job_objective/make_bot/task = user.mind.findJobTask(/datum/job_objective/make_bot)
+					if(istype(task))
+						task.unit_completed()
 					var/turf/T = get_turf(src)
 					if(!syndicate_aligned)
 						var/mob/living/simple_animal/bot/medbot/S = new /mob/living/simple_animal/bot/medbot(T, skin)
@@ -478,6 +487,9 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 			return
 		build_step++
 		to_chat(user, "<span class='notice'>You complete the Securitron! Beep boop.</span>")
+		var/datum/job_objective/make_bot/task = user.mind.findJobTask(/datum/job_objective/make_bot)
+		if(istype(task))
+			task.unit_completed()
 		var/mob/living/simple_animal/bot/secbot/S = new /mob/living/simple_animal/bot/secbot
 		S.forceMove(get_turf(src))
 		S.name = created_name

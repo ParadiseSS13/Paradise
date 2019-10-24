@@ -42,8 +42,8 @@
 	return ..()
 
 /obj/machinery/computer/telescience/examine(mob/user)
-	..(user)
-	to_chat(user, "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.")
+	. = ..()
+	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
 
 /obj/machinery/computer/telescience/Initialize()
 	..()

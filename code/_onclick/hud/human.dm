@@ -383,6 +383,28 @@
 			inv_slots[inv.slot_id] = inv
 			inv.update_icon()
 
+	update_locked_slots()
+
+/datum/hud/human/update_locked_slots()
+	if(!mymob)
+		return
+	var/mob/living/carbon/human/H = mymob
+	if(!istype(H) || !H.dna.species)
+		return
+	var/datum/species/S = H.dna.species
+	for(var/obj/screen/inventory/inv in (static_inventory + toggleable_inventory))
+		if(inv.slot_id)
+			if(inv.slot_id in S.no_equip)
+				inv.alpha = 128
+			else
+				inv.alpha = initial(inv.alpha)
+	for(var/obj/screen/craft/crafting in static_inventory)
+		if(!S.can_craft)
+			crafting.invisibility = INVISIBILITY_ABSTRACT
+			H.handcrafting.close(H)
+		else
+			crafting.invisibility = initial(crafting.invisibility)
+
 /datum/hud/human/hidden_inventory_update()
 	if(!mymob)
 		return

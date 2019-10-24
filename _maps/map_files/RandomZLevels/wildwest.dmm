@@ -682,7 +682,7 @@
 	},
 /area/awaymission/wwmines)
 "cc" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -704,7 +704,7 @@
 	},
 /area/awaymission/wwmines)
 "ce" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -861,7 +861,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwgov)
 "cA" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -995,13 +995,13 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "cV" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "cW" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -2303,7 +2303,7 @@
 /turf/simulated/wall/mineral/sandstone,
 /area/awaymission/wwmines)
 "gm" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2312,7 +2312,7 @@
 	},
 /area/awaymission/wwmines)
 "gn" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2428,7 +2428,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "gD" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
@@ -2479,7 +2479,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "gL" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -2528,7 +2528,7 @@
 	tag = "icon-gibup1";
 	icon_state = "gibup1"
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"

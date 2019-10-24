@@ -169,7 +169,7 @@
 /obj/item/mmi/examine(mob/user)
 	. = ..()
 	if(radio)
-		to_chat(user, "<span class='notice'>A radio is installed on [src].</span>")
+		. += "<span class='notice'>A radio is installed on [src].</span>"
 
 /obj/item/mmi/proc/install_radio()
 	radio = new(src)

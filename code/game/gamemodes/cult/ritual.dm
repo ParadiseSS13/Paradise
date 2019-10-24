@@ -46,11 +46,11 @@
 	..()
 
 /obj/item/tome/examine(mob/user)
-	..()
+	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		to_chat(user, "<span class='cult'>The scriptures of [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>")
-		to_chat(user, "<span class='cult'>Striking another cultist with it will purge holy water from them.</span>")
-		to_chat(user, "<span class='cult'>Striking a noncultist, however, will sear their flesh.</span>")
+		. += "<span class='cult'>The scriptures of [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>"
+		. += "<span class='cult'>Striking another cultist with it will purge holy water from them.</span>"
+		. += "<span class='cult'>Striking a noncultist, however, will sear their flesh.</span>"
 
 /obj/item/tome/attack(mob/living/M, mob/living/user)
 	if(!istype(M))

@@ -508,6 +508,25 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 30
 	containername = "security clothing crate"
 
+/datum/supply_packs/security/officerpack // Starter pack for an officer. Contains everything in a locker but backpack (officer already start with one). Convenient way to equip new officer on highpop.
+	name = "Officer Starter Pack"
+	contains = 	list(/obj/item/clothing/suit/armor/vest/security,
+				/obj/item/radio/headset/headset_sec/alt,
+				/obj/item/clothing/head/soft/sec,
+				/obj/item/reagent_containers/spray/pepper,
+				/obj/item/flash,
+				/obj/item/grenade/flashbang,
+				/obj/item/storage/belt/security/sec,
+				/obj/item/holosign_creator/security,
+				/obj/item/clothing/mask/gas/sechailer,
+				/obj/item/clothing/glasses/hud/security/sunglasses,
+				/obj/item/clothing/head/helmet,
+				/obj/item/melee/baton/loaded,
+				/obj/item/clothing/suit/armor/secjacket)
+	cost = 30 // Convenience has a price and this pack is genuinely loaded
+	containername = "officer starter crate"
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////
@@ -1237,7 +1256,8 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/seeds/banana,
 					/obj/item/seeds/eggplant/eggy,
 					/obj/item/seeds/random,
-					/obj/item/seeds/random)
+					/obj/item/seeds/random,
+					/obj/item/seeds/glowshroom)
 	cost = 15
 	containername = "exotic seeds crate"
 
@@ -1403,7 +1423,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Shaft Miner Starter Kit"
 	cost = 30
 	access = access_qm
-	contains = list(/obj/item/storage/backpack/duffel/mining_conscript/noid)
+	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
 
@@ -1748,10 +1768,16 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 ///////////// Station Goals
 
-/datum/supply_packs/misc/bsa
+/datum/supply_packs/misc/station_goal
+	name = "Empty Station Goal Crate"
+	cost = 10
+	special = TRUE
+	containername = "empty station goal crate"
+	containertype = /obj/structure/closet/crate/engineering
+
+/datum/supply_packs/misc/station_goal/bsa
 	name = "Bluespace Artillery Parts"
 	cost = 150
-	special = TRUE
 	contains = list(/obj/item/circuitboard/machine/bsa/front,
 					/obj/item/circuitboard/machine/bsa/middle,
 					/obj/item/circuitboard/machine/bsa/back,
@@ -1759,19 +1785,17 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "bluespace artillery parts crate"
 
-/datum/supply_packs/misc/dna_vault
+/datum/supply_packs/misc/station_goal/dna_vault
 	name = "DNA Vault Parts"
 	cost = 120
-	special = TRUE
 	contains = list(
 					/obj/item/circuitboard/machine/dna_vault
 					)
 	containername = "dna vault parts crate"
 
-/datum/supply_packs/misc/dna_probes
+/datum/supply_packs/misc/station_goal/dna_probes
 	name = "DNA Vault Samplers"
 	cost = 30
-	special = TRUE
 	contains = list(/obj/item/dna_probe,
 					/obj/item/dna_probe,
 					/obj/item/dna_probe,
@@ -1780,11 +1804,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "dna samplers crate"
 
-
-/datum/supply_packs/misc/shield_sat
+/datum/supply_packs/misc/station_goal/shield_sat
 	name = "Shield Generator Satellite"
 	cost = 30
-	special = TRUE
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
@@ -1792,11 +1814,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "shield sat crate"
 
-
-/datum/supply_packs/misc/shield_sat_control
+/datum/supply_packs/misc/station_goal/shield_sat_control
 	name = "Shield System Control Board"
 	cost = 50
-	special = TRUE
 	contains = list(
 					/obj/item/circuitboard/computer/sat_control
 					)

@@ -322,6 +322,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
+	var/name_by_cmineral = TRUE
 	var/cooldown = 0
 	var/credits = 10
 
@@ -330,7 +331,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	pixel_y = rand(0,8)-8
 
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
-	if(cmineral)
+	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
 
 /obj/item/coin/gold
@@ -405,6 +406,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
 	sideslist = list("valid", "salad")
 	credits = 20
+	name_by_cmineral = FALSE
 
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"

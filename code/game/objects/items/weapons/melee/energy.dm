@@ -119,7 +119,7 @@
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
 
-/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
 	return 0
@@ -156,7 +156,7 @@
 	..()
 	item_color = null
 
-/obj/item/melee/energy/sword/cyborg/saw/hit_reaction()
+/obj/item/melee/energy/sword/cyborg/saw/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/melee/energy/sword/saber
@@ -330,10 +330,10 @@
 	add_fingerprint(user)
 
 /obj/item/melee/energy/cleaving_saw/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
+	. = ..()
+	. += "<span class='notice'>It is [active ? "open, will cleave enemies in a wide arc and deal additional damage to fauna":"closed, and can be used for rapid consecutive attacks that cause fauna to bleed"].<br>\
 	Both modes will build up existing bleed effects, doing a burst of high damage if the bleed is built up high enough.<br>\
-	Transforming it immediately after an attack causes the next attack to come out faster.</span>")
+	Transforming it immediately after an attack causes the next attack to come out faster.</span>"
 
 /obj/item/melee/energy/cleaving_saw/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is [active ? "closing [src] on [user.p_their()] neck" : "opening [src] into [user.p_their()] chest"]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

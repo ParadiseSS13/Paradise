@@ -135,7 +135,7 @@
 	force = 5
 	sharp = 0
 
-/obj/item/claymore/fluff/hit_reaction()
+/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan
@@ -272,12 +272,14 @@
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
 
-/obj/item/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
+/obj/item/instrument/guitar/jello_guitar //Pineapple Salad: Dan Jello
 	name = "Dan Jello's Pink Guitar"
 	desc = "Dan Jello's special pink guitar."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jello_guitar"
 	item_state = "jello_guitar"
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 
 /obj/item/fluff/wingler_comb
 	name = "blue comb"

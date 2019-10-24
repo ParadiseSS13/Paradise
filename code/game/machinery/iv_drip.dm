@@ -56,9 +56,9 @@
 		return ..()
 
 /obj/machinery/iv_drip/examine(mob/user)
-	..(user)
+	. = ..()
 	if(bag)
-		bag.examine(user)
+		. += bag.examine(user)
 
 /obj/machinery/iv_drip/Move(NewLoc, direct)
 	. = ..()

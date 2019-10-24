@@ -108,7 +108,7 @@
 
 /obj/structure/mirror/attack_slime(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/mob/living/carbon/slime/S = user
+	var/mob/living/simple_animal/slime/S = user
 	if(!S.is_adult)
 		return
 	user.do_attack_animation(src)
@@ -153,7 +153,7 @@
 				H.dna.real_name = newname
 			if(H.mind)
 				H.mind.name = newname
-		
+
 			if(newname)
 				curse(user)
 
@@ -197,7 +197,7 @@
 
 			if(voice_choice)
 				curse(user)
-			
+
 /obj/structure/mirror/magic/on_ui_close(mob/user)
 	curse(user)
 

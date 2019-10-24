@@ -95,7 +95,6 @@ Como detective, puedes usar tu escáner forense a distancia.
 Como el Detective, su revólver puede ser modificado para cargar munición.357 obtenida de un autolathe pirateado. Disparar tiene una chance alta de volar tu revólver.
 Como IAA, trate de negociar con el warden si las sentencias parecen ser demasiado altas e injustas para el crimen.
 Como IAA, puedes tratar de convencer al Capitán y al Jefe de Seguridad de que hagan juicios para los prisioneros en la sala del tribunal.
-Como Jefe de Personal, usted no tiene un rango más alto que otros jefes de personal, aunque se espera que ocupe el lugar del Capitán en caso de que desaparezca. Si la situación le parece demasiado difícil, considere permitir que otro head se convierta en Capitán temporal.
 Como Jefe de Personal, usted es un blanco tan grande como el Capitán debido al gran potencial que su id y su computadora pueden proporcionar.
 Como Jefe de Personal, considere la posibilidad de adquirir un ordenador portátil con ranura de identificación. Le permite hacer su trabajo incluso cuando está fuera de su oficina.
 Como el Mimo, tu pared invisible bloquea a las personas y a los proyectiles. Puedes usarlo en un apuro para retrasar a tu perseguidor.

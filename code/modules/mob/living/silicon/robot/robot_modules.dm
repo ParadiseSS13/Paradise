@@ -252,7 +252,7 @@
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/storage/bag/trash/cyborg(src)
 	modules += new /obj/item/mop/advanced/cyborg(src)
-	modules += new /obj/item/lightreplacer(src)
+	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
@@ -544,7 +544,7 @@
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/wirecutters/cyborg(src)
 	modules += new /obj/item/multitool/cyborg(src)
-	modules += new /obj/item/lightreplacer(src)
+	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/gripper(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/reagent_containers/spray/cleaner/drone(src)
@@ -562,10 +562,6 @@
 /obj/item/robot_module/drone/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
 	C.reagents.add_reagent("cleaner", 3)
-
-	var/obj/item/lightreplacer/LR = locate() in modules
-	LR.Charge(R)
-
 	..()
 
 

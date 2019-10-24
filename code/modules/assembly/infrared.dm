@@ -29,8 +29,8 @@
 	return "The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"]."
 
 /obj/item/assembly/infra/examine(mob/user)
-	..()
-	to_chat(user, describe())
+	. = ..()
+	. += describe()
 
 /obj/item/assembly/infra/activate()
 	if(!..())

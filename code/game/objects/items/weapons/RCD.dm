@@ -82,8 +82,8 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 
 /obj/item/rcd/examine(mob/user)
 	. = ..()
-	to_chat(user, "MATTER: [matter]/[max_matter] matter-units.")
-	to_chat(user, "MODE: [mode].")
+	. += "MATTER: [matter]/[max_matter] matter-units."
+	. += "MODE: [mode]."
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)

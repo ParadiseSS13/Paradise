@@ -56,21 +56,21 @@
 
 //Appearance
 /turf/simulated/wall/examine(mob/user)
-	. = ..(user)
+	. = ..()
 
 	if(!damage)
-		to_chat(user, "<span class='notice'>It looks fully intact.</span>")
+		. += "<span class='notice'>It looks fully intact.</span>"
 	else
 		var/dam = damage / damage_cap
 		if(dam <= 0.3)
-			to_chat(user, "<span class='warning'>It looks slightly damaged.</span>")
+			. += "<span class='warning'>It looks slightly damaged.</span>"
 		else if(dam <= 0.6)
-			to_chat(user, "<span class='warning'>It looks moderately damaged.</span>")
+			. += "<span class='warning'>It looks moderately damaged.</span>"
 		else
-			to_chat(user, "<span class='danger'>It looks heavily damaged.</span>")
+			. += "<span class='danger'>It looks heavily damaged.</span>"
 
 	if(rotting)
-		to_chat(user, "<span class='warning'>There is fungus growing on [src].</span>")
+		. += "<span class='warning'>There is fungus growing on [src].</span>"
 
 /turf/simulated/wall/proc/update_icon()
 	if(!damage_overlays[1]) //list hasn't been populated
@@ -345,7 +345,7 @@
 				if(do_after(user, max(5, damage / 5) * WT.toolspeed, target = src) && WT && WT.isOn())
 					to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
 					cut_overlay(dent_decals)
-					dent_decals.Cut()
+					dent_decals?.Cut()
 					take_damage(-damage)
 			else
 				to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")

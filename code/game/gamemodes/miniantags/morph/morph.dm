@@ -38,6 +38,8 @@
 	var/atom/movable/form = null
 	var/morph_time = 0
 
+	var/list/examine_text_list
+
 	var/playstyle_string = "<b><font size=3 color='red'>You are a morph.</font><br> As an abomination created primarily with changeling cells, \
 							you may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
 							observers, and can only be performed once every five seconds.<br> While morphed, you move faster, but do \
@@ -56,16 +58,11 @@
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/forcewall)
 /mob/living/simple_animal/hostile/morph/examine(mob/user)
 	if(morphed)
-		if(form)
-			form.examine(user) // Refactor examine to return desc so it's static? Not sure if worth it
-		// If the object you've disguised as has been deleted, your cover's probably blown
-		else
-			..()
-		if(get_dist(user,src)<=3)
-			to_chat(user, "<span class='warning'>It doesn't look quite right...</span>")
+		. = examine_text_list.Copy()
+		if(get_dist(user, src) <= 3)
+			. += "<span class='warning'>It doesn't look quite right...</span>"
 	else
-		..()
-	return
+		. = ..()
 
 /mob/living/simple_animal/hostile/morph/proc/allowed(atom/movable/A) // make it into property/proc ? not sure if worth it
 	if(istype(A,/obj/screen))
@@ -108,7 +105,7 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 5
 	speed = 0
-
+	examine_text_list = form.examine(src)
 	morph_time = world.time + MORPH_COOLDOWN
 	return
 
@@ -117,7 +114,7 @@
 		return
 	morphed = 0
 	form = null
-
+	examine_text_list = null // Free that memory
 	visible_message("<span class='warning'>[src] suddenly collapses in on itself, dissolving into a pile of green flesh!</span>", \
 					"<span class='notice'>You reform to your normal body.</span>")
 	name = initial(name)

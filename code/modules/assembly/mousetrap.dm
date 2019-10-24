@@ -9,9 +9,9 @@
 	bomb_name = "contact mine"
 
 /obj/item/assembly/mousetrap/examine(mob/user)
-	..(user)
+	. = ..()
 	if(armed)
-		to_chat(user, "It looks like it's armed.")
+		. += "It looks like it's armed."
 
 /obj/item/assembly/mousetrap/activate()
 	if(..())
@@ -37,12 +37,18 @@
 	if(holder)
 		holder.update_icon()
 
-/obj/item/assembly/mousetrap/proc/triggered(mob/target, var/type = "feet")
+/obj/item/assembly/mousetrap/proc/triggered(mob/target, type = "feet")
 	if(!armed)
 		return
 	var/obj/item/organ/external/affecting = null
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
+		if(PIERCEIMMUNE in H.dna.species.species_traits)
+			playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
+			armed = FALSE
+			update_icon()
+			pulse(FALSE)
+			return FALSE
 		switch(type)
 			if("feet")
 				if(!H.shoes)

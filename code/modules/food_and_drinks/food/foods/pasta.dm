@@ -78,8 +78,9 @@
 
 /obj/item/reagent_containers/food/snacks/lasagna
 	name = "Lasagna"
-	icon_state = "lasagna"
 	desc = "Tajara love to eat this, for some reason."
+	icon = 'icons/obj/food/pasta.dmi'
+	icon_state = "lasagna"
 	filling_color = "#E18712"
 	list_reagents = list("nutriment" = 10, "msg" = 3, "vitamin" = 4, "tomatojuice" = 10)
 	tastes = list("pasta" = 1, "cheese" = 1, "tomato" = 1, "meat" = 1)

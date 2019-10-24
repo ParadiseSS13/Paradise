@@ -54,6 +54,14 @@ var/global/list/datum/stack_recipe/human_recipes = list( \
 	singular_name = "alien hide piece"
 	icon_state = "sheet-xeno"
 
+GLOBAL_LIST_INIT(xeno_recipes, list (
+	new/datum/stack_recipe("alien helmet", /obj/item/clothing/head/xenos, 1),
+	new/datum/stack_recipe("alien suit", /obj/item/clothing/suit/xenos, 2)))
+
+/obj/item/stack/sheet/animalhide/xeno/Initialize(mapload, new_amount, merge = TRUE)
+	recipes = GLOB.xeno_recipes
+	return ..()
+
 //don't see anywhere else to put these, maybe together they could be used to make the xenos suit?
 /obj/item/stack/sheet/xenochitin
 	name = "alien chitin"

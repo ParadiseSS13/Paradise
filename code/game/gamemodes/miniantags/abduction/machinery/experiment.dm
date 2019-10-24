@@ -27,10 +27,9 @@
 		return //occupied
 	if(target.buckled)
 		return
-	for(var/mob/living/carbon/slime/M in range(1, target))
-		if(M.Victim == target)
-			to_chat(user, "<span class='danger'>[target] has a slime attached to [target.p_them()], deal with that first.</span>")
-			return
+	if(target.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[target] will not fit into [src] because [target.p_they()] [target.p_have()] a slime latched onto [target.p_their()] head.</span>")
+		return
 	visible_message("[user] puts [target] into the [src].")
 
 	target.forceMove(src)
@@ -191,10 +190,9 @@
 		if(occupant)
 			to_chat(user, "<span class='notice'>The [src] is already occupied!</span>")
 			return
-		for(var/mob/living/carbon/slime/S in range(1, grabbed.affecting))
-			if(S.Victim == grabbed.affecting)
-				to_chat(user, "<span class='danger'>[grabbed.affecting] has a slime attached to them, deal with that first.</span>")
-				return
+		if(grabbed.affecting.has_buckled_mobs()) //mob attached to us
+			to_chat(user, "<span class='warning'>[grabbed.affecting] will not fit into [src] because [grabbed.affecting.p_they()] [grabbed.affecting.p_have()] a slime latched onto [grabbed.affecting.p_their()] head.</span>")
+			return
 		visible_message("[user] puts [grabbed.affecting] into the [src].")
 		var/mob/living/carbon/human/H = grabbed.affecting
 		H.forceMove(src)

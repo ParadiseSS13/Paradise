@@ -2,3 +2,5 @@
 	..()
 	new /obj/item/inducer(src)
 	new /obj/item/inducer(src)
+	new/obj/item/clothing/glasses/meson/engine/tray(src)
+	new/obj/item/clothing/glasses/meson/engine/tray(src)

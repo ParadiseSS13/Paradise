@@ -339,32 +339,32 @@
 
 
 /obj/machinery/hydroponics/examine(user)
-	..()
+	. = ..()
 	if(myseed)
-		to_chat(user, "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>")
+		. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if (dead)
-			to_chat(user, "<span class='warning'>It's dead!</span>")
+			. += "<span class='warning'>It's dead!</span>"
 		else if (harvest)
-			to_chat(user, "<span class='info'>It's ready to harvest.</span>")
+			. += "<span class='info'>It's ready to harvest.</span>"
 		else if (plant_health <= (myseed.endurance / 2))
-			to_chat(user, "<span class='warning'>It looks unhealthy.</span>")
+			. += "<span class='warning'>It looks unhealthy.</span>"
 	else
-		to_chat(user, "<span class='info'>[src] is empty.</span>")
+		. += "<span class='info'>[src] is empty.</span>"
 
 	if(!self_sustaining)
-		to_chat(user, "<span class='info'>Water: [waterlevel]/[maxwater]</span>")
-		to_chat(user, "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>")
+		. += "<span class='info'>Water: [waterlevel]/[maxwater]</span>"
+		. += "<span class='info'>Nutrient: [nutrilevel]/[maxnutri]</span>"
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			to_chat(user, "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>")
+			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
 	else
-		to_chat(user, "<span class='info'>It doesn't require any water or nutrients.</span>")
+		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
 
 	if(weedlevel >= 5)
-		to_chat(user, "<span class='warning'>[src] is filled with weeds!</span>")
+		. += "<span class='warning'>[src] is filled with weeds!</span>"
 	if(pestlevel >= 5)
-		to_chat(user, "<span class='warning'>[src] is filled with tiny worms!</span>")
-	to_chat(user, "") // Empty line for readability.
+		. += "<span class='warning'>[src] is filled with tiny worms!</span>"
+	. += "" // Empty line for readability.
 
 
 /obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient, this happens.
@@ -636,9 +636,10 @@
 
 	// why, just why
 	if(S.has_reagent("napalm", 1))
-		adjustHealth(-round(S.get_reagent_amount("napalm") * 6))
-		adjustToxic(round(S.get_reagent_amount("napalm") * 7))
-		adjustWeeds(-rand(5,9))
+		if(!(myseed.resistance_flags & FIRE_PROOF))
+			adjustHealth(-round(S.get_reagent_amount("napalm") * 6))
+			adjustToxic(round(S.get_reagent_amount("napalm") * 7))
+		adjustWeeds(-rand(5, 9)) //At least give them a small reward if they bother
 
 	//Weed Spray
 	if(S.has_reagent("atrazine", 1))
@@ -990,12 +991,12 @@
 /obj/machinery/hydroponics/attack_animal(mob/living/user)
 	if(istype(user, /mob/living/simple_animal/diona))
 		if(weedlevel > 0)
-			user.nutrition += weedlevel * 15
+			user.adjust_nutrition(weedlevel * 15)
 			adjustWeeds(-10)
 			update_icon()
 			visible_message("<span class='danger'>[user] begins rooting through [src], ripping out weeds and eating them noisily.</span>","<span class='danger'>You begin rooting through [src], ripping out weeds and eating them noisily.</span>")
 		else if(nutrilevel < 10)
-			user.nutrition -= ((10 - nutrilevel) * 5)
+			user.adjust_nutrition(-((10 - nutrilevel) * 5))
 			adjustNutri(10)
 			update_icon()
 			visible_message("<span class='danger'>[user] secretes a trickle of green liquid from its tail, refilling [src]'s nutrient tray.</span>","<span class='danger'>You secrete a trickle of green liquid from your tail, refilling [src]'s nutrient tray.</span>")

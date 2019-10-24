@@ -1,6 +1,5 @@
 /mob/living/silicon/robot/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*</span>")
-	..(user)
+	. = ..()
 
 	var/msg = "<span class='info'>"
 	if(module)
@@ -55,5 +54,5 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 
-	to_chat(user, msg)
+	. += msg
 	user.showLaws(src)

@@ -85,7 +85,7 @@
 			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
-			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units")
+			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
 			M.LAssailant = user
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 	return
@@ -102,16 +102,15 @@
 	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
-	if(!..(user, 2))
-		return
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		var/empty = TRUE
 
-	var/empty = 1
+		for(var/datum/reagents/RS in reagent_list)
+			var/datum/reagent/R = locate() in RS.reagent_list
+			if(R)
+				. += "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
+				empty = FALSE
 
-	for(var/datum/reagents/RS in reagent_list)
-		var/datum/reagent/R = locate() in RS.reagent_list
-		if(R)
-			to_chat(user, "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>")
-			empty = 0
-
-	if(empty)
-		to_chat(user, "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>")
+		if(empty)
+			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"

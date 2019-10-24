@@ -61,6 +61,7 @@
 	yield = 2
 	potency = 50
 	growthstages = 3
+	mutatelist = list()
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "cotton-dead"
 

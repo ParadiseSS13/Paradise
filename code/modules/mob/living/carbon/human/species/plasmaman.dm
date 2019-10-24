@@ -1,4 +1,4 @@
-/datum/species/plasmaman // /vg/
+/datum/species/plasmaman
 	name = "Plasmaman"
 	name_plural = "Plasmamen"
 	icobase = 'icons/mob/human_races/r_plasmaman_sb.dmi'
@@ -6,11 +6,13 @@
 	dangerous_existence = TRUE //So so much
 	//language = "Clatter"
 
-	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NOTRANSSTING)
+	species_traits = list(IS_WHITELISTED, RADIMMUNE, NO_BLOOD, NO_HUNGER, NOTRANSSTING)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
+
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
 	butt_sprite = "plasma"
 
@@ -34,7 +36,6 @@
 		"liver" =    /obj/item/organ/internal/liver/plasmaman,
 		"kidneys" =  /obj/item/organ/internal/kidneys/plasmaman,
 		"brain" =    /obj/item/organ/internal/brain/plasmaman,
-		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/plasmaman
 		)
 

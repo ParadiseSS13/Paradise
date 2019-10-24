@@ -491,3 +491,9 @@
 	desc = "Wearing this makes you feel like a real mozzarella cheeseball. "
 	icon_state = "zepelli"
 	item_state = "zepelli"
+
+/obj/item/clothing/head/cuban_hat
+	name = "rhumba hat"
+	desc = "Now just to find some maracas!"
+	icon_state = "cuban_hat"
+	item_state = "cuban_hat"

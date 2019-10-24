@@ -164,19 +164,19 @@
 	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
 
 /obj/item/disk/data/examine(mob/user)
-	..(user)
-	to_chat(user, "The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
+	. = ..()
+	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 
 //Clonepod
 
 /obj/machinery/clonepod/examine(mob/user)
-	..()
+	. = ..()
 	if(mess)
-		to_chat(user, "It's filled with blood and viscera. You swear you can see it moving...")
+		. += "It's filled with blood and viscera. You swear you can see it moving..."
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
-		to_chat(user,  "Current clone cycle is [round(get_completion())]% complete.")
+		. +=  "Current clone cycle is [round(get_completion())]% complete."
 
 /obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
@@ -430,8 +430,6 @@
 		SSticker.mode.add_cultist(occupant.mind)
 		SSticker.mode.update_cult_icons_added() //So the icon actually appears
 		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
-	if((H.mind in SSticker.mode.implanter) || (H.mind in SSticker.mode.implanted))
-		SSticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))

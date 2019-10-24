@@ -665,9 +665,9 @@
 	return access_id ? access_id.GetAccess() : ..()
 
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
-	..()
+	. = ..()
 	if(access_id)
-		to_chat(user, "There is [bicon(access_id)] \a [access_id] clipped onto it.")
+		. += "There is [bicon(access_id)] \a [access_id] clipped onto it."
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))

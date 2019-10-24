@@ -46,3 +46,7 @@
 /mob/living/simple_animal/shade/sword
 	universal_speak = 1
 	faction = list("neutral")
+
+/mob/living/simple_animal/shade/sword/Initialize(mapload)
+	.=..()
+	status_flags |= GODMODE

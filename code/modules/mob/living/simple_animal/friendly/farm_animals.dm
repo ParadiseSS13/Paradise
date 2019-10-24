@@ -123,7 +123,7 @@
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	var/obj/item/udder/udder = null
 
@@ -192,7 +192,7 @@
 	mob_size = MOB_SIZE_TINY
 	can_hide = 1
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/chick/New()
 	..()
@@ -247,7 +247,7 @@ var/global/chicken_count = 0
 	var/list/feedMessages = list("It clucks happily.","It clucks happily.")
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/chicken/New()
 	..()
@@ -327,7 +327,7 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/turkey
@@ -351,7 +351,7 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/goose
 	name = "goose"
@@ -374,7 +374,7 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/seal
 	name = "seal"
@@ -397,7 +397,7 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /mob/living/simple_animal/walrus
@@ -421,7 +421,7 @@ var/global/chicken_count = 0
 	health = 50
 	maxHealth = 50
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 
 /obj/item/udder

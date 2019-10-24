@@ -78,19 +78,20 @@
 		qdel(src)
 
 /obj/structure/chair/attack_tk(mob/user as mob)
-	if(buckled_mob)
+	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
 		..()
 	else
 		rotate()
-	return
 
-/obj/structure/chair/proc/handle_rotation(direction)	//making this into a seperate proc so office chairs can call it on Move()
+/obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
-	if(buckled_mob)
-		buckled_mob.dir = dir
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
-	if(buckled_mob && dir == NORTH)
+	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
@@ -133,6 +134,9 @@
 
 // Chair types
 /obj/structure/chair/wood
+	name = "wooden chair"
+	desc = "Old is never too old to not be in fashion."
+	icon_state = "wooden_chair"
 	burn_state = FLAMMABLE
 	burntime = 20
 	buildstackamount = 3
@@ -142,15 +146,8 @@
 /obj/structure/chair/wood/narsie_act()
 	return
 
-/obj/structure/chair/wood/normal
-	icon_state = "wooden_chair"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
-
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
 	item_chair = /obj/item/chair/wood/wings
 
 /obj/structure/chair/comfy
@@ -233,24 +230,20 @@
 
 /obj/structure/chair/office/Bump(atom/A)
 	..()
-	if(!buckled_mob)
+	if(!has_buckled_mobs())
 		return
 
 	if(propelled)
-		var/mob/living/occupant = buckled_mob
-		unbuckle_mob()
-		occupant.throw_at(A, 3, propelled)
-		occupant.apply_effect(6, STUN, 0)
-		occupant.apply_effect(6, WEAKEN, 0)
-		occupant.apply_effect(6, STUTTER, 0)
-		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-		if(istype(A, /mob/living))
-			var/mob/living/victim = A
-			victim.apply_effect(6, STUN, 0)
-			victim.apply_effect(6, WEAKEN, 0)
-			victim.apply_effect(6, STUTTER, 0)
-			victim.take_organ_damage(10)
-		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			unbuckle_mob(buckled_mob)
+			buckled_mob.throw_at(A, 3, propelled)
+			buckled_mob.apply_effect(6, STUN, 0)
+			buckled_mob.apply_effect(6, WEAKEN, 0)
+			buckled_mob.apply_effect(6, STUTTER, 0)
+			buckled_mob.take_organ_damage(10)
+			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"

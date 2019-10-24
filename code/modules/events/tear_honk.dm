@@ -14,28 +14,12 @@
 		qdel(HE)
 
 /obj/effect/tear/honk
-	name="Honkmensional Tear"
-	desc="A tear in the dimensional fabric of sanity."
-	icon='icons/effects/tear.dmi'
-	icon_state="tear"
-	tear_critters = list(/mob/living/simple_animal/hostile/retaliate/clown/goblin)
+	name = "Honkmensional Tear"
+	desc = "A tear in the dimensional fabric of sanity."
 
-/obj/effect/tear/honk/New()
-	var/atom/movable/overlay/animation = null
-	animation = new(loc)
-	animation.icon_state = "newtear"
-	animation.icon = 'icons/effects/tear.dmi'
-	animation.master = src
-	spawn(15)
-		if(animation)
-			qdel(animation)
-
-	spawn(rand(30,120))
-
-		for(var/i in 1 to 6)
-			var/chosen = pick(tear_critters)
-			var/mob/living/simple_animal/C = new chosen
-			C.forceMove(get_turf(src))
-			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
-					step(C, pick(NORTH,SOUTH,EAST,WEST))
+/obj/effect/tear/honk/spew_critters()
+	for(var/i in 1 to 6)
+		var/mob/living/simple_animal/hostile/retaliate/clown/goblin/G = new(get_turf(src))
+		if(prob(50))
+			for(var/j = 1, j <= rand(1, 3), j++)
+				step(G, pick(NORTH, SOUTH, EAST, WEST))

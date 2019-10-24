@@ -38,12 +38,6 @@
 		H.gib()
 		return
 
-	QDEL_NULL(H.hud_used)
-
-	if(H.client)
-		H.hud_used = new /datum/hud/monkey(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
-		H.hud_used.show_hud(H.hud_used.hud_version)
-
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 
 	return H
@@ -82,12 +76,6 @@
 
 	H.real_name = H.dna.real_name
 	H.name = H.real_name
-
-	QDEL_NULL(H.hud_used)
-
-	if(H.client)
-		H.hud_used = new /datum/hud/human(H, ui_style2icon(H.client.prefs.UI_style), H.client.prefs.UI_style_color, H.client.prefs.UI_style_alpha)
-		H.hud_used.show_hud(H.hud_used.hud_version)
 
 	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
 

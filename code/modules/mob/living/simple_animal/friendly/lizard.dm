@@ -22,4 +22,4 @@
 	can_hide = 1
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN

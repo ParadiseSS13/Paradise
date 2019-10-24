@@ -1,10 +1,11 @@
 /mob/living/simple_animal/hostile/syndicate
 	name = "Syndicate Operative"
 	desc = "Death to Nanotrasen."
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "syndicate"
 	icon_living = "syndicate"
-	icon_dead = "syndicate_dead"
-	icon_gib = "syndicate_gib"
+	icon_dead = "syndicate_dead" // Does not actually exist. del_on_death.
+	icon_gib = "syndicate_gib" // Does not actually exist. del_on_death.
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
@@ -32,14 +33,15 @@
 /mob/living/simple_animal/hostile/syndicate/melee
 	melee_damage_lower = 20
 	melee_damage_upper = 25
-	icon_state = "syndicatemelee"
-	icon_living = "syndicatemelee"
+	icon_state = "syndicate_sword"
+	icon_living = "syndicate_sword"
 	attacktext = "slashes"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 28
 	status_flags = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 	var/melee_block_chance = 20
+	var/ranged_block_chance = 35
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -63,12 +65,13 @@
 
 
 /mob/living/simple_animal/hostile/syndicate/melee/bullet_act(var/obj/item/projectile/Proj)
-	if(!Proj)	return
-	if(prob(65))
+	if(!Proj)
+		return
+	if(prob(ranged_block_chance))
+		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
+	else
 		if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 			adjustHealth(Proj.damage)
-	else
-		visible_message("<span class='danger'>[src] blocks [Proj] with its shield!</span>")
 	return 0
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib
@@ -80,7 +83,10 @@
 	robust_searching = 1 // Together with stat_attack, ensures dionae/etc that regen are killed properly
 	stat_attack = UNCONSCIOUS
 	universal_speak = 1
-	melee_block_chance = 40
+	icon_state = "syndicate_swordonly"
+	icon_living = "syndicate_swordonly"
+	melee_block_chance = 0
+	ranged_block_chance = 0
 	del_on_death = 1
 	var/area/syndicate_depot/core/depotarea
 	var/raised_alert = FALSE
@@ -103,15 +109,23 @@
 	depotarea = areaMaster
 	spawn_turf = get_turf(src)
 
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/ListTargetsLazy()
+	// The normal ListTargetsLazy ignores walls, which is very bad in the case of depot mobs. So we override it.
+	return ListTargets()
+
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/Aggro()
 	. = ..()
-	if(target && istype(depotarea))
+	if(!istype(depotarea))
+		return
+	if(target)
 		if(!seen_enemy)
 			seen_enemy = TRUE
-			playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
+			if(!ranged)
+				playsound(loc, 'sound/weapons/saberon.ogg', 35, 1)
 			if(alert_on_shield_breach)
 				if(depotarea.shield_list.len)
-					raise_alert("[name] reports that an intruder is trying to breach the armory shield!")
+					raise_alert("[name] reports that [target] is trying to breach the armory shield!")
 					alert_on_shield_breach = FALSE
 					raised_alert = FALSE
 					alert_on_death = TRUE
@@ -134,14 +148,15 @@
 			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
 			LoseTarget()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
-	if(!..())
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_movement()
+	. = ..()
+	if(!istype(depotarea))
 		return
 	if(seen_enemy)
 		aggro_cycles++
 		if(alert_on_timeout && !raised_alert && aggro_cycles >= 60)
 			raise_alert("[name] has reported contact with hostile entity: [seen_enemy_name]")
-	if(scan_cycles >= 15 && istype(depotarea))
+	if(scan_cycles >= 15)
 		scan_cycles = 0
 		if(!atoms_share_level(src, spawn_turf))
 			if(istype(loc, /obj/structure/closet))
@@ -176,6 +191,8 @@
 		depotarea.increase_alert(reason)
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/death()
+	if(!istype(depotarea))
+		return ..()
 	if(alert_on_death)
 		if(seen_enemy_name)
 			raise_alert("[name] has died in combat with [seen_enemy_name].")
@@ -198,22 +215,61 @@
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer
 	name = "Syndicate Officer"
+	icon_state = "syndicate_sword"
+	icon_living = "syndicate_sword"
+	melee_block_chance = 20
+	ranged_block_chance = 35
 	alert_on_death = TRUE
-	melee_block_chance = 60
+
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer/Initialize(mapload)
+	. = ..()
+	if(prob(50))
+		// 50% chance of switching to ranged variant.
+		// Designed to counter players taking cover behind reinforced plasmasglass.
+		// Does almost no danage in melee, but decent damage at range, and its shots go through glass.
+		melee_damage_lower = 10
+		melee_damage_upper = 10
+		attacktext = "punches"
+		attack_sound = 'sound/weapons/punch1.ogg'
+		ranged = 1
+		rapid = 3
+		retreat_distance = 3
+		minimum_distance = 3
+		melee_block_chance = 0
+		ranged_block_chance = 0
+		icon_state = "syndicate_pistol"
+		icon_living = "syndicate_pistol"
+		projectiletype = /obj/item/projectile/beam/laser
+		projectilesound = 'sound/weapons/laser.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
 	name = "Syndicate Quartermaster"
-	icon_state = "syndicatemeleespace"
-	icon_living = "syndicatemeleespace"
+	icon_state = "syndicate_stormtrooper_sword"
+	icon_living = "syndicate_stormtrooper_sword"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	maxHealth = 250
-	health = 250
-	melee_block_chance = 80
+	maxHealth = 200
+	health = 200
+	melee_block_chance = 40
 	alert_on_shield_breach = TRUE
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/Initialize(mapload)
 	..()
+	if(prob(50))
+		// 50% chance of switching to extremely dangerous ranged variant
+		melee_damage_lower = 10
+		melee_damage_upper = 10
+		attacktext = "punches"
+		attack_sound = 'sound/weapons/punch1.ogg'
+		ranged = 1
+		retreat_distance = 3
+		minimum_distance = 3
+		melee_block_chance = 0
+		ranged_block_chance = 0
+		icon_state = "syndicate_stormtrooper_shotgun"
+		icon_living = "syndicate_stormtrooper_shotgun"
+		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
+		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 	return INITIALIZE_HINT_LATELOAD
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory/LateInitialize()
@@ -231,14 +287,14 @@
 	name = "Syndicate Backup"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	icon_state = "syndicatemeleespace"
-	icon_living = "syndicatemeleespace"
+	icon_state = "syndicate_space_sword"
+	icon_living = "syndicate_space_sword"
 	speed = 1
 	wander = 0
 	alert_on_spacing = FALSE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/space/Process_Spacemove(var/movement_dir = 0)
-	return
+	return TRUE
 
 
 
@@ -246,13 +302,13 @@
 	name = "Syndicate Commando"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	icon_state = "syndicatemeleespace"
-	icon_living = "syndicatemeleespace"
+	icon_state = "syndicate_space_sword"
+	icon_living = "syndicate_space_sword"
 	speed = 1
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/melee/energy/sword/saber/red, /obj/item/shield/energy)
 
 /mob/living/simple_animal/hostile/syndicate/melee/space/Process_Spacemove(var/movement_dir = 0)
-	return
+	return TRUE
 
 
 /mob/living/simple_animal/hostile/syndicate/ranged
@@ -260,15 +316,15 @@
 	rapid = 2
 	retreat_distance = 5
 	minimum_distance = 5
-	icon_state = "syndicateranged"
-	icon_living = "syndicateranged"
+	icon_state = "syndicate_smg"
+	icon_living = "syndicate_smg"
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
 	casingtype = /obj/item/ammo_casing/c45
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatesoldier, /obj/item/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space
-	icon_state = "syndicaterangedpsace"
-	icon_living = "syndicaterangedpsace"
+	icon_state = "syndicate_space_smg"
+	icon_living = "syndicate_space_smg"
 	name = "Syndicate Commando"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -276,7 +332,7 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/syndicatecommando, /obj/item/gun/projectile/automatic/c20r)
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/Process_Spacemove(var/movement_dir = 0)
-	return
+	return TRUE
 
 /mob/living/simple_animal/hostile/syndicate/ranged/space/autogib
 	loot = list()//gonna gibe, no loot.
@@ -300,6 +356,6 @@
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
 	flying = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
 	deathmessage = "is smashed into pieces!"

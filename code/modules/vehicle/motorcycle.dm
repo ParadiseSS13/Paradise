@@ -6,25 +6,24 @@
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 	vehicle_move_delay = 1
-	var/static/image/bikecover = null
+	var/mutable_appearance/bikecover
 
+/obj/vehicle/motorcycle/Initialize(mapload)
+	. = ..()
+	bikecover = mutable_appearance(icon, "motorcycle_overlay_4d", ABOVE_MOB_LAYER)
 
-/obj/vehicle/motorcycle/New()
-	..()
-	if(!bikecover)
-		bikecover = image("icons/vehicles/motorcycle.dmi", "motorcycle_overlay_4d")
-		bikecover.layer = MOB_LAYER + 0.1
+/obj/vehicle/motorcycle/post_buckle_mob(mob/living/M)
+	add_overlay(bikecover)
+	return ..()
 
-
-obj/vehicle/motorcycle/post_buckle_mob(mob/living/M)
-	if(buckled_mob)
-		overlays += bikecover
-	else
-		overlays -= bikecover
+/obj/vehicle/motorcycle/post_unbuckle_mob(mob/living/M)
+	if(!has_buckled_mobs())
+		cut_overlay(bikecover)
+	return ..()
 
 
 /obj/vehicle/motorcycle/handle_vehicle_layer()
 	if(dir == SOUTH)
-		layer = MOB_LAYER+0.1
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER

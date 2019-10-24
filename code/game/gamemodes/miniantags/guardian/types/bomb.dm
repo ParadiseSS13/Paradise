@@ -82,6 +82,6 @@
 	return FALSE // Disarm or blow up. No picking up
 
 /obj/item/guardian_bomb/examine(mob/user)
-	stored_obj.examine(user)
-	if(get_dist(user,src) <= 2)
-		to_chat(user, "<span class='notice'>Looks odd!</span>")
+	. = stored_obj.examine(user)
+	if(get_dist(user, src) <= 2)
+		. += "<span class='notice'>Looks odd!</span>"

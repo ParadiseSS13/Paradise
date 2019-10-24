@@ -59,7 +59,8 @@ In all, this is a lot like the monkey code. /N
 	return 0
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
-	if(..())
+	. = ..()
+	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		switch(M.melee_damage_type)
 			if(BRUTE)
@@ -74,3 +75,12 @@ In all, this is a lot like the monkey code. /N
 				adjustCloneLoss(damage)
 			if(STAMINA)
 				adjustStaminaLoss(damage)
+
+/mob/living/carbon/alien/attack_slime(mob/living/simple_animal/slime/M)
+	if(..()) //successful slime attack
+		var/damage = rand(5, 35)
+		if(M.is_adult)
+			damage = rand(10, 40)
+		adjustBruteLoss(damage)
+		add_attack_logs(src, M, "Slime'd for [damage] damage")
+		updatehealth("slime attack")

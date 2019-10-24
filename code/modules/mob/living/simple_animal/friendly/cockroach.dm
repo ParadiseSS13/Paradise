@@ -14,9 +14,9 @@
 	response_help  = "pokes"
 	response_disarm = "shoos"
 	response_harm   = "splats"
-	density = 0
-	ventcrawler = 2
-	gold_core_spawnable = 2
+	density = FALSE
+	ventcrawler = VENTCRAWLER_ALWAYS
+	gold_core_spawnable = FRIENDLY_SPAWN
 	var/squish_chance = 50
 	loot = list(/obj/effect/decal/cleanable/insectguts)
 	del_on_death = 1

@@ -2195,7 +2195,7 @@
 	name = "Syndicate Outpost"
 	})
 "dh" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/alarm/monitor{
 	dir = 4;
 	frequency = 1439;
@@ -7981,7 +7981,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/machinery/alarm/monitor{
 	dir = 8;
 	frequency = 1439;
@@ -8717,7 +8717,7 @@
 	name = "MO19 Arrivals"
 	})
 "mB" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,

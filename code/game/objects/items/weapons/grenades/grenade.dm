@@ -48,12 +48,12 @@
 
 
 /obj/item/grenade/examine(mob/user)
-	..(user)
+	. = ..()
 	if(display_timer)
 		if(det_time > 1)
-			to_chat(user, "The timer is set to [det_time/10] second\s.")
+			. += "The timer is set to [det_time/10] second\s."
 		else
-			to_chat(user, "\The [src] is set for instant detonation.")
+			. += "\The [src] is set for instant detonation."
 
 /obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)

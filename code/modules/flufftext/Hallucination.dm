@@ -217,7 +217,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	qdel(src)
 
 /obj/effect/hallucination/simple/clown
-	image_icon = 'icons/mob/animal.dmi'
+	image_icon = 'icons/mob/simple_human.dmi'
 	image_state = "clown"
 
 /obj/effect/hallucination/simple/clown/New(loc, mob/living/carbon/T, duration)
@@ -269,51 +269,59 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	px = -32
 
 /obj/effect/hallucination/oh_yeah
-	var/turf/simulated/wall/wall
-	var/obj/effect/hallucination/simple/bubblegum/bubblegum = null
+	var/obj/effect/hallucination/simple/bubblegum/bubblegum
 	var/image/fakebroken
 	var/image/fakerune
 
-/obj/effect/hallucination/oh_yeah/New(loc, mob/living/carbon/T)
+/obj/effect/hallucination/oh_yeah/New(loc, mob/living/carbon/C)
+	set waitfor = FALSE
 	..()
-	target = T
-	for(var/turf/simulated/wall/W in range(7,target))
+	target = C
+	var/turf/simulated/wall/wall
+	for(var/turf/simulated/wall/W in range(7, target))
 		wall = W
 		break
-	if(wall)
-		fakebroken = image('icons/turf/floors.dmi', wall, "plating", layer = TURF_LAYER)
-		var/turf/landing = get_turf(target)
-		var/turf/landing_image_turf = get_step(landing, SOUTHWEST) //the icon is 3x3
-		fakerune = image('icons/effects/96x96.dmi', landing_image_turf, "landing", layer = ABOVE_OPEN_TURF_LAYER)
-		fakebroken.override = TRUE
-		if(target.client)
-			target.client.images |= fakebroken
-			target.client.images |= fakerune
-		target.playsound_local(wall,'sound/effects/meteorimpact.ogg', 150, 1)
-		bubblegum = new(wall, target)
-		sleep(10) //ominous wait
-		var/charged = FALSE //only get hit once
-		while(get_turf(bubblegum) != landing && target)
-			bubblegum.forceMove(get_step_towards(bubblegum, landing))
-			bubblegum.setDir(get_dir(bubblegum, landing))
-			target.playsound_local(get_turf(bubblegum), 'sound/effects/meteorimpact.ogg', 150, 1)
-			shake_camera(target, 2, 1)
-			if(bubblegum.Adjacent(target) && !charged)
-				charged = TRUE
-				target.Weaken(4)
-				target.adjustStaminaLoss(40)
-				step_away(target, bubblegum)
-				shake_camera(target, 4, 3)
-				target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>","<span class='userdanger'>[bubblegum] slams into you!</span>")
-			sleep(2)
-		sleep(30)
-		qdel(bubblegum)
+	if(!wall)
+		qdel(src)
+		return
+
+	fakebroken = image('icons/turf/floors.dmi', wall, "plating", layer = TURF_LAYER)
+	var/turf/landing = get_turf(target)
+	var/turf/landing_image_turf = get_step(landing, SOUTHWEST) //the icon is 3x3
+	fakerune = image('icons/effects/96x96.dmi', landing_image_turf, "landing", layer = ABOVE_OPEN_TURF_LAYER)
+	fakebroken.override = TRUE
+	if(target.client)
+		target.client.images |= fakebroken
+		target.client.images |= fakerune
+	target.playsound_local(wall,'sound/effects/meteorimpact.ogg', 150, 1)
+	bubblegum = new(wall, target)
+	addtimer(CALLBACK(src, .proc/bubble_attack, landing), 10)
+
+/obj/effect/hallucination/oh_yeah/proc/bubble_attack(turf/landing)
+	var/charged = FALSE //only get hit once
+	while(get_turf(bubblegum) != landing && target && target.stat != DEAD)
+		bubblegum.forceMove(get_step_towards(bubblegum, landing))
+		bubblegum.setDir(get_dir(bubblegum, landing))
+		target.playsound_local(get_turf(bubblegum), 'sound/effects/meteorimpact.ogg', 150, 1)
+		shake_camera(target, 2, 1)
+		if(bubblegum.Adjacent(target) && !charged)
+			charged = TRUE
+			target.Weaken(4)
+			target.adjustStaminaLoss(40)
+			step_away(target, bubblegum)
+			shake_camera(target, 4, 3)
+			target.visible_message("<span class='warning'>[target] jumps backwards, falling on the ground!</span>", "<span class='userdanger'>[bubblegum] slams into you!</span>")
+		sleep(2)
+	sleep(30)
 	qdel(src)
 
 /obj/effect/hallucination/oh_yeah/Destroy()
 	if(target.client)
 		target.client.images.Remove(fakebroken)
 		target.client.images.Remove(fakerune)
+	QDEL_NULL(fakebroken)
+	QDEL_NULL(fakerune)
+	QDEL_NULL(bubblegum)
 	return ..()
 
 /obj/effect/hallucination/singularity_scare

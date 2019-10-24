@@ -16,7 +16,7 @@
 
 /datum/station_goal/bluespace_cannon/on_report()
 	//Unlock BSA parts
-	var/datum/supply_packs/misc/bsa/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/bsa]"]
+	var/datum/supply_packs/misc/station_goal/bsa/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/bsa]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/bluespace_cannon/check_completion()

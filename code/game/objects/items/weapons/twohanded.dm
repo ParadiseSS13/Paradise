@@ -267,7 +267,7 @@
 			user.SpinAnimation(7, 1)
 		sleep(1)
 
-/obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(wielded)
 		return ..()
 	return FALSE
@@ -337,13 +337,22 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
+	var/icon_prefix = "spearglass"
 
 /obj/item/twohanded/spear/update_icon()
-	if(explosive)
-		icon_state = "spearbomb[wielded]"
-	else
-		icon_state = "spearglass[wielded]"
+	icon_state = "[icon_prefix][wielded]"
+
+/obj/item/twohanded/spear/CheckParts(list/parts_list)
+	var/obj/item/shard/tip = locate() in parts_list
+	if(istype(tip, /obj/item/shard/plasma))
+		force_wielded = 19
+		force_unwielded = 11
+		throwforce = 21
+		icon_prefix = "spearplasma"
+	update_icon()
+	qdel(tip)
 	..()
+
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -370,9 +379,7 @@
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
 	armour_penetration = 15				//Enhanced armor piercing
-
-/obj/item/twohanded/spear/bonespear/update_icon()
-	icon_state = "bone_spear[wielded]"
+	icon_prefix = "bone_spear"
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
@@ -507,7 +514,7 @@
 	armour_penetration = 100
 	force_on = 30
 
-/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)

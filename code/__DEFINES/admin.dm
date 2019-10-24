@@ -64,3 +64,10 @@
 #define ADMIN_COORDJMP(src) "[src ? "[COORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_VERBOSEJMP(src) "[src ? "[AREACOORD(src)] [ADMIN_JMP(src)]" : "nonexistent location"]"
 #define ADMIN_SHOWDETAILS(mask, content) "<a href='?_src_=holder;showdetails=[html_encode(content)]'>[mask]</a>"
+
+///Max length of a keypress command before it's considered to be a forged packet/bogus command
+#define MAX_KEYPRESS_COMMANDLENGTH 16
+///Max amount of keypress messages per second over two seconds before client is autokicked
+#define MAX_KEYPRESS_AUTOKICK 50
+///Length of held key rolling buffer
+#define HELD_KEY_BUFFER_LENGTH 15

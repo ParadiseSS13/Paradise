@@ -387,10 +387,10 @@
 	return ..()
 
 /obj/item/reagent_containers/food/snacks/customizable/examine(mob/user)
-	..(user)
+	. = ..()
 	if(LAZYLEN(ingredients))
 		var/whatsinside = pick(ingredients)
-		to_chat(user, "<span class='notice'> You think you can see [whatsinside] in there.</span>")
+		. += "<span class='notice'> You think you can see [whatsinside] in there.</span>"
 
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/newname()

@@ -118,20 +118,21 @@
 			SetOwnerInfo(H)
 
 /obj/item/card/id/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		show(usr)
 	else
-		to_chat(user, "<span class='warning'>It is too far away.</span>")
+		. += "<span class='warning'>It is too far away.</span>"
 	if(guest_pass)
-		to_chat(user, "<span class='notice'>There is a guest pass attached to this ID card</span>")
+		. += "<span class='notice'>There is a guest pass attached to this ID card</span>"
 		if(world.time < guest_pass.expiration_time)
-			to_chat(user, "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>")
+			. += "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
 		else
-			to_chat(user, "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>")
-		to_chat(user, "<span class='notice'>It grants access to following areas:</span>")
+			. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
+		. += "<span class='notice'>It grants access to following areas:</span>"
 		for(var/A in guest_pass.temp_access)
-			to_chat(user, "<span class='notice'>[get_access_desc(A)].</span>")
-		to_chat(user, "<span class='notice'>Issuing reason: [guest_pass.reason].</span>")
+			. += "<span class='notice'>[get_access_desc(A)].</span>"
+		. += "<span class='notice'>Issuing reason: [guest_pass.reason].</span>"
 
 /obj/item/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -141,7 +142,6 @@
 	popup.set_content(dat)
 	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
-	return
 
 /obj/item/card/id/attack_self(mob/user as mob)
 	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\

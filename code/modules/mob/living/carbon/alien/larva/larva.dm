@@ -71,16 +71,6 @@
 /mob/living/carbon/alien/larva/attack_ui(slot_id)
 	return
 
-/mob/living/carbon/alien/larva/attack_slime(mob/living/carbon/slime/M)
-	..()
-	var/damage = rand(5, 35)
-	if(M.is_adult)
-		damage = rand(20, 40)
-	adjustBruteLoss(damage)
-	add_attack_logs(src, M, "Slime'd for [damage] damage")
-	updatehealth()
-	return
-
 /mob/living/carbon/alien/larva/restrained()
 	return 0
 

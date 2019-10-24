@@ -5,37 +5,41 @@
 	icobase = 'icons/mob/human_races/r_golem.dmi'
 	deform = 'icons/mob/human_races/r_golem.dmi'
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, VIRUSIMMUNE, NOGUNS)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
+	slowdown = 2
 	brute_mod = 0.45 //55% damage reduction
 	burn_mod = 0.45
 	tox_mod = 0.45
+	clone_mod = 0.45
+	brain_mod = 0.45
+	stamina_mod = 0.45
+	siemens_coeff = 0
+	punchdamagelow = 5
+	punchdamagehigh = 14
+	punchstunthreshold = 11 //about 40% chance to stun
+	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
+	nojumpsuit = TRUE
 
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
 	reagent_tag = PROCESS_ORG
 
-	punchdamagelow = 5
-	punchdamagehigh = 14
-	punchstunthreshold = 11 //about 40% chance to stun
+	warning_low_pressure = -INFINITY
+	hazard_low_pressure = -INFINITY
+	hazard_high_pressure = INFINITY
+	warning_high_pressure = INFINITY
 
-	warning_low_pressure = -1
-	hazard_low_pressure = -1
-	hazard_high_pressure = 999999999
-	warning_high_pressure = 999999999
+	cold_level_1 = -INFINITY
+	cold_level_2 = -INFINITY
+	cold_level_3 = -INFINITY
 
-	cold_level_1 = -1
-	cold_level_2 = -1
-	cold_level_3 = -1
-
-	heat_level_1 = 999999999
-	heat_level_2 = 999999999
-	heat_level_3 = 999999999
+	heat_level_1 = INFINITY
+	heat_level_2 = INFINITY
+	heat_level_3 = INFINITY
 
 	blood_color = "#515573"
 	flesh_color = "#137E8F"
 	skinned_type = /obj/item/stack/sheet/metal
-	slowdown = 3
-	siemens_coeff = 0
 
 	blacklisted = TRUE // To prevent golem subtypes from overwhelming the odds when random species changes, only the Random Golem type can be chosen
 	dangerous_existence = TRUE
@@ -44,6 +48,19 @@
 		"brain" = /obj/item/organ/internal/brain/golem,
 		"adamantine_resonator" = /obj/item/organ/internal/adamantine_resonator
 		) //Has standard darksight of 2.
+
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
+		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
+		"head" =   list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy))
 
 	suicide_messages = list(
 		"is crumbling into dust!",
@@ -79,26 +96,7 @@
 			H.mind.special_role = SPECIAL_ROLE_FREE_GOLEM
 	H.real_name = get_random_name()
 	H.name = H.real_name
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/golem(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/golem(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/golem(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/golem(H), slot_wear_mask)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/golem(H), slot_gloves)
-	H.regenerate_icons()
 	to_chat(H, info_text)
-
-/datum/species/golem/on_species_loss(mob/living/carbon/human/H)
-	..()
-	if(istype(H.w_uniform, /obj/item/clothing/under/golem)) // Doing these if checks here just in case the golem is somehow wearing something other than their golem shell, which should be impossible but you never know.
-		qdel(H.w_uniform)
-	if(istype(H.wear_suit, /obj/item/clothing/suit/golem))
-		qdel(H.wear_suit)
-	if(istype(H.shoes, /obj/item/clothing/shoes/golem))
-		qdel(H.shoes)
-	if(istype(H.wear_mask, /obj/item/clothing/mask/gas/golem))
-		qdel(H.wear_mask)
-	if(istype(H.gloves, /obj/item/clothing/gloves/golem))
-		qdel(H.gloves)
 
 //Random Golem
 
@@ -204,6 +202,9 @@
 	brute_mod = 0.3 //70% damage reduction up from 55%
 	burn_mod = 0.3
 	tox_mod = 0.3
+	clone_mod = 0.3
+	brain_mod = 0.3
+	stamina_mod = 0.3
 	skinned_type = /obj/item/stack/ore/diamond
 	info_text = "As a <span class='danger'>Diamond Golem</span>, you are more resistant than the average golem."
 	prefix = "Diamond"
@@ -213,10 +214,13 @@
 /datum/species/golem/gold
 	name = "Gold Golem"
 	golem_colour = rgb(204, 204, 0)
-	slowdown = 2
+	slowdown = 1
 	brute_mod = 0.75 //25% damage reduction down from 55%
 	burn_mod = 0.75
 	tox_mod = 0.75
+	clone_mod = 0.75
+	brain_mod = 0.75
+	stamina_mod = 0.75
 	skinned_type = /obj/item/stack/ore/gold
 	info_text = "As a <span class='danger'>Gold Golem</span>, you are faster but less resistant than the average golem."
 	prefix = "Golden"
@@ -240,7 +244,7 @@
 	punchdamagelow = 12
 	punchdamagehigh = 21
 	punchstunthreshold = 18 //still 40% stun chance
-	slowdown = 5 //diona speed
+	slowdown = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
 	info_text = "As a <span class='danger'>Plasteel Golem</span>, you are slower, but harder to stun, and hit very hard when punching."
 	prefix = "Plasteel"
@@ -257,7 +261,7 @@
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Titanium Golem</span>, you are resistant to burn damage and immune to ash storms."
-	burn_mod = 0.3
+	burn_mod = 0.405
 	prefix = "Titanium"
 	special_names = list("Dioxide")
 
@@ -275,7 +279,7 @@
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/ore/titanium
 	info_text = "As a <span class='danger'>Plastitanium Golem</span>, you are very resistant to burn damage and immune to both ash storms and lava."
-	burn_mod = 0.15
+	burn_mod = 0.36
 	prefix = "Plastitanium"
 	special_names = null
 
@@ -296,7 +300,7 @@
 	skinned_type = /obj/item/stack/sheet/mineral/abductor
 	language = "Golem Mindlink"
 	default_language = "Golem Mindlink"
-	slowdown = 2 //faster
+	slowdown = 1 //faster
 	info_text = "As an <span class='danger'>Alloy Golem</span>, you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to speak telepathically to other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
@@ -323,18 +327,21 @@
 	name = "Wood Golem"
 	golem_colour = rgb(158, 112, 75)
 	skinned_type = /obj/item/stack/sheet/wood
-	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, VIRUSIMMUNE, NOGUNS, IS_PLANT)
+	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE, IS_PLANT)
 	//Can burn and take damage from heat
 	brute_mod = 0.7 //30% damage reduction down from 55%
-	burn_mod = 1
+	burn_mod = 0.875
+	tox_mod = 0.7
+	clone_mod = 0.7
+	brain_mod = 0.7
+	stamina_mod = 0.7
 	heatmod = 1.5
 
 	heat_level_1 = 300
 	heat_level_2 = 340
 	heat_level_3 = 400
 
-	dietflags = 0		//Regenerate nutrition in light, no diet necessary
-	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
+	dietflags = DIET_HERB		// Plants eat...plants?
 
 	info_text = "As a <span class='danger'>Wooden Golem</span>, you have plant-like traits: you take damage from extreme temperatures, can be set on fire, and have lower armor than a normal golem. You regenerate when in the light and wither in the darkness."
 	prefix = "Wooden"
@@ -343,24 +350,34 @@
 	special_name_chance = 100
 
 /datum/species/golem/wood/handle_life(mob/living/carbon/human/H)
+	if(H.stat == DEAD)
+		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	if(isturf(H.loc)) //else, there's considered to be no light
 		var/turf/T = H.loc
-		light_amount = min(T.get_lumcount() * 10, 5)  //hardcapped so it's not abused by having a ton of flashlights
-	H.nutrition = min(H.nutrition+light_amount, NUTRITION_LEVEL_WELL_FED+10)
+		light_amount = min(1, T.get_lumcount()) - 0.5
+		if(light_amount > 0)
+			H.clear_alert("nolight")
+		else
+			H.throw_alert("nolight", /obj/screen/alert/nolight)
+		H.adjust_nutrition(light_amount * 10)
+		if(H.nutrition > NUTRITION_LEVEL_ALMOST_FULL)
+			H.set_nutrition(NUTRITION_LEVEL_ALMOST_FULL)
+		if(light_amount > 0.2 && !H.suiciding) //if there's enough light, heal
+			H.adjustBruteLoss(-1)
+			H.adjustFireLoss(-1)
+			H.adjustToxLoss(-1)
+			H.adjustOxyLoss(-1)
 
-	if(light_amount > 0)
-		H.clear_alert("nolight")
-	else
-		H.throw_alert("nolight", /obj/screen/alert/nolight)
-
-	if((light_amount >= 5) && !H.suiciding) //if there's enough light, heal
-
-		H.adjustBruteLoss(-(light_amount/2))
-		H.adjustFireLoss(-(light_amount/4))
-	if(H.nutrition < NUTRITION_LEVEL_STARVING+50)
-		H.take_overall_damage(10,0)
+	if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
+		H.adjustBruteLoss(2)
 	..()
+
+/datum/species/golem/wood/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
+	if(R.id == "glyphosate" || R.id == "atrazine")
+		H.adjustToxLoss(3) //Deal aditional damage
+		return TRUE
+	return ..()
 
 //Radioactive
 /datum/species/golem/uranium
@@ -386,17 +403,10 @@
 	name = "Plastic Golem"
 	prefix = "Plastic"
 	special_names = null
+	ventcrawler = VENTCRAWLER_NUDE
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
 	info_text = "As a <span class='danger'>Plastic Golem</span>, you are capable of ventcrawling if you're naked."
-
-/datum/species/golem/plastic/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	. = ..()
-	C.ventcrawler = 1
-
-/datum/species/golem/plastic/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	C.ventcrawler = initial(C.ventcrawler)
 
 //Immune to physical bullets and resistant to brute, but very vulnerable to burn damage. Dusts on death.
 /datum/species/golem/sand
@@ -404,13 +414,17 @@
 	golem_colour = rgb(255, 220, 143)
 	skinned_type = /obj/item/stack/ore/glass //this is sand
 	brute_mod = 0.25
-	burn_mod = 3
+	burn_mod = 3 //melts easily
+	tox_mod = 1
+	clone_mod = 1
+	brain_mod = 1
+	stamina_mod = 1
 	info_text = "As a <span class='danger'>Sand Golem</span>, you are immune to physical bullets and take very little brute damage, but are extremely vulnerable to burn damage and energy weapons. You will also turn to sand when dying, preventing any form of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/sand
 	prefix = "Sand"
 	special_names = list("Castle", "Bag", "Dune", "Worm", "Storm")
 
-/datum/species/golem/sand/handle_death(mob/living/carbon/human/H)
+/datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
 	H.visible_message("<span class='danger'>[H] turns into a pile of sand!</span>")
 	for(var/obj/item/W in H)
 		H.unEquip(W)
@@ -437,12 +451,16 @@
 	skinned_type = /obj/item/shard
 	brute_mod = 3 //very fragile
 	burn_mod = 0.25
+	tox_mod = 1
+	clone_mod = 1
+	brain_mod = 1
+	stamina_mod = 1
 	info_text = "As a <span class='danger'>Glass Golem</span>, you reflect lasers and energy weapons, and are very resistant to burn damage. However, you are extremely vulnerable to brute damage. On death, you'll shatter beyond any hope of recovery."
 	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Glass"
 	special_names = list("Lens", "Prism", "Fiber", "Bead")
 
-/datum/species/golem/glass/handle_death(mob/living/carbon/human/H)
+/datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
 	H.visible_message("<span class='danger'>[H] shatters!</span>")
 	for(var/obj/item/W in H)
@@ -507,7 +525,7 @@
 	if(!isturf(picked))
 		return
 	if(H.buckled)
-		H.buckled.unbuckle_mob()
+		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	return TRUE
 
@@ -591,7 +609,7 @@
 	if(!isturf(picked))
 		return
 	if(H.buckled)
-		H.buckled.unbuckle_mob()
+		H.buckled.unbuckle_mob(H, force = TRUE)
 	do_teleport(H, picked)
 	last_teleport = world.time
 	UpdateButtonIcon() //action icon looks unavailable
@@ -607,8 +625,8 @@
 	name = "Bananium Golem"
 	golem_colour = rgb(255, 255, 0)
 	punchdamagelow = 0
-	punchdamagehigh = 0
-	punchstunthreshold = 1 //Harmless and can't stun
+	punchdamagehigh = 1
+	punchstunthreshold = 2 //Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
 	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and punching people will just harmlessly honk them. Your skin also bleeds banana peels when damaged."
 	prefix = "Bananium"
@@ -679,7 +697,7 @@
 			active = null
 	..()
 
-/datum/species/golem/bananium/handle_death(mob/living/carbon/human/H)
+/datum/species/golem/bananium/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
 /datum/unarmed_attack/golem/bananium
@@ -716,53 +734,3 @@
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
 	miss_sound = null
-
-//Golem abstract items
-
-/obj/item/clothing/under/golem
-	name = "golem skin"
-	desc = "a golem's skin"
-	icon_state = "golem"
-	item_state = "golem"
-	item_color = "golem"
-	has_sensor = 0
-	flags = ABSTRACT | NODROP
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
-
-/obj/item/clothing/suit/golem
-	name = "golem shell"
-	desc = "a golem's thick outter shell"
-	icon_state = "golem"
-	item_state = "golem"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.02
-	body_parts_covered = HEAD | UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	flags_inv = HIDEGLOVES | HIDESHOES
-	flags = STOPSPRESSUREDMAGE | ABSTRACT | NODROP | THICKMATERIAL
-	flags_size = ONESIZEFITSALL
-	cold_protection = HEAD | UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0)
-
-/obj/item/clothing/shoes/golem
-	name = "golem's feet"
-	desc = "sturdy golem feet"
-	icon_state = "golem"
-	item_state = "golem"
-	flags = ABSTRACT | NODROP
-
-/obj/item/clothing/mask/gas/golem
-	name = "golem's face"
-	desc = "the imposing face of a golem"
-	icon_state = "golem"
-	item_state = "golem"
-	unacidable = 1
-	flags = ABSTRACT | NODROP
-	flags_inv = HIDEEARS | HIDEEYES
-
-/obj/item/clothing/gloves/golem
-	name = "golem's hands"
-	desc = "strong golem hands"
-	icon_state = "golem"
-	item_state = null
-	flags = ABSTRACT | NODROP

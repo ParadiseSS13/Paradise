@@ -149,12 +149,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/kitchen/knife/butcher/meatcleaver
-	name = "Meat Cleaver"
+	name = "meat cleaver"
 	icon_state = "mcleaver"
 	item_state = "butch"
-	desc = "A huge thing used for chopping and chopping up meat. This includes clowns and clown-by-products."
-	force = 25.0
-	throwforce = 15.0
+	force = 25
+	throwforce = 15
 
 /obj/item/kitchen/knife/combat
 	name = "combat knife"

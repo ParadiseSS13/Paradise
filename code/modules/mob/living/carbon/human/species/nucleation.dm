@@ -34,7 +34,7 @@
 	H.light_color = "#1C1C00"
 	H.set_light(2)
 
-/datum/species/nucleation/handle_death(mob/living/carbon/human/H)
+/datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death

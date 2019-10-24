@@ -74,7 +74,11 @@
 	var/a_intent = INTENT_HELP//Living
 	var/m_intent = MOVE_INTENT_RUN//Living
 	var/lastKnownIP = null
+	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null//Living
+	/// movable atom we are buckled to
+	var/atom/movable/buckling
+
 	var/obj/item/l_hand = null//Living
 	var/obj/item/r_hand = null//Living
 	var/obj/item/back = null//Human/Monkey

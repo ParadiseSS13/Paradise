@@ -681,6 +681,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_lmg
 	name = "Exosuit Weapon (\"Ultra AC 2\" LMG)"
@@ -691,6 +692,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_banana_mortar
 	name = "H.O.N.K Banana Mortar"
@@ -891,6 +893,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_laser
 	name = "Exosuit Weapon (CH-PL \"Firedart\" Laser)"
@@ -902,6 +905,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_disabler
 	name = "Exosuit Weapon (CH-PD Disabler)"
@@ -913,6 +917,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_carbine
 	name = "Exosuit Weapon (FNX-99 \"Hades\" Carbine)"
@@ -924,6 +929,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_scattershot
 	name = "Exosuit Weapon (LBX AC 10 \"Scattershot\")"
@@ -935,6 +941,7 @@
 	materials = list(MAT_METAL=10000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_ion
 	name = "Exosuit Weapon (MKIV Ion Heavy Cannon)"
@@ -946,6 +953,7 @@
 	materials = list(MAT_METAL=20000,MAT_SILVER=6000,MAT_URANIUM=2000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_grenade_launcher
 	name = "Exosuit Weapon (SGL-6 Grenade Launcher)"
@@ -957,6 +965,7 @@
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_missile_rack
 	name = "Exosuit Weapon (SRM-8 Missile Rack)"
@@ -968,6 +977,7 @@
 	materials = list(MAT_METAL=22000,MAT_GOLD=6000,MAT_SILVER=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_plasma_cutter
 	name = "Exosuit Module Design (217-D Heavy Plasma Cutter)"
@@ -990,6 +1000,7 @@
 	materials = list(MAT_METAL=20000,MAT_SILVER=8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 /datum/design/mech_immolator
 	name = "Exosuit Weapon (ZFI Immolation Beam Gun)"
@@ -1001,6 +1012,7 @@
 	materials = list(MAT_METAL = 10000, MAT_SILVER = 8000, MAT_PLASMA = 8000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
+	locked = 1
 
 //Cyborg Upgrade Modules
 
@@ -1060,6 +1072,7 @@
 	materials = list(MAT_METAL=80000 , MAT_GLASS=6000 , MAT_GOLD= 2000, MAT_DIAMOND = 500)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
+
 
 /datum/design/borg_upgrade_diamonddrill
 	name = "Cyborg Upgrade (Diamond Drill)"

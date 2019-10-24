@@ -12,7 +12,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 /obj/machinery/atmospherics
 	anchored = 1
 	layer = GAS_PIPE_HIDDEN_LAYER  //under wires
-	plane = FLOOR_PLANE	
+	plane = FLOOR_PLANE
 	idle_power_usage = 0
 	active_power_usage = 0
 	power_channel = ENVIRON
@@ -66,7 +66,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	if(level == 2 || !T.intact)
 		plane = GAME_PLANE
 	else
-		plane = FLOOR_PLANE	
+		plane = FLOOR_PLANE
 
 /obj/machinery/atmospherics/proc/update_pipe_image()
 	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir) //the 20 puts it above Byond's darkness (not its opacity view)
@@ -258,7 +258,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 	if(!direction || !(direction in cardinal)) //cant go this way.
 		return
 
-	if(buckled_mob == user)
+	if(user in buckled_mobs)// fixes buckle ventcrawl edgecase fuck bug
 		return
 
 	var/obj/machinery/atmospherics/target_move = findConnecting(direction)

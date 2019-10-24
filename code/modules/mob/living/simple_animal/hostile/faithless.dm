@@ -26,7 +26,7 @@
 	minbodytemp = 0
 
 	faction = list("faithless")
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/faithless/Process_Spacemove(var/movement_dir = 0)
 	return 1

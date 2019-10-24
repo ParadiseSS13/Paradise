@@ -3,9 +3,13 @@
 	block_chance = 50
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 30, bio = 0, rad = 0)
 
-/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
+	if(owner.get_active_hand())
+		final_block_chance += 25
+	else
+		final_block_chance -= 10
 	if(attack_type == LEAP_ATTACK)
 		final_block_chance = 100
 	return ..()
@@ -39,6 +43,12 @@
 	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>."
 	icon_state = "roman_shield"
 	item_state = "roman_shield"
+	materials = list(MAT_METAL=8500)
+
+/obj/item/shield/riot/roman/fake
+	desc = "Bears an inscription on the inside: <i>\"Romanes venio domus\"</i>. It appears to be a bit flimsy."
+	block_chance = 0
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 
 /obj/item/shield/riot/buckler
 	name = "wooden buckler"
@@ -52,7 +62,7 @@
 
 /obj/item/shield/energy
 	name = "energy combat shield"
-	desc = "A shield capable of stopping most melee attacks. Protects user from almost all energy projectiles. It can be retracted, expanded, and stored anywhere."
+	desc = "A shield that reflects almost all energy projectiles, but is useless against physical attacks. It can be retracted, expanded, and stored anywhere."
 	icon_state = "eshield0" // eshield1 for expanded
 	force = 3
 	throwforce = 3
@@ -63,7 +73,7 @@
 	attack_verb = list("shoved", "bashed")
 	var/active = 0
 
-/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/shield/energy/IsReflect()
@@ -110,7 +120,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	var/active = 0
 
-/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/shield/riot/tele/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
 		return ..()
 	return 0

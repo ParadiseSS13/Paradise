@@ -319,9 +319,9 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 			var/mob/living/carbon/human/V = owner
 			if(!H.ckey && !H.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
 				to_chat(V, "<span class='notice'><b>Feeding on [H] reduces your thirst, but you get no usable blood from them.</b></span>")
-				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5)
+				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + 5))
 			else
-				V.nutrition = min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2))
+				V.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, V.nutrition + (blood / 2)))
 
 
 	draining = null

@@ -29,17 +29,17 @@
 	return
 
 /turf/simulated/wall/indestructible/attackby(obj/item/I, mob/user, params)
-	return 
+	return
 
 /turf/simulated/wall/indestructible/attack_hand(mob/user)
-	return 
+	return
 
 /turf/simulated/wall/indestructible/attack_hulk(mob/user, does_attack_animation = FALSE)
 	return
 
 /turf/simulated/wall/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
-	
+
 /turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
@@ -66,9 +66,9 @@
 
 /turf/simulated/wall/indestructible/hierophant
 	name = "wall"
-	desc = "A wall made out of smooth, cold stone."
+	desc = "A wall made out of a strange metal. The squares on it pulse in a predictable pattern."
 	icon = 'icons/turf/walls/hierophant_wall.dmi'
-	icon_state = "hierophant"
+	icon_state = "wall"
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/wall/indestructible/uranium

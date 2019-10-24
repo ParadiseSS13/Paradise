@@ -74,7 +74,7 @@
 	if(istype(O) && O.owner == src)
 		. = 0 // keep a good grip on your heart
 
-/mob/living/carbon/human/unEquip(obj/item/I)
+/mob/living/carbon/human/unEquip(obj/item/I, force)
 	. = ..() //See mob.dm for an explanation on this and some rage about people copypasting instead of calling ..() like they should.
 	if(!. || !I)
 		return
@@ -411,148 +411,8 @@
 
 	..(what, who, where, silent = is_silent)
 
-/mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = 0)
-	switch(dna.species.handle_can_equip(I, slot, disable_warning, src))
-		if(1)	return TRUE
-		if(2)	return FALSE //if it returns 2, it wants no normal handling
-	if(!has_organ_for_slot(slot))
-		return FALSE
-	
-	if(istype(I, /obj/item/clothing/under) || istype(I, /obj/item/clothing/suit))
-		if(FAT in mutations)
-			//testing("[M] TOO FAT TO WEAR [src]!")
-			if(!(I.flags_size & ONESIZEFITSALL))
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You're too fat to wear the [I].</span>")
-				return FALSE
-
-	switch(slot)
-		if(slot_l_hand)
-			return !l_hand && !incapacitated()
-		if(slot_r_hand)
-			return !r_hand && !incapacitated()
-		if(slot_wear_mask)
-			return !wear_mask && (I.slot_flags & SLOT_MASK)
-		if(slot_back)
-			return !back && (I.slot_flags & SLOT_BACK)
-		if(slot_wear_suit)
-			return !wear_suit && (I.slot_flags & SLOT_OCLOTHING)
-		if(slot_gloves)
-			return !gloves && (I.slot_flags & SLOT_GLOVES)
-		if(slot_shoes)
-			return !shoes && (I.slot_flags & SLOT_FEET)
-		if(slot_belt)
-			if(belt)
-				return 0
-			if(!w_uniform)
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
-				return 0
-			if(!(I.slot_flags & SLOT_BELT))
-				return
-			return 1
-		if(slot_glasses)
-			return !glasses && (I.slot_flags & SLOT_EYES)
-		if(slot_head)
-			return !head && (I.slot_flags & SLOT_HEAD)
-		if(slot_l_ear)
-			return !l_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && r_ear)
-		if(slot_r_ear)
-			return !r_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && l_ear)
-		if(slot_w_uniform)
-			return !w_uniform && (I.slot_flags & SLOT_ICLOTHING)
-		if(slot_wear_id)
-			if(wear_id)
-				return 0
-			if(!w_uniform)
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
-				return 0
-			if(!(I.slot_flags & SLOT_ID))
-				return 0
-			return 1
-		if(slot_wear_pda)
-			if(wear_pda)
-				return 0
-			if(!w_uniform)
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
-				return 0
-			if(!(I.slot_flags & SLOT_PDA))
-				return 0
-			return 1
-		if(slot_l_store)
-			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
-				return 0
-			if(l_store)
-				return 0
-			if(!w_uniform)
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
-				return 0
-			if(I.slot_flags & SLOT_DENYPOCKET)
-				return
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
-				return 1
-		if(slot_r_store)
-			if(I.flags & NODROP)
-				return 0
-			if(r_store)
-				return 0
-			if(!w_uniform)
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
-				return 0
-			if(I.slot_flags & SLOT_DENYPOCKET)
-				return 0
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
-				return 1
-			return 0
-		if(slot_s_store)
-			if(I.flags & NODROP) //Suit storage NODROP items drop if you take a suit off, this is to prevent people exploiting this.
-				return 0
-			if(s_store)
-				return 0
-			if(!wear_suit)
-				if(!disable_warning)
-					to_chat(src, "<span class='alert'>You need a suit before you can attach this [name].</span>")
-				return 0
-			if(!wear_suit.allowed)
-				if(!disable_warning)
-					to_chat(src, "You somehow have a suit with no defined allowed items for suit storage, stop that.")
-				return 0
-			if(I.w_class > WEIGHT_CLASS_BULKY)
-				if(!disable_warning)
-					to_chat(src, "The [name] is too big to attach.")
-				return 0
-			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, wear_suit.allowed))
-				return 1
-			return 0
-		if(slot_handcuffed)
-			return !handcuffed && istype(I, /obj/item/restraints/handcuffs)
-		if(slot_legcuffed)
-			return !legcuffed && istype(I, /obj/item/restraints/legcuffs)
-		if(slot_in_backpack)
-			if(back && istype(back, /obj/item/storage/backpack))
-				var/obj/item/storage/backpack/B = back
-				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
-					return 1
-			return 0
-		if(slot_tie)
-			if(!w_uniform)
-				if(!disable_warning)
-					to_chat(src, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
-				return 0
-			var/obj/item/clothing/under/uniform = w_uniform
-			if(uniform.accessories.len && !uniform.can_attach_accessory(src))
-				if(!disable_warning)
-					to_chat(src, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
-				return 0
-			if(!(I.slot_flags & SLOT_TIE))
-				return 0
-			return 1
-
-	return 0 //Unsupported slot
+/mob/living/carbon/human/can_equip(obj/item/I, slot, disable_warning = FALSE)
+	return dna.species.can_equip(I, slot, disable_warning, src)
 
 /mob/living/carbon/human/proc/equipOutfit(outfit, visualsOnly = FALSE)
 	var/datum/outfit/O = null
@@ -572,5 +432,3 @@
 /mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
-	for(var/obj/item/I in l_hand, r_hand)
-		qdel(I)

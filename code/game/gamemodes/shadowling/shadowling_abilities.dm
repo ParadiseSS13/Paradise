@@ -45,14 +45,14 @@
 		if(M in view_or_range(range, user, "view"))
 			targets += M
 
-	
+
 	if(!targets.len) //doesn't waste the spell
 		revert_cast(user)
 		return
 
 	perform(targets, user = user)
 	return
-	
+
 
 /obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/human/target in targets)
@@ -139,8 +139,6 @@
 		target.ExtinguishMob()
 		var/turf/T = get_turf(target)
 		target.forceMove(T) //to properly move the mob out of a potential container
-		if(target.buckled)
-			target.buckled.unbuckle_mob()
 		if(target.pulledby)
 			target.pulledby.stop_pulling()
 		target.stop_pulling()
@@ -543,7 +541,7 @@
 		to_chat(user, "<span class='warning'>You must stand next to an APC to drain it!</span>")
 		charge_counter = charge_max
 		return
-	
+
 	if(target_apc.cell?.charge == 0)
 		to_chat(user, "<span class='warning'>APC must have a power to drain!</span>")
 		charge_counter = charge_max

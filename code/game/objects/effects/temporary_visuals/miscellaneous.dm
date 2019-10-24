@@ -90,6 +90,10 @@
 /obj/effect/temp_visual/dir_setting/wraith/out
 	icon_state = "phase_shift"
 
+/obj/effect/temp_visual/dir_setting/tailsweep
+	icon_state = "tailsweep"
+	duration = 4
+
 /obj/effect/temp_visual/wizard
 	name = "water"
 	icon = 'icons/mob/mob.dmi'

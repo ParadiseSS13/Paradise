@@ -20,22 +20,11 @@
 /datum/chemical_reaction/proc/on_reaction(datum/reagents/holder, created_volume)
 	return
 
-var/list/chemical_mob_spawn_meancritters = list() // list of possible hostile mobs
-var/list/chemical_mob_spawn_nicecritters = list() // and possible friendly mobs
-/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_faction = "chemicalsummon")
+/datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE)
 	if(holder && holder.my_atom)
-		if(chemical_mob_spawn_meancritters.len <= 0 || chemical_mob_spawn_nicecritters.len <= 0)
-			for(var/T in typesof(/mob/living/simple_animal))
-				var/mob/living/simple_animal/SA = T
-				switch(initial(SA.gold_core_spawnable))
-					if(CHEM_MOB_SPAWN_HOSTILE)
-						chemical_mob_spawn_meancritters += T
-					if(CHEM_MOB_SPAWN_FRIENDLY)
-						chemical_mob_spawn_nicecritters += T
 		var/atom/A = holder.my_atom
 		var/turf/T = get_turf(A)
-		var/area/my_area = get_area(T)
-		var/message = "A [reaction_name] reaction has occured in [my_area.name]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</A>)"
+		var/message = "A [reaction_name] reaction has occurred in [ADMIN_VERBOSEJMP(T)]"
 		message += " ([ADMIN_VV(A,"VV")])"
 
 		var/mob/M = get(A, /mob)
@@ -45,23 +34,23 @@ var/list/chemical_mob_spawn_nicecritters = list() // and possible friendly mobs
 			message += " - Last Fingerprint: [(A.fingerprintslast ? A.fingerprintslast : "N/A")]"
 
 		message_admins(message, 0, 1)
+		log_game("[reaction_name] chemical mob spawn reaction occuring at [AREACOORD(T)] carried by [key_name(M)] with last fingerprint [A.fingerprintslast? A.fingerprintslast : "N/A"]")
 
 		playsound(get_turf(holder.my_atom), 'sound/effects/phasein.ogg', 100, 1)
 
 		for(var/mob/living/carbon/C in viewers(get_turf(holder.my_atom), null))
 			C.flash_eyes()
-		for(var/i = 1, i <= amount_to_spawn, i++)
-			var/chosen
-			if(reaction_name == "Friendly Gold Slime")
-				chosen = pick(chemical_mob_spawn_nicecritters)
+
+		for(var/i in 1 to amount_to_spawn)
+			var/mob/living/simple_animal/S
+			if(random)
+				S = create_random_mob(get_turf(holder.my_atom), mob_class)
 			else
-				chosen = pick(chemical_mob_spawn_meancritters)
-			var/mob/living/simple_animal/C = new chosen
-			C.faction |= mob_faction
-			C.forceMove(get_turf(holder.my_atom))
+				S = new mob_class(get_turf(holder.my_atom))//Spawn our specific mob_class
+			S.faction |= mob_faction
 			if(prob(50))
 				for(var/j = 1, j <= rand(1, 3), j++)
-					step(C, pick(NORTH,SOUTH,EAST,WEST))
+					step(S, pick(NORTH,SOUTH,EAST,WEST))
 
 /proc/goonchem_vortex(turf/T, setting_type, volume)
 	if(setting_type)

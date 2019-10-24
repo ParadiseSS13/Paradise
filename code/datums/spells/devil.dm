@@ -131,14 +131,6 @@
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
 	ExtinguishMob()
-	if(buckled)
-		buckled.unbuckle_mob(src,force=1)
-	if(has_buckled_mobs())
-		unbuckle_mob()
-	if(pulledby)
-		pulledby.stop_pulling()
-	if(pulling)
-		stop_pulling()
 	forceMove(s_holder)
 	holder = s_holder
 	notransform = FALSE

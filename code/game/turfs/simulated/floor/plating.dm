@@ -37,7 +37,7 @@
 	. = ..()
 
 	if(unfastened)
-		to_chat(user, "<span class='warning'>It has been unfastened.</span>")
+		. += "<span class='warning'>It has been unfastened.</span>"
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())

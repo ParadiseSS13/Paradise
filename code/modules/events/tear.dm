@@ -27,32 +27,25 @@
 	unacidable = 1
 	density = 0
 	anchored = 1
-	luminosity = 3
-	var/list/tear_critters = list()
+	light_range = 3
 
-/obj/effect/tear/New()
-	..()
-	var/atom/movable/overlay/animation = null
-	animation = new(loc)
+/obj/effect/tear/Initialize(mapload)
+	. = ..()
+	var/atom/movable/overlay/animation = new(loc)
 	animation.icon_state = "newtear"
 	animation.icon = 'icons/effects/tear.dmi'
 	animation.master = src
-//	flick("newtear",usr)
 	spawn(15)
 		if(animation)
 			qdel(animation)
 
-	spawn(rand(30,120))
-		for(var/T in typesof(/mob/living/simple_animal))
-			var/mob/living/simple_animal/SA = T
-			if(initial(SA.gold_core_spawnable) == CHEM_MOB_SPAWN_HOSTILE)
-				tear_critters += T
+	addtimer(CALLBACK(src, .proc/spew_critters), rand(30, 120))
 
-		for(var/i in 1 to 5)
-			var/chosen = pick(tear_critters)
-			var/mob/living/simple_animal/C = new chosen
-			C.faction |= "chemicalsummon"
-			C.forceMove(get_turf(src))
-			if(prob(50))
-				for(var/j = 1, j <= rand(1, 3), j++)
-					step(C, pick(NORTH,SOUTH,EAST,WEST))
+/obj/effect/tear/proc/spew_critters()
+	for(var/i in 1 to 5)
+		var/mob/living/simple_animal/S
+		S = create_random_mob(get_turf(src), HOSTILE_SPAWN)
+		S.faction |= "chemicalsummon"
+		if(prob(50))
+			for(var/j = 1, j <= rand(1, 3), j++)
+				step(S, pick(NORTH, SOUTH, EAST, WEST))

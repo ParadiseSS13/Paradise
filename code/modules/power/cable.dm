@@ -595,15 +595,14 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/stack/cable_coil/examine(mob/user)
-	if(!..(user, 1))
-		return
-
-	if(get_amount() == 1)
-		to_chat(user, "A short piece of power cable.")
-	else if(get_amount() == 2)
-		to_chat(user, "A piece of power cable.")
-	else
-		to_chat(user, "A coil of power cable. There are [get_amount()] lengths of cable in the coil.")
+	. = ..()
+	if(in_range(user, src))
+		if(get_amount() == 1)
+			. += "A short piece of power cable."
+		else if(get_amount() == 2)
+			. += "A piece of power cable."
+		else
+			. += "A coil of power cable. There are [get_amount()] lengths of cable in the coil."
 
 // Items usable on a cable coil :
 //   - Wirecutters : cut them duh !

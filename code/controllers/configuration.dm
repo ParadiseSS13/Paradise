@@ -247,6 +247,12 @@
 	// Lavaland
 	var/lavaland_budget = 60
 
+	//cube monkey limit
+	var/cubemonkeycap = 20
+	
+	// Makes gamemodes respect player limits
+	var/enable_gamemode_player_limit = 0
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -731,6 +737,8 @@
 					config.developer_express_start = 1
 				if("disable_localhost_admin")
 					config.disable_localhost_admin = 1
+				if("enable_gamemode_player_limit")
+					config.enable_gamemode_player_limit = 1
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -793,6 +801,8 @@
 					config.enable_night_shifts = TRUE
 				if("lavaland_budget")
 					config.lavaland_budget = text2num(value)
+				if("cubemonkey_cap")
+					config.cubemonkeycap = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

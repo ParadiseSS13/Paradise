@@ -1,10 +1,11 @@
 /mob/living/simple_animal/hostile/russian
 	name = "Russian"
 	desc = "For the Motherland!"
+	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "russianmelee"
 	icon_living = "russianmelee"
-	icon_dead = "russianmelee_dead"
-	icon_gib = "syndicate_gib"
+	icon_dead = "russianmelee_dead" // Does not actually exist. del_on_death.
+	icon_gib = "russianmelee_gib" // Does not actually exist. del_on_death.
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"

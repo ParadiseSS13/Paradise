@@ -9,7 +9,7 @@
 	throw_range = 2
 	throw_speed = 1
 	layer = 4
-	pressure_resistance = 1
+	pressure_resistance = 2
 	attack_verb = list("bapped")
 	var/amount = 0 //Amount of items clipped to the paper. Note: If you have 2 paper, this should be 1
 	var/page = 1
@@ -100,10 +100,11 @@
 				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
 
 /obj/item/paper_bundle/examine(mob/user)
-	if(..(user, 1))
-		src.show_content(user)
+	. = ..()
+	if(in_range(user, src))
+		show_content(user)
 	else
-		to_chat(user, "<span class='notice'>It is too far away.</span>")
+		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/paper_bundle/proc/show_content(mob/user as mob)
 	var/dat

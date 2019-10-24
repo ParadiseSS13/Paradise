@@ -35,7 +35,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	can_hide = 1
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/kiwi/handle_automated_movement()
 	..()

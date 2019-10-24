@@ -33,7 +33,7 @@
 
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
-	to_chat(user, "This is a [generation]\th generation [name]!")
+	. += "This is a [generation]\th generation [name]!"
 
 /obj/structure/glowshroom/Destroy()
 	QDEL_NULL(myseed)

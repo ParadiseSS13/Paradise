@@ -272,7 +272,7 @@
 
 
 //All atoms
-/atom/proc/examine(mob/user, var/distance = -1, var/infix = "", var/suffix = "")
+/atom/proc/examine(mob/user, infix = "", suffix = "")
 	//This reformat names to get a/an properly working on item descriptions when they are bloody
 	var/f_name = "\a [src][infix]."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
@@ -284,33 +284,30 @@
 			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
 		else
 			f_name += "oil-stained [name][infix]."
-
-	to_chat(user, "[bicon(src)] That's [f_name] [suffix]")
+	. = list("[bicon(src)] That's [f_name] [suffix]")
 	if(desc)
-		to_chat(user, desc)
+		. += desc
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			to_chat(user, "<span class='notice'>It contains:</span>")
+			. += "<span class='notice'>It contains:</span>"
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						to_chat(user, "<span class='notice'>[R.volume] units of [R.name]</span>")
+						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						to_chat(user, "<span class='notice'>[reagents.total_volume] units of various reagents.</span>")
+						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
 			else
-				to_chat(user, "<span class='notice'>Nothing.</span>	")
+				. += "<span class='notice'>Nothing.</span>"
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				to_chat(user, "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>")
+				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
-				to_chat(user, "<span class='danger'>It's empty.</span>")
+				. += "<span class='danger'>It's empty.</span>"
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user)
-
-	return distance == -1 || (get_dist(src, user) <= distance) || isobserver(user) //observers do not have a range limit
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 /atom/proc/relaymove()
 	return

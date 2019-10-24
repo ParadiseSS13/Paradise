@@ -194,11 +194,19 @@
 	id = "life"
 	result = null
 	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "blood" = 1)
-	result_amount = 3
+	result_amount = 1
 	min_temp = T0C + 100
 
 /datum/chemical_reaction/life/on_reaction(datum/reagents/holder, created_volume)
-	chemical_mob_spawn(holder, 1, "Life")
+	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (hostile)") //defaults to HOSTILE_SPAWN
+
+/datum/chemical_reaction/life/friendly
+	name = "Life (Friendly)"
+	id = "life_friendly"
+	required_reagents = list("strange_reagent" = 1, "synthflesh" = 1, "sugar" = 1)
+
+/datum/chemical_reaction/life/friendly/on_reaction(datum/reagents/holder, created_volume)
+	chemical_mob_spawn(holder, rand(1, round(created_volume, 1)), "Life (friendly)", FRIENDLY_SPAWN)
 
 /datum/chemical_reaction/mannitol
 	name = "Mannitol"

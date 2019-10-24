@@ -220,7 +220,7 @@
 		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
 		return
 
-	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src) as text|null
+	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src)
 
 	if(!msg)
 		return

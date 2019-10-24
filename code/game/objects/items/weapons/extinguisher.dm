@@ -40,7 +40,7 @@
 
 /obj/item/extinguisher/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>The safety is [safety ? "on" : "off"].</span>")
+	. += "<span class='notice'>The safety is [safety ? "on" : "off"].</span>"
 
 
 /obj/item/extinguisher/New()

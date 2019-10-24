@@ -84,7 +84,6 @@
 	name = "security suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
-	magboots_type = /obj/item/clothing/shoes/magboots
 	req_access = list(access_security)
 
 /obj/machinery/suit_storage_unit/security/secure
@@ -130,7 +129,6 @@
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage
 	name = "medical suit storage unit"
 	mask_type = /obj/item/clothing/mask/gas
-	magboots_type = /obj/item/clothing/shoes/magboots
 
 /obj/machinery/suit_storage_unit/clown
 	name = "clown suit storage unit"
@@ -154,7 +152,6 @@
 	name = "syndicate suit storage unit"
 	suit_type   	 = /obj/item/clothing/suit/space/hardsuit/syndi
 	mask_type    	= /obj/item/clothing/mask/gas/syndicate
-	magboots_type 	= /obj/item/clothing/shoes/magboots/syndie
 	storage_type 	= /obj/item/tank/jetpack/oxygen/harness
 	req_access = list(access_syndicate)
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.

@@ -12,7 +12,7 @@
 	volume = 750
 
 	var/minrate = 0//probably useless, but whatever
-	var/maxrate = 10 * ONE_ATMOSPHERE / 4
+	var/maxrate = 10 * ONE_ATMOSPHERE
 
 /obj/machinery/portable_atmospherics/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

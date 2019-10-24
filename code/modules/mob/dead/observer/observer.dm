@@ -97,9 +97,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
-	..()
+	. = ..()
 	if(!invisibility)
-		to_chat(user, "It seems extremely obvious.")
+		. += "It seems extremely obvious."
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -324,15 +324,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
-	set name = "Toggle Medic/Sec/Diag/All HUDs"
+	set name = "Toggle All/Sec/Med/Diag HUDs"
 	set desc = "Toggles the HUDs."
 	if(!client)
 		return
 
 	switch(data_hud_seen) //give new huds
 		if(FALSE)
-			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
+			data_hud_seen = DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
+			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
+			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
+		if(DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)	
+			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
+			remove_the_hud(DATA_HUD_DIAGNOSTIC)
+			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
 		if(DATA_HUD_SECURITY_ADVANCED)
 			data_hud_seen = DATA_HUD_MEDICAL_ADVANCED
@@ -344,15 +351,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
-		if(DATA_HUD_DIAGNOSTIC)
-			data_hud_seen = data_hud_seen + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
-			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
-			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
 		else
 			data_hud_seen = FALSE
-			remove_the_hud(DATA_HUD_DIAGNOSTIC)
-			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>HUDs disabled.</span>")
 

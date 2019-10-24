@@ -311,9 +311,3 @@
 		0, 0, 0, 0
 		)
 	screen_loc = "CENTER-7,CENTER-7"
-
-
-#undef LOOP_NONE
-#undef LOOP_NORMAL
-#undef LOOP_REVERSE
-#undef LOOP_TIME
