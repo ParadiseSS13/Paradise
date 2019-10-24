@@ -897,10 +897,11 @@
 		if("puke")
 			if(ismachine(src))
 				return
-			if(handle_emote_CD(100))
+			if(handle_emote_CD(600))
 				to_chat(src, "<span class='warning'>You are still recovering forces.</span>")
 				return
 			else
+				to_chat(viewers(src), "<span class='warning'>[src] brings [p_their()] fingers to [p_their()] mouth and vomits on the floor!</span>")
 				src.vomit()
 				return
 
