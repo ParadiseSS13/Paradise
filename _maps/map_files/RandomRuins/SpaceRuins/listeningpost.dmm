@@ -269,6 +269,10 @@
 	icon_state = "freezerfloor"
 	},
 /area/ruin/powered)
+"Y" = (
+/obj/item/gps/ruin,
+/turf/simulated/wall/r_wall,
+/area/ruin/powered)
 
 (1,1,1) = {"
 a
@@ -960,7 +964,7 @@ b
 f
 f
 p
-f
+Y
 f
 f
 j
