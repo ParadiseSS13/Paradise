@@ -58,6 +58,9 @@
 	desc = "A grasping tool used to help patients up once surgery is complete."
 	can_hold = list()
 
+/obj/item/gripper/medical/attack_self(mob/user)
+	return
+
 /obj/item/gripper/medical/afterattack(atom/target, mob/living/user, proximity, params)
 	var/mob/living/carbon/human/H
 	if(!gripped_item && proximity && target && ishuman(target))
@@ -93,11 +96,11 @@
 		else
 			drop_gripped_item()
 	else
-		to_chat(user, "<span class='warning'>Your gripper is empty.</span>")
+		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 
 /obj/item/gripper/proc/drop_gripped_item(silent = 0)
 	if(!silent)
-		to_chat(src.loc, "<span class='warning'>You drop the [gripped_item].</span>")
+		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
@@ -109,7 +112,7 @@
 	if(!target || !proximity) //Target is invalid or we are not adjacent.
 		return FALSE
 
-	else if(gripped_item) //Already have an item.
+	if(gripped_item) //Already have an item.
 
 		//Pass the attack on to the target. This might delete/relocate gripped_item.
 		if(!target.attackby(gripped_item, user, params))
@@ -127,11 +130,11 @@
 	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
-			to_chat(user, "You collect the [I].")
+			to_chat(user, "You collect [I].")
 			I.forceMove(src)
 			gripped_item = I
 		else
-			to_chat(user, "<span class='warning'>Your gripper cannot hold the [target].</span>")
+			to_chat(user, "<span class='warning'>Your gripper cannot hold [target].</span>")
 			return FALSE
 
 	else if(istype(target,/obj/machinery/power/apc))
@@ -150,6 +153,7 @@
 				A.update_icon()
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
+	return TRUE
 
 //TODO: Matter decompiler.
 /obj/item/matter_decompiler
