@@ -70,6 +70,9 @@
 				to_chat(src, "<span class='warning'>[L] is restrained, you cannot push past.</span>")
 			return 1
 
+		if(pulledby == L) //prevents boosting the person pulling you
+			return 1
+
 		if(L.pulling)
 			if(ismob(L.pulling))
 				var/mob/P = L.pulling
