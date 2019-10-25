@@ -107,8 +107,8 @@
 	if(charging)
 		if(istype(charging, /obj/item/gun/energy))
 			var/obj/item/gun/energy/E = charging
-			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
+			if(E.cell.charge < E.cell.maxcharge)
+				E.cell.give(E.cell.chargerate * recharge_coeff)
 				E.on_recharge()
 				use_power(250)
 				using_power = TRUE
@@ -141,8 +141,8 @@
 
 		if(istype(charging, /obj/item/bodyanalyzer))
 			var/obj/item/bodyanalyzer/B = charging
-			if(B.power_supply)
-				if(B.power_supply.give(B.power_supply.chargerate))
+			if(B.cell)
+				if(B.cell.give(B.cell.chargerate))
 					use_power(200)
 					using_power = TRUE
 
@@ -155,8 +155,8 @@
 
 	if(istype(charging,  /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = charging
-		if(E.power_supply)
-			E.power_supply.emp_act(severity)
+		if(E.cell)
+			E.cell.emp_act(severity)
 
 	else if(istype(charging, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = charging

@@ -173,9 +173,9 @@
 							F.icon_state = "flash"
 					if(istype(O,/obj/item/gun/energy/disabler/cyborg))
 						var/obj/item/gun/energy/disabler/cyborg/D = O
-						if(D.power_supply.charge < D.power_supply.maxcharge)
+						if(D.cell.charge < D.cell.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.power_supply.give(E.e_cost)
+							D.cell.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
 						else
