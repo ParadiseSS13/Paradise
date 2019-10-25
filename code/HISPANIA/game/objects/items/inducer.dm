@@ -49,7 +49,7 @@
 	update_icon()
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
-	powertransfer = min(mintransfer, (cell.maxcharge * ratio))
+	powertransfer = max(mintransfer, (cell.maxcharge * ratio))
 	var/totransfer = min(cell.charge,(powertransfer * coefficient))
 	var/transferred = target.give(totransfer)
 	cell.use(transferred)
