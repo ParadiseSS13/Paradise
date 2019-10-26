@@ -13,11 +13,11 @@
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
 	var/powertransfer = null
-	var/ratio = 0.1
+	var/ratio = 0.15
 	var/recharging = FALSE
-	var/area/myarea
-	var/mintransfer = 1000
-
+	var/mintransfer = 250
+	var/self_charge
+	var/self_charge_coeff = 10
 
 /obj/item/inducer/Initialize()
 	. = ..()
@@ -31,28 +31,33 @@
 	return ..()
 
 /obj/item/inducer/process()
+	if(opened)
+		return
 	if(!cell)
 		return
 	if(cell.percent() >= 100)
 		return
 	if(recharging)
 		return
-	myarea = get_area(src)
-	var/pow_chan
-	for(var/c in list(EQUIP))
-		if(myarea.powered(c))
-			pow_chan = c
-			break
-	if(pow_chan)
-		cell.give(50)
-		myarea.use_power(200)
-	update_icon()
+	var/area/myarea = get_area(src)
+	if(myarea)
+		var/pow_chan
+		for(var/c in list(EQUIP))
+			if(myarea.powered(c))
+				pow_chan = c
+				break
+		if(pow_chan)
+			self_charge = (cell.chargerate) * 0.125
+			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
+			cell.give(delta)
+			myarea.use_power((delta * self_charge_coeff), pow_chan)
+			cell.update_icon()
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
-	powertransfer = max(mintransfer, (cell.maxcharge * ratio))
-	var/totransfer = min(cell.charge,(powertransfer * coefficient))
-	var/transferred = target.give(totransfer)
-	cell.use(transferred)
+	powertransfer = max(mintransfer, (target.maxcharge * ratio))
+	var/totransfer = min(cell.charge, powertransfer)
+	target.give(totransfer * coefficient)
+	cell.use(totransfer)
 	cell.update_icon()
 	target.update_icon()
 
@@ -112,6 +117,10 @@
 		to_chat(user, "<span class='warning'>[src]'s battery is dead!</span>")
 		return FALSE
 
+	if(opened)
+		to_chat(user,"<span class='notice'>Its battery compartment is open.</span>")
+		return FALSE
+
 	if(!isturf(A) && user.loc == A)
 		return FALSE
 
@@ -143,7 +152,7 @@
 			return TRUE
 		user.visible_message("[user] starts recharging [A] with [src].","<span class='notice'>You start recharging [A] with [src].</span>")
 		while(C.charge < C.maxcharge)
-			if(do_after(user, 20, target = user) && cell.charge)
+			if(do_after(user, 20, target = user) && cell.charge && !opened)
 				done_any = TRUE
 				induce(C, coefficient)
 				do_sparks(1, FALSE, A)
@@ -190,7 +199,7 @@
 /obj/item/inducer/examine(mob/living/M)
 	..()
 	if(cell)
-		to_chat(M, "<span class='notice'>Its display shows: [DisplayPower(cell.charge)].</span>")
+		to_chat(M, "<span class='notice'>Its display shows: [DisplayPower(cell.charge)] ([round(cell.percent() )]%).</span>")
 	else
 		to_chat(M,"<span class='notice'>Its display is dark.</span>")
 	if(opened)
@@ -211,10 +220,11 @@
 	desc = "A tool for inductively charging internal power cells. This one has a science color scheme, and is less potent than its engineering counterpart."
 	origin_tech = "powerstorage=4;materials=4;engineering=3"
 	cell_type = null
-	ratio = 0.05
 	opened = TRUE
-	mintransfer = 500
+	ratio = 0.1
+	mintransfer = 200
 
 /obj/item/inducer/sci/Initialize()
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	update_icon()
