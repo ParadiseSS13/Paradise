@@ -13,9 +13,10 @@
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
 	var/powertransfer = null
-	var/ratio = 0.15
+	var/ratio = 0.12	//determina que porcentaje de la bateria objetivo de la induccion es recargado, 12%
+	var/coefficient = 1.02	//determina que porcentje de energia, del a bateria interna, se pierde al inducir, 2%
+	var/mintransfer = 250	//determina el valor minimo de la energia inducida
 	var/recharging = FALSE
-	var/mintransfer = 250
 
 /obj/item/inducer/Initialize()
 	. = ..()
@@ -53,9 +54,9 @@
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
 	powertransfer = max(mintransfer, (target.maxcharge * ratio))
-	var/totransfer = min(cell.charge, powertransfer)
-	target.give(totransfer * coefficient)
-	cell.use(totransfer)
+	var/totransfer = min((cell.charge/coefficient), powertransfer)
+	var/transferred = target.give(totransfer)
+	cell.use(transferred * coefficient)
 	cell.update_icon()
 	target.update_icon()
 
@@ -136,7 +137,6 @@
 		recharging = FALSE
 		return FALSE
 	var/obj/O
-	var/coefficient = 1
 	if(istype(A, /obj/item/gun/energy))
 		to_chat(user,"<span class='warning'>Error unable to interface with device</span>")
 		return FALSE
@@ -219,7 +219,8 @@
 	origin_tech = "powerstorage=4;materials=4;engineering=3"
 	cell_type = null
 	opened = TRUE
-	ratio = 0.1
+	ratio = 0.1	//recarga un 10% de la bateria objetivo
+	coefficient = 1.05	//5% de energia desperdiciada
 	mintransfer = 200
 
 /obj/item/inducer/sci/Initialize()
