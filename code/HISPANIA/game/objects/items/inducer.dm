@@ -48,7 +48,7 @@
 			var/self_charge = (cell.chargerate)/8
 			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
 			cell.give(delta)
-			myarea.use_power((delta * 10), pow_chan)
+			myarea.use_power((delta * 150), pow_chan)
 			cell.update_icon()
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
