@@ -16,8 +16,6 @@
 	var/ratio = 0.15
 	var/recharging = FALSE
 	var/mintransfer = 250
-	var/self_charge
-	var/self_charge_coeff = 10
 
 /obj/item/inducer/Initialize()
 	. = ..()
@@ -47,10 +45,10 @@
 				pow_chan = c
 				break
 		if(pow_chan)
-			self_charge = (cell.chargerate) * 0.125
+			var/self_charge = (cell.chargerate)/8
 			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
 			cell.give(delta)
-			myarea.use_power((delta * self_charge_coeff), pow_chan)
+			myarea.use_power((delta * 10), pow_chan)
 			cell.update_icon()
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
