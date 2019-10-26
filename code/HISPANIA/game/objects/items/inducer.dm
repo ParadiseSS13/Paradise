@@ -46,7 +46,7 @@
 				pow_chan = c
 				break
 		if(pow_chan)
-			var/self_charge = (cell.chargerate)/8
+			var/self_charge = (cell.chargerate)/12
 			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
 			cell.give(delta)
 			myarea.use_power((delta * 150), pow_chan)
