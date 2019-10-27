@@ -15,8 +15,8 @@
 	build_type = MECHFAB
 	req_tech = list("magnets" = 5,"biotech" = 5, "combat" = 4, "materials" = 5, "engineering" = 4)
 	build_path = /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/large
-	materials = list(MAT_METAL=3000,MAT_GLASS=2000,MAT_TITANIUM=1000)
-	construction_time = 200
+	materials = list(MAT_METAL=4500,MAT_GLASS=3000,MAT_TITANIUM=3000)
+	construction_time = 250
 	category = list("Exosuit Equipment")
 
 
