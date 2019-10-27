@@ -14,9 +14,11 @@
 	var/obj/item/stock_parts/cell/cell
 	var/powertransfer = null
 	var/ratio = 0.12	//determina que porcentaje de la bateria objetivo de la induccion es recargado, 12%
-	var/coefficient = 1.02	//determina que porcentje de energia, del a bateria interna, se pierde al inducir, 2%
+	var/coefficient_base = 1.02	//determina que porcentje de energia, del a bateria interna, se pierde al inducir, 2%
 	var/mintransfer = 250	//determina el valor minimo de la energia inducida
 	var/recharging = FALSE
+	var/on = FALSE
+	var/powered = FALSE
 
 /obj/item/inducer/Initialize()
 	. = ..()
@@ -30,6 +32,8 @@
 	return ..()
 
 /obj/item/inducer/process()
+	if(!on)
+		return
 	if(opened)
 		return
 	if(!cell)
@@ -44,13 +48,19 @@
 		for(var/c in list(EQUIP))
 			if(myarea.powered(c))
 				pow_chan = c
+				powered = TRUE
 				break
+			else
+				if(powered)
+					powered = FALSE
+					visible_message("<span class='warning'>the area is unpowered, [src]'s self charge turns off temporarily.</span>")
 		if(pow_chan)
 			var/self_charge = (cell.chargerate)/12
 			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
 			cell.give(delta)
-			myarea.use_power((delta * 150), pow_chan)
+			myarea.use_power((delta * 160), pow_chan)
 			cell.update_icon()
+	update_icon()
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
 	powertransfer = max(mintransfer, (target.maxcharge * ratio))
@@ -117,7 +127,7 @@
 		return FALSE
 
 	if(opened)
-		to_chat(user,"<span class='notice'>Its battery compartment is open.</span>")
+		to_chat(user,"<span class='warning'>Its battery compartment is open.</span>")
 		return FALSE
 
 	if(!isturf(A) && user.loc == A)
@@ -137,10 +147,15 @@
 		recharging = FALSE
 		return FALSE
 	var/obj/O
+	var/coefficient = coefficient_base
 	if(istype(A, /obj/item/gun/energy))
 		to_chat(user,"<span class='warning'>Error unable to interface with device</span>")
 		return FALSE
+
 	if(istype(A, /obj))
+		if(istype(A, /obj/machinery/power/apc))
+			// 6.25*160 = 1000 = CELLRATE - los inducers son la unica cosa que no crea energia infinita
+			coefficient = 6.25
 		O = A
 	if(C)
 		var/done_any = FALSE
@@ -187,6 +202,22 @@
 	return ..()
 
 /obj/item/inducer/attack_self(mob/user)
+	if(!opened || (opened && !cell))
+		on = !on
+		if(on)
+			powered = TRUE
+			to_chat(user,"<span class='notice'>you turn on the self charge.</span>")
+		else
+			to_chat(user,"<span class='notice'>you turn off the self charge.</span>")
+		update_icon()
+	if(opened && cell && on && powered)
+		if(istype(user, /mob/living/carbon))
+			var/mob/living/carbon/C = user
+			C.electrocute_act(35, user, 1)
+			playsound(get_turf(user), 'sound/magic/lightningshock.ogg', 50, 1, -1)
+			new/obj/effect/temp_visual/revenant/cracks(user.loc)
+			to_chat(user, "<span class='warning'>[src] electrocutes you!</span>")
+			return
 	if(opened && cell)
 		user.visible_message("[user] removes [cell] from [src]!","<span class='notice'>You remove [cell].</span>")
 		cell.update_icon()
@@ -196,6 +227,10 @@
 
 /obj/item/inducer/examine(mob/living/M)
 	..()
+	if(on)
+		to_chat(M,"<span class='notice'>the self charge is on.</span>")
+	else
+		to_chat(M,"<span class='notice'>the self charge is off.</span>")
 	if(cell)
 		to_chat(M, "<span class='notice'>Its display shows: [DisplayPower(cell.charge)] ([round(cell.percent() )]%).</span>")
 	else
@@ -205,12 +240,23 @@
 
 /obj/item/inducer/update_icon()
 	cut_overlays()
-	if(opened)
-		if(!cell)
+	if(!cell)
+		add_overlay("inducer-unpowered")
+		if(opened)
 			add_overlay("inducer-nobat")
+	else
+		if(on)
+			if(cell.percent() >= 100)
+				add_overlay("inducer-charged")
+			else
+				if(powered)
+					add_overlay("inducer-on")
+				else
+					add_overlay("inducer-unpowered")
 		else
+			add_overlay("inducer-off")
+		if(opened)
 			add_overlay("inducer-bat")
-
 
 /obj/item/inducer/sci
 	icon_state = "inducer-sci"
@@ -220,7 +266,7 @@
 	cell_type = null
 	opened = TRUE
 	ratio = 0.1	//recarga un 10% de la bateria objetivo
-	coefficient = 1.05	//5% de energia desperdiciada
+	coefficient_base = 1.05	//5% de energia desperdiciada
 	mintransfer = 200
 
 /obj/item/inducer/sci/Initialize()
