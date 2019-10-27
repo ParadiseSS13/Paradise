@@ -1755,6 +1755,7 @@
 #include "code\modules\mob\living\carbon\death.dm"
 #include "code\modules\mob\living\carbon\give.dm"
 #include "code\modules\mob\living\carbon\life.dm"
+#include "code\modules\mob\living\carbon\status_procs.dm"
 #include "code\modules\mob\living\carbon\superheroes.dm"
 #include "code\modules\mob\living\carbon\update_icons.dm"
 #include "code\modules\mob\living\carbon\update_status.dm"
