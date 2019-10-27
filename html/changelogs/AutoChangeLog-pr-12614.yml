@@ -1,5 +1,0 @@
-author: "farie82"
-delete-after: True
-changes: 
-  - bugfix: "Fixed the invisible blob zombies"
-  - bugfix: "A runtime in blob/factory/run_action"
