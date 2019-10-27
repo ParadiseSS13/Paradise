@@ -104,7 +104,8 @@
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = 0
 	scan_reagents = 1 //You can see reagents while wearing science goggles
-
+	resistance_flags = ACID_PROOF
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi',
@@ -449,7 +450,7 @@
 	flags = NODROP
 	flags_cover = null
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi',

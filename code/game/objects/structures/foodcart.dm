@@ -173,32 +173,7 @@
 	update_icon()		//Not really needed without overlays, but keeping just in case
 	updateUsrDialog()
 
-/*
-Overlays for cart_unused
-/obj/structure/foodcart/update_icon()
-	overlays = null
-	if(food1)
-		overlays += "cart_food1"
-	if(food2)
-		overlays += "cart_food2"
-	if(food3)
-		overlays += "cart_food3"
-	if(food4)
-		overlays += "cart_food4"
-	if(food5)
-		overlays += "cart_food5"
-	if(food6)
-		overlays += "cart_food6"
-	if(drink1)
-		overlays += "cart_drink1"
-	if(drink2)
-		overlays += "cart_drink2"
-	if(drink3)
-		overlays += "cart_drink3"
-	if(drink4)
-		overlays += "cart_drink4"
-	if(drink5)
-		overlays += "cart_drink5"
-	if(drink6)
-		overlays += "cart_drink6"
-*/
+/obj/structure/foodcart/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)

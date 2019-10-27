@@ -24,8 +24,11 @@
 /datum/reagent/water/reaction_mob(mob/living/M, method = TOUCH, volume)
 	M.water_act(volume, water_temperature, src, method)
 
-/datum/reagent/water/reaction_turf(turf/simulated/T, volume)
+/datum/reagent/water/reaction_turf(turf/T, volume)
 	T.water_act(volume, water_temperature, src)
+	var/obj/effect/acid/A = (locate(/obj/effect/acid) in T)
+	if(A)
+		A.acid_level = max(A.acid_level - volume*  50, 0)
 
 /datum/reagent/water/reaction_obj(obj/O, volume)
 	O.water_act(volume, water_temperature, src)
@@ -78,9 +81,6 @@
 
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(5, 10))
-		if(istype(T, /turf/simulated))
-			var/turf/simulated/S = T
-			S.dirt = 0
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=TOUCH, volume)
 	if(iscarbon(M))
@@ -144,7 +144,7 @@
 	if(method == INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == "blood")
-			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.b_type))))
+			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type))))
 				C.reagents.add_reagent("toxin", volume * 0.5)
 			else
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)

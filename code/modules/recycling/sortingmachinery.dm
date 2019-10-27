@@ -10,6 +10,18 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 
+/obj/structure/bigDelivery/Destroy()
+	var/turf/T = get_turf(src)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
+	return ..()
+
+/obj/structure/bigDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
+
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
@@ -64,6 +76,8 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
+	else
+		return ..()
 
 /obj/item/smallDelivery
 	name = "small parcel"
@@ -74,6 +88,12 @@
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
+
+/obj/item/smallDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
 
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
@@ -123,6 +143,8 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
+	else
+		return ..()
 
 /obj/item/stack/packageWrap
 	name = "package wrapper"
@@ -132,7 +154,7 @@
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/stack/packageWrap/afterattack(var/obj/target as obj, mob/user as mob, proximity)
 	if(!proximity) return

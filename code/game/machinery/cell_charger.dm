@@ -12,6 +12,11 @@
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
 
+/obj/machinery/cell_charger/deconstruct()
+	if(charging)
+		charging.forceMove(drop_location())
+	return ..()
+
 /obj/machinery/cell_charger/Destroy()
 	QDEL_NULL(charging)
 	return ..()

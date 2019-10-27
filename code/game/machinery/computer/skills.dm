@@ -33,7 +33,8 @@
 		O.forceMove(src)
 		scan = O
 		ui_interact(user)
-	..()
+		return
+	return ..()
 
 //Someone needs to break down the dat += into chunks instead of long ass lines.
 /obj/machinery/computer/skills/attack_hand(mob/user)

@@ -46,6 +46,7 @@
 			to_chat(user, "You dismantle [src].")
 			new /obj/item/stack/sheet/metal(src.loc, 5)
 			qdel(src)
+		return
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
 		if(!anchored)
@@ -70,6 +71,7 @@
 						return
 					anchored  = 0
 					to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
+		return
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)
@@ -96,6 +98,8 @@
 				S.use(1)
 				new /obj/structure/reflector/box (src.loc)
 				qdel(src)
+		return
+	return ..()
 
 /obj/structure/reflector/proc/get_reflection(srcdir,pdir)
 	return 0

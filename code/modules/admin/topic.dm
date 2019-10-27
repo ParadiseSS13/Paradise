@@ -1985,9 +1985,9 @@
 					kill_objective.target = H.mind
 					kill_objective.owner = newtraitormind
 					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
+					H.mind.objectives += kill_objective
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
-					T.add_objective(kill_objective)
 					to_chat(newtraitormind, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 					to_chat(newtraitormind, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
 					newtraitormind.add_antag_datum(T)
@@ -2764,7 +2764,7 @@
 				feedback_add_details("admin_secrets_fun_used","BO")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
 				for(var/obj/machinery/light/L in GLOB.machines)
-					L.broken()
+					L.break_light_tube()
 			if("whiteout")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","WO")
@@ -2990,7 +2990,7 @@
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"
 				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					if(H.dna && H.ckey)
-						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.b_type]</td></tr>"
+						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.dna.blood_type]</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=DNA;size=440x410")
 			if("fingerprints")

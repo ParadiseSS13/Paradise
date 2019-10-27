@@ -1,0 +1,5 @@
+author: "Fox McCloud"
+delete-after: True
+changes: 
+  - tweak: "Survival pod medical vendors only have 2 pairs of splints instead of a wide array of medicines"
+  - tweak: "Hivelord core, when used on someone, no longer fully revives them; instead it heals 25 burn, 25 brute, resets body temperature, removes all CC, cures all internal bleeding, and mends all fractures (slowdown bonus still stays"

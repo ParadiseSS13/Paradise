@@ -42,6 +42,8 @@
 	additional_phase()
 
 /datum/game_mode/cult/proc/additional_phase()
+	if(objectives.Find("eldergod") || objectives.Find("slaughter"))
+		return
 	current_objective++
 
 	message_admins("Picking a new Cult objective.")
@@ -62,11 +64,12 @@
 		message_admins("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
 		log_admin("There are less than 4 cultists! [SSticker.cultdat.entity_name] objective unlocked.")
 		gtfo_phase()
+		return
 
 	if(!sacrificed.len && (new_objective != "sacrifice"))
 		sacrifice_target = null
 
-	if(new_objective == "eldergod")
+	if(new_objective == "eldergod" || new_objective == "slaughter")
 		second_phase()
 		return
 	else

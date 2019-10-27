@@ -5,14 +5,13 @@
 	initial_icon = "durand"
 	step_in = 4
 	dir_in = 1 //Facing North.
-	health = 400
+	max_integrity = 400
 	deflect_chance = 20
-	damage_absorption = list("brute"=0.5,"fire"=1.1,"bullet"=0.65,"laser"=0.85,"energy"=0.9,"bomb"=0.8)
-	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, bio = 0, rad = 0)
+	armor = list(melee = 40, bullet = 35, laser = 15, energy = 10, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
-	wreckage = /obj/effect/decal/mecha_wreckage/durand
+	wreckage = /obj/structure/mecha_wreckage/durand
 
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()
@@ -36,10 +35,10 @@
 	initial_icon = "old_durand"
 	step_in = 4
 	dir_in = 1 //Facing North.
-	health = 400
+	max_integrity = 400
 	deflect_chance = 20
-	damage_absorption = list("brute"=0.5,"fire"=1.1,"bullet"=0.65,"laser"=0.85,"energy"=0.9,"bomb"=0.8)
+	armor = list(melee = 50, bullet = 35, laser = 15, energy = 15, bomb = 20, bio = 0, rad = 50, fire = 100, acid = 100)
 	max_temperature = 30000
 	infra_luminosity = 8
 	force = 40
-	wreckage = /obj/effect/decal/mecha_wreckage/durand/old
+	wreckage = /obj/structure/mecha_wreckage/durand/old

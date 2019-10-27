@@ -1,5 +1,4 @@
 /turf/simulated/wall/indestructible
-	unacidable = TRUE
 
 /turf/simulated/wall/indestructible/dismantle_wall(devastated = 0, explode = 0)
 	return
@@ -10,7 +9,7 @@
 /turf/simulated/wall/indestructible/ex_act(severity)
 	return
 
-/turf/simulated/wall/indestructible/blob_act()
+/turf/simulated/wall/indestructible/blob_act(obj/structure/blob/B)
 	return
 
 /turf/simulated/wall/indestructible/singularity_act()

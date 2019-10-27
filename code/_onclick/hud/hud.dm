@@ -24,6 +24,7 @@
 	var/obj/screen/alien_plasma_display
 	var/obj/screen/nightvisionicon
 	var/obj/screen/action_intent
+	var/obj/screen/zone_select
 	var/obj/screen/move_intent
 	var/obj/screen/module_store_icon
 
@@ -67,6 +68,7 @@
 
 	inv_slots.Cut()
 	action_intent = null
+	zone_select = null
 	move_intent = null
 
 	QDEL_LIST(toggleable_inventory)
@@ -80,7 +82,6 @@
 	mymob.healths = null
 	mymob.healthdoll = null
 	mymob.pullin = null
-	mymob.zone_sel = null
 
 	//clear the rest of our reload_fullscreen
 	lingchemdisplay = null

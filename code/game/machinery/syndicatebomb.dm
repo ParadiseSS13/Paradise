@@ -10,7 +10,7 @@
 	anchored = 0
 	density = 0
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
-	unacidable = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 	var/datum/wires/syndicatebomb/wires = null
 	var/minimum_timer = 90
@@ -36,6 +36,14 @@
 	. = (payload in src) && (active || ignore_active) && !defused
 	if(.)
 		payload.detonate()
+
+/obj/machinery/syndicatebomb/obj_break()
+	if(!try_detonate())
+		..()
+
+/obj/machinery/syndicatebomb/obj_destruction()
+	if(!try_detonate())
+		..()
 
 /obj/machinery/syndicatebomb/process()
 	if(!active)
@@ -300,7 +308,7 @@
 	item_state = "eshield0"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "syndicate=5;combat=6"
-	burn_state = FLAMMABLE //Burnable (but the casing isn't)
+	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
 	var/range_heavy = 3
 	var/range_medium = 9

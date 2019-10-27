@@ -357,7 +357,7 @@ UI STUFF
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
 
 	if(T.lastStaffResponse)
 		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
@@ -460,6 +460,11 @@ UI STUFF
 		takeTicket(indexNum)
 		showDetailUI(usr, indexNum)
 
+	if(href_list["unassignstaff"])
+		var/indexNum = text2num(href_list["unassignstaff"])
+		unassignTicket(indexNum)
+		showDetailUI(usr, indexNum)
+
 	if(href_list["autorespond"])
 		var/indexNum = text2num(href_list["autorespond"])
 		autoRespond(indexNum)
@@ -477,3 +482,13 @@ UI STUFF
 		else
 			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TRUE)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")
+
+/datum/controller/subsystem/tickets/proc/unassignTicket(index)
+	var/datum/ticket/T = allTickets[index]
+	if(T.staffAssigned != null && (T.staffAssigned == usr.client || alert("Ticket is already assigned to [T.staffAssigned]. Do you want to unassign it?","Unassign ticket","No","Yes") == "Yes"))
+		T.staffAssigned = null
+		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] has been unassigned. Another staff member will help you soon.</span>")
+		if(span_class == "mentorhelp")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>")
+		else
+			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>", TRUE)
