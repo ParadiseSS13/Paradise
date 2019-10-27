@@ -1,0 +1,5 @@
+author: "Ionward"
+delete-after: True
+changes: 
+  - bugfix: "fixed Battlemage armor having an unintended helmet light"
+  - imageadd: "added Vox versions of Battlemage, Paranormal, Inquisitor, Berserker, and Syndicate Elite Hardsuits."

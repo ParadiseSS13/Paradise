@@ -205,7 +205,7 @@
 		if(inawaymission)
 			if(ismob(loc))
 				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
-			power_supply.charge = 0
+			cell.charge = 0
 			inawaymission = 0
 			update_icon()
 

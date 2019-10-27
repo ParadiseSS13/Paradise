@@ -169,7 +169,7 @@
 /obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
+	if(usr.stat || usr.paralysis || usr.stunned || usr.IsWeakened())
 		return 1
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1

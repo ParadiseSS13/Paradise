@@ -48,9 +48,20 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()
 	QDEL_NULL(current_potion)
-	for(var/mob/living/simple_animal/slime/S in stored_slimes)
+	for(var/thing in stored_slimes)
+		var/mob/living/simple_animal/slime/S = thing
 		S.forceMove(drop_location())
 	stored_slimes.Cut()
+	if(connected_recycler)
+		connected_recycler.connected -= src
+	connected_recycler = null
+	return ..()
+
+/obj/machinery/computer/camera_advanced/xenobio/handle_atom_del(atom/A)
+	if(A == current_potion)
+		current_potion = null
+	if(A in stored_slimes)
+		stored_slimes -= A
 	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()

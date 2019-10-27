@@ -139,11 +139,7 @@
 /mob/living/simple_animal/hostile/blob/blobspore/update_icons()
 	..()
 
-	if(overmind && overmind.blob_reagent_datum)
-		adjustcolors(overmind.blob_reagent_datum.complementary_color)
-	else
-		adjustcolors(overmind.blob_reagent_datum.complementary_color) //to ensure zombie/other overlays update
-
+	adjustcolors(overmind?.blob_reagent_datum?.complementary_color)
 
 /mob/living/simple_animal/hostile/blob/blobspore/adjustcolors(var/a_color)
 	color = a_color
@@ -152,8 +148,7 @@
 		overlays.Cut()
 		overlays = human_overlays
 		var/image/I = image('icons/mob/blob.dmi', icon_state = "blob_head")
-		I.color = overmind.blob_reagent_datum.complementary_color
-		color = initial(overmind.blob_reagent_datum.complementary_color)//looks better.
+		I.color = color
 		overlays += I
 
 /////////////////
