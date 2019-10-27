@@ -72,6 +72,8 @@ var opts = {
 	'enableEmoji': true
 };
 
+var regexHasError = false; //variable to check if regex has excepted 
+
 function outerHTML(el) {
     var wrap = document.createElement('div');
     wrap.appendChild(el.cloneNode(true));
@@ -88,6 +90,19 @@ if (!Date.now) {
 if (typeof String.prototype.trim !== 'function') {
 	String.prototype.trim = function () {
 		return this.replace(/^\s+|\s+$/g, '');
+	};
+}
+
+//Polyfill for string.prototype.includes. Why the fuck. Just why the fuck.
+if (!String.prototype.includes) {
+	String.prototype.includes = function(search, start) {
+	  'use strict';
+  
+	  if (search instanceof RegExp) {
+		throw TypeError('first argument must not be a RegExp');
+	  } 
+	  if (start === undefined) { start = 0; }
+	  return this.indexOf(search, start) !== -1;
 	};
 }
 
@@ -158,13 +173,21 @@ function setHighlightColor(match) {
 
 //Highlights words based on user settings
 function highlightTerms(el) {
+	if(regexHasError) return; //just stop right there ig the regex is gonna except
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
-			var rexp = new RegExp(opts.highlightTerms[i],"gmi")
 			if(!opts.highlightRegexEnable){
-				rexp = new RegExp("("+opts.highlightTerms[i].replace(new RegExp("([^a-zA-Z0-9])","gmi"),"\\$1")+")","gmi")
-				el.innerText = el.innerText.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$1</span>") //disabling regex disables html matching too
+				if(el.innerText.toString().toLowerCase().includes(opts.highlightTerms[i].toLowerCase())) //match normally
+				el.innerHTML = '<span style="background-color:'+opts.highlightColor+'">'+el.innerHTML+'</span>' //encloseincludes
 				continue;
+			}
+			var rexp;
+			try{
+				rexp = new RegExp(opts.highlightTerms[i],"gmi")
+			} catch(e){
+				el.innerHTML+='<br/><span style="boldwarning"> Your highlight regex - '+opts.highlightTerms[i]+' - is malformed. Thrown exception: '+e+'</span>'
+				regexHasError = true;
+				return;
 			}
 			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$0</span>") //i cant figure out a proper, non snowflakey way to let people select the group that gets highlighted
 		}
@@ -575,7 +598,7 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
-		'shighlightRegexEnable': getCookie('highlightregexenable'),
+		'shighlightRegexEnable': getCookie('highlightregexenable') == "true",
 		'shideSpam': getCookie('hidespam'),
 		'darkChat': getCookie('darkChat'),
 	};
@@ -1027,6 +1050,8 @@ $(function() {
 		} else {
 			opts.highlightColor = color;
 		}
+		regexHasError = false; //they changed the regex so it might be valid now
+
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
 
