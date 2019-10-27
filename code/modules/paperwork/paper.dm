@@ -85,6 +85,7 @@
 		popup.set_content(data)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
+			popup.add_script("marked-paradise.js", 'html/browser/marked-paradise.js')
 		popup.add_head_content("<title>[name]</title>")
 		popup.open()
 	return data
