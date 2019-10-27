@@ -1,30 +1,27 @@
+// Paradise-specific handling of marked.js.
+// Basically we call it on element with id=markdown, and play with paragraphization a bit
+// Requires marked.js to be loaded in order to be useful.
+
 var $ = document.querySelector.bind(document);
-
 function parse(node) {
-  for (var i = 0; i < node.childNodes.length; i++) {
-    parse(node.childNodes[i]);
-  }
-
-  if (!node.innerHTML || node.tagName === 'A') {
-    return;
-  }
-
-  node.innerHTML = marked(node.innerHTML.replace(/<br>/gi, '\n').replace(/\t/gi, ''), { breaks: true, gfm: false });
-}
-
-window.onload = function() {
-  var para = marked.Renderer.prototype.paragraph;
-  var field = '<span class="paper_field">';
-  marked.Renderer.prototype.paragraph = function(text) {
-    if (text.slice(0, field.length) === field ||
-        text.slice(0, 2) === '<a'||
-        text.slice(0, 5) === '<font' && text.indexOf('<a') >= 0) {
-      return text;
+    for (var i = 0; i < node.childNodes.length; i++) {
+      parse(node.childNodes[i]);
     }
-    return para(text);
-  };
-
-  if ($('#markdown')) {
-    parse($('#markdown'));
-  }
+  
+    if (!node.innerHTML) {
+      return;
+    }
+  
+    node.innerHTML = marked(node.innerHTML.replace(/<br>/gi, '\n').replace(/\t/gi, ''), { breaks: false, gfm: false })
+    // marked.js wraps content into <p> tags, which is looks atrocious when we call it recursively.
+    // The following line unwraps it.
+    if (node.children.length == 1) {
+        node.innerHTML = node.children[0].innerHTML;
+    }
+}
+  
+window.onload = function() {
+    if ($('#markdown')) {
+      parse($('#markdown'));
+    }
 }
