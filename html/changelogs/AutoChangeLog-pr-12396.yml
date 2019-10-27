@@ -1,9 +1,0 @@
-author: "Terilia"
-delete-after: True
-changes: 
-  - rscadd: "Headcrab Nests"
-  - tweak: "Headcrabs can now eat dead simple_animal corpses to regain 10 hp."
-  - tweak: "Poison Headcrabs will not inject LSD anymore."
-  - tweak: "Headcrabs have more HP and some do more damage."
-  - tweak: "Headcrabs will not stop attacking people after they are unconscious."
-  - imageadd: "Headcrab Nest DMI"

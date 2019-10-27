@@ -1,6 +1,0 @@
-author: "Darkmight9"
-delete-after: True
-changes: 
-  - rscadd: "Adds a wide variety of craftable decorations! You can find them in the new 'Decorations' tab in the crafting menu."
-  - tweak: "tweaked the duct tape component so that you can now add it to items to make them naturally stick to walls."
-  - imageadd: "added decorative sprites."

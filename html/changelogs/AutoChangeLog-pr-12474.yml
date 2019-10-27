@@ -1,5 +1,0 @@
-author: "craftxbox"
-delete-after: True
-changes: 
-  - rscadd: "Vanilla JS Regex for chat highlighting"
-  - rscdel: "Removed jquery mark"
