@@ -1,7 +1,0 @@
-author: "KasparoVy"
-delete-after: True
-changes: 
-  - rscadd: "Adds striped normal-height socks."
-  - rscadd: "Vox can now wear whatever undergarment they want."
-  - tweak: "Removes flesh from shredded Vox uniform sprites."
-  - rscdel: "Armalis can no longer wear undergarments. They didn't fit, anyhow."

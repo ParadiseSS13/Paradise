@@ -5,11 +5,11 @@
 	icon_state = "marker"
 
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
 	invisibility = INVISIBILITY_OBSERVER
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	pass_flags = PASSBLOB
-	faction = list("blob")
+	faction = list(ROLE_BLOB)
 
 	var/obj/structure/blob/core/blob_core = null // The blob overmind's core
 	var/blob_points = 0
@@ -20,7 +20,6 @@
 	var/is_offspring = FALSE
 	var/datum/reagent/blob/blob_reagent_datum = new/datum/reagent/blob()
 	var/list/blob_mobs = list()
-	var/ghostimage = null
 
 /mob/camera/blob/New()
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
@@ -35,9 +34,6 @@
 		blob_core.adjustcolors(blob_reagent_datum.color)
 
 	color = blob_reagent_datum.complementary_color
-	ghostimage = image(src.icon,src,src.icon_state)
-	ghost_darkness_images |= ghostimage //so ghosts can see the blob cursor when they disable darkness
-	updateallghostimages()
 	..()
 
 /mob/camera/blob/Life(seconds, times_fired)
@@ -45,22 +41,15 @@
 		qdel(src)
 	..()
 
-/mob/camera/blob/Destroy()
-	if(ghostimage)
-		ghost_darkness_images -= ghostimage
-		QDEL_NULL(ghostimage)
-		updateallghostimages()
-	return ..()
-
 /mob/camera/blob/Login()
 	..()
 	sync_mind()
 	blob_help()
-	update_health()
+	update_health_hud()
 
-/mob/camera/blob/proc/update_health()
+/mob/camera/blob/update_health_hud()
 	if(blob_core)
-		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.health)]</font></div>"
+		hud_used.blobhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#e36600'>[round(blob_core.obj_integrity)]</font></div>"
 
 /mob/camera/blob/proc/add_points(var/points)
 	if(points != 0)
@@ -95,20 +84,20 @@
 	var/rendered = "<font color=\"#EE4000\"><i><span class='game say'>Blob Telepathy, <span class='name'>[name]([blob_reagent_datum.name])</span> <span class='message'>[verb] \"[message]\"</span></span></i></font>"
 
 	for(var/mob/M in GLOB.mob_list)
-		if(isovermind(M) || isobserver(M))
+		if(isovermind(M) || isobserver(M) || istype((M), /mob/living/simple_animal/hostile/blob/blobbernaut))
 			M.show_message(rendered, 2)
 
 /mob/camera/blob/emote(act, m_type = 1, message = null, force)
 	return
 
-/mob/camera/blob/blob_act()
+/mob/camera/blob/blob_act(obj/structure/blob/B)
 	return
 
 /mob/camera/blob/Stat()
 	..()
 	if(statpanel("Status"))
 		if(blob_core)
-			stat(null, "Core Health: [blob_core.health]")
+			stat(null, "Core Health: [blob_core.obj_integrity]")
 		stat(null, "Power Stored: [blob_points]/[max_blob_points]")
 
 /mob/camera/blob/Move(var/NewLoc, var/Dir = 0)

@@ -227,6 +227,12 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/sushi_Tai
 
+/datum/recipe/grill/goliath
+	items = list(
+/obj/item/reagent_containers/food/snacks/goliath
+	)
+	result = /obj/item/reagent_containers/food/snacks/goliath_steak
+	
 /datum/recipe/grill/shrimp_skewer
 	items = list(
 		/obj/item/reagent_containers/food/snacks/shrimp,

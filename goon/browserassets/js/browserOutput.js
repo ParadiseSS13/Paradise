@@ -1079,14 +1079,6 @@ $(function() {
 		location.reload();
 	});
 
-	// Tell BYOND to give us a macro list.
-	// I don't know why but for some retarded reason,
-	// You need to activate hotkeymode before you can winget the macros in it.
-	runByond('byond://winset?id=mainwindow&macro=hotkeymode')
-	runByond('byond://winset?id=mainwindow&macro=macro')
-
-	runByond('byond://winget?callback=wingetMacros&id=hotkeymode.*&property=command');
-
 	/*****************************************
 	*
 	* KICK EVERYTHING OFF

@@ -13,7 +13,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
-	req_access = list(access_engine, access_robotics)
+	req_one_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
@@ -52,8 +52,7 @@
 		camera.network.Add("Engineering")
 
 	//They are unable to be upgraded, so let's give them a bit of a better battery.
-	cell.maxcharge = 10000
-	cell.charge = 10000
+	cell = new /obj/item/stock_parts/cell/high(src)
 
 	// NO BRAIN.
 	mmi = null
@@ -182,7 +181,7 @@
 	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
 
 	if(jobban_isbanned(src, ROLE_SYNDICATE))
-		ticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
+		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 
@@ -248,9 +247,9 @@
 	death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
-	clear_supplied_laws()
-	clear_inherent_laws()
-	clear_ion_laws()
+	clear_supplied_laws(TRUE)
+	clear_inherent_laws(TRUE)
+	clear_ion_laws(TRUE)
 	laws = new /datum/ai_laws/drone
 
 //Reboot procs.
@@ -348,6 +347,6 @@
 		return
 	density = 0 //this is reset every canmove update otherwise
 
-/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
+/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()

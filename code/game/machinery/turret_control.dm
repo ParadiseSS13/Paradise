@@ -13,6 +13,7 @@
 	icon_state = "control_standby"
 	anchored = 1
 	density = 0
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/enabled = 0
 	var/lethal = 0
 	var/locked = 1
@@ -142,7 +143,7 @@
 /obj/machinery/turretid/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 300)
+		ui = new(user, src, ui_key, "turret_control.tmpl", "Turret Controls", 500, 350)
 		ui.open()
 		ui.set_auto_update(1)
 

@@ -19,25 +19,28 @@
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
 
+/obj/item/stock_parts/cell/get_cell()
+	return src
+
 /obj/item/stock_parts/cell/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a power rating of [DisplayPower(maxcharge)], and you should not swallow it."
 	update_icon()
 
 /obj/item/stock_parts/cell/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/stock_parts/cell/vv_edit_var(var_name, var_value)
 	switch(var_name)
 		if("self_recharge")
 			if(var_value)
-				processing_objects.Add(src)
+				START_PROCESSING(SSobj, src)
 			else
-				processing_objects.Remove(src)
+				STOP_PROCESSING(SSobj, src)
 	. = ..()
 
 /obj/item/stock_parts/cell/process()
@@ -82,11 +85,11 @@
 	return power_used
 
 /obj/item/stock_parts/cell/examine(mob/user)
-	..()
+	. = ..()
 	if(rigged)
-		to_chat(user, "<span class='danger'>This power cell seems to be faulty!</span>")
+		. += "<span class='danger'>This power cell seems to be faulty!</span>"
 	else
-		to_chat(user, "The charge meter reads [round(percent() )]%.")
+		. += "The charge meter reads [round(percent() )]%."
 
 /obj/item/stock_parts/cell/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] is licking the electrodes of the [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -142,23 +145,17 @@
 	..()
 
 /obj/item/stock_parts/cell/ex_act(severity)
-	switch(severity)
-		if(EXPLODE_DEVASTATE)
-			qdel(src)
-		if(EXPLODE_HEAVY)
-			if(prob(50))
-				qdel(src)
-				return
-			if(prob(50))
-				corrupt()
-		if(EXPLODE_LIGHT)
-			if(prob(25))
-				qdel(src)
-				return
-			if(prob(25))
-				corrupt()
+	..()
+	if(!QDELETED(src))
+		switch(severity)
+			if(2)
+				if(prob(50))
+					corrupt()
+			if(3)
+				if(prob(25))
+					corrupt()
 
-/obj/item/stock_parts/cell/blob_act()
+/obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()

@@ -14,6 +14,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	attack_verb = null
+	resistance_flags = FIRE_PROOF
 	var/lit = 0
 
 /obj/item/lighter/zippo
@@ -58,7 +59,7 @@
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], [user.p_they()] however burn[user.p_s()] [user.p_their()] finger in the process.</span>")
 
 			set_light(2)
-			processing_objects.Add(src)
+			START_PROCESSING(SSobj, src)
 		else
 			lit = 0
 			w_class = WEIGHT_CLASS_TINY
@@ -74,7 +75,7 @@
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 
 			set_light(0)
-			processing_objects.Remove(src)
+			STOP_PROCESSING(SSobj, src)
 	else
 		return ..()
 	return
@@ -87,7 +88,7 @@
 	if(!istype(M, /mob))
 		return
 
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_sel.selecting == "mouth" && lit)
+	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && lit)
 		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
 		if(M == user)
 			cig.attackby(src, user)
@@ -181,7 +182,7 @@
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 		update_icon()
 		return TRUE
 
@@ -196,7 +197,7 @@
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
 /obj/item/match/dropped(mob/user)
@@ -224,3 +225,13 @@
 	var/mask_item = M.get_item_by_slot(slot_wear_mask)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
+
+
+/obj/item/match/firebrand
+	name = "firebrand"
+	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
+	smoketime = 20 //40 seconds
+
+/obj/item/match/firebrand/New()
+	..()
+	matchignite()

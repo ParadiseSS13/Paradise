@@ -107,7 +107,7 @@
 /obj/item/storage/bag/plasticbag/equipped(var/mob/user, var/slot)
 	if(slot==slot_head)
 		storage_slots = 0
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/storage/bag/plasticbag/process()
@@ -120,7 +120,7 @@
 				H.AdjustLoseBreath(1)
 	else
 		storage_slots = 7
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return
 
 // -----------------------------
@@ -169,7 +169,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora)
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
 	name = "portable seed extractor"
@@ -364,7 +364,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_BULKY //Bigger than a book because physics
 	can_hold = list(/obj/item/book, /obj/item/storage/bible, /obj/item/tome, /obj/item/spellbook)
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /*
  * Trays - Agouri
@@ -486,7 +486,7 @@
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 /*
  *  Biowaste bag (mostly for xenobiologists)
  */
@@ -500,4 +500,4 @@
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE

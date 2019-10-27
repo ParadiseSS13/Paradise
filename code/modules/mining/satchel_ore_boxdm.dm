@@ -10,10 +10,7 @@
 	pressure_resistance = 5 * ONE_ATMOSPHERE
 
 /obj/structure/ore_box/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/t_scanner/adv_mining_scanner))
-		attack_hand(user)
-		return
-	else if(istype(W, /obj/item/stack/ore))
+	if(istype(W, /obj/item/stack/ore))
 		if(!user.drop_item())
 			return
 		W.forceMove(src)
@@ -30,6 +27,8 @@
 		if(do_after(user, 50 * C.toolspeed, target = src))
 			user.visible_message("<span class='notice'>[user] pries [src] apart.</span>", "<span class='notice'>You pry apart [src].</span>", "<span class='italics'>You hear splitting wood.</span>")
 			deconstruct(TRUE, user)
+	else
+		return ..()
 
 /obj/structure/ore_box/attack_hand(mob/user)
 	if(Adjacent(user))
@@ -63,10 +62,6 @@
 		to_chat(usr, "<span class='notice'>You empty the box.</span>")
 	updateUsrDialog()
 
-obj/structure/ore_box/ex_act(severity, target)
-	if(prob(100 / severity) && severity < 3)
-		qdel(src) //nothing but ores can get inside unless its a bug and ores just return nothing on ex_act, not point in calling it on them
-
 /obj/structure/ore_box/deconstruct(disassembled = TRUE, mob/user)
 	var/obj/item/stack/sheet/wood/W = new (loc, 4)
 	if(user)
@@ -82,6 +77,9 @@ obj/structure/ore_box/ex_act(severity, target)
 			break
 		O.forceMove(loc)
 		CHECK_TICK
+
+/obj/structure/ore_box/onTransitZ()
+	return
 
 /obj/structure/ore_box/verb/empty_box()
 	set name = "Empty Ore Box"

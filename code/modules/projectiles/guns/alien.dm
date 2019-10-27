@@ -15,10 +15,10 @@
 
 /obj/item/gun/projectile/automatic/spikethrower/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/gun/projectile/automatic/spikethrower/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/projectile/automatic/spikethrower/update_icon()
@@ -80,6 +80,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
+	sprite_sheets_inhand = list("Vox Armalis" = 'icons/mob/species/armalis/held.dmi') //Big guns big birds.
 
 /obj/item/gun/energy/noisecannon/update_icon()
 	return

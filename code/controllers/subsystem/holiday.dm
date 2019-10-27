@@ -28,4 +28,4 @@ SUBSYSTEM_DEF(holiday)
 				if(prob(H.eventChance))
 					H.handle_event()
 
-	..()
+	return ..()

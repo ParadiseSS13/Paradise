@@ -1,7 +1,8 @@
 /obj/machinery/portable_atmospherics
 	name = "atmoalter"
 	use_power = NO_POWER_USE
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 250
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 60, "acid" = 30)
 	var/datum/gas_mixture/air_contents = new
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
@@ -82,17 +83,49 @@
 /obj/machinery/portable_atmospherics/portableConnectorReturnAir()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if((istype(W, /obj/item/tank) && !( src.destroyed )))
-		if(src.holding)
-			return
-		var/obj/item/tank/T = W
-		user.drop_item()
-		T.loc = src
-		src.holding = T
-		update_icon()
+/obj/machinery/portable_atmospherics/AltClick(mob/living/user)
+	if(!istype(user) || user.incapacitated())
+		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
+	if(!in_range(src, user))
+		return
+	if(!ishuman(usr) && !issilicon(usr))
+		return
+	if(holding)
+		to_chat(user, "<span class='notice'>You remove [holding] from [src].</span>")
+		replace_tank(user, TRUE)
 
+/obj/machinery/portable_atmospherics/examine(mob/user)
+	. = ..()
+	if(holding)
+		. += "<span class='notice'>\The [src] contains [holding]. Alt-click [src] to remove it.</span>"
+
+/obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+	if(holding)
+		holding.forceMove(drop_location())
+		if(Adjacent(user) && !issilicon(user))
+			user.put_in_hands(holding)
+	if(new_tank)
+		holding = new_tank
+	else
+		holding = null
+	update_icon()
+	return TRUE
+
+/obj/machinery/portable_atmospherics/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/tank))
+		if(!(stat & BROKEN))
+			if(!user.drop_item())
+				return
+			var/obj/item/tank/T = W
+			user.drop_item()
+			if(src.holding)
+				to_chat(user, "<span class='notice'>[holding ? "In one smooth motion you pop [holding] out of [src]'s connector and replace it with [T]" : "You insert [T] into [src]"].</span>")
+				replace_tank(user, FALSE)
+			T.loc = src
+			src.holding = T
+			update_icon()
+		return
 	else if(istype(W, /obj/item/wrench))
 		if(connected_port)
 			disconnect()
@@ -111,9 +144,15 @@
 					return
 			else
 				to_chat(user, "<span class='notice'>Nothing happens.</span>")
-				return
-
-	else if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
+		return
+	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
+		return
+	return ..()
 
-	return
+/obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
+	if(I.force < 10 && !(stat & BROKEN))
+		take_damage(0)
+	else
+		add_fingerprint(user)
+		..()

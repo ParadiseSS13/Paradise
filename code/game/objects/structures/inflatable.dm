@@ -19,12 +19,11 @@
 	density = 1
 	anchored = 1
 	opacity = 0
-
+	max_integrity = 50
 	icon = 'icons/obj/inflatable.dmi'
 	icon_state = "wall"
 	var/torn = /obj/item/inflatable/torn
 	var/intact = /obj/item/inflatable
-	var/health = 50.0
 
 /obj/structure/inflatable/Initialize(location)
 	..()
@@ -41,97 +40,28 @@
 /obj/structure/inflatable/CanAtmosPass(turf/T)
 	return !density
 
-/obj/structure/inflatable/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
-	..()
-	if(health <= 0)
-		deflate(1)
-	return
-
-/obj/structure/inflatable/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			deflate(1)
-			return
-		if(3.0)
-			if(prob(50))
-				deflate(1)
-				return
-
-/obj/structure/inflatable/blob_act()
-	deflate(1)
-
 /obj/structure/inflatable/attack_hand(mob/user as mob)
 	add_fingerprint(user)
-	return
-
-/obj/structure/inflatable/attack_generic(mob/user, damage = 0)	//used by attack_alien, attack_animal, and attack_slime
-	health -= damage
-	if(health <= 0)
-		user.visible_message("<span class='danger'>[user] tears open [src]!</span>")
-		deflate(1)
-	else	//for nicer text~
-		user.visible_message("<span class='danger'>[user] tears at [src]!</span>")
-
-/obj/structure/inflatable/attack_alien(mob/user as mob)
-	if(islarva(user))
-		return
-	attack_generic(user, 15)
-
-/obj/structure/inflatable/attack_animal(mob/user as mob)
-	if(!isanimal(user))
-		return
-	var/mob/living/simple_animal/M = user
-	if(M.melee_damage_upper <= 0)
-		return
-	attack_generic(M, M.melee_damage_upper)
-
-/obj/structure/inflatable/attack_slime(mob/user as mob)
-	var/mob/living/carbon/slime/S = user
-	if(!S.is_adult)
-		return
-	attack_generic(user, rand(10, 15))
-
-/obj/structure/inflatable/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(!istype(W))
-		return
-	if(is_pointed(W))
-		visible_message("<span class='danger'>[user] pierces [src] with [W]!</span>")
-		deflate(1)
-	if(W.damtype == BRUTE || W.damtype == BURN)
-		hit(W.force)
-		..()
-	return
-
-/obj/structure/inflatable/proc/hit(var/damage, var/sound_effect = 1)
-	health = max(0, health - damage)
-	if(sound_effect)
-		playsound(loc, 'sound/effects/Glasshit.ogg', 75, 1)
-	if(health <= 0)
-		deflate(1)
 
 /obj/structure/inflatable/AltClick()
 	if(usr.stat || usr.restrained())
 		return
 	if(!Adjacent(usr))
 		return
-	deflate()
+	deconstruct(TRUE)
 
-/obj/structure/inflatable/proc/deflate(var/violent=0)
+/obj/structure/inflatable/deconstruct(disassembled = TRUE)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, 1)
-	if(violent)
+	if(!disassembled)
 		visible_message("[src] rapidly deflates!")
 		var/obj/item/inflatable/torn/R = new torn(loc)
-		src.transfer_fingerprints_to(R)
+		transfer_fingerprints_to(R)
 		qdel(src)
 	else
 		visible_message("[src] slowly deflates.")
 		spawn(50)
 			var/obj/item/inflatable/R = new intact(loc)
-			src.transfer_fingerprints_to(R)
+			transfer_fingerprints_to(R)
 			qdel(src)
 
 /obj/structure/inflatable/verb/hand_deflate()
@@ -142,7 +72,7 @@
 	if(usr.stat || usr.restrained())
 		return
 
-	deflate()
+	deconstruct(TRUE)
 
 /obj/item/inflatable/door
 	name = "inflatable door"

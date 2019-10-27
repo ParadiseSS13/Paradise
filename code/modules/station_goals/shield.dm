@@ -13,10 +13,10 @@
 
 /datum/station_goal/station_shield/on_report()
 	//Unlock
-	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/shield_sat]"]
+	var/datum/supply_packs/P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat]"]
 	P.special_enabled = TRUE
 
-	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/shield_sat_control]"]
+	P = SSshuttle.supply_packs["[/datum/supply_packs/misc/station_goal/shield_sat_control]"]
 	P.special_enabled = TRUE
 
 /datum/station_goal/station_shield/check_completion()
@@ -83,7 +83,7 @@
 		))
 	data["notice"] = notice
 
-	var/datum/station_goal/station_shield/G = locate() in ticker.mode.station_goals
+	var/datum/station_goal/station_shield/G = locate() in SSticker.mode.station_goals
 	if(G)
 		data["meteor_shield"] = 1
 		data["meteor_shield_coverage"] = G.get_coverage()

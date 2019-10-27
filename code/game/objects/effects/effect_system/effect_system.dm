@@ -8,17 +8,16 @@ would spawn and follow the beaker, even if it is carried or thrown.
 /obj/effect/particle_effect
 	name = "particle effect"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	unacidable = TRUE //So effects are not targeted by alien acid.
 	pass_flags = PASSTABLE | PASSGRILLE
 	anchored = TRUE
 
 /obj/effect/particle_effect/New()
 	..()
-	if(ticker)
+	if(SSticker)
 		cameranet.updateVisibility(src)
 
 /obj/effect/particle_effect/Destroy()
-	if(ticker)
+	if(SSticker)
 		cameranet.updateVisibility(src)
 	return ..()
 

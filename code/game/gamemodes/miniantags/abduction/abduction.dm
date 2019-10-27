@@ -150,6 +150,8 @@
 	update_abductor_icons_added(scientist)
 
 /datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
+	var/datum/objective/stay_hidden/O = new
+	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -160,6 +162,8 @@
 	abductor.announce_objectives()
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
+	var/datum/objective/stay_hidden/O = new
+	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -228,6 +232,13 @@
 	target_amount = 6
 	var/team
 
+/datum/objective/stay_hidden
+
+/datum/objective/stay_hidden/New()
+	explanation_text = "Limit contact with your targets outside of conducting your experiments and abduction."
+	completed = TRUE
+//No check completion, it defaults to being completed unless an admin sets it to failed.
+
 /datum/objective/experiment/New()
 	explanation_text = "Experiment on [target_amount] humans."
 
@@ -251,14 +262,14 @@
 
 /datum/game_mode/proc/remove_abductor(datum/mind/abductor_mind)
 	if(abductor_mind in abductors)
-		ticker.mode.abductors -= abductor_mind
+		SSticker.mode.abductors -= abductor_mind
 		abductor_mind.special_role = null
 		abductor_mind.current.create_attack_log("<span class='danger'>No longer abductor</span>")
 		if(issilicon(abductor_mind.current))
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
 		else
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer an abductor.</span>")
-		ticker.mode.update_abductor_icons_removed(abductor_mind)
+		SSticker.mode.update_abductor_icons_removed(abductor_mind)
 
 /datum/game_mode/proc/update_abductor_icons_added(datum/mind/alien_mind)
 	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_ABDUCTOR]

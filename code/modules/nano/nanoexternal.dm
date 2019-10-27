@@ -41,6 +41,14 @@
 	return
 
 /**
+  * The UI-close proc is called when the UI is closed.
+  *
+  * @param user /mob The mob who was interacting with this UI.
+  */
+/datum/proc/on_ui_close(mob/user)
+	return
+
+/**
  * The ui_data proc is used to get data for the interface
  *
  * @param user /mob The mob who is viewing this ui

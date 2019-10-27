@@ -5,19 +5,20 @@
 	icon_state = "pdapainter"
 	density = 1
 	anchored = 1
+	max_integrity = 200
 	var/obj/item/pda/storedpda = null
 	var/list/colorlist = list()
 
 
 /obj/machinery/pdapainter/update_icon()
-	overlays.Cut()
+	cut_overlays()
 
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 		return
 
 	if(storedpda)
-		overlays += "[initial(icon_state)]-closed"
+		add_overlay("[initial(icon_state)]-closed")
 
 	if(powered())
 		icon_state = initial(icon_state)
@@ -43,6 +44,21 @@
 	QDEL_NULL(storedpda)
 	return ..()
 
+/obj/machinery/pdapainter/on_deconstruction()
+	if(storedpda)
+		storedpda.forceMove(loc)
+		storedpda = null
+
+/obj/machinery/pdapainter/ex_act(severity)
+	if(storedpda)
+		storedpda.ex_act(severity)
+	..()
+
+/obj/machinery/pdapainter/handle_atom_del(atom/A)
+	if(A == storedpda)
+		storedpda = null
+		update_icon()
+
 /obj/machinery/pdapainter/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		power_change()
@@ -59,9 +75,32 @@
 					P.forceMove(src)
 					P.add_fingerprint(user)
 					update_icon()
+	else if(iswelder(I) && user.a_intent != INTENT_HARM)
+		var/obj/item/weldingtool/WT = I
+		if(stat & BROKEN)
+			if(WT.remove_fuel(0,user))
+				user.visible_message("[user] is repairing [src].", \
+								"<span class='notice'>You begin repairing [src]...</span>", \
+								"<span class='italics'>You hear welding.</span>")
+				playsound(loc, WT.usesound, 40, 1)
+				if(do_after(user,40*WT.toolspeed, 1, target = src))
+					if(!WT.isOn() || !(stat & BROKEN))
+						return
+					to_chat(user, "<span class='notice'>You repair [src].</span>")
+					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
+					stat &= ~BROKEN
+					obj_integrity = max_integrity
+					update_icon()
+		else
+			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 	else
 		return ..()
 
+/obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			stat |= BROKEN
+			update_icon()
 
 /obj/machinery/pdapainter/attack_hand(mob/user as mob)
 	if(..())

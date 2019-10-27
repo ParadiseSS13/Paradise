@@ -6,7 +6,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	icon_state = "off"
 	density = 1
 	anchored = 1
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/active = 0
 
 /obj/machinery/gateway/Initialize()
@@ -162,6 +162,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	if(istype(W,/obj/item/multitool))
 		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 		return
+	return ..()
 
 /////////////////////////////////////Away////////////////////////
 
@@ -248,23 +249,32 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	toggleoff()
 
 
-/obj/machinery/gateway/centeraway/Bumped(atom/movable/M as mob|obj)
+/obj/machinery/gateway/centeraway/Bumped(atom/movable/AM)
 	if(!ready)
 		return
 	if(!active)
 		return
-	if(istype(M, /mob/living/carbon))
-		if(exilecheck(M))
+	if(!stationgate || QDELETED(stationgate))
+		return
+	if(isliving(AM))
+		if(exilecheck(AM))
 			return
-	if(istype(M, /obj))
-		if(M.can_buckle && M.has_buckled_mobs())
-			if(exilecheck(M.buckled_mob))
+	else
+		for(var/mob/living/L in AM.contents)
+			if(exilecheck(L))
+				atom_say("Rejecting [AM]: Exile implant detected in contained lifeform.")
 				return
-		for(var/mob/living/carbon/F in M)
-			if(exilecheck(F))
+	if(AM.has_buckled_mobs())
+		for(var/mob/living/L in AM.buckled_mobs)
+			if(exilecheck(L))
+				atom_say("Rejecting [AM]: Exile implant detected in close proximity lifeform.")
 				return
-	M.forceMove(get_step(stationgate.loc, SOUTH))
-	M.dir = SOUTH
+	AM.forceMove(get_step(stationgate.loc, SOUTH))
+	AM.setDir(SOUTH)
+	if(ismob(AM))
+		var/mob/M = AM
+		if(M.client)
+			M.client.move_delay = max(world.time + 5, M.client.move_delay)
 
 /obj/machinery/gateway/centeraway/proc/exilecheck(var/mob/living/carbon/M)
 	for(var/obj/item/implant/exile/E in M)//Checking that there is an exile implant in the contents
@@ -281,4 +291,5 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 		else
 			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
 			calibrated = 1
-			return
+		return
+	return ..()

@@ -14,7 +14,6 @@
 		handle_heartbeat()
 		handle_drunk()
 		dna.species.handle_life(src)
-
 		if(!client)
 			dna.species.handle_npc(src)
 
@@ -38,6 +37,7 @@
 			regenerate_icons() // Make sure the inventory updates
 
 	handle_ghosted()
+	handle_ssd()
 
 /mob/living/carbon/human/proc/handle_ghosted()
 	if(player_ghosted > 0 && stat == CONSCIOUS && job && !restrained())
@@ -46,6 +46,22 @@
 		else
 			player_ghosted++
 			if(player_ghosted % 150 == 0)
+				force_cryo_human(src)
+
+/mob/living/carbon/human/proc/handle_ssd()
+	if(player_logged > 0 && stat != DEAD && job)
+		player_logged++
+		if(istype(loc, /obj/machinery/cryopod))
+			return
+		if(config.auto_cryo_ssd_mins && (player_logged >= (config.auto_cryo_ssd_mins * 30)) && player_logged % 30 == 0)
+			var/turf/T = get_turf(src)
+			if(!is_station_level(T.z))
+				return
+			var/area/A = get_area(src)
+			if(cryo_ssd(src))
+				var/obj/effect/portal/P = new /obj/effect/portal(T, null, null, 40)
+				P.name = "NT SSD Teleportation Portal"
+			if(A.fast_despawn)
 				force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
@@ -581,54 +597,55 @@
 	if(status_flags & GODMODE)
 		return 0	//godmode
 
-	//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
-	if(CAN_BE_FAT in dna.species.species_traits)
-		if(FAT in mutations)
-			if(overeatduration < 100)
-				becomeSlim()
-		else
-			if(overeatduration > 500)
-				becomeFat()
-
-	// nutrition decrease
-	if(nutrition > 0 && stat != DEAD)
-		// THEY HUNGER
-		var/hunger_rate = hunger_drain
-		if(satiety > 0)
-			satiety--
-		if(satiety < 0)
-			satiety++
-			if(prob(round(-satiety/40)))
-				Jitter(5)
-			hunger_rate = 3 * hunger_drain
-		nutrition = max(0, nutrition - hunger_rate)
-
-	if(nutrition > NUTRITION_LEVEL_FULL)
-		if(overeatduration < 600) //capped so people don't take forever to unfat
-			overeatduration++
-
-	else
-		if(overeatduration > 1)
-			if(OBESITY in mutations)
-				overeatduration -= 1 // Those with obesity gene take twice as long to unfat
+	if(!(NO_HUNGER in dna.species.species_traits))
+		//The fucking FAT mutation is the greatest shit ever. It makes everyone so hot and bothered.
+		if(CAN_BE_FAT in dna.species.species_traits)
+			if(FAT in mutations)
+				if(overeatduration < 100)
+					becomeSlim()
 			else
-				overeatduration -= 2
+				if(overeatduration > 500)
+					becomeFat()
 
-	//metabolism change
-	if(nutrition > NUTRITION_LEVEL_FAT)
-		metabolism_efficiency = 1
-	else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
-		if(metabolism_efficiency != 1.25)
-			to_chat(src, "<span class='notice'>You feel vigorous.</span>")
-			metabolism_efficiency = 1.25
-	else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
-		if(metabolism_efficiency != 0.8)
-			to_chat(src, "<span class='notice'>You feel sluggish.</span>")
-		metabolism_efficiency = 0.8
-	else
-		if(metabolism_efficiency == 1.25)
-			to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
-		metabolism_efficiency = 1
+		// nutrition decrease
+		if(nutrition > 0 && stat != DEAD)
+			// THEY HUNGER
+			var/hunger_rate = hunger_drain
+			if(satiety > 0)
+				satiety--
+			if(satiety < 0)
+				satiety++
+				if(prob(round(-satiety/40)))
+					Jitter(5)
+				hunger_rate = 3 * hunger_drain
+			adjust_nutrition(-hunger_rate)
+
+		if(nutrition > NUTRITION_LEVEL_FULL)
+			if(overeatduration < 600) //capped so people don't take forever to unfat
+				overeatduration++
+
+		else
+			if(overeatduration > 1)
+				if(OBESITY in mutations)
+					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
+				else
+					overeatduration -= 2
+
+		//metabolism change
+		if(nutrition > NUTRITION_LEVEL_FAT)
+			metabolism_efficiency = 1
+		else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
+			if(metabolism_efficiency != 1.25)
+				to_chat(src, "<span class='notice'>You feel vigorous.</span>")
+				metabolism_efficiency = 1.25
+		else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
+			if(metabolism_efficiency != 0.8)
+				to_chat(src, "<span class='notice'>You feel sluggish.</span>")
+			metabolism_efficiency = 0.8
+		else
+			if(metabolism_efficiency == 1.25)
+				to_chat(src, "<span class='notice'>You no longer feel vigorous.</span>")
+			metabolism_efficiency = 1
 
 	if(drowsyness)
 		AdjustDrowsy(-1)
@@ -975,7 +992,7 @@
 /mob/living/carbon/human/proc/handle_decay()
 	var/decaytime = world.time - timeofdeath
 
-	if(isSynthetic())
+	if(NO_DECAY in dna.species.species_traits)
 		return
 
 	if(reagents.has_reagent("formaldehyde")) //embalming fluid stops decay

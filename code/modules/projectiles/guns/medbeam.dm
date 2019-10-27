@@ -1,6 +1,6 @@
 /obj/item/gun/medbeam
 	name = "Medical Beamgun"
-	desc = "Delivers medical nanites in a focused beam."
+	desc = "Delivers volatile medical nanites in a focused beam. Don't cross the beams!"
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
@@ -17,10 +17,10 @@
 
 /obj/item/gun/medbeam/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/gun/medbeam/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/gun/medbeam/handle_suicide()
@@ -92,6 +92,7 @@
 				return 0
 		for(var/obj/effect/ebeam/medical/B in turf)// Don't cross the str-beams!
 			if(B.owner != current_beam)
+				turf.visible_message("<span class='boldwarning'>The medbeams cross and EXPLODE!</span>")
 				explosion(B.loc,0,3,5,8)
 				qdel(dummy)
 				return 0
@@ -108,9 +109,7 @@
 		var/var/mob/living/carbon/human/H = target
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(prob(10))
-				if(E.mend_fracture())
-					E.perma_injury = 0
-	return
+				E.mend_fracture()
 
 /obj/item/gun/medbeam/proc/on_beam_release(var/mob/living/target)
 	return

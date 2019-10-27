@@ -9,7 +9,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
 	var/mopcap = 5
@@ -27,7 +27,6 @@
 /obj/item/mop/proc/clean(turf/simulated/A)
 	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
 		A.clean_blood()
-		A.dirt = 0
 		for(var/obj/effect/O in A)
 			if(is_cleanable(O))
 				qdel(O)
@@ -89,14 +88,14 @@
 
 /obj/item/mop/advanced/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/mop/advanced/attack_self(mob/user)
 	refill_enabled = !refill_enabled
 	if(refill_enabled)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	else
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	to_chat(user, "<span class='notice'>You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position.</span>")
 	playsound(user, 'sound/machines/click.ogg', 30, 1)
 
@@ -106,12 +105,12 @@
 		reagents.add_reagent(refill_reagent, refill_rate)
 
 /obj/item/mop/advanced/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.</span>")
+	. = ..()
+	. += "<span class='notice'>The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.</span>"
 
 /obj/item/mop/advanced/Destroy()
 	if(refill_enabled)
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 	return ..()
 
 

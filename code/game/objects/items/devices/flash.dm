@@ -155,14 +155,14 @@
 
 /obj/item/flash/proc/terrible_conversion_proc(mob/M, mob/user)
 	if(ishuman(M) && ishuman(user) && M.stat != DEAD)
-		if(user.mind && (user.mind in ticker.mode.head_revolutionaries))
+		if(user.mind && (user.mind in SSticker.mode.head_revolutionaries))
 			if(M.client)
 				if(M.stat == CONSCIOUS)
 					M.mind_initialize() //give them a mind datum if they don't have one.
 					var/resisted
 					if(!ismindshielded(M))
-						if(user.mind in ticker.mode.head_revolutionaries)
-							if(ticker.mode.add_revolutionary(M.mind))
+						if(user.mind in SSticker.mode.head_revolutionaries)
+							if(SSticker.mode.add_revolutionary(M.mind))
 								times_used -- //Flashes less likely to burn out for headrevs when used for conversion
 							else
 								resisted = 1
@@ -207,10 +207,10 @@
 
 /obj/item/flash/cameraflash/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/flash/cameraflash/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/flash/cameraflash/process() //this and the two parts above are part of the charge system.

@@ -294,12 +294,16 @@ This is always put in the attack log.
 	if(!isnull(custom_level))
 		loglevel = custom_level
 	else if(istype(target))
-		if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE
-			loglevel = ATKLOG_FEW
-		else if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+		if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
 			loglevel = ATKLOG_ALL
-		else if(!target.ckey) // Attacks by players on NPCs are only shown to admins with ATKLOG_ALL or ATKLOG_ALMOSTALL
+		else if(!user.ckey || !target.ckey || (user.ckey == target.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
 			loglevel = ATKLOG_ALMOSTALL
+		else
+			var/area/A = get_area(target)
+			if(A && A.hide_attacklogs)
+				loglevel = ATKLOG_ALMOSTALL
+	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
+		loglevel = ATKLOG_FEW
 
 	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
@@ -377,7 +381,7 @@ This is always put in the attack log.
 			drifting = 0
 			Uloc = user.loc
 
-		if(!user || user.stat || user.weakened || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
+		if(!user || user.stat || user.IsWeakened() || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
 			. = 0
 			break
 
@@ -491,7 +495,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.UID()]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>)")
+	to_chat(user, "(<a href='?src=[usr.UID()];priv_msg=[M.client ? M.client.UID(): null]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -550,3 +554,25 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		viewX = text2num(viewrangelist[1])
 		viewY = text2num(viewrangelist[2])
 	return list(viewX, viewY)
+
+//Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
+/proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
+	var/static/list/mob_spawn_meancritters = list() // list of possible hostile mobs
+	var/static/list/mob_spawn_nicecritters = list() // and possible friendly mobs
+
+	if(mob_spawn_meancritters.len <= 0 || mob_spawn_nicecritters.len <= 0)
+		for(var/T in typesof(/mob/living/simple_animal))
+			var/mob/living/simple_animal/SA = T
+			switch(initial(SA.gold_core_spawnable))
+				if(HOSTILE_SPAWN)
+					mob_spawn_meancritters += T
+				if(FRIENDLY_SPAWN)
+					mob_spawn_nicecritters += T
+
+	var/chosen
+	if(mob_class == FRIENDLY_SPAWN)
+		chosen = pick(mob_spawn_nicecritters)
+	else
+		chosen = pick(mob_spawn_meancritters)
+	var/mob/living/simple_animal/C = new chosen(spawn_location)
+	return C

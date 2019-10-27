@@ -9,6 +9,8 @@
 	throwforce = 10
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 40)
+	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
@@ -21,12 +23,11 @@
 	return ..()
 
 /obj/item/melee/powerfist/examine(mob/user)
-	..()
+	. = ..()
 	if(!in_range(user, src))
-		to_chat(user, "<span class='notice'>You'll need to get closer to see any more.</span>")
-		return
-	if(tank)
-		to_chat(user, "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>")
+		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
+	else if(tank)
+		. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 
 /obj/item/melee/powerfist/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/tank))

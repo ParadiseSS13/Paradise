@@ -18,6 +18,8 @@
 	density = 0
 	interact_offline = 1
 	req_one_access = list(access_heads, access_armory) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags = NODECONSTRUCT
 	var/mode = null
 
 	//Used for logging people entering cryosleep and important items they are carrying.
@@ -53,7 +55,7 @@
 
 	var/dat
 
-	if(!( ticker ))
+	if(!( SSticker ))
 		return
 
 	dat += "<hr/><br/><b>[storage_name]</b><br/>"
@@ -193,7 +195,8 @@
 	icon_state = "body_scanner_0"
 	density = 1
 	anchored = 1
-
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags = NODECONSTRUCT
 	var/base_icon_state = "body_scanner_0"
 	var/occupied_icon_state = "body_scanner_1"
 	var/on_store_message = "has entered long-term storage."
@@ -231,9 +234,9 @@
 		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/clothing/accessory/medal/gold/captain,
 		/obj/item/clothing/gloves/color/black/krav_maga/sec,
-		/obj/item/storage/internal,
 		/obj/item/spacepod_key,
-		/obj/item/nullrod
+		/obj/item/nullrod,
+		/obj/item/key
 	)
 	// These items will NOT be preserved
 	var/list/do_not_preserve_items = list (
@@ -364,13 +367,15 @@
 
 	// Skip past any cult sacrifice objective using this person
 	if(GAMEMODE_IS_CULT && is_sacrifice_target(occupant.mind))
-		var/datum/game_mode/cult/cult_mode = ticker.mode
+		var/datum/game_mode/cult/cult_mode = SSticker.mode
 		var/list/p_s_t = cult_mode.get_possible_sac_targets()
 		if(p_s_t.len)
 			cult_mode.sacrifice_target = pick(p_s_t)
-			for(var/datum/mind/H in ticker.mode.cult)
+			for(var/datum/mind/H in SSticker.mode.cult)
 				if(H.current)
-					to_chat(H.current, "<span class='danger'>[ticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
+					to_chat(H.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [cult_mode.sacrifice_target.current] instead...</span></span>")
+					H.current << 'sound/ambience/alarm4.ogg'
+			cult_mode.update_sac_objective(occupant.mind, occupant.mind.assigned_role)
 		else
 			cult_mode.bypass_phase()
 
@@ -403,8 +408,8 @@
 			occupant.mind.objectives.Cut()
 			occupant.mind.special_role = null
 		else
-			if(ticker.mode.name == "AutoTraitor")
-				var/datum/game_mode/traitor/autotraitor/current_mode = ticker.mode
+			if(SSticker.mode.name == "AutoTraitor")
+				var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
 				current_mode.possible_traitors.Remove(occupant)
 
 	// Delete them from datacore.
@@ -552,10 +557,9 @@
 		to_chat(user, "<span class='notice'>Dead people can not be put into cryo.</span>")
 		return
 
-	for(var/mob/living/carbon/slime/M in range(1,L))
-		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo pod because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
-			return
+	if(L.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		return
 
 
 	var/willing = null //We don't want to allow people to be forced into despawning.
@@ -656,10 +660,9 @@
 		to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
 		return
 
-	for(var/mob/living/carbon/slime/M in range(1,usr))
-		if(M.Victim == usr)
-			to_chat(usr, "You're too busy getting your life sucked out of you.")
-			return
+	if(usr.has_buckled_mobs()) //mob attached to us
+		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		return
 
 	visible_message("[usr] starts climbing into [src].")
 

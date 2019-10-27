@@ -113,10 +113,10 @@
 		if(man.client && man.client.prefs.nanotrasen_relation == "Opposed")
 			//don't include suspects who can't possibly be the antag based on their job (no suspecting the captain of being a damned dirty tator)
 			if(man.mind && man.mind.assigned_role)
-				if((man.mind.assigned_role in ticker.mode.protected_jobs) || (man.mind.assigned_role in ticker.mode.restricted_jobs))
+				if((man.mind.assigned_role in SSticker.mode.protected_jobs) || (man.mind.assigned_role in SSticker.mode.restricted_jobs))
 					return
 			//don't include suspects who can't possibly be the antag based on their species (no suspecting the machines of being sneaky changelings)
-			if(man.dna.species.name in ticker.mode.protected_species)
+			if(man.dna.species.name in SSticker.mode.protected_species)
 				return
 			dudes += man
 	for(var/i = 0, i < max(GLOB.player_list.len/10,2), i++)

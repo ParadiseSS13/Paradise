@@ -1,6 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - bugfix: "Fixes goats not attacking people"
-  - tweak: "Goats will eat glowshrooms"
-  - rscadd: "Goats will eat full grown diona"

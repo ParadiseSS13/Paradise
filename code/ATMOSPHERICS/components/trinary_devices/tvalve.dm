@@ -135,6 +135,7 @@
 
 /obj/machinery/atmospherics/trinary/tvalve/digital/update_icon()
 	..()
+	
 	if(!powered())
 		icon_state = "tvalvenopower"
 

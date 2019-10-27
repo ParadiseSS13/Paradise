@@ -253,13 +253,15 @@
 				continue
 			if(times_fired % 3 == 1)
 				M.adjustBruteLoss(5)
-				nutrition += 10
+				adjust_nutrition(10)
 
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
 	..()
-
-	setStaminaLoss(max((staminaloss - 3), 0))
+	if(stam_regen_start_time <= world.time)
+		if(stam_paralyzed)
+			update_stamina()
+		setStaminaLoss(0, FALSE)
 
 	var/restingpwr = 1 + 4 * resting
 
@@ -332,7 +334,7 @@
 			break //Only count the first bedsheet
 		if(drunk)
 			comfort += 1 //Aren't naps SO much better when drunk?
-			AdjustDrunk(1-0.0015*comfort) //reduce drunkenness ~6% per two seconds, when on floor.
+			AdjustDrunk(-0.2*comfort) //reduce drunkenness while sleeping.
 		if(comfort > 1 && prob(3))//You don't heal if you're just sleeping on the floor without a blanket.
 			adjustBruteLoss(-1*comfort)
 			adjustFireLoss(-1*comfort)
@@ -342,36 +344,6 @@
 	if(player_logged)
 		Sleeping(2)
 	return sleeping
-
-/mob/living/carbon/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		grant_death_vision()
-		return
-
-	see_invisible = initial(see_invisible)
-	see_in_dark = initial(see_in_dark)
-	sight = initial(sight)
-
-	if(XRAY in mutations)
-		grant_xray_vision()
-
-	if(client.eye != src)
-		var/atom/A = client.eye
-		if(A.update_remote_sight(src)) //returns 1 if we override all other sight updates.
-			return
-
-	for(var/obj/item/organ/internal/cyberimp/eyes/E in internal_organs)
-		sight |= E.vision_flags
-		if(E.dark_view)
-			see_in_dark = max(see_in_dark,E.dark_view)
-		if(E.see_invisible)
-			see_invisible = min(see_invisible, E.see_invisible)
-
-	if(see_override)
-		see_invisible = see_override
-
 
 /mob/living/carbon/handle_hud_icons()
 	return

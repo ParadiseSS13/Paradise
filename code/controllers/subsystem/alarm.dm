@@ -11,8 +11,8 @@ SUBSYSTEM_DEF(alarms)
 
 /datum/controller/subsystem/alarms/Initialize(start_timeofday)
 	all_handlers = list(SSalarms.atmosphere_alarm, SSalarms.burglar_alarm, SSalarms.camera_alarm, SSalarms.fire_alarm, SSalarms.motion_alarm, SSalarms.power_alarm)
-	..()
-	
+	return ..()
+
 /datum/controller/subsystem/alarms/fire()
 	for(var/datum/alarm_handler/AH in all_handlers)
 		AH.process()

@@ -204,8 +204,8 @@
 	name = limb_name
 	..()
 
-/obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE)
-	..(brute, burn, sharp, used_weapon, forbidden_limbs, ignore_resists)
+/obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
+	..()
 	if(!disfigured)
 		if(brute_dam + burn_dam > 50)
 			disfigure()

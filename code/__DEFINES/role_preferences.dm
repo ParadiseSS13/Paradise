@@ -10,6 +10,7 @@
 // justice if someone's abusing your role
 #define ROLE_SYNDICATE			"Syndicate"
 #define ROLE_TRAITOR			"traitor"
+#define ROLE_MINDSLAVE			"mindslave"
 #define ROLE_OPERATIVE			"operative"
 #define ROLE_CHANGELING			"changeling"
 #define ROLE_WIZARD				"wizard"
@@ -43,6 +44,7 @@
 #define ROLE_DRONE				"drone"
 #define ROLE_DEATHSQUAD			"deathsquad"
 #define ROLE_EVENTMISC			"eventmisc"
+#define ROLE_GHOST				"ghost role"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough

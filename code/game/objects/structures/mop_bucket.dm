@@ -21,8 +21,9 @@
 	return ..()
 
 /obj/structure/mopbucket/examine(mob/user)
-	if(..(user, 1))
-		to_chat(usr, "[bicon(src)] [src] contains [reagents.total_volume] units of water left!")
+	. = ..()
+	if(in_range(user, src))
+		. += "[bicon(src)] [src] contains [reagents.total_volume] units of water left!"
 
 /obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/mop))
@@ -32,18 +33,5 @@
 			playsound(src.loc, 'sound/effects/slosh.ogg', 25, 1)
 		if(src.reagents.total_volume < 1)
 			to_chat(user, "<span class='notice'>Out of water!</span>")
-	return
-
-/obj/structure/mopbucket/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(5))
-				qdel(src)
-				return
+		return
+	return ..()

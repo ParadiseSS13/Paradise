@@ -39,8 +39,7 @@
 	if(command_completed(cur_command))
 		cur_command = null
 	else
-		if(!isprocessing)
-			START_PROCESSING(SSmachines, src)
+		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/door/airlock/proc/do_command(command)
 	switch(command)
@@ -151,6 +150,7 @@
 	icon_state = "airlock_sensor_off"
 	name = "airlock sensor"
 	anchored = 1
+	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 
 	var/id_tag
@@ -254,12 +254,17 @@
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		attack_hand(user)
 		return
-	..()
+	return ..()
+
+/obj/machinery/access_button/attack_ghost(mob/user)
+	if(user.can_advanced_admin_interact())
+		return attack_hand(user)
 
 /obj/machinery/access_button/attack_hand(mob/user)
 	add_fingerprint(usr)
-	if(!allowed(user))
-		to_chat(user, "<span class='warning'>Access Denied</span>")
+
+	if(!allowed(user) && !user.can_advanced_admin_interact())
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else if(radio_connection)
 		var/datum/signal/signal = new

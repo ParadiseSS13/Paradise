@@ -112,7 +112,16 @@
 		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
 	master.disrupt()
 
-/obj/effect/dummy/chameleon/ex_act(var/severity) //no longer bomb-proof
+/obj/effect/dummy/chameleon/attack_animal()
+	master.disrupt()
+
+/obj/effect/dummy/chameleon/attack_slime()
+	master.disrupt()
+
+/obj/effect/dummy/chameleon/attack_alien()
+	master.disrupt()
+
+/obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
 	for(var/mob/M in src)
 		to_chat(M, "<span class='danger'>Your chameleon-projector deactivates.</span>")
 		spawn()
@@ -227,7 +236,7 @@
 		return PROCESS_KILL
 
 /obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user)
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	S = user
 	user.base_icon = disguise
 	user.icon_state = disguise
@@ -236,7 +245,7 @@
 	user.update_icons()
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	S = user
 	user.base_icon = initial(user.base_icon)
 	user.icon_state = initial(user.icon_state)

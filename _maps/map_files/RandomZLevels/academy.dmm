@@ -36,7 +36,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ai" = (
-/obj/structure/chair/office/light{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/floor/carpet,
@@ -152,7 +152,9 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ax" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "ay" = (
@@ -224,7 +226,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "aJ" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/item/twohanded/staff,
 /obj/item/spellbook/oneuse/charge,
 /turf/simulated/floor/wood,
@@ -236,12 +238,11 @@
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aL" = (
-/obj/item/clothing/suit/space/hardsuit/wizard,
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
 /obj/structure/table/wood,
 /obj/item/stack/sheet/mineral/silver{
 	amount = 20
 	},
-/obj/item/clothing/head/helmet/space/hardsuit/wizard,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/headmaster)
 "aM" = (
@@ -264,7 +265,7 @@
 "aP" = (
 /obj/structure/lattice,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "aQ" = (
 /obj/machinery/door/airlock/gold{
 	locked = 1
@@ -1133,7 +1134,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "ds" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/simulated/floor/wood,
@@ -1365,7 +1366,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/academy/classrooms)
 "dZ" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/classrooms)
 "ea" = (
@@ -1517,7 +1518,7 @@
 "et" = (
 /obj/singularity/academy,
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "eu" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -2203,7 +2204,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "gb" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood,
 /area/awaymission/academy/classrooms)
 "gc" = (
@@ -3716,9 +3717,9 @@
 	icon_state = "medium"
 	},
 /turf/space,
-/area/space)
+/area/space/nearstation)
 "jz" = (
-/obj/machinery/igniter,
+/obj/machinery/igniter/on,
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academyaft)
 "jA" = (
@@ -4490,12 +4491,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/space)
-"lu" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "hydrofloor"
-	},
-/area/space)
+/area/awaymission/academy/academyaft)
 "lv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 5;
@@ -4504,7 +4500,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
-/area/space)
+/area/awaymission/academy/academyaft)
 "lw" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -4563,6 +4559,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/academy/academygate)
+"vq" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/carpet,
+/area/awaymission/academy/headmaster)
 
 (1,1,1) = {"
 aa
@@ -13949,9 +13951,9 @@ ab
 aj
 ao
 au
-ax
+vq
 ah
-ax
+vq
 ah
 ah
 ah
@@ -15432,10 +15434,10 @@ hM
 lp
 hp
 hp
-lu
-lu
-lu
-lu
+hp
+hp
+hp
+hp
 hp
 hp
 gZ
@@ -15564,8 +15566,8 @@ lq
 lr
 lt
 lv
-lu
-lu
+hp
+hp
 hp
 hp
 gZ

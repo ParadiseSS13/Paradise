@@ -16,6 +16,8 @@
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/update_icon(animation)
+	..()
+
 	if(animation)
 		flick("valve[src.open][!src.open]",src)
 	else
@@ -144,7 +146,7 @@
 	if(istype(W, /obj/item/multitool))
 		update_multitool_menu(user)
 		return 1
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/binary/valve/digital/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"

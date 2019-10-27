@@ -1,9 +1,0 @@
-author: "Fox McCloud"
-delete-after: True
-changes: 
-  - tweak: "updates plasma and N2O sprites"
-  - bugfix: "Fixes not being able to look at a turf if it had plasma/N2O on it"
-  - rscdel: "cold turfs no longer become icy"
-  - rscadd: "Cryostylane makes turfs icy"
-  - rscadd: "Icy turfs are slippery; wear magboots to counteract the effect. Watch your head!"
-  - bugfix: "Fixes grammar of slipping on turfs; no more \"you slipped on floor\" or \"you slipped on wet floor\""

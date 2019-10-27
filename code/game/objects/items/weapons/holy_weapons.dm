@@ -47,7 +47,7 @@
 /obj/item/nullrod/examine(mob/living/user)
 	. = ..()
 	if(sanctify_force)
-		to_chat(user, "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>")
+		. += "<span class='notice'>It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>"
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/M)
 	var/list/holy_weapons_list = typesof(/obj/item/nullrod)
@@ -137,7 +137,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
-/obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/nullrod/claymore/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		final_block_chance = 0 //Don't bring a sword to a gunfight
 	return ..()
@@ -402,10 +402,10 @@
 
 /obj/item/nullrod/tribal_knife/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/tribal_knife/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/nullrod/tribal_knife/process()
@@ -432,10 +432,10 @@
 
 /obj/item/nullrod/rosary/New()
 	..()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/nullrod/rosary/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/nullrod/rosary/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
@@ -443,15 +443,15 @@
 		return ..()
 
 	if(!user.mind || !user.mind.isholy)
-		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 
 	if(praying)
 		to_chat(user, "<span class='notice'>You are already using [src].</span>")
 		return
 
-	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [ticker.Bible_deity_name].</span>", \
-		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [ticker.Bible_deity_name].</span>")
+	user.visible_message("<span class='info'>[user] kneels[M == user ? null : " next to [M]"] and begins to utter a prayer to [SSticker.Bible_deity_name].</span>", \
+		"<span class='info'>You kneel[M == user ? null : " next to [M]"] and begin a prayer to [SSticker.Bible_deity_name].</span>")
 
 	praying = 1
 	if(do_after(user, 150, target = M))
@@ -460,18 +460,18 @@
 
 			if(target.mind)
 				if(iscultist(target))
-					ticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
+					SSticker.mode.remove_cultist(target.mind) // This proc will handle message generation.
 					praying = 0
 					return
 
 				if(target.mind.vampire && !target.mind.vampire.get_ability(/datum/vampire_passive/full)) // Getting a full prayer off on a vampire will interrupt their powers for a large duration.
 					target.mind.vampire.nullified = max(120, target.mind.vampire.nullified + 120)
-					to_chat(target, "<span class='userdanger'>[user]'s prayer to [ticker.Bible_deity_name] has interfered with your power!</span>")
+					to_chat(target, "<span class='userdanger'>[user]'s prayer to [SSticker.Bible_deity_name] has interfered with your power!</span>")
 					praying = 0
 					return
 
 			if(prob(25))
-				to_chat(target, "<span class='notice'>[user]'s prayer to [ticker.Bible_deity_name] has eased your pain!</span>")
+				to_chat(target, "<span class='notice'>[user]'s prayer to [SSticker.Bible_deity_name] has eased your pain!</span>")
 				target.adjustToxLoss(-5)
 				target.adjustOxyLoss(-5)
 				target.adjustBruteLoss(-5)
@@ -480,7 +480,7 @@
 			praying = 0
 
 	else
-		to_chat(user, "<span class='notice'>Your prayer to [ticker.Bible_deity_name] was interrupted.</span>")
+		to_chat(user, "<span class='notice'>Your prayer to [SSticker.Bible_deity_name] was interrupted.</span>")
 		praying = 0
 
 /obj/item/nullrod/rosary/process()
@@ -506,13 +506,13 @@
 /obj/item/nullrod/salt/attack_self(mob/user)
 
 	if(!user.mind || !user.mind.isholy)
-		to_chat(user, "<span class='notice'>You are not close enough with [ticker.Bible_deity_name] to use [src].</span>")
+		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 
 	if(!(ghostcall_CD > world.time))
 		ghostcall_CD = world.time + 3000 //deciseconds..5 minutes
-		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [ticker.Bible_deity_name] while drawing a circle with salt!</span>", \
-		"<span class='info'>You kneel and begin a prayer to [ticker.Bible_deity_name] while drawing a circle!</span>")
+		user.visible_message("<span class='info'>[user] kneels and begins to utter a prayer to [SSticker.Bible_deity_name] while drawing a circle with salt!</span>", \
+		"<span class='info'>You kneel and begin a prayer to [SSticker.Bible_deity_name] while drawing a circle!</span>")
 		notify_ghosts("The Chaplain is calling ghosts to [get_area(src)] with [name]!", source = src)
 	else
 		to_chat(user, "<span class='notice'>You need to wait before using [src] again.</span>")
@@ -619,6 +619,7 @@
 
 /obj/item/nullrod/missionary_staff/proc/do_convert(mob/living/carbon/human/target, mob/living/carbon/human/missionary)
 	var/convert_duration = 6000		//10 min
+
 	if(!target || !ishuman(target) || !missionary || !ishuman(missionary))
 		return
 	if(ismindslave(target) || target.mind.zealot_master)	//mindslaves and zealots override the staff because the staff is just a temporary mindslave

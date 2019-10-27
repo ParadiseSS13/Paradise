@@ -64,7 +64,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
@@ -78,7 +78,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	biomass = CLONE_BIOMASS
@@ -164,19 +164,25 @@
 	to_chat(user, "You flip the write-protect tab to [read_only ? "protected" : "unprotected"].")
 
 /obj/item/disk/data/examine(mob/user)
-	..(user)
-	to_chat(user, "The write-protect tab is set to [read_only ? "protected" : "unprotected"].")
+	. = ..()
+	. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 
 //Clonepod
 
 /obj/machinery/clonepod/examine(mob/user)
-	..()
+	. = ..()
 	if(mess)
-		to_chat(user, "It's filled with blood and viscera. You swear you can see it moving...")
+		. += "It's filled with blood and viscera. You swear you can see it moving..."
 	if(!occupant || stat & (NOPOWER|BROKEN))
 		return
 	if(occupant && occupant.stat != DEAD)
-		to_chat(user,  "Current clone cycle is [round(get_completion())]% complete.")
+		. +=  "Current clone cycle is [round(get_completion())]% complete."
+
+/obj/machinery/clonepod/return_air() //non-reactive air
+	var/datum/gas_mixture/GM = new
+	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
+	GM.temperature = T20C
+	return GM
 
 /obj/machinery/clonepod/proc/get_completion()
 	. = (100 * ((occupant.health + 100) / (heal_level + 100)))
@@ -416,25 +422,22 @@
 
 /obj/machinery/clonepod/proc/update_clone_antag(var/mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
-	callHook("clone", list(H))
-	if((H.mind in ticker.mode:revolutionaries) || (H.mind in ticker.mode:head_revolutionaries))
-		ticker.mode.update_rev_icons_added() //So the icon actually appears
-	if(H.mind in ticker.mode.syndicates)
-		ticker.mode.update_synd_icons_added()
-	if(H.mind in ticker.mode.cult)
-		ticker.mode.add_cultist(occupant.mind)
-		ticker.mode.update_cult_icons_added() //So the icon actually appears
-		ticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
-	if((H.mind in ticker.mode.implanter) || (H.mind in ticker.mode.implanted))
-		ticker.mode.update_traitor_icons_added(H.mind) //So the icon actually appears
+	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
+		SSticker.mode.update_rev_icons_added() //So the icon actually appears
+	if(H.mind in SSticker.mode.syndicates)
+		SSticker.mode.update_synd_icons_added()
+	if(H.mind in SSticker.mode.cult)
+		SSticker.mode.add_cultist(occupant.mind)
+		SSticker.mode.update_cult_icons_added() //So the icon actually appears
+		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
-	if((H.mind in ticker.mode.vampire_thralls) || (H.mind in ticker.mode.vampire_enthralled))
-		ticker.mode.update_vampire_icons_added(H.mind)
-	if(H.mind in ticker.mode.changelings)
-		ticker.mode.update_change_icons_added(H.mind)
- 	if((H.mind in ticker.mode.shadowling_thralls) || (H.mind in ticker.mode.shadows))
- 		ticker.mode.update_shadow_icons_added(H.mind)
+	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))
+		SSticker.mode.update_vampire_icons_added(H.mind)
+	if(H.mind in SSticker.mode.changelings)
+		SSticker.mode.update_change_icons_added(H.mind)
+ 	if((H.mind in SSticker.mode.shadowling_thralls) || (H.mind in SSticker.mode.shadows))
+ 		SSticker.mode.update_shadow_icons_added(H.mind)
 
 //Put messages in the connected computer's temp var for display.
 /obj/machinery/clonepod/proc/connected_message(message)
@@ -535,29 +538,19 @@
 	..()
 
 /obj/machinery/clonepod/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		else
-	return
+	..()
+	if(!QDELETED(src) && occupant)
+		go_out()
+
+/obj/machinery/clonepod/handle_atom_del(atom/A)
+	if(A == occupant)
+		occupant = null
+		countdown.stop()
+
+/obj/machinery/clonepod/deconstruct(disassembled = TRUE)
+	if(occupant)
+		go_out()
+	..()
 
 /obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
 	if(occupant && L == clonemind.current)

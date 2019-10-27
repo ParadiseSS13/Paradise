@@ -59,7 +59,7 @@ var/list/karma_spenders = list()
 	if(config.disable_karma)
 		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
 		return FALSE
-	if(!ticker || !GLOB.player_list.len || (ticker.current_state == GAME_STATE_PREGAME))
+	if(!SSticker || !GLOB.player_list.len || (SSticker.current_state == GAME_STATE_PREGAME))
 		to_chat(src, "<span class='warning'>You can't award karma until the game has started.</span>")
 		return FALSE
 	if(client.karma_spent || (ckey in karma_spenders))
@@ -222,7 +222,7 @@ var/list/karma_spenders = list()
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=7'>Unlock Drask -- 30KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=4'>Unlock Vox -- 45KP</a><br>
 			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=5'>Unlock Slime People -- 45KP</a><br>
-			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 100KP</a><br>
+			<a href='?src=[UID()];karmashop=shop;KarmaBuy2=6'>Unlock Plasmaman -- 45KP</a><br>
 			"}
 
 		if(2) // Karma Refunds

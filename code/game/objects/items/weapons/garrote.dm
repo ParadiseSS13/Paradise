@@ -44,7 +44,7 @@
 
 		strangling = null
 		update_icon()
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 	else
 		..()
@@ -97,7 +97,7 @@
 			M.AdjustSilence(1)
 
 	garrote_time = world.time + 10
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	strangling = M
 	update_icon()
 
@@ -113,14 +113,14 @@
 	if(!strangling)
 		// Our mark got gibbed or similar
 		update_icon()
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return
 
 
 	if(!istype(loc, /mob/living/carbon/human))
 		strangling = null
 		update_icon()
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return
 
 	var/mob/living/carbon/human/user = loc
@@ -138,7 +138,7 @@
 
 		strangling = null
 		update_icon()
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 		return
 
@@ -148,7 +148,7 @@
 
 		strangling = null
 		update_icon()
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 
 		return
 

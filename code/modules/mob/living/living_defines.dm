@@ -1,5 +1,6 @@
 /mob/living
 	see_invisible = SEE_INVISIBLE_LIVING
+	pressure_resistance = 10
 
 	//Health and life related vars
 	var/maxHealth = 100 //Maximum health that should be possible.
@@ -27,13 +28,11 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/update_slimes = 1
 	var/implanting = 0 //Used for the mind-slave implant
 	var/floating = 0
 	var/mob_size = MOB_SIZE_HUMAN
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/digestion_ratio = 1 //controls how quickly reagents metabolize; largely governered by species attributes.
-	var/nightvision = 0
 
 	var/bloodcrawl = 0 //0 No blood crawling, 1 blood crawling, 2 blood crawling+mob devour
 	var/holder = null //The holder for blood crawling
@@ -66,5 +65,9 @@
 	hud_possible = list(HEALTH_HUD,STATUS_HUD,SPECIALROLE_HUD)
 
 	var/list/status_effects //a list of all status effects the mob has
-	
+
 	var/deathgasp_on_death = FALSE
+
+	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
+	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
+	var/stam_paralyzed = FALSE //knocks you down

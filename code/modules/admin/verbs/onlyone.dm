@@ -1,5 +1,5 @@
 /client/proc/only_one()
-	if(!ticker)
+	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
 
@@ -14,7 +14,7 @@
 			var/datum/preferences/A = new()	// Randomize appearance
 			A.copy_to(H)
 
-		ticker.mode.traitors += H.mind
+		SSticker.mode.traitors += H.mind
 		H.mind.special_role = SPECIAL_ROLE_TRAITOR
 
 		var/datum/objective/hijack/hijack_objective = new
@@ -58,7 +58,7 @@
 	world << sound('sound/music/thunderdome.ogg')
 
 /client/proc/only_me()
-	if(!ticker)
+	if(!SSticker)
 		alert("The game hasn't started yet!")
 		return
 
@@ -66,7 +66,7 @@
 		if(H.stat == 2 || !(H.client)) continue
 		if(is_special_character(H)) continue
 
-		ticker.mode.traitors += H.mind
+		SSticker.mode.traitors += H.mind
 		H.mind.special_role = "[H.real_name] Prime"
 
 		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone

@@ -23,12 +23,12 @@
 	return ..()
 
 /obj/item/bee_briefcase/examine(mob/user)
-	..()
+	. = ..()
 	if(loc == user)
 		if(bees_left)
-			to_chat(user, "<span class='warning'>There are [bees_left] bees still inside in briefcase!</span>")
+			. += "<span class='warning'>There are [bees_left] bees still inside in briefcase!</span>"
 		else
-			to_chat(user, "<span class='danger'>The bees are gone... Colony collapse disorder?</span>")
+			. += "<span class='danger'>The bees are gone... Colony collapse disorder?</span>"
 
 /obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/syringe))

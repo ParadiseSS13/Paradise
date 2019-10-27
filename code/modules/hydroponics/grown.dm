@@ -15,11 +15,14 @@
 	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
 	var/wine_power = 0.1 //Determines the boozepwr of the wine if distill_reagent is NULL. Uses 0.1 - 1.2 not tg's boozepower (divide by 100) else you'll end up with 1000% proof alcohol!
 	dried_type = -1 // Saves us from having to define each stupid grown's dried_type as itself. If you don't want a plant to be driable (watermelons) set this to null in the time definition.
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	origin_tech = "biotech=1"
 
 /obj/item/reagent_containers/food/snacks/grown/New(newloc, var/obj/item/seeds/new_seed = null)
 	..()
+	if(!tastes)
+		tastes = list("[name]" = 1)
+
 	if(new_seed)
 		seed = new_seed.Copy()
 	else if(ispath(seed))
@@ -52,11 +55,11 @@
 	return 0
 
 /obj/item/reagent_containers/food/snacks/grown/examine(user)
-	..()
+	. = ..()
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			if(T.examine_line)
-				to_chat(user, T.examine_line)
+				. += T.examine_line
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
@@ -68,7 +71,7 @@
 
 			if(!isturf(loc) || !(locate(/obj/structure/table) in loc) && !(locate(/obj/machinery/optable) in loc) && !(locate(/obj/item/storage/bag/tray) in loc))
 				to_chat(user, "<span class='warning'>You cannot slice [src] here! You need a table or at least a tray to do it.</span>")
-				return TRUE	
+				return TRUE
 
 			var/slices_lost = 0
 			if(!inaccurate)
@@ -151,7 +154,7 @@
 				T.on_consume(src, usr)
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/Crossed(atom/movable/AM)
+/obj/item/reagent_containers/food/snacks/grown/Crossed(atom/movable/AM, oldloc)
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_cross(src, AM)

@@ -19,6 +19,7 @@
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
+	var/death_sound = 'sound/voice/borg_deathsound.ogg'
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 
@@ -91,13 +92,13 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(var/mob/user, var/error_msg)
+/mob/living/silicon/can_inject(mob/user, error_msg)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>Their outer shell is too tough.</span>")
-	return 0
+		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
-	return 1
+	return TRUE
 
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
 
@@ -113,7 +114,7 @@
 
 	return 2
 
-/mob/living/silicon/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0)
+/mob/living/silicon/apply_effect(var/effect = 0,var/effecttype = STUN, var/blocked = 0, var/negate_armor = 0)
 	return 0//The only effect that can hit them atm is flashes and they still directly edit so this works for now
 /*
 	if(!effect || (blocked >= 2))	return 0
@@ -155,7 +156,6 @@
 /mob/living/silicon/Stat()
 	..()
 	if(statpanel("Status"))
-		show_stat_station_time()
 		show_stat_emergency_shuttle_eta()
 		show_system_integrity()
 
@@ -338,3 +338,4 @@
 /////////////////////////////////// EAR DAMAGE ////////////////////////////////////
 /mob/living/silicon/can_hear()
 	. = TRUE
+

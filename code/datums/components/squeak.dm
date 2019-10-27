@@ -1,5 +1,3 @@
-// Squeak component ported over from tg
-
 /datum/component/squeak
 	var/static/list/default_squeak_sounds = list('sound/items/toysqueak1.ogg'=1, 'sound/items/toysqueak2.ogg'=1, 'sound/items/toysqueak3.ogg'=1)
 	var/list/override_squeak_sounds
@@ -49,21 +47,12 @@
 		else
 			playsound(parent, pickweight(override_squeak_sounds), volume, 1, -1)
 
-/datum/component/squeak/proc/step_squeak(datum/source, mob/living/carbon/human/H)
-	if(H.m_intent == MOVE_INTENT_RUN)
-		if(steps > step_delay)
-			play_squeak()
-			steps = 0
-		else
-			steps++
-	else
+/datum/component/squeak/proc/step_squeak()
+	if(steps > step_delay)
 		play_squeak()
-
-/datum/component/squeak/proc/on_equip(datum/source, mob/equipper, slot)
-	RegisterSignal(equipper, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react, TRUE)
-
-/datum/component/squeak/proc/on_drop(datum/source, mob/user)
-	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
+		steps = 0
+	else
+		steps++
 
 /datum/component/squeak/proc/play_squeak_crossed(atom/movable/AM)
 	if(isitem(AM))
@@ -83,6 +72,13 @@
 		last_use = world.time
 		play_squeak()
 
+/datum/component/squeak/proc/on_equip(datum/source, mob/equipper, slot)
+	RegisterSignal(equipper, COMSIG_MOVABLE_DISPOSING, .proc/disposing_react, TRUE)
+
+/datum/component/squeak/proc/on_drop(datum/source, mob/user)
+	UnregisterSignal(user, COMSIG_MOVABLE_DISPOSING)
+
+// Disposal pipes related shit
 /datum/component/squeak/proc/disposing_react(datum/source, obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 	//We don't need to worry about unregistering this signal as it will happen for us automaticaly when the holder is qdeleted
 	RegisterSignal(holder, COMSIG_ATOM_DIR_CHANGE, .proc/holder_dir_change)

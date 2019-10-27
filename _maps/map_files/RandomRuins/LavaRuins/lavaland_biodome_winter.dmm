@@ -1,0 +1,1364 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/template_noop,
+/area/template_noop)
+"ab" = (
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"ac" = (
+/obj/item/stack/medical/ointment,
+/obj/structure/table,
+/obj/item/stack/medical/bruise_pack,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"ad" = (
+/obj/structure/table,
+/obj/item/stack/medical/bruise_pack,
+/obj/item/stack/medical/bruise_pack,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"ae" = (
+/obj/machinery/power/smes,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"af" = (
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"ag" = (
+/obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"ah" = (
+/obj/item/reagent_containers/food/drinks/mug,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"ai" = (
+/obj/machinery/shower,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"aj" = (
+/obj/structure/sink,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"ak" = (
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"al" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"am" = (
+/obj/machinery/door/airlock/hatch,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"an" = (
+/obj/structure/toilet{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"ao" = (
+/turf/simulated/floor/plating/ice/smooth,
+/area/ruin/powered/snow_biodome)
+"ap" = (
+/obj/structure/flora/rock/icy,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"aq" = (
+/turf/simulated/wall/mineral/wood,
+/area/ruin/powered/snow_cabin)
+"ar" = (
+/obj/machinery/door/airlock/wood,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_cabin)
+"as" = (
+/obj/structure/fans,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/powered/snow_cabin)
+"at" = (
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"au" = (
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"av" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aw" = (
+/obj/structure/table/wood,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"ax" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/snacks/beans,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"ay" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/trash/semki,
+/obj/item/trash/candy,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"az" = (
+/obj/structure/flora/tree/pine,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"aA" = (
+/obj/structure/chair/comfy/brown{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aB" = (
+/obj/structure/flora/rock/pile/icy,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"aC" = (
+/obj/structure/flora/tree/dead,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"aD" = (
+/obj/machinery/door/airlock/wood,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aE" = (
+/obj/structure/extinguisher_cabinet,
+/turf/simulated/wall/mineral/wood,
+/area/ruin/powered/snow_cabin)
+"aF" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/h_chocolate,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aG" = (
+/obj/structure/chair/comfy/brown{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aH" = (
+/mob/living/simple_animal/hostile/skeleton/eskimo,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aI" = (
+/obj/structure/flora/bush,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"aJ" = (
+/obj/vehicle/atv,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"aK" = (
+/obj/structure/table/wood,
+/obj/item/key,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aL" = (
+/obj/structure/displaycase/captain,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aM" = (
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
+"aN" = (
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"aO" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"aP" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"aQ" = (
+/obj/structure/flora/grass/both,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"aR" = (
+/obj/structure/flora/tree/pine/xmas,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"bi" = (
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_cabin)
+"bl" = (
+/turf/simulated/floor/wood/cold,
+/area/ruin/powered/snow_biodome)
+"bv" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating/ice/smooth,
+/area/ruin/powered/snow_biodome)
+"bw" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"bx" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"by" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"bz" = (
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
+"bB" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"bD" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"bM" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating/asteroid/snow/atmosphere,
+/area/ruin/powered/snow_biodome)
+"bN" = (
+/obj/machinery/light,
+/turf/simulated/floor/plating/ice/smooth,
+/area/ruin/powered/snow_biodome)
+"dS" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"eb" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"eg" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"gh" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"gz" = (
+/obj/structure/chair/stool,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"hA" = (
+/obj/machinery/light/built{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"qt" = (
+/obj/machinery/door/airlock/silver,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"tb" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
+"tl" = (
+/turf/simulated/floor/pod/light,
+/area/ruin/powered/snow_biodome)
+"vf" = (
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_cabin)
+"xU" = (
+/obj/item/storage/toolbox/mechanical,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"zT" = (
+/obj/machinery/door/airlock/silver,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"AM" = (
+/obj/structure/table,
+/obj/item/pen,
+/obj/item/paper,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Dd" = (
+/obj/structure/rack,
+/obj/item/clothing/suit/hooded/wintercoat/science,
+/obj/item/clothing/shoes/winterboots,
+/obj/item/clothing/gloves/fingerless,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Ef" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Ez" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"HP" = (
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"HR" = (
+/obj/structure/closet/secure_closet/freezer/fridge/open,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"JZ" = (
+/obj/structure/table,
+/obj/machinery/microwave,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"KS" = (
+/obj/structure/closet,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/twohanded/required/chainsaw,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Mp" = (
+/obj/item/clothing/mask/balaclava,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Oj" = (
+/obj/structure/table,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"PD" = (
+/obj/machinery/door/airlock/hatch,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"PK" = (
+/obj/structure/table,
+/obj/item/pen,
+/obj/item/paper_bin,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Qa" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
+"QI" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/explored)
+"QK" = (
+/obj/structure/table,
+/obj/item/storage/fancy/cigarettes/cigpack_carp,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"QN" = (
+/obj/effect/spawner/window,
+/turf/simulated/floor/plating,
+/area/ruin/powered/snow_biodome)
+"Sj" = (
+/obj/effect/decal/cleanable/blood/oil,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Ub" = (
+/obj/structure/filingcabinet,
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"UM" = (
+/obj/machinery/computer/monitor/secret{
+	dir = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/powered/snow_biodome)
+"Wg" = (
+/turf/simulated/wall/r_wall,
+/area/ruin/powered/snow_biodome)
+
+(1,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+Wg
+Wg
+Wg
+Wg
+PD
+Wg
+Wg
+Wg
+Wg
+Wg
+Wg
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+Wg
+Wg
+Wg
+Wg
+Wg
+Dd
+gh
+HP
+tl
+gh
+HP
+Ub
+Wg
+Wg
+Wg
+Wg
+Wg
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+aa
+aa
+aa
+aa
+Wg
+Wg
+Wg
+ak
+by
+ak
+Wg
+Dd
+HP
+HP
+tl
+PK
+gz
+UM
+Wg
+ak
+ak
+ak
+Wg
+Wg
+Wg
+QI
+QI
+aa
+aa
+aa
+"}
+(4,1,1) = {"
+aa
+aa
+aa
+Wg
+Wg
+ak
+aC
+ak
+ak
+ak
+Wg
+QN
+QN
+QN
+qt
+QN
+QN
+QN
+Wg
+ak
+ak
+ak
+ak
+ak
+Wg
+Wg
+QI
+QI
+aa
+aa
+"}
+(5,1,1) = {"
+aa
+aa
+Wg
+Wg
+ao
+ao
+ak
+aI
+ak
+ak
+by
+az
+ak
+aB
+ak
+ak
+ak
+aI
+by
+ak
+ak
+ak
+ak
+ak
+ak
+Wg
+Wg
+QI
+tb
+aa
+"}
+(6,1,1) = {"
+aa
+aa
+Wg
+bv
+ao
+ao
+ao
+ao
+ak
+aI
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+aQ
+ak
+ak
+ak
+az
+ak
+ak
+Wg
+QI
+tb
+aa
+"}
+(7,1,1) = {"
+aa
+Wg
+Wg
+ap
+ak
+ao
+ao
+ao
+ao
+ak
+ak
+ak
+ak
+ak
+az
+ak
+aC
+ak
+ak
+aI
+aI
+ak
+ak
+ak
+ak
+bM
+Wg
+Wg
+tb
+aa
+"}
+(8,1,1) = {"
+aa
+Wg
+ak
+ak
+ak
+ak
+ak
+ao
+ao
+ao
+ao
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ap
+aI
+ak
+aQ
+ak
+ak
+ak
+az
+ak
+Wg
+tb
+tb
+"}
+(9,1,1) = {"
+aa
+Wg
+Wg
+Wg
+ak
+az
+ak
+ak
+ao
+ao
+ao
+ao
+ao
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+aC
+ak
+ak
+ak
+ak
+ak
+Wg
+hA
+tb
+"}
+(10,1,1) = {"
+Wg
+Wg
+af
+Wg
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ao
+ao
+ao
+ao
+ak
+aI
+az
+ak
+ak
+ak
+ak
+ak
+aI
+ak
+ak
+ak
+Wg
+tb
+tb
+"}
+(11,1,1) = {"
+Wg
+ac
+af
+aq
+aq
+aq
+aq
+aq
+aq
+aq
+bD
+ao
+ao
+ao
+ao
+ao
+ak
+ak
+bl
+bl
+ak
+aI
+ak
+ak
+ak
+Wg
+Wg
+Wg
+Wg
+tb
+"}
+(12,1,1) = {"
+Wg
+ad
+af
+ar
+bw
+at
+aD
+at
+aL
+aq
+ak
+az
+ak
+ao
+ao
+ao
+ao
+ao
+bl
+bl
+ak
+ak
+ak
+az
+bM
+Wg
+Dd
+Dd
+Wg
+tb
+"}
+(13,1,1) = {"
+Wg
+ae
+af
+aq
+au
+au
+aq
+at
+bz
+aq
+ak
+ak
+ak
+ao
+ao
+ao
+ao
+ao
+bl
+bl
+ao
+ak
+ak
+ak
+aI
+Wg
+Mp
+dS
+Wg
+tb
+"}
+(14,1,1) = {"
+Wg
+af
+al
+aq
+aq
+aq
+aE
+at
+at
+aq
+ak
+ak
+aC
+ak
+ao
+ak
+ao
+ao
+bl
+bl
+ao
+ao
+aI
+ak
+ak
+Wg
+tl
+tl
+Wg
+tb
+"}
+(15,1,1) = {"
+Wg
+ae
+af
+aq
+av
+at
+at
+aH
+aM
+vf
+ap
+ak
+ak
+ak
+ak
+ak
+ak
+ao
+bl
+bl
+ao
+ao
+ak
+ak
+ak
+aO
+tl
+tl
+Ez
+Qa
+"}
+(16,1,1) = {"
+Wg
+ag
+ah
+as
+aw
+aA
+aA
+at
+aM
+bi
+ak
+ak
+aQ
+ak
+ak
+az
+ak
+ak
+bl
+bl
+ak
+ao
+ao
+ak
+ak
+aP
+tl
+tl
+aP
+Qa
+"}
+(17,1,1) = {"
+Wg
+ah
+af
+aq
+ax
+aK
+aF
+at
+at
+aq
+ak
+aI
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ao
+ao
+ao
+ak
+Wg
+tl
+tl
+Wg
+tb
+"}
+(18,1,1) = {"
+Wg
+Wg
+am
+aq
+av
+at
+aG
+at
+bz
+aq
+aR
+ak
+ak
+ak
+ak
+ab
+ak
+ak
+aC
+ak
+ak
+ak
+ao
+ao
+ao
+Wg
+HP
+dS
+Wg
+tb
+"}
+(19,1,1) = {"
+Wg
+ai
+af
+aq
+av
+bx
+aH
+at
+aN
+aq
+ak
+ak
+ak
+az
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ao
+bN
+Wg
+QK
+AM
+Wg
+tb
+"}
+(20,1,1) = {"
+Wg
+aj
+af
+aq
+aq
+aq
+aq
+aq
+aq
+aq
+bD
+ak
+ak
+ak
+ak
+aI
+ak
+az
+ak
+ak
+ak
+ak
+az
+ak
+ao
+Wg
+Wg
+Wg
+Wg
+tb
+"}
+(21,1,1) = {"
+Wg
+Wg
+an
+Wg
+ay
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+aC
+ak
+ak
+ak
+ak
+ap
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+Wg
+tb
+tb
+"}
+(22,1,1) = {"
+aa
+Wg
+Wg
+Wg
+ak
+ak
+aI
+ak
+ap
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+ak
+aI
+ak
+ak
+aQ
+ak
+ak
+ak
+Wg
+hA
+tb
+"}
+(23,1,1) = {"
+aa
+Wg
+ak
+ak
+az
+ak
+aJ
+ak
+ak
+ak
+ak
+ak
+ak
+az
+ak
+aQ
+ak
+aC
+ak
+aI
+ak
+az
+aI
+aI
+ak
+ak
+ak
+Wg
+tb
+tb
+"}
+(24,1,1) = {"
+aa
+Wg
+Wg
+ak
+ak
+aB
+ak
+ak
+aC
+ak
+ak
+ak
+ak
+aI
+ak
+ap
+ak
+ak
+ak
+ak
+ak
+ak
+aI
+aI
+ak
+bM
+Wg
+Wg
+tb
+aa
+"}
+(25,1,1) = {"
+aa
+aa
+Wg
+ap
+ak
+ak
+ak
+ak
+ak
+aQ
+ak
+ak
+ak
+aI
+ak
+ak
+ak
+ak
+aQ
+ak
+ak
+aB
+ak
+ak
+aC
+ak
+Wg
+QI
+tb
+aa
+"}
+(26,1,1) = {"
+aa
+aa
+Wg
+Wg
+ak
+ak
+az
+ak
+ak
+ak
+bB
+ak
+ak
+ak
+ak
+ak
+az
+ak
+bB
+ak
+ak
+az
+ak
+ak
+ak
+Wg
+Wg
+QI
+aa
+aa
+"}
+(27,1,1) = {"
+aa
+aa
+aa
+Wg
+Wg
+ak
+ak
+ak
+ak
+ak
+Wg
+QN
+QN
+QN
+zT
+QN
+QN
+QN
+Wg
+ak
+ak
+ak
+ak
+ak
+Wg
+Wg
+QI
+QI
+aa
+aa
+"}
+(28,1,1) = {"
+aa
+aa
+aa
+aa
+Wg
+Wg
+Wg
+ak
+bB
+ak
+Wg
+eg
+HP
+tl
+tl
+tl
+Sj
+xU
+Wg
+ak
+bB
+ak
+Wg
+Wg
+Wg
+QI
+QI
+aa
+aa
+aa
+"}
+(29,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+Wg
+Wg
+Wg
+Wg
+Wg
+HR
+eb
+gz
+Oj
+JZ
+KS
+Ef
+Wg
+Wg
+Wg
+Wg
+Wg
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(30,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+Wg
+Wg
+Wg
+Wg
+Wg
+Wg
+Wg
+Wg
+Wg
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}

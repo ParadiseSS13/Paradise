@@ -20,6 +20,7 @@
 	gender = PLURAL
 	icon_state = "wheat"
 	filling_color = "#F0E68C"
+	tastes = list("wheat" = 1)
 	bitesize_mod = 2
 	distill_reagent = "beer"
 
@@ -40,6 +41,7 @@
 	gender = PLURAL
 	icon_state = "oat"
 	filling_color = "#556B2F"
+	tastes = list("oat" = 1)
 	bitesize_mod = 2
 	distill_reagent = "ale"
 
@@ -62,6 +64,7 @@
 	icon_state = "rice"
 	filling_color = "#FAFAD2"
 	bitesize_mod = 2
+	tastes = list("rice" = 1)
 	distill_reagent = "sake"
 
 //Meatwheat - grows into synthetic meat
@@ -83,6 +86,7 @@
 	filling_color = rgb(150, 0, 0)
 	bitesize_mod = 2
 	seed = /obj/item/seeds/wheat/meat
+	tastes = list("meatwheat" = 1)
 	can_distill = FALSE
 
 /obj/item/reagent_containers/food/snacks/grown/meatwheat/attack_self(mob/living/user)

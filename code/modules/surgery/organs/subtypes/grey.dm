@@ -23,7 +23,7 @@
 	name = "grey eyeballs"
 	desc = "They still look creepy and emotionless"
 	icon = 'icons/obj/species_organs/grey.dmi'
-	dark_view = 5
+	see_in_dark = 5
 
 /obj/item/organ/internal/heart/grey
 	name = "grey heart"

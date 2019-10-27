@@ -9,6 +9,7 @@
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=500)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/obj/item/disk/nuclear/the_disk = null
 	var/active = 0
 	var/shows_nuke_timer = TRUE
@@ -77,13 +78,11 @@
 		.()
 
 /obj/item/pinpointer/examine(mob/user)
-	..(user)
-	if(!shows_nuke_timer)
-		return
-
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-		if(bomb.timing)
-			to_chat(user, "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]")
+	. = ..()
+	if(shows_nuke_timer)
+		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+			if(bomb.timing)
+				. += "Extreme danger.  Arming signal detected.   Time remaining: [bomb.timeleft]"
 
 /obj/item/pinpointer/advpinpointer
 	name = "advanced pinpointer"
@@ -165,7 +164,13 @@
 					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
 					if(!targetitem)
 						return
-					target = locate(item_paths[targetitem])
+
+					var/list/target_candidates = get_all_of_type(item_paths[targetitem], subtypes = TRUE)
+					for(var/obj/item/candidate in target_candidates)
+						if(!is_admin_level((get_turf(candidate)).z))
+							target = candidate
+							break
+
 					if(!target)
 						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
@@ -273,7 +278,7 @@
 	var/mob/living/carbon/nearest_op = null
 
 /obj/item/pinpointer/operative/attack_self()
-	if(!usr.mind || !(usr.mind in ticker.mode.syndicates))
+	if(!usr.mind || !(usr.mind in SSticker.mode.syndicates))
 		to_chat(usr, "<span class='danger'>AUTHENTICATION FAILURE. ACCESS DENIED.</span>")
 		return 0
 	if(!active)
@@ -290,7 +295,7 @@
 		nearest_op = null //Resets nearest_op every time it scans
 		var/closest_distance = 1000
 		for(var/mob/living/carbon/M in GLOB.mob_list)
-			if(M.mind && (M.mind in ticker.mode.syndicates))
+			if(M.mind && (M.mind in SSticker.mode.syndicates))
 				if(get_dist(M, get_turf(src)) < closest_distance) //Actually points toward the nearest op, instead of a random one like it used to
 					nearest_op = M
 
@@ -304,12 +309,12 @@
 		return 0
 
 /obj/item/pinpointer/operative/examine(mob/user)
-	..()
+	. = ..()
 	if(active)
 		if(nearest_op)
-			to_chat(user, "Nearest operative detected is <i>[nearest_op.real_name].</i>")
+			. += "Nearest operative detected is <i>[nearest_op.real_name].</i>"
 		else
-			to_chat(user, "No operatives detected within scanning range.")
+			. += "No operatives detected within scanning range."
 
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
@@ -388,9 +393,6 @@
 	if(spawnself)
 		spawn(5)
 			.()
-
-/obj/item/pinpointer/crew/examine(mob/user)
-	..(user)
 
 /obj/item/pinpointer/crew/centcom
 	name = "centcom pinpointer"

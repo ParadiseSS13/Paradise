@@ -11,7 +11,7 @@ var/global/admin_ooc_colour = "#b82e00"
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
 	set category = "OOC"
-	
+
 	if(!mob)
 		return
 	if(IsGuestKey(key))
@@ -28,10 +28,10 @@ var/global/admin_ooc_colour = "#b82e00"
 		if(prefs.muted & MUTE_OOC)
 			to_chat(src, "<span class='danger'>You cannot use OOC (muted).</span>")
 			return
-	
+
 	if(!msg)
 		msg = typing_input(src.mob, "", "ooc \"text\"")
-		
+
 	msg = trim(sanitize(copytext(msg, 1, MAX_MESSAGE_LEN)))
 	if(!msg)
 		return
@@ -41,6 +41,9 @@ var/global/admin_ooc_colour = "#b82e00"
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
+		if(!config.ooc_allowed)
+			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			return
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
 		if(findtext(msg, "byond://"))
@@ -76,7 +79,7 @@ var/global/admin_ooc_colour = "#b82e00"
 					var/icon/byond = icon('icons/member_content.dmi', "blag")
 					display_name = "[bicon(byond)][display_name]"
 
-			if(donator_level >= DONATOR_LEVEL_ONE)
+			if(donator_level > 0)
 				if((prefs.toggles & DONATOR_PUBLIC))
 					var/icon/donator = icon('icons/ooc_tag_16x.dmi', "donator")
 					display_name = "[bicon(donator)][display_name]"

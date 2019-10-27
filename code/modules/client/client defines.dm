@@ -1,4 +1,8 @@
 /client
+		//////////////////////
+		//BLACK MAGIC THINGS//
+		//////////////////////
+	parent_type = /datum
 		////////////////
 		//ADMIN THINGS//
 		////////////////
@@ -7,6 +11,7 @@
 	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
 	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
+	var/datum/pm_tracker/pm_tracker = new()
 
 		/////////
 		//OTHER//
@@ -23,7 +28,7 @@
 
 	var/adminhelped = 0
 
-	var/gc_destroyed //Time when this object was destroyed.
+	// var/gc_destroyed //Time when this object was destroyed. [Inherits from datum]
 
 #ifdef TESTING
 	var/running_find_references
@@ -46,7 +51,7 @@
 	var/received_irc_pm = -99999
 	var/irc_admin			//IRC admin that spoke with them last.
 	var/mute_irc = 0
-
+	var/ssd_warning_acknowledged = FALSE
 
 		////////////////////////////////////
 		//things that require the database//
@@ -55,7 +60,7 @@
 	var/list/related_accounts_ip = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/list/related_accounts_cid = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 
-	preload_rsc = 1 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
+	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
 
 	var/global/obj/screen/click_catcher/void
 
@@ -71,6 +76,8 @@
 
 	control_freak = CONTROL_FREAK_ALL | CONTROL_FREAK_SKIN | CONTROL_FREAK_MACROS
 
+	var/ip_intel = "Disabled"
+
 	var/datum/click_intercept/click_intercept = null
 
 	//datum that controls the displaying and hiding of tooltips
@@ -81,10 +88,15 @@
 	var/datum/chatOutput/chatOutput
 
 	// Donator stuff.
-	var/donator_level = DONATOR_LEVEL_NONE
+	var/donator_level = 0
 
 	// If set to true, this client can interact with atoms such as buttons and doors on top of regular machinery interaction
 	var/advanced_admin_interaction = FALSE
 
-	// Has the client been varedited by an admin?
-	var/var_edited = FALSE
+	// Has the client been varedited by an admin? [Inherits from datum now]
+	// var/var_edited = FALSE
+
+	var/client_keysend_amount = 0
+	var/next_keysend_reset = 0
+	var/next_keysend_trip_reset = 0
+	var/keysend_tripped = FALSE

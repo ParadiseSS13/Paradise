@@ -52,7 +52,7 @@
 	can_charge = 0
 	fire_delay = 50
 	var/obj/item/chrono_eraser/TED = null
-	var/obj/effect/chrono_field/field = null
+	var/obj/structure/chrono_field/field = null
 	var/turf/startpos = null
 
 /obj/item/gun/energy/chrono_gun/New(var/obj/item/chrono_eraser/T)
@@ -66,7 +66,7 @@
 /obj/item/gun/energy/chrono_gun/update_icon()
 	return
 
-/obj/item/gun/energy/chrono_gun/process_fire()
+/obj/item/gun/energy/chrono_gun/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
 	if(field)
 		field_disconnect(field)
 	..()
@@ -79,7 +79,7 @@
 		field_disconnect(field)
 	return ..()
 
-/obj/item/gun/energy/chrono_gun/proc/field_connect(var/obj/effect/chrono_field/F)
+/obj/item/gun/energy/chrono_gun/proc/field_connect(obj/structure/chrono_field/F)
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
@@ -93,7 +93,7 @@
 			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
 
 
-/obj/item/gun/energy/chrono_gun/proc/field_disconnect(var/obj/effect/chrono_field/F)
+/obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
 	if(F && field == F)
 		var/mob/living/user = src.loc
 		if(F.gun == src)
@@ -103,7 +103,7 @@
 	field = null
 	startpos = null
 
-/obj/item/gun/energy/chrono_gun/proc/field_check(var/obj/effect/chrono_field/F)
+/obj/item/gun/energy/chrono_gun/proc/field_check(obj/structure/chrono_field/F)
 	if(F)
 		if(field == F)
 			var/turf/currentpos = get_turf(src)
@@ -135,7 +135,7 @@
 
 /obj/item/projectile/energy/chrono_beam/on_hit(atom/target)
 	if(target && gun && isliving(target))
-		var/obj/effect/chrono_field/F = new(target.loc, target, gun)
+		var/obj/structure/chrono_field/F = new(target.loc, target, gun)
 		gun.field_connect(F)
 
 /obj/item/ammo_casing/energy/chrono_beam
@@ -144,26 +144,27 @@
 	icon_state = "chronobolt"
 	e_cost = 0
 
-/obj/effect/chrono_field
+/obj/structure/chrono_field
 	name = "eradication field"
 	desc = "An aura of time-bluespace energy."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "chronofield"
-	density = 1
-	anchored = 1
-	unacidable = 1
+	density = FALSE
+	anchored = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
+	move_resist = INFINITY
 	blend_mode = BLEND_MULTIPLY
 	var/mob/living/captured = null
 	var/obj/item/gun/energy/chrono_gun/gun = null
-	var/tickstokill = 30
-	var/image/mob_underlay = null
+	var/tickstokill = 15
+	var/mutable_appearance/mob_underlay
 	var/preloaded = 0
 	var/RPpos = null
 
-/obj/effect/chrono_field/New(loc, var/mob/living/target, var/obj/item/gun/energy/chrono_gun/G)
+/obj/structure/chrono_field/New(loc, mob/living/target, obj/item/gun/energy/chrono_gun/G)
 	if(target && isliving(target) && G)
-		target.loc = src
-		src.captured = target
+		target.forceMove(src)
+		captured = target
 		var/icon/mob_snapshot = getFlatIcon(target)
 		var/icon/cached_icon = new()
 
@@ -173,18 +174,19 @@
 			mob_icon.Blend(removing_frame, ICON_MULTIPLY)
 			cached_icon.Insert(mob_icon, "frame[i]")
 
-		mob_underlay = new(cached_icon, "frame1")
+		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_icon()
 
 		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].</span>"
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
+	return ..()
 
-/obj/effect/chrono_field/Destroy()
+/obj/structure/chrono_field/Destroy()
 	if(gun && gun.field_check(src))
 		gun.field_disconnect(src)
 	return ..()
 
-/obj/effect/chrono_field/update_icon()
+/obj/structure/chrono_field/update_icon()
 	var/ttk_frame = 1 - (tickstokill / initial(tickstokill))
 	ttk_frame = Clamp(Ceiling(ttk_frame * CHRONO_FRAME_COUNT), 1, CHRONO_FRAME_COUNT)
 	if(ttk_frame != RPpos)
@@ -193,11 +195,11 @@
 		underlays = list() //hack: BYOND refuses to update the underlay to match the icon_state otherwise
 		underlays += mob_underlay
 
-/obj/effect/chrono_field/process()
+/obj/structure/chrono_field/process()
 	if(captured)
 		if(tickstokill > initial(tickstokill))
 			for(var/atom/movable/AM in contents)
-				AM.loc = loc
+				AM.forceMove(drop_location())
 			qdel(src)
 		else if(tickstokill <= 0)
 			to_chat(captured, "<span class='boldnotice'>As the last essence of your being is erased from time, you begin to re-experience your most enjoyable memory. You feel happy...</span>")
@@ -211,12 +213,8 @@
 			qdel(src)
 		else
 			captured.Paralyse(4)
-			if(captured.reagents)
-				captured.reagents.del_reagent("synaptizine") //you pesky thing you
-			if(captured.loc != src) //If they manage to escape, immediately kill them, this is so that even if there IS a way to get out, they won't use it
-				captured.loc = src
-				tickstokill = 0
-				return .()
+			if(captured.loc != src)
+				captured.forceMove(src)
 			update_icon()
 			if(gun)
 				if(gun.field_check(src))
@@ -229,7 +227,8 @@
 	else
 		qdel(src)
 
-/obj/effect/chrono_field/bullet_act(var/obj/item/projectile/P)
+
+/obj/structure/chrono_field/bullet_act(obj/item/projectile/P)
 	if(istype(P, /obj/item/projectile/energy/chrono_beam))
 		var/obj/item/projectile/energy/chrono_beam/beam = P
 		var/obj/item/gun/energy/chrono_gun/Pgun = beam.gun
@@ -238,26 +237,26 @@
 	else
 		return 0
 
-/obj/effect/chrono_field/assume_air()
+/obj/structure/chrono_field/assume_air()
 	return 0
 
-/obj/effect/chrono_field/return_air() //we always have nominal air and temperature
+/obj/structure/chrono_field/return_air() //we always have nominal air and temperature
 	var/datum/gas_mixture/GM = new
 	GM.oxygen = MOLES_O2STANDARD
 	GM.nitrogen = MOLES_N2STANDARD
 	GM.temperature = T20C
 	return GM
 
-/obj/effect/chrono_field/Move()
+/obj/structure/chrono_field/Move()
 	return
 
-/obj/effect/chrono_field/singularity_act()
+/obj/structure/chrono_field/singularity_act()
 	return
 
-/obj/effect/chrono_field/ex_act()
+/obj/structure/chrono_field/ex_act()
 	return
 
-/obj/effect/chrono_field/blob_act()
+/obj/structure/chrono_field/blob_act(obj/structure/blob/B)
 	return
 
 

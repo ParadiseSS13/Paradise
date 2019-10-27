@@ -13,7 +13,7 @@
 	if(cooldown == total_cooldown)
 		home.Retrieve(imp_in,1)
 		cooldown = 0
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	else
 		to_chat(imp_in, "<span class='warning'>You must wait [(total_cooldown - cooldown)*2] seconds to use [src] again!</span>")
 
@@ -21,7 +21,7 @@
 	if(cooldown < total_cooldown)
 		cooldown++
 		if(cooldown == total_cooldown)
-			processing_objects.Remove(src)
+			STOP_PROCESSING(SSobj, src)
 
 /obj/item/implant/abductor/implant(mob/source, mob/user)
 	if(..())

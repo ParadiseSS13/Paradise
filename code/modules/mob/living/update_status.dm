@@ -62,11 +62,11 @@
 
 // Whether the mob is capable of standing or not
 /mob/living/proc/can_stand()
-	return !(weakened || paralysis || stat || (status_flags & FAKEDEATH))
+	return !(IsWeakened() || paralysis || stat || (status_flags & FAKEDEATH))
 
 // Whether the mob is capable of actions or not
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, ignore_lying = FALSE)
-	if(stat || paralysis || stunned || weakened || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
+	if(stat || paralysis || stunned || IsWeakened() || (!ignore_restraints && restrained()) || (!ignore_lying && lying))
 		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay
@@ -89,13 +89,13 @@
 	else if((fall_over || resting) && !lying)
 		fall(fall_over)
 
-	canmove = !(fall_over || resting || stunned || buckled)
+	canmove = !(fall_over || resting || stunned || IsFrozen() || buckled)
 	density = !lying
 	if(lying)
 		if(layer == initial(layer))
-			layer = MOB_LAYER - 0.2
+			layer = LYING_MOB_LAYER //so mob lying always appear behind standing mobs
 	else
-		if(layer == MOB_LAYER - 0.2)
+		if(layer == LYING_MOB_LAYER)
 			layer = initial(layer)
 
 	update_transform()

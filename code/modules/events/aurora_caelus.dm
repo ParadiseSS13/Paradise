@@ -17,10 +17,11 @@ We hope you enjoy the lights.", "Harmless ions approaching", new_sound = 'sound/
 			M.playsound_local(null, 'sound/ambience/aurora_caelus.ogg', 20, FALSE, pressure_affected = FALSE)
 
 /datum/event/aurora_caelus/start()
-	for(var/s in GLOB.station_level_space_turfs)
-		var/turf/space/S = s
-		S.set_light(S.light_range * 3, S.light_power * 0.5, aurora_colors[1])
-		CHECK_TICK
+	for(var/area in GLOB.all_areas)
+		var/area/A = area
+		if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
+			for(var/turf/space/S in A)
+				S.set_light(S.light_range * 3, S.light_power * 0.5)
 
 /datum/event/aurora_caelus/tick()
 	if(aurora_progress >= aurora_colors.len)
@@ -28,15 +29,18 @@ We hope you enjoy the lights.", "Harmless ions approaching", new_sound = 'sound/
 	if(activeFor % 5 == 0)
 		aurora_progress++
 		var/aurora_color = aurora_colors[aurora_progress]
-		for(var/s in GLOB.station_level_space_turfs)
-			var/turf/space/S = s
-			S.set_light(l_color = aurora_color)
-			CHECK_TICK
+		for(var/area in GLOB.all_areas)
+			var/area/A = area
+			if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
+				for(var/turf/space/S in A)
+					S.set_light(l_color = aurora_color)
 
 /datum/event/aurora_caelus/end()
-	for(var/s in GLOB.station_level_space_turfs)
-		var/turf/space/S = s
-		fade_to_black(S)
+	for(var/area in GLOB.all_areas)
+		var/area/A = area
+		if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
+			for(var/turf/space/S in A)
+				fade_to_black(S)
 	event_announcement.Announce("The Aurora Caelus event is now ending. Starlight conditions will slowly return to normal. \
 When this has concluded, please return to your workplace and continue work as normal. \
 Have a pleasant shift, [station_name()], and thank you for watching with us.",

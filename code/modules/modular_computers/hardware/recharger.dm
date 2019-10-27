@@ -20,7 +20,7 @@
 		return
 
 	if(use_power(charge_rate, charging=1))
-		holder.give_power(charge_rate * CELLRATE)
+		holder.give_power(charge_rate * GLOB.CELLRATE)
 
 
 /obj/item/computer_hardware/recharger/APC

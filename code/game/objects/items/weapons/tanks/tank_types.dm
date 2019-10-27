@@ -15,6 +15,7 @@
 	desc = "A tank of oxygen."
 	icon_state = "oxygen"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	dog_fashion = /datum/dog_fashion/back
 
 
 /obj/item/tank/oxygen/New()
@@ -22,10 +23,9 @@
 	air_contents.oxygen = (6*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/oxygen/examine(mob/user)
-	if(..(user, 0))
-		if(air_contents.oxygen < 10)
-			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
-			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.oxygen < 10)
+		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
 
 obj/item/tank/oxygen/empty/New()
 	..()
@@ -34,10 +34,12 @@ obj/item/tank/oxygen/empty/New()
 /obj/item/tank/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
 	icon_state = "oxygen_f"
+	dog_fashion = null
 
 /obj/item/tank/oxygen/red
 	desc = "A tank of oxygen, this one is red."
 	icon_state = "oxygen_fr"
+	dog_fashion = null
 
 
 /*
@@ -69,10 +71,10 @@ obj/item/tank/oxygen/empty/New()
 	item_state = "air"
 
 /obj/item/tank/air/examine(mob/user)
-	if(..(user, 0))
-		if(air_contents.oxygen < 1 && loc==usr)
-			to_chat(user, "<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>")
-			user << sound('sound/effects/alert.ogg')
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.oxygen < 1)
+		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
+		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 /obj/item/tank/air/New()
 	..()
@@ -110,15 +112,31 @@ obj/item/tank/oxygen/empty/New()
 	air_contents.toxins = (10*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/plasma/plasmaman
-	desc = "The lifeblood of plasmamen.  Warning:  Extremely flammable, do not inhale (unless you're a plasman)."
-	icon_state = "plasma_fr"
-	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
+	name = "plasma internals tank"
+	desc = "A tank of plasma gas designed specifically for use as internals, particularly for plasma-based lifeforms. If you're not a Plasmaman, you probably shouldn't use this."
+	icon_state = "plasmaman_tank"
+	item_state = "plasmaman_tank"
+	force = 10
+	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/plasma/plasmaman/examine(mob/user)
-	if(..(user, 0))
-		if(air_contents.toxins < 0.2 && loc==usr)
-			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of plasma!</span>"))
-			user << sound('sound/effects/alert.ogg')
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.toxins < 0.2)
+		. += "<span class='danger'>The meter on [src] indicates you are almost out of plasma!</span>"
+		playsound(user, 'sound/effects/alert.ogg', 50, 1)
+
+
+/obj/item/tank/plasma/plasmaman/belt
+	icon_state = "plasmaman_tank_belt"
+	item_state = "plasmaman_tank_belt"
+	slot_flags = SLOT_BELT
+	force = 5
+	volume = 25
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/tank/plasma/plasmaman/belt/full/New()
+	..()
+	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
 
 /*
  * Emergency Oxygen
@@ -140,10 +158,10 @@ obj/item/tank/oxygen/empty/New()
 	air_contents.oxygen = (3*ONE_ATMOSPHERE)*volume/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/emergency_oxygen/examine(mob/user)
-	if(..(user, 0))
-		if(air_contents.oxygen < 0.2 && loc==usr)
-			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
-			user << sound('sound/effects/alert.ogg')
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.oxygen < 0.2)
+		. += "<span class='danger'>The meter on [src] indicates you are almost out of air!</span>"
+		playsound(user, 'sound/effects/alert.ogg', 50, 1)
 
 obj/item/tank/emergency_oxygen/empty/New()
 	..()
@@ -189,23 +207,23 @@ obj/item/tank/emergency_oxygen/double/empty/New()
 	desc = "A tank of nitrogen."
 	icon_state = "oxygen_fr"
 	distribute_pressure = ONE_ATMOSPHERE*O2STANDARD
-
+	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/back.dmi') //Do it for Big Bird.
 
 /obj/item/tank/nitrogen/New()
 	..()
 	air_contents.nitrogen = (3*ONE_ATMOSPHERE)*70/(R_IDEAL_GAS_EQUATION*T20C)
 
 /obj/item/tank/nitrogen/examine(mob/user)
-	if(..(user, 0))
-		if(air_contents.nitrogen < 10)
-			to_chat(user, text("<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"))
-			//playsound(usr, 'sound/effects/alert.ogg', 50, 1)
+	. = ..()
+	if(get_dist(user, src) <= 0 && air_contents.nitrogen < 10)
+		. += "<span class='danger'>The meter on the [src.name] indicates you are almost out of air!</span>"
 
 /obj/item/tank/emergency_oxygen/vox
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
 	volume = 25
+	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/belt.dmi') //Do it for Big Bird.
 
 /obj/item/tank/emergency_oxygen/vox/New()
 	..()

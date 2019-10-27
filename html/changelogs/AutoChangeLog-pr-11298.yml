@@ -1,5 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "bans issued by admins via the Player Panel no longer incorrectly omit IP/etc information"
-  - tweak: "admins issuing permanent bans are no longer presented with an \"ip ban?\" prompt, as all bans include IP/CID information now. This prompt was a legacy thing from back when the filesystem was used to store bans, and hasn't ever affected how DB-based bans were stored."

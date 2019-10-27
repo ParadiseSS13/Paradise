@@ -34,7 +34,8 @@
 		O.forceMove(src)
 		scan = O
 		ui_interact(user)
-	..()
+		return
+	return ..()
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())
@@ -92,7 +93,7 @@
 				if(istype(active2, /datum/data/record) && data_core.medical.Find(active2))
 					var/list/fields = list()
 					medical["fields"] = fields
-					fields[++fields.len] = list("field" = "Blood Type:", "value" = active2.fields["b_type"], "edit" = "b_type", "line_break" = 0)
+					fields[++fields.len] = list("field" = "Blood Type:", "value" = active2.fields["blood_type"], "edit" = "blood_type", "line_break" = 0)
 					fields[++fields.len] = list("field" = "DNA:", "value" = active2.fields["b_dna"], "edit" = "b_dna", "line_break" = 1)
 					fields[++fields.len] = list("field" = "Minor Disabilities:", "value" = active2.fields["mi_dis"], "edit" = "mi_dis", "line_break" = 0)
 					fields[++fields.len] = list("field" = "Details:", "value" = active2.fields["mi_dis_d"], "edit" = "mi_dis_d", "line_break" = 1)
@@ -183,25 +184,25 @@
 								active1.fields["m_stat"] = "*Watch*"
 							if("stable")
 								active1.fields["m_stat"] = "Stable"
-				if("b_type")
+				if("blood_type")
 					if(active2)
 						switch(temp_href[2])
 							if("an")
-								active2.fields["b_type"] = "A-"
+								active2.fields["blood_type"] = "A-"
 							if("bn")
-								active2.fields["b_type"] = "B-"
+								active2.fields["blood_type"] = "B-"
 							if("abn")
-								active2.fields["b_type"] = "AB-"
+								active2.fields["blood_type"] = "AB-"
 							if("on")
-								active2.fields["b_type"] = "O-"
+								active2.fields["blood_type"] = "O-"
 							if("ap")
-								active2.fields["b_type"] = "A+"
+								active2.fields["blood_type"] = "A+"
 							if("bp")
-								active2.fields["b_type"] = "B+"
+								active2.fields["blood_type"] = "B+"
 							if("abp")
-								active2.fields["b_type"] = "AB+"
+								active2.fields["blood_type"] = "AB+"
 							if("op")
-								active2.fields["b_type"] = "O+"
+								active2.fields["blood_type"] = "O+"
 				if("del_r2")
 					QDEL_NULL(active2)
 
@@ -377,17 +378,17 @@
 						buttons[++buttons.len] = list("name" = "*Watch*", "icon" = "stethoscope", "href" = "m_stat=watch", "status" = (active1.fields["m_stat"] == "*Watch*" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Stable", "icon" = "stethoscope", "href" = "m_stat=stable", "status" = (active1.fields["m_stat"] == "Stable" ? "selected" : null))
 						setTemp("<h3>Mental Condition</h3>", buttons)
-				if("b_type")
+				if("blood_type")
 					if(istype(active2, /datum/data/record))
 						var/list/buttons = list()
-						buttons[++buttons.len] = list("name" = "A-", "icon" = "tint", "href" = "b_type=an", "status" = (active2.fields["b_type"] == "A-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "A+", "icon" = "tint", "href" = "b_type=ap", "status" = (active2.fields["b_type"] == "A+" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "B-", "icon" = "tint", "href" = "b_type=bn", "status" = (active2.fields["b_type"] == "B-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "B+", "icon" = "tint", "href" = "b_type=bp", "status" = (active2.fields["b_type"] == "B+" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "AB-", "icon" = "tint", "href" = "b_type=abn", "status" = (active2.fields["b_type"] == "AB-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "AB+", "icon" = "tint", "href" = "b_type=abp", "status" = (active2.fields["b_type"] == "AB+" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "O-", "icon" = "tint", "href" = "b_type=on", "status" = (active2.fields["b_type"] == "O-" ? "selected" : null))
-						buttons[++buttons.len] = list("name" = "O+", "icon" = "tint", "href" = "b_type=op", "status" = (active2.fields["b_type"] == "O+" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "A-", "icon" = "tint", "href" = "blood_type=an", "status" = (active2.fields["blood_type"] == "A-" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "A+", "icon" = "tint", "href" = "blood_type=ap", "status" = (active2.fields["blood_type"] == "A+" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "B-", "icon" = "tint", "href" = "blood_type=bn", "status" = (active2.fields["blood_type"] == "B-" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "B+", "icon" = "tint", "href" = "blood_type=bp", "status" = (active2.fields["blood_type"] == "B+" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "AB-", "icon" = "tint", "href" = "blood_type=abn", "status" = (active2.fields["blood_type"] == "AB-" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "AB+", "icon" = "tint", "href" = "blood_type=abp", "status" = (active2.fields["blood_type"] == "AB+" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "O-", "icon" = "tint", "href" = "blood_type=on", "status" = (active2.fields["blood_type"] == "O-" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "O+", "icon" = "tint", "href" = "blood_type=op", "status" = (active2.fields["blood_type"] == "O+" ? "selected" : null))
 						setTemp("<h3>Blood Type</h3>", buttons)
 				if("b_dna")
 					if(istype(active2, /datum/data/record))
@@ -436,7 +437,7 @@
 				R.fields["name"] = active1.fields["name"]
 				R.fields["id"] = active1.fields["id"]
 				R.name = "Medical Record #[R.fields["id"]]"
-				R.fields["b_type"] = "Unknown"
+				R.fields["blood_type"] = "Unknown"
 				R.fields["b_dna"] = "Unknown"
 				R.fields["mi_dis"] = "None"
 				R.fields["mi_dis_d"] = "No minor disabilities have been declared."
@@ -466,7 +467,7 @@
 				active2.fields["comments"] -= active2.fields["comments"][index]
 
 		if(href_list["search"])
-			var/t1 = input("Search String: (Name, DNA, or ID)", "Med. records", null, null) as text
+			var/t1 = clean_input("Search String: (Name, DNA, or ID)", "Med. records", null, null)
 			if(!t1 || ..())
 				return 1
 			active1 = null
@@ -501,7 +502,7 @@
 					P.info += "<B>General Record Lost!</B><BR>"
 				if(istype(active2, /datum/data/record) && data_core.medical.Find(active2))
 					P.info += {"<BR>\n<CENTER><B>Medical Data</B></CENTER>
-					<BR>\nBlood Type: [active2.fields["b_type"]]
+					<BR>\nBlood Type: [active2.fields["blood_type"]]
 					<BR>\nDNA: [active2.fields["b_dna"]]<BR>\n
 					<BR>\nMinor Disabilities: [active2.fields["mi_dis"]]
 					<BR>\nDetails: [active2.fields["mi_dis_d"]]<BR>\n
@@ -541,7 +542,7 @@
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
-					R.fields["b_type"] = pick("A-", "B-", "AB-", "O-", "A+", "B+", "AB+", "O+")
+					R.fields["blood_type"] = pick("A-", "B-", "AB-", "O-", "A+", "B+", "AB+", "O+")
 				if(5)
 					R.fields["p_stat"] = pick("*SSD*", "Active", "Physically Unfit", "Disabled")
 				if(6)

@@ -28,8 +28,8 @@
 	var/state = "01"	//How far the door assembly has progressed
 
 /obj/structure/windoor_assembly/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>Alt-click to rotate it clockwise.</span>")
+	. = ..()
+	. += "<span class='notice'>Alt-click to rotate it clockwise.</span>"
 
 obj/structure/windoor_assembly/New(loc, set_dir)
 	..()
@@ -46,7 +46,7 @@ obj/structure/windoor_assembly/Destroy()
 
 /obj/structure/windoor_assembly/Move()
 	var/turf/T = loc
-	..()
+	. = ..()
 	setDir(ini_dir)
 	move_update_air(T)
 

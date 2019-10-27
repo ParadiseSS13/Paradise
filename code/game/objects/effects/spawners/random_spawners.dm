@@ -186,7 +186,7 @@
 	name = "common loot"
 	icon_state = "x3"
 	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot
-	// Loot schema: costumes, toys, useless gimmick items, trapped items
+	// Loot schema: costumes, toys, useless gimmick items
 	result = list(/datum/nothing = 13,
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
@@ -201,6 +201,16 @@
 		/obj/item/coin/antagtoken/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/cutouts = 1)
 
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin
+	name = "20pc stetchkin"
+	icon_state = "x3"
+	spawn_inside = null
+	result = list(/datum/nothing = 1,
+		/obj/item/wrench = 1,
+		/obj/item/reagent_containers/food/snacks/syndicake = 1,
+		/obj/item/coin/antagtoken/syndicate = 1,
+		/obj/item/gun/projectile/automatic/pistol = 1)
+
 /obj/effect/spawner/random_spawners/syndicate/loot/level2
 	name = "rare loot"
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
@@ -214,7 +224,7 @@
 		/obj/item/storage/pill_bottle/zoom = 1,
 		/obj/item/storage/pill_bottle/random_drug_bottle = 2,
 		/obj/item/storage/backpack/duffel/syndie/surgery = 1,
-		/obj/item/clothing/shoes/syndigaloshes = 1,
+		/obj/item/clothing/shoes/chameleon/noslip = 1,
 		/obj/item/storage/belt/military = 1,
 		/obj/item/clothing/under/chameleon = 1,
 		/obj/item/storage/backpack/satchel_flat = 1,
@@ -237,7 +247,7 @@
 	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
 	result = list(/datum/nothing = 25,
 		/obj/item/jammer = 1,
-		/obj/item/storage/firstaid = 1,
+		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/box/syndie_kit/bonerepair = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
@@ -291,18 +301,18 @@
 /obj/effect/spawner/random_spawners/syndicate/layout/door
 	name = "50pc door 25pc falsewall 25pc wall"
 	result = list(/obj/machinery/door/airlock/hatch/syndicate = 6,
-		/turf/simulated/wall/r_wall = 2,
-		/obj/structure/falsewall/reinforced = 2)
+		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2,
+		/obj/structure/falsewall/plastitanium = 2)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/secret
 	name = "50pc falsewall 50pc wall"
-	result = list(/turf/simulated/wall/r_wall = 1,
-		/obj/structure/falsewall/reinforced = 1)
+	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1,
+		/obj/structure/falsewall/plastitanium = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault
 	name = "80pc vaultdoor 20pc wall"
 	result = list(/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
-		/turf/simulated/wall/r_wall = 1)
+		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1)
 
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod

@@ -44,6 +44,22 @@
 		if(BRAIN)
 			return adjustBrainLoss(damage)
 
+/mob/living/proc/get_damage_amount(damagetype = BRUTE)
+	switch(damagetype)
+		if(BRUTE)
+			return getBruteLoss()
+		if(BURN)
+			return getFireLoss()
+		if(TOX)
+			return getToxLoss()
+		if(OXY)
+			return getOxyLoss()
+		if(CLONE)
+			return getCloneLoss()
+		if(STAMINA)
+			return getStaminaLoss()
+
+
 /mob/living/proc/apply_damages(var/brute = 0, var/burn = 0, var/tox = 0, var/oxy = 0, var/clone = 0, var/def_zone = null, var/blocked = 0, var/stamina = 0)
 	if(blocked >= 100)	return 0
 	if(brute)	apply_damage(brute, BRUTE, def_zone, blocked)
@@ -244,28 +260,30 @@
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = max(staminaloss + amount, 0)
+	staminaloss = min(max(staminaloss + amount, 0), 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
+	if(amount > 0)
+		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating)
-		handle_hud_icons_health()
 		update_stamina()
 
 /mob/living/proc/setStaminaLoss(amount, updating = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = amount
+	staminaloss = min(max(amount, 0), 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
+	if(amount > 0)
+		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating)
-		handle_hud_icons_health()
 		update_stamina()
 
 /mob/living/proc/getMaxHealth()
@@ -310,3 +328,15 @@
 
 /mob/living/proc/has_organic_damage()
 	return (maxHealth - health)
+
+//heal up to amount damage, in a given order
+/mob/living/proc/heal_ordered_damage(amount, list/damage_types)
+	. = amount //we'll return the amount of damage healed
+	for(var/i in damage_types)
+		var/amount_to_heal = min(amount, get_damage_amount(i)) //heal only up to the amount of damage we have
+		if(amount_to_heal)
+			apply_damage_type(-amount_to_heal, i)
+			amount -= amount_to_heal //remove what we healed from our current amount
+		if(!amount)
+			break
+	. -= amount //if there's leftover healing, remove it from what we return

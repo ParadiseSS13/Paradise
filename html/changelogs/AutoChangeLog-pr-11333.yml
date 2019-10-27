@@ -1,4 +1,0 @@
-author: "Arkatos"
-delete-after: True
-changes: 
-  - bugfix: "Toggling hardhat light on/off now correctly updates wearer's sprite"

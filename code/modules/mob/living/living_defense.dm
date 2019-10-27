@@ -87,22 +87,24 @@
 		return 0
 
 //this proc handles being hit by a thrown atom
-/mob/living/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0, datum/thrownthing/throwingdatum)//Standardization and logging -Sieve
+/mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		var/zone = ran_zone("chest", 65)//Hits a random part of the body, geared towards the chest
 		var/dtype = BRUTE
 		var/volume = I.get_volume_by_throwforce_and_or_w_class()
-		if(istype(I, /obj/item))
-			var/obj/item/W = I
-			dtype = W.damtype
-			if(W.throwforce > 0) //If the weapon's throwforce is greater than zero...
-				if(W.hitsound) //...and hitsound is defined...
-					playsound(loc, W.hitsound, volume, 1, -1) //...play the weapon's hitsound.
-				else //Otherwise, if hitsound isn't defined...
-					playsound(loc, 'sound/weapons/genhit1.ogg', volume, 1, -1) //...play genhit1.ogg.
+		SEND_SIGNAL(I, COMSIG_MOVABLE_IMPACT_ZONE, src, zone)
+		dtype = I.damtype
 
-		else if(I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
+		if(I.throwforce > 0) //If the weapon's throwforce is greater than zero...
+			if(I.throwhitsound) //...and throwhitsound is defined...
+				playsound(loc, I.throwhitsound, volume, TRUE, -1) //...play the weapon's throwhitsound.
+			else if(I.hitsound) //Otherwise, if the weapon's hitsound is defined...
+				playsound(loc, I.hitsound, volume, TRUE, -1) //...play the weapon's hitsound.
+			else if(!I.throwhitsound) //Otherwise, if throwhitsound isn't defined...
+				playsound(loc, 'sound/weapons/genhit.ogg',volume, TRUE, -1) //...play genhit.ogg.
+
+		else if(!I.throwhitsound && I.throwforce > 0) //Otherwise, if the item doesn't have a throwhitsound and has a throwforce greater than zero...
 			playsound(loc, 'sound/weapons/genhit1.ogg', volume, 1, -1)//...play genhit1.ogg
 		if(!I.throwforce)// Otherwise, if the item's throwforce is 0...
 			playsound(loc, 'sound/weapons/throwtap.ogg', 1, volume, -1)//...play throwtap.ogg.
@@ -116,37 +118,39 @@
 		else
 			return 1
 	else
-		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1) //...play genhit1.ogg.)
+		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1)
 	..()
 
 
 /mob/living/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
+			to_chat(M.occupant, "<span class='warning'>You don't want to harm other living beings!</span>")
+			return
+		M.do_attack_animation(src)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
 		switch(M.damtype)
 			if("brute")
 				Paralyse(1)
 				take_overall_damage(rand(M.force/2, M.force))
-				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
+				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if("fire")
 				take_overall_damage(0, rand(M.force/2, M.force))
-				playsound(src, 'sound/items/welder.ogg', 50, 1)
+				playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 			if("tox")
 				M.mech_toxin_damage(src)
 			else
 				return
 		updatehealth("mech melee attack")
 		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>", \
-						"<span class='userdanger'>[src] has been hit by [M.name].</span>")
+		visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='userdanger'>[M.name] hits you!</span>")
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else
 		step_away(src,M)
 		add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
 		M.occupant_message("<span class='warning'>You push [src] out of the way.</span>")
 		visible_message("<span class='warning'>[M] pushes [src] out of the way.</span>")
-		return
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()
@@ -216,13 +220,12 @@
 		fire_stacks += L.fire_stacks
 		IgniteMob()
 
-//Mobs on Fire end
+/mob/living/can_be_pulled(user, grab_state, force)
+	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
-/mob/living/water_act(volume, temperature)
-	if(volume >= 20)	fire_stacks -= 0.5
-	if(volume >= 50)	fire_stacks -= 1
-
-
+/mob/living/water_act(volume, temperature, source, method = TOUCH)
+	. = ..()
+	adjust_fire_stacks(-(volume * 0.2))
 
 //This is called when the mob is thrown into a dense turf
 /mob/living/proc/turf_collision(var/turf/T, var/speed)
@@ -278,46 +281,42 @@
 
 	return G
 
-/mob/living/attack_slime(mob/living/carbon/slime/M)
-	if(!ticker)
+/mob/living/attack_slime(mob/living/simple_animal/slime/M)
+	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")
 		return
 
-	if(M.Victim)
+	if(M.buckled)
+		if(M in buckled_mobs)
+			M.Feedstop()
 		return // can't attack while eating!
 
+	if(HAS_TRAIT(src, TRAIT_PACIFISM))
+		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
 	if(stat != DEAD)
+		add_attack_logs(src, M, "Slime'd")
 		M.do_attack_animation(src)
-		visible_message("<span class='danger'>The [M.name] glomps [src]!</span>", \
-				"<span class='userdanger'>The [M.name] glomps [src]!</span>")
-
-		if(M.powerlevel > 0)
-			var/stunprob = M.powerlevel * 7 + 10  // 17 at level 1, 80 at level 10
-			if(prob(stunprob))
-				M.powerlevel -= 3
-				if(M.powerlevel < 0)
-					M.powerlevel = 0
-
-				visible_message("<span class='danger'>The [M.name] has shocked [src]!</span>", \
-				"<span class='userdanger'>The [M.name] has shocked [src]!</span>")
-
-				do_sparks(5, 1, src)
-				return 1
-	add_attack_logs(src, M, "Slime'd")
-	return
+		visible_message("<span class='danger'>\The [M.name] glomps [src]!</span>", "<span class='userdanger'>\The [M.name] glomps you!</span>")
+		return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/M)
+	M.face_atom(src)
 	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
 		M.custom_emote(1, "[M.friendly] [src].")
-		return 0
-	else
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
-						"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
-		add_attack_logs(M, src, "Animal attacked")
-		return 1
+		return FALSE
+	if(HAS_TRAIT(M, TRAIT_PACIFISM))
+		to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+		return FALSE
+
+	if(M.attack_sound)
+		playsound(loc, M.attack_sound, 50, 1, 1)
+	M.do_attack_animation(src)
+	visible_message("<span class='danger'>\The [M] [M.attacktext] [src]!</span>", \
+					"<span class='userdanger'>\The [M] [M.attacktext] [src]!</span>")
+	add_attack_logs(M, src, "Animal attacked")
+	return TRUE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)
 	switch(L.a_intent)
@@ -326,6 +325,10 @@
 			return 0
 
 		else
+			if(HAS_TRAIT(L, TRAIT_PACIFISM))
+				to_chat(L, "<span class='warning'>You don't want to hurt anyone!</span>")
+				return
+
 			L.do_attack_animation(src)
 			if(prob(90))
 				add_attack_logs(L, src, "Larva attacked")
@@ -347,6 +350,9 @@
 			grabbedby(M)
 			return FALSE
 		if(INTENT_HARM)
+			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+				to_chat(M, "<span class='warning'>You don't want to hurt anyone!</span>")
+				return FALSE
 			M.do_attack_animation(src)
 			return TRUE
 		if(INTENT_DISARM)
