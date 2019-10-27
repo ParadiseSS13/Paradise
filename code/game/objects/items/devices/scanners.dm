@@ -600,7 +600,7 @@ REAGENT SCANNER
 	throw_speed = 5
 	throw_range = 10
 	origin_tech = "magnets=6;biotech=6"
-	var/obj/item/stock_parts/cell/power_supply
+	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell/upgraded
 	var/ready = TRUE // Ready to scan
 	var/time_to_use = 0 // How much time remaining before next scan is available.
@@ -609,7 +609,7 @@ REAGENT SCANNER
 	var/scan_cd = 60 SECONDS //how long before we can scan again
 
 /obj/item/bodyanalyzer/get_cell()
-	return power_supply
+	return cell
 
 /obj/item/bodyanalyzer/advanced
 	cell_type = /obj/item/stock_parts/cell/upgraded/plus
@@ -624,8 +624,8 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer/New()
 	..()
-	power_supply = new cell_type(src)
-	power_supply.give(power_supply.maxcharge)
+	cell = new cell_type(src)
+	cell.give(cell.maxcharge)
 	update_icon()
 
 /obj/item/bodyanalyzer/proc/setReady()
@@ -635,7 +635,7 @@ REAGENT SCANNER
 
 /obj/item/bodyanalyzer/update_icon(printing = FALSE)
 	overlays.Cut()
-	var/percent = power_supply.percent()
+	var/percent = cell.percent()
 	if(ready)
 		icon_state = "bodyanalyzer_1"
 	else
@@ -657,7 +657,7 @@ REAGENT SCANNER
 		playsound(user.loc, 'sound/machines/buzz-sigh.ogg', 50, 1)
 		return
 
-	if(power_supply.charge >= usecharge)
+	if(cell.charge >= usecharge)
 		mobScan(M, user)
 	else
 		to_chat(user, "<span class='notice'>The scanner beeps angrily at you! It's out of charge!</span>")
@@ -691,7 +691,7 @@ REAGENT SCANNER
 				var/mob/living/silicon/robot/R = user
 				R.cell.use(usecharge)
 			else
-				power_supply.use(usecharge)
+				cell.use(usecharge)
 			ready = FALSE
 			update_icon(TRUE)
 			addtimer(CALLBACK(src, /obj/item/bodyanalyzer/.proc/setReady), scan_cd)

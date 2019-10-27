@@ -18,9 +18,7 @@
 
 /obj/machinery/space_heater/New()
 	..()
-	cell = new(src)
-	cell.charge = 1000
-	cell.maxcharge = 1000
+	cell = new /obj/item/stock_parts/cell(src)
 	update_icon()
 	return
 
