@@ -121,7 +121,7 @@
 	if(charging.percent() >= 100)
 		return
 
-	var/powertransfer = (charging.chargerate)/4
+	var/powertransfer = (charging.chargerate)/5
 	var/delta  = min(powertransfer, (charging.maxcharge - charging.charge))
 	charging.give(delta)
 	use_power(delta * 11)
