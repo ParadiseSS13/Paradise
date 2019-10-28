@@ -14,8 +14,8 @@
 	icon_state = "door_open"
 	opacity = 0
 	density = FALSE
-	burn_state = FIRE_PROOF
 	max_integrity = 300
+	resistance_flags = FIRE_PROOF
 	heat_proof = TRUE
 	glass = TRUE
 	explosion_block = 1
@@ -24,7 +24,7 @@
 	closingLayer = CLOSED_FIREDOOR_LAYER
 	auto_close_time = 50
 	assemblytype = /obj/structure/firelock_frame
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 95, "acid" = 70)
 	var/can_force = TRUE
 	var/force_open_time = 300
 	var/can_crush = TRUE
@@ -33,15 +33,15 @@
 	var/active_alarm = FALSE
 
 /obj/machinery/door/firedoor/examine(mob/user)
-	..()
+	. = ..()
 	if(!density)
-		to_chat(user, "<span class='notice'>It is open, but could be <b>pried</b> closed.</span>")
+		. += "<span class='notice'>It is open, but could be <b>pried</b> closed.</span>"
 	else if(!welded)
-		to_chat(user, "<span class='notice'>It is closed, but could be <i>pried</i> open. Deconstruction would require it to be <b>welded</b> shut.</span>")
+		. += "<span class='notice'>It is closed, but could be <i>pried</i> open. Deconstruction would require it to be <b>welded</b> shut.</span>"
 	else if(boltslocked)
-		to_chat(user, "<span class='notice'>It is <i>welded</i> shut. The floor bolts have been locked by <b>screws</b>.</span>")
+		. += "<span class='notice'>It is <i>welded</i> shut. The floor bolts have been locked by <b>screws</b>.</span>"
 	else
-		to_chat(user, "<span class='notice'>The bolt locks have been <i>unscrewed</i>, but the bolts themselves are still <b>wrenched</b> to the floor.</span>")
+		. += "<span class='notice'>The bolt locks have been <i>unscrewed</i>, but the bolts themselves are still <b>wrenched</b> to the floor.</span>"
 
 /obj/machinery/door/firedoor/closed
 	icon_state = "door_closed"
@@ -214,7 +214,7 @@
 		close()
 
 /obj/machinery/door/firedoor/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/obj/structure/firelock_frame/F = new assemblytype(get_turf(src))
 		if(disassembled)
 			F.constructionStep = CONSTRUCTION_PANEL_OPEN
@@ -284,23 +284,22 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
-	max_integrity = 300
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 
 /obj/structure/firelock_frame/examine(mob/user)
-	..()
+	. = ..()
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
-			to_chat(user, "<span class='notice'>It is <i>unbolted</i> from the floor. A small <b>loosely connected</b> metal plate is covering the wires.</span>")
+			. += "<span class='notice'>It is <i>unbolted</i> from the floor. A small <b>loosely connected</b> metal plate is covering the wires.</span>"
 			if(!reinforced)
-				to_chat(user, "<span class='notice'>It could be reinforced with plasteel.</span>")
+				. += "<span class='notice'>It could be reinforced with plasteel.</span>"
 		if(CONSTRUCTION_WIRES_EXPOSED)
-			to_chat(user, "<span class='notice'>The maintenance plate has been <i>pried away</i>, and <b>wires</b> are trailing.</span>")
+			. += "<span class='notice'>The maintenance plate has been <i>pried away</i>, and <b>wires</b> are trailing.</span>"
 		if(CONSTRUCTION_GUTTED)
-			to_chat(user, "<span class='notice'>The maintenance panel is missing <i>wires</i> and the circuit board is <b>loosely connected</b>.</span>")
+			. += "<span class='notice'>The maintenance panel is missing <i>wires</i> and the circuit board is <b>loosely connected</b>.</span>"
 		if(CONSTRUCTION_NOCIRCUIT)
-			to_chat(user, "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>")
+			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
 
 /obj/structure/firelock_frame/update_icon()
 	..()

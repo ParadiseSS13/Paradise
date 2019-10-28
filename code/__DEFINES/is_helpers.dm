@@ -4,6 +4,7 @@
 
 // Mobs
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
+#define iszombie(A) (is_species(A, /datum/species/zombie))
 
 //Simple animals
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
@@ -11,11 +12,15 @@
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
 
 //Objects
+#define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
+
 #define isitem(A) (istype(A, /obj/item))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define ismecha(A) (istype(A, /obj/mecha))
+
+#define isspacepod(A) (istype(A, /obj/spacepod))
 
 #define iseffect(A) (istype(A, /obj/effect))
 
@@ -81,7 +86,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
-#define isslime(A)		(istype((A), /mob/living/carbon/slime))
+#define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

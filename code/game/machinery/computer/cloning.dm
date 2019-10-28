@@ -36,10 +36,10 @@
 
 	if(scanner.occupant && can_autoprocess())
 		scan_mob(scanner.occupant)
-	
+
 	if(!LAZYLEN(records))
 		return
-	
+
 	for(var/obj/machinery/clonepod/pod in pods)
 		if(!(pod.occupant || pod.mess) && (pod.efficiency > 5))
 			for(var/datum/dna2/record/R in records)
@@ -103,8 +103,7 @@
 				P.name = "[initial(P.name)] #[pods.len]"
 				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
 	else
-		..()
-	return
+		return ..()
 
 
 /obj/machinery/computer/cloning/attack_ai(mob/user as mob)

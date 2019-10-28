@@ -191,7 +191,7 @@
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
-	
+
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
 	if(type == "Mentorhelp")
@@ -205,10 +205,10 @@
 	if(type == "Mentorhelp")
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 			tickets = SSmentor_tickets.checkForTicket(src)
-	else // Ahelp 
+	else // Ahelp
 		if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 			tickets = SStickets.checkForTicket(src)
-	
+
 	if(tickets)
 		for(var/datum/ticket/i in tickets)
 			i.addResponse(src, msg)
@@ -220,7 +220,7 @@
 		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>")
 		return
 
-	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src) as text|null
+	var/msg = clean_input("Message:", "Private message to admins on IRC / 400 character limit", , src)
 
 	if(!msg)
 		return
@@ -351,7 +351,7 @@
 	var/client/C = pms[title].client || update_client(title)
 	if(!C)
 		return "[title] (Disconnected)"
-	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>)"
+	return "[key_name(C, FALSE)] ([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) ([admin_jump_link(C.mob)])"
 
 /datum/pm_tracker/proc/update_client(title)
 	var/client/C = GLOB.directory[ckey(title)]

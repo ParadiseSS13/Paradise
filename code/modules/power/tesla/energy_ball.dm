@@ -57,9 +57,10 @@
 		energy = 0 // ensure we dont have miniballs of miniballs
 
 /obj/singularity/energy_ball/examine(mob/user)
-	..()
-	if(orbiting_balls.len)
-		to_chat(user, "The amount of orbiting mini-balls is [orbiting_balls.len].")
+	. = ..()
+	var/len = LAZYLEN(orbiting_balls)
+	if(len)
+		. += "The amount of orbiting mini-balls is [len]."
 
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(var/move_amount)
@@ -246,7 +247,7 @@
 		else if(closest_blob)
 			continue
 
-		else if(istype(A, /obj/structure))
+		else if(isstructure(A))
 			var/obj/structure/S = A
 			var/dist = get_dist(source, A)
 			if(dist <= zap_range && (dist < closest_dist || !closest_tesla_coil) && !S.being_shocked)

@@ -70,12 +70,12 @@
 
 
 /obj/item/assembly_holder/examine(mob/user)
-	..(user)
+	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(secured)
-			to_chat(user, "[src] is ready!")
+			. += "[src] is ready!"
 		else
-			to_chat(user, "[src] can be attached!")
+			. += "[src] can be attached!"
 
 
 /obj/item/assembly_holder/HasProximity(atom/movable/AM)
@@ -198,14 +198,3 @@
 	if(master)
 		master.receive_signal()
 	return TRUE
-
-/obj/item/assembly_holder/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(25))
-				qdel(src)

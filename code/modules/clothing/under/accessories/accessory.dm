@@ -180,7 +180,7 @@
 	icon_state = "bronze"
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
@@ -193,6 +193,7 @@
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
@@ -320,6 +321,7 @@
 /obj/item/clothing/accessory/scarf // No overlay
 	name = "scarf"
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
+	dog_fashion = /datum/dog_fashion/head
 
 /obj/item/clothing/accessory/scarf/red
 	name = "red scarf"
@@ -419,7 +421,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -428,7 +430,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket
@@ -664,9 +666,9 @@
 	return access_id ? access_id.GetAccess() : ..()
 
 /obj/item/clothing/accessory/petcollar/examine(mob/user)
-	..()
+	. = ..()
 	if(access_id)
-		to_chat(user, "There is [bicon(access_id)] \a [access_id] clipped onto it.")
+		. += "There is [bicon(access_id)] \a [access_id] clipped onto it."
 
 /obj/item/clothing/accessory/petcollar/equipped(mob/living/simple_animal/user)
 	if(istype(user))
@@ -678,7 +680,7 @@
 /obj/item/clothing/accessory/petcollar/process()
 	var/mob/living/simple_animal/M = loc
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
-	if(istype(M) && src == M.collar && M.stat != DEAD)
+	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
 
 	var/area/t = get_area(M)

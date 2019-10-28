@@ -8,7 +8,8 @@
 	layer = ABOVE_WINDOW_LAYER
 	plane = GAME_PLANE
 	interact_offline = 1
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 350
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
 	var/on = 0
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
@@ -35,10 +36,10 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -47,10 +48,10 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/cryo_tube(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -73,14 +74,30 @@
 			break
 
 /obj/machinery/atmospherics/unary/cryo_cell/Destroy()
-	var/turf/T = get_turf(src)
-	if(istype(T))
-		T.contents += contents
-		var/obj/item/reagent_containers/glass/B = beaker
-		if(beaker)
-			B.forceMove(get_step(T, SOUTH)) //Beaker is carefully ejected from the wreckage of the cryotube
-			beaker = null
+	QDEL_NULL(beaker)
 	return ..()
+
+/obj/machinery/atmospherics/unary/cryo_cell/ex_act(severity)
+	if(occupant)
+		occupant.ex_act(severity)
+	if(beaker)
+		beaker.ex_act(severity)
+	..()
+
+/obj/machinery/atmospherics/unary/cryo_cell/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		updateUsrDialog()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
+
+/obj/machinery/atmospherics/unary/cryo_cell/on_deconstruction()
+	if(beaker)
+		beaker.forceMove(drop_location())
+		beaker = null
 
 /obj/machinery/atmospherics/unary/cryo_cell/MouseDrop_T(atom/movable/O as mob|obj, mob/living/user as mob)
 	if(O.loc == user) //no you can't pull things out of your ass
@@ -108,10 +125,9 @@
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
 		return
-	for(var/mob/living/carbon/slime/M in range(1,L))
-		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the cryo cell because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
-			return
+	if(L.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		return
 	if(put_mob(L))
 		if(L == user)
 			visible_message("[user] climbs into the cryo cell.")
@@ -284,6 +300,7 @@
 		beaker =  B
 		add_attack_logs(user, null, "Added [B] containing [B.reagents.log_list()] to a cryo cell at [COORD(src)]")
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
+		return
 
 
 	if(istype(G, /obj/item/screwdriver))
@@ -296,7 +313,8 @@
 	if(exchange_parts(user, G))
 		return
 
-	default_deconstruction_crowbar(G)
+	if(default_deconstruction_crowbar(G))
+		return
 
 	if(istype(G, /obj/item/grab))
 		var/obj/item/grab/GG = G
@@ -305,14 +323,14 @@
 			return
 		if(!ismob(GG.affecting))
 			return
-		for(var/mob/living/carbon/slime/M in range(1,GG.affecting))
-			if(M.Victim == GG.affecting)
-				to_chat(usr, "[GG.affecting.name] will not fit into the cryo because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.")
-				return
+		if(GG.affecting.has_buckled_mobs()) //mob attached to us
+			to_chat(user, "<span class='warning'>[GG.affecting] will not fit into [src] because [GG.affecting.p_they()] [GG.affecting.p_have()] a slime latched onto [GG.affecting.p_their()] head.</span>")
+			return
 		var/mob/M = GG.affecting
 		if(put_mob(M))
 			qdel(GG)
-	return
+		return
+	return ..()
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
 	handle_update_icon()
@@ -468,10 +486,9 @@
 	set category = "Object"
 	set src in oview(1)
 
-	for(var/mob/living/carbon/slime/M in range(1,usr))
-		if(M.Victim == usr)
-			to_chat(usr, "You're too busy getting your life sucked out of you.")
-			return
+	if(usr.has_buckled_mobs()) //mob attached to us
+		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		return
 
 	if(stat & (NOPOWER|BROKEN))
 		return

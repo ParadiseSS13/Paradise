@@ -21,8 +21,7 @@
 
 	density = TRUE
 	opacity = TRUE
-
-	can_deconstruct = TRUE
+	max_integrity = 100
 
 	canSmoothWith = list(
 	/turf/simulated/wall,
@@ -123,21 +122,25 @@
 		if(istype(W, /obj/item/weldingtool))
 			var/obj/item/weldingtool/WT = W
 			if(WT.remove_fuel(0,user))
-				dismantle(user)
+				dismantle(user, TRUE)
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
-		dismantle(user)
+		dismantle(user, TRUE)
 
-/obj/structure/falsewall/proc/dismantle(mob/user)
+/obj/structure/falsewall/proc/dismantle(mob/user, disassembled = TRUE)
 	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")
-	if(can_deconstruct)
-		new girder_type(loc)
+	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+	deconstruct(disassembled)
+
+/obj/structure/falsewall/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			new girder_type(loc)
 		if(mineral_amount)
 			for(var/i in 1 to mineral_amount)
 				new mineral(loc)
-	playsound(src, 'sound/items/welder.ogg', 100, 1)
 	qdel(src)
 
 /*
@@ -224,6 +227,7 @@
 	mineral = /obj/item/stack/sheet/mineral/diamond
 	walltype = /turf/simulated/wall/mineral/diamond
 	canSmoothWith = list(/obj/structure/falsewall/diamond, /turf/simulated/wall/mineral/diamond)
+	max_integrity = 800
 
 
 /obj/structure/falsewall/plasma
@@ -326,15 +330,14 @@
 	mineral = /obj/item/stack/sheet/mineral/plastitanium
 	walltype = /turf/simulated/wall/mineral/plastitanium
 	smooth = SMOOTH_MORE
-	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
+	canSmoothWith = list(/turf/simulated/wall/mineral/plastitanium, /turf/simulated/wall/mineral/plastitanium/nodiagonal, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater)
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"
 	desc = "A huge chunk of warm metal. The clanging of machinery emanates from within."
 	icon = 'icons/turf/walls/clockwork_wall.dmi'
 	icon_state = "clockwork_wall"
-	resistance_flags = FIRE_PROOF
-	unacidable = TRUE
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	mineral_amount = 1
 	canSmoothWith = list(/obj/effect/clockwork/overlay/wall, /obj/structure/falsewall/brass)
 	girder_type = /obj/structure/clockwork/wall_gear/displaced
@@ -346,4 +349,3 @@
 	var/turf/T = get_turf(src)
 	new /obj/effect/temp_visual/ratvar/wall/false(T)
 	new /obj/effect/temp_visual/ratvar/beam/falsewall(T)
-

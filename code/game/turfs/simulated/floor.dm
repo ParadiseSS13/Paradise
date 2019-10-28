@@ -86,7 +86,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		if(A.level == 3)
 			return 1
 
-/turf/simulated/floor/blob_act()
+/turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
 
 /turf/simulated/floor/proc/update_icon()
@@ -95,9 +95,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(current_overlay)
 		overlays.Add(current_overlay)
 	return 1
-
-/turf/simulated/floor/proc/gets_drilled()
-	return
 
 /turf/simulated/floor/proc/break_tile_to_plating()
 	var/turf/simulated/floor/plating/T = make_plating()
@@ -121,11 +118,11 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	return ChangeTurf(/turf/simulated/floor/plating)
 
 /turf/simulated/floor/ChangeTurf(turf/simulated/floor/T, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE)
-	if(!istype(src, /turf/simulated/floor)) 
+	if(!istype(src, /turf/simulated/floor))
 		return ..() //fucking turfs switch the fucking src of the fucking running procs
-	if(!ispath(T, /turf/simulated/floor)) 
+	if(!ispath(T, /turf/simulated/floor))
 		return ..()
-		
+
 	var/old_icon = icon_regular_floor
 	var/old_plating = icon_plating
 	var/old_dir = dir
@@ -214,6 +211,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	return make_plating()
 
 /turf/simulated/floor/singularity_pull(S, current_size)
+	..()
 	if(current_size == STAGE_THREE)
 		if(prob(30))
 			if(builtin_tile)
@@ -243,6 +241,9 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	. = ..()
 	if(.)
 		ChangeTurf(/turf/simulated/floor/clockwork)
+
+/turf/simulated/floor/acid_melt()
+	ChangeTurf(baseturf)
 
 /turf/simulated/floor/can_have_cabling()
 	return !burnt && !broken

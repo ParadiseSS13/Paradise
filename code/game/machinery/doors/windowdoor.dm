@@ -5,14 +5,14 @@
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
+	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
 	opacity = 0
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(melee = 20, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100)
-	unacidable = 1
+	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
@@ -40,8 +40,7 @@
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
-	for(var/I in debris)
-		qdel(I)
+	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	QDEL_NULL(electronics)
@@ -54,9 +53,9 @@
 		icon_state = "[base_state]open"
 
 /obj/machinery/door/window/examine(mob/user)
-	..()
+	. = ..()
 	if(emagged)
-		to_chat(user, "<span class='warning'>Its access panel is smoking slightly.</span>")
+		. += "<span class='warning'>Its access panel is smoking slightly.</span>"
 
 /obj/machinery/door/window/proc/open_and_close()
 	open()
@@ -180,13 +179,12 @@
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+			playsound(src, 'sound/effects/glasshit.ogg', 90, TRUE)
 		if(BURN)
-			playsound(loc, 'sound/items/welder.ogg', 100, 1)
-
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && !disassembled)
+	if(!(flags & NODECONSTRUCT) && !disassembled)
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
@@ -234,7 +232,7 @@
 
 	add_fingerprint(user)
 
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		if(isscrewdriver(I))
 			if(density || operating)
 				to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
@@ -335,7 +333,7 @@
 	base_state = "clockwork"
 	shards = 0
 	rods = 0
-	burn_state = FIRE_PROOF
+	resistance_flags = ACID_PROOF | FIRE_PROOF
 	cancolor = FALSE
 	var/made_glow = FALSE
 

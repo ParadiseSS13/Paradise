@@ -56,7 +56,7 @@
 		D.visible_message("<span class='warning'>[A] has attempted to [atk_verb] [D]!</span>")
 		return 0
 
-	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_sel.selecting))
+	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)
@@ -277,7 +277,7 @@
 			return ..()
 	return ..()
 
-/obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/twohanded/bostaff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(wielded)
 		return ..()
 	return 0

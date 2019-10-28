@@ -59,7 +59,8 @@
 		for(var/obj/effect/decal/cleanable/C in loc)
 			if(C != src && C.type == type && !QDELETED(C))
 				if(replace_decal(C))
-					return INITIALIZE_HINT_QDEL
+					qdel(src)
+					return TRUE
 	if(random_icon_states && length(src.random_icon_states) > 0)
 		src.icon_state = pick(src.random_icon_states)
 	if(smooth)

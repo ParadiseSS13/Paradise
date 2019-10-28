@@ -33,6 +33,7 @@
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
 	del_types = list() // Necessary to prevent del_types from removing radio!
+	allow_species_pick = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))

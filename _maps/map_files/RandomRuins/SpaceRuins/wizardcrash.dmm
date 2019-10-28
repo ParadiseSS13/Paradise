@@ -78,7 +78,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -128,7 +128,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "av" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -201,7 +201,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "aH" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,

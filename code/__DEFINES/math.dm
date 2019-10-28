@@ -1,7 +1,7 @@
 #define PI 3.1415
 #define SPEED_OF_LIGHT 3e8 //not exact but hey!
 #define SPEED_OF_LIGHT_SQ 9e+16
-#define INFINITY 1e31 //closer then enough
+#define INFINITY 1e31 //closer than enough
 
 #define Clamp(x, y, z)			 	((x) <= (y) ? (y) : ((x) >= (z) ? (z) : (x)))
 #define CLAMP01(x) 					(Clamp((x), 0, 1))

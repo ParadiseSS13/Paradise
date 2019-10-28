@@ -9,6 +9,9 @@
 	throw_speed = 7
 	throw_range = 15
 	attack_verb = list("banned")
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF
 
 
 /obj/item/banhammer/suicide_act(mob/user)
@@ -46,6 +49,9 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/claymore/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -70,6 +76,9 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/katana/cursed
 	slot_flags = null
@@ -105,7 +114,12 @@
 	..()
 	if(istype(I, /obj/item/shard))
 		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
-
+		if(istype(I, /obj/item/shard/plasma))
+			S.force_wielded = 19
+			S.force_unwielded = 11
+			S.throwforce = 21
+			S.icon_prefix = "spearplasma"
+			S.update_icon()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
 		user.unEquip(I)
@@ -141,6 +155,7 @@
 	embedded_fall_chance = 0 //Hahaha!
 	sharp = 1
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/spear/kidan
 	icon_state = "kidanspear"
@@ -171,11 +186,11 @@
 	desc = "This thing looks dangerous... Dangerously good at baseball, that is."
 	homerun_able = 1
 
-/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type, atom/movable/AM)
+/obj/item/melee/baseball_bat/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
-	if(!istype(AM, /obj/item) || attack_type != THROWN_PROJECTILE_ATTACK)
+	if(!isitem(hitby) || attack_type != THROWN_PROJECTILE_ATTACK)
 		return FALSE
-	var/obj/item/I = AM
+	var/obj/item/I = hitby
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
 			if(prob(10))
