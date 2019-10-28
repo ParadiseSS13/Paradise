@@ -333,6 +333,7 @@
 			for(var/client/C in group)
 				C.screen -= O
 
+// Temporarily overlay `show_to` clients' view with specified image. Image disappears after `duration` deciseconds.
 /proc/flick_overlay(image/I, list/show_to, duration)
 	for(var/client/C in show_to)
 		C.images += I

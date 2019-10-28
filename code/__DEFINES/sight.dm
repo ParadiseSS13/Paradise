@@ -20,7 +20,8 @@
 #define INVISIBILITY_AI_EYE 61
 #define SEE_INVISIBLE_OBSERVER_AI_EYE 61
 
-#define INVISIBILITY_MAXIMUM 100
+#define INVISIBILITY_MAXIMUM 100   // The maximum allowed for "real" objects.
+#define INVISIBILITY_ABSTRACT 101  // Only used for abstract objects (e.g. spacevine_controller), things that are not really there.
 
 //Some mob defines below
 #define AI_CAMERA_LUMINOSITY 6

@@ -18,7 +18,7 @@
 
 /obj/machinery/atmospherics/pipe/cap/hide(var/i)
 	if(level == 1 && istype(loc, /turf/simulated))
-		invisibility = i ? 101 : 0
+		invisibility = i ? INVISIBILITY_MAXIMUM : 0
 	update_icon()
 
 /obj/machinery/atmospherics/pipe/cap/pipeline_expansion()

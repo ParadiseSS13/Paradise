@@ -63,5 +63,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 //mob traits
 #define TRAIT_PACIFISM			"pacifism"
 
+// item traits
+#define TRAIT_T_RAY_VISIBLE     "t-ray-visible" // Visible on t-ray scanners if the atom/var/level == 1
+
 // common trait sources
+#define TRAIT_GENERIC "generic"
 #define ROUNDSTART_TRAIT "roundstart" //cannot be removed without admin intervention

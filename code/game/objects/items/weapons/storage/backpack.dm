@@ -302,13 +302,15 @@
 
 /obj/item/storage/backpack/satchel_flat/hide(var/intact)
 	if(intact)
-		invisibility = 101
-		anchored = 1 //otherwise you can start pulling, cover it, and drag around an invisible backpack.
+		invisibility = INVISIBILITY_OBSERVER
+		anchored = TRUE //otherwise you can start pulling, cover it, and drag around an invisible backpack.
 		icon_state = "[initial(icon_state)]2"
+		ADD_TRAIT(src, TRAIT_T_RAY_VISIBLE, TRAIT_GENERIC)
 	else
 		invisibility = initial(invisibility)
-		anchored = 0
+		anchored = FALSE
 		icon_state = initial(icon_state)
+		REMOVE_TRAIT(src, TRAIT_T_RAY_VISIBLE, TRAIT_GENERIC)
 
 /obj/item/storage/backpack/satchel_flat/New()
 	..()

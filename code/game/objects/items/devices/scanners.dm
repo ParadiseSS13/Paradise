@@ -37,14 +37,16 @@ REAGENT SCANNER
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/t_scanner/attack_self(mob/user)
-
+/obj/item/t_scanner/proc/toggle_on()
 	on = !on
 	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
-
 	if(on)
 		START_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSobj, src)
 
+/obj/item/t_scanner/attack_self(mob/user)
+	toggle_on()
 
 /obj/item/t_scanner/process()
 	if(!on)
@@ -53,42 +55,31 @@ REAGENT SCANNER
 	scan()
 
 /obj/item/t_scanner/proc/scan()
+	t_ray_scan(src.loc, pulse_duration=pulse_duration, scan_range=scan_range)
 
-	for(var/turf/T in range(scan_range, src.loc) )
+// Show the viewer the T-ray layout within `scan_range` for the `pulse_duration` deciseconds.
+/proc/t_ray_scan(mob/viewer, pulse_duration, scan_range)
+	var/flick_time = pulse_duration
+	if(!ismob(viewer) || !viewer.client)
+		return
 
-		if(!T.intact)
-			continue
-
+	var/list/t_ray_images = list()
+	for(var/turf/T in range(scan_range, viewer))
 		for(var/obj/O in T.contents)
 
 			if(O.level != 1)
 				continue
 
-			if(O.invisibility == 101)
-				O.invisibility = 0
-				O.alpha = 128
-				spawn(pulse_duration)
-					if(O)
-						var/turf/U = O.loc
-						if(U && U.intact)
-							O.invisibility = 101
-							O.alpha = 255
-		for(var/mob/living/M in T.contents)
-			var/oldalpha = M.alpha
-			if(M.alpha < 255 && istype(M))
-				M.alpha = 255
-				spawn(10)
-					if(M)
-						M.alpha = oldalpha
-
-		var/mob/living/M = locate() in T
-
-		if(M && M.invisibility == 2)
-			M.invisibility = 0
-			spawn(2)
-				if(M)
-					M.invisibility = INVISIBILITY_LEVEL_TWO
-
+			if(O.invisibility == INVISIBILITY_MAXIMUM || HAS_TRAIT(O, TRAIT_T_RAY_VISIBLE))
+				var/image/I = new(loc = T)
+				var/mutable_appearance/MA = new(O)
+				MA.alpha = 128
+				MA.dir = O.dir
+				I.appearance = MA
+				t_ray_images += I
+	if(t_ray_images.len)
+		flick_overlay(t_ray_images, list(viewer.client), flick_time)
+	
 
 /proc/chemscan(mob/living/user, mob/living/M)
 	if(ishuman(M))
