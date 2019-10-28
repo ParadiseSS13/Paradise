@@ -296,6 +296,8 @@
 	else
 		return ..()
 
+// Returns TRUE if the stack amount is zero.
+// Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
 		if(isrobot(loc))
@@ -305,8 +307,9 @@
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
 			L.unEquip(src, TRUE)
-		qdel(src)
-		return TRUE
+		if(amount < 1)  // check again. Dropping the stuff could have incresed the amount in src (somehow...)
+			qdel(src)
+			return TRUE
 	return FALSE
 
 /obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
