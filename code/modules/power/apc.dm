@@ -1135,7 +1135,7 @@
 	if(newcell && cell)
 		cell.charge = cell.charge/100
 		newcell = FALSE
-		cell.update_icon
+		cell.update_icon()
 	if(debug)
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [lastused_equip] - Last Light: [lastused_light] - Longterm: [longtermpower]")
 
