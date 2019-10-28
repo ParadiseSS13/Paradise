@@ -124,5 +124,5 @@
 	var/powertransfer = (charging.chargerate)/4
 	var/delta  = min(powertransfer, (charging.maxcharge - charging.charge))
 	charging.give(delta)
-	use_power(delta * 100)
+	use_power(delta * 1.5)
 	update_icon()
