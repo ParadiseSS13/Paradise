@@ -99,7 +99,7 @@
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)
-			use_power(delta*150)
+			use_power(delta*15)
 		else
 			recharge_console.update_icon()
 		if(recharging_mecha.loc != recharging_turf)

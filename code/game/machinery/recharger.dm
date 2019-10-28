@@ -67,7 +67,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
-		
+
 	if(anchored && !charging)
 		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
 			return
@@ -110,14 +110,14 @@
 			if(E.power_supply.charge < E.power_supply.maxcharge)
 				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
 				E.on_recharge()
-				use_power(250)
+				use_power(E.power_supply.chargerate * 10)
 				using_power = TRUE
 
 		if(istype(charging, /obj/item/melee/baton))
 			var/obj/item/melee/baton/B = charging
 			if(B.bcell)
 				if(B.bcell.give(B.bcell.chargerate))
-					use_power(200)
+					use_power(B.bcell.chargerate * 12)
 					using_power = TRUE
 
 		if(istype(charging, /obj/item/modular_computer))

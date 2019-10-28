@@ -107,6 +107,8 @@
 	var/nightshift_lights = FALSE
 	var/last_nightshift_switch = 0
 
+	var/newcell = FALSE  //esto verifica si se le ha puesto una bateria nueva
+
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1
@@ -476,6 +478,7 @@
 			user.drop_item()
 			W.loc = src
 			cell = W
+			newcell = TRUE
 			user.visible_message(\
 				"<span class='warning'>[user.name] has inserted the power cell to [src.name]!</span>",\
 				"You insert the power cell.")
@@ -1129,6 +1132,10 @@
 	else
 		main_status = 2
 
+	if(newcell && cell)
+		cell.charge = cell.charge/100
+		newcell = FALSE
+		cell.update_icon
 	if(debug)
 		log_debug("Status: [main_status] - Excess: [excess] - Last Equip: [lastused_equip] - Last Light: [lastused_light] - Longterm: [longtermpower]")
 

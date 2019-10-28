@@ -160,6 +160,7 @@
 			if(repairs)
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
+				use_power(min(R.cell.charge + recharge_speed, R.cell.maxcharge) * 12)
 				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
 		else if(istype(occupant, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = occupant
@@ -205,6 +206,7 @@
 							D.power_supply.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
+							use_power(E.e_cost * 12)
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
