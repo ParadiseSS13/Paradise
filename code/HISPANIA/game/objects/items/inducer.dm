@@ -55,10 +55,10 @@
 					powered = FALSE
 					visible_message("<span class='warning'>the area is unpowered, [src]'s self charge turns off temporarily.</span>")
 		if(pow_chan)
-			var/self_charge = (cell.chargerate)/12
+			var/self_charge = (cell.chargerate)/8	//la mitad de un cell charger
 			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
 			cell.give(delta)
-			myarea.use_power((delta * 160), pow_chan)
+			myarea.use_power((delta * 100), pow_chan)
 			cell.update_icon()
 	update_icon()
 
@@ -154,8 +154,8 @@
 
 	if(istype(A, /obj))
 		if(istype(A, /obj/machinery/power/apc))
-			// 6.25*160 = 1000 = CELLRATE - los inducers son la unica cosa que no crea energia infinita
-			coefficient = 6.25
+			// 10*100 = 1000 = CELLRATE -> los inducers no aumentan la cantidad de energia que hay en la estación
+			coefficient = coefficient_base * 10
 		O = A
 	if(C)
 		var/done_any = FALSE
