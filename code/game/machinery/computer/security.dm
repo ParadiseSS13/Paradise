@@ -76,6 +76,12 @@
 								background = "'background-color:#5E0A1A'"
 							if("*Arrest*")
 								background = "'background-color:#890E26'"
+							if("Search")
+								background = "'background-color:#999900'"
+							if("Monitor")
+								background = "'background-color:#004C99'"
+							if("Demote")
+								background = "'background-color:#C2A111'"
 							if("Incarcerated")
 								background = "'background-color:#743B03'"
 							if("Parolled")
@@ -466,6 +472,9 @@
 						var/list/buttons = list()
 						buttons[++buttons.len] = list("name" = "None", "icon" = "unlock", "href" = "criminal=none", "status" = (active2.fields["criminal"] == "None" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "*Arrest*", "icon" = "lock", "href" = "criminal=arrest", "status" = (active2.fields["criminal"] == "*Arrest*" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Search", "icon" = "lock", "href" = "criminal=search", "status" = (active2.fields["criminal"] == "Search" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Monitor", "icon" = "lock", "href" = "criminal=monitor", "status" = (active2.fields["criminal"] == "Monitor" ? "selected" : null))
+						buttons[++buttons.len] = list("name" = "Demote", "icon" = "lock", "href" = "criminal=demote", "status" = (active2.fields["criminal"] == "Demote" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Incarcerated", "icon" = "lock", "href" = "criminal=incarcerated", "status" = (active2.fields["criminal"] == "Incarcerated" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "*Execute*", "icon" = "lock", "href" = "criminal=execute", "status" = (active2.fields["criminal"] == "*Execute*" ? "selected" : null))
 						buttons[++buttons.len] = list("name" = "Parolled", "icon" = "unlock-alt", "href" = "criminal=parolled", "status" = (active2.fields["criminal"] == "Parolled" ? "selected" : null))
@@ -548,7 +557,7 @@
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
-					R.fields["criminal"] = pick("None", "*Arrest*", "Incarcerated", "Parolled", "Released")
+					R.fields["criminal"] = pick("None", "*Arrest*", "Search", "Monitor", "Demote", "Incarcerated", "Parolled", "Released")
 				if(5)
 					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
 				if(6)
