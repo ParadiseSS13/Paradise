@@ -724,7 +724,7 @@
 						for(var/datum/data/record/R in data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Incarcerated", "Parolled", "Released", "Cancel")
+								var/setcriminal = input(usr, "Specify a new criminal status for this person.", "Security HUD", R.fields["criminal"]) in list("None", "*Arrest*", "Search", "Monitor", "Demote", "Incarcerated", "Parolled", "Released", "Cancel")
 								var/t1 = copytext(trim(sanitize(input("Enter Reason:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
 								if(!t1)
 									t1 = "(none)"
