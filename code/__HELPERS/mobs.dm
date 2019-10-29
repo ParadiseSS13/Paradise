@@ -243,6 +243,7 @@ proc/age2agedescription(age)
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]
 	switch(criminal_status)
+
 		if("arrest")
 			status = "*Arrest*"
 		if("none")
@@ -253,6 +254,12 @@ proc/age2agedescription(age)
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 			else
 				return 0
+		if("search")
+			status = "Search"
+		if("monitor")
+			status = "Monitor"
+		if ("demote")
+			status = "Demote"
 		if("incarcerated")
 			status = "Incarcerated"
 		if("parolled")
