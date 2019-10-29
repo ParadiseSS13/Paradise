@@ -57,7 +57,9 @@
 	examinate(A)
 
 /atom/proc/attack_ghost(mob/user as mob)
-	return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_GHOST, user) & COMPONENT_NO_ATTACK_HAND)
+		return TRUE
+	return FALSE
 
 // health + cyborg analyzer for ghosts
 /mob/living/attack_ghost(mob/dead/observer/user)

@@ -23,6 +23,10 @@
 	var/allow_quick_gather	//Set this variable to allow the object to have the 'toggle mode' verb, which quickly collects all items from a tile.
 	var/collection_mode = 1;  //0 = pick one at a time, 1 = pick all on tile
 	var/use_sound = "rustle"	//sound played when used. null for no sound.
+	var/component_type = /datum/component/storage/concrete
+
+/obj/item/storage/ComponentInitialize()
+	AddComponent(component_type)
 
 /obj/item/storage/MouseDrop(obj/over_object as obj)
 	if(ishuman(usr)) //so monkeys can take off their backpacks -- Urist
@@ -32,7 +36,6 @@
 			return
 
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
-			orient2hud(M)          // dunno why it wasn't before
 			if(M.s_active)
 				M.s_active.close(M)
 			show_to(M)
@@ -108,6 +111,7 @@
 				return
 	if(user.s_active)
 		user.s_active.hide_from(user)
+	orient2hud()
 	user.client.screen -= src.boxes
 	user.client.screen -= src.closer
 	user.client.screen -= src.contents
@@ -132,7 +136,6 @@
 	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
 
-	orient2hud(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -397,7 +400,6 @@
 			H.r_store = null
 			return
 
-	src.orient2hud(user)
 	if(src.loc == user)
 		if(user.s_active)
 			user.s_active.close(user)

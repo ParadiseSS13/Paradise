@@ -290,6 +290,7 @@
 #include "code\datums\components\spawner.dm"
 #include "code\datums\components\squeak.dm"
 #include "code\datums\components\waddling.dm"
+#include "code\datums\components\storage\storage.dm"
 #include "code\datums\diseases\_disease.dm"
 #include "code\datums\diseases\_MobProcs.dm"
 #include "code\datums\diseases\anxiety.dm"
