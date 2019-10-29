@@ -5,13 +5,13 @@
 	name = "xenobluespace power cell"
 	desc = "Created using xeno-bluespace technology. Designed by the renowned research director Adam Wolf."
 	origin_tech = "powerstorage=6;biotech=4;materials=5; engineering=5;bluespace =5"
-	maxcharge = 50000
+	maxcharge = 50000	//bateria bluespace + slime
 	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS = 800)
 	rating = 7
-	self_recharge = 1 // Infused slime cores self-recharge, over time
-	chargerate = 600
+	self_recharge = 1	// Infused slime cores self-recharge, over time
+	chargerate = 600	// 1.2 veces el chargerate de una bateria slime
 
 /obj/item/xenobluecellmaker
 	icon = 'icons/hispania/obj/power.dmi'
@@ -24,12 +24,18 @@
 	origin_tech = "powerstorage=6;biotech=4"
 	materials = list(MAT_GLASS = 1000)
 	var/build_step = 0
+	var/bluecharge
+	var/slimecharge
+	var/obj/item/stock_parts/cell/xenocell
+	var/cell_type = /obj/item/stock_parts/cell/xenoblue
 
 /obj/item/xenobluecellmaker/attackby(obj/item/I, mob/user, params)
 	..()
 	switch(build_step)
 		if(0)
 			if(istype(I, /obj/item/stock_parts/cell/bluespace))
+				var/obj/item/stock_parts/cell/bluespace/B = I
+				bluecharge = B.charge
 				if(!user.drop_item())
 					return
 				qdel(I)
@@ -39,10 +45,22 @@
 
 		if(1)
 			if(istype(I, /obj/item/stock_parts/cell/high/slime))
+				var/obj/item/stock_parts/cell/high/slime/S = I
+				slimecharge = S.charge
 				if(!user.drop_item())
 					return
-				qdel(I)
 				build_step++
+				var/turf/T = get_turf(src)
+				playsound(T, 'sound/magic/lightningshock.ogg', 50, 1, -1)
+				new/obj/effect/temp_visual/revenant/cracks(T)
 				to_chat(user, "<span class='notice'>You complete the Xenobluespace power cell.</span>")
+				xenocell = new cell_type(src)
+				xenocell.charge = (bluecharge + slimecharge)/2 //como maximo tendra la mitad de su carga completa
+				if(user.is_in_active_hand(src) || user.is_in_inactive_hand(src))
+					user.drop_item()
+					user.remove_from_mob(src)
+					usr.put_in_hands(xenocell)
+				else
+					xenocell.forceMove(T)
+				qdel(I)
 				qdel(src)
-				usr.put_in_hands(new /obj/item/stock_parts/cell/xenoblue)
