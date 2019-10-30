@@ -12,6 +12,7 @@
 	rating = 7
 	self_recharge = 1	// Infused slime cores self-recharge, over time
 	chargerate = 600	// 1.2 veces el chargerate de una bateria slime
+	overaynull = TRUE
 
 /obj/item/xenobluecellmaker
 	icon = 'icons/hispania/obj/power.dmi'
@@ -42,6 +43,7 @@
 				build_step++
 				to_chat(user, "<span class='notice'>You add the bluespace power cell to [src].</span>")
 				name = "xenobluecellmaker/bluespace power cell assembly"
+				icon_state = "xenobluecellmaker-on"
 
 		if(1)
 			if(istype(I, /obj/item/stock_parts/cell/high/slime))
@@ -51,16 +53,16 @@
 					return
 				build_step++
 				var/turf/T = get_turf(src)
-				playsound(T, 'sound/magic/lightningshock.ogg', 50, 1, -1)
 				new/obj/effect/temp_visual/revenant/cracks(T)
+				playsound(T, 'sound/magic/lightningshock.ogg', 10, 1, -1)
 				to_chat(user, "<span class='notice'>You complete the Xenobluespace power cell.</span>")
 				xenocell = new cell_type(src)
 				xenocell.charge = (bluecharge + slimecharge)/2 //como maximo tendra la mitad de su carga completa
-				if(user.is_in_active_hand(src) || user.is_in_inactive_hand(src))
-					user.drop_item()
+				if(istype(loc, /turf))
+					xenocell.forceMove(T)
+				else
+					user.drop_item(src)
 					user.remove_from_mob(src)
 					usr.put_in_hands(xenocell)
-				else
-					xenocell.forceMove(T)
 				qdel(I)
 				qdel(src)
