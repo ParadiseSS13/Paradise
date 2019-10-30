@@ -32,7 +32,6 @@
 			return
 
 		if(over_object == M && Adjacent(M)) // this must come before the screen objects only block
-			orient2hud(M)          // dunno why it wasn't before
 			if(M.s_active)
 				M.s_active.close(M)
 			show_to(M)
@@ -108,6 +107,7 @@
 				return
 	if(user.s_active)
 		user.s_active.hide_from(user)
+	orient2hud()
 	user.client.screen -= src.boxes
 	user.client.screen -= src.closer
 	user.client.screen -= src.contents
@@ -132,7 +132,6 @@
 	if(src.use_sound)
 		playsound(src.loc, src.use_sound, 50, 1, -5)
 
-	orient2hud(user)
 	if(user.s_active)
 		user.s_active.close(user)
 	show_to(user)
@@ -397,7 +396,6 @@
 			H.r_store = null
 			return
 
-	src.orient2hud(user)
 	if(src.loc == user)
 		if(user.s_active)
 			user.s_active.close(user)
@@ -409,6 +407,10 @@
 				src.close(M)
 	src.add_fingerprint(user)
 	return
+
+/obj/item/storage/attack_ghost(mob/user as mob)
+	show_to(user)
+	return ..()
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Switch Gathering Method"
