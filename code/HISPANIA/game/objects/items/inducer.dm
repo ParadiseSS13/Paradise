@@ -55,10 +55,10 @@
 					powered = FALSE
 					visible_message("<span class='warning'>the area is unpowered, [src]'s self charge turns off temporarily.</span>")
 		if(pow_chan)
-			var/self_charge = (cell.chargerate)/8	//la mitad de un cell charger
+			var/self_charge = (cell.chargerate)/8	//1.25% por tick casi siempre
 			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
 			cell.give(delta)
-			myarea.use_power((delta * 100), pow_chan)
+			myarea.use_power((delta * 18), pow_chan)
 			cell.update_icon()
 	update_icon()
 
@@ -146,16 +146,18 @@
 	if(!C)
 		recharging = FALSE
 		return FALSE
+
 	var/obj/O
 	var/coefficient = coefficient_base
 	if(istype(A, /obj/item/gun/energy))
+		recharging = FALSE
 		to_chat(user,"<span class='warning'>Error unable to interface with device</span>")
 		return FALSE
 
 	if(istype(A, /obj))
 		if(istype(A, /obj/machinery/power/apc))
-			// 10*100 = 1000 = CELLRATE -> los inducers no aumentan la cantidad de energia que hay en la estación
-			coefficient = coefficient_base * 10
+			// power_use * coefficient = 20*100 > 1000 = CELLRATE -> los inducers no aumentan la cantidad de energia que hay en la estacion
+			coefficient = 100
 		O = A
 	if(C)
 		var/done_any = FALSE
@@ -170,7 +172,7 @@
 				induce(C, coefficient)
 				do_sparks(1, FALSE, A)
 				user.Beam(A,icon_state="purple_lightning",icon = 'icons/effects/effects.dmi',time=5)
-				playsound(src, 'sound/magic/lightningshock.ogg', 40, 1)
+				playsound(src, 'sound/magic/lightningshock.ogg', 25, 1)
 				if(O)
 					O.update_icon()
 			else
