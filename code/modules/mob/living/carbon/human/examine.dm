@@ -340,7 +340,7 @@
 	if(hasHUD(user,"security"))
 		var/perpname = get_visible_name(TRUE)
 		var/criminal = "None"
-		var/commentLatest = "None"
+		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
 
 		if(perpname)
 			for(var/datum/data/record/E in data_core.general)
@@ -348,23 +348,18 @@
 					for(var/datum/data/record/R in data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
-			if(commentLatest)
-				for(var/datum/data/record/E in data_core.general)
-					if(E.fields["name"] == perpname)
-						for(var/datum/data/record/R in data_core.security)
-							if(R.fields["id"] == E.fields["id"])
+							if(commentLatest)
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
 										commentLatest = LAZYACCESS(R.fields["comments"],(R.fields["comments"].len)) //Get the latest entry from the comment log
 								else
-									commentLatest = "No entries."
+									commentLatest = "No entries." //If no entries, but there is a entry in datacore (=is recognized crew)
 
 			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
-			var/commentLatest_check = "[commentLatest]"
 
 			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
 			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest_check]\n"
+			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
 
 
 	if(hasHUD(user,"medical"))
