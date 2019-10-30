@@ -20,7 +20,7 @@ REAGENT SCANNER
 	materials = list(MAT_METAL=150)
 	origin_tech = "magnets=1;engineering=1"
 	var/scan_range = 1
-	var/pulse_duration = 10
+	var/pulse_duration = 10  // in deciseconds
 
 /obj/item/t_scanner/longer_pulse
 	pulse_duration = 50
@@ -37,7 +37,7 @@ REAGENT SCANNER
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/t_scanner/proc/toggle_on()
+/obj/item/t_scanner/attack_self(mob/user)
 	on = !on
 	icon_state = copytext(icon_state, 1, length(icon_state))+"[on]"
 	if(on)
@@ -45,21 +45,15 @@ REAGENT SCANNER
 	else
 		STOP_PROCESSING(SSobj, src)
 
-/obj/item/t_scanner/attack_self(mob/user)
-	toggle_on()
-
 /obj/item/t_scanner/process()
 	if(!on)
 		STOP_PROCESSING(SSobj, src)
 		return null
 	scan()
 
+// Show the holder the T-ray layout within `scan_range` for the `pulse_duration` deciseconds.
 /obj/item/t_scanner/proc/scan()
-	t_ray_scan(src.loc, pulse_duration=pulse_duration, scan_range=scan_range)
-
-// Show the viewer the T-ray layout within `scan_range` for the `pulse_duration` deciseconds.
-/proc/t_ray_scan(mob/viewer, pulse_duration, scan_range)
-	var/flick_time = pulse_duration
+	var/mob/viewer = src.loc
 	if(!ismob(viewer) || !viewer.client)
 		return
 
@@ -78,8 +72,8 @@ REAGENT SCANNER
 				I.appearance = MA
 				t_ray_images += I
 	if(t_ray_images.len)
-		flick_overlay(t_ray_images, list(viewer.client), flick_time)
-	
+		flick_overlay(t_ray_images, list(viewer.client), pulse_duration)
+
 
 /proc/chemscan(mob/living/user, mob/living/M)
 	if(ishuman(M))
