@@ -348,11 +348,10 @@
 					for(var/datum/data/record/R in data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
-							if(LAZYLEN(R.fields["comments"]))
-								for(var/c in R.fields["comments"])
-									commentLatest = LAZYACCESS(R.fields["comments"],(R.fields["comments"].len)) //Get the latest entry from the comment log
+							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
+								commentLatest = LAZYACCESS(R.fields["comments"],(R.fields["comments"].len)) //get the latest entry from the comment log
 							else
-								commentLatest = "No entries." //If no entries, but there is a entry in datacore (=is recognized crew)
+								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
 
