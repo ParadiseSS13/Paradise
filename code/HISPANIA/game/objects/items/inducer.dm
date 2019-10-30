@@ -13,12 +13,13 @@
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
 	var/powertransfer = null
-	var/ratio = 0.12	//determina que porcentaje de la bateria objetivo de la induccion es recargado, 12%
-	var/coefficient_base = 1.02	//determina que porcentje de energia, del a bateria interna, se pierde al inducir, 2%
-	var/mintransfer = 250	//determina el valor minimo de la energia inducida
+	var/ratio = 0.12 //determina que porcentaje de la bateria objetivo de la induccion es recargado, 12%
+	var/coefficient_base = 1.1 //determina que porcentje de energia, del a bateria interna, se pierde al inducir, 10%
+	var/mintransfer = 250 //determina el valor minimo de la energia inducida
 	var/recharging = FALSE
 	var/on = FALSE
 	var/powered = FALSE
+	var/coeff = 17 //multiplica al consumo energetico de la estacion
 
 /obj/item/inducer/Initialize()
 	. = ..()
@@ -58,7 +59,7 @@
 			var/self_charge = (cell.chargerate)/8	//1.25% por tick casi siempre
 			var/delta = min(self_charge, (cell.maxcharge - cell.charge))
 			cell.give(delta)
-			myarea.use_power((delta * 18), pow_chan)
+			myarea.use_power((delta * coeff), pow_chan)
 			cell.update_icon()
 	update_icon()
 
@@ -267,9 +268,9 @@
 	origin_tech = "powerstorage=4;materials=4;engineering=3"
 	cell_type = null
 	opened = TRUE
-	ratio = 0.1	//recarga un 10% de la bateria objetivo
-	coefficient_base = 1.05	//5% de energia desperdiciada
+	coefficient_base = 1.15 //15% de energia desperdiciada
 	mintransfer = 200
+	coeff = 18
 
 /obj/item/inducer/sci/Initialize()
 	. = ..()
