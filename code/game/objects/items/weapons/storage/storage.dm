@@ -408,7 +408,7 @@
 	src.add_fingerprint(user)
 	return
 
-/obj/item/storage/attack_ghost(mob/user as mob)
+/obj/item/storage/attack_ghost(mob/user)
 	show_to(user)
 	return ..()
 
