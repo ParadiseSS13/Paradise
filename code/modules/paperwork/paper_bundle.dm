@@ -11,15 +11,13 @@
 	layer = 4
 	pressure_resistance = 2
 	attack_verb = list("bapped")
-	var/amount = 0 //Amount of items clipped to the paper. Note: If you have 2 paper, this should be 1
-	var/page = 1
-	var/screen = 0
+	var/opened_page = 1
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	if(default_papers) // This is to avoid runtime occuring from a paper bundle being created without a paper in it.
 		new /obj/item/paper(src)
 		new /obj/item/paper(src)
-		amount += 1
+
 /obj/item/paper_bundle/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
 	var/obj/item/paper/P
@@ -32,9 +30,6 @@
 				add_fingerprint(user)
 				return
 
-		amount++
-		if(screen == 2)
-			screen = 1
 		to_chat(user, "<span class='notice'>You add [(P.name == "paper") ? "the paper" : P.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(P)
 		P.loc = src
@@ -43,9 +38,6 @@
 			H.update_inv_l_hand()
 			H.update_inv_r_hand()
 	else if(istype(W, /obj/item/photo))
-		amount++
-		if(screen == 2)
-			screen = 1
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
@@ -56,15 +48,12 @@
 		for(var/obj/O in W)
 			O.loc = src
 			O.add_fingerprint(usr)
-			src.amount++
-			if(screen == 2)
-				screen = 1
 		to_chat(user, "<span class='notice'>You add \the [W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		qdel(W)
 	else
 		if(istype(W, /obj/item/pen) || istype(W, /obj/item/toy/crayon))
 			usr << browse("", "window=[name]") //Closes the dialog
-		P = src[page]
+		P = src[opened_page]
 		P.attackby(W, user, params)
 
 
@@ -102,31 +91,33 @@
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		show_content(user)
+		show_content(user, src.opened_page)
 	else
 		. += "<span class='notice'>It is too far away.</span>"
 
-/obj/item/paper_bundle/proc/show_content(mob/user as mob)
+// Display the page to the user.
+// `page_no` controls which page to show, 0 is a special value that means "show the currently opened one".
+/obj/item/paper_bundle/proc/show_content(mob/user as mob, var/page_no = 0)
+	if(page_no == 0)
+		page_no = src.opened_page
 	var/dat
-	var/obj/item/W = src[page]
-	switch(screen)
-		if(0)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
-		if(1)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><A href='?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
-		if(2)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><A href='?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV><BR><HR>"
-			dat+= "<DIV STYLE='float;left; text-align:right; with:33.33333%'></DIV>"
-	if(istype(src[page], /obj/item/paper))
+	var/obj/item/W = src[page_no]
+
+	dat += "<DIV STYLE='float:left; text-align:left; width:33.33333%'>"
+	if(page_no > 1)
+		dat += "<A href='?src=[UID()];cur_page=[page_no];flip=-1'>Previous Page</A>"
+	dat += "</DIV>"
+	dat += "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
+	dat += "<DIV STYLE='float:left; text-align:right; width:33.33333%'>"
+	if(page_no < src.contents.len)
+		dat+= "<A href='?src=[UID()];cur_page=[page_no];flip=1'>Next Page</A>"
+	dat += "</DIV><BR><HR>"
+
+	if(istype(src[page_no], /obj/item/paper))
 		var/obj/item/paper/P = W
 		dat += P.show_content(usr, view = 0)
 		usr << browse(dat, "window=[name]")
-	else if(istype(src[page], /obj/item/photo))
+	else if(istype(src[page_no], /obj/item/photo))
 		var/obj/item/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
 		usr << browse(dat + "<html><head><title>[P.name]</title></head>" \
@@ -136,48 +127,40 @@
 		+ "</body></html>", "window=[name]")
 
 /obj/item/paper_bundle/attack_self(mob/user as mob)
-	src.show_content(user)
+	src.show_content(user, src.opened_page)
 	add_fingerprint(usr)
 	update_icon()
 	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	..()
-	if((src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents)))
+	var/can_flip = (src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents))
+	if(can_flip || istype(usr, /mob/dead/observer))
 		usr.set_machine(src)
-		if(href_list["next_page"])
-			if(page == amount)
-				screen = 2
-			else if(page == 1)
-				screen = 1
-			else if(page == amount+1)
-				return
-			page++
-			playsound(src.loc, "pageturn", 50, 1)
-		if(href_list["prev_page"])
-			if(page == 1)
-				return
-			else if(page == 2)
-				screen = 0
-			else if(page == amount+1)
-				screen = 1
-			page--
-			playsound(src.loc, "pageturn", 50, 1)
-		if(href_list["remove"])
-			var/obj/item/W = src[page]
+		var/viewed_page = text2num(href_list["cur_page"])
+		if(href_list["flip"])
+			var/flip_count = text2num(href_list["flip"])
+			if(!isnum(flip_count))  // should never happen
+				stack_trace("Paper bundle was flipped without specifying numeric flip amount. href_list\[\"flip\"] == [href_list["flip"]]")
+				flip_count = 0
+			var/new_page = Clamp(1, viewed_page + flip_count, src.contents.len)
+			if(can_flip && new_page != opened_page)
+				opened_page = new_page
+				playsound(src.loc, "pageturn", 50, 1)
+			show_content(usr, new_page)
+
+		if(href_list["remove"] && can_flip)
+			var/obj/item/W = src[opened_page]
 			usr.put_in_hands(W)
 			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
-			if(amount == 1)
-				var/obj/item/paper/P = src[1]
+			if(opened_page > src.contents.len)
+				opened_page = src.contents.len
+			if(src.contents.len == 1)  // a bundle of a single item is no longer a bundle
+				var/obj/item/P = src[1]
 				usr.unEquip(src)
 				usr.put_in_hands(P)
 				qdel(src)
-			else if(page == amount)
-				screen = 2
-			else if(page == amount+1)
-				page--
 
-			amount--
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")

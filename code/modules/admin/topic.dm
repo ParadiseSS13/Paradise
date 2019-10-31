@@ -2149,7 +2149,7 @@
 			var/data = ""
 			var/obj/item/paper_bundle/B = fax
 
-			for(var/page = 1, page <= B.amount + 1, page++)
+			for(var/page = 1, page <= B.contents.len, page++)
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 

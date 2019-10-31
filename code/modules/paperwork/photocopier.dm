@@ -85,13 +85,13 @@
 				sleep(15)
 			else if(istype(copyitem, /obj/item/paper_bundle))
 				var/obj/item/paper_bundle/C = copyitem
-				if(toner < (C.amount + 1))
+				if(toner < (C.contents.len))
 					visible_message("<span class='notice'>A yellow light on [src] flashes, indicating there's not enough toner for the operation.</span>") // It is better to prevent partial bundle than to produce broken paper bundle
 					return
 				var/obj/item/paper_bundle/B = bundlecopy(copyitem)
 				if(!B)
 					return
-				sleep(15*B.amount)
+				sleep(15*B.contents.len)
 			else if(ass && ass.loc == loc)
 				copyass()
 				sleep(15)
@@ -291,11 +291,9 @@
 		else if(istype(W, /obj/item/photo))
 			W = photocopy(W)
 		W.forceMove(P)
-		P.amount++
-	if(!P.amount)
+	if(!P.contents.len)
 		qdel(P)
 		return null
-	P.amount--
 	P.forceMove(get_turf(src))
 	P.update_icon()
 	P.icon_state = "paper_words"
