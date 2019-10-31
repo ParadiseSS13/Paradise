@@ -7,7 +7,7 @@
 	icon_state = "tendril"
 
 	faction = list("mining")
-	max_mobs = 3
+	max_mobs = 4
 	max_integrity = 250
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
 
@@ -23,6 +23,9 @@
 
 /obj/structure/spawner/lavaland/legion
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
+
+/obj/structure/spawner/lavaland/plazmite
+	mob_types = list(/mob/living/simple_animal/hostile/asteroid/poison/plazmite/tendril)
 
 GLOBAL_LIST_INIT(tendrils, list())
 
