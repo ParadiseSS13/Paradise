@@ -539,16 +539,13 @@ Class Procs:
 
 	if(check_records || check_arrest)
 		var/perpname = perp.get_visible_name(TRUE)
-
 		var/datum/data/record/R = find_security_record("name", perpname)
-		if(check_records && !R)
-			threatcount += 4
-
-		if(check_arrest && R && (R.fields["criminal"] == "*Arrest*"))
-			threatcount += 4
-
-		if(check_arrest && R && (R.fields["criminal"] == "*Execute*" ))
-			threatcount += 7
+		if(R && R.fields["criminal"])
+			switch(R.fields["criminal"])
+				if("*Execute*")
+					threatcount += 7
+				if("*Arrest*")
+					threatcount += 5
 
 	return threatcount
 
