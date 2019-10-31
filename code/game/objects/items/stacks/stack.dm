@@ -312,7 +312,7 @@
 			// the two get merged, so the amount of items in the stack can increase from the 0 that it had before.
 			// Check the amount again, to be sure we're not qdeling healthy stacks.
 			qdel(src)
-			return TRUE
+		return TRUE
 	return FALSE
 
 /obj/item/stack/proc/merge(obj/item/stack/S) //Merge src into S, as much as possible
