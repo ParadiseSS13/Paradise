@@ -113,6 +113,8 @@
 		depotarea.updateicon()
 
 	for(var/obj/structure/closet/L in range(30, T))
+		for(var/obj/O in L)
+			qdel(O)
 		L.open()
 	for(var/mob/living/M in range(30, T))
 		M.gib()
