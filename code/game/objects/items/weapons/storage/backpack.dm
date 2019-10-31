@@ -373,6 +373,10 @@
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
+	new /obj/item/kitchen/knife/combat/survival(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
