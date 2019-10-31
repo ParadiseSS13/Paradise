@@ -1662,7 +1662,7 @@
 	SSticker.mode.traitors += src
 
 	
-	var/datum/objective/protect/zealot_objective = new
+	var/datum/objective/protect/mindslave/zealot_objective = new
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src
 	zealot_objective.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
