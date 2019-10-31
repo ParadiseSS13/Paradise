@@ -13,6 +13,7 @@
 	update_mindslave_icons_added()
 
 /datum/antagonist/mindslave/on_removal()
+	SSticker.mode.implanted.Remove(owner.current)
 	if(owner.som)
 		var/datum/mindslaves/slaved = owner.som
 		slaved.serv -= owner
