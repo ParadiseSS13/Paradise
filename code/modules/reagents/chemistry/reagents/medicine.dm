@@ -760,6 +760,7 @@
 		return
 	M.SetJitter(0)
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
+	var/update_flags = STATUS_UPDATE_NONE
 
 	if(prob(10))
 		if(needs_update)
