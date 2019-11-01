@@ -780,6 +780,86 @@
 	mix_message = "The citrus juices begin to blend together."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/strawberrydaiquiri
+	name = "Strawberry Daquiri"
+	id = "strawberrydaiquiri"
+	result = "strawberrydaiquiri"
+	required_reagents = list("rum" = 2, "strawberryjuice" = 2, "limejuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/redroyal
+	name = "Red Royal"
+	id = "redroyal"
+	result = "redroyal"
+	required_reagents = list("whiskey" = 2, "amaretto" = 1)
+	result_amount = 3
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/paradise
+	name = "Paradise"
+	id = "paradise"
+	result = "paradise"
+	required_reagents = list("gin" = 2, "brandy" = 1, "orangejuice" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mintini
+	name = "Mintini"
+	id = "mintini"
+	result = "mintini"
+	required_reagents = list("martini" = 1, "mintliqueur" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/mapleleaf
+	name = "Maple Leaf"
+	id = "mapleleaf"
+	result = "mapleleaf"
+	required_reagents = list("bourbon" = 2, "maplesyrup" = 2, "lemonjuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/daiquiri
+	name = "Daiquiri"
+	id = "daiquiri"
+	result = "daiquiri"
+	required_reagents = list("rum" = 2, "limejuice" = 1, "sugar" = 1)
+	result_amount = 4
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/coconuthawaiian
+	name = "Coconut Hawaiian"
+	id = "coconuthawaiian"
+	result = "coconuthawaiian"
+	required_reagents = list("rum" = 2, "bluecuracao" = 1, "pineapplejuice" = 1, "coconutjuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bronx
+	name = "Bronx"
+	id = "bronx"
+	result = "bronx"
+	required_reagents = list("martini" = 1, "orangejuice" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/bluearrow
+	name = "Blue Arrow"
+	id = "bluearrow"
+	result = "bluearrow"
+	required_reagents = list("gin" = 2, "cointreau" = 1, "bluecuracao" = 1, "limejuice" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/summerhoedown
+	name = "Summer Hoedown"
+	id = "summerhoedown"
+	result = "summerhoedown"
+	required_reagents = list("watermelonliqueur" = 2, "beer" = 1, "sugar" = 1, "cherry liqueur" = 1)
+	result_amount = 5
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 /datum/chemical_reaction/chocolatepudding
 	name = "Chocolate Pudding"
 	id = "chocolatepudding"

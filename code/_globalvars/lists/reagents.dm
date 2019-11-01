@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(standard_medicines, list("charcoal","toxin","cyanide","morphine
 GLOBAL_LIST_INIT(rare_medicines, list("syndicate_nanites","minttoxin","blood", "xenomicrobes"))
 // Drinks
 GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","limejuice","carrotjuice",
-					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","banana",
+					"berryjuice","poisonberryjuice","watermelonjuice","lemonjuice","maplesyrup","banana",
 					"nothing","potato","milk","soymilk","cream","coffee","tea","icecoffee",
 					"icetea","cola","nuka_cola","spacemountainwind","thirteenloko","dr_gibb",
 					"space_up","lemon_lime","beer","whiskey","gin","rum","vodka","holywater",
@@ -44,7 +44,12 @@ GLOBAL_LIST_INIT(drinks, list("beer2","hot_coco","orangejuice","tomatojuice","li
 					"vodkatonic","ginfizz","bahama_mama","singulo","sbiten","devilskiss","red_mead",
 					"mead","iced_beer","grog","aloe","andalusia","alliescocktail","soy_latte",
 					"cafe_latte","acidspit","amasec","neurotoxin","hippiesdelight","bananahonk",
-					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise","driestmartini", "flamingmoe"))
+					"silencer","changelingsting","irishcarbomb","syndicatebomb","erikasurprise",
+					"driestmartini", "flamingmoe","amaretto","bourbon","brandy","bluecuracao","cointreau",
+					"watermelonliqueur","mintliqueur","peachliqueur", "bananaliqueur","violetliqueur",
+					"nutliqueur","cherryliqueur","strawberryjuice","pineapplejuice","coconutjuice",
+					"redroyal","strawberrydaiquiri","paradise","mintini","mapleleaf","daiquiri",
+					"coconuthawaiian","bronx","bluearrow","summerhoedown"))
 
 //Liver Toxins list
 GLOBAL_LIST_INIT(liver_toxins, list("toxin", "plasma", "sacid", "facid", "cyanide","amanitin", "carpotoxin"))

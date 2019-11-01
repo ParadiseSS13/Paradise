@@ -253,6 +253,78 @@
 	volume = 50
 	list_reagents = list("suicider" = 50)
 
+/obj/item/reagent_containers/food/drinks/bottle/amaretto
+	name = "Salizo Luxury Amaretto"
+	desc = "Old and classy bottle of amaretto."
+	icon_state = "amarettobottle"
+	list_reagents = list("amaretto" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bourbon
+	name = "Jim Dean Bourbon"
+	desc = "A nice bottle of a strong alcoholic beverage"
+	icon_state = "bourbonbottle"
+	list_reagents = list("bourbon" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/brandy
+	name = "Grand Bouldier Grain Brandy "
+	desc = "A nice bottle of well aged strong alcoholic beverage"
+	icon_state = "brandybottle"
+	list_reagents = list("brandy" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bluecuracao
+	name = "Mennaker's Bluest Curacao"
+	desc = "A alchoholic beverage that is bright blue."
+	icon_state = "bluecuracao"
+	list_reagents = list("bluecuracao" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/cointreau
+	name = "Gillani's Triple Sec Cointreau"
+	desc = "A bottle of nice and tasty colorless curacao."
+	icon_state = "cointreau"
+	list_reagents = list("cointreau" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/watermelonliqueur
+	name = "Great Groppa's Watermelon Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "watermelonliqueur"
+	list_reagents = list("watermelonliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/mintliqueur
+	name = "Hopburg Minty Liqueur"
+	desc = "A bottle full of refreshing and minty liqueur."
+	icon_state = "mintliqueur"
+	list_reagents = list("mintliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/peachliqueur
+	name = "Sagurena Sweet Peach Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "peachliqueur"
+	list_reagents = list("peachliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/bananaliqueur
+	name = "Gifford's Banana Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "bananaliqueur"
+	list_reagents = list("bananaliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/violetliqueur
+	name = "Bitter Truth Violet Liqueur"
+	desc = "A drink that is distrinctly floral and sweet."
+	icon_state = "violetliqueur"
+	list_reagents = list("violetliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/nutliqueur
+	name = "Di Nocino Hazelnut Liqueur"
+	desc = "A bottle full of nut liqueur."
+	icon_state = "nutliqueur"
+	list_reagents = list("nutliqueur" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/cherryliqueur
+	name = "De Kaiya Wild Cherry Liqueur"
+	desc = "A sweet and fruity drink for the weak."
+	icon_state = "cherryliqueur"
+	list_reagents = list("cherryliqueur" = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -290,6 +362,39 @@
 	throwforce = 0
 	isGlass = 0
 	list_reagents = list("limejuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/strawberryjuice
+	name = "strawberry juice"
+	desc = "Delicious sweet juice, made from strawberries."
+	icon_state = "strawberryjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("strawberryjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/pineapplejuice
+	name = "pineapple juice"
+	desc = "Sugary goodness in a carton."
+	icon_state = "pineapplejuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("pineapplejuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/coconutjuice
+	name = "coconut juice"
+	desc = "Sweet juice straight from a coconut."
+	icon_state = "coconutjuice"
+	item_state = "carton"
+	throwforce = 0
+	isGlass = 0
+	list_reagents = list("coconutjuice" = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/maplesyrup
+	name = "maple syrup"
+	desc = "This has sweet written all over it. It must be very sweet."
+	icon_state = "maplesyrup"
+	list_reagents = list("maplesyrup" = 100)
 
 /obj/item/reagent_containers/food/drinks/bottle/milk
 	name = "milk"

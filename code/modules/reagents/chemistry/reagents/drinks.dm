@@ -166,6 +166,35 @@
 	color = "#993399" // rgb: 153, 51, 153
 	taste_description = "grape juice"
 
+/datum/reagent/consumable/drink/strawberryjuice
+	name = "Strawberry Juice"
+	id = "strawberryjuice"
+	description = "Nice sweet and refreshing juice made from strawberry."
+	color = "#E36D6D" // rgb: 227, 109, 109
+	drink_icon = "glass_red"
+	drink_name = "Glass of strawberry juice"
+	drink_desc = "Sweet and refreshing!"
+	taste_description = "strawberry juice"
+
+/datum/reagent/consumable/drink/coconutjuice
+	name = "Coconut Juice"
+	id = "coconutjuice"
+	description = "Tasty juice that came from inside of a coconut."
+	color = "#FFFFFFF" // rgb: 255,255,255
+	drink_icon = "glass_clear"
+	drink_name = "Glass of coconut juice"
+	drink_desc = "Apparently this came from inside of the coconut?"
+	taste_description = "coconut juice"
+
+/datum/reagent/consumable/drink/maplesyrup
+	name = "Maple Syrup"
+	id = "maplesyrup"
+	description = "This syrup is VERY sweet. Why would you drink this straight from a glass?"
+	color = "#965f19" // rgb: 150, 95, 25
+	drink_name = "Glass of maple syrup"
+	drink_desc = "This has sweetness written all over it. Why would you drink this straight from a glass?"
+	taste_description = "maple syrup"
+
 /datum/reagent/consumable/drink/banana
 	name = "Banana Juice"
 	id = "banana"
