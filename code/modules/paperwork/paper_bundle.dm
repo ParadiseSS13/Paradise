@@ -11,7 +11,7 @@
 	layer = 4
 	pressure_resistance = 2
 	attack_verb = list("bapped")
-	var/opened_page = 1
+	var/opened_page = 1  // page number the bundle is opened on
 
 /obj/item/paper_bundle/New(default_papers = TRUE)
 	if(default_papers) // This is to avoid runtime occuring from a paper bundle being created without a paper in it.
@@ -91,7 +91,7 @@
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		show_content(user, src.opened_page)
+		show_content(user, opened_page)
 	else
 		. += "<span class='notice'>It is too far away.</span>"
 
@@ -99,7 +99,7 @@
 // `page_no` controls which page to show, 0 is a special value that means "show the currently opened one".
 /obj/item/paper_bundle/proc/show_content(mob/user as mob, var/page_no = 0)
 	if(page_no == 0)
-		page_no = src.opened_page
+		page_no = opened_page
 	var/dat
 	var/obj/item/W = src[page_no]
 
@@ -109,7 +109,7 @@
 	dat += "</DIV>"
 	dat += "<DIV STYLE='float:left; text-align:center; width:33.33333%'><A href='?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
 	dat += "<DIV STYLE='float:left; text-align:right; width:33.33333%'>"
-	if(page_no < src.contents.len)
+	if(page_no < contents.len)
 		dat+= "<A href='?src=[UID()];cur_page=[page_no];flip=1'>Next Page</A>"
 	dat += "</DIV><BR><HR>"
 
@@ -127,14 +127,14 @@
 		+ "</body></html>", "window=[name]")
 
 /obj/item/paper_bundle/attack_self(mob/user as mob)
-	src.show_content(user, src.opened_page)
+	show_content(user, opened_page)
 	add_fingerprint(usr)
 	update_icon()
 	return
 
 /obj/item/paper_bundle/Topic(href, href_list)
 	..()
-	var/can_flip = (src in usr.contents) || (istype(src.loc, /obj/item/folder) && (src.loc in usr.contents))
+	var/can_flip = (src in usr.contents) || (istype(loc, /obj/item/folder) && (loc in usr.contents))
 	if(can_flip || istype(usr, /mob/dead/observer))
 		usr.set_machine(src)
 		var/viewed_page = text2num(href_list["cur_page"])
@@ -143,19 +143,19 @@
 			if(!isnum(flip_count))  // should never happen
 				stack_trace("Paper bundle was flipped without specifying numeric flip amount. href_list\[\"flip\"] == [href_list["flip"]]")
 				flip_count = 0
-			var/new_page = Clamp(1, viewed_page + flip_count, src.contents.len)
+			var/new_page = Clamp(1, viewed_page + flip_count, contents.len)
 			if(can_flip && new_page != opened_page)
 				opened_page = new_page
-				playsound(src.loc, "pageturn", 50, 1)
+				playsound(loc, "pageturn", 50, 1)
 			show_content(usr, new_page)
 
 		if(href_list["remove"] && can_flip)
 			var/obj/item/W = src[opened_page]
 			usr.put_in_hands(W)
 			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
-			if(opened_page > src.contents.len)
-				opened_page = src.contents.len
-			if(src.contents.len == 1)  // a bundle of a single item is no longer a bundle
+			if(opened_page > contents.len)
+				opened_page = contents.len
+			if(contents.len == 1)  // a bundle of a single item is no longer a bundle
 				var/obj/item/P = src[1]
 				usr.unEquip(src)
 				usr.put_in_hands(P)
@@ -164,8 +164,8 @@
 			update_icon()
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
-	if(istype(src.loc, /mob))
-		src.attack_self(src.loc)
+	if(istype(loc, /mob))
+		attack_self(loc)
 		updateUsrDialog()
 
 
