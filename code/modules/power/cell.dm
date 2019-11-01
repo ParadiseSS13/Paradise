@@ -18,7 +18,7 @@
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
-
+	var/minorrecharging  = FALSE //controla la autorecarga cuando esta en un apc
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
@@ -45,7 +45,10 @@
 
 /obj/item/stock_parts/cell/process()
 	if(self_recharge)
-		give(chargerate * 0.25)
+		if(minorrecharging)
+			give(chargerate * 0.25 * GLOB.CELLRATE)
+		else
+			give(chargerate * 0.25)
 	else
 		return PROCESS_KILL
 

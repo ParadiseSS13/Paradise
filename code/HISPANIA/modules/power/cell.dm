@@ -1,3 +1,6 @@
+/obj/item/stock_parts/cell/proc/minorrecharge()
+	minorrecharging = FALSE
+
 /obj/item/stock_parts/cell/xenoblue
 	icon = 'icons/hispania/obj/power.dmi'
 	icon_state = "xenobluecell"
