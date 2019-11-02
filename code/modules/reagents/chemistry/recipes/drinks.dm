@@ -856,7 +856,7 @@
 	name = "Summer Hoedown"
 	id = "summerhoedown"
 	result = "summerhoedown"
-	required_reagents = list("watermelonliqueur" = 2, "beer" = 1, "sugar" = 1, "cherry liqueur" = 1)
+	required_reagents = list("watermelonliqueur" = 2, "beer" = 1, "sugar" = 1, "cherryliqueur" = 1)
 	result_amount = 5
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
