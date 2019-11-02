@@ -41,7 +41,7 @@ var opts = {
 	'suppressOptionsClose': false, //Whether or not we should be hiding the suboptions menu
 	'highlightTerms': [],
 	'highlightLimit': 5,
-	'highlightRegexEnable':false,
+	//'highlightRegexEnable':false,
 	'highlightColor': '#FFFF00', //The color of the highlighted message
 	'pingDisabled': false, //Has the user disabled the ping counter
 
@@ -72,7 +72,7 @@ var opts = {
 	'enableEmoji': true
 };
 
-var regexHasError = false; //variable to check if regex has excepted 
+//var regexHasError = false; //variable to check if regex has excepted 
 
 function outerHTML(el) {
     var wrap = document.createElement('div');
@@ -94,6 +94,7 @@ if (typeof String.prototype.trim !== 'function') {
 }
 
 //Polyfill for string.prototype.includes. Why the fuck. Just why the fuck.
+/* REGEX disabled till fixed
 if (!String.prototype.includes) {
 	String.prototype.includes = function(search, start) {
 	  'use strict';
@@ -104,7 +105,7 @@ if (!String.prototype.includes) {
 	  if (start === undefined) { start = 0; }
 	  return this.indexOf(search, start) !== -1;
 	};
-}
+}*/
 
 //Shit fucking piece of crap that doesn't work god fuckin damn it
 function linkify(text) {
@@ -173,9 +174,15 @@ function setHighlightColor(match) {
 
 //Highlights words based on user settings
 function highlightTerms(el) {
-	if(regexHasError) return; //just stop right there ig the regex is gonna except
+	//if(regexHasError) return; //just stop right there ig the regex is gonna except
+	var element = $(el)
+	if(!(element.mark)) { // mark.js isn't loaded; give up
+		return
+	}
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
 		if(opts.highlightTerms[i]) {
+			element.mark(opts.highlightTerms[i], {"element" : "span", "each" : setHighlightColor});
+			/* REGEX turned off till fixed
 			if(!opts.highlightRegexEnable){
 				if(el.innerText.toString().toLowerCase().includes(opts.highlightTerms[i].toLowerCase())) //match normally
 				el.innerHTML = '<span style="background-color:'+opts.highlightColor+'">'+el.innerHTML+'</span>' //encloseincludes
@@ -190,6 +197,7 @@ function highlightTerms(el) {
 				return;
 			}
 			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$0</span>") //i cant figure out a proper, non snowflakey way to let people select the group that gets highlighted
+			*/
 		}
 	}
 }
@@ -598,7 +606,7 @@ $(function() {
 		'spingDisabled': getCookie('pingdisabled'),
 		'shighlightTerms': getCookie('highlightterms'),
 		'shighlightColor': getCookie('highlightcolor'),
-		'shighlightRegexEnable': getCookie('highlightregexenable') == "true",
+		//'shighlightRegexEnable': getCookie('highlightregexenable') == "true",
 		'shideSpam': getCookie('hidespam'),
 		'darkChat': getCookie('darkChat'),
 	};
@@ -636,10 +644,12 @@ $(function() {
 		opts.highlightColor = savedConfig.shighlightColor;
 		internalOutput('<span class="internal boldnshit">Loaded highlight color of: '+savedConfig.shighlightColor+'</span>', 'internal');
 	}
+	/* REGEX disabled till fixed
 	if (savedConfig.shighlightRegexEnable) {
 		opts.highlightRegexEnable = savedConfig.shighlightRegexEnable;
 		internalOutput('<span class="internal boldnshit">Loaded highlight regex enable of: '+savedConfig.shighlightRegexEnable+'</span>', 'internal');
 	}
+	*/
 	if (savedConfig.shideSpam) {
 		opts.hideSpam = $.parseJSON(savedConfig.shideSpam);
 		internalOutput('<span class="internal boldnshit">Loaded hide spam preference of: ' + savedConfig.shideSpam + '</span>', 'internal');
@@ -996,6 +1006,10 @@ $(function() {
 	});
 
 	$('#highlightTerm').click(function(e) {
+		if(!($().mark)) {
+			internalOutput('<span class="internal boldnshit">Highlighting is disabled. You are probably using Internet Explorer 8 and need to update.</span>', 'internal');
+			return;
+		}
 		if ($('.popup .highlightTerm').is(':visible')) {return;}
 		var termInputs = '';
 		for (var i = 0; i < opts.highlightLimit; i++) {
@@ -1003,9 +1017,11 @@ $(function() {
 		}
 		var popupContent = '<div class="head">String Highlighting</div>' +
 			'<div class="highlightPopup" id="highlightPopup">' +
+				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.</div>' +
+				/* REGEX disabled
 				'<div>Choose up to '+opts.highlightLimit+' strings that will highlight the line when they appear in chat.<br>'+
 		    			'<input name="highlightRegex" id="highlightRegexEnable" type="checkbox">Enable Regex</input>'+
-		    		'<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +
+		    		'<br><a href="" onclick="window.open(\'https://nanotrasen.se/wiki/index.php/Guide_to_Regex\')">See here for details</a></div>' +*/
 				'<form id="highlightTermForm">' +
 					termInputs +
 					'<div><input type="text" name="highlightColor" id="highlightColor" class="highlightColor" '+
@@ -1014,7 +1030,7 @@ $(function() {
 				'</form>' +
 			'</div>';
 		createPopup(popupContent, 250);
-		document.querySelector(".popup #highlightRegexEnable").checked = opts.highlightRegexEnable;
+		//document.querySelector(".popup #highlightRegexEnable").checked = opts.highlightRegexEnable;
 	});
 	$('body').on('keyup', '#highlightColor', function() {
 		var color = $('#highlightColor').val();
@@ -1043,19 +1059,19 @@ $(function() {
 		}
 
 		var color = $('#highlightColor').val();
-		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
+		//opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
 		color = color.trim();
 		if (color == '' || color.charAt(0) != '#') {
 			opts.highlightColor = '#FFFF00';
 		} else {
 			opts.highlightColor = color;
 		}
-		regexHasError = false; //they changed the regex so it might be valid now
+		//regexHasError = false; //they changed the regex so it might be valid now
 
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
 
-		setCookie('highlightregexenable', opts.highlightRegexEnable,365)
+		//setCookie('highlightregexenable', opts.highlightRegexEnable,365)
 		setCookie('highlightterms', JSON.stringify(opts.highlightTerms), 365);
 		setCookie('highlightcolor', opts.highlightColor, 365);
 	});
