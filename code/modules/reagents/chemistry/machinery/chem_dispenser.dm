@@ -328,9 +328,9 @@
 	ui_title = "Soda Dispens-o-matic"
 	dispensable_reagents = list("water", "ice", "milk", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
-	"watermelonjuice", "carrotjuice", "potato", "berryjuice","strawberryjuice","pineapplejuice","coconutjuice","maplesyrup")
+	"watermelonjuice", "carrotjuice", "potato", "berryjuice", "strawberryjuice", "pineapplejuice", "coconutjuice", "raspberryjuice", "cranberryjuice","maplesyrup")
 	upgrade_reagents = list("bananahonk", "milkshake", "cafe_latte", "cafe_mocha", "triple_citrus", "icecoffe","icetea")
-	hacked_reagents = list("thirteenloko")
+	hacked_reagents = list("thirteenloko", "pearjuice", "mangojuice", "grapefruitjuice", "grapejuice")
 	hack_message = "You change the mode from 'McNano' to 'Pizza King'."
 	unhack_message = "You change the mode from 'Pizza King' to 'McNano'."
 
@@ -363,9 +363,9 @@
 	name = "booze dispenser"
 	ui_title = "Booze Portal 9001"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol","amaretto","bourbon","brandy","cointreau","watermelonliqueur","mintliqueur","peachliqueur","bananaliqueur","violetliqueur","nutliqueur","cherryliqueur","bluecuracao")
-	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
-	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake")
+	dispensable_reagents = list("ice", "cream", "cider", "beer", "darkbeer", "kahlua", "whiskey", "wine", "whitewine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol","amaretto","bourbon","brandy","cointreau","watermelonliqueur","mintliqueur","peachliqueur","bananaliqueur","violetliqueur","nutliqueur","cherryliqueur","bluecuracao")
+	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull", "grappa", "bitters", "aperol")
+	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "grappa", "champagne", "kumis", "boukha")
 	hack_message = "You disable the 'nanotrasen-are-cheap-bastards' lock, enabling hidden and very expensive boozes."
 	unhack_message = "You re-enable the 'nanotrasen-are-cheap-bastards' lock, disabling hidden and very expensive boozes."
 

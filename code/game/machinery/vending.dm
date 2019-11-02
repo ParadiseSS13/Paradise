@@ -845,6 +845,8 @@
 					/obj/item/reagent_containers/food/drinks/bottle/brandy = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/bluecuracao = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/cointreau = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/whitewine = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/champagne = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/watermelonliqueur = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/mintliqueur = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/peachliqueur = 5,
@@ -853,6 +855,7 @@
 					/obj/item/reagent_containers/food/drinks/bottle/nutliqueur = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/cherryliqueur = 5,
 					/obj/item/reagent_containers/food/drinks/cans/beer = 6,
+					/obj/item/reagent_containers/food/drinks/cans/darkbeer = 6,
 					/obj/item/reagent_containers/food/drinks/cans/ale = 6,
 					/obj/item/reagent_containers/food/drinks/cans/synthanol = 15,
 					/obj/item/reagent_containers/food/drinks/bottle/orangejuice = 4,
@@ -869,7 +872,13 @@
 					/obj/item/reagent_containers/food/drinks/drinkingglass = 30,
 					/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass = 30,
 					/obj/item/reagent_containers/food/drinks/ice = 9)
-	contraband = list(/obj/item/reagent_containers/food/drinks/tea = 10)
+	contraband = list(
+					/obj/item/reagent_containers/food/drinks/tea = 10,
+					/obj/item/reagent_containers/food/drinks/bottle/caramelsyrup = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/chocolatesyrup = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/vanillasyrup = 5,
+					/obj/item/reagent_containers/food/drinks/cans/bluespacebeer = 1
+					)
 	vend_delay = 15
 	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"

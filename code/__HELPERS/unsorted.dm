@@ -1238,6 +1238,9 @@ var/global/list/common_tools = list(
 			return 0
 	if(istype(W, /obj/item/assembly/igniter))
 		return 20000
+	if(istype(W, /obj/item/tcd))
+		var/obj/item/tcd/T = W
+		return T.actingtemp
 	else
 		return 0
 

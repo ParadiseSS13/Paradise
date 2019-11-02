@@ -130,3 +130,14 @@
 	materials = list(MAT_METAL=3000, MAT_GLASS=500)
 	build_path = /obj/item/tank/oxygen/empty
 	category = list("Miscellaneous")
+
+/datum/design/tcd
+	name = "Temperature Control Device"
+	desc = "A handheld device that can cool or heat a container."
+	id = "temperature_control_device"
+	req_tech = list("plasmatech" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=500, MAT_GLASS=500, MAT_PLASMA=500)
+	reagents_list = list("cryostylane" = 25, "pyrosium" = 25)
+	build_path = /obj/item/tcd
+	category = list("Miscellaneous")

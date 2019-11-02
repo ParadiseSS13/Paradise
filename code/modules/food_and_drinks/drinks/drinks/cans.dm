@@ -214,3 +214,27 @@
 	name = "metal can"
 	desc = "A metal can suitable for beverages."
 	icon_state = "metal_can"
+
+/obj/item/reagent_containers/food/drinks/cans/vanillaextract
+	name = "Vanilla Extract"
+	desc = "A small bottle of strong vanilla extract."
+	icon_state = "vanilla_extract"
+	volume = 30
+	is_glass = 1
+	list_reagents = list("vanilla" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/darkbeer
+	name = "Space Stout Beer"
+	desc = "Normally you'd assume this beer is beer's evil counterpart, but it's really just heavier and more filling."
+	icon_state = "porter_beer_bottle"
+	volume = 30
+	is_glass = 1
+	list_reagents = list("darkbeer" = 30)
+
+/obj/item/reagent_containers/food/drinks/cans/bluespacebeer
+	name = "Bluespace Beer"
+	desc = "The product of one too many drunken frat parties in the science wing. The madmen managed to put more beer in the beer! Beware: One sip will do the job."
+	icon_state = "bluespacebeer"
+	volume = 30
+	is_glass = 1
+	list_reagents = list("bluespacebeer" = 30)

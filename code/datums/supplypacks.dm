@@ -1113,6 +1113,48 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "beer starter kit"
 	announce_beacons = list("Bar" = list("Bar"))
 
+/datum/supply_packs/organic/liqueurs
+	name = "Fine Liqueurs Crate"
+	contains = list(/obj/item/reagent_containers/food/drinks/bottle/anisette,
+					/obj/item/reagent_containers/food/drinks/bottle/appleliqueur,
+					/obj/item/reagent_containers/food/drinks/bottle/apricotliqueur,
+					/obj/item/reagent_containers/food/drinks/bottle/blackcurrantliqueur,
+					/obj/item/reagent_containers/food/drinks/bottle/chocolateliqueur,
+					/obj/item/reagent_containers/food/drinks/bottle/almondliqueur,
+					/obj/item/reagent_containers/food/drinks/bottle/pearliqueur,
+					/obj/item/reagent_containers/food/drinks/bottle/raspberryliqueur,
+					/obj/item/reagent_containers/food/drinks/bottle/vanillaliqueur)
+	cost = 35
+	containername = "fine liqueurs crate"
+	announce_beacons = list("Bar" = list("Bar"))
+
+/datum/supply_packs/organic/cocktail_ingredients
+	name = "Imported Cocktail Ingredients Crate"
+	contains = list(/obj/item/reagent_containers/food/drinks/bottle/caramelsyrup,
+					/obj/item/reagent_containers/food/drinks/bottle/chocolatesyrup,
+					/obj/item/reagent_containers/food/drinks/bottle/vanillasyrup,
+					/obj/item/reagent_containers/food/drinks/bottle/grappa,
+					/obj/item/reagent_containers/food/drinks/bottle/boukha,
+					/obj/item/reagent_containers/food/drinks/bottle/bitters,
+					/obj/item/reagent_containers/food/drinks/bottle/aperol,
+					/obj/item/reagent_containers/food/drinks/cans/vanillaextract)
+	cost = 20
+	containername = "imported cocktail ingredients crate"
+	announce_beacons = list("Bar" = list("Bar"))
+
+/datum/supply_packs/organic/fruit_juices
+	name = "Imported Fruit Juice Crate"
+	contains = list(/obj/item/reagent_containers/food/drinks/bottle/raspberryjuice,
+					/obj/item/reagent_containers/food/drinks/bottle/pearjuice,
+					/obj/item/reagent_containers/food/drinks/bottle/peachjuice,
+					/obj/item/reagent_containers/food/drinks/bottle/mangojuice,
+					/obj/item/reagent_containers/food/drinks/bottle/grapefruitjuice,
+					/obj/item/reagent_containers/food/drinks/bottle/grapejuice,
+					/obj/item/reagent_containers/food/drinks/bottle/cranberryjuice)
+	cost = 10
+	containername = "imported fruit juice crate"
+	announce_beacons = list("Bar" = list("Bar"))
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Cow Crate"
