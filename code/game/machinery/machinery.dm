@@ -540,6 +540,8 @@ Class Procs:
 	if(check_records || check_arrest)
 		var/perpname = perp.get_visible_name(TRUE)
 		var/datum/data/record/R = find_security_record("name", perpname)
+		if(check_records && !R)
+			threatcount += 4
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
 				if("*Execute*")
