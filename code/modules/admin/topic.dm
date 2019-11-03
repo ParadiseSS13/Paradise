@@ -936,6 +936,13 @@
 		target = text2num(target)
 		show_note(index = target)
 
+	else if(href_list["webtools"])
+		var/target_ckey = href_list["webtools"]
+		if(config.forum_playerinfo_url)
+			var/url_to_open = config.forum_playerinfo_url + target_ckey
+			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
+				usr.client << link(url_to_open)
+
 	else if(href_list["shownoteckey"])
 		var/target_ckey = href_list["shownoteckey"]
 		show_note(target_ckey)
