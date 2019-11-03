@@ -622,12 +622,15 @@
 		return
 	return tokenstr
 
-/client/proc/link_forum_account()
+/client/proc/link_forum_account(fromban)
+	if(!config.forum_link_url)
+		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
 		return
 	if(prefs && prefs.fuid)
-		to_chat(src, "Your forum account is already set.")
+		if(!fromban)
+			to_chat(src, "Your forum account is already set.")
 		return
 	var/DBQuery/query_find_link = dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_link.Execute())
@@ -635,15 +638,19 @@
 		return
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
-			to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+			if(!fromban)
+				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
 			return
 	var/tokenid = create_oauth_token()
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
 	var/url = "[config.forum_link_url][tokenid]"
-	to_chat(src, {"Now opening a windows to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>."})
-	src << link(url)
+	if(fromban)
+		to_chat(src, {"Verify your forum account before you appeal: <a href="[url]">[url]</a> (this link expires in a few minutes)"})
+	else
+		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
+		src << link(url)
 	return
 
 #undef TOPIC_SPAM_DELAY

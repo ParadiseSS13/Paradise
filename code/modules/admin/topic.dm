@@ -1002,6 +1002,8 @@
 				feedback_inc("ban_tmp",1)
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				feedback_inc("ban_tmp_mins",mins)
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
@@ -1018,6 +1020,8 @@
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
