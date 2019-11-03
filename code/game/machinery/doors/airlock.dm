@@ -80,6 +80,7 @@ GLOBAL_LIST_EMPTY(airlock_overlays)
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
+	var/paintable = TRUE
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -502,6 +503,81 @@ About the new airlock wires panel:
 				sleep(6)
 				update_icon(AIRLOCK_CLOSED)
 
+
+/obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/W, mob/user)
+	if(!paintable)
+		to_chat(user, "<span class='warning'>You cannot paint this type of airlock.</span>")
+		return FALSE
+
+	var/list/optionlist
+	if(airlock_material == "glass")
+		optionlist = list("Standard", "Public", "Engineering", "Atmospherics", "Security", "Command", "Medical", "Research", "Science", "Mining", "Maintenance", "External", "External Maintenance")
+	else
+		optionlist = list("Standard", "Public", "Engineering", "Atmospherics", "Security", "Command", "Medical", "Research", "Freezer", "Science", "Mining", "Maintenance", "External", "External Maintenance")
+
+	var/paintjob = input(user, "Please select a paintjob for this airlock.") in sortList(optionlist)
+	if((!in_range(src, usr) && loc != usr) || !W.paint(user))
+		return
+	switch(paintjob)
+		if("Standard")
+			icon = 'icons/obj/doors/airlocks/station/public.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly
+		if("Public")
+			icon = 'icons/obj/doors/airlocks/station2/glass.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station2/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_public
+		if("Engineering")
+			icon = 'icons/obj/doors/airlocks/station/engineering.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_eng
+		if("Atmospherics")
+			icon = 'icons/obj/doors/airlocks/station/atmos.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_atmo
+		if("Security")
+			icon = 'icons/obj/doors/airlocks/station/security.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_sec
+		if("Command")
+			icon = 'icons/obj/doors/airlocks/station/command.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_com
+		if("Medical")
+			icon = 'icons/obj/doors/airlocks/station/medical.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_med
+		if("Research")
+			icon = 'icons/obj/doors/airlocks/station/research.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_research
+		if("Freezer")
+			icon = 'icons/obj/doors/airlocks/station/freezer.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_fre
+		if("Science")
+			icon = 'icons/obj/doors/airlocks/station/science.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_science
+		if("Mining")
+			icon = 'icons/obj/doors/airlocks/station/mining.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_min
+		if("Maintenance")
+			icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_mai
+		if("External")
+			icon = 'icons/obj/doors/airlocks/external/external.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_ext
+		if("External Maintenance")
+			icon = 'icons/obj/doors/airlocks/station/maintenanceexternal.dmi'
+			overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+			assemblytype = /obj/structure/door_assembly/door_assembly_extmai
+	update_icon()
+
+
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
 	if(emagged)
@@ -880,6 +956,8 @@ About the new airlock wires panel:
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
+	else if(istype(C, /obj/item/airlock_painter) && paintable)
+		change_paintjob(C, user)
 	else
 		return ..()
 
