@@ -516,7 +516,7 @@ About the new airlock wires panel:
 		optionlist = list("Standard", "Public", "Engineering", "Atmospherics", "Security", "Command", "Medical", "Research", "Freezer", "Science", "Mining", "Maintenance", "External", "External Maintenance")
 
 	var/paintjob = input(user, "Please select a paintjob for this airlock.") in sortList(optionlist)
-	if((!in_range(src, usr) && loc != usr) || !W.paint(user))
+	if((!in_range(src, user) && loc != user) || !W.paint(user))
 		return
 	switch(paintjob)
 		if("Standard")

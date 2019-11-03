@@ -15,9 +15,6 @@
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 
 
-/obj/item/airlock_painter/Initialize()
-	. = ..()
-
 //Only call this if you are certain that the painter will be used right after this check!
 /obj/item/airlock_painter/proc/paint(mob/user)
 	playsound(loc, usesound, 50, TRUE)
