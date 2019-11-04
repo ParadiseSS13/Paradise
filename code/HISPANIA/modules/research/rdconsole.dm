@@ -1,4 +1,4 @@
-/obj/machinery/computer/rdconsole/auto_use_power()
+/obj/machinery/computer/rdconsole/power_change()
 	..()
 	if(!powered(power_channel))
 		qdel(files)
