@@ -166,9 +166,12 @@ function emojiparse(el) {
 	}
 }
 
-// Colorizes the highlight spans
-function setHighlightColor(match) {
-	match.style.background = opts.highlightColor
+// Recolorizes the highlight spans
+function setHighlightColor() {
+	var highlightspans = document.getElementsByClassName("highlight")
+	for(var i in highlightspans){
+		highlightspans[i].setAttribute("style","background-color:"+opts.highlightColor)
+	}
 }
 
 function escapeRegex(input){ // put this in a function incase it ever needs to be used elsewhere, makes code cleaner
@@ -177,21 +180,25 @@ function escapeRegex(input){ // put this in a function incase it ever needs to b
 
 //Highlights words based on user settings
 function highlightTerms(el) {
+
 	if(regexHasError) return; //just stop right there ig the regex is gonna except
+
 	function highlightRecursor(element,term){ //recursor function to do the highlighting proper
 		var regex = new RegExp("("+term+")","gi")
+
 		function replace(str) {
-			return str.replace(regex,'<span style="background-color:'+opts.highlightColor+'">$&</span>')
+			return str.replace(regex,'<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>')
 		}
+
 		var s=''
 		var work=element.innerHTML;
-		var work_lc=work.toLowerCase()
 		var ind=0;
-		while(ind < work_lc.length) {
-			console.log(s);
-			var next_term=work_lc.substring(ind).search(regex);
-            if(next_term!=-1)next_term+=ind;
-			var next_tag =work_lc.indexOf('<',ind)
+
+		while(ind < work.length) {
+
+			var next_term=work.substring(ind).search(regex);
+			if(next_term!=-1)next_term+=ind;
+			var next_tag =work.indexOf('<',ind)
 			if(next_tag == -1) {
 				s+=replace(work.substring(ind));
 				break;
@@ -201,7 +208,7 @@ function highlightTerms(el) {
 				break;
 			}
 			else if(next_tag < next_term) {
-				var temp=work_lc.indexOf('>',next_tag)
+				var temp=work.indexOf('>',next_tag)
 				s+=work.substring(ind,temp+1);
 				ind=temp+1;
 			}
@@ -1084,13 +1091,17 @@ $(function() {
 			count++;
 		}
 
-		var color = $('#highlightColor').val();
 		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
-		color = color.trim();
-		if (color == '' || color.charAt(0) != '#') {
-			opts.highlightColor = '#FFFF00';
-		} else {
-			opts.highlightColor = color;
+
+		var color = $('#highlightColor').val();
+		if(color != opts.highlightColor) { // did the color even change?
+			color = color.trim();
+			if (color == '' || color.charAt(0) != '#') {
+				opts.highlightColor = '#FFFF00';
+			} else {
+				opts.highlightColor = color;
+			}
+			setHighlightColor();
 		}
 		regexHasError = false; //they changed the regex so it might be valid now
 
