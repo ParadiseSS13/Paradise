@@ -1103,7 +1103,9 @@ $(function() {
 			}
 			setHighlightColor();
 		}
+
 		regexHasError = false; //they changed the regex so it might be valid now
+		internalOutput('<span class="internal boldnshit">Highlights have been updated.</span>',"internal") // simplest way to test if pattern works, why reinvent the wheel?
 
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
