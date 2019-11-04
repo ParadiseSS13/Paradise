@@ -159,14 +159,22 @@ function escapeRegex(input){
 // Recursively highlights all text matching `term` in text nodes reachable from the given root `element`.
 // Returns the last (right-most, DOM-wise) element that was analyzed and potentially highglighted.
 function highlightRecursively(element, term) {
-	var regex = new RegExp(term, "gi");
+	var regex = new RegExp(term, "i");
 	// if that's a text node - wrap found words in a highlighter span.
 	if (element.nodeType == Node.TEXT_NODE) {
 		// The underlying text element would (likely) be destroyed, and we'll be left with
 		// a collection of smaller text nodes and highlighter spans. They'd be stored in this array.
 		var newElements = [];
 		var lastStop = 0;  // The end of the last found match.
-		while ((match = regex.exec(element.textContent)) !== null) {
+		// The loop is ugly.
+		// There are reasons for it, namely: BYOND does not support matchAll regex method, and the `regexp.exec()` which is
+		// "standard" workaround for older browsers does not respect sticky/global flags when matching .*, which
+		// means this thing never terminates.
+		while ((match = element.textContent.substring(lastStop).match(regex)) !== null) {
+			if (match[0].length == 0) {
+				// Matching on .* or other non-consuming pattern would get us here
+				break;
+			}
 			var start = match.index;
 			var newStop = match.index + match[0].length;
 			// push text between the end of the last match and start of this one
