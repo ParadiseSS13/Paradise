@@ -72,8 +72,6 @@ var opts = {
 	'enableEmoji': true
 };
 
-var regexHasError = false; //variable to check if regex has excepted 
-
 function outerHTML(el) {
     var wrap = document.createElement('div');
     wrap.appendChild(el.cloneNode(true));
@@ -90,19 +88,6 @@ if (!Date.now) {
 if (typeof String.prototype.trim !== 'function') {
 	String.prototype.trim = function () {
 		return this.replace(/^\s+|\s+$/g, '');
-	};
-}
-
-//Polyfill for string.prototype.includes. Why the fuck. Just why the fuck.
-if (!String.prototype.includes) {
-	String.prototype.includes = function(search, start) {
-	  'use strict';
-  
-	  if (search instanceof RegExp) {
-		throw TypeError('first argument must not be a RegExp');
-	  } 
-	  if (start === undefined) { start = 0; }
-	  return this.indexOf(search, start) !== -1;
 	};
 }
 
@@ -166,30 +151,68 @@ function emojiparse(el) {
 	}
 }
 
-// Colorizes the highlight spans
-function setHighlightColor(match) {
-	match.style.background = opts.highlightColor
+// Escape any special regex characters in a given string, so that one can match it literally.
+function escapeRegex(input){
+	return input.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-//Highlights words based on user settings
+// Recursively highlights all text matching `term` in text nodes reachable from the given root `element`.
+// Returns the last (right-most, DOM-wise) element that was analyzed and potentially highglighted.
+function highlightRecursively(element, term) {
+	var regex = new RegExp(term, "gi")
+	// if that's a text node - wrap found words in a highlighter span.
+	if (element.nodeType == Node.TEXT_NODE) {
+		// The underlying text element would (likely) be destroyed, and we'll be left with
+		// a collection of smaller text nodes and highlighter spans. They'd be stored in this array.
+		var newElements = [];
+		var lastStop = 0;  // The end of the last found match.
+		while ((match = regex.exec(element.textContent)) !== null) {
+			var start = match.index;
+			var newStop = match.index + match[0].length;
+			// push text between the end of the last match and start of this one
+			newElements.push(document.createTextNode(element.textContent.substring(lastStop, start)));
+			// wrap the match in a span, and push the span
+			var span = document.createElement("span");
+			span.style.background = opts.highlightColor;
+			span.appendChild(document.createTextNode(element.textContent.substring(start, newStop)));
+			newElements.push(span);
+			lastStop = newStop;
+		}
+		// Push the rest of the string.
+		newElements.push(document.createTextNode(element.textContent.substring(lastStop)))
+
+		// If we found any matches - replace the current text element with the bunch of new nodes we've just created
+		var lastInserted = element;
+		if (newElements.length > 0) {
+			for (var i = 0; i < newElements.length; i++){
+				lastInserted = element.parentNode.insertBefore(newElements[i], element)
+			}
+			element.parentNode.removeChild(element);
+		}
+		return lastInserted;
+	} else {
+		// If it's not a plain text node - recurse further.
+		var currentChild = element.childNodes[0]
+		while (currentChild){
+			currentChild = highlightRecursively(currentChild, term);
+			currentChild = currentChild.nextSibling;
+		}
+		return element;
+	}
+}
+
+// Highlights words based on user settings
 function highlightTerms(el) {
-	if(regexHasError) return; //just stop right there ig the regex is gonna except
 	for (var i = 0; i < opts.highlightTerms.length; i++) { //Each highlight term
-		if(opts.highlightTerms[i]) {
-			if(!opts.highlightRegexEnable){
-				if(el.innerText.toString().toLowerCase().includes(opts.highlightTerms[i].toLowerCase())) //match normally
-				el.innerHTML = '<span style="background-color:'+opts.highlightColor+'">'+el.innerHTML+'</span>' //encloseincludes
-				continue;
+		if (opts.highlightTerms[i]) {
+			if (!opts.highlightRegexEnable) {
+				var innerTerms = opts.highlightTerms[i].split(" ")
+				for(var a in innerTerms) {
+					highlightRecursively(el, escapeRegex(innerTerms[a]))
+				}
+			} else {
+				highlightRecursively(el, opts.highlightTerms[i])
 			}
-			var rexp;
-			try{
-				rexp = new RegExp(opts.highlightTerms[i],"gmi")
-			} catch(e){
-				el.innerHTML+='<br/><span style="boldwarning"> Your highlight regex - '+opts.highlightTerms[i]+' - is malformed. Thrown exception: '+e+'</span>'
-				regexHasError = true;
-				return;
-			}
-			el.innerHTML = el.innerHTML.replace(rexp,"<span style=\"background-color:"+opts.highlightColor+"\">$0</span>") //i cant figure out a proper, non snowflakey way to let people select the group that gets highlighted
 		}
 	}
 }
@@ -1042,15 +1065,30 @@ $(function() {
 			count++;
 		}
 
-		var color = $('#highlightColor').val();
 		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
+		if (opts.highlightRegexEnable) {
+			// Check that all the patterns are valid regexes.
+			for(var i = 0; i < opts.highlightTerms.length; i++){
+				if (opts.highlightTerms[i]){
+					try {
+						new RegExp(opts.highlightTerms[i], "gmi");
+					} catch(e) {
+						var message = "Your highlight pattern '" + opts.highlightTerms[i] + "' is not a valid regex. Regex mode was automatically disabled.";
+						opts.highlightRegexEnable = false;
+						document.querySelector("#highlightRegexEnable").checked = false;
+						internalOutput(message);
+					}
+				}
+			}
+		}
+
+		var color = $('#highlightColor').val();
 		color = color.trim();
 		if (color == '' || color.charAt(0) != '#') {
 			opts.highlightColor = '#FFFF00';
 		} else {
 			opts.highlightColor = color;
 		}
-		regexHasError = false; //they changed the regex so it might be valid now
 
 		var $popup = $('#highlightPopup').closest('.popup');
 		$popup.remove();
