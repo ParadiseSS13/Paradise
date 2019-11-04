@@ -159,7 +159,7 @@ function escapeRegex(input){
 // Recursively highlights all text matching `term` in text nodes reachable from the given root `element`.
 // Returns the last (right-most, DOM-wise) element that was analyzed and potentially highglighted.
 function highlightRecursively(element, term) {
-	var regex = new RegExp(term, "gi")
+	var regex = new RegExp(term, "gi");
 	// if that's a text node - wrap found words in a highlighter span.
 	if (element.nodeType == Node.TEXT_NODE) {
 		// The underlying text element would (likely) be destroyed, and we'll be left with
@@ -179,20 +179,20 @@ function highlightRecursively(element, term) {
 			lastStop = newStop;
 		}
 		// Push the rest of the string.
-		newElements.push(document.createTextNode(element.textContent.substring(lastStop)))
+		newElements.push(document.createTextNode(element.textContent.substring(lastStop)));
 
 		// If we found any matches - replace the current text element with the bunch of new nodes we've just created
 		var lastInserted = element;
 		if (newElements.length > 0) {
 			for (var i = 0; i < newElements.length; i++){
-				lastInserted = element.parentNode.insertBefore(newElements[i], element)
+				lastInserted = element.parentNode.insertBefore(newElements[i], element);
 			}
 			element.parentNode.removeChild(element);
 		}
 		return lastInserted;
 	} else {
 		// If it's not a plain text node - recurse further.
-		var currentChild = element.childNodes[0]
+		var currentChild = element.childNodes[0];
 		while (currentChild){
 			currentChild = highlightRecursively(currentChild, term);
 			currentChild = currentChild.nextSibling;
@@ -1065,7 +1065,7 @@ $(function() {
 			count++;
 		}
 
-		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked
+		opts.highlightRegexEnable = document.querySelector("#highlightRegexEnable").checked;
 		if (opts.highlightRegexEnable) {
 			// Check that all the patterns are valid regexes.
 			for(var i = 0; i < opts.highlightTerms.length; i++){
