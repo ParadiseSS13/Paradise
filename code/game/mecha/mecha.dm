@@ -1,9 +1,3 @@
-
-
-#define MECHAMOVE_RAND 1
-#define MECHAMOVE_TURN 2
-#define MECHAMOVE_STEP 4
-
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
