@@ -3,7 +3,7 @@
 	name = "old man"
 	real_name = "old man"
 	desc = "A putrid, rotten humanoid, leaving a trail of death and decay. Has an unpleasant smile and is looking at you..."
-	speak = list("spuaj", "bletz", "grur", "hungry", "blood", "jaks", "blerg", "aj", "kreg", "geeri", "orkan", "allaq")
+	speak = list("spuaj", "bletz", "grur", "hungry", "blood", "jaks", "blerg", "ajj", "kreg", "geeri", "orkan", "allaq")
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	response_help  = "thinks better of touching"
@@ -59,8 +59,10 @@
 		if(!(vialspawned))
 			to_chat(src, "<B>Objective #[1]</B>: Hunt down as much of the crew as you can.")
 
-/mob/living/simple_animal/oldman/proc/attackwall(turf/T, mob/user)
-	if(iswallturf(T))
-		qdel(T)
-		to_chat(user,"Bruh")
+/mob/living/simple_animal/oldman/attack_animal(mob/user, var/atom/A)
+	if(isturf(A))
+		to_chat(user, "Bruh")
+		return
+	else if(isliving(A) && (!client || a_intent == INTENT_HARM))
+		to_chat(user, "Epic")
 		return
