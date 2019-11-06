@@ -538,6 +538,7 @@
 	description = "A colorless liqueur, which apparently tastes like oranges."
 	color = "#9a5611" // rgb: 154,86,17
 	alcohol_perc = 0.2
+	drink_icon = "cointreauglass"
 	drink_name = "Glass of Cointreau"
 	drink_desc = "A glass of colorless curacao."
 	taste_description = "cointreau"
