@@ -260,6 +260,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 	new /obj/item/clothing/accessory/blue(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/under/rank/centcom/blueshield(src)
 
 
 /obj/structure/closet/secure_closet/ntrep
@@ -284,6 +285,7 @@
 	new /obj/item/clothing/under/lawyer/oldman(src)
 	new /obj/item/clothing/under/lawyer/black(src)
 	new /obj/item/clothing/under/lawyer/female(src)
+	new /obj/item/clothing/under/rank/centcom/representative(src)
 	new /obj/item/clothing/head/ntrep(src)
 	new /obj/item/clothing/shoes/sandal/fancy(src)
 	new /obj/item/storage/box/tapes(src)
@@ -457,6 +459,7 @@
 	new /obj/item/clothing/gloves/color/white(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/under/suit_jacket/really_black(src)
+	new /obj/item/clothing/under/rank/centcom/magistrate(src)
 	new /obj/item/clothing/suit/judgerobe(src)
 	new /obj/item/clothing/head/powdered_wig(src)
 	new /obj/item/gavelblock(src)
