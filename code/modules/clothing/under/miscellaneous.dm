@@ -97,7 +97,7 @@
 
 /obj/item/clothing/under/rank/centcom/officer
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Officer Uniform"
+	name = "\improper Nanotrasen Naval Officers Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
@@ -105,13 +105,15 @@
 	flags_size = ONESIZEFITSALL
 	armor = list("melee" = 60, "bullet" = 60, "laser" = 60,"energy" = 60, "bomb" = 60, "bio" = 100, "rad" = 30, "fire" = 60, "acid" = 100)
 
-/obj/item/clothing/under/rank/centcom/officer/captain
+/obj/item/clothing/under/rank/centcom/captain
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Captain Uniform"
+	name = "\improper Nanotrasen Naval Captains Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL
+	armor = list("melee" = 60, "bullet" = 60, "laser" = 60,"energy" = 60, "bomb" = 60, "bio" = 100, "rad" = 30, "fire" = 60, "acid" = 100)
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
