@@ -121,10 +121,6 @@
 	displays_id = 0
 	flags_size = ONESIZEFITSALL
 
-/obj/item/clothing/under/rank/centcom/blueshield/New()
-	..()
-	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder."
-
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
 	name = "\improper Formal Nanotrasen Uniform"
