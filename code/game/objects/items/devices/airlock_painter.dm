@@ -13,12 +13,20 @@
 	slot_flags = SLOT_BELT
 
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
+	var/paint_setting = "Standard"
 
 
 //Only call this if you are certain that the painter will be used right after this check!
 /obj/item/airlock_painter/proc/paint(mob/user)
 	playsound(loc, usesound, 50, TRUE)
 	return TRUE
+
+/obj/item/airlock_painter/attack_self(mob/user)
+	var/list/optionlist = list("Standard", "Public", "Engineering", "Atmospherics", "Security", "Command", "Medical", "Freezer", \
+								 "Research", "Science", "Mining", "Maintenance", "External", "External Maintenance")
+
+	paint_setting = input(user, "Please select a paintjob for this airlock.") in sortList(optionlist)
+	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")
 
 /obj/item/airlock_painter/suicide_act(mob/user)
 
