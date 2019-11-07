@@ -15,6 +15,24 @@
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	var/paint_setting = "Standard"
 
+	// All the different paint jobs that an airlock painter can apply. 
+	// If the airlock you're using it on is glass, the new paint job will also be glass
+	var/list/available_paint_jobs = list(
+		"Public" = /obj/machinery/door/airlock/public,
+		"Engineering" = /obj/machinery/door/airlock/engineering,
+		"Atmospherics" = /obj/machinery/door/airlock/atmos,
+		"Security" = /obj/machinery/door/airlock/security,
+		"Command" = /obj/machinery/door/airlock/command,
+		"Medical" = /obj/machinery/door/airlock/medical,
+		"Research" = /obj/machinery/door/airlock/research,
+		"Freezer" = /obj/machinery/door/airlock/freezer,
+		"Science" = /obj/machinery/door/airlock/science,
+		"Mining" = /obj/machinery/door/airlock/mining,
+		"Maintenance" = /obj/machinery/door/airlock/maintenance,
+		"External" = /obj/machinery/door/airlock/external,
+		"External Maintenance"= /obj/machinery/door/airlock/maintenance/external,
+		"Standard" = /obj/machinery/door/airlock,
+	)
 
 //Only call this if you are certain that the painter will be used right after this check!
 /obj/item/airlock_painter/proc/paint(mob/user)
@@ -22,8 +40,9 @@
 	return TRUE
 
 /obj/item/airlock_painter/attack_self(mob/user)
-	var/list/optionlist = list("Standard", "Public", "Engineering", "Atmospherics", "Security", "Command", "Medical", "Freezer", \
-								 "Research", "Science", "Mining", "Maintenance", "External", "External Maintenance")
+	var/list/optionlist = list()
+	for(var/airlock_name in available_paint_jobs)
+		optionlist |= airlock_name
 
 	paint_setting = input(user, "Please select a paintjob for this airlock.") in sortList(optionlist)
 	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")

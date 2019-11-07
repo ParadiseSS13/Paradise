@@ -40,24 +40,6 @@
 
 GLOBAL_LIST_EMPTY(airlock_overlays)
 
-// All the different paint jobs that an airlock painter can apply. 
-// If the airlock you're using it on is glass, the new paint job will also be glass
-var/list/paintable_airlocks = list(
-	"Public" = /obj/machinery/door/airlock/public,
-	"Engineering" = /obj/machinery/door/airlock/engineering,
-	"Atmospherics" = /obj/machinery/door/airlock/atmos,
-	"Security" = /obj/machinery/door/airlock/security,
-	"Command" = /obj/machinery/door/airlock/command,
-	"Medical" = /obj/machinery/door/airlock/medical,
-	"Research" = /obj/machinery/door/airlock/research,
-	"Freezer" = /obj/machinery/door/airlock/freezer,
-	"Science" = /obj/machinery/door/airlock/science,
-	"Mining" = /obj/machinery/door/airlock/mining,
-	"Maintenance" = /obj/machinery/door/airlock/maintenance,
-	"External" = /obj/machinery/door/airlock/external,
-	"External Maintenance"= /obj/machinery/door/airlock/maintenance/external,
-	"Standard" = /obj/machinery/door/airlock,
-)
 
 /obj/machinery/door/airlock
 	name = "airlock"
@@ -99,7 +81,7 @@ var/list/paintable_airlocks = list(
 	var/note_overlay_file = 'icons/obj/doors/airlocks/station/overlays.dmi' //Used for papers and photos pinned to the airlock
 	var/normal_integrity = AIRLOCK_INTEGRITY_N
 	var/prying_so_hard = FALSE
-	var/paintable = TRUE
+	var/paintable = TRUE // If the airlock type can be painted with an airlock painter
 
 	var/image/old_frame_overlay //keep those in order to prevent unnecessary updating
 	var/image/old_filling_overlay
@@ -524,21 +506,22 @@ About the new airlock wires panel:
 
 
 /obj/machinery/door/airlock/proc/change_paintjob(obj/item/airlock_painter/W, mob/user)
-	if(!paintable)
+	if(!paintable) // Lots of airlocks types aren't paintable, such as high security, vault, plasma, or uranium. Don't let people repaint these.
 		to_chat(user, "<span class='warning'>You cannot paint this type of airlock.</span>")
-		return FALSE
-
-	if(airlock_material == "glass" && W.paint_setting == "Freezer") // Freezer doesn't have a glass version
-		to_chat(user, "<span class='warning'>The freezer paint job can only be applied to non-glass airlocks.</span>")
 		return FALSE
 
 	if((!in_range(src, user) && loc != user))
 		return FALSE
 
+	var/airlock_type = W.available_paint_jobs["[W.paint_setting]"]
+	var/obj/machinery/door/airlock/A = new airlock_type
+
+	if(airlock_material == "glass" && (new A.assemblytype).noglass) // Prevents painting glass airlocks with a paint job that don't have a glass version, like freezers
+		to_chat(user, "<span class='warning'>This paint job can only be applied to non-glass airlocks.</span>")
+		return FALSE
+
 	if(do_after(user, 20, target = src))
 		W.paint()
-		var/airlock_type = paintable_airlocks["[W.paint_setting]"]
-		var/obj/machinery/door/airlock/A = new airlock_type
 		icon = A.icon
 		overlays_file = A.overlays_file
 		assemblytype = A.assemblytype
