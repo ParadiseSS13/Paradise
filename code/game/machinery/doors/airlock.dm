@@ -40,7 +40,6 @@
 
 GLOBAL_LIST_EMPTY(airlock_overlays)
 
-
 /obj/machinery/door/airlock
 	name = "airlock"
 	icon = 'icons/obj/doors/airlocks/station/public.dmi'

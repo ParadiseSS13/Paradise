@@ -15,7 +15,7 @@
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	var/paint_setting = "Standard"
 
-	// All the different paint jobs that an airlock painter can apply. 
+	// All the different paint jobs that an airlock painter can apply.
 	// If the airlock you're using it on is glass, the new paint job will also be glass
 	var/list/available_paint_jobs = list(
 		"Public" = /obj/machinery/door/airlock/public,
@@ -66,7 +66,7 @@
 		// make some colorful reagent, and apply it to the lungs
 		L.create_reagents(10)
 		L.reagents.add_reagent("colorful_reagent", 10)
-		L.reagents.reaction(L, TOUCH, 1)
+		L.reagents.reaction(L, REAGENT_TOUCH, 1)
 
 		user.emote("scream")
 		user.visible_message("<span class='suicide'>[user] vomits out [user.p_their()] [lungs_name]!</span>")
@@ -76,7 +76,7 @@
 		var/obj/effect/decal/cleanable/vomit/V = new(get_turf(user))
 		V.create_reagents(10)
 		V.reagents.add_reagent("colorful_reagent", 10)
-		V.reagents.reaction(V, TOUCH, 1)
+		V.reagents.reaction(V, REAGENT_TOUCH, 1)
 
 		L.forceMove(get_turf(user))
 
