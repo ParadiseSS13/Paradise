@@ -10,9 +10,8 @@
 ## Images of changes
 <!-- If you did not make a map or sprite edit, you may delete this section. You may include a gif of your feature if you want -->
 
-## Wiki pages that need to be updated
-<!-- If your PR changes something that is documented on the wiki, and players will notice, and be confused by, the change, then you need to ensure the wiki is updated.  -->
-<!--The first step to this, is having the affected wiki pages identified and listed here -->
+## Does the wiki need to be updated
+<!-- If your PR changes something that is documented on the wiki, and players will notice, and be confused by the change, then please mention so. If it doesn't - feel free to delete this section -->
 
 ## Changelog
 :cl:
