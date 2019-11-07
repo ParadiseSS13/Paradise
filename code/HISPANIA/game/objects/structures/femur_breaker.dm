@@ -24,48 +24,45 @@
 	var/current_action = 0 // What's currently happening to the femur breaker
 
 /obj/structure/femur_breaker/examine(mob/user)
-	..()
+	. = ..()
 
 	var/msg = ""
 
 	msg += "It is [anchored ? "secured to the floor." : "unsecured."]<br/>"
 
-	if (slat_status == BREAKER_SLAT_RAISED)
+	if(slat_status == BREAKER_SLAT_RAISED)
 		msg += "The breaker slat is in a neutral position."
 	else
 		msg += "The breaker slat is lowered, and must be raised."
 
-	if (LAZYLEN(buckled_mobs))
-		msg += "<br/>"
-		msg += "Someone appears to be strapped in. You can help them unbuckle, or activate the femur breaker."
+	if(LAZYLEN(buckled_mobs))
+		msg += "<br/>Someone appears to be strapped in. You can help them unbuckle, or activate the femur breaker."
 
-	to_chat(user, msg)
-
-	return msg
+	. += msg
 
 /obj/structure/femur_breaker/attack_hand(mob/user)
 	add_fingerprint(user)
 
 	// Currently being used
-	if (current_action)
+	if(current_action)
 		return
 
-	switch (slat_status)
-		if (BREAKER_SLAT_MOVING)
+	switch(slat_status)
+		if(BREAKER_SLAT_MOVING)
 			return
-		if (BREAKER_SLAT_DROPPED)
+		if(BREAKER_SLAT_DROPPED)
 			slat_status = BREAKER_SLAT_MOVING
 			icon_state = "breaker_raise"
 			addtimer(CALLBACK(src, .proc/raise_slat), BREAKER_ANIMATION_LENGTH)
 			return
-		if (BREAKER_SLAT_RAISED)
-			if (LAZYLEN(buckled_mobs))
-				if (user.a_intent == INTENT_HARM)
+		if(BREAKER_SLAT_RAISED)
+			if(LAZYLEN(buckled_mobs))
+				if(user.a_intent == INTENT_HARM)
 					user.visible_message("<span class='warning'>[user] begins to pull the lever!</span>",
 						                 "<span class='warning'>You begin to the pull the lever.</span>")
 					current_action = BREAKER_ACTION_INUSE
 
-					if (do_after(user, BREAKER_ACTIVATE_DELAY, target = src) && slat_status == BREAKER_SLAT_RAISED)
+					if(do_after(user, BREAKER_ACTIVATE_DELAY, target = src) && slat_status == BREAKER_SLAT_RAISED)
 						current_action = 0
 						slat_status = BREAKER_SLAT_MOVING
 						icon_state = "breaker_drop"
@@ -75,7 +72,7 @@
 				else
 					var/mob/living/carbon/human/H = buckled_mobs[1]
 
-					if (H)
+					if(H)
 						H.regenerate_icons()
 
 					unbuckle_all_mobs()
@@ -94,13 +91,13 @@
 	icon_state = "breaker_raised"
 
 /obj/structure/femur_breaker/proc/drop_slat(mob/user)
-	if (buckled_mobs.len)
+	if(buckled_mobs.len)
 		var/mob/living/carbon/human/H = buckled_mobs[1]
 
-		if (!H)
+		if(!H)
 			return
 
-		playsound(src, 'sound/hispania/femur_breaker.ogg', 50, FALSE)
+		playsound(src, 'sound/hispania/machines/femur_breaker.ogg', 50, FALSE)
 		H.Stun(BREAKER_ANIMATION_LENGTH)
 		addtimer(CALLBACK(src, .proc/damage_leg, H), BREAKER_ANIMATION_LENGTH, TIMER_UNIQUE)
 		add_attack_logs(user, H, "femur broke with [src]")
@@ -109,27 +106,27 @@
 	icon_state = "breaker"
 
 /obj/structure/femur_breaker/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if (!anchored)
+	if(!anchored)
 		to_chat(usr, "<span class='warning'>The [src] needs to be wrenched to the floor!</span>")
 		return FALSE
 
-	if (!istype(M, /mob/living/carbon/human))
+	if(!istype(M, /mob/living/carbon/human))
 		to_chat(usr, "<span class='warning'>It doesn't look like [M.p_they()] can fit into this properly!</span>")
 		return FALSE
 
-	if (slat_status != BREAKER_SLAT_RAISED)
+	if(slat_status != BREAKER_SLAT_RAISED)
 		to_chat(usr, "<span class='warning'>The femur breaker must be in its neutral position before buckling someone in!</span>")
 		return FALSE
 
 	return ..(M, force, FALSE)
 
 /obj/structure/femur_breaker/post_buckle_mob(mob/living/M)
-	if (!istype(M, /mob/living/carbon/human))
+	if(!istype(M, /mob/living/carbon/human))
 		return
 
 	var/mob/living/carbon/human/H = M
 
-	if (H.dna)
+	if(H.dna)
 		if (H.dna.species)
 			var/datum/species/S = H.dna.species
 
@@ -174,11 +171,13 @@
 			if(!WT.isOn())
 				return
 			playsound(loc, WT.usesound, 50, 1)
-			user.visible_message("<span class='notice'>[user] slices apart [src].</span>",
+			visible_message("<span class='notice'>[user] slices apart [src].</span>",
 							"<span class='notice'>You cut [src] apart with [WT].</span>",
 							"<span class='italics'>You hear welding.</span>")
 			var/turf/T = get_turf(src)
-			new /obj/item/stack/sheet/metal(T, 20)
+			new /obj/item/stack/sheet/plasteel(T, 10)
+			new /obj/item/stack/rods(T, 20)
+			new /obj/item/stack/sheet/metal(T, 10)
 			new /obj/item/stack/cable_coil(T, 30)
 			qdel(src)
 		return
