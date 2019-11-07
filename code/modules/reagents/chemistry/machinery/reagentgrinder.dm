@@ -176,7 +176,7 @@
 		//Fill machine with a bag!
 		if(istype(I, /obj/item/storage/bag))
 				var/obj/item/storage/bag/B = I
-				for (var/obj/item/reagent_containers/food/snacks/grown/G in B.contents)
+				for (var/obj/item/reagent_containers/food/G in B.contents)
 						B.remove_from_storage(G, src)
 						holdingitems += G
 						if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
