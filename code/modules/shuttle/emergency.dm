@@ -199,7 +199,7 @@
 			if(special_role)
 				// There's a long list of special roles, but almost all of them are antags anyway.
 				// If you manage to escape with a pet slaughter demon - go for it! Greentext well earned!
-				if(special_role != SPECIAL_ROLE_ERT && special_role != SPECIAL_ROLE_EVENTMISC)
+				if(special_role != SPECIAL_ROLE_EVENTMISC && special_role != SPECIAL_ROLE_ERT && special_role != SPECIAL_ROLE_DEATHSQUAD)
 					continue
 
 			if(get_area(player) == areaInstance)
