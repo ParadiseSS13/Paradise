@@ -184,7 +184,7 @@
 								break
 
 				if(!I.contents.len)
-						to_chat(user, "<span class='notice'>You empty the plant bag into the All-In-One grinder.</span>")
+						to_chat(user, "<span class='notice'>You empty [I] into the All-In-One grinder.</span>")
 
 				src.updateUsrDialog()
 				return 1
