@@ -452,3 +452,9 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## If uncommented, all gamemodes will respect the number of required players. Defaults to no.
 #ENABLE_GAMEMODE_PLAYER_LIMIT
+
+#Uncomment to enable high risk user checks (Note: by default this requires a private internal script to work which is not distributed)
+#HIGH_RISK_CHECKS
+
+#Define the player's age to the server (not byond account) in days to flag them for high risk (see above comment)
+#HIGH_RISK_AGE 10

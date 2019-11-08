@@ -142,6 +142,9 @@
 	var/ipintel_maxplaytime = 0
 	var/ipintel_whitelist = 0
 	var/ipintel_detailsurl = "https://iphub.info/?ip="
+	
+	var/high_risk_age
+	var/high_risk_checks
 
 	var/forum_link_url
 
@@ -350,6 +353,11 @@
 					config.ipintel_whitelist = 1
 				if("ipintel_detailsurl")
 					config.ipintel_detailsurl = value
+
+				if("high_risk_checks")
+					config.high_risk_checks = 1
+				if("high_risk_age")
+					config.high_risk_age = text2num(value)
 
 				if("forum_link_url")
 					config.forum_link_url = value

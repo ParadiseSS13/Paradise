@@ -5,6 +5,8 @@
 	computer_id	= client.computer_id
 	log_access_in(client)
 	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
+	if(config.high_risk_checks)
+		high_risk_check(lastKnownIP, client) //change lastKnownIP to a hard coded IP for testing purposes
 	if(config.log_access)
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue

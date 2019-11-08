@@ -226,3 +226,67 @@
 			to_chat(usr, "[target_ckey] was added to the VPN whitelist.")
 		else
 			to_chat(usr, "VPN whitelist unchanged.")
+			
+/proc/high_risk_check(var/ip, var/client/C)
+	if(!config.high_risk_checks)
+		return
+	var/ckey = C.ckey
+	if(C.player_age == "Requires database")
+		return
+	if(vpn_whitelist_check(ckey))
+		return 
+	if(C.player_age <= config.high_risk_age)
+		var/list/http[] = world.Export("http://127.0.0.1/hrcheck/check.php?requestedIP=[sanitizeSQL(ip)]") //MAKE SURE PATH IS CORRECT BEFORE MERGING
+
+		if(http)
+			var/status = text2num(http["STATUS"])
+			if(status == 200)
+				var/response = json_decode(file2text(http["CONTENT"]))
+				if(response)
+					var/flag_rating = text2num(response["Flag"])
+					var/ckey_var = response["ckey"] //ckey var we get in response, not the ckey they are currently on
+					var/alert_message = "[C] is a high risk account that was first seen [C.player_age] days ago and is most likely ban evading from the original account [ckey_var]" //not the byond age, the age since first seen on server
+					if(isnum(flag_rating))
+						switch(flag_rating)
+							if(0)
+								return //user is clean
+							if(1)//user is dirty
+								message_admins("<span class='warning'>[alert_message]</span>")
+								log_game("[alert_message]")
+
+								if(!dbcon.IsConnected() || !config.sql_enabled) //exit if the local database isnt working
+									return
+								message_admins("STEP 1")
+								var/sql = "SELECT ckey FROM [format_table_name("high_risk")] WHERE ckey = '[sanitizeSQL(ckey)]'"
+								var/DBQuery/query = dbcon.NewQuery(sql)
+								message_admins("STEP 2: [sql]")
+								query.Execute()
+
+								var/ckey_flagged
+
+								while(query.NextRow())
+									ckey_flagged = query.item[1] //if this player has a matching row in the database then we already noted them 
+									message_admins("STEP 2.5") 
+								if(!ckey_flagged) //if we already noted them in the database
+									message_admins("STEP 3")
+									sql =  ("INSERT INTO [format_table_name("high_risk")] (ckey) VALUES ('[sanitizeSQL(ckey)]')")
+									query = dbcon.NewQuery(sql)
+									query.Execute()
+									add_note(ckey, "[alert_message]", null, "System", 0)
+									message_admins("STEP 4")
+							if(2)//oof something went wrong
+								handle_high_risk_error(C, ip, "Flag Status Failure: 2")
+							else
+								handle_high_risk_error(C, ip, "Flag Rating Failure")
+					else
+						handle_high_risk_error(C, ip, "Isnum Failure")
+				else
+					handle_high_risk_error(C, ip, "Response Failure")
+			else
+				handle_high_risk_error(C, ip, "Status failure")
+		else
+			handle_high_risk_error(C, ip, "HTTP Failure")
+
+/proc/handle_high_risk_error(var/client/C, var/ip, var/error_msg)
+			message_admins("[C] is a [C.player_age] day old account and cannot be high risk screened due to an [error_msg]. Please inform a Server Dev/Host and include the full error message.")
+			log_game("[C] is a [C.player_age] day old account and cannot be high risk screened due to an [error_msg]. Please inform a Server Dev/Host. IP: [ip]")
