@@ -61,10 +61,13 @@
 	switch(percent())
 		if(90 to 100)
 			overlays += "cell-o2"
+			return
 		if(20 to 90)
 			overlays += "cell-o1"
+			return
 		if(0.01 to 20)
 			overlays += image('icons/hispania/obj/power.dmi', "cell-o0")
+			return
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -332,6 +335,7 @@
 	materials = list()
 	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
+	overaynull = TRUE
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
