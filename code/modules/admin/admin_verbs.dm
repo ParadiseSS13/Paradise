@@ -698,15 +698,12 @@ var/list/admin_verbs_ticket = list(
 	var/datum/admins/D = admin_datums[ckey]
 	var/rank = null
 	if(config.admin_legacy_system)
-		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
-		for(var/line in Lines)
-			var/list/splitline = splittext(line, " - ")
-			if(lowertext(splitline[1]) == ckey)
-				if(splitline.len >= 2)
-					rank = ckeyEx(splitline[2])
+
+		var/admins = parse_admins_config_file()
+		for(var/admin_ckey in admins)
+			if(lowertext(admin_ckey) == ckey)
+				rank = admins[admin_ckey]
 				break
-			continue
 	else
 		if(!dbcon.IsConnected())
 			message_admins("Warning, MySQL database is not connected.")

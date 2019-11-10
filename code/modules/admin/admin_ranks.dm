@@ -58,6 +58,28 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 	load_admins()
 	return 1
 
+/proc/parse_admins_config_file()
+	var/list/admins = new/list()
+	for(var/line in file2list("config/admins.txt"))
+		// strip out comments
+		var/comment_start = findtext(line, "#")
+		if(comment_start > 0)
+			line = copytext(line, comment_start)
+
+		// Format is `ckey - rank`.
+		// Silently ignore all the lines that don't conform
+		var/list/splits = splittext(line, "-")
+		if(splits.len != 2)
+			continue
+
+		var/ckey = ckey(splits[1])
+		var/rank = ckeyEx(splits[2])
+		if(!ckey || !rank)
+			continue
+		
+		admins[ckey] = rank
+	return admins
+		
 /proc/load_admins()
 	//clear the datums references
 	admin_datums.Cut()
@@ -68,31 +90,10 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 
 	if(config.admin_legacy_system)
 		load_admin_ranks()
-
-		//load text from file
-		var/list/Lines = file2list("config/admins.txt")
-
-		//process each line seperately
-		for(var/line in Lines)
-			if(!length(line))				continue
-			if(copytext(line,1,2) == "#")	continue
-
-			//Split the line at every "-"
-			var/list/List = splittext(line, "-")
-			if(!List.len)					continue
-
-			//ckey is before the first "-"
-			var/ckey = ckey(List[1])
-			if(!ckey)						continue
-
-			//rank follows the first "-"
-			var/rank = ""
-			if(List.len >= 2)
-				rank = ckeyEx(List[2])
-
-			//load permissions associated with this rank
+		var/admins = parse_admins_config_file()
+		for(var/ckey in admins)
+			var/rank = admins[ckey]
 			var/rights = admin_ranks[rank]
-
 			//create the admin datum and store it for later use
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
 
