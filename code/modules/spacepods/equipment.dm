@@ -1,4 +1,7 @@
 /obj/item/spacepod_equipment/weaponry/proc/fire_weapons()
+	if(HAS_TRAIT(usr, TRAIT_PACIFISM) && harmful)
+		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
 	if(my_atom.next_firetime > world.time)
 		to_chat(usr, "<span class='warning'>Your weapons are recharging.</span>")
 		return
@@ -83,6 +86,7 @@
 	var/shots_per = 1
 	var/fire_sound
 	var/fire_delay = 15
+	var/harmful = TRUE
 
 /obj/item/spacepod_equipment/weaponry/taser
 	name = "disabler system"
@@ -91,6 +95,7 @@
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 400
 	fire_sound = 'sound/weapons/taser.ogg'
+	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
 	name = "burst taser system"
@@ -101,6 +106,7 @@
 	shots_per = 3
 	fire_sound = 'sound/weapons/taser.ogg'
 	fire_delay = 30
+	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/laser
 	name = "laser system"

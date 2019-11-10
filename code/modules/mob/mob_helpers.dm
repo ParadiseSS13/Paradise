@@ -568,7 +568,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 		//Fixes renames not being reflected in objective text
 		var/length
 		var/pos
-		for(var/datum/objective/objective in all_objectives)
+		for(var/datum/objective/objective in GLOB.all_objectives)
 			if(!mind || objective.target != mind)
 				continue
 			length = lentext(oldname)

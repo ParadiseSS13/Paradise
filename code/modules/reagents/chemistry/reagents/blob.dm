@@ -25,7 +25,7 @@
 	if(method == TOUCH)
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
-		M.adjustStaminaLoss(0.4*volume)
+		M.adjustStaminaLoss(volume)
 		if(iscarbon(M))
 			M.emote("scream")
 
@@ -105,7 +105,7 @@
 	if(method == TOUCH)
 		volume = ..()
 		M.apply_damage(0.4*volume, BURN)
-		M.adjustStaminaLoss(0.4*volume)
+		M.adjustStaminaLoss(volume)
 		if(M.reagents)
 			M.reagents.add_reagent("frostoil", 0.4*volume)
 
