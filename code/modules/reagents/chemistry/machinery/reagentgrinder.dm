@@ -155,7 +155,7 @@
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
 		else
 			if(!user.drop_item())
-				return TRUE
+				return FALSE
 			beaker =  I
 			beaker.loc = src
 			update_icon()
@@ -167,11 +167,11 @@
 			var/obj/item/reagent_containers/food/snacks/grown/G = I
 			if(!G.dry)
 				to_chat(user, "<span class='warning'>You must dry that first!</span>")
-				return TRUE
+				return FALSE
 
 	if(holdingitems && holdingitems.len >= limit)
 		to_chat(usr, "The machine cannot hold anymore items.")
-		return TRUE
+		return FALSE
 
 	//Fill machine with a bag!
 	if(istype(I, /obj/item/storage/bag))
