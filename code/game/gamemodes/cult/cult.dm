@@ -28,6 +28,8 @@ var/global/list/all_cults = list()
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
 		if(!iscultist(G.summoner))
 			return FALSE //can't convert it unless the owner is converted
+	if(isgolem(mind.current))
+		return FALSE
 	return TRUE
 
 /proc/is_sacrifice_target(datum/mind/mind)
