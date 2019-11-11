@@ -12,5 +12,5 @@
 /datum/job_objective/exotic_plants/check_for_completion()
 	for(var/plant in SSshuttle.techLevels)
 		if(SSshuttle.discoveredPlants[plant] > 0)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
