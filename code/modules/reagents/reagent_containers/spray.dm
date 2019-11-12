@@ -43,21 +43,20 @@
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 		return
 
+	var/contents_log = get_formatted_contents_string()
 	spray(A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
 	user.newtonian_move(get_dir(A, user))
 
-	if(reagents.has_reagent("sacid"))
-		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
-		log_game("[key_name(user)] fired sulphuric acid from \a [src] at [COORD(user)].")
-	if(reagents.has_reagent("facid"))
-		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
-		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src] at [COORD(user)].")
-	if(reagents.has_reagent("lube"))
-		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src] at [COORD(user)].")
-		log_game("[key_name(user)] fired space lube from \a [src] at [COORD(user)].")
+	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Don't show logs for bottles spraying only space cleaner
+		return
+
+	var/attack_log_type = ATKLOG_MOST
+	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
+		attack_log_type = ATKLOG_FEW
+	msg_admin_attack("[key_name_admin(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
 	return
 
 
