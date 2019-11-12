@@ -72,11 +72,3 @@ obj/item/reagent_containers/proc/add_initial_reagents()
 			to_chat(user, "<span class='notice'>You fill [src] from [source].</span>")
 			return
 	..()
-
-// Returns a string that contains a list of reagents seperated with commas
-/obj/item/reagent_containers/proc/get_formatted_contents_string()
-	var/contents_string
-	for(var/R in reagents.reagent_list)
-		contents_string += "[R], "
-	contents_string = copytext(contents_string, 1, lentext(contents_string)-1)
-	return contents_string

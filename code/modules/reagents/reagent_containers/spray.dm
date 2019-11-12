@@ -43,20 +43,22 @@
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 		return
 
-	var/contents_log = get_formatted_contents_string()
+	var/contents_log = reagents.reagent_list.Join(", ")
 	spray(A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
 	user.newtonian_move(get_dir(A, user))
 
-	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Don't show logs for bottles spraying only space cleaner
-		return
+	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only show space cleaner logs if it's burning people from being too hot or cold
+		if((reagents.chem_temp < 300) && (reagents.chem_temp > 280)) // 280 is the cold threshold for slimes, 300 the hot threshold for drask
+			return
 
 	var/attack_log_type = ATKLOG_MOST
 	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
 		attack_log_type = ATKLOG_FEW
 	msg_admin_attack("[key_name_admin(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
+	log_game("[key_name(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K")
 	return
 
 
