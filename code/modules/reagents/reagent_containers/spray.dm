@@ -51,7 +51,7 @@
 	user.newtonian_move(get_dir(A, user))
 
 	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only show space cleaner logs if it's burning people from being too hot or cold
-		if((reagents.chem_temp < 300) && (reagents.chem_temp > 280)) // 280 is the cold threshold for slimes, 300 the hot threshold for drask
+		if(reagents.chem_temp < 300 && reagents.chem_temp > 280) // 280 is the cold threshold for slimes, 300 the hot threshold for drask
 			return
 
 	var/attack_log_type = ATKLOG_MOST
