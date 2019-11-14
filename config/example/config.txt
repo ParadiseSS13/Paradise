@@ -240,6 +240,9 @@ CHECK_RANDOMIZER
 ## Discord address
 # DISCORDURL http://example.org
 
+## Discord address (forum-based invite)
+# DISCORDFORUMURL http://example.org
+
 ## Donations address
 # DONATIONSURL http://example.org
 

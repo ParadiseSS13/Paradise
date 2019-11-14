@@ -81,12 +81,16 @@
 	set name = "Discord"
 	set desc = "Join our Discord server."
 	set hidden = 1
-	if(config.discordurl)
-		if(alert("This will invite you to our Discord server. Are you sure?",,"Yes","No")=="No")
-			return
-		src << link(config.discordurl)
-	else
+
+	var/durl = config.discordurl
+	if(config.forum_link_url && prefs && prefs.fuid && config.discordforumurl)
+		durl = config.discordforumurl
+	if(!durl)
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
+		return
+	if(alert("This will invite you to our Discord server. Are you sure?",,"Yes","No")=="No")
+		return
+	src << link(durl)
 
 /client/verb/donate()
 	set name = "Donate"
