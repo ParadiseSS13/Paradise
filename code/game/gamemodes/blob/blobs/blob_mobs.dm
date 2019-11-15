@@ -186,6 +186,7 @@
 		else
 			adjustBruteLoss(0.2) // If you are at full health, you won't lose health. You'll need it. However the moment anybody sneezes on you, the decaying will begin.
 			adjustFireLoss(0.2)
+	..()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/New()
 	..()
