@@ -279,7 +279,7 @@
 				to_chat(U, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 	return
 
-/proc/init_construct(var/mob/living/simple_animal/hostile/construct/wraith/Z, var/mob/living/simple_animal/shade/A, var/obj/item/soulstone/C, var/obj/structure/constructshell/T)
+/proc/init_construct(var/mob/living/simple_animal/hostile/construct/Z, var/mob/living/simple_animal/shade/A, var/obj/item/soulstone/C, var/obj/structure/constructshell/T)
 	A.mind.transfer_to(Z)
 	qdel(T)
 	qdel(A)
