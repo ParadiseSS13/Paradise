@@ -308,7 +308,7 @@
 				if(check_rights(R_ADMIN, 0, user))
 					depotarea.peaceful_mode(FALSE, TRUE)
 			else if (subcommand == DEPOT_VISITOR_ADD)
-				if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
+				if(user.mind && (user.mind.special_role == SPECIAL_ROLE_TRAITOR || user.mind.special_role == ROLE_TRAITOR))
 					if(depotarea.list_includes(user, depotarea.peaceful_list))
 						to_chat(user, "<span class='warning'>[user] is already signed in as a visiting agent.</span>")
 					else
@@ -320,7 +320,7 @@
 				to_chat(user, "<span class='warning'>Visitor sign-in is not possible after supplies have been taken from a locker in the depot.</span>")
 			else if("syndicate" in user.faction)
 				to_chat(user, "<span class='warning'>You are already recognized as a member of the Syndicate, and do not need to sign in.</span>")
-			else if(user.mind && user.mind.special_role == SPECIAL_ROLE_TRAITOR)
+			else if(user.mind && (user.mind.special_role == SPECIAL_ROLE_TRAITOR || user.mind.special_role == ROLE_TRAITOR))
 				grant_syndie_faction(user)
 				depotarea.peaceful_mode(TRUE, TRUE)
 			else
