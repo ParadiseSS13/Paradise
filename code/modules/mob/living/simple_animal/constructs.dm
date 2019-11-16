@@ -47,6 +47,10 @@
 	if(SSticker.cultdat?.theme == "blood")
 		updateglow()
 
+/mob/living/simple_animal/hostile/construct/death(gibbed)
+	. = ..()
+	SSticker.mode.remove_cultist(src.mind, FALSE)
+
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
 
