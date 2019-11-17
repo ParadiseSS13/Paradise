@@ -786,18 +786,18 @@
 		else if(state==3)
 			state=2
 			to_chat(user, "You close the hatch to the power unit")
-		else if(state==4 && pilot_is_mmi())
-			// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
-			user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
+		else if(state==4 && (pilot_is_mmi() || istype(occupant, /mob/living/carbon)))
+			// Since having maint protocols available is controllable by the pilot, I see this as a consensual way to remove a pilot without destroying the mech
+			if(pilot_is_mmi())
+				user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
+			else
+				user.visible_message("[user] begins levering out the pilot from the [src].", "You begin to lever out the pilot from the [src].")
 			to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
 			if(do_after(user, 80 * W.toolspeed, target=src))
-				user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
-				go_out()
-		else if(state==4 && istype(occupant, /mob/living/carbon))
-			user.visible_message("[user] begins levering out the pilot from the [src].", "You begin to lever out the pilot from the [src].")
-			to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-			if(do_after(user, 80 * W.toolspeed, target=src))
-				user.visible_message("<span class='notice'>[user] pries the pilot out of the [src]!</span>", "<span class='notice'>You finish removing the pilot from the [src]!</span>")
+				if(pilot_is_mmi())
+					user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
+				else
+					user.visible_message("<span class='notice'>[user] pries the pilot out of the [src]!</span>", "<span class='notice'>You finish removing the pilot from the [src]!</span>")
 				go_out()
 		return
 
