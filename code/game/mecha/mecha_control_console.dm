@@ -146,7 +146,7 @@
 	if(M)
 		addtimer(CALLBACK(src, /obj/item/mecha_parts/mecha_tracking/proc/recharge), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 		recharging = 1
-		M.emp_act(1)
+		M.emp_act(0.5)
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
 	if(!in_mecha())
