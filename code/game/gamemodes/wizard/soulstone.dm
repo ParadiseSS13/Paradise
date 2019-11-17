@@ -279,7 +279,7 @@
 				to_chat(U, "<span class='danger'>Creation failed!</span>: The soul stone is empty! Go kill someone!")
 	return
 
-/proc/init_construct(var/mob/living/simple_animal/hostile/construct/Z, var/mob/living/simple_animal/shade/A, var/obj/item/soulstone/C, var/obj/structure/constructshell/T)
+/proc/init_construct(mob/living/simple_animal/hostile/construct/Z, mob/living/simple_animal/shade/A, obj/item/soulstone/C, obj/structure/constructshell/T)
 	A.mind.transfer_to(Z)
 	qdel(T)
 	qdel(A)
@@ -327,10 +327,10 @@
 		S.faction |= "\ref[U]" //Add the master as a faction, allowing inter-mob cooperation
 		if(!iscultist(U))
 			S.mind.store_memory("<b>Serve [U.real_name], your creator.</b>")
-	if(U && iscultist(U))
+	if(iscultist(U))
 		SSticker.mode.add_cultist(S.mind, 0)
 		S.mind.special_role = SPECIAL_ROLE_CULTIST
-	if(U && iswizard(U))
+	if(iswizard(U))
 		SSticker.mode.update_wiz_icons_added(S.mind)
 		S.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 	S.cancel_camera()
