@@ -1806,7 +1806,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/engineering/shield_sat
 	name = "Shield Generator Satellite"
-	cost = 30
+	cost = 60
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
@@ -1816,7 +1816,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/engineering/shield_sat_control
 	name = "Shield System Control Board"
-	cost = 50
+	cost = 80
 	contains = list(
 					/obj/item/circuitboard/computer/sat_control
 					)
