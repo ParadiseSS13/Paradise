@@ -1804,7 +1804,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "dna samplers crate"
 
-/datum/supply_packs/misc/station_goal/shield_sat
+/datum/supply_packs/engineering/shield_sat
 	name = "Shield Generator Satellite"
 	cost = 30
 	contains = list(
@@ -1814,7 +1814,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "shield sat crate"
 
-/datum/supply_packs/misc/station_goal/shield_sat_control
+/datum/supply_packs/engineering/shield_sat_control
 	name = "Shield System Control Board"
 	cost = 50
 	contains = list(

@@ -1148,7 +1148,6 @@
 #include "code\game\verbs\randomtip.dm"
 #include "code\game\verbs\suicide.dm"
 #include "code\game\verbs\who.dm"
-#include "code\HISPANIA\datums\supplypacks.dm"
 #include "code\HISPANIA\datums\diseases\spacepox.dm"
 #include "code\HISPANIA\defines\procs\discord.dm"
 #include "code\HISPANIA\game\hispania_items.dm"
