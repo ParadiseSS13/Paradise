@@ -283,7 +283,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
-	owner.setBrainLoss(80)
+	owner.setBrainLoss(80, ignore_brain_mod = TRUE)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 
