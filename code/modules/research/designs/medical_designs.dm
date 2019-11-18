@@ -37,7 +37,7 @@
 	desc = "A hand-held scanner able to diagnose robotic injuries."
 	id = "cyborg_analyzer"
 	req_tech = list("programming" = 2, "biotech" = 2, "magnets" = 2)
-	build_type = PROTOLATHE  | MECHFAB
+	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 30, MAT_GLASS = 20)
 	build_path = /obj/item/robotanalyzer
 	category = list("Medical")
