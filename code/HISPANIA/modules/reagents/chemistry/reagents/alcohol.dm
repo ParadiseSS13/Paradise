@@ -6,7 +6,7 @@
 	name = "Fernet"
 	id = "fernet"
 	description = "It's Fernet, a drink with a strong bitter taste."
-	color = "15140f" // rgb: 102, 67, 0
+	color = "#15140f"
 	dizzy_adj = 3
 	alcohol_perc = 0.6
 	drink_icon = "fernet_glass"
@@ -18,7 +18,7 @@
 	name = "Mezcal"
 	id = "mezcal"
 	description = "It's mezcal, like tequila, but hipster."
-	color = "15140f" // rgb: 102, 67, 0
+	color = "#dddcd6"
 	dizzy_adj = 3
 	alcohol_perc = 0.6
 	drink_icon = "mezcal_glass"
