@@ -5,7 +5,7 @@
 /datum/reagent/consumable/ethanol/fernet /// By Soulster
 	name = "Fernet"
 	id = "fernet"
-	description = "it's Fernet, a drink with a strong bitter taste"
+	description = "It's Fernet, a drink with a strong bitter taste."
 	color = "15140f" // rgb: 102, 67, 0
 	dizzy_adj = 3
 	alcohol_perc = 0.6
@@ -17,7 +17,7 @@
 /datum/reagent/consumable/ethanol/mezcal /// By mazapan
 	name = "Mezcal"
 	id = "mezcal"
-	description = "it's mezcal, like tequila, but hipster"
+	description = "It's mezcal, like tequila, but hipster."
 	color = "15140f" // rgb: 102, 67, 0
 	dizzy_adj = 3
 	alcohol_perc = 0.6
