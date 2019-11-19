@@ -192,7 +192,10 @@
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
+	item_state = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
 
