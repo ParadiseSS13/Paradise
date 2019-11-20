@@ -22,3 +22,8 @@
 /datum/gear/glasses/prescription
 	display_name = "Prescription glasses"
 	path = /obj/item/clothing/glasses/regular
+
+/datum/gear/glasses/debug
+	display_name = "Debug Lighting glasses"
+	path = /obj/item/clothing/glasses/material/lighting
+	description = "WARNING: Glasses used for those with lighting issues"
