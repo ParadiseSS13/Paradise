@@ -1,13 +1,3 @@
-/obj/item/storage/part_replacer/afterattack(obj/machinery/power/apc/T as obj, mob/living/carbon/human/user as mob, flag, params)
-	..()
-	if(flag)
-		return
-	else if(works_from_distance)
-		if(istype(T))
-			T.exchange_parts(user, src)
-			user.Beam(T,icon_state="rped_upgrade",icon='icons/effects/effects.dmi',time=5)
-			return
-
 /obj/machinery/power/apc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	if(!istype(W))
 		return FALSE
@@ -21,7 +11,7 @@
 		for(var/obj/item/stock_parts/cell/C in W.contents)
 			if(istype(C, /obj/item/stock_parts/cell))
 				if(cell)
-					if(C.rating > cell.rating)
+					if(C.get_part_rating() > cell.get_part_rating())
 						cell.update_icon()
 						W.handle_item_insertion(cell, 1)
 						W.remove_from_storage(C, src)
