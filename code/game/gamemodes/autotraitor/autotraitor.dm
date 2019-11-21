@@ -52,8 +52,7 @@
 		if(!traitor || !istype(traitor))
 			pre_traitors.Remove(traitor)
 			continue
-		if(istype(traitor))
-			traitor.special_role = SPECIAL_ROLE_TRAITOR
+		if(istype(traitor))	
 			traitor.restricted_roles = restricted_jobs
 
 //	if(!traitors.len)
