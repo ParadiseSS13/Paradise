@@ -339,12 +339,12 @@
 	var/moved = 0
 	if(panel_open || W.works_from_distance)
 		if(W.works_from_distance)
-			display_parts(user)
+			to_chat(user, display_parts(user))
 		for(var/I in W)
 			if(istype(I, refill_canister))
 				moved += restock(I)
 	else
-		display_parts(user)
+		to_chat(user, display_parts(user))
 	if(moved)
 		to_chat(user, "[moved] items restocked.")
 		W.play_rped_sound()
@@ -1280,8 +1280,8 @@
 	icon_state = "seeds"
 	products = list(/obj/item/seeds/aloe =3,
 					/obj/item/seeds/ambrosia = 3,
-					/obj/item/seeds/apple = 3, 
-					/obj/item/seeds/banana = 3, 
+					/obj/item/seeds/apple = 3,
+					/obj/item/seeds/banana = 3,
 					/obj/item/seeds/berry = 3,
 					/obj/item/seeds/cabbage = 3,
 					/obj/item/seeds/carrot = 3,

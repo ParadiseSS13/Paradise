@@ -484,7 +484,6 @@ Class Procs:
 								W.remove_from_storage(B, src)
 								component_parts += B
 								B.loc = null
-							W.remove_from_storage(B, src)
 							W.handle_item_insertion(A, 1)
 							component_parts -= A
 							to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
@@ -492,17 +491,18 @@ Class Procs:
 							break
 			RefreshParts()
 		else
-			display_parts(user)
+			to_chat(user, display_parts(user))
 		if(shouldplaysound)
 			W.play_rped_sound()
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/machinery/proc/display_parts(mob/user)
 	. = list("<span class='notice'>Following parts detected in the machine:</span>")
 	for(var/obj/item/C in component_parts)
 		. += "<span class='notice'>[bicon(C)] [C.name]</span>"
+	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)
 	. = ..()
