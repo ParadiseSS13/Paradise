@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(tickets)
 	
 	flags = SS_BACKGROUND
 	
-	var/list/allTickets
+	var/list/allTickets = list()	//make it here because someone might ahelp before the system has initialized
 
 	var/ticketCounter = 1
 
@@ -31,7 +31,6 @@ SUBSYSTEM_DEF(tickets)
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
 				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
 				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
-	LAZYINITLIST(allTickets)
 	return ..()
 
 /datum/controller/subsystem/tickets/fire()
@@ -87,7 +86,6 @@ SUBSYSTEM_DEF(tickets)
 		title = passedContent
 
 	var/datum/ticket/T =  new(title, passedContent, getTicketCounterAndInc())
-	LAZYINITLIST(allTickets)	//this checks if the list exists yet and if not creates it. Feels weird to have this each time we make a ticket but I think it's correct.
 	allTickets += T
 	T.clientName = C
 	T.locationSent = C.mob.loc.name
