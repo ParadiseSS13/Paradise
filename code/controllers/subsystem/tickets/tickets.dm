@@ -87,6 +87,7 @@ SUBSYSTEM_DEF(tickets)
 		title = passedContent
 
 	var/datum/ticket/T =  new(title, passedContent, getTicketCounterAndInc())
+	LAZYINITLIST(allTickets)	//this checks if the list exists yet and if not creates it. Feels weird to have this each time we make a ticket but I think it's correct.
 	allTickets += T
 	T.clientName = C
 	T.locationSent = C.mob.loc.name
