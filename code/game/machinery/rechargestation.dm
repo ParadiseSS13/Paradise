@@ -44,7 +44,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
-		var/multiplier = C.maxcharge / 10000
+		var/multiplier = C.get_part_rating() / 10000
 		recharge_speed *= multiplier
 		recharge_speed_nutrition *= multiplier
 

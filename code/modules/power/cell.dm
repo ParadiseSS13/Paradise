@@ -324,7 +324,7 @@
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "yellow slime extract"
 	materials = list()
-	rating = 5 //self-recharge makes these desirable
+	rating = 4.5 //self-recharge makes these desirable, 45000 de getrating
 	self_recharge = 1 // Infused slime cores self-recharge, over time
 	chargerate = 500
 
