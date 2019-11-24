@@ -238,13 +238,13 @@
 	item_state = "armor_reflec"
 	blood_overlay_type = "armor"
 	armor = list(melee = 10, bullet = 10, laser = 60, energy = 50, bomb = 0, bio = 0, rad = 0)
-	var/hit_reflect_chance = 40
+	var/hit_reflect_chance = 50
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(var/def_zone)
 	if(!(def_zone in list("chest", "groin"))) //If not shot where ablative is covering you, you don't get the reflection bonus!
-		return 0
+		return FALSE
 	if(prob(hit_reflect_chance))
-		return 1
+		return TRUE
 
 /obj/item/clothing/suit/armor/vest/det_suit
 	name = "armor"
