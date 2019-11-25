@@ -255,7 +255,7 @@
 
 /datum/reagent/consumable/drink/hot_coco
 	name = "Hot Chocolate"
-	id = "chocolate"
+	id = "hot_coco"
 	description = "Made with love! And coco beans."
 	nutriment_factor = 0
 	color = "#403010" // rgb: 64, 48, 16
