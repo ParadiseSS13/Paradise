@@ -248,10 +248,10 @@
 		C.sex = capitalize(H.gender)
 		C.age = H.age
 		C.name = "[C.registered_name]'s ID Card ([C.assignment])"
-		C.photo = get_id_photo(H)
-
-		if(H.mind && H.mind.initial_account)
-			C.associated_account_number = H.mind.initial_account.account_number
+		if(H.mind)//avoid mindless mob errors with these procs
+			C.photo = get_id_photo(H)
+			if(H.mind.initial_account)
+				C.associated_account_number = H.mind.initial_account.account_number
 		C.owner_uid = H.UID()
 		C.owner_ckey = H.ckey
 
