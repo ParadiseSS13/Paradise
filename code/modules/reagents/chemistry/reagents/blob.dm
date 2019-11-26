@@ -10,6 +10,9 @@
 /datum/reagent/blob/reaction_mob(mob/living/M, method=TOUCH, volume, show_message, touch_protection)
 	return round(volume * min(1.5 - touch_protection, 1), 0.1) //full touch protection means 50% volume, any prot below 0.5 means 100% volume.
 
+/datum/reagent/blob/proc/damage_reaction(obj/structure/blob/B, damage, damage_type, damage_flag) //when the blob takes damage, do this
+	return damage
+
 /datum/reagent/blob/ripping_tendrils //does brute and a little stamina damage
 	name = "Ripping Tendrils"
 	description = "Deals High Brute damage, as well as Stamina damage."
@@ -22,7 +25,7 @@
 	if(method == TOUCH)
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
-		M.adjustStaminaLoss(0.4*volume)
+		M.adjustStaminaLoss(volume)
 		if(iscarbon(M))
 			M.emote("scream")
 
@@ -102,7 +105,7 @@
 	if(method == TOUCH)
 		volume = ..()
 		M.apply_damage(0.4*volume, BURN)
-		M.adjustStaminaLoss(0.4*volume)
+		M.adjustStaminaLoss(volume)
 		if(M.reagents)
 			M.reagents.add_reagent("frostoil", 0.4*volume)
 

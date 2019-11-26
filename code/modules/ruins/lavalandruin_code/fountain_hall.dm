@@ -12,7 +12,7 @@
 		return
 	if(!has_buckled_mobs())
 		return
-	var/mob/living/L = buckled_mob
+	var/mob/living/L = locate() in buckled_mobs
 	if(!L)
 		return
 	to_chat(user, "<span class='notice'>You attempt to sacrifice [L] by invoking the sacrificial ritual.</span>")

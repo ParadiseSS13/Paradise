@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 
-/mob/dead/observer/New(var/mob/body=null, var/flags=1)
+/mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
 
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -77,12 +77,16 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	appearance_flags |= KEEP_TOGETHER
 	ghost_images |= ghostimage
 	updateallghostimages()
-	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
+	if(!T)	
+		T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
 		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 	real_name = name
+
+	//starts ghosts off with all HUDs.
+	toggle_medHUD()
 	..()
 
 /mob/dead/observer/Destroy()
@@ -97,9 +101,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
-	..()
+	. = ..()
 	if(!invisibility)
-		to_chat(user, "It seems extremely obvious.")
+		. += "It seems extremely obvious."
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -165,7 +169,7 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
-/mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
+/mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay
 			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
@@ -335,15 +339,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
-	set name = "Toggle Medic/Sec/Diag/All HUDs"
+	set name = "Toggle All/Sec/Med/Diag HUDs"
 	set desc = "Toggles the HUDs."
 	if(!client)
 		return
 
 	switch(data_hud_seen) //give new huds
 		if(FALSE)
-			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
+			data_hud_seen = DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
+			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
+			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
+		if(DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)	
+			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
+			remove_the_hud(DATA_HUD_DIAGNOSTIC)
+			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
 		if(DATA_HUD_SECURITY_ADVANCED)
 			data_hud_seen = DATA_HUD_MEDICAL_ADVANCED
@@ -355,15 +366,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
-		if(DATA_HUD_DIAGNOSTIC)
-			data_hud_seen = data_hud_seen + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
-			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
-			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
 		else
 			data_hud_seen = FALSE
-			remove_the_hud(DATA_HUD_DIAGNOSTIC)
-			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>HUDs disabled.</span>")
 

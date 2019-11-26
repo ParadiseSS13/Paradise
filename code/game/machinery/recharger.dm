@@ -107,8 +107,8 @@
 	if(charging)
 		if(istype(charging, /obj/item/gun/energy))
 			var/obj/item/gun/energy/E = charging
-			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
+			if(E.cell.charge < E.cell.maxcharge)
+				E.cell.give(E.cell.chargerate * recharge_coeff)
 				E.on_recharge()
 				use_power(250)
 				using_power = TRUE
@@ -116,8 +116,8 @@
 
 		if(istype(charging, /obj/item/melee/baton))
 			var/obj/item/melee/baton/B = charging
-			if(B.bcell)
-				if(B.bcell.give(B.bcell.chargerate))
+			if(B.cell)
+				if(B.cell.give(B.cell.chargerate))
 					use_power(200)
 					using_power = TRUE
 
@@ -141,8 +141,8 @@
 
 		if(istype(charging, /obj/item/bodyanalyzer))
 			var/obj/item/bodyanalyzer/B = charging
-			if(B.power_supply)
-				if(B.power_supply.give(B.power_supply.chargerate))
+			if(B.cell)
+				if(B.cell.give(B.cell.chargerate))
 					use_power(200)
 					using_power = TRUE
 
@@ -155,13 +155,13 @@
 
 	if(istype(charging,  /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = charging
-		if(E.power_supply)
-			E.power_supply.emp_act(severity)
+		if(E.cell)
+			E.cell.emp_act(severity)
 
 	else if(istype(charging, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = charging
-		if(B.bcell)
-			B.bcell.charge = 0
+		if(B.cell)
+			B.cell.charge = 0
 	..(severity)
 
 /obj/machinery/recharger/update_icon(using_power = FALSE)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
@@ -177,21 +177,21 @@
 	icon_state = icon_state_idle
 
 /obj/machinery/recharger/examine(mob/user)
-	..()
+	. = ..()
 	if(charging && (!in_range(user, src) && !issilicon(user) && !isobserver(user)))
-		to_chat(user, "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>")
+		. += "<span class='warning'>You're too far away to examine [src]'s contents and display!</span>"
 		return
 
 	if(charging)
-		to_chat(user, "<span class='notice'>\The [src] contains:</span>")
-		to_chat(user, "<span class='notice'>- \A [charging].</span>")
+		. += "<span class='notice'>\The [src] contains:</span>"
+		. += "<span class='notice'>- \A [charging].</span>"
 		if(!(stat & (NOPOWER|BROKEN)))
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
-			to_chat(user, "<span class='notice'>The status display reads:<span>")
+			. += "<span class='notice'>The status display reads:<span>"
 			if(using_power)
-				to_chat(user, "<span class='notice'>- Recharging <b>[(C.chargerate/C.maxcharge)*100]%</b> cell charge per cycle.<span>")
+				. += "<span class='notice'>- Recharging <b>[(C.chargerate/C.maxcharge)*100]%</b> cell charge per cycle.<span>"
 			if(charging)
-				to_chat(user, "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>")
+				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.<span>"
 
 // Atlantis: No need for that copy-pasta code, just use var to store icon_states instead.
 /obj/machinery/recharger/wallcharger

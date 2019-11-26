@@ -73,7 +73,8 @@
 		qdel()
 
 /mob/living/simple_animal/hostile/guardian/proc/snapback()
-	if(summoner)
+	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
+	if(summoner && loc && summoner.loc)
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
@@ -309,7 +310,7 @@
 /obj/item/guardiancreator/examine(mob/user, distance)
 	. = ..()
 	if(used)
-		to_chat(user, "<span class='notice'>[used_message]</span>")
+		. += "<span class='notice'>[used_message]</span>"
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key)
 	var/guardian_type = "Standard"

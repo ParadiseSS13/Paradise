@@ -24,7 +24,7 @@
 	density = 1
 	max_integrity = 300
 	integrity_failure = 100
-	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	var/icon_vend //Icon_state when vending
 	var/icon_deny //Icon_state when denying access
 
@@ -121,9 +121,10 @@
 	product_records = list()
 	hidden_records = list()
 	coin_records = list()
-	build_inventory(products, product_records, start_empty = TRUE)
-	build_inventory(contraband, hidden_records, start_empty = TRUE)
-	build_inventory(premium, coin_records, start_empty = TRUE)
+	if(refill_canister)
+		build_inventory(products, product_records, start_empty = TRUE)
+		build_inventory(contraband, hidden_records, start_empty = TRUE)
+		build_inventory(premium, coin_records, start_empty = TRUE)
 	for(var/obj/item/vending_refill/VR in component_parts)
 		restock(VR)
 
@@ -212,16 +213,6 @@
 		var/datum/data/vending_product/record = R
 		.[record.product_path] += record.amount
 
-/obj/machinery/vending/ex_act(severity) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
-
 /obj/machinery/vending/deconstruct(disassembled = TRUE)
 	eject_item()
 	if(!refill_canister) //the non constructable vendors drop metal instead of a machine frame.
@@ -229,9 +220,6 @@
 		qdel(src)
 	else
 		..()
-
-/obj/machinery/vending/blob_act(obj/structure/blob/B) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
 	if(currently_vending && vendor_account && !vendor_account.suspended)
@@ -338,12 +326,12 @@
 	var/moved = 0
 	if(panel_open || W.works_from_distance)
 		if(W.works_from_distance)
-			display_parts(user)
+			to_chat(user, display_parts(user))
 		for(var/I in W)
 			if(istype(I, refill_canister))
 				moved += restock(I)
 	else
-		display_parts(user)
+		to_chat(user, display_parts(user))
 	if(moved)
 		to_chat(user, "[moved] items restocked.")
 		W.play_rped_sound()
@@ -1070,7 +1058,8 @@
 					/obj/item/gun/projectile/shotgun = 2,/obj/item/gun/projectile/automatic/ar = 2)
 	premium = list(/obj/item/ammo_box/magazine/smgm9mm = 2,/obj/item/ammo_box/magazine/m50 = 4,/obj/item/ammo_box/magazine/m45 = 2,/obj/item/ammo_box/magazine/m75 = 2)
 	contraband = list(/obj/item/clothing/under/patriotsuit = 1,/obj/item/bedsheet/patriot = 3)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 
 /obj/machinery/vending/toyliberationstation
@@ -1097,7 +1086,8 @@
 					  /obj/item/toy/katana = 10,
 					  /obj/item/twohanded/dualsaber/toy = 5,
 					  /obj/item/toy/cards/deck/syndicate = 10) //Gambling and it hurts, making it a +18 item
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/cigarette
 	name = "cigarette machine"
@@ -1172,7 +1162,8 @@
 					/obj/item/stack/medical/splint = 4, /obj/item/reagent_containers/glass/beaker = 4, /obj/item/reagent_containers/dropper = 4, /obj/item/healthanalyzer = 4,
 					/obj/item/healthupgrade = 4, /obj/item/reagent_containers/hypospray/safety = 2, /obj/item/sensor_device = 2, /obj/item/pinpointer/crew = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/sulfonal = 1, /obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
 /obj/machinery/vending/medical/syndicate_access
@@ -1204,7 +1195,8 @@
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed
 
 /obj/machinery/vending/wallmed/Initialize(mapload)
@@ -1275,16 +1267,57 @@
 	product_slogans = "THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!;Hands down the best seed selection on the station!;Also certain mushroom varieties available, more for experts! Get certified today!"
 	product_ads = "We like plants!;Grow some crops!;Grow, baby, growww!;Aw h'yeah son!"
 	icon_state = "seeds"
-	products = list(/obj/item/seeds/aloe =3, /obj/item/seeds/ambrosia = 3, /obj/item/seeds/apple = 3, /obj/item/seeds/cotton = 3, /obj/item/seeds/banana = 3, /obj/item/seeds/berry = 3,
-						/obj/item/seeds/cabbage = 3, /obj/item/seeds/carrot = 3, /obj/item/seeds/cherry = 3, /obj/item/seeds/chanter = 3,
-						/obj/item/seeds/chili = 3, /obj/item/seeds/cocoapod = 3, /obj/item/seeds/coffee = 3, /obj/item/seeds/comfrey =3, /obj/item/seeds/corn = 3,
-						/obj/item/seeds/nymph =3, /obj/item/seeds/eggplant = 3, /obj/item/seeds/grape = 3, /obj/item/seeds/grass = 3, /obj/item/seeds/lemon = 3,
-						/obj/item/seeds/lime = 3, /obj/item/seeds/onion = 3, /obj/item/seeds/orange = 3, /obj/item/seeds/peanuts = 3, /obj/item/seeds/pineapple = 3, /obj/item/seeds/potato = 3, /obj/item/seeds/poppy = 3,
-						/obj/item/seeds/pumpkin = 3, /obj/item/seeds/replicapod = 3, /obj/item/seeds/wheat/rice = 3, /obj/item/seeds/soya = 3, /obj/item/seeds/sunflower = 3, /obj/item/seeds/sugarcane = 3,
-						/obj/item/seeds/tea = 3, /obj/item/seeds/tobacco = 3, /obj/item/seeds/tomato = 3,
-						/obj/item/seeds/tower = 3, /obj/item/seeds/watermelon = 3, /obj/item/seeds/wheat = 3, /obj/item/seeds/whitebeet = 3)
-	contraband = list(/obj/item/seeds/amanita = 2, /obj/item/seeds/glowshroom = 2, /obj/item/seeds/liberty = 2, /obj/item/seeds/nettle = 2,
-						/obj/item/seeds/plump = 2, /obj/item/seeds/reishi = 2, /obj/item/seeds/cannabis = 3, /obj/item/seeds/starthistle = 2, /obj/item/seeds/fungus = 3, /obj/item/seeds/random = 2)
+	products = list(/obj/item/seeds/aloe =3,
+					/obj/item/seeds/ambrosia = 3,
+					/obj/item/seeds/apple = 3,
+					/obj/item/seeds/banana = 3,
+					/obj/item/seeds/berry = 3,
+					/obj/item/seeds/cabbage = 3,
+					/obj/item/seeds/carrot = 3,
+					/obj/item/seeds/cherry = 3,
+					/obj/item/seeds/chanter = 3,
+					/obj/item/seeds/chili = 3,
+					/obj/item/seeds/cocoapod = 3,
+					/obj/item/seeds/coffee = 3,
+					/obj/item/seeds/comfrey =3,
+					/obj/item/seeds/corn = 3,
+					/obj/item/seeds/cotton = 3,
+					/obj/item/seeds/nymph =3,
+					/obj/item/seeds/eggplant = 3,
+					/obj/item/seeds/garlic = 3,
+					/obj/item/seeds/grape = 3,
+					/obj/item/seeds/grass = 3,
+					/obj/item/seeds/lemon = 3,
+					/obj/item/seeds/lime = 3,
+					/obj/item/seeds/onion = 3,
+					/obj/item/seeds/orange = 3,
+					/obj/item/seeds/peanuts = 3,
+					/obj/item/seeds/pineapple = 3,
+					/obj/item/seeds/poppy = 3,
+					/obj/item/seeds/potato = 3,
+					/obj/item/seeds/pumpkin = 3,
+					/obj/item/seeds/replicapod = 3,
+					/obj/item/seeds/wheat/rice = 3,
+					/obj/item/seeds/soya = 3,
+					/obj/item/seeds/sugarcane = 3,
+					/obj/item/seeds/sunflower = 3,
+					/obj/item/seeds/tea = 3,
+					/obj/item/seeds/tobacco = 3,
+					/obj/item/seeds/tomato = 3,
+					/obj/item/seeds/tower = 3,
+					/obj/item/seeds/watermelon = 3,
+					/obj/item/seeds/wheat = 3,
+					/obj/item/seeds/whitebeet = 3)
+	contraband = list(/obj/item/seeds/cannabis = 3,
+					  /obj/item/seeds/amanita = 2,
+					  /obj/item/seeds/fungus = 3,
+					  /obj/item/seeds/glowshroom = 2,
+					  /obj/item/seeds/liberty = 2,
+					  /obj/item/seeds/nettle = 2,
+					  /obj/item/seeds/plump = 2,
+					  /obj/item/seeds/reishi = 2,
+					  /obj/item/seeds/starthistle = 2,
+					  /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
@@ -1316,7 +1349,8 @@
 					/obj/item/clothing/shoes/clown_shoes/magical = 1,
 					/obj/item/twohanded/staff = 2)
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/autodrobe
 	name = "\improper AutoDrobe"
@@ -1326,41 +1360,131 @@
 	product_slogans = "Dress for success!;Suited and booted!;It's show time!;Why leave style up to fate? Use AutoDrobe!"
 	vend_delay = 15
 	vend_reply = "Thank you for using AutoDrobe!"
-	products = list(/obj/item/clothing/suit/chickensuit = 1,/obj/item/clothing/head/chicken = 1,/obj/item/clothing/under/gladiator = 1,
-					/obj/item/clothing/head/helmet/gladiator = 1,/obj/item/clothing/under/gimmick/rank/captain/suit = 1,/obj/item/clothing/head/flatcap = 1,
-					/obj/item/clothing/suit/storage/labcoat/mad = 1,/obj/item/clothing/glasses/gglasses = 1,/obj/item/clothing/shoes/jackboots = 1,
-					/obj/item/clothing/under/schoolgirl = 1,/obj/item/clothing/head/kitty = 1,/obj/item/clothing/under/blackskirt = 1,
-					/obj/item/clothing/suit/toggle/owlwings = 1, /obj/item/clothing/under/owl = 1,/obj/item/clothing/mask/gas/owl_mask = 1,
-					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 1, /obj/item/clothing/under/griffin = 1, /obj/item/clothing/shoes/griffin = 1, /obj/item/clothing/head/griffin = 1,
-					/obj/item/clothing/accessory/waistcoat = 1,/obj/item/clothing/under/suit_jacket = 1,/obj/item/clothing/head/that =1,/obj/item/clothing/under/kilt = 1,/obj/item/clothing/accessory/waistcoat = 1,
-					/obj/item/clothing/glasses/monocle =1,/obj/item/clothing/head/bowlerhat = 1,/obj/item/cane = 1,/obj/item/clothing/under/sl_suit = 1,
-					/obj/item/clothing/mask/fakemoustache = 1,/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,/obj/item/clothing/head/plaguedoctorhat = 1,/obj/item/clothing/mask/gas/plaguedoctor = 1,
-					/obj/item/clothing/suit/apron = 1,/obj/item/clothing/under/waiter = 1,/obj/item/clothing/suit/jacket/miljacket = 1,
-					/obj/item/clothing/suit/jacket/miljacket/white = 1, /obj/item/clothing/suit/jacket/miljacket/desert = 1, /obj/item/clothing/suit/jacket/miljacket/navy = 1,
-					/obj/item/clothing/under/pirate = 1,/obj/item/clothing/suit/pirate_brown = 1,/obj/item/clothing/suit/pirate_black =1,/obj/item/clothing/under/pirate_rags =1,/obj/item/clothing/head/pirate = 1,/obj/item/clothing/head/bandana = 1,
-					/obj/item/clothing/head/bandana = 1,/obj/item/clothing/under/soviet = 1,/obj/item/clothing/head/ushanka = 1,/obj/item/clothing/suit/imperium_monk = 1,
-					/obj/item/clothing/mask/gas/cyborg = 1,/obj/item/clothing/suit/holidaypriest = 1,/obj/item/clothing/head/wizard/marisa/fake = 1,
-					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,/obj/item/clothing/under/sundress = 1,/obj/item/clothing/head/witchwig = 1,/obj/item/twohanded/staff/broom = 1,
-					/obj/item/clothing/suit/wizrobe/fake = 1,/obj/item/clothing/head/wizard/fake = 1,/obj/item/twohanded/staff = 3,/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
-					/obj/item/clothing/under/rank/clown/sexy = 1,/obj/item/clothing/mask/gas/sexymime = 1,/obj/item/clothing/under/sexymime = 1,
-					/obj/item/clothing/mask/face/bat = 1,/obj/item/clothing/mask/face/bee = 1,/obj/item/clothing/mask/face/bear = 1,/obj/item/clothing/mask/face/raven = 1,/obj/item/clothing/mask/face/jackal = 1,/obj/item/clothing/mask/face/fox = 1,/obj/item/clothing/mask/face/tribal = 1,/obj/item/clothing/mask/face/rat = 1,
+	products = list(/obj/item/clothing/suit/chickensuit = 1,
+					/obj/item/clothing/head/chicken = 1,
+					/obj/item/clothing/under/gladiator = 1,
+					/obj/item/clothing/head/helmet/gladiator = 1,
+					/obj/item/clothing/under/gimmick/rank/captain/suit = 1,
+					/obj/item/clothing/head/flatcap = 1,
+					/obj/item/clothing/suit/storage/labcoat/mad = 1,
+					/obj/item/clothing/glasses/gglasses = 1,
+					/obj/item/clothing/shoes/jackboots = 1,
+					/obj/item/clothing/under/schoolgirl = 1,
+					/obj/item/clothing/head/kitty = 1,
+					/obj/item/clothing/under/blackskirt = 1,
+					/obj/item/clothing/suit/toggle/owlwings = 1,
+					/obj/item/clothing/under/owl = 1,
+					/obj/item/clothing/mask/gas/owl_mask = 1,
+					/obj/item/clothing/suit/toggle/owlwings/griffinwings = 1,
+					/obj/item/clothing/under/griffin = 1,
+					/obj/item/clothing/shoes/griffin = 1,
+					/obj/item/clothing/head/griffin = 1,
+					/obj/item/clothing/accessory/waistcoat = 1,
+					/obj/item/clothing/under/suit_jacket = 1,
+					/obj/item/clothing/head/that =1,
+					/obj/item/clothing/under/kilt = 1,
+					/obj/item/clothing/accessory/waistcoat = 1,
+					/obj/item/clothing/glasses/monocle =1,
+					/obj/item/clothing/head/bowlerhat = 1,
+					/obj/item/cane = 1,
+					/obj/item/clothing/under/sl_suit = 1,
+					/obj/item/clothing/mask/fakemoustache = 1,
+					/obj/item/clothing/suit/bio_suit/plaguedoctorsuit = 1,
+					/obj/item/clothing/head/plaguedoctorhat = 1,
+					/obj/item/clothing/mask/gas/plaguedoctor = 1,
+					/obj/item/clothing/suit/apron = 1,
+					/obj/item/clothing/under/waiter = 1,
+					/obj/item/clothing/suit/jacket/miljacket = 1,
+					/obj/item/clothing/suit/jacket/miljacket/white = 1,
+					/obj/item/clothing/suit/jacket/miljacket/desert = 1,
+					/obj/item/clothing/suit/jacket/miljacket/navy = 1,
+					/obj/item/clothing/under/pirate = 1,
+					/obj/item/clothing/suit/pirate_brown = 1,
+					/obj/item/clothing/suit/pirate_black =1,
+					/obj/item/clothing/under/pirate_rags =1,
+					/obj/item/clothing/head/pirate = 1,
+					/obj/item/clothing/head/bandana = 1,
+					/obj/item/clothing/head/bandana = 1,
+					/obj/item/clothing/under/soviet = 1,
+					/obj/item/clothing/head/ushanka = 1,
+					/obj/item/clothing/suit/imperium_monk = 1,
+					/obj/item/clothing/mask/gas/cyborg = 1,
+					/obj/item/clothing/suit/holidaypriest = 1,
+					/obj/item/clothing/head/wizard/marisa/fake = 1,
+					/obj/item/clothing/suit/wizrobe/marisa/fake = 1,
+					/obj/item/clothing/under/sundress = 1,
+					/obj/item/clothing/head/witchwig = 1,
+					/obj/item/twohanded/staff/broom = 1,
+					/obj/item/clothing/suit/wizrobe/fake = 1,
+					/obj/item/clothing/head/wizard/fake = 1,
+					/obj/item/twohanded/staff = 3,
+					/obj/item/clothing/mask/gas/clown_hat/sexy = 1,
+					/obj/item/clothing/under/rank/clown/sexy = 1,
+					/obj/item/clothing/mask/gas/sexymime = 1,
+					/obj/item/clothing/under/sexymime = 1,
+					/obj/item/clothing/mask/face/bat = 1,
+					/obj/item/clothing/mask/face/bee = 1,
+					/obj/item/clothing/mask/face/bear = 1,
+					/obj/item/clothing/mask/face/raven = 1,
+					/obj/item/clothing/mask/face/jackal = 1,
+					/obj/item/clothing/mask/face/fox = 1,
+					/obj/item/clothing/mask/face/tribal = 1,
+					/obj/item/clothing/mask/face/rat = 1,
 					/obj/item/clothing/suit/apron/overalls = 1,
-					/obj/item/clothing/head/rabbitears =1, /obj/item/clothing/head/sombrero = 1, /obj/item/clothing/suit/poncho = 1,
-					/obj/item/clothing/suit/poncho/green = 1, /obj/item/clothing/suit/poncho/red = 1, /obj/item/clothing/accessory/blue = 1, /obj/item/clothing/accessory/red = 1, /obj/item/clothing/accessory/black = 1, /obj/item/clothing/accessory/horrible = 1,
-					/obj/item/clothing/under/maid = 1, /obj/item/clothing/under/janimaid = 1,
-					/obj/item/clothing/under/jester = 1, /obj/item/clothing/head/jester = 1,
-					/obj/item/clothing/under/pants/camo = 1, /obj/item/clothing/mask/bandana = 1, /obj/item/clothing/mask/bandana/black = 1,
-					/obj/item/clothing/shoes/singery = 1,/obj/item/clothing/under/singery = 1,
-					/obj/item/clothing/shoes/singerb = 1,/obj/item/clothing/under/singerb = 1,
-					/obj/item/clothing/suit/hooded/carp_costume = 1,/obj/item/clothing/suit/hooded/bee_costume = 1,
-					/obj/item/clothing/suit/snowman = 1,/obj/item/clothing/head/snowman = 1,
-					/obj/item/clothing/head/cueball = 1,/obj/item/clothing/under/scratch = 1,
-					/obj/item/clothing/under/victdress = 1, /obj/item/clothing/under/victdress/red = 1, /obj/item/clothing/suit/victcoat = 1, /obj/item/clothing/suit/victcoat/red = 1,
-					/obj/item/clothing/under/victsuit = 1, /obj/item/clothing/under/victsuit/redblk = 1, /obj/item/clothing/under/victsuit/red = 1, /obj/item/clothing/suit/tailcoat = 1,
-					/obj/item/clothing/suit/draculacoat = 1, /obj/item/clothing/head/zepelli = 1,
-					/obj/item/clothing/under/redhawaiianshirt = 1, /obj/item/clothing/under/pinkhawaiianshirt = 1, /obj/item/clothing/under/bluehawaiianshirt = 1, /obj/item/clothing/under/orangehawaiianshirt = 1)
-	contraband = list(/obj/item/clothing/suit/judgerobe = 1,/obj/item/clothing/head/powdered_wig = 1,/obj/item/gun/magic/wand = 1, /obj/item/clothing/mask/balaclava=1, /obj/item/clothing/mask/horsehead = 2)
-	premium = list(/obj/item/clothing/suit/hgpirate = 1, /obj/item/clothing/head/hgpiratecap = 1, /obj/item/clothing/head/helmet/roman = 1, /obj/item/clothing/head/helmet/roman/legionaire = 1, /obj/item/clothing/under/roman = 1, /obj/item/clothing/shoes/roman = 1, /obj/item/shield/riot/roman = 1)
+					/obj/item/clothing/head/rabbitears =1,
+					/obj/item/clothing/head/sombrero = 1,
+					/obj/item/clothing/suit/poncho = 1,
+					/obj/item/clothing/suit/poncho/green = 1,
+					/obj/item/clothing/suit/poncho/red = 1,
+					/obj/item/clothing/accessory/blue = 1,
+					/obj/item/clothing/accessory/red = 1,
+					/obj/item/clothing/accessory/black = 1,
+					/obj/item/clothing/accessory/horrible = 1,
+					/obj/item/clothing/under/maid = 1,
+					/obj/item/clothing/under/janimaid = 1,
+					/obj/item/clothing/under/jester = 1,
+					/obj/item/clothing/head/jester = 1,
+					/obj/item/clothing/under/pants/camo = 1,
+					/obj/item/clothing/mask/bandana = 1,
+					/obj/item/clothing/mask/bandana/black = 1,
+					/obj/item/clothing/shoes/singery = 1,
+					/obj/item/clothing/under/singery = 1,
+					/obj/item/clothing/shoes/singerb = 1,
+					/obj/item/clothing/under/singerb = 1,
+					/obj/item/clothing/suit/hooded/carp_costume = 1,
+					/obj/item/clothing/suit/hooded/bee_costume = 1,
+					/obj/item/clothing/suit/snowman = 1,
+					/obj/item/clothing/head/snowman = 1,
+					/obj/item/clothing/head/cueball = 1,
+					/obj/item/clothing/under/scratch = 1,
+					/obj/item/clothing/under/victdress = 1,
+					/obj/item/clothing/under/victdress/red = 1,
+					/obj/item/clothing/suit/victcoat = 1,
+					/obj/item/clothing/suit/victcoat/red = 1,
+					/obj/item/clothing/under/victsuit = 1,
+					/obj/item/clothing/under/victsuit/redblk = 1,
+					/obj/item/clothing/under/victsuit/red = 1,
+					/obj/item/clothing/suit/tailcoat = 1,
+					/obj/item/clothing/suit/draculacoat = 1,
+					/obj/item/clothing/head/zepelli = 1,
+					/obj/item/clothing/under/redhawaiianshirt = 1,
+					/obj/item/clothing/under/pinkhawaiianshirt = 1,
+					/obj/item/clothing/under/bluehawaiianshirt = 1,
+					/obj/item/clothing/under/orangehawaiianshirt = 1)
+	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
+					  /obj/item/clothing/head/powdered_wig = 1,
+					  /obj/item/gun/magic/wand = 1,
+					  /obj/item/clothing/mask/balaclava=1,
+					  /obj/item/clothing/mask/horsehead = 2)
+	premium = list(/obj/item/clothing/suit/hgpirate = 1,
+				   /obj/item/clothing/head/hgpiratecap = 1,
+				   /obj/item/clothing/head/helmet/roman/fake = 1,
+				   /obj/item/clothing/head/helmet/roman/legionaire/fake = 1,
+				   /obj/item/clothing/under/roman = 1,
+				   /obj/item/clothing/shoes/roman = 1,
+				   /obj/item/shield/riot/roman/fake = 1,
+				   /obj/item/clothing/under/cuban_suit = 1,
+				   /obj/item/clothing/head/cuban_hat = 1)
 	refill_canister = /obj/item/vending_refill/autodrobe
 
 /obj/machinery/vending/autodrobe/Initialize(mapload)
@@ -1410,6 +1534,7 @@
 	product_ads = "For Tsar and Country.;Have you fulfilled your nutrition quota today?;Very nice!;We are simple people, for this is all we eat.;If there is a person, there is a problem. If there is no person, then there is no problem."
 	products = list(/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30)
 	contraband = list(/obj/item/reagent_containers/food/drinks/drinkingglass/cola = 20)
+	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/sovietsoda
 
 /obj/machinery/vending/sovietsoda/Initialize(mapload)
@@ -1431,7 +1556,8 @@
 					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
+	resistance_flags = FIRE_PROOF
 
 /obj/machinery/vending/engivend
 	name = "\improper Engi-Vend"
@@ -1464,7 +1590,7 @@
 					/obj/item/crowbar = 12,/obj/item/wirecutters = 12,/obj/item/multitool = 12,/obj/item/wrench = 12,/obj/item/t_scanner = 12,
 					/obj/item/stack/cable_coil/heavyduty = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8,/obj/item/clothing/head/welding = 8,
 					/obj/item/light/tube = 10,/obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5,/obj/item/stock_parts/micro_laser = 5,
-					/obj/item/stock_parts/matter_bin = 5,/obj/item/stock_parts/manipulator = 5,/obj/item/stock_parts/console_screen = 5)
+					/obj/item/stock_parts/matter_bin = 5,/obj/item/stock_parts/manipulator = 5)
 	refill_canister = /obj/item/vending_refill/engineering
 
 /obj/machinery/vending/engineering/Initialize(mapload)

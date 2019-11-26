@@ -1,4 +1,0 @@
-author: "TheSardele"
-delete-after: True
-changes: 
-  - tweak: "Changes the attack log setting required to have the blood-drunk miner buff actively log to all attack logs."

@@ -43,6 +43,16 @@
 			user.visible_message("<span class='warning'>[user] gently taps [src] with the [O]. </span>", "<span class='warning'>This weapon is ineffective, it does no damage.</span>")
 	return
 
+/mob/living/simple_animal/shade/cult/Initialize(mapload)
+	. = ..()
+	name = SSticker.cultdat?.shade_name
+	real_name = SSticker.cultdat?.shade_name
+	icon_state = SSticker.cultdat?.shade_icon_state
+
 /mob/living/simple_animal/shade/sword
 	universal_speak = 1
 	faction = list("neutral")
+
+/mob/living/simple_animal/shade/sword/Initialize(mapload)
+	.=..()
+	status_flags |= GODMODE

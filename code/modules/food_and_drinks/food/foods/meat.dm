@@ -7,7 +7,6 @@
 	name = "meat"
 	desc = "A slab of meat"
 	icon_state = "meat"
-	health = 180
 	filling_color = "#FF1C1C"
 	bitesize = 3
 	list_reagents = list("protein" = 3)
@@ -142,7 +141,7 @@
 	tastes = list("tough meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/goliath/burn()
-	visible_message("[src] finishes cooking!")
+	visible_message("<span class='notice'>[src] finishes cooking!</span>")
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
 
@@ -239,7 +238,7 @@
 /obj/item/reagent_containers/food/snacks/goliath_steak
 	name = "goliath steak"
 	desc = "A delicious, lava cooked steak."
-	burn_state = LAVA_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "goliathsteak"
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
@@ -271,6 +270,12 @@
 	return 1
 
 /obj/item/reagent_containers/food/snacks/monkeycube/proc/Expand()
+	if(LAZYLEN(SSmobs.cubemonkeys) >= config.cubemonkeycap)
+		if(fingerprintslast)
+			to_chat(get_mob_by_ckey(fingerprintslast), "<span class='warning'>Bluespace harmonics prevent the spawning of more than [config.cubemonkeycap] monkeys on the station at one time!</span>")
+		else
+			visible_message("<span class='notice'>[src] fails to expand!</span>")
+		return
 	if(!QDELETED(src))
 		visible_message("<span class='notice'>[src] expands!</span>")
 		if(fingerprintslast)
@@ -283,6 +288,7 @@
 		if(LAZYLEN(fingerprintshidden))
 			creature.fingerprintshidden = fingerprintshidden.Copy()
 		creature.set_species(monkey_type)
+		SSmobs.cubemonkeys += creature
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/monkeycube/syndicate

@@ -68,8 +68,8 @@
 
 
 /obj/item/lightreplacer/examine(mob/user)
-	..()
-	to_chat(user, status_string())
+	. = ..()
+	. += status_string()
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass))
@@ -238,6 +238,7 @@
 		return 0
 
 /obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
+	. = ..()
 	if(!proximity)
 		return
 	if(!isturf(T))

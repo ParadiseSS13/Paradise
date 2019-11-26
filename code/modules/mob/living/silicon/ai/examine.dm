@@ -1,9 +1,5 @@
 /mob/living/silicon/ai/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*</span>")
-	if(!..(user))
-		to_chat(user, "<span class='info'>*---------*</span>")
-		return
-
+	. = ..()
 	var/msg = "<span class='info'>"
 	if(src.stat == DEAD)
 		msg += "<span class='deadsay'>It appears to be powered-down.</span>\n"
@@ -26,7 +22,7 @@
 		msg += "</span>"
 	msg += "*---------*</span>"
 
-	to_chat(user, msg)
+	. += msg
 	user.showLaws(src)
 
 

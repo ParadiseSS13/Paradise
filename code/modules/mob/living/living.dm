@@ -266,6 +266,10 @@
 	..()
 	flash_eyes()
 
+/mob/living/acid_act(acidpwr, acid_volume)
+	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
+	return 1
+
 /mob/living/proc/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
@@ -362,24 +366,15 @@
 			return 1
 	return 0
 
-
+// Living mobs use can_inject() to make sure that the mob is not syringe-proof in general.
 /mob/living/proc/can_inject()
 	return TRUE
 
-/mob/living/is_injectable(allowmobs = TRUE)
-	return (allowmobs && reagents && can_inject())
+/mob/living/is_injectable(mob/user, allowmobs = TRUE)
+	return (allowmobs && reagents && can_inject(user))
 
-/mob/living/is_drawable(allowmobs = TRUE)
-	return (allowmobs && reagents && can_inject())
-
-/mob/living/proc/get_organ_target()
-	var/mob/shooter = src
-	var/t = shooter:zone_sel.selecting
-	if((t in list( "eyes", "mouth" )))
-		t = "head"
-	var/obj/item/organ/external/def_zone = ran_zone(t)
-	return def_zone
-
+/mob/living/is_drawable(mob/user, allowmobs = TRUE)
+	return (allowmobs && reagents && can_inject(user))
 
 /mob/living/proc/restore_all_organs()
 	return
@@ -427,7 +422,7 @@
 	radiation = 0
 	SetDruggy(0)
 	SetHallucinate(0)
-	nutrition = NUTRITION_LEVEL_FED + 50
+	set_nutrition(NUTRITION_LEVEL_FED + 50)
 	bodytemperature = 310
 	CureBlind()
 	CureNearsighted()
@@ -446,12 +441,7 @@
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
-		buckled.buckled_mob = null
-		buckled = null
-		anchored = initial(anchored)
-		update_canmove()
-		clear_alert("buckled")
-		post_buckle_mob(src)
+		buckled.unbuckle_mob(src, force = TRUE)
 
 	if(iscarbon(src))
 		var/mob/living/carbon/C = src
@@ -483,6 +473,16 @@
 		human_mob.update_eyes()
 		human_mob.update_dna()
 	return
+
+/mob/living/proc/remove_CC(should_update_canmove = TRUE)
+	SetWeakened(0, FALSE)
+	SetStunned(0, FALSE)
+	SetParalysis(0, FALSE)
+	SetSleeping(0, FALSE)
+	setStaminaLoss(0)
+	SetSlowed(0)
+	if(should_update_canmove)
+		update_canmove()
 
 /mob/living/proc/UpdateDamageIcon()
 	return
@@ -545,10 +545,6 @@
 
 	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
-
-	if(update_slimes)
-		for(var/mob/living/carbon/slime/M in view(1,src))
-			M.UpdateFeed(src)
 
 
 /mob/living/proc/handle_footstep(turf/T)
@@ -637,11 +633,14 @@
 	START RESIST PROCS
 *///////////////////////
 
+/mob/living/can_resist()
+	return !((next_move > world.time) || incapacitated(ignore_restraints = TRUE, ignore_lying = TRUE))
+
 /mob/living/verb/resist()
 	set name = "Resist"
 	set category = "IC"
 
-	if(!isliving(src) || next_move > world.time || stat || weakened || stunned || paralysis)
+	if(!can_resist())
 		return
 	changeNext_move(CLICK_CD_RESIST)
 
@@ -797,13 +796,16 @@
 				add_attack_logs(src, who, "Equipped [what]")
 
 /mob/living/singularity_act()
-	var/gain = 20
 	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
 	gib()
-	return(gain)
+	return 20
 
-/mob/living/singularity_pull(S)
-	step_towards(src,S)
+/mob/living/singularity_pull(S, current_size)
+	..()
+	if(current_size >= STAGE_SIX) //your puny magboots/wings/whatever will not save you against supermatter singularity
+		throw_at(S, 14, 3, src, TRUE)
+	else if(!mob_negates_gravity())
+		step_towards(src,S)
 
 /mob/living/narsie_act()
 	if(client)

@@ -2,12 +2,14 @@
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
 	var/tome_icon = "tome"
+
 	//God Entity
 	var/entity_name = "Nar'Sie"
 	var/entity_title1 = "The Dark One"
 	var/entity_title2 = "The One Who Sees"
 	var/entity_title3 = "The Geometer of Blood"
 	var/entity_icon_state = "narsie"
+	var/entity_spawn_animation = "narsie_spawn_anim"
 
 
 	//Builder Construct
@@ -24,6 +26,8 @@
 	var/wraith_name = "Wraith"
 	var/wraith_icon_state = "floating"
 	var/wraith_dead_state = "shade_dead"
+	var/wraith_jaunt_out_animation = "phase_shift"
+	var/wraith_jaunt_in_animation = "phase_shift2"
 
 	//Armored Construct
 	var/juggernaut_name = "Juggernaut"
@@ -43,6 +47,29 @@
 	//Turfs
 	var/cult_floor_icon_state = "cult"
 	var/cult_wall_icon_state = "cult"
+	var/cult_girder_icon_state = "cultgirder"
+
+	//Structures
+	var/pylon_icon_state = "pylon"
+	var/pylon_icon_state_off = "pylon_off"
+
+	var/forge_icon_state = "forge"
+	var/forge_icon_state_off = "forge_off"
+
+	var/altar_icon_state = "altar"
+	var/altar_icon_state_off = "altar_off"
+
+	var/archives_icon_state = "archives"
+	var/archives_icon_state_off = "archives_off"
+
+	var/runed_metal_icon_state = "sheet-runed"
+
+	var/airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
+	var/airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
+
+	var/airlock_unruned_icon_file = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
+	var/airlock_unruned_overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
+
 
 /datum/cult_info/fire
 	name = "Cult of Pyr'Kaeus"
@@ -79,33 +106,60 @@
 /datum/cult_info/death
 	name = "Cult of Mortality"
 	theme = "death"
-	tome_icon = "firetome"
+	tome_icon = "deathtome"
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"
 	entity_title2 = "The One Who Beckons"
 	entity_title3 = "The Ferryman of Oblivion"
-	entity_icon_state = "legion"
+	entity_icon_state = "reaper"
+	entity_spawn_animation = "reaper_spawn_anim"
 
 	cult_wall_icon_state = "deathcult"
-	cult_floor_icon_state = "carpet-broken"
+	cult_floor_icon_state = "cultdeath"
+	cult_girder_icon_state = "reaper_cultgirder"
 
 	artificer_name = "Boneshaper"
+	artificer_icon_state = "boneshaper"
 
 	behemoth_name = "Draugr"
-	behemoth_icon_state = "Draugr"
+	behemoth_icon_state = "golem"
 
-	wraith_name = "Wraith"
-	wraith_icon_state = "Wraith"
+	wraith_name = "Envoy of Death"
+	wraith_icon_state = "envoy_of_death"
+	wraith_jaunt_out_animation = "shadowstep_out"
+	wraith_jaunt_in_animation = "shadowstep_in"
 
-	juggernaut_name = "Wight"
-	juggernaut_icon_state = "Draugr"
+	juggernaut_name = "Golem"
+	juggernaut_icon_state = "golem"
 
-	harvester_name = "Psychopomp"
+	harvester_name = "Necrophage"
+	harvester_icon_state = "necrophage"
 
 	shade_name = "Banshee"
+	shade_icon_state = "banshee"
 
-/datum/cult_info/proc/get_name(var/type_to_name)
+	pylon_icon_state = "reaper_pylon"
+	pylon_icon_state_off = "reaper_pylon_off"
+
+	forge_icon_state = "reaper_forge"
+	forge_icon_state_off = "reaper_forge_off"
+
+	altar_icon_state = "reaper_altar"
+	altar_icon_state_off = "reaper_altar_off"
+
+	archives_icon_state = "reaper_archives"
+	archives_icon_state_off = "reaper_archives_off"
+
+	runed_metal_icon_state = "sheet_runed_reaper"
+
+	airlock_runed_icon_file = 'icons/obj/doors/airlocks/cult/runed/reaper.dmi'
+	airlock_runed_overlays_file = 'icons/obj/doors/airlocks/cult/runed/reaper-overlays.dmi'
+
+	airlock_unruned_icon_file = 'icons/obj/doors/airlocks/cult/unruned/reaper.dmi'
+	airlock_unruned_overlays_file = 'icons/obj/doors/airlocks/cult/unruned/reaper-overlays.dmi'
+
+/datum/cult_info/proc/get_name(type_to_name)
 	if(!type_to_name)
 		return
 	switch(type_to_name)
@@ -124,7 +178,7 @@
 		if("shade")
 			return shade_name
 
-/datum/cult_info/proc/get_icon(var/type_to_icon)
+/datum/cult_info/proc/get_icon(type_to_icon)
 	if(!type_to_icon)
 		return
 	switch(type_to_icon)
@@ -142,3 +196,19 @@
 			return wraith_icon_state
 		if("shade")
 			return shade_icon_state
+		if("forge")
+			return forge_icon_state
+		if("forge_off")
+			return forge_icon_state_off
+		if("archives")
+			return archives_icon_state
+		if("archives_off")
+			return archives_icon_state_off
+		if("altar")
+			return altar_icon_state
+		if("altar_off")
+			return altar_icon_state_off
+		if("pylon")
+			return pylon_icon_state
+		if("pylon_off")
+			return pylon_icon_state_off

@@ -66,9 +66,9 @@
 	chambered = AC
 
 /obj/item/gun/projectile/shotgun/examine(mob/user)
-	..()
+	. = ..()
 	if(chambered)
-		to_chat(user, "A [chambered.BB ? "live" : "spent"] one is in the chamber.")
+		. += "A [chambered.BB ? "live" : "spent"] one is in the chamber."
 
 /obj/item/gun/projectile/shotgun/isHandgun() //You cannot, in fact, holster a shotgun.
 	return 0
@@ -239,8 +239,8 @@
 	. = ..()
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
-	..()
-	to_chat(user, "The bolt is [bolt_open ? "open" : "closed"].")
+	. = ..()
+	. += "The bolt is [bolt_open ? "open" : "closed"]."
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted
 	name = "enchanted bolt action rifle"

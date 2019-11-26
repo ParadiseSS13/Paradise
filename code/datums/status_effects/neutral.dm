@@ -43,5 +43,5 @@
 	duration = 40
 	alert_type = null
 
-/datum/status_effect/high_five/on_timeout()
+/datum/status_effect/high_five/on_remove()
 	owner.visible_message("[owner] was left hanging....")

@@ -2,7 +2,6 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	armour_penetration = 0
-	damage_transfer = 0.6
 	playstyle_string = "As an <b>Assassin</b> type you do medium damage and have no damage resistance, but can enter stealth, massively increasing the damage of your next attack and causing it to ignore armor. Stealth is broken when you attack or take damage."
 	magic_fluff_string = "..And draw the Space Ninja, a lethal, invisible assassin."
 	tech_fluff_string = "Boot sequence complete. Assassin modules loaded. Holoparasite swarm online."
