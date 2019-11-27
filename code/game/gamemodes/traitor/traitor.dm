@@ -49,7 +49,6 @@
 			break
 		var/datum/mind/traitor = pick(possible_traitors)
 		pre_traitors += traitor
-		traitor.special_role = SPECIAL_ROLE_TRAITOR
 		traitor.restricted_roles = restricted_jobs
 		possible_traitors.Remove(traitor)
 
