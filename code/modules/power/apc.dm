@@ -749,7 +749,7 @@
 
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
-	if(istype(malf) && malf.mind.has_antag_datum(/datum/antagonist/traitor))
+	if(istype(malf) && malf.mind.has_antag_datum(/datum/antagonist/traitor) || malf.malf_picker) // If they're a traitor OR they have the malf picker from the combat module
 		if(malfai == (malf.parent || malf))
 			if(occupier == malf)
 				return 3 // 3 = User is shunted in this APC
