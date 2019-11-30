@@ -8,7 +8,7 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(!ishuman(user) && !isrobot(user)) //No ghosts or mice putting people into the sleeper
+	if(!ishuman(user) && !isrobot(user) && !(istype(user, /mob/living/simple_animal/spiderbot))) //No ghosts or mice putting people into the sleeper
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
@@ -23,17 +23,17 @@
 	if(L.has_buckled_mobs()) //mob attached to us
 		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
 		return
-	if(istype(L, /mob/living/silicon/robot))
+	if(isrobot(L))
 		var/mob/living/silicon/robot/R = O
 		if(!R.cell)
 			to_chat(user, "<span class='warning'>Without a power cell, [R] can't be recharged.</span>")
-			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
-			return
 		can_accept_user = TRUE
-	if(istype(L, /mob/living/carbon/human))
+	if(ishuman(L))
 		if(!L.get_int_organ(/obj/item/organ/internal/cell))
 			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
+		can_accept_user = TRUE
+	if((istype(L, /mob/living/simple_animal/spiderbot)))
 		can_accept_user = TRUE
 	if(!can_accept_user)
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
