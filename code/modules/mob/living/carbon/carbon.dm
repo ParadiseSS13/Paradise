@@ -771,14 +771,19 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 
 /mob/living/carbon/resist_buckle()
+	var/breakouttime = 600
+
 	spawn(0)
 		resist_muzzle()
 	if(restrained())
+		var/obj/item/I = handcuffed
+		breakouttime = I.breakouttime
+		var/displaytime = breakouttime / 600
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
 		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
-					"<span class='notice'>You attempt to unbuckle yourself... (This will take around one minute and you need to stay still.)</span>")
-		if(do_after(src, 600, 0, target = src))
+					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [displaytime] minute and you need to stay still.)</span>")
+		if(do_after(src, breakouttime, 0, target = src))
 			if(!buckled)
 				return
 			buckled.user_unbuckle_mob(src,src)
