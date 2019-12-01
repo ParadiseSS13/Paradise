@@ -269,9 +269,8 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 5)
 
-//////////////////////
+
 //  HoneyBread       //
-//////////////////////
 
 /obj/item/reagent_containers/food/snacks/sliceable/honeybread
 	name = "honey bread"
@@ -280,7 +279,7 @@
 	icon_state = "honeybread"
 	slice_path = /obj/item/reagent_containers/food/snacks/honeybreadslice
 	slices_num = 5
-	filling_color = "#FF7575"
+	filling_color = "#EFD8A7"
 	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
 	tastes = list("bread" = 10, "honey" = 10)
 
@@ -290,4 +289,4 @@
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "honeybreadslice"
 	trash = /obj/item/trash/plate
-	filling_color = "#FF7575"
+	filling_color = "#EFD8A7"
