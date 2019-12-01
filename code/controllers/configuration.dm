@@ -1,7 +1,6 @@
 /datum/configuration
 	// Hispania Configs
 	var/ryzorbot = "http://example.org"
-	var/br_operation = 0
 
 
 	var/server_name = null				// server name (for world name / status)
