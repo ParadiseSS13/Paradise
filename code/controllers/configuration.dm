@@ -493,9 +493,6 @@
 				if("ryzorbot")
 					config.ryzorbot = value
 
-				if("br_operation")
-					config.br_operation = 1
-
 				if("repositoryurl")
 					config.repositoryurl = value
 
