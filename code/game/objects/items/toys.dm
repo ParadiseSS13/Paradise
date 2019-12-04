@@ -1078,7 +1078,7 @@ obj/item/toy/cards/deck/syndicate/black
 
 /obj/item/toy/plushie/voxplushie/attack_self(mob/user)
 	if(!cooldown)
-		playsound(user, 'sound/voice/shriek1.ogg', 20, 1)
+		playsound(user, 'sound/voice/shriek1.ogg', 10, 0)
 		visible_message("<span class='danger'>Skreee!</span>")
 		cooldown = 1
 		spawn(30) cooldown = 0
