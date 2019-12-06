@@ -19,5 +19,12 @@
 	construction_time = 250
 	category = list("Exosuit Equipment")
 
-
-
+/datum/design/borg_upgrade_crewpinpointer
+	name = "Cyborg Upgrade (Crew pinpointer)"
+	id = "borg_upgrade_crewpinpointer"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/crewpinpointer
+	req_tech = list("engineering" = 3, "biotech" = 2)
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 500)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
