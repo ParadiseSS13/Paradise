@@ -19,7 +19,7 @@
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 0)
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/butterfly/New()
 	..()

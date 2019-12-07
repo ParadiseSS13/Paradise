@@ -12,6 +12,8 @@
 #define isconstruct(A) (istype(A, /mob/living/simple_animal/hostile/construct))
 
 //Objects
+#define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
+
 #define isitem(A) (istype(A, /obj/item))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
@@ -84,7 +86,7 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
-#define isslime(A)		(istype((A), /mob/living/carbon/slime))
+#define isslime(A)		(istype((A), /mob/living/simple_animal/slime))
 
 //Structures
 #define isstructure(A)	(istype((A), /obj/structure))

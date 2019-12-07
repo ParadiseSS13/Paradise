@@ -81,7 +81,7 @@
 	desc = "A beanie made from durathread, its resilient fibres provide some protection to the wearer."
 	icon_state = "beaniedurathread"
 	item_color = null
-	armor = list(melee = 15, bullet = 5, laser = 15, energy = 5, bomb = 10, bio = 0, rad = 0)
+	armor = list("melee" = 15, "bullet" = 5, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 5)
 
 /obj/item/clothing/head/beanie/waldo
 	name = "red striped bobble hat"

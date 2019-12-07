@@ -7,6 +7,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
+	resistance_flags = FLAMMABLE
+	max_integrity = 40
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
@@ -26,9 +28,9 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(!H.can_inject(user, 1))
+		if(!H.can_inject(user, TRUE))
 			return 1
 
 		if(!affecting)
@@ -79,7 +81,7 @@
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
-	var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
 						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
 
@@ -142,7 +144,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			affecting.germ_level = 0
@@ -192,7 +194,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			affecting.germ_level = 0
@@ -248,7 +250,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		var/limb = affecting.name
 
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))

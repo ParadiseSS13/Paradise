@@ -17,6 +17,7 @@
 	var/moved_recently = 0
 	var/mob/pulledby = null
 	var/atom/movable/pulling
+	var/throwforce = 0
 	var/canmove = 1
 
 	var/inertia_dir = 0
@@ -41,6 +42,7 @@
 	. = ..()
 
 /atom/movable/Destroy()
+	unbuckle_all_mobs(force = TRUE)
 	if(loc)
 		loc.handle_atom_del(src)
 	for(var/atom/movable/AM in contents)
@@ -109,7 +111,7 @@
 			log_game("DEBUG:[src]'s pull on [pullee] wasn't broken despite [pullee] being in [pullee.loc]. Pull stopped manually.")
 			stop_pulling()
 			return
-		if(pulling.anchored)
+		if(pulling.anchored || pulling.move_resist > move_force)
 			stop_pulling()
 			return
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1)		//separated from our puller and not in the middle of a diagonal move.
@@ -123,6 +125,7 @@
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		return FALSE
 	return TRUE
+
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
 /atom/movable/proc/setLoc(var/T, var/teleported=0)
@@ -200,7 +203,7 @@
 	src.move_speed = world.time - src.l_move_time
 	src.l_move_time = world.time
 
-	if(. && buckled_mob && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
+	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct)) //movement failed due to buckled mob
 		. = 0
 
 // Called after a successful Move(). By this point, we've already moved
@@ -270,8 +273,10 @@
 /mob/living/forceMove(atom/destination)
 	if(buckled)
 		addtimer(CALLBACK(src, .proc/check_buckled), 1, TIMER_UNIQUE)
-	if(buckled_mob)
-		addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			addtimer(CALLBACK(buckled_mob, .proc/check_buckled), 1, TIMER_UNIQUE)
 	if(pulling)
 		addtimer(CALLBACK(src, .proc/check_pull), 1, TIMER_UNIQUE)
 	. = ..()
@@ -321,7 +326,7 @@
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
-/atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked, datum/thrownthing/throwingdatum)
+/atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
@@ -423,12 +428,14 @@
 	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
-	if(!buckled_mob.Move(newloc, direct))
-		loc = buckled_mob.loc
-		last_move = buckled_mob.last_move
-		inertia_dir = last_move
-		buckled_mob.inertia_dir = last_move
-		return 0
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		if(!buckled_mob.Move(newloc, direct))
+			forceMove(buckled_mob.loc)
+			last_move = buckled_mob.last_move
+			inertia_dir = last_move
+			buckled_mob.inertia_dir = last_move
+			return 0
 	return 1
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
@@ -448,7 +455,7 @@
 	return FALSE
 
 /atom/movable/CanPass(atom/movable/mover, turf/target, height=1.5)
-	if(buckled_mob == mover)
+	if(mover in buckled_mobs)
 		return 1
 	return ..()
 

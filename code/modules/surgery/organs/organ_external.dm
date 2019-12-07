@@ -331,7 +331,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 */
 /obj/item/organ/external/proc/update_germs()
 
-	if(is_robotic() || (IS_PLANT in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
+	if(is_robotic() || (NO_GERMS in owner.dna.species.species_traits)) //Robotic limbs shouldn't be infected, nor should nonexistant limbs.
 		germ_level = 0
 		return
 
@@ -625,12 +625,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
-		return 0	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
-	if(brute_dam > min_broken_damage)
-		return 0	//will just immediately fracture again
+		return FALSE	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
+
+	if(!(status & ORGAN_BROKEN))
+		return FALSE
 
 	status &= ~ORGAN_BROKEN
-	return 1
+	status &= ~ORGAN_SPLINTED
+	perma_injury = 0
+	if(owner)
+		owner.handle_splints()
+	return TRUE
 
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()

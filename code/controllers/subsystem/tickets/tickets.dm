@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(tickets)
 	
 	flags = SS_BACKGROUND
 	
-	var/list/allTickets
+	var/list/allTickets = list()	//make it here because someone might ahelp before the system has initialized
 
 	var/ticketCounter = 1
 
@@ -31,7 +31,6 @@ SUBSYSTEM_DEF(tickets)
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
 				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
 				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
-	LAZYINITLIST(allTickets)
 	return ..()
 
 /datum/controller/subsystem/tickets/fire()
@@ -116,10 +115,13 @@ SUBSYSTEM_DEF(tickets)
 		
 
 /datum/controller/subsystem/tickets/proc/autoRespond(N)
+	if(!check_rights(R_ADMIN|R_MOD))
+		return
+
 	var/datum/ticket/T = allTickets[N]
 	var/client/C = usr.client
-	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || T.ticketState != TICKET_OPEN) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
-		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "This ticket is already marked as closed or resolved" : "Another admin appears to already be handling this."] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
+	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || ((T.ticketState != TICKET_OPEN) && (T.ticketState != TICKET_STALE))) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
+		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "Another admin appears to already be handling this." : "This ticket is already marked as closed or resolved"] Are you sure you want to continue?", "Confirmation", "Yes", "No") != "Yes")
 			return
 	T.assignStaff(C)
 	
@@ -131,6 +133,7 @@ SUBSYSTEM_DEF(tickets)
 		"Clear Cache" = "To fix a blank screen, please leave the game and clear your Byond Cache. To clear your Byond Cache, there is a Settings icon in the top right of the launcher. After you click that, go into the Games tab and hit the Clear Cache button. If the issue persists a few minutes after rejoining and doing this, please adminhelp again and state you cleared your cache." ,
 		"IC Issue" = "This is an In Character (IC) issue and will not be handled by admins. You could speak to Security, Internal Affairs, a Departmental Head, Nanotrasen Representetive, or any other relevant authority currently on station.",
 		"Reject" = "Reject",
+		"Man Up" = "Man Up",
 		"Appeal on the Forums" = "Appealing a ban must occur on the forums. Privately messaging, or adminhelping about your ban will not resolve it. To appeal your ban, please head to <a href='[config.banappeals]'>[config.banappeals]</a>"
 		)
 		
@@ -147,11 +150,18 @@ SUBSYSTEM_DEF(tickets)
 		if("Reject")
 			if(!closeTicket(N))
 				to_chat(C, "Unable to close ticket")
+		if("Man Up")
+			C.man_up(returnClient(N))
+			T.lastStaffResponse = "Autoresponse: [message_key]"
+			resolveTicket(N)
+			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>")
+			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
 		else
 			var/msg_sound = sound('sound/effects/adminhelp.ogg')
 			SEND_SOUND(returnClient(N), msg_sound)
 			to_chat(returnClient(N), "<span class='[span_class]'>[key_name_hidden(C)] is autoresponding with: <span/> <span class='adminticketalt'>[response_phrases[message_key]]</span>")//for this we want the full value of whatever key this is to tell the player so we do response_phrases[message_key]
 			message_staff("[C] has auto responded to [T.clientName]\'s adminhelp with:<span class='adminticketalt'> [message_key] </span>") //we want to use the short named keys for this instead of the full sentence which is why we just do message_key
+			T.lastStaffResponse = "Autoresponse: [message_key]"
 			resolveTicket(N)
 			log_game("[C] has auto responded to [T.clientName]\'s adminhelp with: [response_phrases[message_key]]")
 //Set ticket state with key N to closed
@@ -341,12 +351,12 @@ UI STUFF
 			dat += "<tr><td>[T.content[i]]</td></tr>"
 
 	dat += "</table><br /><br />"
-	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a><a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a><a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />"
+	dat += "<a href='?src=[UID()];detailreopen=[T.ticketNum]'>Re-Open</a>[check_rights(R_ADMIN|R_MOD, 0) ? "<a href='?src=[UID()];autorespond=[T.ticketNum]'>Auto</a>": ""]<a href='?src=[UID()];detailresolve=[T.ticketNum]'>Resolve</a><br /><br />" 
 
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
 
 	if(T.lastStaffResponse)
 		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
@@ -449,6 +459,11 @@ UI STUFF
 		takeTicket(indexNum)
 		showDetailUI(usr, indexNum)
 
+	if(href_list["unassignstaff"])
+		var/indexNum = text2num(href_list["unassignstaff"])
+		unassignTicket(indexNum)
+		showDetailUI(usr, indexNum)
+
 	if(href_list["autorespond"])
 		var/indexNum = text2num(href_list["autorespond"])
 		autoRespond(indexNum)
@@ -466,3 +481,13 @@ UI STUFF
 		else
 			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TRUE)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")
+
+/datum/controller/subsystem/tickets/proc/unassignTicket(index)
+	var/datum/ticket/T = allTickets[index]
+	if(T.staffAssigned != null && (T.staffAssigned == usr.client || alert("Ticket is already assigned to [T.staffAssigned]. Do you want to unassign it?","Unassign ticket","No","Yes") == "Yes"))
+		T.staffAssigned = null
+		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] has been unassigned. Another staff member will help you soon.</span>")
+		if(span_class == "mentorhelp")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>")
+		else
+			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>", TRUE)

@@ -12,27 +12,26 @@
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
-	unacidable = TRUE
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
 /turf/simulated/wall/r_wall/examine(mob/user)
-	..()
+	. = ..()
 	switch(d_state)
 		if(RWALL_INTACT)
-			to_chat(user, "<span class='notice'>The outer <b>grille</b> is fully intact.</span>")
+			. += "<span class='notice'>The outer <b>grille</b> is fully intact.</span>"
 		if(RWALL_SUPPORT_LINES)
-			to_chat(user, "<span class='notice'>The outer <i>grille</i> has been cut, and the support lines are <b>screwed</b> securely to the outer cover.</span>")
+			. += "<span class='notice'>The outer <i>grille</i> has been cut, and the support lines are <b>screwed</b> securely to the outer cover.</span>"
 		if(RWALL_COVER)
-			to_chat(user, "<span class='notice'>The support lines have been <i>unscrewed</i>, and the metal cover is <b>welded</b> firmly in place.</span>")
+			. += "<span class='notice'>The support lines have been <i>unscrewed</i>, and the metal cover is <b>welded</b> firmly in place.</span>"
 		if(RWALL_CUT_COVER)
-			to_chat(user, "<span class='notice'>The metal cover has been <i>sliced through</i>, and is <b>connected loosely</b> to the girder.</span>")
+			. += "<span class='notice'>The metal cover has been <i>sliced through</i>, and is <b>connected loosely</b> to the girder.</span>"
 		if(RWALL_BOLTS)
-			to_chat(user, "<span class='notice'>The outer cover has been <i>pried away</i>, and the bolts anchoring the support rods are <b>wrenched</b> in place.</span>")
+			. += "<span class='notice'>The outer cover has been <i>pried away</i>, and the bolts anchoring the support rods are <b>wrenched</b> in place.</span>"
 		if(RWALL_SUPPORT_RODS)
-			to_chat(user, "<span class='notice'>The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.</span>")
+			. += "<span class='notice'>The bolts anchoring the support rods have been <i>loosened</i>, but are still <b>welded</b> firmly to the girder.</span>"
 		if(RWALL_SHEATH)
-			to_chat(user, "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>")
+			. += "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>"
 
 /turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
 	if(try_repair(I, user, params))
@@ -287,7 +286,7 @@
 		return TRUE
 
 
-/turf/simulated/wall/r_wall/singularity_pull(S, current_size)
+/turf/simulated/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(30))
 			dismantle_wall()

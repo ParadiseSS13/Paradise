@@ -26,17 +26,6 @@
 	base_icon = "[icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
-/obj/structure/flora/ash/ex_act(severity, target)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(80))
-				qdel(src)
-		if(3)
-			if(prob(50))
-				qdel(src)
-
 /obj/structure/flora/ash/proc/harvest(user)
 	if(harvested)
 		return 0
@@ -149,18 +138,10 @@
 	regrowth_time_low = 4800
 	regrowth_time_high = 7200
 
-/obj/structure/flora/ash/cacti/Crossed(mob/AM, oldloc)
-	if(ishuman(AM) && has_gravity(loc) && prob(70))
-		var/mob/living/carbon/human/H = AM
-		if(!H.shoes && !H.lying) //ouch, my feet.
-			var/picked_def_zone = pick("l_leg", "r_leg")
-			var/obj/item/organ/external/affected = H.get_organ(picked_def_zone)
-			if(!istype(affected))
-				return
-			H.apply_damage(rand(3, 6), BRUTE, picked_def_zone)
-			H.Weaken(2)
-			H.visible_message("<span class='danger'>[H] steps on a cactus!</span>", \
-				"<span class='userdanger'>You step on a cactus!</span>")
+/obj/structure/flora/ash/cacti/Initialize(mapload)
+	. = ..()
+	// min dmg 3, max dmg 6, prob(70)
+	AddComponent(/datum/component/caltrop, 3, 6, 70)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
 	name = "mushroom shavings"
@@ -168,6 +149,8 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_shavings"
 	w_class = WEIGHT_CLASS_TINY
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
 	seed = /obj/item/seeds/lavaland/polypore
 	wine_power = 0.2
 

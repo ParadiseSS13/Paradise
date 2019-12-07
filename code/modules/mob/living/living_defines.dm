@@ -28,7 +28,6 @@
 	var/on_fire = 0 //The "Are we on fire?" var
 	var/fire_stacks = 0 //Tracks how many stacks of fire we have on, max is usually 20
 
-	var/update_slimes = 1
 	var/implanting = 0 //Used for the mind-slave implant
 	var/floating = 0
 	var/mob_size = MOB_SIZE_HUMAN
@@ -70,3 +69,5 @@
 	var/deathgasp_on_death = FALSE
 
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
+	var/stam_regen_start_time = 0 //used to halt stamina regen temporarily
+	var/stam_paralyzed = FALSE //knocks you down

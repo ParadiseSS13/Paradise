@@ -29,6 +29,7 @@ Difficulty: Medium
 	icon_living = "miner"
 	icon = 'icons/mob/alienqueen.dmi'
 	light_color = "#E4C7C5"
+	flying = FALSE
 	speak_emote = list("roars")
 	speed = 3
 	move_to_delay = 3
@@ -65,9 +66,6 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/Initialize(mapload)
 	. = ..()
 	miner_saw = new(src)
-
-	// Add a zone selection UI; otherwise the mob can't melee attack properly.
-	zone_sel = new /obj/screen/zone_sel()
 
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"

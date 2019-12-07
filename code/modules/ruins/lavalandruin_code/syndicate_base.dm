@@ -18,7 +18,7 @@
 	                /obj/item/grenade/chem_grenade/adv_release = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/holywater = 1)
 	product_slogans = "It's not pyromania if you're getting paid!;You smell that? Plasma, son. Nothing else in the world smells like that.;I love the smell of Plasma in the morning."
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 // Spawners
 /obj/effect/mob_spawn/human/lavaland_syndicate
@@ -32,6 +32,7 @@
 	<br><i>You are free to attack anyone not aligned with the Syndicate in the vicinity of your base. <font size=6>DO NOT</font> work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. <font size=6>DO NOT</font> leave your base without admin permission.</i>"
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
+	allow_species_pick = TRUE
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/Destroy()
 	var/obj/structure/fluff/empty_sleeper/syndicate/S = new /obj/structure/fluff/empty_sleeper/syndicate(get_turf(src))

@@ -247,7 +247,7 @@
 	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
 	result = list(/datum/nothing = 25,
 		/obj/item/jammer = 1,
-		/obj/item/storage/firstaid = 1,
+		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/box/syndie_kit/bonerepair = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,

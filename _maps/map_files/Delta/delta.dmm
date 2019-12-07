@@ -1274,12 +1274,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"acV" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
 "acW" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -6079,10 +6073,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
-"anf" = (
-/obj/machinery/body_scanconsole,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
 "ang" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
@@ -9616,11 +9606,11 @@
 	pixel_y = 0
 	},
 /obj/item/circuitboard/microwave,
-/obj/item/stock_parts/console_screen{
+/obj/item/stack/sheet/glass{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/stack/cable_coil/random{
 	pixel_x = 5;
 	pixel_y = 5
@@ -47984,9 +47974,9 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
 /obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
@@ -55341,7 +55331,7 @@
 	},
 /area/crew_quarters/captain)
 "bUZ" = (
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -69106,7 +69096,7 @@
 /obj/item/clipboard,
 /obj/item/folder/blue,
 /obj/item/firelock_electronics,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
@@ -70653,7 +70643,7 @@
 	},
 /area/library)
 "cvo" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/machinery/newscaster{
 	pixel_x = -32;
 	pixel_y = 0
@@ -78847,7 +78837,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "cKn" = (
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/greengrid,
 /area/toxins/xenobiology)
 "cKo" = (
@@ -83152,7 +83142,7 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/airlock_electronics,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/assembly/signaler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -87139,9 +87129,9 @@
 	},
 /obj/item/folder/white,
 /obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
@@ -91590,7 +91580,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -92357,9 +92347,9 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
 /obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /turf/simulated/floor/plating,
 /area/medical/research)
 "djc" = (
@@ -93584,7 +93574,6 @@
 /area/medical/medbay)
 "dll" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitebluecorner";
@@ -93598,7 +93587,7 @@
 	dir = 1;
 	network = list("SS13")
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whitepurplecorner"
@@ -95279,7 +95268,7 @@
 /area/maintenance/gambling_den)
 "dox" = (
 /obj/structure/table/reinforced,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/micro_laser,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -96101,7 +96090,7 @@
 /obj/item/clipboard,
 /obj/item/folder/yellow,
 /obj/item/firealarm_electronics,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -96747,7 +96736,6 @@
 	pixel_x = 0;
 	pixel_y = -32
 	},
-/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96760,7 +96748,7 @@
 	pixel_y = 0;
 	req_access_txt = "0"
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -107606,7 +107594,7 @@
 /area/library/abandoned)
 "dKF" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/library/abandoned)
 "dKG" = (
@@ -145341,7 +145329,7 @@ aaa
 aaa
 acA
 acN
-acV
+acW
 acW
 acW
 acW
@@ -176978,7 +176966,7 @@ akm
 alU
 ams
 akn
-anf
+akn
 anD
 aok
 aaa

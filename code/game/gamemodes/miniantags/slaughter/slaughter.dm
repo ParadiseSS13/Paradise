@@ -137,7 +137,7 @@
 	action_background_icon_state = "bg_cult"
 	panel = "Demon"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets, mob/user)
 	var/list/victims = targets
 	for(var/mob/living/L in GLOB.living_mob_list)
 		if(!L.stat && !iscultist(L) && L.key && L != usr)

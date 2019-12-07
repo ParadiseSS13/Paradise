@@ -25,8 +25,8 @@
 	RefreshParts()
 
 /obj/machinery/snow_machine/examine(mob/user)
-	..()
-	to_chat(user, "<span class='notice'>The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>")
+	. = ..()
+	. += "<span class='notice'>The internal reservoir indicates it is [infinite_snow ? "100" : round(reagents.total_volume / reagents.maximum_volume * 100)]% full.</span>"
 
 /obj/machinery/snow_machine/RefreshParts()
 	power_efficiency = 0

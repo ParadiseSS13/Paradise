@@ -37,8 +37,12 @@
 	mutanthands = /obj/item/zombie_hand
 	icobase = 'icons/mob/human_races/r_zombie.dmi'
 	deform = 'icons/mob/human_races/r_def_zombie.dmi'
-	armor = 20 // 120 damage to KO a zombie, which kills it
-	speedmod = 1.6
+	brute_mod = 0.8    // 120 damage to KO a zombie, which kills it
+	burn_mod = 0.8
+	clone_mod = 0.8
+	brain_mod = 0.8
+	stamina_mod = 0.8
+	speed_mod = 1.6
 	default_language = "Zombie"
 	var/heal_rate = 1
 	var/regen_cooldown = 0

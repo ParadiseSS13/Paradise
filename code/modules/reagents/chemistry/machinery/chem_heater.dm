@@ -6,6 +6,7 @@
 	icon_state = "mixer0b"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/reagent_containers/beaker = null
 	var/desired_temp = T0C
 	var/on = FALSE
@@ -15,7 +16,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_heater(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/chem_heater/process()
@@ -74,6 +75,7 @@
 			to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
 			icon_state = "mixer1b"
 			SSnanoui.update_uis(src)
+			return
 
 	if(default_deconstruction_screwdriver(user, "mixer0b", "mixer0b", I))
 		return
@@ -86,6 +88,7 @@
 			eject_beaker()
 			default_deconstruction_crowbar(I)
 			return 1
+	return ..()
 
 /obj/machinery/chem_heater/attack_hand(mob/user)
 	ui_interact(user)

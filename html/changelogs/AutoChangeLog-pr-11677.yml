@@ -1,7 +1,0 @@
-author: "Kyep"
-delete-after: True
-changes: 
-  - bugfix: "Fixed bug that made the syndicate depot impossibly difficult."
-  - tweak: "Various improvements to syndi depot, such as use of plastitanium walls, and nerfs to some cheese strategies."
-  - rscadd: "Ported TG's simple_human.dmi, a sprite file of humanoid sprites (including syndicates)."
-  - rscadd: "Added a few extra syndi sprites from FoS."

@@ -27,8 +27,8 @@
 	var/friendly_fire_check = FALSE //if the blasts we make will consider our faction against the faction of hit targets
 
 /obj/item/hierophant_club/examine(mob/user)
-	..()
-	to_chat(user, "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>")
+	. = ..()
+	. += "<span class='hierophant_warning'>The[beacon ? " beacon is not currently":"re is a beacon"] attached.</span>"
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
@@ -56,7 +56,10 @@
 	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
 	if(proximity_flag)
 		INVOKE_ASYNC(src, .proc/aoe_burst, T, user)
-		add_attack_logs(user, target, "Fired 3x3 blast at [src]")
+		if(is_station_level(T.z))
+			add_attack_logs(user, target, "Fired 3x3 blast at [src]")
+		else
+			add_attack_logs(user, target, "Fired 3x3 blast at [src]", ATKLOG_ALL)
 	else
 		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
 			INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user)
@@ -68,10 +71,16 @@
 				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, chaser_speed, friendly_fire_check)
 				C.damage = 30
 				C.monster_damage_boost = FALSE
-				add_attack_logs(user, target, "Fired a chaser at [src]")
+				if(is_station_level(T.z))
+					add_attack_logs(user, target, "Fired a chaser at [src]")
+				else
+					add_attack_logs(user, target, "Fired a chaser at [src]", ATKLOG_ALL)
 			else
 				INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user) //otherwise, just do cardinal blast
-				add_attack_logs(user, target, "Fired cardinal blast at [src]")
+				if(is_station_level(T.z))
+					add_attack_logs(user, target, "Fired cardinal blast at [src]")
+				else
+					add_attack_logs(user, target, "Fired cardinal blast at [src]", ATKLOG_ALL)
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
 			timer = world.time
@@ -113,6 +122,9 @@
 		return
 	if(user.is_in_active_hand(src) && user.is_in_inactive_hand(src)) //you need to hold the staff to teleport
 		to_chat(user, "<span class='warning'>You need to hold the club in your hands to [beacon ? "teleport with it":"detach the beacon"]!</span>")
+		return
+	if(is_in_teleport_proof_area(user))
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
 		return
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))

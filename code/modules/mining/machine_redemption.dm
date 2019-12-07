@@ -36,7 +36,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/upgraded/New()
@@ -47,7 +47,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/assembly/igniter(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/golem
@@ -62,7 +62,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/assembly/igniter(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/Destroy()
@@ -368,14 +368,9 @@
 			to_chat(usr, "<span class='warning'>Required access not found.</span>")
 	updateUsrDialog()
 
-/obj/machinery/mineral/ore_redemption/ex_act(severity, target)
-	do_sparks(5, 1, src)
-	if(severity == 1)
-		if(prob(50))
-			qdel(src)
-	else if(severity == 2)
-		if(prob(25))
-			qdel(src)
+/obj/machinery/mineral/ore_redemption/ex_act(severity)
+	do_sparks(5, TRUE, src)
+	..()
 
 /obj/machinery/mineral/ore_redemption/power_change()
 	..()

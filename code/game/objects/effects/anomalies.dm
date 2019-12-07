@@ -3,11 +3,12 @@
 	icon = 'icons/effects/effects.dmi'
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
-	unacidable = TRUE
+	resistance_flags = UNACIDABLE
 	density = FALSE
 	anchored = TRUE
 	light_range = 3
 	var/movechance = 70
+	luminosity = 3
 	var/obj/item/assembly/signaler/anomaly/aSignal = null
 	var/area/impact_area
 
@@ -268,7 +269,7 @@
 	var/turf/simulated/T = get_turf(src)
 	if(istype(T))
 		T.atmos_spawn_air(SPAWN_HEAT | SPAWN_OXYGEN | SPAWN_TOXINS, 500) //Make it hot and burny for the new slime
-	var/mob/living/carbon/slime/S = new(T)
+	var/mob/living/simple_animal/slime/S = new(T)
 	S.colour = pick("red", "orange")
 	S.rabid = TRUE
 	S.amount_grown = 10

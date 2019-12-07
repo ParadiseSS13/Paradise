@@ -106,7 +106,7 @@
 		speed = 0
 		update_icon()
 		return
-	..()
+	return ..()
 
 #undef BASE_MOVE_DELAY
 #undef MAX_SPEED
@@ -168,8 +168,8 @@
 	update_icon()
 
 /obj/machinery/treadmill_monitor/examine(mob/user)
-	..()
-	to_chat(user, "The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>")
+	. = ..()
+	. += "The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>"
 
 /obj/machinery/treadmill_monitor/update_icon()
 	overlays.Cut()

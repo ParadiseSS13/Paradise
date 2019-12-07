@@ -80,7 +80,7 @@
 	hitsound = null
 	materials = null
 	flags = NONE
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/hatchet
 	name = "hatchet"

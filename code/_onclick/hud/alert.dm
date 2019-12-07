@@ -557,6 +557,7 @@ so as to remain in compliance with the most up-to-date laws."
 /obj/screen/alert/restrained/buckled
 	name = "Buckled"
 	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
+	icon_state = "buckled"
 
 /obj/screen/alert/restrained/handcuffed
 	name = "Handcuffed"
@@ -570,6 +571,15 @@ so as to remain in compliance with the most up-to-date laws."
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.resist()
+
+/obj/screen/alert/restrained/buckled/Click()
+	var/mob/living/L = usr
+	if(!istype(L) || !L.can_resist())
+		return
+	L.changeNext_move(CLICK_CD_RESIST)
+	if(L.last_special <= world.time)
+		return L.resist_buckle()
+
 // PRIVATE = only edit, use, or override these if you're editing the system as a whole
 
 // Re-render all alerts - also called in /datum/hud/show_hud() because it's needed there

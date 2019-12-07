@@ -163,11 +163,11 @@
 /area/ruin/powered/snow_biodome)
 "aK" = (
 /obj/structure/table/wood,
-/obj/item/key/snowmobile,
+/obj/item/key,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aL" = (
-/obj/structure/displaycase/lavaland_winter,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aM" = (

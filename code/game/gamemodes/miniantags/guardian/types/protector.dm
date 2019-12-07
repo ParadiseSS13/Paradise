@@ -41,7 +41,8 @@
 		toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
-	if(summoner)
+	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
+	if(summoner && loc && summoner.loc)
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else

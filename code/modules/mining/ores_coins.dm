@@ -59,7 +59,7 @@
 	return ..()
 
 /obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	..()
+	. = ..()
 	if(isnull(refined_type))
 		return
 	else
@@ -122,6 +122,11 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	C.adjustStaminaLoss(15)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(5)
 	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
+	qdel(src)
+
+/obj/item/stack/ore/glass/ex_act(severity)
+	if(severity == EXPLODE_NONE)
+		return
 	qdel(src)
 
 /obj/item/stack/ore/glass/basalt
@@ -322,6 +327,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/string_attached
 	var/list/sideslist = list("heads","tails")
 	var/cmineral = null
+	var/name_by_cmineral = TRUE
 	var/cooldown = 0
 	var/credits = 10
 
@@ -330,7 +336,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	pixel_y = rand(0,8)-8
 
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
-	if(cmineral)
+	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"
 
 /obj/item/coin/gold
@@ -405,6 +411,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	desc = "A novelty coin that helps the heart know what hard evidence cannot prove."
 	sideslist = list("valid", "salad")
 	credits = 20
+	name_by_cmineral = FALSE
 
 /obj/item/coin/antagtoken/syndicate
 	name = "syndicate coin"

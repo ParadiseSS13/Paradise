@@ -142,8 +142,8 @@ var/global/list/image/splatter_cache = list()
 		icon_state = "writing1"
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
-	..(user)
-	to_chat(user, "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>")
+	. = ..()
+	. += "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>"
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
@@ -171,6 +171,9 @@ var/global/list/image/splatter_cache = list()
 	overlays.Cut()
 	overlays += giblets
 	. = ..()
+
+/obj/effect/decal/cleanable/blood/gibs/ex_act(severity)
+	return
 
 /obj/effect/decal/cleanable/blood/gibs/up
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gibup1", "gibup1", "gibup1")

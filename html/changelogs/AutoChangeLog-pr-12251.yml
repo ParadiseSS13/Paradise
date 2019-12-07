@@ -1,5 +1,0 @@
-author: "variableundefined"
-delete-after: True
-changes: 
-  - tweak: "Hit_reaction proc has been refactored."
-  - tweak: "Flamethrower and grenade detonation by shot is now logged."

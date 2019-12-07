@@ -5,11 +5,12 @@
 	force = 20
 	use_power = NO_POWER_USE
 	can_unwrench = 1
+	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
 
 	//Buckling
-	can_buckle = 1
-	buckle_requires_restraints = 1
+	can_buckle = TRUE
+	buckle_requires_restraints = TRUE
 	buckle_lying = -1
 
 /obj/machinery/atmospherics/pipe/New()

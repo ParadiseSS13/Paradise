@@ -7,10 +7,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
 	origin_tech = "bluespace=4;materials=5"
-	var/imprinted = "empty"
 
 	var/optional = FALSE //does this soulstone ask the victim whether they want to be turned into a shade
-	var/usability = TRUE // Can this soul stone be used by anyone, or only cultists/wizards?
+	var/usability = FALSE // Can this soul stone be used by anyone, or only cultists/wizards?
 	var/reusable = TRUE // Can this soul stone be used more than once?
 	var/spent = FALSE // If the soul stone can only be used once, has it been used?
 
@@ -181,13 +180,13 @@
 	desc = "A wicked machine used by those skilled in magical arts. It is inactive"
 
 /obj/structure/constructshell/examine(mob/user)
-	if(..(user, 0))
-		if(iscultist(user) || iswizard(user) || user.stat == DEAD)
-			to_chat(user, "<span class='cult'>A construct shell, used to house bound souls from a soulstone.</span>")
-			to_chat(user, "<span class='cult'>Placing a soulstone with a soul into this shell allows you to produce your choice of the following:</span>")
-			to_chat(user, "<span class='cult'>An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.</span>")
-			to_chat(user, "<span class='cult'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>")
-			to_chat(user, "<span class='cult'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>")
+	. = ..()
+	if(in_range(user, src) && (iscultist(user) || iswizard(user) || user.stat == DEAD))
+		. += "<span class='cult'>A construct shell, used to house bound souls from a soulstone.</span>"
+		. += "<span class='cult'>Placing a soulstone with a soul into this shell allows you to produce your choice of the following:</span>"
+		. += "<span class='cult'>An <b>Artificer</b>, which can produce <b>more shells and soulstones</b>, as well as fortifications.</span>"
+		. += "<span class='cult'>A <b>Wraith</b>, which does high damage and can jaunt through walls, though it is quite fragile.</span>"
+		. += "<span class='cult'>A <b>Juggernaut</b>, which is very hard to kill and can produce temporary walls, but is slow.</span>"
 
 /obj/structure/constructshell/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/soulstone))
@@ -207,28 +206,23 @@
 	switch(choice)
 		if("FORCE")
 			var/obj/item/soulstone/C = src
-			if(!iscarbon(target))		//TODO: Add sacrifice stoning for non-organics, just because you have no body doesnt mean you dont have a soul
-				return 0
-			if(contents.len)
-				return 0
-			var/mob/living/carbon/T = target
+			var/mob/living/T = target
 			if(T.client != null)
-				for(var/obj/item/W in T)
-					T.unEquip(W)
 				C.init_shade(T, U)
-				return 1
 			else
 				to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
-				return C.getCultGhost(T,U)
+				T.Paralyse(20)
+				if(!C.getCultGhost(T,U))
+					T.dust() //If we can't get a ghost, kill the sacrifice anyway.
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
 			var/obj/item/soulstone/C = src
-			if(C.imprinted != "empty")
-				to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone has already been imprinted with [C.imprinted]'s mind!")
+			if(T.stat == 0)
+				to_chat(U, "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!")
 			else
-				if(T.stat == 0)
-					to_chat(U, "<span class='danger'>Capture failed!</span>: Kill or maim the victim first!")
+				if(!T.client_mobs_in_contents?.len)
+					to_chat(U, "<span class='warning'>They have no soul!</span>")
 				else
 					if(T.client == null)
 						to_chat(U, "<span class='userdanger'>Capture failed!</span>: The soul has already fled its mortal frame. You attempt to bring it back...")
@@ -237,30 +231,29 @@
 						if(C.contents.len)
 							to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 						else
-							for(var/obj/item/W in T)
-								T.unEquip(W)
 							C.init_shade(T, U, vic = 1)
-							qdel(T)
+
 		if("SHADE")
 			var/mob/living/simple_animal/shade/T = target
 			var/obj/item/soulstone/C = src
+			if(!C.can_use(U))
+				U.Paralyse(5)
+				to_chat(U, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
+				return
 			if(T.stat == DEAD)
 				to_chat(U, "<span class='danger'>Capture failed!</span>: The shade has already been banished!")
 			else
 				if(C.contents.len)
 					to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone is full! Use or free an existing soul to make room.")
 				else
-					if(T.name != C.imprinted)
-						to_chat(U, "<span class='danger'>Capture failed!</span>: The soul stone has already been imprinted with [C.imprinted]'s mind!")
-					else
-						T.loc = C //put shade in stone
-						T.status_flags |= GODMODE
-						T.canmove = 0
-						T.health = T.maxHealth
-						T.faction |= "\ref[U]"
-						C.icon_state = "soulstone2"
-						to_chat(T, "Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form")
-						to_chat(U, "<span class='notice'>Capture successful!</span>: [T.name]'s has been recaptured and stored within the soul stone.")
+					T.loc = C //put shade in stone
+					T.status_flags |= GODMODE
+					T.canmove = 0
+					T.health = T.maxHealth
+					T.faction |= "\ref[U]"
+					C.icon_state = "soulstone2"
+					to_chat(T, "Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form")
+					to_chat(U, "<span class='notice'>Capture successful!</span>: [T.name]'s has been recaptured and stored within the soul stone.")
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/T = target
 			var/obj/item/soulstone/C = src
@@ -339,7 +332,7 @@
 		to_chat(newstruct, "<B>You are still bound to serve your creator, follow [stoner.p_their()] orders and help [stoner.p_them()] complete [stoner.p_their()] goals at all costs.</B>")
 	newstruct.cancel_camera()
 
-/obj/item/soulstone/proc/init_shade(mob/living/carbon/human/T, mob/U, vic = 0)
+/obj/item/soulstone/proc/init_shade(mob/living/T, mob/U, vic = 0)
 	new /obj/effect/decal/remains/human(T.loc) //Spawns a skeleton
 	T.invisibility = 101
 	var/atom/movable/overlay/animation = new /atom/movable/overlay( T.loc )
@@ -348,7 +341,8 @@
 	animation.master = T
 	flick("dust-h", animation)
 	qdel(animation)
-	var/mob/living/simple_animal/shade/S = new /mob/living/simple_animal/shade(src)
+	var/path = get_shade_type()
+	var/mob/living/simple_animal/shade/S = new path(src)
 	S.status_flags |= GODMODE //So they won't die inside the stone somehow
 	S.canmove = 0//Can't move out of the soul stone
 	S.name = "Shade of [T.real_name]"
@@ -367,8 +361,20 @@
 		to_chat(S, "Your soul has been captured! You are now bound to the cult's will. Help [U.p_them()] succeed in their goals at all costs.")
 	if(vic && U)
 		to_chat(U, "<span class='info'><b>Capture successful!</b>:</span> [T.real_name]'s soul has been ripped from [U.p_their()] body and stored within the soul stone.")
+	if(isrobot(T))//Robots have to dust or else they spill out an empty robot brain, and unequiping them spills robot components that shouldn't spawn.
+		T.dust()
+	else
+		for(var/obj/item/W in T)
+			T.unEquip(W)
+		qdel(T)
 
-/obj/item/soulstone/proc/getCultGhost(mob/living/carbon/human/T, mob/U)
+/obj/item/soulstone/proc/get_shade_type()
+	return /mob/living/simple_animal/shade/cult
+	
+/obj/item/soulstone/anybody/get_shade_type()
+	return /mob/living/simple_animal/shade
+
+/obj/item/soulstone/proc/getCultGhost(mob/living/T, mob/U)
 	var/mob/dead/observer/chosen_ghost
 
 	for(var/mob/dead/observer/ghost in GLOB.player_list) //We put them back in their body
@@ -377,7 +383,7 @@
 			break
 
 	if(!chosen_ghost)	//Failing that, we grab a ghost
-		var/list/consenting_candidates = pollCandidates("Would you like to play as a Shade?", "Cultist", null, ROLE_CULTIST, poll_time = 100)
+		var/list/consenting_candidates = pollCandidates("Would you like to play as a Shade?", ROLE_CULTIST, FALSE, poll_time = 100)
 		if(consenting_candidates.len)
 			chosen_ghost = pick(consenting_candidates)
 	if(!T)
@@ -388,8 +394,5 @@
 	if(contents.len) //If they used the soulstone on someone else in the meantime
 		return 0
 	T.ckey = chosen_ghost.ckey
-	for(var/obj/item/W in T)
-		T.unEquip(W)
 	init_shade(T, U)
-	qdel(T)
 	return 1

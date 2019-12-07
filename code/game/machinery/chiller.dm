@@ -11,9 +11,7 @@
 
 /obj/machinery/space_heater/air_conditioner/New()
 	..()
-	cell = new(src)
-	cell.charge = 1000
-	cell.maxcharge = 1000
+	cell = new /obj/item/stock_parts/cell(src)
 	update_icon()
 	return
 
@@ -25,12 +23,12 @@
 	return
 
 /obj/machinery/space_heater/air_conditioner/examine(mob/user)
-	..(user)
-	to_chat(user, "The air conditioner is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"].")
+	. = ..()
+	. += "The air conditioner is [on ? "on" : "off"] and the hatch is [open ? "open" : "closed"]."
 	if(open)
-		to_chat(user, "The power cell is [cell ? "installed" : "missing"].")
+		. += "The power cell is [cell ? "installed" : "missing"]."
 	else
-		to_chat(user, "The charge meter reads [cell ? round(cell.percent(),1) : 0]%")
+		. += "The charge meter reads [cell ? round(cell.percent(),1) : 0]%"
 
 
 /obj/machinery/space_heater/air_conditioner/emp_act(severity)

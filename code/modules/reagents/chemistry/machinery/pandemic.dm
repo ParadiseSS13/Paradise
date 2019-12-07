@@ -8,6 +8,7 @@
 	circuit = /obj/item/circuitboard/pandemic
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
+	resistance_flags = ACID_PROOF
 	var/temp_html = ""
 	var/printing = null
 	var/wait = null
@@ -342,8 +343,6 @@
 
 	else if(istype(I, /obj/item/screwdriver))
 		if(beaker)
-			beaker.loc = get_turf(src)
-		..()
-		return
+			beaker.forceMove(get_turf(src))
 	else
-		..()
+		return ..()

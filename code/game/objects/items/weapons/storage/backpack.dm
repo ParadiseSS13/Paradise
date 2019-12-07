@@ -15,8 +15,8 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = NONE
+	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/back.dmi',
 		"Vox Armalis" = 'icons/mob/species/armalis/back.dmi',
@@ -29,20 +29,20 @@
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
-	if(!..(user, 1))
-		return
-	for(var/obj/item/I in contents)
-		space_used += I.w_class
-	if(!space_used)
-		to_chat(user, "<span class='notice'> [src] is empty.</span>")
-	else if(space_used <= max_combined_w_class*0.6)
-		to_chat(user, "<span class='notice'> [src] still has plenty of remaining space.</span>")
-	else if(space_used <= max_combined_w_class*0.8)
-		to_chat(user, "<span class='notice'> [src] is beginning to run out of space.</span>")
-	else if(space_used < max_combined_w_class)
-		to_chat(user, "<span class='notice'> [src] doesn't have much space left.</span>")
-	else
-		to_chat(user, "<span class='notice'> [src] is full.</span>")
+	. = ..()
+	if(in_range(user, src))
+		for(var/obj/item/I in contents)
+			space_used += I.w_class
+		if(!space_used)
+			. += "<span class='notice'> [src] is empty.</span>"
+		else if(space_used <= max_combined_w_class*0.6)
+			. += "<span class='notice'> [src] still has plenty of remaining space.</span>"
+		else if(space_used <= max_combined_w_class*0.8)
+			. += "<span class='notice'> [src] is beginning to run out of space.</span>"
+		else if(space_used < max_combined_w_class)
+			. += "<span class='notice'> [src] doesn't have much space left.</span>"
+		else
+			. += "<span class='notice'> [src] is full.</span>"
 
 /*
  * Backpack Types
@@ -56,9 +56,10 @@
 	item_state = "holdingpack"
 	max_w_class = WEIGHT_CLASS_HUGE
 	max_combined_w_class = 35
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	flags_2 = NO_MAT_REDEMPTION_2
 	cant_hold = list(/obj/item/storage/backpack/holding)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 
 /obj/item/storage/backpack/holding/New()
 	..()
@@ -86,7 +87,6 @@
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2),1)
 	explosion(src.loc,(dist),(dist*2),(dist*4))
-	return
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
@@ -151,14 +151,14 @@
 	desc = "It's a special backpack made exclusively for Nanotrasen officers."
 	icon_state = "captainpack"
 	item_state = "captainpack"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/industrial
 	name = "industrial backpack"
 	desc = "It's a tough backpack for the daily grind of station life."
 	icon_state = "engiepack"
 	item_state = "engiepack"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
@@ -189,7 +189,7 @@
 	desc = "A specially designed backpack. It's fire resistant and smells vaguely of plasma."
 	icon_state = "toxpack"
 	item_state = "toxpack"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/virology
 	name = "virology backpack"
@@ -205,7 +205,7 @@
 	name = "leather satchel"
 	desc = "It's a very fancy satchel made with fine leather."
 	icon_state = "satchel"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
@@ -241,7 +241,7 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel/explorer
 	name = "explorer satchel"
@@ -273,7 +273,7 @@
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_sec
 	name = "security satchel"
@@ -289,7 +289,7 @@
 	name = "captain's satchel"
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -335,6 +335,7 @@
 	origin_tech = "syndicate=1"
 	silent = 1
 	slowdown = 0
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/syndie/med
 	name = "suspicious duffelbag"
@@ -359,11 +360,11 @@
 	new /obj/item/ammo_box/magazine/m12g/buckshot(src)
 	new /obj/item/ammo_box/magazine/m12g/dragon(src)
 
-/obj/item/storage/backpack/duffel/mining_conscript/noid
+/obj/item/storage/backpack/duffel/mining_conscript/
 	name = "mining conscription kit"
 	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
 
-/obj/item/storage/backpack/duffel/mining_conscript/noid/New()
+/obj/item/storage/backpack/duffel/mining_conscript/New()
 	..()
 	new /obj/item/pickaxe(src)
 	new /obj/item/clothing/glasses/meson(src)
@@ -371,7 +372,7 @@
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
-	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg
@@ -466,7 +467,7 @@
 	desc = "A duffelbag designed to hold large quantities of condoms."
 	icon_state = "duffel-captain"
 	item_state = "duffel-captain"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/security
 	name = "security duffelbag"
@@ -509,14 +510,14 @@
 	desc = "A duffelbag designed to hold tools."
 	icon_state = "duffel-eng"
 	item_state = "duffel-eng"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/atmos
 	name = "atmospherics duffelbag"
 	desc = "A duffelbag designed to hold tools. This one is specially designed for atmospherics."
 	icon_state = "duffel-atmos"
 	item_state = "duffel-atmos"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/duffel/hydro
 	name = "hydroponics duffelbag"
@@ -536,6 +537,7 @@
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
 	item_state = "backpack"
+	resistance_flags = FIRE_PROOF
 
 //Commander
 /obj/item/storage/backpack/ert/commander

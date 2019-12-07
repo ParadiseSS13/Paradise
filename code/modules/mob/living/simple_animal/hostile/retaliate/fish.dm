@@ -60,7 +60,7 @@
 	minbodytemp = 0
 	maxbodytemp = 1500
 
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/Initialize(mapload)
 	. = ..()
