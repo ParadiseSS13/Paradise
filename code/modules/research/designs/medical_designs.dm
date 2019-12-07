@@ -121,7 +121,6 @@
 	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 2)
 	build_type = PROTOLATHE | MECHFAB
 	materials = list(MAT_METAL = 200)
-	construction_time = 50
 	build_path = /obj/item/mmi_radio_upgrade
 	category = list("Medical")
 
@@ -329,7 +328,6 @@
 	id = "ci-diaghud"
 	req_tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	category = list("Medical")
@@ -340,7 +338,6 @@
 	id = "ci-medhud"
 	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	category = list("Medical")
@@ -351,7 +348,6 @@
 	id = "ci-sechud"
 	req_tech = list("materials" = 5, "programming" = 4, "biotech" = 4, "combat" = 3)
 	build_type = PROTOLATHE | MECHFAB
-	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 750, MAT_GOLD = 750)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/security
 	category = list("Medical")
@@ -362,7 +358,6 @@
 	id = "ci-mesonhud"
 	req_tech = list("materials" = 4, "biotech" = 4, "engineering" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	construction_time = 50
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500, MAT_SILVER = 500, MAT_GOLD = 300)
 	build_path = /obj/item/organ/internal/cyberimp/eyes/meson
 	category = list("Medical")
@@ -439,7 +434,6 @@
 	id = "ci-nutrimentplus"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
-	construction_time = 50
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_GOLD = 500, MAT_URANIUM = 750)
 	build_path = /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	category = list("Medical")
