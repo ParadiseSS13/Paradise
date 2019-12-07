@@ -60,7 +60,7 @@
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
-		on = 0
+		on = FALSE
 		update_icon()
 		return TRUE
 

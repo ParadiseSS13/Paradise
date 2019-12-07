@@ -2,38 +2,38 @@
 
 /proc/iswrench(O)
 	if(istype(O, /obj/item/wrench))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /proc/iswelder(O)
 	if(istype(O, /obj/item/weldingtool))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /proc/iswirecutter(O)
 	if(istype(O, /obj/item/wirecutters))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /proc/isscrewdriver(O)
 	if(istype(O, /obj/item/screwdriver))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /proc/ismultitool(O)
 	if(istype(O, /obj/item/multitool))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /proc/iscrowbar(O)
 	if(istype(O, /obj/item/crowbar))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /proc/iscoil(O)
 	if(istype(O, /obj/item/stack/cable_coil))
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /proc/ispowertool(O)//used to check if a tool can force powered doors
 	if(istype(O, /obj/item/crowbar/power) || istype(O, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))

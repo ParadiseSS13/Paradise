@@ -120,19 +120,19 @@ var/bomb_set
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(auth)
-		if(panel_open == 0)
-			panel_open = 1
+		if(!panel_open)
+			panel_open = TRUE
 			overlays += image(icon, "npanel_open")
 			to_chat(user, "You unscrew the control panel of [src].")
 		else
-			panel_open = 0
+			panel_open = FALSE
 			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 	else
-		if(panel_open == 0)
+		if(!panel_open)
 			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
-		if(panel_open == 1)
-			panel_open = 0
+		if(panel_open == TRUE)
+			panel_open = FALSE
 			overlays -= image(icon, "npanel_open")
 			to_chat(user, "You screw the control panel of [src] back on.")
 		flick("nuclearbombc", src)
