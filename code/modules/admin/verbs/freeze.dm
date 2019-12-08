@@ -36,6 +36,7 @@ var/global/list/frozen_mob_list = list()
 	if(skip_overlays)
 		overlays += AO
 
+	anchored = TRUE
 	canmove = FALSE
 	admin_prev_sleeping = sleeping
 	AdjustSleeping(20000)
@@ -52,6 +53,7 @@ var/global/list/frozen_mob_list = list()
 	if(skip_overlays)
 		overlays -= frozen
 
+	anchored = FALSE
 	canmove = TRUE
 	frozen = null
 	SetSleeping(admin_prev_sleeping)
