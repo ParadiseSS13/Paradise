@@ -89,7 +89,7 @@
 		answer["cell_percentage"] = round(M.cell.percent())
 	else
 		answer["cell"] = 0
-	answer["integrity"] = M.health/initial(M.health)*100
+	answer["integrity"] = round((M.obj_integrity/M.max_integrity*100), 0.01)
 	answer["airtank"] = M.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
@@ -109,7 +109,7 @@
 	var/cell_charge = M.get_charge()
 	var/area/A = get_area(M)
 	var/answer = {"<b>Name:</b> [M.name]
-						<b>Integrity:</b> [M.health/initial(M.health)*100]%
+						<b>Integrity:</b> [M.obj_integrity / M.max_integrity * 100]%
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
 						<b>Airtank:</b> [M.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
@@ -123,11 +123,6 @@
 
 /obj/item/mecha_parts/mecha_tracking/emp_act()
 	qdel(src)
-	return
-
-/obj/item/mecha_parts/mecha_tracking/ex_act()
-	qdel(src)
-	return
 
 /obj/item/mecha_parts/mecha_tracking/proc/in_mecha()
 	if(istype(loc, /obj/mecha))

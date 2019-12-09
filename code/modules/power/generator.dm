@@ -185,7 +185,7 @@
 		to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
 		update_desc()
 	else
-		..()
+		return ..()
 
 /obj/machinery/power/generator/proc/get_menu(include_link = 1)
 	var/t = ""

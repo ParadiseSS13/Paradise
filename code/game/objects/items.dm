@@ -15,17 +15,18 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/inhand_x_dimension = 32
 	var/inhand_y_dimension = 32
 
+	max_integrity = 200
+
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
-	var/r_speed = 1.0
-	var/health = null
 	var/hitsound = null
 	var/usesound = null
+	var/throwhitsound
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
-	pressure_resistance = 3
+	pressure_resistance = 4
 //	causeerrorheresoifixthis
 	var/obj/item/master = null
 
@@ -64,6 +65,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/block_chance = 0
 	var/hit_reaction_chance = 0 //If you want to have something unrelated to blocking/armour piercing etc. Maybe not needed, but trying to think ahead/allow more freedom
 
+	// Needs to be in /obj/item because corgis can wear a lot of
+	// non-clothing items
+	var/datum/dog_fashion/dog_fashion = null
+
 	var/mob/thrownby = null
 
 	//So items can have custom embedd values
@@ -76,6 +81,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
 	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
+	var/embedded_ignore_throwspeed_threshold = FALSE
 
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
 
@@ -87,6 +93,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	If index term exists and icon_override is not set, this sprite sheet will be used.
 	*/
 	var/list/sprite_sheets = null
+	var/list/sprite_sheets_inhand = null //Used to override inhand items. Use a single .dmi and suffix the icon states inside with _l and _r for each hand.
 	var/icon_override = null  //Used to override hardcoded clothing dmis in human clothing proc.
 	var/sprite_sheets_obj = null //Used to override hardcoded clothing inventory object dmis in human clothing proc.
 
@@ -130,28 +137,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	else
 		return 1
 
-/obj/item/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(5))
-				qdel(src)
-				return
-		else
-	return
-
-/obj/item/blob_act()
-	qdel(src)
-
-/obj/item/water_act(volume, temperature, source, method = TOUCH)
-	. = ..()
-	extinguish()
+/obj/item/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
+		qdel(src)
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
@@ -167,7 +155,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	src.loc = T
 
-/obj/item/examine(mob/user, var/distance = -1)
+/obj/item/examine(mob/user)
 	var/size
 	switch(src.w_class)
 		if(WEIGHT_CLASS_TINY)
@@ -183,7 +171,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "gigantic"
 
-	. = ..(user, distance, "", "It is a [size] item.")
+	. = ..(user, "", "It is a [size] item.")
 
 	if(user.research_scanner) //Mob has a research scanner active.
 		var/msg = "*--------* <BR>"
@@ -204,7 +192,23 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		else
 			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
 		msg += "*--------*"
-		to_chat(user, msg)
+		. += msg
+
+/obj/item/burn()
+	if(!QDELETED(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/ash/A = new(T)
+		A.desc += "\nLooks like this used to be \an [name] some time ago."
+		..()
+
+/obj/item/acid_melt()
+	if(!QDELETED(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/molten_object/MO = new(T)
+		MO.pixel_x = rand(-16,16)
+		MO.pixel_y = rand(-16,16)
+		MO.desc = "Looks like this was \an [src] some time ago."
+		..()
 
 /obj/item/afterattack(atom/target, mob/user, proximity, params)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
@@ -224,7 +228,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if(burn_state == ON_FIRE && !pickupfireoverride)
+	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
@@ -238,6 +242,15 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				return
 		else
 			extinguish()
+
+	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
+		var/mob/living/carbon/human/H = user
+		if(istype(H))
+			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
+				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+					H.UpdateDamageIcon()
 
 	if(istype(src.loc, /obj/item/storage))
 		//If the item is in a storage item, take it out
@@ -259,13 +272,13 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	return 1
 
-/obj/item/attack_alien(mob/user as mob)
+/obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
 	if(!A.has_fine_manipulation)
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.unEquip(src)
-		to_chat(user, "Your claws aren't capable of such fine manipulation.")
+		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
 		return
 	attack_hand(A)
 
@@ -331,7 +344,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	else
 		return ..()
 
-/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, args)
 	if(prob(final_block_chance))
 		owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
@@ -347,6 +360,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		A.Remove(user)
 	if(flags & DROPDEL)
 		qdel(src)
+	if((flags & NODROP) && !(initial(flags) & NODROP)) //Remove NODROP is dropped
+		flags &= ~NODROP
 	in_inventory = FALSE
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED,user)
 
@@ -464,7 +479,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		to_chat(user, "<span class='danger'>You're going to need to remove that mask/helmet/glasses first!</span>")
 		return
 
-	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/carbon/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
+	if(istype(M, /mob/living/carbon/alien) || istype(M, /mob/living/simple_animal/slime))//Aliens don't have eyes./N     slimes also don't have eyes!
 		to_chat(user, "<span class='warning'>You cannot locate any eyes on this creature!</span>")
 		return
 
@@ -520,10 +535,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return
 
 /obj/item/singularity_pull(S, current_size)
-	spawn(0) //this is needed or multiple items will be thrown sequentially and not simultaneously
-		if(current_size >= STAGE_FOUR)
-			throw_at(S,14,3)
-		else ..()
+	..()
+	if(current_size >= STAGE_FOUR)
+		throw_at(S, 14, 3, spin = 0)
+	else
+		return
 
 /obj/item/throw_impact(atom/A)
 	if(A && !QDELETED(A))
@@ -564,6 +580,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!do_after(user, 40, target = source))
 		return
 	clean_blood()
+	acid_level = 0
 	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
 						"<span class='notice'>You wash [src] using [source].</span>")
 	return 1
@@ -578,7 +595,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/proc/is_equivalent(obj/item/I)
 	return I == src
 
-/obj/item/Crossed(atom/movable/AM)
+/obj/item/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(prob(trip_chance) && ishuman(AM))
 		var/mob/living/carbon/human/H = AM
@@ -588,8 +605,19 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
 		return TRUE
 
+/obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	return
+
 /obj/item/attack_hulk(mob/living/carbon/human/user)
 	return FALSE
+
+/obj/item/attack_animal(mob/living/simple_animal/M)
+	if(can_be_hit)
+		return ..()
+	return FALSE
+
+/obj/item/mech_melee_attack(obj/mecha/M)
+	return 0
 
 /obj/item/proc/openTip(location, control, params, user)
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")
@@ -603,6 +631,10 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
+
+// Returns a numeric value for sorting items used as parts in machines, so they can be replaced by the rped
+/obj/item/proc/get_part_rating()
+	return 0
 
 /obj/item/proc/update_slot_icon()
 	if(!ismob(loc))

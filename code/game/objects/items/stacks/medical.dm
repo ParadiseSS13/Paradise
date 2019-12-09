@@ -7,6 +7,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
+	resistance_flags = FLAMMABLE
+	max_integrity = 40
 	var/heal_brute = 0
 	var/heal_burn = 0
 	var/self_delay = 20
@@ -26,9 +28,9 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(!H.can_inject(user, 1))
+		if(!H.can_inject(user, TRUE))
 			return 1
 
 		if(!affecting)
@@ -79,7 +81,7 @@
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
-	var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
 						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
 
@@ -123,13 +125,26 @@
 	origin_tech = "biotech=2"
 	stop_bleeding = 1800
 
+/obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
+	if(I.sharp)
+		if(get_amount() < 2)
+			to_chat(user, "<span class='warning'>You need at least two gauzes to do this!</span>")
+			return
+		new /obj/item/stack/sheet/cloth(user.drop_location())
+		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
+					 "<span class='notice'>You cut [src] into pieces of cloth with [I].</span>", \
+					 "<span class='italics'>You hear cutting.</span>")
+		use(2)
+	else
+		return ..()
+
 /obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
 	if(..())
 		return 1
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			affecting.germ_level = 0
@@ -145,6 +160,11 @@
 		else
 			to_chat(user, "<span class='warning'>[affecting] is cut open, you'll need more than a bandage!</span>")
 
+/obj/item/stack/medical/bruise_pack/improvised
+	name = "improvised gauze"
+	singular_name = "improvised gauze"
+	desc = "A roll of cloth roughly cut from something that can stop bleeding, but does not heal wounds."
+	stop_bleeding = 900
 
 /obj/item/stack/medical/bruise_pack/advanced
 	name = "advanced trauma kit"
@@ -174,7 +194,7 @@
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
 		if(affecting.open == 0)
 			affecting.germ_level = 0
@@ -195,8 +215,6 @@
 	heal_burn = 25
 
 //Medical Herbs//
-
-
 /obj/item/stack/medical/bruise_pack/comfrey
 	name = "\improper Comfrey leaf"
 	singular_name = "Comfrey leaf"
@@ -217,48 +235,55 @@
 	color = "#4CC5C7"
 	heal_burn = 12
 
-
-//Splints//
-
-
+// Splints
 /obj/item/stack/medical/splint
 	name = "medical splints"
 	singular_name = "medical splint"
 	icon_state = "splint"
-	unique_handling = 1
+	unique_handling = TRUE
 	self_delay = 100
+	var/other_delay = 0
 
 /obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
 	if(..())
-		return 1
+		return TRUE
 
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/affecting = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 		var/limb = affecting.name
+
 		if(!(affecting.limb_name in list("l_arm", "r_arm", "l_hand", "r_hand", "l_leg", "r_leg", "l_foot", "r_foot")))
 			to_chat(user, "<span class='danger'>You can't apply a splint there!</span>")
-			return
+			return TRUE
+
 		if(affecting.status & ORGAN_SPLINTED)
 			to_chat(user, "<span class='danger'>[H]'s [limb] is already splinted!</span>")
-			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Removing.", "Yes", "No") == "Yes")
+			if(alert(user, "Would you like to remove the splint from [H]'s [limb]?", "Splint removal.", "Yes", "No") == "Yes")
 				affecting.status &= ~ORGAN_SPLINTED
 				H.handle_splints()
 				to_chat(user, "<span class='notice'>You remove the splint from [H]'s [limb].</span>")
-			return
-		if(M == user)
-			user.visible_message("<span class='notice'>[user] starts to apply [src] to [user.p_their()] [limb].</span>", \
-								 "<span class='notice'>You start to apply [src] to your [limb].</span>", \
-								 "<span class='notice'>You hear something being wrapped.</span>")
-			if(!do_mob(user, H, self_delay))
-				return
-		else
-			user.visible_message("<span class='green'>[user] applies [src] to [H]'s [limb].</span>", \
-								 "<span class='green'>You apply [src] to [H]'s [limb].</span>", \
-								 "<span class='green'>You hear something being wrapped.</span>")
+			return TRUE
+
+		if((M == user && self_delay > 0) || (M != user && other_delay > 0))
+			user.visible_message("<span class='notice'>[user] starts to apply [src] to [H]'s [limb].</span>", \
+									"<span class='notice'>You start to apply [src] to [H]'s [limb].</span>", \
+									"<span class='notice'>You hear something being wrapped.</span>")
+
+		if(M == user && !do_mob(user, H, self_delay))
+			return TRUE
+		else if(!do_mob(user, H, other_delay))
+			return TRUE
+
+		user.visible_message("<span class='notice'>[user] applies [src] to [H]'s [limb].</span>", \
+								"<span class='notice'>You apply [src] to [H]'s [limb].</span>")
 
 		affecting.status |= ORGAN_SPLINTED
 		affecting.splinted_count = H.step_count
 		H.handle_splints()
-
 		use(1)
+
+/obj/item/stack/medical/splint/tribal
+	name = "tribal splints"
+	icon_state = "tribal_splint"
+	other_delay = 50

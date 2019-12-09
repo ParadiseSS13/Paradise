@@ -214,7 +214,7 @@
 	suit = /obj/item/clothing/suit/storage/fr_jacket
 	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset/headset_sec/alt
-	glasses = /obj/item/clothing/glasses/hud/health/health_advanced
+	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security
 	suit_store = /obj/item/flashlight/pen
 	l_hand = /obj/item/storage/firstaid/adv

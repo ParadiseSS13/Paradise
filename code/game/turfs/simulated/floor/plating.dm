@@ -7,6 +7,8 @@
 	broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	burnt_states = list("floorscorched1", "floorscorched2")
 
+	var/unfastened = FALSE
+
 	footstep_sounds = list(
 	"human" = list('sound/effects/footstep/plating_human.ogg'),
 	"xeno"  = list('sound/effects/footstep/plating_xeno.ogg')
@@ -17,11 +19,25 @@
 	icon_plating = icon_state
 	update_icon()
 
+/turf/simulated/floor/plating/damaged/New()
+	..()
+	break_tile()
+
+/turf/simulated/floor/plating/burnt/New()
+	..()
+	burn_tile()
+
 /turf/simulated/floor/plating/update_icon()
 	if(!..())
 		return
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
+
+/turf/simulated/floor/plating/examine(mob/user)
+	. = ..()
+
+	if(unfastened)
+		. += "<span class='warning'>It has been unfastened.</span>"
 
 /turf/simulated/floor/plating/attackby(obj/item/C, mob/user, params)
 	if(..())
@@ -56,6 +72,15 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
+	else if(isscrewdriver(C))
+		var/obj/item/screwdriver/screwdriver = C
+		to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
+		playsound(src, screwdriver.usesound, 50, 1)
+		if(do_after(user, 20 * screwdriver.toolspeed, target = src) && screwdriver)
+			to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+			unfastened = !unfastened
+		return TRUE
+
 	else if(iswelder(C))
 		var/obj/item/weldingtool/welder = C
 		if(welder.isOn())
@@ -71,8 +96,8 @@
 				burnt = FALSE
 				broken = FALSE
 				update_icon()
-			else
-				to_chat(user, "<span class='notice'>You start removing [src].</span>")
+			if(unfastened)
+				to_chat(user, "<span class='warning'>You start removing [src] exposing space after you're done!</span>")
 				playsound(src, welder.usesound, 100, 1)
 				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())
 					to_chat(user, "<span class='notice'>You remove [src].</span>")
@@ -106,7 +131,6 @@
 	var/insulated
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
-	unacidable = TRUE
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -124,6 +148,10 @@
 
 /turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
+
+/turf/simulated/floor/engine/acid_act(acidpwr, acid_volume)
+	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
+	. = ..()
 
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
@@ -157,10 +185,10 @@
 			if(prob(50))
 				ChangeTurf(baseturf)
 
-/turf/simulated/floor/engine/blob_act()
+/turf/simulated/floor/engine/blob_act(obj/structure/blob/B)
 	if(prob(25))
 		ChangeTurf(baseturf)
-		
+
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
@@ -192,12 +220,14 @@
 	assume_air(adding)
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
+	..()
 	if(current_size >= STAGE_FIVE)
-		if(prob(30))
-			make_plating() //does not actually do anything
-		else
+		if(floor_tile)
 			if(prob(30))
-				ReplaceWithLattice()
+				new floor_tile(src)
+				make_plating()
+		else if(prob(30))
+			ReplaceWithLattice()
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"
@@ -310,3 +340,28 @@
 /turf/simulated/floor/plating/abductor/New()
 	..()
 	icon_state = "alienpod[rand(1,9)]"
+
+/turf/simulated/floor/plating/ice
+	name = "ice sheet"
+	desc = "A sheet of solid ice. Looks slippery."
+	icon = 'icons/turf/floors/ice_turfs.dmi'
+	icon_state = "unsmooth"
+	oxygen = 22
+	nitrogen = 82
+	temperature = 180
+	baseturf = /turf/simulated/floor/plating/ice
+	slowdown = TRUE
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)
+
+/turf/simulated/floor/plating/ice/Initialize(mapload)
+	. = ..()
+	MakeSlippery(TURF_WET_PERMAFROST, TRUE)
+
+/turf/simulated/floor/plating/ice/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
+/turf/simulated/floor/plating/ice/smooth
+	icon_state = "smooth"
+	smooth = SMOOTH_MORE | SMOOTH_BORDER
+	canSmoothWith = list(/turf/simulated/floor/plating/ice/smooth, /turf/simulated/floor/plating/ice)

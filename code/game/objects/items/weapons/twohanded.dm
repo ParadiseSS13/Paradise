@@ -28,12 +28,15 @@
 	var/force_wielded = 0
 	var/wieldsound = null
 	var/unwieldsound = null
+	var/sharp_when_wielded = FALSE
 
 /obj/item/twohanded/proc/unwield(mob/living/carbon/user)
 	if(!wielded || !user)
 		return
 	wielded = FALSE
 	force = force_unwielded
+	if(sharp_when_wielded)
+		sharp = FALSE
 	var/sf = findtext(name," (Wielded)")
 	if(sf)
 		name = copytext(name, 1, sf)
@@ -66,6 +69,8 @@
 		return
 	wielded = TRUE
 	force = force_wielded
+	if(sharp_when_wielded)
+		sharp = TRUE
 	name = "[name] (Wielded)"
 	update_icon()
 	if(user)
@@ -110,6 +115,7 @@
 	icon_state = "offhand"
 	name = "offhand"
 	flags = ABSTRACT
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/item/twohanded/offhand/unwield()
 	if(!QDELETED(src))
@@ -176,6 +182,9 @@
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/crowbar.ogg'
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/fireaxe/update_icon()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[wielded]"
@@ -185,12 +194,10 @@
 	if(!proximity)
 		return
 	if(wielded) //destroys windows and grilles in one hit
-		if(istype(A, /obj/structure/window))
-			var/obj/structure/window/W = A
-			W.take_damage(200, BRUTE, "melee", 0)
-		else if(istype(A, /obj/structure/grille))
-			var/obj/structure/grille/G = A
-			G.take_damage(40, BRUTE, "melee", 0)
+		if(istype(A, /obj/structure/window) || istype(A, /obj/structure/grille))
+			var/obj/structure/W = A
+			W.obj_destruction("fireaxe")
+
 
 /obj/item/twohanded/fireaxe/boneaxe  // Blatant imitation of the fireaxe, but made out of bone.
 	icon_state = "bone_axe0"
@@ -224,7 +231,10 @@
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 75
-	sharp = TRUE
+	sharp_when_wielded = TRUE // only sharp when wielded
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
@@ -262,7 +272,7 @@
 			user.SpinAnimation(7, 1)
 		sleep(1)
 
-/obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance)
+/obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(wielded)
 		return ..()
 	return FALSE
@@ -332,13 +342,24 @@
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	var/obj/item/grenade/explosive = null
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
+	var/icon_prefix = "spearglass"
 
 /obj/item/twohanded/spear/update_icon()
-	if(explosive)
-		icon_state = "spearbomb[wielded]"
-	else
-		icon_state = "spearglass[wielded]"
+	icon_state = "[icon_prefix][wielded]"
+
+/obj/item/twohanded/spear/CheckParts(list/parts_list)
+	var/obj/item/shard/tip = locate() in parts_list
+	if(istype(tip, /obj/item/shard/plasma))
+		force_wielded = 19
+		force_unwielded = 11
+		throwforce = 21
+		icon_prefix = "spearplasma"
+	update_icon()
+	qdel(tip)
 	..()
+
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity)
 	if(!proximity)
@@ -365,9 +386,7 @@
 	force_wielded = 20					//I have no idea how to balance
 	throwforce = 22
 	armour_penetration = 15				//Enhanced armor piercing
-
-/obj/item/twohanded/spear/bonespear/update_icon()
-	icon_state = "bone_spear[wielded]"
+	icon_prefix = "bone_spear"
 
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
@@ -502,7 +521,7 @@
 	armour_penetration = 100
 	force_on = 30
 
-/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
@@ -573,7 +592,8 @@
 	throwforce = 15
 	throw_range = 1
 	w_class = WEIGHT_CLASS_HUGE
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 50, bio = 0, rad = 0)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 5
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
 
@@ -747,6 +767,7 @@
 	force_wielded = 30
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
 	var/charged = 1
 
 /obj/item/twohanded/energizedfireaxe/update_icon()
@@ -793,6 +814,9 @@
 	force_wielded = 15
 	attack_verb = list("attacked", "impaled", "pierced")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"

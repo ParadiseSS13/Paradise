@@ -6,6 +6,7 @@
 	icon_state = "mixer0"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
@@ -24,7 +25,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()
@@ -41,12 +42,21 @@
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
+	if(severity < 3)
+		if(beaker)
+			beaker.ex_act(severity)
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.ex_act(severity)
+		..()
+
+/obj/machinery/chem_master/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		reagents.clear_reagents()
+		update_icon()
+	else if(A == loaded_pill_bottle)
+		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon()
 	overlays.Cut()
@@ -54,7 +64,7 @@
 	if(powered())
 		overlays += "waitlight"
 
-/obj/machinery/chem_master/blob_act()
+/obj/machinery/chem_master/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		qdel(src)
 
@@ -133,6 +143,39 @@
 		if(loaded_pill_bottle)
 			loaded_pill_bottle.forceMove(loc)
 			loaded_pill_bottle = null
+	else if(href_list["change_pillbottle"])
+		if(loaded_pill_bottle)
+			var/list/wrappers = list("Default wrapper", "Red wrapper", "Green wrapper", "Pale green wrapper", "Blue wrapper", "Light blue wrapper", "Teal wrapper", "Yellow wrapper", "Orange wrapper", "Pink wrapper", "Brown wrapper")
+			var/chosen = input(usr, "Select a pillbottle wrapper", "Pillbottle wrapper", wrappers[1]) as null|anything in wrappers
+			if(!chosen)
+				return
+			var/color
+			switch(chosen)
+				if("Default wrapper")
+					loaded_pill_bottle.cut_overlays()
+					return
+				if("Red wrapper")
+					color = COLOR_RED
+				if("Green wrapper")
+					color = COLOR_GREEN
+				if("Pink wrapper")
+					color = COLOR_PINK
+				if("Teal wrapper")
+					color = COLOR_TEAL
+				if("Blue wrapper")
+					color = COLOR_BLUE
+				if("Brown wrapper")
+					color = COLOR_MAROON
+				if("Light blue wrapper")
+					color = COLOR_CYAN_BLUE
+				if("Yellow wrapper")
+					color = COLOR_YELLOW
+				if("Pale green wrapper")
+					color = COLOR_PALE_BTL_GREEN
+				if("Orange wrapper")
+					color = COLOR_ORANGE
+			loaded_pill_bottle.wrapper_color = color;
+			loaded_pill_bottle.apply_wrap();
 	else if(href_list["close"])
 		usr << browse(null, "window=chem_master")
 		onclose(usr, "chem_master")
@@ -185,7 +228,7 @@
 				dat += "<A href='?src=[UID()];main=1'>(Back)</A>"
 			else
 				dat += "<TITLE>Condimaster 3000</TITLE>Condiment infos:<BR><BR>Name:<BR>[href_list["name"]]<BR><BR>Description:<BR>[href_list["desc"]]<BR><BR><BR><A href='?src=[UID()];main=1'>(Back)</A>"
-			usr << browse(dat, "window=chem_master;size=575x400")
+			usr << browse(dat, "window=chem_master;size=575x500")
 			return
 
 		else if(href_list["add"])
@@ -249,7 +292,7 @@
 				var/amount_per_pill = reagents.total_volume / count
 				if(amount_per_pill > 100)
 					amount_per_pill = 100
-				var/name = input(usr,"Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)") as text|null
+				var/name = clean_input("Name:","Name your pill!","[reagents.get_master_reagent_name()] ([amount_per_pill]u)")
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -270,7 +313,7 @@
 							P.forceMove(loaded_pill_bottle)
 							updateUsrDialog()
 			else
-				var/name = input(usr, "Name:", "Name your bag!", reagents.get_master_reagent_name()) as text|null
+				var/name = clean_input("Name:", "Name your bag!", reagents.get_master_reagent_name())
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -295,7 +338,7 @@
 				var/amount_per_patch = reagents.total_volume/count
 				if(amount_per_patch > 40)
 					amount_per_patch = 40
-				var/name = input(usr, "Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)") as text|null
+				var/name = clean_input("Name:", "Name your patch!", "[reagents.get_master_reagent_name()] ([amount_per_patch]u)")
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -317,7 +360,7 @@
 
 		else if(href_list["createbottle"])
 			if(!condi)
-				var/name = input(usr, "Name:", "Name your bottle!", reagents.get_master_reagent_name()) as text|null
+				var/name = clean_input("Name:", "Name your bottle!", reagents.get_master_reagent_name())
 				if(!name)
 					return
 				name = reject_bad_text(name)
@@ -388,7 +431,7 @@
 
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 400)
+		ui = new(user, src, ui_key, "chem_master.tmpl", name, 575, 500)
 		ui.open()
 
 /obj/machinery/chem_master/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
@@ -445,7 +488,7 @@
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()

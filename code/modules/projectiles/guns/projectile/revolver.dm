@@ -84,8 +84,8 @@
 	return boolets
 
 /obj/item/gun/projectile/revolver/examine(mob/user)
-	..()
-	to_chat(user, "[get_ammo(0,0)] of those are live rounds.")
+	. = ..()
+	. += "[get_ammo(0,0)] of those are live rounds."
 
 /obj/item/gun/projectile/revolver/detective
 	desc = "A cheap Martian knock-off of a classic law enforcement firearm. Uses .38-special rounds."
@@ -115,7 +115,6 @@
 	..()
 
 /obj/item/gun/projectile/revolver/detective/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/screwdriver))
 		if(magazine.caliber == "38")
 			to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
@@ -143,6 +142,8 @@
 				magazine.caliber = "38"
 				desc = initial(desc)
 				to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "\improper finger gun"
@@ -285,7 +286,7 @@
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire(user, user))
 				playsound(user, fire_sound, 50, 1)
-				var/zone = check_zone(user.zone_sel.selecting)
+				var/zone = check_zone(user.zone_selected)
 				if(zone == "head" || zone == "eyes" || zone == "mouth")
 					shoot_self(user, zone)
 				else
@@ -298,6 +299,18 @@
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = "head")
 	user.apply_damage(300, BRUTE, affecting)
 	user.visible_message("<span class='danger'>[user.name] fires [src] at [user.p_their()] head!</span>", "<span class='userdanger'>You fire [src] at your head!</span>", "<span class='italics'>You hear a gunshot!</span>")
+
+/obj/item/gun/projectile/revolver/russian/soul
+	name = "cursed Russian revolver"
+	desc = "To play with this revolver requires wagering your very soul."
+
+/obj/item/gun/projectile/revolver/russian/soul/shoot_self(mob/living/user)
+	..()
+	var/obj/item/soulstone/anybody/SS = new /obj/item/soulstone/anybody(get_turf(src))
+	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
+		qdel(SS)
+		return
+	user.visible_message("<span class='danger'>[user.name]'s soul is captured by \the [src]!</span>", "<span class='userdanger'>You've lost the gamble! Your soul is forfeit!</span>")
 
 /obj/item/gun/projectile/revolver/capgun
 	name = "cap gun"
@@ -335,7 +348,6 @@
 	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
 		chamber_round()
 	if(istype(A, /obj/item/melee/energy))
@@ -344,6 +356,8 @@
 			sawoff(user)
 	if(istype(A, /obj/item/circular_saw) || istype(A, /obj/item/gun/energy/plasmacutter))
 		sawoff(user)
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
@@ -382,7 +396,6 @@
 	var/slung = 0
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/stack/cable_coil) && !sawn_state)
 		var/obj/item/stack/cable_coil/C = A
 		if(C.use(10))
@@ -394,6 +407,8 @@
 		else
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling.</span>")
 			return
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon()
 	..()
@@ -438,9 +453,10 @@
 	return
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/attackby(obj/item/A, mob/user, params)
-	..()
 	if(istype(A, /obj/item/stack/cable_coil))
 		return
+	else
+		return ..()
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/examine(mob/user) // HAD TO REPEAT EXAMINE CODE BECAUSE GUN CODE DOESNT STEALTH
 	var/f_name = "\a [src]."
@@ -451,7 +467,7 @@
 			f_name = "a "
 		f_name += "<span class='danger'>blood-stained</span> [name]!"
 
-	to_chat(user, "[bicon(src)] That's [f_name]")
+	. = list("[bicon(src)] That's [f_name]")
 
 	if(desc)
-		to_chat(user, desc)
+		. += desc

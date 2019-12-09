@@ -17,10 +17,10 @@
 	pressure_resistance = 0
 	slot_flags = SLOT_HEAD
 	body_parts_covered = HEAD
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
 	attack_verb = list("bapped")
-
+	dog_fashion = /datum/dog_fashion/head
 	var/info		//What's actually written on the paper.
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
@@ -54,21 +54,20 @@
 
 /obj/item/paper/update_icon()
 	..()
-	if(icon_state == "paper_talisman")
-		return
 	if(info)
 		icon_state = "paper_words"
 		return
 	icon_state = "paper"
 
 /obj/item/paper/examine(mob/user)
+	. = ..()
 	if(user.is_literate())
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
 		else
-			to_chat(user, "<span class='notice'>You have to go closer if you want to read it.</span>")
+			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
 	else
-		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
+		. += "<span class='notice'>You don't know how to read.</span>"
 
 /obj/item/paper/proc/show_content(var/mob/user, var/forceshow = 0, var/forcestars = 0, var/infolinks = 0, var/view = 1)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -132,12 +131,12 @@
 	return
 
 /obj/item/paper/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	if(user.zone_sel.selecting == "eyes")
+	if(user.zone_selected == "eyes")
 		user.visible_message("<span class='notice'>You show the paper to [M]. </span>", \
 			"<span class='notice'> [user] holds up a paper and shows it to [M]. </span>")
 		M.examinate(src)
 
-	else if(user.zone_sel.selecting == "mouth")
+	else if(user.zone_selected == "mouth")
 		if(!istype(M, /mob))	return
 
 		if(ishuman(M))
@@ -215,7 +214,7 @@
 
 
 /obj/item/paper/proc/parsepencode(var/t, var/obj/item/pen/P, mob/user as mob)
-	t = pencode_to_html(t, usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
+	t = pencode_to_html(html_encode(t), usr, P, TRUE, TRUE, TRUE, deffont, signfont, crayonfont)
 	return t
 
 /obj/item/paper/proc/populatefields()
@@ -285,7 +284,6 @@
 				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
 */
-		t = html_encode(t)
 		t = parsepencode(t, i, usr) // Encode everything from pencode to html
 
 		if(id!="end")
@@ -306,7 +304,7 @@
 /obj/item/paper/attackby(obj/item/P, mob/living/user, params)
 	..()
 
-	if(burn_state == ON_FIRE)
+	if(resistance_flags & ON_FIRE)
 		return
 
 	var/clown = 0
@@ -406,7 +404,7 @@
 
 /obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
-	if(burn_state >= FLAMMABLE) //Renders paper that has been lit on fire to be illegible.
+	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
 
 /obj/item/paper/proc/stamp(var/obj/item/stamp/S)

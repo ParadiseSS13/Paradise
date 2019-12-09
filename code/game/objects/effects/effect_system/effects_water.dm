@@ -21,7 +21,7 @@
 		reagents.reaction(A)
 	if(istype(A,/atom/movable))
 		var/atom/movable/AM = A
-		AM.water_act(life, 310.15, src)
+		AM.water_act(life, COLD_WATER_TEMPERATURE, src)
 	return ..()
 
 /////////////////////////////////////////////

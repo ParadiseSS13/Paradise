@@ -201,6 +201,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	//Gear stuff
 	var/list/gear = list()
 	var/gear_tab = "General"
+	// Parallax
+	var/parallax = PARALLAX_HIGH
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -462,6 +464,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
+			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
+			switch (parallax)
+				if(PARALLAX_LOW)
+					dat += "Low"
+				if(PARALLAX_MED)
+					dat += "Medium"
+				if(PARALLAX_INSANE)
+					dat += "Insane"
+				if(PARALLAX_DISABLE)
+					dat += "Disabled"
+				else
+					dat += "High"
+			dat += "</a><br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'><b>[(sound & SOUND_MIDI) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'><b>[(sound & SOUND_LOBBY) ? "Yes" : "No"]</b></a><br>"
 			dat += "<b>Randomized Character Slot:</b> <a href='?_src_=prefs;preference=randomslot'><b>[randomslot ? "Yes" : "No"]</b></a><br>"
@@ -1263,7 +1278,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = input(user, "Choose your character's name:", "Character Preference") as text|null
+					var/raw_name = clean_input("Choose your character's name:", "Character Preference", , user)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -1449,6 +1464,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if(species in SA.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 								valid_hairstyles += hairstyle
 
+					sortTim(valid_hairstyles, /proc/cmp_text_asc) //this alphabetizes the list
 					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
 					if(new_h_style)
 						h_style = new_h_style
@@ -1470,6 +1486,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 							valid_head_accessory_styles += head_accessory_style
 
+						sortTim(valid_head_accessory_styles, /proc/cmp_text_asc)
 						var/new_head_accessory_style = input(user, "Choose the style of your character's head accessory:", "Character Preference") as null|anything in valid_head_accessory_styles
 						if(new_head_accessory_style)
 							ha_style = new_head_accessory_style
@@ -1527,7 +1544,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 										continue
 
 							valid_markings += markingstyle
-
+						sortTim(valid_markings, /proc/cmp_text_asc)
 						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", m_styles["head"]) as null|anything in valid_markings
 						if(new_marking_style)
 							m_styles["head"] = new_marking_style
@@ -1551,7 +1568,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								continue
 
 							valid_markings += markingstyle
-
+						sortTim(valid_markings, /proc/cmp_text_asc)
 						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", m_styles["body"]) as null|anything in valid_markings
 						if(new_marking_style)
 							m_styles["body"] = new_marking_style
@@ -1581,7 +1598,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									continue
 
 							valid_markings += markingstyle
-
+						sortTim(valid_markings, /proc/cmp_text_asc)
 						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", m_styles["tail"]) as null|anything in valid_markings
 						if(new_marking_style)
 							m_styles["tail"] = new_marking_style
@@ -1605,7 +1622,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								continue
 							if(species in accessory.allowed_species)
 								possible_body_accessories += B
-
+					sortTim(possible_body_accessories, /proc/cmp_text_asc)
 					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
 					if(new_body_accessory)
 						m_styles["tail"] = "None"
@@ -1653,7 +1670,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						else //If the user is not a species who can have robotic heads, use the default handling.
 							if(species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
-
+					sortTim(valid_facial_hairstyles, /proc/cmp_text_asc)
 					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facial_hairstyles
 					if(new_f_style)
 						f_style = new_f_style
@@ -1669,6 +1686,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(!(species in SA.species_allowed))
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
+					sortTim(valid_underwear, /proc/cmp_text_asc)
 					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference") as null|anything in valid_underwear
 					ShowChoices(user)
 					if(new_underwear)
@@ -1684,6 +1702,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(!(species in SA.species_allowed))
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
+					sortTim(valid_undershirts, /proc/cmp_text_asc)
 					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in valid_undershirts
 					ShowChoices(user)
 					if(new_undershirt)
@@ -1700,6 +1719,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(!(species in SA.species_allowed))
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
+					sortTim(valid_sockstyles, /proc/cmp_text_asc)
 					var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
 					ShowChoices(user)
 					if(new_socks)
@@ -2035,7 +2055,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 				if("ghost_radio")
 					toggles ^= CHAT_GHOSTRADIO
-				
+
 				if("ghost_pda")
 					toggles ^= CHAT_GHOSTPDA
 
@@ -2072,6 +2092,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(href_list["tab"])
 						current_tab = text2num(href_list["tab"])
 
+
 				if("ambientocclusion")
 					toggles ^= AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
@@ -2079,6 +2100,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						PM.filters -= FILTER_AMBIENT_OCCLUSION
 						if(toggles & AMBIENT_OCCLUSION)
 							PM.filters += FILTER_AMBIENT_OCCLUSION
+
+				if("parallax")
+					var/parallax_styles = list(
+						"Off" = PARALLAX_DISABLE,
+						"Low" = PARALLAX_LOW,
+						"Medium" = PARALLAX_MED,
+						"High" = PARALLAX_HIGH,
+						"Insane" = PARALLAX_INSANE
+					)
+					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
+					if(parent && parent.mob && parent.mob.hud_used)
+						parent.mob.hud_used.update_parallax_pref()
+
 
 	ShowChoices(user)
 	return 1
@@ -2111,7 +2145,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	character.change_gender(gender)
 	character.age = age
-	character.b_type = b_type
 
 	//Head-specific
 	var/obj/item/organ/external/head/H = character.get_organ("head")
@@ -2154,18 +2187,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if(status == "cybernetic")
 					I.robotize()
 
-	character.dna.b_type = b_type
+	character.dna.blood_type = b_type
 
 	// Wheelchair necessary?
 	var/obj/item/organ/external/l_foot = character.get_organ("l_foot")
 	var/obj/item/organ/external/r_foot = character.get_organ("r_foot")
 	if(!l_foot && !r_foot)
-		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair (character.loc)
-		character.buckled = W
-		character.update_canmove()
-		W.dir = character.dir
-		W.buckled_mob = character
-		W.add_fingerprint(character)
+		var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(character.loc)
+		W.buckle_mob(character, TRUE)
 
 	character.underwear = underwear
 	character.undershirt = undershirt

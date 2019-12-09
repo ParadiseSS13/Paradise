@@ -5,9 +5,9 @@
 	icon_state = "crate"
 	icon_opened = "crateopen"
 	icon_closed = "crate"
-	climbable = 1
+	climbable = TRUE
 //	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
-	var/rigged = 0
+	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
@@ -23,16 +23,16 @@
 		overlays += "manifest"
 
 /obj/structure/closet/crate/can_open()
-	return 1
+	return TRUE
 
 /obj/structure/closet/crate/can_close()
-	return 1
+	return TRUE
 
 /obj/structure/closet/crate/open()
 	if(src.opened)
-		return 0
+		return FALSE
 	if(!src.can_open())
-		return 0
+		return FALSE
 
 	if(rigged && locate(/obj/item/radio/electropack) in src)
 		if(isliving(usr))
@@ -47,18 +47,18 @@
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
 	icon_state = icon_opened
-	src.opened = 1
+	src.opened = TRUE
 
 	if(climbable)
 		structure_shaken()
 
-	return 1
+	return TRUE
 
 /obj/structure/closet/crate/close()
 	if(!src.opened)
-		return 0
+		return FALSE
 	if(!src.can_close())
-		return 0
+		return FALSE
 
 	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
 	var/itemcount = 0
@@ -69,14 +69,14 @@
 			continue
 		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
 			var/obj/structure/bed/B = O
-			if(B.buckled_mob)
+			if(B.has_buckled_mobs())
 				continue
 		O.forceMove(src)
 		itemcount++
 
 	icon_state = icon_closed
-	src.opened = 0
-	return 1
+	src.opened = FALSE
+	return TRUE
 
 /obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !src.opened)
@@ -105,7 +105,7 @@
 						return
 					playsound(E.loc, E.usesound, 50, 1)
 					to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
-					E.teleporting = 1
+					E.teleporting = TRUE
 					if(!do_after(user, 50 * E.toolspeed, target = src))
 						E.teleporting = 0
 						return
@@ -127,9 +127,9 @@
 					return
 				playsound(E.loc, E.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>Teleporting [src.name]...</span>")
-				E.teleporting = 1
+				E.teleporting = TRUE
 				if(!do_after(user, 50 * E.toolspeed, target = src))
-					E.teleporting = 0
+					E.teleporting = FALSE
 					return
 				E.teleporting = 0
 				if(!(E.rcell && E.rcell.use(E.chargecost)))
@@ -154,14 +154,16 @@
 	else if(istype(W, /obj/item/stack/packageWrap))
 		return
 	else if(istype(W, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
 			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
 			return
-		to_chat(user, "<span class='notice'>You rig [src].</span>")
-		user.drop_item()
-		qdel(W)
-		rigged = 1
-		return
+		if(C.use(15))
+			to_chat(user, "<span class='notice'>You rig [src].</span>")
+			rigged = TRUE
+		else
+			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+			return
 	else if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
 			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
@@ -172,29 +174,16 @@
 		if(rigged)
 			to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
 			playsound(loc, W.usesound, 100, 1)
-			rigged = 0
+			rigged = FALSE
 			return
-	else return attack_hand(user)
+	else if(user.a_intent != INTENT_HARM)
+		attack_hand(user)
+	else
+		return ..()
 
-/obj/structure/closet/crate/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/obj/O in src.contents)
-				qdel(O)
-			qdel(src)
-			return
-		if(2.0)
-			for(var/obj/O in src.contents)
-				if(prob(50))
-					qdel(O)
-			qdel(src)
-			return
-		if(3.0)
-			if(prob(50))
-				qdel(src)
-			return
-		else
-	return
+/obj/structure/closet/singularity_act()
+	dump_contents()
+	..()
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
@@ -234,9 +223,12 @@
 	var/greenlight = "securecrateg"
 	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
+	max_integrity = 500
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	damage_deflection = 25
+	var/tamperproof = 0
 	broken = 0
 	locked = 1
-	health = 1000
 
 /obj/structure/closet/crate/secure/update_icon()
 	..()
@@ -249,6 +241,21 @@
 		overlays += emag
 	else
 		overlays += greenlight
+
+/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
+		boom()
+	else
+		return ..()
+
+/obj/structure/closet/crate/secure/proc/boom(mob/user)
+	if(user)
+		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
+		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+	for(var/atom/movable/AM in src)
+		qdel(AM)
+	explosion(get_turf(src), 0, 1, 5, 5)
+	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
@@ -460,7 +467,7 @@
 						 								"<span class='notice'>You have secured [src]'s floor casters.</span>")
 				anchored = TRUE
 	else
-		..()
+		return ..()
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
@@ -525,6 +532,7 @@
 	icon_state = "largemetal"
 	icon_opened = "largemetalopen"
 	icon_closed = "largemetal"
+	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
 
 /obj/structure/closet/crate/large/close()
 	. = ..()

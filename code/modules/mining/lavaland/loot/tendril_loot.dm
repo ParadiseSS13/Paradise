@@ -14,6 +14,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
 	slot_flags = SLOT_BACK
+	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
 
 /obj/item/shared_storage/red
@@ -77,6 +78,21 @@
 
 			add_fingerprint(M)
 
+//Book of Babel
+
+/obj/item/book_of_babel
+	name = "Book of Babel"
+	desc = "An ancient tome written in countless tongues."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "book1"
+	w_class = 2
+
+/obj/item/book_of_babel/attack_self(mob/user)
+	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
+	user.grant_all_babel_languages()
+	new /obj/effect/decal/cleanable/ash(get_turf(user))
+	qdel(src)
+
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
 /obj/item/reagent_containers/glass/bottle/potion
@@ -117,6 +133,30 @@
 		H.emote("scream")
 	..()*/
 
+/obj/item/jacobs_ladder
+	name = "jacob's ladder"
+	desc = "A celestial ladder that violates the laws of physics."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder00"
+
+/obj/item/jacobs_ladder/attack_self(mob/user)
+	var/turf/T = get_turf(src)
+	var/ladder_x = T.x
+	var/ladder_y = T.y
+	to_chat(user, "<span class='notice'>You unfold the ladder. It extends much farther than you were expecting.</span>")
+	var/last_ladder = null
+	for(var/i in 1 to world.maxz)
+		if(is_admin_level(i) || is_away_level(i))
+			continue
+		var/turf/T2 = locate(ladder_x, ladder_y, i)
+		last_ladder = new /obj/structure/ladder/unbreakable/jacob(T2, null, last_ladder)
+	qdel(src)
+
+// Inherit from unbreakable but don't set ID, to suppress the default Z linkage
+/obj/structure/ladder/unbreakable/jacob
+	name = "jacob's ladder"
+	desc = "An indestructible celestial ladder that violates the laws of physics."
+
 //Boat
 
 /obj/vehicle/lavaboat
@@ -124,8 +164,7 @@
 	desc = "A boat used for traversing lava."
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
-	keytype = /obj/item/oar
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	held_key_type = /obj/item/oar
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
@@ -136,7 +175,7 @@
 		..()
 	else
 		to_chat(user, "<span class='warning'>Boats don't go on land!</span>")
-		return 0
+		return FALSE
 
 /obj/item/oar
 	name = "oar"
@@ -146,7 +185,7 @@
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
@@ -169,7 +208,6 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
@@ -180,7 +218,7 @@
 /obj/vehicle/lavaboat/dragon
 	name = "mysterious boat"
 	desc = "This boat moves where you will it, without the need for an oar."
-	keytype = null
+	held_key_type = null
 	icon_state = "dragon_boat"
 	generic_pixel_y = 2
 	generic_pixel_x = 1
@@ -274,6 +312,10 @@
 		to_chat(user, "[src] fizzles uselessly.")
 		return
 
+	if(is_in_teleport_proof_area(user) || is_in_teleport_proof_area(linked))
+		to_chat(user, "<span class='warning'>[src] sparks and fizzles.</span>")
+		return
+
 	var/datum/effect_system/smoke_spread/smoke = new
 	smoke.set_up(1, 0, user.loc)
 	smoke.start()
@@ -354,6 +396,7 @@
 	desc = "A dread talisman that can render you completely invulnerable."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
 	var/cooldown = 0
 
@@ -397,6 +440,9 @@
 	return
 
 /obj/effect/immortality_talisman/ex_act()
+	return
+
+/obj/effect/immortality_talisman/singularity_act()
 	return
 
 /obj/effect/immortality_talisman/singularity_pull()

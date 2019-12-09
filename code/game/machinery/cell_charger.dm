@@ -8,8 +8,14 @@
 	idle_power_usage = 5
 	active_power_usage = 60
 	power_channel = EQUIP
+	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
+
+/obj/machinery/cell_charger/deconstruct()
+	if(charging)
+		charging.forceMove(drop_location())
+	return ..()
 
 /obj/machinery/cell_charger/Destroy()
 	QDEL_NULL(charging)
@@ -31,10 +37,10 @@
 		overlays.Cut()
 
 /obj/machinery/cell_charger/examine(mob/user)
-	..()
-	to_chat(user, "There's [charging ? "a" : "no"] cell in the charger.")
+	. = ..()
+	. += "There's [charging ? "a" : "no"] cell in the charger."
 	if(charging)
-		to_chat(user, "Current charge: [round(charging.percent(), 1)]%")
+		. += "Current charge: [round(charging.percent(), 1)]%"
 
 /obj/machinery/cell_charger/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stock_parts/cell))

@@ -56,9 +56,7 @@
 /turf/simulated/shuttle/floor,
 /area/ruin/powered)
 "m" = (
-/obj/structure/chair/office/dark{
-	tag = "icon-officechair_dark (NORTH)";
-	icon_state = "officechair_dark";
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -93,7 +91,7 @@
 	},
 /area/ruin/powered)
 "s" = (
-/obj/effect/decal/mecha_wreckage/phazon,
+/obj/structure/mecha_wreckage/phazon,
 /turf/simulated/shuttle/floor{
 	tag = "icon-floor2";
 	icon_state = "floor2"
@@ -106,14 +104,14 @@
 	},
 /area/ruin/powered)
 "u" = (
-/obj/effect/decal/mecha_wreckage/ripley/firefighter,
+/obj/structure/mecha_wreckage/ripley/firefighter,
 /turf/simulated/shuttle/floor{
 	tag = "icon-floor2";
 	icon_state = "floor2"
 	},
 /area/ruin/powered)
 "v" = (
-/obj/effect/decal/mecha_wreckage/ripley,
+/obj/structure/mecha_wreckage/ripley,
 /turf/simulated/shuttle/floor{
 	tag = "icon-floor2";
 	icon_state = "floor2"
@@ -152,7 +150,7 @@
 	},
 /area/ruin/powered)
 "A" = (
-/obj/effect/decal/mecha_wreckage/durand,
+/obj/structure/mecha_wreckage/durand,
 /turf/simulated/shuttle/floor{
 	tag = "icon-floor2";
 	icon_state = "floor2"
@@ -196,7 +194,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "J" = (
-/obj/effect/decal/mecha_wreckage/odysseus,
+/obj/structure/mecha_wreckage/odysseus,
 /turf/simulated/shuttle/floor{
 	tag = "icon-floor2";
 	icon_state = "floor2"
@@ -207,7 +205,7 @@
 /turf/space,
 /area/space/nearstation)
 "L" = (
-/obj/effect/decal/mecha_wreckage/gygax,
+/obj/structure/mecha_wreckage/gygax,
 /turf/simulated/shuttle/floor{
 	tag = "icon-floor3";
 	icon_state = "floor3"

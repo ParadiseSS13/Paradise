@@ -498,7 +498,7 @@ var/list/ai_verbs_default = list(
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
 
-	var/input = input(usr, "Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","") as text|null
+	var/input = clean_input("Please enter the reason for calling the shuttle.", "Shuttle Call Reason.","")
 	if(!input || stat)
 		return
 
@@ -560,11 +560,12 @@ var/list/ai_verbs_default = list(
 	user.reset_perspective(current)
 	return TRUE
 
-/mob/living/silicon/ai/blob_act()
-	if(stat != 2)
+/mob/living/silicon/ai/blob_act(obj/structure/blob/B)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
-		return TRUE
-	return FALSE
+		updatehealth()
+		return 1
+	return 0
 
 /mob/living/silicon/ai/restrained()
 	return FALSE
@@ -1074,7 +1075,7 @@ var/list/ai_verbs_default = list(
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
-	var/newmsg = input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg) as text
+	var/newmsg = clean_input("What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg)
 	if(newmsg != arrivalmsg)
 		arrivalmsg = newmsg
 		to_chat(usr, "The arrival message has been successfully changed.")
@@ -1172,6 +1173,9 @@ var/list/ai_verbs_default = list(
 		loc = card//Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
+
+/mob/living/silicon/ai/can_buckle()
+	return FALSE
 
 // Pass lying down or getting up to our pet human, if we're in a rig.
 /mob/living/silicon/ai/lay_down()

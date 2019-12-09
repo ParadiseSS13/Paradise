@@ -3,6 +3,7 @@
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
+	dead_icon = null
 	status = ORGAN_ROBOT
 	origin_tech = "materials=4;biotech=7;abductor=3"
 	beating = TRUE
@@ -17,6 +18,9 @@
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
 	var/active_mind_control = FALSE
+
+/obj/item/organ/internal/heart/gland/update_icon()
+	return
 
 /obj/item/organ/internal/heart/gland/proc/ownerCheck()
 	if(ishuman(owner))
@@ -129,7 +133,7 @@
 	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")
 	owner.vomit(20)
 
-	var/mob/living/carbon/slime/Slime = new/mob/living/carbon/slime(get_turf(owner))
+	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
 	Slime.Friends = list(owner)
 	Slime.Leader = owner
 

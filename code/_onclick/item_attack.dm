@@ -62,6 +62,10 @@
 			else
 				return 1
 
+	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
+
 	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
 	else

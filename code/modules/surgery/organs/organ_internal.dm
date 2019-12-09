@@ -8,7 +8,7 @@
 	var/non_primary = 0
 	var/unremovable = FALSE //Whether it shows up as an option to remove during surgery.
 
-/obj/item/organ/internal/New(var/mob/living/carbon/holder)
+/obj/item/organ/internal/New(mob/living/carbon/holder)
 	..()
 	if(istype(holder))
 		insert(holder)
@@ -191,7 +191,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
-	health = 3
+	max_integrity = 3
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
@@ -205,11 +205,11 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		var/light_count = T.get_lumcount()*10
-		if(light_count > 4 && health > 0) //Die in the light
-			health--
-		else if(light_count < 2 && health < 3) //Heal in the dark
-			health++
-		if(health <= 0)
+		if(light_count > 4 && obj_integrity > 0) //Die in the light
+			obj_integrity--
+		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
+			obj_integrity++
+		if(obj_integrity <= 0)
 			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
 			qdel(src)
 
@@ -223,9 +223,10 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
-	health = 3
 	var/organhonked = 0
 	var/suffering_delay = 900
+	var/datum/component/waddle
+	var/datum/component/squeak
 
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -236,6 +237,8 @@
 	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
 	organhonked = world.time
+	waddle = M.AddComponent(/datum/component/waddling)
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
 
 /obj/item/organ/internal/honktumor/remove(mob/living/carbon/M, special = 0)
 	. = ..()
@@ -246,6 +249,8 @@
 	M.dna.SetSEState(COMICBLOCK,0)
 	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
 	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+	QDEL_NULL(waddle)
+	QDEL_NULL(squeak)
 	qdel(src)
 
 /obj/item/organ/internal/honktumor/on_life()
@@ -279,8 +284,29 @@
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
 	owner.setBrainLoss(80)
-	owner.nutrition = 9000
+	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
+
+
+/obj/item/organ/internal/honkbladder
+	name = "honk bladder"
+	desc = "a air filled sac that produces honking noises."
+	icon_state = "honktumor"//Not making a new icon
+	origin_tech = "biotech=1"
+	w_class = WEIGHT_CLASS_TINY
+	parent_organ = "groin"
+	slot = "honk_bladder"
+	var/datum/component/squeak
+
+/obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)
+
+	squeak = M.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg'=1,'sound/effects/clownstep2.ogg'=1), 50)
+
+/obj/item/organ/internal/honkbladder/remove(mob/living/carbon/M, special = 0)
+	. = ..()
+
+	QDEL_NULL(squeak)
+	qdel(src)
 
 /obj/item/organ/internal/beard
 	name = "beard organ"

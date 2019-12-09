@@ -10,25 +10,27 @@
 	blood_color = "#FFFFFF"
 	flesh_color = "#E6E6C6"
 
-	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE)
+	species_traits = list(NO_BREATHE, NO_BLOOD, RADIMMUNE, VIRUSIMMUNE, NO_HUNGER, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
 	skinned_type = /obj/item/stack/sheet/bone
+
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
 	dietflags = DIET_OMNI
 	reagent_tag = PROCESS_ORG
 
-	warning_low_pressure = -1
-	hazard_low_pressure = -1
-	hazard_high_pressure = 999999999
-	warning_high_pressure = 999999999
+	warning_low_pressure = -INFINITY
+	hazard_low_pressure = -INFINITY
+	hazard_high_pressure = INFINITY
+	warning_high_pressure = INFINITY
 
-	cold_level_1 = -1
-	cold_level_2 = -1
-	cold_level_3 = -1
+	cold_level_1 = -INFINITY
+	cold_level_2 = -INFINITY
+	cold_level_3 = -INFINITY
 
-	heat_level_1 = 999999999
-	heat_level_2 = 999999999
-	heat_level_3 = 999999999
+	heat_level_1 = INFINITY
+	heat_level_2 = INFINITY
+	heat_level_3 = INFINITY
 
 	suicide_messages = list(
 		"is snapping their own bones!",
@@ -46,12 +48,7 @@
 			var/list/our_organs = H.bodyparts.Copy()
 			shuffle(our_organs)
 			for(var/obj/item/organ/external/L in our_organs)
-				if(istype(L))
-					if(L.brute_dam < L.min_broken_damage)
-						L.status &= ~ORGAN_BROKEN
-						L.status &= ~ORGAN_SPLINTED
-						H.handle_splints()
-						L.perma_injury = 0
+				if(L.mend_fracture())
 					break // We're only checking one limb here, bucko
 		if(prob(3))
 			H.say(pick("Thanks Mr. Skeltal", "Thank for strong bones", "Doot doot!"))

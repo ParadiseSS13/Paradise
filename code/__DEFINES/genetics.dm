@@ -1,6 +1,8 @@
 // String identifiers for associative list lookup
 
 
+#define CHECK_DNA_AND_SPECIES(C) if((!(C.dna)) || (!(C.dna.species))) return
+
 #define MUTCHK_FORCED        1
 
 // mob/var/list/mutations
@@ -22,7 +24,6 @@
 ///////////////////////////////////////
 // MUTATIONS
 ///////////////////////////////////////
-
 // Generic mutations:
 #define	TK				1
 #define COLDRES			2
@@ -105,6 +106,9 @@
 #define NUTRITION_LEVEL_STARVING 150
 #define NUTRITION_LEVEL_CURSED 0
 
+//Used as an upper limit for species that continuously gain nutriment
+#define NUTRITION_LEVEL_ALMOST_FULL 535
+
 //Blood levels
 #define BLOOD_VOLUME_MAXIMUM		2000
 #define BLOOD_VOLUME_NORMAL			560
@@ -112,6 +116,17 @@
 #define BLOOD_VOLUME_OKAY			336
 #define BLOOD_VOLUME_BAD			224
 #define BLOOD_VOLUME_SURVIVE		122
+
+//Sizes of mobs, used by mob/living/var/mob_size
+#define MOB_SIZE_TINY 0
+#define MOB_SIZE_SMALL 1
+#define MOB_SIZE_HUMAN 2
+#define MOB_SIZE_LARGE 3
+
+//Ventcrawling defines
+#define VENTCRAWLER_NONE   0
+#define VENTCRAWLER_NUDE   1
+#define VENTCRAWLER_ALWAYS 2
 
 //Used for calculations for negative effects of having genetics powers
 #define DEFAULT_GENE_STABILITY 100
@@ -128,22 +143,27 @@
 
 //Species traits.
 
-#define IS_WHITELISTED 	1
-#define LIPS			2
-#define NO_BLOOD		3
-#define NO_BREATHE 		4
-#define NO_DNA			5
-#define NO_SCAN 		6
-#define NO_PAIN 		7
-#define IS_PLANT 		8
-#define CAN_BE_FAT 		9
-#define NO_INTORGANS	10
-#define RADIMMUNE		11
-#define NOGUNS			12
-#define NOTRANSSTING	13
-#define VIRUSIMMUNE		14
-#define NOCRITDAMAGE	15
-#define RESISTHOT		16
-#define RESISTCOLD		17
-#define NO_EXAMINE		18
-#define CAN_WINGDINGS	19
+#define IS_WHITELISTED 	"whitelisted"
+#define LIPS			"lips"
+#define NO_BLOOD		"no_blood"
+#define NO_BREATHE 		"no_breathe"
+#define NO_DNA			"no_dna"
+#define NO_SCAN 		"no_scan"
+#define NO_PAIN 		"no_pain"
+#define IS_PLANT 		"is_plant"
+#define CAN_BE_FAT 		"can_be_fat"
+#define NO_INTORGANS	"no_internal_organs"
+#define RADIMMUNE		"rad_immunity"
+#define NOGUNS			"no_guns"
+#define NOTRANSSTING	"no_trans_sting"
+#define VIRUSIMMUNE		"virus_immunity"
+#define NOCRITDAMAGE	"no_crit"
+#define RESISTHOT		"resist_heat"
+#define RESISTCOLD		"resist_cold"
+#define NO_EXAMINE		"no_examine"
+#define CAN_WINGDINGS	"can_wingdings"
+#define NOZOMBIE 		"no_zombie"
+#define NO_GERMS		"no_germs"
+#define NO_DECAY		"no_decay"
+#define PIERCEIMMUNE	"pierce_immunity"
+#define NO_HUNGER		"no_hunger"

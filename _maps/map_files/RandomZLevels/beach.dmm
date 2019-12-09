@@ -13,7 +13,7 @@
 /turf/unsimulated/beach/water/deep/rock_wall,
 /area/awaymission/undersea)
 "ae" = (
-/obj/structure/ladder/dive_point/anchor{
+/obj/structure/ladder/unbreakable/dive_point/anchor{
 	id = "pirate"
 	},
 /turf/unsimulated/beach/water/deep/sand_floor,
@@ -34,12 +34,12 @@
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aj" = (
-/obj/structure/cult/talisman,
+/obj/structure/cult/altar,
 /obj/item/veilrender/crabrender,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "ak" = (
-/obj/structure/cult/talisman,
+/obj/structure/cult/altar,
 /obj/item/tome,
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
@@ -217,7 +217,7 @@
 /turf/unsimulated/beach/water/deep/wood_floor,
 /area/awaymission/undersea)
 "aU" = (
-/obj/structure/ladder/dive_point/anchor,
+/obj/structure/ladder/unbreakable/dive_point/anchor,
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
 "aV" = (
@@ -253,23 +253,6 @@
 /obj/item/coin/gold,
 /turf/unsimulated/beach/water/deep/sand_floor,
 /area/awaymission/undersea)
-"ba" = (
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
-/area/awaymission/beach)
-"bb" = (
-/obj/structure/flora/rock,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
-/area/awaymission/beach)
 "bc" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/effect/decal/snow/sand/edge{
@@ -282,12 +265,7 @@
 /area/awaymission/beach)
 "bd" = (
 /obj/structure/flora/grass/brown,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "be" = (
 /obj/effect/decal/snow/sand/edge{
@@ -417,12 +395,7 @@
 	icon_state = "gravsnow_corner";
 	dir = 9
 	},
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "bv" = (
 /obj/effect/decal/snow/sand/edge{
@@ -431,21 +404,11 @@
 	icon_state = "gravsnow_corner";
 	dir = 5
 	},
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "bw" = (
 /obj/effect/overlay/palmtree_r,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "bx" = (
 /obj/effect/overlay/palmtree_r,
@@ -515,12 +478,7 @@
 /area/awaymission/beach)
 "bG" = (
 /obj/structure/flora/ausbushes/sunnybush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "bH" = (
 /obj/effect/overlay/palmtree_r,
@@ -539,12 +497,7 @@
 	icon_state = "gravsnow_corner";
 	dir = 4
 	},
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "bJ" = (
 /obj/effect/overlay/palmtree_l,
@@ -752,48 +705,19 @@
 "ct" = (
 /obj/effect/overlay/palmtree_r,
 /obj/effect/overlay/coconut,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "cu" = (
 /obj/structure/flora/ausbushes/lavendergrass,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "cv" = (
 /obj/structure/flora/bush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
-/area/awaymission/beach)
-"cw" = (
-/obj/structure/flora/ausbushes/reedbush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "cx" = (
 /obj/structure/flora/ausbushes/genericbush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "cy" = (
 /obj/machinery/gateway{
@@ -823,12 +747,7 @@
 /area/awaymission/beach)
 "cC" = (
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "cD" = (
 /turf/unsimulated/wall{
@@ -896,16 +815,6 @@
 	icon_state = "wood"
 	},
 /turf/unsimulated/beach/sand,
-/area/awaymission/beach)
-"cM" = (
-/obj/structure/flora/rock/pile,
-/obj/structure/flora/ausbushes/palebush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
 /area/awaymission/beach)
 "cN" = (
 /obj/effect/decal/snow/sand/edge{
@@ -1113,7 +1022,7 @@
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/beach)
 "dv" = (
-/obj/structure/ladder/dive_point/buoy,
+/obj/structure/ladder/unbreakable/dive_point/buoy,
 /turf/unsimulated/beach/water/deep,
 /area/awaymission/beach)
 "dw" = (
@@ -1147,12 +1056,7 @@
 /area/awaymission/beach)
 "dB" = (
 /obj/structure/flora/grass/green,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "dC" = (
 /obj/structure/table/wood,
@@ -1186,12 +1090,7 @@
 "dG" = (
 /obj/structure/flora/grass/green,
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "dH" = (
 /obj/effect/decal/snow/sand/edge{
@@ -1265,7 +1164,7 @@
 	icon_state = "tube1";
 	dir = 8
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -1275,7 +1174,7 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -1298,15 +1197,10 @@
 "dV" = (
 /obj/structure/flora/rock,
 /obj/structure/flora/ausbushes/leafybush,
-/turf/unsimulated/beach/sand{
-	density = 1;
-	icon = 'icons/turf/snow.dmi';
-	icon_state = "gravsnow";
-	name = "rough sand"
-	},
+/turf/unsimulated/beach/sand/dense,
 /area/awaymission/beach)
 "dW" = (
-/obj/structure/ladder/dive_point/buoy{
+/obj/structure/ladder/unbreakable/dive_point/buoy{
 	id = "pirate"
 	},
 /turf/unsimulated/beach/water,
@@ -1323,7 +1217,7 @@
 	},
 /area/awaymission/beach)
 "dZ" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /turf/simulated/shuttle/floor,
@@ -1336,7 +1230,7 @@
 	},
 /area/awaymission/beach)
 "eb" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor,
@@ -1371,7 +1265,7 @@
 /turf/simulated/shuttle/floor,
 /area/awaymission/beach)
 "ei" = (
-/obj/structure/chair{
+/obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /turf/simulated/shuttle/floor,
@@ -1707,14 +1601,14 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bw
 cu
-cw
-ba
+dh
+cg
 bw
-ba
+cg
 bw
 by
 bS
@@ -1722,8 +1616,8 @@ bj
 bF
 dz
 dB
-cw
-ba
+dh
+cg
 bB
 bj
 bF
@@ -1964,7 +1858,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 bx
 bH
@@ -2221,8 +2115,8 @@ aa
 aa
 aa
 aa
-bb
-ba
+bX
+cg
 bJ
 bj
 bD
@@ -3249,7 +3143,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 by
 bz
@@ -3506,7 +3400,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 bB
 bj
@@ -3763,7 +3657,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 bB
 bF
@@ -4020,7 +3914,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bx
 bj
 bz
@@ -5048,7 +4942,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bA
 bD
 bt
@@ -5305,7 +5199,7 @@ aa
 aa
 aa
 aa
-bb
+bX
 by
 bF
 bj
@@ -5562,7 +5456,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bB
 bj
 bF
@@ -5819,7 +5713,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bB
 bj
 bz
@@ -6076,7 +5970,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 by
 bE
 bj
@@ -6590,7 +6484,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 by
 bz
 bD
@@ -8132,7 +8026,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bB
 bj
 bz
@@ -8389,7 +8283,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 by
 bj
 bj
@@ -9417,7 +9311,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 by
 bE
@@ -9674,8 +9568,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bJ
 bj
 bD
@@ -9931,8 +9825,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 by
 bj
 bF
@@ -10188,7 +10082,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 by
 bD
@@ -10445,8 +10339,8 @@ aa
 aa
 aa
 aa
-ba
-bb
+cg
+bX
 by
 bz
 bj
@@ -10960,7 +10854,7 @@ aa
 aa
 aa
 bn
-ba
+cg
 bM
 bj
 bj
@@ -11217,7 +11111,7 @@ aa
 aa
 aa
 bn
-ba
+cg
 ci
 bf
 bL
@@ -11730,7 +11624,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bG
 by
 bz
@@ -11988,7 +11882,7 @@ aa
 aa
 aa
 bp
-ba
+cg
 by
 bL
 bj
@@ -12244,8 +12138,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bB
 bj
 bz
@@ -12501,8 +12395,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bB
 bj
 bD
@@ -13531,7 +13425,7 @@ aa
 aa
 br
 bw
-ba
+cg
 by
 bj
 bN
@@ -13786,9 +13680,9 @@ aa
 aa
 aa
 aa
-ba
-bb
-ba
+cg
+bX
+cg
 bB
 bL
 bj
@@ -14043,9 +13937,9 @@ aa
 aa
 aa
 aa
-ba
-ba
-ba
+cg
+cg
+cg
 ci
 bE
 bj
@@ -14300,8 +14194,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bx
 bz
 bj
@@ -14558,7 +14452,7 @@ aa
 aa
 aa
 bs
-ba
+cg
 by
 bj
 bz
@@ -15071,9 +14965,9 @@ aa
 aa
 aa
 aa
-ba
-ba
-ba
+cg
+cg
+cg
 bB
 bO
 bj
@@ -15081,7 +14975,7 @@ bi
 bw
 bw
 cv
-ba
+cg
 bJ
 bR
 bj
@@ -15328,15 +15222,15 @@ aa
 aa
 aa
 aa
-ba
-ba
-ba
+cg
+cg
+cg
 by
 bj
 bz
 dE
 cC
-bb
+bX
 bG
 cC
 do
@@ -15585,7 +15479,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 by
 bE
@@ -15842,8 +15736,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bJ
 bj
 bD
@@ -16099,8 +15993,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 by
 bj
 bF
@@ -16356,7 +16250,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 by
 bD
@@ -16613,8 +16507,8 @@ aa
 aa
 aa
 aa
-ba
-bb
+cg
+bX
 by
 bz
 bj
@@ -17128,7 +17022,7 @@ aa
 aa
 aa
 bn
-ba
+cg
 bM
 bj
 bj
@@ -17385,7 +17279,7 @@ aa
 aa
 aa
 bn
-ba
+cg
 ci
 bf
 bL
@@ -17898,7 +17792,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bG
 by
 bz
@@ -18156,7 +18050,7 @@ aa
 aa
 aa
 bp
-ba
+cg
 by
 bL
 bj
@@ -18412,8 +18306,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bB
 bj
 bz
@@ -18669,8 +18563,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bB
 bj
 bD
@@ -19461,7 +19355,7 @@ cL
 dD
 bf
 bX
-ba
+cg
 by
 bj
 aa
@@ -19699,7 +19593,7 @@ aa
 aa
 br
 bw
-ba
+cg
 by
 bj
 bN
@@ -19718,7 +19612,7 @@ bj
 cD
 bN
 bT
-ba
+cg
 bB
 bL
 aa
@@ -19954,9 +19848,9 @@ aa
 aa
 aa
 aa
-ba
-bb
-ba
+cg
+bX
+cg
 bB
 bL
 bj
@@ -19975,7 +19869,7 @@ bj
 cD
 bj
 ca
-ba
+cg
 ci
 bE
 aa
@@ -20211,9 +20105,9 @@ aa
 aa
 aa
 aa
-ba
-ba
-ba
+cg
+cg
+cg
 ci
 bE
 bj
@@ -20468,8 +20362,8 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bx
 bz
 bj
@@ -20726,7 +20620,7 @@ aa
 aa
 aa
 bs
-ba
+cg
 by
 bj
 bz
@@ -20982,8 +20876,8 @@ aa
 aa
 aa
 aa
-bb
-ba
+bX
+cg
 bJ
 bj
 bD
@@ -21496,8 +21390,8 @@ aa
 aa
 aa
 aa
-bb
-ba
+bX
+cg
 bJ
 bj
 bD
@@ -22524,7 +22418,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 by
 bz
@@ -22781,14 +22675,14 @@ aa
 aa
 aa
 aa
-ba
-ba
+cg
+cg
 bw
 cu
-cw
-ba
+dh
+cg
 bw
-ba
+cg
 bw
 by
 bS
@@ -22796,8 +22690,8 @@ bj
 bF
 dz
 dB
-cw
-ba
+dh
+cg
 bB
 bj
 bF
@@ -23038,7 +22932,7 @@ aa
 aa
 aa
 aa
-ba
+cg
 bw
 bx
 bH
@@ -23295,8 +23189,8 @@ aa
 aa
 aa
 aa
-bb
-ba
+bX
+cg
 bJ
 bj
 bD
@@ -24075,19 +23969,19 @@ bw
 cx
 bj
 bG
-cM
+bT
 ch
-ba
+cg
 bG
-ba
+cg
 cx
 bf
-ba
+cg
 dc
 bL
-ba
-ba
-ba
+cg
+cg
+cg
 ci
 bE
 aa

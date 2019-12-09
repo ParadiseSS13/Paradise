@@ -454,7 +454,8 @@
 	exclaim_verb = "chitters"
 	colour = "alien"
 	key = "y"
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 /datum/language/wryn/check_special_condition(mob/other)
 	var/mob/living/carbon/M = other
@@ -484,8 +485,8 @@
 	exclaim_verb = "hisses"
 	colour = "alien"
 	key = "a"
-	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 /datum/language/terrorspider
 	name = "Spider Hivemind"
@@ -495,8 +496,8 @@
 	exclaim_verb = "chitters"
 	colour = "terrorspider"
 	key = "ts"
-	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 /datum/language/ling
 	name = "Changeling"
@@ -504,11 +505,12 @@
 	speech_verb = "says"
 	colour = "changeling"
 	key = "g"
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.changeling)
-		..(speaker,message,speaker.mind.changeling.changelingID)
+		..(speaker, message, speaker.mind.changeling.changelingID)
 	else if(speaker.mind && speaker.mind.linglink)
 		..()
 	else
@@ -520,7 +522,8 @@
 	speech_verb = "says"
 	colour = "shadowling"
 	key = "8"
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 /datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
@@ -538,7 +541,8 @@
 	exclaim_verb = "gibbers"
 	colour = "abductor"
 	key = "zw" //doesn't matter, this is their default and only language
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 /datum/language/abductor/broadcast(mob/living/speaker, message, speaker_mask)
 	..(speaker,message,speaker.real_name)
@@ -566,7 +570,8 @@
 	exclaim_verb = "sings"
 	colour = "alien"
 	key = "bo"
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 /datum/language/corticalborer/broadcast(mob/living/speaker, message, speaker_mask)
 	var/mob/living/simple_animal/borer/B
@@ -589,8 +594,8 @@
 	ask_verb = "queries"
 	exclaim_verb = "declares"
 	key = "b"
-	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 	var/drone_only
 
 /datum/language/binary/broadcast(mob/living/speaker, message, speaker_mask)
@@ -635,9 +640,9 @@
 	exclaim_verb = "transmits"
 	colour = "say_quote"
 	key = "d"
-	flags = RESTRICTED | HIVEMIND
-	drone_only = 1
-	follow = 1
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	drone_only = TRUE
+	follow = TRUE
 
 /datum/language/drone
 	name = "Drone"
@@ -647,7 +652,7 @@
 	exclaim_verb = "declares"
 	key = "]"
 	flags = RESTRICTED
-	follow = 1
+	follow = TRUE
 	syllables = list ("beep", "boop")
 
 /datum/language/swarmer
@@ -658,8 +663,8 @@
 	exclaim_verb = "tones"
 	colour = "say_quote"
 	key = "z"//Zwarmer...Or Zerg!
-	flags = RESTRICTED | HIVEMIND
-	follow = 1
+	flags = RESTRICTED | HIVEMIND | NOBABEL
+	follow = TRUE
 
 // Language handling.
 /mob/proc/add_language(language)
@@ -757,6 +762,22 @@
 	desc = "Bark bark bark."
 	key = "vu"
 
+/datum/language/zombie
+	name = "Zombie"
+	desc = "BRAAAAAAINS!"
+	speech_verb = "moans"
+	whisper_verb = "mutters"
+	exclaim_verb = "wails"
+	colour = "zombie"
+	key = "zom"
+	flags = RESTRICTED
+	syllables = list("BRAAAAAAAAAAAAAAAAINS", "BRAAINS", "BRAINS")
 
+/mob/proc/grant_all_babel_languages()
+	for(var/la in GLOB.all_languages)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(new_language.flags & NOBABEL)
+			continue
+		languages |= new_language
 
 #undef SCRAMBLE_CACHE_LEN

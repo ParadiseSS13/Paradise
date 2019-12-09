@@ -4,7 +4,7 @@
 
 
 <div class='display'>
-	<header><h3>{{:data.category}}</h3></header>
+	<header><h3>{{:data.category}}{{if data.subcategory}} : {{:data.subcategory}}{{/if}}</h3></header>
 	<article>
 		<div class='item'>
 			{{:helper.link(data.prev_cat, 'arrow-left', {'backwardCat': 1})}}
@@ -16,6 +16,12 @@
 			{{/if}}
 			{{:helper.link('Compact', data.display_compact ? 'check-square-o' : 'square-o', {'toggle_compact': 1})}}
 		</div>
+		{{if data.subcategory}}
+			<div class='item'>
+				{{:helper.link(data.prev_subcat, 'arrow-left', {'backwardSubCat': 1})}}
+				{{:helper.link(data.next_subcat, 'arrow-right', {'forwardSubCat': 1})}}
+			</div>
+		{{/if}}
 		{{if data.display_compact}}
 			<div class='display'>
 				<article>

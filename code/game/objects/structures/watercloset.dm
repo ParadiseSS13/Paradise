@@ -363,7 +363,7 @@
 			qdel(mymist)
 		ismist = 0
 
-/obj/machinery/shower/Crossed(atom/movable/O)
+/obj/machinery/shower/Crossed(atom/movable/O, oldloc)
 	..()
 	wash(O)
 	if(ismob(O))
@@ -542,7 +542,7 @@
 	if(busy)
 		to_chat(user, "<span class='notice'>Someone's already washing here.</span>")
 		return
-	var/selected_area = parse_zone(user.zone_sel.selecting)
+	var/selected_area = parse_zone(user.zone_selected)
 	var/washing_face = 0
 	if(selected_area in list("head", "mouth", "eyes"))
 		washing_face = 1
@@ -600,7 +600,7 @@
 				wateract = (W.wash(user, src))
 				busy = 0
 				if(wateract)
-					W.water_act(20, 310.15, src)
+					W.water_act(20, COLD_WATER_TEMPERATURE, src)
 			if("Disconnect")
 				user.visible_message("<span class='notice'>[user] starts disconnecting [src].</span>", "<span class='notice'>You begin disconnecting [src]...</span>")
 				if(do_after(user, 40 * O.toolspeed, target = src))
@@ -633,7 +633,7 @@
 	wateract = (O.wash(user, src))
 	busy = 0
 	if(wateract)
-		O.water_act(20, 310.15, src)
+		O.water_act(20, COLD_WATER_TEMPERATURE, src)
 
 /obj/structure/sink/update_icon()
 	..()
@@ -671,6 +671,7 @@
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0
+	resistance_flags = UNACIDABLE
 
 /obj/structure/sink/puddle/attack_hand(mob/M as mob)
 	icon_state = "puddle-splash"

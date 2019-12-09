@@ -7,15 +7,21 @@
 	anchored = 0
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
-
+	max_integrity = 300
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
 	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
 
+/obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	if(. && obj_integrity > 0)
+		if(tank_volume && (damage_flag == "bullet" || damage_flag == "laser"))
+			boom()
+
 /obj/structure/reagent_dispensers/attackby(obj/item/I, mob/user, params)
 	if(I.is_refillable())
 		return FALSE //so we can refill them via their afterattack.
-	. = ..()
+	return ..()
 
 /obj/structure/reagent_dispensers/New()
 	create_reagents(tank_volume)
@@ -34,21 +40,12 @@
 	chem_splash(loc, 5, list(reagents))
 	qdel(src)
 
-/obj/structure/reagent_dispensers/ex_act(severity)
-	switch(severity)
-		if(1)
+/obj/structure/reagent_dispensers/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!disassembled)
 			boom()
-		if(2)
-			if(prob(50))
-				boom()
-		if(3)
-			if(prob(5))
-				boom()
-
-/obj/structure/reagent_dispensers/blob_act()
-	if(prob(50))
-		boom()
-
+	else
+		qdel(src)
 
 //Dispensers
 /obj/structure/reagent_dispensers/watertank
@@ -101,7 +98,7 @@
 		reagents.set_reagent_temp(1000) //uh-oh
 	qdel(src)
 
-/obj/structure/reagent_dispensers/fueltank/blob_act()
+/obj/structure/reagent_dispensers/fueltank/blob_act(obj/structure/blob/B)
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/ex_act()
@@ -116,10 +113,9 @@
 	boom()
 
 /obj/structure/reagent_dispensers/fueltank/examine(mob/user)
-	if(!..(user, 2))
-		return
-	if(rig)
-		to_chat(usr, "<span class='notice'>There is some kind of device rigged to the tank.</span>")
+	. = ..()
+	if(get_dist(user, src) <= 2 && rig)
+		. += "<span class='notice'>There is some kind of device rigged to the tank.</span>"
 
 /obj/structure/reagent_dispensers/fueltank/attack_hand()
 	if(rig)
@@ -187,9 +183,9 @@
 	if(rig)
 		rig.HasProximity(AM)
 
-/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM)
+/obj/structure/reagent_dispensers/fueltank/Crossed(atom/movable/AM, oldloc)
 	if(rig)
-		rig.Crossed(AM)
+		rig.Crossed(AM, oldloc)
 
 /obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, list/message_pieces)
 	if(rig)
@@ -220,12 +216,13 @@
 	icon_state = "water_cooler"
 	anchored = 1
 	tank_volume = 500
+	reagent_id = "water"
 	var/paper_cups = 25 //Paper cups left from the cooler
 
 /obj/structure/reagent_dispensers/water_cooler/examine(mob/user)
-	if(!..(user, 2))
-		return
-	to_chat(user, "There are [paper_cups ? paper_cups : "no"] paper cups left.")
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		. += "There are [paper_cups ? paper_cups : "no"] paper cups left."
 
 /obj/structure/reagent_dispensers/water_cooler/attack_hand(mob/living/user)
 	if(!paper_cups)
@@ -263,6 +260,8 @@
 				user.visible_message("[user] has secured [src]'s floor casters.", \
 									 "<span class='notice'>You have secured [src]'s floor casters.</span>")
 				anchored = 1
+		return
+	return ..()
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"
@@ -270,9 +269,10 @@
 	icon_state = "beer"
 	reagent_id = "beer"
 
-/obj/structure/reagent_dispensers/beerkeg/blob_act()
+/obj/structure/reagent_dispensers/beerkeg/blob_act(obj/structure/blob/B)
 	explosion(loc, 0, 3, 5, 7, 10)
-	qdel(src)
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/structure/reagent_dispensers/beerkeg/nuke
 	name = "Nanotrasen-brand nuclear fission explosive"

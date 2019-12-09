@@ -11,8 +11,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	layer = HUD_LAYER
 	plane = HUD_PLANE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
@@ -95,6 +94,9 @@
 	icon = 'icons/mob/screen_robot.dmi'
 	screen_loc = ui_borg_intents
 
+/obj/screen/act_intent/robot/AI
+	screen_loc = "EAST-1:32,SOUTH:70"
+
 /obj/screen/mov_intent
 	name = "run/walk toggle"
 	icon_state = "running"
@@ -167,7 +169,7 @@
 /obj/screen/storage/Click(location, control, params)
 	if(world.time <= usr.next_move)
 		return 1
-	if(usr.stat || usr.paralysis || usr.stunned || usr.weakened)
+	if(usr.stat || usr.paralysis || usr.stunned || usr.IsWeakened())
 		return 1
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
@@ -289,9 +291,10 @@
 		update_icon(usr)
 	return 1
 
-/obj/screen/zone_sel/update_icon()
+/obj/screen/zone_sel/update_icon(mob/user)
 	overlays.Cut()
 	overlays += image('icons/mob/zone_sel.dmi', "[selecting]")
+	user.zone_selected = selecting
 
 /obj/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
@@ -299,6 +302,7 @@
 /obj/screen/zone_sel/alien/update_icon(mob/user)
 	overlays.Cut()
 	overlays += image('icons/mob/screen_alien.dmi', "[selecting]")
+	user.zone_selected = selecting
 
 /obj/screen/zone_sel/robot
 	icon = 'icons/mob/screen_robot.dmi'
@@ -452,6 +456,12 @@
 
 /obj/screen/healths/corgi
 	icon = 'icons/mob/screen_corgi.dmi'
+
+/obj/screen/healths/slime
+	icon = 'icons/mob/screen_slime.dmi'
+	icon_state = "slime_health0"
+	screen_loc = ui_slime_health
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 /obj/screen/healths/guardian
 	name = "summoner health"

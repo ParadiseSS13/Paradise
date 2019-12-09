@@ -208,8 +208,9 @@
 	origin_tech = null
 	attack_verb = list("attacked", "struck", "hit")
 	brightness_on = 0
+	sharp_when_wielded = FALSE // It's a toy
 
-/obj/item/twohanded/dualsaber/toy/hit_reaction()
+/obj/item/twohanded/dualsaber/toy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/twohanded/dualsaber/toy/IsReflect()//Stops Toy Dualsabers from reflecting energy projectiles
@@ -283,7 +284,7 @@
 	..()
 	pop_burst()
 
-/obj/item/toy/snappop/Crossed(H as mob|obj)
+/obj/item/toy/snappop/Crossed(H as mob|obj, oldloc)
 	if(ishuman(H) || issilicon(H)) //i guess carp and shit shouldn't set them off
 		var/mob/living/carbon/M = H
 		if(issilicon(H) || M.m_intent == MOVE_INTENT_RUN)
@@ -298,7 +299,7 @@
 /obj/effect/decal/cleanable/ash/snappop_phoenix
 	var/respawn_time = 300
 
-/obj/effect/decal/cleanable/ash/snappop_phoenix/New()
+/obj/effect/decal/cleanable/ash/snappop_phoenix/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/respawn), respawn_time)
 
@@ -403,8 +404,8 @@
 
 
 obj/item/toy/cards
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
 	var/parentdeck = null
 	var/deckstyle = "nanotrasen"
 	var/card_hitsound = null
@@ -626,6 +627,7 @@ obj/item/toy/cards/cardhand/apply_card_vars(obj/item/toy/cards/newobj,obj/item/t
 	newobj.card_throw_speed = sourceobj.card_throw_speed
 	newobj.card_throw_range = sourceobj.card_throw_range
 	newobj.card_attack_verb = sourceobj.card_attack_verb
+	newobj.resistance_flags = sourceobj.resistance_flags
 
 
 obj/item/toy/cards/singlecard
@@ -640,13 +642,14 @@ obj/item/toy/cards/singlecard
 
 
 obj/item/toy/cards/singlecard/examine(mob/user)
-	if(..(user, 0))
+	. = ..()
+	if(get_dist(user, src) <= 0)
 		if(ishuman(user))
 			var/mob/living/carbon/human/cardUser = user
 			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
 				cardUser.visible_message("<span class='notice'>[cardUser] checks [cardUser.p_their()] card.</span>", "<span class='notice'>The card reads: [src.cardname]</span>")
 			else
-				to_chat(cardUser, "<span class='notice'>You need to have the card in your hand to check it.</span>")
+				. += "<span class='notice'>You need to have the card in your hand to check it.</span>"
 
 
 obj/item/toy/cards/singlecard/verb/Flip()
@@ -751,7 +754,7 @@ obj/item/toy/cards/deck/syndicate
 	card_throw_speed = 3
 	card_throw_range = 20
 	card_attack_verb = list("attacked", "sliced", "diced", "slashed", "cut")
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /*
 || Custom card decks ||
@@ -793,7 +796,7 @@ obj/item/toy/cards/deck/syndicate/black
 	item_state = "egg4"
 	w_class = WEIGHT_CLASS_TINY
 	var/cooldown = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/toy/therapy/New()
 	if(item_color)
@@ -889,7 +892,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon_state = "carpplushie"
 	attack_verb = list("bitten", "eaten", "fin slapped")
 	var/bitesound = 'sound/weapons/bite.ogg'
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 // Attack mob
 /obj/item/toy/carpplushie/attack(mob/M as mob, mob/user as mob)
@@ -952,7 +955,7 @@ obj/item/toy/cards/deck/syndicate/black
 	icon = 'icons/obj/toy.dmi'
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
 	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/toy/plushie/attack(mob/M as mob, mob/user as mob)
 	playsound(loc, poof_sound, 20, 1)	// Play the whoosh sound in local area
@@ -1104,7 +1107,7 @@ obj/item/toy/cards/deck/syndicate/black
  	item_state = "arm_blade"
  	attack_verb = list("pricked", "absorbed", "gored")
  	w_class = WEIGHT_CLASS_SMALL
- 	burn_state = FLAMMABLE
+ 	resistance_flags = FLAMMABLE
 
 /*
  * Toy/fake flash
@@ -1469,9 +1472,9 @@ obj/item/toy/cards/deck/syndicate/black
 	fake_bullets = rand(2, 7)
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
-	..()
-	to_chat(user, "Has [fake_bullets] round\s remaining.")
-	to_chat(user, "[fake_bullets] of those are live rounds.")
+	. = ..()
+	. += "Has [fake_bullets] round\s remaining."
+	. += "[fake_bullets] of those are live rounds."
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")

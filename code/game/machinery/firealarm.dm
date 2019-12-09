@@ -12,11 +12,14 @@ FIRE ALARM
 	var/timing = 0.0
 	var/lockdownbyai = 0
 	anchored = 1.0
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 250
+	integrity_failure = 100
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 100, fire = 90, acid = 30)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
+	resistance_flags = FIRE_PROOF
 	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
@@ -139,8 +142,35 @@ FIRE ALARM
 					playsound(get_turf(src), I.usesound, 50, 1)
 					qdel(src)
 
-	else
-		return ..()
+		return
+	return ..()
+
+/obj/machinery/firealarm/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
+	. = ..()
+	if(.) //damage received
+		if(obj_integrity > 0 && !(stat & BROKEN) && buildstage != 0)
+			if(prob(33))
+				alarm()
+
+/obj/machinery/firealarm/singularity_pull(S, current_size)
+	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
+		deconstruct()
+	..()
+
+/obj/machinery/firealarm/obj_break(damage_flag)
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT) && buildstage != 0) //can't break the electronics if there isn't any inside.
+		stat |= BROKEN
+		update_icon()
+
+/obj/machinery/firealarm/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 1)
+		if(!(stat & BROKEN))
+			var/obj/item/I = new /obj/item/firealarm_electronics(loc)
+			if(!disassembled)
+				I.obj_integrity = I.max_integrity * 0.5
+		new /obj/item/stack/cable_coil(loc, 3)
+	qdel(src)
 
 /obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
 	if(stat & (NOPOWER|BROKEN))

@@ -1,3 +1,22 @@
+//Colossus
+/obj/structure/closet/crate/necropolis/colossus
+	name = "colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/New()
+	..()
+	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+	var/random_crystal = pick(choices)
+	new random_crystal(src)
+	new /obj/item/organ/internal/vocal_cords/colossus(src)
+
+/obj/structure/closet/crate/necropolis/colossus/crusher
+	name = "angelic colossus chest"
+
+/obj/structure/closet/crate/necropolis/colossus/crusher/New()
+	..()
+	new /obj/item/crusher_trophy/blaster_tubes(src)
+
+
 //Black Box
 
 /obj/machinery/smartfridge/black_box
@@ -7,8 +26,7 @@
 	icon_state = "blackbox"
 	luminosity = 8
 	max_n_of_items = INFINITY
-	unacidable = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	pixel_y = -4
 	use_power = NO_POWER_USE
 	var/memory_saved = FALSE
@@ -94,11 +112,10 @@
 	desc = "A strange chunk of crystal, being in the presence of it fills you with equal parts excitement and dread."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "anomaly_crystal"
-	luminosity = 8
+	light_range = 8
 	use_power = NO_POWER_USE
 	density = 1
-	burn_state = LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/activation_method = "touch"
 	var/activation_damage_type = null
 	var/last_use_timer = 0
@@ -121,7 +138,7 @@
 
 /obj/machinery/anomalous_crystal/attackby(obj/item/I, mob/user, params)
 	ActivationReaction(user,"weapon")
-	..()
+	return ..()
 
 /obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
 	..()
@@ -194,13 +211,13 @@
 		if("winter") //Snow terrain is slow to move in and cold! Get the assistants to shovel your driveway.
 			NewTerrainFloors = /turf/simulated/floor/snow // Needs to be updated after turf update
 			NewTerrainWalls = /turf/simulated/wall/mineral/wood
-			NewTerrainChairs = /obj/structure/chair/wood/normal
+			NewTerrainChairs = /obj/structure/chair/wood
 			NewTerrainTables = /obj/structure/table/glass
 			NewFlora = list(/obj/structure/flora/grass/green, /obj/structure/flora/grass/brown, /obj/structure/flora/grass/both)
 		if("jungle") //Beneficial due to actually having breathable air. Plus, monkeys and bows and arrows.
 			NewTerrainFloors = /turf/simulated/floor/grass
 			NewTerrainWalls = /turf/simulated/wall/mineral/sandstone
-			NewTerrainChairs = /obj/structure/chair/wood/normal
+			NewTerrainChairs = /obj/structure/chair/wood
 			NewTerrainTables = /obj/structure/table/wood
 			NewFlora = list(/obj/structure/flora/ausbushes/sparsegrass, /obj/structure/flora/ausbushes/fernybush, /obj/structure/flora/ausbushes/leafybush,
 							/obj/structure/flora/ausbushes/grassybush, /obj/structure/flora/ausbushes/sunnybush, /obj/structure/flora/tree/palm, /mob/living/carbon/human/monkey,
@@ -337,7 +354,7 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	ventcrawler = 2
 	mob_size = MOB_SIZE_TINY
-	gold_core_spawnable = 0
+	gold_core_spawnable = HOSTILE_SPAWN
 	speak_emote = list("warps")
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	luminosity = 4
@@ -361,7 +378,7 @@
 	medsensor.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/lightgeist/AttackingTarget()
-	..()
+	. = ..()
 	if(isliving(target) && target != src)
 		var/mob/living/L = target
 		if(L.stat < DEAD)
@@ -421,6 +438,7 @@
 	icon_state = null //This shouldn't even be visible, so if it DOES show up, at least nobody will notice
 	density = 1
 	anchored = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 	var/mob/living/simple_animal/holder_animal
 
 /obj/structure/closet/stasis/process()

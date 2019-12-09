@@ -30,11 +30,6 @@
 #define CLICK_CD_CLICK_ABILITY 6
 #define CLICK_CD_RAPID 2
 
-//Sizes of mobs, used by mob/living/var/mob_size
-#define MOB_SIZE_TINY 0
-#define MOB_SIZE_SMALL 1
-#define MOB_SIZE_HUMAN 2
-#define MOB_SIZE_LARGE 3
 ///
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
@@ -132,7 +127,12 @@
 	for(type in view(range, dview_mob))
 #define END_FOR_DVIEW dview_mob.loc = null
 
+//Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
+#define NORTH_OF_TURF(T)	locate(T.x, T.y + 1, T.z)
+#define EAST_OF_TURF(T)		locate(T.x + 1, T.y, T.z)
+#define SOUTH_OF_TURF(T)	locate(T.x, T.y - 1, T.z)
+#define WEST_OF_TURF(T)		locate(T.x - 1, T.y, T.z)
 
 #define MIN_SUPPLIED_LAW_NUMBER 15
 #define MAX_SUPPLIED_LAW_NUMBER 50
@@ -265,6 +265,8 @@
 #define TRIGGER_GUARD_NONE 0
 #define TRIGGER_GUARD_NORMAL 1
 
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+
 // Macro to get the current elapsed round time, rather than total world runtime
 #define ROUND_TIME (SSticker.round_start_time ? (world.time - SSticker.round_start_time) : 0)
 
@@ -300,6 +302,8 @@
 #define BLOODY_FOOTPRINT_BASE_ALPHA	150
 #define BLOOD_GAIN_PER_STEP			100
 #define BLOOD_LOSS_PER_STEP			5
+#define BLOOD_LOSS_IN_SPREAD		20
+#define BLOOD_AMOUNT_PER_DECAL		20
 
 //Bloody shoe blood states
 #define BLOOD_STATE_HUMAN			"blood"
@@ -315,7 +319,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 8
+#define SQL_VERSION 9
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -394,3 +398,25 @@
 
 // Cult summon possibilities
 #define SUMMON_POSSIBILITIES 3
+
+// Dice rigged options.
+#define DICE_NOT_RIGGED 1
+#define DICE_BASICALLY_RIGGED 2
+#define DICE_TOTALLY_RIGGED 3
+
+// Water temperature
+#define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius
+
+// Parallax
+#define PARALLAX_DELAY_DEFAULT	world.tick_lag
+#define PARALLAX_DELAY_MED		1
+#define PARALLAX_DELAY_LOW		2
+#define PARALLAX_LOOP_TIME		25
+
+// Engine types
+#define ENGTYPE_SING 		"Singularity"
+#define ENGTYPE_SM		"Supermatter"
+#define ENGTYPE_TESLA		"Tesla"
+
+#define SUMMON_GUNS "guns"
+#define SUMMON_MAGIC "magic"

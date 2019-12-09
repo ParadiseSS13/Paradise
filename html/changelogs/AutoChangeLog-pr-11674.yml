@@ -1,4 +1,0 @@
-author: "DoctorDrugs"
-delete-after: True
-changes: 
-  - rscadd: "Adds additional roundstart miner slots and the additional gear required for them to do their jobs"

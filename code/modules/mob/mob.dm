@@ -17,7 +17,7 @@
 		qdel(tkgrabbed_objects[I])
 	tkgrabbed_objects = null
 	if(buckled)
-		buckled.unbuckle_mob()
+		buckled.unbuckle_mob(src, force = TRUE)
 	if(viewing_alternate_appearances)
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
@@ -193,14 +193,7 @@
 	var/obj/item/W = get_active_hand()
 
 	if(istype(W))
-		if(istype(W, /obj/item/clothing))
-			var/obj/item/clothing/C = W
-			if(C.hardsuit_restrict_helmet)
-				to_chat(src, "<span class='warning'>You must fasten the helmet to a hardsuit first. (Target the head and use on a hardsuit)</span>")// Stop eva helms equipping.
-			else
-				equip_to_slot_if_possible(C, slot)
-		else
-			equip_to_slot_if_possible(W, slot)
+		equip_to_slot_if_possible(W, slot)
 	else if(!restrained())
 		W = get_item_by_slot(slot)
 		if(W)
@@ -587,7 +580,8 @@ var/list/slot_equipment_priority = list( \
 		client.update_description_holders(A, is_antag)
 
 	face_atom(A)
-	A.examine(src)
+	var/list/result = A.examine(src)
+	to_chat(src, result.Join("\n"))
 
 //same as above
 //note: ghosts can point, this is intended
@@ -693,7 +687,7 @@ var/list/slot_equipment_priority = list( \
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
-	
+
 	var/combined = length(memory + msg)
 	if(mind && (combined < MAX_PAPER_MESSAGE_LEN))
 		mind.store_memory(msg)
@@ -1199,31 +1193,52 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/handle_ventcrawl()
 	return // Only living mobs can ventcrawl
 
-//You can buckle on mobs if you're next to them since most are dense
-/mob/buckle_mob(mob/living/M, force = 0)
+/**
+  * Buckle to another mob
+  *
+  * You can buckle on mobs if you're next to them since most are dense
+  *
+  * Turns you to face the other mob too
+  */
+/mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(M.buckled)
 		return 0
 	var/turf/T = get_turf(src)
 	if(M.loc != T)
 		var/old_density = density
-		density = 0
+		density = FALSE
 		var/can_step = step_towards(M, T)
 		density = old_density
 		if(!can_step)
 			return 0
 	return ..()
 
-//Default buckling shift visual for mobs
+///Call back post buckle to a mob to offset your visual height
 /mob/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob) //post buckling
-		M.pixel_y = initial(M.pixel_y) + 9
-		if(M.layer < layer)
-			M.layer = layer + 0.1
-	else //post unbuckling
-		M.layer = initial(M.layer)
-		M.pixel_y = initial(M.pixel_y)
+	var/height = M.get_mob_buckling_height(src)
+	M.pixel_y = initial(M.pixel_y) + height
+	if(M.layer < layer)
+		M.layer = layer + 0.1
 
-/mob/proc/can_unbuckle(mob/user)
+///Call back post unbuckle from a mob, (reset your visual height here)
+/mob/post_unbuckle_mob(mob/living/M)
+	M.layer = initial(M.layer)
+	M.pixel_y = initial(M.pixel_y)
+
+///returns the height in pixel the mob should have when buckled to another mob.
+/mob/proc/get_mob_buckling_height(mob/seat)
+	if(isliving(seat))
+		var/mob/living/L = seat
+		if(L.mob_size <= MOB_SIZE_SMALL) //being on top of a small mob doesn't put you very high.
+			return 0
+	return 9
+
+///can the mob be buckled to something by default?
+/mob/proc/can_buckle()
+	return 1
+
+///can the mob be unbuckled from something by default?
+/mob/proc/can_unbuckle()
 	return 1
 
 
@@ -1240,12 +1255,6 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
-
-/mob/proc/faction_check(mob/target)
-	for(var/F in faction)
-		if(F in target.faction)
-			return 1
-	return 0
 
 /mob/proc/create_attack_log(text, collapse = TRUE)
 	LAZYINITLIST(attack_log)
@@ -1320,6 +1329,10 @@ var/list/slot_equipment_priority = list( \
 
 	.["Gib"] = "?_src_=vars;gib=[UID()]"
 
+///Can this mob resist (default FALSE)
+/mob/proc/can_resist()
+	return FALSE		//overridden in living.dm
+
 /mob/proc/spin(spintime, speed)
 	set waitfor = 0
 	var/D = dir
@@ -1370,5 +1383,27 @@ var/list/slot_equipment_priority = list( \
 /mob/proc/sync_lighting_plane_alpha()
 	if(hud_used)
 		var/obj/screen/plane_master/lighting/L = hud_used.plane_masters["[LIGHTING_PLANE]"]
-		if (L)
+		if(L)
 			L.alpha = lighting_alpha
+
+	sync_nightvision_screen() //Sync up the overlay used for nightvision to the amount of see_in_dark a mob has. This needs to be called everywhere sync_lighting_plane_alpha() is.
+
+/mob/proc/sync_nightvision_screen()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(S)
+		var/suffix = ""
+		switch(see_in_dark)
+			if(3 to 8)
+				suffix = "_[see_in_dark]"
+			if(8 to INFINITY)
+				suffix = "_8"
+
+		S.icon_state = "[initial(S.icon_state)][suffix]"
+
+///Adjust the nutrition of a mob
+/mob/proc/adjust_nutrition(change)
+	nutrition = max(0, nutrition + change)
+
+///Force set the mob nutrition
+/mob/proc/set_nutrition(change)
+	nutrition = max(0, change)

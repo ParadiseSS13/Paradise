@@ -17,7 +17,7 @@
 	maxHealth = 50
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	a_intent = INTENT_HARM //No swapping
-	buckle_lying = 0
+	buckle_lying = FALSE
 	mob_size = MOB_SIZE_LARGE
 	radio_channel = "Supply"
 
@@ -59,9 +59,7 @@
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
 	access_card.access = J.get_access()
 	prev_access = access_card.access
-	cell = new(src)
-	cell.charge = 2000
-	cell.maxcharge = 2000
+	cell = new /obj/item/stock_parts/cell/upgraded(src)
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
@@ -372,7 +370,7 @@
 
 	if(isobj(AM))
 		var/obj/O = AM
-		if(O.buckled_mob || (locate(/mob) in AM)) //can't load non crates objects with mobs buckled to it or inside it.
+		if(O.has_buckled_mobs() || (locate(/mob) in AM)) //can't load non crates objects with mobs buckled to it or inside it.
 			buzz(SIGH)
 			return
 
@@ -398,19 +396,11 @@
 	return FALSE
 
 /mob/living/simple_animal/bot/mulebot/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob) //post buckling
-		M.pixel_y = initial(M.pixel_y) + 9
-		if(M.layer < layer)
-			M.layer = layer + 0.1
-
-	else //post unbuckling
-		reset_buckled_mob(M)
+	M.pixel_y = initial(M.pixel_y) + 9
+	if(M.layer < layer)
+		M.layer = layer + 0.01
 
 /mob/living/simple_animal/bot/mulebot/post_unbuckle_mob(mob/living/M)
-	. = ..()
-	reset_buckled_mob(M)
-
-/mob/living/simple_animal/bot/mulebot/proc/reset_buckled_mob(mob/living/M)
 	load = null
 	M.layer = initial(M.layer)
 	M.pixel_y = initial(M.pixel_y)
@@ -429,12 +419,13 @@
 	if(ismob(load))
 		var/mob/M = load
 		M.reset_perspective(null)
-	unbuckle_mob()
+	unbuckle_all_mobs()
 
 	if(load)
 		load.forceMove(loc)
 		load.pixel_y = initial(load.pixel_y)
 		load.layer = initial(load.layer)
+		load.plane = initial(load.plane)
 		if(dirn)
 			var/turf/T = loc
 			var/turf/newT = get_step(T,dirn)
@@ -453,6 +444,7 @@
 		AM.forceMove(loc)
 		AM.layer = initial(AM.layer)
 		AM.pixel_y = initial(AM.pixel_y)
+		AM.plane = initial(AM.plane)
 		if(ismob(AM))
 			var/mob/M = AM
 			M.reset_perspective(null)
@@ -702,6 +694,8 @@
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
+	if(H.player_logged)//No running over SSD people
+		return
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
 	H.visible_message("<span class='danger'>[src] drives over [H]!</span>", \
 					"<span class='userdanger'>[src] drives over you!</span>")

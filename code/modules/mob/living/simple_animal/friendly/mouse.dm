@@ -33,35 +33,42 @@
 	can_hide = 1
 	holder_type = /obj/item/holder/mouse
 	can_collar = 1
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
+	var/chew_probability = 1
 
 /mob/living/simple_animal/mouse/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/creatures/mousesqueak.ogg' = 1), 100)
 
+/mob/living/simple_animal/mouse/handle_automated_action()
+	if(prob(chew_probability))
+		var/turf/simulated/floor/F = get_turf(src)
+		if(istype(F) && !F.intact)
+			var/obj/structure/cable/C = locate() in F
+			if(C && prob(15))
+				if(C.avail())
+					visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
+					playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
+					C.deconstruct()
+					toast() // mmmm toasty.
+				else
+					C.deconstruct()
+					visible_message("<span class='warning'>[src] chews through [C].</span>")
+
 /mob/living/simple_animal/mouse/handle_automated_speech()
 	..()
-	if(prob(speak_chance))
-		for(var/mob/M in view())
-			M << squeak_sound
+	if(prob(speak_chance) && !incapacitated())
+		playsound(src, squeak_sound, 100, 1)
 
-/mob/living/simple_animal/mouse/Life(seconds, times_fired)
+/mob/living/simple_animal/mouse/handle_automated_movement()
 	. = ..()
-	if(stat == UNCONSCIOUS)
-		if(ckey || prob(1))
-			stat = CONSCIOUS
-			icon_state = "mouse_[mouse_color]"
-			wander = 1
+	if(resting)
+		if(prob(1))
+			StopResting()
 		else if(prob(5))
-			emote("snuffles")
-
-/mob/living/simple_animal/mouse/Life()
-	..()
-	if(prob(0.5) && !ckey)
-		stat = UNCONSCIOUS
-		icon_state = "mouse_[mouse_color]_sleep"
-		wander = 0
-		speak_chance = 0
+			custom_emote(2, "snuffles")
+	else if(prob(0.5))
+		StartResting()
 
 /mob/living/simple_animal/mouse/New()
 	..()
@@ -91,12 +98,17 @@
 	to_chat(src, "<span class='warning'>You are too small to pull anything.</span>")
 	return
 
-/mob/living/simple_animal/mouse/Crossed(AM as mob|obj)
+/mob/living/simple_animal/mouse/Crossed(AM as mob|obj, oldloc)
 	if(ishuman(AM))
 		if(!stat)
 			var/mob/M = AM
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
+
+/mob/living/simple_animal/mouse/proc/toast()
+	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
+	desc = "It's toast."
+	death()
 
 /mob/living/simple_animal/mouse/death(gibbed)
 	// Only execute the below if we successfully died
@@ -156,7 +168,8 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "splats"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
 
 
 /mob/living/simple_animal/mouse/blobinfected
@@ -164,9 +177,9 @@
 	health = 100
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	var/cycles_alive = 0
-	var/cycles_limit = 30
+	var/cycles_limit = 60
 	var/has_burst = FALSE
 
 /mob/living/simple_animal/mouse/blobinfected/Life()
@@ -218,6 +231,6 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+	gold_core_spawnable = NO_SPAWN
 	can_collar = 0
 	butcher_results = list(/obj/item/stack/sheet/metal = 1)

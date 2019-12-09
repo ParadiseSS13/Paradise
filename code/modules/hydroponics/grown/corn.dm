@@ -24,6 +24,7 @@
 	filling_color = "#FFFF00"
 	trash = /obj/item/grown/corncob
 	bitesize_mod = 2
+	tastes = list("corn" = 1)
 	distill_reagent = "whiskey"
 	wine_power = 0.4
 
@@ -61,7 +62,7 @@
 /obj/item/grown/snapcorn
 	seed = /obj/item/seeds/corn/snapcorn
 	name = "snap corn"
-	desc = "A cob with snap pops"
+	desc = "A cob with snap pops."
 	icon_state = "snapcorn"
 	item_state = "corncob"
 	w_class = WEIGHT_CLASS_TINY

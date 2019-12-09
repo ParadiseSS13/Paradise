@@ -96,7 +96,8 @@ Class Procs:
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
-	pressure_resistance = 10
+	pressure_resistance = 15
+	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	var/stat = 0
 	var/emagged = 0
@@ -122,7 +123,7 @@ Class Procs:
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0)
+		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	. = ..()
 	GLOB.machines += src
 
@@ -175,26 +176,6 @@ Class Procs:
 		use_power(7500/severity)
 		new /obj/effect/temp_visual/emp(loc)
 	..()
-
-/obj/machinery/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				qdel(src)
-				return
-		else
-	return
-
-/obj/machinery/blob_act()
-	if(prob(50))
-		qdel(src)
 
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
@@ -391,19 +372,20 @@ Class Procs:
 	gl_uid++
 
 /obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
-	if(istype(C) && (panel_open || ignore_panel))
+	if(istype(C) && (panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
 		playsound(loc, C.usesound, 50, 1)
-		deconstruct()
+		deconstruct(TRUE)
 		return 1
 	return 0
 
 /obj/machinery/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
 		if(component_parts && component_parts.len)
 			spawn_frame(disassembled)
 			for(var/obj/item/I in component_parts)
 				I.forceMove(loc)
+			component_parts.Cut()
 	qdel(src)
 
 /obj/machinery/proc/spawn_frame(disassembled)
@@ -417,11 +399,11 @@ Class Procs:
 	M.icon_state = "box_1"
 
 /obj/machinery/obj_break(damage_flag)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
 
 /obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)
-	if(istype(S))
+	if(!(flags & NODECONSTRUCT) && istype(S))
 		playsound(loc, S.usesound, 50, 1)
 		if(!panel_open)
 			panel_open = 1
@@ -443,7 +425,7 @@ Class Procs:
 	return 0
 
 /obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench/W, time = 20)
-	if(istype(W))
+	if(!(flags & NODECONSTRUCT) && istype(W))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
 		playsound(loc, W.usesound, 50, 1)
 		if(do_after(user, time * W.toolspeed, target = src))
@@ -458,12 +440,14 @@ Class Procs:
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
+	if((flags & NODECONSTRUCT))
+		return FALSE
 	if(istype(W) && component_parts)
 		if(panel_open || W.works_from_distance)
 			var/obj/item/circuitboard/CB = locate(/obj/item/circuitboard) in component_parts
 			var/P
 			if(W.works_from_distance)
-				display_parts(user)
+				to_chat(user, display_parts(user))
 			for(var/obj/item/stock_parts/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
@@ -482,7 +466,7 @@ Class Procs:
 							break
 			RefreshParts()
 		else
-			display_parts(user)
+			to_chat(user, display_parts(user))
 		if(shouldplaysound)
 			W.play_rped_sound()
 		return 1
@@ -490,27 +474,28 @@ Class Procs:
 		return 0
 
 /obj/machinery/proc/display_parts(mob/user)
-	to_chat(user, "<span class='notice'>Following parts detected in the machine:</span>")
+	. = list("<span class='notice'>Following parts detected in the machine:</span>")
 	for(var/obj/item/C in component_parts)
-		to_chat(user, "<span class='notice'>[bicon(C)] [C.name]</span>")
+		. += "<span class='notice'>[bicon(C)] [C.name]</span>"
+	. = jointext(., "\n")
 
 /obj/machinery/examine(mob/user)
-	..()
+	. = ..()
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>It looks broken and non-functional.</span>")
+		. += "<span class='notice'>It looks broken and non-functional.</span>"
 	if(!(resistance_flags & INDESTRUCTIBLE))
-		if(burn_state == ON_FIRE)
-			to_chat(user, "<span class='warning'>It's on fire!</span>")
+		if(resistance_flags & ON_FIRE)
+			. += "<span class='warning'>It's on fire!</span>"
 		var/healthpercent = (obj_integrity/max_integrity) * 100
 		switch(healthpercent)
 			if(50 to 99)
-				to_chat(user,  "It looks slightly damaged.")
+				. +=  "It looks slightly damaged."
 			if(25 to 50)
-				to_chat(user,  "It appears heavily damaged.")
+				. +=  "It appears heavily damaged."
 			if(0 to 25)
-				to_chat(user,  "<span class='warning'>It's falling apart!</span>")
+				. +=  "<span class='warning'>It's falling apart!</span>"
 	if(user.research_scanner && component_parts)
-		display_parts(user)
+		. += display_parts(user)
 
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)
 	return 0
@@ -553,9 +538,7 @@ Class Procs:
 			threatcount += 2
 
 	if(check_records || check_arrest)
-		var/perpname = perp.name
-		if(id)
-			perpname = id.registered_name
+		var/perpname = perp.get_visible_name(TRUE)
 
 		var/datum/data/record/R = find_security_record("name", perpname)
 		if(check_records && !R)
