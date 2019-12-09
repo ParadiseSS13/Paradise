@@ -771,13 +771,11 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return(istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 
 /mob/living/carbon/resist_buckle()
-	var/breakouttime = 600
-
 	spawn(0)
 		resist_muzzle()
 	if(restrained())
 		var/obj/item/I = handcuffed
-		breakouttime = I.breakouttime
+		var/breakouttime = I.breakouttime
 		var/displaytime = breakouttime / 600
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
