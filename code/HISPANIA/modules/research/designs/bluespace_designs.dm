@@ -1,6 +1,6 @@
 /datum/design/bluespace_rollerbed
 	name = "Bluespace Roller bed"
-	desc = "A small blue crystal with mystical properties."
+	desc = "An upgraded version of a roller bed. This one can be carried in a backpack."
 	id = "bluespace_rollerbed"
 	req_tech = list("bluespace" = 6, "materials" = 5, "engineering" = 5)
 	build_type = PROTOLATHE

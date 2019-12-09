@@ -23,5 +23,3 @@
 	var/obj/structure/bed/roller/bluespace/R = new /obj/structure/bed/roller/bluespace(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
-
-
