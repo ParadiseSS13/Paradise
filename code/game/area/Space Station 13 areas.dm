@@ -989,6 +989,10 @@ var/list/ghostteleportlocs = list()
 	name = "\improper Escape Shuttle Hallway Podbay"
 	icon_state = "escape"
 
+/area/arrivalspodbay
+	name = "\improper Arivals Hallway Podbay"
+	icon_state = "arrivalspodbay"
+
 /area/lawoffice
 	name = "\improper Law Office"
 	icon_state = "law"
