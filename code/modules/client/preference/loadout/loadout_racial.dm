@@ -1,6 +1,7 @@
 /datum/gear/racial
 	sort_category = "Racial"
 	subtype_path = /datum/gear/racial
+	slot = slot_glasses
 	cost = 2
 
 
@@ -40,4 +41,5 @@
 /datum/gear/racial/footwraps
 	display_name = "cloth footwraps"
 	path = /obj/item/clothing/shoes/footwraps
+	slot = slot_shoes
 	cost = 1
