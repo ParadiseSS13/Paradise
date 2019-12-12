@@ -12307,24 +12307,6 @@
 	icon_state = "white"
 	},
 /area/tdome)
-"HJ" = (
-/obj/machinery/door/poddoor{
-	id_tag = "CCGAMMA";
-	name = "Gamma Security"
-	},
-/obj/machinery/door/airlock/centcom{
-	name = "Gamma Armory";
-	opacity = 1;
-	req_access_txt = "114"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "CCGAMMA";
-	name = "Gamma Security"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/gamma)
 "HR" = (
 /obj/structure/closet/secure_closet/freezer/meat{
 	req_access_txt = "112"
@@ -12540,6 +12522,20 @@
 	name = "plating"
 	},
 /area/centcom/control)
+"NH" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Gamma Armory";
+	opacity = 1;
+	req_access_txt = "114"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "CCGAMMA";
+	name = "Gamma Security"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/gamma)
 "NI" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/unsimulated/floor{
@@ -29667,7 +29663,7 @@ fm
 fm
 md
 md
-HJ
+NH
 fm
 pv
 sX
