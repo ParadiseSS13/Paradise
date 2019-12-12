@@ -5006,6 +5006,20 @@
 	name = "grass"
 	},
 /area/centcom/control)
+"nc" = (
+/obj/machinery/door/airlock/centcom{
+	name = "Gamma Armory";
+	opacity = 1;
+	req_access_txt = "114"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "CCGAMMA";
+	name = "Gamma Security"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/gamma)
 "nd" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/unsimulated/floor{
@@ -5408,10 +5422,6 @@
 	},
 /area/syndicate_mothership)
 "nT" = (
-/obj/machinery/door/poddoor{
-	id_tag = "ASSAULT";
-	name = "Assault Armor"
-	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "ASSAULT";
 	name = "Assault Armor"
@@ -5859,7 +5869,8 @@
 /area/centcom/gamma)
 "oR" = (
 /obj/machinery/door/poddoor/impassable{
-	id_tag = "SPECOPS"
+	id_tag = "SPECOPS";
+	name = "Ready Room"
 	},
 /turf/unsimulated/floor{
 	icon_state = "vault";
@@ -5981,10 +5992,6 @@
 	name = "Special Operations Command";
 	opacity = 1;
 	req_access_txt = "114"
-	},
-/obj/machinery/door/poddoor{
-	id_tag = "specopsoffice";
-	name = "Super Privacy Shutters"
 	},
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "specopsoffice";
@@ -12522,20 +12529,6 @@
 	name = "plating"
 	},
 /area/centcom/control)
-"NH" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Gamma Armory";
-	opacity = 1;
-	req_access_txt = "114"
-	},
-/obj/machinery/door/poddoor/impassable{
-	id_tag = "CCGAMMA";
-	name = "Gamma Security"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/gamma)
 "NI" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/unsimulated/floor{
@@ -29663,7 +29656,7 @@ fm
 fm
 md
 md
-NH
+nc
 fm
 pv
 sX
