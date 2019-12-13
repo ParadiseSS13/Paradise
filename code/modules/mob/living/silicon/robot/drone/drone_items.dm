@@ -101,7 +101,7 @@
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
 	if(gripped_item)
 		if(!silent)
-			to_chat(usr, "<span class='warning'>You drop [gripped_item].</span>")
+			to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
 		gripped_item.forceMove(get_turf(src))
 		gripped_item = null
 
