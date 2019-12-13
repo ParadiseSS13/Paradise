@@ -64,7 +64,7 @@ var/list/admin_ranks = list()								//list of all ranks with associated rights
 		// strip out comments
 		var/comment_start = findtext(line, "#")
 		if(comment_start > 0)
-			line = copytext(line, comment_start)
+			line = copytext(line, 1, comment_start)
 
 		// Format is `ckey - rank`.
 		// Silently ignore all the lines that don't conform
