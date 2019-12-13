@@ -3,6 +3,7 @@
 	subtype_path = /datum/gear/racial
 
 /datum/gear/racial/taj
+	slot = slot_glasses
 	cost = 2
 
 /datum/gear/racial/taj/civ
