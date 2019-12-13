@@ -98,11 +98,12 @@
 	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 
-/obj/item/gripper/proc/drop_gripped_item(silent = 0)
-	if(!silent)
-		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
-	gripped_item.forceMove(get_turf(src))
-	gripped_item = null
+/obj/item/gripper/proc/drop_gripped_item(mob/user, silent = FALSE)
+	if(gripped_item)
+		if(!silent)
+			to_chat(user, "<span class='warning'>You drop [gripped_item].</span>")
+		gripped_item.forceMove(get_turf(src))
+		gripped_item = null
 
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
 	return
@@ -118,7 +119,7 @@
 		if(!target.attackby(gripped_item, user, params))
 			// If the attackby didn't resolve or delete the target or gripped_item, afterattack
 			// (Certain things, such as mountable frames, rely on afterattack)
-			gripped_item.afterattack(target, user, 1, params)
+			gripped_item?.afterattack(target, user, 1, params)
 
 		//If gripped_item either didn't get deleted, or it failed to be transfered to its target
 		if(!gripped_item && contents.len)

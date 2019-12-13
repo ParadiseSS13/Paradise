@@ -224,8 +224,8 @@
 
 /obj/item/robot_module/engineering/handle_death()
 	var/obj/item/gripper/G = locate(/obj/item/gripper) in modules
-	if(G)
-		G.drop_gripped_item()
+	if(G && G.gripped_item)
+		G.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/security
 	name = "security robot module"
