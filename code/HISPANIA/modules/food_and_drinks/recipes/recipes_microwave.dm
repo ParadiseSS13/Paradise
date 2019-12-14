@@ -45,7 +45,12 @@
 	items = list(/obj/item/reagent_containers/food/drinks/mug, /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita, /obj/item/reagent_containers/food/snacks/egg)
 	result = /obj/item/reagent_containers/food/snacks/amanita_mugcake
 
+//HoneyMugcake (for Luka) //
 
+/datum/recipe/microwave/honey_mugcake
+	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5,"honey" = 5)
+	items = list(/obj/item/reagent_containers/food/drinks/mug, /obj/item/reagent_containers/food/snacks/egg)
+	result = /obj/item/reagent_containers/food/snacks/honey_mugcake
 
 /// Soups
 
