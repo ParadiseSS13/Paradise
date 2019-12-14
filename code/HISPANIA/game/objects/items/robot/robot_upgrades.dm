@@ -3,7 +3,7 @@
 	desc = "A crew pinpointer module for the medical cyborg."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff_crew"
-	origin_tech = "engineering=2;biotech=1"
+	origin_tech = "engineering=2;biotech=4;magnets=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
