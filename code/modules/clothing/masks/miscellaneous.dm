@@ -304,9 +304,11 @@
 	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
 	icon_state = "horsehead"
 	item_state = "horsehead"
-	flags = BLOCKHAIR
+	flags = BLOCKHAIR | AIRTIGHT
 	flags_inv = HIDEFACE
 	w_class = WEIGHT_CLASS_SMALL
+	gas_transfer_coefficient = 0.10
+	permeability_coefficient = 0.50
 	var/voicechange = 0
 	var/temporaryname = " the Horse"
 	var/originalname = ""
