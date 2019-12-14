@@ -459,7 +459,7 @@
 	boxes.plane = HUD_PLANE
 	closer = new /obj/screen/close(  )
 	closer.master = src
-	closer.icon_state = "x"
+	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()

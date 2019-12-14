@@ -384,15 +384,15 @@
 
 	if(!lasercolor)
 		var/obj/item/gun/energy/gun/advtaser/G = new /obj/item/gun/energy/gun/advtaser(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
 		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
 		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 
 	if(prob(50))

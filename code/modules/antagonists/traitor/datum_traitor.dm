@@ -6,7 +6,7 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	job_rank = ROLE_TRAITOR
-	var/special_role = ROLE_TRAITOR
+	var/special_role = SPECIAL_ROLE_TRAITOR
 	var/give_objectives = TRUE
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE

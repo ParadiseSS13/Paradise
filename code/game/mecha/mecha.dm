@@ -1,9 +1,3 @@
-
-
-#define MECHAMOVE_RAND 1
-#define MECHAMOVE_TURN 2
-#define MECHAMOVE_STEP 4
-
 /obj/mecha
 	name = "Mecha"
 	desc = "Exosuit"
@@ -210,10 +204,17 @@
 		if(!target)
 			return
 
+	var/mob/living/L = user
 	if(!target.Adjacent(src))
 		if(selected && selected.is_ranged())
+			if(HAS_TRAIT(L, TRAIT_PACIFISM) && selected.harmful)
+				to_chat(L, "<span class='warning'>You don't want to harm other living beings!</span>")
+				return
 			selected.action(target, params)
 	else if(selected && selected.is_melee())
+		if(isliving(target) && selected.harmful && HAS_TRAIT(L, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+			return
 		selected.action(target, params)
 	else
 		if(internal_damage & MECHA_INT_CONTROL_LOST)

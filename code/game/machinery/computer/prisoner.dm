@@ -71,8 +71,8 @@
 				health_display = "DEAD"
 			else if(total_loss)
 				health_display = "HURT ([total_loss])"
-			if(is_station_level(M.z) && !istype(M.loc, /turf/space))
-				loc_display = "[get_area(M)]"
+			if(is_station_level(Tr.z) && !istype(Tr.loc, /turf/space))
+				loc_display = "[get_area(Tr)]"
 			dat += "ID: [T.id] <BR>Subject: [M] <BR>Location: [loc_display] <BR>Health: [health_display] <BR>"
 			dat += "<A href='?src=[UID()];warn=\ref[T]'>(<font color=red><i>Message Holder</i></font>)</A> |<BR>"
 			dat += "********************************<BR>"

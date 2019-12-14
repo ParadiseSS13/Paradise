@@ -181,9 +181,11 @@
 		step(O, get_dir(O, src))
 	return
 
-/obj/structure/table/proc/tablepush(obj/item/I, mob/user)
+/obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
+		return
 	if(get_dist(src, user) < 2)
-		var/obj/item/grab/G = I
 		if(G.affecting.buckled)
 			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
 			return FALSE
@@ -202,9 +204,9 @@
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
-		qdel(I)
+		qdel(G)
 		return TRUE
-	qdel(I)
+	qdel(G)
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
@@ -694,7 +696,7 @@
 	return
 
 /obj/structure/rack/attack_hand(mob/living/user)
-	if(user.weakened || user.resting || user.lying)
+	if(user.IsWeakened() || user.resting || user.lying)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
