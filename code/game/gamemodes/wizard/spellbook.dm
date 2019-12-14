@@ -135,6 +135,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/horsemask
 	log_name = "HH"
 	category = "Offensive"
+	cost = 1
 
 /datum/spellbook_entry/disintegrate
 	name = "Disintegrate"
