@@ -94,6 +94,7 @@
 /obj/effect/countdown/supermatter
 	name = "supermatter damage"
 	text_size = 1
+	mouse_opacity = 0
 	color = "#00ff80"
 
 /obj/effect/countdown/supermatter/get_value()
