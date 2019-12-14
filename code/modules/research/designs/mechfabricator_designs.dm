@@ -758,7 +758,6 @@
 	build_type = MECHFAB
 	build_path = /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	materials = list(MAT_METAL=5000,MAT_GLASS=2500)
-	construction_time = 50
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_generator_nuclear
@@ -1121,7 +1120,6 @@
 	build_type = MECHFAB
 	build_path =/obj/item/mecha_parts/mecha_tracking
 	materials = list(MAT_METAL=500)
-	construction_time = 50
 	category = list("Misc")
 
 /datum/design/mecha_tracking_ai_control
@@ -1131,7 +1129,6 @@
 	build_path = /obj/item/mecha_parts/mecha_tracking/ai_control
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 500, MAT_SILVER = 200)
 	req_tech = list("programming" = 3, "magnets" = 2, "engineering" = 2)
-	construction_time = 50
 	category = list("Misc")
 
 /datum/design/ipc_head
@@ -1205,7 +1202,6 @@
 	id = "voice_standard"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 500)
-	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice
 	category = list("Misc")
 
@@ -1215,7 +1211,6 @@
 	id = "voice_nanotrasen"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 500)
-	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/nanotrasen
 	category = list("Misc")
 
@@ -1225,7 +1220,6 @@
 	id = "voice_silent"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 500)
-	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/silent
 	category = list("Misc")
 
@@ -1235,7 +1229,6 @@
 	id = "voice_honk"
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 400, MAT_BANANIUM = 100)
-	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/honk
 	category = list("Misc")
 
@@ -1246,6 +1239,5 @@
 	build_type = MECHFAB
 	materials = list(MAT_METAL = 400, MAT_TITANIUM = 100)
 	req_tech = list("syndicate" = 2)
-	construction_time = 50
 	build_path = /obj/item/mecha_modkit/voice/syndicate
 	category = list("Misc")

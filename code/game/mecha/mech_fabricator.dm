@@ -268,7 +268,7 @@
 	return round(D.materials[resource]*component_coeff, roundto)
 
 /obj/machinery/mecha_part_fabricator/proc/get_construction_time_w_coeff(datum/design/D, roundto = 1) //aran
-	return round(initial(D.construction_time)*time_coeff, roundto)
+	return round(initial(D.construction_time)*initial(D.lathe_time_factor)*time_coeff, roundto)
 
 /obj/machinery/mecha_part_fabricator/attack_ghost(mob/user)
 	interact(user)
