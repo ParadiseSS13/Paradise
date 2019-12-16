@@ -9,3 +9,13 @@ CREATE TABLE `playtime_history` (
   PRIMARY KEY (`ckey`, `date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+# Add the 'connection_log' table, which is used to log all connections to the server
+DROP TABLE IF EXISTS `connection_log`;
+CREATE TABLE `connection_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `ckey` varchar(32) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `computerid` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

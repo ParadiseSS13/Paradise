@@ -578,3 +578,16 @@ CREATE TABLE `SS13_playtime_history` (
   `time_ghost` SMALLINT NOT NULL,
   PRIMARY KEY (`ckey`, `date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Table structure for table `SS13_connection_log`
+--
+DROP TABLE IF EXISTS `SS13_connection_log`;
+CREATE TABLE `SS13_connection_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `ckey` varchar(32) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `computerid` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
