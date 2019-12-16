@@ -565,3 +565,18 @@ CREATE TABLE `oauth_tokens` (
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+
+--
+-- Table structure for table `playtime_history`
+--
+DROP TABLE IF EXISTS `playtime_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `playtime_history` (
+  `ckey` varchar(32) NOT NULL,
+  `date` DATE NOT NULL,
+  `time_living` SMALLINT NOT NULL,
+  `time_ghost` SMALLINT NOT NULL,
+  PRIMARY KEY (`ckey`, `date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
