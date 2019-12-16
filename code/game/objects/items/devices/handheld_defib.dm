@@ -52,6 +52,14 @@
 		if(H.stat == DEAD)
 			to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")
 		else
+
+			if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest())) //Don't sleep if they aren't in crit
+				H.AdjustParalysis(3)
+
+			H.AdjustStunned(5)
+			H.AdjustWeakened(5)
+			H.AdjustStuttering(10)
+
 			H.set_heartattack(FALSE)
 			var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 			if(H.health <= HEALTH_THRESHOLD_CRIT)
@@ -63,12 +71,7 @@
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-			if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest())) //Don't sleep if they aren't in crit
-				H.AdjustParalysis(3)
 
-			H.AdjustStunned(5)
-			H.AdjustWeakened(5)
-			H.AdjustStuttering(10)
 			to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
 			H.shock_internal_organs(100)
 
