@@ -103,7 +103,7 @@ var/global/nologevent = 0
 		if(config.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
-		if(M.client.check_watchlist(M.client.ckey))
+		if(check_watchlist(M.client.ckey))
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
 			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 		else
