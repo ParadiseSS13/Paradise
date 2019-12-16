@@ -63,7 +63,9 @@
 				else
 					to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
 
-			H.AdjustParalysis(3)
+			if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest())) //Don't sleep if they aren't in crit
+				H.AdjustParalysis(3)
+
 			H.AdjustStunned(5)
 			H.AdjustWeakened(5)
 			H.AdjustStuttering(10)
