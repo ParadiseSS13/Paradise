@@ -308,8 +308,12 @@ obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = lis
 		var/new_y = starting.y + pick(position_modifiers)
 		var/turf/curloc = get_turf(source)
 
+		if(ismob(source))
+			firer = source // The reflecting mob will be the new firer
+		else
+			firer = null // Reflected by something other than a mob so firer will be null
+		
 		// redirect the projectile
-		firer = source
 		original = locate(new_x, new_y, z)
 		starting = curloc
 		current = curloc
