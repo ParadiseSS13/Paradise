@@ -302,6 +302,25 @@
 				Range()
 			sleep(1)
 
+obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
+	if(starting)
+		var/new_x = starting.x + pick(position_modifiers)
+		var/new_y = starting.y + pick(position_modifiers)
+		var/turf/curloc = get_turf(source)
+
+		if(ismob(source))
+			firer = source // The reflecting mob will be the new firer
+		else
+			firer = null // Reflected by something other than a mob so firer will be null
+		
+		// redirect the projectile
+		original = locate(new_x, new_y, z)
+		starting = curloc
+		current = curloc
+		yo = new_y - curloc.y
+		xo = new_x - curloc.x
+		Angle = null // Will be calculated in fire()
+
 obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
 	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
