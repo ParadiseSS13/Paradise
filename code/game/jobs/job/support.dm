@@ -294,6 +294,7 @@
 		genemutcheck(H, COMICBLOCK, null, MUTCHK_FORCED)
 		H.dna.default_blocks.Add(COMICBLOCK)
 	H.check_mutations = TRUE
+	H.add_language("Clownish")
 
 //action given to antag clowns
 /datum/action/innate/toggle_clumsy
