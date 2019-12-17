@@ -19,3 +19,6 @@ CREATE TABLE `connection_log` (
   `computerid` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+# Add the 'crew_playtime' field to the 'notes' table, which gives admins some idea of how many hours have passed for a player since they got a note
+ALTER TABLE `notes` ADD `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0' AFTER `server`;

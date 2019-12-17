@@ -505,6 +505,7 @@ CREATE TABLE `notes` (
   `last_editor` varchar(32),
   `edits` text,
   `server` varchar(50) NOT NULL,
+  `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
