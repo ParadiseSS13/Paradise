@@ -28,6 +28,9 @@
 	del_on_death = 1
 	deathmessage = "lets out a contented sigh as their form unwinds."
 
+/mob/living/simple_animal/shade/death(gibbed)
+	. = ..()
+	SSticker.mode.remove_cultist(src.mind, FALSE)
 
 /mob/living/simple_animal/shade/attackby(var/obj/item/O as obj, var/mob/user as mob)  //Marker -Agouri
 	if(istype(O, /obj/item/soulstone))
