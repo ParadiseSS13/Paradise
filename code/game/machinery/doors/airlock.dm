@@ -983,6 +983,15 @@ About the new airlock wires panel:
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
+
+		if(!user.canUnEquip(C))
+			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
+			return
+		
+		// QOL for cultists
+		if(!do_after_once(user, 10, target = src))
+			return
+		
 		if(!user.unEquip(C))
 			to_chat(user, "<span class='warning'>For some reason, you can't attach [C]!</span>")
 			return
@@ -1349,7 +1358,8 @@ About the new airlock wires panel:
 		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
-		note.forceMove(get_turf(user))
+		if(!user.put_in_active_hand(note) && !user.put_in_inactive_hand(note))
+			note.forceMove(get_turf(user))
 		note = null
 		update_icon()
 		return TRUE
