@@ -240,8 +240,7 @@
 			if(!paused)
 				if((!( current ) || loc == current))
 					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
-
-				if(!Angle)
+				if(isnull(Angle))
 					Angle=round(Get_Angle(src,current))
 				if(spread)
 					Angle += (rand() - 0.5) * spread
