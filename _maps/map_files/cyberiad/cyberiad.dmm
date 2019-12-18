@@ -83112,6 +83112,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"gNe" = (
+/obj/machinery/hydroponics/soil,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/simulated/floor/grass,
+/area/maintenance/asmaint2)
 "gNB" = (
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
@@ -84201,6 +84208,11 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/maintenance/port)
+"hIF" = (
+/obj/structure/rack,
+/obj/item/clothing/under/suit_jacket,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "hIZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -89393,6 +89405,16 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/engine/supermatter)
+"mzG" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/effect/spawner/random_barrier/obstruction,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "mAo" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
@@ -91486,7 +91508,6 @@
 /obj/structure/table,
 /obj/item/reagent_containers/spray/pestspray,
 /obj/item/reagent_containers/spray/plantbgone,
-/obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint2)
@@ -93866,7 +93887,12 @@
 /obj/item/storage/fancy/cigarettes/cigpack_random,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/retaliate/kangaroo{
-	desc = "A large marsupial herbivore. It has powerful hind legs, with nails that resemble long claws. It seems a bit high.";
+	desc = "the Ganja Wallaby. Has dangerously large hind legs.";
+	icon_dead = "kangaroo_rasta_dead";
+	icon_living = "kangaroo_rasta";
+	icon_state = "kangaroo_rasta";
+	melee_damage_special = 25;
+	melee_damage_upper = 10;
 	name = "Wally"
 	},
 /turf/simulated/floor/plating,
@@ -95419,6 +95445,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
+/obj/item/clothing/head/beanie/rasta,
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint2)
 "sde" = (
@@ -96374,6 +96401,7 @@
 /obj/structure/sign/poster/contraband/ambrosia_vulgaris{
 	pixel_y = 32
 	},
+/obj/item/clothing/head/beanie/stripedgreen,
 /turf/simulated/floor/carpet,
 /area/maintenance/asmaint2)
 "sVY" = (
@@ -149701,7 +149729,7 @@ aaa
 cuQ
 qZV
 ocZ
-sRU
+gNe
 cuQ
 bPA
 dia
@@ -149958,8 +149986,8 @@ aaa
 bZZ
 oni
 xzO
-gEs
-dbh
+sRU
+cuQ
 bGG
 dia
 bZZ
@@ -150472,7 +150500,7 @@ cuQ
 cuQ
 hGS
 pNq
-sRU
+gNe
 cxS
 cAU
 dia
@@ -150728,7 +150756,7 @@ xso
 cuQ
 xso
 eUt
-bGG
+gEs
 sRU
 cxS
 bKl
@@ -152003,8 +152031,8 @@ cuQ
 cuQ
 cuQ
 cuQ
-dbh
 cuQ
+dbh
 cuQ
 cuQ
 djA
@@ -152266,7 +152294,7 @@ bGG
 bGG
 bGG
 bGG
-lcD
+cuQ
 bGG
 lcD
 cuQ
@@ -152523,7 +152551,7 @@ cac
 cac
 lBe
 lBe
-lBe
+mzG
 cac
 cac
 cac
@@ -153028,12 +153056,12 @@ cuQ
 cQw
 bGG
 bGG
-cuQ
-aaa
-aaa
-abP
-aaa
-cuQ
+dbh
+cAU
+bGG
+bGG
+bGG
+bGG
 bGG
 bGG
 bGG
@@ -153286,10 +153314,10 @@ cQC
 bGG
 cSL
 cuQ
-aaa
-aaa
-abP
-aaa
+bGG
+bGG
+bGG
+bPA
 cuQ
 bGG
 bGG
@@ -153543,13 +153571,13 @@ cuQ
 cuQ
 cuQ
 cuQ
-aaa
-aaa
-abP
-aaa
-cuQ
 cuQ
 dbi
+dfc
+cuQ
+cuQ
+cuQ
+hIF
 bGG
 bGG
 bGG
@@ -153799,20 +153827,20 @@ aaa
 aaa
 aaa
 abP
-cuQ
-aaa
-aaa
-abP
-aaa
 abP
 cuQ
 cuQ
-bZZ
-bZZ
-bZZ
+vEh
+cuQ
+abP
 cuQ
 cuQ
 cuQ
+bZZ
+bZZ
+cuQ
+bZZ
+bZZ
 cuQ
 cuQ
 cuQ

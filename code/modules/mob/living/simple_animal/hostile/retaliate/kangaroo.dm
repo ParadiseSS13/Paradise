@@ -20,6 +20,7 @@
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 2, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	move_to_delay = 4 // at 20ticks/sec, this is 5 tile/sec movespeed, about the same as a 'fast human'.
 	speed = -1 // '-1' converts to 1.5 total move delay, or 6.6 tiles/sec movespeed
+	var/melee_damage_special = 60
 	var/attack_cycles = 0
 	var/attack_cycles_max = 3
 
@@ -47,8 +48,8 @@
 	// ... but, every attack_cycles_max attacks on a living mob, do a powerful disemboweling kick instead
 	attack_cycles = 0
 	attacktext = "VICIOUSLY KICKS"
-	melee_damage_lower = 60
-	melee_damage_upper = 60
+	melee_damage_lower = melee_damage_special
+	melee_damage_upper = melee_damage_special
 	. = ..()
 
 	var/rookick_dir = get_dir(src, L)
