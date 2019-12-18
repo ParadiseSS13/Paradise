@@ -189,6 +189,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/fake_revolver
 	cost = 1
 	job = list("Clown")
+	
+/datum/uplink_item/jobspecific/honker
+	name = "H.O.N.K"
+	desc = "Produced by \"Tyranny of Honk, INC\", this exosuit is designed as heavy clown-support. Used to spread the fun and joy of life. HONK!"
+	reference = "HONK"
+	item = /obj/mecha/combat/honker/loaded
+	cost = 1
+	job = list("Clown")
 /*
 /datum/uplink_item/stealthy_weapons/romerol_kit
 	name = "Romerol"
