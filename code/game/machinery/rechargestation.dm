@@ -298,7 +298,7 @@
 			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
-		can_accept_user = 1
+		can_accept_user = TRUE
 
 	else if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
@@ -310,7 +310,10 @@
 			return
 		if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			return
-		can_accept_user = 1
+		can_accept_user = TRUE
+
+	else if(istype(user, /mob/living/simple_animal/spiderbot))
+		can_accept_user = TRUE
 
 	if(!can_accept_user)
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
