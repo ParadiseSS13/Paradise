@@ -98682,11 +98682,11 @@
 /area/maintenance/engi_shuttle)
 "vgZ" = (
 /obj/machinery/computer/security/telescreen/entertainment{
+	icon_screen = "detective_tv";
 	icon_state = "television";
 	name = "old TV"
 	},
 /obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
@@ -147418,7 +147418,7 @@ bGG
 cuQ
 cuQ
 cAU
-dSt
+bGG
 otG
 dbm
 cuQ
