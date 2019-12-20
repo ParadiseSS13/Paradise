@@ -178,8 +178,7 @@
 					qdel(R)
 		else if(istype(occupant, /mob/living/simple_animal/spiderbot))
 			var/mob/living/simple_animal/spiderbot/H = occupant
-			if(repairs)
-				H.adjustBruteLoss(-repairs)
+			H.adjustBruteLoss(-repairs-1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
