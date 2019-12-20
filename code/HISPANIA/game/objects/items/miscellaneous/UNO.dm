@@ -24,9 +24,6 @@
 
 /obj/item/storage/bag/UNO/New()
 	..()
-	for(var/i in 1 to 4)
-		new /obj/item/toy/UNO/wild(src)
-		new /obj/item/toy/UNO/d4(src)
 	for(var/j in 1 to 2)
 		new /obj/item/toy/UNO/g1(src)
 		new /obj/item/toy/UNO/g2(src)
@@ -76,10 +73,14 @@
 		new /obj/item/toy/UNO/yd2(src)
 		new /obj/item/toy/UNO/ys(src)
 		new /obj/item/toy/UNO/yr(src)
+	for(var/i in 1 to 4)
+		new /obj/item/toy/UNO/wild(src)
+		new /obj/item/toy/UNO/d4(src)
 	new /obj/item/toy/UNO/g0(src)
 	new /obj/item/toy/UNO/r0(src)
 	new /obj/item/toy/UNO/b0(src)
 	new /obj/item/toy/UNO/y0(src)
+	contents = shuffle(contents)
 
 /obj/item/toy/UNO/attack_self(mob/user as mob)
 	if(icon_state == "uno")
@@ -91,6 +92,12 @@
 		name = "UNO card"
 		to_chat(user, "<span class='notice'>You flip the card.</span>")
 	return
+
+obj/item/toy/UNO/attackby(obj/item/W, mob/user)
+	if(istype(W, /obj/item/toy/UNO))
+		user.drop_item()
+		W.forceMove(src.loc)
+		W.move_to_top()
 
 /obj/item/toy/UNO/wild
 	flip_name = "wild card"
