@@ -271,6 +271,7 @@
 	var/used = FALSE
 	var/theme = "magic"
 	var/mob_name = "Guardian Spirit"
+	var/confirmation_message = "The cards are still unused. Do you wish to use them?"
 	var/use_message = "You shuffle the deck..."
 	var/used_message = "All the cards seem to be blank now."
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
@@ -295,8 +296,13 @@
 	if(used == TRUE)
 		to_chat(user, "[used_message]")
 		return
-	used = TRUE
-	to_chat(user, "[use_message]")
+	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
+	if(choice == "Yes")
+		used = TRUE
+		to_chat(user, "[use_message]")
+	else if(choice == "No")
+		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+		return
 	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, 0, 100)
 	var/mob/dead/observer/theghost = null
 
@@ -384,6 +390,7 @@
 	icon_state = "combat_hypo"
 	theme = "tech"
 	mob_name = "Holoparasite"
+	confirmation_message =  "The injector still contains holoparasites. Do you wish to use it?"
 	use_message = "You start to power on the injector..."
 	used_message = "The injector has already been used."
 	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
@@ -424,6 +431,7 @@
 	theme = "bio"
 	mob_name = "Scarab Swarm"
 	use_message = "The eggs begin to twitch..."
+	confirmation_message =  "These eggs are still dormant. Do you wish to activate them?"
 	used_message = "The cluster already hatched."
 	failure_message = "<B>...but soon settles again. Guess they weren't ready to hatch after all.</B>"
 	color_list = list("Rose" = "#F62C6B",
