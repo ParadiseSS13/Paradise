@@ -5,8 +5,9 @@
 //////Allows admin's to right click on any mob/mech and freeze them in place.///
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-GLOBAL_LIST_EMPTY(frozen_mob_list)
-/client/proc/freeze(var/mob/living/M as mob in GLOB.mob_list)
+GLOBAL_LIST_EMPTY(frozen_atom_list)
+
+/client/proc/freeze(atom/movable/M)
 	set name = "Freeze"
 	set category = null
 
@@ -26,11 +27,11 @@ GLOBAL_LIST_EMPTY(frozen_mob_list)
 /mob/living/var/frozen = null //used for preventing attacks on admin-frozen mobs
 /mob/living/var/admin_prev_sleeping = 0 //used for keeping track of previous sleeping value with admin freeze
 
-/mob/living/proc/admin_Freeze(client/admin, skip_overlays = FALSE)
+/mob/living/proc/admin_Freeze(client/admin, skip_overlays = FALSE, mech = null)
 	if(istype(admin))
 		to_chat(src, "<b><font color= red>You have been frozen by [admin]</b></font>")
-		message_admins("<span class='notice'>[key_name_admin(admin)]</span> froze [key_name_admin(src)]")
-		log_admin("[key_name(admin)] froze [key_name(src)]")
+		message_admins("<span class='notice'>[key_name_admin(admin)] froze [key_name_admin(src)] [mech ? "in a [mech]" : ""]</span>")
+		log_admin("[key_name(admin)] froze [key_name(src)] [mech ? "in a [mech]" : ""]")
 
 	var/obj/effect/overlay/adminoverlay/AO = new
 	if(skip_overlays)
@@ -44,11 +45,11 @@ GLOBAL_LIST_EMPTY(frozen_mob_list)
 	if(!(src in GLOB.frozen_mob_list))
 		GLOB.frozen_mob_list += src
 
-/mob/living/proc/admin_unFreeze(client/admin, skip_overlays = FALSE)
+/mob/living/proc/admin_unFreeze(client/admin, skip_overlays = FALSE, mech = null)
 	if(istype(admin))
 		to_chat(src, "<b><font color= red>You have been unfrozen by [admin]</b></font>")
-		message_admins("<span class='notice'>[key_name_admin(admin)] unfroze [key_name_admin(src)]</span>")
-		log_admin("[key_name(admin)] unfroze [key_name(src)]")
+		message_admins("<span class='notice'>[key_name_admin(admin)] unfroze [key_name_admin(src)] [mech ? "in a [mech]" : ""]</span>")
+		log_admin("[key_name(admin)] unfroze [key_name(src)] [mech ? "in a [mech]" : ""]")
 
 	if(skip_overlays)
 		overlays -= frozen
@@ -87,7 +88,7 @@ GLOBAL_LIST_EMPTY(frozen_mob_list)
 
 //////////////////////////Freeze Mech
 
-/client/proc/freezemecha(var/obj/mecha/O as obj in GLOB.mechas_list)
+/client/proc/freezemecha(obj/mecha/O in GLOB.mechas_list)
 	set name = "Freeze Mech"
 	set category = null
 
@@ -98,28 +99,21 @@ GLOBAL_LIST_EMPTY(frozen_mob_list)
 	if(!istype(M,/obj/mecha))
 		to_chat(src, "<span class='danger'>This can only be used on mechs!</span>")
 		return
-	else
-		if(usr)
-			if(usr.client)
-				if(usr.client.holder)
-					var/adminomaly = new/obj/effect/overlay/adminoverlay
-					if(M.can_move == 1)
-						M.can_move = 0
-						M.overlays += adminomaly
-						if(M.occupant)
-							to_chat(M.occupant, "<b><font color= red>You have been frozen by <a href='?priv_msg=[usr.client.UID()]'>[key]</a></b></font>")
-							message_admins("<span class='notice'>[key_name_admin(usr)] froze [key_name(M.occupant)] in a [M.name]</span>")
-							log_admin("[key_name(usr)] froze [key_name(M.occupant)] in a [M.name]")
-						else
-							message_admins("<span class='notice'>[key_name_admin(usr)] froze an empty [M.name]</span>")
-							log_admin("[key_name(usr)] froze an empty [M.name]")
-					else if(M.can_move == 0)
-						M.can_move = 1
-						M.overlays -= adminomaly
-						if(M.occupant)
-							to_chat(M.occupant, "<b><font color= red>You have been unfrozen by <a href='?priv_msg=[usr.client.UID()]'>[key]</a></b></font>")
-							message_admins("<span class='notice'>[key_name_admin(usr)] unfroze [key_name(M.occupant)] in a [M.name]</span>")
-							log_admin("[key_name(usr)] unfroze [key_name(M.occupant)] in a [M.name]")
-						else
-							message_admins("<span class='notice'>[key_name_admin(usr)] unfroze an empty [M.name]</span>")
-							log_admin("[key_name(usr)] unfroze an empty [M.name]")
+
+	else if(usr?.client?.holder)
+		var/adminomaly = new/obj/effect/overlay/adminoverlay
+		if(M.frozen)
+			M.frozen = FALSE
+			M.overlays -= adminomaly
+		else
+			M.frozen = TRUE
+			M.overlays += adminomaly
+
+		if(M.occupant)
+			if(M.occupant.frozen)
+				M.occupant.admin_unFreeze(src, mech = M.name)
+			else
+				M.occupant.admin_Freeze(src, mech = M.name)
+		else
+			message_admins("<span class='notice'>[key_name_admin(usr)] [M.frozen ? "froze" : "unfroze"] an empty [M.name]</span>")
+			log_admin("[key_name(usr)] [M.frozen ? "froze" : "unfroze"] an empty [M.name]")
