@@ -430,7 +430,6 @@
 			// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
 			packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
 
-
 	data["supply_packs"] = packs_list
 	if(content_pack)
 		var/pack_name = sanitize(content_pack.name)
