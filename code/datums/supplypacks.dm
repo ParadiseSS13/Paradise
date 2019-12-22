@@ -1949,6 +1949,15 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/sparkler,
 					/obj/item/sparkler)
 	containername = "pyrotechnics display crate"
+
+/datum/supply_packs/misc/carpet
+	name = "Fancy Flooring Crate"
+	cost = 20
+	contains = list(/obj/item/stack/tile/carpet/twentyfive,
+					/obj/item/stack/tile/carpet/black/twentyfive,
+					/obj/item/stack/tile/grass/twentyfive,
+					/obj/item/stack/tile/wood/twentyfive)
+	containername = "fancy flooring crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

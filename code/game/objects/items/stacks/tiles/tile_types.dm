@@ -83,6 +83,9 @@
 	turf_type = /turf/simulated/floor/grass
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/grass/twentyfive
+		amount = 25
+
 //Wood
 /obj/item/stack/tile/wood
 	name = "wood floor tiles"
@@ -94,6 +97,9 @@
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/wood/twentyfive
+		amount = 25
+
 //Carpets
 /obj/item/stack/tile/carpet
 	name = "carpet"
@@ -103,10 +109,16 @@
 	turf_type = /turf/simulated/floor/carpet
 	resistance_flags = FLAMMABLE
 
+/obj/item/stack/tile/carpet/twentyfive
+		amount = 25
+
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
 	icon_state = "tile-carpet-black"
 	turf_type = /turf/simulated/floor/carpet/black
+
+/obj/item/stack/tile/carpet/black/twentyfive
+		amount = 25
 
 //Plasteel
 /obj/item/stack/tile/plasteel
