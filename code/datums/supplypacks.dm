@@ -772,7 +772,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/engineering/air
 	name = "Air Canister"
-	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
+	contains = list(/obj/machinery/portable_atmospherics/canister/air)
 	cost = 15
 	containername = "air canister crate"
 	access = access_atmospherics
@@ -780,7 +780,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/engineering/co2
 	name = "CO2 Canister"
-	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
+	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
 	cost = 15
 	containername = "co2 canister crate"
 	access = access_atmospherics
@@ -1116,7 +1116,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
     contraband = 1
 
 datum/supply_packs/science/sciencepack
-	name = "Scientest Starter Pack"
+	name = "Scientist Starter Pack"
 	contains = list(/obj/item/storage/backpack/science,
 					/obj/item/storage/backpack/satchel_tox,
 					/obj/item/clothing/under/rank/scientist,
@@ -1129,7 +1129,7 @@ datum/supply_packs/science/sciencepack
 					/obj/item/clothing/shoes/sandal/white,)
 	cost = 25 //only the headset is hard to get here, compaired to the sec and medical packs
 	containertype = /obj/structure/closet/crate/secure
-	containername = "scientest starter pack"
+	containername = "scientist starter pack"
 	access = access_research
 
 //////////////////////////////////////////////////////////////////////////////
