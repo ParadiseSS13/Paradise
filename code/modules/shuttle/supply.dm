@@ -426,11 +426,13 @@
 	var/packs_list[0]
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(!pack.contraband && !pack.hidden && !pack.special && pack.group == cat)
+		if((!pack.contraband && !pack.hidden && !pack.special && pack.group == cat) || (!pack.contraband && !pack.hidden && (pack.special && pack.special_enabled) && pack.group == cat))
 			// 0/1 after the pack name (set_name) is a boolean for ordering multiple crates
 			packs_list.Add(list(list("name" = pack.name, "amount" = pack.amount, "cost" = pack.cost, "command1" = list("doorder" = "[set_name]0"), "command2" = list("doorder" = "[set_name]1"), "command3" = list("contents" = set_name))))
 
+
 	data["supply_packs"] = packs_list
+
 	if(content_pack)
 		var/pack_name = sanitize(content_pack.name)
 		data["contents_name"] = pack_name
