@@ -6,7 +6,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 GLOBAL_LIST_EMPTY(frozen_atom_list)
-
 /client/proc/freeze(atom/movable/M)
 	set name = "Freeze"
 	set category = null
@@ -14,24 +13,22 @@ GLOBAL_LIST_EMPTY(frozen_atom_list)
 	if(!check_rights(R_ADMIN))
 		return
 
-	if(!istype(M))
-		return
+	M.admin_Freeze(src)
 
-	if(M in GLOB.frozen_atom_list)
-		M.admin_unFreeze(src)
-	else
-		to_chat(src, "<span class='warning'>This can only be used on mobs or mechs.</span")
-		return
+
+/atom/movable/proc/admin_Freeze(client/admin)
+	to_chat(admin, "<span class='warning'>Freeze is not able to be called on this type of object.</span")
+	return
 
 ///mob freeze procs
 
 /mob/living/var/frozen = null //used for preventing attacks on admin-frozen mobs
 /mob/living/var/admin_prev_sleeping = 0 //used for keeping track of previous sleeping value with admin freeze
 
-/mob/living/proc/admin_Freeze(client/admin, skip_overlays = FALSE, mech = null)
+/mob/living/admin_Freeze(client/admin, skip_overlays = FALSE, mech = null)
 	if(istype(admin))
-		if(!(src in frozen_atom_list))
-			frozen_atom_list += src
+		if(!(src in GLOB.frozen_atom_list))
+			GLOB.frozen_atom_list += src
 
 			var/obj/effect/overlay/adminoverlay/AO = new
 			if(skip_overlays)
@@ -44,7 +41,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list)
 			frozen = AO
 
 		else
-			frozen_atom_list -= src
+			GLOB.frozen_atom_list -= src
 
 			if(skip_overlays)
 				overlays -= frozen
@@ -83,12 +80,14 @@ GLOBAL_LIST_EMPTY(frozen_atom_list)
 
 //////////////////////////Freeze Mech
 
-/obj/mecha/proc/admin_Freeze(client/admin)
+/obj/mecha/admin_Freeze(client/admin)
 	var/adminomaly = new/obj/effect/overlay/adminoverlay
 	if(!frozen)
+		GLOB.frozen_atom_list += src
 		frozen = TRUE
 		overlays += adminomaly
 	else
+		GLOB.frozen_atom_list -= src
 		frozen = FALSE
 		overlays -= adminomaly
 
