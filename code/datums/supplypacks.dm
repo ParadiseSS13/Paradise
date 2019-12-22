@@ -1881,6 +1881,20 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	special = TRUE
 
+/datum/supply_packs/misc/fireworks
+	name = "Pyrotechnics Display Crate"
+	cost = 10
+	contains = list(/obj/item/firework,
+					/obj/item/firework,
+					/obj/item/firework,
+					/obj/item/firework,
+					/obj/item/firework,
+					/obj/item/sparkler,
+					/obj/item/sparkler,
+					/obj/item/sparkler,
+					/obj/item/sparkler,
+					/obj/item/sparkler)
+	containername = "pyrotechnics display crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////

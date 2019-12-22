@@ -11,6 +11,7 @@ obj/item/firework/attackby(obj/item/W,mob/user, params)
 		for(var/mob/M in viewers(user))
 			to_chat(M, "[user] lits \the [src]")
 		litzor = 1
+		set_light(2)
 		icon_state = "rocket_1"
 		S = new()
 		S.set_up(5,0,src.loc)
@@ -24,6 +25,7 @@ obj/item/sparkler
 	name = "sparkler"
 	icon = 'icons/obj/fireworks.dmi'
 	icon_state = "sparkler_0"
+	item_state = "flare"
 	var/litzor = 0
 
 obj/item/sparkler/attackby(obj/item/W,mob/user, params)
@@ -33,11 +35,13 @@ obj/item/sparkler/attackby(obj/item/W,mob/user, params)
 		for(var/mob/M in viewers(user))
 			to_chat(M, "[user] lits \the [src]")
 		litzor = 1
+		set_light(2)
 		icon_state = "sparkler_1"
-		var/b = rand(5,9)
+		item_state = "flare-on"
+		var/b = rand(9,19)
 		for(var/xy, xy<=b, xy++)
 			do_sparks(1, 0, loc)
-			sleep(10)
+			sleep(8)
 		qdel(src)
 /obj/crate/fireworks
 	name = "Fireworks!"
