@@ -48,14 +48,14 @@
 				req_access += pick(get_all_accesses())
 	..()
 
-/obj/structure/closet/secure_closet/proc/togglelock(mob/user)
+/obj/structure/closet/secure_closet/togglelock(mob/user)
 	if(opened)
 		to_chat(user, "<span class='notice'>Close the locker first.</span>")
 		return
 	if(broken)
 		to_chat(user, "<span class='warning'>The locker appears to be broken.</span>")
 		return
-	if(user.loc == src)
+	if(user.loc == src && !HAS_TRAIT(user, TRAIT_SKITTISH))
 		to_chat(user, "<span class='notice'>You can't reach the lock from inside.</span>")
 		return
 	if(allowed(user))

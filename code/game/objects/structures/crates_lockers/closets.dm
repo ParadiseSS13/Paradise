@@ -287,6 +287,13 @@
 		user.visible_message("<span class='danger'>[user] stuffs [O] into [src]!</span>", "<span class='danger'>You stuff [O] into [src]!</span>")
 	add_fingerprint(user)
 
+/obj/structure/closet/CtrlShiftClick(mob/living/user)
+	if(!HAS_TRAIT(user, TRAIT_SKITTISH))
+		return ..()
+	if(!isturf(user.loc) || !Adjacent(user))
+		return
+	dive_into(user)
+
 /obj/structure/closet/attack_ai(mob/user)
 	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
 		attack_hand(user)
@@ -453,3 +460,25 @@
 /obj/structure/closet/bluespace/close()
 	. = ..()
 	density = 0
+
+/obj/structure/closet/proc/dive_into(mob/living/user)
+	var/turf/T1 = get_turf(user)
+	var/turf/T2 = get_turf(src)
+	if(!opened)
+		if(locked)
+			togglelock(user, TRUE)
+		if(!open(user))
+			to_chat(user, "<span class='warning'>It won't budge!</span>")
+			return
+	step_towards(user, T2)
+	T1 = get_turf(user)
+	if(T1 == T2)
+		if(!close(user))
+			to_chat(user, "<span class='warning'>You can't get [src] to close!</span>")
+			return
+		togglelock(user)
+		T1.visible_message("<span class='warning'>[user] dives into [src]!</span>")
+
+/obj/structure/closet/proc/togglelock(mob/user)
+	return
+	

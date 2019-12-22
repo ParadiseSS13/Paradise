@@ -260,7 +260,7 @@
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/user)
+/obj/structure/closet/crate/secure/togglelock(mob/user)
 	if(src.opened)
 		to_chat(user, "<span class='notice'>Close the crate first.</span>")
 		return
