@@ -20,6 +20,7 @@
 	var/processing_queue = 0
 	var/screen = "main"
 	var/temp
+	var/secureprotocols = TRUE
 	var/list/part_sets = list(
 								"Cyborg",
 								"Cyborg Repair",
@@ -160,7 +161,7 @@
 	desc = initial(desc)
 
 	var/obj/item/I = new D.build_path(loc)
-	if(D.locked)
+	if(D.locked && secureprotocols)
 		var/obj/item/storage/lockbox/large/L = new /obj/item/storage/lockbox/large(get_step(src, SOUTH)) //(Don't use capitals in paths, or single letters.
 		I.forceMove(L)
 		L.name += " [initial(I.name)]"
@@ -437,6 +438,23 @@
 	if(default_deconstruction_crowbar(W))
 		return TRUE
 
+	if(istype(W, /obj/item/card/id))
+		if(!emagged)
+			var/obj/item/card/id/id = W
+			for(var/a in id.access)
+				if(a == access_hos || a == access_captain)
+					if(secureprotocols)
+						secureprotocols = FALSE
+						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+						return
+					else
+						secureprotocols = TRUE
+						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
+						return
+			to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
+		else
+			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
+			return
 	else
 		return ..()
 
