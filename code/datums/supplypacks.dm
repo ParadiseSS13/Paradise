@@ -639,11 +639,11 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containertype = /obj/structure/closet/crate/secure/engineering
 
 /datum/supply_packs/engineering/engine/field_gen
-	name = "Field Generator Crate"
+	name = "Containment Field Generator Crate"
 	contains = list(/obj/machinery/field/generator,
 					/obj/machinery/field/generator)
 	cost = 10
-	containername = "field generator crate"
+	containername = "containment field generator crate"
 
 /datum/supply_packs/engineering/engine/sing_gen
 	name = "Singularity Generator Crate"
@@ -962,7 +962,24 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "surgery crate"
 	access = access_medical
 
-
+/datum/supply_packs/medical/doctorpack
+	name = "Doctor Starter Pack"
+	contains = list(/obj/item/storage/backpack/medic,
+					/obj/item/storage/backpack/duffel/medical,
+					/obj/item/clothing/under/rank/medical,
+					/obj/item/clothing/suit/storage/labcoat,
+					/obj/item/clothing/shoes/white,
+					/obj/item/radio/headset/headset_med,
+					/obj/item/clothing/gloves/color/latex/nitrile,
+					/obj/item/defibrillator/loaded,
+					/obj/item/handheld_defibrillator,
+					/obj/item/storage/belt/medical,
+					/obj/item/clothing/glasses/hud/health,
+	 				/obj/item/clothing/shoes/sandal/white)
+	cost = 30
+	containertype = /obj/structure/closet/crate/secure
+	containername = "doctor starter pack"
+	access = access_medical
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Science /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1097,6 +1114,23 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
     containertype = /obj/structure/closet/crate/secure/unknownchemicals
     containername = "grey-market chemical supply kit"
     contraband = 1
+
+datum/supply_packs/science/sciencepack
+	name = "Scientest Starter Pack"
+	contains = list(/obj/item/storage/backpack/science,
+					/obj/item/storage/backpack/satchel_tox,
+					/obj/item/clothing/under/rank/scientist,
+					/obj/item/clothing/under/rank/scientist/skirt,
+					/obj/item/clothing/suit/storage/labcoat/science,
+					/obj/item/clothing/shoes/white,
+					/obj/item/radio/headset/headset_sci,
+					/obj/item/tank/air,
+					/obj/item/clothing/mask/gas,
+					/obj/item/clothing/shoes/sandal/white,)
+	cost = 25 //only the headset is hard to get here, compaired to the sec and medical packs
+	containertype = /obj/structure/closet/crate/secure
+	containername = "scientest starter pack"
+	access = access_research
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
@@ -1435,7 +1469,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "sandstone blocks crate"
 
-
 /datum/supply_packs/materials/plastic30
 	name = "30 Plastic Sheets Crate"
 	contains = list(/obj/item/stack/sheet/plastic)
@@ -1443,6 +1476,12 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 20
 	containername = "plastic sheets crate"
 
+/datum/supply_packs/materials/cloth30
+	name = "30 Cloth Sheets Crate"
+	contains = list(/obj/item/stack/sheet/cloth)
+	amount = 30
+	cost = 15
+	containername = "cloth sheets crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Miscellaneous ///////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -1958,6 +1997,19 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/stack/tile/grass/twentyfive,
 					/obj/item/stack/tile/wood/twentyfive)
 	containername = "fancy flooring crate"
+
+/datum/supply_packs/misc/barberpack
+	name = "Barber Starter Kit Crate"
+	cost = 30
+	contains = list(/obj/item/scissors/barber,
+					/obj/item/hair_dye_bottle,
+					/obj/item/reagent_containers/glass/bottle/reagent/hairgrownium,
+					/obj/item/reagent_containers/glass/bottle/reagent/hair_dye,
+					/obj/item/reagent_containers/glass/bottle/reagent,
+					/obj/item/reagent_containers/dropper,
+					/obj/item/clothing/mask/fakemoustache,
+					/obj/machinery/dye_generator) // Incase the first one blows up, no other way to get a second one
+	containername = "barber starter kit crate"
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Vending /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
