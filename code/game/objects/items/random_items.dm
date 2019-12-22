@@ -152,6 +152,17 @@
 	name = "variety pillbottle"
 	labelled = TRUE
 
+/obj/item/reagent_containers/food/drinks/bottle/random_standard_chem
+	name = "unlabelled chemical bottle"
+
+/obj/item/reagent_containers/glass/bottle/random_standard_chem/New()
+	..()
+	var/datum/reagent/R = pick(GLOB.standard_chemicals)
+	reagents.add_reagent(R, rand(2, 6)*5)
+	name = "unlabelled bottle"
+	pixel_x = rand(-10, 10)
+	pixel_y = rand(-10, 10)
+
 
 // -------------------------------------
 //    Containers full of unknown crap
@@ -162,37 +173,24 @@
 	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
 	req_one_access = list(access_chemistry,access_research,access_qm) // the qm knows a guy, you see.
 
-/obj/structure/closet/crate/secure/unknownchemicals/New()
+/obj/structure/closet/crate/secure/unknownchemicals/full
+	name = "grey-market chemicals grab pack"
+	desc = "Crate full of chemicals of unknown type and value from a 'trusted' source."
+	req_one_access = list(access_chemistry,access_research,access_qm) // the qm knows a guy, you see.
+
+/obj/structure/closet/crate/secure/unknownchemicals/full/New()
 	..()
-	for(var/i in 1 to 7)
-		new/obj/item/reagent_containers/glass/bottle/random_base_chem(src)
 	for(var/i in 1 to 3)
+		new/obj/item/reagent_containers/glass/bottle/random_standard_chem(src)
 		new/obj/item/reagent_containers/glass/bottle/random_chem(src)
-	while(prob(50))
-		new/obj/item/reagent_containers/glass/bottle/random_reagent(src)
+		new/obj/item/reagent_containers/food/drinks/bottle/random_drink(src)
 
 	new/obj/item/storage/pill_bottle/random_meds(src)
-	while(prob(25))
-		new/obj/item/storage/pill_bottle/random_meds(src)
 
 /obj/structure/closet/crate/secure/chemicals
 	name = "chemical supply kit"
 	desc = "Full of basic chemistry supplies."
 	req_one_access = list(access_chemistry,access_research)
-
-/obj/structure/closet/crate/secure/chemicals/New()
-	..()
-	for(var/chem in GLOB.standard_chemicals)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
-		B.reagents.add_reagent(chem, B.volume)
-		if(prob(85))
-			var/datum/reagent/r = GLOB.chemical_reagents_list[chem]
-			B.name	= "[r.name] bottle"
-//			B.identify_probability = 100
-		else
-			B.name	= "unlabelled bottle"
-			B.desc	= "Looks like the label fell off."
-//			B.identify_probability = 0
 //
 /*
 /obj/structure/closet/crate/bin/flowers

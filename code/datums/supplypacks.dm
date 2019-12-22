@@ -1012,6 +1012,38 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
     containertype = /obj/structure/largecrate
     containername = "oil tank crate"
 
+/datum/supply_packs/science/chemsupply
+    name = "Chemical Supply Kit"
+    contains = list(/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem)
+    cost = 10
+    containertype = /obj/structure/closet/crate/secure/chemicals
+    containername = "chemical supply kit"
+
+/datum/supply_packs/science/greychemsupply
+    name = "Grey-market Chemical Supply Kit"
+    contains = list(/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_standard_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_chem,
+    				/obj/item/reagent_containers/glass/bottle/random_chem,
+    				/obj/item/reagent_containers/food/drinks/bottle/random_drink,
+    				/obj/item/reagent_containers/food/drinks/bottle/random_drink,
+    				/obj/item/reagent_containers/food/drinks/bottle/random_drink,
+    				/obj/item/storage/pill_bottle/random_meds)
+    cost = 10
+    containertype = /obj/structure/closet/crate/secure/unknownchemicals
+    containername = "grey-market chemical supply kit"
+    contraband = 1
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Organic /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
