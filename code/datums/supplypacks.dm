@@ -746,6 +746,60 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 15
 	containername = "conveyor assembly crate"
 
+/datum/supply_packs/engineering/o2
+	name = "02 Canister"
+	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
+	cost = 15
+	containername = "o2 canister crate"
+	access = access_atmospherics
+	containertype = /obj/structure/closet/crate/secure/engineering
+
+/datum/supply_packs/engineering/n2o
+	name = "N2O Canister"
+	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
+	cost = 15
+	containername = "n2o canister crate"
+	access = access_atmospherics
+	containertype = /obj/structure/closet/crate/secure/engineering
+
+/datum/supply_packs/engineering/n2
+	name = "N2 Canister"
+	contains = list(/obj/machinery/portable_atmospherics/canister/nitrogen)
+	cost = 15
+	containername = "n2 canister crate"
+	access = access_atmospherics
+	containertype = /obj/structure/closet/crate/secure/engineering
+
+/datum/supply_packs/engineering/air
+	name = "Air Canister"
+	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
+	cost = 15
+	containername = "air canister crate"
+	access = access_atmospherics
+	containertype = /obj/structure/closet/crate/secure/engineering
+
+/datum/supply_packs/engineering/co2
+	name = "CO2 Canister"
+	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
+	cost = 15
+	containername = "co2 canister crate"
+	access = access_atmospherics
+	containertype = /obj/structure/closet/crate/secure/engineering
+
+/datum/supply_packs/engineering/plasma
+	name = "Plasma Canister"
+	contains = list(/obj/machinery/portable_atmospherics/canister/toxins)
+	cost = 25 //It's plasma,more expencive
+	containername = "plasma canister crate"
+	access = access_atmospherics
+	containertype = /obj/structure/closet/crate/secure/engineering
+
+/datum/supply_packs/engineering/pacman
+	name = "P.A.C.M.A.N Crate"
+	contains  = list(/obj/machinery/power/port_gen/pacman) // no plasma in the crate, can't let cargo ship plasma back
+	cost = 20
+	containername = "p.a.c.m.a.n crate"
+	containertype = /obj/structure/closet/crate/engineering/electrical
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Medical /////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
