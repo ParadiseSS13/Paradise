@@ -297,12 +297,11 @@
 		to_chat(user, "[used_message]")
 		return
 	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
-	if(choice == "Yes")
-		used = TRUE
-		to_chat(user, "[use_message]")
-	else if(choice == "No")
+	if(choice == "No")
 		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
 		return
+	used = TRUE
+	to_chat(user, "[use_message]")
 	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as the [mob_name] of [user.real_name]?", ROLE_GUARDIAN, 0, 100)
 	var/mob/dead/observer/theghost = null
 
