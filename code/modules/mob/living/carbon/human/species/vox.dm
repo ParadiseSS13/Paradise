@@ -104,6 +104,10 @@
 	H.update_icons()
 	ADD_TRAIT(H, TRAIT_SKITTISH, "species")
 
+/datum/species/vox/on_species_loss(mob/living/carbon/human/H)
+	..()
+	REMOVE_TRAIT(H, TRAIT_SKITTISH, "species")
+
 /datum/species/vox/updatespeciescolor(mob/living/carbon/human/H, owner_sensitive = 1) //Handling species-specific skin-tones for the Vox race.
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE) //Making sure we don't break Armalis.
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
