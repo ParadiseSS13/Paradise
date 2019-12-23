@@ -93,7 +93,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/clientfps = 0
 	var/atklog = ATKLOG_ALL
 	var/fuid							// forum userid
-	var/afk_watch = FALSE  				// If the player wants to be kept track of by the AFK system
+	var/AFK_WATCH_warn_minutes = 0  	// Number of minutes after which the player gets warned
+	var/AFK_WATCH_cryo_minutes = 0  	// Number of minutes after (after the warning) which the player gets cryod
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -442,7 +443,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
-			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(afk_watch) ? "Yes" : "No"]</a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(AFK_WATCH_warn_minutes) ? "On ([AFK_WATCH_warn_minutes], [AFK_WATCH_cryo_minutes])" : "Off"]</a><br>"
+			
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
 			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)
@@ -2000,7 +2002,19 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					windowflashing = !windowflashing
 
 				if("afk_watch")
-					afk_watch = !afk_watch
+					var/afk_new = input(user, "Select a new amount of minutes after which you get warned for being AFK, between 0 and 10 (0 will deactivate)", UI_style_alpha) as num
+					if(afk_new == 0)
+						// deactivate the system
+						AFK_WATCH_warn_minutes = 0
+						AFK_WATCH_cryo_minutes = 0
+					else 
+						if(!afk_new | !(afk_new <= 10 && afk_new >= 1)) return
+						AFK_WATCH_warn_minutes = afk_new
+						afk_new = input(user, "Select a new amount of minutes after which you get cryod for being AFK, between 1 and 5", UI_style_alpha) as num
+						if(!afk_new | !(afk_new <= 5 && afk_new >= 1)) 
+							AFK_WATCH_cryo_minutes = AFK_WATCH_cryo_minutes ? AFK_WATCH_cryo_minutes : 2 // Return to prior value or default to 2
+						else
+							AFK_WATCH_cryo_minutes = afk_new
 
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null
