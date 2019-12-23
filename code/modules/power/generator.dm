@@ -114,13 +114,13 @@
 
                 var/inefficiency = 0.65 //0-1, how close to being a perfect Carnot engine is it?
 
-                var/efficiency = carnot_limit * inefficiency //the percentage of thermal energy being turned into electrical power
+                var/efficiency = carnot_limit * inefficiency //the percentage of thermal energy being exchanged that is turned into electrical power
 
                 var/energy_transfer = delta_temperature * hot_air_heat_capacity * cold_air_heat_capacity / (hot_air_heat_capacity + cold_air_heat_capacity) //the amount of energy being taken from the hot loop
 
                 var/heat = energy_transfer * (1 - efficiency) //the amount of energy being put into the cold loop
 
-                lastgen = energy_transfer * efficiency
+                lastgen = energy_transfer * efficiency //the amount of power the TEG is generating
 
 				//log_debug("lastgen = [lastgen]; heat = [heat]; delta_temperature = [delta_temperature]; hot_air_heat_capacity = [hot_air_heat_capacity]; cold_air_heat_capacity = [cold_air_heat_capacity];")
 
