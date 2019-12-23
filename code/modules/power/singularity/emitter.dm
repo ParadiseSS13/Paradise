@@ -254,6 +254,7 @@
 		shot_number = 0
 	P.setDir(dir)
 	P.starting = loc
+	P.Angle = null
 	P.fire()
 	return P
 
