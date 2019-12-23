@@ -167,60 +167,6 @@
 			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]exposed"
 			on = 0
 		return*/
-/obj/machinery/atmospherics/unary/outlet_injector/attack_hand(mob/user)
-	if(..())
-		return
-
-	if(!allowed(user))
-		to_chat(user, "<span class='alert'>Access denied.</span>")
-		return
-
-	add_fingerprint(user)
-	ui_interact(user)
-
-/obj/machinery/atmospherics/unary/outlet_injector/attack_ghost(mob/user)
-	ui_interact(user)
-
-/obj/machinery/atmospherics/unary/outlet_injector/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
-	user.set_machine(src)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "atmos_pump.tmpl", name, 310, 115, state = state)
-		ui.open()
-
-/obj/machinery/atmospherics/unary/outlet_injector/ui_data(mob/user)
-	var/list/data = list()
-	data["on"] = on
-	data["rate"] = round(volume_rate)
-	data["max_rate"] = round(MAX_TRANSFER_RATE)
-	return data
-
-/obj/machinery/atmospherics/unary/outlet_injector/Topic(href,href_list)
-	if(..())
-		return 1
-
-	if(href_list["power"])
-		on = !on
-		investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", "atmos")
-		. = TRUE
-	if(href_list["rate"])
-		var/rate = href_list["rate"]
-		if(rate == "max")
-			rate = MAX_TRANSFER_RATE
-			. = TRUE
-		else if(rate == "input")
-			rate = input("New transfer rate (0-[MAX_TRANSFER_RATE] L/s):", name, volume_rate) as num|null
-			if(!isnull(rate))
-				. = TRUE
-		else if(text2num(rate) != null)
-			rate = text2num(rate)
-			. = TRUE
-		if(.)
-			volume_rate = Clamp(rate, 0, MAX_TRANSFER_RATE)
-			investigate_log("was set to [volume_rate] L/s by [key_name(usr)]", "atmos")
-
-	update_icon()
-	SSnanoui.update_uis(src)
 
 /obj/machinery/atmospherics/unary/outlet_injector/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"
