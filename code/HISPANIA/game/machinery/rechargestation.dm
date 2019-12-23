@@ -8,7 +8,7 @@
 		return
 	if(!ismob(O)) //humans only
 		return
-	if(!ishuman(user) && !isrobot(user) && !(istype(user, /mob/living/simple_animal/spiderbot))) //No ghosts or mice putting people into the sleeper
+	if(!ishuman(user) && !isrobot(user) && !(istype(user, /mob/living/simple_animal/spiderbot)))
 		return
 	if(user.loc==null) // just in case someone manages to get a closet into the blue light dimension, as unlikely as that seems
 		return
@@ -33,7 +33,7 @@
 			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
 		can_accept_user = TRUE
-	if((istype(L, /mob/living/simple_animal/spiderbot)))
+	if(istype(L, /mob/living/simple_animal/spiderbot))
 		can_accept_user = TRUE
 	if(!can_accept_user)
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
