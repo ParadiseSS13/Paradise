@@ -646,7 +646,7 @@
 		return
 	var/url = "[config.forum_link_url][tokenid]"
 	if(fromban)
-		to_chat(src, {"Verify your forum account before you appeal: <a href="[url]">[url]</a> (this link expires in a few minutes)"})
+		to_chat(src, {"Copy/paste this URL into your browser to activate your forum account before you appeal: <a href="[url]">[url]</a> (this link expires soon)"})
 	else
 		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
 		src << link(url)
