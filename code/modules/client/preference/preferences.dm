@@ -95,6 +95,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	var/fuid							// forum userid
 	var/AFK_WATCH_warn_minutes = 0  	// Number of minutes after which the player gets warned
 	var/AFK_WATCH_cryo_minutes = 0  	// Number of minutes after (after the warning) which the player gets cryod
+	var/AFK_WATCH_antag = FALSE			// If you will cryo when you have a special role
 
 	//ghostly preferences
 	var/ghost_anonsay = 0
@@ -443,7 +444,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<h2>General Settings</h2>"
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
-			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(AFK_WATCH_warn_minutes) ? "On ([AFK_WATCH_warn_minutes], [AFK_WATCH_cryo_minutes])" : "Off"]</a><br>"
+			dat += "<b>AFK Cryoing:</b> <a href='?_src_=prefs;preference=afk_watch'>[(AFK_WATCH_warn_minutes) ? "On ([AFK_WATCH_warn_minutes], [AFK_WATCH_cryo_minutes], [AFK_WATCH_antag ? "Y" : "N"])" : "Off"]</a><br>"
 			
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
 			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
@@ -2007,14 +2008,17 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						// deactivate the system
 						AFK_WATCH_warn_minutes = 0
 						AFK_WATCH_cryo_minutes = 0
+						AFK_WATCH_antag = FALSE
 					else 
 						if(!afk_new | !(afk_new <= 10 && afk_new >= 1)) return
 						AFK_WATCH_warn_minutes = afk_new
 						afk_new = input(user, "Select a new amount of minutes after which you get cryod for being AFK, between 1 and 5", UI_style_alpha) as num
 						if(!afk_new | !(afk_new <= 5 && afk_new >= 1)) 
 							AFK_WATCH_cryo_minutes = AFK_WATCH_cryo_minutes ? AFK_WATCH_cryo_minutes : 2 // Return to prior value or default to 2
+							AFK_WATCH_antag = AFK_WATCH_antag ? AFK_WATCH_antag : FALSE
 						else
 							AFK_WATCH_cryo_minutes = afk_new
+							AFK_WATCH_antag = alert(user, "Do you want to activate the AFK system when you have a special status? (Think of antag, mindslaved, ERT etc)", "Antag activation", "Yes", "No") == "Yes"
 
 				if("UIcolor")
 					var/UI_style_color_new = input(user, "Choose your UI color, dark colors are not recommended!", UI_style_color) as color|null

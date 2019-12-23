@@ -270,6 +270,7 @@ CREATE TABLE `player` (
   `fupdate` smallint(4) NULL DEFAULT '0',
   `AFK_WATCH_warn_minutes` tinyint(2) NOT NULL DEFAULT '0',
   `AFK_WATCH_cryo_minutes` tinyint(1) NOT NULL DEFAULT '0',
+  'AFK_WATCH_antag' tinyint(1) NOT NULL DEFAULT '0',
   `parallax` tinyint(1) DEFAULT '8',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)

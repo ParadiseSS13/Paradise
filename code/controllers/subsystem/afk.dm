@@ -21,9 +21,9 @@ SUBSYSTEM_DEF(afk)
 		var/turf/T 
 		var/afk_warn_min
 		// Only players and players with the AFK watch enabled
-		// No dead, unconcious, restrained, people without jobs, people on other Z levels than the station or antags
+		// No dead, unconcious, restrained, people without jobs, people on other Z levels than the station or antags (if they have the preference option off)
 		if(!H.client || !(afk_warn_min = H.client.prefs.AFK_WATCH_warn_minutes) || !H.mind || \
-			H.stat || H.restrained() || !H.job || H.mind.special_role || \
+			H.stat || H.restrained() || !H.job || (H.mind.special_role && !H.client.prefs.AFK_WATCH_antag)   || \
 				!is_station_level((T = get_turf(H)).z)) // Assign the turf as last. Small optimization
 			if(afk_players[H.ckey]) 
 				toRemove += H.ckey

@@ -72,7 +72,7 @@
 	var/assistantlimit = 0 //enables assistant limiting
 	var/assistantratio = 2 //how many assistants to security members
 
-	// The AFK subsystem will not be activated if the below config values are equal or less than 0
+	// The AFK subsystem will not be activated if the below config value is equal or less than 0
 	var/auto_despawn_afk = 0 // How long till you actually despawn in cryo when you're AFK (Not ssd so not automatic)
 
 	var/auto_cryo_ssd_mins = 0

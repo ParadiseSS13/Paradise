@@ -22,6 +22,7 @@
 					fuid,
 					AFK_WATCH_warn_minutes,
 					AFK_WATCH_cryo_minutes,
+					AFK_WATCH_antag,
 					parallax
 					FROM [format_table_name("player")]
 					WHERE ckey='[C.ckey]'"}
@@ -57,7 +58,8 @@
 		fuid = text2num(query.item[19])
 		AFK_WATCH_warn_minutes = text2num(query.item[20])
 		AFK_WATCH_cryo_minutes = text2num(query.item[21])
-		parallax = text2num(query.item[22])
+		AFK_WATCH_antag = text2num(query.item[22])
+		parallax = text2num(query.item[23])
 
 	//Sanitize
 	ooccolor		= sanitize_hexcolor(ooccolor, initial(ooccolor))
@@ -80,6 +82,7 @@
 	fuid = sanitize_integer(fuid, 0, 10000000, initial(fuid))
 	AFK_WATCH_warn_minutes = sanitize_integer(AFK_WATCH_warn_minutes, 0, 10, initial(AFK_WATCH_warn_minutes))
 	AFK_WATCH_cryo_minutes = sanitize_integer(AFK_WATCH_cryo_minutes, 0, 5, initial(AFK_WATCH_cryo_minutes))
+	AFK_WATCH_antag = sanitize_integer(AFK_WATCH_antag, 0, 1, initial(AFK_WATCH_antag))
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	return 1
 
@@ -113,6 +116,7 @@
 					atklog='[atklog]',
 					AFK_WATCH_warn_minutes='[AFK_WATCH_warn_minutes]',
 					AFK_WATCH_cryo_minutes='[AFK_WATCH_cryo_minutes]',
+					AFK_WATCH_antag='[AFK_WATCH_antag]',
 					parallax='[parallax]'
 					WHERE ckey='[C.ckey]'"}
 					)
