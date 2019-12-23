@@ -112,10 +112,10 @@
 			if(delta_temperature > 0 && cold_air_heat_capacity > 0 && hot_air_heat_capacity > 0)
 				var/carnot_limit = 1 - (cold_air.temperature / hot_air.temperature) //the theoretical limit of engine efficiency
 
-                		var/inefficiency = 0.65 //0-1, how close to being a perfect Carnot engine is it?
+				var/inefficiency = 0.65 //0-1, how close to being a perfect Carnot engine is it?
 
 				var/efficiency = carnot_limit * inefficiency //the percentage of thermal energy being exchanged that is turned into electrical power
-				
+
 				var/energy_transfer = delta_temperature * hot_air_heat_capacity * cold_air_heat_capacity / (hot_air_heat_capacity + cold_air_heat_capacity) //the amount of energy being taken from the hot loop
 
 				var/heat = energy_transfer * (1 - efficiency) //the amount of energy being put into the cold loop
