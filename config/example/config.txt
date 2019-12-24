@@ -88,7 +88,13 @@ LOG_ADMINWARN
 ## Amount of minutes that a person has to be AFK before he'll be listed on the "List AFK players" verb
 #LIST_AFK_MINIMUM 5
 
-## Number of minutes that a person has to be AFK in the cryo tubes before he will be despawned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating
+## Amount of minutes that a person has to be AFK before he will be warned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating. With fast cryoing this will be 3 minutes
+WARN_AFK_MINIMUM 0
+
+## Amount of minutes that a person has to be AFK before he will be cryod by the AFK subsystem. Leave this 0 to prevent the subsystem from activating. With fast cryoing this will be 5 minutes
+AUTO_CRYO_AFK 0
+
+## Amount of minutes that a person has to be AFK before he will be despawned by the AFK subsystem. Leave this 0 to prevent the subsystem from activating. This is the timer after they get put into cryo
 AUTO_DESPAWN_AFK 0
 
 ## probablities for game modes chosen in "secret" and "random" modes
