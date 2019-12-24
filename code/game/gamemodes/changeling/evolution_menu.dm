@@ -383,9 +383,6 @@ var/list/sting_paths
 	var/mob/living/carbon/C = src		//only carbons have dna now, so we have to typecaste
 	mind.changeling.absorbed_dna |= C.dna.Clone()
 	mind.changeling.trim_dna()
-
-	RegisterSignal(C, COMSIG_CARBON_LIFE, CALLBACK(C, /mob/living/carbon/.proc/handle_changeling))
-
 	return 1
 
 //Used to dump the languages from the changeling datum into the actual mob.
@@ -424,8 +421,6 @@ var/list/sting_paths
 		if(hud_used)
 			hud_used.lingstingdisplay.icon_state = null
 			hud_used.lingstingdisplay.invisibility = 101
-			hud_used.lingchemdisplay.invisibility = 101
-		UnregisterSignal(src, COMSIG_CARBON_LIFE)
 
 /datum/changeling/proc/has_sting(datum/action/power)
 	for(var/datum/action/P in purchasedpowers)
