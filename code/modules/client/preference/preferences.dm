@@ -443,7 +443,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(user.client.holder)
 				dat += "<b>Adminhelp sound:</b> <a href='?_src_=prefs;preference=hear_adminhelps'><b>[(sound & SOUND_ADMINHELP)?"On":"Off"]</b></a><br>"
 			dat += "<b>AFK Fast Cryoing:</b> <a href='?_src_=prefs;preference=afk_fast_cryo'>[(afk_fast_cryo) ? "On" : "Off"]</a><br>"
-			
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'><b>[toggles & AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</b></a><br>"
 			dat += "<b>Attack Animations:</b> <a href='?_src_=prefs;preference=ghost_att_anim'>[(show_ghostitem_attack) ? "Yes" : "No"]</a><br>"
 			if(unlock_content)

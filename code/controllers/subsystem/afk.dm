@@ -33,14 +33,14 @@ SUBSYSTEM_DEF(afk)
 			if(afk_players[H.ckey]) 
 				toRemove += H.ckey
 			continue
-
+		
 		var/mins_afk = round(H.client.inactivity / 600)
 		var/afk_warn_min = H.client.prefs.afk_fast_cryo ? AFK_FAST_CRYO_WARN : config.warn_afk_minimum
 		if(mins_afk < afk_warn_min)
 			if(afk_players[H.ckey])
 				toRemove += H.ckey
 			continue
-
+		
 		var/afk_cryo_min = H.client.prefs.afk_fast_cryo ? AFK_FAST_CRYO_CRYO : config.auto_cryo_afk
 		if(!afk_players[H.ckey])
 			afk_players[H.ckey] = AFK_WARNED

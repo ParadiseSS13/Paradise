@@ -317,7 +317,7 @@
 
 				if("shadowling_max_age")
 					config.shadowling_max_age = text2num(value)
-				
+
 				if("warn_afk_minimum")
 					config.warn_afk_minimum = text2num(value)
 				if("auto_cryo_afk")
