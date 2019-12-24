@@ -747,7 +747,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	containername = "conveyor assembly crate"
 
 /datum/supply_packs/engineering/o2
-	name = "02 Canister"
+	name = "O2 Canister"
 	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
 	cost = 15
 	containername = "o2 canister crate"
