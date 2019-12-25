@@ -42,7 +42,6 @@
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
-		new /obj/item/healthanalyzer( src )
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		new /obj/item/reagent_containers/food/pill/salicylic( src )
 		return
@@ -62,7 +61,6 @@
 		new /obj/item/reagent_containers/food/pill/salicylic( src )
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
-		new /obj/item/healthanalyzer( src )
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		return
 
@@ -85,7 +83,6 @@
 		new /obj/item/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/reagent_containers/food/pill/charcoal( src )
 		new /obj/item/reagent_containers/food/pill/charcoal( src )
-		new /obj/item/healthanalyzer( src )
 		return
 
 /obj/item/storage/firstaid/toxin/empty
@@ -105,7 +102,6 @@
 		new /obj/item/reagent_containers/food/pill/salbutamol( src )
 		new /obj/item/reagent_containers/food/pill/salbutamol( src )
 		new /obj/item/reagent_containers/food/pill/salbutamol( src )
-		new /obj/item/healthanalyzer( src )
 		return
 
 /obj/item/storage/firstaid/o2/empty
@@ -128,7 +124,6 @@
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
 		new /obj/item/reagent_containers/food/pill/patch/styptic(src)
-		new /obj/item/healthanalyzer(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
 		new /obj/item/stack/medical/bruise_pack(src)
 		return
@@ -153,7 +148,6 @@
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/adv/empty
 	empty = 1
