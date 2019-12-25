@@ -1,15 +1,4 @@
-///Med///
-
-datum/supply_packs/medical/spacesuit
-    name = "Medical Space Suit Crate"
-    contains = list(/obj/item/clothing/suit/space/hardsuit/medical,
-                    /obj/item/clothing/suit/space/hardsuit/medical,
-                    /obj/item/clothing/mask/breath,
-                    /obj/item/clothing/mask/breath)
-    cost = 30
-    containername = "medical space suit crate"
-    containertype = /obj/structure/closet/crate/secure/
-    access = access_medical
+//Med//
 
 //Rolledbed//
 
@@ -29,7 +18,7 @@ datum/supply_packs/security/spacesuit
                     /obj/item/clothing/suit/space/hardsuit/security,
                     /obj/item/clothing/mask/breath,
                     /obj/item/clothing/mask/breath)
-    cost = 30
+    cost = 150
     containername = "security space suit crate"
 
 
