@@ -222,34 +222,34 @@
 			message = "<B>[src]</B> chirps[M ? " at [M]" : ""]."
 			switch(rand(1,10))
 				if(1)
-					playsound(loc, 'sound/effects/voxchirp01.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp01.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(2)
-					playsound(loc, 'sound/effects/voxchirp02.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp02.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(3)
-					playsound(loc, 'sound/effects/voxchirp03.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp03.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(4)
-					playsound(loc, 'sound/effects/voxchirp04.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp04.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(5)
-					playsound(loc, 'sound/effects/voxchirp05.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp05.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(6)
-					playsound(loc, 'sound/effects/voxchirp06.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp06.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(7)
-					playsound(loc, 'sound/effects/voxchirp07.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp07.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(8)
-					playsound(loc, 'sound/effects/voxchirp08.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp08.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				if(9)
-					playsound(loc, 'sound/effects/voxchirp09.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp09.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 				else
-					playsound(loc, 'sound/effects/voxchirp10.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					playsound(loc, 'sound/effects/voxchirp10.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 					m_type = 2
 
 		if("hiss", "hisses")
@@ -269,31 +269,31 @@
 					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
 					switch(rand(1,10))
 						if(1)
-							playsound(loc, 'sound/effects/voxhiss01.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss01.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						if(2)
-							playsound(loc, 'sound/effects/voxhiss02.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss02.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						if(3)
-							playsound(loc, 'sound/effects/voxhiss03.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss03.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						if(4)
-							playsound(loc, 'sound/effects/voxhiss04.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss04.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						if(5)
-							playsound(loc, 'sound/effects/voxhiss05.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss05.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						if(6)
-							playsound(loc, 'sound/effects/voxhiss06.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss06.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						if(7)
-							playsound(loc, 'sound/effects/voxhiss07.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss07.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						if(8)
-							playsound(loc, 'sound/effects/voxhiss08.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss08.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 						else
-							playsound(loc, 'sound/effects/voxhiss09.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							playsound(loc, 'sound/effects/voxhiss09.ogg', 50, 1, frequency = get_age_pitch()) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
 							m_type = 2
 				else
 					message = "<B>[src]</B> makes a weak hissing noise."
