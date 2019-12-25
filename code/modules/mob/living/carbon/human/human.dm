@@ -207,48 +207,49 @@
 		stat("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 /mob/living/carbon/human/ex_act(severity)
-	var/shielded = 0
 	var/b_loss = null
 	var/f_loss = null
+	var/base_stun = 10
+	var/bomb_armor = 0
 
 	if(status_flags & GODMODE)
 		return 0
 
+	bomb_armor = getarmor(null, "bomb")
 	switch(severity)
 		if(1)
 			b_loss += 500
-			if(!prob(getarmor(null, "bomb")))
+			if(!prob(bomb_armor))
 				gib()
 				return 0
 			else
 				var/atom/target = get_edge_target_turf(src, get_dir(src, get_step_away(src, src)))
 				throw_at(target, 200, 4)
 
-				var/limbs_affected = pick(2,3,4)
+				var/limbs_affected = pick(2, 3, 4)
 				var/obj/item/organ/external/processing_dismember
 				var/list/valid_limbs = bodyparts.Copy()
 
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
+						if(!prob(bomb_armor))
+							processing_dismember.droplimb(1, DROPLIMB_SHARP, 0, 1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
 		if(2)
-			if(!shielded) //literally nothing could change shielded before this so wth
-				b_loss += 60
-
+			b_loss += 60
 			f_loss += 60
 
 			var/limbs_affected = 0
 			var/obj/item/organ/external/processing_dismember
 			var/list/valid_limbs = bodyparts.Copy()
 
-			if(prob(getarmor(null, "bomb")))
-				b_loss = b_loss/1.5
-				f_loss = f_loss/1.5
+			if(prob(bomb_armor))
+				b_loss = b_loss / 1.5
+				f_loss = f_loss / 1.5
 
 				limbs_affected = pick(1, 1, 2)
 			else
@@ -257,19 +258,23 @@
 			while(limbs_affected != 0 && valid_limbs.len > 0)
 				processing_dismember = pick(valid_limbs)
 				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-					processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
+					if(!prob(bomb_armor))
+						processing_dismember.droplimb(1, DROPLIMB_SHARP, 0, 1)
 					valid_limbs -= processing_dismember
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				AdjustEarDamage(30, 120)
-			if(prob(70) && !shielded)
-				Paralyse(10)
+			if(prob(70))
+				if(bomb_armor)
+					Stun(base_stun - (bomb_armor / 10))
+				else
+					Paralyse(base_stun)
 
 		if(3)
 			b_loss += 30
-			if(prob(getarmor(null, "bomb")))
+			if(prob(bomb_armor))
 				b_loss = b_loss/2
 
 			else
@@ -281,15 +286,19 @@
 				while(limbs_affected != 0 && valid_limbs.len > 0)
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
-						processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
+						if(!prob(bomb_armor))
+							processing_dismember.droplimb(1,DROPLIMB_SHARP,0,1)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
 
 			if(!istype(l_ear, /obj/item/clothing/ears/earmuffs) && !istype(r_ear, /obj/item/clothing/ears/earmuffs))
 				AdjustEarDamage(15, 60)
-			if(prob(50) && !shielded)
-				Paralyse(10)
+			if(prob(50))
+				if(bomb_armor)
+					Stun(base_stun - (bomb_armor / 10))
+				else
+					Paralyse(base_stun)
 
 	take_overall_damage(b_loss,f_loss, TRUE, used_weapon = "Explosive Blast")
 
