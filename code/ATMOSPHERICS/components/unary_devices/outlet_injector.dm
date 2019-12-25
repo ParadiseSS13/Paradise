@@ -16,7 +16,7 @@
 	var/on = 0
 	var/injecting = 0
 
-	var/volume_rate = 200
+	var/volume_rate = 50
 
 	var/frequency = 0
 	var/id
