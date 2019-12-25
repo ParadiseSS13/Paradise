@@ -153,20 +153,32 @@
 		return ..()
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
+	if(occupant)
+		if(isrobot(occupant))
 			var/mob/living/silicon/robot/R = occupant
 			restock_modules()
 			if(repairs)
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
-				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(istype(occupant, /mob/living/carbon/human))
+				R.cell.give(recharge_speed)
+		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
 				if(repairs)
 					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+			for(var/A in H.reagents.addiction_list)
+				var/datum/reagent/R = A
+				var/addiction_removal_chance = 5
+				if(world.timeofday > (R.last_addiction_dose + 1500)) // 2.5 minutes
+					addiction_removal_chance = 10
+				if(prob(addiction_removal_chance))
+					to_chat(H, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+					H.reagents.addiction_list.Remove(R)
+					qdel(R)
+		else if(istype(occupant, /mob/living/simple_animal/spiderbot))
+			var/mob/living/simple_animal/spiderbot/H = occupant
+			H.adjustBruteLoss(-repairs-1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
@@ -285,9 +297,9 @@
 			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
 			return
-		can_accept_user = 1
+		can_accept_user = TRUE
 
-	else if(istype(user, /mob/living/carbon/human))
+	else if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
 		if(H.stat == DEAD)
@@ -297,7 +309,10 @@
 			return
 		if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			return
-		can_accept_user = 1
+		can_accept_user = TRUE
+
+	else if(istype(user, /mob/living/simple_animal/spiderbot))
+		can_accept_user = TRUE
 
 	if(!can_accept_user)
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
