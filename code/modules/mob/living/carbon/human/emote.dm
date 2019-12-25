@@ -97,6 +97,8 @@
 		if("hiss", "hisses")
 			if(isunathi(src)) //Only Unathi can hiss.
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			if(isvox(src)) //Only Unathi can hiss.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
 
@@ -108,6 +110,12 @@
 
 		if("warble", "warbles")
 			if(isskrell(src)) //Only Skrell can warble.
+				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
+			else								//Everyone else fails, skip the emote attempt
+				return
+
+		if("chirp", "chirps")
+			if(isvox(src)) //Only Vox can chirp
 				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
 			else								//Everyone else fails, skip the emote attempt
 				return
@@ -209,16 +217,87 @@
 			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 0) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 			m_type = 2
 
+		if("chirp", "chirps")
+			var/M = handle_emote_param(param)
+			message = "<B>[src]</B> chirps[M ? " at [M]" : ""]."
+			switch(rand(1,10))
+				if(1)
+					playsound(loc, 'sound/effects/voxchirp01.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(2)
+					playsound(loc, 'sound/effects/voxchirp02.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(3)
+					playsound(loc, 'sound/effects/voxchirp03.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(4)
+					playsound(loc, 'sound/effects/voxchirp04.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(5)
+					playsound(loc, 'sound/effects/voxchirp05.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(6)
+					playsound(loc, 'sound/effects/voxchirp06.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(7)
+					playsound(loc, 'sound/effects/voxchirp07.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(8)
+					playsound(loc, 'sound/effects/voxchirp08.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				if(9)
+					playsound(loc, 'sound/effects/voxchirp09.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+				else
+					playsound(loc, 'sound/effects/voxchirp10.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+					m_type = 2
+
 		if("hiss", "hisses")
 			var/M = handle_emote_param(param)
 
-			if(!muzzled)
-				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
-				m_type = 2
-			else
-				message = "<B>[src]</B> makes a weak hissing noise."
-				m_type = 2
+			if(isunathi(src))
+				if(!muzzled)
+					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+					playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a weak hissing noise."
+					m_type = 2
+
+			if(isvox(src))
+				if(!muzzled)
+					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
+					switch(rand(1,10))
+						if(1)
+							playsound(loc, 'sound/effects/voxhiss01.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						if(2)
+							playsound(loc, 'sound/effects/voxhiss02.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						if(3)
+							playsound(loc, 'sound/effects/voxhiss03.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						if(4)
+							playsound(loc, 'sound/effects/voxhiss04.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						if(5)
+							playsound(loc, 'sound/effects/voxhiss05.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						if(6)
+							playsound(loc, 'sound/effects/voxhiss06.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						if(7)
+							playsound(loc, 'sound/effects/voxhiss07.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						if(8)
+							playsound(loc, 'sound/effects/voxhiss08.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+						else
+							playsound(loc, 'sound/effects/voxhiss09.ogg', 50, 0) //Credit to AlexTriceratops123  (https://www.youtube.com/watch?v=uA5yGyB_z5U) for the sound.
+							m_type = 2
+				else
+					message = "<B>[src]</B> makes a weak hissing noise."
+					m_type = 2
 
 		if("quill", "quills")
 			var/M = handle_emote_param(param)
