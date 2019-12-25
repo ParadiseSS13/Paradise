@@ -16,7 +16,7 @@
 	var/on = 0
 	var/injecting = 0
 
-	var/volume_rate = 50
+	var/volume_rate = 200
 
 	var/frequency = 0
 	var/id
@@ -167,6 +167,7 @@
 			icon_state = "[i == 1 && istype(loc, /turf/simulated) ? "h" : "" ]exposed"
 			on = 0
 		return*/
+
 /obj/machinery/atmospherics/unary/outlet_injector/attack_hand(mob/user)
 	if(..())
 		return
