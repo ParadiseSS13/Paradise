@@ -18,7 +18,7 @@ datum/supply_packs/security/spacesuit
                     /obj/item/clothing/suit/space/hardsuit/security,
                     /obj/item/clothing/mask/breath,
                     /obj/item/clothing/mask/breath)
-    cost = 150
+    cost = 70
     containername = "security space suit crate"
 
 
