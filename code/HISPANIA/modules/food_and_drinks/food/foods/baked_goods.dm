@@ -79,6 +79,15 @@
 	filling_color = "#F40909"
 	list_reagents = list("nutriment" = 7, "psilocybin" = 1, "amanitin" = 1)
 
+/obj/item/reagent_containers/food/snacks/honey_mugcake
+	name = "honey mugcake"
+	desc = "A delicious and spongy little honey cake inside a coffee mug."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "honey_mugcake"
+	trash = /obj/item/reagent_containers/food/drinks/mug
+	filling_color = "#EFD8A7"
+	list_reagents = list("nutriment" = 6)
+
 ///empanadas by Soulster
 
 /obj/item/reagent_containers/food/snacks/empanada
@@ -259,3 +268,25 @@
 	filling_color = "#FBFFB8"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "vitamin" = 5)
+
+
+//  HoneyBread       //
+
+/obj/item/reagent_containers/food/snacks/sliceable/honeybread
+	name = "honey bread"
+	desc = "Just a Honey Bread."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "honeybread"
+	slice_path = /obj/item/reagent_containers/food/snacks/honeybreadslice
+	slices_num = 5
+	filling_color = "#EFD8A7"
+	list_reagents = list("protein" = 20, "nutriment" = 10, "vitamin" = 5)
+	tastes = list("bread" = 10, "honey" = 10)
+
+/obj/item/reagent_containers/food/snacks/honeybreadslice
+	name = "honeybread slice"
+	desc = "A slice of a honeybread."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "honeybreadslice"
+	trash = /obj/item/trash/plate
+	filling_color = "#EFD8A7"

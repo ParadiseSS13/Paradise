@@ -119,8 +119,8 @@
 	target.adjustFireLoss(-4)
 
 	if(!proto)
-		target.adjustToxLoss(-1)
-		target.adjustOxyLoss(-1)
+		target.adjustToxLoss(-4)
+		target.adjustOxyLoss(-4)
 
 
 /obj/item/gun/medbeamgun/proc/on_beam_release(var/mob/living/target)
@@ -131,6 +131,7 @@
 
 //////////////////////////////Mech Version///////////////////////////////
 /obj/item/gun/medbeamgun/mech
+	max_range = 7
 	mounted = TRUE
 
 /obj/item/gun/medbeamgun/mech/Initialize()
@@ -143,7 +144,3 @@
 	STOP_PROCESSING(SSobj, src)
 //fin
 
-//////////////////////////////Proto mech varsion (beangum mounted de hispania)///////////////////////////////
-/obj/item/gun/medbeamgun/mech/protomedbeamgun/
-	max_range = 7
-	proto = TRUE
