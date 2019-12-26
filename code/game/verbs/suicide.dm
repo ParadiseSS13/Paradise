@@ -167,10 +167,9 @@
 	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
 	if(confirm == "Yes")
-		suiciding = 1
-		to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
-		//put em at -175
-		adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+		suiciding = TRUE
+		visible_message("<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
+		adjustBruteLoss(max(200 - getBruteLoss(200), 0))
 
 /mob/living/silicon/pai/verb/suicide()
 	set category = "pAI Commands"
