@@ -43,35 +43,31 @@
 /obj/item/tank/proc/toggle_internals(mob/user, silent = FALSE)
 	var/mob/living/carbon/C = user
 	if(!istype(C))
-		return 0
+		return FALSE
 
 	if(C.internal == src)
 		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
 		C.internal = null
 	else
-		var/can_open_valve = 0
-		if(C.get_organ_slot("breathing_tube"))
-			can_open_valve = 1
-		else if(C.wear_mask && C.wear_mask.flags & AIRTIGHT)
-			can_open_valve = 1
-		else if(ishuman(C))
-			var/mob/living/carbon/human/H = C
-			if(H.head && H.head.flags & AIRTIGHT)
-				can_open_valve = 1
+		if(!C.get_organ_slot("breathing_tube")) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
+			if(!C.wear_mask) // Do we have a mask equipped?
+				return FALSE
 
-		if(can_open_valve)
+			var/obj/item/clothing/mask/M = C.wear_mask
+			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
+			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head.flags & AIRTIGHT)))
+				if(!silent)
+					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
+				return FALSE
+			if(M.mask_adjusted) // If the mask is equipped but pushed down
+				M.adjustmask(C) // Adjust it back
+
+		if(!silent)
 			if(C.internal)
-				if(!silent)
-					to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
+				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
 			else
-				if(!silent)
-					to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
-			C.internal = src
-		else
-			if(!silent)
-				to_chat(C, "<span class='notice'>You are not wearing a suitable mask or helmet.</span>")
-			return 0
-
+				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
+		C.internal = src
 	C.update_action_buttons_icon()
 
 
