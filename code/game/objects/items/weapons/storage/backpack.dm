@@ -537,6 +537,7 @@
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
 	item_state = "backpack"
+	max_combined_w_class = 30
 	resistance_flags = FIRE_PROOF
 
 //Commander
