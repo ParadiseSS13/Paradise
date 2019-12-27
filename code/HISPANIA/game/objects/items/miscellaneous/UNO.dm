@@ -94,10 +94,18 @@
 	return
 
 obj/item/toy/UNO/attackby(obj/item/W, mob/user)
+	..()
 	if(istype(W, /obj/item/toy/UNO))
-		user.drop_item()
-		W.forceMove(src.loc)
-		W.move_to_top()
+		if(W.loc != src.loc)
+		//	var/turf/T = get_turf(src)
+			user.drop_item()
+			W.forceMove(src.loc)
+			set W in oview(1)
+	//		W.move_to_top()
+
+			//for(var/obj/item/toy/UNO/U in T.loc)
+				//U.move_to_top()
+		//	W.move_to_top()
 
 /obj/item/toy/UNO/wild
 	flip_name = "wild card"
