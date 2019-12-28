@@ -1011,7 +1011,8 @@
 
 	if(!target_zone)
 		if(!user)
-			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
+			stack_trace("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
+			return FALSE
 		else
 			target_zone = user.zone_selected
 
