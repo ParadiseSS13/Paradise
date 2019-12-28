@@ -565,3 +565,46 @@
 		if(M.equipment.len < M.max_equip)
 			return TRUE
 	return FALSE
+
+
+/datum/tests/mecha_syringe_gun/gh12857/proc/run_test(mob/admin, cleanup="on_pass")
+	var/turf/center = locate(156, 14, 2)
+	admin.forceMove(center)
+	var/turf/me_turf = get_turf(admin)
+	var/turf/mecha_turf = NORTH_OF_TURF(me_turf)
+	var/obj/mecha/medical/odysseus/ody = new /obj/mecha/medical/odysseus(mecha_turf)
+	var/obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/gun = new /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun()
+	ody.attackby(gun, admin)
+	sleep(0.1) // attackby has a spawn() inside it. We're waiting for it to finish
+	ody.moved_inside(admin)
+
+	var/turf/victim_turf = locate(center.x + 4, center.y, center.z)
+	var/mob/living/carbon/human/victim = new /mob/living/carbon/human/monkey(victim_turf)
+
+	// editing volume after creation is not really supported, so this is hacky
+	var/syringes_used = gun.max_syringes
+	gun.max_volume = syringes_used * 15
+	gun.create_reagents(gun.max_volume)
+	gun.synth_speed = gun.max_volume
+
+	gun.processed_reagents += gun.known_reagents[1]
+	gun.process()
+	for (var/i=0; i < syringes_used; i++)
+		var/obj/item/reagent_containers/syringe/s = new /obj/item/reagent_containers/syringe(me_turf)
+		gun.load_syringe(s)
+	
+		gun.action(victim)
+		sleep(1)  // not technically needed, but it looks fancy
+	sleep(10) // wait for syringes to finish flying
+	var/reagents_expected = syringes_used  * 15 - 1 // allow some decay due to metabolism
+	var/reagents_found = victim.reagents.total_volume
+	var/passed = reagents_found >= reagents_expected
+	message_admins("Victim has [reagents_found] reagents total. Expected at least [reagents_expected]. Test [passed?"passed":"failed"].")
+	if (cleanup == "always" || (passed && cleanup == "on_pass"))
+		ody.go_out()
+		qdel(victim)
+		qdel(ody)
+		for(var/obj/item in range(6, center))
+			qdel(item)
+				
+	return passed
