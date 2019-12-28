@@ -10,7 +10,7 @@
 	. = ..()
 	. += speed
 	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
-		. -= 3
+		. -= 2
 	. += config.robot_delay
 
 /mob/living/silicon/robot/mob_negates_gravity()

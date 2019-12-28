@@ -231,6 +231,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
+	if(world.time < last_movement)
+		return
+	last_movement = world.time + 0.5 // cap to 20fps
+	glide_size = 8
+
 	update_parallax_contents()
 	setDir(direct)
 	ghostimage.setDir(dir)

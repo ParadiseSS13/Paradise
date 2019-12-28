@@ -75,6 +75,9 @@
 // This is handled in the proc below this one.
 
 /client/proc/AIMove(n, direct, var/mob/living/silicon/ai/user)
+	if(world.time < user.last_movement)
+		return
+	user.last_movement = world.time + 0.5 // cap to 20fps
 
 	var/initial = initial(user.sprint)
 	var/max_sprint = 50

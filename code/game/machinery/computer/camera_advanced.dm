@@ -103,7 +103,7 @@
 	name = "Inactive Camera Eye"
 	var/sprint = 10
 	var/cooldown = 0
-	var/acceleration = 1
+	var/acceleration = 0
 	var/mob/living/carbon/human/eye_user = null
 	var/obj/machinery/computer/camera_advanced/origin
 	var/eye_initialized = 0
@@ -142,6 +142,10 @@
 				eye_user.client.images += user_image
 
 /mob/camera/aiEye/remote/relaymove(mob/user,direct)
+	if(world.time < last_movement)
+		return
+	last_movement = world.time + 0.5 // cap to 20fps
+
 	var/initial = initial(sprint)
 	var/max_sprint = 50
 
