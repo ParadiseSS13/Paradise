@@ -124,3 +124,5 @@
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
 
+/obj/effect/overload/ex_act(severity)
+	return
