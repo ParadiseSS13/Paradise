@@ -1011,8 +1011,8 @@
 
 	if(!target_zone)
 		if(!user)
-			stack_trace("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
-			return FALSE
+			. = FALSE
+			CRASH("can_inject() called on a human mob with neither a user nor a targeting zone selected.")
 		else
 			target_zone = user.zone_selected
 
