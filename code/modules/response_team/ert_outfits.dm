@@ -336,9 +336,7 @@
 
 	backpack_contents = list(
 		/obj/item/clothing/mask/surgical = 1,
-		/obj/item/storage/firstaid/toxin = 1,
-		/obj/item/storage/firstaid/brute = 1,
-		/obj/item/storage/firstaid/fire = 1,
+		/obj/item/storage/firstaid/ert = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller = 1,
 		/obj/item/clothing/shoes/magboots = 1,
@@ -358,13 +356,15 @@
 	belt = /obj/item/defibrillator/compact/loaded
 
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
-	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
+	r_pocket = /obj/item/melee/classic_baton/telescopic
 
 	backpack_contents = list(
 		/obj/item/clothing/mask/gas/sechailer/swat = 1,
 		/obj/item/bodyanalyzer/advanced = 1,
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller = 1,
+		/obj/item/reagent_containers/hypospray/safety/painkiller = 1,
+		/obj/item/storage/pill_bottle/pentetic = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator = 1
 

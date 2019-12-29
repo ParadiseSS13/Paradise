@@ -231,6 +231,24 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/circular_saw(src)
 
+/obj/item/storage/firstaid/ert
+	name = "ERT Medical Kit"
+	desc = "A kit that contains numerous medical supplies for medical emergancies. Includes preloaded Patch pack and Pill bottle."
+	icon_state = "advfirstaid"
+	item_state = "firstaid-advanced"
+	med_bot_skin = "adv"
+
+/obj/item/storage/firstaid/ert/New()
+	..()
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
+	new /obj/item/storage/pill_bottle/ert/red(src)
+	new /obj/item/storage/pill_bottle/patch_pack/ert(src)
+	new /obj/item/healthanalyzer(src)
+
+
 /*
  * Pill Bottles
  */
@@ -296,6 +314,22 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
+
+/obj/item/storage/pill_bottle/ert/red
+	wrapper_color = COLOR_MAROON
+
+/obj/item/storage/pill_bottle/ert/red/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/food/pill/charcoal(src)
+	new /obj/item/reagent_containers/food/pill/mannitol(src)
+	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 
 /obj/item/storage/pill_bottle/MouseDrop(obj/over_object as obj) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(over_object))
@@ -380,3 +414,40 @@
 	new /obj/item/reagent_containers/food/pill/fakedeath(src)
 	new /obj/item/reagent_containers/food/pill/fakedeath(src)
 	new /obj/item/reagent_containers/food/pill/fakedeath(src)
+
+/obj/item/storage/pill_bottle/pentetic
+	name = "Pill bottle (Pentetic Acid)"
+	desc = "Contains pills used to counter toxins,poisons and radiation. Use with Caution."
+	wrapper_color = COLOR_GREEN
+
+/obj/item/storage/pill_bottle/pentetic/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+	new /obj/item/reagent_containers/food/pill/pentetic(src)
+
+/obj/item/storage/pill_bottle/patch_pack/ert
+	name = "Emergancy Patch Pack"
+	desc = "Contains various ready to use patches."
+
+/obj/item/storage/pill_bottle/patch_pack/ert/New()
+	..()
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/food/pill/patch/styptic(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+
+	 

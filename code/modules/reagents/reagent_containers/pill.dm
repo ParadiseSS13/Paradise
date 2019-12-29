@@ -153,3 +153,9 @@
 	desc = "Used to treat cranial swelling."
 	icon_state = "pill19"
 	list_reagents = list("mannitol" = 20)
+
+/obj/item/reagent_containers/food/pill/pentetic
+	name = "Pentetic Acid pill"
+	desc = "Used to agrressively pruge toxins, impurities and radiation, but causes tissue damage in the process."
+	icon_state = "pill17"
+	list_reagents = list("pen_acid" = 20)

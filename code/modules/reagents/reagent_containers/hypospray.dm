@@ -81,6 +81,12 @@
 	list_reagents = list("omnizine" = 30)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/reagent_containers/hypospray/safety/painkiller //ERT can do surgery at any time now
+	name = "high capacity medical hypospray"
+	desc = "A modifed medical hypospray for additonal capacity, prefilled with hydrocodone."
+	volume = 100
+	list_reagents = list("hydrocodone" = 100)
+
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"
 	desc = "A modified air-needle autoinjector, used by support operatives to quickly heal injuries in combat."
@@ -93,6 +99,7 @@
 
 /obj/item/reagent_containers/hypospray/combat/nanites
 	desc = "A modified air-needle autoinjector for use in combat situations. Prefilled with expensive medical nanites for rapid healing."
+	possible_transfer_amounts = list(5,10,15)
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
