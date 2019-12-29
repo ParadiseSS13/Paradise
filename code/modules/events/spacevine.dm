@@ -544,7 +544,7 @@
 	if(potency != null && potency > 0)
 		// ~1 mutativeness at 6 potency
 		// 4 mutativeness at 100 potency
-		mutativeness = sqrt(potency) * .4
+		mutativeness = sqrt(potency) * 0.4
 	if(production != null)
 		// 1 production is crazy powerful
 		var/spread_value = max(10 - production, 1)
