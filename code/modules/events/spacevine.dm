@@ -542,9 +542,9 @@
 	START_PROCESSING(SSobj, src)
 	init_subtypes(/datum/spacevine_mutation/, mutations_list)
 	if(potency != null && potency > 0)
-		// 1 mutativeness at 10 potency
+		// ~1 mutativeness at 6 potency
 		// 4 mutativeness at 100 potency
-		mutativeness = log(10, (potency + 1)) ** 2
+		mutativeness = sqrt(potency) * .4
 	if(production != null)
 		// 1 production is crazy powerful
 		var/spread_value = max(10 - production, 1)
