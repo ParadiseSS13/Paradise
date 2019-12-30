@@ -82,6 +82,12 @@
 			return
 	return
 
+/obj/item/storage/AltClick(mob/user)
+	if(user.Adjacent(get_turf(src)))
+		orient2hud(user)
+		if(user.s_active)
+			user.s_active.close(user)
+		show_to(user)
 
 /obj/item/storage/proc/return_inv()
 
