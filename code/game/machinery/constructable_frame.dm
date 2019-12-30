@@ -351,7 +351,7 @@ to destroy them and players will be able to make replacements.
 	if(istype(I, /obj/item/screwdriver))
 		if(build_path == /obj/machinery/recharger)
 			build_path = /obj/machinery/recharger/wallcharger
-			name = "circuit board (WallRecharger)"
+			name = "circuit board (Wallrecharger)"
 			to_chat(user, "<span class='notice'>You set the Recharger Board to wall mode.</span>")
 		else
 			build_path = /obj/machinery/recharger
