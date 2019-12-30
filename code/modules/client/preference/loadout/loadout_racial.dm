@@ -1,15 +1,13 @@
 /datum/gear/racial
 	sort_category = "Racial"
 	subtype_path = /datum/gear/racial
-
-/datum/gear/racial/taj
-	slot = slot_glasses
 	cost = 2
 
-/datum/gear/racial/taj/civ
+/datum/gear/racial/taj
 	display_name = "embroidered veil"
 	description = "A common traditional nano-fiber veil worn by many Tajaran, It is rare and offensive to see it on other races."
 	path = /obj/item/clothing/glasses/tajblind
+	slot = slot_glasses
 	cost = 1
 
 /datum/gear/racial/taj/sec
