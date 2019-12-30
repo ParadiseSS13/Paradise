@@ -347,7 +347,7 @@ to destroy them and players will be able to make replacements.
 	frame_desc = "Requires 1 Capacitor"
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
-	/obj/item/circuitboard/recharger/attackby(obj/item/I, mob/user, params)
+/obj/item/circuitboard/recharger/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/screwdriver))
 		if(build_path == /obj/machinery/recharger)
 			build_path = /obj/machinery/recharger/wallcharger
