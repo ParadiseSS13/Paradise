@@ -347,6 +347,19 @@ to destroy them and players will be able to make replacements.
 	frame_desc = "Requires 1 Capacitor"
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
+	/obj/item/circuitboard/recharger/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/screwdriver))
+		if(build_path == /obj/machinery/recharger)
+			build_path = /obj/machinery/recharger/wallcharger
+			name = "circuit board (WallRecharger)"
+			to_chat(user, "<span class='notice'>You set the Recharger Board to wall mode.</span>")
+		else
+			build_path = /obj/machinery/recharger
+			name = "circuit board (Recharger)"
+			to_chat(user, "<span class='notice'>You set Recharger Board to floor mode.</span>")
+		return
+	return ..()
+
 /obj/item/circuitboard/snow_machine
 	name = "circuit board (snow machine)"
 	build_path = /obj/machinery/snow_machine
