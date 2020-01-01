@@ -481,7 +481,7 @@
 		</tr>
 		<tr>
 			<th>Rate:</th>
-			<td>[volume_rate] L/sec</td>
+			<td><A href='?src=[UID()];in_set_rate=1'>[volume_rate]</A> L/sec</td>
 		</tr>
 	</table>
 </fieldset>
@@ -545,6 +545,11 @@
 
 	add_fingerprint(usr)
 
+	if(href_list["in_set_rate"])
+		var/response=input(usr,"Set new flow rate, in l/s. \[0-[200]\]") as num
+		volume_rate = text2num(response)
+		volume_rate = between(0, volume_rate, 200)
+
 	if(href_list["out_set_pressure"])
 		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
 		pressure_setting = text2num(response)
@@ -560,6 +565,10 @@
 		signal.data = list ("tag" = input_tag, "status" = 1)
 
 	else if(href_list["in_toggle_injector"])
+		input_info = null
+		signal.data = list ("tag" = input_tag, "power_toggle" = 1)
+	
+	else if(href_list["in_set_rate"])
 		input_info = null
 		signal.data = list ("tag" = input_tag, "power_toggle" = 1)
 
