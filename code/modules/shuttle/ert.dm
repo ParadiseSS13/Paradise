@@ -5,6 +5,14 @@
 	possible_destinations = "specops_home;specops_away;specops_custom"
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/machinery/computer/shuttle/ert/Topic(href, href_list)
+	if(href_list["move"])
+		var/authorized_roles = list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)
+		if(!((usr.mind.assigned_role in authorized_roles) || is_admin(usr)))
+			message_admins("Potential ERT shuttle hijack, ert shuttle moved by unauthorized user: [key_name_admin(usr)]")
+	..()
+	
+
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert
 	name = "specops navigation computer"
 	desc = "Used to designate a precise transit location for the specops shuttle."
