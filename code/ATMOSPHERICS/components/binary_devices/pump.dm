@@ -121,7 +121,7 @@ Thus, the two variables affect pump operation are set in New():
 	return 1
 
 //Radio remote control
-/obj/machinery/atmospherics/binary/pump/proc/set_frequency(new_frequency)
+/obj/machinery/atmospherics/binary/pump/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)

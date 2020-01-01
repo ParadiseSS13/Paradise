@@ -98,11 +98,11 @@
 
 	flick("inject", src)
 
-/obj/machinery/atmospherics/unary/outlet_injector/proc/set_frequency(new_frequency)
+/obj/machinery/atmospherics/unary/outlet_injector/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency)
+		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/unary/outlet_injector/proc/broadcast_status()
 	if(!radio_connection)
@@ -120,7 +120,7 @@
 		"sigtype" = "status"
 	 )
 
-	radio_connection.post_signal(src, signal)
+	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 
 	return 1
 

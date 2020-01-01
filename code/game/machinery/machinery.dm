@@ -165,6 +165,9 @@ Class Procs:
 /obj/machinery/proc/locate_machinery()
 	return
 
+/obj/machinery/proc/set_frequency()
+	return
+
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
@@ -190,7 +193,7 @@ Class Procs:
 		use_power(active_power_usage,power_channel, 1)
 	return 1
 
-/obj/machinery/proc/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/proc/multitool_topic(mob/user, list/href_list, obj/O)
 	if("set_id" in href_list)
 		if(!("id_tag" in vars))
 			warning("set_id: [type] has no id_tag var.")
@@ -210,7 +213,7 @@ Class Procs:
 		if(newfreq)
 			if(findtext(num2text(newfreq), "."))
 				newfreq *= 10 // shift the decimal one place
-			src:frequency = sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ)
+			set_frequency(sanitize_frequency(newfreq, RADIO_LOW_FREQ, RADIO_HIGH_FREQ))
 			return TRUE
 	return FALSE
 

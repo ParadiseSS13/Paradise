@@ -125,7 +125,7 @@
 			send_status(1)
 	return
 
-/obj/machinery/door/airlock/proc/set_frequency(new_frequency)
+/obj/machinery/door/airlock/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	if(new_frequency)
 		frequency = new_frequency
@@ -202,7 +202,7 @@
 
 			update_icon()
 
-/obj/machinery/airlock_sensor/proc/set_frequency(new_frequency)
+/obj/machinery/airlock_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)
@@ -275,7 +275,7 @@
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
 	flick("access_button_cycle", src)
 
-/obj/machinery/access_button/proc/set_frequency(new_frequency)
+/obj/machinery/access_button/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_AIRLOCK)

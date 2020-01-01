@@ -60,7 +60,7 @@
 	active_power_usage = power_usage
 
 	//Radio remote control
-/obj/machinery/power/emitter/proc/set_frequency(new_frequency)
+/obj/machinery/power/emitter/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)

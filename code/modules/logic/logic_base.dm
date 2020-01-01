@@ -54,7 +54,7 @@
 	..()
 	set_frequency(frequency)
 
-/obj/machinery/logic_gate/proc/set_frequency(new_frequency)
+/obj/machinery/logic_gate/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
