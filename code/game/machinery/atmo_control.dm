@@ -482,7 +482,7 @@
 		</tr>
 		<tr>
 			<th>Rate:</th>
-			<td><A href='?src=[UID()];in_set_rate=1'>[volume_rate]</A> L/sec</td>
+			<td><A href='?src=[UID()];in_set_rate=1'>[volume_rate]</A> L/s</td>
 		</tr>
 	</table>
 </fieldset>
@@ -547,7 +547,7 @@
 	add_fingerprint(usr)
 
 	if(href_list["in_set_rate"])
-		var/response=input(usr,"Set new flow rate, in L/sec. \[0-[200]\]") as num
+		var/response=input(usr,"Set new flow rate, in L/s. \[0-[200]\]") as num
 		volume_rate_setting = text2num(response)
 		volume_rate_setting = between(0, volume_rate_setting, 200)
 
@@ -653,7 +653,7 @@
 		</tr>
 		<tr>
 			<th>Rate:</th>
-			<td>[volume_rate] L/sec</td>
+			<td>[volume_rate] L/s</td>
 		</tr>
 		<tr>
 			<th>Automated Fuel Injection:</th>
