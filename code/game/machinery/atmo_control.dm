@@ -382,6 +382,7 @@
 	)
 
 	var/pressure_setting = ONE_ATMOSPHERE * 45
+	var/volume_rate_setting = 50
 
 /obj/machinery/computer/general_air_control/large_tank_control/attackby(I as obj, user as mob)
 	if(istype(I, /obj/item/multitool))
@@ -546,9 +547,9 @@
 	add_fingerprint(usr)
 
 	if(href_list["in_set_rate"])
-		var/response=input(usr,"Set new flow rate, in l/s. \[0-[200]\]") as num
-		volume_rate = text2num(response)
-		volume_rate = between(0, volume_rate, 200)
+		var/response=input(usr,"Set new flow rate, in L/sec. \[0-[200]\]") as num
+		volume_rate_setting = text2num(response)
+		volume_rate_setting = between(0, volume_rate_setting, 200)
 
 	if(href_list["out_set_pressure"])
 		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
@@ -567,10 +568,10 @@
 	else if(href_list["in_toggle_injector"])
 		input_info = null
 		signal.data = list ("tag" = input_tag, "power_toggle" = 1)
-	
+
 	else if(href_list["in_set_rate"])
 		input_info = null
-		signal.data = list ("tag" = input_tag, "power_toggle" = 1)
+		signal.data = list ("tag" = input_tag, "set_volume_rate" = "[volume_rate_setting]")
 
 	else if(href_list["out_refresh_status"])
 		output_info = null
