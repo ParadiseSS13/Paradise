@@ -9,7 +9,7 @@
 	if(href_list["move"])
 		var/authorized_roles = list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)
 		if(!((usr.mind.assigned_role in authorized_roles) || is_admin(usr)))
-			message_admins("Potential ERT shuttle hijack, ert shuttle moved by unauthorized user: [key_name_admin(usr)]")
+			message_admins("Potential ERT shuttle hijack, ERT shuttle moved by unauthorized user: [key_name_admin(usr)]")
 	..()
 	
 
