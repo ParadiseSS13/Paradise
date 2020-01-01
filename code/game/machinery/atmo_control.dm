@@ -381,8 +381,8 @@
 		/obj/machinery/atmospherics/unary/vent_pump
 	)
 
-	var/pressure_setting = ONE_ATMOSPHERE * 45
 	var/volume_rate_setting = 50
+	var/pressure_setting = ONE_ATMOSPHERE * 45
 
 /obj/machinery/computer/general_air_control/large_tank_control/attackby(I as obj, user as mob)
 	if(istype(I, /obj/item/multitool))
