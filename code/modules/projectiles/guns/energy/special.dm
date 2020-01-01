@@ -13,6 +13,8 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	zoomable = TRUE
+	zoom_amt = 3
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -313,6 +315,7 @@
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
 	icon_state = "esniper"
+	item_state = "lwap"
 	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	slot_flags = SLOT_BACK
