@@ -547,12 +547,12 @@
 	add_fingerprint(usr)
 
 	if(href_list["in_set_rate"])
-		var/response=input(usr,"Set new flow rate, in L/s. \[0-[200]\]") as num
+		var/response = input(usr, "Set new flow rate, in L/s. \[0-[MAX_TRANSFER_RATE]\]") as num
 		volume_rate_setting = text2num(response)
-		volume_rate_setting = between(0, volume_rate_setting, 200)
+		volume_rate_setting = between(0, volume_rate_setting, MAX_TRANSFER_RATE)
 
 	if(href_list["out_set_pressure"])
-		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
+		var/response = input(usr, "Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
 		pressure_setting = text2num(response)
 		pressure_setting = between(0, pressure_setting, 50*ONE_ATMOSPHERE)
 
