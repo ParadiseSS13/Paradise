@@ -849,15 +849,11 @@
 				if(href_list["val"])
 					val=text2num(href_list["val"])
 				else
-					var/newval = input("Enter new pressure target, 0-5066.25 kPa:") as num|null
+					var/newval = input("Enter new pressure target, 0-[ONE_ATMOSPHERE*50]:") as num|null
 					if(isnull(newval))
 						return
-					else
-						if(href_list["command"]=="set_external_pressure" || href_list["command"]=="set_internal_pressure")
-							if(newval>ONE_ATMOSPHERE*50)
-								newval = ONE_ATMOSPHERE*50
-							if(newval<0)
-								newval = 0
+					if(href_list["command"]=="set_external_pressure" || href_list["command"]=="set_internal_pressure")
+						between(0, newval, ONE_ATMOSPHERE*50)
 					val = newval
 
 				send_signal(device_id, list(href_list["command"] = val ) )
