@@ -928,7 +928,7 @@
 				if("Skrell")
 					emotelist += "\nSkrell specific emotes :- warble(s)"
 				if("Tajaran")
-					emotelist += "\nTajaran specific emotes :- meow(s)-none/mob, purr(s)-none/mob, hiss(es)-none/mob"
+					emotelist += "\nTajaran specific emotes :- hiss(es)-none/mob"
 
 			if(ismachine(src))
 				emotelist += "\nMachine specific emotes :- beep(s)-(none)/mob, buzz(es)-none/mob, no-(none)/mob, ping(s)-(none)/mob, yes-(none)/mob, buzz2-(none)/mob"
