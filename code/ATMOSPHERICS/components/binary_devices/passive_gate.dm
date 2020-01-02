@@ -184,7 +184,15 @@
 	SSnanoui.update_uis(src)
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
-	if(!istype(W, /obj/item/wrench))
+	if(istype(W, /obj/item/pen))
+		var/t = copytext(stripped_input(user, "Enter the name for the pump.", "Rename", name), 1, MAX_NAME_LEN)
+		if(!t)
+			return
+		if(!in_range(src, usr) && loc != usr)
+			return
+		name = t
+		return
+	else if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(on)
 		to_chat(user, "<span class='alert'>You cannot unwrench this [src], turn it off first.</span>")
