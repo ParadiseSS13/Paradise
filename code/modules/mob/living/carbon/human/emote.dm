@@ -114,19 +114,6 @@
 			else								//Everyone else fails, skip the emote attempt
 				return
 
-		if("purr", "purrs")
-			if(istajaran(src)) //Only Tajaran can purr.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
-			else								//Everyone else fails, skip the emote attempt
-				return
-
-		if("meow", "meows")
-			if(istajaran(src)) //Only Tajaran can meow.
-				on_CD = handle_emote_CD()			//proc located in code\modules\mob\emote.dm'
-			else								//Everyone else fails, skip the emote attempt
-				return
-
-
 		if("scream", "screams")
 			on_CD = handle_emote_CD(50) //longer cooldown
 		if("fart", "farts", "flip", "flips", "snap", "snaps")
@@ -239,7 +226,7 @@
 			if(istajaran(src))
 				if(!muzzled)
 					message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-					playsound(loc, 'sound/effects/tajhiss.ogg', 50, 0) // Copyright CC BY 3.0 craigsmith (freesound.org) for the sound.
+					playsound(loc, 'sound/effects/tajhiss.ogg', 50, 0) // Copyright CC BY 3.0 craigsmith (freesound.org), Copyright CC BY 3.0 aunrea (freesound.org) Copyright CC BY 3.0 Reitanna (freesound.org) for the sound.
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a weak hissing noise."
@@ -258,24 +245,6 @@
 			message = "<B>[src]</B> warbles[M ? " at [M]" : ""]."
 			playsound(loc, 'sound/effects/warble.ogg', 50, 0) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 			m_type = 2
-
-		if("purr", "purrs")
-			var/M = handle_emote_param(param)
-
-			message = "<B>[src]</B> purrs[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/tajpurr.ogg', 50, 0) // Copyright CC BY 3.0 lextrack (freesound.org) for the sound.
-			m_type = 2
-
-		if("meow", "meows")
-			var/M = handle_emote_param(param)
-
-			if(!muzzled)
-				message = "<B>[src]</B> meows[M ? " at [M]" : ""]."
-				playsound(loc, 'sound/effects/tajmeow.ogg', 50, 0) // Copyright CC BY 3.0 tudacs (freesound.org) for the sound.
-				m_type = 2
-			else
-				message = "<B>[src]</B> makes a weak meowing noise."
-				m_type = 2
 
 		if("yes")
 			var/M = handle_emote_param(param)
