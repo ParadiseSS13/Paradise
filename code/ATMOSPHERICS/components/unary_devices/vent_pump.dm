@@ -299,22 +299,6 @@
 				ONE_ATMOSPHERE*50
 			)
 
-	if(signal.data["adjust_internal_pressure"] != null)
-		internal_pressure_bound = between(
-			0,
-			internal_pressure_bound + text2num(signal.data["adjust_internal_pressure"]),
-			ONE_ATMOSPHERE*50
-		)
-
-	if(signal.data["adjust_external_pressure"] != null)
-
-
-		external_pressure_bound = between(
-			0,
-			external_pressure_bound + text2num(signal.data["adjust_external_pressure"]),
-			ONE_ATMOSPHERE*50
-		)
-
 	if(signal.data["init"] != null)
 		name = signal.data["init"]
 		return
