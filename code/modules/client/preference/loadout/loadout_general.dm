@@ -2,6 +2,20 @@
 	display_name = "a d20"
 	path = /obj/item/dice/d20
 
+/datum/gear/dicebag
+	display_name = "A bag of dice"
+	path = /obj/item/storage/pill_bottle/dice
+	cost = 2
+
+/datum/gear/coingold
+	display_name = "a gold coin"
+	path = /obj/item/coin/gold
+
+/datum/gear/cash
+	display_name = "a bundle of cash"
+	description = "500 credits for those rainy days."
+	path = /obj/item/stack/spacecash/c500
+
 /datum/gear/uplift
 	display_name = "a pack of Uplifts"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
@@ -18,22 +32,87 @@
 	display_name = "a pack of Midoris"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_midori
 
+/datum/gear/marijuanapack
+	display_name = "a pack of medical Marijuana"
+	path = /obj/item/storage/fancy/cigarettes/cigpack_med
+
+/datum/gear/cigar
+	display_name = "Havana Cigar"
+	path = /obj/item/clothing/mask/cigarette/cigar/havana
+	cost = 2
+
+/datum/gear/smokingpipe
+	display_name = "smoking pipe"
+	path = /obj/item/clothing/mask/cigarette/pipe
+	cost = 2
+
 /datum/gear/lighter
 	display_name = "a cheap lighter"
 	path = /obj/item/lighter
 
+/datum/gear/matches
+	display_name = "a box of matches"
+	path = /obj/item/storage/box/matches
+
+/datum/gear/zippo
+	display_name = "zippo lighter"
+	path = /obj/item/lighter/zippo
+	cost = 2
+
+/datum/gear/candlebox
+	display_name = "a box candles"
+	description = "For setting the mood or for occult rituals."
+	path = /obj/item/storage/fancy/candle_box/eternal
+
 /datum/gear/rock
 	display_name = "a pet rock"
 	path = /obj/item/toy/pet_rock
+
+/datum/gear/redfoxplushie
+	display_name = "a red fox plushie"
+	path = /obj/item/toy/plushie/red_fox
+
+/datum/gear/blackcatplushie
+	display_name = "a black cat plushie"
+	path = /obj/item/toy/plushie/black_cat
+/*
+/datum/gear/voxplushie
+	display_name = "a vox plushie"
+	path = /obj/item/toy/plushie/voxplushie
+*/
+/datum/gear/deerplushie
+	display_name = "a deer plushie"
+	path = /obj/item/toy/plushie/deer
+
+/datum/gear/carpplushie
+	display_name = "a carp plushie"
+	path = /obj/item/toy/carpplushie
 
 /datum/gear/sechud
 	display_name = "a classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Security Pod Pilot", "Internal Affairs Agent")
 
-/datum/gear/matches
-	display_name = "a box of matches"
-	path = /obj/item/storage/box/matches
+/datum/gear/paperbin
+	display_name = "a paper bin"
+	description = "For those who can't speak or like to write."
+	path = /obj/item/paper_bin
+
+/datum/gear/cryaonbox
+	display_name = "a box of crayons"
+	path = /obj/item/storage/fancy/crayons
+
+/datum/gear/toykatana
+	display_name = "a replica katana"
+	path = /obj/item/toy/katana
+
+/datum/gear/cane
+	display_name = "a walking cane"
+	path = /obj/item/cane
+
+/datum/gear/twohandstaff
+	display_name = "wizards staff"
+	path = /obj/item/twohanded/staff
 
 /datum/gear/cards
 	display_name = "a deck of standard cards"
@@ -47,9 +126,25 @@
 	display_name = "a deck of tarot cards"
 	path = /obj/item/deck/tarot
 
+/datum/gear/violin
+	display_name = "a violin"
+	path = /obj/item/instrument/violin
+
+/datum/gear/guitar
+	display_name = "a guitar"
+	path = /obj/item/instrument/guitar
+
+/datum/gear/harmonica
+	display_name = "a harmonica"
+	path = /obj/item/instrument/harmonica
+
 /datum/gear/headphones
 	display_name = "a pair of headphones"
 	path = /obj/item/clothing/ears/headphones
+
+/datum/gear/fannypack
+	display_name = "a fannypack"
+	path = /obj/item/storage/belt/fannypack
 
 /datum/gear/blackbandana
 	display_name = "bandana, black"
@@ -104,6 +199,11 @@
 	path = /obj/item/reagent_containers/food/drinks/mug/novelty
 	cost = 2
 	sort_category = "Mugs"
+
+/datum/gear/mug/flask
+	display_name = "flask"
+	description = "A flask for drink transportation. You'll need to supply your own beverage though."
+	path = /obj/item/reagent_containers/food/drinks/flask/barflask
 
 /datum/gear/mug/department
 	subtype_path = /datum/gear/mug/department

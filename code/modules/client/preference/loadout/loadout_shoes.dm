@@ -17,12 +17,10 @@
 
 /datum/gear/shoes/fancysandals
 	display_name = "sandals, fancy"
-	cost = 2
 	path = /obj/item/clothing/shoes/sandal/fancy
 
 /datum/gear/shoes/dressshoes
 	display_name = "dress shoes"
-	cost = 2
 	path = /obj/item/clothing/shoes/centcom
 
 /datum/gear/shoes/cowboyboots
@@ -40,6 +38,14 @@
 /datum/gear/shoes/cowboyboots/pink
 	display_name = "cowboy boots, pink"
 	path = /obj/item/clothing/shoes/cowboy/pink
+
+/datum/gear/shoes/jackboots
+	display_name = "jackboots"
+	path = /obj/item/clothing/shoes/jackboots
+
+/datum/gear/shoes/jacksandals
+	display_name = "jacksandals"
+	path = /obj/item/clothing/shoes/jackboots/jacksandals
 
 /datum/gear/shoes/laceup
 	display_name = "laceup shoes"
