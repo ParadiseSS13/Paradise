@@ -853,7 +853,7 @@
 					if(isnull(newval))
 						return
 					if(href_list["command"]=="set_external_pressure" || href_list["command"]=="set_internal_pressure")
-						between(0, newval, ONE_ATMOSPHERE*50)
+						newval = between(0, newval, ONE_ATMOSPHERE*50)
 					val = newval
 
 				send_signal(device_id, list(href_list["command"] = val ) )
