@@ -154,6 +154,14 @@ Used In File(s): /code/game/machinery/alarm.dm
 					{{:helper.link('Set','gear',{'id_tag':value.id_tag,'command':'set_external_pressure'})}}
 					{{:helper.link('Reset','refresh',{'id_tag':value.id_tag,'command':'set_external_pressure','val':101.325},null,'linkOn')}}
 				</div>
+				<div class="line">
+					<div class="statusLabel">Internal pressure target:</div>
+					<div class="statusValue">
+						{{:helper.smoothRound(value.internal,4)}} kPa 
+					</div>
+					{{:helper.link('Set','gear',{'id_tag':value.id_tag,'command':'set_internal_pressure'})}}
+					{{:helper.link('Reset','refresh',{'id_tag':value.id_tag,'command':'set_internal_pressure','val':0},null,'linkOn')}}
+				</div>
 			</div>
 		{{empty}}
 			<i>No vent pumps located in this area.</i>

@@ -834,8 +834,8 @@
 		var/device_id = href_list["id_tag"]
 		switch(href_list["command"])
 			if( "power",
-				"adjust_external_pressure",
 				"set_external_pressure",
+				"set_internal_pressure",
 				"checks",
 				"co2_scrub",
 				"tox_scrub",
@@ -849,14 +849,15 @@
 				if(href_list["val"])
 					val=text2num(href_list["val"])
 				else
-					var/newval = input("Enter new value") as num|null
+					var/newval = input("Enter new pressure target, 0-5066.25 kPa:") as num|null
 					if(isnull(newval))
 						return
-					if(href_list["command"]=="set_external_pressure")
-						if(newval>1000+ONE_ATMOSPHERE)
-							newval = 1000+ONE_ATMOSPHERE
-						if(newval<0)
-							newval = 0
+					else
+						if(href_list["command"]=="set_external_pressure" || href_list["command"]=="set_internal_pressure")
+							if(newval>ONE_ATMOSPHERE*50)
+								newval = ONE_ATMOSPHERE*50
+							if(newval<0)
+								newval = 0
 					val = newval
 
 				send_signal(device_id, list(href_list["command"] = val ) )
