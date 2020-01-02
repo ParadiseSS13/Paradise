@@ -185,7 +185,7 @@
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/t = copytext(stripped_input(user, "Enter the name for the pump.", "Rename", name), 1, MAX_NAME_LEN)
+		var/t = copytext(stripped_input(user, "Enter the name for the gate.", "Rename", name), 1, MAX_NAME_LEN)
 		if(!t)
 			return
 		if(!in_range(src, usr) && loc != usr)
