@@ -269,6 +269,7 @@
 			if(prob(70))
 				if(bomb_armor)
 					Stun(base_stun - (bomb_armor / 10))
+					Weaken(base_stun - (bomb_armor / 10))
 				else
 					Paralyse(base_stun)
 
@@ -297,6 +298,7 @@
 			if(prob(50))
 				if(bomb_armor)
 					Stun(base_stun - (bomb_armor / 10))
+					Weaken(base_stun - (bomb_armor / 10))
 				else
 					Paralyse(base_stun)
 
