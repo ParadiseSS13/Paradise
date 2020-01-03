@@ -5,6 +5,6 @@
 	per_unit = 1
 
 /datum/job_objective/further_plants/get_description()
-	var/desc = "create new varieties of plants, and send it to centcomm from cargo."
+	var/desc = "Create new varieties of plants, and send it to centcomm from cargo."
 	desc += "([units_completed] completed.)"
 	return desc
