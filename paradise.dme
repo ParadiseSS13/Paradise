@@ -1152,6 +1152,7 @@
 #include "code\HISPANIA\defines\procs\discord.dm"
 #include "code\HISPANIA\game\hispania_items.dm"
 #include "code\HISPANIA\game\jobs\job_objectives\engineering.dm"
+#include "code\HISPANIA\game\jobs\job_objectives\hydroponics.dm"
 #include "code\HISPANIA\game\jobs\job_objectives\science.dm"
 #include "code\HISPANIA\game\machinery\constructable_frame.dm"
 #include "code\HISPANIA\game\machinery\doppler_array.dm"
