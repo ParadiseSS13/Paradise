@@ -232,6 +232,14 @@
 "}
 
 /obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
+	if(istype(W, /obj/item/pen))
+		var/t = copytext(stripped_input(user, "Enter the name for the injector.", "Rename", name), 1, MAX_NAME_LEN)
+		if(!t)
+			return
+		if(!in_range(src, usr) && loc != usr)
+			return
+		name = t
+		return
 	if(istype(W, /obj/item/multitool))
 		interact(user)
 		return 1
