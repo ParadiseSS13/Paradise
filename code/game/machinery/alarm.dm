@@ -849,7 +849,7 @@
 				if(href_list["val"])
 					val=text2num(href_list["val"])
 				else
-					var/newval = input("Enter new pressure target, 0-[ONE_ATMOSPHERE*50]:") as num|null
+					var/newval = input("Enter new pressure target, 0-[ONE_ATMOSPHERE*50] kPa:") as num|null
 					if(isnull(newval))
 						return
 					if(href_list["command"]=="set_external_pressure" || href_list["command"]=="set_internal_pressure")
