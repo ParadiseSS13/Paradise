@@ -4,7 +4,7 @@
 	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "ablativehood"
 	hispania_icon = TRUE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(melee = 10, bullet = 10, laser = 60, energy = 60, bomb = 0, bio = 0, rad = 0)
 	strip_delay = 30
 	var/hit_reflect_chance = 50
 
@@ -21,7 +21,7 @@
 	icon_state = "ablativecoat"
 	item_state = "ablativecoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(melee = 10, bullet = 10, laser = 60, energy = 60, bomb = 0, bio = 0, rad = 0)
 	hoodtype = /obj/item/clothing/head/hooded/ablative
 	strip_delay = 30
 	put_on_delay = 40
