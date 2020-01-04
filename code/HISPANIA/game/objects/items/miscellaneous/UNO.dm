@@ -8,21 +8,149 @@
 	var/flip_name = null
 	w_class = WEIGHT_CLASS_TINY
 
+/obj/item/toy/UNO/attack_self(mob/user as mob)
+	if(icon_state == "uno")
+		icon_state = flip_icon
+		name = flip_name
+		to_chat(user, "<span class='notice'>You flip the card.</span>")
+	else
+		icon_state = "uno"
+		name = "UNO card"
+		to_chat(user, "<span class='notice'>You flip the card.</span>")
+	return
+
 /obj/item/storage/bag/UNO
 	name = "UNO Deck"
-	desc = "An UNO Deck. You can empty it on a table"
+	desc = "An UNO Deck. An ancient card game used to destroy friendships."
 	icon = 'icons/hispania/obj/UNO.dmi'
 	icon_state = "deck"
 	storage_slots = 108
 	max_combined_w_class = 250
 	w_class = WEIGHT_CLASS_SMALL
-	can_hold = list(/obj/item/toy/UNO)
+	burn_state = FLAMMABLE
+	can_hold = list(/obj/item/toy/UNO, /obj/item/cardholder, /obj/item/cardholder/withcards)
 	use_to_pickup = TRUE
 	allow_quick_gather = TRUE
 	allow_quick_empty = TRUE
-	display_contents_with_number = TRUE
+	display_contents_with_number = FALSE
 
 /obj/item/storage/bag/UNO/New()
+	..()
+	new /obj/item/cardholder/withcards(src)
+	for(var/j in 1 to 10)
+		new /obj/item/cardholder(src)
+
+/obj/item/cardholder
+	name = "UNO Cardholder"
+	desc = "An UNO Cardholder. For holding UNO cards."
+	icon = 'icons/hispania/obj/UNO.dmi'
+	icon_state = "holder_e"
+	w_class = WEIGHT_CLASS_TINY
+	burn_state = FLAMMABLE
+
+/obj/item/cardholder/withcards
+	icon_state = "holder_f" // One starts with cards to be used as the initial deck.
+
+/obj/item/cardholder/Destroy()
+	QDEL_LIST(contents)
+	return ..()
+
+/obj/item/cardholder/MouseDrop(atom/over_object)
+	var/mob/M = usr
+	if(M.restrained() || M.stat || !Adjacent(M))
+		return
+	if(!ishuman(M))
+		return
+
+	if(over_object == M)
+		if(!remove_item_from_storage(M))
+			M.unEquip(src)
+		M.put_in_hands(src)
+
+	else if(istype(over_object, /obj/screen))
+		switch(over_object.name)
+			if("r_hand")
+				if(!remove_item_from_storage(M))
+					M.unEquip(src)
+				M.put_in_r_hand(src)
+			if("l_hand")
+				if(!remove_item_from_storage(M))
+					M.unEquip(src)
+				M.put_in_l_hand(src)
+	add_fingerprint(M)
+
+/obj/item/cardholder/attackby(obj/item/W, mob/user)
+	if(istype(W, /obj/item/toy/UNO))
+		var/obj/item/toy/UNO/last_card = W
+		user.drop_item()
+		W.loc = src
+		user.visible_message("<span class='notice'>[user] puts [W] in [src].</span>", \
+				"<span class='notice'>You put [W] in [src].</span>")
+		contents.Add(W)
+		overlays += last_card.icon_state
+	if(istype(W, /obj/item/cardholder))
+		for(var/obj/item/toy/UNO/C in W.contents)
+			W.contents.Remove(C)
+			C.loc = src.loc
+			contents.Add(C)
+			C.icon_state = "uno"
+			C.name = "UNO card"
+		W.icon_state = "holder_e"
+		W.cut_overlays()
+		icon_state = "holder_f"
+		cut_overlays()
+		user.visible_message("<span class='notice'>[user] puts all the UNO cards of [W] in [src] and shuffles them.</span>", \
+				"<span class='notice'>You put all the UNO cards of [W] in [src] and shuffle them.</span>")
+		contents = shuffle(contents)
+	else
+		return ..()
+
+/obj/item/cardholder/attack_hand(mob/user as mob)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/organ/external/temp = H.bodyparts_by_name["r_hand"]
+		if(H.hand)
+			temp = H.bodyparts_by_name["l_hand"]
+		if(temp && !temp.is_usable())
+			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")
+			return
+
+	add_fingerprint(user)
+	var/obj/item/toy/UNO/C
+	if(contents.len == 1) //Takes the last card and empties the holder.
+		C = contents[contents.len]
+		contents.Remove(C)
+		C.loc = user.loc
+		user.put_in_hands(C)
+		to_chat(user, "<span class='notice'></span>")
+		user.visible_message("<span class='notice'>[user] takes [C] out of the [src].</span>", \
+				"<span class='notice'>You take [C] out of the [src].</span>")
+		cut_overlays()
+		icon_state = "holder_e"
+		return
+	if(contents.len > 1) //Takes the top card and shows the previous one.
+		C = contents[contents.len]
+		var/obj/item/toy/UNO/D
+		D = contents[contents.len-1]
+		overlays += D.icon_state
+		contents.Remove(C)
+		C.loc = user.loc
+		user.put_in_hands(C)
+		user.visible_message("<span class='notice'>[user] takes [C] out of the [src].</span>", \
+				"<span class='notice'>You take [C] out of the [src].</span>")
+		return
+	else
+		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+
+/obj/item/cardholder/examine(mob/user)
+	. = ..()
+	if(in_range(user, src))
+		if(contents.len > 0)
+			. += "<span class='notice'>There " + (contents.len > 1 ? "are [contents.len] UNO cards" : "is one UNO card") + " in the cardholder.</span>"
+		else
+			. += "<span class='notice'>There are no UNO cards in the cardholder.</span>"
+
+/obj/item/cardholder/withcards/New()
 	..()
 	for(var/j in 1 to 2)
 		new /obj/item/toy/UNO/g1(src)
@@ -81,31 +209,6 @@
 	new /obj/item/toy/UNO/b0(src)
 	new /obj/item/toy/UNO/y0(src)
 	contents = shuffle(contents)
-
-/obj/item/toy/UNO/attack_self(mob/user as mob)
-	if(icon_state == "uno")
-		icon_state = flip_icon
-		name = flip_name
-		to_chat(user, "<span class='notice'>You flip the card.</span>")
-	else
-		icon_state = "uno"
-		name = "UNO card"
-		to_chat(user, "<span class='notice'>You flip the card.</span>")
-	return
-
-obj/item/toy/UNO/attackby(obj/item/W, mob/user)
-	..()
-	if(istype(W, /obj/item/toy/UNO))
-		if(W.loc != src.loc)
-		//	var/turf/T = get_turf(src)
-			user.drop_item()
-			W.forceMove(src.loc)
-			set W in oview(1)
-	//		W.move_to_top()
-
-			//for(var/obj/item/toy/UNO/U in T.loc)
-				//U.move_to_top()
-		//	W.move_to_top()
 
 /obj/item/toy/UNO/wild
 	flip_name = "wild card"
