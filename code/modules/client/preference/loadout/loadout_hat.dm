@@ -30,10 +30,6 @@
 	display_name = "ushanka"
 	path = /obj/item/clothing/head/ushanka
 
-/datum/gear/hat/wizard
-	display_name = "wizard hat"
-	path = /obj/item/clothing/head/wizard/fake
-
 /datum/gear/hat/witch
 	display_name = "witch hat"
 	path = /obj/item/clothing/head/wizard/marisa/fake

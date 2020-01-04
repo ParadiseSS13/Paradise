@@ -2,20 +2,6 @@
 	display_name = "a d20"
 	path = /obj/item/dice/d20
 
-/datum/gear/dicebag
-	display_name = "A bag of dice"
-	path = /obj/item/storage/pill_bottle/dice
-	cost = 2
-
-/datum/gear/coingold
-	display_name = "a gold coin"
-	path = /obj/item/coin/gold
-
-/datum/gear/cash
-	display_name = "a bundle of cash"
-	description = "500 credits for those rainy days."
-	path = /obj/item/stack/spacecash/c500
-
 /datum/gear/uplift
 	display_name = "a pack of Uplifts"
 	path = /obj/item/storage/fancy/cigarettes/cigpack_uplift
@@ -68,6 +54,10 @@
 	display_name = "a pet rock"
 	path = /obj/item/toy/pet_rock
 
+/datum/gear/camera
+	display_name = "a camera"
+	path = /obj/item/camera
+
 /datum/gear/redfoxplushie
 	display_name = "a red fox plushie"
 	path = /obj/item/toy/plushie/red_fox
@@ -79,6 +69,10 @@
 /datum/gear/voxplushie
 	display_name = "a vox plushie"
 	path = /obj/item/toy/plushie/voxplushie
+
+/datum/gear/lizardplushie
+	display_name = "a lizard plushie"
+	path = /obj/item/toy/plushie/lizardplushie
 
 /datum/gear/deerplushie
 	display_name = "a deer plushie"
@@ -110,10 +104,6 @@
 	display_name = "a walking cane"
 	path = /obj/item/cane
 
-/datum/gear/twohandstaff
-	display_name = "wizards staff"
-	path = /obj/item/twohanded/staff
-
 /datum/gear/cards
 	display_name = "a deck of standard cards"
 	path = /obj/item/deck/cards
@@ -125,18 +115,6 @@
 /datum/gear/tarot
 	display_name = "a deck of tarot cards"
 	path = /obj/item/deck/tarot
-
-/datum/gear/violin
-	display_name = "a violin"
-	path = /obj/item/instrument/violin
-
-/datum/gear/guitar
-	display_name = "a guitar"
-	path = /obj/item/instrument/guitar
-
-/datum/gear/harmonica
-	display_name = "a harmonica"
-	path = /obj/item/instrument/harmonica
 
 /datum/gear/headphones
 	display_name = "a pair of headphones"

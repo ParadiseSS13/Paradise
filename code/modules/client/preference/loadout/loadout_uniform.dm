@@ -97,6 +97,10 @@
 	display_name = "USSP uniform"
 	path = /obj/item/clothing/under/soviet
 
+/datum/gear/uniform/suit/kilt
+	display_name = "a kilt"
+	path = /obj/item/clothing/under/kilt
+
 /datum/gear/uniform/skirt
 	subtype_path = /datum/gear/uniform/skirt
 
