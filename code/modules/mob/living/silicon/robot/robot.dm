@@ -276,6 +276,8 @@ var/list/robot_verbs_default = list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	if(shell)
+		revert_shell()
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
@@ -289,9 +291,6 @@ var/list/robot_verbs_default = list(
 		mmi = null
 	if(connected_ai)
 		connected_ai.connected_robots -= src
-	if(shell)
-		undeploy()
-		available_ai_shells -= src
 	QDEL_NULL(wires)
 	QDEL_NULL(module)
 	QDEL_NULL(camera)
@@ -841,9 +840,10 @@ var/list/robot_verbs_default = list(
 
 	if(opened)//Cover is open
 		if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
-			to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt has triggered a system reset instead!</span>")
+			to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt disable ai control!</span>")
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
 			revert_shell()
+			reset_module()
 			return
 		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
