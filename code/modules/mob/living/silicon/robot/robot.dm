@@ -290,6 +290,7 @@ var/list/robot_verbs_default = list(
 	if(connected_ai)
 		connected_ai.connected_robots -= src
 	if(shell)
+		undeploy()
 		available_ai_shells -= src
 	QDEL_NULL(wires)
 	QDEL_NULL(module)
@@ -842,7 +843,7 @@ var/list/robot_verbs_default = list(
 		if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
 			to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt has triggered a system reset instead!</span>")
 			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
-			reset_module()
+			revert_shell()
 			return
 		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
