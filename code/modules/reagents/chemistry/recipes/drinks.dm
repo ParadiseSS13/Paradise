@@ -451,6 +451,31 @@
 	result_amount = 3
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/arnoldpalmer
+	name = "Arnold Palmer"
+	id = "arnoldpalmer"
+	result = "arnoldpalmer"
+	required_reagents = list("icetea" = 1, "lemonade" = 1)
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/fetchingfizz
+	name = "Fetching Fizz"
+	id = "fetchingfizz"
+	result = "fetchingfizz"
+	required_reagents = list("beepskysmash" = 1, "ginfizz" = 1) 
+	result_amount = 2
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/heartypunch
+	name = "Hearty Punch"
+	id = "heartypunch"
+	result = "heartypunch"
+	required_reagents = list("rum" = 1, "grapejuice" = 1, "watermelonjuice" = 1)
+	result_amount = 3
+	min_temp = T0C + 100
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
 
 ////DRINKS THAT REQUIRED IMPROVED SPRITES BELOW:: -Agouri/////
 

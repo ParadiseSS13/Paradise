@@ -510,3 +510,43 @@
 	description = "Beloved of children and teetotalers."
 	color = "#E6CDFF"
 	taste_description = "grape soda"
+
+/datum/reagent/consumable/drink/arnoldpalmer
+	name = "Arnold Palmer"
+	id = "arnoldpalmer"
+	description = "Looks like this drink is par for the course."
+	color = "#664300" // rgb: 102, 67, 0
+	drink_icon = "arnold_palmer"
+	drink_name = "Arnold Palmer"
+	drink_desc = "Looks like this drink is par for the course."
+	taste_description = "golf balls"
+
+/datum/reagent/consumable/drink/fetchingfizz
+	name = "Fetching Fizz"
+	id = "fetchingfizz"
+	description = "The tears of miners laces the rim of this glass."
+	color = "#664300" // rgb: 102, 67, 0
+	drink_icon = "fetching_fizz"
+	drink_name = "Fetching Fizz"
+	description = "The tears of miners laces the rim of this glass."
+	taste_description = "volanic ash"
+
+/datum/reagent/consumable/drink/heartypunch
+	name = "Hearty Punch"
+	id = "heartypunch"
+	description = "This drink will give you the punch in the arm you need to keep going."
+	color = "#664300" // rgb: 102, 67, 0
+	drink_icon = "hearty_punch"
+	drink_name = "Hearty Punch"
+	description = "This drink will give you the punch in the arm you need to keep going."
+	taste_description = "encouragement"
+	
+/datum/reagent/consumable/drink/kahluaVodka
+	name = "Kahlua Vodka"
+	id = "kahluaVodka"
+	description = "For the Space Russian on the go."
+	color = "#664300" // rgb: 102, 67, 0
+	drink_icon = "kahluaVodka"
+	drink_name = "Kahlua Vodka"
+	description =  "For the Space Russian on the go."
+	taste_description = "sweet vodka"
