@@ -48,8 +48,7 @@
 	set hidden = 1
 	if(config.forumurl)
 		if(config.forum_link_url && prefs && !prefs.fuid)
-			if(alert("You need to activate your forum account. Activate now? (takes 2 seconds)",,"Yes","No")=="Yes")
-				link_forum_account()
+			link_forum_account()
 		if(alert("Open the forum in your browser?",,"Yes","No")=="Yes")
 			src << link(config.forumurl)
 	else
