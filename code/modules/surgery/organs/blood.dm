@@ -72,11 +72,17 @@
 
 		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
 
-		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
-			bleed_internal(internal_bleeding_rate)
+		if(internal_bleeding_rate && !(status_flags & FAKEDEATH) && !reagents.has_reagent("quikclot"))
+			if(reagents.has_reagent("tran_acid"))
+				bleed_internal(internal_bleeding_rate * 0.3) 	//bleed_internal(internal_bleeding_rate - 0.7 * reagents.has_reagent("tran_acid") * internal_bleeding_rate) efficient alternative 
+			else
+				bleed_internal(internal_bleeding_rate)
 
-		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
-			bleed(bleed_rate)
+		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH) && !reagents.has_reagent("quikclot"))
+			if(reagents.has_reagent("tran_acid"))
+				bleed(bleed_rate * 0.3) 	//bleed(bleed_rate - 0.7 * reagents.has_reagent("tran_acid") * bleed_rate) efficent alternative 
+			else
+				bleed(bleed_rate)
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)

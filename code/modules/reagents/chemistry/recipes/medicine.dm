@@ -12,6 +12,23 @@
 	required_reagents = list("synthflesh" = 1, "cryoxadone" = 1, "plasma" = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/tran_acid
+	name = "Tranexamic acid"
+	id = "tran_acid"
+	result = "tran_acid"
+	required_reagents = list("oil" = 1, "ethanol" = 1, "ammonia" = 1)
+	result_amount = 3
+
+/datum/chemical_reaction/quikclot
+	name = "Calcium Zeolite"
+	id = "quikclot"
+	result = "quikclot"
+	required_reagents = list("milk" = 1, "aluminum" = 1, "silicon" = 1, "plasma_dust" = 1, "water" = 1)
+	result_amount = 3
+	min_temp = T0C + 60
+	mix_message = "The mixture yields a fine white powder."
+	mix_sound = 'sound/goonstation/misc/fuse.ogg'
+
 /datum/chemical_reaction/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"

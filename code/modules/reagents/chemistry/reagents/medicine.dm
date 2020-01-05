@@ -106,6 +106,59 @@
 		if(!Org.is_robotic())
 			Org.rejuvenate()
 
+/datum/reagent/medicine/tran_acid
+	name = "Tranexamic acid"
+	id = "tran_acid"
+	description = "A specialised chemical used for the treatment of truamatic bleeding and to control bleeding during surgery."
+	reagent_state = LIQUID
+	color = "#fcec96"
+	overdose_threshold = 40
+	harmless = FALSE
+	taste_description = "time running out"
+
+// This reagent's effects are handled in handle blood  code
+
+/datum/reagent/medicine/quikclot
+	name = "Calicum Zeolite"
+	id = "quikclot"
+	description = "A naturally occuring mineral used for treating mass hemorrhage. Use with caution."
+	reagent_state = LIQUID
+	color = "#f3d7a4"
+	overdose_threshold = 15
+	harmless = FALSE
+	taste_description = "Bonemeal"
+
+// This reagent's effects are handled in handle blood code
+
+/datum/reagent/medicine/quikclot/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 1)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 3)
+			M.emote(pick("groan","moan"))
+		if(effect <= 8)
+			M.emote("collapse")
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			M.fakevomit(no_text = 1)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M.name] staggers and drools!</span>")
+			M.Dizzy(2)
+			update_flags |= M.Weaken(3, FALSE)
+		if(effect <= 15)
+			M.emote("collapse")
+	if(prob(5))	
+		if(istype(M,/mob/living/carbon/human))
+			var/mob/living/carbon/human/H = M
+			if(!H.undergoing_cardiac_arrest())
+				H.set_heartattack(TRUE) //this is a powerful clotting factor, overdose and experience SCD
+	return list(effect, update_flags)
+
 /datum/reagent/medicine/cryoxadone
 	name = "Cryoxadone"
 	id = "cryoxadone"
