@@ -47,9 +47,9 @@
 	set desc = "Visit the forum."
 	set hidden = 1
 	if(config.forumurl)
-		if(config.forum_link_url && prefs && !prefs.fuid)
-			link_forum_account()
 		if(alert("Open the forum in your browser?",,"Yes","No")=="Yes")
+			if(config.forum_link_url && prefs && !prefs.fuid)
+				link_forum_account()
 			src << link(config.forumurl)
 	else
 		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
