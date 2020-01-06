@@ -84,6 +84,13 @@
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implanter/mindshield(src)
 
+/obj/item/storage/lockbox/loyalty/New()
+	..()
+	new /obj/item/implantcase/loyalty(src)
+	new /obj/item/implantcase/loyalty(src)
+	new /obj/item/implantcase/loyalty(src)
+	new /obj/item/implanter/loyalty(src)
+
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"
 	desc = "You have a bad feeling about opening this."
