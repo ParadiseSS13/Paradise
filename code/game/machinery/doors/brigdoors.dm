@@ -444,7 +444,7 @@
 //Stolen from status_display
 /obj/machinery/door_timer/proc/texticon(tn, px = 0, py = 0)
 	var/image/I = image('icons/obj/status_display.dmi', "blank")
-	var/len = lentext(tn)
+	var/len = length(tn)
 
 	for(var/d = 1 to len)
 		var/char = copytext(tn, len-d+1, len-d+2)
