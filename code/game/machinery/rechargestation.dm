@@ -173,17 +173,17 @@
 							F.icon_state = "flash"
 					if(istype(O,/obj/item/gun/energy/disabler/cyborg))
 						var/obj/item/gun/energy/disabler/cyborg/D = O
-						if(D.power_supply.charge < D.power_supply.maxcharge)
+						if(D.cell.charge < D.cell.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.power_supply.give(E.e_cost)
+							D.cell.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
-						if(B.bcell)
-							B.bcell.charge = B.bcell.maxcharge
+						if(B.cell)
+							B.cell.charge = B.cell.maxcharge
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)

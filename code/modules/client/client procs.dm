@@ -360,10 +360,10 @@
 	. = ..()	//calls mob.Login()
 
 
-	if(ckey in clientmessages)
-		for(var/message in clientmessages[ckey])
+	if(ckey in GLOB.clientmessages)
+		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
-		clientmessages.Remove(ckey)
+		GLOB.clientmessages.Remove(ckey)
 
 	if(SSinput.initialized)
 		set_macros()

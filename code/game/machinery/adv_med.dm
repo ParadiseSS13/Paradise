@@ -140,6 +140,9 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	if(occupant == user)
+		return // you cant reach that
+
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return

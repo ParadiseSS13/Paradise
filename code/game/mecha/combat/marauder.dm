@@ -59,8 +59,6 @@
 
 /obj/mecha/combat/marauder/seraph/add_cell()
 	cell = new /obj/item/stock_parts/cell/bluespace(src)
-	cell.charge = 40000
-	cell.maxcharge = 40000
 
 /obj/mecha/combat/marauder/seraph/loaded/New()
 	..()//Let it equip whatever is needed.

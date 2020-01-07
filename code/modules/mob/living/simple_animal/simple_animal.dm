@@ -500,7 +500,7 @@
 		. |= pcollar.GetAccess()
 
 /mob/living/simple_animal/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || weakened || stat || resting)
+	if(paralysis || stunned || IsWeakened() || stat || resting)
 		drop_r_hand()
 		drop_l_hand()
 		canmove = 0

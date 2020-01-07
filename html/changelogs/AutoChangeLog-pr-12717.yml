@@ -1,0 +1,5 @@
+author: "moxian"
+delete-after: True
+changes: 
+  - bugfix: "being in a locker no longer interferes with tracking implant tracking"
+  - bugfix: "locator no longer locates tracking implants on other z levels."
