@@ -61,6 +61,8 @@
 
 // health + cyborg analyzer for ghosts
 /mob/living/attack_ghost(mob/dead/observer/user)
+	if(!istype(user))
+		return
 	if(user.client && user.health_scan)
 		if(issilicon(src) || ismachine(src))
 			robot_healthscan(user, src)
