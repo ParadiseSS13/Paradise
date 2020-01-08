@@ -70,19 +70,21 @@
 			if(BP.internal_bleeding)
 				internal_bleeding_rate += 0.5
 
-		bleed_rate = max(bleed_rate - 0.5, temp_bleed)//if no wounds, other bleed effects (heparin) naturally decreases
+		bleed_rate = max(bleed_rate - 0.5, temp_bleed * get_bleed_modifier()) //if no wounds, other bleed effects (heparin) naturally decreases
+		internal_bleeding_rate *= get_bleed_modifier()
 
-		if(internal_bleeding_rate && !(status_flags & FAKEDEATH) && !reagents.has_reagent("quikclot"))
-			if(reagents.has_reagent("tran_acid"))
-				bleed_internal(internal_bleeding_rate * 0.3) 	//bleed_internal(internal_bleeding_rate - 0.7 * reagents.has_reagent("tran_acid") * internal_bleeding_rate) efficient alternative 
-			else
-				bleed_internal(internal_bleeding_rate)
+		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
+			bleed_internal(internal_bleeding_rate)
 
-		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH) && !reagents.has_reagent("quikclot"))
-			if(reagents.has_reagent("tran_acid"))
-				bleed(bleed_rate * 0.3) 	//bleed(bleed_rate - 0.7 * reagents.has_reagent("tran_acid") * bleed_rate) efficent alternative 
-			else
-				bleed(bleed_rate)
+		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
+			bleed(bleed_rate) 
+
+/mob/living/carbon/human/proc/get_bleed_modifier()
+	if(reagents.has_reagent("calzeo"))
+		return 0
+	else if(reagents.has_reagent("tran_acid"))
+		return 0.3
+	return 1
 
 //Makes a blood drop, leaking amt units of blood from the mob
 /mob/living/carbon/proc/bleed(amt)

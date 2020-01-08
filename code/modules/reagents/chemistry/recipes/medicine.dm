@@ -19,10 +19,10 @@
 	required_reagents = list("oil" = 1, "ethanol" = 1, "ammonia" = 1)
 	result_amount = 3
 
-/datum/chemical_reaction/quikclot
+/datum/chemical_reaction/calzeo
 	name = "Calcium Zeolite"
-	id = "quikclot"
-	result = "quikclot"
+	id = "calzeo"
+	result = "calzeo"
 	required_reagents = list("milk" = 1, "aluminum" = 1, "silicon" = 1, "plasma_dust" = 1, "water" = 1)
 	result_amount = 3
 	min_temp = T0C + 60
