@@ -12,7 +12,7 @@
 	var/see_invisible = 0
 	var/lighting_alpha
 	
-	var/eye_colour = "#000000"
+	var/eye_colour = "#000000" // Should not be null
 	var/old_eye_colour = "#000000"
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
@@ -36,8 +36,7 @@
 	if(!istype(H))
 		H = owner
 	var/icon/cybereyes_icon = new /icon('icons/mob/human_face.dmi', H.dna.species.eyes)
-	if(eye_colour)
-		cybereyes_icon.Blend(eye_colour, ICON_ADD) // Eye implants override native DNA eye color
+	cybereyes_icon.Blend(eye_colour, ICON_ADD) // Eye implants override native DNA eye color
 
 	return cybereyes_icon
 
