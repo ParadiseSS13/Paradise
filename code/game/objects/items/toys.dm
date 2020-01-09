@@ -1085,6 +1085,19 @@ obj/item/toy/cards/deck/syndicate/black
 		return
 	..()
 
+/obj/item/toy/plushie/ipcplushie
+	name = "ipc plushie"
+	desc = "An adorable ipc plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
+	icon_state = "plushie_ipc"
+	item_state = "plushie_ipc"
+
+/obj/item/toy/plushie/ipcplushie/attackby(obj/item/B, mob/user, params)
+	if(istype(B, /obj/item/reagent_containers/food/snacks/breadslice))
+		new /obj/item/reagent_containers/food/snacks/toast(get_turf(loc))
+		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
+		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+		qdel(B)
+
 //New generation TG plushies
 
 /obj/item/toy/plushie/lizardplushie
