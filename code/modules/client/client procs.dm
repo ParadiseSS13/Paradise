@@ -646,10 +646,11 @@
 		return
 	var/url = "[config.forum_link_url][tokenid]"
 	if(fromban)
-		to_chat(src, {"Copy/paste this URL into your browser to activate your forum account before you appeal: <a href="[url]">[url]</a> (this link expires soon)"})
+		url += "&fwd=appeal"
+		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
 	else
 		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
-		src << link(url)
+	src << link(url)
 	return
 
 #undef TOPIC_SPAM_DELAY
