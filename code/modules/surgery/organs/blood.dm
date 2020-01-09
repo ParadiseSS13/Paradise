@@ -79,7 +79,7 @@
 		if(bleed_rate && !bleedsuppress && !(status_flags & FAKEDEATH))
 			bleed(bleed_rate) 
 
-/mob/living/carbon/human/proc/get_bleed_modifier()
+/mob/living/carbon/human/proc/get_bleed_modifier() //this allows the rate of bleeding to be modified by a percentage based on the chemicals present, there is probably a better way to do this
 	if(reagents.has_reagent("calzeo"))
 		return 0
 	else if(reagents.has_reagent("tran_acid"))

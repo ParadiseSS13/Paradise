@@ -150,7 +150,7 @@
 		if(effect <= 15)
 			M.emote("collapse")
 	if(prob(5))	
-		if(istype(M,/mob/living/carbon/human))
+		if(istype(M, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = M
 			H.set_heartattack(TRUE) //this is a powerful clotting factor, overdose and experience SCD
 	return list(effect, update_flags)
