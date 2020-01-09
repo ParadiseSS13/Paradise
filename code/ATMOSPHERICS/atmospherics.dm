@@ -65,6 +65,8 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon()
 	var/turf/T = loc
+	if(!istype(T)) // Somehow loc became null
+		return
 	if(level == 2 || !T.intact)
 		plane = GAME_PLANE
 	else

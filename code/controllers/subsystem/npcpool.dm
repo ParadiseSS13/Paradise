@@ -21,6 +21,9 @@ SUBSYSTEM_DEF(npcpool)
     while(currentrun.len)
         var/mob/living/simple_animal/SA = currentrun[currentrun.len]
         --currentrun.len
+        if(!SA)
+            GLOB.simple_animals[AI_ON] -= SA
+            continue
 
         if(!SA.ckey && !SA.notransform)
             if(SA.stat != DEAD)
