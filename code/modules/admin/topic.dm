@@ -212,7 +212,7 @@
 			if(admin_ranks.len)
 				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (admin_ranks|"*New Rank*")
 			else
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Game Master","Game Admin", "Trial Admin", "Admin Observer","*New Rank*")
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "*New Rank*")
 
 			var/rights = 0
 			if(D)
@@ -936,6 +936,13 @@
 		target = text2num(target)
 		show_note(index = target)
 
+	else if(href_list["webtools"])
+		var/target_ckey = href_list["webtools"]
+		if(config.forum_playerinfo_url)
+			var/url_to_open = config.forum_playerinfo_url + target_ckey
+			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
+				usr.client << link(url_to_open)
+
 	else if(href_list["shownoteckey"])
 		var/target_ckey = href_list["shownoteckey"]
 		show_note(target_ckey)
@@ -995,6 +1002,8 @@
 				feedback_inc("ban_tmp",1)
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				feedback_inc("ban_tmp_mins",mins)
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
@@ -1011,6 +1020,8 @@
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
