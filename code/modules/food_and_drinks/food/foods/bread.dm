@@ -174,14 +174,6 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3) 
 	tastes = list("toast" = 2)
-	
-	/*name = "Toast"
-	desc = "Yeah! Toast!"
-	icon_state = "toast"
-	filling_color = "#b2580e"
-	bitesize = 3
-	list_reagents = list("nutriment" = 3) 
-	tastes = list("toast" = 2)*/
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast
 	name = "Jellied Toast"

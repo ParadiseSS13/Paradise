@@ -1086,7 +1086,7 @@ obj/item/toy/cards/deck/syndicate/black
 	..()
 
 /obj/item/toy/plushie/ipcplushie
-	name = "ipc plushie"
+	name = "IPC plushie"
 	desc = "An adorable ipc plushie, straight from New Canaan. Arguably more durable than the real deal. Toaster functionality included."
 	icon_state = "plushie_ipc"
 	item_state = "plushie_ipc"
@@ -1097,6 +1097,8 @@ obj/item/toy/cards/deck/syndicate/black
 		to_chat(user, "<span class='notice'> You insert bread into the toaster. </span>")
 		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 		qdel(B)
+	else 
+		return ..()
 
 //New generation TG plushies
 
