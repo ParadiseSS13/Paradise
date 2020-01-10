@@ -17,6 +17,10 @@
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
 
+/obj/item/organ/internal/cyberimpeyes/Initialize(mapload, ...)
+	. = ..()
+	if(!eye_colour)
+		eye_colour = "#000000"
 
 /obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
 	..()
