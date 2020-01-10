@@ -66,7 +66,7 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 /obj/machinery/atmospherics/update_icon()
 	var/turf/T = loc
 	if(!istype(T)) // Somehow loc became null
-		return
+		qdel(src)
 	if(level == 2 || !T.intact)
 		plane = GAME_PLANE
 	else
