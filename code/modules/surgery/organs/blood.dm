@@ -70,12 +70,7 @@
 			if(BP.internal_bleeding)
 				internal_bleeding_rate += 0.5
 
-		if(temp_bleed > 0 || bleed_rate > 0 )
-			if(temp_bleed)
-				bleed_rate = temp_bleed * get_bleed_modifier() //temp_bleed to bleed_rate
-			else
-				bleed_rate = max(0, bleed_rate - 0.5) //if no wounds, other bleed effects (heparin) naturally decreases and can not go below 0
-		
+		bleed_rate = max(0, bleed_rate - 0.5, temp_bleed * get_bleed_modifier()) //if no wounds, other bleed effects (heparin) naturally decreases and can not go below 0
 		internal_bleeding_rate *= get_bleed_modifier()
 
 		if(internal_bleeding_rate && !(status_flags & FAKEDEATH))
