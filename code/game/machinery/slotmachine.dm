@@ -77,12 +77,12 @@
 			result = "You win a thousand credits!"
 			resultlvl = "good"
 			win_money(1000, 'sound/goonstation/misc/bell.ogg')
-		if(101 to 300) // 2%%
+		if(101 to 300) // 2%
 			atom_say("Winner! [userName] has won a hundred credits!")
 			result = "You win a hundred credits!"
 			resultlvl = "good"
 			win_money(100, 'sound/goonstation/misc/bell.ogg')
-		if(301 to 500) // 2%%
+		if(301 to 500) // 2%
 			atom_say("Winner! [userName] has won fifty credits!")
 			result = "You win fifty credits!"
 			resultlvl = "good"
