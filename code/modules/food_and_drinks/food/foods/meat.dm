@@ -286,7 +286,7 @@
 		if(faction)
 			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
-			creature.fingerprintshidden = fingerprintshidden.Copy()
+			creature.fingerprintshidden = fingerprintshidden
 		creature.set_species(monkey_type)
 		SSmobs.cubemonkeys += creature
 		qdel(src)

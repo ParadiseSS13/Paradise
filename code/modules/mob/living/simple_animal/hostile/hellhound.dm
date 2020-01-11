@@ -1,6 +1,6 @@
 // Hellhound
 /mob/living/simple_animal/hostile/hellhound
-	// Sprites by FoS: http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "Lesser Hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
 	icon_state = "hellhound"

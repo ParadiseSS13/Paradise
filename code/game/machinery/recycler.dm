@@ -8,6 +8,7 @@ var/const/SAFETY_COOLDOWN = 100
 	layer = MOB_LAYER+1 // Overhead
 	anchored = 1
 	density = 1
+	damage_deflection = 10
 	var/safety_mode = 0 // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
 	var/blood = 0
