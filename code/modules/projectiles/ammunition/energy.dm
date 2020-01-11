@@ -95,7 +95,7 @@
 	e_cost = 100
 
 /obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 200
+	e_cost = 300
 
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/item/projectile/ion

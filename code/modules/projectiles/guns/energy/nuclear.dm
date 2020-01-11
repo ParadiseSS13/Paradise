@@ -71,6 +71,7 @@
 	name = "PDW-9 taser pistol"
 	desc = "A military grade sidearm, used by many militia forces throughout the local sector."
 	icon_state = "pdw9pistol"
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/electrode/hos)
 
 /obj/item/gun/energy/gun/turret
 	name = "hybrid turret gun"
