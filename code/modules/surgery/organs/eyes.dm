@@ -5,7 +5,7 @@
 	organ_tag = "eyes"
 	parent_organ = "head"
 	slot = "eyes"
-	var/eye_colour = "#000000" // Should not be null
+	var/eye_colour = "#000000" // Should never be null
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
 	var/list/replace_colours = LIST_GREYSCALE_REPLACE
@@ -16,11 +16,6 @@
 	var/see_in_dark = 2
 	var/see_invisible = SEE_INVISIBLE_LIVING
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-
-/obj/item/organ/internal/eyes/Initialize(mapload, ...)
-	. = ..()
-	if(!eye_colour)
-		eye_colour = "#000000"
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
