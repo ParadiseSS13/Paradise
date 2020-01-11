@@ -414,6 +414,13 @@ var/failed_old_db_connections = 0
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
 
+	// This log follows a special format and this path should NOT be used for anything else
+	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
+	if(fexists(GLOB.runtime_summary_log))
+		fdel(GLOB.runtime_summary_log)
+	start_log(GLOB.runtime_summary_log)
+	// And back to sanity
+
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")
 		fdel(GLOB.config_error_log)
