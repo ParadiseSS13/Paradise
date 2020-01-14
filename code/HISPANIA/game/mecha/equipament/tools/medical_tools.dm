@@ -4,7 +4,7 @@
 	icon = 'icons/hispania/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_medigun"
 	energy_drain = 500
-	range = MELEE|RANGED
+	range = MECHA_MELEE|MECHA_RANGED
 	equip_cooldown = 10
 	var/last_check = 0
 	var/mode = 0

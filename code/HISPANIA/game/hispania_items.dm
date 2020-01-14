@@ -112,7 +112,7 @@
 /obj/item/defibrillator/compact/kotiro/loaded/New()
 	..()
 	paddles = make_paddles_custom()
-	bcell = new(src)
+	cell = new(src)
 	update_icon()
 	return
 
