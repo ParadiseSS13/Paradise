@@ -184,8 +184,8 @@
 	result = /obj/item/ammo_casing/shotgun/frag12
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/datum/reagent/glycerol = 5,
-				/datum/reagent/sacid = 5,
-				/datum/reagent/facid = 5,)
+				/datum/reagent/acid = 5,
+				/datum/reagent/acid/facid = 5,)
 	tools = list(/obj/item/screwdriver)
 	time = 5
 	category = CAT_WEAPONRY
@@ -571,3 +571,448 @@
 	time = 50
 	category = CAT_MISC
 	always_availible = FALSE
+
+/datum/crafting_recipe/paper_craft
+	name = "Paper Heart"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/heart
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 1)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red)//cutters act as makeshift scissors. I doubt the barber wants to have their scissors stolen when somone wants to decorate
+	category = CAT_DECORATIONS
+	subcategory = CAT_DECORATION
+
+/datum/crafting_recipe/paper_craft/single_eye
+	name = "Paper Eye"
+	result = /obj/item/decorations/sticky_decorations/flammable/singleeye
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/blue)
+	category = CAT_DECORATIONS
+	subcategory = CAT_DECORATION
+
+/datum/crafting_recipe/paper_craft/googlyeyes
+	name = "Paper Googly Eye"
+	result = /obj/item/decorations/sticky_decorations/flammable/googlyeyes
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_DECORATION
+
+/datum/crafting_recipe/paper_craft/clock
+	name = "Paper Clock"
+	result = /obj/item/decorations/sticky_decorations/flammable/paperclock
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_DECORATION
+
+/datum/crafting_recipe/paper_craft/jack_o_lantern
+	name = "Paper Jack o'Lantern"
+	result = /obj/item/decorations/sticky_decorations/flammable/jack_o_lantern
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/orange,
+				/obj/item/toy/crayon/green)//pen ink is black
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/ghost
+	name = "Paper Ghost"
+	result = /obj/item/decorations/sticky_decorations/flammable/ghost
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen)//it's white paper why need a white crayon?
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/spider
+	name = "Paper Spider"
+	result = /obj/item/decorations/sticky_decorations/flammable/spider
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/spiderweb
+	name = "Paper Spiderweb"
+	result = /obj/item/decorations/sticky_decorations/flammable/spiderweb
+	tools = list(/obj/item/wirecutters)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/skull
+	name = "Paper Skull"
+	result = /obj/item/decorations/sticky_decorations/flammable/skull
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/skeleton
+	name = "Paper Skeleton"
+	result = /obj/item/decorations/sticky_decorations/flammable/skeleton
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/cauldron
+	name = "Paper Cauldron"
+	result = /obj/item/decorations/sticky_decorations/flammable/cauldron
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/snowman
+	name = "Paper Snowman"
+	result = /obj/item/decorations/sticky_decorations/flammable/snowman
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/christmas_stocking
+	name = "Paper Christmas Stocking"
+	result = /obj/item/decorations/sticky_decorations/flammable/christmas_stocking
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/christmas_tree
+	name = "Paper Christmas Tree"
+	result = /obj/item/decorations/sticky_decorations/flammable/christmas_tree
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red,
+				/obj/item/toy/crayon/yellow,
+				/obj/item/toy/crayon/blue,
+				/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/snowflake
+	name = "Paper Snowflake"
+	result = /obj/item/decorations/sticky_decorations/flammable/snowflake
+	tools = list(/obj/item/wirecutters)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/candy_cane
+	name = "Paper Candy Cane"
+	result = /obj/item/decorations/sticky_decorations/flammable/candy_cane
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/mistletoe
+	name = "Paper Mistletoe"
+	result = /obj/item/decorations/sticky_decorations/flammable/mistletoe
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red,
+				/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/holly
+	name = "Paper Holly"
+	result = /obj/item/decorations/sticky_decorations/flammable/holly
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red,
+				/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_white
+	name = "Paper Tinsel White"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_red
+	name = "Red Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/red
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_blue
+	name = "Blue Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/blue
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/blue)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_yellow
+	name = "Yellow Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/yellow
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/yellow)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_purple
+	name = "Purple Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/purple
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_green
+	name = "Green Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/green
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_orange
+	name = "Orange Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/orange
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_black
+	name = "Black Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/black
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/tinsel_halloween
+	name = "Halloween style Paper Tinsel"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/tinsel/halloween
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/arrowed_heart
+	name = "Paper Arrowed Heart"
+	result = /obj/item/decorations/sticky_decorations/flammable/arrowed_heart
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/heart_chain
+	name = "Paper Heart Chain"
+	result = /obj/item/decorations/sticky_decorations/flammable/heart_chain
+	reqs = list(/obj/item/paper = 1,
+				/obj/item/stack/tape_roll = 2,
+				/obj/item/stack/cable_coil = 2)
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/four_leaf_clover
+	name = "Paper Four Leaf Clover"
+	result = /obj/item/decorations/sticky_decorations/flammable/four_leaf_clover
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/pot_of_gold
+	name = "Paper Pot of Gold"
+	result = /obj/item/decorations/sticky_decorations/flammable/pot_of_gold
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/red,
+				/obj/item/toy/crayon/yellow,
+				/obj/item/toy/crayon/orange,
+				/obj/item/toy/crayon/green,
+				/obj/item/toy/crayon/blue,
+				/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/leprechaun_hat
+	name = "Paper Leprechaun Hat"
+	time = 10
+	result = /obj/item/decorations/sticky_decorations/flammable/leprechaun_hat
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/yellow,
+				/obj/item/toy/crayon/green)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/easter_bunny
+	name = "Paper Easter Bunny"
+	result = /obj/item/decorations/sticky_decorations/flammable/easter_bunny
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/toy/crayon/blue,
+				/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/easter_egg_blue
+	name = "Blue Paper Easter Egg"
+	result = /obj/item/decorations/sticky_decorations/flammable/easter_egg
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/blue)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/easter_egg_yellow
+	name = "Yellow Paper Easter Egg"
+	result = /obj/item/decorations/sticky_decorations/flammable/easter_egg/yellow
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/yellow)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/easter_egg_red
+	name = "Red Paper Easter Egg"
+	result = /obj/item/decorations/sticky_decorations/flammable/easter_egg/red
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/easter_egg_purple
+	name = "Purple Paper Easter Egg"
+	result = /obj/item/decorations/sticky_decorations/flammable/easter_egg/purple
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/purple)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/paper_craft/easter_egg_orange
+	name = "Orange Paper Easter Egg"
+	result = /obj/item/decorations/sticky_decorations/flammable/easter_egg/orange
+	tools = list(/obj/item/wirecutters,
+				/obj/item/toy/crayon/orange)
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
+
+/datum/crafting_recipe/metal_angel_statue
+	name = "Metal angel statue"
+	time = 50
+	result = /obj/structure/decorative_structures/metal/statue/metal_angel
+	reqs = list(/obj/item/stack/sheet/metal = 10,
+				/obj/item/stack/sheet/mineral/gold = 6)
+	tools = list(/obj/item/weldingtool)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/golden_disk_statue
+	name = "Golden disk statue"
+	time = 50
+	result = /obj/structure/decorative_structures/metal/statue/golden_disk
+	reqs = list(/obj/item/stack/sheet/metal = 10,
+				/obj/item/stack/sheet/mineral/plasma = 3,
+				/obj/item/stack/sheet/mineral/gold = 8)
+	tools = list(/obj/item/weldingtool)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/sun_statue
+	name = "Sun statue"
+	time = 40
+	result = /obj/structure/decorative_structures/metal/statue/sun
+	reqs = list(/obj/item/stack/sheet/metal = 6,
+				/obj/item/stack/sheet/mineral/gold = 4)
+	tools = list(/obj/item/weldingtool)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/moon_statue
+	name = "Moon statue"
+	time = 50
+	result = /obj/structure/decorative_structures/metal/statue/moon
+	reqs = list(/obj/item/stack/sheet/metal = 6,
+				/obj/item/stack/sheet/mineral/silver = 6,
+				/obj/item/stack/sheet/mineral/gold = 4)
+	tools = list(/obj/item/weldingtool)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/tesla_statue
+	name = "Tesla statue"
+	time = 40
+	result = /obj/structure/decorative_structures/metal/statue/tesla
+	reqs = list(/obj/item/stack/sheet/metal = 4,
+				/obj/item/stack/sheet/glass = 8)
+	tools = list(/obj/item/weldingtool)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/tesla_monument
+	name = "Tesla monument"
+	time = 50
+	result = /obj/structure/decorative_structures/metal/statue/tesla_monument
+	reqs = list(/obj/item/stack/sheet/metal = 8,
+				/obj/item/stock_parts/cell = 3,
+				/obj/item/stack/cable_coil = 4)
+	tools = list(/obj/item/weldingtool)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/grandfather_clock
+	name = "Grandfather clock"
+	time = 50
+	result = /obj/structure/decorative_structures/flammable/grandfather_clock
+	reqs = list(/obj/item/stack/sheet/wood = 5,
+				/obj/item/stack/sheet/mineral/gold = 1,
+				/obj/item/stack/sheet/glass = 2)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/lava_land_display
+	name = "Lava land display"
+	time = 50
+	result = /obj/structure/decorative_structures/flammable/lava_land_display
+	reqs = list(/obj/item/paper = 4,
+				/obj/item/stack/sheet/wood = 4,
+				/obj/item/stack/rods = 4,
+				/obj/item/stock_parts/cell = 1,
+				/obj/item/stack/cable_coil = 4)//thing is a wireframe construct with an electro magnetic hover field
+	tools = list(/obj/item/wirecutters,
+				/obj/item/pen,
+				/obj/item/weldingtool,
+				/obj/item/toy/crayon/red)
+	category = CAT_DECORATIONS
+	subcategory = CAT_LARGE_DECORATIONS

@@ -33,18 +33,5 @@
 			playsound(src.loc, 'sound/effects/slosh.ogg', 25, 1)
 		if(src.reagents.total_volume < 1)
 			to_chat(user, "<span class='notice'>Out of water!</span>")
-	return
-
-/obj/structure/mopbucket/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(5))
-				qdel(src)
-				return
+		return
+	return ..()

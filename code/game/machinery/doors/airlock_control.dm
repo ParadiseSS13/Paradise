@@ -150,6 +150,7 @@
 	icon_state = "airlock_sensor_off"
 	name = "airlock sensor"
 	anchored = 1
+	resistance_flags = FIRE_PROOF
 	power_channel = ENVIRON
 
 	var/id_tag
@@ -253,7 +254,7 @@
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		attack_hand(user)
 		return
-	..()
+	return ..()
 
 /obj/machinery/access_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())

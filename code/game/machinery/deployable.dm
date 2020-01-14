@@ -19,45 +19,11 @@
 	var/drop_amount = 3
 	var/stacktype = /obj/item/stack/sheet/metal
 
-/obj/structure/barricade/blob_act(obj/structure/blob/B) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
-
-/obj/structure/barricade/ex_act(severity) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
-
-/obj/structure/barricade/mech_melee_attack(obj/mecha/M) //TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
-	M.do_attack_animation(src)
-	var/play_soundeffect = 0
-	var/mech_damtype = M.damtype
-	if(M.selected)
-		mech_damtype = M.selected.damtype
-		play_soundeffect = 1
-	else
-		switch(M.damtype)
-			if(BRUTE)
-				playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-			if(BURN)
-				playsound(src, 'sound/items/welder.ogg', 50, 1)
-			if(TOX)
-				playsound(src, 'sound/effects/spray2.ogg', 50, 1)
-				return 0
-			else
-				return 0
-	visible_message("<span class='danger'>[M.name] has hit [src].</span>")
-	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
-
 /obj/structure/barricade/deconstruct(disassembled = TRUE)
-	make_debris()
+	if(!(flags & NODECONSTRUCT))
+		make_debris()
 	qdel(src)
+
 
 /obj/structure/barricade/proc/make_debris()
 	if(stacktype)
@@ -101,8 +67,6 @@
 	icon_state = "woodenbarricade"
 	bar_material = WOOD
 	stacktype = /obj/item/stack/sheet/wood
-	burn_state = FLAMMABLE
-	burntime = 25
 
 /obj/structure/barricade/wooden/attackby(obj/item/I, mob/user)
 	if(istype(I,/obj/item/stack/sheet/wood))
@@ -155,7 +119,7 @@
 	anchored = FALSE
 	max_integrity = 180
 	proj_pass_rate = 20
-	armor = list(melee = 10, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100)
+	armor = list(melee = 10, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 10, acid = 0)
 	stacktype = null
 	var/deploy_time = 40
 	var/deploy_message = TRUE

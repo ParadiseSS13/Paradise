@@ -12,9 +12,10 @@
 	bound_width = 416
 	bound_height = 64
 	pixel_y = -10
-	unacidable = TRUE
-	resistance_flags = INDESTRUCTIBLE
-	burn_state = LAVA_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/effect/clockwork
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 // An "overlay" used by clockwork walls and floors to appear normal to mesons.
 /obj/effect/clockwork/overlay
@@ -30,6 +31,7 @@
 
 /obj/effect/clockwork/overlay/singularity_act()
 	return
+
 /obj/effect/clockwork/overlay/singularity_pull()
 	return
 
@@ -75,11 +77,9 @@
 	icon_state = "wall_gear"
 	climbable = TRUE
 	max_integrity = 100
-	can_deconstruct = TRUE
 	anchored = TRUE
 	density = TRUE
-	unacidable = TRUE
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 
 /obj/structure/clockwork/wall_gear/displaced
@@ -140,9 +140,13 @@
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && disassembled)
+	if(!(flags & NODECONSTRUCT) && disassembled)
 		new /obj/item/stack/tile/brass(loc, 3)
 	return ..()
+
+//The base clockwork item. Can have an alternate desc and will show up in the list of clockwork objects.
+/obj/item/clockwork
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 //Shards of Alloy, suitable only as a source of power for a replica fabricator.
 /obj/item/clockwork/alloy_shards
@@ -150,8 +154,7 @@
 	desc = "Broken shards of some oddly malleable metal. They occasionally move and seem to glow."
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "alloy_shards"
-	burn_state = LAVA_PROOF
-	unacidable = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/randomsinglesprite = FALSE
 	var/randomspritemax = 2
 	var/sprite_shift = 9
@@ -212,6 +215,10 @@
 	name = "pinion lock"
 	desc = "A dented and scratched gear. It's very heavy."
 	icon_state = "pinion_lock"
+
+//Components: Used in scripture.
+/obj/item/clockwork/component
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clockwork/component/belligerent_eye
 	name = "belligerent eye"

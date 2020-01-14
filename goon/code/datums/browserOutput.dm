@@ -16,11 +16,18 @@ var/list/chatResources = list(
 	"goon/browserassets/html/saveInstructions.html"
 )
 
+//Should match the value set in the browser js
+#define MAX_COOKIE_LENGTH 5
+
 /var/savefile/iconCache = new /savefile("data/iconCache.sav")
 /var/chatDebug = file("data/chatDebug.log")
 
 /datum/chatOutput
 	var/client/owner = null
+	// How many times client data has been checked
+	var/total_checks = 0
+	// When to next clear the client data checks counter
+	var/next_time_to_clear = 0
 	var/loaded = 0
 	var/list/messageQueue = list()
 	var/cookieSent = 0
@@ -137,6 +144,16 @@ var/list/chatResources = list(
 	ehjax_send(data = data)
 
 /datum/chatOutput/proc/analyzeClientData(cookie = "")
+	//Spam check
+	if(world.time  >  next_time_to_clear)
+		next_time_to_clear = world.time + (3 SECONDS)
+		total_checks = 0
+	total_checks += 1
+	if(total_checks > SPAM_TRIGGER_AUTOMUTE)
+		message_admins("[key_name(owner)] kicked for goonchat topic spam")
+		qdel(owner)
+		return
+
 	if(!cookie)
 		return
 
@@ -145,17 +162,24 @@ var/list/chatResources = list(
 		if(connData && islist(connData) && connData.len > 0 && connData["connData"])
 			connectionHistory = connData["connData"]
 			var/list/found = new()
+			if(connectionHistory.len > MAX_COOKIE_LENGTH)
+				message_admins("[key_name(src.owner)] was kicked for an invalid ban cookie)")
+				qdel(owner)
+				return
 			for(var/i = connectionHistory.len; i >= 1; i--)
+				if(QDELETED(owner))
+					//he got cleaned up before we were done
+					return
 				var/list/row = connectionHistory[i]
 				if(!row || row.len < 3 || !(row["ckey"] && row["compid"] && row["ip"]))
 					return
-				if(world.IsBanned(row["ckey"], row["compid"], row["ip"], FALSE))
+				if(world.IsBanned(key=row["ckey"], address=row["ip"], computer_id=row["compid"], type=null, check_ipintel=FALSE))
 					found = row
 					break
-
+				CHECK_TICK
+			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
 			if (found.len > 0)
-				AddBan(owner.ckey, owner.computer_id, "Ban evasion on account: [found["ckey"]]", "System", 0, 0, owner.address) 
 				message_admins("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 
@@ -285,3 +309,5 @@ var/to_chat_src
 		to_chat_immediate(target, message, flag)
 		return
 	SSchat.queue(target, message, flag)
+
+#undef MAX_COOKIE_LENGTH

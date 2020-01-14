@@ -97,12 +97,11 @@
 
 /obj/machinery/r_n_d/server/ex_act(severity)
 	griefProtection()
-	..()
+	return ..()
 
-
-/obj/machinery/r_n_d/server/blob_act()
+/obj/machinery/r_n_d/server/blob_act(obj/structure/blob/B)
 	griefProtection()
-	..()
+	return ..()
 
 // Backup files to CentComm to help admins recover data after griefer attacks
 /obj/machinery/r_n_d/server/proc/griefProtection()
@@ -149,6 +148,8 @@
 			griefProtection()
 			default_deconstruction_crowbar(O)
 			return 1
+	else
+		return ..()
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
 	if(disabled)

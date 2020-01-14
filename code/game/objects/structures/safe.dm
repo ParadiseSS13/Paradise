@@ -17,8 +17,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	anchored = TRUE
 	density = TRUE
-	burn_state = LAVA_PROOF
-	unacidable = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 	var/open = FALSE
 	var/locked = TRUE
@@ -83,7 +82,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(open)
 		. += "The inside of the the door has numbers written on it: <b>[get_combination()]</b>"
 
-/obj/structure/safe/blob_act()
+/obj/structure/safe/blob_act(obj/structure/blob/B)
 	return
 
 /obj/structure/safe/ex_act(severity)

@@ -18,6 +18,8 @@
 	density = 0
 	interact_offline = 1
 	req_one_access = list(access_heads, access_armory) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags = NODECONSTRUCT
 	var/mode = null
 
 	//Used for logging people entering cryosleep and important items they are carrying.
@@ -193,7 +195,8 @@
 	icon_state = "body_scanner_0"
 	density = 1
 	anchored = 1
-
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	flags = NODECONSTRUCT
 	var/base_icon_state = "body_scanner_0"
 	var/occupied_icon_state = "body_scanner_1"
 	var/on_store_message = "has entered long-term storage."
@@ -377,7 +380,7 @@
 			cult_mode.bypass_phase()
 
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in all_objectives)
+	for(var/datum/objective/O in GLOB.all_objectives)
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
@@ -392,7 +395,7 @@
 					if(!O) return
 					O.find_target()
 					if(!(O.target))
-						all_objectives -= O
+						GLOB.all_objectives -= O
 						O.owner.objectives -= O
 						qdel(O)
 	if(occupant.mind && occupant.mind.assigned_role)

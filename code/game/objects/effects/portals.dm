@@ -3,7 +3,6 @@
 	desc = "Looks unstable. Best to test it with the clown."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
-	unacidable = TRUE
 	anchored = TRUE
 
 	var/obj/item/target = null
@@ -110,7 +109,7 @@
 		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
 			invalid_teleport()
 			return FALSE
-	
+
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()

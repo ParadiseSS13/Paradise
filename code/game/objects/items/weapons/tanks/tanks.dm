@@ -12,7 +12,7 @@
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 4
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 10, bio = 0, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 30)
 	actions_types = list(/datum/action/item_action/set_internals)
 	var/datum/gas_mixture/air_contents = null
 	var/distribute_pressure = ONE_ATMOSPHERE
@@ -105,16 +105,25 @@
 
 	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
 
-/obj/item/tank/blob_act()
-	if(prob(50))
-		var/turf/location = loc
-		if(!( istype(location, /turf) ))
+/obj/item/tank/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
+		var/turf/location = get_turf(src)
+		if(!location)
 			qdel(src)
 
 		if(air_contents)
 			location.assume_air(air_contents)
 
 		qdel(src)
+
+/obj/item/tank/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		var/turf/T = get_turf(src)
+		if(T)
+			T.assume_air(air_contents)
+			air_update_turf()
+		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+	qdel(src)
 
 /obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()

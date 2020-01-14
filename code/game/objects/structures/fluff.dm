@@ -20,7 +20,7 @@
 			new/obj/item/stack/sheet/metal(drop_location())
 			qdel(src)
 		return
-	..()
+	return ..()
 
 /obj/structure/fluff/empty_terrarium //Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
 	name = "empty terrarium"

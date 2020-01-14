@@ -6,7 +6,7 @@
 // -------------: AI: dies if too far from queen
 // -------------: SPECIAL: chance to stun on hit
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple
 	name = "Purple Terror spider"
@@ -94,4 +94,4 @@
 	name = "thick web"
 	desc = "This web is so thick, most cannot see beyond it."
 	opacity = 1
-	health = 40
+	max_integrity = 40

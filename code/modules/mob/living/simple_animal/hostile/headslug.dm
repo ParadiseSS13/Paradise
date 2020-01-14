@@ -22,6 +22,7 @@
 	ventcrawler = 2
 	var/datum/mind/origin
 	var/egg_lain = 0
+	sentience_type = SENTIENCE_OTHER
 
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
 	. = ..()
