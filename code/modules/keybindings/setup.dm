@@ -33,13 +33,16 @@
 			erase_output = "[erase_output];[macro_name].parent=null"
 	winset(src, null, erase_output)
 
-/client/proc/set_macros()
-	set waitfor = FALSE
-
+/client/proc/reset_keys_held()
 	//Reset and populate the rolling buffer
 	keys_held.Cut()
 	for(var/i in 1 to HELD_KEY_BUFFER_LENGTH)
 		keys_held += null
+
+/client/proc/set_macros()
+	set waitfor = FALSE
+
+	reset_keys_held()
 
 	erase_all_macros()
 

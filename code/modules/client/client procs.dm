@@ -367,6 +367,8 @@
 
 	if(SSinput.initialized)
 		set_macros()
+	else
+		reset_keys_held()
 
 	donator_check()
 	check_ip_intel()
