@@ -33,6 +33,8 @@
 /obj/structure/sign/barsign/proc/set_sign(var/datum/barsign/sign)
 	if(!istype(sign))
 		return
+	if(panel_open || emagged || broken)
+		return
 	icon_state = sign.icon
 	name = sign.name
 	if(sign.desc)
@@ -62,18 +64,9 @@
 
 
 /obj/structure/sign/barsign/attack_hand(mob/user as mob)
-	if(!src.allowed(user))
-		to_chat(user, "<span class = 'info'>Access denied.</span>")
-		return
-	if(broken)
-		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
-		return
-	pick_sign()
+	pick_sign(user)
 
-
-
-
-/obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
+/obj/structure/sign/barsign/attackby(obj/item/I, mob/user)
 	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
@@ -81,15 +74,14 @@
 			panel_open = 1
 		else
 			to_chat(user, "<span class='notice'>You close the maintenance panel.</span>")
+			panel_open = 0
 			if(!broken && !emagged)
 				set_sign(pick(barsigns))
 			else if(emagged)
 				set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 			else
 				set_sign(new /datum/barsign/hiddensigns/empbarsign)
-			panel_open = 0
-
-	if(istype(I, /obj/item/stack/cable_coil) && panel_open)
+	else if(istype(I, /obj/item/stack/cable_coil) && panel_open)
 		var/obj/item/stack/cable_coil/C = I
 		if(emagged) //Emagged, not broken by EMP
 			to_chat(user, "<span class='warning'>Sign has been damaged beyond repair!</span>")
@@ -103,6 +95,8 @@
 			broken = 0
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+	else if(istype(I, /obj/item/card/id))
+		pick_sign(user)
 	else
 		return ..()
 
@@ -129,20 +123,21 @@
 	emagged = 1
 	req_access = list(access_syndicate)
 
-
-
-
-/obj/structure/sign/barsign/proc/pick_sign()
+/obj/structure/sign/barsign/proc/pick_sign(mob/user)
+	if(!allowed(user))
+		to_chat(user, "<span class = 'info'>Access denied.</span>")
+		return
+	if(broken)
+		to_chat(user, "<span class ='danger'>The controls seem unresponsive.</span>")
+		return
+	if(panel_open || emagged)
+		return
 	var/picked_name = input("Available Signage", "Bar Sign") as null|anything in barsigns
 	if(!picked_name)
 		return
 	set_sign(picked_name)
 
-
-
 //Code below is to define useless variables for datums. It errors without these
-
-
 
 /datum/barsign
 	var/name = "Name"
@@ -150,10 +145,7 @@
 	var/desc = "desc"
 	var/hidden = 0
 
-
 //Anything below this is where all the specific signs are. If people want to add more signs, add them below.
-
-
 
 /datum/barsign/maltesefalcon
 	name = "Maltese Falcon"
