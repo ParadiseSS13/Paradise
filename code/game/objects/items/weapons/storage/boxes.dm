@@ -138,6 +138,7 @@
 		new /obj/item/weldingtool/mini(src)
 		new /obj/item/stack/cable_coil(src)
 		new /obj/item/reagent_containers/food/drinks/oilcan/half(src)
+		new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"

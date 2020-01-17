@@ -359,3 +359,6 @@
 
 /obj/item/reagent_containers/food/drinks/oilcan/full
 	list_reagents = list("oil" = 100)
+
+/obj/item/reagent_containers/food/drinks/oilcan/half
+	list_reagents = list("oil" = 50)
