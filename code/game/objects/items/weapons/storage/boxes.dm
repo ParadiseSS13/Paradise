@@ -130,6 +130,15 @@
 		new /obj/item/reagent_containers/food/pill/initropidril(src)
 		new /obj/item/flashlight/flare/glowstick/red(src)
 
+/obj/item/storage/box/survival_ipc
+	icon_state = "box_ipc"
+	New()
+		..()
+		contents = list()
+		new /obj/item/weldingtool/mini(src)
+		new /obj/item/stack/cable_coil(src)
+		new /obj/item/reagent_containers/food/drinks/oilcan/half(src)
+
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
 	desc = "Contains white gloves."
