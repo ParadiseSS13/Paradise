@@ -24,7 +24,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
 	captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
-	updateDisplaycase(H)
 
 /datum/outfit/job/captain
 	name = "Captain"

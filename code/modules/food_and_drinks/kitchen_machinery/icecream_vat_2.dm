@@ -53,6 +53,7 @@ var/list/ingredients_source = list(
 	icon_state = "icecream_vat"
 	density = 1
 	anchored = 0
+	max_integrity = 300
 	var/list/ingredients = list()
 	var/dispense_flavour = 1
 	var/obj/item/reagent_containers/glass/held_container
@@ -136,7 +137,7 @@ var/list/ingredients_source = list(
 				R.reagents.clear_reagents()
 		return 1
 	else
-		..()
+		return ..()
 
 /obj/machinery/icecream_vat/proc/add(var/add_type, var/amount)
 	if(add_type <= ingredients.len)
@@ -213,6 +214,12 @@ var/list/ingredients_source = list(
 		usr.unset_machine()
 		usr << browse(null,"window=icecreamvat")
 	return
+
+/obj/machinery/icecream_vat/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 4)
+	qdel(src)
+
 
 /obj/item/reagent_containers/food/snacks/icecream
 	name = "ice cream cone"

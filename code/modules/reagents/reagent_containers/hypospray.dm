@@ -11,6 +11,7 @@
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
+	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = SLOT_BELT
 	var/ignore_flags = FALSE
@@ -24,7 +25,7 @@
 	if(!iscarbon(M))
 		return
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, 1))) // Ignore flag should be checked first or there will be an error message.
+	if(reagents.total_volume && (ignore_flags || M.can_inject(user, TRUE))) // Ignore flag should be checked first or there will be an error message.
 		to_chat(M, "<span class='warning'>You feel a tiny prick!</span>")
 		to_chat(user, "<span class='notice'>You inject [M] with [src].</span>")
 
@@ -78,6 +79,7 @@
 
 /obj/item/reagent_containers/hypospray/CMO
 	list_reagents = list("omnizine" = 30)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/reagent_containers/hypospray/combat
 	name = "combat stimulant injector"

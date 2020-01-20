@@ -35,7 +35,7 @@
 
 			log_admin("[key_name(usr)] has stickybanned [ckey].\nReason: [ban["message"]]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has stickybanned [ckey].\nReason: [ban["message"]]</span>")
-
+			ryzorbot("notify", "sticky=[ckey]&[key_name(usr)]", "[ban["message"]]")
 		if("remove")
 			if(!data["ckey"])
 				return
@@ -54,6 +54,7 @@
 
 			log_admin("[key_name(usr)] removed [ckey]'s stickyban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed [ckey]'s stickyban</span>")
+			ryzorbot("notify", "removesticky=[ckey]&[key_name(usr)]")
 
 		if("remove_alt")
 			if(!data["ckey"])
@@ -102,6 +103,7 @@
 
 			log_admin("[key_name(usr)] has disassociated [alt] from [ckey]'s sticky ban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has disassociated [alt] from [ckey]'s sticky ban</span>")
+			ryzorbot("notify", "removesticky=[ckey]&[key_name(usr)]&[alt]")
 
 		if("edit")
 			if(!data["ckey"])

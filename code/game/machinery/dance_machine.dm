@@ -67,7 +67,7 @@
 				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
 				anchored = FALSE
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-			return
+		return
 	return ..()
 
 /obj/machinery/disco/update_icon()
