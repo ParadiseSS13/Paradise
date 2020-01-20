@@ -19,6 +19,12 @@ var/list/obj/effect/bump_teleporter/BUMP_TELEPORTERS = list()
 	BUMP_TELEPORTERS -= src
 	return ..()
 
+/obj/effect/bump_teleporter/singularity_act()
+	return
+
+/obj/effect/bump_teleporter/singularity_pull()
+	return
+
 /obj/effect/bump_teleporter/Bumped(atom/user)
 	if(!ismob(user))
 		//user.loc = src.loc	//Stop at teleporter location

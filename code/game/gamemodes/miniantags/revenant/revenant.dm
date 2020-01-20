@@ -76,8 +76,8 @@
 /mob/living/simple_animal/revenant/ex_act(severity)
 	return 1 //Immune to the effects of explosions.
 
-/mob/living/simple_animal/revenant/blob_act()
-	return 1 //blah blah blobs aren't in tune with the spirit world, or something.
+/mob/living/simple_animal/revenant/blob_act(obj/structure/blob/B)
+	return //blah blah blobs aren't in tune with the spirit world, or something.
 
 /mob/living/simple_animal/revenant/singularity_act()
 	return //don't walk into the singularity expecting to find corpses, okay?
@@ -162,7 +162,7 @@
 			to_chat(src, "<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
 			to_chat(src, "<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 			to_chat(src, "<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			to_chat(src, "<b>Be sure to read the wiki page at http://nanotrasen.se/wiki/index.php/Revenant to learn more.</b>")
+			to_chat(src, "<b>Be sure to read the wiki page at http://www.paradisestation.org/wiki/index.php/Revenant to learn more.</b>")
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective

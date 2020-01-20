@@ -542,7 +542,7 @@
 	if(busy)
 		to_chat(user, "<span class='notice'>Someone's already washing here.</span>")
 		return
-	var/selected_area = parse_zone(user.zone_sel.selecting)
+	var/selected_area = parse_zone(user.zone_selected)
 	var/washing_face = 0
 	if(selected_area in list("head", "mouth", "eyes"))
 		washing_face = 1
@@ -671,6 +671,7 @@
 	icon_state = "puddle"
 	can_move = 0
 	can_rotate = 0
+	resistance_flags = UNACIDABLE
 
 /obj/structure/sink/puddle/attack_hand(mob/M as mob)
 	icon_state = "puddle-splash"

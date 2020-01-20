@@ -16,7 +16,7 @@
 	var/antable = TRUE // Will ants come near it?
 	var/ant_location = null
 	var/ant_timer = null
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 
 /obj/item/reagent_containers/food/Initialize(mapload)

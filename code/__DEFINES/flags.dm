@@ -14,6 +14,7 @@
 #define ABSTRACT				64		// for all things that are technically items but used for various different stuff, made it 128 because it could conflict with other flags other way
 #define ON_BORDER				128		// item has priority to check when entering or leaving
 #define PREVENT_CLICK_UNDER		256
+#define NODECONSTRUCT			512
 
 #define EARBANGPROTECT			1024
 
@@ -57,6 +58,8 @@
 #define LAVA_PROTECT_2			2048
 
 #define OVERLAY_QUEUED_2		4096
+
+#define CHECK_RICOCHET_2		8192
 
 //Reagent flags
 #define REAGENT_NOREACT			1
@@ -131,18 +134,14 @@
 #define AFFECT_ORGANIC_ORGAN	2
 #define AFFECT_ALL_ORGANS		3
 
-//Fire stuff, for burn_state
-#define LAVA_PROOF -2
-#define FIRE_PROOF -1
-#define FLAMMABLE 0
-#define ON_FIRE 1
-
 //Fire and Acid stuff, for resistance_flags
+#define LAVA_PROOF		(1<<0)
+#define FIRE_PROOF		(1<<1) //100% immune to fire damage (but not necessarily to lava or heat)
+#define FLAMMABLE		(1<<2)
+#define ON_FIRE			(1<<3)
 #define UNACIDABLE		(1<<4) //acid can't even appear on it, let alone melt it.
 #define ACID_PROOF		(1<<5) //acid stuck on it doesn't melt it.
 #define INDESTRUCTIBLE	(1<<6) //doesn't take damage
 #define FREEZE_PROOF	(1<<7) //can't be frozen
-
-#define CHECK_RICOCHET_1			(1<<4)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))

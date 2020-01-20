@@ -5,7 +5,8 @@
 	icon_state = "lattice"
 	density = FALSE
 	anchored = TRUE
-	armor = list(melee = 50, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	max_integrity = 50
 	layer = LATTICE_LAYER //under pipes
 	plane = FLOOR_PLANE
 	var/number_of_rods = 1
@@ -41,24 +42,17 @@
 		return T.attackby(C, user) //hand this off to the turf instead (for building plating, catwalks, etc)
 
 /obj/structure/lattice/deconstruct(disassembled = TRUE)
-	new /obj/item/stack/rods(get_turf(src), number_of_rods)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/rods(get_turf(src), number_of_rods)
 	qdel(src)
 
-/obj/structure/lattice/blob_act()
-	qdel(src)
 
-/obj/structure/lattice/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			qdel(src)
-		if(3)
-			return
+/obj/structure/lattice/blob_act(obj/structure/blob/B)
+	return
 
 /obj/structure/lattice/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FOUR)
-		qdel(src)
+		deconstruct()
 
 /obj/structure/lattice/clockwork
 	name = "cog lattice"
