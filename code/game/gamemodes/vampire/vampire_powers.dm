@@ -247,6 +247,7 @@
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 		H.reset_markings() //...Or markings.
 		H.dna.ResetUIFrom(H)
+		H.flavor_text = ""
 	user.update_icons()
 
 /obj/effect/proc_holder/spell/vampire/self/screech
@@ -579,11 +580,11 @@
 		adjustFireLoss(-60)
 		for(var/obj/item/organ/external/E in bodyparts)
 			if(prob(25))
-				if(E.mend_fracture())
-					E.perma_injury = 0
+				E.mend_fracture()
+
 		return
 	if(stat != DEAD)
-		if(weakened)
+		if(IsWeakened())
 			visible_message("<span class='warning'>[src] looks to be in pain!</span>")
 			adjustBrainLoss(60)
 		else

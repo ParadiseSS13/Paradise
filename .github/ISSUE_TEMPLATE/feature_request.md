@@ -7,4 +7,4 @@ assignees: ''
 
 ---
 
-Please place all features requests here: https://nanotrasen.se/forum/60-suggestions/
+Please place all features requests here: https://www.paradisestation.org/forum/60-suggestions/

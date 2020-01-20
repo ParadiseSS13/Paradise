@@ -1,4 +1,4 @@
-/mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked = 0)
+/mob/living/carbon/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	if(!skipcatch)
 		if(in_throw_mode && canmove && !restrained())  //Makes sure player is in throw mode
 			if(!istype(AM,/obj/item) || !isturf(AM.loc))

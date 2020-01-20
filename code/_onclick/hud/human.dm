@@ -370,10 +370,10 @@
 	devilsouldisplay = new /obj/screen/devil/soul_counter
 	infodisplay += devilsouldisplay
 
-	mymob.zone_sel = new /obj/screen/zone_sel()
-	mymob.zone_sel.icon = ui_style
-	mymob.zone_sel.update_icon(mymob)
-	static_inventory += mymob.zone_sel
+	zone_select =  new /obj/screen/zone_sel()
+	zone_select.icon = ui_style
+	zone_select.update_icon(mymob)
+	static_inventory += zone_select
 
 	inventory_shown = 0
 

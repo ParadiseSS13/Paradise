@@ -396,7 +396,7 @@
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
-		if(L.reagents && L.can_inject(null, 0))
+		if(L.reagents && L.can_inject(null, FALSE))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, INGEST, fraction)

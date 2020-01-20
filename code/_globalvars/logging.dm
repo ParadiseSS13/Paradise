@@ -12,6 +12,8 @@ GLOBAL_VAR(world_href_log)
 GLOBAL_PROTECT(world_href_log)
 GLOBAL_VAR(world_asset_log)
 GLOBAL_PROTECT(world_asset_log)
+GLOBAL_VAR(runtime_summary_log)
+GLOBAL_PROTECT(runtime_summary_log)
 
 var/list/jobMax = list()
 var/list/admin_log = list (  )

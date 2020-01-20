@@ -32,7 +32,7 @@
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
-		if(S.try_op(user, target, user.zone_sel.selecting, user.get_active_hand(), src))
+		if(S.try_op(user, target, user.zone_selected, user.get_active_hand(), src))
 			return 1
 	return 0
 
@@ -194,8 +194,7 @@
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
-			if(!istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common
-				germs++
+			germs++
 
 	if(tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
 		germs += 30

@@ -212,7 +212,7 @@
 			if(admin_ranks.len)
 				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (admin_ranks|"*New Rank*")
 			else
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Game Master","Game Admin", "Trial Admin", "Admin Observer","*New Rank*")
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "*New Rank*")
 
 			var/rights = 0
 			if(D)
@@ -839,6 +839,7 @@
 						else
 							msg += ", [job]"
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+					ryzorbot("notify", "jobban=[key_name(usr)]&[key_name(M)]&[msg]&true&[mins]", "[reason]")
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -860,6 +861,7 @@
 							if(!msg)	msg = job
 							else		msg += ", [job]"
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+						ryzorbot("notify", "jobban=[key_name(usr)]&[key_name(M)]&[msg]&false&", "[reason]")
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -893,6 +895,7 @@
 					else
 						continue
 			if(msg)
+				ryzorbot("notify", "unjobban=[key_name(usr)]&[key_name(M)]&[msg]")
 				message_admins("<span class='notice'>[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]</span>", 1)
 				to_chat(M, "<span class='warning'><BIG><B>You have been un-jobbanned by [usr.client.ckey] from [msg].</B></BIG></span>")
 				href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -935,6 +938,13 @@
 		var/target = href_list["nonalpha"]
 		target = text2num(target)
 		show_note(index = target)
+
+	else if(href_list["webtools"])
+		var/target_ckey = href_list["webtools"]
+		if(config.forum_playerinfo_url)
+			var/url_to_open = config.forum_playerinfo_url + target_ckey
+			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
+				usr.client << link(url_to_open)
 
 	else if(href_list["shownoteckey"])
 		var/target_ckey = href_list["shownoteckey"]
@@ -995,13 +1005,15 @@
 				feedback_inc("ban_tmp",1)
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				feedback_inc("ban_tmp_mins",mins)
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
-				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&[json_encode(reason)]&This will be removed in [mins] minutes.")
+				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&This will be removed in [mins] minutes.","[reason]")
 				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 
 				del(M.client)
@@ -1013,6 +1025,8 @@
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
@@ -1020,7 +1034,7 @@
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
-				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&[json_encode(reason)]&This ban does not expire automatically and must be appealed.")
+				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&This ban does not expire automatically and must be appealed.","[reason]")
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
 				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
@@ -1988,9 +2002,9 @@
 					kill_objective.target = H.mind
 					kill_objective.owner = newtraitormind
 					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
+					H.mind.objectives += kill_objective
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
-					T.add_objective(kill_objective)
 					to_chat(newtraitormind, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 					to_chat(newtraitormind, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
 					newtraitormind.add_antag_datum(T)
@@ -2767,7 +2781,7 @@
 				feedback_add_details("admin_secrets_fun_used","BO")
 				message_admins("[key_name_admin(usr)] broke all lights", 1)
 				for(var/obj/machinery/light/L in GLOB.machines)
-					L.broken()
+					L.break_light_tube()
 			if("whiteout")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","WO")
@@ -3047,7 +3061,7 @@
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th></tr>"
 				for(var/mob/living/carbon/human/H in GLOB.mob_list)
 					if(H.dna && H.ckey)
-						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.b_type]</td></tr>"
+						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.dna.blood_type]</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=DNA;size=440x410")
 			if("fingerprints")
@@ -3123,7 +3137,7 @@
 	else if(href_list["ac_set_channel_name"])
 		src.admincaster_feed_channel.channel_name = strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
 		while(findtext(src.admincaster_feed_channel.channel_name," ") == 1)
-			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,lentext(src.admincaster_feed_channel.channel_name)+1)
+			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,length(src.admincaster_feed_channel.channel_name)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_set_channel_lock"])
@@ -3162,7 +3176,7 @@
 	else if(href_list["ac_set_new_message"])
 		src.admincaster_feed_message.body = adminscrub(input(usr, "Write your Feed story", "Network Channel Handler", ""))
 		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,lentext(src.admincaster_feed_message.body)+1)
+			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_message"])
@@ -3216,13 +3230,13 @@
 	else if(href_list["ac_set_wanted_name"])
 		src.admincaster_feed_message.author = adminscrub(input(usr, "Provide the name of the Wanted person", "Network Security Handler", ""))
 		while(findtext(src.admincaster_feed_message.author," ") == 1)
-			src.admincaster_feed_message.author = copytext(admincaster_feed_message.author,2,lentext(admincaster_feed_message.author)+1)
+			src.admincaster_feed_message.author = copytext(admincaster_feed_message.author,2,length(admincaster_feed_message.author)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_set_wanted_desc"])
 		src.admincaster_feed_message.body = adminscrub(input(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler", ""))
 		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,lentext(src.admincaster_feed_message.body)+1)
+			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_submit_wanted"])
