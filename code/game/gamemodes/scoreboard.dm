@@ -236,31 +236,3 @@
 
 	dat += "<b><u>RATING:</u></b> [score_rating]"
 	src << browse(dat, "window=roundstats;size=500x600")
-
-	// Ryzor BOT
-/*	var/datum/station_state/end_state = new /datum/station_state()
-	var/station_integrity = min(round( 100.0 *  start_state.score(end_state), 0.1), 100.0)
-	var/list/scorelist = list(
-		"Useful Items Shipped"		=	"[score_stuffshipped] ([score_stuffshipped * 5] Points)",
-		"Hydroponics Harvests"		=	"[score_stuffharvested] ([score_stuffharvested * 5] Points)",
-		"Ore Mined"					=	"[score_oremined] ([score_oremined * 2] Points)",
-		"Refreshments Prepared"		=	"[score_meals] ([score_meals * 5] Points)",
-		"Research Completed"		=	"[score_researchdone] ([score_researchdone * 30] Points)",
-		"Random Events Endured"		=	"[score_eventsendured] ([score_powerbonus * 2500] Points)",
-		"Whole Station Powered" 	=	"[score_powerbonus ? "Yes" : "No"] ([score_powerbonus * 2500] Points)",
-		"Ultra-Clean Station"		=	"[score_mess ? "No" : "Yes"] ([score_messbonus * 3000] Points)",
-		"Dead bodies on station"	=	"[score_deadcrew] (-[score_deadcrew * 25] Points)",
-		"Uncleaned Messes"			=	"[score_mess] (-[score_mess] Points)",
-		"Station Power Issues"		=	"[score_powerloss] (-[score_powerloss * 20] Points)",
-		"Rampant Diseases"			=	"[score_disease]",
-		"AI Destroyed"				=	"[score_deadaipenalty ? "Yes" : "No"]",
-		"Food Eaten"				=	"[score_foodeaten]",
-		"Times a Clown was Abused"	=	"[score_clownabuse]",
-		"Final Score"				=	"[score_crewscore]",
-		"Rating"					=	"[score_rating]",
-		"Round Duration"			=	"[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]",
-		"Station Integrity"			=	"[station_integrity]"
-		)
-
-	var/parselist = json_encode(scorelist)
-	discordbot("[config.ryzorbot]", "end", "notify")*/

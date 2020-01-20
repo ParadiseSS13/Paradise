@@ -461,8 +461,5 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 ## Uncomment to give a confirmation before hitting start now
 #START_NOW_CONFIRMATION
 
-## Stickyban all brazilian and portugues
-#BR_OPERATION
-
 ## If uncommented, all gamemodes will respect the number of required players. Defaults to no.
 #ENABLE_GAMEMODE_PLAYER_LIMIT
