@@ -3,9 +3,9 @@
 	name = "crab"
 	desc = "A hard-shelled crustacean. Seems quite content to lounge around all the time."
 	icon = 'icons/hispania/mob/animals.dmi'
-	icon_state = "crab H"
-	icon_living = "crab H"
-	icon_dead = "crab_dead H"
+	icon_state = "crab_H"
+	icon_living = "crab_H"
+	icon_dead = "crab_dead_H"
 	speak_emote = list("clicks")
 	emote_hear = list("clicks")
 	emote_see = list("clacks")
@@ -47,9 +47,9 @@
 	name = "Evil Crab"
 	real_name = "Evil Crab"
 	desc = "Unnerving, isn't it? It has to be planning something nefarious..."
-	icon_state = "evilcrab H"
-	icon_living = "evilcrab H"
-	icon_dead = "evilcrab_dead H"
+	icon_state = "evilcrab_H"
+	icon_living = "evilcrab_H"
+	icon_dead = "evilcrab_dead_H"
 	response_help = "pokes"
 	response_disarm = "shoves"
 	response_harm = "stomps"
