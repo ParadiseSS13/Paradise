@@ -81,6 +81,10 @@
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
 
+// Called when this reagent is first added to a mob
+/datum/reagent/proc/on_mob_add(mob/living/L)
+	return
+
 // Called when this reagent is removed while inside a mob
 /datum/reagent/proc/on_mob_delete(mob/living/M)
 	return

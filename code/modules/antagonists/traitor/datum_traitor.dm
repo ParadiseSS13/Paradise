@@ -6,7 +6,7 @@
 	name = "Traitor"
 	roundend_category = "traitors"
 	job_rank = ROLE_TRAITOR
-	var/special_role = ROLE_TRAITOR
+	var/special_role = SPECIAL_ROLE_TRAITOR
 	var/give_objectives = TRUE
 	var/should_give_codewords = TRUE
 	var/should_equip = TRUE
@@ -28,6 +28,7 @@
 		forge_traitor_objectives()
 	if(!silent)
 		greet()
+	apply_innate_effects()
 	update_traitor_icons_added()
 	finalize_traitor()
 
@@ -54,6 +55,7 @@
 	assigned_targets.Cut()
 	SSticker.mode.traitors -= owner
 	owner.special_role = null
+	remove_innate_effects()
 	update_traitor_icons_removed()
 
 	if(!silent && owner.current)
@@ -67,8 +69,10 @@
 	if(owner.assigned_role == "Clown")
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
-			to_chat(traitor_mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+			to_chat(traitor_mob, "<span class='warning'>Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.</span>")
 			traitor_mob.mutations.Remove(CLUMSY)
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(traitor_mob)
 
 
 /datum/antagonist/traitor/remove_innate_effects()
@@ -76,7 +80,11 @@
 	if(owner.assigned_role == "Clown")
 		var/mob/living/carbon/human/traitor_mob = owner.current
 		if(traitor_mob && istype(traitor_mob))
+			to_chat(traitor_mob, "<span class='warning'>You lose your syndicate training and return to your own clumsy, clownish self.</span>")
 			traitor_mob.mutations.Add(CLUMSY)
+			for(var/datum/action/innate/A in traitor_mob.actions)
+				if(istype(A, /datum/action/innate/toggle_clumsy))
+					A.Remove(traitor_mob)
 
 // Adding/removing objectives in the owner's mind until we can datumize all antags. Then we can use the /datum/antagonist/objectives var to handle them
 // Change "owner.objectives" to "objectives" once objectives are handled in antag datums instead of the mind

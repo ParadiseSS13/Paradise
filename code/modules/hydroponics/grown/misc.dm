@@ -136,6 +136,7 @@
 	bitesize_mod = 2
 	tastes = list("cherry" = 1, "explosion" = 1)
 	volume = 125 //Gives enough room for the black powder at max potency
+	max_integrity = 40
 	wine_power = 0.8
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
@@ -145,9 +146,11 @@
 	log_game("[user] ([user.key ? user.key : "no key"]) primed a cherry bomb for detonation at [A] ([user.x],[user.y],[user.z]).")
 	prime()
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/burn()
-	prime()
-	..()
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		prime()
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs

@@ -47,7 +47,7 @@
 	var/damage_msg = "<span class='warning'>You feel an intense pain</span>"
 	var/broken_description
 
-	var/open = 0
+	var/open = 0  // If the body part has an open incision from surgery
 	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
 	var/encased       // Needs to be opened with a saw to access the organs.
 
@@ -625,12 +625,17 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/mend_fracture()
 	if(is_robotic())
-		return 0	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
-	if(brute_dam > min_broken_damage)
-		return 0	//will just immediately fracture again
+		return FALSE	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
+
+	if(!(status & ORGAN_BROKEN))
+		return FALSE
 
 	status &= ~ORGAN_BROKEN
-	return 1
+	status &= ~ORGAN_SPLINTED
+	perma_injury = 0
+	if(owner)
+		owner.handle_splints()
+	return TRUE
 
 /obj/item/organ/external/robotize(company, make_tough = 0, convert_all = 1)
 	..()

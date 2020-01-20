@@ -150,7 +150,7 @@
 	else
 		bound_width = world.icon_size
 		bound_height = width * world.icon_size
-	update_icon()
+	..()
 
 /obj/structure/door_assembly/multi_tile/Move()
 	. = ..()
@@ -165,15 +165,27 @@
 	name = "cult airlock assembly"
 	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
 	base_name = "cult airlock"
-	overlays_file = 'icons/obj/doors/airlocks/cult/runed/overlays.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
 	airlock_type = /obj/machinery/door/airlock/cult
 	glass_type = /obj/machinery/door/airlock/cult/glass
 
+/obj/structure/door_assembly/door_assembly_cult/New()
+	. = ..()
+	icon = SSticker.cultdat?.airlock_runed_icon_file
+	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	update_icon()
+
 /obj/structure/door_assembly/door_assembly_cult/unruned
 	icon = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/overlays.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
 	airlock_type = /obj/machinery/door/airlock/cult/unruned
 	glass_type = /obj/machinery/door/airlock/cult/unruned/glass
+
+/obj/structure/door_assembly/door_assembly_cult/unruned/New()
+	. = ..()
+	icon = SSticker.cultdat?.airlock_unruned_icon_file
+	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
+	update_icon()
 
 /obj/structure/door_assembly/door_assembly_centcom
 	icon = 'icons/obj/doors/airlocks/centcom/centcom.dmi'

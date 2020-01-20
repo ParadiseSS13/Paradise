@@ -260,28 +260,30 @@
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = max(staminaloss + amount, 0)
+	staminaloss = min(max(staminaloss + amount, 0), 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
+	if(amount > 0)
+		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating)
-		handle_hud_icons_health()
 		update_stamina()
 
 /mob/living/proc/setStaminaLoss(amount, updating = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = amount
+	staminaloss = min(max(amount, 0), 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
+	if(amount > 0)
+		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating)
-		handle_hud_icons_health()
 		update_stamina()
 
 /mob/living/proc/getMaxHealth()

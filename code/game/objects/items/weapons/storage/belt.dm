@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = SLOT_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
+	max_integrity = 300
 	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
 
 /obj/item/storage/belt/update_icon()
@@ -133,6 +134,7 @@
 		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
+		/obj/item/pinpointer/crew,
 		/obj/item/handheld_defibrillator
 	)
 
@@ -295,6 +297,7 @@
 	icon_state = "militarybelt"
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"
@@ -396,7 +399,7 @@
 	..()
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator(src)
-	new /obj/item/reagent_containers/spray(src)
+	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)

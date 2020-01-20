@@ -165,6 +165,7 @@
 	desc = "The neutralized core of an anomaly. It'd probably be valuable for research."
 	icon_state = "anomaly core"
 	item_state = "electronic"
+	resistance_flags = FIRE_PROOF
 	receiving = TRUE
 	var/anomaly_type = /obj/effect/anomaly
 

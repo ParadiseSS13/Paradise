@@ -360,10 +360,10 @@
 	. = ..()	//calls mob.Login()
 
 
-	if(ckey in clientmessages)
-		for(var/message in clientmessages[ckey])
+	if(ckey in GLOB.clientmessages)
+		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
-		clientmessages.Remove(ckey)
+		GLOB.clientmessages.Remove(ckey)
 
 	if(SSinput.initialized)
 		set_macros()
@@ -412,7 +412,7 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			playercount += 1
-	
+
 	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
 		GLOB.panic_bunker_enabled = 1
 		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
@@ -552,16 +552,15 @@
 			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
 			del(src)
 			return // Dont insert or they can just go in again
-		
+
 		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		if(!query_insert.Execute())
 			var/err = query_insert.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 
-	//Logging player access
-	var/serverip = "[world.internet_address]:[world.port]"
-	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`id`,`datetime`,`serverip`,`ckey`,`ip`,`computerid`) VALUES(null,Now(),'[serverip]','[ckey]','[sql_ip]','[sql_computerid]');")
+	// Log player connections to DB
+	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
 /client/proc/check_ip_intel()
@@ -600,8 +599,13 @@
 
 
 /client/proc/check_forum_link()
-	if(config.forum_link_url && prefs && !prefs.fuid)
-		to_chat(src, "<B>You do not have your forum account linked. <a href='?src=[UID()];link_forum_account=true'>LINK FORUM ACCOUNT</a></B>")
+	if(!config.forum_link_url || !prefs || prefs.fuid)
+		return
+	if(config.use_exp_tracking)
+		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
+		if(living_hours < 20)
+			return
+	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
 	var/DBQuery/query_find_token = dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
@@ -616,12 +620,15 @@
 		return
 	return tokenstr
 
-/client/proc/link_forum_account()
+/client/proc/link_forum_account(fromban)
+	if(!config.forum_link_url)
+		return
 	if(IsGuestKey(key))
 		to_chat(src, "Guest keys cannot be linked.")
 		return
 	if(prefs && prefs.fuid)
-		to_chat(src, "Your forum account is already set.")
+		if(!fromban)
+			to_chat(src, "Your forum account is already set.")
 		return
 	var/DBQuery/query_find_link = dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_link.Execute())
@@ -629,14 +636,19 @@
 		return
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
-			to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
+			if(!fromban)
+				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")")
 			return
 	var/tokenid = create_oauth_token()
 	if(!tokenid)
 		to_chat(src, "link_forum_account: unable to create token")
 		return
 	var/url = "[config.forum_link_url][tokenid]"
-	to_chat(src, {"Now opening a windows to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>."})
+	if(fromban)
+		url += "&fwd=appeal"
+		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"})
+	else
+		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"})
 	src << link(url)
 	return
 
@@ -773,7 +785,7 @@
 	// Change the way they should download resources.
 	if(config.resource_urls)
 		preload_rsc = pick(config.resource_urls)
-	else 
+	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 	// Most assets are now handled through global_cache.dm
 	getFiles(

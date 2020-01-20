@@ -18,7 +18,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Guide_to_Construction&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Construction&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -164,7 +164,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Hacking&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Hacking&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -805,7 +805,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="http://spacestation13.es/Menu.html"</iframe>		</body>
+		<iframe width='100%' height='97%' src="http://spacestation13.es/Menu.html" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -828,7 +828,7 @@
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://Nanotrasen.se/wiki/index.php?title=Guide_to_Engineering&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Engineering&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 

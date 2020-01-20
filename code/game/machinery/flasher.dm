@@ -5,6 +5,9 @@
 	desc = "A wall-mounted flashbulb device."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "mflash1"
+	max_integrity = 250
+	integrity_failure = 100
+	damage_deflection = 10
 	var/id = null
 	var/range = 2 //this is roughly the size of brig cell
 	var/disable = 0
@@ -131,9 +134,6 @@
 /obj/machinery/flasher_button/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		return attack_hand(user)
-
-/obj/machinery/flasher_button/attackby(obj/item/W, mob/user as mob, params)
-	return attack_hand(user)
 
 /obj/machinery/flasher_button/attack_hand(mob/user as mob)
 	if(stat & (NOPOWER|BROKEN))

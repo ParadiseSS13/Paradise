@@ -43,7 +43,7 @@
 
 /turf/Initialize(mapload)
 	. = ..()
-	
+
 	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
@@ -206,7 +206,7 @@
 	var/old_baseturf = baseturf
 	var/turf/W = new path(src)
 	W.baseturf = old_baseturf
-	
+
 	if(!defer_change)
 		W.AfterChange(ignore_air)
 	W.blueprint_data = old_blueprint_data
@@ -412,6 +412,27 @@
 
 ////////////////////////////////////////////////////
 
+/turf/acid_act(acidpwr, acid_volume)
+	. = 1
+	var/acid_type = /obj/effect/acid
+	if(acidpwr >= 200) //alien acid power
+		acid_type = /obj/effect/acid/alien
+	var/has_acid_effect = FALSE
+	for(var/obj/O in src)
+		if(intact && O.level == 1) //hidden under the floor
+			continue
+		if(istype(O, acid_type))
+			var/obj/effect/acid/A = O
+			A.acid_level = min(A.level + acid_volume * acidpwr, 12000)//capping acid level to limit power of the acid
+			has_acid_effect = 1
+			continue
+		O.acid_act(acidpwr, acid_volume)
+	if(!has_acid_effect)
+		new acid_type(src, acidpwr, acid_volume)
+
+/turf/proc/acid_melt()
+	return
+
 /turf/handle_fall(mob/faller, forced)
 	faller.lying = pick(90, 270)
 	if(!forced)
@@ -424,7 +445,7 @@
 		for(var/obj/O in contents) //this is for deleting things like wires contained in the turf
 			if(O.level != 1)
 				continue
-			if(O.invisibility == 101)
+			if(O.invisibility == INVISIBILITY_MAXIMUM)
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return(2)
@@ -516,5 +537,5 @@
 /turf/AllowDrop()
 	return TRUE
 
-/turf/proc/water_act(volume, temperature, source)	
+/turf/proc/water_act(volume, temperature, source)
  	return FALSE

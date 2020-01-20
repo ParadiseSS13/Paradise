@@ -42,7 +42,7 @@
 					else
 						targets3 += C
 				else if(ai_target_method == TS_DAMAGE_POISON)
-					if(C.can_inject(null,0,"chest",0))
+					if(C.can_inject(null, FALSE, "chest", FALSE))
 						targets1 += C
 					else if(C in enemies)
 						targets2 += C
@@ -136,7 +136,7 @@
 				if(!L.status)
 					step_to(src,L)
 					L.on = 1
-					L.broken()
+					L.break_light_tube()
 					do_attack_animation(L)
 					visible_message("<span class='danger'>[src] smashes the [L.name].</span>")
 					return

@@ -1,10 +1,9 @@
 /turf/simulated/floor/indestructible
-	unacidable = TRUE
 
 /turf/simulated/floor/indestructible/ex_act(severity)
 	return
 
-/turf/simulated/floor/indestructible/blob_act()
+/turf/simulated/floor/indestructible/blob_act(obj/structure/blob/B)
 	return
 
 /turf/simulated/floor/indestructible/singularity_act()
@@ -46,7 +45,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/necropolis/Initialize(mapload)
 	. = ..()
@@ -66,7 +64,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/boss/air
 	oxygen = MOLES_O2STANDARD
@@ -80,7 +77,6 @@
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
-	planetary_atmos = TRUE
 	smooth = SMOOTH_TRUE
 
 /turf/simulated/floor/indestructible/hierophant/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)

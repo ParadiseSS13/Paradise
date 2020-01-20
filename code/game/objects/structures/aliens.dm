@@ -28,12 +28,12 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(loc, 'sound/effects/attackblob.ogg', 100, 1)
+				playsound(loc, 'sound/effects/attackblob.ogg', 100, TRUE)
 			else
-				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
 			if(damage_amount)
-				playsound(loc, 'sound/items/welder.ogg', 100, 1)
+				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /*
  * Resin
@@ -301,8 +301,9 @@
 							break
 
 /obj/structure/alien/egg/obj_break(damage_flag)
-	if(status != BURST)
-		Burst(kill = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(status != BURST)
+			Burst(kill = TRUE)
 
 /obj/structure/alien/egg/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
