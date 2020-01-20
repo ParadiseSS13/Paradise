@@ -8,7 +8,8 @@
 	anchored = 0
 	can_buckle = TRUE
 	buckle_lying = FALSE
-	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0)
+	max_integrity = 300
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 30, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60)
 	var/key_type
 	var/held_key_type //Similar to above, but the vehicle needs the key in hands as opposed to inserted into the ignition
 	var/obj/item/key/inserted_key
@@ -39,6 +40,16 @@
 			. += "<span class='notice'>Put a key inside it by clicking it with the key.</span>"
 		else
 			. += "<span class='notice'>Alt-click [src] to remove the key.</span>"
+	if(resistance_flags & ON_FIRE)
+		. += "<span class='warning'>It's on fire!</span>"
+	var/healthpercent = obj_integrity/max_integrity * 100
+	switch(healthpercent)
+		if(50 to 99)
+			. += "It looks slightly damaged."
+		if(25 to 50)
+			. += "It appears heavily damaged."
+		if(0 to 25)
+			. += "<span class='warning'>It's falling apart!</span>"
 
 /obj/vehicle/attackby(obj/item/I, mob/user, params)
 	if(key_type && !is_key(inserted_key) && is_key(I))

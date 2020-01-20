@@ -25,8 +25,8 @@
 
 /obj/singularity/narsie/large/New()
 	..()
-	icon_state = SSticker.cultdat.entity_icon_state
-	name = SSticker.cultdat.entity_name
+	icon_state = SSticker.cultdat?.entity_icon_state
+	name = SSticker.cultdat?.entity_name
 	to_chat(world, "<font size='15' color='red'><b> [name] HAS RISEN</b></font>")
 	world << pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg'))
 
@@ -150,7 +150,7 @@
 	icon = 'icons/obj/narsie_spawn_anim.dmi'
 	dir = SOUTH
 	move_self = 0
-	flick("narsie_spawn_anim",src)
+	flick(SSticker.cultdat?.entity_spawn_animation, src)
 	sleep(11)
 	move_self = 1
 	icon = initial(icon)

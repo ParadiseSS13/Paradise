@@ -5,7 +5,6 @@
 	name = "Light emitter"
 	anchored = TRUE
 	invisibility = 101
-	unacidable = TRUE
 	var/set_luminosity = 8
 	var/set_cap = 0
 

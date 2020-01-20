@@ -67,9 +67,6 @@ Difficulty: Medium
 	. = ..()
 	miner_saw = new(src)
 
-	// Add a zone selection UI; otherwise the mob can't melee attack properly.
-	zone_sel = new /obj/screen/zone_sel()
-
 /datum/action/innate/megafauna_attack/dash
 	name = "Dash To Target"
 	icon_icon = 'icons/mob/actions/actions.dmi'

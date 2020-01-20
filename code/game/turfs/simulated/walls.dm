@@ -127,6 +127,17 @@
 	if(radiated_temperature > max_temperature)
 		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
+/turf/simulated/wall/handle_ricochet(obj/item/projectile/P)			//A huge pile of shitcode!
+	var/turf/p_turf = get_turf(P)
+	var/face_direction = get_dir(src, p_turf)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (P.Angle + 180))
+	if(abs(incidence_s) > 90 && abs(incidence_s) < 270)
+		return FALSE
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	P.setAngle(new_angle_s)
+	return TRUE
+
 /turf/simulated/wall/proc/dismantle_wall(devastated = 0, explode = 0)
 	if(devastated)
 		devastate_wall()
@@ -168,7 +179,7 @@
 		else
 	return
 
-/turf/simulated/wall/blob_act()
+/turf/simulated/wall/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		dismantle_wall()
 	else
@@ -188,17 +199,21 @@
 		..()
 
 /turf/simulated/wall/mech_melee_attack(obj/mecha/M)
-	if(M.damtype == "brute")
-		playsound(src, 'sound/weapons/punch4.ogg', 50, 1)
-		M.occupant_message("<span class='danger'>You hit [src].</span>")
-		visible_message("<span class='danger'>[src] has been hit by [M.name].</span>")
-		if(prob(5) && M.force > 20)
-			dismantle_wall(1)
-			M.occupant_message("<span class='warning'>You smash through the wall.</span>")
-			visible_message("<span class='warning'>[src.name] smashes through the wall!</span>")
-			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
-		else
-			add_dent(WALL_DENT_HIT)
+	M.do_attack_animation(src)
+	switch(M.damtype)
+		if(BRUTE)
+			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+			M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>")
+			if(prob(hardness + M.force) && M.force > 20)
+				dismantle_wall(1)
+				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
+			else
+				add_dent(WALL_DENT_HIT)
+		if(BURN)
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
+		if(TOX)
+			playsound(src, 'sound/effects/spray2.ogg', 100, TRUE)
+			return FALSE
 
 // Wall-rot effect, a nasty fungus that destroys walls.
 /turf/simulated/wall/proc/rot()
@@ -434,6 +449,10 @@
 	return FALSE
 
 /turf/simulated/wall/singularity_pull(S, current_size)
+	..()
+	wall_singularity_pull(current_size)
+
+/turf/simulated/wall/proc/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(50))
 			dismantle_wall()
@@ -445,6 +464,14 @@
 /turf/simulated/wall/narsie_act()
 	if(prob(20))
 		ChangeTurf(/turf/simulated/wall/cult)
+
+/turf/simulated/wall/acid_act(acidpwr, acid_volume)
+	if(explosion_block >= 2)
+		acidpwr = min(acidpwr, 50) //we reduce the power so strong walls never get melted.
+	. = ..()
+
+/turf/simulated/wall/acid_melt()
+	dismantle_wall(1)
 
 /turf/simulated/wall/proc/add_dent(denttype, x=rand(-8, 8), y=rand(-8, 8))
 	if(LAZYLEN(dent_decals) >= MAX_DENT_DECALS)

@@ -6,10 +6,11 @@
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "ash_walker_nest"
 
+	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	anchored = TRUE
 	density = TRUE
 
-	burn_state = LAVA_PROOF
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	max_integrity = 200
 
 	var/faction = list("ashwalker")

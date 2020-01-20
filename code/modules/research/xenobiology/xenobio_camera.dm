@@ -48,9 +48,20 @@
 
 /obj/machinery/computer/camera_advanced/xenobio/Destroy()
 	QDEL_NULL(current_potion)
-	for(var/mob/living/simple_animal/slime/S in stored_slimes)
+	for(var/thing in stored_slimes)
+		var/mob/living/simple_animal/slime/S = thing
 		S.forceMove(drop_location())
 	stored_slimes.Cut()
+	if(connected_recycler)
+		connected_recycler.connected -= src
+	connected_recycler = null
+	return ..()
+
+/obj/machinery/computer/camera_advanced/xenobio/handle_atom_del(atom/A)
+	if(A == current_potion)
+		current_potion = null
+	if(A in stored_slimes)
+		stored_slimes -= A
 	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/CreateEye()
@@ -131,7 +142,7 @@
 			monkeys++
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
 			qdel(O)
-			return
+		return
 	else if(istype(O, /obj/item/slimepotion/slime))
 		var/replaced = FALSE
 		if(user.drop_item())
@@ -140,7 +151,7 @@
 				replaced = TRUE
 			current_potion = O
 			to_chat(user, "<span class='notice'>You load [O] in the console's potion slot[replaced ? ", replacing the one that was there before" : ""].</span>")
-			return
+		return
 	else if(istype(O, /obj/item/storage/bag))
 		var/obj/item/storage/P = O
 		var/loaded = 0
@@ -159,7 +170,7 @@
 			connected_recycler = I.buffer
 			connected_recycler.connected += src
 		return
-	..()
+	return ..()
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"

@@ -17,7 +17,7 @@
 	item_state = "bl_suit"
 	item_color = "black"
 	flags_size = ONESIZEFITSALL
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"
