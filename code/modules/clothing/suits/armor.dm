@@ -243,7 +243,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	var/hit_reflect_chance = 50
 	hispania_icon = TRUE
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 60, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/suit/armor/laserproof/IsReflect(var/def_zone)
