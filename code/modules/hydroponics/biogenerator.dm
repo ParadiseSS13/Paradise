@@ -26,7 +26,7 @@
 	component_parts += new /obj/item/circuitboard/biogenerator(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -39,6 +39,13 @@
 	if(beaker)
 		beaker.ex_act(severity)
 	..()
+
+/obj/machinery/biogenerator/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		update_icon()
+		updateUsrDialog()
 
 /obj/machinery/biogenerator/RefreshParts()
 	var/E = 0

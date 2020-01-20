@@ -1,0 +1,4 @@
+author: "SteelSlayer"
+delete-after: True
+changes: 
+  - bugfix: "Fixes AIs with the combat module not being able to hack APCs"

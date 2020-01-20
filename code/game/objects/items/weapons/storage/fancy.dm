@@ -17,7 +17,7 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/icon_type = "donut"
 
 /obj/item/storage/fancy/update_icon(var/itemremoved = 0)
@@ -207,7 +207,7 @@
 	if(!istype(M, /mob))
 		return
 
-	if(istype(M) && M == user && user.zone_sel.selecting == "mouth" && contents.len > 0 && !user.wear_mask)
+	if(istype(M) && M == user && user.zone_selected == "mouth" && contents.len > 0 && !user.wear_mask)
 		var/got_cig = 0
 		for(var/num=1, num <= contents.len, num++)
 			var/obj/item/I = contents[num]

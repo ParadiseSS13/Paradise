@@ -648,6 +648,11 @@ About the new airlock wires panel:
 			do_sparks(5, 1, src)
 	return ..()
 
+/obj/machinery/door/airlock/attack_animal(mob/user)
+	. = ..()
+	if(isElectrified())
+		shock(user, 100)
+
 /obj/machinery/door/airlock/attack_hand(mob/user)
 	if(shock_user(user, 100))
 		return
@@ -1229,11 +1234,11 @@ About the new airlock wires panel:
 	var/time_to_open = 5
 	if(arePowerSystemsOn())
 		time_to_open = 50 //Powered airlocks take longer to open, and are loud.
-		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, 1)
+		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 
 
-	if(do_after(user, time_to_open, target = src))
-		if(density && !open(1)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
+	if(do_after(user, time_to_open, TRUE, src))
+		if(density && !open(2)) //The airlock is still closed, but something prevented it opening. (Another player noticed and bolted/welded the airlock in time!)
 			to_chat(user, "<span class='warning'>Despite your efforts, [src] managed to resist your attempts to open it!</span>")
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
@@ -1272,7 +1277,7 @@ About the new airlock wires panel:
 		safe = TRUE
 
 /obj/machinery/door/airlock/obj_break(damage_flag)
-	if(!(flags & BROKEN) && can_deconstruct)
+	if(!(flags & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		if(!panel_open)
 			panel_open = TRUE
@@ -1285,7 +1290,7 @@ About the new airlock wires panel:
 		update_icon()
 
 /obj/machinery/door/airlock/deconstruct(disassembled = TRUE, mob/user)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/obj/structure/door_assembly/DA
 		if(assemblytype)
 			DA = new assemblytype(loc)

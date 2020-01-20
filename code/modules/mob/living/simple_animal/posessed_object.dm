@@ -95,8 +95,6 @@
 	forceMove( possessed_loc )
 	possessed_item.forceMove(src) // We'll keep the actual item inside of us until we die.
 
-	zone_sel = new /obj/screen/zone_sel(src) // Create a new zone selection item so the human attacks have something to reference. Horrifying and ugly hack, do not look directly at this.
-
 	update_icon(1)
 
 	visible_message("<span class='shadowling'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.

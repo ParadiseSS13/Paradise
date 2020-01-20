@@ -54,6 +54,8 @@
 		else
 			healths.icon_state = "health6"
 
+/mob/living/carbon/alien/humanoid/queen/can_inject()
+	return FALSE
 
 //Queen verbs
 /mob/living/carbon/alien/humanoid/queen/verb/lay_egg()

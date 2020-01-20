@@ -9,11 +9,17 @@
 	throw_range = 20
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
+	max_integrity = 40
 	var/active = 0
 	var/det_time = 50
 	var/display_timer = 1
+
+/obj/item/grenade/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		prime()
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/grenade/proc/clown_check(var/mob/living/user)
 	if((CLUMSY in user.mutations) && prob(50))

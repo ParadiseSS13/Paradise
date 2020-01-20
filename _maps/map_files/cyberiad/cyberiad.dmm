@@ -35446,7 +35446,7 @@
 	},
 /area/library)
 "bmF" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/item/videocam,
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -42190,7 +42190,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bAc" = (
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bAd" = (
@@ -50631,9 +50631,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
 /obj/structure/table/glass,
@@ -56043,7 +56043,7 @@
 	},
 /area/crew_quarters/hor)
 "bYB" = (
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
