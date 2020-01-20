@@ -798,7 +798,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "advanced first aid kits crate"
 
-/datum/supply_packs/medical/firstaidmachine
+/datum/supply_packs/science/firstaidmachine
 	name = "Machine First Aid Kits Crate"
 	contains = list(/obj/item/storage/firstaid/machine,
 					/obj/item/storage/firstaid/machine,
@@ -924,11 +924,19 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/prox_sensor,
+					/obj/item/storage/firstaid/machine/empty,
+					/obj/item/storage/firstaid/machine/empty,
+					/obj/item/healthanalyzer,
+					/obj/item/healthanalyzer,
 					/obj/item/storage/toolbox/electrical,
+					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/box/flashes,
-					/obj/item/stock_parts/cell/high,
-					/obj/item/stock_parts/cell/high)
-	cost = 10
+					/obj/item/stock_parts/cell/high/plus,
+					/obj/item/stock_parts/cell/high/plus,
+					/obj/item/reagent_containers/glass/bucket,
+					/obj/item/reagent_containers/glass/bucket)
+	cost = 20
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "robotics assembly crate"
 	access = access_robotics
@@ -1804,9 +1812,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "dna samplers crate"
 
-/datum/supply_packs/misc/station_goal/shield_sat
+/datum/supply_packs/engineering/shield_sat
 	name = "Shield Generator Satellite"
-	cost = 30
+	cost = 60
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
 					/obj/machinery/satellite/meteor_shield,
@@ -1814,9 +1822,9 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					)
 	containername = "shield sat crate"
 
-/datum/supply_packs/misc/station_goal/shield_sat_control
+/datum/supply_packs/engineering/shield_sat_control
 	name = "Shield System Control Board"
-	cost = 50
+	cost = 80
 	contains = list(
 					/obj/item/circuitboard/computer/sat_control
 					)

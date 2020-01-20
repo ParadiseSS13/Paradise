@@ -16,7 +16,7 @@ LINEN BINS
 	throw_range = 2
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	slot_flags = SLOT_BACK
 
 	dog_fashion = /datum/dog_fashion/head/ghost
@@ -236,8 +236,8 @@ LINEN BINS
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "linenbin-full"
 	anchored = 1
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 	var/amount = 20
 	var/list/sheets = list()
 	var/obj/item/hidden = null
@@ -261,8 +261,9 @@ LINEN BINS
 
 
 /obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
-	if(!amount)
-		return
+	if(amount)
+		amount = 0
+		update_icon()
 	..()
 
 /obj/structure/bedsheetbin/burn()

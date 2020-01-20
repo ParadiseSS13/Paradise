@@ -13,7 +13,7 @@
 	desc = "It looks pretty sciency."
 	icon = 'icons/obj/rig_modules.dmi'
 	icon_state = "module"
-	
+
 	toolspeed = 1
 
 	var/damage = 0
@@ -155,7 +155,7 @@
 		to_chat(usr, "<span class='warning'>The suit is not initialized.</span>")
 		return 0
 
-	if(usr.lying || usr.stat || usr.stunned || usr.paralysis || usr.weakened)
+	if(usr.lying || usr.stat || usr.stunned || usr.paralysis || usr.IsWeakened())
 		to_chat(usr, "<span class='warning'>You cannot use the suit in this state.</span>")
 		return 0
 

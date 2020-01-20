@@ -4,7 +4,9 @@
 	icon = 'icons/obj/barsigns.dmi'
 	icon_state = "empty"
 	req_access = list(access_bar)
-	armor = list(melee = 20, bullet = 20, laser = 20, energy = 100, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 500
+	integrity_failure = 250
+	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
 	var/emagged = 0
@@ -38,7 +40,21 @@
 	else
 		desc = "It displays \"[name]\"."
 
+/obj/structure/sign/barsign/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		broken = TRUE
 
+/obj/structure/sign/barsign/deconstruct(disassembled = TRUE)
+	new /obj/item/stack/sheet/metal(drop_location(), 2)
+	new /obj/item/stack/cable_coil(drop_location(), 2)
+	qdel(src)
+
+/obj/structure/sign/barsign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	switch(damage_type)
+		if(BRUTE)
+			playsound(src.loc, 'sound/effects/glasshit.ogg', 75, TRUE)
+		if(BURN)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/sign/barsign/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -58,9 +74,6 @@
 
 
 /obj/structure/sign/barsign/attackby(var/obj/item/I, var/mob/user)
-	if(!allowed(user))
-		to_chat(user, "<span class = 'info'>Access denied.</span>")
-		return
 	if( istype(I, /obj/item/screwdriver))
 		if(!panel_open)
 			to_chat(user, "<span class='notice'>You open the maintenance panel.</span>")
@@ -90,6 +103,8 @@
 			broken = 0
 		else
 			to_chat(user, "<span class='warning'>You need at least two lengths of cable!</span>")
+	else
+		return ..()
 
 
 

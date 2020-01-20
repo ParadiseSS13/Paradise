@@ -53,6 +53,10 @@
 
 	if(href_list["shock"])
 		var/obj/item/mecha_parts/mecha_tracking/MT = afilter.getObj("shock")
+		if(MT.recharging)
+			to_chat(usr, "<span class='notice'>Recharging EMP Pulse...</span>")
+		else
+			to_chat(usr, "<span class='notice'>EMP Pulse sent</span>")
 		MT.shock()
 
 	if(href_list["get_log"])
@@ -74,6 +78,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "programming=2;magnets=2"
 	var/ai_beacon = FALSE //If this beacon allows for AI control. Exists to avoid using istype() on checking.
+	var/recharging = 0
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_info()
 	if(!in_mecha())
@@ -89,7 +94,7 @@
 		answer["cell_percentage"] = round(M.cell.percent())
 	else
 		answer["cell"] = 0
-	answer["integrity"] = M.health/initial(M.health)*100
+	answer["integrity"] = round((M.obj_integrity/M.max_integrity*100), 0.01)
 	answer["airtank"] = M.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
@@ -109,7 +114,7 @@
 	var/cell_charge = M.get_charge()
 	var/area/A = get_area(M)
 	var/answer = {"<b>Name:</b> [M.name]
-						<b>Integrity:</b> [M.health/initial(M.health)*100]%
+						<b>Integrity:</b> [M.obj_integrity / M.max_integrity * 100]%
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
 						<b>Airtank:</b> [M.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
@@ -123,11 +128,6 @@
 
 /obj/item/mecha_parts/mecha_tracking/emp_act()
 	qdel(src)
-	return
-
-/obj/item/mecha_parts/mecha_tracking/ex_act()
-	qdel(src)
-	return
 
 /obj/item/mecha_parts/mecha_tracking/proc/in_mecha()
 	if(istype(loc, /obj/mecha))
@@ -135,10 +135,13 @@
 	return FALSE
 
 /obj/item/mecha_parts/mecha_tracking/proc/shock()
+	if(recharging)
+		return
 	var/obj/mecha/M = in_mecha()
 	if(M)
-		M.emp_act(2)
-	qdel(src)
+		addtimer(CALLBACK(src, /obj/item/mecha_parts/mecha_tracking/proc/recharge), 5 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+		recharging = 1
+		M.emp_act(0.5)
 
 /obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
 	if(!in_mecha())

@@ -56,7 +56,7 @@
 		D.visible_message("<span class='warning'>[A] has attempted to [atk_verb] [D]!</span>")
 		return 0
 
-	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_sel.selecting))
+	var/obj/item/organ/external/affecting = D.get_organ(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)

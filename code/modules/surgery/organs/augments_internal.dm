@@ -268,33 +268,32 @@
 	desc += " The implant has been hardened. It is invulnerable to EMPs."
 
 /obj/item/organ/internal/cyberimp/chest/reviver/on_life()
+	if(cooldown > world.time || owner.suiciding) // don't heal while you're in cooldown!
+		return
 	if(reviving)
-		if(owner.stat == UNCONSCIOUS && (owner.sleeping == 0)) //!owner.sleeping didn't work for whatever dumb reason
-			spawn(30)
-				if(prob(90) && owner.getOxyLoss())
-					owner.adjustOxyLoss(-3)
-					revive_cost += 5
-				if(prob(75) && owner.getBruteLoss())
-					owner.adjustBruteLoss(-1)
-					revive_cost += 20
-				if(prob(75) && owner.getFireLoss())
-					owner.adjustFireLoss(-1)
-					revive_cost += 20
-				if(prob(40) && owner.getToxLoss())
-					owner.adjustToxLoss(-1)
-					revive_cost += 50
+		if(owner.health <= HEALTH_THRESHOLD_CRIT)
+			addtimer(CALLBACK(src, .proc/heal), 30)
 		else
-			cooldown = revive_cost + world.time
-			reviving = 0
-		return
-	if(cooldown > world.time)
-		return
-	if(owner.stat != UNCONSCIOUS)
-		return
-	if(owner.suiciding)
-		return
+			reviving = FALSE
+			return
+	cooldown = revive_cost + world.time
 	revive_cost = 0
-	reviving = 1
+	reviving = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/reviver/proc/heal()
+	if(prob(90) && owner.getOxyLoss())
+		owner.adjustOxyLoss(-3)
+		revive_cost += 5
+	if(prob(75) && owner.getBruteLoss())
+		owner.adjustBruteLoss(-1)
+		revive_cost += 20
+	if(prob(75) && owner.getFireLoss())
+		owner.adjustFireLoss(-1)
+		revive_cost += 20
+	if(prob(40) && owner.getToxLoss())
+		owner.adjustToxLoss(-1)
+		revive_cost += 50
+
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)
 	if(!owner || emp_proof)

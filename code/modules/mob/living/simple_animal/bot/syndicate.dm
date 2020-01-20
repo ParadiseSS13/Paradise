@@ -167,7 +167,7 @@
 		visible_message("<span class='userdanger'>[src] blows apart!</span>")
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-		var/obj/effect/decal/mecha_wreckage/gygax/dark/wreck = new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"
 
 		raise_alert("[src] destroyed.")

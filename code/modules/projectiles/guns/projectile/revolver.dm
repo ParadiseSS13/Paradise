@@ -286,7 +286,7 @@
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire(user, user))
 				playsound(user, fire_sound, 50, 1)
-				var/zone = check_zone(user.zone_sel.selecting)
+				var/zone = check_zone(user.zone_selected)
 				if(zone == "head" || zone == "eyes" || zone == "mouth")
 					shoot_self(user, zone)
 				else

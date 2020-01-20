@@ -16,7 +16,6 @@ var/global/default_martial_art = new/datum/martial_art
 	var/lip_color = "white"
 
 	var/age = 30		//Player's age (pure fluff)
-	var/b_type = "A+"	//Player's bloodtype
 
 	var/underwear = "Nude"	//Which underwear the player wants
 	var/undershirt = "Nude"	//Which undershirt the player wants

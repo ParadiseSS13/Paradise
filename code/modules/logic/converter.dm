@@ -56,7 +56,7 @@
 		S.toggle_secure()
 		to_chat(user, "<span class='notice'>You unsecure and detach \the [S] from the I/O connection port.</span>")
 		return
-	..()
+	return ..()
 
 /obj/machinery/logic_gate/convert/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	var/logic_state_string
