@@ -151,9 +151,7 @@ var/list/robot_verbs_default = list(
 		C.wrapped = new C.external_type
 
 	if(!cell)
-		cell = new /obj/item/stock_parts/cell(src)
-		cell.maxcharge = 7500
-		cell.charge = 7500
+		cell = new /obj/item/stock_parts/cell/high(src)
 
 	..()
 
@@ -550,14 +548,12 @@ var/list/robot_verbs_default = list(
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
-/mob/living/silicon/robot/blob_act()
+/mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
-		adjustBruteLoss(60)
-		return 1
+		adjustBruteLoss(30)
 	else
 		gib()
-		return 1
-	return 0
+	return TRUE
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
@@ -573,6 +569,10 @@ var/list/robot_verbs_default = list(
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_cell_power()
+	var/total_user_contents = GetAllContents()
+	if(locate(/obj/item/gps/cyborg) in total_user_contents)
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -904,7 +904,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/update_icons()
 
 	overlays.Cut()
-	if(stat != DEAD && !(paralysis || stunned || weakened || low_power_mode)) //Not dead, not stunned.
+	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
 		else
@@ -1128,9 +1128,6 @@ var/list/robot_verbs_default = list(
 			var/turf/tile = loc
 			if(isturf(tile))
 				var/floor_only = TRUE
-				if(istype(tile, /turf/simulated))
-					var/turf/simulated/S = tile
-					S.dirt = 0
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
 						if(is_cleanable(A))
@@ -1317,8 +1314,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/deathsquad/New(loc)
 	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/hyper(src)
 
 /mob/living/silicon/robot/deathsquad/init()
 	laws = new /datum/ai_laws/deathsquad
@@ -1371,8 +1367,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
 	..(loc)
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/hyper(src)
 	var/rnum = rand(1,1000)
 	var/borgname = "ERT [rnum]"
 	name = borgname
@@ -1462,4 +1457,4 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-	
+

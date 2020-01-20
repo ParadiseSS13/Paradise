@@ -282,7 +282,7 @@
 	return ..() | update_flags
 
 
-/datum/reagent/sacid
+/datum/reagent/acid
 	name = "Sulphuric acid"
 	id = "sacid"
 	description = "A strong mineral acid with the molecular formula H2SO4."
@@ -290,13 +290,14 @@
 	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "<span class='userdanger'>ACID</span>"
+	var/acidpwr = 10 //the amount of protection removed from the armour
 
-/datum/reagent/sacid/on_mob_life(mob/living/M)
+/datum/reagent/acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustFireLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/sacid/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/acid/reaction_mob(mob/living/M, method = TOUCH, volume)
 	if(ishuman(M) && !isgrey(M))
 		var/mob/living/carbon/human/H = M
 		if(method == TOUCH)
@@ -325,13 +326,62 @@
 				H.adjustFireLoss(min(max(4, (volume - 10) * 2), 20))
 				H.emote("scream")
 
-/datum/reagent/sacid/reaction_obj(obj/O, volume)
-	if((istype(O,/obj/item) || istype(O,/obj/structure/glowshroom)) && prob(40))
-		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
-			I.desc = "Looks like this was \an [O] some time ago."
-			O.visible_message("<span class='warning'>[O] melts.</span>")
-			qdel(O)
+/datum/reagent/acid/reaction_obj(obj/O, volume)
+	if(ismob(O.loc)) //handled in human acid_act()
+		return
+	volume = round(volume, 0.1)
+	O.acid_act(acidpwr, volume)
+
+/datum/reagent/acid/reaction_turf(turf/T, volume)
+	if(!istype(T))
+		return
+	volume = round(volume, 0.1)
+	T.acid_act(acidpwr, volume)
+
+/datum/reagent/acid/facid
+	name = "Fluorosulfuric Acid"
+	id = "facid"
+	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
+	color = "#5050FF"
+	acidpwr = 42
+
+/datum/reagent/acid/facid/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/acid/facid/reaction_mob(mob/living/M, method = TOUCH, volume)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(method == TOUCH)
+			if(volume > 9)
+				if(!H.wear_mask && !H.head)
+					var/obj/item/organ/external/affecting = H.get_organ("head")
+					if(affecting)
+						affecting.disfigure()
+					H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
+					H.emote("scream")
+					return
+				else
+					var/melted_something = FALSE
+					if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
+						qdel(H.wear_mask)
+						H.update_inv_wear_mask()
+						to_chat(H, "<span class='danger'>Your [H.wear_mask] melts away!</span>")
+						melted_something = TRUE
+
+					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
+						qdel(H.head)
+						H.update_inv_head()
+						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
+						melted_something = TRUE
+					if(melted_something)
+						return
+
+		if(volume >= 5)
+			H.emote("scream")
+			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
+		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"
@@ -369,7 +419,7 @@
 	color = "#9ACD32"
 	taste_description = "bitterness"
 
-/datum/reagent/spores/on_mob_life(mob/living/M)
+/datum/reagent/spore/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	M.damageoverlaytemp = 60
@@ -634,62 +684,6 @@
 		M.visible_message("<span class='danger'>[M] falls to the floor, scratching [M.p_them()]self violently!</span>")
 		M.emote("scream")
 	return ..() | update_flags
-
-/datum/reagent/facid
-	name = "Fluorosulfuric Acid"
-	id = "facid"
-	description = "Fluorosulfuric acid is a an extremely corrosive super-acid."
-	reagent_state = LIQUID
-	color = "#5050FF"
-	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "<span class='userdanger'>ACID</span>"
-
-/datum/reagent/facid/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
-	update_flags |= M.adjustFireLoss(1, FALSE)
-	return ..() | update_flags
-
-/datum/reagent/facid/reaction_mob(mob/living/M, method = TOUCH, volume)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(method == TOUCH)
-			if(volume > 9)
-				if(!H.wear_mask && !H.head)
-					var/obj/item/organ/external/affecting = H.get_organ("head")
-					if(affecting)
-						affecting.disfigure()
-					H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
-					H.emote("scream")
-					return
-				else
-					var/melted_something = FALSE
-					if(H.wear_mask && !H.wear_mask.unacidable)
-						qdel(H.wear_mask)
-						H.update_inv_wear_mask()
-						to_chat(H, "<span class='danger'>Your [H.wear_mask] melts away!</span>")
-						melted_something = TRUE
-
-					if(H.head && !H.head.unacidable)
-						qdel(H.head)
-						H.update_inv_head()
-						to_chat(H, "<span class='danger'>Your [H.head] melts away!</span>")
-						melted_something = TRUE
-					if(melted_something)
-						return
-
-		if(volume >= 5)
-			H.emote("scream")
-			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
-		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
-
-/datum/reagent/facid/reaction_obj(obj/O, volume)
-	if((istype(O, /obj/item) || istype(O, /obj/structure/glowshroom)))
-		if(!O.unacidable)
-			var/obj/effect/decal/cleanable/molten_object/I = new/obj/effect/decal/cleanable/molten_object(O.loc)
-			I.desc = "Looks like this was \an [O] some time ago."
-			O.visible_message("<span class='warning'>[O] melts.</span>")
-			qdel(O)
 
 /datum/reagent/initropidril
 	name = "Initropidril"

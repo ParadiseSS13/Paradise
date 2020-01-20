@@ -56,8 +56,9 @@
 	target = A
 	AttackingTarget()
 
-/atom/proc/attack_animal(mob/user as mob)
+/atom/proc/attack_animal(mob/user)
 	return
+
 /mob/living/RestrainedClickOn(var/atom/A)
 	return
 
@@ -65,18 +66,20 @@
 	Aliens
 	Defaults to same as monkey in most places
 */
-/mob/living/carbon/alien/UnarmedAttack(var/atom/A)
+/mob/living/carbon/alien/UnarmedAttack(atom/A)
 	A.attack_alien(src)
-/atom/proc/attack_alien(mob/user as mob)
+
+/atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
-	return
-/mob/living/carbon/alien/RestrainedClickOn(var/atom/A)
+
+/mob/living/carbon/alien/RestrainedClickOn(atom/A)
 	return
 
 // Babby aliens
-/mob/living/carbon/alien/larva/UnarmedAttack(var/atom/A)
+/mob/living/carbon/alien/larva/UnarmedAttack(atom/A)
 	A.attack_larva(src)
-/atom/proc/attack_larva(mob/user as mob)
+
+/atom/proc/attack_larva(mob/user)
 	return
 
 

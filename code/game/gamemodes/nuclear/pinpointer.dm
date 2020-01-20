@@ -9,6 +9,7 @@
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=500)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/obj/item/disk/nuclear/the_disk = null
 	var/active = 0
 	var/shows_nuke_timer = TRUE
@@ -163,13 +164,13 @@
 					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
 					if(!targetitem)
 						return
-					
+
 					var/list/target_candidates = get_all_of_type(item_paths[targetitem], subtypes = TRUE)
 					for(var/obj/item/candidate in target_candidates)
 						if(!is_admin_level((get_turf(candidate)).z))
 							target = candidate
 							break
-					
+
 					if(!target)
 						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return

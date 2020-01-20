@@ -164,6 +164,10 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
+///Handle melee attack by a mech
+/atom/proc/mech_melee_attack(obj/mecha/M)
+	return
+
 /atom/proc/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	SEND_SIGNAL(src, COMSIG_ATOM_HULK_ATTACK, user)
 	if(does_attack_animation)
@@ -209,19 +213,23 @@
 /atom/proc/Bumped(AM as mob|obj)
 	return
 
-// Convenience procs to see if a container is open for chemistry handling
+/// Convenience proc to see if a container is open for chemistry handling
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
 
-/atom/proc/is_injectable(allowmobs = TRUE)
+/// Is this atom injectable into other atoms
+/atom/proc/is_injectable(mob/user, allowmobs = TRUE)
 	return reagents && (container_type & (INJECTABLE | REFILLABLE))
 
-/atom/proc/is_drawable(allowmobs = TRUE)
+/// Can we draw from this atom with an injectable atom
+/atom/proc/is_drawable(mob/user, allowmobs = TRUE)
 	return reagents && (container_type & (DRAWABLE | DRAINABLE))
 
+/// Can this atoms reagents be refilled
 /atom/proc/is_refillable()
 	return reagents && (container_type & REFILLABLE)
 
+/// Is this atom drainable of reagents
 /atom/proc/is_drainable()
 	return reagents && (container_type & DRAINABLE)
 
@@ -235,6 +243,7 @@
 	return
 
 /atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
 
 /atom/proc/in_contents_of(container)//can take class or object instance as argument
@@ -319,6 +328,7 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
 
 /atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 
@@ -481,8 +491,7 @@ var/list/blood_splatter_icons = list()
 		return
 	var/list/blood_dna = list()
 	if(dna)
-		var/mob/living/carbon/human/H = src
-		blood_dna[dna.unique_enzymes] = H.b_type
+		blood_dna[dna.unique_enzymes] = dna.blood_type
 	else
 		blood_dna["UNKNOWN DNA"] = "X*"
 	return blood_dna
@@ -712,8 +721,16 @@ var/list/blood_splatter_icons = list()
 /atom/proc/singularity_act()
 	return
 
-/atom/proc/singularity_pull()
-	return
+/atom/proc/singularity_pull(obj/singularity/S, current_size)
+	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
+
+/**
+  * Respond to acid being used on our atom
+  *
+  * Default behaviour is to send COMSIG_ATOM_ACID_ACT and return
+  */
+/atom/proc/acid_act(acidpwr, acid_volume)
+	SEND_SIGNAL(src, COMSIG_ATOM_ACID_ACT, acidpwr, acid_volume)
 
 /atom/proc/narsie_act()
 	return
