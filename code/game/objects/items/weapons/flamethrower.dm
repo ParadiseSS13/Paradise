@@ -4,7 +4,7 @@
 	icon = 'icons/obj/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
 	item_state = "flamethrower_0"
-	var/fire_sound = 'sound/weapons/flamethrower.ogg'
+	var/fire_sound = 'sound/hispania/weapons/flamethrower.ogg'
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags = CONDUCT
