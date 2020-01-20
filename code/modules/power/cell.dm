@@ -316,6 +316,7 @@
 	maxcharge = 300
 	materials = list()
 	grown_battery = TRUE //it has the overlays for wires
+	rating = 0
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
