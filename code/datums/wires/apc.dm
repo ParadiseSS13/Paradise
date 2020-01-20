@@ -11,13 +11,13 @@ var/const/APC_WIRE_AI_CONTROL = 8
 	switch(index)
 		if(APC_WIRE_IDSCAN)
 			return "ID Scan"
-		
+
 		if(APC_WIRE_MAIN_POWER1)
 			return "Primary Power"
-		
+
 		if(APC_WIRE_MAIN_POWER2)
 			return "Secondary Power"
-		
+
 		if(APC_WIRE_AI_CONTROL)
 			return "AI Control"
 
@@ -31,9 +31,9 @@ var/const/APC_WIRE_AI_CONTROL = 8
 
 /datum/wires/apc/CanUse(mob/living/L)
 	var/obj/machinery/power/apc/A = holder
-	if(A.wiresexposed)
-		return 1
-	return 0
+	if(A.panel_open && !A.opened)
+		return TRUE
+	return FALSE
 
 /datum/wires/apc/UpdatePulsed(index)
 

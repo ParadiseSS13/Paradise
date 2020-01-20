@@ -15,7 +15,6 @@
 
 /datum/job_objective/make_station_goal/get_description()
 	var/desc = "Complete the station goal."
-	desc += "([units_completed] completed.)"
 	return desc
 
 /datum/job_objective/make_station_goal/check_for_completion()

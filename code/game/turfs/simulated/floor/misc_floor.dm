@@ -189,4 +189,3 @@
 	icon_state = "reebe"
 	baseturf = /turf/simulated/floor/clockwork/reebe
 	uses_overlay = FALSE
-	planetary_atmos = TRUE

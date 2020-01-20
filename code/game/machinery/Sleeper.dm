@@ -46,8 +46,8 @@
 	component_parts += B
 
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -57,8 +57,8 @@
 	component_parts += new /obj/item/circuitboard/sleeper(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -264,15 +264,6 @@
 		add_fingerprint(usr)
 	return 1
 
-/obj/machinery/sleeper/blob_act()
-	if(prob(75))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
-		qdel(src)
-	return
-
-
 /obj/machinery/sleeper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
 		if(!beaker)
@@ -355,27 +346,19 @@
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)
 		toggle_filter()
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
+	if(occupant)
+		occupant.ex_act(severity)
+	..()
+
+/obj/machinery/sleeper/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
+	if(A == beaker)
+		beaker = null
+		updateUsrDialog()
 
 /obj/machinery/sleeper/emp_act(severity)
 	if(filtering)
@@ -563,8 +546,8 @@
 	B.rating = initial_bin_rating
 	component_parts += B
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 

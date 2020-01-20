@@ -3156,7 +3156,7 @@
 	},
 /area/awaymission/BMPship/Aft)
 "ia" = (
-/obj/effect/decal/mecha_wreckage/ripley,
+/obj/structure/mecha_wreckage/ripley,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "ib" = (

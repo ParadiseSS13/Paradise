@@ -8,7 +8,7 @@
 	tail = "wryntail"
 	punchdamagelow = 0
 	punchdamagehigh = 1
-	slowdown = 1
+	speed_mod = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1
 	blurb = "The wryn (r-in, singular r-in) are a humanoid race that possess many bee-like features. Originating from Alveare they \

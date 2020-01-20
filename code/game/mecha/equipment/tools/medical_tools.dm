@@ -35,7 +35,7 @@
 	icon_state = "sleeper"
 	origin_tech = "engineering=3;biotech=3;plasmatech=2"
 	energy_drain = 20
-	range = MELEE
+	range = MECHA_MELEE
 	equip_cooldown = 20
 	var/mob/living/carbon/patient = null
 	var/inject_amount = 10
@@ -250,7 +250,7 @@
 	var/synth_speed = 5 //[num] reagent units per cycle
 	energy_drain = 10
 	var/mode = 0 //0 - fire syringe, 1 - analyze reagents.
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 	equip_cooldown = 10
 	origin_tech = "materials=3;biotech=4;magnets=4"
 
@@ -316,40 +316,38 @@
 	var/mob/originaloccupant = chassis.occupant
 	spawn(0)
 		src = null //if src is deleted, still process the syringe
-		for(var/i=0, i<6, i++)
+		var/max_range = 6
+		for(var/i=0, i<max_range, i++)
 			if(!mechsyringe)
 				break
-			if(step_towards(mechsyringe,trg))
-				var/list/mobs = new
-				for(var/mob/living/carbon/M in mechsyringe.loc)
-					mobs += M
-				var/mob/living/carbon/M = safepick(mobs)
-				if(M)
-					var/R
-					mechsyringe.visible_message("<span class=\"attack\"> [M] was hit by the syringe!</span>")
-					if(M.can_inject(null, 1))
-						if(mechsyringe.reagents)
-							for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
-								R += A.id + " ("
-								R += num2text(A.volume) + "),"
-						add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
-						mechsyringe.icon_state = initial(mechsyringe.icon_state)
-						mechsyringe.icon = initial(mechsyringe.icon)
-						mechsyringe.reagents.reaction(M, INGEST)
-						mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
-						M.take_organ_damage(2)
-					break
-				else if(mechsyringe.loc == trg)
-					mechsyringe.icon_state = initial(mechsyringe.icon_state)
-					mechsyringe.icon = initial(mechsyringe.icon)
-					mechsyringe.update_icon()
-					break
-			else
-				mechsyringe.icon_state = initial(mechsyringe.icon_state)
-				mechsyringe.icon = initial(mechsyringe.icon)
-				mechsyringe.update_icon()
+			if(!step_towards(mechsyringe,trg))
+				break
+
+			var/list/mobs = new
+			for(var/mob/living/carbon/M in mechsyringe.loc)
+				mobs += M
+			var/mob/living/carbon/M = safepick(mobs)
+			if(M)
+				var/R
+				mechsyringe.visible_message("<span class=\"attack\"> [M] was hit by the syringe!</span>")
+				if(M.can_inject(null, TRUE))
+					if(mechsyringe.reagents)
+						for(var/datum/reagent/A in mechsyringe.reagents.reagent_list)
+							R += A.id + " ("
+							R += num2text(A.volume) + "),"
+					add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
+					mechsyringe.reagents.reaction(M, INGEST)
+					mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
+					M.take_organ_damage(2)
+				break
+			else if(mechsyringe.loc == trg)
 				break
 			sleep(1)
+		if(mechsyringe)
+			// Revert the syringe icon to normal one once it stops flying.
+			mechsyringe.icon_state = initial(mechsyringe.icon_state)
+			mechsyringe.icon = initial(mechsyringe.icon)
+			mechsyringe.update_icon()
 	return 1
 
 

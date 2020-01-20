@@ -73,7 +73,7 @@
 			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
 			updateUsrDialog()
 	else
-		..()
+		return ..()
 
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if(!emagged)

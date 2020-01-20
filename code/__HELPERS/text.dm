@@ -20,7 +20,7 @@
 	if(!istext(t))
 		t = "[t]" // Just quietly assume any non-texts are supposed to be text
 	var/sqltext = dbcon.Quote(t);
-	return copytext(sqltext, 2, lentext(sqltext));//Quote() adds quotes around input, we already do that
+	return copytext(sqltext, 2, length(sqltext));//Quote() adds quotes around input, we already do that
 
 /proc/format_table_name(table as text)
 	return sqlfdbktableprefix + table
@@ -130,7 +130,7 @@
 
 //Filters out undesirable characters from names
 /proc/reject_bad_name(var/t_in, var/allow_numbers=0, var/max_length=MAX_NAME_LEN)
-	// Decode so that names with characters like < are still rejected. Will be encoded again at the end
+	// Decode so that names with characters like < are still rejected
 	t_in = html_decode(t_in)
 	if(!t_in || length(t_in) > max_length)
 		return //Rejects the input if it is null or if it is longer than the max length allowed
@@ -192,7 +192,7 @@
 	for(var/bad_name in list("space","floor","wall","r-wall","monkey","unknown","inactive ai","plating"))	//prevents these common metagamey names
 		if(cmptext(t_out,bad_name))	return	//(not case sensitive)
 
-	return html_encode(t_out)
+	return t_out
 
 //checks text for html tags
 //if tag is not in whitelist (var/list/paper_tag_whitelist in global.dm)
@@ -333,9 +333,9 @@ proc/checkhtml(var/t)
 //is in the other string at the same spot (assuming it is not a replace char).
 //This is used for fingerprints
 	var/newtext = text
-	if(lentext(text) != lentext(compare))
+	if(length(text) != length(compare))
 		return 0
-	for(var/i = 1, i < lentext(text), i++)
+	for(var/i = 1, i < length(text), i++)
 		var/a = copytext(text,i,i+1)
 		var/b = copytext(compare,i,i+1)
 //if it isn't both the same letter, or if they are both the replacement character
@@ -355,7 +355,7 @@ proc/checkhtml(var/t)
 	if(!text || !character)
 		return 0
 	var/count = 0
-	for(var/i = 1, i <= lentext(text), i++)
+	for(var/i = 1, i <= length(text), i++)
 		var/a = copytext(text,i,i+1)
 		if(a == character)
 			count++
@@ -400,8 +400,8 @@ proc/checkhtml(var/t)
 //Used in preferences' SetFlavorText and human's set_flavor verb
 //Previews a string of len or less length
 /proc/TextPreview(var/string,var/len=40)
-	if(lentext(string) <= len)
-		if(!lentext(string))
+	if(length(string) <= len)
+		if(!length(string))
 			return "\[...\]"
 		else
 			return html_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
@@ -541,7 +541,7 @@ proc/checkhtml(var/t)
 				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
-    
+
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
 

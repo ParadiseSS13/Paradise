@@ -76,9 +76,11 @@
 			var/obj/item/stack/spacecash/C = O
 			if(pay_with_cash(C, user))
 				tokens += 1
-			return
+		return
 	if(panel_open && component_parts && istype(O, /obj/item/crowbar))
 		default_deconstruction_crowbar(O)
+		return
+	return ..()
 
 /obj/machinery/arcade/update_icon()
 	return

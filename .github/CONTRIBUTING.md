@@ -220,6 +220,8 @@ Protip: 'I couldn't immediately think of a proper way so thus there must be no o
 You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and 
 then overriding them as required.
 
+The same also applies to bugfix - If an invalid value is being passed into a proc from something that shouldn't have that value, don't fix it on the proc itself, fix it at its origin! (Where feasible)
+
 ### No duplicated code
 Copying code from one place to another may be suitable for small, short-time projects, but Paradise is a long-term project and highly discourages this.
 
@@ -235,6 +237,25 @@ There are two key points here:
 2) It also consumes more memory to the point where the list is actually required, even if the object in question may never use it!
 
 Remember: although this tradeoff makes sense in many cases, it doesn't cover them all. Think carefully about your addition before deciding if you need to use it.
+
+### Prefer `Initialize()` over `New()` for atoms
+Our game controller is pretty good at handling long operations and lag, but it can't control what happens when the map is loaded, which calls `New` for all atoms on the map. If you're creating a new atom, use the `Initialize` proc to do what you would normally do in `New`. This cuts down on the number of proc calls needed when the world is loaded. 
+
+While we normally encourage (and in some cases, even require) bringing out of date code up to date when you make unrelated changes near the out of date code, that is not the case for `New` -> `Initialize` conversions. These systems are generally more dependant on parent and children procs so unrelated random conversions of existing things can cause bugs that take months to figure out.
+
+### No implicit var/
+When you declare a parameter in a proc, the var/ is implicit. Do not include any implicit var/ when declaring a variable.
+
+I.e. 
+Bad: 
+````
+obj/item/proc1(var/input1, var/input2)
+````
+Good:
+
+````
+obj/item/proc1(input1, input2)
+````
 
 ### No magic numbers or strings
 This means stuff like having a "mode" variable for an object set to "1" or "2" with no clear indicator of what that means. Make these #defines with a name that 
@@ -303,6 +324,25 @@ This is good:
   if(thing3 != 30)
     return
   do stuff
+````
+This prevents nesting levels from getting deeper then they need to be.
+
+### Uses addtimer() instead of sleep() or spawn()
+If you need to call a proc after a set amount of time, use addtimer() instead of spawn() / sleep() where feasible.
+Although it is more complex, it is more  performant and unlike spawn() or sleep(), it can be cancelled. 
+For more details, see https://github.com/tgstation/tgstation/pull/22933.
+
+Look for code example on how to properly use it.
+ 
+This is bad:
+````DM
+/datum/datum1/proc/proc1()
+  spawn(5)
+  dothing(arg1, arg2, arg3)
+````
+This is good:
+````DM
+  addtimer(CALLBACK(procsource, .proc/dothing, arg1, arg2, arg3), waittime, timertype)
 ````
 This prevents nesting levels from getting deeper then they need to be.
 

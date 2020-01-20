@@ -17,3 +17,13 @@
         /obj/item/reagent_containers/food/snacks/sliceable/flatdough,
     )
     result = /obj/item/reagent_containers/food/snacks/pie/honey
+
+///HoneyBread(For Luka <3 )
+/datum/recipe/oven/honeybread
+    reagents = list("honey" = 15)
+    items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+    )
+    result = /obj/item/reagent_containers/food/snacks/sliceable/honeybread

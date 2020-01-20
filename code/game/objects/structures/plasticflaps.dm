@@ -6,7 +6,7 @@
 	density = 0
 	anchored = 1
 	layer = 4
-	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100)
+	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
 
 /obj/structure/plasticflaps/examine(mob/user)
@@ -53,7 +53,7 @@
 				P.add_fingerprint(user)
 				qdel(src)
 	else
-		. = ..()
+		return ..()
 
 /obj/structure/plasticflaps/CanPass(atom/A, turf/T)
 	if(istype(A) && A.checkpass(PASSGLASS))
@@ -95,19 +95,8 @@
 		return CanAStarPass(ID, to_dir, M.pulling)
 	return TRUE //diseases, stings, etc can pass
 
-/obj/structure/plasticflaps/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(5))
-				qdel(src)
-
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/plastic/five(loc)
 	qdel(src)
 

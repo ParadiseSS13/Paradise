@@ -13,7 +13,7 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 	var/raised = 0			//if the turret cover is "open" and the turret is raised
 	var/raising= 0			//if the turret is currently opening or closing its cover
 	var/health = 80			//the turret's health
@@ -353,7 +353,7 @@ var/list/turret_icons
 					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 					if(installation)
 						var/obj/item/gun/energy/Gun = new installation(loc)
-						Gun.power_supply.charge = gun_charge
+						Gun.cell.charge = gun_charge
 						Gun.update_icon()
 					if(prob(50))
 						new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -857,7 +857,7 @@ var/list/turret_icons
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				installation = I.type //installation becomes I.type
-				gun_charge = E.power_supply.charge //the gun's charge is stored in gun_charge
+				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
 				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
 
 				if(istype(installation, /obj/item/gun/energy/laser/tag/blue) || istype(installation, /obj/item/gun/energy/laser/tag/red))
@@ -964,7 +964,7 @@ var/list/turret_icons
 			build_step = 3
 
 			var/obj/item/gun/energy/Gun = new installation(loc)
-			Gun.power_supply.charge = gun_charge
+			Gun.cell.charge = gun_charge
 			Gun.update_icon()
 			installation = null
 			gun_charge = 0

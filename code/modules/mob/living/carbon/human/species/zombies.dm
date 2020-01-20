@@ -42,7 +42,7 @@
 	clone_mod = 0.8
 	brain_mod = 0.8
 	stamina_mod = 0.8
-	speedmod = 1.6
+	speed_mod = 1.6
 	default_language = "Zombie"
 	var/heal_rate = 1
 	var/regen_cooldown = 0

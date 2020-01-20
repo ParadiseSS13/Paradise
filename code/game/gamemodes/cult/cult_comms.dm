@@ -38,7 +38,7 @@
 	if(istype(user, /mob/living/simple_animal/slaughter/cult)) //Harbringers of the Slaughter
 		my_message = "<span class='cultlarge'><b>Harbringer of the Slaughter:</b> [message]</span>"
 	else
-		my_message = "<span class='cultspeech'><b>[(ishuman(user) ? "Acolyte" : "Construct")] [user]:</b> [message]</span>"
+		my_message = "<span class='cultspeech'><b>[(ishuman(user) ? "Acolyte" : "Construct")] [user.real_name]:</b> [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
