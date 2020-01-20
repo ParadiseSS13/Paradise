@@ -92,6 +92,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
 	fluffnotice = "Property of Nanotrasen. For heads of staff only. Store in high-secure storage."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/showing = list()
 	var/client/viewing

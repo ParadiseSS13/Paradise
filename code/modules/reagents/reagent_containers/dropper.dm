@@ -114,7 +114,7 @@
 /obj/item/reagent_containers/dropper/precision/viral_injector
 
 /obj/item/reagent_containers/dropper/precision/viral_injector/attack(mob/living/M, mob/living/user, def_zone)
-	if(M.can_inject(user, 1))
+	if(M.can_inject(user, TRUE))
 		to_chat(user, "<span class='warning'>You stab [M] with the [src].</span>")
 		if(reagents.total_volume && M.reagents)
 			var/list/injected = list()
@@ -135,8 +135,8 @@
 							virusData += " ([english_list(english_symptoms)])"
 						virList += virusData
 					var/str = english_list(virList)
-					add_attack_logs(user, M, "Infected with [str].") 
-					
+					add_attack_logs(user, M, "Infected with [str].")
+
 				reagents.reaction(M, INGEST, reagents.total_volume)
 				reagents.trans_to(M, 1)
 

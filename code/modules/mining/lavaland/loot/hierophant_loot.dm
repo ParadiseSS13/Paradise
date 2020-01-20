@@ -56,7 +56,10 @@
 	timer = world.time + CLICK_CD_MELEE //by default, melee attacks only cause melee blasts, and have an accordingly short cooldown
 	if(proximity_flag)
 		INVOKE_ASYNC(src, .proc/aoe_burst, T, user)
-		add_attack_logs(user, target, "Fired 3x3 blast at [src]")
+		if(is_station_level(T.z))
+			add_attack_logs(user, target, "Fired 3x3 blast at [src]")
+		else
+			add_attack_logs(user, target, "Fired 3x3 blast at [src]", ATKLOG_ALL)
 	else
 		if(ismineralturf(target) && get_dist(user, target) < 6) //target is minerals, we can hit it(even if we can't see it)
 			INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user)
@@ -68,10 +71,16 @@
 				var/obj/effect/temp_visual/hierophant/chaser/C = new(get_turf(user), user, target, chaser_speed, friendly_fire_check)
 				C.damage = 30
 				C.monster_damage_boost = FALSE
-				add_attack_logs(user, target, "Fired a chaser at [src]")
+				if(is_station_level(T.z))
+					add_attack_logs(user, target, "Fired a chaser at [src]")
+				else
+					add_attack_logs(user, target, "Fired a chaser at [src]", ATKLOG_ALL)
 			else
 				INVOKE_ASYNC(src, .proc/cardinal_blasts, T, user) //otherwise, just do cardinal blast
-				add_attack_logs(user, target, "Fired cardinal blast at [src]")
+				if(is_station_level(T.z))
+					add_attack_logs(user, target, "Fired cardinal blast at [src]")
+				else
+					add_attack_logs(user, target, "Fired cardinal blast at [src]", ATKLOG_ALL)
 		else
 			to_chat(user, "<span class='warning'>That target is out of range!</span>" )
 			timer = world.time

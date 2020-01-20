@@ -7,6 +7,7 @@
 	anchored = 0
 	density = 1
 	use_power = NO_POWER_USE
+	resistance_flags = FIRE_PROOF
 	var/energy = 0
 	var/creation_type = /obj/singularity
 

@@ -314,7 +314,6 @@ var/const/INGEST = 2
 	if(update_flags & STATUS_UPDATE_CANMOVE)
 		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
-		M.handle_hud_icons_health()
 		M.update_stamina()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
@@ -649,6 +648,8 @@ var/const/INGEST = 2
 		if(data)
 			R.data = data
 
+		if(isliving(my_atom))
+			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
 		update_total()
 		if(my_atom)
 			my_atom.on_reagent_change()

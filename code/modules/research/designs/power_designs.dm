@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL = 700, MAT_GLASS = 50)
 	build_path = /obj/item/stock_parts/cell/empty
 	category = list("Misc","Power","Machinery","initial")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.1
 
 /datum/design/high_cell
 	name = "High-Capacity Power Cell"
@@ -33,7 +33,7 @@
 	materials = list(MAT_METAL = 700, MAT_GOLD = 150, MAT_SILVER = 150, MAT_GLASS = 70)
 	build_path = /obj/item/stock_parts/cell/hyper/empty
 	category = list("Misc","Power")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.3
 
 /datum/design/super_cell
 	name = "Super-Capacity Power Cell"
@@ -44,7 +44,7 @@
 	materials = list(MAT_METAL = 700, MAT_GLASS = 70)
 	build_path = /obj/item/stock_parts/cell/super/empty
 	category = list("Misc","Power")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.4
 
 /datum/design/bluespace_cell
 	name = "Bluespace Power Cell"
@@ -55,7 +55,7 @@
 	materials = list(MAT_METAL = 800, MAT_GOLD = 120, MAT_GLASS = 160, MAT_DIAMOND = 160, MAT_TITANIUM = 300, MAT_BLUESPACE = 100)
 	build_path = /obj/item/stock_parts/cell/bluespace/empty
 	category = list("Misc","Power")
-	lathe_time_factor = 0.2
+	lathe_time_factor = 0.5
 
 /datum/design/pacman
 	name = "Machine Board (PACMAN-type Generator)"

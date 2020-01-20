@@ -160,7 +160,7 @@
 			qdel(src)
 		return 1
 
-	return src.attack_hand(user)
+	return ..()
 
 /obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"

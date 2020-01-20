@@ -9,7 +9,7 @@
 	//icon = 'icons/dirsquare.dmi'
 	icon_state = "pinonfar"
 
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = 1
 
 	var/id
@@ -837,6 +837,7 @@
 	var/cooldown //prevents spamming admins
 	possible_destinations = "ferry_home"
 	admin_controlled = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/computer/shuttle/ferry/request/Topic(href, href_list)
 	if(..())

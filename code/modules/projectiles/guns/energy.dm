@@ -5,7 +5,7 @@
 	icon = 'icons/obj/guns/energy.dmi'
 	fire_sound_text = "laser blast"
 
-	var/obj/item/stock_parts/cell/power_supply //What type of power cell this uses
+	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
 	var/cell_type = /obj/item/stock_parts/cell
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
@@ -20,7 +20,7 @@
 	var/charge_delay = 4
 
 /obj/item/gun/energy/emp_act(severity)
-	power_supply.use(round(power_supply.charge / severity))
+	cell.use(round(cell.charge / severity))
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -30,15 +30,15 @@
 	update_icon()
 
 /obj/item/gun/energy/get_cell()
-	return power_supply
+	return cell
 
 /obj/item/gun/energy/New()
 	..()
 	if(cell_type)
-		power_supply = new cell_type(src)
+		cell = new cell_type(src)
 	else
-		power_supply = new(src)
-	power_supply.give(power_supply.maxcharge)
+		cell = new(src)
+	cell.give(cell.maxcharge)
 	update_ammo_types()
 	on_recharge()
 	if(selfcharge)
@@ -66,14 +66,14 @@
 		if(charge_tick < charge_delay)
 			return
 		charge_tick = 0
-		if(!power_supply)
+		if(!cell)
 			return // check if we actually need to recharge
 		var/obj/item/ammo_casing/energy/E = ammo_type[select]
 		if(use_external_power)
-			var/obj/item/stock_parts/cell/external = get_external_power_supply()
+			var/obj/item/stock_parts/cell/external = get_external_cell()
 			if(!external || !external.use(E.e_cost)) //Take power from the borg...
 				return								//Note, uses /10 because of shitty mods to the cell system
-		power_supply.give(100) //... to recharge the shot
+		cell.give(100) //... to recharge the shot
 		on_recharge()
 		update_icon()
 
@@ -91,14 +91,14 @@
 
 /obj/item/gun/energy/can_shoot()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	return power_supply.charge >= shot.e_cost
+	return cell.charge >= shot.e_cost
 
 /obj/item/gun/energy/newshot()
-	if(!ammo_type || !power_supply)
+	if(!ammo_type || !cell)
 		return
 	if(!chambered)
 		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-		if(power_supply.charge >= shot.e_cost) //if there's enough power in the power_supply cell...
+		if(cell.charge >= shot.e_cost) //if there's enough power in the cell cell...
 			chambered = shot //...prepare a new shot based on the current ammo type selected
 			if(!chambered.BB)
 				chambered.newshot()
@@ -106,7 +106,7 @@
 /obj/item/gun/energy/process_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
 		var/obj/item/ammo_casing/energy/shot = chambered
-		power_supply.use(shot.e_cost)//... drain the power_supply cell
+		cell.use(shot.e_cost)//... drain the cell cell
 		robocharge()
 	chambered = null //either way, released the prepared shot
 	newshot()
@@ -131,7 +131,7 @@
 
 /obj/item/gun/energy/update_icon()
 	overlays.Cut()
-	var/ratio = Ceiling((power_supply.charge / power_supply.maxcharge) * charge_sections)
+	var/ratio = Ceiling((cell.charge / cell.maxcharge) * charge_sections)
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	var/iconState = "[icon_state]_charge"
 	var/itemState = null
@@ -142,7 +142,7 @@
 		iconState += "_[shot.select_name]"
 		if(itemState)
 			itemState += "[shot.select_name]"
-	if(power_supply.charge < shot.e_cost)
+	if(cell.charge < shot.e_cost)
 		overlays += "[icon_state]_empty"
 	else
 		if(!shaded_charge)
@@ -172,7 +172,7 @@
 			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with the [name]!</span>")
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-			power_supply.use(shot.e_cost)
+			cell.use(shot.e_cost)
 			update_icon()
 			return FIRELOSS
 		else
@@ -198,9 +198,9 @@
 		if(R && R.cell)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
-				power_supply.give(shot.e_cost)	//... to recharge the shot
+				cell.give(shot.e_cost)	//... to recharge the shot
 
-/obj/item/gun/energy/proc/get_external_power_supply()
+/obj/item/gun/energy/proc/get_external_cell()
 	if(istype(loc, /obj/item/rig_module))
 		var/obj/item/rig_module/module = loc
 		if(module.holder && module.holder.wearer)

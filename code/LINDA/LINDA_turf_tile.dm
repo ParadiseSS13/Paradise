@@ -213,7 +213,7 @@
 		var/datum/gas_mixture/G = new
 		G.copy_from_turf(src)
 		G.archive()
-		if(air.compare(G))
+		if(!air.compare(G))
 			if(!excited_group)
 				var/datum/excited_group/EG = new
 				EG.add_turf(src)

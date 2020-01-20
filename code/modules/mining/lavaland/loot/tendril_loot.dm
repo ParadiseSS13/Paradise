@@ -14,6 +14,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "cultpack"
 	slot_flags = SLOT_BACK
+	resistance_flags = INDESTRUCTIBLE
 	var/obj/item/storage/backpack/shared/bag
 
 /obj/item/shared_storage/red
@@ -88,7 +89,7 @@
 
 /obj/item/book_of_babel/attack_self(mob/user)
 	to_chat(user, "You flip through the pages of the book, quickly and conveniently learning every language in existence. Somewhat less conveniently, the aging book crumbles to dust in the process. Whoops.")
-	user.grant_all_languages()
+	user.grant_all_babel_languages()
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
@@ -164,7 +165,7 @@
 	icon_state = "goliath_boat"
 	icon = 'icons/obj/lavaland/dragonboat.dmi'
 	held_key_type = /obj/item/oar
-	burn_state = LAVA_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /obj/vehicle/lavaboat/relaymove(mob/user, direction)
 	var/turf/next = get_step(src, direction)
@@ -184,7 +185,7 @@
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
 	w_class = WEIGHT_CLASS_NORMAL
-	burn_state = LAVA_PROOF
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
 /datum/crafting_recipe/oar
 	name = "goliath bone oar"
@@ -207,7 +208,6 @@
 	desc = "A tiny ship inside a bottle."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "ship_bottle"
-	burn_state = LAVA_PROOF
 
 /obj/item/ship_in_a_bottle/attack_self(mob/user)
 	to_chat(user, "You're not sure how they get the ships in these things, but you're pretty sure you know how to get it out.")
@@ -396,6 +396,7 @@
 	desc = "A dread talisman that can render you completely invulnerable."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "talisman"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	actions_types = list(/datum/action/item_action/immortality)
 	var/cooldown = 0
 
@@ -439,6 +440,9 @@
 	return
 
 /obj/effect/immortality_talisman/ex_act()
+	return
+
+/obj/effect/immortality_talisman/singularity_act()
 	return
 
 /obj/effect/immortality_talisman/singularity_pull()
