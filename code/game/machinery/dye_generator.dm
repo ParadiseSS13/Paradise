@@ -27,20 +27,6 @@
 				stat |= NOPOWER
 				set_light(0)
 
-/obj/machinery/dye_generator/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				stat |= BROKEN
-				icon_state = "[initial(icon_state)]-broken"
-
 /obj/machinery/dye_generator/attack_hand(mob/user)
 	..()
 	src.add_fingerprint(user)
@@ -60,8 +46,8 @@
 		user.visible_message("<span class='notice'>[user] fills the [HD] up with some dye.</span>","<span class='notice'>You fill the [HD] up with some hair dye.</span>")
 		HD.dye_color = dye_color
 		HD.update_dye_overlay()
-	else
-		return ..()
+		return
+	return ..()
 
 //Hair Dye Bottle
 

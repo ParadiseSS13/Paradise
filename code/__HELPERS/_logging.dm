@@ -140,6 +140,9 @@
 /proc/log_asset(text)
 	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
 
+/proc/log_runtime_summary(text)
+	WRITE_LOG(GLOB.runtime_summary_log, "[text]")
+
 /**
  * Standardized method for tracking startup times.
  */

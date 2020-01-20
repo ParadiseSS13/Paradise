@@ -23,6 +23,7 @@
 				to_chat(user, "You unfasten the bolts.")
 				playsound(src.loc, P.usesound, 50, 1)
 				construct_op++
+			return
 		if(1)
 			if(istype(P, /obj/item/screwdriver))
 				to_chat(user, "You fasten the bolts.")
@@ -32,6 +33,7 @@
 				to_chat(user, "You dislodge the external plating.")
 				playsound(src.loc, P.usesound, 75, 1)
 				construct_op++
+			return
 		if(2)
 			if(istype(P, /obj/item/wrench))
 				to_chat(user, "You secure the external plating.")
@@ -44,6 +46,7 @@
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( user.loc )
 				A.amount = 5
 				stat |= BROKEN // the machine's been borked!
+			return
 		if(3)
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/A = P
@@ -56,6 +59,7 @@
 						qdel(A)
 					construct_op--
 					stat &= ~BROKEN // the machine's not borked anymore!
+				return
 			if(istype(P, /obj/item/crowbar))
 				to_chat(user, "You begin prying out the circuit board other components...")
 				playsound(src.loc, P.usesound, 50, 1)
@@ -85,6 +89,8 @@
 					var/obj/machinery/constructable_frame/machine_frame/F = new
 					F.loc = src.loc
 					qdel(src)
+				return
+	return ..()
 
 /obj/machinery/telecomms/proc/formatInput(var/label,var/varname, var/input)
 	var/value = vars[varname]

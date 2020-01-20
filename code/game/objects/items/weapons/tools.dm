@@ -28,6 +28,7 @@
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 
 /obj/item/wrench/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is beating [user.p_them()]self to death with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -44,6 +45,7 @@
 	desc = "A brass wrench. It's faintly warm to the touch."
 	icon_state = "wrench_brass"
 	toolspeed = 0.5
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wrench/abductor
 	name = "alien wrench"
@@ -133,6 +135,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
 	toolspeed = 1
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
 /obj/item/screwdriver/nuke
@@ -158,8 +161,11 @@
 /obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!istype(M) || user.a_intent == INTENT_HELP)
 		return ..()
-	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
+	if(user.zone_selected != "eyes" && user.zone_selected != "head")
 		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
+		return
 	if((CLUMSY in user.mutations) && prob(50))
 		M = user
 	return eyestab(M,user)
@@ -170,6 +176,7 @@
 	icon_state = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
@@ -233,6 +240,7 @@
 	usesound = 'sound/items/wirecutter.ogg'
 	sharp = 1
 	toolspeed = 1
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	var/random_color = TRUE
 
 /obj/item/wirecutters/New(loc, param_color = null)
@@ -264,6 +272,7 @@
 	icon_state = "cutters_brass"
 	toolspeed = 0.5
 	random_color = FALSE
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/wirecutters/abductor
 	name = "alien wirecutters"
@@ -326,6 +335,8 @@
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
 	w_class = WEIGHT_CLASS_SMALL
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 30)
+	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
 	origin_tech = "engineering=1;plasmatech=1"
 	toolspeed = 1
@@ -408,7 +419,7 @@
 /obj/item/weldingtool/attack(mob/M, mob/user)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_sel.selecting]
+		var/obj/item/organ/external/S = H.bodyparts_by_name[user.zone_selected]
 
 		if(!S)
 			return
@@ -658,6 +669,7 @@
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 obj/item/weldingtool/experimental/process()
 	..()
@@ -683,6 +695,7 @@ obj/item/weldingtool/experimental/process()
 	origin_tech = "engineering=1;combat=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 	toolspeed = 1
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
@@ -695,6 +708,7 @@ obj/item/weldingtool/experimental/process()
 	icon_state = "crowbar_brass"
 	item_state = "crowbar_brass"
 	toolspeed = 0.5
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/crowbar/abductor
 	name = "alien crowbar"

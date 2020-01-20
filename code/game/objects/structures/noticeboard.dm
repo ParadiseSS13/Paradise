@@ -5,6 +5,7 @@
 	icon_state = "nboard00"
 	density = 0
 	anchored = 1
+	max_integrity = 150
 	var/notices = 0
 
 /obj/structure/noticeboard/Initialize()
@@ -29,6 +30,8 @@
 			to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
 		else
 			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
+		return
+	return ..()
 
 /obj/structure/noticeboard/attack_hand(user as mob)
 	var/dat = "<B>Noticeboard</B><BR>"
@@ -37,6 +40,10 @@
 	user << browse("<HEAD><TITLE>Notices</TITLE></HEAD>[dat]","window=noticeboard")
 	onclose(user, "noticeboard")
 
+/obj/structure/noticeboard/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal (loc, 1)
+	qdel(src)
 
 /obj/structure/noticeboard/Topic(href, href_list)
 	..()

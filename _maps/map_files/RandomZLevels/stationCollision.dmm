@@ -2077,7 +2077,7 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

@@ -102,6 +102,7 @@
 	caliber = ".50"
 	projectile_type = /obj/item/projectile/bullet/sniper/soporific
 	icon_state = ".50"
+	harmful = FALSE
 
 /obj/item/projectile/bullet/sniper/soporific
 	armour_penetration = 0

@@ -159,6 +159,8 @@
 	var/obj/machinery/atmospherics/binary/circulator/circP = make_from
 	if(istype(circP) && circP.side == circP.CIRC_RIGHT)
 		icon_state = "m_[icon_state]"
+	if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
+		resistance_flags |= FIRE_PROOF | LAVA_PROOF
 
 // called by turf to know if should treat as bent or not on placement
 /obj/item/pipe/proc/is_bent_pipe()
@@ -322,8 +324,6 @@
 	return rotate()
 
 /obj/item/pipe/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	..()
-
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 
@@ -524,8 +524,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	..()
-
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
@@ -551,7 +549,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	..()
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )

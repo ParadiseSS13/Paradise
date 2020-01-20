@@ -122,8 +122,7 @@
 			var/var/mob/living/carbon/human/H = target
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				if(prob(10))
-					if(E.mend_fracture())
-						E.perma_injury = 0
+					E.mend_fracture()
 		if(mounted)
 			target.adjustToxLoss(-1)
 			target.adjustOxyLoss(-1)
