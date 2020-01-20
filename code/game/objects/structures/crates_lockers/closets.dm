@@ -1,7 +1,7 @@
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
-	icon = 'icons/obj/closet.dmi'
+	icon = 'icons/hispania/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
 	max_integrity = 200
