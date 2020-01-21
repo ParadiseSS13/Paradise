@@ -3,7 +3,7 @@
 	desc = "An UNO card."
 	icon = 'icons/hispania/obj/UNO.dmi'
 	icon_state = "uno"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/flip_icon = null
 	var/flip_name = null
 	w_class = WEIGHT_CLASS_TINY
@@ -27,7 +27,7 @@
 	storage_slots = 108
 	max_combined_w_class = 250
 	w_class = WEIGHT_CLASS_SMALL
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	can_hold = list(/obj/item/toy/UNO, /obj/item/cardholder, /obj/item/cardholder/withcards)
 	use_to_pickup = TRUE
 	allow_quick_gather = TRUE
@@ -46,7 +46,7 @@
 	icon = 'icons/hispania/obj/UNO.dmi'
 	icon_state = "holder_e"
 	w_class = WEIGHT_CLASS_TINY
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/cardholder/withcards
 	icon_state = "holder_f" // One starts with cards to be used as the initial deck.
