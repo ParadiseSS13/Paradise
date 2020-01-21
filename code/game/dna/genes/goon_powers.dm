@@ -316,7 +316,7 @@
 	var/atom/movable/the_item = targets[1]
 	if(ishuman(the_item))
 		var/mob/living/carbon/human/H = the_item
-		var/obj/item/organ/external/limb = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/limb = H.get_organ(user.zone_selected)
 		if(!istype(limb))
 			to_chat(user, "<span class='warning'>You can't eat this part of them!</span>")
 			revert_cast()

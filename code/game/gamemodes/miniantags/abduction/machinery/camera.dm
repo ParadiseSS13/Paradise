@@ -12,6 +12,7 @@
 
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "camera"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/machinery/computer/camera_advanced/abductor/New()
 	GLOB.abductor_equipment.Add(src)

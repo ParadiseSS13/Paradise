@@ -310,10 +310,13 @@
 		else
 			to_chat(src, "<span class='warning'>You are trying to equip this item to an unsupported inventory slot. Report this to a coder!</span>")
 
-/mob/living/carbon/human/put_in_hands(obj/item/W)
-	if(!W)		return 0
-	if(put_in_active_hand(W))			return 1
-	else if(put_in_inactive_hand(W))	return 1
+/mob/living/carbon/human/put_in_hands(obj/item/I)
+	if(!I)
+		return FALSE
+	if(put_in_active_hand(I))
+		return TRUE
+	else if(put_in_inactive_hand(I))
+		return TRUE
 	else
 		. = ..()
 

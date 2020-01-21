@@ -38,10 +38,10 @@
 		merge(O)
 	..()
 
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush)
+/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(istype(AM, merge_type) && !(amount >= max_amount))
 		merge(AM)
-	..()
+	. = ..()
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -130,7 +130,7 @@
 			if(R.max_res_amount > 1 && max_multiplier > 1)
 				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
 				t1 += " |"
-				
+
 				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
 					if(max_multiplier >= n)
