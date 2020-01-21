@@ -197,6 +197,7 @@
 	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+	toolspeed = 0.8
 	force = 15
 
 // Wormhole Projectors //

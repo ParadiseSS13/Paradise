@@ -18,6 +18,7 @@
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
+	var/overaynull = FALSE
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
@@ -53,12 +54,20 @@
 	overlays.Cut()
 	if(grown_battery)
 		overlays += image('icons/obj/power.dmi', "grown_wires")
+	if(overaynull)
+		return
 	if(charge < 0.01)
 		return
-	else if(charge/maxcharge >=0.995)
-		overlays += "cell-o2"
-	else
-		overlays += "cell-o1"
+	switch(percent())
+		if(90 to 100)
+			overlays += "cell-o2"
+			return
+		if(20 to 90)
+			overlays += "cell-o1"
+			return
+		if(0.01 to 20)
+			overlays += image('icons/hispania/obj/power.dmi', "cell-o0")
+			return
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -311,6 +320,7 @@
 	materials = list()
 	grown_battery = TRUE //it has the overlays for wires
 	rating = 0
+	overaynull = TRUE
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
@@ -322,6 +332,7 @@
 	rating = 4.5 //self-recharge makes these desirable, 45000 de getrating
 	self_recharge = 1 // Infused slime cores self-recharge, over time
 	chargerate = 500
+	overaynull = TRUE
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"
