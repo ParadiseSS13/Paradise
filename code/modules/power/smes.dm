@@ -172,12 +172,12 @@
 		var/turf/tempLoc = get_step(src, reverse_direction(tempDir))
 		if(istype(tempLoc, /turf/space))
 			to_chat(user, "<span class='warning'>You can't build a terminal on space.</span>")
-			return 
+			return
 		else if(istype(tempLoc))
 			if(tempLoc.intact)
 				to_chat(user, "<span class='warning'>You must remove the floor plating first.</span>")
-				return 
-		
+				return
+
 		to_chat(user, "<span class='notice'>You start adding cable to the [src].</span>")
 		playsound(loc, C.usesound, 50, 1)
 
@@ -224,7 +224,9 @@
 				return
 
 	//crowbarring it !
-	default_deconstruction_crowbar(I)
+	if(default_deconstruction_crowbar(I))
+		return
+	return ..()
 
 /obj/machinery/power/smes/disconnect_terminal()
 	if(terminal)
@@ -352,9 +354,6 @@
 /obj/machinery/power/smes/attack_hand(mob/user)
 	add_fingerprint(user)
 	ui_interact(user)
-
-/obj/machinery/power/smes/attack_alien(mob/living/carbon/alien/humanoid/user)
-	return
 
 /obj/machinery/power/smes/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(stat & BROKEN)

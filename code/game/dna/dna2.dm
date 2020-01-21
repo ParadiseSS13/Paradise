@@ -96,7 +96,7 @@ var/global/list/bad_blocks[0]
 	var/list/UI[DNA_UI_LENGTH]
 
 	// From old dna.
-	var/b_type = "A+"  // Should probably change to an integer => string map but I'm lazy.
+	var/blood_type = "A+"  // Should probably change to an integer => string map but I'm lazy.
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
@@ -108,7 +108,7 @@ var/global/list/bad_blocks[0]
 	var/datum/dna/new_dna = new()
 	new_dna.unique_enzymes=unique_enzymes
 	new_dna.struc_enzymes_original=struc_enzymes_original // will make clone's SE the same as the original, do we want this?
-	new_dna.b_type=b_type
+	new_dna.blood_type = blood_type
 	new_dna.real_name=real_name
 	new_dna.species = new species.type
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
@@ -423,7 +423,7 @@ var/global/list/bad_blocks[0]
 	data["UI"] = UI.Copy()
 	data["species"] = species.type
 	// Because old DNA coders were insane or something
-	data["b_type"] = b_type
+	data["blood_type"] = blood_type
 	data["real_name"] = real_name
 	return data
 
@@ -436,7 +436,7 @@ var/global/list/bad_blocks[0]
 	UpdateSE()
 	var/datum/species/S = data["species"]
 	species = new S
-	b_type = data["b_type"]
+	blood_type = data["blood_type"]
 	real_name = data["real_name"]
 
 /datum/dna/proc/transfer_identity(mob/living/carbon/human/destination)

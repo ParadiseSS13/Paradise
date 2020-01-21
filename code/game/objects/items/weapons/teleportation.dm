@@ -22,6 +22,7 @@
 	throw_speed = 4
 	throw_range = 20
 	materials = list(MAT_METAL=400)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	origin_tech = "magnets=3;bluespace=2"
 
 /obj/item/locator/attack_self(mob/user as mob)
@@ -69,9 +70,10 @@ Frequency:
 			for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
 				if(!T.implanted || !T.imp_in)
 					continue
+				var/turf/Tr = get_turf(T)
 
-				if(T && T.z == z)
-					temp += "[T.id]: [T.imp_in.x], [T.imp_in.y], [T.imp_in.z]<BR>"
+				if(Tr && Tr.z == sr.z)
+					temp += "[T.id]: [Tr.x], [Tr.y], [Tr.z]<BR>"
 
 			temp += "<B>You are at \[[sr.x],[sr.y],[sr.z]\]</B>."
 			temp += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A><BR>"
@@ -103,7 +105,8 @@ Frequency:
 	throw_range = 5
 	materials = list(MAT_METAL=10000)
 	origin_tech = "magnets=3;bluespace=4"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/active_portals = 0
 
 /obj/item/hand_tele/attack_self(mob/user as mob)

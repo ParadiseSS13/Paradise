@@ -32,6 +32,15 @@
 #define PLASTIC_FLAPS_NORMAL 0
 #define PLASTIC_FLAPS_DETACHED 1
 
+
+//ai core defines
+#define EMPTY_CORE 0
+#define CIRCUIT_CORE 1
+#define SCREWED_CORE 2
+#define CABLED_CORE 3
+#define GLASS_CORE 4
+#define AI_READY_CORE 5
+
 //other construction-related things
 
 //windows affected by nar-sie turn this color.

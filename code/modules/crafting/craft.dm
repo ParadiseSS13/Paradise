@@ -8,6 +8,7 @@
 				CAT_MISC,
 				CAT_PRIMAL,
 				CAT_FOOD,
+				CAT_DECORATIONS,
 				CAT_CLOTHING)
 	var/list/subcategories = list(
 						list(	//Weapon subcategories
@@ -20,7 +21,11 @@
 							CAT_CAKE,
 							CAT_SUSHI,
 							CAT_SANDWICH),
-                        CAT_CLOTHING) //Clothing subcategories
+						list(	//Decoration subcategories
+							CAT_DECORATION,
+							CAT_HOLIDAY,
+							CAT_LARGE_DECORATIONS),
+						CAT_CLOTHING) //Clothing subcategories
 	var/display_craftable_only = FALSE
 	var/display_compact = TRUE
 

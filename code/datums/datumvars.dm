@@ -55,6 +55,7 @@
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
 	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
@@ -63,6 +64,7 @@
 	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
 	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
 	.["Delete"] = "?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -1219,25 +1221,25 @@
 		switch(Text)
 			if("brute")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustBruteLoss(amount, robotic = TRUE)
 				else
 					L.adjustBruteLoss(amount)
-			if("fire")	
+			if("fire")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustFireLoss(amount, robotic = TRUE)
 				else
 					L.adjustFireLoss(amount)
-			if("toxin")	
+			if("toxin")
 				L.adjustToxLoss(amount)
 			if("oxygen")
 				L.adjustOxyLoss(amount)
-			if("brain")	
+			if("brain")
 				L.adjustBrainLoss(amount)
-			if("clone")	
+			if("clone")
 				L.adjustCloneLoss(amount)
-			if("stamina") 
+			if("stamina")
 				L.adjustStaminaLoss(amount)
 			else
 				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
@@ -1247,6 +1249,14 @@
 			log_admin("[key_name(usr)] dealt [amount] amount of [Text] damage to [L]")
 			message_admins("[key_name_admin(usr)] dealt [amount] amount of [Text] damage to [L]")
 			href_list["datumrefresh"] = href_list["mobToDamage"]
+
+	else if(href_list["traitmod"])
+		if(!check_rights(NONE))
+			return
+		var/datum/A = locateUID(href_list["traitmod"])
+		if(!istype(A))
+			return
+		holder.modify_traits(A)
 
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])

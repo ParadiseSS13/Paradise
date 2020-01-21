@@ -7,6 +7,4 @@
 	materials = list(MAT_METAL = 2000, MAT_GOLD = 440, MAT_GLASS = 720, MAT_DIAMOND = 480, MAT_URANIUM = 100, MAT_TITANIUM = 600, MAT_BLUESPACE = 200)
 	build_path = /obj/item/xenobluecellmaker
 	category = list("Misc","Power")
-	lathe_time_factor = 0.2
-
 

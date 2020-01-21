@@ -7,7 +7,7 @@
 
 	species_traits = list(NO_BREATHE, NO_BLOOD, NO_PAIN, RADIMMUNE, NOGUNS, PIERCEIMMUNE)
 	dies_at_threshold = TRUE
-	slowdown = 2
+	speed_mod = 2
 	brute_mod = 0.45 //55% damage reduction
 	burn_mod = 0.45
 	tox_mod = 0.45
@@ -214,7 +214,7 @@
 /datum/species/golem/gold
 	name = "Gold Golem"
 	golem_colour = rgb(204, 204, 0)
-	slowdown = 1
+	speed_mod = 1
 	brute_mod = 0.75 //25% damage reduction down from 55%
 	burn_mod = 0.75
 	tox_mod = 0.75
@@ -244,7 +244,7 @@
 	punchdamagelow = 12
 	punchdamagehigh = 21
 	punchstunthreshold = 18 //still 40% stun chance
-	slowdown = 4 //pretty fucking slow
+	speed_mod = 4 //pretty fucking slow
 	skinned_type = /obj/item/stack/ore/iron
 	info_text = "As a <span class='danger'>Plasteel Golem</span>, you are slower, but harder to stun, and hit very hard when punching."
 	prefix = "Plasteel"
@@ -300,7 +300,7 @@
 	skinned_type = /obj/item/stack/sheet/mineral/abductor
 	language = "Golem Mindlink"
 	default_language = "Golem Mindlink"
-	slowdown = 1 //faster
+	speed_mod = 1 //faster
 	info_text = "As an <span class='danger'>Alloy Golem</span>, you are made of advanced alien materials: you are faster and regenerate over time. You are, however, only able to speak telepathically to other alloy golems."
 	prefix = "Alien"
 	special_names = list("Outsider", "Technology", "Watcher", "Stranger") //ominous and unknown
@@ -474,19 +474,9 @@
 		if(P.is_reflectable)
 			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
 			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
-			if(P.starting)
-				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/turf/curloc = get_turf(H)
+			
+			P.reflect_back(H)
 
-				// redirect the projectile
-				P.firer = src
-				P.original = locate(new_x, new_y, P.z)
-				P.starting = curloc
-				P.current = curloc
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
-				P.Angle = null
 			return FALSE
 	return TRUE
 
@@ -733,4 +723,3 @@
 
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
-	miss_sound = null

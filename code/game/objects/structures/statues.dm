@@ -5,76 +5,42 @@
 	icon_state = ""
 	density = 1
 	anchored = 0
-	var/hardness = 1
+	max_integrity = 100
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(iswrench(W))
-		if(anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is loosening the [name]'s bolts.", \
-								 "<span class='notice'>You are loosening the [name]'s bolts...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				if(!loc || !anchored)
-					return
-				user.visible_message("[user] loosened the [name]'s bolts!", \
-									 "<span class='notice'>You loosen the [name]'s bolts!</span>")
-				anchored = 0
-		else
-			if(!isfloorturf(loc))
-				user.visible_message("<span class='warning'>A floor must be present to secure the [name]!</span>")
-				return
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] is securing the [name]'s bolts...", \
-								 "<span class='notice'>You are securing the [name]'s bolts...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				if(!loc || anchored)
-					return
-				user.visible_message("[user] has secured the [name]'s bolts.", \
-									 "<span class='notice'>You have secured the [name]'s bolts.</span>")
-				anchored = 1
-
-	else if(istype(W, /obj/item/gun/energy/plasmacutter))
-		playsound(src, W.usesound, 100, 1)
-		user.visible_message("[user] is slicing apart the [name]...", \
-							 "<span class='notice'>You are slicing apart the [name]...</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
-			if(!loc)
-				return
-			user.visible_message("[user] slices apart the [name].", \
-								 "<span class='notice'>You slice apart the [name].</span>")
-			Dismantle(TRUE)
-
-	else if(istype(W, /obj/item/pickaxe/drill/jackhammer))
-		var/obj/item/pickaxe/drill/jackhammer/D = W
-		if(!loc)
+	if(!(flags & NODECONSTRUCT))
+		if(default_unfasten_wrench(user, W))
 			return
-		user.visible_message("[user] destroys the [name]!", \
-							 "<span class='notice'>You destroy the [name].</span>")
-		D.playDigSound()
-		qdel(src)
-
-	else if(iswelder(W) && !anchored)
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			playsound(loc, W.usesound, 40, 1)
-			user.visible_message("[user] is slicing apart the [name].", \
+		if(istype(W, /obj/item/gun/energy/plasmacutter))
+			playsound(src, W.usesound, 100, 1)
+			user.visible_message("[user] is slicing apart the [name]...", \
 								 "<span class='notice'>You are slicing apart the [name]...</span>")
 			if(do_after(user, 40 * W.toolspeed, target = src))
 				if(!loc)
 					return
-				playsound(loc, W.usesound, 50, 1)
 				user.visible_message("[user] slices apart the [name].", \
-									 "<span class='notice'>You slice apart the [name]!</span>")
-				Dismantle(TRUE)
-	else
-		hardness -= W.force/100
-		..()
-		CheckHardness()
-		return ..()
+									 "<span class='notice'>You slice apart the [name].</span>")
+				deconstruct(TRUE)
+			return
+
+		else if(iswelder(W))
+			var/obj/item/weldingtool/WT = W
+			if(WT.remove_fuel(0, user))
+				playsound(loc, W.usesound, 40, 1)
+				user.visible_message("[user] is slicing apart the [name].", \
+									 "<span class='notice'>You are slicing apart the [name]...</span>")
+				if(do_after(user, 40 * W.toolspeed, target = src))
+					if(!loc)
+						return
+					playsound(loc, W.usesound, 50, 1)
+					user.visible_message("[user] slices apart the [name].", \
+										 "<span class='notice'>You slice apart the [name]!</span>")
+					deconstruct(TRUE)
+			return
+	return ..()
 
 /obj/structure/statue/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -85,40 +51,18 @@
 /obj/structure/statue/CanAtmosPass()
 	return !density
 
-/obj/structure/statue/bullet_act(obj/item/projectile/Proj)
-	hardness -= Proj.damage
-	..()
-	CheckHardness()
-
-/obj/structure/statue/proc/CheckHardness()
-	if(hardness <= 0)
-		Dismantle(TRUE)
-
-/obj/structure/statue/proc/Dismantle(disassembled = TRUE)
-	if(material_drop_type)
-		var/drop_amt = oreAmount
-		if(!disassembled)
-			drop_amt -= 2
-		if(drop_amt > 0)
-			new material_drop_type(get_turf(src), drop_amt)
+/obj/structure/statue/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(material_drop_type)
+			var/drop_amt = oreAmount
+			if(!disassembled)
+				drop_amt -= 2
+			if(drop_amt > 0)
+				new material_drop_type(get_turf(src), drop_amt)
 	qdel(src)
 
-/obj/structure/statue/ex_act(severity = 1)
-	switch(severity)
-		if(1)
-			Dismantle(TRUE)
-		if(2)
-			if(prob(20))
-				Dismantle(TRUE)
-			else
-				hardness--
-				CheckHardness()
-		if(3)
-			hardness -= 0.1
-			CheckHardness()
-
 /obj/structure/statue/uranium
-	hardness = 3
+	max_integrity = 300
 	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
 	var/last_event = 0
@@ -136,7 +80,7 @@
 
 /obj/structure/statue/uranium/attackby(obj/item/W, mob/user, params)
 	radiate()
-	..()
+	return ..()
 
 /obj/structure/statue/uranium/Bumped(atom/user)
 	radiate()
@@ -156,7 +100,7 @@
 			active = null
 
 /obj/structure/statue/plasma
-	hardness = 2
+	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
 
@@ -193,18 +137,18 @@
 		investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
 		ignite(is_hot(W))
 		return
-	..()
+	return ..()
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 160)
-	Dismantle(FALSE)
+	deconstruct(FALSE)
 
 /obj/structure/statue/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
 		PlasmaBurn()
 
 /obj/structure/statue/gold
-	hardness = 3
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/gold
 	desc = "This is a highly valuable statue made from gold."
 
@@ -229,7 +173,7 @@
 	icon_state = "rd"
 
 /obj/structure/statue/silver
-	hardness = 3
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/silver
 	desc = "This is a valuable statue made from silver."
 
@@ -254,7 +198,7 @@
 	icon_state = "medborg"
 
 /obj/structure/statue/diamond
-	hardness = 10
+	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
 	desc = "This is a very expensive diamond statue."
 
@@ -271,7 +215,7 @@
 	icon_state = "ai2"
 
 /obj/structure/statue/bananium
-	hardness = 3
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
 	var/spam_flag = 0
@@ -286,7 +230,7 @@
 
 /obj/structure/statue/bananium/attackby(obj/item/W, mob/user, params)
 	honk()
-	..()
+	return ..()
 
 /obj/structure/statue/bananium/attack_hand(mob/user)
 	honk()
@@ -300,7 +244,7 @@
 			spam_flag = 0
 
 /obj/structure/statue/sandstone
-	hardness = 0.5
+	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
 
 /obj/structure/statue/sandstone/assistant
@@ -315,7 +259,7 @@
 	icon_state = "venus"
 
 /obj/structure/statue/tranquillite
-	hardness = 0.5
+	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite
 	desc = "..."
 
@@ -333,7 +277,9 @@
 		to_chat(user, "It is fastened to the floor!")
 		return
 	setDir(turn(dir, 90))
+
 ////////////////////////////////
+
 /obj/structure/snowman
 	name = "snowman"
 	desc = "Seems someone made a snowman here."
@@ -341,10 +287,10 @@
 	icon_state = "snowman"
 	anchored = TRUE
 	density = TRUE
+	max_integrity = 50
 
 /obj/structure/snowman/built
 	desc = "Just like the ones you remember from childhood!"
-	max_integrity = 50
 
 /obj/structure/snowman/built/Destroy()
 	new /obj/item/reagent_containers/food/snacks/grown/carrot(drop_location())

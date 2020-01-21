@@ -226,7 +226,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/academy/headmaster)
 "aJ" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/item/twohanded/staff,
 /obj/item/spellbook/oneuse/charge,
 /turf/simulated/floor/wood,
