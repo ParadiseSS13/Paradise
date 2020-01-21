@@ -18,8 +18,8 @@ addons:
 
 env:
   global:
-    - BYOND_MAJOR="512"
-    - BYOND_MINOR="1454"
+    - BYOND_MAJOR="513"
+    - BYOND_MINOR="1505"
     - BYOND_MACRO_COUNT=4
   matrix:
     - DM_MAPFILE="hispania"

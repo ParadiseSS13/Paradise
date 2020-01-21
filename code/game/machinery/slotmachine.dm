@@ -43,9 +43,9 @@
 		if(text2num(href_list["ops"]))	// Play
 			if(working)
 				return
-			if(!account || account.money < 10)
+			if(!account || account.money < 50)
 				return
-			if(!account.charge(10, null, "Bet", "Slot Machine", "Slot Machine"))
+			if(!account.charge(50, null, "Bet", "Slot Machine", "Slot Machine"))
 				return
 			plays++
 			working = 1
@@ -54,45 +54,45 @@
 			addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
 			
 /obj/machinery/slot_machine/proc/spin_slots(userName)
-	switch(rand(1,4050))
-		if(1) // .02%
+	switch(rand(1,10000))
+		if(1) // 0.02%
 			atom_say("JACKPOT! [userName] has won a MILLION CREDITS!")
 			event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
 			result = "JACKPOT! You win one million credits!"
 			resultlvl = "highlight"
 			win_money(1000000, 'sound/goonstation/misc/airraid_loop.ogg')
-		if(2 to 5) // .07%
+		if(2 to 4) // 0.03%
 			atom_say("Big Winner! [userName] has won a hundred thousand credits!")
 			event_announcement.Announce("Congratulations to [userName] on winning a hundred thousand credits!", "Big Winner")
 			result = "Big Winner! You win a hundred thousand credits!"
 			resultlvl = "good"
 			win_money(100000, 'sound/goonstation/misc/klaxon.ogg')
-		if(6 to 50) // 1.08%
+		if(5 to 50) // 0.46%
 			atom_say("Big Winner! [userName] has won ten thousand credits!")
 			result = "You win ten thousand credits!"
 			resultlvl = "good"
 			win_money(10000, 'sound/goonstation/misc/klaxon.ogg')
-		if(51 to 100) // 1.21%
+		if(51 to 100) // 0.46%
 			atom_say("Winner! [userName] has won a thousand credits!")
 			result = "You win a thousand credits!"
 			resultlvl = "good"
 			win_money(1000, 'sound/goonstation/misc/bell.ogg')
-		if(101 to 200) // 2.44%
+		if(101 to 300) // 2%
 			atom_say("Winner! [userName] has won a hundred credits!")
 			result = "You win a hundred credits!"
 			resultlvl = "good"
 			win_money(100, 'sound/goonstation/misc/bell.ogg')
-		if(201 to 300) // 2.44%
+		if(301 to 500) // 2%
 			atom_say("Winner! [userName] has won fifty credits!")
 			result = "You win fifty credits!"
 			resultlvl = "good"
 			win_money(50)
-		if(301 to 1000) // 17.26%
+		if(501 to 1200) //  9%
 			atom_say("Winner! [userName] has won ten credits!")
 			result = "You win ten credits!"
 			resultlvl = "good"
 			win_money(10)
-		else // 75.31%
+		else // 85.99%
 			result = "<span class='warning'>No luck!</span>"
 			resultlvl = "average"
 	working = 0

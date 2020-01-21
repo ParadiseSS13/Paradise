@@ -322,8 +322,8 @@
 	icon_opened = "cabinetdetective_open"
 	icon_broken = "cabinetdetective_broken"
 	icon_off = "cabinetdetective_broken"
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 
 /obj/structure/closet/secure_closet/detective/New()
 	..()
@@ -369,8 +369,8 @@
 
 /obj/structure/closet/secure_closet/injection/New()
 	..()
-	new /obj/item/reagent_containers/ld50_syringe/lethal(src)
-	new /obj/item/reagent_containers/ld50_syringe/lethal(src)
+	new /obj/item/reagent_containers/syringe/lethal(src)
+	new /obj/item/reagent_containers/syringe/lethal(src)
 
 
 /obj/structure/closet/secure_closet/brig

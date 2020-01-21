@@ -18,6 +18,7 @@
 	var/self_recharge = 0 //does it self recharge, over time, or not?
 	var/ratingdesc = TRUE
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
+	var/overaynull = FALSE
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
@@ -53,12 +54,20 @@
 	overlays.Cut()
 	if(grown_battery)
 		overlays += image('icons/obj/power.dmi', "grown_wires")
+	if(overaynull)
+		return
 	if(charge < 0.01)
 		return
-	else if(charge/maxcharge >=0.995)
-		overlays += "cell-o2"
-	else
-		overlays += "cell-o1"
+	switch(percent())
+		if(90 to 100)
+			overlays += "cell-o2"
+			return
+		if(20 to 90)
+			overlays += "cell-o1"
+			return
+		if(0.01 to 20)
+			overlays += image('icons/hispania/obj/power.dmi', "cell-o0")
+			return
 
 /obj/item/stock_parts/cell/proc/percent()		// return % charge of cell
 	return 100 * charge / maxcharge
@@ -145,23 +154,17 @@
 	..()
 
 /obj/item/stock_parts/cell/ex_act(severity)
-	switch(severity)
-		if(EXPLODE_DEVASTATE)
-			qdel(src)
-		if(EXPLODE_HEAVY)
-			if(prob(50))
-				qdel(src)
-				return
-			if(prob(50))
-				corrupt()
-		if(EXPLODE_LIGHT)
-			if(prob(25))
-				qdel(src)
-				return
-			if(prob(25))
-				corrupt()
+	..()
+	if(!QDELETED(src))
+		switch(severity)
+			if(2)
+				if(prob(50))
+					corrupt()
+			if(3)
+				if(prob(25))
+					corrupt()
 
-/obj/item/stock_parts/cell/blob_act()
+/obj/item/stock_parts/cell/blob_act(obj/structure/blob/B)
 	ex_act(EXPLODE_DEVASTATE)
 
 /obj/item/stock_parts/cell/proc/get_electrocute_damage()
@@ -326,6 +329,7 @@
 	materials = list()
 	rating = 1
 	grown_battery = TRUE //it has the overlays for wires
+	overaynull = TRUE
 
 /obj/item/stock_parts/cell/high/slime
 	name = "charged slime core"
@@ -337,6 +341,7 @@
 	rating = 5 //self-recharge makes these desirable
 	self_recharge = 1 // Infused slime cores self-recharge, over time
 	chargerate = 500
+	overaynull = TRUE
 
 /obj/item/stock_parts/cell/emproof
 	name = "\improper EMP-proof cell"

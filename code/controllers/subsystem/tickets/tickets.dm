@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(tickets)
 	
 	flags = SS_BACKGROUND
 	
-	var/list/allTickets
+	var/list/allTickets = list()	//make it here because someone might ahelp before the system has initialized
 
 	var/ticketCounter = 1
 
@@ -31,7 +31,6 @@ SUBSYSTEM_DEF(tickets)
 	close_messages = list("<font color='red' size='4'><b>- [ticket_name] Rejected! -</b></font>",
 				"<span class='boldmessage'>Please try to be calm, clear, and descriptive in admin helps, do not assume the staff member has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.</span>", 
 				"<span class='[span_class]'>Your [ticket_name] has now been closed.</span>")
-	LAZYINITLIST(allTickets)
 	return ..()
 
 /datum/controller/subsystem/tickets/fire()
@@ -357,7 +356,7 @@ UI STUFF
 	if(!T.staffAssigned)
 		dat += "No staff member assigned to this [ticket_name] - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
 	else
-		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a><br />"
+		dat += "[T.staffAssigned] is assigned to this Ticket. - <a href='?src=[UID()];assignstaff=[T.ticketNum]'>Take Ticket</a> - <a href='?src=[UID()];unassignstaff=[T.ticketNum]'>Unassign Ticket</a><br />"
 
 	if(T.lastStaffResponse)
 		dat += "<b>Last Staff response Response:</b> [T.lastStaffResponse] at [T.lastResponseTime]"
@@ -460,6 +459,11 @@ UI STUFF
 		takeTicket(indexNum)
 		showDetailUI(usr, indexNum)
 
+	if(href_list["unassignstaff"])
+		var/indexNum = text2num(href_list["unassignstaff"])
+		unassignTicket(indexNum)
+		showDetailUI(usr, indexNum)
+
 	if(href_list["autorespond"])
 		var/indexNum = text2num(href_list["autorespond"])
 		autoRespond(indexNum)
@@ -477,3 +481,13 @@ UI STUFF
 		else
 			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has taken [ticket_name] number [index]</span>", TRUE)
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] is being handled by [usr.client].</span>")
+
+/datum/controller/subsystem/tickets/proc/unassignTicket(index)
+	var/datum/ticket/T = allTickets[index]
+	if(T.staffAssigned != null && (T.staffAssigned == usr.client || alert("Ticket is already assigned to [T.staffAssigned]. Do you want to unassign it?","Unassign ticket","No","Yes") == "Yes"))
+		T.staffAssigned = null
+		to_chat_safe(returnClient(index), "<span class='[span_class]'>Your [ticket_name] has been unassigned. Another staff member will help you soon.</span>")
+		if(span_class == "mentorhelp")
+			message_staff("<span class='[span_class]'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>")
+		else
+			message_staff("<span class='admin_channel'>[usr.client] / ([usr]) has unassigned [ticket_name] number [index]</span>", TRUE)

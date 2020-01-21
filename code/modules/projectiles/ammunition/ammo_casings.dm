@@ -325,6 +325,7 @@
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
 	var/modified = 0
+	harmful = FALSE
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
 	..()
@@ -348,6 +349,7 @@
 	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
+		harmful = TRUE
 		A.loc = FD
 		FD.log_override = FALSE
 		FD.pen = A

@@ -5,6 +5,12 @@
 
 #define MAX_FLAG 65535
 
+/proc/is_wire_tool(obj/item/I)
+	if(ismultitool(I))
+		return TRUE
+	if(iswirecutter(I))
+		return TRUE
+
 var/list/same_wires = list()
 // 12 colours, if you're adding more than 12 wires then add more colours here
 var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", "gold", "gray", "cyan", "navy", "purple", "pink")

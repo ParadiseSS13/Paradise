@@ -405,11 +405,13 @@
 	process_flags = ORGANIC | SYNTHETIC // That's the power of love~
 	taste_description = "<font color='pink'><b>love</b></font>"
 
-/datum/reagent/love/on_mob_life(mob/living/M)
-	if(M.a_intent != INTENT_HELP)
-		M.a_intent_change(INTENT_HELP)
-	M.can_change_intents = 0 //Now you have no choice but to be helpful.
+/datum/reagent/love/on_mob_add(mob/living/L)
+	..()
+	if(L.a_intent != INTENT_HELP)
+		L.a_intent_change(INTENT_HELP)
+	L.can_change_intents = FALSE //Now you have no choice but to be helpful.
 
+/datum/reagent/love/on_mob_life(mob/living/M)
 	if(prob(8))
 		var/lovely_phrase = pick("appreciated", "loved", "pretty good", "really nice", "pretty happy with yourself, even though things haven't always gone as well as they could")
 		to_chat(M, "<span class='notice'>You feel [lovely_phrase].</span>")
@@ -426,7 +428,7 @@
 	return ..()
 
 /datum/reagent/love/on_mob_delete(mob/living/M)
-	M.can_change_intents = 1
+	M.can_change_intents = TRUE
 	..()
 
 /datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
@@ -542,6 +544,22 @@
 /datum/reagent/growthserum/on_mob_delete(mob/living/M)
 	M.resize = 1/current_size
 	M.update_transform()
+	..()
+
+/datum/reagent/pax
+	name = "Pax"
+	id = "pax"
+	description = "A colorless liquid that suppresses violence in its subjects."
+	color = "#AAAAAA55"
+	taste_description = "water"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+
+/datum/reagent/pax/on_mob_add(mob/living/M)
+	..()
+	ADD_TRAIT(M, TRAIT_PACIFISM, id)
+
+/datum/reagent/pax/on_mob_delete(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_PACIFISM, id)
 	..()
 
 /datum/reagent/toxin/coffeepowder

@@ -7,13 +7,15 @@
 	icon_state = "mecha_equip"
 	force = 5
 	origin_tech = "materials=2;engineering=2"
+	max_integrity = 300
 	var/equip_cooldown = 0
 	var/equip_ready = 1
 	var/energy_drain = 0
 	var/obj/mecha/chassis = null
-	var/range = MELEE //bitflags
+	var/range = MECHA_MELEE //bitflags
 	var/salvageable = 1
 	var/selectable = 1	// Set to 0 for passive equipment such as mining scanner or armor plates
+	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
@@ -59,10 +61,10 @@
 	return txt
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_ranged()//add a distance restricted equipment. Why not?
-	return range&RANGED
+	return range & MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/proc/is_melee()
-	return range&MELEE
+	return range & MECHA_MELEE
 
 /obj/item/mecha_parts/mecha_equipment/proc/action_checks(atom/target)
 	if(!target)

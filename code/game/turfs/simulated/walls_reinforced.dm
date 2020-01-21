@@ -12,7 +12,6 @@
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
-	unacidable = TRUE
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
@@ -287,7 +286,7 @@
 		return TRUE
 
 
-/turf/simulated/wall/r_wall/singularity_pull(S, current_size)
+/turf/simulated/wall/r_wall/wall_singularity_pull(current_size)
 	if(current_size >= STAGE_FIVE)
 		if(prob(30))
 			dismantle_wall()

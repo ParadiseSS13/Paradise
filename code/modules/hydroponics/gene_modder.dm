@@ -27,7 +27,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -37,7 +37,7 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/plantgenes/vault(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -126,7 +126,7 @@
 			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 			interact(user)
 	else
-		..()
+		return ..()
 
 
 /obj/machinery/plantgenes/attack_hand(mob/user)

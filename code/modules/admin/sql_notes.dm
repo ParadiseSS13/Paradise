@@ -4,22 +4,30 @@
 	if(!dbcon.IsConnected())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
+
 	if(!target_ckey)
 		var/new_ckey = ckey(clean_input("Who would you like to add a note for?","Enter a ckey",null))
 		if(!new_ckey)
 			return
-		new_ckey = ckey(new_ckey)
-		var/DBQuery/query_find_ckey = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey = '[new_ckey]'")
-		if(!query_find_ckey.Execute())
-			var/err = query_find_ckey.ErrorMsg()
-			log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
-			return
-		if(!query_find_ckey.NextRow())
-			to_chat(usr, "<span class='redtext'>[new_ckey] has not been seen before, you can only add notes to known players.</span>")
-			return
-		else
-			target_ckey = new_ckey
-	var/target_sql_ckey = ckey(target_ckey)
+		target_ckey = ckey(new_ckey)
+	else
+		target_ckey = ckey(target_ckey)
+
+	var/DBQuery/query_find_ckey = dbcon.NewQuery("SELECT ckey, exp FROM [format_table_name("player")] WHERE ckey = '[target_ckey]'")
+	if(!query_find_ckey.Execute())
+		var/err = query_find_ckey.ErrorMsg()
+		log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
+		return
+	if(!query_find_ckey.NextRow())
+		to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+		return
+
+	var/exp_data = query_find_ckey.item[2]
+	var/crew_number = 0
+	if(exp_data)
+		var/list/play_records = params2list(exp_data)
+		crew_number = play_records[EXP_TYPE_CREW]
+
 	if(!notetext)
 		notetext = input(usr,"Write your note","Add Note") as message|null
 		if(!notetext)
@@ -38,7 +46,7 @@
 		if(config && config.server_name)
 			server = config.server_name
 	server = sanitizeSQL(server)
-	var/DBQuery/query_noteadd = dbcon.NewQuery("INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server) VALUES ('[target_sql_ckey]', '[timestamp]', '[notetext]', '[admin_sql_ckey]', '[server]')")
+	var/DBQuery/query_noteadd = dbcon.NewQuery("INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime) VALUES ('[target_ckey]', '[timestamp]', '[notetext]', '[admin_sql_ckey]', '[server]', '[crew_number]')")
 	if(!query_noteadd.Execute())
 		var/err = query_noteadd.ErrorMsg()
 		log_game("SQL ERROR adding new note to table. Error : \[[err]\]\n")
@@ -46,7 +54,7 @@
 	if(logged)
 		log_admin("[key_name(usr)] has added a note to [target_ckey]: [notetext]")
 		message_admins("[key_name_admin(usr)] has added a note to [target_ckey]:<br>[notetext]")
-		ryzorbot("notify", "addnote=[key_name(usr)]&[target_ckey]&[json_encode(notetext)]")
+		ryzorbot("notify", "addnote=[key_name(usr)]&[target_ckey]","[notetext]")
 		show_note(target_ckey)
 
 /proc/remove_note(note_id)
@@ -77,7 +85,7 @@
 		return
 	log_admin("[key_name(usr)] has removed a note made by [adminckey] from [ckey]: [notetext]")
 	message_admins("[key_name_admin(usr)] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
-	ryzorbot("notify", "removenote=[key_name(usr)]&[adminckey]&[ckey]&[json_encode(notetext)]")
+	ryzorbot("notify", "removenote=[key_name(usr)]&[adminckey]&[ckey]","[notetext]")
 	show_note(ckey)
 
 /proc/edit_note(note_id)
@@ -133,10 +141,10 @@
 		output = navbar
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
-		var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id, timestamp, notetext, adminckey, last_editor, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
+		var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 		if(!query_get_notes.Execute())
 			var/err = query_get_notes.ErrorMsg()
-			log_game("SQL ERROR obtaining ckey, notetext, adminckey, last_editor, server from notes table. Error : \[[err]\]\n")
+			log_game("SQL ERROR obtaining ckey, notetext, adminckey, last_editor, server, crew_playtime from notes table. Error : \[[err]\]\n")
 			return
 		output += "<h2><center>Notes of [target_ckey]</center></h2>"
 		if(!linkless)
@@ -149,7 +157,13 @@
 			var/adminckey = query_get_notes.item[4]
 			var/last_editor = query_get_notes.item[5]
 			var/server = query_get_notes.item[6]
-			output += "<b>[timestamp] | [server] | [adminckey]</b>"
+			var/mins = text2num(query_get_notes.item[7])
+			output += "<b>[timestamp] | [server] | [adminckey]"
+			if(mins)
+				var/playstring = get_exp_format(mins)
+				output += " | [playstring] as Crew"
+			output += "</b>"
+
 			if(!linkless)
 				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
 				if(last_editor)
@@ -184,10 +198,10 @@
 
 /proc/show_player_info_irc(var/key as text)
 	var/target_sql_ckey = ckey(key)
-	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
+	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
-		log_game("SQL ERROR obtaining timestamp, notetext, adminckey, server from notes table. Error : \[[err]\]\n")
+		log_game("SQL ERROR obtaining timestamp, notetext, adminckey, server, crew_playtime from notes table. Error : \[[err]\]\n")
 		return
 	var/output = " Info on [key]%0D%0A"
 	while(query_get_notes.NextRow())

@@ -374,9 +374,9 @@
 	if(character.mind.assigned_role == "Cyborg")
 		AnnounceCyborg(character, rank, join_message)
 	else
-		data_core.manifest_inject(character)
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		if(!IsAdminJob(rank))
+			data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 			AddEmploymentContract(character)
 

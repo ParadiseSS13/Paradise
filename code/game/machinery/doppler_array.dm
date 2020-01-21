@@ -29,7 +29,7 @@ var/list/doppler_arrays = list()
 /obj/machinery/doppler_array/New()
 	..()
 	doppler_arrays += src
-	explosion_target = rand(8, 20)
+	explosion_target = rand(10, 50)
 	toxins_tech = new /datum/tech/toxins(src)
 
 /obj/machinery/doppler_array/Destroy()
@@ -51,12 +51,13 @@ var/list/doppler_arrays = list()
 			power_change()
 			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
 		playsound(loc, I.usesound, 50, 1)
+		return
 	if(istype(I, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)
 		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
