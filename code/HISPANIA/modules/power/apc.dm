@@ -22,6 +22,7 @@
 						charging = 0
 						chargecount = 0
 						shouldplaysound = TRUE
+						newcell = TRUE
 						break
 				if(!cell)
 					W.remove_from_storage(C, src)
@@ -32,6 +33,7 @@
 					shouldplaysound = TRUE
 					C.update_icon()
 					update_icon()
+					newcell = TRUE
 					to_chat(user, "<span class='notice'> the APC now has a [C.name].</span>")
 					break
 		RefreshParts()
