@@ -89,3 +89,21 @@
 		        /obj/item/stack/cable_coil = 5,
 		        /obj/item/reagent_containers/food/snacks/meat/corgi = 1)
 	category = CAT_MISC
+
+/datum/crafting_recipe/ballooncorgi
+	name = "Clown balloon"
+	result = /obj/item/toy/balloon_H/corgi
+	time = 40
+	reqs = list(/obj/item/stack/sheet/plastic = 5,
+		        /obj/item/stack/cable_coil = 5,
+		        /obj/item/stack/sheet/mineral/bananium = 1)
+	category = CAT_MISC
+
+/datum/crafting_recipe/ballooncorgi
+	name = "Mime balloon"
+	result = /obj/item/toy/balloon_H/corgi
+	time = 40
+	reqs = list(/obj/item/stack/sheet/plastic = 5,
+		        /obj/item/stack/cable_coil = 5,
+		        /obj/item/stack/sheet/mineral/tranquillite = 1)
+	category = CAT_MISC

@@ -59,3 +59,15 @@
 	icon_state = "Mballoon"
 	item_state = "Mballoon"
 	throw_range = 10
+
+/obj/item/toy/balloon_H/clown
+	name = "Clown balloon."
+	desc = "Made by clowns to clowns."
+	icon_state = "balloon_clown"
+	item_state = "balloon_clown"
+
+/obj/item/toy/balloon_H/mime
+	name = "Mime balloon."
+	desc = "..."
+	icon_state = "ballon_mime"
+	item_state = "ballon_mime"
