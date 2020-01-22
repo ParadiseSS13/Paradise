@@ -760,21 +760,22 @@
 		return
 	M.SetJitter(0)
 	var/needs_update = M.mutations.len > 0 || M.disabilities > 0
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		if(needs_update)
+			for(var/block = 1; block<=DNA_SE_LENGTH; block++)
+				if(!(block in M.dna.default_blocks))
+					M.dna.SetSEState(block, FALSE, TRUE)
+					genemutcheck(M, block, null, MUTCHK_FORCED)
+			M.dna.UpdateSE()
 
-	if(needs_update)
-		for(var/block = 1; block<=DNA_SE_LENGTH; block++)
-			if(!(block in M.dna.default_blocks))
-				M.dna.SetSEState(block, FALSE, TRUE)
-				genemutcheck(M, block, null, MUTCHK_FORCED)
-		M.dna.UpdateSE()
-
-		M.dna.struc_enzymes = M.dna.struc_enzymes_original
-
-		// Might need to update appearance for hulk etc.
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			H.update_mutations()
-	return ..()
+			M.dna.struc_enzymes = M.dna.struc_enzymes_original
+			update_flags |= M.adjustCloneLoss(2, FALSE)
+			// Might need to update appearance for hulk etc.
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.update_mutations()
+	return ..() | update_flags
 
 /datum/reagent/medicine/antihol
 	name = "Antihol"
