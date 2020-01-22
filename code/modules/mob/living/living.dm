@@ -209,15 +209,7 @@
 	set category = "Object"
 
 	if(istype(AM) && Adjacent(AM))
-		if(ishuman(usr))
-			var/mob/living/carbon/human/MM = AM
-			if(isobj(AM) || ismob(AM) && !MM.incapacitated(TRUE))
-				start_pulling(AM)
-			else
-				to_chat(usr, "<span class='warning'>You need a better grap to pull them!</span>")
-				return
-		else
-			start_pulling(AM)
+		start_pulling(AM)
 	else
 		stop_pulling()
 
