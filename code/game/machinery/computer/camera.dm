@@ -13,6 +13,11 @@
 	var/list/available_networks = list()
 	var/list/watchers = list() //who's using the console, associated with the camera they're on.
 
+	var/datum/action/innate/camera_move/move_n/n_button = new
+	var/datum/action/innate/camera_move/move_e/e_button = new
+	var/datum/action/innate/camera_move/move_s/s_button = new
+	var/datum/action/innate/camera_move/move_w/w_button = new
+
 /obj/machinery/computer/security/New() // Lists existing networks and their required access. Format: available_networks[<name>] = list(<access>)
 	generate_network_access()
 	..()
@@ -69,9 +74,20 @@
 	return 1
 
 /obj/machinery/computer/security/on_unset_machine(mob/user)
+	UnregisterSignal(user, COMSIG_ATOM_DBLCLICK)
+	n_button.Remove(user)
+	e_button.Remove(user)
+	s_button.Remove(user)
+	w_button.Remove(user)
 	watchers.Remove(user)
 	user.reset_perspective(null)
 
+/obj/machinery/computer/security/proc/double_click_atom(mob/user, atom/thing)
+	if(!istype(user.machine, /obj/machinery/computer/security))
+		return
+	var/obj/machinery/computer/security/console = user.machine
+	console.jump_on_click(user, thing)
+	
 /obj/machinery/computer/security/attack_hand(mob/user)
 	if(stat || ..())
 		user.unset_machine()
@@ -233,18 +249,27 @@
 
 // Switching to cameras
 /obj/machinery/computer/security/proc/switch_to_camera(var/mob/user, var/obj/machinery/camera/C)
+	if(!C.can_use())
+		return
+
 	if(!can_access_camera(C, user))
 		user.unset_machine()
-		return 1
+		return
 
 	if(isAI(user))
 		var/mob/living/silicon/ai/A = user
 		A.eyeobj.setLoc(get_turf(C))
 		A.client.eye = A.eyeobj
-	else
+	else //AIs don't need camera buttons
 		user.reset_perspective(C)
+		RegisterSignal(user, COMSIG_ATOM_DBLCLICK, .proc/double_click_atom, override = TRUE)
+		n_button.Grant(user, src)
+		e_button.Grant(user, src)
+		s_button.Grant(user, src)
+		w_button.Grant(user, src)
 	watchers[user] = C
 	use_power(50)
+	return TRUE
 
 //Camera control: moving.
 /obj/machinery/computer/security/proc/jump_on_click(var/mob/user, var/A)
@@ -285,24 +310,6 @@
 
 	if(can_access_camera(jump_to, user))
 		switch_to_camera(user, jump_to)
-
-// Camera control: mouse.
-/atom/DblClick()
-	..()
-	if(istype(usr.machine, /obj/machinery/computer/security))
-		var/obj/machinery/computer/security/console = usr.machine
-		console.jump_on_click(usr, src)
-
-// Camera control: arrow keys.
-/mob/Move(n, direct)
-	if(istype(machine, /obj/machinery/computer/security))
-		var/obj/machinery/computer/security/console = machine
-		var/turf/T = get_turf(console.watchers[src])
-		for(var/i; i < 10; i++)
-			T = get_step(T, direct)
-		console.jump_on_click(src, T)
-		return
-	return ..(n,direct)
 
 // Other computer monitors.
 /obj/machinery/computer/security/telescreen

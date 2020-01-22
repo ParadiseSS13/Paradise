@@ -44,8 +44,10 @@
 */
 /atom/Click(location,control,params)
 	usr.ClickOn(src, params)
+
 /atom/DblClick(location,control,params)
 	usr.DblClickOn(src,params)
+	SEND_SIGNAL(usr, COMSIG_ATOM_DBLCLICK, src)
 
 /*
 	Standard mob ClickOn()
