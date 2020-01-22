@@ -2,7 +2,7 @@
 	if(!istype(W))
 		return FALSE
 	var/shouldplaysound = FALSE
-	if(opened || W.works_from_distance)
+	if(panel_open || opened || W.works_from_distance)
 		if(W.works_from_distance)
 			if(cell)
 				to_chat(user, "<span class='notice'> the APC has a [cell.name].</span>")
