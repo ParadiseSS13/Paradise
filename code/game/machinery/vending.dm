@@ -1313,6 +1313,7 @@
 					/obj/item/seeds/fungus = 3)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
+					  /obj/item/seeds/glowshroom = 2,
 					  /obj/item/seeds/liberty = 2,
 					  /obj/item/seeds/nettle = 2,
 					  /obj/item/seeds/plump = 2,
