@@ -276,9 +276,6 @@
 				var/obj/structure/S = H.pulling
 				if(S.drag_slowdown)
 					. = S.drag_slowdown
-			else
-				. = slowdown
-
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
