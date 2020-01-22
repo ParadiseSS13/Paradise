@@ -659,6 +659,9 @@
 		return
 	else if(panel_open && !opened && is_wire_tool(W))
 		wires.Interact(user)
+   //exchanging parts using the RPEd
+	else if(exchange_parts(user, W))
+		return
 	else
 		return ..()
 

@@ -1,3 +1,6 @@
+/obj/item/stock_parts/cell/get_part_rating()
+	return rating * maxcharge
+
 /obj/item/stock_parts/cell/proc/minorrecharge()
 	minorrecharging = FALSE
 
@@ -12,9 +15,8 @@
 	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS = 800)
-	rating = 7
-	self_recharge = 1	// Infused slime cores self-recharge, over time
-	chargerate = 600	// 1.2 veces el chargerate de una bateria slime
+	self_recharge = 1 // Infused slime cores self-recharge, over time
+	chargerate = 600
 	overaynull = TRUE
 
 /obj/item/xenobluecellmaker
