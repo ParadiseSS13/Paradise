@@ -24,13 +24,21 @@
 		new /datum/track("Cyberpunk",	"Thriller - Scandroid",							'sound/hispania/hispaniabox/thriller.ogg',	1830,	5),
 		new /datum/track("Cyberpunk",	"Binary Star - Shikimo",						'sound/hispania/hispaniabox/binary.ogg',	1750,	5),
 		new /datum/track("Cyberpunk",	"Dance With The Dead - Andromeda",				'sound/music/title1.ogg',					3010,	5),
-		new /datum/track("Lo-Fi Chill",	"Long Day - Guru Griff",						'sound/hispania/hispaniabox/longday.ogg',	104,	5),
+		new /datum/track("Lo-Fi Chill",	"Long Day - Guru Griff",						'sound/hispania/hispaniabox/longday.ogg',	1040,	5),
 		new /datum/track("Lo-Fi Chill",	"Sweetly - Kael",								'sound/hispania/hispaniabox/sweetly.ogg',	1360,	5),
 		new /datum/track("Lo-Fi Chill",	"Space - Reflection",							'sound/hispania/hispaniabox/spaceref.ogg',	1270,	5),
+		new /datum/track("Lo-Fi Chill",	"Fly me to the moon - Frank Sinatra",	        'sound/hispania/hispaniabox/Fly_Me_To_The_Moon.ogg',	1341.6,	5),
 		new /datum/track("Pop",			"Space Jam - ",									'sound/music/title3.ogg',					1930,	5),
 		new /datum/track("Pop",			"Europa VII - La Oreja de Van Gogh",			'sound/music/title10.ogg',					2390,	5),
 		new /datum/track("Pop-Rock",	"Space Oddity - David Bowie",					'sound/music/title4.ogg',					3310,	5),
-	)
+		new /datum/track("Rap",         "Rappin' for Jesus",				            'sound/hispania/hispaniabox/Rappin_for_Jesus.ogg',		2520,	5),
+		new /datum/track("Megalovania",	"Megalovania - Toby Fox",				        'sound/hispania/hispaniabox/Megalovania.ogg',		1495.12,	5),
+		new /datum/track("Generic",	    "Star Wars Cantina - Meco",				        'sound/hispania/hispaniabox/star_wars_cantina.ogg',		2532,	5),
+		new /datum/track("Pop",	        "Never Gonna Give You Up - Rick Astley",	    'sound/hispania/hispaniabox/Give_You_Up.ogg',		2097.92,	5),
+		new /datum/track("Rock",	    "The House of the Rising Sun - The animal",     'sound/hispania/hispaniabox/The_House_of_the_Rising_Sun.ogg',	2602.08,5),
+		new /datum/track("Generic",	    "Golden Wind - Yugo Kanno.",                    'sound/hispania/hispaniabox/Golden_Wind.ogg',		2896.72,	5),
+		new /datum/track("Electro",	    "Tripaloski",                                   'sound/hispania/hispaniabox/Tripaloski.ogg',		934.8,	5),
+	         )
 	var/datum/track/selection = null
 	var/track = ""
 
