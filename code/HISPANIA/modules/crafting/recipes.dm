@@ -28,67 +28,64 @@
 	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
 
+ ////////////////
+//////Globos//////
+ ////////////////
+
 /datum/crafting_recipe/balloon
 	name = "Balloon"
-	result = /obj/structure/femur_breaker
-	time = 150
+	result = /obj/item/toy/balloon_H
+	time = 40
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
 
 /datum/crafting_recipe/balloonm
 	name = "Macdonalds balloon"
-	result = /obj/structure/femur_breaker
-	time = 150
+	result = /obj/item/toy/balloon_H/m
+	time = 50
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
 		        /obj/item/reagent_containers/food/snacks/monkeyburger = 1)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
 
 /datum/crafting_recipe/balloonred
 	name = "Red balloon"
-	result = /obj/structure/femur_breaker
-	time = 150
+	result = /obj/item/toy/balloon_H/red
+	time = 40
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
 
 /datum/crafting_recipe/balloonyellow
 	name = "Yellow balloon"
-	result = /obj/structure/femur_breaker
-	time = 150
+	result = /obj/item/toy/balloon_H/yellow
+	time = 40
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
 
 /datum/crafting_recipe/balloongreen
 	name = "Green balloon"
-	result = /obj/structure/femur_breaker
-	time = 150
+	result = /obj/item/toy/balloon_H/green
+	time = 40
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
 
 /datum/crafting_recipe/balloonblue
 	name = "Blue ballon"
-	result = /obj/structure/femur_breaker
-	time = 150
+	result = /obj/item/toy/balloon_H/blue
+	time = 40
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
 
 /datum/crafting_recipe/ballooncorgi
 	name = "Corgi balloon"
-	result = /obj/structure/femur_breaker
-	time = 150
+	result = /obj/item/toy/balloon_H/corgi
+	time = 40
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
 		        /obj/item/reagent_containers/food/snacks/meat/corgi = 1)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
 	category = CAT_MISC
