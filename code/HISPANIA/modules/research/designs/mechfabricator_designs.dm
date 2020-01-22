@@ -1,3 +1,14 @@
+/datum/design/mechmedbeam
+	name = "Exosuit Medical Equipment (Beamgun)"
+	desc = "Equipment for medical exosuits. Generates a focused beam of medical nanites."
+	id = "mechmedbeamgun"
+	build_type = MECHFAB
+	req_tech = list("magnets" = 6,"biotech" = 7, "materials" = 7, "engineering" = 8)
+	build_path = /obj/item/mecha_parts/mecha_equipment/medical/mechmedbeam
+	materials = list(MAT_METAL=10000, MAT_GLASS = 4000, MAT_PLASMA = 5000, MAT_GOLD = 10000, MAT_DIAMOND = 5000)
+	construction_time = 300
+	category = list("Exosuit Equipment")
+
 /datum/design/protomechmedbeam
 	name = "Exosuit Medical Equipment (Prototype Beamgun)"
 	desc = "Equipment for medical exosuits. Generates a focused beam of medical nanites. This prototype consumes excessive energy."

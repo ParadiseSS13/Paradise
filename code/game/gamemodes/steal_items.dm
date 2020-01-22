@@ -120,7 +120,7 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 
 /datum/theft_objective/ablative
 	name = "an ablative armor vest"
-	typepath = /obj/item/clothing/suit/armor/laserproof
+	typepath = /obj/item/clothing/suit/hooded/ablative
 	protected_jobs = list("Head of Security", "Warden")
 
 /datum/theft_objective/krav
