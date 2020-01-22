@@ -822,10 +822,10 @@ to destroy them and players will be able to make replacements.
 	name = "Circuit board (Telepad)"
 	build_path = /obj/machinery/telepad
 	board_type = "machine"
-	origin_tech = "programming=6;engineering=5;plasmatech=6;bluespace=7"
-	frame_desc = "Requires 2 Bluespace Crystals, 1 Capacitor, 1 piece of cable and 1 Console Screen."
+	origin_tech = "programming=5;engineering=4;plasmatech=5;bluespace=6"
+	frame_desc = "Requires 5 Bluespace Crystals, 1 Capacitor, 1 piece of cable and 1 Console Screen."
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 2,
+							/obj/item/stack/ore/bluespace_crystal = 5,
 							/obj/item/stock_parts/capacitor = 1,
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 1)
