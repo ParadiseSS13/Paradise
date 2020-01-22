@@ -1555,6 +1555,7 @@
 #include "code\modules\events\meaty_ops.dm"
 #include "code\modules\events\meaty_ores.dm"
 #include "code\modules\events\meteors.dm"
+#include "code\HISPANIA\game\machinery\constructable_frame.dm"
 #include "code\modules\events\money_hacker.dm"
 #include "code\modules\events\money_lotto.dm"
 #include "code\modules\events\money_spam.dm"
