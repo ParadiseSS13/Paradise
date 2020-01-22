@@ -329,7 +329,7 @@
 	id = "hot_coco"
 	description = "Made with love! And cocoa beans."
 	reagent_state = LIQUID
-	nutriment_factor = 2 * REAGENTS_METABOLISM
+	nutriment_factor = 0
 	color = "#403010" // rgb: 64, 48, 16
 	taste_description = "chocolate"
 
@@ -565,7 +565,7 @@
 	id = "chocolate"
 	description = "Chocolate is a delightful product derived from the seeds of the theobroma cacao tree."
 	reagent_state = LIQUID
-	nutriment_factor = 5 * REAGENTS_METABOLISM		//same as pure cocoa powder, because it makes no sense that chocolate won't fill you up and make you fat
+	nutriment_factor = 0
 	color = "#2E2418"
 	drink_icon = "chocolateglass"
 	drink_name = "Glass of chocolate"
@@ -573,7 +573,7 @@
 	taste_description = "chocolate"
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/M)
-	M.reagents.add_reagent("sugar", 0.8)
+	M.reagents.add_reagent("sugar", 0.1)
 	return ..()
 
 /datum/reagent/consumable/chocolate/reaction_turf(turf/T, volume)
