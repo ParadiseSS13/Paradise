@@ -8992,7 +8992,7 @@
 	},
 /area/admin)
 "vH" = (
-/obj/effect/decal/mecha_wreckage/phazon,
+/obj/effect/structure/mecha_wreckag/phazon,
 /turf/unsimulated/floor{
 	tag = "icon-floor";
 	icon_state = "floor"
