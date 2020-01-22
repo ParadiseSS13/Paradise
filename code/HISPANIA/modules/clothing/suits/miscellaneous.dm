@@ -4,7 +4,7 @@
 	icon = 'icons/hispania/mob/suit.dmi'
 	icon_state = "ablativehood"
 	hispania_icon = TRUE
-	armor = list(melee = 10, bullet = 10, laser = 60, energy = 60, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 60, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	strip_delay = 30
 	var/hit_reflect_chance = 50
 
