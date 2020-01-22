@@ -7,6 +7,7 @@
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 60, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	strip_delay = 30
 	var/hit_reflect_chance = 50
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/head/hooded/ablative/IsReflect(def_zone)
 	if(!(def_zone in BODY_ZONE_HEAD)) //If not shot where ablative is covering you, you don't get the reflection bonus!
