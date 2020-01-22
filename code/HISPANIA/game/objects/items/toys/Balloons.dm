@@ -26,31 +26,35 @@
 //Tipos de globos
 /obj/item/toy/balloon_H/red
 	name = "Balloon"
-	desc = "It's a red balloon"
+	desc = "It's a red balloon."
 	icon_state = "balloon_red"
 	item_state = "balloon_red"
+
 /obj/item/toy/balloon_H/yellow
 	name = "Yellow balloon"
-	desc = "It's a yellow balloon"
+	desc = "It's a yellow balloon."
 	icon_state = "balloon_yellow"
 	item_state = "balloon_yellow"
+
 /obj/item/toy/balloon_H/blue
 	name = "Blue Balloon"
-	desc = "It's a blue Da ba dee da ba daa"
+	desc = "It's a blue Da ba dee da ba daa."
 	icon_state = "balloon_blue"
 	item_state = "balloon_blue"
+
 /obj/item/toy/balloon_H/green
 	name = "Green balloon"
-	desc = "It's a green balloon"
+	desc = "It's a green balloon."
 	icon_state = "balloon_green"
 	item_state = "balloon_green"
+
 /obj/item/toy/balloon_H/corgi
 	name = "Corgi balloon"
-	desc = "Man's Best Friend"
+	desc = "Man's Best Friend."
 	icon_state = "Bcorgi"
 	item_state = "Bcorgi"
 /obj/item/toy/balloon_H/m
-	name = "Mcdonalds balloon"
+	name = "Mcdonalds balloon."
 	desc = "Fat,Very fat"
 	icon_state = "Mballoon"
 	item_state = "Mballoon"
