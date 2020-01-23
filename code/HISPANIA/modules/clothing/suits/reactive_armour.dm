@@ -28,6 +28,7 @@
 //Teleport RD
 /obj/item/clothing/suit/armor/reactive/teleport/rd
 	desc = "Someone seperated our Research Director from his own head!"
+	icon = 'icons/hispania/obj/clothing/suits.dmi'
 
 //Repulse
 /obj/item/clothing/suit/armor/reactive/repulse
