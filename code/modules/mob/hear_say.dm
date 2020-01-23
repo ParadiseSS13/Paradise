@@ -99,7 +99,7 @@
 		if(speaker == src)
 			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
-			to_chat(src, "<span class='name'>[speaker_name]</span> talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
 	else
 		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[use_voice ? speaker.GetAltName() : ""] [track][message]</span>")
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
