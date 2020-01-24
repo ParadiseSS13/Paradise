@@ -11,6 +11,7 @@
 	equip_cooldown = 15
 	energy_drain = 10
 	force = 15
+	harmful = TRUE
 	sharp = TRUE
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
@@ -22,8 +23,7 @@
 		return
 	if(isobj(target))
 		var/obj/target_obj = target
-		if(target_obj.unacidable && !ismecha(target_obj))
-			occupant_message("<span class='danger'>[target] is too durable to drill through.</span>")
+		if(target_obj.resistance_flags & UNACIDABLE)
 			return
 	target.visible_message("<span class='warning'>[chassis] starts to drill [target].</span>",
 					"<span class='userdanger'>[chassis] starts to drill [target]...</span>",
@@ -41,10 +41,9 @@
 			if(isliving(target))
 				drill_mob(target, chassis.occupant)
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
-			else if(istype(target, /obj))
+			else if(isobj(target))
 				var/obj/O = target
-				//O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
-				O.ex_act(2)//TO-DO-OBJECT-DAMAGE: Kill off when everything is damageable
+				O.take_damage(15, BRUTE, 0, FALSE, get_dir(chassis, target))
 				playsound(src, 'sound/weapons/drill.ogg', 40, TRUE)
 			else
 				set_ready_state(TRUE)

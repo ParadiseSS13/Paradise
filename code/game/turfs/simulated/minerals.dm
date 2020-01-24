@@ -88,7 +88,7 @@
 	addtimer(CALLBACK(src, .proc/AfterChange), 1, TIMER_UNIQUE)
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1) //beautiful destruction
 
-/turf/simulated/mineral/attack_animal(mob/living/simple_animal/user as mob)
+/turf/simulated/mineral/attack_animal(mob/living/simple_animal/user)
 	if((user.environment_smash & ENVIRONMENT_SMASH_WALLS) || (user.environment_smash & ENVIRONMENT_SMASH_RWALLS))
 		gets_drilled()
 	..()
@@ -119,6 +119,10 @@
 		var/obj/mecha/M = AM
 		if(istype(M.selected, /obj/item/mecha_parts/mecha_equipment/drill))
 			M.selected.action(src)
+
+
+/turf/simulated/mineral/acid_melt()
+	ChangeTurf(baseturf)
 
 /turf/simulated/mineral/ex_act(severity)
 	..()

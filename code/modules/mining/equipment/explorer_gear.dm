@@ -12,7 +12,7 @@
 	hoodtype = /obj/item/clothing/head/hooded/explorer
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 
 	sprite_sheets = list(
@@ -34,7 +34,7 @@
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 50)
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -50,9 +50,9 @@
 	item_state = "hostile_env"
 	flags = THICKMATERIAL //not spaceproof
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
-	burn_state = LAVA_PROOF
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	slowdown = 0
-	armor = list(melee = 70, bullet = 40, laser = 10, energy = 10, bomb = 50, bio = 100, rad = 100)
+	armor = list("melee" = 70, "bullet" = 40, "laser" = 10, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe)
 
 /obj/item/clothing/suit/space/hostile_environment/New()
@@ -81,8 +81,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	flags = THICKMATERIAL // no space protection
-	armor = list(melee = 70, bullet = 40, laser = 10, energy = 10, bomb = 50, bio = 100, rad = 100)
-	burn_state = LAVA_PROOF
+	armor = list("melee" = 70, "bullet" = 40, "laser" = 10, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
 /obj/item/clothing/head/helmet/space/hostile_environment/New()
 	..()

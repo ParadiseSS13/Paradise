@@ -3782,7 +3782,7 @@
 /turf/simulated/shuttle/plating,
 /area/wizard_station)
 "kt" = (
-/obj/structure/cult/talisman{
+/obj/structure/cult/altar{
 	desc = "A altar dedicated to the Wizard's Federation"
 	},
 /obj/item/kitchen/knife/ritual,
@@ -4379,7 +4379,7 @@
 	},
 /area/syndicate_mothership)
 "mh" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /turf/unsimulated/floor{
 	tag = "icon-cult";
 	icon_state = "cult"

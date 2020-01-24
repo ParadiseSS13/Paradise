@@ -5,7 +5,6 @@
 	icon = 'icons/effects/effects.dmi'
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
 	icon_state = "bhole3"
-	unacidable = 1
 	density = 0
 	anchored = 1
 	luminosity = 3
@@ -15,6 +14,7 @@
 	set_light(initial(luminosity))
 	aSignal = new(src)
 	aSignal.code = rand(1,100)
+	aSignal.anomaly_type = type
 
 	var/new_frequency = sanitize_frequency(rand(PUBLIC_LOW_FREQ, PUBLIC_HIGH_FREQ))
 	aSignal.set_frequency(new_frequency)

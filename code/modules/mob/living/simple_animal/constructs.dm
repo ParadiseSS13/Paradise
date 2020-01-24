@@ -29,7 +29,7 @@
 	deathmessage = "collapses in a shattered heap."
 
 /mob/living/simple_animal/hostile/construct/New()
-	..()
+	. = ..()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		name = "[const_type] ([rand(1, 1000)])"
 		real_name = const_type
@@ -44,8 +44,12 @@
 	for(var/spell in construct_spells)
 		AddSpell(new spell(null))
 
-	if(SSticker.cultdat.theme == "blood")
+	if(SSticker.cultdat?.theme == "blood")
 		updateglow()
+
+/mob/living/simple_animal/hostile/construct/death(gibbed)
+	. = ..()
+	SSticker.mode.remove_cultist(src.mind, FALSE)
 
 /mob/living/simple_animal/hostile/construct/examine(mob/user)
 	. = ..()
@@ -132,19 +136,7 @@
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s shell!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]'s shell!</span>")
 
-			// Find a turf near or on the original location to bounce to
-			if(P.starting)
-				var/new_x = P.starting.x + pick(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3)
-				var/new_y = P.starting.y + pick(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3)
-				var/turf/curloc = get_turf(src)
-
-				// redirect the projectile
-				P.original = locate(new_x, new_y, P.z)
-				P.starting = curloc
-				P.current = curloc
-				P.firer = src
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
+			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
 			return -1 // complete projectile permutation
 

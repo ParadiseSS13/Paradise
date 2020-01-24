@@ -191,7 +191,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
-	health = 3
+	max_integrity = 3
 
 /obj/item/organ/internal/shadowtumor/New()
 	..()
@@ -205,11 +205,11 @@
 	if(isturf(loc))
 		var/turf/T = loc
 		var/light_count = T.get_lumcount()*10
-		if(light_count > 4 && health > 0) //Die in the light
-			health--
-		else if(light_count < 2 && health < 3) //Heal in the dark
-			health++
-		if(health <= 0)
+		if(light_count > 4 && obj_integrity > 0) //Die in the light
+			obj_integrity--
+		else if(light_count < 2 && obj_integrity < max_integrity) //Heal in the dark
+			obj_integrity++
+		if(obj_integrity <= 0)
 			visible_message("<span class='warning'>[src] collapses in on itself!</span>")
 			qdel(src)
 
@@ -223,7 +223,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "head"
 	slot = "brain_tumor"
-	health = 3
 	var/organhonked = 0
 	var/suffering_delay = 900
 	var/datum/component/waddle
@@ -284,7 +283,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
-	owner.setBrainLoss(80)
+	owner.setBrainLoss(80, use_brain_mod = FALSE)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 
@@ -297,7 +296,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ = "groin"
 	slot = "honk_bladder"
-	health = 3
 	var/datum/component/squeak
 
 /obj/item/organ/internal/honkbladder/insert(mob/living/carbon/M, special = 0)

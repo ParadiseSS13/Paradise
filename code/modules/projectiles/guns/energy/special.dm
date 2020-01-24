@@ -43,7 +43,7 @@
 /obj/item/gun/energy/decloner/update_icon()
 	..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(power_supply.charge > shot.e_cost)
+	if(cell.charge > shot.e_cost)
 		overlays += "decloner_spin"
 
 // Flora Gun //
@@ -160,26 +160,26 @@
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
-	if(power_supply)
-		. += "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>"
+	if(cell)
+		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
-		if(power_supply.charge >= power_supply.maxcharge)
+		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
 			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
-		power_supply.give(1000)
+		cell.give(1000)
 		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/stack/ore/plasma))
-		if(power_supply.charge >= power_supply.maxcharge)
+		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
 			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
-		power_supply.give(500)
+		cell.give(500)
 		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
@@ -197,6 +197,7 @@
 	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+	toolspeed = 0.8
 	force = 15
 
 // Wormhole Projectors //
@@ -492,7 +493,7 @@
 		M.update_inv_r_hand()
 
 /obj/item/gun/energy/temperature/proc/update_charge()
-	var/charge = power_supply.charge
+	var/charge = cell.charge
 	switch(charge)
 		if(900 to INFINITY)		overlays += "900"
 		if(800 to 900)			overlays += "800"

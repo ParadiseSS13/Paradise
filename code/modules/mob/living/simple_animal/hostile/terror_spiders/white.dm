@@ -5,7 +5,7 @@
 // -------------: AI: injects a venom that makes you grow spiders in your body, then retreats
 // -------------: SPECIAL: stuns you on first attack - vulnerable to groups while it does this
 // -------------: TO FIGHT IT: blast it before it can get away
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white
 	name = "White Terror spider"
@@ -40,7 +40,7 @@
 		return
 	var/inject_target = pick("chest","head")
 	L.attack_animal(src)
-	if(L.stunned || L.paralysis || L.can_inject(null, 0, inject_target, 0))
+	if(L.stunned || L.paralysis || L.can_inject(null, FALSE, inject_target, FALSE))
 		if(!IsTSInfected(L) && ishuman(L))
 			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
@@ -66,6 +66,6 @@
 	if(istype(C))
 		if(!IsTSInfected(C) && ishuman(C))
 			var/inject_target = pick("chest","head")
-			if(C.can_inject(null, 0, inject_target, 0))
+			if(C.can_inject(null, FALSE, inject_target, FALSE))
 				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
 				new /obj/item/organ/internal/body_egg/terror_eggs(C)

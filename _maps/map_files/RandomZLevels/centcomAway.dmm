@@ -3483,7 +3483,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "iP" = (
-/obj/effect/decal/mecha_wreckage/ripley,
+/obj/structure/mecha_wreckage/ripley,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4924,7 +4924,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "lW" = (
-/obj/effect/decal/mecha_wreckage/seraph,
+/obj/structure/mecha_wreckage/seraph,
 /turf/simulated/floor/plasteel{
 	tag = "icon-vault (NORTHEAST)";
 	icon_state = "vault";

@@ -23,7 +23,7 @@
 	desc = "A nicely arranged wad of bills. Open to reveal its contents."
 	icon = 'icons/hispania/obj/hydroponics/harvest.dmi'
 	icon_state = "wad"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/food/snacks/grown/money/attack_self(mob/user)
 	new /obj/item/stack/spacecash/c10(get_turf(user))

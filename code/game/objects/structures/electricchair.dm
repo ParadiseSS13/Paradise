@@ -31,6 +31,7 @@
 		part = null
 		qdel(src)
 		return
+	return ..()
 
 /obj/structure/chair/e_chair/verb/activate_e_chair()
 	set name = "Activate Electric Chair"
