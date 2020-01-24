@@ -44,7 +44,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
-		var/multiplier = C.maxcharge / 10000
+		var/multiplier = C.get_part_rating() / 10000
 		recharge_speed *= multiplier
 		recharge_speed_nutrition *= multiplier
 
@@ -63,48 +63,21 @@
 	return 1
 
 /obj/machinery/recharge_station/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
+	if(occupant)
+		occupant.ex_act(severity)
+	..()
 
-/obj/machinery/recharge_station/blob_act()
-	if(prob(50))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
-		qdel(src)
+/obj/machinery/recharge_station/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
 
 /obj/machinery/recharge_station/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
-
-
-/obj/machinery/recharge_station/attack_animal(var/mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
-	if(M.environment_smash)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
-		go_out()
-		qdel(src)
-	return
 
 /obj/machinery/recharge_station/Bumped(var/mob/AM)
 	move_inside(AM)
@@ -160,7 +133,8 @@
 			if(repairs)
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
-				R.cell.give(recharge_speed)
+				var/transfered = R.cell.give(recharge_speed)
+				use_power(transfered * 12)
 		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
@@ -212,17 +186,19 @@
 							F.icon_state = "flash"
 					if(istype(O,/obj/item/gun/energy/disabler/cyborg))
 						var/obj/item/gun/energy/disabler/cyborg/D = O
-						if(D.power_supply.charge < D.power_supply.maxcharge)
+						if(D.cell.charge < D.cell.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.power_supply.give(E.e_cost)
+							var/transfered = D.cell.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
+							use_power(transfered * 12)
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
-						if(B.bcell)
-							B.bcell.charge = B.bcell.maxcharge
+						if(B.cell)
+							var/transfered = B.cell.give(B.cell.chargerate)
+							use_power(transfered * 12)
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
@@ -287,27 +263,24 @@
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 
-		if(R.stat == DEAD)
-			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
-			return
 		if(occupant)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
 		if(!R.cell)
 			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
-			return
 		can_accept_user = TRUE
 
 	else if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		if(H.stat == DEAD)
-			return
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell))
+		if(ismachine(H))
+			can_accept_user = TRUE
+		else if(!H.get_int_organ(/obj/item/organ/internal/cell))
+			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
 		can_accept_user = TRUE
 

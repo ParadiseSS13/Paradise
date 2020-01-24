@@ -8,10 +8,10 @@
 	var/state = 0
 	var/obj/item/circuitboard/circuit = null
 	var/base_mineral = /obj/item/stack/sheet/metal
-//	weight = 1.0E8
 
 /obj/structure/computerframe/deconstruct(disassembled = TRUE)
-	drop_computer_parts()
+	if(!(flags & NODECONSTRUCT))
+		drop_computer_parts()
 	return ..() // will qdel the frame
 
 /obj/structure/computerframe/obj_break(damage_flag)
@@ -362,7 +362,7 @@
 /obj/item/circuitboard/telesci_console
 	name = "Circuit board (Telepad Control Console)"
 	build_path = /obj/machinery/computer/telescience
-	origin_tech = "programming=5;bluespace=7;plasmatech=6"
+	origin_tech = "programming=6;bluespace=7;plasmatech=5"
 
 /obj/item/circuitboard/atmos_automation
 	name = "Circuit board (Atmospherics Automation)"
@@ -406,7 +406,8 @@
 				return
 			else
 				to_chat(user, "DERP! BUG! Report this (And what you were doing to cause it) to Agouri")
-	return
+		return
+	return ..()
 
 /obj/item/circuitboard/rdconsole/attackby(obj/item/I as obj, mob/user as mob, params)
 	if(istype(I,/obj/item/card/id)||istype(I, /obj/item/pda))
@@ -440,7 +441,8 @@
 			to_chat(user, "<span class='notice'>Access protocols set to [console_choice].</span>")
 		else
 			to_chat(user, "<span class='warning'>Access Denied</span>")
-	return
+		return
+	return ..()
 
 /obj/structure/computerframe/attackby(obj/item/P as obj, mob/user as mob, params)
 	switch(state)
@@ -451,6 +453,7 @@
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
+				return
 			if(istype(P, /obj/item/weldingtool))
 				var/obj/item/weldingtool/WT = P
 				if(!WT.remove_fuel(0, user))
@@ -461,6 +464,7 @@
 					if(!src || !WT.isOn()) return
 					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 					deconstruct(TRUE)
+				return
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
@@ -468,6 +472,7 @@
 					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
 					anchored = 0
 					state = 0
+				return
 			if(istype(P, /obj/item/circuitboard) && !circuit)
 				var/obj/item/circuitboard/B = P
 				if(B.board_type == "computer")
@@ -479,11 +484,13 @@
 					P.loc = src
 				else
 					to_chat(user, "<span class='warning'>This frame does not accept circuit boards of this type!</span>")
+				return
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
 				state = 2
 				icon_state = "2"
+				return
 			if(istype(P, /obj/item/crowbar) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
@@ -491,12 +498,14 @@
 				icon_state = "0"
 				circuit.loc = loc
 				circuit = null
+				return
 		if(2)
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
 				state = 1
 				icon_state = "1"
+				return
 			if(istype(P, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/C = P
 				if(C.amount >= 5)
@@ -512,7 +521,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-					return
+				return
 		if(3)
 			if(istype(P, /obj/item/wirecutters))
 				playsound(loc, P.usesound, 50, 1)
@@ -521,7 +530,7 @@
 				icon_state = "2"
 				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
 				A.amount = 5
-
+				return
 			if(istype(P, /obj/item/stack/sheet/glass))
 				var/obj/item/stack/sheet/glass/G = P
 				if(G.amount >= 2)
@@ -537,7 +546,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
-					return
+				return
 		if(4)
 			if(istype(P, /obj/item/crowbar))
 				playsound(loc, P.usesound, 50, 1)
@@ -545,6 +554,7 @@
 				state = 3
 				icon_state = "3"
 				new /obj/item/stack/sheet/glass(loc, 2)
+				return
 			if(istype(P, /obj/item/screwdriver))
 				playsound(loc, P.usesound, 50, 1)
 				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
@@ -558,6 +568,9 @@
 					var/obj/item/circuitboard/supplycomp/C = circuit
 					SC.can_order_contraband = C.contraband_enabled
 				qdel(src)
+				return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 
 
@@ -585,6 +598,7 @@
 					if(!src || !WT.isOn()) return
 					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
 					deconstruct(TRUE)
+			return
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
@@ -615,6 +629,7 @@
 				icon_state = "0"
 				circuit.loc = loc
 				circuit = null
+			return
 		if(2)
 			if(istype(P, /obj/item/screwdriver) && circuit)
 				playsound(loc, P.usesound, 50, 1)
@@ -636,7 +651,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-					return
+			return
 		if(3)
 			if(istype(P, /obj/item/wirecutters))
 				playsound(loc, P.usesound, 50, 1)
@@ -661,7 +676,7 @@
 							return
 				else
 					to_chat(user, "<span class='warning'>You need two sheets of glass for this.</span>")
-					return
+			return
 		if(4)
 			if(istype(P, /obj/item/crowbar))
 				playsound(loc, P.usesound, 50, 1)
@@ -678,3 +693,5 @@
 				if(circuit.records) B:records = circuit.records
 				if(circuit.frequency) B:frequency = circuit.frequency
 				qdel(src)
+			return
+	return ..()

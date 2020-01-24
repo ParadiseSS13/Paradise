@@ -86,7 +86,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 		if(A.level == 3)
 			return 1
 
-/turf/simulated/floor/blob_act()
+/turf/simulated/floor/blob_act(obj/structure/blob/B)
 	return
 
 /turf/simulated/floor/proc/update_icon()
@@ -211,6 +211,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	return make_plating()
 
 /turf/simulated/floor/singularity_pull(S, current_size)
+	..()
 	if(current_size == STAGE_THREE)
 		if(prob(30))
 			if(builtin_tile)
@@ -240,6 +241,9 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	. = ..()
 	if(.)
 		ChangeTurf(/turf/simulated/floor/clockwork)
+
+/turf/simulated/floor/acid_melt()
+	ChangeTurf(baseturf)
 
 /turf/simulated/floor/can_have_cabling()
 	return !burnt && !broken

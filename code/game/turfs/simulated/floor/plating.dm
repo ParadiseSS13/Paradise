@@ -131,7 +131,6 @@
 	var/insulated
 	heat_capacity = 325000
 	floor_tile = /obj/item/stack/rods
-	unacidable = TRUE
 
 /turf/simulated/floor/engine/break_tile()
 	return //unbreakable
@@ -149,6 +148,10 @@
 
 /turf/simulated/floor/engine/pry_tile(obj/item/C, mob/user, silent = FALSE)
 	return
+
+/turf/simulated/floor/engine/acid_act(acidpwr, acid_volume)
+	acidpwr = min(acidpwr, 50) //we reduce the power so reinf floor never get melted.
+	. = ..()
 
 /turf/simulated/floor/engine/attackby(obj/item/C as obj, mob/user as mob, params)
 	if(!C || !user)
@@ -182,7 +185,7 @@
 			if(prob(50))
 				ChangeTurf(baseturf)
 
-/turf/simulated/floor/engine/blob_act()
+/turf/simulated/floor/engine/blob_act(obj/structure/blob/B)
 	if(prob(25))
 		ChangeTurf(baseturf)
 		
@@ -217,12 +220,14 @@
 	assume_air(adding)
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
+	..()
 	if(current_size >= STAGE_FIVE)
-		if(prob(30))
-			make_plating() //does not actually do anything
-		else
+		if(floor_tile)
 			if(prob(30))
-				ReplaceWithLattice()
+				new floor_tile(src)
+				make_plating()
+		else if(prob(30))
+			ReplaceWithLattice()
 
 /turf/simulated/floor/engine/vacuum
 	name = "vacuum floor"

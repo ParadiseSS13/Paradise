@@ -505,6 +505,7 @@ CREATE TABLE `notes` (
   `last_editor` varchar(32),
   `edits` text,
   `server` varchar(50) NOT NULL,
+  `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -565,4 +566,31 @@ CREATE TABLE `oauth_tokens` (
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
->>>>>>> 0e7ffa468746e1ea312c3a3e730a5cdaebec43a6
+
+--
+-- Table structure for table `playtime_history`
+--
+DROP TABLE IF EXISTS `playtime_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `playtime_history` (
+  `ckey` varchar(32) NOT NULL,
+  `date` DATE NOT NULL,
+  `time_living` SMALLINT NOT NULL,
+  `time_ghost` SMALLINT NOT NULL,
+  PRIMARY KEY (`ckey`, `date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Table structure for table `connection_log`
+--
+DROP TABLE IF EXISTS `connection_log`;
+CREATE TABLE `connection_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `ckey` varchar(32) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `computerid` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

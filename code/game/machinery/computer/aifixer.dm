@@ -19,7 +19,7 @@
 		else
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
 	else
-		..()
+		return ..()
 
 /obj/machinery/computer/aifixer/attack_ai(var/mob/user as mob)
 	ui_interact(user)
@@ -69,6 +69,7 @@
 			if(occupant.health >= 0 && occupant.stat == DEAD)
 				occupant.update_revive()
 				occupant.lying = 0
+				update_icon()
 			sleep(10)
 		active = 0
 		add_fingerprint(usr)

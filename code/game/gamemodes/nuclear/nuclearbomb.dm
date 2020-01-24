@@ -6,6 +6,7 @@ var/bomb_set
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "nuclearbomb0"
 	density = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/deployable = 0
 	var/extended = 0
 	var/lighthack = 0
@@ -20,7 +21,6 @@ var/bomb_set
 	var/lastentered
 	var/is_syndicate = 0
 	use_power = NO_POWER_USE
-	unacidable = 1
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
 
@@ -76,7 +76,7 @@ var/bomb_set
 
 	if(panel_open && (istype(O, /obj/item/multitool) || istype(O, /obj/item/wirecutters)))
 		return attack_hand(user)
-	
+
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
 			if(!user.drop_item())
@@ -88,7 +88,7 @@ var/bomb_set
 			return attack_hand(user)
 		else
 			to_chat(user, "<span class='notice'>You need to deploy \the [src] first. Right click on the sprite, select 'Make Deployable' then click on \the [src] with an empty hand.</span>")
-			return
+		return
 
 	if(anchored)
 		switch(removal_stage)
@@ -157,7 +157,8 @@ var/bomb_set
 						anchored = 0
 						removal_stage = 5
 				return
-	..()
+		return
+	return ..()
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	if(extended)
@@ -333,15 +334,10 @@ var/bomb_set
 
 	SSnanoui.update_uis(src)
 
-/obj/machinery/nuclearbomb/ex_act(severity)
-	return
-
-/obj/machinery/nuclearbomb/blob_act()
+/obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(timing == -1.0)
 		return
-	else
-		return ..()
-	return
+	qdel(src)
 
 /obj/machinery/nuclearbomb/tesla_act(power, explosive)
 	..()
@@ -405,7 +401,9 @@ var/bomb_set
 	name = "nuclear authentication disk"
 	desc = "Better keep this safe."
 	icon_state = "nucleardisk"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 30, bio = 0, rad = 0)
+	max_integrity = 250
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/disk/nuclear/unrestricted
 	desc = "Seems to have been stripped of its safeties, you better not lose it."

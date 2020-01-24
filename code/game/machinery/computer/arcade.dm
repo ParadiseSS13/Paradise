@@ -8,18 +8,17 @@
 	light_color = "#00FF00"
 	var/prize = /obj/item/stack/tickets
 
-/obj/machinery/computer/arcade/power_change()
-	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
-	else
-		set_light(0)
+/obj/machinery/computer/arcade/proc/Reset()
+	return
 
 /obj/machinery/computer/arcade/New()
 	..()
-	var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
-	new choice(loc)
-	qdel(src)
+	if(!circuit)
+		var/choice = pick(subtypesof(/obj/machinery/computer/arcade))
+		new choice(loc)
+		qdel(src)
+		return
+	Reset()
 
 
 /obj/machinery/computer/arcade/proc/prizevend(var/score)
@@ -65,7 +64,7 @@
 	var/blocked = 0 //Player cannot attack/heal while set
 	var/turtle = 0
 
-/obj/machinery/computer/arcade/battle/New()
+/obj/machinery/computer/arcade/battle/Reset()
 	var/name_action
 	var/name_part1
 	var/name_part2
@@ -166,7 +165,7 @@
 		turtle = 0
 
 		if(emagged)
-			New()
+			Reset()
 			emagged = 0
 
 	add_fingerprint(usr)
@@ -186,7 +185,7 @@
 				new /obj/item/clothing/head/collectable/petehat(get_turf(src))
 				message_admins("[key_name_admin(usr)] has outbombed Cuban Pete and been awarded a bomb.")
 				log_game("[key_name(usr)] has outbombed Cuban Pete and been awarded a bomb.")
-				New()
+				Reset()
 				emagged = 0
 			else
 				feedback_inc("arcade_win_normal")
@@ -311,7 +310,7 @@
 	var/spaceport_freebie = 0
 	var/last_spaceport_action = ""
 
-/obj/machinery/computer/arcade/orion_trail/New()
+/obj/machinery/computer/arcade/orion_trail/Reset()
 	// Sets up the main trail
 	stops = list("Pluto","Asteroid Belt","Proxima Centauri","Dead Space","Rigel Prime","Tau Ceti Beta","Black Hole","Space Outpost Beta-9","Orion Prime")
 	stopblurbs = list(

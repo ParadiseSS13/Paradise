@@ -23,6 +23,7 @@
 	power_channel = ENVIRON
 
 	req_access = list(access_keycard_auth)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
 	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
@@ -47,6 +48,8 @@
 				broadcast_request() //This is the device making the initial event request. It needs to broadcast to other devices
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+	return ..()
 
 /obj/machinery/keycard_auth/power_change()
 	if(powered(ENVIRON))
@@ -166,7 +169,6 @@
 				return
 			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
-			//discordbot("[config.ryzorbot]", "ert", "isadmin=false&reason=[json_encode(ert_reason)]&timestamp=[station_time_timestamp()]")
 
 			var/fullmin_count = 0
 			for(var/client/C in GLOB.admins)

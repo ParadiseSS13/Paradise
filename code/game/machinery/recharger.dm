@@ -67,7 +67,7 @@
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
-		
+
 	if(anchored && !charging)
 		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
 			return
@@ -107,17 +107,18 @@
 	if(charging)
 		if(istype(charging, /obj/item/gun/energy))
 			var/obj/item/gun/energy/E = charging
-			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
+			if(E.cell.charge < E.cell.maxcharge)
+				var/transfered = E.cell.give(E.cell.chargerate * recharge_coeff)
 				E.on_recharge()
-				use_power(250)
+				use_power(transfered * 10)
 				using_power = TRUE
 
 		if(istype(charging, /obj/item/melee/baton))
 			var/obj/item/melee/baton/B = charging
-			if(B.bcell)
-				if(B.bcell.give(B.bcell.chargerate))
-					use_power(200)
+			if(B.cell)
+				var/transfered = B.cell.give(B.cell.chargerate)
+				if(transfered)
+					use_power(transfered * 13)
 					using_power = TRUE
 
 		if(istype(charging, /obj/item/modular_computer))
@@ -140,8 +141,8 @@
 
 		if(istype(charging, /obj/item/bodyanalyzer))
 			var/obj/item/bodyanalyzer/B = charging
-			if(B.power_supply)
-				if(B.power_supply.give(B.power_supply.chargerate))
+			if(B.cell)
+				if(B.cell.give(B.cell.chargerate))
 					use_power(200)
 					using_power = TRUE
 
@@ -154,13 +155,13 @@
 
 	if(istype(charging,  /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = charging
-		if(E.power_supply)
-			E.power_supply.emp_act(severity)
+		if(E.cell)
+			E.cell.emp_act(severity)
 
 	else if(istype(charging, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = charging
-		if(B.bcell)
-			B.bcell.charge = 0
+		if(B.cell)
+			B.cell.charge = 0
 	..(severity)
 
 /obj/machinery/recharger/update_icon(using_power = FALSE)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.

@@ -17,8 +17,9 @@
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
-	burn_state = FLAMMABLE
-	burntime = 30
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	integrity_failure = 30
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 2
 	buckle_offset = -6
@@ -39,18 +40,19 @@
 /obj/structure/bed/proc/handle_rotation()
 	return
 
-/obj/structure/bed/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+/obj/structure/bed/attackby(obj/item/W, mob/user, params)
+	if(iswrench(W) && !(flags & NODECONSTRUCT))
+		playsound(loc, W.usesound, 50, TRUE)
+		deconstruct(TRUE)
+	else
+		return ..()
 
-/obj/structure/bed/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+/obj/structure/bed/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(buildstacktype)
+			new buildstacktype(loc, buildstackamount)
+	..()
+
 
 /*
  * Roller beds
@@ -60,7 +62,7 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
 
@@ -76,6 +78,8 @@
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new/obj/item/roller(get_turf(src))
 			qdel(src)
+	else
+		return ..()
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
 	density = TRUE

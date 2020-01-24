@@ -4,6 +4,7 @@
 	icon = 'icons/obj/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
 	item_state = "flamethrower_0"
+	var/fire_sound = 'sound/hispania/weapons/flamethrower.ogg'
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags = CONDUCT
@@ -13,6 +14,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=500)
+	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	var/status = FALSE
 	var/lit = FALSE	//on or off
@@ -177,6 +179,7 @@
 	if(!lit || operating)
 		return
 	operating = TRUE
+	playsound(src, fire_sound, 70, 1)
 	var/turf/previousturf = get_turf(src)
 	for(var/turf/simulated/T in turflist)
 		if(!T.air)

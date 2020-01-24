@@ -4635,10 +4635,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/clothing/suit/armor/laserproof{
-	pixel_x = 0;
-	pixel_y = 0
-	},
+/obj/item/clothing/suit/hooded/ablative,
 /obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -35629,7 +35626,7 @@
 	},
 /area/library)
 "bmF" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/item/videocam,
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -38832,6 +38829,7 @@
 "bto" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
+/obj/item/storage/bag/UNO,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "btp" = (
@@ -42404,7 +42402,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bAc" = (
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bAd" = (
@@ -50876,9 +50874,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
 /obj/structure/table/glass,
@@ -56356,7 +56354,7 @@
 	},
 /area/crew_quarters/hor)
 "bYB" = (
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"

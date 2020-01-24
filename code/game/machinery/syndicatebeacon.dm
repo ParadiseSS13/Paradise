@@ -73,10 +73,14 @@
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
 
 			var/datum/objective/custom_objective = new(objective)
+			custom_objective.owner = N.mind
+			N.mind.objectives += custom_objective
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = N.mind
+			N.mind.objectives += escape_objective
+
 			var/datum/antagonist/traitor/T = new()
 			T.give_objectives = FALSE
-			T.add_objective(custom_objective)
-			T.add_objective(/datum/objective/escape)
 			N.mind.add_antag_datum(T)
 	
 			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")

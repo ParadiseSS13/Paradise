@@ -70,34 +70,20 @@ Doesn't work on other aliens/AI.*/
 	return
 
 
-/mob/living/carbon/alien/humanoid/proc/corrosive_acid(O as obj|turf in oview(1)) //If they right click to corrode, an error will flash if its an invalid target./N
+/mob/living/carbon/alien/humanoid/proc/corrosive_acid(atom/target) //If they right click to corrode, an error will flash if its an invalid target./N
 	set name = "Corrossive Acid (200)"
 	set desc = "Drench an object in acid, destroying it over time."
 	set category = "Alien"
 
 	if(powerc(200))
-		if(O in oview(1))
-			// OBJ CHECK
-			if(isobj(O))
-				var/obj/I = O
-				if(I.unacidable)	//So the aliens don't destroy energy fields/singularies/other aliens/etc with their acid.
-					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
-					return
-			// TURF CHECK
-			else if(istype(O, /turf/simulated))
-				var/turf/simulated/T = O
-				if(T.unacidable)
-					to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
-					return
-			else// Not a type we can acid.
-				return
-
-			adjustPlasma(-200)
-			new /obj/effect/acid(get_turf(O), O)
-			visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [O]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+		if(target in oview(1))
+			if(target.acid_act(200, 100))
+				visible_message("<span class='alertalien'>[src] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!</span>")
+				adjustPlasma(-200)
+			else
+				to_chat(src, "<span class='noticealien'>You cannot dissolve this object.</span>")
 		else
-			to_chat(src, "<span class='noticealien'>Target is too far away.</span>")
-	return
+			to_chat(src, "<span class='noticealien'>[target] is too far away.</span>")
 
 /mob/living/carbon/alien/humanoid/proc/neurotoxin() // ok
 	set name = "Spit Neurotoxin (50)"

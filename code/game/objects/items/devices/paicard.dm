@@ -12,6 +12,7 @@
 	var/looking_for_personality = 0
 	var/mob/living/silicon/pai/pai
 	var/list/faction = list("neutral") // The factions the pAI will inherit from the card
+	resistance_flags = FIRE_PROOF | ACID_PROOF | INDESTRUCTIBLE
 
 /obj/item/paicard/syndicate
 	name = "syndicate personal AI device"
@@ -333,12 +334,6 @@
 	for(var/mob/M in src)
 		M.emp_act(severity)
 	..()
-
-/obj/item/paicard/ex_act(severity)
-	if(pai)
-		pai.ex_act(severity)
-	else
-		qdel(src)
 
 /obj/item/paicard/extinguish_light()
 	pai.extinguish_light()

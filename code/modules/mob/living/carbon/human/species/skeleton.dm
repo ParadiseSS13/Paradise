@@ -48,12 +48,7 @@
 			var/list/our_organs = H.bodyparts.Copy()
 			shuffle(our_organs)
 			for(var/obj/item/organ/external/L in our_organs)
-				if(istype(L))
-					if(L.brute_dam < L.min_broken_damage)
-						L.status &= ~ORGAN_BROKEN
-						L.status &= ~ORGAN_SPLINTED
-						H.handle_splints()
-						L.perma_injury = 0
+				if(L.mend_fracture())
 					break // We're only checking one limb here, bucko
 		if(prob(3))
 			H.say(pick("Thanks Mr. Skeltal", "Thank for strong bones", "Doot doot!"))

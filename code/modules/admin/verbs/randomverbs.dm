@@ -397,7 +397,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.real_name = record_found.fields["name"]
 		new_character.change_gender(record_found.fields["sex"])
 		new_character.age = record_found.fields["age"]
-		new_character.b_type = record_found.fields["b_type"]
+		new_character.dna.blood_type = record_found.fields["blood_type"]
 	else
 		new_character.change_gender(pick(MALE,FEMALE))
 		var/datum/preferences/A = new()
@@ -612,7 +612,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(type == "Custom")
 		type = clean_input("What would you like the report type to be?", "Report Type", "Encrypted Transmission")
 
-	var/customname = clean_input("Pick a title for the report.", "Title", MsgType[type])
+	var/customname = input(usr, "Pick a title for the report.", "Title", MsgType[type]) as text|null
 	if(!customname)
 		return
 	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What's the message?") as message|null
@@ -989,12 +989,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
+		obj_count = 0
+		obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
-			for(var/datum/objective/O in all_objectives)
+			for(var/datum/objective/O in GLOB.all_objectives)
 				if(O.target == H.mind)
 					obj_count++
 			if(obj_count > 0)
@@ -1033,7 +1035,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				role_string = "<U>[H.mind.special_role]</U>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
-			for(var/datum/objective/O in all_objectives)
+			for(var/datum/objective/O in GLOB.all_objectives)
 				if(O.target == H.mind)
 					obj_count++
 			if(obj_count > 0)
@@ -1111,3 +1113,47 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		dat += "[S.name] - <a href='?src=[S.UID()];announce=1'>Announce</a> | <a href='?src=[S.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='?src=[UID()];add_station_goal=1'>Add New Goal</a>"
 	usr << browse(dat, "window=goals;size=400x400")
+
+/// Allow admin to add or remove traits of datum
+/datum/admins/proc/modify_traits(datum/D)
+	if(!D)
+		return
+
+	var/add_or_remove = input("Remove/Add?", "Trait Remove/Add") as null|anything in list("Add","Remove")
+	if(!add_or_remove)
+		return
+	var/list/availible_traits = list()
+
+	switch(add_or_remove)
+		if("Add")
+			for(var/key in GLOB.traits_by_type)
+				if(istype(D,key))
+					availible_traits += GLOB.traits_by_type[key]
+		if("Remove")
+			if(!GLOB.trait_name_map)
+				GLOB.trait_name_map = generate_trait_name_map()
+			for(var/trait in D.status_traits)
+				var/name = GLOB.trait_name_map[trait] || trait
+				availible_traits[name] = trait
+
+	var/chosen_trait = input("Select trait to modify", "Trait") as null|anything in availible_traits
+	if(!chosen_trait)
+		return
+	chosen_trait = availible_traits[chosen_trait]
+
+	var/source = "adminabuse"
+	switch(add_or_remove)
+		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
+			ADD_TRAIT(D, chosen_trait, source)
+		if("Remove")
+			var/specific = input("All or specific source ?", "Trait Remove/Add") as null|anything in list("All","Specific")
+			if(!specific)
+				return
+			switch(specific)
+				if("All")
+					source = null
+				if("Specific")
+					source = input("Source to be removed","Trait Remove/Add") as null|anything in D.status_traits[chosen_trait]
+					if(!source)
+						return
+			REMOVE_TRAIT(D, chosen_trait, source)

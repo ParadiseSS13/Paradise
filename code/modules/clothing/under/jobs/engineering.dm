@@ -5,9 +5,9 @@
 	icon_state = "chiefengineer"
 	item_state = "chief"
 	item_color = "chief"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 80, "acid" = 40)
 	flags_size = ONESIZEFITSALL
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/chief_engineer/skirt
 	desc = "It's a high visibility jumpskirt given to those engineers insane enough to achieve the rank of \"Chief engineer\". It has minor radiation shielding."
@@ -24,7 +24,7 @@
 	item_state = "atmos_suit"
 	item_color = "atmos"
 	flags_size = ONESIZEFITSALL
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/atmospheric_technician/skirt
 	desc = "It's a jumpskirt worn by atmospheric technicians."
@@ -40,9 +40,9 @@
 	icon_state = "engine"
 	item_state = "engi_suit"
 	item_color = "engine"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 10, "fire" = 60, "acid" = 20)
 	flags_size = ONESIZEFITSALL
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 
 /obj/item/clothing/under/rank/engineer/skirt
@@ -60,6 +60,7 @@
 	item_state = "robotics"
 	item_color = "robotics"
 	flags_size = ONESIZEFITSALL
+	resistance_flags = NONE
 
 /obj/item/clothing/under/rank/roboticist/skirt
 	desc = "It's a slimming black jumpskirt with reinforced seams; great for industrial work."
