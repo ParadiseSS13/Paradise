@@ -48791,7 +48791,7 @@
 "bMB" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
+/area/bridge/meeting_room)
 "bMC" = (
 /obj/structure/cable{
 	icon_state = "0-2";
@@ -48807,10 +48807,8 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "bMD" = (
-/obj/machinery/computer/account_database{
-	anchored = 1
-	},
-/turf/simulated/floor/plasteel,
+/obj/structure/closet/wardrobe/black,
+/turf/simulated/floor/plating,
 /area/bridge/meeting_room)
 "bME" = (
 /turf/simulated/wall,
@@ -49966,9 +49964,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bOl" = (
-/obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/plating,
-/area/maintenance/maintcentral)
+/obj/machinery/computer/account_database,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "blue"
+	},
+/area/crew_quarters/heads)
 "bOm" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -50021,12 +50022,31 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bOq" = (
-/obj/item/radio/intercom{
-	name = "station intercom (General)";
-	pixel_y = -28
+/obj/structure/table/glass,
+/obj/item/storage/belt/medical,
+/obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer{
+	pixel_x = 2;
+	pixel_y = 2
 	},
-/turf/simulated/floor/plasteel,
-/area/bridge/meeting_room)
+/obj/item/clothing/glasses/hud/health,
+/obj/machinery/embedded_controller/radio/airlock/access_controller{
+	id_tag = "viro_lab_airlock_control";
+	name = "Virology Lab Access Console";
+	pixel_x = 24;
+	pixel_y = 0;
+	req_one_access_txt = "39";
+	tag_exterior_door = "viro_lab_airlock_exterior";
+	tag_interior_door = "viro_lab_airlock_interior"
+	},
+/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/item/storage/fancy/vials,
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitegreen";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/medical/virology)
 "bOr" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -50142,35 +50162,16 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "bOA" = (
-/obj/machinery/computer/secure_data,
-/obj/machinery/flasher_button{
-	id = "hopflash";
-	pixel_x = 6;
-	pixel_y = 36
+/obj/structure/table,
+/obj/item/pod_parts/core,
+/obj/item/circuitboard/mecha/pod,
+/obj/item/clothing/glasses/welding{
+	pixel_y = 12
 	},
-/obj/machinery/door_control{
-	id = "hopqueue";
-	name = "Queue Privacy Shutters Control";
-	pixel_x = -4;
-	pixel_y = 25;
-	req_access_txt = "28"
-	},
-/obj/machinery/door_control{
-	id = "hop";
-	name = "Privacy Shutters Control";
-	pixel_x = 6;
-	pixel_y = 25;
-	req_access_txt = "28"
-	},
-/obj/machinery/light_switch{
-	pixel_x = -4;
-	pixel_y = 36
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
-	},
-/area/crew_quarters/heads)
+/obj/item/gps,
+/obj/item/pod_paint_bucket,
+/turf/simulated/floor/plasteel,
+/area/engine/mechanic_workshop)
 "bOB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
@@ -53104,13 +53105,27 @@
 	},
 /area/shuttle/administration)
 "bTm" = (
-/obj/structure/table,
-/obj/item/pod_parts/core,
-/obj/item/circuitboard/mecha/pod,
-/obj/item/clothing/glasses/welding{
-	pixel_y = 12
+/obj/machinery/door_control{
+	id = "mechpod";
+	name = "Mechanic's Inner Door Control";
+	pixel_x = 0;
+	pixel_y = -24;
+	req_access_txt = "70"
 	},
-/obj/item/gps,
+/obj/structure/table,
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/stack/sheet/glass{
+	amount = 50
+	},
+/obj/item/stack/rods{
+	amount = 50
+	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 30
+	},
+/obj/item/pod_paint_bucket,
 /turf/simulated/floor/plasteel,
 /area/engine/mechanic_workshop)
 "bTn" = (
@@ -69952,31 +69967,6 @@
 	icon_state = "white"
 	},
 /area/medical/virology)
-"cun" = (
-/obj/structure/table/glass,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "viro_lab_airlock_control";
-	name = "Virology Lab Access Console";
-	pixel_x = 24;
-	pixel_y = 0;
-	req_one_access_txt = "39";
-	tag_exterior_door = "viro_lab_airlock_exterior";
-	tag_interior_door = "viro_lab_airlock_interior"
-	},
-/obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitegreen";
-	tag = "icon-whitehall (WEST)"
-	},
-/area/medical/virology)
 "cuo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -79705,29 +79695,6 @@
 	icon_state = "white"
 	},
 /area/assembly/assembly_line)
-"cLr" = (
-/obj/machinery/door_control{
-	id = "mechpod";
-	name = "Mechanic's Inner Door Control";
-	pixel_x = 0;
-	pixel_y = -24;
-	req_access_txt = "70"
-	},
-/obj/structure/table,
-/obj/item/stack/sheet/metal{
-	amount = 50
-	},
-/obj/item/stack/sheet/glass{
-	amount = 50
-	},
-/obj/item/stack/rods{
-	amount = 50
-	},
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 30
-	},
-/turf/simulated/floor/plasteel,
-/area/engine/mechanic_workshop)
 "cLs" = (
 /obj/machinery/light_switch{
 	name = "light switch ";
@@ -118384,7 +118351,7 @@ cEJ
 cFM
 cGD
 cJV
-bTm
+bOA
 cEY
 cLm
 cLi
@@ -118641,7 +118608,7 @@ cEL
 cFP
 cGF
 cJV
-cLr
+bTm
 cEY
 cLm
 cLi
@@ -123235,7 +123202,7 @@ bxl
 bMC
 bOo
 bMG
-bOA
+bOl
 bQk
 bSd
 bTE
@@ -123489,8 +123456,8 @@ bCG
 bJH
 bFF
 bxl
-bMB
-bOl
+bMv
+bMv
 bMG
 bTc
 bUq
@@ -123746,8 +123713,8 @@ bCC
 bJH
 bFI
 bxl
-bxl
-bxl
+bMB
+bMD
 bMG
 bOC
 bQl
@@ -124003,8 +123970,8 @@ bBw
 bJH
 bKJ
 bxm
-bMD
-bOq
+bxl
+bxl
 bQo
 bTd
 bUr
@@ -133797,7 +133764,7 @@ cpy
 cpN
 cru
 ctc
-cun
+bOq
 cQn
 cwe
 cxu
