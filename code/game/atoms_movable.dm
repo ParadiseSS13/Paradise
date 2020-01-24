@@ -17,6 +17,7 @@
 	var/moved_recently = 0
 	var/mob/pulledby = null
 	var/atom/movable/pulling
+	var/throwforce = 0
 	var/canmove = 1
 
 	var/inertia_dir = 0
@@ -325,7 +326,7 @@
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src)
 
-/atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = 1, blocked, datum/thrownthing/throwingdatum)
+/atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()

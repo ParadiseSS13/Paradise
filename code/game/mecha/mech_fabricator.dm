@@ -20,6 +20,7 @@
 	var/processing_queue = 0
 	var/screen = "main"
 	var/temp
+	var/secureprotocols = TRUE
 	var/list/part_sets = list(
 								"Cyborg",
 								"Cyborg Repair",
@@ -49,7 +50,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	files = new /datum/research(src) //Setup the research data holder.
 
@@ -61,7 +62,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/mecha_part_fabricator/Destroy()
@@ -161,9 +162,9 @@
 
 	var/obj/item/I = new D.build_path(loc)
 	if(D.locked)
-		var/obj/item/storage/lockbox/large/L = new /obj/item/storage/lockbox/large(get_step(src, SOUTH)) //(Don't use capitals in paths, or single letters.
+		var/obj/item/storage/lockbox/research/large/L = new /obj/item/storage/lockbox/research/large(get_step(src, SOUTH))
 		I.forceMove(L)
-		L.name += " [initial(I.name)]"
+		L.name += " ([I.name])"
 		L.origin_tech = I.origin_tech
 	else
 		I.forceMove(get_step(src, SOUTH))
@@ -437,6 +438,23 @@
 	if(default_deconstruction_crowbar(W))
 		return TRUE
 
+	if(istype(W, /obj/item/card/id))
+		if(!emagged)
+			var/obj/item/card/id/id = W
+			for(var/a in id.access)
+				if(a == access_hos || a == access_captain)
+					if(secureprotocols)
+						secureprotocols = FALSE
+						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+						return
+					else
+						secureprotocols = TRUE
+						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
+						return
+			to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
+		else
+			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
+			return
 	else
 		return ..()
 
@@ -473,7 +491,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/mecha_part_fabricator/robot

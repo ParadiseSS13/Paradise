@@ -14,6 +14,9 @@
 /turf/simulated/floor/plating/lava/ex_act()
 	return
 
+/turf/simulated/floor/plating/lava/acid_act(acidpwr, acid_volume)
+	return
+
 /turf/simulated/floor/plating/lava/airless
 	temperature = TCMB
 
@@ -21,7 +24,7 @@
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 
-/turf/simulated/floor/plating/lava/hitby(atom/movable/AM)
+/turf/simulated/floor/plating/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(burn_stuff(AM))
 		START_PROCESSING(SSprocessing, src)
 
@@ -77,6 +80,8 @@
 				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
 			if(O.resistance_flags & FIRE_PROOF)
 				O.resistance_flags &= ~FIRE_PROOF
+			if(O.armor["fire"] > 50) //obj with 100% fire armor still get slowly burned away.
+				O.armor["fire"] = 50
 			O.fire_act(10000, 1000)
 
 		else if(isliving(thing))

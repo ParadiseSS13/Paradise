@@ -12,6 +12,11 @@
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
 
+/obj/machinery/cell_charger/deconstruct()
+	if(charging)
+		charging.forceMove(drop_location())
+	return ..()
+
 /obj/machinery/cell_charger/Destroy()
 	QDEL_NULL(charging)
 	return ..()
@@ -121,7 +126,7 @@
 	if(charging.percent() >= 100)
 		return
 
-	use_power(200)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
-	charging.give(175)	//inefficiency.
-
-	updateicon()
+	var/powertransfer = (charging.chargerate)/5
+	var/transfered = charging.give(powertransfer)
+	use_power(transfered * 11)
+	update_icon()

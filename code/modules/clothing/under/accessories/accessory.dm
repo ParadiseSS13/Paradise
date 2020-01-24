@@ -180,7 +180,7 @@
 	icon_state = "bronze"
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
@@ -193,6 +193,7 @@
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
@@ -420,7 +421,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	item_color = "skull"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/talisman
@@ -429,7 +430,7 @@
 	icon_state = "talisman"
 	item_state = "talisman"
 	item_color = "talisman"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5)
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 20, "bio" = 20, "rad" = 5, "fire" = 0, "acid" = 25)
 	allow_duplicates = FALSE
 
 /obj/item/clothing/accessory/necklace/locket

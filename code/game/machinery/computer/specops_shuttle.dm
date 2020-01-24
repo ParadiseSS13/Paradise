@@ -254,7 +254,7 @@ var/specops_shuttle_timeleft = 0
 	if(istype(I,/obj/item/card/emag))
 		to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
 	else
-		return attack_hand(user)
+		return ..()
 
 /obj/machinery/computer/specops_shuttle/attack_hand(var/mob/user as mob)
 	if(!allowed(user))

@@ -303,6 +303,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	Master.Shutdown()	//run SS shutdowns
+	dbcon.Disconnect() // DCs cleanly from the database
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
 	for(var/client/C in GLOB.clients)
@@ -412,6 +413,13 @@ var/failed_old_db_connections = 0
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
 	start_log(GLOB.world_qdel_log)
+
+	// This log follows a special format and this path should NOT be used for anything else
+	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
+	if(fexists(GLOB.runtime_summary_log))
+		fdel(GLOB.runtime_summary_log)
+	start_log(GLOB.runtime_summary_log)
+	// And back to sanity
 
 	if(fexists(GLOB.config_error_log))
 		fcopy(GLOB.config_error_log, "[GLOB.log_directory]/config_error.log")

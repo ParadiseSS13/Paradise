@@ -44,7 +44,7 @@
 	if(. && venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
 		var/mob/living/carbon/C = target
 		var/inject_target = pick("chest", "head")
-		if(C.can_inject(null, 0, inject_target, 0))
+		if(C.can_inject(null, FALSE, inject_target, FALSE))
 			C.reagents.add_reagent("spidertoxin", venom_per_bite)
 
 //nursemaids - these create webs and eggs

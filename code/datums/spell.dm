@@ -7,6 +7,12 @@
 	var/ranged_mousepointer
 	var/mob/living/ranged_ability_user
 
+/obj/effect/proc_holder/singularity_act()
+	return
+
+/obj/effect/proc_holder/singularity_pull()
+	return
+
 var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin verb for now
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/living/user, params, atom/A)

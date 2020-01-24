@@ -533,4 +533,5 @@ var/const/POS_HEADER = {"<html>
 			if(credits_held)
 				new /obj/item/stack/spacecash(loc, credits_held)
 			credits_held=0
-	..()
+		return
+	return ..()

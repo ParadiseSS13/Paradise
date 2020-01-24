@@ -2,20 +2,23 @@
 	var/x_offset = 0
 	var/y_offset = 0
 	var/icon/tape_overlay = null
+	var/hide_tape = FALSE
 
-/datum/component/ducttape/Initialize(obj/item/I, mob/user, x, y)
+/datum/component/ducttape/Initialize(obj/item/I, mob/user, x, y, hide_tape)
 	if(!istype(I)) //Something went wrong
 		return
+	if(!hide_tape) //if TRUE this hides the tape overlay and added examine text
+		RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, .proc/add_tape_overlay)
+		RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/add_tape_text)
 	x_offset = x
 	y_offset = y
-	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, .proc/add_tape_text)
-	RegisterSignal(parent, COMSIG_OBJ_UPDATE_ICON, .proc/add_tape_overlay)
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, .proc/afterattack)
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, .proc/pick_up)
 	I.update_icon() //Do this first so the action button properly shows the icon
-	var/datum/action/item_action/remove_tape/RT = new(I)
-	if(I.loc == user)
-		RT.Grant(user)
+	if(!hide_tape) //the tape can no longer be removed if TRUE
+		var/datum/action/item_action/remove_tape/RT = new(I)
+		if(I.loc == user)
+			RT.Grant(user)
 
 /datum/component/proc/add_tape_text(datum/source, mob/user, list/examine_list)
 	examine_list += "<span class='notice'>There's some sticky tape attached to [source].</span>"

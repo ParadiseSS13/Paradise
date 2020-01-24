@@ -16,6 +16,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue1"
 	density = 1
+	max_integrity = 400
 	dir = EAST
 	var/obj/structure/m_tray/connected = null
 	var/list/status_descriptors = list(
@@ -132,8 +133,9 @@
 		else
 			name = "Morgue"
 			overlays.Cut()
-	add_fingerprint(user)
-	return
+		add_fingerprint(user)
+		return
+	return ..()
 
 /obj/structure/morgue/relaymove(mob/user as mob)
 	if(user.stat)
@@ -184,6 +186,7 @@
 	var/obj/structure/morgue/connected = null
 	anchored = 1.0
 	pass_flags = LETPASSTHROW
+	max_integrity = 350
 
 
 /obj/structure/m_tray/attack_hand(mob/user as mob)
@@ -323,8 +326,9 @@
 			name = text("Crematorium- '[]'", t)
 		else
 			name = "Crematorium"
-	add_fingerprint(user)
-	return
+		add_fingerprint(user)
+		return
+	return ..()
 
 /obj/structure/crematorium/relaymove(mob/user as mob)
 	if(user.stat || locked)

@@ -33441,7 +33441,6 @@
 "bgD" = (
 /obj/item/book/manual/security_space_law,
 /obj/machinery/newscaster{
-	hitstaken = 1;
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -43111,7 +43110,7 @@
 	layer = 4;
 	pixel_y = 32
 	},
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain{
 	name = "\improper Captain's Quarters"
@@ -59270,7 +59269,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "bXy" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -64530,7 +64529,7 @@
 	})
 "cgG" = (
 /obj/structure/table,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/airlock_electronics,
 /obj/item/assembly/timer{
 	pixel_x = -4;
@@ -73592,9 +73591,9 @@
 /area/medical/medbay3)
 "cvl" = (
 /obj/structure/table,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/cell/high{
 	charge = 100;
 	maxcharge = 15000
@@ -75994,7 +75993,7 @@
 	name = "Aft Maintenance"
 	})
 "cze" = (
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -94675,8 +94674,7 @@
 	})
 "dds" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
-	dir = 1;
-	unacidable = 1
+	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology{

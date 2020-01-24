@@ -307,6 +307,8 @@
 			return
 		else if(istype(O, /obj/item/crowbar) && panel_open)
 			default_deconstruction_crowbar(O)
+	else
+		return ..()
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()

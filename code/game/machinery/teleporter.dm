@@ -481,7 +481,7 @@
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 	link_console_and_hub()
 

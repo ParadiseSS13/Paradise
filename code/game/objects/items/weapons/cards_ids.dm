@@ -89,6 +89,8 @@
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
 	slot_flags = SLOT_ID
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
 
 	var/blood_type = "\[UNSET\]"
@@ -160,7 +162,7 @@
 
 	sex = capitalize(H.gender)
 	age = H.age
-	blood_type = H.dna.b_type
+	blood_type = H.dna.blood_type
 	dna_hash = H.dna.unique_enzymes
 	fingerprint_hash = md5(H.dna.uni_identity)
 
@@ -524,7 +526,7 @@
 						if(ishuman(user))
 							var/mob/living/carbon/human/H = user
 							if(H.dna)
-								default = H.dna.b_type
+								default = H.dna.blood_type
 
 						var/new_blood_type = sanitize(input(user,"What blood type would you like to be written on this card?","Agent Card Blood Type",default) as text)
 						if(!Adjacent(user))

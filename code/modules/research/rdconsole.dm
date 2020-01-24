@@ -64,7 +64,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
-
+	var/secureprotocols = TRUE
 	req_access = list(access_tox)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
@@ -184,6 +184,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 		D.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
+	else if(istype(D, /obj/item/card/id))
+		if(!emagged)
+			var/obj/item/card/id/id = D
+			for(var/a in id.access)
+				if(a == access_hos || a == access_captain)
+					if(secureprotocols)
+						secureprotocols = FALSE
+						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+						return
+					else
+						secureprotocols = TRUE
+						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
+						return
+			to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
+		else
+			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
+			return
 	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		..()
 	SSnanoui.update_uis(src)
@@ -194,6 +211,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 		req_access = list()
 		emagged = 1
+		secureprotocols = FALSE
 		to_chat(user, "<span class='notice'>You disable the security protocols</span>")
 
 /obj/machinery/computer/rdconsole/Topic(href, href_list)
@@ -357,7 +375,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 							submenu = 0
 						if(linked_lathe) //Also sends salvaged materials to a linked protolathe, if any.
 							for(var/material in linked_destroy.loaded_item.materials)
-								linked_lathe.materials.insert_amount(min((linked_lathe.materials.max_amount - linked_lathe.materials.total_amount), (linked_destroy.loaded_item.materials[material]*(linked_destroy.decon_mod/10))), material)
+								var/can_insert = min(linked_lathe.materials.max_amount - linked_lathe.materials.total_amount, linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10), linked_destroy.loaded_item.materials[material])
+								linked_lathe.materials.insert_amount(can_insert, material)
 						linked_destroy.loaded_item = null
 					else
 						menu = 0
@@ -470,8 +489,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 								if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
 									new_item.materials = efficient_mats.Copy()
 								if(O)
-									var/obj/item/storage/lockbox/L = new/obj/item/storage/lockbox(linked_lathe.loc)
-									new_item.loc = L
+									var/obj/item/storage/lockbox/research/L = new/obj/item/storage/lockbox/research(linked_lathe.loc)
+									new_item.forceMove(L)
 									L.name += " ([new_item.name])"
 									L.origin_tech = new_item.origin_tech
 									L.req_access = being_built.access_requirement

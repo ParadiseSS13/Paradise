@@ -6,7 +6,7 @@
 		density = 1
 		opacity = FALSE
 		anchored = 1
-		unacidable = 1
+		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		var/const/max_health = 200
 		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
 
@@ -97,7 +97,7 @@
 	qdel(src)
 
 
-/obj/machinery/shield/hitby(AM as mob|obj)
+/obj/machinery/shield/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
 	var/tforce = 0
 	if(ismob(AM))
@@ -529,8 +529,8 @@
 		icon_state = "shieldwall"
 		anchored = 1
 		density = 1
-		unacidable = 1
-		luminosity = 3
+		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		light_range = 3
 		var/needs_power = 0
 		var/active = 1
 		var/delay = 5

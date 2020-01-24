@@ -7,7 +7,9 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	anchored = TRUE
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	max_integrity = 250
+	integrity_failure = 25
 	buckle_offset = 0
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
@@ -51,10 +53,18 @@
 		SK.loc = E
 		SK.master = E
 		qdel(src)
-	if(istype(W, /obj/item/wrench))
+		return
+	if(iswrench(W) && !(flags & NODECONSTRUCT))
 		playsound(loc, W.usesound, 50, 1)
+		deconstruct(TRUE)
+		return
+	return ..()
+
+/obj/structure/chair/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && (!(flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+	..()
 
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
@@ -137,8 +147,8 @@
 	name = "wooden chair"
 	desc = "Old is never too old to not be in fashion."
 	icon_state = "wooden_chair"
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 	buildstackamount = 3
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood
@@ -155,8 +165,8 @@
 	desc = "It looks comfy."
 	icon_state = "comfychair"
 	color = rgb(255, 255, 255)
-	burn_state = FLAMMABLE
-	burntime = 30
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
 	var/image/armrest = null
@@ -287,27 +297,6 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
-/obj/structure/chair/stool/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(70))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(50))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-				return
-
-/obj/structure/chair/stool/blob_act()
-	if(prob(75))
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
-
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
@@ -412,7 +401,7 @@
 	name = "wooden chair"
 	icon_state = "wooden_chair_toppled"
 	item_state = "woodenchair"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	hitsound = 'sound/weapons/genhit1.ogg'
 	origin_type = /obj/structure/chair/wood

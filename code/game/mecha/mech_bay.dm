@@ -65,7 +65,7 @@
 	var/MC
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
 		MC += C.rating
-	max_charge = MC * 25
+	max_charge = MC * 50
 
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
@@ -99,7 +99,7 @@
 		if(recharging_mecha.cell.charge < recharging_mecha.cell.maxcharge)
 			var/delta = min(max_charge, recharging_mecha.cell.maxcharge - recharging_mecha.cell.charge)
 			recharging_mecha.give_power(delta)
-			use_power(delta*150)
+			use_power(delta*15)
 		else
 			recharge_console.update_icon()
 		if(recharging_mecha.loc != recharging_turf)
@@ -175,7 +175,7 @@
 	if(recharge_port && !QDELETED(recharge_port))
 		data["recharge_port"] = list("mech" = null)
 		if(recharge_port.recharging_mecha && !QDELETED(recharge_port.recharging_mecha))
-			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.health, "maxhealth" = initial(recharge_port.recharging_mecha.health), "cell" = null)
+			data["recharge_port"]["mech"] = list("health" = recharge_port.recharging_mecha.obj_integrity, "maxhealth" = initial(recharge_port.recharging_mecha.max_integrity), "cell" = null)
 			if(recharge_port.recharging_mecha.cell && !QDELETED(recharge_port.recharging_mecha.cell))
 				data["has_mech"] = 1
 				data["mecha_name"] = recharge_port.recharging_mecha || "None"

@@ -174,6 +174,15 @@
 			src.use_power = IDLE_POWER_USE	*/
 	return 1
 
+/obj/machinery/power/emitter/attack_animal(mob/living/simple_animal/M)
+	if(ismegafauna(M) && anchored)
+		state = 0
+		anchored = FALSE
+		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
+	else
+		..()
+	if(!anchored)
+		step(src, get_dir(M, src))
 
 /obj/machinery/power/emitter/process()
 	if(stat & (BROKEN))
@@ -245,6 +254,7 @@
 		shot_number = 0
 	P.setDir(dir)
 	P.starting = loc
+	P.Angle = null
 	P.fire()
 	return P
 
@@ -333,10 +343,10 @@
 	if(exchange_parts(user, W))
 		return
 
-	default_deconstruction_crowbar(W)
+	if(default_deconstruction_crowbar(W))
+		return
 
-	..()
-	return
+	return ..()
 
 /obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
 	if(!emagged)
