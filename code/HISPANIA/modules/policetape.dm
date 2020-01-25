@@ -71,27 +71,27 @@ var/list/tape_roll_applications = list()
 	name = "police tape"
 	desc = "A roll of police tape used to block off crime scenes from the public."
 	tape_type = /obj/item/tape/police
-	color = COLOR_RED
+	color = COLOR_YELLOW
 
 /obj/item/tape/police
 	name = "police tape"
 	desc = "A length of police tape.  Do not cross."
 	max_integrity = 10
 	req_access = list(access_cent_specops)
-	color = COLOR_RED
+	color = COLOR_YELLOW
 
 /obj/item/taperoll/engineering
 	name = "engineering tape"
 	desc = "A roll of engineering tape used to block off working areas from the public."
 	tape_type = /obj/item/tape/engineering
-	color = COLOR_YELLOW
+	color = COLOR_ORANGE
 
 /obj/item/tape/engineering
 	name = "engineering tape"
 	desc = "A length of engineering tape. Better not cross it."
 	max_integrity = 10
 	req_access = list(access_cent_specops)
-	color = COLOR_YELLOW
+	color = COLOR_ORANGE
 
 /obj/item/taperoll/update_icon()
 	overlays.Cut()
