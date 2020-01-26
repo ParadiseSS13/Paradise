@@ -1,13 +1,13 @@
 /obj/item/shield
 	name = "shield"
 	block_chance = 50
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 0, bomb = 30, bio = 0, rad = 0)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 
 /obj/item/shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(attack_type == THROWN_PROJECTILE_ATTACK)
 		final_block_chance += 30
-	if(owner.get_active_hand())
-		final_block_chance += 25
+	if(owner.is_in_active_hand(src))
+		final_block_chance += 15
 	else
 		final_block_chance -= 10
 	if(attack_type == LEAP_ATTACK)
@@ -57,7 +57,7 @@
 	item_state = "buckler"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	block_chance = 30
 
 /obj/item/shield/energy

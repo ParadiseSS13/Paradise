@@ -55,13 +55,12 @@
 
 /obj/item/soap/proc/clean_turf(turf/simulated/T)
 	T.clean_blood()
-	T.dirt = 0
 	for(var/obj/effect/O in T)
 		if(is_cleanable(O))
 			qdel(O)
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
-	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_sel &&user.zone_sel.selecting == "mouth" )
+	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
 		return
 	..()

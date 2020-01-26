@@ -12,9 +12,9 @@
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
 	var/turf/reflect_turf
-	var/new_dir = get_reflection(dir, P.dir)
 	if(!istype(P, /obj/item/projectile/beam))
 		return ..()
+	var/new_dir = get_reflection(dir, P.dir)
 	if(new_dir)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
@@ -30,6 +30,10 @@
 	P.current = reflector_turf
 	P.yo = reflect_turf.y - reflector_turf.y
 	P.xo = reflect_turf.x - reflector_turf.x
+	P.ignore_source_check = TRUE		//If shot by a laser, will now hit the mob that fired it
+	var/reflect_angle = dir2angle(new_dir)
+	P.setAngle(reflect_angle)
+
 	new_dir = 0
 	return -1
 
@@ -46,6 +50,7 @@
 			to_chat(user, "You dismantle [src].")
 			new /obj/item/stack/sheet/metal(src.loc, 5)
 			qdel(src)
+		return
 	if(istype(W, /obj/item/weldingtool))
 		var/obj/item/weldingtool/WT = W
 		if(!anchored)
@@ -70,6 +75,7 @@
 						return
 					anchored  = 0
 					to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
+		return
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)
@@ -96,6 +102,8 @@
 				S.use(1)
 				new /obj/structure/reflector/box (src.loc)
 				qdel(src)
+		return
+	return ..()
 
 /obj/structure/reflector/proc/get_reflection(srcdir,pdir)
 	return 0

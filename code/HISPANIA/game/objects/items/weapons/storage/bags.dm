@@ -11,9 +11,9 @@
 	storage_slots = 50
 	max_combined_w_class = 100
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list("/obj/item/stock_parts", "/obj/item/circuitboard", "/obj/item/apc_electronics",
-					"/obj/item/airlock_electronics", "/obj/item/firelock_electronics",
-					"/obj/item/firealarm_electronics", "/obj/item/airalarm_electronics")
+	can_hold = list("/obj/item/stock_parts", "/obj/item/circuitboard", "/obj/item/apc_electronics", "/obj/item/airlock_electronics",
+					"/obj/item/firelock_electronics", "/obj/item/firealarm_electronics", "/obj/item/airalarm_electronics",
+					"/obj/item/assembly/igniter", "/obj/item/stack/ore/bluespace_crystal", "/obj/item/reagent_containers/glass/beaker")
 	display_contents_with_number = TRUE
 
 /obj/item/storage/bag/component/inge

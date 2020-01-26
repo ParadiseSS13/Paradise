@@ -8,6 +8,7 @@
 	desc = "The frame of a meat spike."
 	density = 1
 	anchored = 0
+	max_integrity = 200
 
 /obj/structure/kitchenspike_frame/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
@@ -26,6 +27,9 @@
 			new /obj/structure/kitchenspike(loc)
 			add_fingerprint(user)
 			qdel(src)
+		return
+	else
+		return ..()
 
 
 /obj/structure/kitchenspike
@@ -37,6 +41,7 @@
 	anchored = 1
 	buckle_lying = FALSE
 	can_buckle = TRUE
+	max_integrity = 250
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/structure/kitchenspike/attack_hand(mob/user)
@@ -52,10 +57,7 @@
 			playsound(loc, G.usesound, 100, 1)
 			if(do_after(user, 20 * G.toolspeed, target = src))
 				to_chat(user, "<span class='notice'>You pry the spikes out of the frame.</span>")
-				new /obj/item/stack/rods(loc, 4)
-				new /obj/structure/kitchenspike_frame(loc)
-				add_fingerprint(user)
-				qdel(src)
+				deconstruct(TRUE)
 		else
 			to_chat(user, "<span class='notice'>You can't do that while something's on the spike!</span>")
 		return
@@ -63,16 +65,15 @@
 		return
 	if(has_buckled_mobs())
 		to_chat(user, "<span class = 'danger'>The spike already has something on it, finish collecting its meat first!</span>")
-	else
-		if(isliving(G.affecting))
-			if(!has_buckled_mobs())
-				if(do_mob(user, src, 120))
-					if(spike(G.affecting))
-						G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
-						qdel(G)
-						return
-		to_chat(user, "<span class='danger'>You can't use that on the spike!</span>")
 		return
+	if(isliving(G.affecting))
+		if(!has_buckled_mobs())
+			if(do_mob(user, src, 120))
+				if(spike(G.affecting))
+					G.affecting.visible_message("<span class='danger'>[user] slams [G.affecting] onto the meat spike!</span>", "<span class='userdanger'>[user] slams you onto the meat spike!</span>", "<span class='italics'>You hear a squishy wet noise.</span>")
+					qdel(G)
+		return
+	return ..()
 
 /obj/structure/kitchenspike/proc/spike(mob/living/victim)
 
@@ -144,3 +145,12 @@
 		for(var/mob/living/L in buckled_mobs)
 			release_mob(L)
 	return ..()
+
+/obj/structure/kitchenspike/deconstruct(disassembled = TRUE)
+	if(disassembled)
+		var/obj/F = new /obj/structure/kitchenspike_frame(loc)
+		transfer_fingerprints_to(F)
+	else
+		new /obj/item/stack/sheet/metal(loc, 4)
+	new /obj/item/stack/rods(loc, 4)
+	qdel(src)

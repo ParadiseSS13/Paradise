@@ -5,7 +5,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot
 	name = "Cyborg"
 	real_name = "Cyborg"
-	icon = 'icons/mob/robots.dmi'
+	icon = 'icons/hispania/mob/robots.dmi'
 	icon_state = "robot"
 	maxHealth = 100
 	health = 100
@@ -151,9 +151,7 @@ var/list/robot_verbs_default = list(
 		C.wrapped = new C.external_type
 
 	if(!cell)
-		cell = new /obj/item/stock_parts/cell(src)
-		cell.maxcharge = 7500
-		cell.charge = 7500
+		cell = new /obj/item/stock_parts/cell/high(src)
 
 	..()
 
@@ -314,6 +312,14 @@ var/list/robot_verbs_default = list(
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
+			module_sprites["Marina-STD"] = "marinaSD"
+			module_sprites["Noble-STD-Hulk"] = "Noble-STD-H"
+			module_sprites["Durin"] = "durin"
+			module_sprites["Kodiak-STD"] = "kodiak-standard"
+			module_sprites["Servbot"] = "servbot"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Knight-STD"] = "sleekstandard"
+			module_sprites["Spider-STD"] = "spider-standard"
 
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
@@ -326,6 +332,12 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Knight-SRV"] = "sleekservice"
+			module_sprites["Kodiak-SRV"] = "kodiak-service"
+			module_sprites["LLoyd"] = "lloyd"
+			module_sprites["Marina-SRV"] = "marinaSV"
+			module_sprites["Servbot-SRV"] = "servbot-service"
 
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
@@ -338,6 +350,15 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Mine"
 			module_sprites["Noble-DIG"] = "Noble-DIG"
 			module_sprites["Cricket"] = "Cricket-MINE"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Noble-SUP-Hulk"] = "Noble-SUP-H"
+			module_sprites["Ishimura"] = "ishimura"
+			module_sprites["Kodiak-DIG"] = "kodiak-miner"
+			module_sprites["Servbot-DIG"] = "servbot-miner"
+			module_sprites["Knight_DIG"] = "sleekminer"
+			module_sprites["Marina-DIG"] = "marinaMN"
+			module_sprites["Wall-E"] = "wall-e"
+			module_sprites["HAN-D"] = "han-d"
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
@@ -351,6 +372,12 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
+			module_sprites["Noble-MED-H"] = "Noble-MED-H"
+			module_sprites["Gibbs"] = "gibbs"
+			module_sprites["Servbot-MED"] = "servbot-medi"
+			module_sprites["Knight-MED"] = "sleekmedic"
+			module_sprites["Marina-MED"] = "marina"
+			module_sprites["FalloutBot"] = "mrgutsy"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -363,6 +390,12 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Secy"
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			module_sprites["Cricket"] = "Cricket-SEC"
+			module_sprites["Securitron"] = "securitron"
+			module_sprites["Noble-SEC-Hulk"] = "Noble-SEC-H"
+			module_sprites["Woody"] = "woody"
+			module_sprites["Kodiak-SEC"] = "kodiak-sec"
+			module_sprites["Servbot-SEC"] = "servbot-sec"
+			module_sprites["Marina-SEC"] = "marinaSC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -376,6 +409,13 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
 			module_sprites["Cricket"] = "Cricket-ENGI"
+			module_sprites["Noble-ENG-Hulk"] = "Noble-ENG-H"
+			module_sprites["Conagher"] = "conagher"
+			module_sprites["Kodiak-ENGI"] = "kodiak-eng"
+			module_sprites["Knight-ENGI"] = "sleekengineer"
+			module_sprites["Servbot-ENGI"] = "servbot-engi"
+			module_sprites["Marina-ENGI"] = "marinaEN"
+			module_sprites["Engiseer"] = "engiseer"
 			magpulse = 1
 
 		if("Janitor")
@@ -387,6 +427,13 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
+			module_sprites["MarinaJN"] = "marinaJN"
+			module_sprites["Knight-JN"] = "sleekjanitor"
+			module_sprites["Servbot-JN"] = "servbot-jani"
+			module_sprites["Flynn"] = "flynn"
+			module_sprites["Noble-JN-Hulk"] = "Noble-JAN-H"
+			module_sprites["Knight-JN"] = "sleekjanitor"
+			module_sprites["HAN-D"] = "han-d"
 
 		if("Combat")
 			module = new /obj/item/robot_module/combat(src)
@@ -550,14 +597,12 @@ var/list/robot_verbs_default = list(
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
-/mob/living/silicon/robot/blob_act()
+/mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
-		adjustBruteLoss(60)
-		return 1
+		adjustBruteLoss(30)
 	else
 		gib()
-		return 1
-	return 0
+	return TRUE
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
@@ -573,6 +618,10 @@ var/list/robot_verbs_default = list(
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_cell_power()
+	var/total_user_contents = GetAllContents()
+	if(locate(/obj/item/gps/cyborg) in total_user_contents)
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -904,7 +953,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/update_icons()
 
 	overlays.Cut()
-	if(stat != DEAD && !(paralysis || stunned || weakened || low_power_mode)) //Not dead, not stunned.
+	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
 		else
@@ -1128,9 +1177,6 @@ var/list/robot_verbs_default = list(
 			var/turf/tile = loc
 			if(isturf(tile))
 				var/floor_only = TRUE
-				if(istype(tile, /turf/simulated))
-					var/turf/simulated/S = tile
-					S.dirt = 0
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
 						if(is_cleanable(A))
@@ -1236,7 +1282,7 @@ var/list/robot_verbs_default = list(
 		if(icontype == "Custom")
 			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		else
-			icon = 'icons/mob/robots.dmi'
+			icon = 'icons/hispania/mob/robots.dmi'
 		icon_state = module_sprites[icontype]
 		if(icontype == "Bro")
 			module.module_type = "Brobot"
@@ -1317,8 +1363,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/deathsquad/New(loc)
 	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/hyper(src)
 
 /mob/living/silicon/robot/deathsquad/init()
 	laws = new /datum/ai_laws/deathsquad
@@ -1371,8 +1416,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
 	..(loc)
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/hyper(src)
 	var/rnum = rand(1,1000)
 	var/borgname = "ERT [rnum]"
 	name = borgname
@@ -1462,4 +1506,4 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-	
+

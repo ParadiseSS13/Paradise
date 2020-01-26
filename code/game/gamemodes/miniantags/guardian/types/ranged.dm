@@ -101,6 +101,11 @@
 	var/mob/living/spawner
 	invisibility = 1
 
+/obj/effect/snare/singularity_act()
+	return
+
+/obj/effect/snare/singularity_pull()
+	return
 
 /obj/item/effect/snare/Crossed(AM as mob|obj, oldloc)
 	if(isliving(AM))

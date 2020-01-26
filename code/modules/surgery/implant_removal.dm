@@ -16,7 +16,7 @@
 /datum/surgery/implant_removal/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(affected.is_robotic())
@@ -26,7 +26,7 @@
 /datum/surgery/implant_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
 		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
 		return 0
 	if(!affected.is_robotic())

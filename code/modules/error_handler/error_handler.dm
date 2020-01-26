@@ -44,6 +44,9 @@ var/total_runtimes_skipped = 0
 	error_last_seen[erroruid] = world.time
 	error_cooldown[erroruid] = cooldown
 
+	// This line will log a runtime summary to a file which can be publicly distributed without sending player data
+	log_runtime_summary("Runtime in [e.file],[e.line]: [e]")
+	
 	// The detailed error info needs some tweaking to make it look nice
 	var/list/srcinfo = null
 	var/list/usrinfo = null

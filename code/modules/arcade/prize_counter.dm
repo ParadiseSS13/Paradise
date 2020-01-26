@@ -17,7 +17,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/prize_counter/update_icon()
@@ -53,6 +53,8 @@
 			if(tickets)		//save the tickets!
 				print_tickets()
 			default_deconstruction_crowbar(O)
+		return
+	return ..()
 
 /obj/machinery/prize_counter/attack_hand(mob/user as mob)
 	if(..())

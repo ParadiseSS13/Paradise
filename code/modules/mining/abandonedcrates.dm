@@ -8,6 +8,7 @@
 	var/lastattempt = null
 	var/attempts = 10
 	var/codelen = 4
+	integrity_failure = 0 //no breaking open the crate
 
 /obj/structure/closet/crate/secure/loot/New()
 	..()
@@ -171,9 +172,6 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attack_animal(mob/user)
-	boom(user)
-
 /obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
 	if(locked)
 		if(istype(W, /obj/item/card/emag))
@@ -205,16 +203,15 @@
 			return 1
 	return ..()
 
+/obj/structure/closet/crate/secure/loot/emag_act(mob/user)
+	if(locked)
+		boom(user)
+
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user)
 	if(locked)
 		boom(user)
 	else
 		..()
 
-/obj/structure/closet/crate/secure/loot/proc/boom(mob/user)
-	to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
-	for(var/atom/movable/AM in src)
-		qdel(AM)
-	var/turf/T = get_turf(src)
-	explosion(T, -1, -1, 1, 1)
-	qdel(src)
+/obj/structure/closet/crate/secure/loot/deconstruct(disassembled = TRUE)
+	boom()
