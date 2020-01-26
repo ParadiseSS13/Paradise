@@ -292,10 +292,10 @@
 			status = "destrosed"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " and "
-		if(burndamage > 40)
-			status += "peeling away"
 		if(burndamage > 70)
 			status += "peeled away"
+		else if(burndamage > 40)
+			status += "peeling away"
 		else if(burndamage > 10)
 			status += "blistered"
 		else if(burndamage > 0)
