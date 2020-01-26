@@ -1,4 +1,10 @@
 #define NUKESCALINGMODIFIER 1.2
+#define CHALLENGE_TELECRYSTALS 280
+#define CHALLENGE_TIME_LIMIT 6000
+#define CHALLENGE_SCALE_PLAYER 1 // How many player per scaling bonus
+#define CHALLENGE_SCALE_BONUS 2 // How many TC per scaling bonus
+#define CHALLENGE_MIN_PLAYERS 50
+#define CHALLENGE_SHUTTLE_DELAY 18000 //30 minutes, so the ops have at least 10 minutes before the shuttle is callable. Gives the nuke ops at least 15 minutes before shuttle arrive.
 
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
@@ -133,7 +139,7 @@ proc/issyndicate(mob/living/M as mob)
 	if(nuke_spawn && synd_spawn.len > 0)
 		var/obj/machinery/nuclearbomb/syndicate/the_bomb = new /obj/machinery/nuclearbomb/syndicate(nuke_spawn.loc)
 		the_bomb.r_code = nuke_code
-
+	auto_challenge()
 	return ..()
 
 /datum/game_mode/nuclear/proc/scale_telecrystals()
@@ -191,9 +197,6 @@ proc/issyndicate(mob/living/M as mob)
 	to_chat(synd_mind.current, "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
 	to_chat(synd_mind.current, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
-
-	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
-	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
 
 	update_syndicate_id(synd_mind, leader_title, TRUE)
 
@@ -309,6 +312,33 @@ proc/issyndicate(mob/living/M as mob)
 		return 1
 	return ..()
 
+/datum/game_mode/nuclear/proc/auto_challenge()
+	if(GLOB.player_list.len < CHALLENGE_MIN_PLAYERS)
+		return
+	var/war_declaration = "The Syndicate has declared their intent to utterly destroy [station_name()] with a nuclear device, and dares the crew to try and stop them!"
+	event_announcement.Announce(war_declaration, "Declaration of War", 'sound/effects/siren.ogg')
+
+	for(var/obj/machinery/computer/shuttle/syndicate/S in GLOB.machines)
+		S.challenge = TRUE
+
+	 // No. of player - Min. Player to dec, divided by player per bonus, then multipled by TC per bonus. Rounded.
+	total_tc = CHALLENGE_TELECRYSTALS + round((((GLOB.player_list.len - CHALLENGE_MIN_PLAYERS)/CHALLENGE_SCALE_PLAYER) * CHALLENGE_SCALE_BONUS))
+	config.shuttle_refuel_delay = CHALLENGE_SHUTTLE_DELAY
+
+	var/player_tc
+	var/remainder
+
+	player_tc = round(total_tc / GLOB.nuclear_uplink_list.len) //round to get an integer and not floating point
+	remainder = total_tc % GLOB.nuclear_uplink_list.len
+
+	for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+		U.hidden_uplink.uses += player_tc
+	while(remainder > 0)
+		for(var/obj/item/radio/uplink/nuclear/U in GLOB.nuclear_uplink_list)
+			if(remainder <= 0)
+				break
+			U.hidden_uplink.uses++
+			remainder--
 
 /datum/game_mode/proc/is_operatives_are_dead()
 	for(var/datum/mind/operative_mind in syndicates)
@@ -533,4 +563,10 @@ proc/issyndicate(mob/living/M as mob)
 
 	return dat
 
+#undef CHALLENGE_TIME_LIMIT
+#undef CHALLENGE_MIN_PLAYERS
+#undef CHALLENGE_SHUTTLE_DELAY
+#undef CHALLENGE_TELECRYSTALS
+#undef CHALLENGE_SCALE_PLAYER
+#undef CHALLENGE_SCALE_BONUS
 #undef NUKESCALINGMODIFIER
