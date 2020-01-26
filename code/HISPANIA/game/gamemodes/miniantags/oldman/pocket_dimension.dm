@@ -1,137 +1,88 @@
-//Travel through walls. Enter your pocket dimension at will!
-/mob/living/proc/indimension(var/turf/simulated/wall/T)
+/mob/living/simple_animal/hostile/oldman/proc/indimension(var/turf/simulated/wall/T)
 	var/mob/living/kidnapped = null
-	var/turf/mobloc = get_turf(loc)
+	forceMove(get_turf(T))
 	notransform = TRUE
-	spawn(0)
-		visible_message("<span class='danger'>[src] sinks into [T].</span>")
-		playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
-		var/obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(mobloc)
-		var/atom/movable/overlay/animation = new /atom/movable/overlay(mobloc)
-		animation.name = "odd blood"
-		animation.density = 0
-		animation.anchored = 1
-		animation.icon = 'icons/mob/mob.dmi'
-		animation.icon_state = "jaunt"
-		animation.layer = 5
-		animation.master = holder
-		animation.dir = dir
+	incorporeal_move = 3
+	density = 0
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	dimension = TRUE
+	visible_message("<span class='danger'>[src] sinks into the wall.</span>")
+	playsound(get_turf(src), 'sound/hispania/effects/oldman/phasing.ogg', 100, 1, -1)
+	ExtinguishMob()
+	rust(T)
+	icon_state = "entering"
+	if(pulling)
+		if(istype(pulling, /mob/living/))
+			var/mob/living/victim = pulling
+			if(victim.stat == CONSCIOUS)
+				visible_message("<span class='warning'>[victim] kicks free of [src] just before entering it!</span>")
+				stop_pulling()
+			else
+				victim.forceMove(src)
+				victim.emote("scream")
+				visible_message("<span class='warning'><b>[src] drags [victim] into [T]!</b></span>")
+				kidnapped = victim
+				stop_pulling()
 
-		ExtinguishMob()
-		if(pulling)
-			if(istype(pulling, /mob/living/))
-				var/mob/living/victim = pulling
-				if(victim.stat == CONSCIOUS)
-					visible_message("<span class='warning'>[victim] kicks free of [src] just before entering it!</span>")
-					stop_pulling()
-				else
-					victim.forceMove(holder)//holder
-					victim.emote("scream")
-					visible_message("<span class='warning'><b>[src] drags [victim] into its pocket dimension!</b></span>")
-					kidnapped = victim
-					stop_pulling()
-		flick("jaunt",animation)
-
-		src.holder = holder
-		forceMove(holder)
-
+	if(kidnapped)
+		to_chat(src, "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>")
+		visible_message("<span class='warning'><B>A horrible melting sound come from [T]...</B></span>")
+		playsound(get_turf(src), 'sound/hispania/effects/oldman/victim.ogg', 100, 1, -1)
+		sleep(75)
 		if(kidnapped)
-			to_chat(src, "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>")
-			visible_message("<span class='warning'><B>Loud eating sounds come from the blood...</B></span>")
-			sleep(6)
-			if(animation)
-				qdel(animation)
-			var/sound
-			if(istype(src, /mob/living/simple_animal/slaughter))
-				var/mob/living/simple_animal/slaughter/SD = src
-				sound = SD.feast_sound
-			else
-				sound = 'sound/misc/demon_consume.ogg'
-
-			for(var/i in 1 to 3)
-				playsound(get_turf(src), sound, 100, 1)
-				sleep(30)
-			if(kidnapped)
-				to_chat(src, "<B>You devour [kidnapped]. Your health is fully restored.</B>")
-				adjustBruteLoss(-3000)
-				adjustFireLoss(-3000)
-				adjustOxyLoss(-3000)
-				adjustToxLoss(-3000)
-
-				var/mob/living/simple_animal/hostile/oldman/scp = src
-
-				scp.devoured++
-				to_chat(kidnapped, "<span class='userdanger'>You feel teeth sink into your flesh, and the--</span>")
-				kidnapped.adjustBruteLoss(1000)
-				kidnapped.forceMove(src)
-				scp.consumed_mobs.Add(kidnapped)
-			else
-				to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
+			to_chat(src, "<B>You feed on [kidnapped]. Your health is fully restored.</B>")
+			adjustBruteLoss(-3000)
+			adjustFireLoss(-3000)
+			adjustOxyLoss(-3000)
+			adjustToxLoss(-3000)
+			var/mob/living/simple_animal/hostile/oldman/scp = src
+			scp.devoured++
+			to_chat(kidnapped, "<span class='userdanger'>You feel your flesh melting away...</span>")
+			kidnapped.adjustFireLoss(1000)
+			kidnapped.forceMove(src)
+			scp.consumed_mobs.Add(kidnapped)
 		else
-			sleep(6)
-			if(animation)
-				qdel(animation)
-		notransform = 0
-	return 1
+			to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
+	else
+		sleep(18)
+	notransform = FALSE
+	invisibility = INVISIBILITY_REVENANT
+	icon_state = "idle"
+	return
 
-/mob/living/proc/outdimension(var/obj/effect/decal/cleanable/B)
+/mob/living/simple_animal/hostile/oldman/proc/outdimension(var/turf/simulated/wall/T)
 
 	if(notransform)
 		to_chat(src, "<span class='warning'>Finish eating first!</span>")
-		return 0
-	B.visible_message("<span class='warning'>[B] starts to bubble...</span>")
-	if(!do_after(src, 20, target = B))
 		return
-	if(!B)
+	to_chat(viewers(T), "<span class='warning'>[T] starts to melt away...</span>")
+	notransform = TRUE
+	if(!do_after(src, 20, target = T))
 		return
-	forceMove(B.loc)
+	if(!T)
+		return
+	forceMove(get_turf(T))
+	rust(T)
+	playsound(get_turf(src), 'sound/hispania/effects/oldman/phasing.ogg', 100, 1, -1)
+	invisibility = 0
 	client.eye = src
+	icon_state = "emergence"
+	sleep(20)
+	icon_state = "oldman"
+	notransform = FALSE
+	incorporeal_move = 0
+	speed = 7
+	density = 1
+	pass_flags = 0
+	dimension = FALSE
 
-	var/atom/movable/overlay/animation = new /atom/movable/overlay( B.loc )
-	animation.name = "odd blood"
-	animation.density = 0
-	animation.anchored = 1
-	animation.icon = 'icons/mob/mob.dmi'
-	animation.icon_state = "jauntup" //Paradise Port:I reversed the jaunt animation so it looks like its rising up
-	animation.layer = 5
-	animation.master = B.loc
-	animation.dir = dir
-
-	if(prob(25) && istype(src, /mob/living/simple_animal/slaughter))
-		var/list/voice = list('sound/hallucinations/behind_you1.ogg','sound/hallucinations/im_here1.ogg','sound/hallucinations/turn_around1.ogg','sound/hallucinations/i_see_you1.ogg')
-		playsound(get_turf(src), pick(voice),50, 1, -1)
-	visible_message("<span class='warning'><B>\The [src] rises out of \the [B]!</B>")
-	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
-
-	flick("jauntup",animation)
-	QDEL_NULL(holder)
-
-	var/oldcolor = color
-	color = B.color
-	sleep(6)//wait for animation to finish
-	if(animation)
-		qdel(animation)
-	spawn(30)
-		color = oldcolor
-	return 1
-
-/obj/effect/dummy/oldman //Can't use the wizard one, blocked by jaunt/slow
-	name = "odd blood"
-	icon = 'icons/effects/effects.dmi'
-	icon_state = "nothing"
-	density = 0
-	anchored = 1
-	invisibility = 60
-	burn_state = LAVA_PROOF
-
-/obj/effect/dummy/oldman/relaymove(mob/user, direction)
-	forceMove(get_step(src,direction))
-
-/obj/effect/dummy/oldman/ex_act()
+	var/list/voice = list('sound/hispania/effects/oldman/oldlaugh.ogg','sound/hispania/effects/oldman/oldgrowl.ogg')
+	playsound(get_turf(src), pick(voice),50, 1, -1)
+	visible_message("<span class='warning'><B>\The [src] emerges out of \the [T]!</B>")
 	return
 
-/obj/effect/dummy/oldman/bullet_act()
-	return
-
-/obj/effect/dummy/oldman/singularity_act()
-	return
+/mob/living/simple_animal/hostile/oldman/proc/rust(var/turf/simulated/wall/T)
+	if(!istype(T, /turf/simulated/shuttle) && !istype(T, /turf/simulated/wall/rust) && !istype(T, /turf/simulated/wall/r_wall) && istype(T, /turf/simulated/wall))
+		T.ChangeTurf(/turf/simulated/wall/rust)
+	if(!istype(T, /turf/simulated/wall/r_wall/rust) && istype(T, /turf/simulated/wall/r_wall))
+		T.ChangeTurf(/turf/simulated/wall/r_wall/rust)
