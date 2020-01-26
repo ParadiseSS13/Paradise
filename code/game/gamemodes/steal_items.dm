@@ -118,6 +118,11 @@ datum/theft_objective/ai/check_special_completion(var/obj/item/aicard/C)
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list("Chief Medical Officer")
 
+/datum/theft_objective/magistrategun
+	name = "the magistrate's personal disabler"
+	typepath = /obj/item/gun/energy/disabler/magistrate
+	protected_jobs = list("Magistrate")
+
 /datum/theft_objective/ablative
 	name = "an ablative armor vest"
 	typepath = /obj/item/clothing/suit/hooded/ablative
