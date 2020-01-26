@@ -53,7 +53,7 @@
 /mob/living/simple_animal/hostile/oldman/proc/outdimension(var/turf/simulated/wall/T)
 
 	if(notransform)
-		to_chat(src, "<span class='warning'>Finish eating first!</span>")
+		to_chat(src, "<span class='warning'>You have to finish first!</span>")
 		return
 	to_chat(viewers(T), "<span class='warning'>[T] starts to melt away...</span>")
 	notransform = TRUE

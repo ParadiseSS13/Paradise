@@ -5,7 +5,7 @@
 	var/key_of_oldman
 
 /datum/event/spawn_oldman/announce()
-	event_announcement.Announce("Confirmed level 4 biohazard alert. Unknown hostile entity detected aboard [station_name()]. Please report any sightings.", "Biohazard Alert", 'sound/hispania/effects/oldman/alert.ogg')
+	event_announcement.Announce("Unknown entity detected aboard [station_name()]. Please report any sightings to local authority.", "Bioscan Alert", 'sound/hispania/effects/oldman/alert.ogg')
 
 /datum/event/spawn_oldman/proc/get_oldman(var/end_if_fail = 0)
 	spawn()
@@ -45,5 +45,5 @@
 		log_game("[key_name_admin(SCP)] was spawned as the Old Man by an event.")
 		return 1
 
-/datum/event/spawn_slaughter/start()
-	get_slaughter()
+/datum/event/spawn_oldman/start()
+	get_oldman()
