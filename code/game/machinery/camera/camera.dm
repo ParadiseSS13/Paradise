@@ -1,3 +1,6 @@
+#define CAMERA_BUTTON_NO_CAMERA 	"nope.avi"
+#define CAMERA_MAX_DISTANCE_TO_LOOK	15
+
 /obj/machinery/camera
 	name = "security camera"
 	desc = "It's used to monitor rooms."
@@ -22,7 +25,7 @@
 	var/invuln = null
 	var/obj/item/camera_bug/bug = null
 	var/obj/item/camera_assembly/assembly = null
-
+	var/list/cached_cameras = new /list()
 	//OTHER
 
 	var/view_range = 7
@@ -51,8 +54,14 @@
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.CutAll()
+//	SEND_GLOBAL_SIGNAL(COMSIG_CAMERA_CHECK_CACHES, src) //In case we're nearer to a camera than its cached camera in a certain direction //uncomment this once global signals have been ported
+
+/obj/machinery/camera/Moved() //Cameras shouldn't move... but just in case
+	SEND_SIGNAL(src, COMSIG_CAMERA_UNCACHE_ME)
+	return ..()
 
 /obj/machinery/camera/Destroy()
+	SEND_SIGNAL(src, COMSIG_CAMERA_UNCACHE_ME) //remove the camera from any camera buttons
 	toggle_cam(null, FALSE) //kick anyone viewing out
 	QDEL_NULL(assembly)
 	if(istype(bug))
@@ -417,6 +426,48 @@
 
 	..()
 	return TRUE
+
+
+//Camera cache stuff goes here
+
+/obj/machinery/camera/proc/cache_camera(obj/machinery/camera/C, direction)
+	cached_cameras["[direction]"] = C
+//	RegisterSignal(COMSIG_CAMERA_CHECK_CACHES, .proc/check_cached_camera, override = TRUE) uncomment this once global signals have been ported
+	if(C == CAMERA_BUTTON_NO_CAMERA)
+		return
+	C.cache_camera(src, turn(direction, 180)) //Even though there may be a closer camera to C than us, it makes sense that they should both link up
+	RegisterSignal(C, COMSIG_CAMERA_UNCACHE_ME, .proc/uncache_camera, override = TRUE)
+
+/obj/machinery/camera/proc/uncache_camera(obj/machinery/camera/C)
+	for(var/thing in cached_cameras)
+		if(cached_cameras[thing] == C)
+			cached_cameras.Remove(thing)
+			if(!cached_cameras.len) //We don't need to listen for any more signals
+				UnregisterSignal(src, COMSIG_CAMERA_CHECK_CACHES)
+				UnregisterSignal(src, COMSIG_CAMERA_UNCACHE_ME)
+			return //Done.
+
+/obj/machinery/camera/proc/check_cached_camera(obj/machinery/camera/C)
+	if(!atoms_share_level(src, C)) //First, if we aren't on the same z-level, we don't care
+		return
+	var/distance_to_new_camera = get_dist(src, C)
+	if(distance_to_new_camera > CAMERA_MAX_DISTANCE_TO_LOOK) //Second, if we're too far away, we don't need to bother with the rest of this
+		return
+	var/angle = SimplifyDegrees(get_angle(src, C))	//First, get the angle to the potential new cam
+	var/cardinal_degrees = round(angle, 90)//Get nearest multiple of 90 to that angle
+	var/cardinal_direction = angle2dir_cardinal(cardinal_degrees) //Which cardinal direction does our degree value equate to?
+	var/obj/machinery/camera/our_camera = cached_cameras["[cardinal_direction]"]
+	if(our_camera == C) //We don't need to recheck it if it's already our cached camera
+		return
+	if(our_camera == CAMERA_BUTTON_NO_CAMERA) //So if we previously found no eligible cameras in that direction - we can cache the new camera
+		cache_camera(C, cardinal_direction)
+		return
+	var/distance_to_cached_camera = get_dist(src, our_camera)
+	if(distance_to_new_camera >= distance_to_cached_camera) //If it's further away or the same distance away than cached camera, we don't need to cache the new camera
+		return
+	if(get_angle_between(cardinal_degrees, angle) > arctan(0.5)) //Why arctan(0.5)? Because that's the maximum angle our camera looks out from its direction (a right-angled triangle with opposite side 1 and adjacent side 2)
+		return
+	cache_camera(C, cardinal_direction) //We got this far, may as well cache this one in
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf

@@ -262,11 +262,12 @@
 		A.client.eye = A.eyeobj
 	else //AIs don't need camera buttons
 		user.reset_perspective(C)
-		RegisterSignal(user, COMSIG_ATOM_DBLCLICK, .proc/double_click_atom, override = TRUE)
-		n_button.Grant(user, src)
-		e_button.Grant(user, src)
-		s_button.Grant(user, src)
-		w_button.Grant(user, src)
+		if(istype(C.loc, /turf)) //In other words, if it's not inside something (because of helmet cams and videocams)
+			RegisterSignal(user, COMSIG_ATOM_DBLCLICK, .proc/double_click_atom, override = TRUE)
+			n_button.Grant(user, src)
+			e_button.Grant(user, src)
+			s_button.Grant(user, src)
+			w_button.Grant(user, src)
 	watchers[user] = C
 	use_power(50)
 	return TRUE

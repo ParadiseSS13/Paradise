@@ -186,6 +186,10 @@
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//from base of obj/item/clothing/shoes/proc/step_action(): ()
 
+// /obj/machinery/camera specific signals
+#define COMSIG_CAMERA_CHECK_CACHES "camera_check_caches"		//send this when we might need to update camera console "cached" cameras (see camera_actions.dm)
+#define COMSIG_CAMERA_UNCACHE_ME "camera_uncache_me"			//send this when we want to uncache a camera from any console buttons
+
 // /obj/item/implant signals
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"			//from base of /obj/item/implant/proc/activate(): ()
 #define COMSIG_IMPLANT_IMPLANTING "implant_implanting"			//from base of /obj/item/implant/proc/implant(): (list/args)

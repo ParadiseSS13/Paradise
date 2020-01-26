@@ -50,6 +50,11 @@ var/const/Sqrt2	= 1.41421356
 		degrees += 360
 	return degrees
 
+/proc/get_angle_between(a, b) //Gets the "smallest" angle between two degrees i.e. instead of 350, we get 10
+	. = abs(a - b) % 360
+	if(. > 180)
+		. = 360 - .
+
 // min is inclusive, max is exclusive
 /proc/Wrap(val, min, max)
 	var/d = max - min
