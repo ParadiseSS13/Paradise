@@ -51,7 +51,7 @@
 /obj/machinery/holosign_switch/attackby(obj/item/W, mob/user as mob, params)
 	if(istype(W, /obj/item/detective_scanner))
 		return
-	return src.attack_hand(user)
+	return ..()
 
 /obj/machinery/holosign_switch/attack_hand(mob/user as mob)
 	src.add_fingerprint(usr)

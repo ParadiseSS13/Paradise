@@ -3,10 +3,14 @@
 	layer = MOB_LAYER
 	animate_movement = 2
 	pressure_resistance = 8
+	throwforce = 10
 	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+
+	/// The zone this mob is currently targeting
+	var/zone_selected = null
 
 	var/obj/screen/hands = null
 	var/obj/screen/pullin = null
@@ -21,7 +25,6 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
-	var/obj/screen/zone_sel/zone_sel = null
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
 
@@ -49,7 +52,6 @@
 	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
-	var/unacidable = 0
 	var/can_strip = 1
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.

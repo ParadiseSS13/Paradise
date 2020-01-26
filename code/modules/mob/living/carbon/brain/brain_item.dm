@@ -1,6 +1,5 @@
 /obj/item/organ/internal/brain
 	name = "brain"
-	health = 400 //They need to live awhile longer than other organs.
 	max_damage = 120
 	icon_state = "brain2"
 	force = 1.0

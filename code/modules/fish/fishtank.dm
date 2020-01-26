@@ -533,11 +533,6 @@
 							"<span class='notice'>You tap on the [name].</span>", \
 							"You hear a knocking sound.")
 
-/obj/machinery/fishtank/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
-	. = ..()
-	if(.) //received damage
-		check_health()
-
 /obj/machinery/fishtank/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)

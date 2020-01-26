@@ -9,7 +9,7 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("mopped", "bashed", "bludgeoned", "whacked")
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
 	var/mopcap = 5
@@ -27,7 +27,6 @@
 /obj/item/mop/proc/clean(turf/simulated/A)
 	if(reagents.has_reagent("water", 1) || reagents.has_reagent("cleaner", 1) || reagents.has_reagent("holywater", 1))
 		A.clean_blood()
-		A.dirt = 0
 		for(var/obj/effect/O in A)
 			if(is_cleanable(O))
 				qdel(O)

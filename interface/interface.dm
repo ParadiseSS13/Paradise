@@ -47,9 +47,10 @@
 	set desc = "Visit the forum."
 	set hidden = 1
 	if(config.forumurl)
-		if(alert("This will open the forum in your browser. Are you sure?",,"Yes","No")=="No")
-			return
-		src << link(config.forumurl)
+		if(alert("Open the forum in your browser?",,"Yes","No")=="Yes")
+			if(config.forum_link_url && prefs && !prefs.fuid)
+				link_forum_account()
+			src << link(config.forumurl)
 	else
 		to_chat(src, "<span class='danger'>The forum URL is not set in the server configuration.</span>")
 
@@ -79,13 +80,17 @@
 	set name = "Discord"
 	set desc = "Join our Discord server."
 	set hidden = 1
-	if(config.discordurl)
-		if(alert("This will invite you to our Discord server. Are you sure?",,"Yes","No")=="No")
-			return
-		src << link(config.discordurl)
-	else
+
+	var/durl = config.discordurl
+	if(config.forum_link_url && prefs && prefs.fuid && config.discordforumurl)
+		durl = config.discordforumurl
+	if(!durl)
 		to_chat(src, "<span class='danger'>The Discord URL is not set in the server configuration.</span>")
-	
+		return
+	if(alert("This will invite you to our Discord server. Are you sure?",,"Yes","No")=="No")
+		return
+	src << link(durl)
+
 /client/verb/donate()
 	set name = "Donate"
 	set desc = "Donate to help with hosting costs."
@@ -96,7 +101,7 @@
 		src << link(config.donationsurl)
 	else
 		to_chat(src, "<span class='danger'>The rules URL is not set in the server configuration.</span>")
-	
+
 /client/verb/hotkeys_help()
 	set name = "Hotkey Help"
 	set category = "OOC"

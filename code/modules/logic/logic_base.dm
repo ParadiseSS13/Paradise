@@ -40,7 +40,7 @@
 
 /obj/machinery/logic_gate/New()
 	if(tamperproof)		//doing this during New so we don't have to worry about forgetting to set these vars during editting / defining
-		unacidable = 1
+		resistance_flags |= ACID_PROOF
 	..()
 	if(SSradio)
 		set_frequency(frequency)
@@ -212,6 +212,7 @@
 	if(panel_open && istype(O, /obj/item/crowbar))
 		default_deconstruction_crowbar(O)
 		return 1
+	return ..()
 
 //////////////////////////////////////
 //			Attack procs			//
@@ -261,10 +262,9 @@
 		return 0
 	..()
 
-/obj/machinery/logic_gate/blob_act()
-	if(tamperproof)
-		return 0
-	..()
+/obj/machinery/logic_gate/blob_act(obj/structure/blob/B)
+	if(!tamperproof)
+		return ..()
 
 /obj/machinery/logic_gate/singularity_act()
 	if(tamperproof)
