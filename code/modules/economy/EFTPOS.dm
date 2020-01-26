@@ -71,7 +71,7 @@
 		else
 			to_chat(user, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 	else
-		..()
+		return ..()
 
 /obj/item/eftpos/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -116,7 +116,7 @@
 				else
 					to_chat(usr, "[bicon(src)]<span class='warning'>Unable to connect to accounts database.</span>")
 			if("trans_purpose")
-				var/purpose = input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose) as text|null
+				var/purpose = clean_input("Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose)
 				if(purpose)
 					transaction_purpose = purpose
 			if("trans_value")

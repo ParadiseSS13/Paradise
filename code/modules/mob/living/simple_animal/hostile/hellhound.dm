@@ -1,6 +1,6 @@
 // Hellhound
 /mob/living/simple_animal/hostile/hellhound
-	// Sprites by FoS: http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "Lesser Hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
 	icon_state = "hellhound"
@@ -8,7 +8,7 @@
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
 	mutations = list(BREATHLESS)
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = INFINITY
@@ -22,7 +22,7 @@
 	health = 250
 	obj_damage = 50
 	robust_searching = 1
-	stat_attack = 1
+	stat_attack = UNCONSCIOUS
 	attacktext = "savages"
 	attack_sound = 'sound/effects/bite.ogg'
 	speak_emote = list("growls")
@@ -42,19 +42,16 @@
 	whisper_action.Grant(src)
 
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
-	. = ..()
+	if(!..())
+		return
 	if(resting)
 		if(!wants_to_rest())
 			custom_emote(1, "growls, and gets up.")
 			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			icon_state = "[icon_living]"
-			resting = 0
-			update_canmove()
+			StopResting()
 	else if(wants_to_rest())
 		custom_emote(1, "lays down, and starts to lick their wounds.")
-		icon_state = "[icon_resting]"
-		resting = 1
-		update_canmove()
+		StartResting()
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
@@ -75,7 +72,7 @@
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
 				msgs += "<span class='notice'>It is currently resting.</span>"
-		to_chat(usr,msgs.Join("<BR>"))
+		. += msgs.Join("<BR>")
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
@@ -95,25 +92,12 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/AttackingTarget()
-	. = ..()
-	if(ishuman(target) && (!client || a_intent == INTENT_HARM))
-		special_aoe()
-
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
 	. = ..()
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != CONSCIOUS)
 			target = user
-
-/mob/living/simple_animal/hostile/hellhound/proc/special_aoe()
-	if(world.time < (smoke_lastuse + smoke_freq))
-		return
-	smoke_lastuse = world.time
-	var/datum/effect_system/smoke_spread/sleeping/smoke = new
-	smoke.set_up(10, 0, loc)
-	smoke.start()
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "Greater Hellhound"
@@ -124,9 +108,46 @@
 	maxHealth = 400
 	health = 400
 	force_threshold = 5 // no punching
+	universal_speak = 1
 	smoke_freq = 200
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	environment_smash = 2
-	gold_core_spawnable = CHEM_MOB_SPAWN_INVALID
+
+/mob/living/simple_animal/hostile/hellhound/greater/New()
+	. = ..()
+	// Movement
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
+	var/obj/effect/proc_holder/spell/targeted/area_teleport/teleport/telespell = new
+	telespell.clothes_req = FALSE
+	telespell.invocation_type = "none"
+	AddSpell(telespell)
+	var/obj/effect/proc_holder/spell/aoe_turf/knock/knockspell = new
+	knockspell.invocation_type = "none"
+	AddSpell(knockspell)
+	// Defense
+	var/obj/effect/proc_holder/spell/targeted/forcewall/greater/wallspell = new
+	wallspell.clothes_req = FALSE
+	wallspell.invocation_type = "none"
+	AddSpell(wallspell)
+	// Offense
+	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
+	summonspell.charge_max = 1
+	summonspell.invocation_type = "none"
+	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
+	summonspell.summon_amt = 1
+	AddSpell(summonspell)
+
+/mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target) && (!client || a_intent == INTENT_HARM))
+		special_aoe()
+
+/mob/living/simple_animal/hostile/hellhound/greater/proc/special_aoe()
+	if(world.time < (smoke_lastuse + smoke_freq))
+		return
+	smoke_lastuse = world.time
+	var/datum/effect_system/smoke_spread/sleeping/smoke = new
+	smoke.set_up(10, 0, loc)
+	smoke.start()

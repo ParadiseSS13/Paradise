@@ -11,8 +11,7 @@
 	density = TRUE
 	pixel_x = -32
 	pixel_y = -32
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	light_range = 8
 	light_color = LIGHT_COLOR_LAVA
 	var/open = FALSE
@@ -213,8 +212,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	anchored = TRUE
 	pixel_x = -64
 	pixel_y = -40
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/open = FALSE
 	var/static/mutable_appearance/top_overlay
 
@@ -245,8 +243,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	icon_state = "pristine_tile1"
 	layer = ABOVE_OPEN_TURF_LAYER
 	anchored = TRUE
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF
-	unacidable = TRUE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/tile_key = "pristine_tile"
 	var/tile_random_sprite_max = 24
 	var/fall_on_cross = STABLE //If the tile has some sort of effect when crossed
@@ -266,7 +263,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 /obj/structure/stone_tile/singularity_pull()
 	return
 
-/obj/structure/stone_tile/Crossed(atom/movable/AM)
+/obj/structure/stone_tile/Crossed(atom/movable/AM, oldloc)
 	if(falling || fallen)
 		return
 	var/turf/T = get_turf(src)
@@ -310,7 +307,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	falling = FALSE
 	fallen = FALSE
 
-/obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM)
+/obj/structure/stone_tile/proc/crossed_effect(atom/movable/AM, oldloc)
 	return
 
 /obj/structure/stone_tile/block

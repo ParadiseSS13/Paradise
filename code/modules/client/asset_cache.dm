@@ -292,7 +292,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 	var/verify = FALSE
 
 /datum/asset/chem_master/register()
-	for(var/i = 1 to 20)
+	for(var/i = 1 to 27)
 		assets["pill[i].png"] = icon('icons/obj/chemical.dmi', "pill[i]")
 	for(var/i in list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
 		assets["[i].png"] = icon('icons/obj/chemical.dmi', "[i]")
@@ -318,7 +318,7 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
-		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet"))) //Pipes we want sprites for
+		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet", "pipe-j1s"))) //Pipes we want sprites for
 			continue
 		for(var/D in cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)

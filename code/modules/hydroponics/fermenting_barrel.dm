@@ -17,7 +17,7 @@
 
 /obj/structure/fermenting_barrel/examine(mob/user)
 	. = ..()
-	to_chat(user, "<span class='notice'>It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."] </span>")
+	. += "<span class='notice'>It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."] </span>"
 
 /obj/structure/fermenting_barrel/proc/makeWine(obj/item/reagent_containers/food/snacks/grown/G)
 	if(G.reagents)
@@ -32,8 +32,8 @@
 		data["alcohol_perc"] = G.wine_power
 		if(G.wine_flavor)
 			data["tastes"] = list(G.wine_flavor = 1)
-		// else										// Stub - Will implement when we port over tg's better taste system - I'd rather get the barrel in first. 
-		// 	data["tastes"] = list(G.tastes[1] = 1)
+		else
+			data["tastes"] = list(G.tastes[1] = 1)
 		reagents.add_reagent("fruit_wine", amount, data)
 	qdel(G)
 	playsound(src, 'sound/effects/bubbles.ogg', 50, TRUE)

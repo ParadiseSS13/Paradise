@@ -207,8 +207,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aN" = (
-/obj/machinery/vending/cola,
 /obj/effect/turf_decal/sand,
+/obj/machinery/vending/cola/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "aO" = (
@@ -235,8 +235,8 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aT" = (
-/obj/machinery/vending/snack,
 /obj/effect/turf_decal/sand,
+/obj/machinery/vending/snack/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "aU" = (

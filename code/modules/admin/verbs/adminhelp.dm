@@ -18,7 +18,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	var/list/type = list("Mentorhelp","Adminhelp")
 	var/selected_type = input("Pick a category.", "Admin Help", null, null) as null|anything in type
 	if(selected_type)
-		msg = input("Please enter your message.", "Admin Help", null, null) as text|null
+		msg = clean_input("Please enter your message.", "Admin Help", null)
 
 	//clean the input msg
 	if(!msg)
@@ -27,7 +27,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
+	msg = sanitize_simple(copytext(msg,1,MAX_MESSAGE_LEN))
 	if(!msg)	return
 	var/original_msg = msg
 
@@ -125,7 +125,7 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		ticketNum = T.ticketNum // ticketNum is the number of their ticket.
 		T.addResponse(src, msg)
 
-	msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;check_antagonist=1'>CA</A>) (<A HREF='?_src_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) [ai_found ? "(<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) :</span> [span][msg]</span>"
+	msg = "[span][selected_type]: </span><span class='boldnotice'>[key_name(src, TRUE, selected_type)] ([ADMIN_QUE(mob,"?")]) ([ADMIN_PP(mob,"PP")]) ([ADMIN_VV(mob,"VV")]) ([ADMIN_TP(mob,"TP")]) ([ADMIN_SM(mob,"SM")]) ([admin_jump_link(mob)]) (<A HREF='?_src_=holder;[isMhelp ? "openmentorticket" : "openadminticket"]=[ticketNum]'>TICKET</A>) [ai_found ? "(<A HREF='?_src_=holder;adminchecklaws=[mob.UID()]'>CL</A>)" : ""] (<A HREF='?_src_=holder;take_question=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>TAKE</A>) (<A HREF='?_src_=holder;resolve=[ticketNum][isMhelp ? ";is_mhelp=1" : ""]'>RESOLVE</A>) [isMhelp ? "" : "<A HREF='?_src_=holder;autorespond=[ticketNum]'>(AUTO)</A>"]  :</span> [span][msg]</span>"
 	if(isMhelp)
 		//Open a new adminticket and inform the user.
 		SSmentor_tickets.newTicket(src, prunedmsg, msg)
@@ -149,19 +149,16 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 
 	var/admin_number_present = adminholders.len - admin_number_afk
 
-	var/regex/R = new ("(\\?)", "g")
-	var/edited_msg = json_encode(R.Replace(original_msg, "¿"))
-
 	log_admin("[selected_type]: [key_name(src)]: [original_msg] - heard by [admin_number_present] non-AFK admins.")
 	if(admin_number_present <= 0)
 		if(!admin_number_afk)
-			ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&[edited_msg]&!!No admins online!!")
+			ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&!!No admins online!!","[original_msg]")
 			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!No admins online!!")
 		else
-			ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&[edited_msg]&!!All admins AFK ([admin_number_afk])!!")
+			ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&!!All admins AFK ([admin_number_afk])!!","[original_msg]")
 			send2adminirc("[selected_type] from [key_name(src)]: [original_msg] - !!All admins AFK ([admin_number_afk])!!")
 	else
-		ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&[edited_msg]&")
+		ryzorbot("notify", "ahelp=[selected_type]&from [key_name(src)]:&","[original_msg]")
 		send2adminirc("[selected_type] from [key_name(src)]: [original_msg]")
 	feedback_add_details("admin_verb","AH") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	return
@@ -192,4 +189,3 @@ var/list/adminhelp_ignored_words = list("unknown","the","a","an","of","monkey","
 		else
 			send2irc(source, "[msg] - All admins AFK ([admin_number_afk]/[admin_number_total]) or skipped ([admin_number_ignored]/[admin_number_total])")
 	return admin_number_present
-	

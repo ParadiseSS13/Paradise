@@ -6,7 +6,7 @@
 // -------------: AI: after it kills you, it webs you and lays new terror eggs on your body
 // -------------: SPECIAL: can also create webs, web normal objects, etc
 // -------------: TO FIGHT IT: kill it however you like - just don't die to it!
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green
 	name = "Green Terror spider"
@@ -80,7 +80,7 @@
 		..()
 		return
 	var/inject_target = pick("chest","head")
-	if(L.stunned || L.can_inject(null,0,inject_target,0))
+	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
 		if(L.eye_blurry < 60)
 			L.AdjustEyeBlurry(10)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.

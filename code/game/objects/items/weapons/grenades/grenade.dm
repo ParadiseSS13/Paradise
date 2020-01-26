@@ -9,11 +9,17 @@
 	throw_range = 20
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
-	burn_state = FLAMMABLE
-	burntime = 5
+	resistance_flags = FLAMMABLE
+	max_integrity = 40
 	var/active = 0
 	var/det_time = 50
 	var/display_timer = 1
+
+/obj/item/grenade/deconstruct(disassembled = TRUE)
+	if(!disassembled)
+		prime()
+	if(!QDELETED(src))
+		qdel(src)
 
 /obj/item/grenade/proc/clown_check(var/mob/living/user)
 	if((CLUMSY in user.mutations) && prob(50))
@@ -48,12 +54,12 @@
 
 
 /obj/item/grenade/examine(mob/user)
-	..(user)
+	. = ..()
 	if(display_timer)
 		if(det_time > 1)
-			to_chat(user, "The timer is set to [det_time/10] second\s.")
+			. += "The timer is set to [det_time/10] second\s."
 		else
-			to_chat(user, "\The [src] is set for instant detonation.")
+			. += "\The [src] is set for instant detonation."
 
 /obj/item/grenade/attack_self(mob/user as mob)
 	if(!active)

@@ -39,7 +39,7 @@
 /area/survivalpod)
 "i" = (
 /obj/machinery/sleeper/survival_pod,
-/obj/machinery/vending/wallmed1/survival_pod{
+/obj/machinery/vending/wallmed/survival_pod{
 	pixel_x = -24
 	},
 /turf/simulated/floor/pod,
@@ -126,8 +126,8 @@
 	dir = 1
 	},
 /obj/structure/displaycase{
+	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
-	locked = 1;
 	pixel_y = -4;
 	req_access_txt = "48";
 	start_showpiece_type = /obj/item/fakeartefact

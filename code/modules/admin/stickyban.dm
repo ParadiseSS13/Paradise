@@ -16,7 +16,7 @@
 			if(data["ckey"])
 				ckey = ckey(data["ckey"])
 			else
-				ckey = input(usr,"Ckey","Ckey","") as text|null
+				ckey = clean_input("Ckey","Ckey","")
 				if(!ckey)
 					return
 				ckey = ckey(ckey)
@@ -26,7 +26,7 @@
 			if(data["reason"])
 				ban["message"] = data["reason"]
 			else
-				var/reason = input(usr,"Reason","Reason","Ban Evasion") as text|null
+				var/reason = clean_input("Reason","Reason","Ban Evasion")
 				if(!reason)
 					return
 				ban["message"] = "[reason]"
@@ -35,7 +35,7 @@
 
 			log_admin("[key_name(usr)] has stickybanned [ckey].\nReason: [ban["message"]]")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has stickybanned [ckey].\nReason: [ban["message"]]</span>")
-
+			ryzorbot("notify", "sticky=[ckey]&[key_name(usr)]", "[ban["message"]]")
 		if("remove")
 			if(!data["ckey"])
 				return
@@ -54,6 +54,7 @@
 
 			log_admin("[key_name(usr)] removed [ckey]'s stickyban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] removed [ckey]'s stickyban</span>")
+			ryzorbot("notify", "removesticky=[ckey]&[key_name(usr)]")
 
 		if("remove_alt")
 			if(!data["ckey"])
@@ -102,6 +103,7 @@
 
 			log_admin("[key_name(usr)] has disassociated [alt] from [ckey]'s sticky ban")
 			message_admins("<span class='adminnotice'>[key_name_admin(usr)] has disassociated [alt] from [ckey]'s sticky ban</span>")
+			ryzorbot("notify", "removesticky=[ckey]&[key_name(usr)]&[alt]")
 
 		if("edit")
 			if(!data["ckey"])
@@ -112,7 +114,7 @@
 				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!")
 				return
 			var/oldreason = ban["message"]
-			var/reason = input(usr,"Reason","Reason","[ban["message"]]") as text|null
+			var/reason = clean_input("Reason","Reason","[ban["message"]]")
 			if(!reason || reason == oldreason)
 				return
 			//we have to do this again incase something changed while we waited for input

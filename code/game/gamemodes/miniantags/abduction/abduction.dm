@@ -150,6 +150,8 @@
 	update_abductor_icons_added(scientist)
 
 /datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
+	var/datum/objective/stay_hidden/O = new
+	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -160,6 +162,8 @@
 	abductor.announce_objectives()
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
+	var/datum/objective/stay_hidden/O = new
+	abductor.objectives += O
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
 
@@ -180,7 +184,7 @@
 			var/obj/machinery/abductor/console/con = get_team_console(team_number)
 			var/datum/objective/objective = team_objectives[team_number]
 			if(con.experiment.points >= objective.target_amount)
-				SSshuttle.emergency.request(null, 0.5)
+				SSshuttle.emergency.request(null, 0.5, reason = "Large amount of abnormal thought patterns detected. All crew are recalled for mandatory evaluation and reconditioning.")
 				SSshuttle.emergency.canRecall = FALSE
 				finished = 1
 				return ..()
@@ -227,6 +231,13 @@
 /datum/objective/experiment
 	target_amount = 6
 	var/team
+
+/datum/objective/stay_hidden
+
+/datum/objective/stay_hidden/New()
+	explanation_text = "Limit contact with your targets outside of conducting your experiments and abduction."
+	completed = TRUE
+//No check completion, it defaults to being completed unless an admin sets it to failed.
 
 /datum/objective/experiment/New()
 	explanation_text = "Experiment on [target_amount] humans."

@@ -1934,7 +1934,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Aft)
 "eV" = (
-/obj/structure/chair/office{
+/obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3156,7 +3156,7 @@
 	},
 /area/awaymission/BMPship/Aft)
 "ia" = (
-/obj/effect/decal/mecha_wreckage/ripley,
+/obj/structure/mecha_wreckage/ripley,
 /turf/simulated/floor/plating/airless,
 /area/awaymission)
 "ib" = (

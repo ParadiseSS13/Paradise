@@ -87,8 +87,20 @@
 	icon_state = "phase_shift2"
 	duration = 12
 
+/obj/effect/temp_visual/dir_setting/wraith/Initialize(mapload)
+	. = ..()
+	icon_state = SSticker.cultdat?.wraith_jaunt_in_animation
+
 /obj/effect/temp_visual/dir_setting/wraith/out
 	icon_state = "phase_shift"
+
+/obj/effect/temp_visual/dir_setting/wraith/out/Initialize(mapload)
+	. = ..()
+	icon_state = SSticker.cultdat?.wraith_jaunt_out_animation
+
+/obj/effect/temp_visual/dir_setting/tailsweep
+	icon_state = "tailsweep"
+	duration = 4
 
 /obj/effect/temp_visual/wizard
 	name = "water"
@@ -139,6 +151,29 @@
 /obj/effect/temp_visual/decoy/fading/New(loc, atom/mimiced_atom)
 	..()
 	animate(src, alpha = 0, time = duration)
+
+/obj/effect/temp_visual/decoy/fading/threesecond
+	duration = 40
+
+/obj/effect/temp_visual/decoy/fading/fivesecond
+	duration = 50
+
+/obj/effect/temp_visual/decoy/fading/halfsecond
+	duration = 5
+
+/obj/effect/temp_visual/fire
+	icon = 'icons/goonstation/effects/fire.dmi'
+	icon_state = "3"
+	light_range = LIGHT_RANGE_FIRE
+	light_color = LIGHT_COLOR_FIRE
+	duration = 10
+	layer = MASSIVE_OBJ_LAYER
+	alpha = 250
+	blend_mode = BLEND_ADD
+
+/obj/effect/temp_visual/fire/New(loc)
+	color = heat2color(FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+	..()
 
 /obj/effect/temp_visual/revenant
 	name = "spooky lights"
@@ -290,3 +325,32 @@
 /obj/effect/temp_visual/dir_setting/firing_effect/magic
 	icon_state = "shieldsparkles"
 	duration = 3
+
+/obj/effect/temp_visual/impact_effect
+	icon_state = "impact_bullet"
+	duration = 5
+
+/obj/effect/temp_visual/impact_effect/Initialize(mapload, x, y)
+	pixel_x = x
+	pixel_y = y
+	return ..()
+
+/obj/effect/temp_visual/impact_effect/red_laser
+	icon_state = "impact_laser"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/blue_laser
+	icon_state = "impact_laser_blue"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/green_laser
+	icon_state = "impact_laser_green"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/purple_laser
+	icon_state = "impact_laser_purple"
+	duration = 4
+
+/obj/effect/temp_visual/impact_effect/ion
+	icon_state = "shieldsparkles"
+	duration = 6

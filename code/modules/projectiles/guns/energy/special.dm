@@ -43,7 +43,7 @@
 /obj/item/gun/energy/decloner/update_icon()
 	..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(power_supply.charge > shot.e_cost)
+	if(cell.charge > shot.e_cost)
 		overlays += "decloner_spin"
 
 // Flora Gun //
@@ -159,23 +159,31 @@
 	can_charge = 0
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
-	..()
-	if(power_supply)
-		to_chat(user, "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>")
+	. = ..()
+	if(cell)
+		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+		if(cell.charge >= cell.maxcharge)
+			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
-		power_supply.give(1000)
+		cell.give(1000)
+		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/stack/ore/plasma))
+		if(cell.charge >= cell.maxcharge)
+			to_chat(user,"<span class='notice'>[src] is already fully charged.")
+			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
-		power_supply.give(500)
+		cell.give(500)
+		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
-		..()
+		return ..()
 
 /obj/item/gun/energy/plasmacutter/update_icon()
 	return
@@ -184,8 +192,12 @@
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
+	item_state = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+	toolspeed = 0.8
 	force = 15
 
 // Wormhole Projectors //
@@ -250,10 +262,6 @@
 
 /obj/item/gun/energy/printer/emp_act()
 	return
-
-/obj/item/gun/energy/printer/newshot()
-	..()
-	robocharge()
 
 // Instakill Lasers //
 /obj/item/gun/energy/laser/instakill
@@ -485,7 +493,7 @@
 		M.update_inv_r_hand()
 
 /obj/item/gun/energy/temperature/proc/update_charge()
-	var/charge = power_supply.charge
+	var/charge = cell.charge
 	switch(charge)
 		if(900 to INFINITY)		overlays += "900"
 		if(800 to 900)			overlays += "800"

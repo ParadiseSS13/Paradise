@@ -147,7 +147,6 @@ var/global/sent_syndicate_strike_team = 0
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
 
 	if(full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/hardsuit/syndi/elite/sst(src), slot_head)
 		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
 		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), slot_wear_suit)
 		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), slot_glasses)

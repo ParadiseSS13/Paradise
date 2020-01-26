@@ -34,7 +34,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/voice_changer/proc/set_voice(mob/user)
-	var/chosen_voice = input(user, "What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer", voice) as text
+	var/chosen_voice = clean_input("What voice would you like to mimic? Leave this empty to use the voice on your ID card.", "Set Voice Changer", voice, user)
 	if(!chosen_voice)
 		voice = null
 		to_chat(user, "<span class='notice'>You are now mimicking the voice on your ID card.</span>")

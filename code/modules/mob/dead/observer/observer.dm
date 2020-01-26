@@ -29,8 +29,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/seedarkness = TRUE
 	var/data_hud_seen = FALSE //this should one of the defines in __DEFINES/hud.dm
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
+	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
 
-/mob/dead/observer/New(var/mob/body=null, var/flags=1)
+/mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
 
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
@@ -76,12 +77,16 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	appearance_flags |= KEEP_TOGETHER
 	ghost_images |= ghostimage
 	updateallghostimages()
-	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
+	if(!T)	
+		T = pick(latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
 		name = capitalize(pick(GLOB.first_names_male)) + " " + capitalize(pick(GLOB.last_names))
 	real_name = name
+
+	//starts ghosts off with all HUDs.
+	toggle_medHUD()
 	..()
 
 /mob/dead/observer/Destroy()
@@ -96,9 +101,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	return ..()
 
 /mob/dead/observer/examine(mob/user)
-	..()
+	. = ..()
 	if(!invisibility)
-		to_chat(user, "It seems extremely obvious.")
+		. += "It seems extremely obvious."
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -153,7 +158,7 @@ Works together with spawning an observer, noted above.
 		C.images += target.hud_list[SPECIALROLE_HUD]
 	return 1
 
-/mob/proc/ghostize(var/flags = GHOST_CAN_REENTER)
+/mob/proc/ghostize(flags = GHOST_CAN_REENTER)
 	if(key)
 		if(player_logged) //if they have disconnected we want to remove their SSD overlay
 			overlays -= image('icons/effects/effects.dmi', icon_state = "zzz_glow")
@@ -236,6 +241,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	return 1
 
 /mob/dead/observer/Move(NewLoc, direct)
+	update_parallax_contents()
 	following = null
 	setDir(direct)
 	ghostimage.setDir(dir)
@@ -322,15 +328,22 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/toggle_medHUD()
 	set category = "Ghost"
-	set name = "Toggle Medic/Sec/Diag/All HUDs"
+	set name = "Toggle All/Sec/Med/Diag HUDs"
 	set desc = "Toggles the HUDs."
 	if(!client)
 		return
 
 	switch(data_hud_seen) //give new huds
 		if(FALSE)
-			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
+			data_hud_seen = DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
+			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
+			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
+			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
+		if(DATA_HUD_DIAGNOSTIC + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED)	
+			data_hud_seen = DATA_HUD_SECURITY_ADVANCED
+			remove_the_hud(DATA_HUD_DIAGNOSTIC)
+			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>Security HUD set.</span>")
 		if(DATA_HUD_SECURITY_ADVANCED)
 			data_hud_seen = DATA_HUD_MEDICAL_ADVANCED
@@ -342,15 +355,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			show_me_the_hud(DATA_HUD_DIAGNOSTIC)
 			to_chat(src, "<span class='notice'>Diagnostic HUD set.</span>")
-		if(DATA_HUD_DIAGNOSTIC)
-			data_hud_seen = data_hud_seen + DATA_HUD_SECURITY_ADVANCED + DATA_HUD_MEDICAL_ADVANCED
-			show_me_the_hud(DATA_HUD_SECURITY_ADVANCED)
-			show_me_the_hud(DATA_HUD_MEDICAL_ADVANCED)
-			to_chat(src, "<span class='notice'>All HUDs enabled.</span>")
 		else
 			data_hud_seen = FALSE
-			remove_the_hud(DATA_HUD_DIAGNOSTIC)
-			remove_the_hud(DATA_HUD_SECURITY_ADVANCED)
 			remove_the_hud(DATA_HUD_MEDICAL_ADVANCED)
 			to_chat(src, "<span class='notice'>HUDs disabled.</span>")
 
@@ -405,7 +411,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	A.on_close(CALLBACK(src, .proc/teleport))
 
 /mob/dead/observer/proc/teleport(area/thearea)
-	if(!thearea)
+	if(!thearea || !isobserver(usr))
 		return
 
 	var/list/L = list()
@@ -416,7 +422,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "<span class='warning'>No area available.</span>")
 		return
 
-	usr.forceMove(pick(L))
+	forceMove(pick(L))
+	update_parallax_contents()
 	following = null
 
 /mob/dead/observer/verb/follow()
@@ -430,7 +437,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/proc/ManualFollow(var/atom/movable/target)
-	if(!target)
+	if(!target || !isobserver(usr))
 		return
 
 	if(!get_turf(target))
@@ -504,13 +511,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		A.on_close(CALLBACK(src, .proc/jump_to_mob))
 
 /mob/dead/observer/proc/jump_to_mob(mob/M)
-	if(!M)
+	if(!M || !isobserver(usr))
 		return
 	var/mob/A = src			 //Source mob
 	var/turf/T = get_turf(M) //Turf of the destination mob
 
 	if(T && isturf(T))	//Make sure the turf exists, then move the source to that destination.
 		A.forceMove(T)
+		M.update_parallax_contents()
+		following = null
 		return
 	to_chat(A, "This mob is not located in the game world.")
 
@@ -536,6 +545,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/add_memory()
 	set hidden = 1
 	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
+
+
+/mob/dead/observer/verb/toggle_health_scan()
+	set name = "Toggle Health Scan"
+	set desc = "Toggles whether you health-scan living beings on click"
+	set category = "Ghost"
+
+	if(health_scan) //remove old huds
+		to_chat(src, "<span class='notice'>Health scan disabled.</span>")
+		health_scan = FALSE
+	else
+		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
+		health_scan = TRUE
 
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
@@ -761,13 +783,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/incarnate_ghost()
 	if(!client)
 		return
+
 	var/mob/living/carbon/human/new_char = new(get_turf(src))
 	client.prefs.copy_to(new_char)
 	if(mind)
-		mind.active = 1
+		mind.active = TRUE
 		mind.transfer_to(new_char)
 	else
 		new_char.key = key
+
+	return new_char
 
 /mob/dead/observer/is_literate()
 	return TRUE

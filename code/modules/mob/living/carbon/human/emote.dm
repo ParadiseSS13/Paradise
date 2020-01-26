@@ -383,7 +383,7 @@
 						message = "<B>[src]</B> flips in [M]'s general direction."
 						SpinAnimation(5,1)
 				else
-					if(lying || weakened)
+					if(lying || IsWeakened())
 						message = "<B>[src]</B> flops and flails around on the floor."
 					else
 						var/obj/item/grab/G
@@ -858,14 +858,10 @@
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1)
 
 		if("fart", "farts")
-			if(locate(/obj/item/storage/bible) in get_turf(src))
-				to_chat(viewers(src), "<span class='danger'>[src] farts on the Bible!</span>")
-				var/image/cross = image('icons/obj/storage.dmi', "bible")
-				var/adminbfmessage = "[bicon(cross)] <span class='danger'>Bible Fart:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) (<A HREF='?_src_=holder;secretsadmin=check_antagonist'>CA</A>) (<A HREF='?_src_=holder;Smite=[UID()]'>SMITE</A>):</b>"
-				for(var/client/X in GLOB.admins)
-					if(check_rights(R_EVENT, 0, X.mob))
-						to_chat(X, adminbfmessage)
-			else
+			var/farted_on_thing = FALSE
+			for(var/atom/A in get_turf(src))
+				farted_on_thing += A.fart_act(src)
+			if(!farted_on_thing)
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
 			m_type = 2
 
@@ -897,10 +893,24 @@
 					L.remove_status_effect(STATUS_EFFECT_HIGHFIVE)
 					return
 
+		//HISPANIA EMOTES START HERE
+		if("puke")
+			if(ismachine(src))
+				return
+			if(handle_emote_CD(600))
+				to_chat(src, "<span class='warning'>You are still recovering forces.</span>")
+				return
+			else
+				to_chat(viewers(src), "<span class='warning'>[src] brings [p_their()] fingers to [p_their()] mouth and vomits on the floor!</span>")
+				src.vomit()
+				return
+
+		//HISPANIA EMOTES END HERE
+
 		if("help")
 			var/emotelist = "aflap(s), airguitar, blink(s), blink(s)_r, blush(es), bow(s)-(none)/mob, burp(s), choke(s), chuckle(s), clap(s), collapse(s), cough(s),cry, cries, custom, dance, dap(s)(none)/mob," \
 			+ " deathgasp(s), drool(s), eyebrow, fart(s), faint(s), flap(s), flip(s), frown(s), gasp(s), giggle(s), glare(s)-(none)/mob, grin(s), groan(s), grumble(s), grin(s)," \
-			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
+			+ " handshake-mob, hug(s)-(none)/mob, hem, highfive, johnny, jump, laugh(s), look(s)-(none)/mob, moan(s), mumble(s), nod(s), pale(s), point(s)-atom, puke, quiver(s), raise(s), salute(s)-(none)/mob, scream(s), shake(s)," \
 			+ " shiver(s), shrug(s), sigh(s), signal(s)-#1-10,slap(s)-(none)/mob, smile(s),snap(s), sneeze(s), sniff(s), snore(s), stare(s)-(none)/mob, swag(s), tremble(s), twitch(es), twitch(es)_s," \
 			+ " wag(s), wave(s),  whimper(s), wink(s), yawn(s), quill(s)"
 
@@ -946,9 +956,13 @@
  // Maybe some people are okay with that.
 
 		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || istype(M, /mob/new_player))
-				continue //skip monkeys, leavers and new players
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
+			if(!M.client)
+				continue
+
+			if(isnewplayer(M))
+				continue
+
+			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
 				M.show_message(message)
 
 		switch(m_type)

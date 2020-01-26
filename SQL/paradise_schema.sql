@@ -266,9 +266,10 @@ CREATE TABLE `player` (
   `exp` mediumtext,
   `clientfps` smallint(4) DEFAULT '0',
   `atklog` smallint(4) DEFAULT '0',
-  `fuid` BIGINT(20) NULL DEFAULT NULL,
-  `fupdate` SMALLINT(4) NULL DEFAULT 0,
+  `fuid` bigint(20) NULL DEFAULT NULL,
+  `fupdate` smallint(4) NULL DEFAULT '0',
   `afk_watch` tinyint(1) NOT NULL DEFAULT '0',
+  `parallax` tinyint(1) DEFAULT '8',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
@@ -504,6 +505,7 @@ CREATE TABLE `notes` (
   `last_editor` varchar(32),
   `edits` text,
   `server` varchar(50) NOT NULL,
+  `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -532,11 +534,11 @@ DROP TABLE IF EXISTS `ipintel`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE  `ipintel` (
-`ip` INT UNSIGNED NOT NULL ,
-`date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL ,
-`intel` REAL NOT NULL DEFAULT  '0',
-PRIMARY KEY (  `ip` )
-) ENGINE = INNODB;
+  `ip` int UNSIGNED NOT NULL,
+  `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `intel` real NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -546,7 +548,49 @@ DROP TABLE IF EXISTS `vpn_whitelist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `vpn_whitelist` (
-  `ckey` VARCHAR(32) NOT NULL,
-  `reason` text
+  `ckey` varchar(32) NOT NULL,
+  `reason` text,
   PRIMARY KEY (`ckey`)
-) ENGINE=INNODB;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `oauth_tokens`
+--
+DROP TABLE IF EXISTS `oauth_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth_tokens` (
+  `ckey` varchar(32) NOT NULL,
+  `token` varchar(32) NOT NULL,
+  PRIMARY KEY (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `playtime_history`
+--
+DROP TABLE IF EXISTS `playtime_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `playtime_history` (
+  `ckey` varchar(32) NOT NULL,
+  `date` DATE NOT NULL,
+  `time_living` SMALLINT NOT NULL,
+  `time_ghost` SMALLINT NOT NULL,
+  PRIMARY KEY (`ckey`, `date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+--
+-- Table structure for table `connection_log`
+--
+DROP TABLE IF EXISTS `connection_log`;
+CREATE TABLE `connection_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `ckey` varchar(32) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `computerid` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

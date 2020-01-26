@@ -57,7 +57,7 @@
 			if(dna)
 				if(!blood_DNA)
 					blood_DNA = list()
-				blood_DNA[dna.unique_enzymes] = dna.b_type
+				blood_DNA[dna.unique_enzymes] = dna.blood_type
 	else
 		dna = new /datum/dna(null)
 		if(species_override)
@@ -79,7 +79,7 @@
 			blood_DNA.Cut()
 		else
 			blood_DNA = list()
-		blood_DNA[dna.unique_enzymes] = dna.b_type
+		blood_DNA[dna.unique_enzymes] = dna.blood_type
 
 /obj/item/organ/proc/necrotize(update_sprite = TRUE)
 	damage = max_damage
@@ -100,7 +100,7 @@
 		return
 
 	//Process infections
-	if(is_robotic() || sterile || (owner && (IS_PLANT in owner.dna.species.species_traits)))
+	if(is_robotic() || sterile || (owner && (NO_GERMS in owner.dna.species.species_traits)))
 		germ_level = 0
 		return
 
@@ -145,12 +145,12 @@
 	return 0
 
 /obj/item/organ/examine(mob/user)
-	..(user)
+	. = ..()
 	if(status & ORGAN_DEAD)
 		if(!is_robotic())
-			to_chat(user, "<span class='notice'>The decay has set in.</span>")
+			. += "<span class='notice'>The decay has set in.</span>"
 		else
-			to_chat(user, "<span class='notice'>It looks in need of repairs.</span>")
+			. += "<span class='notice'>It looks in need of repairs.</span>"
 
 /obj/item/organ/proc/handle_germ_effects()
 	//** Handle the effects of infections

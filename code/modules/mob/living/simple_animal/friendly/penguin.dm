@@ -16,6 +16,10 @@
 	turns_per_move = 10
 	icon = 'icons/mob/penguins.dmi'
 
+/mob/living/simple_animal/pet/penguin/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/waddling)
+
 /mob/living/simple_animal/pet/penguin/emperor
 	name = "Emperor penguin"
 	real_name = "penguin"
@@ -24,7 +28,7 @@
 	icon_living = "penguin"
 	icon_dead = "penguin_dead"
 	butcher_results = list()
-	gold_core_spawnable = CHEM_MOB_SPAWN_FRIENDLY
+	gold_core_spawnable = FRIENDLY_SPAWN
 
 /mob/living/simple_animal/pet/penguin/eldrich
 	name = "Albino penguin"
@@ -47,6 +51,8 @@
 	desc = "Shameful of all he surveys."
 	icon_state = "penguin_shamebrero"
 	icon_living = "penguin_shamebrero"
+	gold_core_spawnable = NO_SPAWN
+	unique_pet = TRUE
 
 /mob/living/simple_animal/pet/penguin/baby
 	speak = list("gah", "noot noot", "noot!", "noot", "squeee!", "noo!")

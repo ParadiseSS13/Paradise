@@ -14,6 +14,7 @@
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	attack_verb = null
+	resistance_flags = FIRE_PROOF
 	var/lit = 0
 
 /obj/item/lighter/zippo
@@ -87,7 +88,7 @@
 	if(!istype(M, /mob))
 		return
 
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_sel.selecting == "mouth" && lit)
+	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && lit)
 		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
 		if(M == user)
 			cig.attackby(src, user)
@@ -224,3 +225,13 @@
 	var/mask_item = M.get_item_by_slot(slot_wear_mask)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
+
+
+/obj/item/match/firebrand
+	name = "firebrand"
+	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
+	smoketime = 20 //40 seconds
+
+/obj/item/match/firebrand/New()
+	..()
+	matchignite()

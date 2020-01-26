@@ -3,10 +3,10 @@
 	name = "Odysseus"
 	icon_state = "odysseus"
 	initial_icon = "odysseus"
-	step_in = 3
+	step_in = 2.5
 	max_temperature = 15000
-	health = 120
-	wreckage = /obj/effect/decal/mecha_wreckage/odysseus
+	max_integrity = 120
+	wreckage = /obj/structure/mecha_wreckage/odysseus
 	internal_damage_threshold = 35
 	deflect_chance = 15
 	step_energy_drain = 6

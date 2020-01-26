@@ -40,8 +40,10 @@ var/global/current_date_string
 		return 0
 	if(access_cent_commander in held_card.access)
 		return 2
-	else if(access_hop in held_card.access || access_captain in held_card.access)
-		return 1
+	else
+		for(var/a in held_card.access)
+			if(a == access_hop || a == access_captain)
+				return 1
 
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)
 	return {"

@@ -6,7 +6,7 @@
 // -------------: AI: dies if too far from queen
 // -------------: SPECIAL: chance to stun on hit
 // -------------: TO FIGHT IT: shoot it from range, bring friends!
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/purple
 	name = "Purple Terror spider"
@@ -25,7 +25,7 @@
 	speed = 0 // '0' (also the default for human mobs) converts to 2.5 total delay, or 4 tiles/sec.
 	spider_opens_doors = 2
 	ventcrawler = 0
-	ai_ventcrawls = 0
+	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	idle_ventcrawl_chance = 0 // stick to the queen!
 	web_type = /obj/structure/spider/terrorweb/purple
@@ -94,4 +94,4 @@
 	name = "thick web"
 	desc = "This web is so thick, most cannot see beyond it."
 	opacity = 1
-	health = 40
+	max_integrity = 40

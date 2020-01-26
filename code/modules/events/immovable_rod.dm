@@ -55,8 +55,14 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	GLOB.poi_list.Remove(src)
 	return ..()
 
-/obj/effect/immovablerod/ex_act(test)
+/obj/effect/immovablerod/ex_act(severity)
 	return 0
+
+/obj/effect/immovablerod/singularity_act()
+	return
+
+/obj/effect/immovablerod/singularity_pull()
+	return
 
 /obj/effect/immovablerod/Bump(atom/clong)
 	if(prob(10))

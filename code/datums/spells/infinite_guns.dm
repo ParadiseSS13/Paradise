@@ -11,8 +11,6 @@
 	cooldown_min = 10 //Gun wizard
 	action_icon_state = "bolt_action"
 
-
-
 /obj/effect/proc_holder/spell/targeted/infinite_guns/cast(list/targets, mob/user = usr)
 	for(var/mob/living/carbon/C in targets)
 		C.drop_item()

@@ -25,9 +25,12 @@
 	var/A = null
 
 	if(!randomise_selection)
-		A = input("Area to teleport to", "Teleport", A) in teleportlocs
+		A = input("Area to teleport to", "Teleport", A) as null|anything in teleportlocs
 	else
 		A = pick(teleportlocs)
+
+	if(!A)
+		return
 
 	var/area/thearea = teleportlocs[A]
 
@@ -56,7 +59,10 @@
 			return
 
 		if(target && target.buckled)
-			target.buckled.unbuckle_mob()
+			target.buckled.unbuckle_mob(target, force = TRUE)
+
+		if(target && target.has_buckled_mobs())
+			target.unbuckle_all_mobs(force = TRUE)
 
 		var/list/tempL = L
 		var/attempt = null
