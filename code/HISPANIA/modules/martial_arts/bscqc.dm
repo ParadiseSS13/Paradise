@@ -1,7 +1,7 @@
 #define PRESSURE_COMBO "DG"
 
 /datum/martial_art/bscqc
-	name = "BSCQC"
+	name = "Blue Flame"
 	help_verb = /mob/living/carbon/human/proc/BSCQC_help
 	block_chance = 50
 
