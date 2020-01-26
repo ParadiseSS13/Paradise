@@ -1,7 +1,13 @@
+#define SPECIAL_ROLE_OLD_MAN "Old Man"
+
 /datum/event/spawn_oldman
+	announceWhen = 120
 	var/key_of_oldman
 
-/datum/event/spawn_slaughter/proc/get_oldman(var/end_if_fail = 0)
+/datum/event/spawn_oldman/announce()
+	event_announcement.Announce("Confirmed level 4 biohazard alert. Unknown hostile entity detected aboard [station_name()]. Please report any sightings.", "Biohazard Alert", 'sound/hispania/effects/oldman/alert.ogg')
+
+/datum/event/spawn_oldman/proc/get_oldman(var/end_if_fail = 0)
 	spawn()
 		var/list/candidates = pollCandidates("Do you want to play as the old man?", ROLE_DEMON, 1)
 		if(!candidates.len)
@@ -31,14 +37,12 @@
 			spawn_locs += get_turf(player_mind.current)
 		if(!spawn_locs) //If we can't find THAT, then just retry
 			return kill()
-		var /obj/effect/dummy/slaughter/holder = new /obj/effect/dummy/slaughter(pick(spawn_locs))
-		var/mob/living/simple_animal/slaughter/S = new /mob/living/simple_animal/slaughter/(holder)
-		S.holder = holder
-		player_mind.transfer_to(S)
-		player_mind.assigned_role = "Slaughter Demon"
-		player_mind.special_role = SPECIAL_ROLE_SLAUGHTER_DEMON
-		message_admins("[key_name_admin(S)] has been made into the Old Man by an event.")
-		log_game("[key_name_admin(S)] was spawned as the Old Man by an event.")
+		var /mob/living/simple_animal/hostile/oldman/SCP = new /mob/living/simple_animal/hostile/oldman/(pick(spawn_locs))
+		player_mind.transfer_to(SCP)
+		player_mind.assigned_role = SPECIAL_ROLE_OLD_MAN
+		player_mind.special_role = SPECIAL_ROLE_OLD_MAN
+		message_admins("[key_name_admin(SCP)] has been made into the Old Man by an event.")
+		log_game("[key_name_admin(SCP)] was spawned as the Old Man by an event.")
 		return 1
 
 /datum/event/spawn_slaughter/start()
