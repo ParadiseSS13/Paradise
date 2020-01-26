@@ -25,7 +25,7 @@
 	D.visible_message("<span class='warning'>[A] forces their arm on [D]'s neck!</span>")
 	D.adjustStaminaLoss(35)
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Pressure", ATKLOG_ALL)
+	add_attack_logs(A, D, "Melee attacked with blue-art [src] : Pressure", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/bscqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -36,7 +36,7 @@
 		return TRUE
 	var/obj/item/grab/G = D.grabbedby(A, 1)
 	if(G)
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : grabbed", ATKLOG_ALL)
+		add_attack_logs(A, D, "Melee attacked with blue-art [src] : grabbed", ATKLOG_ALL)
 
 	return TRUE
 
@@ -46,7 +46,7 @@
 	add_to_streak("H", D)
 	if(check_streak(A, D))
 		return TRUE
-	add_attack_logs(A, D, "Melee attacked with martial-art [src]", ATKLOG_ALL)
+	add_attack_logs(A, D, "Melee attacked with blue-art [src]", ATKLOG_ALL)
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("kicks","neck chopped", "gut punched", "Big Bossed")
 	var/bonus_damage = 0
@@ -60,14 +60,14 @@
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
-	add_attack_logs(A, D, "Melee attacked with martial-art [src] : [picked_hit_type]", ATKLOG_ALL)
+	add_attack_logs(A, D, "Melee attacked with blue-art [src] : [picked_hit_type]", ATKLOG_ALL)
 	if(A.resting && !D.stat && !D.weakened)
 		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
 							"<span class='userdanger'>[A] leg sweeps you!</span>")
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 		D.apply_damage(5, BRUTE)
 		D.Weaken(3)
-		add_attack_logs(A, D, "Melee attacked with martial-art [src] : Leg sweep", ATKLOG_ALL)
+		add_attack_logs(A, D, "Melee attacked with blue-art [src] : Leg sweep", ATKLOG_ALL)
 	return TRUE
 
 /datum/martial_art/bscqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -93,7 +93,7 @@
 		D.visible_message("<span class='danger'>[A] attempted to disarm [D]!</span>", "<span class='userdanger'>[A] attempted to disarm [D]!</span>")
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 
-	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
+	add_attack_logs(A, D, "Melee attacked with blue-art [src] : Disarmed [I ? " grabbing \the [I]" : ""]", ATKLOG_ALL)
 	return TRUE
 
 /mob/living/carbon/human/proc/BSCQC_help()
