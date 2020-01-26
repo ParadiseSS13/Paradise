@@ -31,6 +31,18 @@
 	if(buckled_mobs.len)
 		return TRUE
 
+/atom/movable/attack_robot(mob/living/user)
+	. = ..()
+	if(can_buckle && has_buckled_mobs() && Adjacent(user)) // attack_robot is called on all ranges, so the Adjacent check is needed
+		if(buckled_mobs.len > 1)
+			var/unbuckled = input(user, "Who do you wish to unbuckle?", "Unbuckle Who?") as null|mob in buckled_mobs
+			if(user_unbuckle_mob(unbuckled,user))
+				return 1
+		else
+			if(user_unbuckle_mob(buckled_mobs[1], user))
+				return 1
+
+
 //procs that handle the actual buckling and unbuckling
 /atom/movable/proc/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!buckled_mobs)
