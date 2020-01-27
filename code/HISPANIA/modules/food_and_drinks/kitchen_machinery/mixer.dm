@@ -2,15 +2,15 @@
 /obj/machinery/kitchen_machine/mixer
 	name = "mixer"
 	desc = "A high-speed mixer."
-	icon = 'icons/obj/cooking_machines.dmi'
-	icon_state = "candymaker_off"
+	icon = 'icons/HISPANIA/obj/cooking_machines.dmi'
+	icon_state = "mixer_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")
 	recipe_type = RECIPE_CANDY
-	off_icon = "candymaker_off"
-	on_icon = "candymaker_on"
-	broken_icon = "candymaker_broke"
-	dirty_icon = "candymaker_dirty"
-	open_icon = "candymaker_open"
+	off_icon = "mixer_off"
+	on_icon = "mixer_on"
+	broken_icon = "mixer_broke"
+	dirty_icon = "mixer_dirty"
+	open_icon = "mixer_open"
 
 // see code/modules/food/recipes_candy.dm for recipes
 
