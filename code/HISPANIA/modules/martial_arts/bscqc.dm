@@ -23,7 +23,7 @@
 	if(!can_use(A))
 		return FALSE
 	D.visible_message("<span class='warning'>[A] forces their arm on [D]'s neck!</span>")
-	D.adjustStaminaLoss(35)
+	D.adjustStaminaLoss(34)
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	add_attack_logs(A, D, "Melee attacked with blue-art [src] : Pressure", ATKLOG_ALL)
 	return TRUE
