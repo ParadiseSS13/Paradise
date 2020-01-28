@@ -42,7 +42,7 @@
 		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
 		do_break()
 		return TRUE
-	else if(access_brig in user.get_access())
+	else if(ACCESS_BRIG in user.get_access())
 		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
 		locked = FALSE
 		flags &= ~NODROP

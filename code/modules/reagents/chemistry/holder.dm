@@ -1,5 +1,3 @@
-var/const/TOUCH = 1
-var/const/INGEST = 2
 #define ADDICTION_TIME 4800 //8 minutes
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -558,7 +556,7 @@ var/const/INGEST = 2
 			can_process = 1
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1)
+/datum/reagents/proc/reaction(atom/A, method = REAGENT_TOUCH, volume_modifier = 1)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -571,7 +569,7 @@ var/const/INGEST = 2
 
 	if(react_type == "LIVING" && ishuman(A))
 		var/mob/living/carbon/human/H = A
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			var/obj/item/organ/external/head/affecting = H.get_organ("head")
 			if(affecting)
 				if(chem_temp > H.dna.species.heat_level_1)
@@ -587,7 +585,7 @@ var/const/INGEST = 2
 						H.emote("scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
 
-		if(method == INGEST)
+		if(method == REAGENT_INGEST)
 			if(chem_temp > H.dna.species.heat_level_1)
 				to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
 				H.adjustFireLoss(7)

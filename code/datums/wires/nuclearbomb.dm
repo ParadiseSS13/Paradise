@@ -3,9 +3,9 @@
 	random = 1
 	wire_count = 7
 
-var/const/NUCLEARBOMB_WIRE_LIGHT		= 1
-var/const/NUCLEARBOMB_WIRE_TIMING		= 2
-var/const/NUCLEARBOMB_WIRE_SAFETY		= 4
+#define NUCLEARBOMB_WIRE_LIGHT 1
+#define NUCLEARBOMB_WIRE_TIMING 2
+#define NUCLEARBOMB_WIRE_SAFETY 4
 
 /datum/wires/nuclearbomb/GetWireName(index)
 	switch(index)

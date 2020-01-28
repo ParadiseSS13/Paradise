@@ -36,7 +36,7 @@
 		if(WT.remove_fuel(0,user))
 
 			if(mineralType == "plasma")
-				atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 5)
+				atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5)
 				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
 									"<span class='warning'>You set the plasma tiles on fire!</span>")
 				message_admins("Plasma tiles ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)

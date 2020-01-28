@@ -23,7 +23,7 @@
 	if(istype(target) && reagents.total_volume >= 5)
 		user.visible_message("<span class='warning'>[target] has been splashed with something by [user]!</span>")
 		spawn(5)
-			reagents.reaction(target, TOUCH)
+			reagents.reaction(target, REAGENT_TOUCH)
 			reagents.remove_any(5)
 	else
 		return ..()

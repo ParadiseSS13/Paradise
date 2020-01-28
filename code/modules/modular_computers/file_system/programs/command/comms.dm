@@ -3,7 +3,7 @@
 	filedesc = "Command and communications"
 	program_icon_state = "comm"
 	extended_desc = "Used to command and control the station. Can relay long-range communications. This program can not be run on tablet computers."
-	required_access = access_heads
+	required_access = ACCESS_HEADS
 	requires_ntnet = 1
 	size = 12
 	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
@@ -175,10 +175,10 @@
 			return
 
 		var/list/access = usr.get_access()
-		if(access_heads in access)
+		if(ACCESS_HEADS in access)
 			authenticated = COMM_AUTHENTICATION_MIN
 
-		if(access_captain in access)
+		if(ACCESS_CAPTAIN in access)
 			authenticated = COMM_AUTHENTICATION_MAX
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id = H.get_idcard(TRUE)
@@ -221,7 +221,7 @@
 					var/obj/item/pda/pda = I
 					I = pda.id
 				if(I && istype(I))
-					if(access_captain in I.access)
+					if(ACCESS_CAPTAIN in I.access)
 						change_security_level(usr, text2num(href_list["level"]))
 					else
 						to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")

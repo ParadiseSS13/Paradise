@@ -65,7 +65,7 @@ var/list/robot_verbs_default = list(
 
 	var/wiresexposed = 0
 	var/locked = 1
-	var/list/req_one_access = list(access_robotics)
+	var/list/req_one_access = list(ACCESS_ROBOTICS)
 	var/list/req_access
 	var/ident = 0
 	//var/list/laws = list()
@@ -1301,7 +1301,7 @@ var/list/robot_verbs_default = list(
 	designation = "SpecOps"
 	lawupdate = 0
 	scrambledcodes = 1
-	req_one_access = list(access_cent_specops)
+	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1
@@ -1350,7 +1350,7 @@ var/list/robot_verbs_default = list(
 	designation = "ERT"
 	lawupdate = 0
 	scrambledcodes = 1
-	req_one_access = list(access_cent_specops)
+	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 
 	force_modules = list("Engineering", "Medical", "Security")

@@ -1549,7 +1549,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	//Check for weapons
 	if(judgebot.weaponscheck)
-		if(!idcard || !(access_weapons in idcard.access))
+		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
 			if(judgebot.check_for_weapons(l_hand))
 				threatcount += 4
 			if(judgebot.check_for_weapons(r_hand))

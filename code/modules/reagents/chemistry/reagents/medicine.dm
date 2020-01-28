@@ -28,8 +28,8 @@
 	taste_description = "antiseptic"
 
 	//makes you squeaky clean
-/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		M.germ_level -= min(volume*20, M.germ_level)
 
 /datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
@@ -184,13 +184,13 @@
 	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			M.adjustFireLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
-		if(method == INGEST)
+		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel sick...</span>")
@@ -211,14 +211,14 @@
 	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
 			M.emote("scream")
-		if(method == INGEST)
+		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
@@ -254,9 +254,9 @@
 	color = "#FFEBEB"
 	taste_description = "blood"
 
-/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, volume, show_message = 1)
+/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-1.5*volume)
 			M.adjustFireLoss(-1.5*volume)
 			if(show_message)
@@ -689,11 +689,11 @@
 		update_flags |= M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/medicine/strange_reagent/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
-	if(isanimal(M) && method == TOUCH)
+	if(isanimal(M) && method == REAGENT_TOUCH)
 		var/mob/living/simple_animal/SM = M
 		if(SM.sentience_type != revive_type) // No reviving Ash Drakes for you
 			return
@@ -703,7 +703,7 @@
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
-		if(method == INGEST || (method == TOUCH && prob(25)))
+		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					M.delayed_gib()

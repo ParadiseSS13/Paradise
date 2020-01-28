@@ -25,7 +25,7 @@
 	var/broken = FALSE
 	var/secure = FALSE	//set to true to enable ID locking
 	var/shocked = FALSE//is it shocking anyone that touches it?
-	req_access = list(access_eva)	//the ID needed if ID lock is enabled
+	req_access = list(ACCESS_EVA)	//the ID needed if ID lock is enabled
 	var/datum/wires/suitstorage/wires
 
 	var/uv = FALSE
@@ -55,7 +55,7 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/tank/jetpack/oxygen/captain
-	req_access = list(access_captain)
+	req_access = list(ACCESS_CAPTAIN)
 
 /obj/machinery/suit_storage_unit/captain/secure
 	secure = TRUE
@@ -65,7 +65,7 @@
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type    = /obj/item/clothing/mask/breath
 	magboots_type = /obj/item/clothing/shoes/magboots
-	req_access = list(access_engine_equip)
+	req_access = list(ACCESS_ENGINE_EQUIP)
 
 /obj/machinery/suit_storage_unit/engine/secure
 	secure = TRUE
@@ -75,7 +75,7 @@
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/advance
-	req_access = list(access_ce)
+	req_access = list(ACCESS_CE)
 
 /obj/machinery/suit_storage_unit/ce/secure
 	secure = TRUE
@@ -84,20 +84,20 @@
 	name = "security suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
-	req_access = list(access_security)
+	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/secure
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/security/pod_pilot
-	req_access = list(access_pilot)
+	req_access = list(ACCESS_PILOT)
 
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots
-	req_access = list(access_atmospherics)
+	req_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/atmos/secure
 	secure = TRUE
@@ -106,7 +106,7 @@
 	name = "mining suit storage unit"
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/mining
 	mask_type    = /obj/item/clothing/mask/breath
-	req_access = list(access_mining_station)
+	req_access = list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/mining/secure
 	secure = TRUE
@@ -115,12 +115,12 @@
 	name = "mining suit storage unit"
 	suit_type = /obj/item/clothing/suit/hooded/explorer
 	mask_type = /obj/item/clothing/mask/gas/explorer
-	req_access = list(access_mining_station)
+	req_access = list(ACCESS_MINING_STATION)
 
 /obj/machinery/suit_storage_unit/cmo
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/medical
 	mask_type    = /obj/item/clothing/mask/breath
-	req_access = list(access_cmo)
+	req_access = list(ACCESS_CMO)
 
 /obj/machinery/suit_storage_unit/cmo/secure
 	secure = TRUE
@@ -134,7 +134,7 @@
 	name = "clown suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/clown
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/clown
-	req_access = list(access_clown)
+	req_access = list(ACCESS_CLOWN)
 
 /obj/machinery/suit_storage_unit/clown/secure
 	secure = TRUE
@@ -143,7 +143,7 @@
 	name = "mime suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/mime
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/mime
-	req_access = list(access_mime)
+	req_access = list(ACCESS_MIME)
 
 /obj/machinery/suit_storage_unit/mime/secure
 	secure = TRUE
@@ -153,14 +153,14 @@
 	suit_type   	 = /obj/item/clothing/suit/space/hardsuit/syndi
 	mask_type    	= /obj/item/clothing/mask/gas/syndicate
 	storage_type 	= /obj/item/tank/jetpack/oxygen/harness
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
 /obj/machinery/suit_storage_unit/syndicate/secure
 	secure = TRUE
 
 /obj/machinery/suit_storage_unit/ert
-	req_access = list(access_cent_general)
+	req_access = list(ACCESS_CENT_GENERAL)
 
 /obj/machinery/suit_storage_unit/ert/command
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/commander
@@ -198,7 +198,7 @@
 /obj/machinery/suit_storage_unit/telecoms
 	mask_type    = /obj/item/clothing/mask/breath
 	storage_type = /obj/item/tank/jetpack/void
-	req_access = list(access_tcomsat)
+	req_access = list(ACCESS_TCOMSAT)
 
 /obj/machinery/suit_storage_unit/telecoms/secure
 	secure = TRUE
