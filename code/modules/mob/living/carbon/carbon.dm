@@ -318,7 +318,7 @@
 		to_chat(src, "<span class='danger'>You feel awfully bad!</span>")
 	for(var/obj/item/organ/external/LB in H.bodyparts)
 		if(LB.status & ORGAN_BROKEN)
-			to_chat(src, "<span class='danger'>You feel bones moving trough your body!</span>")
+			to_chat(src, "<span class='danger'>You feel a insane pain around one of yours bones. It must be broken...</span>")
 	if(staminaloss)
 		if(staminaloss > 30)
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
