@@ -787,7 +787,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			buckled.user_unbuckle_mob(src,src)
 			if(istype(I, /obj/item/restraints/handcuffs/cable))
 				playsound(loc, 'sound/effects/snap.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>As [src] manages to unbuckle It destroys [I] as well!</span>")
+				visible_message("<span class='danger'>As [src] manages to unbuckle... It destroys [I] as well!</span>")
 				handcuffed = null
 				update_handcuffed()
 		else
