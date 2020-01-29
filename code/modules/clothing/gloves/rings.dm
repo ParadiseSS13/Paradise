@@ -76,6 +76,7 @@
 	var/c = pick("white","blue","red")
 	name = "[c] plastic ring"
 	icon_state = "[c]ring"
+	..()
 
 // weird
 /obj/item/clothing/gloves/ring/glass

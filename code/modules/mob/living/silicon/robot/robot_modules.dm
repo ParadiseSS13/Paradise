@@ -28,6 +28,7 @@
 
 
 /obj/item/robot_module/New()
+	..()
 	modules += new /obj/item/flash/cyborg(src)
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
@@ -505,6 +506,7 @@
 	)
 
 /obj/item/robot_module/alien/hunter/New()
+	..()
 	modules += new /obj/item/melee/energy/alien/claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
@@ -538,6 +540,7 @@
 		)
 
 /obj/item/robot_module/drone/New()
+	..()
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/screwdriver/cyborg(src)
 	modules += new /obj/item/wrench/cyborg(src)

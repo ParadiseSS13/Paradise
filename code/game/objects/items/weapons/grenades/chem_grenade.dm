@@ -26,6 +26,7 @@
 	var/cores = "" // Also for logging
 
 /obj/item/grenade/chem_grenade/New()
+	..()
 	create_reagents(1000)
 	if(payload_name)
 		payload_name += " " // formatting, ignore me

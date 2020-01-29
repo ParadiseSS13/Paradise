@@ -119,6 +119,7 @@
 	var/hacked = 0
 
 /obj/item/melee/energy/sword/New()
+	..()
 	if(item_color == null)
 		item_color = pick("red", "blue", "green", "purple")
 
@@ -220,7 +221,7 @@
 	light_color = LIGHT_COLOR_RED
 
 /obj/item/melee/energy/sword/pirate/New()
-	return
+	..()
 
 /obj/item/melee/energy/blade
 	name = "energy blade"
