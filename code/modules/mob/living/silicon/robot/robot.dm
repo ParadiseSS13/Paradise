@@ -1363,7 +1363,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/deathsquad/New(loc)
 	..()
-	cell = new /obj/item/stock_parts/cell/hyper(src)
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 /mob/living/silicon/robot/deathsquad/init()
 	laws = new /datum/ai_laws/deathsquad
@@ -1416,7 +1416,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
 	..(loc)
-	cell = new /obj/item/stock_parts/cell/hyper(src)
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	var/rnum = rand(1,1000)
 	var/borgname = "ERT [rnum]"
 	name = borgname
