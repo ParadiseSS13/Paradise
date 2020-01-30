@@ -32,7 +32,7 @@
 	robust_searching = TRUE
 	search_objects = 3 //Ancient simplemob AI shitcode. This makes them ignore all other mobs.
 	del_on_death = TRUE
-	loot = list(/obj/effect/decal/cleanable/blood/gibs)
+	loot = list(/obj/effect/decal/cleanable/blood/gibs, /obj/item/reagent_containers/food/snacks/meat)
 	deathmessage = "is pulped into bugmash."
 
 	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
@@ -138,6 +138,7 @@
 	name = "grublunch"
 	wanted_objects = list() //They don't eat.
 	gold_core_spawnable = NO_SPAWN
+	loot = list(/obj/effect/decal/cleanable/blood/gibs)
 	var/growth = 0
 
 //Baby gutlunch
@@ -164,3 +165,12 @@
 	L.setDir(dir)
 	visible_message("<span class='notice'>[src] grows up into [L].</span>")
 	qdel(src)
+
+/mob/living/simple_animal/hostile/asteroid/gutlunch/random/Initialize(mapload)
+	. = ..()
+	if(prob(45))
+		new /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck(loc)
+		return INITIALIZE_HINT_QDEL
+	else
+		new /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen(loc)
+		return INITIALIZE_HINT_QDEL
