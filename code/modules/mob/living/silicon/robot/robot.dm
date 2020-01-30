@@ -1120,7 +1120,7 @@ var/list/robot_verbs_default = list(
 			if(!updating)
 				updating = 1
 				spawn(BORG_CAMERA_BUFFER)
-					if(oldLoc != src.loc)
+					if(camera && oldLoc != src.loc)
 						cameranet.updatePortableCamera(src.camera)
 					updating = 0
 	if(module)
