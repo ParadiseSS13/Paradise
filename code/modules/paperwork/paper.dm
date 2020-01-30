@@ -384,7 +384,7 @@
 
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 
-	if(is_hot(P))
+	if(P.is_hot())
 		if((CLUMSY in user.mutations) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")

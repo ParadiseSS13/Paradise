@@ -25,7 +25,7 @@
 	if(iswelder(W))
 		var/obj/item/weldingtool/WT = W
 
-		if(is_hot(W) && !mineralType)
+		if(W.is_hot() && !mineralType)
 			to_chat(user, "<span class='warning'>You can not reform this!</span>")
 			return
 

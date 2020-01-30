@@ -287,6 +287,9 @@ a {
 /obj/proc/CanAStarPass()
 	. = !density
 
+/obj/proc/is_hot()	//is this object hot and can ignite or heat stuff, and if yes at what temp
+	return 0
+
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 

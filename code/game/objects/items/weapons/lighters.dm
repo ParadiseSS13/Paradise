@@ -17,6 +17,11 @@
 	resistance_flags = FIRE_PROOF
 	var/lit = 0
 
+/obj/item/lighter/is_hot()
+	if(lit)
+		return 870
+	return 0
+
 /obj/item/lighter/zippo
 	name = "zippo lighter"
 	desc = "The zippo."
@@ -157,6 +162,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
+
+/obj/item/match/is_hot()
+	if(lit)
+		return 870
+	return 0
 
 /obj/item/match/process()
 	var/turf/location = get_turf(src)

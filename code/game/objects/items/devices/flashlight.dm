@@ -224,6 +224,11 @@
 		src.damtype = "fire"
 		START_PROCESSING(SSobj, src)
 
+/obj/item/flashlight/flare/is_hot()
+	if(on)
+		return 1870
+	return 0
+
 // GLOWSTICKS
 
 /obj/item/flashlight/flare/glowstick

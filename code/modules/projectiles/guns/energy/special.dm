@@ -188,6 +188,9 @@
 /obj/item/gun/energy/plasmacutter/update_icon()
 	return
 
+/obj/item/gun/energy/plasmacutter/is_hot()
+	return 3800
+
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"

@@ -76,6 +76,11 @@
 	add_fingerprint(user)
 	return
 
+/obj/item/melee/energy/is_hot()
+	if(active)
+		return 4100
+	return 0
+
 /obj/item/melee/energy/axe
 	name = "energy axe"
 	desc = "An energised battle axe."

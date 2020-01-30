@@ -363,6 +363,11 @@
 	user.visible_message("<span class='suicide'>[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return FIRELOSS
 
+/obj/item/weldingtool/is_hot()
+	if(isOn())
+		return 6270	//according to quick google search
+	return 0
+	
 /obj/item/weldingtool/proc/update_torch()
 	overlays.Cut()
 	if(welding)

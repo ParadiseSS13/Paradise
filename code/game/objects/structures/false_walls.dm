@@ -240,7 +240,7 @@
 	canSmoothWith = list(/obj/structure/falsewall/plasma, /turf/simulated/wall/mineral/plasma, /turf/simulated/wall/mineral/alien)
 
 /obj/structure/falsewall/plasma/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) > 300)
+	if(W.is_hot() > 300)
 		message_admins("Plasma falsewall ignited by [key_name_admin(user)] in [ADMIN_VERBOSEJMP(T)]")
 		log_game("Plasma falsewall ignited by [key_name(user)] in [AREACOORD(T)]")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")

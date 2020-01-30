@@ -1201,57 +1201,6 @@ var/global/list/common_tools = list(
 	if(istype(O, /obj/item/stack/cable_coil))
 		return 1
 	return 0
-
-/proc/is_hot(obj/item/W as obj)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/O = W
-		if(O.isOn())
-			return 2500
-		else
-			return 0
-	if(istype(W, /obj/item/lighter))
-		var/obj/item/lighter/O = W
-		if(O.lit)
-			return 1500
-		else
-			return 0
-	if(istype(W, /obj/item/match))
-		var/obj/item/match/O = W
-		if(O.lit == 1)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/clothing/mask/cigarette))
-		var/obj/item/clothing/mask/cigarette/O = W
-		if(O.lit)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/candle))
-		var/obj/item/candle/O = W
-		if(O.lit)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/flashlight/flare))
-		var/obj/item/flashlight/flare/O = W
-		if(O.on)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/gun/energy/plasmacutter))
-		return 3800
-	if(istype(W, /obj/item/melee/energy))
-		var/obj/item/melee/energy/O = W
-		if(O.active)
-			return 3500
-		else
-			return 0
-	if(istype(W, /obj/item/assembly/igniter))
-		return 20000
-	else
-		return 0
-
 //Whether or not the given item counts as sharp in terms of dealing damage
 /proc/is_sharp(obj/O)
 	if(!O)

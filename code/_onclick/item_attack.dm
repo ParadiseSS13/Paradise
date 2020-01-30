@@ -12,9 +12,9 @@
 	return
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
-	if(is_hot(src) && A.reagents && !ismob(A))
+	if(is_hot() && A.reagents && !ismob(A))
 		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
-		A.reagents.temperature_reagents(is_hot(src))
+		A.reagents.temperature_reagents(src.is_hot(), A.reagents.total_volume)	//higher volume means you heat it less
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment

@@ -54,6 +54,10 @@
 		return
 	return ..()
 
+/obj/item/candle/is_hot()
+	if(lit)
+		return 1270
+	return 0
 
 /obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)

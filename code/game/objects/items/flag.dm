@@ -12,7 +12,7 @@
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
 	. = ..()
-	if(is_hot(W) && !(resistance_flags & ON_FIRE))
+	if(W.is_hot() && !(resistance_flags & ON_FIRE))
 		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
 		fire_act()
 
@@ -254,7 +254,7 @@
 		return ..()
 
 /obj/item/flag/chameleon/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
+	if(W.is_hot() && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		message_admins("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
