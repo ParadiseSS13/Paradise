@@ -1308,35 +1308,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	group = supply_materials
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk", "Atmospherics"))
 
-
-/datum/supply_packs/materials/metal50
-	name = "50 Metal Sheets Crate"
-	contains = list(/obj/item/stack/sheet/metal)
-	amount = 50
-	cost = 10
-	containername = "metal sheets crate"
-
-/datum/supply_packs/materials/plasteel20
-	name = "20 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
-	amount = 20
-	cost = 30
-	containername = "plasteel sheets crate"
-
-/datum/supply_packs/materials/plasteel50
-	name = "50 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
-	amount = 50
-	cost = 50
-	containername = "plasteel sheets crate"
-
-/datum/supply_packs/materials/glass50
-	name = "50 Glass Sheets Crate"
-	contains = list(/obj/item/stack/sheet/glass)
-	amount = 50
-	cost = 10
-	containername = "glass sheets crate"
-
 /datum/supply_packs/materials/wood30
 	name = "30 Wood Planks Crate"
 	contains = list(/obj/item/stack/sheet/wood)
