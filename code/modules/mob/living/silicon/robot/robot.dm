@@ -275,6 +275,7 @@ var/list/robot_verbs_default = list(
 //Improved /N
 /mob/living/silicon/robot/Destroy()
 	if(shell)
+		undeploy()
 		revert_shell()
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
