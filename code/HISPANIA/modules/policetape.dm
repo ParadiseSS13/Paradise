@@ -7,6 +7,7 @@
 	var/turf/end
 	var/tape_type = /obj/item/tape
 	var/icon_base = "tape"
+	var/maxlengths = 6
 
 	var/apply_tape = FALSE
 
@@ -128,7 +129,15 @@ var/list/tape_roll_applications = list()
 			update_icon()
 			to_chat(usr, "<span class='notice'>\The [src] can only be laid horizontally or vertically.</span>")
 			return
-
+		var/cordx = abs(end.x -  start.x)
+		var/cordy = abs(end.y -  start.y)
+		if(cordx > maxlengths  || cordy > maxlengths)
+			cordx = null
+			cordy = null
+			start = null
+			update_icon()
+			to_chat(usr, "<span class='notice'>You can't run \the [src] more than 6 tiles!</span>")
+			return
 		if(start == end)
 			// spread tape in all directions, provided there is a wall/window
 			var/turf/T
@@ -223,6 +232,8 @@ var/list/tape_roll_applications = list()
 			if(cur == end)
 				break
 			cur = get_step_towards(cur,end)
+		cordx = null
+		cordy = null
 		start = null
 		update_icon()
 		to_chat(usr, "<span class='notice'>You finish placing \the [src].</span>")
