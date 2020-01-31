@@ -62,6 +62,4 @@
 	ME.attach(src)
 
 /obj/mecha/combat/gygax/dark/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
-	cell.charge = 30000
-	cell.maxcharge = 30000
+	cell = new /obj/item/stock_parts/cell/hyper(src)

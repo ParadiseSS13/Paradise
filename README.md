@@ -8,7 +8,7 @@
 [![forthebadge](http://forthebadge.com/images/badges/contains-technical-debt.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/fuck-it-ship-it.svg)](http://forthebadge.com)
 
-[Website](https://nanotrasen.se/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/YJDsXFE)
+[Website](https://www.paradisestation.org/) - [Code](https://github.com/ParadiseSS13/Paradise) - [Discord](https://discordapp.com/invite/YJDsXFE)
 
 ---
 
@@ -104,7 +104,7 @@ Your server details go in /config/dbconfig.txt,
 and the SQL schema is in /SQL/paradise_schema.sql or /SQL/paradise_schema_prefix.sql,
 depending on if you want table prefixes.  
 More detailed setup instructions are located on our wiki:
-https://nanotrasen.se/wiki/index.php/Setting_up_the_Database
+https://www.paradisestation.org/wiki/index.php/Setting_up_the_Database
 
 ---
 

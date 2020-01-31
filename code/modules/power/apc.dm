@@ -30,6 +30,11 @@
 
 #define APC_UPDATE_ICON_COOLDOWN 200 // 20 seconds
 
+// APC malf status
+#define APC_MALF_NOT_HACKED 1
+#define APC_MALF_HACKED 2 // APC hacked by user, and user is in its core.
+#define APC_MALF_SHUNTED_HERE 3 // User is shunted in this APC
+#define APC_MALF_SHUNTED_OTHER 4 // User is shunted in another APC
 
 // the Area Power Controller (APC), formerly Power Distribution Unit (PDU)
 // one per area, needs wire conection to power network through a terminal
@@ -205,7 +210,7 @@
 	has_electronics = 2 //installed and secured
 	// is starting with a power cell installed, create it and set its charge level
 	if(cell_type)
-		cell = new/obj/item/stock_parts/cell(src)
+		cell = new/obj/item/stock_parts/cell/upgraded(src)
 		cell.maxcharge = cell_type	// cell_type is maximum charge (old default was 1000 or 2500 (values one and two respectively)
 		cell.charge = start_charge * cell.maxcharge / 100 		// (convert percentage to actual value)
 
@@ -749,18 +754,22 @@
 
 
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
-	if(istype(malf) && malf.mind.has_antag_datum(/datum/antagonist/traitor))
-		if(malfai == (malf.parent || malf))
-			if(occupier == malf)
-				return 3 // 3 = User is shunted in this APC
-			else if(istype(malf.loc, /obj/machinery/power/apc))
-				return 4 // 4 = User is shunted in another APC
-			else
-				return 2 // 2 = APC hacked by user, and user is in its core.
+	if(!istype(malf))
+		return FALSE
+	
+	// Only if they're a traitor OR they have the malf picker from the combat module
+	if(!malf.mind.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
+		return FALSE
+	
+	if(malfai == (malf.parent || malf))
+		if(occupier == malf)
+			return APC_MALF_SHUNTED_HERE
+		else if(istype(malf.loc, /obj/machinery/power/apc))
+			return APC_MALF_SHUNTED_OTHER
 		else
-			return 1 // 1 = APC not hacked.
+			return APC_MALF_HACKED
 	else
-		return 0 // 0 = User is not a Malf AI
+		return APC_MALF_NOT_HACKED
 
 /obj/machinery/power/apc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	if(!user)
@@ -1008,7 +1017,7 @@
 /obj/machinery/power/apc/proc/malfhack(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return
-	if(get_malf_status(malf) != 1)
+	if(get_malf_status(malf) != APC_MALF_NOT_HACKED)
 		return
 	if(malf.malfhacking)
 		to_chat(malf, "You are already hacking an APC.")

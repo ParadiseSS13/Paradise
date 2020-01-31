@@ -17,8 +17,7 @@
 
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/hyper(src)
 
 /mob/living/silicon/robot/syndicate/init()
 	laws = new /datum/ai_laws/syndicate_override

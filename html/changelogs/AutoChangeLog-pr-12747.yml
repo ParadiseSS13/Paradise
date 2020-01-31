@@ -1,0 +1,5 @@
+author: "Cazdon"
+delete-after: True
+changes: 
+  - bugfix: "Admin Roles no longer appear on manifest."
+  - tweak: "Central Command PDA's no longer appear on the messenger list."

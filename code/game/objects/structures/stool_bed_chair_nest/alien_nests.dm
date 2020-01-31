@@ -8,6 +8,7 @@
 	max_integrity = 120
 	var/image/nest_overlay
 	comfort = 0
+	flags = NODECONSTRUCT
 
 /obj/structure/bed/nest/New()
 	nest_overlay = image('icons/mob/alien.dmi', "nestoverlay", layer=MOB_LAYER - 0.2)
