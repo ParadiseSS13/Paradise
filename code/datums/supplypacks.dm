@@ -79,11 +79,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/emergency/evac
 	name = "Emergency Equipment Crate"
-	contains = list(/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
-					/obj/item/tank/air,
+	contains = list(/obj/item/tank/air,
 					/obj/item/tank/air,
 					/obj/item/tank/air,
 					/obj/item/tank/air,
@@ -95,7 +91,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/mask/gas,
 					/obj/item/grenade/gas/oxygen,
 					/obj/item/grenade/gas/oxygen)
-	cost = 35
+	cost = 40
 	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
 	group = supply_emergency
@@ -550,10 +546,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Toolbox Crate"
 	contains = list(/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical)
+					/obj/item/storage/toolbox/electrical)
 	cost = 10
 	containername = "electrical maintenance crate"
 
