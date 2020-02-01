@@ -21,11 +21,11 @@
 	materials = list(MAT_METAL=1750, MAT_GLASS=400)
 	flash_protect = 2
 	tint = 2
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 60)
 	flags_inv = (HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE)
 	actions_types = list(/datum/action/item_action/toggle)
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/head.dmi',
@@ -91,6 +91,7 @@
 	desc = "It's tasty looking!"
 	icon_state = "cake0"
 	flags_cover = HEADCOVERSEYES
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	var/onfire = 0.0
 	var/status = 0
 	var/fire_resist = T0C+1300	//this is the max temp it can stand before you start to cook. although it might not burn away, you take damage
@@ -164,11 +165,12 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
+
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/species/grey/head.dmi'
 	)
 
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	brightness_on = 2 //luminosity when on
 
 
@@ -179,7 +181,7 @@
 	item_state = "hardhat0_reindeer"
 	item_color = "reindeer"
 	flags_inv = 0
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	brightness_on = 1 //luminosity when on
 	dog_fashion = /datum/dog_fashion/head/reindeer
 

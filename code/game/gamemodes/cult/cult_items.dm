@@ -67,7 +67,7 @@
 	desc = "A hood worn by the followers of a cult."
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 
@@ -85,7 +85,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
-	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
@@ -101,7 +101,7 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list(melee = 30, bullet = 30, laser = 30, energy = 20, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 50, "bullet" = 30, "laser" = 50, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 
 /obj/item/clothing/suit/magusred
 	name = "magus robes"
@@ -110,7 +110,7 @@
 	item_state = "magusred"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
-	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
+	armor = list("melee" = 50, "bullet" = 30, "laser" = 50, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
 /obj/item/clothing/head/helmet/space/cult
@@ -118,7 +118,7 @@
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -128,7 +128,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade,/obj/item/tank)
 	slowdown = 1
-	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robe"
@@ -136,7 +136,7 @@
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
+	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	var/current_charges = 3
@@ -146,7 +146,7 @@
 	name = "empowered cultist robe"
 	desc = "Empowered garb which creates a powerful shield around the user."
 	icon_state = "cult_hoodalt"
-	armor = list(melee = 50, bullet = 40, laser = 50, energy = 30, bomb = 50, bio = 30, rad = 30)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	body_parts_covered = HEAD
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
@@ -179,7 +179,7 @@
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	armor = list(melee = -50, bullet = -50, laser = -100, energy = -50, bomb = -50, bio = -50, rad = -50)
+	armor = list("melee" = -45, "bullet" = -45, "laser" = -45,"energy" = -45, "bomb" = -45, "bio" = -45, "rad" = -45, "fire" = 0, "acid" = 0)
 	slowdown = -1
 	hoodtype = /obj/item/clothing/head/hooded/berserkerhood
 
@@ -190,7 +190,7 @@
 	icon_state = "culthood"
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = -100, bullet = -100, laser = -100, energy = -100, bomb = -100, bio = -100, rad = -100)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"
@@ -358,7 +358,7 @@
 	item_state = "cultrobesalt"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
-	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0)
+	armor = list(melee = 50, bullet = 30, laser = 50, energy = 20, bomb = 25, bio = 10, rad = 0, fire = 10, acid = 10)
 	flags_inv = HIDEJUMPSUIT
 
 	flags = NODROP | DROPDEL

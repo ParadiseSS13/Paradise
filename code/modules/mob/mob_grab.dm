@@ -106,7 +106,7 @@
 		assailant.client.screen -= hud
 		assailant.client.screen += hud
 
-	var/hit_zone = assailant.zone_sel.selecting
+	var/hit_zone = assailant.zone_selected
 	last_hit_zone = hit_zone
 
 	if(assailant.pulling == affecting)
@@ -139,8 +139,9 @@
 			hud.icon_state = "!reinforce"
 
 	if(state >= GRAB_AGGRESSIVE)
-		affecting.drop_r_hand()
-		affecting.drop_l_hand()
+		if(!HAS_TRAIT(assailant, TRAIT_PACIFISM))
+			affecting.drop_r_hand()
+			affecting.drop_l_hand()
 
 
 		//var/announce = 0
@@ -234,6 +235,9 @@
 
 /obj/item/grab/proc/s_click(obj/screen/S)
 	if(!affecting)
+		return
+	if(state >= GRAB_AGGRESSIVE && HAS_TRAIT(assailant, TRAIT_PACIFISM))
+		to_chat(assailant, "<span class='warning'>You don't want to risk hurting [affecting]!</span>")
 		return
 	if(state == GRAB_UPGRADING)
 		return

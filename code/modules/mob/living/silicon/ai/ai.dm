@@ -561,11 +561,12 @@ var/list/ai_verbs_default = list(
 	user.reset_perspective(current)
 	return TRUE
 
-/mob/living/silicon/ai/blob_act()
-	if(stat != 2)
+/mob/living/silicon/ai/blob_act(obj/structure/blob/B)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
-		return TRUE
-	return FALSE
+		updatehealth()
+		return 1
+	return 0
 
 /mob/living/silicon/ai/restrained()
 	return FALSE

@@ -56,6 +56,12 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	invisibility = INVISIBILITY_OBSERVER
 	var/mob/living/carbon/target = null
 
+/obj/effect/hallucination/singularity_pull()
+	return
+
+/obj/effect/hallucination/singularity_act()
+	return
+
 /obj/effect/hallucination/proc/wake_and_restore()
 	target.hal_screwyhud = SCREWYHUD_NONE
 	target.SetSleeping(0)

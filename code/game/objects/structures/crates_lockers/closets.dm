@@ -1,17 +1,18 @@
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
-	icon = 'icons/obj/closet.dmi'
+	icon = 'icons/hispania/obj/closet.dmi'
 	icon_state = "closed"
 	density = 1
-	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0)
+	max_integrity = 200
+	integrity_failure = 50
+	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
 	var/icon_closed = "closed"
 	var/icon_opened = "open"
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
 	var/wall_mounted = 0 //never solid (You can always pass over it)
-	var/health = 100
 	var/lastbang
 	var/cutting_tool = /obj/item/weldingtool
 	var/sound = 'sound/machines/click.ogg'
@@ -19,6 +20,7 @@
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
+	drag_slowdown = 1.5
 
 /obj/structure/closet/New()
 	..()
@@ -124,48 +126,20 @@
 	if(!(opened ? close() : open()))
 		to_chat(user, "<span class='notice'>It won't budge!</span>")
 
-/obj/structure/closet/ex_act(severity)
-	switch(severity)
-		if(1)
-			for(var/atom/movable/A in src)//pulls everything out of the locker and hits it with an explosion
-				A.ex_act(severity++)
-			dump_contents()
-			qdel(src)
-		if(2)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.ex_act(severity++)
-				dump_contents()
-				new /obj/item/stack/sheet/metal(loc)
-				qdel(src)
-		if(3)
-			if(prob(5))
-				for(var/atom/movable/A in src)
-					A.ex_act(severity++)
-				dump_contents()
-				new /obj/item/stack/sheet/metal(loc)
-				qdel(src)
+/obj/structure/closet/proc/bust_open()
+	welded = FALSE //applies to all lockers
+	locked = FALSE //applies to critter crates and secure lockers only
+	broken = TRUE //applies to secure lockers only
+	open()
 
-/obj/structure/closet/bullet_act(var/obj/item/projectile/Proj)
-	..()
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		health -= Proj.damage
-		if(health <= 0)
-			dump_contents()
-			qdel(src)
+/obj/structure/closet/deconstruct(disassembled = TRUE)
+	if(ispath(material_drop) && material_drop_amount && !(flags & NODECONSTRUCT))
+		new material_drop(loc, material_drop_amount)
+	qdel(src)
 
-/obj/structure/closet/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='warning'>[user] destroys the [src].</span>")
-		dump_contents()
-		qdel(src)
-
-// this should probably use dump_contents()
-/obj/structure/closet/blob_act()
-	if(prob(75))
-		dump_contents()
-		qdel(src)
+/obj/structure/closet/obj_break(damage_flag)
+	if(!broken && !(flags & NODECONSTRUCT))
+		bust_open()
 
 /obj/structure/closet/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/rcs) && !opened)
@@ -240,6 +214,7 @@
 		else
 			to_chat(user, "<span class='warning'>Out of charges.</span>")
 			return
+		return
 
 	if(opened)
 		if(istype(W, /obj/item/grab))
@@ -260,9 +235,7 @@
 					visible_message("<span class='notice'>[user] slices apart \the [src].</span>",
 									"<span class='notice'>You cut \the [src] apart with \the [WT].</span>",
 									"<span class='italics'>You hear welding.</span>")
-					var/turf/T = get_turf(src)
-					new material_drop(T, material_drop_amount)
-					qdel(src)
+					deconstruct(TRUE)
 				return
 		if(isrobot(user))
 			return
@@ -287,8 +260,10 @@
 		update_icon()
 		for(var/mob/M in viewers(src))
 			M.show_message("<span class='warning'>[src] has been [welded?"welded shut":"unwelded"] by [user.name].</span>", 3, "You hear welding.", 2)
-	else
+	else if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
+	else
+		return ..()
 
 /obj/structure/closet/MouseDrop_T(atom/movable/O, mob/user)
 	..()
@@ -296,7 +271,7 @@
 		return
 	if(O.loc == user)
 		return
-	if(user.restrained() || user.stat || user.weakened || user.stunned || user.paralysis || user.lying)
+	if(user.restrained() || user.stat || user.IsWeakened() || user.stunned || user.paralysis || user.lying)
 		return
 	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
@@ -425,6 +400,16 @@
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 1)
 
+/obj/structure/closet/ex_act(severity)
+	for(var/atom/A in contents)
+		A.ex_act(severity)
+		CHECK_TICK
+	..()
+
+/obj/structure/closet/singularity_act()
+	dump_contents()
+	..()
+
 /obj/structure/closet/AllowDrop()
 	return TRUE
 
@@ -437,6 +422,7 @@
 	icon_opened = "bluespaceopen"
 	storage_capacity = 60
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
+	drag_slowdown = 0
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)
 	UpdateTransparency(AM, loc)

@@ -8,7 +8,7 @@
 	icon_opened = "fireaxe1100"
 	anchored = TRUE
 	density = FALSE
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 10, bio = 100, rad = 100)
+	armor = list("melee" = 50, "bullet" = 20, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 50)
 	var/localopened = FALSE //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
 	opened = TRUE
 	var/hitstaken = FALSE
@@ -104,7 +104,7 @@
 			user.put_in_hands(fireaxe)
 			to_chat(user, "<span class='notice'>You take \the [fireaxe] from the [src].</span>")
 			fireaxe = null
-			
+
 			add_fingerprint(user)
 			update_icon()
 		else
@@ -179,13 +179,13 @@
 /obj/structure/closet/fireaxecabinet/proc/update_icon_opening()
 	var/hasaxe = fireaxe != null
 	icon_state = "fireaxe[hasaxe][localopened][hitstaken][smashed]opening"
-	spawn(10) 
+	spawn(10)
 		update_icon()
 
 /obj/structure/closet/fireaxecabinet/proc/update_icon_closing()
 	var/hasaxe = fireaxe != null
 	icon_state = "fireaxe[hasaxe][localopened][hitstaken][smashed]closing"
-	spawn(10) 
+	spawn(10)
 		update_icon()
 
 /obj/structure/closet/fireaxecabinet/update_icon() //Template: fireaxe[has fireaxe][is opened][hits taken][is smashed]. If you want the opening or closing animations, add "opening" or "closing" right after the numbers

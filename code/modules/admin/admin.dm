@@ -100,8 +100,10 @@ var/global/nologevent = 0
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
+		if(config.forum_playerinfo_url)
+			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
-		if(M.client.check_watchlist(M.client.ckey))
+		if(check_watchlist(M.client.ckey))
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
 			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 		else
@@ -702,7 +704,7 @@ var/global/nologevent = 0
 		return 1
 	else
 		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
-		return 
+		return
 
 /datum/admins/proc/toggleenter()
 	set category = "Server"
@@ -1090,28 +1092,3 @@ var/gamma_ship_location = 1 // 0 = station , 1 = space
 			continue
 		result[1]++
 	return result
-
-//Discord duplications
-/datum/admins/proc/discord_duplicates()
-	if(!usr.client.holder)
-		return
-	var/dat = "<html><head><title>Discord Duplicates</title></head>"
-	dat += "<body><p><i>Discord IDs with more than one ckey linked are shown below</i></i><table border=1 cellspacing=5><B><tr><th>Discord ID</th><th>CKEYs</th><th>Unlink</th></B>"
-	// If anyone reads this, I spent a whole 30 minutes writing just this fucking query. It is the messiest SQL statement I have ever written
-	// If anyone even thinks about touching this I will impale you on a railroad spike
-	// It hurts to wake up in the morning, -aa07
-	var/DBQuery/discord_ids = dbcon.NewQuery("SELECT a.* FROM [format_table_name("discord")] a JOIN (SELECT discord_id, ckey, COUNT(*) FROM [format_table_name("discord")] GROUP BY discord_id HAVING count(*) > 1 ) b ON a.discord_id = b.discord_id ORDER BY a.discord_id")
-	if(!discord_ids.Execute())
-		var/err = discord_ids.ErrorMsg()
-		log_game("SQL ERROR while selecting discord accounts. Error : \[[err]\]\n")
-		return
-	while(discord_ids.NextRow())
-		var/ckey = discord_ids.item[1]
-		var/id = discord_ids.item[2]
-		dat += "<tr><td><b>" + id + "</b></td>"
-		dat += "<td>" + ckey + "</td>"
-		dat += "<td><a href='?src=[UID()];force_discord_unlink=[ckey]'>Unlink</td></tr>"
-
-	dat += "</table></body></html>"
-
-	usr << browse(dat, "window=duplicates;size=500x480")

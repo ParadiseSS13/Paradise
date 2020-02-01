@@ -51,12 +51,13 @@ var/list/doppler_arrays = list()
 			power_change()
 			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
 		playsound(loc, I.usesound, 50, 1)
+		return
 	if(istype(I, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)
 		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())

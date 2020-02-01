@@ -7,7 +7,7 @@
 // -------------: AI: uses very powerful fangs to wreck people in melee
 // -------------: SPECIAL: the more you hurt it, the harder it bites you
 // -------------: TO FIGHT IT: shoot it from range. Kite it.
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/red
 	name = "Red Terror spider"
@@ -62,6 +62,6 @@
 
 
 /obj/structure/spider/terrorweb/red
-	health = 30
+	max_integrity = 30
 	name = "reinforced web"
 	desc = "This web is reinforced with extra strands, for added strength."

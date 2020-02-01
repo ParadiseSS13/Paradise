@@ -5,7 +5,7 @@
 	icon_state = "centcom"
 	desc = "It's good to be emperor."
 	item_state = "centhat"
-	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list("melee" = 30, "bullet" = 15, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	strip_delay = 80
 
 /obj/item/clothing/head/hairflower
@@ -305,13 +305,6 @@
 	flags = BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
-/obj/item/clothing/head/crown
-	name = "bananium crown"
-	icon_state = "crown"
-	item_state = "crown"
-	desc = "A gliterring bananium crown with spessjewels in it. Swaggy."
-
-
 /obj/item/clothing/head/fedora
 	name = "fedora"
 	desc = "Someone wearing this definitely makes them cool"
@@ -358,14 +351,14 @@
 	name = "officers beret"
 	desc = "A black beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer"
-	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/officer/navy
 	name = "navy blue officers beret"
 	desc = "A navy blue beret adorned with the shield—a silver kite shield with an engraved sword—of the Nanotrasen security forces, announcing to the world that the wearer is a defender of Nanotrasen."
 	icon_state = "beret_centcom_officer_navy"
-	armor = list(melee = 30, bullet = 25, laser = 25, energy = 10, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 40, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
 	strip_delay = 60
 
 /obj/item/clothing/head/beret/centcom/captain
@@ -407,7 +400,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("warned", "cautioned", "smashed")
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 
 /obj/item/clothing/head/jester
 	name = "jester hat"
@@ -479,7 +472,8 @@
 	name = "crown"
 	desc = "A crown fit for a king, a petty king maybe."
 	icon_state = "crown"
-	armor = list(melee = 15, bullet = 0, laser = 0, energy = 15, bomb = 0, bio = 0, rad = 0) //for a warrior king //energy cause gold is reflective //worse than sec helm overall
+	armor = list("melee" = 15, "bullet" = 0, "laser" = 0,"energy" = 15, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
 
 /obj/item/clothing/head/crown/fancy
 	name = "magnificent crown"

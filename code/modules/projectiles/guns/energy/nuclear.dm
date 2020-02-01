@@ -39,8 +39,8 @@
 /obj/item/gun/energy/gun/mini/New()
 	gun_light = new /obj/item/flashlight/seclite(src)
 	..()
-	power_supply.maxcharge = 600
-	power_supply.charge = 600
+	cell.maxcharge = 600
+	cell.charge = 600
 
 /obj/item/gun/energy/gun/mini/update_icon()
 	..()
@@ -55,6 +55,7 @@
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 4
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced stun revolver"

@@ -38,6 +38,7 @@
 	var/pressure_checks_default = PRESSURE_CHECKS
 
 	var/welded = 0 // Added for aliens -- TLE
+	var/weld_burst_pressure = 50 * ONE_ATMOSPHERE	//the (internal) pressure at which welded covers will burst off
 
 	var/frequency = ATMOS_VENTSCRUB
 	var/datum/radio_frequency/radio_connection
@@ -78,7 +79,7 @@
 	..()
 	air_contents.volume = 1000
 
-/obj/machinery/atmospherics/unary/vent_pump/update_icon(var/safety = 0)
+/obj/machinery/atmospherics/unary/vent_pump/update_icon(safety = 0)
 	..()
 
 	plane = FLOOR_PLANE
@@ -137,6 +138,12 @@
 		return 0
 
 	if(welded)
+		if(air_contents.return_pressure() >= weld_burst_pressure && prob(5))	//the weld is on but the cover is welded shut, can it withstand the internal pressure?
+			visible_message("<span class='danger'>The welded cover of [src] bursts open!</span>")
+			for(var/mob/M in range(1, src))
+				unsafe_pressure_release(M, air_contents.return_pressure())	//let's send everyone flying
+			welded = FALSE
+			update_icon()
 		return 0
 
 	var/datum/gas_mixture/environment = loc.return_air()
@@ -325,6 +332,16 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/can_crawl_through()
 	return !welded
+
+/obj/machinery/atmospherics/unary/vent_pump/attack_alien(mob/user)
+	if(!welded || !(do_after(user, 20, target = src)))
+		return
+	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the vent.</span>", "<span class='italics'>You hear loud scraping noises.</span>")
+	welded = FALSE
+	update_icon()
+	pipe_image = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
+	pipe_image.plane = ABOVE_HUD_PLANE
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/weldingtool))

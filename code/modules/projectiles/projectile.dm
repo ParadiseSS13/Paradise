@@ -3,14 +3,13 @@
 	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
 	density = 0
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	anchored = 1 //There's a reason this is here, Mport. God fucking damn it -Agouri. Find&Fix by Pete. The reason this is here is to stop the curving of emitter shots.
 	flags = ABSTRACT
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	hitsound = 'sound/weapons/pierce.ogg'
 	var/hitsound_wall = ""
-	burn_state = LAVA_PROOF
 	var/def_zone = ""	//Aiming at
 	var/mob/firer = null//Who shot it
 	var/obj/item/ammo_casing/ammo_casing = null
@@ -25,7 +24,7 @@
 	var/p_x = 16
 	var/p_y = 16 // the pixel location of the tile that the player clicked. Default is the center
 	var/speed = 1			//Amount of deciseconds it takes for projectile to travel
-	var/Angle = 0
+	var/Angle = null
 	var/spread = 0			//amount (in degrees) of projectile spread
 	var/legacy = FALSE			//legacy projectile system
 	animate_movement = 0
@@ -58,7 +57,7 @@
 	var/impact_effect_type //what type of impact effect to show when hitting something
 	var/ricochets = 0
 	var/ricochets_max = 2
-	var/ricochet_chance = 0
+	var/ricochet_chance = 30
 
 	var/log_override = FALSE //whether print to admin attack logs or just keep it in the diary
 
@@ -186,13 +185,13 @@
 
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max)
 		ricochets++
-	if(A.handle_ricochet(src))
-		on_ricochet(A)
-		ignore_source_check = TRUE
-		range = initial(range)
-		return TRUE
-	if(firer)
-		if(A == firer || (A == firer.loc && istype(A, /obj/mecha))) //cannot shoot yourself or your mech
+		if(A.handle_ricochet(src))
+			on_ricochet(A)
+			ignore_source_check = TRUE
+			range = initial(range)
+			return TRUE
+	if(firer && !ignore_source_check)
+		if(A == firer || (A == firer.loc && ismecha(A))) //cannot shoot yourself or your mech
 			loc = A.loc
 			return 0
 
@@ -241,8 +240,7 @@
 			if(!paused)
 				if((!( current ) || loc == current))
 					current = locate(Clamp(x+xo,1,world.maxx),Clamp(y+yo,1,world.maxy),z)
-
-				if(!Angle)
+				if(isnull(Angle))
 					Angle=round(Get_Angle(src,current))
 				if(spread)
 					Angle += (rand() - 0.5) * spread
@@ -303,6 +301,25 @@
 				Range()
 			sleep(1)
 
+obj/item/projectile/proc/reflect_back(atom/source, list/position_modifiers = list(0, 0, 0, 0, 0, -1, 1, -2, 2))
+	if(starting)
+		var/new_x = starting.x + pick(position_modifiers)
+		var/new_y = starting.y + pick(position_modifiers)
+		var/turf/curloc = get_turf(source)
+
+		if(ismob(source))
+			firer = source // The reflecting mob will be the new firer
+		else
+			firer = null // Reflected by something other than a mob so firer will be null
+		
+		// redirect the projectile
+		original = locate(new_x, new_y, z)
+		starting = curloc
+		current = curloc
+		yo = new_y - curloc.y
+		xo = new_x - curloc.x
+		Angle = null // Will be calculated in fire()
+
 obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile with a projectile is hit by it.
 	..()
 	if(isliving(AM) && AM.density && !checkpass(PASSMOB))
@@ -326,7 +343,7 @@ obj/item/projectile/Crossed(atom/movable/AM, oldloc) //A mob moving on a tile wi
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags_2 & CHECK_RICOCHET_1)
+	if(A.flags_2 & CHECK_RICOCHET_2)
 		return TRUE
 	return FALSE
 

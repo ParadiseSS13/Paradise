@@ -206,7 +206,7 @@
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.01
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 25, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 25, "rad" = 0, "fire" = 0, "acid" = 0)
 	actions_types = list(/datum/action/item_action/adjust)
 
 	sprite_sheets = list(
@@ -215,7 +215,7 @@
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi',
-		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		"Drask" = 'icons/mob/species/drask/mask.dmi'
 		)
 
 
@@ -496,7 +496,7 @@
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
 	item_state = "cclown_hat"
-	unacidable = 1 // HUNKE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	icon_override = 'icons/goonstation/mob/clothing/mask.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
