@@ -15,6 +15,40 @@
 	var/lastused = null
 	resistance_flags = FLAMMABLE
 
+//Eleccion de globo
+/obj/item/toy/balloon_H/attackby(obj/item/toy/crayon/C)
+	var/colour = C.colourName
+	if(colour == "blue")
+		name = "Blue Balloon"
+		desc = "It's a blue Da ba dee da ba daa."
+		icon_state = "balloon_blue"
+		item_state = "balloon_blue"
+		update_icon()
+	if(colour == "red")
+		name = "Balloon"
+		desc = "It's a red balloon."
+		icon_state = "balloon_red"
+		item_state = "balloon_red"
+		update_icon()
+	if(colour == "yellow")
+		name = "Yellow balloon"
+		desc = "It's a yellow balloon."
+		icon_state = "balloon_yellow"
+		item_state = "balloon_yellow"
+		update_icon()
+	if(colour == "green")
+		name = "Green balloon"
+		desc = "It's a green balloon."
+		icon_state = "balloon_green"
+		item_state = "balloon_green"
+		update_icon()
+	if(colour == "white")
+		name = "White Balloon"
+		desc = "It's a white balloon."
+		icon_state = "balloon_w"
+		item_state = "balloon_w"
+		update_icon()
+
 //Aviso al atacar
 /obj/item/toy/balloon_H/attack_self(mob/user)
 	if(world.time - lastused < CLICK_CD_MELEE)
@@ -58,7 +92,7 @@
 	desc = "Fat,Very fat"
 	icon_state = "Mballoon"
 	item_state = "Mballoon"
-	throw_range = 10
+	throw_range = 5
 
 /obj/item/toy/balloon_H/clown
 	name = "Clown balloon."

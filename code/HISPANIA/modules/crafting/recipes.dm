@@ -33,77 +33,53 @@
  ////////////////
 
 /datum/crafting_recipe/balloon
-	name = "Balloon"
+	name = "White balloon"
+	time = 10
 	result = /obj/item/toy/balloon_H
-	time = 40
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5)
-	category = CAT_MISC
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/balloonm
 	name = "Macdonalds balloon"
 	result = /obj/item/toy/balloon_H/m
-	time = 50
+	time = 15
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
 		        /obj/item/reagent_containers/food/snacks/monkeyburger = 1)
-	category = CAT_MISC
-
-/datum/crafting_recipe/balloonred
-	name = "Red balloon"
-	result = /obj/item/toy/balloon_H/red
-	time = 40
-	reqs = list(/obj/item/stack/sheet/plastic = 5,
-		        /obj/item/stack/cable_coil = 5)
-	category = CAT_MISC
-
-/datum/crafting_recipe/balloonyellow
-	name = "Yellow balloon"
-	result = /obj/item/toy/balloon_H/yellow
-	time = 40
-	reqs = list(/obj/item/stack/sheet/plastic = 5,
-		        /obj/item/stack/cable_coil = 5)
-	category = CAT_MISC
-
-/datum/crafting_recipe/balloongreen
-	name = "Green balloon"
-	result = /obj/item/toy/balloon_H/green
-	time = 40
-	reqs = list(/obj/item/stack/sheet/plastic = 5,
-		        /obj/item/stack/cable_coil = 5)
-	category = CAT_MISC
-
-/datum/crafting_recipe/balloonblue
-	name = "Blue ballon"
-	result = /obj/item/toy/balloon_H/blue
-	time = 40
-	reqs = list(/obj/item/stack/sheet/plastic = 5,
-		        /obj/item/stack/cable_coil = 5)
-	category = CAT_MISC
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/ballooncorgi
 	name = "Corgi balloon"
 	result = /obj/item/toy/balloon_H/corgi
-	time = 40
+
+	parts = list(/mob/living/simple_animal/pet/dog/corgi = 1)
+	time = 10
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
 		        /obj/item/reagent_containers/food/snacks/meat/corgi = 1)
-	category = CAT_MISC
+
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/balloonclown
 	name = "Clown balloon"
 	result = /obj/item/toy/balloon_H/clown
-	time = 40
+	time = 10
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
 		        /obj/item/stack/sheet/mineral/bananium = 1)
-	category = CAT_MISC
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
 
 /datum/crafting_recipe/balloonmime
 	name = "Mime balloon"
 	result = /obj/item/toy/balloon_H/mime
-	time = 40
+	time = 10
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
 		        /obj/item/stack/sheet/mineral/tranquillite = 1)
-	category = CAT_MISC
+	category = CAT_DECORATIONS
+	subcategory = CAT_HOLIDAY
