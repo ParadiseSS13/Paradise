@@ -5,15 +5,15 @@
 
 /datum/nano_module/alarm_monitor/all/New()
 	..()
-	alarm_handlers = list(atmosphere_alarm, burglar_alarm, camera_alarm, fire_alarm, motion_alarm, power_alarm)
+	alarm_handlers = list(SSalarms.atmosphere_alarm, SSalarms.burglar_alarm, SSalarms.camera_alarm, SSalarms.fire_alarm, SSalarms.motion_alarm, SSalarms.power_alarm)
 
 /datum/nano_module/alarm_monitor/engineering/New()
 	..()
-	alarm_handlers = list(atmosphere_alarm, fire_alarm, power_alarm)
+	alarm_handlers = list(SSalarms.atmosphere_alarm, SSalarms.fire_alarm, SSalarms.power_alarm)
 
 /datum/nano_module/alarm_monitor/security/New()
 	..()
-	alarm_handlers = list(burglar_alarm, camera_alarm, motion_alarm)
+	alarm_handlers = list(SSalarms.burglar_alarm, SSalarms.camera_alarm, SSalarms.motion_alarm)
 
 /datum/nano_module/alarm_monitor/proc/register(var/object, var/procName)
 	for(var/datum/alarm_handler/AH in alarm_handlers)

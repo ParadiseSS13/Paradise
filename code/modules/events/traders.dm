@@ -47,6 +47,7 @@ var/global/list/unused_trade_stations = list("sol")
 				M.equipOutfit(/datum/outfit/admin/sol_trader)
 				M.dna.species.after_equip_job(null, M)
 				M.mind.objectives += trader_objectives
+				M.mind.offstation_role = TRUE
 				greet_trader(M)
 				success_spawn = 1
 		if(success_spawn)

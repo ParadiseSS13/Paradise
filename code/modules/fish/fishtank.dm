@@ -369,7 +369,7 @@
 //////////////////////////////			Feel free to try cleaning it up if you think of a better way to do it.
 
 /obj/machinery/fishtank/examine(mob/user)
-	..(user)
+	. = ..()
 	var/examine_message = ""
 	//Approximate water level
 
@@ -474,8 +474,7 @@
 
 
 	//Finally, report the full examine_message constructed from the above reports
-	to_chat(user, "<span class='notice'>[examine_message]</span>")
-	return examine_message
+	. += "<span class='notice'>[examine_message]</span>"
 
 //////////////////////////////
 //		ATACK PROCS			//
@@ -534,11 +533,6 @@
 							"<span class='notice'>You tap on the [name].</span>", \
 							"You hear a knocking sound.")
 
-/obj/machinery/fishtank/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
-	. = ..()
-	if(.) //received damage
-		check_health()
-
 /obj/machinery/fishtank/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
@@ -547,7 +541,7 @@
 			else
 				playsound(src, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
-			playsound(src, 'sound/items/Welder.ogg', 100, 1)
+			playsound(src, 'sound/items/welder.ogg', 100, 1)
 
 /obj/machinery/fishtank/deconstruct(disassembled = TRUE)
 	if(QDELETED(src))

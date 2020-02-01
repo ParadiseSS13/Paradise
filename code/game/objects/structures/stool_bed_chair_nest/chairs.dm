@@ -7,7 +7,9 @@
 	can_buckle = TRUE
 	buckle_lying = FALSE // you sit in a chair, not lay
 	anchored = TRUE
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	max_integrity = 250
+	integrity_failure = 25
 	buckle_offset = 0
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
@@ -28,6 +30,11 @@
 		W.setDir(dir)
 		qdel(src)
 
+/obj/structure/chair/ratvar_act()
+	var/obj/structure/chair/brass/B = new(get_turf(src))
+	B.setDir(dir)
+	qdel(src)
+
 /obj/structure/chair/Move(atom/newloc, direct)
 	..()
 	handle_rotation()
@@ -46,10 +53,18 @@
 		SK.loc = E
 		SK.master = E
 		qdel(src)
-	if(istype(W, /obj/item/wrench))
+		return
+	if(iswrench(W) && !(flags & NODECONSTRUCT))
 		playsound(loc, W.usesound, 50, 1)
+		deconstruct(TRUE)
+		return
+	return ..()
+
+/obj/structure/chair/deconstruct()
+	// If we have materials, and don't have the NOCONSTRUCT flag
+	if(buildstacktype && (!(flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+	..()
 
 /obj/structure/chair/MouseDrop(over_object, src_location, over_location)
 	. = ..()
@@ -59,6 +74,12 @@
 		if(usr.incapacitated())
 			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
 			return
+		if(!usr.has_right_hand() && !usr.has_left_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but you are missing both of your hands!</span>")
+			return
+		if(usr.get_active_hand() && usr.get_inactive_hand())
+			to_chat(usr, "<span class='warning'>You try to grab the chair, but your hands are already full!</span>")
+			return
 		if(!ishuman(usr))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
@@ -67,20 +88,21 @@
 		qdel(src)
 
 /obj/structure/chair/attack_tk(mob/user as mob)
-	if(buckled_mob)
+	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
 		..()
 	else
 		rotate()
-	return
 
-/obj/structure/chair/proc/handle_rotation(direction)	//making this into a seperate proc so office chairs can call it on Move()
+/obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
-	if(buckled_mob)
-		buckled_mob.dir = dir
+	if(has_buckled_mobs())
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
-	if(buckled_mob && dir == NORTH)
-		layer = FLY_LAYER
+	if(has_buckled_mobs() && dir == NORTH)
+		layer = ABOVE_MOB_LAYER
 	else
 		layer = OBJ_LAYER
 
@@ -122,8 +144,11 @@
 
 // Chair types
 /obj/structure/chair/wood
-	burn_state = FLAMMABLE
-	burntime = 20
+	name = "wooden chair"
+	desc = "Old is never too old to not be in fashion."
+	icon_state = "wooden_chair"
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 	buildstackamount = 3
 	buildstacktype = /obj/item/stack/sheet/wood
 	item_chair = /obj/item/chair/wood
@@ -131,50 +156,46 @@
 /obj/structure/chair/wood/narsie_act()
 	return
 
-/obj/structure/chair/wood/normal
-	icon_state = "wooden_chair"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
-
 /obj/structure/chair/wood/wings
 	icon_state = "wooden_chair_wings"
-	name = "wooden chair"
-	desc = "Old is never too old to not be in fashion."
 	item_chair = /obj/item/chair/wood/wings
 
 /obj/structure/chair/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
-	color = rgb(255,255,255)
-	burn_state = FLAMMABLE
-	burntime = 30
+	color = rgb(255, 255, 255)
+	resistance_flags = FLAMMABLE
+	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
 	var/image/armrest = null
 
-/obj/structure/chair/comfy/New()
-	armrest = image("icons/obj/chairs.dmi", "comfychair_armrest")
+/obj/structure/chair/comfy/Initialize(mapload)
+	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
 	return ..()
+
+/obj/structure/chair/comfy/proc/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
 
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)
 	return ..()
 
 /obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays += armrest
-	else
-		overlays -= armrest
+	. = ..()
+	update_armrest()
 
 /obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
-	..()
-	if(buckled_mob)
-		overlays -= armrest
+	. = ..()
+	update_armrest()
+
+/obj/structure/chair/comfy/proc/update_armrest()
+	if(has_buckled_mobs())
+		add_overlay(armrest)
 	else
-		overlays += armrest
+		cut_overlay(armrest)
 
 /obj/structure/chair/comfy/brown
 	color = rgb(141,70,0)
@@ -209,26 +230,30 @@
 	item_chair = null
 	buildstackamount = 5
 
+/obj/structure/chair/comfy/shuttle
+	name = "shuttle seat"
+	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
+	icon_state = "shuttle_chair"
+
+/obj/structure/chair/comfy/shuttle/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
+
 /obj/structure/chair/office/Bump(atom/A)
 	..()
-	if(!buckled_mob)
+	if(!has_buckled_mobs())
 		return
 
 	if(propelled)
-		var/mob/living/occupant = buckled_mob
-		unbuckle_mob()
-		occupant.throw_at(A, 3, propelled)
-		occupant.apply_effect(6, STUN, 0)
-		occupant.apply_effect(6, WEAKEN, 0)
-		occupant.apply_effect(6, STUTTER, 0)
-		playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-		if(istype(A, /mob/living))
-			var/mob/living/victim = A
-			victim.apply_effect(6, STUN, 0)
-			victim.apply_effect(6, WEAKEN, 0)
-			victim.apply_effect(6, STUTTER, 0)
-			victim.take_organ_damage(10)
-		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+		for(var/m in buckled_mobs)
+			var/mob/living/buckled_mob = m
+			unbuckle_mob(buckled_mob)
+			buckled_mob.throw_at(A, 3, propelled)
+			buckled_mob.apply_effect(6, STUN, 0)
+			buckled_mob.apply_effect(6, WEAKEN, 0)
+			buckled_mob.apply_effect(6, STUTTER, 0)
+			buckled_mob.take_organ_damage(10)
+			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
+			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"
@@ -272,27 +297,6 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
-/obj/structure/chair/stool/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(70))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(50))
-				new buildstacktype(loc, buildstackamount)
-				qdel(src)
-				return
-
-/obj/structure/chair/stool/blob_act()
-	if(prob(75))
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
-
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
@@ -321,7 +325,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
-	var/obj/structure/chair/stool/origin = null
 
 /obj/item/chair/stool/bar
 	name = "bar stool"
@@ -377,7 +380,7 @@
 
 /obj/item/chair/stool/attack_self(mob/user as mob)
 	..()
-	origin.loc = get_turf(src)
+	new origin_type(get_turf(loc))
 	user.unEquip(src)
 	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
 	qdel(src)
@@ -417,3 +420,41 @@
 	desc = "You sit in this. Either by will or force. Looks REALLY uncomfortable."
 	icon_state = "chairold"
 	item_chair = null
+
+// Brass chair
+/obj/structure/chair/brass
+	name = "brass chair"
+	desc = "A spinny chair made of brass. It looks uncomfortable."
+	icon_state = "brass_chair"
+	max_integrity = 150
+	buildstacktype = /obj/item/stack/tile/brass
+	buildstackamount = 1
+	item_chair = null
+	var/turns = 0
+
+/obj/structure/chair/brass/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	. = ..()
+
+/obj/structure/chair/brass/process()
+	setDir(turn(dir,-90))
+	playsound(src, 'sound/effects/servostep.ogg', 50, FALSE)
+	turns++
+	if(turns >= 8)
+		STOP_PROCESSING(SSfastprocess, src)
+
+/obj/structure/chair/brass/ratvar_act()
+	return
+
+/obj/structure/chair/brass/AltClick(mob/living/user)
+	turns = 0
+	if(!istype(user) || user.incapacitated() || !in_range(src, user))
+		return
+	if(!isprocessing)
+		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
+		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")
+		START_PROCESSING(SSfastprocess, src)
+	else
+		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
+		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
+		STOP_PROCESSING(SSfastprocess, src)

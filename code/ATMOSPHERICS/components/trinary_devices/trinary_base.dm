@@ -4,6 +4,7 @@
 	use_power = IDLE_POWER_USE
 
 	var/on = 0
+	layer = GAS_FILTER_LAYER
 
 	var/datum/gas_mixture/air1
 	var/datum/gas_mixture/air2

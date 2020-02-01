@@ -15,7 +15,7 @@
 	icon_state = "warden"
 	item_state = "r_suit"
 	item_color = "warden"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 50
 
@@ -33,7 +33,7 @@
 	icon_state = "security"
 	item_state = "r_suit"
 	item_color = "secred"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 50
 
@@ -51,7 +51,7 @@
 	icon_state = "dispatch"
 	item_state = "dispatch"
 	item_color = "dispatch"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/security2
@@ -60,7 +60,7 @@
 	icon_state = "redshirt2"
 	item_state = "r_suit"
 	item_color = "redshirt2"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/security/corp
@@ -82,10 +82,10 @@
 	icon_state = "detective"
 	item_state = "det"
 	item_color = "detective"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 50
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/uniform.dmi'
 		)
@@ -99,7 +99,7 @@
 	icon_state = "hos"
 	item_state = "r_suit"
 	item_color = "hosred"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	flags_size = ONESIZEFITSALL
 	strip_delay = 60
 
@@ -179,7 +179,7 @@
 	item_state = "brig_phys"
 	item_color = "brig_phys"
 	permeability_coefficient = 0.50
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0, fire = 30, acid = 30)
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/security/brigphys/skirt
@@ -189,7 +189,6 @@
 	item_state = "brig_physf"
 	item_color = "brig_physf"
 	permeability_coefficient = 0.50
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
 	flags_size = ONESIZEFITSALL
 
 //Pod Pilot

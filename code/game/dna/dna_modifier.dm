@@ -52,7 +52,7 @@
 /obj/machinery/dna_scannernew
 	name = "\improper DNA modifier"
 	desc = "It scans DNA structures."
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "scanner_open"
 	density = 1
 	anchored = 1.0
@@ -75,7 +75,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
@@ -87,7 +87,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
@@ -155,6 +155,9 @@
 	if(usr.abiotic())
 		to_chat(usr, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 		return
+	if(usr.has_buckled_mobs()) //mob attached to us
+		to_chat(usr, "<span class='warning'>[usr] will not fit into the [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
+		return
 	usr.stop_pulling()
 	usr.forceMove(src)
 	src.occupant = usr
@@ -190,10 +193,9 @@
 	if(L.abiotic())
 		to_chat(user, "<span class='danger'>Subject cannot have abiotic items on.</span>")
 		return
-	for(var/mob/living/carbon/slime/M in range(1,L))
-		if(M.Victim == L)
-			to_chat(usr, "[L.name] will not fit into the [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.")
-			return
+	if(L.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>[L] will not fit into [src] because [L.p_they()] [L.p_have()] a slime latched onto [L.p_their()] head.</span>")
+		return
 	if(L == user)
 		visible_message("[user] climbs into the [src].")
 	else
@@ -208,7 +210,7 @@
 			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
 			return
 		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", item)
-
+		return
 	if(exchange_parts(user, item))
 		return
 
@@ -231,24 +233,27 @@
 		item.forceMove(src)
 		user.visible_message("[user] adds \a [item] to \the [src]!", "You add \a [item] to \the [src]!")
 		return
-	else if(!istype(item, /obj/item/grab))
+	if(istype(item, /obj/item/grab))
+		var/obj/item/grab/G = item
+		if(!ismob(G.affecting))
+			return
+		if(src.occupant)
+			to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
+			return
+		if(G.affecting.abiotic())
+			to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
+			return
+		if(G.affecting.has_buckled_mobs()) //mob attached to us
+			to_chat(user, "<span class='warning'>will not fit into the [src] because [G.affecting.p_they()] [G.affecting.p_have()] a slime latched onto [G.affecting.p_their()] head.</span>")
+			return
+		if(panel_open)
+			to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
+			return
+		put_in(G.affecting)
+		src.add_fingerprint(user)
+		qdel(G)
 		return
-	var/obj/item/grab/G = item
-	if(!ismob(G.affecting))
-		return
-	if(src.occupant)
-		to_chat(user, "<span class='boldnotice'>The scanner is already occupied!</span>")
-		return
-	if(G.affecting.abiotic())
-		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
-		return
-	if(panel_open)
-		to_chat(usr, "<span class='boldnotice'>Close the maintenance panel first.</span>")
-		return
-	put_in(G.affecting)
-	src.add_fingerprint(user)
-	qdel(G)
-	return
+	return ..()
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
 	if(user.incapacitated())
@@ -281,44 +286,18 @@
 	src.occupant.forceMove(src.loc)
 	src.occupant = null
 	src.icon_state = "scanner_open"
-	return
 
 /obj/machinery/dna_scannernew/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				ex_act(severity)
-				//Foreach goto(35)
-			//SN src = null
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					ex_act(severity)
-					//Foreach goto(108)
-				//SN src = null
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					ex_act(severity)
-					//Foreach goto(181)
-				//SN src = null
-				qdel(src)
-				return
-		else
-	return
+	if(occupant)
+		occupant.ex_act(severity)
+	..()
 
-/obj/machinery/dna_scannernew/blob_act()
-	if(prob(75))
-		for(var/atom/movable/A as mob|obj in src)
-			A.forceMove(src.loc)
-		qdel(src)
+/obj/machinery/dna_scannernew/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
 
 // Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
 /obj/machinery/dna_scannernew/proc/radiation_check()
@@ -374,26 +353,7 @@
 			SSnanoui.update_uis(src) // update all UIs attached to src()
 			return
 	else
-		..()
-	return
-
-/obj/machinery/computer/scan_consolenew/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			//SN src = null
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				//SN src = null
-				qdel(src)
-				return
-		else
-	return
-
-/obj/machinery/computer/scan_consolenew/blob_act()
-	if(prob(75))
-		qdel(src)
+		return ..()
 
 /obj/machinery/computer/scan_consolenew/New()
 	..()
@@ -537,7 +497,7 @@
 			occupantData["isViableSubject"] = 0
 		occupantData["health"] = connected.occupant.health
 		occupantData["maxHealth"] = connected.occupant.maxHealth
-		occupantData["minHealth"] = config.health_threshold_dead
+		occupantData["minHealth"] = HEALTH_THRESHOLD_DEAD
 		occupantData["uniqueEnzymes"] = connected.occupant.dna.unique_enzymes
 		occupantData["uniqueIdentity"] = connected.occupant.dna.uni_identity
 		occupantData["structuralEnzymes"] = connected.occupant.dna.struc_enzymes

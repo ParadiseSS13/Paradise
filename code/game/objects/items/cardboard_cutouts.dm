@@ -4,7 +4,7 @@
 	desc = "A vaguely humanoid cardboard cutout. It's completely blank."
 	icon = 'icons/obj/cardboard_cutout.dmi'
 	icon_state = "cutout_basic"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
 	var/list/possible_appearances = list("Assistant", "Clown", "Mime",
 		"Traitor", "Nuke Op", "Cultist", "Revolutionary", "Wizard", "Shadowling", "Xenomorph", "Swarmer",
@@ -18,7 +18,7 @@
 	if(user.a_intent == INTENT_HELP || pushed_over)
 		return ..()
 	user.visible_message("<span class='warning'>[user] pushes over [src]!</span>", "<span class='danger'>You push over [src]!</span>")
-	playsound(src, 'sound/weapons/Genhit.ogg', 50, 1)
+	playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
 	push_over()
 
 /obj/item/cardboard_cutout/proc/push_over()
@@ -63,7 +63,7 @@
 			push_over()
 
 /obj/item/cardboard_cutout/bullet_act(obj/item/projectile/P)
-	visible_message("<span class='danger'>[src] has been hit by [P]!</span>")
+	visible_message("<span class='danger'>[src] is hit by [P]!</span>")
 	playsound(src, 'sound/weapons/slice.ogg', 50, 1)
 	if(prob(P.damage))
 		push_over()
@@ -85,7 +85,7 @@
 		return
 	if(pushed_over)
 		to_chat(user, "<span class='warning'>Right [src] first!</span>")
-		return	
+		return
 	if(!new_appearance || !crayon)
 		return
 	if(!do_after(user, 10, FALSE, src, TRUE))

@@ -30,7 +30,7 @@
 			pixel_x = 25
 		if(WEST)
 			pixel_x = -25
-	if(radio_controller)
+	if(SSradio)
 		set_frequency(frequency)
 	spawn(5)
 		src.area = get_area(src)
@@ -49,14 +49,14 @@
 	set_frequency(frequency)
 
 /obj/machinery/light_switch/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, RADIO_LOGIC)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_LOGIC)
 	return
 
 /obj/machinery/light_switch/Destroy()
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
@@ -70,8 +70,8 @@
 			icon_state = "light0"
 
 /obj/machinery/light_switch/examine(mob/user)
-	if(..(user, 1))
-		to_chat(user, "A light switch. It is [on? "on" : "off"].")
+	. = ..()
+	. += "A light switch. It is [on? "on" : "off"]."
 
 /obj/machinery/light_switch/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -160,7 +160,7 @@
 			qdel(src)
 		return 1
 
-	return src.attack_hand(user)
+	return ..()
 
 /obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"

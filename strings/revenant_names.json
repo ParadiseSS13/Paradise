@@ -1,0 +1,55 @@
+{
+    "spirit_type": [
+        "Essence",
+        "Ghost",
+        "Phantom",
+        "Poltergeist",
+        "Revenant",
+        "Soul",
+        "Spectre",
+        "Spirit"
+        ],
+    
+    "adjective": [
+        "",
+        "Abysmal ",
+        "Abyssal ",
+        "Brutal ",
+        "Dark ",
+        "Endless ",
+        "Eternal ",
+        "Fiery ",
+        "Hateful ",
+        "Hideous ",
+        "Hilarious ",
+        "Indifferent ",
+        "Malevolent ",
+        "Peaceful ",
+        "Searing ",
+        "Silent ",
+        "Spiteful ",
+        "Vicious ",
+        "Violent "
+        ],
+    
+    "theme": [
+        "Agony",
+        "Anger",
+        "Death",
+        "Despair",
+        "Desperation",
+        "Destruction",
+        "Disease",
+        "Grief",
+        "Hate",
+        "Hellfire",
+        "Laughter",
+        "Misery",
+        "Ruin",
+        "Salt",
+        "Screams",
+        "Sorrow",
+        "Suffering",
+        "Vengeance"
+        ]
+}

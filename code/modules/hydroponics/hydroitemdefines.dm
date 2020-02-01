@@ -34,7 +34,7 @@
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/reagent_containers/spray/pestspray // -- Skie
 	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
@@ -56,7 +56,7 @@
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (TOXLOSS)
+	return TOXLOSS
 
 /obj/item/cultivator
 	name = "cultivator"
@@ -72,10 +72,21 @@
 	attack_verb = list("slashed", "sliced", "cut", "clawed")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
+/obj/item/cultivator/rake
+	name = "rake"
+	icon_state = "rake"
+	w_class = WEIGHT_CLASS_NORMAL
+	attack_verb = list("slashed", "sliced", "bashed", "clawed")
+	hitsound = null
+	materials = null
+	flags = NONE
+	resistance_flags = FLAMMABLE
+
 /obj/item/hatchet
 	name = "hatchet"
 	desc = "A very sharp axe blade upon a short fibremetal handle. It has a long history of chopping things, but now it is used for chopping wood."
 	icon_state = "hatchet"
+	item_state = "hatchet"
 	flags = CONDUCT
 	force = 12
 	w_class = WEIGHT_CLASS_TINY
@@ -91,13 +102,19 @@
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/hatchet/unathiknife
 	name = "duelling knife"
 	desc = "A length of leather-bound wood studded with razor-sharp teeth. How crude."
 	icon_state = "unathiknife"
 	attack_verb = list("ripped", "torn", "cut")
+
+/obj/item/hatchet/wooden
+	desc = "A crude axe blade upon a short wooden handle."
+	icon_state = "woodhatchet"
+	materials = null
+	flags = NONE
 
 /obj/item/scythe
 	icon_state = "scythe0"
@@ -126,7 +143,7 @@
 		if(affecting)
 			affecting.droplimb(1, DROPLIMB_SHARP)
 			playsound(loc, pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg'), 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/scythe/pre_attackby(atom/A, mob/living/user, params)
 	if(swiping || !istype(A, /obj/structure/spacevine) || get_turf(A) == get_turf(user))

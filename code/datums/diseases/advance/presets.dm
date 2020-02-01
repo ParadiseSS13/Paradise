@@ -49,11 +49,3 @@
 		name = "Reality Enhancer"
 		symptoms = list(new/datum/symptom/sensory_restoration)
 	..(process, D, copy)
-
-// Sensory Destruction
-
-/datum/disease/advance/sensory_destruction/New(var/process = 1, var/datum/disease/advance/D, var/copy = 0)
-	if(!D)
-		name = "Reality Destruction"
-		symptoms = list(new/datum/symptom/sensory_destruction)
-	..(process, D, copy)

@@ -26,11 +26,11 @@
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
-	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and morphine, for offense."
+	desc = "An experimental piece of Syndicate technology used to produce powerful restorative nanites used to very quickly restore injuries of all types. Also metabolizes potassium iodide, for radiation poisoning, and hydrocodone, for field surgery and pain relief."
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
-	reagent_ids = list("syndicate_nanites", "potass_iodide", "ether")
+	reagent_ids = list("syndicate_nanites", "potass_iodide", "hydrocodone")
 	bypass_protection = 1
 
 /obj/item/reagent_containers/borghypo/New()
@@ -38,10 +38,10 @@
 	for(var/R in reagent_ids)
 		add_reagent(R)
 
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/borghypo/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	return ..()
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
@@ -76,7 +76,7 @@
 		return
 	if(!istype(M))
 		return
-	if(R.total_volume && M.can_inject(user, 1, penetrate_thick = bypass_protection))
+	if(R.total_volume && M.can_inject(user, TRUE, user.zone_selected, penetrate_thick = bypass_protection))
 		to_chat(user, "<span class='notice'>You inject [M] with the injector.</span>")
 		to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
 
@@ -85,7 +85,7 @@
 			var/datum/reagent/injected = GLOB.chemical_reagents_list[reagent_ids[mode]]
 			var/contained = injected.name
 			var/trans = R.trans_to(M, amount_per_transfer_from_this)
-			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units")
+			add_attack_logs(user, M, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
 			M.LAssailant = user
 			to_chat(user, "<span class='notice'>[trans] units injected. [R.total_volume] units remaining.</span>")
 	return
@@ -102,16 +102,15 @@
 	return
 
 /obj/item/reagent_containers/borghypo/examine(mob/user)
-	if(!..(user, 2))
-		return
+	. = ..()
+	if(get_dist(user, src) <= 2)
+		var/empty = TRUE
 
-	var/empty = 1
+		for(var/datum/reagents/RS in reagent_list)
+			var/datum/reagent/R = locate() in RS.reagent_list
+			if(R)
+				. += "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>"
+				empty = FALSE
 
-	for(var/datum/reagents/RS in reagent_list)
-		var/datum/reagent/R = locate() in RS.reagent_list
-		if(R)
-			to_chat(user, "<span class='notice'>It currently has [R.volume] units of [R.name] stored.</span>")
-			empty = 0
-
-	if(empty)
-		to_chat(user, "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>")
+		if(empty)
+			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"

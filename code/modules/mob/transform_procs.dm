@@ -63,10 +63,7 @@
 	var/mob/living/silicon/robot/O = new /mob/living/silicon/robot( loc )
 
 	// cyborgs produced by Robotize get an automatic power cell
-	O.cell = new(O)
-	O.cell.maxcharge = 7500
-	O.cell.charge = 7500
-
+	O.cell = new /obj/item/stock_parts/cell/high(O)
 
 	O.gender = gender
 	O.invisibility = 0
@@ -93,8 +90,6 @@
 			O.mmi = new /obj/item/mmi(O)
 
 		if(O.mmi) O.mmi.transfer_identity(src) //Does not transfer key/client.
-
-	callHook("borgify", list(O))
 
 	O.update_pipe_vision()
 
@@ -137,41 +132,38 @@
 		qdel(src)
 	return
 
-/mob/living/carbon/human/proc/slimeize(adult as num, reproduce as num)
+/mob/living/carbon/human/proc/slimeize(reproduce as num)
 	if(notransform)
 		return
-	for(var/obj/item/W in src)
-		unEquip(W)
+	notransform = TRUE
+	canmove = FALSE
+	for(var/obj/item/I in src)
+		unEquip(I)
 	regenerate_icons()
-	notransform = 1
-	canmove = 0
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_MAXIMUM
 	for(var/t in bodyparts)
 		qdel(t)
 
-	var/mob/living/carbon/slime/new_slime
+	var/mob/living/simple_animal/slime/new_slime
 	if(reproduce)
 		var/number = pick(14;2,3,4)	//reproduce (has a small chance of producing 3 or 4 offspring)
 		var/list/babies = list()
 		for(var/i=1,i<=number,i++)
-			var/mob/living/carbon/slime/M = new/mob/living/carbon/slime(loc)
-			M.nutrition = round(nutrition/number)
+			var/mob/living/simple_animal/slime/M = new/mob/living/simple_animal/slime(loc)
+			M.set_nutrition(round(nutrition / number))
 			step_away(M,src)
 			babies += M
 		new_slime = pick(babies)
 	else
-		new_slime = new /mob/living/carbon/slime(loc)
-		if(adult)
-			new_slime.is_adult = 1
-		else
+		new_slime = new /mob/living/simple_animal/slime(loc)
+	new_slime.a_intent = INTENT_HARM
 	new_slime.key = key
 
 	to_chat(new_slime, "<B>You are now a slime. Skreee!</B>")
 	new_slime.update_pipe_vision()
-	spawn(0)//To prevent the proc from returning null.
-		qdel(src)
-	return
+	. = new_slime
+	qdel(src)
 
 /mob/living/carbon/human/proc/corgize()
 	if(notransform)
@@ -186,8 +178,7 @@
 	for(var/t in bodyparts)	//this really should not be necessary
 		qdel(t)
 
-	var/mob/living/simple_animal/pet/corgi/new_corgi = new /mob/living/simple_animal/pet/corgi (loc)
-	new_corgi.a_intent = INTENT_HARM
+	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
 	new_corgi.key = key
 
 	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
@@ -279,7 +270,7 @@
 			return 0
 	if(ispath(MP, /mob/living/simple_animal/pet/cat))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/corgi))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/corgi))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/crab))
 		return 1
@@ -289,16 +280,14 @@
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/parrot))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pony))
-		return 1
 	if(!GAMEMODE_IS_NUCLEAR)
-		if(ispath(MP, /mob/living/simple_animal/pet/fox/Syndifox))
+		if(ispath(MP, /mob/living/simple_animal/pet/dog/fox/Syndifox))
 			return 0
-	if(ispath(MP, /mob/living/simple_animal/pet/fox))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/fox))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/chick))
 		return 1
-	if(ispath(MP, /mob/living/simple_animal/pet/pug))
+	if(ispath(MP, /mob/living/simple_animal/pet/dog/pug))
 		return 1
 	if(ispath(MP, /mob/living/simple_animal/butterfly))
 		return 1

@@ -41,7 +41,7 @@
 	var/check_records = 1 //Does it check security records?
 	var/arrest_type = 0 //If true, don't handcuff
 	var/projectile = /obj/item/projectile/energy/electrode //Holder for projectile type
-	var/shoot_sound = 'sound/weapons/Taser.ogg'
+	var/shoot_sound = 'sound/weapons/taser.ogg'
 
 
 /mob/living/simple_animal/bot/ed209/New(loc, created_name, created_lasercolor)
@@ -357,7 +357,7 @@
 			target = C
 			oldtarget_name = C.name
 			speak("Level [threatlevel] infraction alert!")
-			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/EDPlaceholder.ogg'), 50, 0)
+			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
 			visible_message("<b>[src]</b> points at [C.name]!")
 			mode = BOT_HUNT
 			spawn(0)
@@ -384,15 +384,15 @@
 
 	if(!lasercolor)
 		var/obj/item/gun/energy/gun/advtaser/G = new /obj/item/gun/energy/gun/advtaser(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
 		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
 		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 
 	if(prob(50))
@@ -416,7 +416,7 @@
 	..()
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
-	shoot_sound = 'sound/weapons/Laser.ogg'
+	shoot_sound = 'sound/weapons/laser.ogg'
 	if(emagged == 2)
 		if(lasercolor)
 			projectile = /obj/item/projectile/beam/disabler
@@ -424,7 +424,7 @@
 			projectile = /obj/item/projectile/beam
 	else
 		if(!lasercolor)
-			shoot_sound = 'sound/weapons/Taser.ogg'
+			shoot_sound = 'sound/weapons/taser.ogg'
 			projectile = /obj/item/projectile/energy/electrode
 		else if(lasercolor == "b")
 			projectile = /obj/item/projectile/beam/lasertag/bluetag
@@ -543,7 +543,15 @@
 	else
 		..()
 
-/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A)
+/mob/living/simple_animal/bot/ed209/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
+	if(istype(AM, /obj/item))
+		var/obj/item/I = AM
+		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
+			var/mob/living/carbon/human/H = I.thrownby
+			retaliate(H)
+	..()
+
+/mob/living/simple_animal/bot/ed209/RangedAttack(atom/A, params)
 	if(!on)
 		return
 	shootAt(A)

@@ -3,9 +3,13 @@
 	desc = "It measures something."
 	icon = 'icons/obj/meter.dmi'
 	icon_state = "meterX"
+
+	layer = GAS_PUMP_LAYER
+
 	var/obj/machinery/atmospherics/pipe/target = null
 	anchored = TRUE
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 150
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 40, "acid" = 0)
 	power_channel = ENVIRON
 	var/frequency = ATMOS_DISTRO_FREQ
 	var/id
@@ -65,7 +69,7 @@
 		icon_state = "meter4"
 
 	if(frequency)
-		var/datum/radio_frequency/radio_connection = radio_controller.return_frequency(frequency)
+		var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
 
 		if(!radio_connection) return
 
@@ -110,7 +114,7 @@
 	else
 		t += "The connect error light is blinking."
 
-	to_chat(user, t)
+	. = list(t)
 
 /obj/machinery/meter/Click()
 	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
@@ -133,8 +137,17 @@
 			"[user] unfastens \the [src].", \
 			"<span class='notice'>You have unfastened \the [src].</span>", \
 			"You hear ratchet.")
-		new /obj/item/pipe_meter(src.loc)
-		qdel(src)
+		deconstruct(TRUE)
+
+/obj/machinery/meter/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/pipe_meter(loc)
+	qdel(src)
+
+/obj/machinery/meter/singularity_pull(S, current_size)
+	..()
+	if(current_size >= STAGE_FIVE)
+		deconstruct()
 
 // TURF METER - REPORTS A TILE'S AIR CONTENTS
 

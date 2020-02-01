@@ -3,7 +3,7 @@
 	desc = "Wheeeeeeeeeeee."
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "snowmobile"
-	keytype = /obj/item/key/snowmobile
+	key_type = /obj/item/key/snowmobile
 	generic_pixel_x = 0
 	generic_pixel_y = 4
 

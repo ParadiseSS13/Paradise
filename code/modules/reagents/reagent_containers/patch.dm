@@ -28,8 +28,8 @@
 	list_reagents = list("silver_sulfadiazine" = 40)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
-	name = "syntheflesh patch"
-	desc = "Helps with burn injuries."
+	name = "synthflesh patch"
+	desc = "Helps with brute and burn injuries."
 	icon_state = "bandaid_med"
 	instant_application = 1
 	list_reagents = list("synthflesh" = 20)
@@ -38,3 +38,9 @@
 	name = "nicotine patch"
 	desc = "Helps temporarily curb the cravings of nicotine dependency."
 	list_reagents = list("nicotine" = 20)
+
+/obj/item/reagent_containers/food/pill/patch/jestosterone
+	name = "jestosterone patch"
+	desc = "Helps with brute injuries if the affected person is a clown, otherwise inflicts various annoying effects."
+	icon_state = "bandaid_clown"
+	list_reagents = list("jestosterone" = 30)

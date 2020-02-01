@@ -1,11 +1,16 @@
 /mob
 	density = 1
-	layer = 4.0
+	layer = MOB_LAYER
 	animate_movement = 2
 	pressure_resistance = 8
+	throwforce = 10
+	dont_save = TRUE //to avoid it messing up in buildmode saving
 	var/datum/mind/mind
 
 	var/stat = 0 //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
+
+	/// The zone this mob is currently targeting
+	var/zone_selected = null
 
 	var/obj/screen/hands = null
 	var/obj/screen/pullin = null
@@ -20,7 +25,6 @@
 	I'll make some notes on where certain variable defines should probably go.
 	Changing this around would probably require a good look-over the pre-existing code.
 	*/
-	var/obj/screen/zone_sel/zone_sel = null
 	var/obj/screen/leap_icon = null
 	var/obj/screen/healthdoll/healthdoll = null
 
@@ -48,7 +52,6 @@
 	var/lying = 0
 	var/lying_prev = 0
 	var/lastpuke = 0
-	var/unacidable = 0
 	var/can_strip = 1
 	var/list/languages = list()         // For speaking/listening.
 	var/list/abilities = list()         // For species-derived or admin-given powers.
@@ -73,7 +76,11 @@
 	var/a_intent = INTENT_HELP//Living
 	var/m_intent = MOVE_INTENT_RUN//Living
 	var/lastKnownIP = null
+	/// movable atoms buckled to this mob
 	var/atom/movable/buckled = null//Living
+	/// movable atom we are buckled to
+	var/atom/movable/buckling
+
 	var/obj/item/l_hand = null//Living
 	var/obj/item/r_hand = null//Living
 	var/obj/item/back = null//Human/Monkey
@@ -82,7 +89,6 @@
 	var/obj/item/clothing/mask/wear_mask = null//Carbon
 
 	var/seer = 0 //for cult//Carbon, probably Human
-	var/see_override = 0
 
 	var/datum/hud/hud_used = null
 
@@ -92,7 +98,7 @@
 
 	var/list/grabbed_by = list()
 	var/list/requests = list()
-
+	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs = list()
 
 	var/in_throw_mode = 0
@@ -172,8 +178,11 @@
 	//SSD var, changed it up some so people can have special things happen for different mobs when SSD.
 	var/player_logged = 0
 
+	//Ghosted var, set only if a player has manually ghosted out of this mob.
+	var/player_ghosted = 0
+
 	var/turf/listed_turf = null  //the current turf being examined in the stat panel
-	var/list/shouldnt_see = list(/atom/movable/lighting_overlay)	//list of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
+	var/list/shouldnt_see = list()	//list of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
 
 	var/kills = 0
 
@@ -192,9 +201,11 @@
 	var/list/permanent_huds = list()
 
 	var/list/actions = list()
+	var/list/datum/action/chameleon_item_actions
 
 	var/list/progressbars = null	//for stacking do_after bars
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
 	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+	var/registered_z

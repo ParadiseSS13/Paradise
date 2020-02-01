@@ -97,7 +97,7 @@ CREATE TABLE `SS13_customuseritems` (
   `cuiPropAdjust` text,
   `cuiJobMask` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +124,7 @@ CREATE TABLE `SS13_death` (
   `fireloss` int(11) NOT NULL,
   `oxyloss` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=166546 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=166546 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE `SS13_admin` (
   `level` int(2) NOT NULL DEFAULT '0',
   `flags` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +176,7 @@ CREATE TABLE `SS13_admin_log` (
   `adminip` varchar(18) NOT NULL,
   `log` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -211,7 +211,7 @@ CREATE TABLE `SS13_ban` (
   `unbanned_computerid` varchar(32) DEFAULT NULL,
   `unbanned_ip` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10685 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10685 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -229,7 +229,7 @@ CREATE TABLE `SS13_feedback` (
   `var_value` int(16) DEFAULT NULL,
   `details` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=257638 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=257638 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `SS13_player` (
   `UI_style_alpha` smallint(4) DEFAULT '255',
   `be_role` mediumtext,
   `default_slot` smallint(4) DEFAULT '1',
-  `toggles` mediumint(8) DEFAULT '383',
+  `toggles` int(8) DEFAULT '383',
   `sound` mediumint(8) DEFAULT '31',
   `randomslot` tinyint(1) DEFAULT '0',
   `volume` smallint(4) DEFAULT '100',
@@ -265,9 +265,13 @@ CREATE TABLE `SS13_player` (
   `exp` mediumtext,
   `clientfps` smallint(4) DEFAULT '0',
   `atklog` smallint(4) DEFAULT '0',
+  `fuid` bigint(20) NULL DEFAULT NULL,
+  `fupdate` smallint(4) NULL DEFAULT '0',
+  `afk_watch` tinyint(1) NOT NULL DEFAULT '0',
+  `parallax` tinyint(1) DEFAULT '8',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
-) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32446 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +292,7 @@ CREATE TABLE `SS13_poll_option` (
   `descmid` varchar(32) DEFAULT NULL,
   `descmax` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,7 +313,7 @@ CREATE TABLE `SS13_poll_question` (
   `createdby_ckey` varchar(45) NULL DEFAULT NULL,
   `createdby_ip` varchar(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -328,7 +332,7 @@ CREATE TABLE `SS13_poll_textreply` (
   `replytext` text NOT NULL,
   `adminrank` varchar(32) NOT NULL DEFAULT 'Player',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -348,7 +352,7 @@ CREATE TABLE `SS13_poll_vote` (
   `adminrank` varchar(32) NOT NULL,
   `rating` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -364,7 +368,7 @@ CREATE TABLE `ss13_privacy` (
   `consent` bit(1) NOT NULL,
   PRIMARY KEY (`ckey`),
   UNIQUE KEY `ckey_UNIQUE` (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,7 +390,7 @@ CREATE TABLE `SS13_karma` (
   `spenderip` text NOT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=73614 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=73614 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -402,7 +406,7 @@ CREATE TABLE `SS13_karmatotals` (
   `karma` int(11) NOT NULL,
   `karmaspent` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6765 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6765 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -421,7 +425,7 @@ CREATE TABLE `SS13_library` (
   `ckey` varchar(45) NOT NULL,
   `flagged` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=929 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=929 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -437,7 +441,7 @@ CREATE TABLE `SS13_legacy_population` (
   `admincount` int(11) DEFAULT NULL,
   `time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2550 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2550 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -453,7 +457,7 @@ CREATE TABLE `SS13_whitelist` (
   `job` text,
   `species` text,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=877 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=877 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -480,7 +484,7 @@ CREATE TABLE `SS13_watch` (
   `last_editor` varchar(32),
   `edits` text,
   PRIMARY KEY (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -500,8 +504,9 @@ CREATE TABLE `SS13_notes` (
   `last_editor` varchar(32),
   `edits` text,
   `server` varchar(50) NOT NULL,
+  `crew_playtime` mediumint(8) UNSIGNED DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -518,5 +523,72 @@ CREATE TABLE `SS13_memo` (
   `last_editor` varchar(32),
   `edits` text,
   PRIMARY KEY (`ckey`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `SS13_ipintel`
+--
+DROP TABLE IF EXISTS `SS13_ipintel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE  `SS13_ipintel` (
+  `ip` int UNSIGNED NOT NULL,
+  `date` timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+  `intel` real NOT NULL DEFAULT '0',
+  PRIMARY key (`ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `SS13_vpn_whitelist`
+--
+DROP TABLE IF EXISTS `SS13_vpn_whitelist`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SS13_vpn_whitelist` (
+  `ckey` varchar(32) NOT NULL,
+  `reason` text,
+  PRIMARY KEY (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `SS13_oauth_tokens`
+--
+DROP TABLE IF EXISTS `SS13_oauth_tokens`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SS13_oauth_tokens` (
+  `ckey` varchar(32) NOT NULL,
+  `token` varchar(32) NOT NULL,
+  PRIMARY KEY (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `SS13_playtime_history`
+--
+DROP TABLE IF EXISTS `SS13_playtime_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `SS13_playtime_history` (
+  `ckey` varchar(32) NOT NULL,
+  `date` DATE NOT NULL,
+  `time_living` SMALLINT NOT NULL,
+  `time_ghost` SMALLINT NOT NULL,
+  PRIMARY KEY (`ckey`, `date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `SS13_connection_log`
+--
+DROP TABLE IF EXISTS `SS13_connection_log`;
+CREATE TABLE `SS13_connection_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `ckey` varchar(32) NOT NULL,
+  `ip` varchar(32) NOT NULL,
+  `computerid` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

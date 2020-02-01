@@ -1,5 +1,5 @@
 /datum/gear/donor
-	donor_only = TRUE
+	donator_tier = 2
 	sort_category = "Donor"
 	subtype_path = /datum/gear/donor
 
@@ -18,12 +18,10 @@
 /datum/gear/donor/furcape
 	display_name = "Fur Cape"
 	path = /obj/item/clothing/suit/furcape
-	cost = 2
 
 /datum/gear/donor/furcoat
 	display_name = "Fur Coat"
 	path = /obj/item/clothing/suit/furcoat
-	cost = 2
 
 /datum/gear/donor/kamina
 	display_name = "Spiky Orange-tinted Shades"
@@ -32,10 +30,6 @@
 /datum/gear/donor/green
 	display_name = "Spiky Green-tinted Shades"
 	path = /obj/item/clothing/glasses/fluff/kamina/green
-
-/datum/gear/donor/hipster
-	display_name = "Hipster Glasses"
-	path = /obj/item/clothing/glasses/regular/hipster
 
 /datum/gear/donor/threedglasses
 	display_name = "Threed Glasses"
@@ -77,6 +71,26 @@
 	display_name = "Guy Fawkes mask"
 	path = /obj/item/clothing/mask/fawkes
 
-/datum/gear/donor/noble_clothes
-	display_name = "Noble Clothes"
-	path = /obj/item/clothing/under/noble_clothes
+/datum/gear/donor/id_decal_silver
+	display_name = "Silver ID Decal"
+	path = /obj/item/id_decal/silver
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_prisoner
+	display_name = "Prisoner ID Decal"
+	path = /obj/item/id_decal/prisoner
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_emag
+	display_name = "Emag ID Decal"
+	path = /obj/item/id_decal/emag
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_gold
+	display_name = "Gold ID Decal"
+	path = /obj/item/id_decal/gold
+	donator_tier = 4
+	cost = 4

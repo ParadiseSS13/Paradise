@@ -124,6 +124,7 @@
 	desc = "A 12 gauge lead slug."
 	icon_state = "blshell"
 	caliber = "shotgun"
+	drop_sound = 'sound/weapons/gun_interactions/shotgun_fall.ogg'
 	projectile_type = /obj/item/projectile/bullet
 	materials = list(MAT_METAL=4000)
 
@@ -297,7 +298,7 @@
 /obj/item/ammo_casing/caseless
 	desc = "A caseless bullet casing."
 
-/obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet)
+/obj/item/ammo_casing/caseless/fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, params, distro, quiet, zone_override = "", spread)
 	if(..())
 		loc = null
 		return 1
@@ -324,6 +325,7 @@
 	icon = 'icons/obj/guns/toy.dmi'
 	icon_state = "foamdart"
 	var/modified = 0
+	harmful = FALSE
 
 /obj/item/ammo_casing/caseless/foam_dart/update_icon()
 	..()
@@ -347,7 +349,9 @@
 	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
+		harmful = TRUE
 		A.loc = FD
+		FD.log_override = FALSE
 		FD.pen = A
 		FD.damage = 5
 		FD.nodamage = 0
@@ -368,6 +372,32 @@
 	desc = "Whose smart idea was it to use toys as crowd control? Ages 18 and up."
 	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/riot
 	icon_state = "foamdart_riot"
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper
+	name = "foam sniper dart"
+	desc = "For the big nerf! Ages 8 and up."
+	caliber = "foam_force_sniper"
+	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper
+	icon_state = "foamdartsniper"
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/update_icon()
+	..()
+	if(modified)
+		icon_state = "foamdartsniper_empty"
+		desc = "Its nerf or nothing! ... Although, this one doesn't look too safe."
+		if(BB)
+			BB.icon_state = "foamdartsniper_empty"
+	else
+		icon_state = initial(icon_state)
+		if(BB)
+			BB.icon_state = initial(BB.icon_state)
+
+/obj/item/ammo_casing/caseless/foam_dart/sniper/riot
+	name = "riot foam sniper dart"
+	desc = "For the bigger brother of the crowd control toy. Ages 18 and up."
+	caliber = "foam_force_sniper"
+	projectile_type = /obj/item/projectile/bullet/reusable/foam_dart/sniper/riot
+	icon_state = "foamdartsniper_riot"
 
 /obj/item/ammo_casing/shotgun/assassination
 	name = "assassination shell"

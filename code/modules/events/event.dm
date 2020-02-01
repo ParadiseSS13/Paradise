@@ -105,7 +105,7 @@
 
 //Do not override this proc, instead use the appropiate procs.
 //This proc will handle the calls to the appropiate procs.
-/datum/event/proc/process()
+/datum/event/process()
 	if(!processing)
 		return
 
@@ -137,12 +137,12 @@
 		end()
 
 	endedAt = world.time
-	event_manager.active_events -= src
-	event_manager.event_complete(src)
+	SSevents.active_events -= src
+	SSevents.event_complete(src)
 
 /datum/event/New(var/datum/event_meta/EM)
 	// event needs to be responsible for this, as stuff like APLUs currently make their own events for curious reasons
-	event_manager.active_events += src
+	SSevents.active_events += src
 
 	if(!EM)
 		EM = new /datum/event_meta(EVENT_LEVEL_MAJOR, "Unknown, Most likely admin called", src.type)

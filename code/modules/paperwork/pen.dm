@@ -26,7 +26,7 @@
 
 /obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 /obj/item/pen/blue
 	name = "blue-ink pen"
@@ -109,7 +109,7 @@
 		return
 
 	if(!force)
-		if(M.can_inject(user, 1))
+		if(M.can_inject(user, TRUE))
 			to_chat(user, "<span class='warning'>You stab [M] with the pen.</span>")
 //			to_chat(M, "<span class='danger'>You feel a tiny prick!</span>")
 			. = 1

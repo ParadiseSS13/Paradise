@@ -591,7 +591,7 @@
 		new /obj/item/healthanalyzer(Tsec)
 
 		if(prob(50))
-			new /obj/item/robot_parts/l_arm(Tsec)
+			drop_part(robot_arm, Tsec)
 
 	if(reagent_glass)
 		reagent_glass.forceMove(Tsec)

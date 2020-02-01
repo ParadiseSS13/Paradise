@@ -22,7 +22,7 @@ var/list/event_last_fired = list()
 
 	var/last_world_time = 0
 
-/datum/event_container/proc/process()
+/datum/event_container/process()
 	if(!next_event_time)
 		set_event_delay()
 
@@ -181,7 +181,8 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Revenant", 				/datum/event/revenant, 					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Swarmer Spawn", 			/datum/event/spawn_swarmer, 			150, is_one_shot = 1),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Morph Spawn", 				/datum/event/spawn_morph, 				40, is_one_shot = 1),
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			0,		list(ASSIGNMENT_MEDICAL = 150), 1)
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			0,		list(ASSIGNMENT_MEDICAL = 150), 1),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Headcrabs",				/datum/event/headcrabs, 				0, list(ASSIGNMENT_SECURITY = 20))
 	)
 
 /datum/event_container/major
@@ -196,8 +197,8 @@ var/list/event_last_fired = list()
 		new /datum/event_meta/alien(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 		0,		list(ASSIGNMENT_SECURITY = 15), 1),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Traders",			/datum/event/traders,			180, is_one_shot = 1),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",			/datum/event/spider_terror, 		0,			list(ASSIGNMENT_SECURITY = 15), is_one_shot = 1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",	/datum/event/spawn_slaughter,	15, is_one_shot = 1),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = 1)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",	/datum/event/spawn_slaughter,	15, is_one_shot = 1)
+		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = 1)
 	)
 
 

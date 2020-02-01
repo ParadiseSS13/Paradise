@@ -10,6 +10,7 @@
 	var/circuitry_installed = 1
 	var/last_tick //used to delay the powercheck
 	var/buildstage = 0
+	dog_fashion = null
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
@@ -49,7 +50,7 @@
 	..()
 	buildstage = building
 	if(buildstage)
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 	else
 		if(ndir)
 			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
@@ -105,7 +106,7 @@
 	)
 
 /obj/item/radio/intercom/Destroy()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.global_intercoms.Remove(src)
 	return ..()
 
@@ -128,13 +129,15 @@
 		// TODO: Integrate radio with the space manager
 		if(isnull(position) || !(position.z in level))
 			return -1
-	if(freq in ANTAG_FREQS)
+	if(freq in SSradio.ANTAG_FREQS)
 		if(!(syndiekey))
 			return -1//Prevents broadcast of messages over devices lacking the encryption
 
 	return canhear_range
 
 /obj/item/radio/intercom/attackby(obj/item/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/stack/tape_roll)) //eww
+		return
 	switch(buildstage)
 		if(3)
 			if(iswirecutter(W) && b_stat && wires.IsAllCut())
@@ -148,7 +151,7 @@
 					b_stat = 1
 					buildstage = 1
 					update_icon()
-					processing_objects.Remove(src)
+					STOP_PROCESSING(SSobj, src)
 				return 1
 			else return ..()
 		if(2)
@@ -161,7 +164,7 @@
 					buildstage = 3
 					to_chat(user, "<span class='notice'>You secure the electronics!</span>")
 					update_icon()
-					processing_objects.Add(src)
+					START_PROCESSING(SSobj, src)
 					for(var/i, i<= 5, i++)
 						wires.UpdateCut(i,1)
 				return 1
@@ -236,7 +239,7 @@
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/radio/intercom/locked
     var/locked_frequency

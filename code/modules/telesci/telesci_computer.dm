@@ -42,8 +42,8 @@
 	return ..()
 
 /obj/machinery/computer/telescience/examine(mob/user)
-	..(user)
-	to_chat(user, "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.")
+	. = ..()
+	. += "There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots."
 
 /obj/machinery/computer/telescience/Initialize()
 	..()
@@ -73,7 +73,7 @@
 			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
 			updateUsrDialog()
 	else
-		..()
+		return ..()
 
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if(!emagged)
@@ -86,6 +86,9 @@
 	src.attack_hand(user)
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
+	if(isgolem(user)) //this is why we can't have nice things free golems
+		to_chat(user, "<span class='warning'>You can't make sense of the console or how to use it.</span>")
+		return
 	if(..())
 		return
 	interact(user)

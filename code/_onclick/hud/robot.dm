@@ -154,9 +154,9 @@
 	mymob.pullin.screen_loc = ui_borg_pull
 	hotkeybuttons += mymob.pullin
 
-	mymob.zone_sel = new /obj/screen/zone_sel/robot()
-	mymob.zone_sel.update_icon(mymob)
-	static_inventory += mymob.zone_sel
+	zone_select = new /obj/screen/zone_sel/robot()
+	zone_select.update_icon(mymob)
+	static_inventory += zone_select
 
 //Headlamp
 	mymobR.lamp_button = new /obj/screen/robot/lamp()
@@ -226,8 +226,8 @@
 					A.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
 				else
 					A.screen_loc = "CENTER+[x]:16,SOUTH+[y]:7"
-				A.layer = 20
-				A.plane = HUD_PLANE
+				A.layer = ABOVE_HUD_LAYER
+				A.plane = ABOVE_HUD_PLANE
 
 				x++
 				if(x == 4)

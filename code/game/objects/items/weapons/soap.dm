@@ -4,6 +4,8 @@
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
 	icon_state = "soap"
+	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 0
 	throw_speed = 4
@@ -29,7 +31,7 @@
 		if(muncher && isdrask(muncher))
 			to_chat(user, "You take a bite of the [name]. Delicious!")
 			playsound(user.loc, 'sound/items/eatfood.ogg', 50, 0)
-			user.nutrition += 2
+			user.adjust_nutrition(2)
 	else if(istype(target,/obj/effect/decal/cleanable))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, cleanspeed, target = target) && target)
@@ -53,13 +55,12 @@
 
 /obj/item/soap/proc/clean_turf(turf/simulated/T)
 	T.clean_blood()
-	T.dirt = 0
 	for(var/obj/effect/O in T)
 		if(is_cleanable(O))
 			qdel(O)
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
-	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_sel &&user.zone_sel.selecting == "mouth" )
+	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
 		user.visible_message("<span class='warning'>\the [user] washes \the [target]'s mouth out with [name]!</span>")
 		return
 	..()

@@ -83,9 +83,9 @@
 		"_default" = "NO_FILTER"
 		)
 	var/output = "<b>Radio Report</b><hr>"
-	for(var/fq in radio_controller.frequencies)
+	for(var/fq in SSradio.frequencies)
 		output += "<b>Freq: [fq]</b><br>"
-		var/list/datum/radio_frequency/fqs = radio_controller.frequencies[fq]
+		var/list/datum/radio_frequency/fqs = SSradio.frequencies[fq]
 		if(!fqs)
 			output += "&nbsp;&nbsp;<b>ERROR</b><br>"
 			continue
@@ -145,7 +145,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/filter = input("Contains what?","Filter") as text|null
+	var/filter = clean_input("Contains what?","Filter")
 	if(!filter)
 		return
 
@@ -166,7 +166,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/refstring = input("Which reference?","Ref") as text|null
+	var/refstring = clean_input("Which reference?","Ref")
 	if(!refstring)
 		return
 

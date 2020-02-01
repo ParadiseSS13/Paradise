@@ -53,5 +53,6 @@
 	H.faction += "syndicate"
 	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
 	opshud.join_hud(H.mind.current)
+	H.mind.offstation_role = TRUE
 	set_antag_hud(H.mind.current, "hudoperative")
 	H.regenerate_icons()

@@ -4,6 +4,10 @@
 	var/radio_desc = ""
 	icon_state = "headset"
 	item_state = "headset"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/ears.dmi',
+		"Vox Armalis" = 'icons/mob/species/armalis/ears.dmi'
+		) //We read you loud and skree-er.
 	materials = list(MAT_METAL=75)
 	subspace_transmission = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
@@ -16,6 +20,7 @@
 
 	var/ks1type = null
 	var/ks2type = null
+	dog_fashion = null
 
 /obj/item/radio/headset/New()
 	..()
@@ -43,12 +48,11 @@
 /obj/item/radio/headset/list_channels(var/mob/user)
 	return list_secure_channels()
 
-/obj/item/radio/headset/examine(mob/user, var/distance = -1)
-	if(!(..(user, 1) && radio_desc))
-		return
-
-	to_chat(user, "The following channels are available:")
-	to_chat(user, radio_desc)
+/obj/item/radio/headset/examine(mob/user)
+	. = ..()
+	if(in_range(src, user) && radio_desc)
+		. += "The following channels are available:"
+		. += radio_desc
 
 /obj/item/radio/headset/handle_message_mode(mob/living/M as mob, list/message_pieces, channel)
 	if(channel == "special")
@@ -309,13 +313,13 @@
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
 	user.set_machine(src)
 	if(!( istype(W, /obj/item/screwdriver) || (istype(W, /obj/item/encryptionkey/ ))))
-		return
+		return ..()
 
 	if(istype(W, /obj/item/screwdriver))
 		if(keyslot1 || keyslot2)
 
 			for(var/ch_name in channels)
-				radio_controller.remove_object(src, radiochannels[ch_name])
+				SSradio.remove_object(src, SSradio.radiochannels[ch_name])
 				secure_radio_connections[ch_name] = null
 
 			if(keyslot1)
@@ -392,11 +396,11 @@
 
 
 	for(var/ch_name in channels)
-		if(!radio_controller)
+		if(!SSradio)
 			name = "broken radio headset"
 			return
 
-		secure_radio_connections[ch_name] = radio_controller.add_object(src, radiochannels[ch_name],  RADIO_CHAT)
+		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
 
 	if(setDescription)
 		setupRadioDescription()

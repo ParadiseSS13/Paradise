@@ -14,8 +14,7 @@ Contents:
 	item_state = "s-ninja_suit"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/melee/baton, /obj/item/tank, /obj/item/stock_parts/cell)
 	slowdown = 0
-	unacidable = 1
-	armor = list(melee = 60, bullet = 60, laser = 45, energy = 15, bomb = 30, bio = 30, rad = 30)
+	armor = list("melee" = 60, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 
 	var/suitActive = 0
 	var/suitBusy = 0
@@ -24,8 +23,11 @@ Contents:
 	var/obj/item/clothing/head/helmet/space/space_ninja/suitHood
 	var/obj/item/clothing/gloves/space_ninja/suitGloves
 	var/obj/item/clothing/shoes/space_ninja/suitShoes
-	var/obj/item/clothing/mask/gas/voice/space_ninja/suitMask
+	var/obj/item/clothing/mask/gas/space_ninja/suitMask
 	var/mob/living/carbon/human/suitOccupant
+
+/obj/item/clothing/suit/space/space_ninja/get_cell()
+	return suitCell
 
 /obj/item/clothing/suit/space/space_ninja/proc/toggle_suit_lock(mob/living/carbon/human/user)
 	if(!suitActive)
@@ -41,7 +43,7 @@ Contents:
 		if(!istype(user.shoes, /obj/item/clothing/shoes/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate foot gear.\nABORTING...</span>")
 			return 0
-		if(!istype(user.wear_mask, /obj/item/clothing/mask/gas/voice/space_ninja))
+		if(!istype(user.wear_mask, /obj/item/clothing/mask/gas/space_ninja))
 			to_chat(user, "<span style='color: #ff0000;'><b>ERROR:</b> Unable to locate mask.\nABORTING...</span>")
 			return 0
 

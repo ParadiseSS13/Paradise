@@ -13,8 +13,8 @@
 	language = "Sol Common"
 	burn_mod = 4 // holy shite, poor guys wont survive half a second cooking smores
 	brute_mod = 2 // damn, double wham, double dam
-	oxy_mod = 0
 	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_PAIN, NO_SCAN, RADIMMUNE)
+	dies_at_threshold = TRUE
 	dietflags = DIET_OMNI		//still human at their core, so they maintain their eating habits and diet
 
 	//Default styles for created mobs.
@@ -34,7 +34,7 @@
 	H.light_color = "#1C1C00"
 	H.set_light(2)
 
-/datum/species/nucleation/handle_death(mob/living/carbon/human/H)
+/datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/H)
 	var/turf/T = get_turf(H)
 	H.visible_message("<span class='warning'>[H]'s body explodes, leaving behind a pile of microscopic crystals!</span>")
 	explosion(T, 0, 0, 2, 2) // Create a small explosion burst upon death

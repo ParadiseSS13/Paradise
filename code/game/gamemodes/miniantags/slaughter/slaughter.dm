@@ -18,7 +18,7 @@
 	stop_automated_movement = 1
 	status_flags = CANPUSH
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	var/feast_sound = 'sound/misc/Demon_consume.ogg'
+	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	death_sound = 'sound/misc/demon_dies.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
@@ -33,7 +33,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	see_in_dark = 8
-	see_invisible = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	var/boost = 0
 	bloodcrawl = BLOODCRAWL_EAT
 
@@ -72,7 +72,7 @@
 		if(!(vialspawned))
 			var/datum/objective/slaughter/objective = new
 			var/datum/objective/demonFluff/fluffObjective = new
-			ticker.mode.traitors |= mind
+			SSticker.mode.traitors |= mind
 			objective.owner = mind
 			fluffObjective.owner = mind
 			//Paradise Port:I added the objective for one spawned like this
@@ -137,7 +137,7 @@
 	action_background_icon_state = "bg_cult"
 	panel = "Demon"
 
-/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets)
+/obj/effect/proc_holder/spell/targeted/sense_victims/cast(list/targets, mob/user)
 	var/list/victims = targets
 	for(var/mob/living/L in GLOB.living_mob_list)
 		if(!L.stat && !iscultist(L) && L.key && L != usr)
@@ -174,7 +174,7 @@
 		S.mind.assigned_role = "Harbringer of the Slaughter"
 		S.mind.special_role = "Harbringer of the Slaughter"
 		to_chat(S, playstyle_string)
-		ticker.mode.add_cultist(S.mind)
+		SSticker.mode.add_cultist(S.mind)
 		var/obj/effect/proc_holder/spell/targeted/sense_victims/SV = new
 		AddSpell(SV)
 		var/datum/objective/new_objective = new /datum/objective
@@ -246,7 +246,7 @@
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
-	playsound(user, 'sound/misc/Demon_consume.ogg', 50, 1)
+	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
 	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
 		if(knownspell.type == /obj/effect/proc_holder/spell/bloodcrawl)
 			qdel(src)
@@ -290,6 +290,10 @@
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
+	maxHealth = 175
+	health = 175
+	melee_damage_lower = 25
+	melee_damage_upper = 25
 
 	attack_sound = 'sound/items/bikehorn.ogg'
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'

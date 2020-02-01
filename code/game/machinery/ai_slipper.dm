@@ -1,10 +1,12 @@
 /obj/machinery/ai_slipper
 	name = "\improper AI liquid dispenser"
 	icon = 'icons/obj/device.dmi'
-	icon_state = "motion3"
+	icon_state = "liquid_dispenser"
 	layer = 3
+	plane = FLOOR_PLANE
 	anchored = 1.0
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 200
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
 	var/uses = 20
 	var/disabled = TRUE
 	var/lethal = 0
@@ -16,14 +18,14 @@
 
 /obj/machinery/ai_slipper/power_change()
 	if(stat & BROKEN)
-		return
+		update_icon()
 	else
 		if( powered() )
 			stat &= ~NOPOWER
 		else
-			icon_state = "motion0"
 			stat |= NOPOWER
 			disabled = TRUE
+		update_icon()
 
 /obj/machinery/ai_slipper/proc/setState(var/enabled, var/uses)
 	disabled = disabled
@@ -35,27 +37,24 @@
 		return
 	if(istype(user, /mob/living/silicon))
 		return attack_hand(user)
-	else // trying to unlock the interface
-		if(allowed(usr))
-			locked = !locked
-			to_chat(user, "You [locked ? "lock" : "unlock"] the device.")
-			if(locked)
-				if(user.machine == src)
-					user.unset_machine()
-					user << browse(null, "window=ai_slipper")
-			else
-				if(user.machine == src)
-					attack_hand(usr)
+	if(allowed(usr)) // trying to unlock the interface
+		locked = !locked
+		to_chat(user, "You [locked ? "lock" : "unlock"] the device.")
+		if(locked)
+			if(user.machine == src)
+				user.unset_machine()
+				user << browse(null, "window=ai_slipper")
 		else
-			to_chat(user, "<span class='warning'>Access denied.</span>")
-			return
-	return
+			if(user.machine == src)
+				attack_hand(usr)
+		return
+	return ..()
 
 /obj/machinery/ai_slipper/proc/ToggleOn()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	disabled = !disabled
-	icon_state = disabled? "motion0":"motion3"
+	update_icon()
 
 /obj/machinery/ai_slipper/proc/Activate()
 	if(stat & (NOPOWER|BROKEN))
@@ -68,6 +67,12 @@
 		cooldown_on = TRUE
 		cooldown_time = world.timeofday + 100
 		slip_process()
+
+/obj/machinery/ai_slipper/update_icon()
+	if(stat & (NOPOWER|BROKEN) || disabled)
+		icon_state = "liquid_dispenser"
+	else
+		icon_state = "liquid_dispenser_on"
 
 /obj/machinery/ai_slipper/attack_ai(mob/user)
 	return attack_hand(user)

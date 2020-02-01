@@ -78,6 +78,8 @@
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		sleep(10)
 		user.put_in_hands(R)
+	else
+		return ..()
 
 /obj/item/autopsy_scanner/attack_self(mob/user)
 	var/scan_data = ""
@@ -163,7 +165,7 @@
 
 	timeofdeath = M.timeofdeath
 
-	var/obj/item/organ/external/S = M.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
 	if(!S)
 		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
 		return

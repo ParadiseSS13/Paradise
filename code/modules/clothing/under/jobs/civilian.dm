@@ -74,12 +74,22 @@
 	. = ..()
 	AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
 
-/obj/item/clothing/under/rank/clown/hit_reaction()
+/obj/item/clothing/under/rank/clown/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.mind && H.mind.assigned_role == "Clown")
 			score_clownabuse++
 	return ..()
+
+/obj/item/clothing/under/rank/clown/sexy
+	name = "sexy-clown suit"
+	desc = "It makes you look HONKable!"
+	icon_state = "sexyclown"
+	item_state = "sexyclown"
+	item_color = "sexyclown"
+
+/obj/item/clothing/under/rank/clown/nodrop
+	flags = NODROP
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -135,7 +145,7 @@
 	name = "janitor's jumpsuit"
 	icon_state = "janitor"
 	item_color = "janitor"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 10, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
 	flags_size = ONESIZEFITSALL
 
 
@@ -201,6 +211,8 @@
 	item_color = "mime"
 	flags_size = ONESIZEFITSALL
 
+/obj/item/clothing/under/mime/nodrop
+	flags = NODROP
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
@@ -209,6 +221,15 @@
 	item_state = "miner"
 	item_color = "miner"
 	flags_size = ONESIZEFITSALL
+
+/obj/item/clothing/under/rank/miner/lavaland
+	desc = "A green uniform for operating in hazardous environments."
+	name = "shaft miner's jumpsuit"
+	icon_state = "explorer"
+	item_state = "explorer"
+	item_color = "explorer"
+
+	sprite_sheets = list()
 
 /obj/item/clothing/under/barber
 	desc = "It's a barber's uniform."

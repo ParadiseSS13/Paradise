@@ -142,7 +142,7 @@
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = 0, tesla_shock = 0, illusion = 0, stun = TRUE)//prevents runtimes with machine fuckery
+/mob/living/simple_animal/hostile/floor_cluwne/electrocute_act(shock_damage, obj/source, siemens_coeff = 1, safety = FALSE, override = FALSE, tesla_shock = FALSE, illusion = FALSE, stun = TRUE) //prevents runtimes with machine fuckery
 	return FALSE
 
 
@@ -313,7 +313,7 @@
 					if(T.density)
 						forceMove(H.loc)
 					if(H.buckled)
-						H.buckled.unbuckle_mob()
+						H.buckled.unbuckle_mob(H, force = TRUE)
 				manifested = TRUE
 				Manifest()
 				to_chat(H, "<span class='userdanger'>You feel the floor closing in on your feet!</span>")

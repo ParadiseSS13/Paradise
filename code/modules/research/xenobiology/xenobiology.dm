@@ -132,14 +132,14 @@
 		to_chat(user, "<span class='notice'>You cannot transfer [src] to [target]! It appears the potion must be given directly to a slime to absorb.</span>") // le fluff faec
 		return
 
-/obj/item/slimepotion/docility
+/obj/item/slimepotion/slime/docility
 	name = "docility potion"
 	desc = "A potent chemical mix that nullifies a slime's hunger, causing it to become docile and tame."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
 	var/being_used = 0
 
-/obj/item/slimepotion/docility/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The potion only works on slimes!</span>")
 		return
@@ -149,9 +149,14 @@
 	if(being_used)
 		to_chat(user, "<span class='warning'>You're already using this on another slime!</span>")
 		return
-
+	if(M.rabid) //Stops being rabid, but doesn't become truly docile.
+		to_chat(M, "<span class='warning'>You absorb the potion, and your rabid hunger finally settles to a normal desire to feed.</span>")
+		to_chat(user, "<span class='notice'>You feed the slime the potion, calming its rabid rage.</span>")
+		M.rabid = FALSE
+		qdel(src)
+		return
 	M.docile = 1
-	M.nutrition = 700
+	M.set_nutrition(700)
 	to_chat(M, "<span class='warning'>You absorb the potion and feel your intense desire to feed melt away.</span>")
 	to_chat(user, "<span class='notice'>You feed the slime the potion, removing its hunger and calming it.</span>")
 	being_used = 1
@@ -205,16 +210,21 @@
 		SM.faction = user.faction
 		SM.master_commander = user
 		SM.sentience_act()
+		SM.can_collar = 1
 		to_chat(SM, "<span class='warning'>All at once it makes sense: you know what you are and who you are! Self awareness is yours!</span>")
 		to_chat(SM, "<span class='userdanger'>You are grateful to be self aware and owe [user] a great debt. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 		if(SM.flags_2 & HOLOGRAM_2) //Check to see if it's a holodeck creature
 			to_chat(SM, "<span class='userdanger'>You also become depressingly aware that you are not a real creature, but instead a holoform. Your existence is limited to the parameters of the holodeck.</span>")
 		to_chat(user, "<span class='notice'>[M] accepts the potion and suddenly becomes attentive and aware. It worked!</span>")
+		after_success(user, SM)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
 		being_used = 0
 		..()
+
+/obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
+	return
 
 /obj/item/slimepotion/transference
 	name = "consciousness transference potion"
@@ -254,19 +264,20 @@
 	SM.universal_speak = 1
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience
+	SM.can_collar = 1
 	user.death()
 	to_chat(SM, "<span class='notice'>In a quick flash, you feel your consciousness flow into [SM]!</span>")
 	to_chat(SM, "<span class='warning'>You are now [SM]. Your allegiances, alliances, and roles are still the same as they were prior to consciousness transfer!</span>")
 	SM.name = "[SM.name] as [user.real_name]"
 	qdel(src)
 
-/obj/item/slimepotion/steroid
+/obj/item/slimepotion/slime/steroid
 	name = "slime steroid"
 	desc = "A potent chemical mix that will cause a baby slime to generate more extract."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/steroid/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))//If target is not a slime.
 		to_chat(user, "<span class='warning'>The steroid only works on baby slimes!</span>")
 		return ..()
@@ -290,13 +301,13 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 
-/obj/item/slimepotion/stabilizer
+/obj/item/slimepotion/slime/stabilizer
 	name = "slime stabilizer"
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
 
-/obj/item/slimepotion/stabilizer/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The stabilizer only works on slimes!</span>")
 		return ..()
@@ -311,13 +322,13 @@
 	M.mutation_chance = Clamp(M.mutation_chance-15,0,100)
 	qdel(src)
 
-/obj/item/slimepotion/mutator
+/obj/item/slimepotion/slime/mutator
 	name = "slime mutator"
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
 
-/obj/item/slimepotion/mutator/attack(mob/living/carbon/slime/M, mob/user)
+/obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))
 		to_chat(user, "<span class='warning'>The mutator only works on slimes!</span>")
 		return ..()
@@ -343,20 +354,38 @@
 	icon_state = "bottle3"
 	origin_tech = "biotech=5"
 
-/obj/item/slimepotion/speed/afterattack(obj/item/C, mob/user, proximity_flag)
+/obj/item/slimepotion/speed/afterattack(obj/O, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
 	..()
-	if(!istype(C))
-		to_chat(user, "<span class='warning'>The potion can only be used on items!</span>")
+	if(!istype(O))
+		to_chat(user, "<span class='warning'>The potion can only be used on items or vehicles!</span>")
 		return
-	if(C.slowdown <= 0)
-		to_chat(user, "<span class='warning'>[C] can't be made any faster!</span>")
-		return..()
-	to_chat(user, "<span class='notice'>You slather the red gunk over [C], making it faster.</span>")
-	C.color = "#FF0000"
-	C.slowdown = 0
+	if(isitem(O))
+		var/obj/item/I = O
+		if(I.slowdown <= 0)
+			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
+			return ..()
+		I.slowdown = 0
+
+	if(istype(O, /obj/vehicle))
+		var/obj/vehicle/V = O
+		var/vehicle_speed_mod = config.run_speed
+		if(V.vehicle_move_delay <= vehicle_speed_mod)
+			to_chat(user, "<span class='warning'>[V] can't be made any faster!</span>")
+			return ..()
+		V.vehicle_move_delay = vehicle_speed_mod
+
+	to_chat(user, "<span class='notice'>You slather the red gunk over [O], making it faster.</span>")
+	O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+	O.add_atom_colour("#FF0000", FIXED_COLOUR_PRIORITY)
 	qdel(src)
+
+/obj/item/slimepotion/speed/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
+		return
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
 
 /obj/item/slimepotion/fireproof
 	name = "slime chill potion"
@@ -364,6 +393,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 	origin_tech = "biotech=5"
+	resistance_flags = FIRE_PROOF
 	var/uses = 3
 
 /obj/item/slimepotion/fireproof/afterattack(obj/item/clothing/C, mob/user, proximity_flag)
@@ -376,96 +406,24 @@
 	if(!istype(C))
 		to_chat(user, "<span class='warning'>The potion can only be used on clothing!</span>")
 		return
-	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT)
+	if(C.max_heat_protection_temperature == FIRE_IMMUNITY_MAX_TEMP_PROTECT)
 		to_chat(user, "<span class='warning'>[C] is already fireproof!</span>")
 		return ..()
 	to_chat(user, "<span class='notice'>You slather the blue gunk over [C], fireproofing it.</span>")
 	C.name = "fireproofed [C.name]"
 	C.color = "#000080"
-	C.max_heat_protection_temperature = FIRE_IMMUNITY_SUIT_MAX_TEMP_PROTECT
+	C.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	C.heat_protection = C.body_parts_covered
-	C.burn_state = FIRE_PROOF
+	C.resistance_flags |= FIRE_PROOF
 	uses --
 	if(!uses)
 		qdel(src)
 
-////////Adamantine Golem stuff I dunno where else to put it
-
-/obj/effect/golemrune
-	anchored = 1
-	desc = "a strange rune used to create golems. It glows when spirits are nearby."
-	name = "rune"
-	icon = 'icons/obj/rune.dmi'
-	icon_state = "golem"
-	unacidable = 1
-	layer = TURF_LAYER
-	var/list/mob/dead/observer/ghosts[0]
-
-/obj/effect/golemrune/New()
-	..()
-	processing_objects.Add(src)
-
-/obj/effect/golemrune/process()
-	if(ghosts.len>0)
-		icon_state = "golem2"
-	else
-		icon_state = "golem"
-
-/obj/effect/golemrune/attack_hand(mob/living/user)
-	var/mob/dead/observer/ghost
-	for(var/mob/dead/observer/O in loc)
-		if(!check_observer(O))
-			to_chat(O, "<span class='warning'>You are not eligible to become a golem.</span>")
-			continue
-		ghost = O
-		break
-	if(!ghost)
-		to_chat(user, "The rune fizzles uselessly. There is no spirit nearby.")
+/obj/item/slimepotion/fireproof/MouseDrop(obj/over_object)
+	if(usr.incapacitated())
 		return
-	var/mob/living/carbon/human/golem/G = new /mob/living/carbon/human/golem
-	G.change_gender(pick(MALE,FEMALE))
-	G.loc = src.loc
-	G.key = ghost.key
-	add_attack_logs(user, G, "Summoned as a golem")
-	to_chat(G, "You are an adamantine golem. You move slowly, but are highly resistant to heat and cold as well as blunt trauma. You are unable to wear clothes, but can still use most tools. Serve [user], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.")
-	qdel(src)
-
-/obj/effect/golemrune/Topic(href,href_list)
-	if("signup" in href_list)
-		var/mob/dead/observer/O = locate(href_list["signup"])
-		volunteer(O)
-
-/obj/effect/golemrune/attack_ghost(var/mob/dead/observer/O)
-	if(!O)
-		return
-	volunteer(O)
-
-/obj/effect/golemrune/proc/check_observer(var/mob/dead/observer/O)
-	if(!O)
-		return FALSE
-	if(!O.client)
-		return FALSE
-	if(O.mind && O.mind.current && O.mind.current.stat != DEAD)
-		return FALSE
-	if(!O.can_reenter_corpse)
-		return FALSE
-	if(cannotPossess(O))
-		return FALSE
-	return TRUE
-
-/obj/effect/golemrune/proc/volunteer(var/mob/dead/observer/O)
-	if(O in ghosts)
-		ghosts.Remove(O)
-		to_chat(O, "<span class='warning'>You are no longer signed up to be a golem.</span>")
-	else
-		if(!check_observer(O))
-			to_chat(O, "<span class='warning'>You are not eligible to become a golem.</span>")
-			return
-		ghosts.Add(O)
-		to_chat(O, "<span class='notice'>You are signed up to be a golem.</span>")
-
-
-
+	if(loc == usr && loc.Adjacent(over_object))
+		afterattack(over_object, usr, TRUE)
 
 /obj/effect/timestop
 	anchored = 1
@@ -476,7 +434,7 @@
 	layer = FLY_LAYER
 	pixel_x = -64
 	pixel_y = -64
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/living/immune = list() // the one who creates the timestop is immune
 	var/list/stopped_atoms = list()
@@ -492,7 +450,7 @@
 
 
 /obj/effect/timestop/proc/timestop()
-	playsound(get_turf(src), 'sound/magic/TIMEPARADOX2.ogg', 100, 1, -1)
+	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, 1, -1)
 	for(var/i in 1 to duration-1)
 		for(var/A in orange (freezerange, loc))
 			if(isliving(A))

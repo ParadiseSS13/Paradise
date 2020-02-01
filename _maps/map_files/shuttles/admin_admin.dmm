@@ -1,0 +1,1092 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aa" = (
+/turf/space,
+/area/space)
+"ab" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	dir = 8;
+	icon_state = "diagonalWall3"
+	},
+/area/shuttle/administration)
+"ac" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/shuttle/administration)
+"ad" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "101"
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ae" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "s_docking_airlock";
+	name = "Shuttle Hatch";
+	req_access_txt = "101"
+	},
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 8;
+	height = 15;
+	id = "admin";
+	name = "admin";
+	roundstart_move = null;
+	timid = 1;
+	width = 18
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"af" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	dir = 1;
+	icon_state = "diagonalWall3"
+	},
+/area/shuttle/administration)
+"ag" = (
+/obj/machinery/vending/boozeomat,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/shuttle/administration)
+"ah" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/beer,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ai" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/drinkingglasses,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aj" = (
+/obj/structure/table/reinforced,
+/obj/machinery/chem_dispenser/soda,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ak" = (
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
+/area/shuttle/administration)
+"al" = (
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "blast door control";
+	pixel_x = -30;
+	req_access_txt = "101"
+	},
+/obj/machinery/light{
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"am" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"an" = (
+/obj/machinery/cell_charger,
+/obj/structure/table,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ao" = (
+/obj/item/storage/toolbox/mechanical,
+/obj/item/multitool,
+/obj/structure/table,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ap" = (
+/obj/structure/table,
+/obj/machinery/recharger{
+	pixel_y = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aq" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (EAST)";
+	icon_state = "tube1";
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ar" = (
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "adminshuttleblast";
+	name = "Blast Doors";
+	req_access_txt = "101"
+	},
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "General Access";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"as" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (WEST)";
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"at" = (
+/obj/item/stack/sheet/metal,
+/obj/structure/table,
+/obj/item/stack/sheet/glass{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"au" = (
+/obj/machinery/mecha_part_fabricator/upgraded,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"av" = (
+/obj/machinery/kitchen_machine/microwave/upgraded,
+/obj/structure/table,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aw" = (
+/obj/machinery/door/window/northright{
+	name = "bar"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ax" = (
+/obj/structure/table,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"ay" = (
+/obj/item/ashtray/glass,
+/obj/structure/table,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"az" = (
+/obj/item/storage/fancy/cigarettes/dromedaryco,
+/obj/item/lighter/zippo{
+	pixel_x = 5
+	},
+/obj/structure/table,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aA" = (
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "blast door control";
+	pixel_x = -30;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aB" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Workshop";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aC" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_l";
+	tag = "icon-propulsion_l (EAST)"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/administration)
+"aD" = (
+/obj/structure/shuttle/engine/heater{
+	tag = "icon-heater (WEST)";
+	icon_state = "heater";
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 4
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/administration)
+"aE" = (
+/obj/structure/chair/stool/bar,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aF" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aG" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aH" = (
+/obj/machinery/recharge_station/upgraded,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aI" = (
+/obj/machinery/autolathe/upgraded{
+	hacked = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aJ" = (
+/obj/structure/dispenser,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aK" = (
+/obj/structure/shuttle/engine/propulsion{
+	dir = 8;
+	icon_state = "propulsion_r";
+	tag = "icon-propulsion_r (EAST)"
+	},
+/turf/simulated/shuttle/plating,
+/area/shuttle/administration)
+"aL" = (
+/obj/machinery/door/airlock/public/glass,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aM" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "diagonalWall3"
+	},
+/area/shuttle/administration)
+"aN" = (
+/turf/space,
+/turf/simulated/shuttle/wall{
+	icon_state = "diagonalWall3"
+	},
+/area/shuttle/administration)
+"aO" = (
+/obj/machinery/vending/snack,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aP" = (
+/obj/machinery/vending/cola,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aQ" = (
+/obj/machinery/vending/coffee,
+/obj/machinery/light/spot,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aR" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aS" = (
+/obj/machinery/computer/card,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aT" = (
+/obj/machinery/computer/communications,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aU" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 4;
+	icon_state = "open";
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	tag = "icon-window5_end (WEST)";
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_end";
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"aV" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (NORTH)";
+	icon_state = "tube1";
+	dir = 1
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleblast";
+	name = "Blast door control";
+	pixel_x = -5;
+	pixel_y = 35;
+	req_access = list(101);
+	req_access_txt = "0"
+	},
+/obj/machinery/door_control{
+	id = "adminshuttleshutters";
+	name = "Shutter control";
+	pixel_x = 5;
+	pixel_y = 35;
+	req_access = list(101);
+	req_access_txt = "0"
+	},
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aW" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aX" = (
+/obj/machinery/computer/shuttle/admin{
+	name = "NTV Argos shuttle console"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"aY" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 4;
+	icon_state = "open";
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	dir = 4;
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_mid";
+	tag = "icon-window5 (EAST)"
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"aZ" = (
+/obj/machinery/dna_scannernew/upgraded,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"ba" = (
+/obj/machinery/computer/cloning,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bb" = (
+/obj/machinery/clonepod/upgraded,
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (NORTH)";
+	icon_state = "tube1";
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bc" = (
+/obj/machinery/computer/scan_consolenew,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bd" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Bridge";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"be" = (
+/obj/machinery/computer/camera_advanced/shuttle_docker/admin{
+	name = "NTV Argos shuttle navigation computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bf" = (
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 4;
+	icon_state = "open";
+	id_tag = "adminshuttleshutters";
+	name = "Blast Shutters";
+	opacity = 0
+	},
+/obj/structure/grille,
+/obj/structure/shuttle/window{
+	tag = "icon-window5_end (EAST)";
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_end";
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/shuttle/administration)
+"bg" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bh" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Medbay";
+	opacity = 1;
+	req_access_txt = "101"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bi" = (
+/obj/machinery/bodyscanner,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bk" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bl" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (EAST)";
+	icon_state = "tube1";
+	dir = 4
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bm" = (
+/obj/machinery/sleeper/upgraded{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bn" = (
+/obj/machinery/chem_master,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bo" = (
+/obj/machinery/chem_dispenser,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bp" = (
+/obj/machinery/door/airlock/centcom{
+	id_tag = "adminshuttle";
+	name = "Holding Cell";
+	opacity = 1;
+	req_access_txt = "104"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bq" = (
+/obj/machinery/door/window/brigdoor/westleft{
+	color = "#d70000";
+	req_access_txt = "104"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"br" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bs" = (
+/obj/machinery/iv_drip,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bt" = (
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (EAST)";
+	icon_state = "tube1";
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bu" = (
+/obj/structure/table,
+/obj/item/storage/box/handcuffs,
+/obj/machinery/light/spot{
+	tag = "icon-tube1 (WEST)";
+	icon_state = "tube1";
+	dir = 8
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bv" = (
+/obj/structure/window/plasmareinforced{
+	color = "#FF0000";
+	dir = 8
+	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bw" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bx" = (
+/obj/structure/table,
+/obj/item/bonegel,
+/obj/item/bonesetter,
+/obj/item/hemostat,
+/obj/item/cautery,
+/obj/item/surgicaldrill,
+/obj/item/circular_saw,
+/obj/item/scalpel,
+/obj/item/retractor,
+/obj/item/FixOVein,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"by" = (
+/obj/machinery/optable,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bz" = (
+/obj/machinery/vending/medical,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/administration)
+"bA" = (
+/obj/machinery/light,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bB" = (
+/obj/structure/table,
+/obj/item/storage/lockbox/mindshield,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+"bC" = (
+/obj/structure/table,
+/obj/item/storage/box/chemimp{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/storage/box/trackimp,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/administration)
+
+(1,1,1) = {"
+aa
+aa
+aa
+ab
+aC
+aK
+aN
+aa
+ab
+aC
+aK
+aN
+aa
+aa
+aa
+aa
+aa
+aa
+"}
+(2,1,1) = {"
+aa
+aa
+ab
+ac
+aD
+aD
+ac
+ac
+ac
+aD
+aD
+ac
+aN
+aa
+aa
+aa
+aa
+aa
+"}
+(3,1,1) = {"
+aa
+ab
+ac
+av
+am
+am
+aO
+ac
+aZ
+bg
+bg
+bm
+ac
+aN
+aa
+aa
+aa
+aa
+"}
+(4,1,1) = {"
+ab
+ag
+am
+aw
+am
+am
+aP
+ac
+ba
+bg
+bg
+bg
+bs
+ac
+aN
+aa
+aa
+aa
+"}
+(5,1,1) = {"
+ac
+ah
+am
+ax
+aE
+am
+aQ
+ac
+bb
+bg
+bg
+bg
+bg
+bx
+ac
+aa
+aa
+aa
+"}
+(6,1,1) = {"
+ac
+ai
+am
+ay
+aE
+am
+aR
+ac
+aZ
+bg
+bi
+bn
+bg
+by
+ac
+aa
+aa
+aa
+"}
+(7,1,1) = {"
+ac
+aj
+aq
+az
+aE
+am
+am
+ac
+bc
+bg
+bg
+bo
+bt
+bz
+ac
+aa
+aa
+aa
+"}
+(8,1,1) = {"
+ac
+ak
+ak
+ak
+ak
+aL
+ak
+ak
+ak
+bh
+ak
+ak
+ak
+ak
+ac
+aa
+aa
+aa
+"}
+(9,1,1) = {"
+ad
+al
+ar
+aA
+am
+am
+am
+as
+am
+am
+am
+am
+am
+am
+ac
+aa
+aa
+aa
+"}
+(10,1,1) = {"
+ae
+am
+ar
+am
+am
+am
+am
+am
+am
+am
+am
+am
+am
+bA
+ac
+aa
+aa
+aa
+"}
+(11,1,1) = {"
+ac
+ak
+ak
+aB
+ak
+ak
+ak
+bd
+ak
+ak
+ak
+bp
+ak
+ak
+ac
+aa
+aa
+aa
+"}
+(12,1,1) = {"
+ac
+an
+as
+am
+aF
+ac
+aS
+am
+am
+ac
+am
+am
+bu
+bB
+ac
+aa
+aa
+aa
+"}
+(13,1,1) = {"
+ac
+ao
+am
+am
+aG
+ac
+aV
+aW
+aW
+ac
+am
+am
+am
+bC
+ac
+aa
+aa
+aa
+"}
+(14,1,1) = {"
+ac
+ap
+am
+am
+aH
+ac
+aT
+aX
+be
+ac
+am
+am
+am
+am
+ac
+aa
+aa
+aa
+"}
+(15,1,1) = {"
+af
+ac
+at
+am
+am
+ac
+aU
+aY
+bf
+ac
+bk
+bq
+bv
+ac
+aM
+aa
+aa
+aa
+"}
+(16,1,1) = {"
+aa
+ac
+au
+am
+aI
+ac
+aa
+aa
+aa
+ac
+am
+am
+bw
+ac
+aa
+aa
+aa
+aa
+"}
+(17,1,1) = {"
+aa
+af
+ac
+aq
+aJ
+ac
+aa
+aa
+aa
+ac
+bl
+br
+ac
+aM
+aa
+aa
+aa
+aa
+"}
+(18,1,1) = {"
+aa
+aa
+af
+ak
+ak
+aM
+aa
+aa
+aa
+af
+ak
+ak
+aM
+aa
+aa
+aa
+aa
+aa
+"}
+(19,1,1) = {"
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+aa
+"}

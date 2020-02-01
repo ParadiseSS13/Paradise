@@ -54,10 +54,11 @@
 		if(3)
 			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>Your thoughts are interrupted by a loud <b>HONK!</b></span>")
-				affected_mob << 'sound/items/AirHorn.ogg'
+				affected_mob << 'sound/items/airhorn.ogg'
 		if(4)
 			if(prob(5))
 				affected_mob.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ) )
 
-			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/virusclown_hat))
-				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/virusclown_hat(src), slot_wear_mask)
+			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
+				affected_mob.unEquip(affected_mob.wear_mask, TRUE)
+				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), slot_wear_mask)

@@ -9,7 +9,8 @@
 	throw_range = 1
 	throw_speed = 1
 	layer = 4
-	pressure_resistance = 1
+	pressure_resistance = 2
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/documents/nanotrasen
 	desc = "\"Top Secret\" Nanotrasen documents printed on special copy-protected paper. It is filled with complex diagrams and lists of names, dates and coordinates."
@@ -32,12 +33,16 @@
 	name = "'Yellow' secret documents"
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\"."
 	icon_state = "docs_yellow"
+	resistance_flags = NONE
 
 /obj/item/documents/syndicate/yellow/trapped
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\", and have a thin film of clear material covering their surface."
 	var/poison_type = "amanitin"
 	var/poison_dose = 20
 	var/poison_total = 60
+
+/obj/item/documents/syndicate/mining
+	desc = "\"Top Secret\" documents detailing Syndicate plasma mining operations."
 
 /obj/item/documents/syndicate/yellow/trapped/pickup(user)
 	if(ishuman(user) && poison_total > 0)
@@ -47,4 +52,4 @@
 			H.reagents.add_reagent(poison_type, poison_dose)
 			poison_total -= poison_dose
 			add_attack_logs(src, user, "Picked up [src], the trapped syndicate documents")
-	..()
+	return ..()

@@ -9,11 +9,12 @@
 	item_state = "lighter-g"
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
-	w_class = WEIGHT_CLASS_SMALL
+	w_class = WEIGHT_CLASS_TINY
 	throwforce = 4
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	attack_verb = null
+	resistance_flags = FIRE_PROOF
 	var/lit = 0
 
 /obj/item/lighter/zippo
@@ -43,7 +44,7 @@
 			attack_verb = list("burnt", "singed")
 			if(istype(src, /obj/item/lighter/zippo) )
 				user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
-				playsound(src.loc, 'sound/items/ZippoLight.ogg', 25, 1)
+				playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 			else
 				if(prob(75))
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src].</span>")
@@ -58,7 +59,7 @@
 					user.visible_message("<span class='notice'>After a few attempts, [user] manages to light the [src], [user.p_they()] however burn[user.p_s()] [user.p_their()] finger in the process.</span>")
 
 			set_light(2)
-			processing_objects.Add(src)
+			START_PROCESSING(SSobj, src)
 		else
 			lit = 0
 			w_class = WEIGHT_CLASS_TINY
@@ -69,12 +70,12 @@
 			attack_verb = null //human_defense.dm takes care of it
 			if(istype(src, /obj/item/lighter/zippo) )
 				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
-				playsound(src.loc, 'sound/items/ZippoClose.ogg', 25, 1)
+				playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 
 			set_light(0)
-			processing_objects.Remove(src)
+			STOP_PROCESSING(SSobj, src)
 	else
 		return ..()
 	return
@@ -87,7 +88,7 @@
 	if(!istype(M, /mob))
 		return
 
-	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_sel.selecting == "mouth" && lit)
+	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && lit)
 		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
 		if(M == user)
 			cig.attackby(src, user)
@@ -166,7 +167,8 @@
 		location.hotspot_expose(700, 5)
 		return
 
-/obj/item/match/fire_act()
+/obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	..()
 	matchignite()
 
 /obj/item/match/proc/matchignite()
@@ -180,7 +182,7 @@
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
-		processing_objects.Add(src)
+		START_PROCESSING(SSobj, src)
 		update_icon()
 		return TRUE
 
@@ -195,7 +197,7 @@
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
-		processing_objects.Remove(src)
+		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
 /obj/item/match/dropped(mob/user)
@@ -223,3 +225,13 @@
 	var/mask_item = M.get_item_by_slot(slot_wear_mask)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
+
+
+/obj/item/match/firebrand
+	name = "firebrand"
+	desc = "An unlit firebrand. It makes you wonder why it's not just called a stick."
+	smoketime = 20 //40 seconds
+
+/obj/item/match/firebrand/New()
+	..()
+	matchignite()

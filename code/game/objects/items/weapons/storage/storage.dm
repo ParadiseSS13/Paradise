@@ -151,8 +151,8 @@
 	src.boxes.screen_loc = "[tx]:,[ty] to [mx],[my]"
 	for(var/obj/O in src.contents)
 		O.screen_loc = "[cx],[cy]"
-		O.layer = 20
-		O.plane = HUD_PLANE
+		O.layer = ABOVE_HUD_LAYER
+		O.plane = ABOVE_HUD_PLANE
 		cx++
 		if(cx > mx)
 			cx = tx
@@ -171,8 +171,8 @@
 			ND.sample_object.mouse_opacity = MOUSE_OPACITY_OPAQUE
 			ND.sample_object.screen_loc = "[cx]:16,[cy]:16"
 			ND.sample_object.maptext = "<font color='white'>[(ND.number > 1)? "[ND.number]" : ""]</font>"
-			ND.sample_object.layer = 20
-			ND.sample_object.plane = HUD_PLANE
+			ND.sample_object.layer = ABOVE_HUD_LAYER
+			ND.sample_object.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx > (4+cols))
 				cx = 4
@@ -182,8 +182,8 @@
 			O.mouse_opacity = MOUSE_OPACITY_OPAQUE //This is here so storage items that spawn with contents correctly have the "click around item to equip"
 			O.screen_loc = "[cx]:16,[cy]:16"
 			O.maptext = ""
-			O.layer = 20
-			O.plane = HUD_PLANE
+			O.layer = ABOVE_HUD_LAYER
+			O.plane = ABOVE_HUD_PLANE
 			cx++
 			if(cx > (4+cols))
 				cx = 4
@@ -312,11 +312,12 @@
 		if(usr.s_active)
 			usr.s_active.show_to(usr)
 	W.mouse_opacity = MOUSE_OPACITY_OPAQUE //So you can click on the area around the item to equip it, instead of having to pixel hunt
+	W.in_inventory = TRUE
 	update_icon()
 	return 1
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the atom sent as new_target
-/obj/item/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location, burn = 0)
+/obj/item/storage/proc/remove_from_storage(obj/item/W as obj, atom/new_location)
 	if(!istype(W)) return 0
 
 	if(istype(src, /obj/item/storage/fancy))
@@ -332,8 +333,8 @@
 		if(ismob(loc))
 			W.dropped(usr)
 		if(ismob(new_location))
-			W.layer = 20
-			W.plane = HUD_PLANE
+			W.layer = ABOVE_HUD_LAYER
+			W.plane = ABOVE_HUD_PLANE
 		else
 			W.layer = initial(W.layer)
 			W.plane = initial(W.plane)
@@ -350,17 +351,19 @@
 	W.on_exit_storage(src)
 	update_icon()
 	W.mouse_opacity = initial(W.mouse_opacity)
-	if(burn)
-		W.fire_act()
 	return 1
 
 /obj/item/storage/Exited(atom/A, loc)
 	remove_from_storage(A, loc) //worry not, comrade; this only gets called once
 	..()
 
-/obj/item/storage/empty_object_contents(burn, loc)
-	for(var/obj/item/Item in contents)
-		remove_from_storage(Item, loc, burn)
+/obj/item/storage/deconstruct(disassembled = TRUE)
+	var/drop_loc = loc
+	if(ismob(loc))
+		drop_loc = get_turf(src)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, drop_loc)
+	qdel(src)
 
 //This proc is called when you want to place an item into the storage item.
 /obj/item/storage/attackby(obj/item/I, mob/user, params)
@@ -433,6 +436,7 @@
 		CHECK_TICK
 
 /obj/item/storage/New()
+	..()
 	can_hold = typecacheof(can_hold)
 	cant_hold = typecacheof(cant_hold)
 
@@ -446,17 +450,18 @@
 	else
 		verbs -= /obj/item/storage/verb/toggle_gathering_mode
 
-	src.boxes = new /obj/screen/storage(  )
-	src.boxes.name = "storage"
-	src.boxes.master = src
-	src.boxes.icon_state = "block"
-	src.boxes.screen_loc = "7,7 to 10,8"
-	src.boxes.layer = 19
-	src.closer = new /obj/screen/close(  )
-	src.closer.master = src
-	src.closer.icon_state = "x"
-	src.closer.layer = 20
-	src.closer.plane = HUD_PLANE
+	boxes = new /obj/screen/storage(  )
+	boxes.name = "storage"
+	boxes.master = src
+	boxes.icon_state = "block"
+	boxes.screen_loc = "7,7 to 10,8"
+	boxes.layer = HUD_LAYER
+	boxes.plane = HUD_PLANE
+	closer = new /obj/screen/close(  )
+	closer.master = src
+	closer.icon_state = "backpack_close"
+	closer.layer = ABOVE_HUD_LAYER
+	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()
 
 /obj/item/storage/Destroy()
@@ -468,7 +473,7 @@
 	return ..()
 
 /obj/item/storage/emp_act(severity)
-	if(!istype(src.loc, /mob/living))
+	if(!istype(loc, /mob/living))
 		for(var/obj/O in contents)
 			O.emp_act(severity)
 	..()
@@ -562,3 +567,9 @@
 
 /obj/item/storage/AllowDrop()
 	return TRUE
+
+/obj/item/storage/ex_act(severity)
+	for(var/atom/A in contents)
+		A.ex_act(severity)
+		CHECK_TICK
+	..()

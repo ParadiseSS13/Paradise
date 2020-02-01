@@ -9,7 +9,7 @@
 
 
 //Parent to shields and blades because muh copypasted code.
-/obj/effect/proc_holder/changeling/weapon
+/datum/action/changeling/weapon
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
@@ -21,7 +21,7 @@
 	var/weapon_type
 	var/weapon_name_simple
 
-/obj/effect/proc_holder/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/weapon/try_to_sting(var/mob/user, var/mob/target)
 	if(istype(user.l_hand, weapon_type)) //Not the nicest way to do it, but eh
 		qdel(user.l_hand)
 		if(!silent)
@@ -36,7 +36,7 @@
 		return
 	..(user, target)
 
-/obj/effect/proc_holder/changeling/weapon/sting_action(var/mob/user)
+/datum/action/changeling/weapon/sting_action(var/mob/user)
 	if(!user.drop_item())
 		to_chat(user, "The [user.get_active_hand()] is stuck to your hand, you cannot grow a [weapon_name_simple] over it!")
 		return
@@ -45,7 +45,7 @@
 	return W
 
 //Parent to space suits and armor.
-/obj/effect/proc_holder/changeling/suit
+/datum/action/changeling/suit
 	name = "Organic Suit"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
@@ -60,7 +60,7 @@
 	var/recharge_slowdown = 0
 	var/blood_on_castoff = 0
 
-/obj/effect/proc_holder/changeling/suit/try_to_sting(var/mob/user, var/mob/target)
+/datum/action/changeling/suit/try_to_sting(var/mob/user, var/mob/target)
 	var/datum/changeling/changeling = user.mind.changeling
 	if(!ishuman(user) || !changeling)
 		return
@@ -84,7 +84,7 @@
 		return
 	..(H, target)
 
-/obj/effect/proc_holder/changeling/suit/sting_action(var/mob/living/carbon/human/user)
+/datum/action/changeling/suit/sting_action(var/mob/living/carbon/human/user)
 	if(!user.unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
 		return
@@ -107,10 +107,11 @@
 /***************************************\
 |***************ARM BLADE***************|
 \***************************************/
-/obj/effect/proc_holder/changeling/weapon/arm_blade
+/datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
-	desc = "We reform one of our arms into a deadly blade."
-	helptext = "Cannot be used while in lesser form."
+	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
+	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
+	button_icon_state = "armblade"
 	chemical_cost = 25
 	dna_cost = 2
 	genetic_damage = 10
@@ -131,15 +132,6 @@
 	throwforce = 0 //Just to be on the safe side
 	throw_range = 0
 	throw_speed = 0
-
-/obj/item/melee/arm_blade/New()
-	..()
-	if(ismob(loc))
-		loc.visible_message("<span class='warning'>A grotesque blade forms around [loc.name]\'s arm!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a deadly blade.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-
-/obj/item/melee/arm_blade/dropped(mob/user)
-	user.visible_message("<span class='warning'>With a sickening crunch, [user] reforms [user.p_their()] blade into an arm!</span>", "<span class='notice'>We assimilate the blade back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-	. = ..()
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -177,12 +169,13 @@
 |***********COMBAT TENTACLES*************|
 \***************************************/
 
-/obj/effect/proc_holder/changeling/weapon/tentacle
+/datum/action/changeling/weapon/tentacle
 	name = "Tentacle"
-	desc = "We ready a tentacle to grab items or victims with."
+	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on the intent: \
 	Help will simply drag them closer, Disarm will grab whatever they are holding instead of them, Grab will put the victim in our hold after catching it, \
 	and Harm will stun it, and stab it if we are also holding a sharp weapon. Cannot be used while in lesser form."
+	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 2
 	genetic_damage = 5
@@ -220,7 +213,7 @@
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
@@ -350,10 +343,11 @@
 /***************************************\
 |****************SHIELD*****************|
 \***************************************/
-/obj/effect/proc_holder/changeling/weapon/shield
+/datum/action/changeling/weapon/shield
 	name = "Organic Shield"
-	desc = "We reform one of our arms into a hard shield."
-	helptext = "Organic tissue cannot resist damage forever, the shield will break after it is hit too much. The more genomes we absorb, the stronger it is. Cannot be used while in lesser form."
+	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
+	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more genomes we absorb, the stronger it is. Cannot be used while in lesser form."
+	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 1
 	genetic_damage = 12
@@ -363,7 +357,7 @@
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 
-/obj/effect/proc_holder/changeling/weapon/shield/sting_action(var/mob/user)
+/datum/action/changeling/weapon/shield/sting_action(var/mob/user)
 	var/datum/changeling/changeling = user.mind.changeling //So we can read the absorbedcount.
 	if(!changeling)
 		return
@@ -388,7 +382,7 @@
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
-/obj/item/shield/changeling/hit_reaction()
+/obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
@@ -404,10 +398,11 @@
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
 \***************************************/
-/obj/effect/proc_holder/changeling/suit/organic_space_suit
+/datum/action/changeling/suit/organic_space_suit
 	name = "Organic Space Suit"
-	desc = "We grow an organic suit to protect ourselves from space exposure."
-	helptext = "We must constantly repair our form to make it space-proof, reducing chemical production while we are protected. Retreating the suit damages our genomes. Cannot be used in lesser form."
+	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals."
+	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
+	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 2
 	genetic_damage = 8
@@ -427,13 +422,13 @@
 	desc = "A huge, bulky mass of pressure and temperature-resistant organic tissue, evolved to facilitate space travel."
 	flags = STOPSPRESSUREDMAGE | NODROP | DROPDEL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/tank/oxygen)
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0) //No armor at all.
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90) //No armor at all
 
 /obj/item/clothing/suit/space/changeling/New()
 	..()
 	if(ismob(loc))
 		loc.visible_message("<span class='warning'>[loc.name]\'s flesh rapidly inflates, forming a bloated mass around [loc.p_their()] body!</span>", "<span class='warning'>We inflate our flesh, creating a spaceproof suit!</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
@@ -445,16 +440,17 @@
 	icon_state = "lingspacehelmet"
 	desc = "A covering of pressure and temperature-resistant organic tissue with a glass-like chitin front."
 	flags = BLOCKHAIR | STOPSPRESSUREDMAGE | NODROP | DROPDEL
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
 
 
 /***************************************\
 |*****************ARMOR*****************|
 \***************************************/
-/obj/effect/proc_holder/changeling/suit/armor
+/datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
-	desc = "We turn our skin into tough chitin to protect us from damage."
-	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Retreating the armor damages our genomes. Cannot be used in lesser form."
+	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
+	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
+	button_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 2
 	genetic_damage = 11
@@ -473,11 +469,10 @@
 	icon_state = "lingarmor"
 	flags = NODROP | DROPDEL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	armor = list(melee = 40, bullet = 40, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	flags_inv = HIDEJUMPSUIT
 	cold_protection = 0
 	heat_protection = 0
-	species_fit = null
 	sprite_sheets = null
 
 /obj/item/clothing/suit/armor/changeling/New()
@@ -490,5 +485,5 @@
 	desc = "A tough, hard covering of black chitin with transparent chitin in front."
 	icon_state = "lingarmorhelmet"
 	flags = BLOCKHAIR | NODROP | DROPDEL
-	armor = list(melee = 30, bullet = 30, laser = 40, energy = 20, bomb = 10, bio = 4, rad = 0)
+	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 10, "bio" = 4, "rad" = 0, "fire" = 90, "acid" = 90)
 	flags_inv = HIDEEARS

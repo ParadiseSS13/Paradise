@@ -13,6 +13,7 @@
 	volume = 50
 	container_type = OPENCONTAINER
 	has_lid = TRUE
+	resistance_flags = ACID_PROOF
 
 	var/label_text = ""
 	// the fucking asshole who designed this can go die in a fire - Iamgoofball
@@ -51,14 +52,59 @@
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
-	if(!..(user, 2))
-		return
+	. = ..()
+	if(get_dist(user, src) <= 2 && !is_open_container())
+		. += "<span class='notice'>Airtight lid seals it completely.</span>"
+
+/obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
 	if(!is_open_container())
-		to_chat(user, "<span class='notice'>Airtight lid seals it completely.</span>")
+		return ..()
+
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		return
+
+	if(istype(M))
+		var/list/transferred = list()
+		for(var/datum/reagent/R in reagents.reagent_list)
+			transferred += R.name
+		var/contained = english_list(transferred)
+
+		if(user.a_intent == INTENT_HARM)
+			M.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [M]!</span>", \
+							"<span class='userdanger'>[user] splashes the contents of [src] onto [M]!</span>")
+			add_attack_logs(user, M, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+			if(!iscarbon(user))
+				M.LAssailant = null
+			else
+				M.LAssailant = user
+
+			reagents.reaction(M, TOUCH)
+			reagents.clear_reagents()
+		else
+			if(M != user)
+				M.visible_message("<span class='danger'>[user] attempts to feed something to [M].</span>", \
+							"<span class='userdanger'>[user] attempts to feed something to you.</span>")
+				if(!do_mob(user, M))
+					return
+				if(!reagents || !reagents.total_volume)
+					return // The drink might be empty after the delay, such as by spam-feeding
+				M.visible_message("<span class='danger'>[user] feeds something to [M].</span>", "<span class='userdanger'>[user] feeds something to you.</span>")
+				add_attack_logs(user, M, "Fed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
+			else
+				to_chat(user, "<span class='notice'>You swallow a gulp of [src].</span>")
+
+			var/fraction = min(5 / reagents.total_volume, 1)
+			reagents.reaction(M, INGEST, fraction)
+			addtimer(CALLBACK(reagents, /datum/reagents.proc/trans_to, M, 5), 5)
+			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
+	else
+		return ..()
 
 /obj/item/reagent_containers/glass/afterattack(obj/target, mob/user, proximity)
 	if(!proximity)
 		return
+
 	if(!is_open_container())
 		return
 
@@ -66,26 +112,7 @@
 		if(istype(target, type))
 			return
 
-	if(ismob(target) && target.reagents && reagents.total_volume)
-		to_chat(user, "<span class='notice'>You splash the solution onto [target].</span>")
-
-		var/mob/living/M = target
-		var/list/injected = list()
-		for(var/datum/reagent/R in reagents.reagent_list)
-			injected += R.name
-		var/contained = english_list(injected)
-		add_attack_logs(M, user, "Splashed with [name] containing [contained]", !!M.ckey ? null : ATKLOG_ALL)
-		if(!iscarbon(user))
-			M.LAssailant = null
-		else
-			M.LAssailant = user
-
-		for(var/mob/O in viewers(world.view, user))
-			O.show_message(text("<span class='warning'>[] has been splashed with something by []!</span>", target, user), 1)
-		reagents.reaction(target, TOUCH)
-		spawn(5) reagents.clear_reagents()
-		return
-	else if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
+	if(istype(target, /obj/structure/reagent_dispensers)) //A dispenser. Transfer FROM it TO us.
 		if(target.reagents && !target.reagents.total_volume)
 			to_chat(user, "<span class='warning'>[target] is empty and can't be refilled!</span>")
 			return
@@ -113,24 +140,16 @@
 		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
 		return
 
-	else if(istype(target, /obj/effect/decal/cleanable)) //stops splashing while scooping up fluids
+	else if(istype(target, /obj/effect/decal)) //stops splashing while scooping up fluids
 		return
 
-	else if(reagents.total_volume)
-		to_chat(user, "<span class='notice'>You splash the solution onto [target].</span>")
+	else if(reagents.total_volume && user.a_intent == INTENT_HARM)
+		user.visible_message("<span class='danger'>[user] splashes the contents of [src] onto [target]!</span>", \
+							"<span class='notice'>You splash the contents of [src] onto [target].</span>")
 		reagents.reaction(target, TOUCH)
-		spawn(5) reagents.clear_reagents()
-		return
-
+		reagents.clear_reagents()
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return
-	if(is_hot(I))
-		if(reagents)
-			reagents.chem_temp += 15
-			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-			reagents.handle_reactions()
 	if(istype(I, /obj/item/pen) || istype(I, /obj/item/flashlight/pen))
 		var/tmp_label = sanitize(input(user, "Enter a label for [name]","Label",label_text))
 		if(length(tmp_label) > MAX_NAME_LEN)
@@ -210,8 +229,7 @@
 
 /obj/item/reagent_containers/glass/beaker/proc/heat_beaker()
 	if(reagents)
-		reagents.chem_temp += 30
-		reagents.handle_reactions()
+		reagents.temperature_reagents(4000)
 
 /obj/item/reagent_containers/glass/beaker/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/assembly_holder) && can_assembly)
@@ -229,9 +247,9 @@
 	if(assembly)
 		assembly.HasProximity(AM)
 
-/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM)
+/obj/item/reagent_containers/glass/beaker/Crossed(atom/movable/AM, oldloc)
 	if(assembly)
-		assembly.Crossed(AM)
+		assembly.Crossed(AM, oldloc)
 
 /obj/item/reagent_containers/glass/beaker/on_found(mob/finder) //for mousetraps
 	if(assembly)
@@ -326,9 +344,18 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = SLOT_HEAD
+	resistance_flags = NONE
 	container_type = OPENCONTAINER
+
+/obj/item/reagent_containers/glass/bucket/wooden
+	name = "wooden bucket"
+	icon_state = "woodbucket"
+	item_state = "woodbucket"
+	materials = null
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
+	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
     ..()
@@ -346,3 +373,28 @@
 		qdel(src)
 	else
 		..()
+
+/obj/item/reagent_containers/glass/beaker/waterbottle
+	name = "bottle of water"
+	desc = "A bottle of water filled at an old Earth bottling facility."
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "smallbottle"
+	item_state = "bottle"
+	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
+	materials = list(MAT_GLASS = 0)
+	volume = 50
+	amount_per_transfer_from_this = 10
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/empty
+	list_reagents = list()
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/large
+	desc = "A fresh commercial-sized bottle of water."
+	icon_state = "largebottle"
+	materials = list(MAT_GLASS = 0)
+	list_reagents = list("water" = 100)
+	volume = 100
+	amount_per_transfer_from_this = 20
+
+/obj/item/reagent_containers/glass/beaker/waterbottle/large/empty
+	list_reagents = list()

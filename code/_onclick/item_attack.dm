@@ -12,6 +12,9 @@
 	return
 
 /obj/item/proc/pre_attackby(atom/A, mob/living/user, params) //do stuff before attackby!
+	if(is_hot(src) && A.reagents && !ismob(A))
+		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+		A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment
@@ -34,8 +37,6 @@
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, M, user)
 	if(flags & (NOBLUDGEON))
 		return 0
-	if(check_martial_counter(M, user))
-		return 0
 	if(can_operate(M))  //Checks if mob is lying down on table for surgery
 		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
 			if(!attempt_initiate_surgery(src, M, user,1))
@@ -50,21 +51,27 @@
 				else
 					return 1
 
-		if(isscrewdriver(src) && ismachine(M))
+		if(isscrewdriver(src) && ismachine(M) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
 				return 1
-		if(is_sharp(src))
+		if(is_sharp(src) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
 				return 0
 			else
 				return 1
 
+	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
+
 	if(!force)
 		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), 1, -1)
-	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+	else
+		SEND_SIGNAL(M, COMSIG_ITEM_ATTACK)
+		if(hitsound)
+			playsound(loc, hitsound, get_clamped_volume(), 1, -1)
 
 	user.lastattacked = M
 	M.lastattacker = user

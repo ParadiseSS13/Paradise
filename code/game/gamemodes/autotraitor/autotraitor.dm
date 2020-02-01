@@ -45,14 +45,14 @@
 
 	for(var/i = 0, i < num_traitors, i++)
 		var/datum/mind/traitor = pick(possible_traitors)
-		traitors += traitor
+		pre_traitors += traitor
 		possible_traitors.Remove(traitor)
 
-	for(var/datum/mind/traitor in traitors)
+	for(var/datum/mind/traitor in pre_traitors)
 		if(!traitor || !istype(traitor))
-			traitors.Remove(traitor)
+			pre_traitors.Remove(traitor)
 			continue
-		if(istype(traitor))
+		if(istype(traitor)) 
 			traitor.special_role = SPECIAL_ROLE_TRAITOR
 			traitor.restricted_roles = restricted_jobs
 
@@ -96,7 +96,8 @@
 			for(var/obj/item/implant/mindshield/I in H.contents)
 				if(I && I.implanted)
 					possible_traitors -= player
-
+			if(!H.job || H.mind.offstation_role) //Golems, special events stuff, etc.
+				possible_traitors -= player
 		//message_admins("Live Players: [playercount]")
 		//message_admins("Live Traitors: [traitorcount]")
 //		message_admins("Potential Traitors:")
@@ -127,26 +128,8 @@
 				var/mob/living/newtraitor = newtraitormind.current
 				//message_admins("[newtraitor.real_name] is the new Traitor.")
 
-				forge_traitor_objectives(newtraitor.mind)
-
-				if(istype(newtraitor, /mob/living/silicon))
-					add_law_zero(newtraitor)
-				else
-					equip_traitor(newtraitor)
-
-				traitors += newtraitor.mind
 				to_chat(newtraitor, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-				to_chat(newtraitor, "<B>You are now a traitor.</B>")
-				newtraitor.mind.special_role = SPECIAL_ROLE_TRAITOR
-				var/datum/atom_hud/antag/tatorhud = huds[ANTAG_HUD_TRAITOR]
-				tatorhud.join_hud(newtraitor)
-				set_antag_hud(newtraitor, "hudsyndicate")
-
-				var/obj_count = 1
-				to_chat(newtraitor, "<span class='notice'>Your current objectives:</span>")
-				for(var/datum/objective/objective in newtraitor.mind.objectives)
-					to_chat(newtraitor, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-					obj_count++
+				newtraitor.mind.add_antag_datum(/datum/antagonist/traitor)
 			//else
 				//message_admins("No new traitor being added.")
 		//else

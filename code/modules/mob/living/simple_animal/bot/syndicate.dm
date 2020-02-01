@@ -16,8 +16,6 @@
 	faction = list("syndicate")
 	shoot_sound = 'sound/weapons/wave.ogg'
 	anchored = 1
-	pressure_resistance = 100    //100 kPa difference required to push
-	throw_pressure_limit = 120
 	window_id = "syndiebot"
 	window_name = "Syndicate Bot Interface"
 	var/turf/saved_turf
@@ -169,7 +167,7 @@
 		visible_message("<span class='userdanger'>[src] blows apart!</span>")
 		do_sparks(3, 1, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
-		var/obj/effect/decal/mecha_wreckage/gygax/dark/wreck = new /obj/effect/decal/mecha_wreckage/gygax/dark(loc)
+		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"
 
 		raise_alert("[src] destroyed.")

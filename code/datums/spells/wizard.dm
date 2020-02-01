@@ -26,11 +26,11 @@
 
 	action_icon_state = "magicm"
 
-	sound = 'sound/magic/MAGIC_MISSILE.ogg'
+	sound = 'sound/magic/magic_missile.ogg'
 
 /obj/effect/proc_holder/spell/targeted/inflict_handler/magic_missile
 	amt_weakened = 3
-	sound = 'sound/magic/MM_Hit.ogg'
+	sound = 'sound/magic/mm_hit.ogg'
 
 
 /obj/effect/proc_holder/spell/targeted/projectile/honk_missile
@@ -72,6 +72,7 @@
 /obj/effect/proc_holder/spell/noclothes
 	name = "No Clothes"
 	desc = "This always-on spell allows you to cast magic without your garments."
+	action_icon_state = "no_clothes"
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate
 	name = "Mutate"
@@ -92,7 +93,7 @@
 	cooldown_min = 300 //25 deciseconds reduction per rank
 
 	action_icon_state = "mutate"
-	sound = 'sound/magic/Mutate.ogg'
+	sound = 'sound/magic/mutate.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/mutate/cast(list/targets, mob/user = usr)
 	for(var/mob/living/target in targets)
@@ -135,7 +136,7 @@
 	emp_heavy = 6
 	emp_light = 10
 
-	sound = 'sound/magic/Disable_Tech.ogg'
+	sound = 'sound/magic/disable_tech.ogg'
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
@@ -182,8 +183,8 @@
 
 	action_icon_state = "spell_teleport"
 
-	sound1 = 'sound/magic/Teleport_diss.ogg'
-	sound2 = 'sound/magic/Teleport_app.ogg'
+	sound1 = 'sound/magic/teleport_diss.ogg'
+	sound2 = 'sound/magic/teleport_app.ogg'
 
 /obj/effect/proc_holder/spell/targeted/forcewall
 	name = "Force Wall"
@@ -194,7 +195,7 @@
 	clothes_req = FALSE
 	invocation = "TARCOL MINTI ZHERI"
 	invocation_type = "whisper"
-	sound = 'sound/magic/ForceWall.ogg'
+	sound = 'sound/magic/forcewall.ogg'
 	action_icon_state = "shield"
 	range = -1
 	include_user = TRUE
@@ -248,7 +249,7 @@
 
 	summon_type = list(/mob/living/simple_animal/hostile/carp)
 
-	cast_sound = 'sound/magic/Summon_Karp.ogg'
+	cast_sound = 'sound/magic/summon_karp.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/construct
 	name = "Artificer"
@@ -264,7 +265,7 @@
 	summon_type = list(/obj/structure/constructshell)
 
 	action_icon_state = "artificer"
-	cast_sound = 'sound/magic/SummonItems_generic.ogg'
+	cast_sound = 'sound/magic/summonitems_generic.ogg'
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/creature
 	name = "Summon Creature Swarm"
@@ -279,7 +280,7 @@
 	range = 3
 
 	summon_type = list(/mob/living/simple_animal/hostile/creature)
-	cast_sound = 'sound/magic/SummonItems_generic.ogg'
+	cast_sound = 'sound/magic/summonitems_generic.ogg'
 
 /obj/effect/proc_holder/spell/targeted/trigger/blind
 	name = "Blind"
@@ -300,12 +301,12 @@
 /obj/effect/proc_holder/spell/targeted/inflict_handler/blind
 	amt_eye_blind = 10
 	amt_eye_blurry = 20
-	sound = 'sound/magic/Blind.ogg'
+	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/targeted/genetic/blind
 	disabilities = BLIND
 	duration = 300
-	sound = 'sound/magic/Blind.ogg'
+	sound = 'sound/magic/blind.ogg'
 
 /obj/effect/proc_holder/spell/fireball
 	name = "Fireball"
@@ -320,7 +321,7 @@
 	cooldown_min = 20 //10 deciseconds reduction per rank
 	var/fireball_type = /obj/item/projectile/magic/fireball
 	action_icon_state = "fireball0"
-	sound = 'sound/magic/Fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 	active = FALSE
 
@@ -382,18 +383,18 @@
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."
 	charge_max = 400
-	clothes_req = 1
+	clothes_req = TRUE
 	invocation = "GITTAH WEIGH"
 	invocation_type = "shout"
 	range = 5
 	cooldown_min = 150
 	selection_type = "view"
+	sound = 'sound/magic/repulse.ogg'
 	var/maxthrow = 5
 	var/sparkle_path = /obj/effect/temp_visual/gravpush
 	action_icon_state = "repulse"
-	sound = 'sound/magic/Repulse.ogg'
 
-/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe_turf/repulse/cast(list/targets, mob/user = usr, stun_amt = 2)
 	var/list/thrownatoms = list()
 	var/atom/throwtarget
 	var/distfromcaster
@@ -410,16 +411,16 @@
 		throwtarget = get_edge_target_turf(user, get_dir(user, get_step_away(AM, user)))
 		distfromcaster = get_dist(user, AM)
 		if(distfromcaster == 0)
-			if(istype(AM, /mob/living))
+			if(isliving(AM))
 				var/mob/living/M = AM
 				M.Weaken(5)
 				M.adjustBruteLoss(5)
 				to_chat(M, "<span class='userdanger'>You're slammed into the floor by a mystical force!</span>")
 		else
 			new sparkle_path(get_turf(AM), get_dir(user, AM)) //created sparkles will disappear on their own
-			if(istype(AM, /mob/living))
+			if(isliving(AM))
 				var/mob/living/M = AM
-				M.Weaken(2)
+				M.Weaken(stun_amt)
 				to_chat(M, "<span class='userdanger'>You're thrown back by a mystical force!</span>")
 			spawn(0)
 				AM.throw_at(throwtarget, ((Clamp((maxthrow - (Clamp(distfromcaster - 2, 0, distfromcaster))), 3, maxthrow))), 1)//So stuff gets tossed around at the same time.
@@ -436,7 +437,7 @@
 	include_user = 1
 	selection_type = "view"
 	action_icon_state = "sacredflame"
-	sound = 'sound/magic/Fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 /obj/effect/proc_holder/spell/targeted/sacred_flame/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in targets)

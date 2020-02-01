@@ -72,6 +72,8 @@
 	update_ports()
 
 /obj/machinery/atmospherics/omni/update_icon()
+	..()
+
 	if(stat & NOPOWER)
 		overlays = overlays_off
 		on = 0
@@ -82,8 +84,6 @@
 		overlays = on ? (overlays_on) : (overlays_off)
 
 	underlays = underlays_current
-
-	return
 
 /obj/machinery/atmospherics/omni/proc/error_check()
 	return

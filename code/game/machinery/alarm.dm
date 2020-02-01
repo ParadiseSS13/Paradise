@@ -80,13 +80,17 @@
 	active_power_usage = 8
 	power_channel = ENVIRON
 	req_one_access = list(access_atmospherics, access_engine_equip)
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 250
+	integrity_failure = 80
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
+	resistance_flags = FIRE_PROOF
+	siemens_strength = 1
 	var/alarm_id = null
 	var/frequency = ATMOS_VENTSCRUB
 	//var/skipprocess = 0 //Experimenting
 	var/alarm_frequency = ATMOS_FIRE_FREQ
-	var/remote_control = 0
-	var/rcon_setting = 2
+	var/remote_control = TRUE
+	var/rcon_setting = RCON_AUTO
 	var/rcon_time = 0
 	var/locked = 1
 	var/datum/wires/alarm/wires = null
@@ -97,7 +101,7 @@
 
 	// Waiting on a device to respond.
 	// Specifies an id_tag.  NULL means we aren't waiting.
-	var/waiting_on_device=null
+	var/waiting_on_device = null
 
 	var/mode = AALARM_MODE_SCRUBBING
 	var/preset = AALARM_PRESET_HUMAN
@@ -116,12 +120,16 @@
 
 	var/list/TLV = list()
 
-	var/report_danger_level = 1
-
-	var/automatic_emergency = 1 //Does the alarm automaticly respond to an emergency condition
+	var/report_danger_level = TRUE
 
 /obj/machinery/alarm/monitor
-	report_danger_level = 0
+	report_danger_level = FALSE
+
+/obj/machinery/alarm/syndicate //general syndicate access
+	report_danger_level = FALSE
+	remote_control = FALSE
+	req_access = list(access_syndicate)
+	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
 	preset = AALARM_PRESET_SERVER
@@ -212,8 +220,8 @@
 
 /obj/machinery/alarm/Destroy()
 	GLOB.air_alarms -= src
-	if(radio_controller)
-		radio_controller.remove_object(src, frequency)
+	if(SSradio)
+		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
@@ -308,12 +316,6 @@
 
 	if(old_danger_level!=danger_level)
 		apply_danger_level()
-		if(automatic_emergency && mode == AALARM_MODE_SCRUBBING && danger_level == ATMOS_ALARM_DANGER)
-			if(pressure_dangerlevel == ATMOS_ALARM_DANGER)
-				mode = AALARM_MODE_OFF
-				if(temperature_dangerlevel == ATMOS_ALARM_DANGER && cur_tlv.max2 <= environment.temperature)
-					mode = AALARM_MODE_PANIC
-		apply_mode()
 
 	if(mode == AALARM_MODE_REPLACEMENT && environment_pressure < ONE_ATMOSPHERE * 0.05)
 		mode = AALARM_MODE_SCRUBBING
@@ -374,38 +376,6 @@
 		if(ATMOS_ALARM_DANGER)
 			icon_state = "alarm1"
 
-/obj/machinery/alarm/receive_signal(datum/signal/signal)
-	if(stat & (NOPOWER|BROKEN) || !alarm_area)
-		return
-	if(alarm_area.master_air_alarm != src)
-		if(master_is_operating())
-			return
-		elect_master()
-		if(alarm_area.master_air_alarm != src)
-			return
-	if(!signal || signal.encryption)
-		return
-	var/id_tag = signal.data["tag"]
-	if(!id_tag)
-		return
-	if(signal.data["area"] != area_uid)
-		return
-	if(signal.data["sigtype"] != "status")
-		return
-
-	var/dev_type = signal.data["device"]
-	if(!(id_tag in alarm_area.air_scrub_names) && !(id_tag in alarm_area.air_vent_names))
-		register_env_machine(id_tag, dev_type)
-	var/got_update=0
-	if(dev_type == "AScr")
-		alarm_area.air_scrub_info[id_tag] = signal.data
-		got_update=1
-	else if(dev_type == "AVP")
-		alarm_area.air_vent_info[id_tag] = signal.data
-		got_update=1
-	if(got_update && waiting_on_device==id_tag)
-		waiting_on_device=null
-
 /obj/machinery/alarm/proc/register_env_machine(var/m_id, var/device_type)
 	var/new_name
 	if(device_type=="AVP")
@@ -432,9 +402,9 @@
 		send_signal(id_tag, list("status") )
 
 /obj/machinery/alarm/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
+	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, RADIO_TO_AIRALARM)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_TO_AIRALARM)
 
 /obj/machinery/alarm/proc/send_signal(var/target, var/list/command)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
 	if(!radio_connection)
@@ -571,7 +541,7 @@
 	update_icon()
 
 /obj/machinery/alarm/proc/post_alert(alert_level)
-	var/datum/radio_frequency/frequency = radio_controller.return_frequency(alarm_frequency)
+	var/datum/radio_frequency/frequency = SSradio.return_frequency(alarm_frequency)
 	if(!frequency)
 		return
 
@@ -1065,12 +1035,25 @@
 	spawn(rand(0,15))
 		update_icon()
 
+/obj/machinery/alarm/obj_break(damage_flag)
+	..()
+	update_icon()
+
+/obj/machinery/alarm/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc, 2)
+		var/obj/item/I = new /obj/item/airalarm_electronics(loc)
+		if(!disassembled)
+			I.obj_integrity = I.max_integrity * 0.5
+		new /obj/item/stack/cable_coil(loc, 3)
+	qdel(src)
+
 /obj/machinery/alarm/examine(mob/user)
-	..(user)
+	. = ..()
 	if(buildstage < 2)
-		to_chat(user, "It is not wired.")
+		. += "It is not wired."
 	if(buildstage < 1)
-		to_chat(user, "The circuit is missing.")
+		. += "The circuit is missing."
 
 /obj/machinery/alarm/all_access
 	name = "all-access air alarm"
@@ -1092,4 +1075,4 @@ Just an object used in constructing air alarms
 	materials = list(MAT_METAL=50, MAT_GLASS=50)
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'

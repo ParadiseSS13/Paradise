@@ -4,7 +4,7 @@
 	result = "formaldehyde"
 	required_reagents = list("ethanol" = 1, "oxygen" = 1, "silver" = 1)
 	result_amount = 3
-	min_temp = 420
+	min_temp = T0C + 150
 	mix_message = "Ugh, it smells like the morgue in here."
 
 /datum/chemical_reaction/neurotoxin2
@@ -13,9 +13,9 @@
 	result = "neurotoxin2"
 	required_reagents = list("space_drugs" = 1)
 	result_amount = 1
-	min_temp = 674
+	min_temp = T0C + 400
 	mix_sound = null
-	no_message = 1
+	mix_message = null
 
 /datum/chemical_reaction/cyanide
 	name = "Cyanide"
@@ -23,7 +23,7 @@
 	result = "cyanide"
 	required_reagents = list("oil" = 1, "ammonia" = 1, "oxygen" = 1)
 	result_amount = 3
-	min_temp = 380
+	min_temp = T0C + 100
 	mix_message = "The mixture gives off a faint scent of almonds."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
@@ -49,7 +49,7 @@
 	result = "facid"
 	required_reagents = list("sacid" = 1, "fluorine" = 1, "hydrogen" = 1, "potassium" = 1)
 	result_amount = 4
-	min_temp = 380
+	min_temp = T0C + 100
 	mix_message = "The mixture deepens to a dark blue, and slowly begins to corrode its container."
 
 /datum/chemical_reaction/initropidril
@@ -83,7 +83,7 @@
 	required_reagents = list("chlorine" = 1, "fuel" = 1, "oxygen" = 1, "phosphorus" = 1, "fluorine" = 1, "hydrogen" = 1, "acetone" = 1, "atrazine" = 1)
 	result_amount = 3
 	mix_message = "The mixture yields a colorless, odorless liquid."
-	min_temp = 374
+	min_temp = T0C + 100
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
 /datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder)
@@ -139,7 +139,7 @@
 	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
 	result_amount = 3
 	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
-	min_temp = 400
+	min_temp = T0C + 50
 	mix_sound = null
 
 /datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)
@@ -154,6 +154,19 @@
 	result_amount = 3
 	mix_message = "The substance turns neon green and bubbles unnervingly."
 
+/datum/chemical_reaction/stable_mustagen
+	name = "Stable mutagen"
+	id = "stable_mutagen"
+	result = "stable_mutagen"
+	required_reagents = list("mutagen" = 1, "lithium" = 1, "acetone" = 1, "bromine" = 1)
+	result_amount = 3
+	mix_message = "The substance turns a drab green and begins to bubble."
+
+/datum/chemical_reaction/stable_mustagen/stable_mustagen2
+	id = "stable_mutagen2"
+	required_reagents = list("mutadone" = 3, "lithium" = 1)
+	result_amount = 4
+
 /datum/chemical_reaction/heparin
 	name = "Heparin"
 	id = "Heparin"
@@ -162,3 +175,11 @@
 	result_amount = 4
 	mix_message = "The mixture thins and loses all color."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
+
+/datum/chemical_reaction/rotatium
+	name = "Rotatium"
+	id = "Rotatium"
+	result = "rotatium"
+	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
+	result_amount = 3
+	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"

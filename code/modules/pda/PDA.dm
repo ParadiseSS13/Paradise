@@ -12,6 +12,8 @@ var/global/list/obj/item/pda/PDAs = list()
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
 
 	//Main variables
@@ -62,8 +64,8 @@ var/global/list/obj/item/pda/PDAs = list()
 /*
  *	The Actual PDA
  */
-/obj/item/pda/New()
-	..()
+/obj/item/pda/Initialize(mapload)
+	. = ..()
 	PDAs += src
 	PDAs = sortAtom(PDAs)
 	update_programs()
@@ -511,3 +513,8 @@ var/global/list/obj/item/pda/PDAs = list()
 /obj/item/pda/process()
 	if(current_app)
 		current_app.program_process()
+
+/obj/item/pda/extinguish_light()
+	var/datum/data/pda/utility/flashlight/FL = find_program(/datum/data/pda/utility/flashlight)
+	if(FL && FL.fon)
+		FL.start()

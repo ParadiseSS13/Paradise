@@ -8,6 +8,7 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_TINY
 	var/fire_sound = null						//What sound should play when this ammo is fired
+	var/drop_sound = "casingdrop"               //What sound should play when this ammo hits the ground
 	var/caliber = null							//Which kind of guns it can be loaded into
 	var/projectile_type = null					//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet
@@ -16,6 +17,7 @@
 	var/delay = 0								//Delay for energy weapons
 	var/randomspread = 0						//Randomspread for automatics
 	var/click_cooldown_override = 0				//Override this to make your gun have a faster fire rate, in tenths of a second. 4 is the default gun cooldown.
+	var/harmful = TRUE //pacifism check for boolet, set to FALSE if bullet is non-lethal
 
 /obj/item/ammo_casing/New()
 	..()
@@ -52,6 +54,7 @@
 			if(boolets > 0)
 				box.update_icon()
 				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
+				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
 	else
@@ -129,6 +132,7 @@
 	if(stored_ammo.len < max_ammo)
 		stored_ammo += R
 		R.loc = src
+		playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 		update_mat_value()
 		return 1
 	//for accessibles magazines (e.g internal ones) when full, start replacing spent ammo
@@ -140,6 +144,7 @@
 
 				stored_ammo += R
 				R.loc = src
+				playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
 				update_mat_value()
 				return 1
 
@@ -170,6 +175,7 @@
 	if(num_loaded)
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
+		playsound(src, 'sound/weapons/gun_interactions/shotguninsert.ogg', 50, 1)
 		A.update_icon()
 		update_icon()
 
@@ -179,6 +185,7 @@
 	var/obj/item/ammo_casing/A = get_round()
 	if(A)
 		user.put_in_hands(A)
+		playsound(src, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, 1)
 		to_chat(user, "<span class='notice'>You remove a round from \the [src]!</span>")
 		update_icon()
 

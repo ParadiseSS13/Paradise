@@ -36,6 +36,7 @@
 	density = 1
 	anchored = 0
 	light_range = 4
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 
 	var/gasefficency = 0.125
@@ -470,5 +471,5 @@
         post_status("shuttle")
 
 /obj/machinery/power/supermatter_shard/proc/supermatter_zap()
-	playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
+	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 10, max(1000,power * damage / explosion_point))

@@ -4,13 +4,13 @@
 	icon_state = "whetstone"
 	desc = "A block of stone used to sharpen things."
 	w_class = WEIGHT_CLASS_SMALL
-	usesound = 'sound/items/Screwdriver.ogg'
+	usesound = 'sound/items/screwdriver.ogg'
 	var/used = 0
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
 	var/requires_sharpness = 1
-	var/claw_damage_increase = 1
+	var/claw_damage_increase = 2
 
 
 /obj/item/whetstone/attackby(obj/item/I, mob/user, params)
@@ -58,13 +58,18 @@
 		var/mob/living/carbon/human/H = user
 		var/datum/unarmed_attack/attack = H.dna.species.unarmed
 		if(istype(attack, /datum/unarmed_attack/claws))
-			attack.damage += claw_damage_increase
-			H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
-			playsound(get_turf(H), usesound, 50, 1)
-			name = "worn out [name]"
-			desc = "[desc] At least, it used to."
-			used = TRUE
-			update_icon()
+			var/datum/unarmed_attack/claws/C = attack
+			if(!C.has_been_sharpened)
+				C.has_been_sharpened = TRUE
+				attack.damage += claw_damage_increase
+				H.visible_message("<span class='notice'>[H] sharpens [H.p_their()] claws on [src]!</span>", "<span class='notice'>You sharpen your claws on [src].</span>")
+				playsound(get_turf(H), usesound, 50, 1)
+				name = "worn out [name]"
+				desc = "[desc] At least, it used to."
+				used = TRUE
+				update_icon()
+			else
+				to_chat(user, "<span class='warning'>You can not sharpen your claws any further!</span>")
 
 /obj/item/whetstone/super
 	name = "super whetstone block"

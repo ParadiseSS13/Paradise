@@ -69,6 +69,8 @@ Bonus
 	var/cured = 0
 	for(var/thing in M.viruses)
 		var/datum/disease/D = thing
+		if(D.virus_heal_resistant)
+			continue
 		if(D != A)
 			cured = 1
 			cured_diseases += D.GetDiseaseID()

@@ -31,31 +31,9 @@
 	if(..())
 		return
 
-	R.notify_ai(2)
+	R.reset_module()
 
-	R.uneq_all()
-	R.sight_mode = null
-	R.hands.icon_state = "nomod"
-	R.icon_state = "robot"
-	R.module.remove_subsystems_and_actions(R)
-	QDEL_NULL(R.module)
-
-	R.camera.network.Remove(list("Engineering", "Medical", "Mining Outpost"))
-	R.rename_character(R.real_name, R.get_default_name("Default"))
-	R.languages = list()
-	R.speech_synthesizer_langs = list()
-
-	R.update_icons()
-	R.update_headlamp()
-
-	R.speed = 0 // Remove upgrades.
-	R.ionpulse = 0
-	R.magpulse = 0
-	R.add_language("Robot Talk", 1)
-
-	R.status_flags |= CANPUSH
-
-	return 1
+	return TRUE
 
 /obj/item/borg/upgrade/rename
 	name = "cyborg reclassification board"
@@ -256,7 +234,7 @@
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	cyborg = null
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	on = 0
 	return ..()
 
@@ -264,10 +242,10 @@
 	on = !on
 	if(on)
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
-		processing_objects |= src
+		START_PROCESSING(SSobj, src)
 	else
 		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
-		processing_objects -= src
+		STOP_PROCESSING(SSobj, src)
 	update_icon()
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
@@ -280,7 +258,7 @@
 		icon_state = "cyborg_upgrade5"
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate()
-	processing_objects -= src
+	STOP_PROCESSING(SSobj, src)
 	on = 0
 	update_icon()
 

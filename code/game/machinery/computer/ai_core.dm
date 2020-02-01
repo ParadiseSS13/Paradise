@@ -4,6 +4,7 @@
 	name = "AI core"
 	icon = 'icons/mob/AI.dmi'
 	icon_state = "0"
+	max_integrity = 500
 	var/state = 0
 	var/datum/ai_laws/laws = null
 	var/obj/item/circuitboard/circuit = null
@@ -15,203 +16,241 @@
 	QDEL_NULL(brain)
 	return ..()
 
-/obj/structure/AIcore/attackby(obj/item/P as obj, mob/user as mob, params)
-	switch(state)
-		if(0)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
-					anchored = 1
-					state = 1
-			if(istype(P, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = P
-				if(!WT.isOn())
-					to_chat(user, "The welder must be on for this task.")
+/obj/structure/AIcore/attackby(obj/item/P, mob/user, params)
+	if(istype(P, /obj/item/wrench))
+		return default_unfasten_wrench(user, P, 20)
+	if(!anchored)
+		if(iswelder(P))
+			if(state != EMPTY_CORE)
+				to_chat(user, "<span class='warning'>The core must be empty to deconstruct it!</span>")
+				return
+			var/obj/item/weldingtool/WT = P
+			if(!WT.isOn())
+				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
+				return
+			playsound(loc, WT.usesound, 50, 1)
+			to_chat(user, "<span class='notice'>You start to deconstruct the frame...</span>")
+			if(do_after(user, 20*P.toolspeed, target = src) && src && state == EMPTY_CORE && WT && WT.remove_fuel(0, user))
+				to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
+				deconstruct(TRUE)
+			return
+	else
+		switch(state)
+			if(EMPTY_CORE)
+				if(istype(P, /obj/item/circuitboard/aicore))
+					if(!user.drop_item())
+						return
+					playsound(loc, P.usesound, 50, 1)
+					to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
+					update_icon()
+					state = CIRCUIT_CORE
+					P.forceMove(src)
+					circuit = P
 					return
-				playsound(loc, WT.usesound, 50, 1)
-				if(do_after(user, 20 * WT.toolspeed, target = src))
-					if(!src || !WT.remove_fuel(0, user)) return
-					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					new /obj/item/stack/sheet/plasteel(loc, 4)
-					qdel(src)
-		if(1)
-			if(istype(P, /obj/item/wrench))
-				playsound(loc, P.usesound, 50, 1)
-				if(do_after(user, 20 * P.toolspeed, target = src))
-					to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
-					anchored = 0
-					state = 0
-			if(istype(P, /obj/item/circuitboard/aicore) && !circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You place the circuit board inside the frame.</span>")
-				icon_state = "1"
-				circuit = P
-				user.drop_item()
-				P.loc = src
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
-				state = 2
-				icon_state = "2"
-			if(istype(P, /obj/item/crowbar) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				state = 1
-				icon_state = "0"
-				circuit.loc = loc
-				circuit = null
-		if(2)
-			if(istype(P, /obj/item/screwdriver) && circuit)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
-				state = 1
-				icon_state = "1"
-			if(istype(P, /obj/item/stack/cable_coil))
-				if(P:amount >= 5)
+			if(CIRCUIT_CORE)
+				if(isscrewdriver(P))
 					playsound(loc, P.usesound, 50, 1)
-					if(do_after(user, 20 * P.toolspeed, target = src))
-						P:amount -= 5
-						if(!P:amount) qdel(P)
-						to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
-						state = 3
-						icon_state = "3"
-		if(3)
-			if(istype(P, /obj/item/wirecutters))
-				if(brain)
-					to_chat(user, "Get that brain out of there first")
-				else
+					to_chat(user, "<span class='notice'>You screw the circuit board into place.</span>")
+					state = SCREWED_CORE
+					update_icon()
+					return
+				if(iscrowbar(P))
 					playsound(loc, P.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You remove the cables.</span>")
-					state = 2
-					icon_state = "2"
-					var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
-					A.amount = 5
+					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+					state = EMPTY_CORE
+					update_icon()
+					circuit.forceMove(loc)
+					circuit = null
+					return
+			if(SCREWED_CORE)
+				if(iswirecutter(P) && circuit)
+					playsound(loc, P.usesound, 50, 1)
+					to_chat(user, "<span class='notice'>You unfasten the circuit board.</span>")
+					state = CIRCUIT_CORE
+					update_icon()
+					return
+				if(istype(P, /obj/item/stack/cable_coil))
+					var/obj/item/stack/cable_coil/C = P
+					if(C.get_amount() >= 5)
+						playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+						to_chat(user, "<span class='notice'>You start to add cables to the frame...</span>")
+						if(do_after(user, 20, target = src) && state == SCREWED_CORE && C.use(5))
+							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
+							state = CABLED_CORE
+							update_icon()
+					else
+						to_chat(user, "<span class='warning'>You need five lengths of cable to wire the AI core!</span>")
+					return
+			if(CABLED_CORE)
+				if(iswirecutter(P))
+					if(brain)
+						to_chat(user, "<span class='warning'>Get that [brain.name] out of there first!</span>")
+					else
+						playsound(loc, P.usesound, 50, 1)
+						to_chat(user, "<span class='notice'>You remove the cables.</span>")
+						state = SCREWED_CORE
+						update_icon()
+						var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( loc )
+						A.amount = 5
+					return
 
-			if(istype(P, /obj/item/stack/sheet/rglass))
-				if(P:amount >= 2)
-					playsound(loc, P.usesound, 50, 1)
-					if(do_after(user, 20 * P.toolspeed, target = src))
-						if(P)
-							P:amount -= 2
-							if(!P:amount) qdel(P)
+				if(istype(P, /obj/item/stack/sheet/rglass))
+					var/obj/item/stack/sheet/rglass/G = P
+					if(G.get_amount() >= 2)
+						playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
+						to_chat(user, "<span class='notice'>You start to put in the glass panel...</span>")
+						if(do_after(user, 20, target = src) && state == CABLED_CORE && G.use(2))
 							to_chat(user, "<span class='notice'>You put in the glass panel.</span>")
-							state = 4
-							icon_state = "4"
-
-			if(istype(P, /obj/item/aiModule/purge))
-				laws.clear_inherent_laws()
-				to_chat(usr, "<span class='notice'>Law module applied.</span>")
-				return
-
-			if(istype(P, /obj/item/aiModule/freeform))
-				var/obj/item/aiModule/freeform/M = P
-				laws.add_inherent_law(M.newFreeFormLaw)
-				to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
-				return
-
-			if(istype(P, /obj/item/aiModule))
-				var/obj/item/aiModule/M = P
-				if(!M.laws)
-					to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
-					return
-				laws = M.laws
-
-			if(istype(P, /obj/item/mmi))
-				if(!P:brainmob)
-					to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
-					return
-				if(P:brainmob.stat == 2)
-					to_chat(user, "<span class='warning'>Sticking a dead [P] into the frame would sort of defeat the purpose.</span>")
+							state = GLASS_CORE
+							update_icon()
+					else
+						to_chat(user, "<span class='warning'>You need two sheets of reinforced glass to insert them into the AI core!</span>")
 					return
 
-				if(jobban_isbanned(P:brainmob, "AI") || jobban_isbanned(P:brainmob,"nonhumandept"))
-					to_chat(user, "<span class='warning'>This [P] does not seem to fit.</span>")
+				if(istype(P, /obj/item/aiModule/purge))
+					laws.clear_inherent_laws()
+					to_chat(usr, "<span class='notice'>Law module applied.</span>")
 					return
 
-				if(istype(P, /obj/item/mmi/syndie))
-					to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
+				if(istype(P, /obj/item/aiModule/freeform))
+					var/obj/item/aiModule/freeform/M = P
+					laws.add_inherent_law(M.newFreeFormLaw)
+					to_chat(usr, "<span class='notice'>Added a freeform law.</span>")
 					return
 
-				if(P:brainmob.mind)
-					ticker.mode.remove_cultist(P:brainmob.mind, 1)
-					ticker.mode.remove_revolutionary(P:brainmob.mind, 1)
+				if(istype(P, /obj/item/aiModule))
+					var/obj/item/aiModule/M = P
+					if(!M.laws)
+						to_chat(usr, "<span class='warning'>This AI module can not be applied directly to AI cores.</span>")
+						return
+					laws = M.laws
 
-				user.drop_item()
-				P.loc = src
-				brain = P
-				to_chat(usr, "Added [P].")
+				if(istype(P, /obj/item/mmi) && !brain)
+					var/obj/item/mmi/M = P
+					if(!M.brainmob)
+						to_chat(user, "<span class='warning'>Sticking an empty [P] into the frame would sort of defeat the purpose.</span>")
+						return
+					if(M.brainmob.stat == DEAD)
+						to_chat(user, "<span class='warning'>Sticking a dead [P] into the frame would sort of defeat the purpose.</span>")
+						return
+
+					if(!M.brainmob.client)
+						to_chat(user, "<span class='warning'>Sticking an inactive [M.name] into the frame would sort of defeat the purpose.</span>")
+						return
+
+					if(jobban_isbanned(M.brainmob, "AI") || jobban_isbanned(M.brainmob, "nonhumandept"))
+						to_chat(user, "<span class='warning'>This [P] does not seem to fit.</span>")
+						return
+
+					if(!M.brainmob.mind)
+						to_chat(user, "<span class='warning'>This [M.name] is mindless!</span>")
+						return
+
+					if(istype(P, /obj/item/mmi/syndie))
+						to_chat(user, "<span class='warning'>This MMI does not seem to fit!</span>")
+						return
+
+					if(!user.drop_item())
+						return
+
+					M.forceMove(src)
+					brain = M
+					to_chat(user, "<span class='notice'>You add [M.name] to the frame.</span>")
+					update_icon()
+					return
+
+				if(iscrowbar(P) && brain)
+					playsound(loc, P.usesound, 50, 1)
+					to_chat(user, "<span class='notice'>You remove the brain.</span>")
+					brain.forceMove(loc)
+					brain = null
+					update_icon()
+					return
+
+			if(GLASS_CORE)
+				if(istype(P, /obj/item/crowbar))
+					playsound(loc, P.usesound, 50, 1)
+					to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
+					state = CABLED_CORE
+					update_icon()
+					new /obj/item/stack/sheet/rglass(loc, 2)
+					return
+
+				if(isscrewdriver(P))
+					playsound(loc, P.usesound, 50, 1)
+					to_chat(user, "<span class='notice'>You connect the monitor.</span>")
+					if(!brain)
+						var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
+						var/obj/structure/AIcore/deactivated/D = new(loc)
+						if(open_for_latejoin)
+							empty_playable_ai_cores += D
+					else
+						if(brain.brainmob.mind)
+							SSticker.mode.remove_cultist(brain.brainmob.mind, 1)
+							SSticker.mode.remove_revolutionary(brain.brainmob.mind, 1)
+
+						var/mob/living/silicon/ai/A = new /mob/living/silicon/ai(loc, laws, brain)
+						if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
+							A.rename_self("AI", 1)
+					feedback_inc("cyborg_ais_created",1)
+					qdel(src)
+
+			if(AI_READY_CORE)
+				if(istype(P, /obj/item/aicard))
+					P.transfer_ai("INACTIVE", "AICARD", src, user)
+					return
+
+				if(isscrewdriver(P))
+					playsound(loc, P.usesound, 50, 1)
+					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+					state = GLASS_CORE
+					update_icon()
+					return
+	return ..()
+
+/obj/structure/AIcore/update_icon()
+	switch(state)
+		if(EMPTY_CORE)
+			icon_state = "0"
+		if(CIRCUIT_CORE)
+			icon_state = "1"
+		if(SCREWED_CORE)
+			icon_state = "2"
+		if(CABLED_CORE)
+			if(brain)
 				icon_state = "3b"
-
-			if(istype(P, /obj/item/crowbar) && brain)
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the brain.</span>")
-				brain.loc = loc
-				brain = null
+			else
 				icon_state = "3"
+		if(GLASS_CORE)
+			icon_state = "4"
+		if(AI_READY_CORE)
+			icon_state = "ai-empty"
 
-		if(4)
-			if(istype(P, /obj/item/crowbar))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the glass panel.</span>")
-				state = 3
-				if(brain)
-					icon_state = "3b"
-				else
-					icon_state = "3"
-				new /obj/item/stack/sheet/rglass( loc, 2 )
-				return
-
-			if(istype(P, /obj/item/screwdriver))
-				playsound(loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You connect the monitor.</span>")
-				if(!brain)
-					var/open_for_latejoin = alert(user, "Would you like this core to be open for latejoining AIs?", "Latejoin", "Yes", "Yes", "No") == "Yes"
-					var/obj/structure/AIcore/deactivated/D = new(loc)
-					if(open_for_latejoin)
-						empty_playable_ai_cores += D
-				else
-					var/mob/living/silicon/ai/A = new /mob/living/silicon/ai ( loc, laws, brain )
-					if(A) //if there's no brain, the mob is deleted and a structure/AIcore is created
-						A.rename_self("AI", 1)
-				feedback_inc("cyborg_ais_created",1)
-				qdel(src)
+/obj/structure/AIcore/deconstruct(disassembled = TRUE)
+	if(state == GLASS_CORE)
+		new /obj/item/stack/sheet/rglass(loc, 2)
+	if(state >= CABLED_CORE)
+		new /obj/item/stack/cable_coil(loc, 5)
+	if(circuit)
+		circuit.forceMove(loc)
+		circuit = null
+	new /obj/item/stack/sheet/plasteel(loc, 4)
+	qdel(src)
 
 /obj/structure/AIcore/deactivated
-	name = "Inactive AI"
-	icon = 'icons/mob/AI.dmi'
+	name = "inactive AI"
 	icon_state = "ai-empty"
-	anchored = 1
-	state = 20//So it doesn't interact based on the above. Not really necessary.
+	anchored = TRUE
+	state = AI_READY_CORE
+
+/obj/structure/AIcore/deactivated/New()
+	..()
+	circuit = new(src)
 
 /obj/structure/AIcore/deactivated/Destroy()
 	if(src in empty_playable_ai_cores)
 		empty_playable_ai_cores -= src
 	return ..()
-
-/obj/structure/AIcore/deactivated/attackby(var/obj/item/W, var/mob/user, params)
-	if(istype(W, /obj/item/aicard))//Is it?
-		var/obj/item/aicard/card = W
-		card.transfer_ai("INACTIVE","AICARD",src,user)
-	else if(istype(W, /obj/item/wrench))
-		if(anchored)
-			user.visible_message("<span class='notice'>\The [user] starts to unbolt \the [src] from the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to unbolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes unfastening \the [src]!</span>")
-			anchored = 0
-			return
-		else
-			user.visible_message("<span class='notice'>\The [user] starts to bolt \the [src] to the plating...</span>")
-			if(!do_after(user, 40 * W.toolspeed, target = src))
-				user.visible_message("<span class='notice'>\The [user] decides not to bolt \the [src].</span>")
-				return
-			user.visible_message("<span class='notice'>\The [user] finishes fastening down \the [src]!</span>")
-			anchored = 1
-			return
-	else
-		return ..()
 
 /client/proc/empty_ai_core_toggle_latejoin()
 	set name = "Toggle AI Core Latejoin"
@@ -246,7 +285,7 @@ That prevents a few funky behaviors.
 //The type of interaction, the player performing the operation, the AI itself, and the card object, if any.
 
 
-atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
+atom/proc/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
 	if(istype(card))
 		if(card.flush)
 			to_chat(user, "<span class='boldannounce'>ERROR</span>: AI flush is in progress, cannot execute transfer protocol.")
@@ -254,8 +293,8 @@ atom/proc/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/A
 	return 1
 
 
-/obj/structure/AIcore/deactivated/transfer_ai(var/interaction, var/mob/user, var/mob/living/silicon/ai/AI, var/obj/item/aicard/card)
-	if(!..())
+/obj/structure/AIcore/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
+	if(state != AI_READY_CORE || !..())
 		return
  //Transferring a carded AI to a core.
 	if(interaction == AI_TRANS_FROM_CARD)

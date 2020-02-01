@@ -10,7 +10,8 @@
 	consume_sound = 'sound/items/drink.ogg'
 	possible_transfer_amounts = list(5,10,15,20,25,30,50)
 	volume = 50
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	antable = FALSE
 
 /obj/item/reagent_containers/food/drinks/New()
 	..()
@@ -106,31 +107,20 @@
 
 	return FALSE
 
-/obj/item/reagent_containers/food/drinks/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/mask/cigarette)) //ciggies are weird
-		return FALSE
-	if(is_hot(I))
-		if(reagents)
-			reagents.chem_temp += 15
-			to_chat(user, "<span class='notice'>You heat [src] with [I].</span>")
-			reagents.handle_reactions()
-	else
-		return ..()
-
 /obj/item/reagent_containers/food/drinks/examine(mob/user)
-	if(!..(user, 1))
-		return
-	if(!reagents || reagents.total_volume == 0)
-		to_chat(user, "<span class='notice'> \The [src] is empty!</span>")
-	else if(reagents.total_volume <= volume/4)
-		to_chat(user, "<span class='notice'> \The [src] is almost empty!</span>")
-	else if(reagents.total_volume <= volume*0.66)
-		to_chat(user, "<span class='notice'> \The [src] is half full!</span>")// We're all optimistic, right?!
+	. = ..()
+	if(in_range(user, src))
+		if(!reagents || reagents.total_volume == 0)
+			. += "<span class='notice'> \The [src] is empty!</span>"
+		else if(reagents.total_volume <= volume/4)
+			. += "<span class='notice'> \The [src] is almost empty!</span>"
+		else if(reagents.total_volume <= volume*0.66)
+			. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
 
-	else if(reagents.total_volume <= volume*0.90)
-		to_chat(user, "<span class='notice'> \The [src] is almost full!</span>")
-	else
-		to_chat(user, "<span class='notice'> \The [src] is full!</span>")
+		else if(reagents.total_volume <= volume*0.90)
+			. += "<span class='notice'> \The [src] is almost full!</span>"
+		else
+			. += "<span class='notice'> \The [src] is full!</span>"
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END
@@ -149,6 +139,7 @@
 	volume = 5
 	flags = CONDUCT
 	container_type = OPENCONTAINER
+	resistance_flags = FIRE_PROOF
 
 /obj/item/reagent_containers/food/drinks/trophy/gold_cup
 	name = "gold cup"
@@ -195,15 +186,16 @@
 	desc = "Careful, the beverage you're about to enjoy is extremely hot."
 	icon_state = "coffee"
 	list_reagents = list("coffee" = 30)
+	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/ice
-	name = "Ice Cup"
+	name = "ice cup"
 	desc = "Careful, cold ice, do not chew."
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
 
 /obj/item/reagent_containers/food/drinks/tea
-	name = "Duke Purple Tea"
+	name = "Duke Purple tea"
 	desc = "An insult to Duke Purple is an insult to the Space Queen! Any proper gentleman will fight you, if you sully this tea."
 	icon_state = "teacup"
 	item_state = "coffee"
@@ -215,34 +207,36 @@
 		reagents.add_reagent("mugwort", 3)
 
 /obj/item/reagent_containers/food/drinks/mugwort
-	name = "Mugwort Tea"
+	name = "mugwort tea"
 	desc = "A bitter herbal tea."
 	icon_state = "manlydorfglass"
 	item_state = "coffee"
 	list_reagents = list("mugwort" = 30)
 
 /obj/item/reagent_containers/food/drinks/h_chocolate
-	name = "Dutch Hot Coco"
+	name = "Dutch hot coco"
 	desc = "Made in Space South America."
 	icon_state = "hot_coco"
 	item_state = "coffee"
 	list_reagents = list("hot_coco" = 30, "sugar" = 5)
+	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/chocolate
-	name = "Hot Chocolate"
+	name = "hot chocolate"
 	desc = "Made in Space Switzerland."
 	icon_state = "hot_coco"
 	item_state = "coffee"
 	list_reagents = list("chocolate" = 30)
+	resistance_flags = FREEZE_PROOF
 
 /obj/item/reagent_containers/food/drinks/weightloss
-	name = "Weight-Loss Shake"
+	name = "weight-loss shake"
 	desc = "A shake designed to cause weight loss.  The package proudly proclaims that it is 'tapeworm free.'"
 	icon_state = "weightshake"
 	list_reagents = list("lipolicide" = 30, "chocolate" = 5)
 
 /obj/item/reagent_containers/food/drinks/dry_ramen
-	name = "Cup Ramen"
+	name = "cup ramen"
 	desc = "Just add 10ml of water, self heats! A taste that reminds you of your school years."
 	icon_state = "ramen"
 	item_state = "ramen"
@@ -254,7 +248,7 @@
 		reagents.add_reagent("enzyme", 3)
 
 /obj/item/reagent_containers/food/drinks/chicken_soup
-	name = "Canned Chicken Soup"
+	name = "canned chicken soup"
 	desc = "A delicious and soothing can of chicken noodle soup; just like spessmom used to microwave it."
 	icon_state = "soupcan"
 	item_state = "soupcan"
@@ -331,7 +325,7 @@
 	volume = 50
 
 /obj/item/reagent_containers/food/drinks/flask/lithium
-	name = "Lithium Flask"
+	name = "lithium flask"
 	desc = "A flask with a Lithium Atom symbol on it."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "lithiumflask"
@@ -344,50 +338,17 @@
 	icon_state = "britcup"
 	volume = 30
 
-/obj/item/reagent_containers/food/drinks/mushroom_bowl
-	name = "mushroom bowl"
-	desc = "A bowl made out of mushrooms. Not food, though it might have contained some at some point."
-	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "mushroom_bowl"
-	w_class = WEIGHT_CLASS_SMALL
-
-
 /obj/item/reagent_containers/food/drinks/bag
-	name = "Drink bag"
+	name = "drink bag"
 	desc = "Normally put in wine boxes, or down pants at stadium events."
 	icon_state = "goonbag"
 	volume = 70
 
 /obj/item/reagent_containers/food/drinks/bag/goonbag
-	name = "Goon from a Blue Toolbox special edition"
+	name = "goon from a Blue Toolbox special edition"
 	desc = "Wine from the land down under, where the dingos roam and the roos do wander."
 	icon_state = "goonbag"
 	list_reagents = list("wine" = 70)
-
-/obj/item/reagent_containers/food/drinks/waterbottle
-	name = "bottle of water"
-	desc = "A bottle of water filled at an old Earth bottling facility."
-	icon = 'icons/obj/drinks.dmi'
-	icon_state = "smallbottle"
-	item_state = "bottle"
-	list_reagents = list("water" = 49.5, "fluorine" = 0.5) //see desc, don't think about it too hard
-	materials = list(MAT_GLASS = 0)
-	volume = 50
-	amount_per_transfer_from_this = 10
-
-/obj/item/reagent_containers/food/drinks/waterbottle/empty
-	list_reagents = list()
-
-/obj/item/reagent_containers/food/drinks/waterbottle/large
-	desc = "A fresh commercial-sized bottle of water."
-	icon_state = "largebottle"
-	materials = list(MAT_GLASS = 0)
-	list_reagents = list("water" = 100)
-	volume = 100
-	amount_per_transfer_from_this = 20
-
-/obj/item/reagent_containers/food/drinks/waterbottle/large/empty
-	list_reagents = list()
 
 /obj/item/reagent_containers/food/drinks/oilcan
 	name = "oil can"

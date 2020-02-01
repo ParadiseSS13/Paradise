@@ -3,7 +3,7 @@
 	desc = "Used to hold things when you don't have enough hands."
 	icon_state = "webbing"
 	item_color = "webbing"
-	slot = "utility"
+	slot = ACCESSORY_SLOT_UTILITY
 	var/slots = 3
 	var/obj/item/storage/internal/hold
 	actions_types = list(/datum/action/item_action/accessory/storage)
@@ -78,7 +78,7 @@
 	desc = "Sturdy mess of synthcotton belts and buckles, ready to share your burden."
 	icon_state = "webbing"
 	item_color = "webbing"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi'
 		)

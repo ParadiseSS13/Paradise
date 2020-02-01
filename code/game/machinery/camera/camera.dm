@@ -7,8 +7,9 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
-
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
+	resistance_flags = FIRE_PROOF
+	damage_deflection = 12
+	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
@@ -31,7 +32,7 @@
 	var/emped = FALSE  //Number of consecutive EMP's on this camera
 
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
-	var/toggle_sound = 'sound/items/Wirecutter.ogg'
+	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
 
 /obj/machinery/camera/New()
@@ -116,6 +117,11 @@
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
 	cameranet.updateVisibility(src, 0)
+
+/obj/machinery/camera/singularity_pull(S, current_size)
+	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+		toggle_cam(null, 0)
+	..()
 
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
@@ -228,28 +234,30 @@
 		return ..()
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 12 && !(stat & BROKEN))
-		return 0
+	if(stat & BROKEN)
+		return damage_amount
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status)
+	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
 		wires.CutAll()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
-	if(disassembled)
-		if(!assembly)
-			assembly = new()
-		assembly.forceMove(loc)
-		assembly.state = 1
-		assembly.setDir(dir)
-		assembly.update_icon()
-		assembly = null
-	else
-		new /obj/item/camera_assembly(loc)
-		new /obj/item/stack/cable_coil(loc, 2)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			if(!assembly)
+				assembly = new()
+			assembly.forceMove(drop_location())
+			assembly.state = 1
+			assembly.setDir(dir)
+			assembly.update_icon()
+			assembly = null
+		else
+			var/obj/item/I = new /obj/item/camera_assembly(loc)
+			I.obj_integrity = I.max_integrity * 0.5
+			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
 /obj/machinery/camera/update_icon()
@@ -295,10 +303,12 @@
 			to_chat(O, "The screen bursts into static.")
 
 /obj/machinery/camera/proc/triggerCameraAlarm()
-	camera_alarm.triggerAlarm(loc, src)
+	if(is_station_contact(z))
+		SSalarms.camera_alarm.triggerAlarm(loc, src)
 
 /obj/machinery/camera/proc/cancelCameraAlarm()
-	camera_alarm.clearAlarm(loc, src)
+	if(is_station_contact(z))
+		SSalarms.camera_alarm.clearAlarm(loc, src)
 
 /obj/machinery/camera/proc/can_use()
 	if(!status)
@@ -382,14 +392,17 @@
 		user.overlay_fullscreen("remote_view", /obj/screen/fullscreen/impaired, 2)
 
 /obj/machinery/camera/update_remote_sight(mob/living/user)
-	user.see_invisible = SEE_INVISIBLE_LIVING //can't see ghosts through cameras
 	if(isXRay())
 		user.sight |= (SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		user.see_in_dark = max(user.see_in_dark, 8)
+		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	else
-		user.sight = 0
-		user.see_in_dark = 2
-	return 1
+		user.sight = initial(user.sight)
+		user.see_in_dark = initial(user.see_in_dark)
+		user.lighting_alpha = initial(user.lighting_alpha)
+
+	..()
+	return TRUE
 
 /obj/machinery/camera/portable //Cameras which are placed inside of things, such as helmets.
 	var/turf/prev_turf

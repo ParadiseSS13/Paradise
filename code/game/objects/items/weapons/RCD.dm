@@ -46,10 +46,11 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 	materials = list(MAT_METAL = 30000)
 	origin_tech = "engineering=4;materials=2"
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 	flags_2 = NO_MAT_REDEMPTION_2
 	req_access = list(access_engine)
-
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
 	// Important shit
 	var/datum/effect_system/spark_spread/spark_system
 	var/matter = 0
@@ -82,8 +83,8 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 
 /obj/item/rcd/examine(mob/user)
 	. = ..()
-	to_chat(user, "MATTER: [matter]/[max_matter] matter-units.")
-	to_chat(user, "MODE: [mode].")
+	. += "MATTER: [matter]/[max_matter] matter-units."
+	. += "MODE: [mode]."
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
@@ -333,7 +334,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 					return FALSE
 				playsound(loc, usesound, 50, 1)
 				var/turf/AT = A
-				AT.ChangeTurf(/turf/space)
+				AT.ChangeTurf(AT.baseturf)
 				return TRUE
 			return FALSE
 		to_chat(user, "<span class='warning'>ERROR! Not enough matter in unit to deconstruct this floor!</span>")

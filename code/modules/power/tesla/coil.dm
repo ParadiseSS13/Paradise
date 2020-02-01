@@ -12,8 +12,8 @@
 	var/last_zap = 0
 	var/datum/wires/tesla_coil/wires = null
 
-/obj/machinery/power/tesla_coil/New()
-	..()
+/obj/machinery/power/tesla_coil/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/tesla_coil(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
@@ -54,7 +54,7 @@
 			wires.Interact(user)
 
 	else
-		..()
+		return ..()
 
 /obj/machinery/power/tesla_coil/tesla_act(var/power)
 	if(anchored && !panel_open)
@@ -64,7 +64,7 @@
 		var/power_produced = powernet ? power / power_loss : power
 		add_avail(power_produced*input_power_multiplier)
 		flick("coilhit", src)
-		playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
+		playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 		tesla_zap(src, 5, power_produced)
 		addtimer(CALLBACK(src, .proc/reset_shocked), 10)
 	else
@@ -77,8 +77,8 @@
 	var/coeff = (20 - ((input_power_multiplier - 1) * 3))
 	coeff = max(coeff, 10)
 	var/power = (powernet.avail/2)
-	draw_power(power)
-	playsound(src.loc, 'sound/magic/LightningShock.ogg', 100, 1, extrarange = 5)
+	add_load(power)
+	playsound(src.loc, 'sound/magic/lightningshock.ogg', 100, 1, extrarange = 5)
 	tesla_zap(src, 10, power/(coeff/2))
 
 /obj/machinery/power/grounding_rod
@@ -89,8 +89,8 @@
 	anchored = 0
 	density = 1
 
-/obj/machinery/power/grounding_rod/New()
-	..()
+/obj/machinery/power/grounding_rod/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/grounding_rod(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)

@@ -24,19 +24,20 @@
 	filling_color = "#FFFF00"
 	bitesize = 5
 	distill_reagent = "bananahonk"
+	tastes = list("banana" = 1)
 
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is aiming the [name] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/items/bikehorn.ogg', 50, 1, -1)
 	sleep(25)
 	if(!user)
-		return (OXYLOSS)
+		return OXYLOSS
 	user.say("BANG!")
 	sleep(25)
 	if(!user)
-		return (OXYLOSS)
+		return OXYLOSS
 	user.visible_message("<B>[user]</B> laughs so hard [user.p_they()] begin[user.p_s()] to suffocate!")
-	return (OXYLOSS)
+	return OXYLOSS
 
 /obj/item/grown/bananapeel
 	seed = /obj/item/seeds/banana
@@ -52,7 +53,7 @@
 /obj/item/grown/bananapeel/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is deliberately slipping on the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
-	return (BRUTELOSS)
+	return BRUTELOSS
 
 
 // Mimana - invisible sprites are totally a feature!

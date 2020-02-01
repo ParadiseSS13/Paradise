@@ -2,15 +2,20 @@
 
 //Emote Cooldown System (it's so simple!)
 /mob/proc/handle_emote_CD(cooldown = EMOTE_COOLDOWN)
-	if(emote_cd == 2) return 1			// Cooldown emotes were disabled by an admin, prevent use
-	if(src.emote_cd == 1) return 1		// Already on CD, prevent use
+	if(emote_cd == 3) //Spam those emotes
+		return FALSE
+	if(emote_cd == 2) // Cooldown emotes were disabled by an admin, prevent use
+		return TRUE
+	if(emote_cd == 1)  // Already on CD, prevent use
+		return TRUE
 
-	src.emote_cd = 1		// Starting cooldown
+	emote_cd = TRUE	// Starting cooldown
 	spawn(cooldown)
-		if(emote_cd == 2) return 1		// Don't reset if cooldown emotes were disabled by an admin during the cooldown
-		src.emote_cd = 0				// Cooldown complete, ready for more!
+		if(emote_cd == 2)
+			return TRUE // Don't reset if cooldown emotes were disabled by an admin during the cooldown
+		emote_cd = FALSE // Cooldown complete, ready for more!
+	return FALSE // Proceed with emote
 
-	return 0		// Proceed with emote
 //--FalseIncarnate
 
 /mob/proc/handle_emote_param(var/target, var/not_self, var/vicinity, var/return_mob) //Only returns not null if the target param is valid.
@@ -53,19 +58,20 @@
 	if(message)
 		log_emote(message, src)
 
- //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
- // Maybe some people are okay with that.
-
+		// Hearing gasp and such every five seconds is not good emotes were not global for a reason.
+		// Maybe some people are okay with that.
 		for(var/mob/M in GLOB.player_list)
 			if(!M.client)
 				continue //skip monkeys and leavers
-			if(istype(M, /mob/new_player))
-				continue
-			if(findtext(message," snores.")) //Because we have so many sleeping people.
-				break
-			if(M.stat == DEAD && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
-				M.show_message(message)
 
+			if(isnewplayer(M))
+				continue
+
+			if(findtext(message, " snores.")) //Because we have so many sleeping people.
+				break
+
+			if(isobserver(M) && M.get_preference(CHAT_GHOSTSIGHT) && !(M in viewers(src, null)) && client) // The client check makes sure people with ghost sight don't get spammed by simple mobs emoting.
+				M.show_message(message)
 
 		// Type 1 (Visual) emotes are sent to anyone in view of the item
 		if(m_type & EMOTE_VISUAL)

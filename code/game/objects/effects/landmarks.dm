@@ -3,7 +3,7 @@
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
 	anchored = 1.0
-	unacidable = 1
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/effect/landmark/New()
 
@@ -19,9 +19,6 @@
 		if("wizard")
 			wizardstart += loc
 			qdel(src)
-
-		if("avatarspawn")
-			avatarspawn += loc
 
 		if("JoinLate")
 			latejoin += loc
@@ -103,6 +100,16 @@
 /obj/effect/landmark/proc/set_tag()
 	tag = text("landmark*[]", name)
 
+
+/obj/effect/landmark/singularity_act()
+	return
+
+// Please stop bombing the Observer-Start landmark.
+/obj/effect/landmark/ex_act()
+	return
+
+/obj/effect/landmark/singularity_pull()
+	return
 
 /obj/effect/landmark/start
 	name = "start"
@@ -250,8 +257,8 @@
 	qdel(src)
 
 /obj/effect/landmark/costume/sexyclown/New()
-	new /obj/item/clothing/mask/gas/sexyclown(src.loc)
-	new /obj/item/clothing/under/sexyclown(src.loc)
+	new /obj/item/clothing/mask/gas/clown_hat/sexy(loc)
+	new /obj/item/clothing/under/rank/clown/sexy(loc)
 	qdel(src)
 
 /obj/effect/landmark/costume/sexymime/New()
@@ -294,3 +301,6 @@
 
 /obj/effect/landmark/battle_mob_point
 	name = "Nanomob Battle Avatar Spawn Point"
+
+/obj/effect/landmark/free_golem_spawn
+	name = "Free Golem Spawn Point"

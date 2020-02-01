@@ -13,7 +13,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
-	req_access = list(access_engine, access_robotics)
+	req_one_access = list(access_engine, access_robotics)
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
@@ -52,8 +52,7 @@
 		camera.network.Add("Engineering")
 
 	//They are unable to be upgraded, so let's give them a bit of a better battery.
-	cell.maxcharge = 10000
-	cell.charge = 10000
+	cell = new /obj/item/stock_parts/cell/high(src)
 
 	// NO BRAIN.
 	mmi = null
@@ -99,7 +98,7 @@
 
 /mob/living/silicon/robot/drone/update_icons()
 	overlays.Cut()
-	if(stat == 0)
+	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
@@ -124,7 +123,7 @@
 
 	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 
-		if(stat == 2)
+		if(stat == DEAD)
 
 			if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
 				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
@@ -166,7 +165,7 @@
 	..()
 
 /mob/living/silicon/robot/drone/emag_act(user as mob)
-	if(!client || stat == 2)
+	if(!client || stat == DEAD)
 		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
 		return
 
@@ -182,7 +181,7 @@
 	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
 
 	if(jobban_isbanned(src, ROLE_SYNDICATE))
-		ticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
+		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
 
@@ -223,12 +222,12 @@
 
 /mob/living/silicon/robot/drone/death(gibbed)
 	. = ..(gibbed)
-	ghostize(can_reenter_corpse = 0)
+	adjustBruteLoss(health)
 
 
 //CONSOLE PROCS
 /mob/living/silicon/robot/drone/proc/law_resync()
-	if(stat != 2)
+	if(stat != DEAD)
 		if(emagged)
 			to_chat(src, "<span class='warning'>You feel something attempting to modify your programming, but your hacked subroutines are unaffected.</span>")
 		else
@@ -237,7 +236,7 @@
 			show_laws()
 
 /mob/living/silicon/robot/drone/proc/shut_down(force=FALSE)
-	if(stat == 2)
+	if(stat == DEAD)
 		return
 
 	if(emagged && !force)
@@ -248,9 +247,9 @@
 	death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
-	clear_supplied_laws()
-	clear_inherent_laws()
-	clear_ion_laws()
+	clear_supplied_laws(TRUE)
+	clear_inherent_laws(TRUE)
+	clear_ion_laws(TRUE)
 	laws = new /datum/ai_laws/drone
 
 //Reboot procs.
@@ -348,6 +347,6 @@
 		return
 	density = 0 //this is reset every canmove update otherwise
 
-/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0)
+/mob/living/simple_animal/drone/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
 	if(affect_silicon)
 		return ..()

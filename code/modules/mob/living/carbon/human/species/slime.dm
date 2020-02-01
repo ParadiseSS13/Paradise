@@ -20,30 +20,43 @@
 	cold_level_3 = 200
 	coldmod = 3
 
-	oxy_mod = 0
-	brain_mod = 2.5
+	brain_mod = 1.5
 
 	male_cough_sounds = list('sound/effects/slime_squish.ogg')
 	female_cough_sounds = list('sound/effects/slime_squish.ogg')
 
-	species_traits = list(LIPS, IS_WHITELISTED, NO_BREATHE, NO_INTORGANS, NO_SCAN)
+	species_traits = list(LIPS, IS_WHITELISTED, NO_SCAN)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
 	dietflags = DIET_CARN
 	reagent_tag = PROCESS_ORG
 
+	flesh_color = "#5fe8b1"
 	blood_color = "#0064C8"
 	exotic_blood = "water"
-	blood_damage_type = TOX
 
 	butt_sprite = "slime"
 	//Has default darksight of 2.
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/slime
+		"brain" = /obj/item/organ/internal/brain/slime,
+		"heart" = /obj/item/organ/internal/heart/slime,
+		"lungs" = /obj/item/organ/internal/lungs/slime
 		)
 	mutantears = null
-
+	has_limbs = list(
+		"chest" =  list("path" = /obj/item/organ/external/chest/unbreakable),
+		"groin" =  list("path" = /obj/item/organ/external/groin/unbreakable),
+		"head" =   list("path" = /obj/item/organ/external/head/unbreakable),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/unbreakable),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/unbreakable),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/unbreakable),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/unbreakable),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/unbreakable),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/unbreakable),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/unbreakable),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/unbreakable)
+		)
 	suicide_messages = list(
 		"is melting into a puddle!",
 		"is ripping out their own core!",
@@ -59,6 +72,7 @@
 	grow.Grant(H)
 	recolor = new()
 	recolor.Grant(H)
+	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -66,6 +80,7 @@
 		grow.Remove(H)
 	if(recolor)
 		recolor.Remove(H)
+	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
@@ -83,7 +98,7 @@
 			H.update_body()
 	..()
 
-/datum/species/slime/can_hear() // fucking snowflakes 
+/datum/species/slime/can_hear() // fucking snowflakes
 	. = TRUE
 
 /datum/action/innate/slimecolor
@@ -170,7 +185,7 @@
 		H.update_body()
 		H.updatehealth()
 		H.UpdateDamageIcon()
-		H.nutrition -= SLIMEPERSON_HUNGERCOST
+		H.adjust_nutrition(-SLIMEPERSON_HUNGERCOST)
 		H.visible_message("<span class='notice'>[H] finishes regrowing [H.p_their()] missing [new_limb]!</span>", "<span class='notice'>You finish regrowing your [limb_select]</span>")
 	else
 		to_chat(H, "<span class='warning'>You need to hold still in order to regrow a limb!</span>")

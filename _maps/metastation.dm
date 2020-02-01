@@ -18,7 +18,7 @@ z7 = empty space
 	#include "map_files\MetaStation\z2.dmm"
 	#include "map_files\MetaStation\z3.dmm"
 	#include "map_files\MetaStation\z4.dmm"
-	#include "map_files\generic\z5.dmm"
+	#include "map_files\generic\Lavaland.dmm"
 	#include "map_files\generic\z6.dmm"
 	#include "map_files\generic\z7.dmm"
 
@@ -29,7 +29,7 @@ DECLARE_LEVEL(MAIN_STATION, CROSSLINKED, list(STATION_LEVEL, STATION_CONTACT, RE
 DECLARE_LEVEL(CENTCOMM, SELFLOOPING, list(ADMIN_LEVEL, BLOCK_TELEPORT, IMPEDES_MAGIC)),\
 DECLARE_LEVEL(TELECOMMS, CROSSLINKED, list(REACHABLE, BOOSTS_SIGNAL, AI_OK)),\
 DECLARE_LEVEL(DERELICT, CROSSLINKED, list(REACHABLE)),\
-DECLARE_LEVEL(MINING, CROSSLINKED, list(REACHABLE, STATION_CONTACT, AI_OK, ORE_LEVEL, HAS_WEATHER)),\
+DECLARE_LEVEL(MINING, SELFLOOPING, list(REACHABLE, STATION_CONTACT, HAS_WEATHER, ORE_LEVEL, AI_OK)),\
 DECLARE_LEVEL(EMPTY_AREA, CROSSLINKED, list(REACHABLE)),\
 DECLARE_LEVEL(EMPTY_AREA_2, CROSSLINKED, list(REACHABLE)))
 

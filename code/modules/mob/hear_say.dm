@@ -63,14 +63,14 @@
 		var/datum/gas_mixture/environment = T.return_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
-			return 0
+			return FALSE
 
 		if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
-			italics = 1
+			italics = TRUE
 			sound_vol *= 0.5
 
 	if(sleeping || stat == UNCONSCIOUS)
-		hear_sleep(message_pieces)
+		hear_sleep(multilingual_to_message(message_pieces))
 		return 0
 
 	var/speaker_name = speaker.name
@@ -87,8 +87,6 @@
 
 	var/track = null
 	if(isobserver(src))
-		if(italics && client.prefs.toggles & CHAT_GHOSTRADIO)
-			return
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
 		track = "([ghost_follow_link(speaker, ghost=src)]) "
@@ -97,7 +95,7 @@
 
 	if(!can_hear())
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
-		// if(!language || !(language.flags & INNATE)) 
+		// if(!language || !(language.flags & INNATE))
 		if(speaker == src)
 			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
 		else
@@ -158,14 +156,16 @@
 		message = strip_html_properly(message)
 		var/list/punctuation = list(",", "!", ".", ";", "?")
 		var/list/messages = splittext(message, " ")
-		var/R = rand(1, messages.len)
-		var/heardword = messages[R]
-		if(copytext(heardword,1, 1) in punctuation)
-			heardword = copytext(heardword,2)
-		if(copytext(heardword,-1) in punctuation)
-			heardword = copytext(heardword,1,lentext(heardword))
-		heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
-
+		if(messages.len > 0)
+			var/R = rand(1, messages.len)
+			var/heardword = messages[R]
+			if(copytext(heardword,1, 1) in punctuation)
+				heardword = copytext(heardword,2)
+			if(copytext(heardword,-1) in punctuation)
+				heardword = copytext(heardword,1,length(heardword))
+			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
+		else
+			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"
 	else
 		heard = "<span class='game say'>...<i>You almost hear someone talking</i>...</span>"
 

@@ -6,7 +6,7 @@
 		density = 1
 		opacity = FALSE
 		anchored = 1
-		unacidable = 1
+		resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		var/const/max_health = 200
 		var/health = max_health //The shield can only take so much beating (prevents perma-prisons)
 
@@ -47,7 +47,7 @@
 		health -= aforce
 
 	//Play a fitting sound
-	playsound(loc, 'sound/effects/EMPulse.ogg', 75, 1)
+	playsound(loc, 'sound/effects/empulse.ogg', 75, 1)
 
 	if(health <= 0)
 		visible_message("<span class='notice'>The [src] dissipates</span>")
@@ -97,7 +97,7 @@
 	qdel(src)
 
 
-/obj/machinery/shield/hitby(AM as mob|obj)
+/obj/machinery/shield/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	..()
 	var/tforce = 0
 	if(ismob(AM))
@@ -109,7 +109,7 @@
 	health -= tforce
 
 	//This seemed to be the best sound for hitting a force field.
-	playsound(loc, 'sound/effects/EMPulse.ogg', 100, 1)
+	playsound(loc, 'sound/effects/empulse.ogg', 100, 1)
 
 	//Handle the destruction of the shield
 	if(health <= 0)
@@ -529,8 +529,8 @@
 		icon_state = "shieldwall"
 		anchored = 1
 		density = 1
-		unacidable = 1
-		luminosity = 3
+		resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+		light_range = 3
 		var/needs_power = 0
 		var/active = 1
 		var/delay = 5

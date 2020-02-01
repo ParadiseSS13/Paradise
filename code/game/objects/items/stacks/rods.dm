@@ -20,10 +20,19 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	toolspeed = 1
-	usesound = 'sound/items/Deconstruct.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/rods/cyborg
 	materials = list()
+
+/obj/item/stack/rods/ten
+	amount = 10
+
+/obj/item/stack/rods/twentyfive
+	amount = 25
+
+/obj/item/stack/rods/fifty
+	amount = 50
 
 /obj/item/stack/rods/New(loc, amount=null)
 	..()

@@ -7,6 +7,7 @@
 	filling_color = "#FFDEFE"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
+	tastes = list("white fish" = 1)
 
 /obj/item/reagent_containers/food/snacks/salmonmeat
 	name = "raw salmon"
@@ -16,16 +17,18 @@
 	filling_color = "#FFDEFE"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
+	tastes = list("raw salmon" = 1)
 
 /obj/item/reagent_containers/food/snacks/salmonsteak
-	name = "Salmon steak"
-	desc = "A piece of freshly-grilled salmon meat."
+	name = "salmon steak"
+	desc = "A fillet of freshly-grilled salmon meat."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "salmonsteak"
 	trash = /obj/item/trash/plate
 	filling_color = "#7A3D11"
 	bitesize = 3
 	list_reagents = list("nutriment" = 4, "vitamin" = 2)
+	tastes = list("cooked salmon" = 1)
 
 /obj/item/reagent_containers/food/snacks/catfishmeat
 	name = "raw catfish"
@@ -35,27 +38,30 @@
 	filling_color = "#FFDEFE"
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
+	tastes = list("catfish" = 1)
 
 /obj/item/reagent_containers/food/snacks/fishfingers
-	name = "Fish Fingers"
+	name = "fish fingers"
 	desc = "A finger of fish."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfingers"
 	filling_color = "#FFDEFE"
 	bitesize = 1
 	list_reagents = list("nutriment" = 4)
+	tastes = list("fish" = 1, "bread" = 1)
 
 /obj/item/reagent_containers/food/snacks/fishburger
-	name = "Fillet -o- Carp Sandwich"
+	name = "Fillet-O-Carp sandwich"
 	desc = "Almost like a carp is yelling somewhere... Give me back that fillet -o- carp, give me that carp."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishburger"
 	filling_color = "#FFDEFE"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
+	tastes = list("bun" = 4, "fish" = 4)
 
 /obj/item/reagent_containers/food/snacks/cubancarp
-	name = "Cuban Carp"
+	name = "Cuban carp"
 	desc = "A grifftastic sandwich that burns your tongue and then leaves it numb!"
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "cubancarp"
@@ -63,15 +69,17 @@
 	filling_color = "#E9ADFF"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 1)
+	tastes = list("fish" = 4, "batter" = 1, "hot peppers" = 1)
 
 /obj/item/reagent_containers/food/snacks/fishandchips
-	name = "Fish and Chips"
-	desc = "I do say so myself chap."
+	name = "fish and chips"
+	desc = "I do say so myself old chap. Indubitably!"
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishandchips"
 	filling_color = "#E3D796"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6)
+	tastes = list("fish" = 1, "chips" = 1)
 
 /obj/item/reagent_containers/food/snacks/sashimi
 	name = "carp sashimi"
@@ -80,6 +88,7 @@
 	icon_state = "sashimi"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "capsaicin" = 5)
+	tastes = list("raw carp" = 1, "hot peppers" = 1)
 
 /obj/item/reagent_containers/food/snacks/fried_shrimp
 	name = "fried shrimp"
@@ -88,6 +97,7 @@
 	icon_state = "shrimp_fried"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("shrimp" = 1, "bread crumbs" = 1)
 
 /obj/item/reagent_containers/food/snacks/boiled_shrimp
 	name = "boiled shrimp"
@@ -96,9 +106,30 @@
 	icon_state = "shrimp_cooked"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("shrimp" = 1)
+
+/obj/item/reagent_containers/food/snacks/shrimp_skewer
+	name = "shrimp skewer"
+	desc = "Four shrimp lightly grilled on a skewer. Yummy!"
+	trash = /obj/item/stack/rods
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "shrimpskewer"
+	bitesize = 3 
+	list_reagents = list("nutriment" = 8)
+	tastes = list("shrimp" = 4)
+
+/obj/item/reagent_containers/food/snacks/fish_skewer
+	name = "fish skewer"
+	desc = "A whole fish battered and grilled on a skewer. Hope you're hungry!"
+	trash = /obj/item/stack/rods
+	icon = 'icons/obj/food/seafood.dmi'
+	icon_state = "fishskewer"
+	bitesize = 3
+	list_reagents = list("protein" = 6, "vitamin" = 4)
+	tastes = list("shrimp" = 1, "batter" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki
-	name = "Ebi Makiroll"
+	name = "ebi makiroll"
 	desc = "A large unsliced roll of Ebi Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ebi_maki"
@@ -106,17 +137,19 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
+	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Ebi
-	name = "Ebi Sushi"
+	name = "ebi sushi"
 	desc = "A simple sushi consisting of cooked shrimp and rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Ebi"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("shrimp" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Ikura_maki
-	name = "Ikura Makiroll"
+	name = "ikura makiroll"
 	desc = "A large unsliced roll of Ikura Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Ikura_maki"
@@ -124,35 +157,39 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
+	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Ikura
-	name = "Ikura Sushi"
+	name = "ikura sushi"
 	desc = "A simple sushi consisting of salmon roe."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Ikura"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
+	tastes = list("salmon roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Sake_maki
-	name = "Sake Makiroll"
-	desc = "A large unsliced roll of Ebi Sushi."
+	name = "sake makiroll"
+	desc = "A large unsliced roll of Sake Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Sake_maki"
 	slice_path = /obj/item/reagent_containers/food/snacks/sushi_Sake
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
+	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Sake
-	name = "Sake Sushi"
+	name = "sake sushi"
 	desc = "A simple sushi consisting of raw salmon and rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Sake"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("raw salmon" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/SmokedSalmon_maki
-	name = "Smoked Salmon Makiroll"
+	name = "smoked salmon makiroll"
 	desc = "A large unsliced roll of Smoked Salmon Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "SmokedSalmon_maki"
@@ -160,17 +197,19 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
+	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon
-	name = "Smoked Salmon Sushi"
+	name = "smoked salmon sushi"
 	desc = "A simple sushi consisting of cooked salmon and rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_SmokedSalmon"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("smoked salmon" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tamago_maki
-	name = "Tamago Makiroll"
+	name = "tamago makiroll"
 	desc = "A large unsliced roll of Tamago Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tamago_maki"
@@ -178,17 +217,19 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
+	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Tamago
-	name = "Tamago Sushi"
+	name = "tamago sushi"
 	desc = "A simple sushi consisting of egg and rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Tamago"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("egg" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Inari_maki
-	name = "Inari Makiroll"
+	name = "inari makiroll"
 	desc = "A large unsliced roll of Inari Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Inari_maki"
@@ -196,17 +237,19 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
+	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Inari
-	name = "Inari Sushi"
+	name = "inari sushi"
 	desc = "A piece of fried tofu stuffed with rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Inari"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("fried tofu" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Masago_maki
-	name = "Masago Makiroll"
+	name = "masago makiroll"
 	desc = "A large unsliced roll of Masago Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Masago_maki"
@@ -214,17 +257,19 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
+	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Masago
-	name = "Masago Sushi"
+	name = "masago sushi"
 	desc = "A simple sushi consisting of goldfish roe."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Masago"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
+	tastes = list("goldfish roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tobiko_maki
-	name = "Tobiko Makiroll"
+	name = "tobiko makiroll"
 	desc = "A large unsliced roll of Tobkio Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tobiko_maki"
@@ -232,17 +277,19 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
+	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Tobiko
-	name = "Tobiko Sushi"
+	name = "tobiko sushi"
 	desc = "A simple sushi consisting of shark roe."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Masago"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
+	tastes = list("shark roe" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/TobikoEgg_maki
-	name = "Tobiko and Egg Makiroll"
+	name = "tobiko and egg makiroll"
 	desc = "A large unsliced roll of Tobkio and Egg Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "TobikoEgg_maki"
@@ -250,17 +297,19 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "protein" = 4)
+	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
-	name = "Tobiko and Egg Sushi"
+	name = "tobiko and egg sushi"
 	desc = "A sushi consisting of shark roe and an egg."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_TobikoEgg"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "protein" = 1)
+	tastes = list("shark roe" = 1, "rice" = 1, "egg" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/Tai_maki
-	name = "Tai Makiroll"
+	name = "tai makiroll"
 	desc = "A large unsliced roll of Tai Sushi."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "Tai_maki"
@@ -268,19 +317,22 @@
 	slices_num = 4
 	bitesize = 3
 	list_reagents = list("nutriment" = 8)
+	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Tai
-	name = "Tai Sushi"
+	name = "tai sushi"
 	desc = "A simple sushi consisting of catfish and rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Tai"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("catfish" = 1, "rice" = 1, "seaweed" = 1)
 
 /obj/item/reagent_containers/food/snacks/sushi_Unagi
-	name = "Unagi Sushi"
+	name = "unagi sushi"
 	desc = "A simple sushi consisting of eel and rice."
 	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushi_Hokki"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2)
+	tastes = list("grilled eel" = 1, "seaweed" = 1)

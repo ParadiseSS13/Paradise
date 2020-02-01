@@ -1,12 +1,3 @@
-/proc/dopage(src,target)
-	var/href_list
-	var/href
-	href_list = params2list("src=[src:UID()]&[target]=1")
-	href = "src=[src:UID()];[target]=1"
-	src:temphtml = null
-	src:Topic(href, href_list)
-	return null
-
 /proc/get_area(atom/A)
 	if(isarea(A))
 		return A
@@ -18,6 +9,12 @@
 		if(A.name == N)
 			return A
 	return 0
+
+/proc/get_location_name(atom/X, format_text = FALSE)
+	var/area/A = isarea(X) ? X : get_area(X)
+	if(!A)
+		return null
+	return format_text ? format_text(A.name) : A.name
 
 /proc/get_areas_in_range(dist=0, atom/center=usr)
 	if(!dist)
@@ -73,6 +70,19 @@
 
 	//turfs += centerturf
 	return atoms
+
+/proc/ff_cansee(atom/A, atom/B)
+	var/AT = get_turf(A)
+	var/BT = get_turf(B)
+	if(AT == BT)
+		return 1
+	var/list/line = getline(A, B)
+	for(var/turf/T in line)
+		if(T == AT || T == BT)
+			break
+		if(T.density)
+			return FALSE
+	return TRUE
 
 /proc/get_dist_euclidian(atom/Loc1 as turf|mob|obj,atom/Loc2 as turf|mob|obj)
 	var/dx = Loc1.x - Loc2.x
@@ -416,6 +426,17 @@
 /proc/GetBluePart(const/hexa)
 	return hex2num(copytext(hexa, 6, 8))
 
+/proc/lavaland_equipment_pressure_check(turf/T)
+	. = FALSE
+	if(!istype(T))
+		return
+	var/datum/gas_mixture/environment = T.return_air()
+	if(!istype(environment))
+		return
+	var/pressure = environment.return_pressure()
+	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
+		. = TRUE
+
 /proc/GetHexColors(const/hexa)
 	return list(
 		GetRedPart(hexa),
@@ -429,7 +450,7 @@
 /proc/SecondsToTicks(var/seconds)
 	return seconds * 10
 
-proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 300, ignore_respawnability = 0, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
+proc/pollCandidates(Question, be_special_type, antag_age_check = FALSE, poll_time = 300, ignore_respawnability = FALSE, min_hours = 0, flashwindow = TRUE, check_antaghud = TRUE)
 	var/roletext = be_special_type ? get_roletext(be_special_type) : null
 	var/list/mob/dead/observer/candidates = list()
 	var/time_passed = world.time
@@ -449,7 +470,7 @@ proc/pollCandidates(Question, be_special_type, antag_age_check = 0, poll_time = 
 			if(jobban_isbanned(G, roletext) || jobban_isbanned(G, "Syndicate"))
 				continue
 		if(config.use_exp_restrictions && min_hours)
-			if(G.client.get_exp_living_num() < min_hours * 60)
+			if(G.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 				continue
 		if(check_antaghud && cannotPossess(G))
 			continue

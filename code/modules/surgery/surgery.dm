@@ -32,7 +32,7 @@
 
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
-		if(S.try_op(user, target, user.zone_sel.selecting, user.get_active_hand(), src))
+		if(S.try_op(user, target, user.zone_selected, user.get_active_hand(), src))
 			return 1
 	return 0
 
@@ -189,13 +189,12 @@
 
 	for(var/mob/living/carbon/human/H in view(2, E.loc))//germs from people
 		if(AStar(E.loc, H.loc, /turf/proc/Distance, 2, simulated_only = 0))
-			if((!(BREATHLESS in H.mutations) || !(NO_BREATHE in H.dna.species.species_traits)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
+			if(!((BREATHLESS in H.mutations) || (NO_BREATHE in H.dna.species.species_traits)) && !H.wear_mask) //wearing a mask helps preventing people from breathing cooties into open incisions
 				germs += H.germ_level * 0.25
 
 	for(var/obj/effect/decal/cleanable/M in view(2, E.loc))//germs from messes
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
-			if(!istype(M,/obj/effect/decal/cleanable/dirt))//dirt is too common
-				germs++
+			germs++
 
 	if(tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
 		germs += 30

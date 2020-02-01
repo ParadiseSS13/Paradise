@@ -17,7 +17,7 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "donutbox6"
 	name = "donut box"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/icon_type = "donut"
 
 /obj/item/storage/fancy/update_icon(var/itemremoved = 0)
@@ -26,15 +26,15 @@
 	return
 
 /obj/item/storage/fancy/examine(mob/user)
-	if(!..(user, 1))
-		return
-
-	if(contents.len <= 0)
-		to_chat(user, "There are no [src.icon_type]s left in the box.")
-	else if(contents.len == 1)
-		to_chat(user, "There is one [src.icon_type] left in the box.")
-	else
-		to_chat(user, "There are [src.contents.len] [src.icon_type]s in the box.")
+	. = ..()
+	if(in_range(user, src))
+		var/len = LAZYLEN(contents)
+		if(len <= 0)
+			. += "There are no [src.icon_type]s left in the box."
+		else if(len == 1)
+			. += "There is one [src.icon_type] left in the box."
+		else
+			. += "There are [src.contents.len] [src.icon_type]s in the box."
 
 
 
@@ -62,6 +62,7 @@
 /obj/item/storage/fancy/egg_box
 	icon_state = "eggbox"
 	icon_type = "egg"
+	item_state = "eggbox"
 	name = "egg box"
 	storage_slots = 12
 	can_hold = list(/obj/item/reagent_containers/food/snacks/egg)
@@ -206,7 +207,7 @@
 	if(!istype(M, /mob))
 		return
 
-	if(istype(M) && M == user && user.zone_sel.selecting == "mouth" && contents.len > 0 && !user.wear_mask)
+	if(istype(M) && M == user && user.zone_selected == "mouth" && contents.len > 0 && !user.wear_mask)
 		var/got_cig = 0
 		for(var/num=1, num <= contents.len, num++)
 			var/obj/item/I = contents[num]

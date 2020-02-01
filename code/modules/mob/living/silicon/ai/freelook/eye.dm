@@ -6,7 +6,7 @@
 /mob/camera/aiEye
 	name = "Inactive AI Eye"
 
-	icon = 'icons/mob/AI.dmi' //Allows ghosts to see what the AI is looking at.
+	icon = 'icons/mob/ai.dmi' //Allows ghosts to see what the AI is looking at.
 	icon_state = "eye"
 	alpha = 127
 	invisibility = SEE_INVISIBLE_OBSERVER
@@ -31,6 +31,7 @@
 			ai.camera_visibility(src)
 		if(ai.client && !ai.multicam_on)
 			ai.client.eye = src
+		update_parallax_contents()
 		//Holopad
 		if(ai.master_multicam)
 			ai.master_multicam.refresh_view()

@@ -8,7 +8,7 @@
 	flags = ABSTRACT | NODROP
 	has_sensor = 0
 	displays_id = 0
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 
 /obj/item/clothing/suit/space/shadowling
@@ -21,10 +21,10 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT
 	slowdown = 0
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	heat_protection = null //You didn't expect a light-sensitive creature to have heat resistance, did you?
 	max_heat_protection_temperature = null
-	armor = list(melee = 25, bullet = 0, laser = 0, energy = 0, bomb = 25, bio = 100, rad = 100)
+	armor = list(melee = 25, bullet = 0, laser = 0, energy = 0, bomb = 25, bio = 100, rad = 100, fire = 100, acid = 100)
 	flags = ABSTRACT | NODROP | THICKMATERIAL | STOPSPRESSUREDMAGE
 
 
@@ -32,7 +32,7 @@
 	name = "chitin feet"
 	desc = "Charred-looking feet. They have minature hooks that latch onto flooring."
 	icon_state = "golem"
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = NOSLIP | ABSTRACT | NODROP
 
 
@@ -43,7 +43,7 @@
 	item_state = "golem"
 	origin_tech = null
 	siemens_coefficient = 0
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP
 
 
@@ -54,7 +54,7 @@
 	item_state = null
 	origin_tech = null
 	siemens_coefficient = 0
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP
 
 
@@ -68,7 +68,7 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	origin_tech = null
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flags = ABSTRACT | NODROP | STOPSPRESSUREDMAGE
 
 /obj/item/clothing/glasses/shadowling
@@ -78,7 +78,8 @@
 	icon_state = null
 	item_state = null
 	origin_tech = null
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	flash_protect = -1
 	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	flags = ABSTRACT | NODROP

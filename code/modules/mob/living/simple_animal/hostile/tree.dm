@@ -24,25 +24,22 @@
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("pines")
+	emote_taunt = list("growls")
+	taunt_chance = 20
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 
 	faction = list("hostile", "winter")
 	loot = list(/obj/item/stack/sheet/wood)
-	gold_core_spawnable = CHEM_MOB_SPAWN_HOSTILE
+	gold_core_spawnable = HOSTILE_SPAWN
 	deathmessage = "is hacked into pieces!"
 	del_on_death = 1
 
-/mob/living/simple_animal/hostile/tree/FindTarget()
-	. = ..()
-	if(.)
-		custom_emote(1, "growls at [.]")
-
 /mob/living/simple_animal/hostile/tree/AttackingTarget()
-	. =..()
-	var/mob/living/L = .
-	if(istype(L))
+	. = ..()
+	if(. && iscarbon(target))
+		var/mob/living/carbon/C = target
 		if(prob(15))
-			L.Weaken(3)
-			L.visible_message("<span class='danger'>\the [src] knocks down \the [L]!</span>")
+			C.Weaken(3)
+			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")

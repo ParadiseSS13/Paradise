@@ -4,8 +4,9 @@
 	if(!.)
 		return FALSE
 	if(!gibbed && container && istype(container, /obj/item/mmi))//If not gibbed but in a container.
+		var/obj/item/mmi/mmi = container
 		visible_message("<span class='danger'>[src]'s MMI flatlines!</span>", "<span class='warning'>You hear something flatline.</span>")
-		container.icon_state = "mmi_dead"
+		mmi.icon_state = mmi.dead_icon
 
 /mob/living/carbon/brain/gib()
 	// can we muster a parent call here?

@@ -10,14 +10,14 @@
 		"heart" =    /obj/item/organ/internal/heart,
 		"liver" =    /obj/item/organ/internal/liver,
 		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain,
-		"appendix" = /obj/item/organ/internal/appendix,
+		"brain" =    /obj/item/organ/internal/brain/abductor,
 		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
 		)
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_EXAMINE)
+	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE)
+	dies_at_threshold = TRUE
 
-	oxy_mod = 0
+	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	dietflags = DIET_OMNI

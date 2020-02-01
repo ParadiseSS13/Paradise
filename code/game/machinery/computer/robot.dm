@@ -20,12 +20,7 @@
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
-	var/datum/game_mode/nations/mode = get_nations_mode()
-	if(!mode)
-		ui_interact(user)
-	else
-		if(mode.kickoff)
-			to_chat(user, "<span class='warning'>You have been locked out from this console!</span>")
+	ui_interact(user)
 
 /obj/machinery/computer/robotics/proc/is_authenticated(var/mob/user as mob)
 	if(user.can_admin_interact())

@@ -10,7 +10,8 @@
 /datum/plant_gene/proc/Copy()
 	return new type
 
-
+/datum/plant_gene/proc/apply_vars(obj/item/seeds/S) // currently used for fire resist, can prob. be further refactored
+	return
 
 
 // Core plant genes store 5 main variables: lifespan, endurance, production, yield, potency
@@ -234,14 +235,14 @@
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = G.seed.potency*rate
 	if(prob(power))
-		C.electrocute_act(round(power), G, 1, 1)
+		C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	if(iscarbon(target))
+	if(isliving(target))
 		var/mob/living/carbon/C = target
 		var/power = G.seed.potency*rate
 		if(prob(power))
-			C.electrocute_act(round(power), G, 1, 1)
+			C.electrocute_act(round(power), G, 1, TRUE)
 
 /datum/plant_gene/trait/cell_charge/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
 	if(!G.reagents.total_volume)
@@ -395,7 +396,7 @@
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target) && G.reagents && G.reagents.total_volume)
 		var/mob/living/L = target
-		if(L.reagents && L.can_inject(null, 0))
+		if(L.reagents && L.can_inject(null, FALSE))
 			var/injecting_amount = max(1, G.seed.potency*0.2) // Minimum of 1, max of 20
 			var/fraction = min(injecting_amount/G.reagents.total_volume, 1)
 			G.reagents.reaction(L, INGEST, fraction)
@@ -409,11 +410,19 @@
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
-	S.attach(splat_location)
-	S.set_up(G.reagents, 2, 0, splat_location)
+	S.set_up(G.reagents, splat_location)
 	S.start(smoke_amount)
-	if(G && G.reagents)
-		G.reagents.clear_reagents()
+
+/datum/plant_gene/trait/fire_resistance // Lavaland
+	name = "Fire Resistance"
+
+/datum/plant_gene/trait/fire_resistance/apply_vars(obj/item/seeds/S)
+	if(!(S.resistance_flags & FIRE_PROOF))
+		S.resistance_flags |= FIRE_PROOF
+
+/datum/plant_gene/trait/fire_resistance/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+	if(!(G.resistance_flags & FIRE_PROOF))
+		G.resistance_flags |= FIRE_PROOF
 
 /datum/plant_gene/trait/plant_type // Parent type
 	name = "you shouldn't see this"

@@ -27,7 +27,9 @@ field_generator power level display
 	anchored = 0
 	density = 1
 	use_power = NO_POWER_USE
-	armor = list(melee = 25, bullet = 10, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 500
+	//100% immune to lasers and energy projectiles since it absorbs their energy.
+	armor = list("melee" = 25, "bullet" = 10, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70)
 	var/const/num_power_levels = 6	// Total number of power level icon has
 	var/power_level = 0
 	var/active = FG_OFFLINE
@@ -48,8 +50,8 @@ field_generator power level display
 		overlays += "+p[power_level]"
 
 
-/obj/machinery/field/generator/New()
-	..()
+/obj/machinery/field/generator/Initialize(mapload)
+	. = ..()
 	fields = list()
 	connected_gens = list()
 
@@ -137,8 +139,17 @@ field_generator power level display
 /obj/machinery/field/generator/emp_act()
 	return 0
 
+/obj/machinery/field/generator/attack_animal(mob/living/simple_animal/M)
+	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS && active == FG_OFFLINE && state != FG_UNSECURED)
+		state = FG_UNSECURED
+		anchored = FALSE
+		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
+	else
+		..()
+	if(!anchored)
+		step(src, get_dir(M, src))
 
-/obj/machinery/field/generator/blob_act()
+/obj/machinery/field/generator/blob_act(obj/structure/blob/B)
 	if(active)
 		return 0
 	else
@@ -287,7 +298,7 @@ field_generator power level display
 			fields += CF
 			G.fields += CF
 			for(var/mob/living/L in T)
-				CF.Crossed(L)
+				CF.Crossed(L, null)
 
 	connected_gens |= G
 	G.connected_gens |= src

@@ -40,7 +40,6 @@
 	using.icon = ui_style
 	using.icon_state = "swap_1"
 	using.screen_loc = ui_swaphand1
-	using.layer = 19
 	static_inventory += using
 
 	using = new /obj/screen/swap_hand()
@@ -48,12 +47,11 @@
 	using.icon = ui_style
 	using.icon_state = "swap_2"
 	using.screen_loc = ui_swaphand2
-	using.layer = 19
 	static_inventory += using
 
-	mymob.zone_sel = new /obj/screen/zone_sel()
-	mymob.zone_sel.icon = ui_style
-	mymob.zone_sel.update_icon(mymob)
+	zone_select = new /obj/screen/zone_sel()
+	zone_select.icon = ui_style
+	zone_select.update_icon(mymob)
 
 	lingchemdisplay = new /obj/screen/ling/chems()
 	devilsouldisplay = new /obj/screen/devil/soul_counter

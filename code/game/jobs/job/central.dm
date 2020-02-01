@@ -39,6 +39,12 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	)
 
+/datum/outfit/job/ntnavyofficer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.mind.offstation_role = TRUE
+
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
 	title = "Special Operations Officer"
@@ -89,3 +95,9 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus,
 		/obj/item/organ/internal/cyberimp/arm/combat/centcom
 	)
+
+/datum/outfit/job/ntspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.mind.offstation_role = TRUE

@@ -5,7 +5,7 @@
 	icon_state = "doorctrl0"
 	power_channel = ENVIRON
 	var/id = null
-	var/range = 10
+	var/safety_z_check = 1
 	var/normaldoorcontrol = 0
 	var/desiredstate = 0 // Zero is closed, 1 is open.
 	var/specialfunctions = 1
@@ -37,23 +37,9 @@
 		to_chat(user, "Error, no route to host.")
 
 /obj/machinery/door_control/attackby(obj/item/W, mob/user as mob, params)
-	/* For later implementation
-	if(istype(W, /obj/item/screwdriver))
-	{
-		if(wiresexposed)
-			icon_state = "doorctrl0"
-			wiresexposed = 0
-
-		else
-			icon_state = "doorctrl-open"
-			wiresexposed = 1
-
-		return
-	}
-	*/
 	if(istype(W, /obj/item/detective_scanner))
 		return
-	return attack_hand(user)
+	return ..()
 
 /obj/machinery/door_control/emag_act(user as mob)
 	if(!emagged)
@@ -81,7 +67,9 @@
 	add_fingerprint(user)
 
 	if(normaldoorcontrol)
-		for(var/obj/machinery/door/airlock/D in range(range, src))
+		for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+			if(safety_z_check && D.z != z)
+				continue
 			if(D.id_tag == id)
 				if(specialfunctions & OPEN)
 					if(D.density)
@@ -112,7 +100,9 @@
 						D.safe = 1
 
 	else
-		for(var/obj/machinery/door/poddoor/M in range(range, src))
+		for(var/obj/machinery/door/poddoor/M in GLOB.airlocks)
+			if(safety_z_check && M.z != z)
+				continue
 			if(M.id_tag == id)
 				if(M.density)
 					spawn( 0 )

@@ -21,7 +21,7 @@
 /datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 0
 		if(affected.is_robotic())
@@ -32,7 +32,7 @@
 /datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 		if(!affected)
 			return 0
 
@@ -43,7 +43,7 @@
 /datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
 
 		if(!hasorgans(target))
 			return 0
@@ -256,7 +256,7 @@
 	if(!is_thrall(target))
 		return 0
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
@@ -272,7 +272,7 @@
 	if(!is_thrall(target))
 		return 0
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_sel.selecting)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!B)
 		// No brain to remove the tumor from
 		return 0
@@ -328,7 +328,7 @@
 	if(target.vision_type) //Turns off their darksight if it's still active.
 		to_chat(target, "<span class='boldannounce'>Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!</span>")
 		target.vision_type = null
-	ticker.mode.remove_thrall(target.mind, 0)
+	SSticker.mode.remove_thrall(target.mind, 0)
 	target.visible_message("<span class='warning'>A strange black mass falls from [target]'s [E]!</span>")
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))
 	thing.set_dna(target.dna)

@@ -31,17 +31,17 @@
 			if(S.merge_type == merge_type)
 				merge(S)
 
-/obj/item/stack/Crossed(obj/O)
+/obj/item/stack/Crossed(obj/O, oldloc)
 	if(amount >= max_amount || ismob(loc)) // Prevents unnecessary call. Also prevents merging stack automatically in a mob's inventory
 		return
 	if(istype(O, merge_type) && !O.throwing)
 		merge(O)
 	..()
 
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush)
+/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(istype(AM, merge_type) && !(amount >= max_amount))
 		merge(AM)
-	..()
+	. = ..()
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -49,12 +49,13 @@
 	return ..()
 
 /obj/item/stack/examine(mob/user)
-	if(..(user, 1))
+	. = ..()
+	if(in_range(user, src))
 		if(singular_name)
-			to_chat(user, "There are [amount] [singular_name]\s in the stack.")
+			. += "There are [amount] [singular_name]\s in the stack."
 		else
-			to_chat(user, "There are [amount] [name]\s in the stack.")
-		to_chat(user,"<span class='notice'>Ctrl-Shift-click to take a custom amount.</span>")
+			. += "There are [amount] [name]\s in the stack."
+		. +="<span class='notice'>Alt-click to take a custom amount.</span>"
 
 /obj/item/stack/proc/add(newamount)
 	amount += newamount
@@ -111,16 +112,11 @@
 
 		if(istype(E, /datum/stack_recipe))
 			var/datum/stack_recipe/R = E
-			var/max_multiplier = round(src.amount / R.req_amount)
+			var/max_multiplier = round(amount / R.req_amount)
 			var/title
 			var/can_build = 1
 			can_build = can_build && (max_multiplier > 0)
-			/*
-			if(R.one_per_turf)
-				can_build = can_build && !(locate(R.result_type) in usr.loc)
-			if(R.on_floor)
-				can_build = can_build && istype(usr.loc, /turf/simulated/floor)
-			*/
+
 			if(R.res_amount > 1)
 				title += "[R.res_amount]x [R.title]\s"
 			else
@@ -131,12 +127,13 @@
 			else
 				t1 += "[title]"
 				continue
-			if(R.max_res_amount>1 && max_multiplier>1)
+			if(R.max_res_amount > 1 && max_multiplier > 1)
 				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
 				t1 += " |"
-				var/list/multipliers = list(5,10,25)
+
+				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
-					if(max_multiplier>=n)
+					if(max_multiplier >= n)
 						t1 += " <A href='?src=[UID()];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
 				if(!(max_multiplier in multipliers))
 					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
@@ -165,7 +162,7 @@
 
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = text2num(href_list["multiplier"])
-		if(!multiplier)
+		if(!multiplier || multiplier <= 0 || multiplier > 50) // Href exploit checks
 			multiplier = 1
 
 		if(amount < R.req_amount * multiplier)
@@ -231,16 +228,10 @@
 	if(amount < used)
 		return FALSE
 	amount -= used
-	if(amount < 1)
-		if(isrobot(loc))
-			var/mob/living/silicon/robot/R = loc
-			if(locate(src) in R.module.modules)
-				R.module.modules -= src
-			if(R)
-				R.unEquip(src, TRUE)
-	zero_amount()
+	if(check)
+		zero_amount()
 	update_icon()
-	return 1
+	return TRUE
 
 /obj/item/stack/proc/get_amount()
 	return amount
@@ -269,7 +260,7 @@
 	else
 		..()
 
-/obj/item/stack/CtrlShiftClick(mob/living/user)
+/obj/item/stack/AltClick(mob/living/user)
 	if(!istype(user) || user.incapacitated())
 		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
 		return
@@ -282,7 +273,7 @@
 	//get amount from user
 	var/min = 0
 	var/max = get_amount()
-	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as num)
+	var/stackmaterial = round(input(user, "How many sheets do you wish to take out of this stack? (Maximum: [max])") as null|num)
 	if(stackmaterial == null || stackmaterial <= min || stackmaterial > get_amount())
 		return
 	change_stack(user,stackmaterial)
@@ -307,6 +298,13 @@
 
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
+		if(isrobot(loc))
+			var/mob/living/silicon/robot/R = loc
+			if(locate(src) in R.module.modules)
+				R.module.modules -= src
+		if(ismob(loc))
+			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
+			L.unEquip(src, TRUE)
 		qdel(src)
 		return TRUE
 	return FALSE

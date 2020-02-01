@@ -44,6 +44,22 @@
 		if(BRAIN)
 			return adjustBrainLoss(damage)
 
+/mob/living/proc/get_damage_amount(damagetype = BRUTE)
+	switch(damagetype)
+		if(BRUTE)
+			return getBruteLoss()
+		if(BURN)
+			return getFireLoss()
+		if(TOX)
+			return getToxLoss()
+		if(OXY)
+			return getOxyLoss()
+		if(CLONE)
+			return getCloneLoss()
+		if(STAMINA)
+			return getStaminaLoss()
+
+
 /mob/living/proc/apply_damages(var/brute = 0, var/burn = 0, var/tox = 0, var/oxy = 0, var/clone = 0, var/def_zone = null, var/blocked = 0, var/stamina = 0)
 	if(blocked >= 100)	return 0
 	if(brute)	apply_damage(brute, BRUTE, def_zone, blocked)
@@ -104,11 +120,11 @@
 /mob/living/proc/getBruteLoss()
 	return bruteloss
 
-/mob/living/proc/adjustBruteLoss(var/amount, updating_health = TRUE)
+/mob/living/proc/adjustBruteLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_bruteloss = bruteloss
-	bruteloss = min(max(bruteloss + amount, 0),(maxHealth*2))
+	bruteloss = max(bruteloss + amount, 0)
 	if(old_bruteloss == bruteloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -120,11 +136,15 @@
 /mob/living/proc/getOxyLoss()
 	return oxyloss
 
-/mob/living/proc/adjustOxyLoss(var/amount, updating_health = TRUE)
+/mob/living/proc/adjustOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		oxyloss = 0
 		return FALSE	//godmode
+	if(BREATHLESS in mutations)
+		oxyloss = 0
+		return FALSE
 	var/old_oxyloss = oxyloss
-	oxyloss = min(max(oxyloss + amount, 0),(maxHealth*2))
+	oxyloss = max(oxyloss + amount, 0)
 	if(old_oxyloss == oxyloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -135,7 +155,11 @@
 
 /mob/living/proc/setOxyLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
+		oxyloss = 0
 		return FALSE	//godmode
+	if(BREATHLESS in mutations)
+		oxyloss = 0
+		return FALSE
 	var/old_oxyloss = oxyloss
 	oxyloss = amount
 	if(old_oxyloss == oxyloss)
@@ -149,11 +173,11 @@
 /mob/living/proc/getToxLoss()
 	return toxloss
 
-/mob/living/proc/adjustToxLoss(var/amount, updating_health = TRUE)
+/mob/living/proc/adjustToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
-	toxloss = min(max(toxloss + amount, 0),(maxHealth*2))
+	toxloss = max(toxloss + amount, 0)
 	if(old_toxloss == toxloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -162,7 +186,7 @@
 	if(updating_health)
 		updatehealth("adjustToxLoss")
 
-/mob/living/proc/setToxLoss(var/amount, updating_health = TRUE)
+/mob/living/proc/setToxLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_toxloss = toxloss
@@ -178,11 +202,11 @@
 /mob/living/proc/getFireLoss()
 	return fireloss
 
-/mob/living/proc/adjustFireLoss(var/amount, updating_health = TRUE)
+/mob/living/proc/adjustFireLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_fireloss = fireloss
-	fireloss = min(max(fireloss + amount, 0),(maxHealth*2))
+	fireloss = max(fireloss + amount, 0)
 	if(old_fireloss == fireloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -194,11 +218,11 @@
 /mob/living/proc/getCloneLoss()
 	return cloneloss
 
-/mob/living/proc/adjustCloneLoss(var/amount, updating_health = TRUE)
+/mob/living/proc/adjustCloneLoss(amount, updating_health = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
-	cloneloss = min(max(cloneloss + amount, 0),(maxHealth*2))
+	cloneloss = max(cloneloss + amount, 0)
 	if(old_cloneloss == cloneloss)
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -207,8 +231,9 @@
 	if(updating_health)
 		updatehealth("adjustCloneLoss")
 
-/mob/living/proc/setCloneLoss(var/amount, updating_health = TRUE)
-	if(status_flags & GODMODE)	return 0	//godmode
+/mob/living/proc/setCloneLoss(amount, updating_health = TRUE)
+	if(status_flags & GODMODE)
+		return FALSE	//godmode
 	var/old_cloneloss = cloneloss
 	cloneloss = amount
 	if(old_cloneloss == cloneloss)
@@ -235,28 +260,30 @@
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = min(max(staminaloss + amount, 0),(maxHealth*2))
+	staminaloss = min(max(staminaloss + amount, 0), 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
+	if(amount > 0)
+		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating)
-		handle_hud_icons_health()
 		update_stamina()
 
 /mob/living/proc/setStaminaLoss(amount, updating = TRUE)
 	if(status_flags & GODMODE)
 		return FALSE
 	var/old_stamloss = staminaloss
-	staminaloss = amount
+	staminaloss = min(max(amount, 0), 120)
 	if(old_stamloss == staminaloss)
 		updating = FALSE
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
+	if(amount > 0)
+		stam_regen_start_time = world.time + STAMINA_REGEN_BLOCK_TIME
 	if(updating)
-		handle_hud_icons_health()
 		update_stamina()
 
 /mob/living/proc/getMaxHealth()
@@ -301,3 +328,15 @@
 
 /mob/living/proc/has_organic_damage()
 	return (maxHealth - health)
+
+//heal up to amount damage, in a given order
+/mob/living/proc/heal_ordered_damage(amount, list/damage_types)
+	. = amount //we'll return the amount of damage healed
+	for(var/i in damage_types)
+		var/amount_to_heal = min(amount, get_damage_amount(i)) //heal only up to the amount of damage we have
+		if(amount_to_heal)
+			apply_damage_type(-amount_to_heal, i)
+			amount -= amount_to_heal //remove what we healed from our current amount
+		if(!amount)
+			break
+	. -= amount //if there's leftover healing, remove it from what we return

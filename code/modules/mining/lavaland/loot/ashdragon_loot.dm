@@ -15,6 +15,15 @@
 		if(4)
 			new /obj/item/dragons_blood(src)
 
+
+/obj/structure/closet/crate/necropolis/dragon/crusher
+	name = "firey dragon chest"
+
+/obj/structure/closet/crate/necropolis/dragon/crusher/New()
+	..()
+	new /obj/item/crusher_trophy/tail_spike(src)
+
+
 // Spectral Blade
 
 /obj/item/melee/ghost_sword
@@ -35,14 +44,14 @@
 /obj/item/melee/ghost_sword/New()
 	..()
 	spirits = list()
-	processing_objects.Add(src)
+	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 
 /obj/item/melee/ghost_sword/Destroy()
 	for(var/mob/dead/observer/G in spirits)
 		G.invisibility = initial(G.invisibility)
 	spirits.Cut()
-	processing_objects.Remove(src)
+	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list -= src
 	. = ..()
 
@@ -72,7 +81,7 @@
 	var/mob/dead/observer/current_spirits = list()
 
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(is_type_in_list(O.following, contents))
+		if((O.following in contents))
 			ghost_counter++
 			O.invisibility = 0
 			current_spirits |= O
@@ -92,7 +101,7 @@
 	user.visible_message("<span class='danger'>[user] strikes with the force of [ghost_counter] vengeful spirits!</span>")
 	..()
 
-/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+/obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += Clamp((ghost_counter * 5), 0, 75)
 	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
@@ -159,11 +168,10 @@
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
-	burn_state = LAVA_PROOF | FIRE_PROOF
-	unacidable = 1
-	var/turf_type = /turf/unsimulated/floor/lava // /turf/simulated/floor/plating/lava/smooth once Lavaland turfs are added
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"
-	var/reset_turf_type = /turf/simulated/floor/plating/airless/asteroid // /turf/simulated/floor/plating/asteroid/basalt once Lavaland turfs are added
+	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	var/reset_string = "basalt"
 	var/create_cooldown = 100
 	var/create_delay = 30
@@ -198,7 +206,7 @@
 				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
 				message_admins("[key_name_admin(user)] fired the lava staff at [get_area(target)] (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[T.x];Y=[T.y];Z=[T.z]'>JMP</a>).")
 				log_game("[key_name(user)] fired the lava staff at [get_area(target)] ([T.x], [T.y], [T.z]).")
-				T.ChangeTurf(turf_type)
+				T.TerraformTurf(turf_type, keep_icon = FALSE)
 				timer = world.time + create_cooldown
 				qdel(L)
 			else
@@ -207,9 +215,9 @@
 				return
 		else
 			user.visible_message("<span class='danger'>[user] turns \the [T] into [reset_string]!</span>")
-			T.ChangeTurf(reset_turf_type)
+			T.TerraformTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
-		playsound(T,'sound/magic/Fireball.ogg', 200, 1)
+		playsound(T,'sound/magic/fireball.ogg', 200, 1)
 
 /obj/effect/temp_visual/lavastaff
 	icon_state = "lavastaff_warn"

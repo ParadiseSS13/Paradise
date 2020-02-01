@@ -5,6 +5,8 @@
 	name = "pressure tank"
 	desc = "A large vessel containing pressurized gas."
 
+	max_integrity = 800
+
 	var/volume = 10000 //in liters, 1 meters by 1 meters by 2 meters ~tweaked it a little to simulate a pressure tank without needing to recode them yet
 
 	density = 1
@@ -16,7 +18,7 @@
 		if(!istype(T))
 			return
 		add_underlay(T, node, dir)
-		
+
 /obj/machinery/atmospherics/unary/tank/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/analyzer))
 		atmosanalyzer_scan(air_contents, user)
@@ -94,4 +96,18 @@
 	trace_gas.moles = (25*ONE_ATMOSPHERE)*(air_contents.volume)/(R_IDEAL_GAS_EQUATION*air_contents.temperature)
 
 	air_contents.trace_gases += trace_gas
-	
+
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b
+	name = "Unidentified Gas Tank"
+	desc = "A large vessel containing an unknown pressurized gas."
+	icon_state = "agent_b_map"
+
+/obj/machinery/atmospherics/unary/tank/oxygen_agent_b/New()
+	..()
+	icon_state = "agent_b"
+	air_contents.volume = volume
+	air_contents.temperature = T20C
+
+	var/datum/gas/oxygen_agent_b/trace_gas = new
+	trace_gas.moles = (50 * ONE_ATMOSPHERE) * (air_contents.volume) / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	air_contents.trace_gases += trace_gas

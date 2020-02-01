@@ -13,7 +13,7 @@
 	idle_power_usage = 50		//when inactive, this turret takes up constant 50 Equipment power
 	active_power_usage = 300	//when active, this turret takes up constant 300 Equipment power
 	power_channel = EQUIP	//drains power from the EQUIPMENT channel
-	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0)
+	armor = list(melee = 50, bullet = 30, laser = 30, energy = 30, bomb = 30, bio = 0, rad = 0, fire = 90, acid = 90)
 	var/raised = 0			//if the turret cover is "open" and the turret is raised
 	var/raising= 0			//if the turret is currently opening or closing its cover
 	var/health = 80			//the turret's health
@@ -140,21 +140,21 @@
 
 		if(/obj/item/gun/energy/taser)
 			eprojectile = /obj/item/projectile/beam
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 
 		if(/obj/item/gun/energy/gun)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/nuclear)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/turret)
 			eprojectile = /obj/item/projectile/beam	//If it has, going to copypaste mode
-			eshot_sound = 'sound/weapons/Laser.ogg'
+			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)
@@ -353,7 +353,7 @@ var/list/turret_icons
 					to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
 					if(installation)
 						var/obj/item/gun/energy/Gun = new installation(loc)
-						Gun.power_supply.charge = gun_charge
+						Gun.cell.charge = gun_charge
 						Gun.update_icon()
 					if(prob(50))
 						new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -554,7 +554,10 @@ var/list/turret_icons
 
 		if(istype(A, /obj/vehicle))
 			var/obj/vehicle/T = A
-			assess_and_assign(T.buckled_mob, targets, secondarytargets)
+			if(T.has_buckled_mobs())
+				for(var/m in T.buckled_mobs)
+					var/mob/living/buckled_mob = m
+					assess_and_assign(buckled_mob, targets, secondarytargets)
 
 		if(isliving(A))
 			var/mob/living/C = A
@@ -854,7 +857,7 @@ var/list/turret_icons
 					to_chat(user, "<span class='notice'>\the [I] is stuck to your hand, you cannot put it in \the [src]</span>")
 					return
 				installation = I.type //installation becomes I.type
-				gun_charge = E.power_supply.charge //the gun's charge is stored in gun_charge
+				gun_charge = E.cell.charge //the gun's charge is stored in gun_charge
 				to_chat(user, "<span class='notice'>You add [I] to the turret.</span>")
 
 				if(istype(installation, /obj/item/gun/energy/laser/tag/blue) || istype(installation, /obj/item/gun/energy/laser/tag/red))
@@ -961,7 +964,7 @@ var/list/turret_icons
 			build_step = 3
 
 			var/obj/item/gun/energy/Gun = new installation(loc)
-			Gun.power_supply.charge = gun_charge
+			Gun.cell.charge = gun_charge
 			Gun.update_icon()
 			installation = null
 			gun_charge = 0
@@ -977,6 +980,7 @@ var/list/turret_icons
 
 /atom/movable/porta_turret_cover
 	icon = 'icons/obj/turrets.dmi'
+	anchored = TRUE
 
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
@@ -986,8 +990,8 @@ var/list/turret_icons
 	// So, nothing, not even emagging them, makes them switch bullet type.
 	// So, its best to always have their projectile and eprojectile settings be the same. That way, you know what they will shoot.
 	// Otherwise, you end up with situations where one of the two bullet types will never be used.
-	shot_sound = 'sound/weapons/Gunshot.ogg'
-	eshot_sound = 'sound/weapons/Gunshot.ogg'
+	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 
 	icon_state = "syndieturret0"
 	var/icon_state_initial = "syndieturret0"

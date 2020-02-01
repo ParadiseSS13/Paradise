@@ -32,7 +32,7 @@
 
 /obj/item/camera_bug/New()
 	..()
-	processing_objects += src
+	START_PROCESSING(SSobj, src)
 
 /obj/item/camera_bug/Destroy()
 	get_cameras()
@@ -78,10 +78,8 @@
 				continue
 			if(length(list("SS13","MINE")&camera.network))
 				bugged_cameras[camera.c_tag] = camera
-	sortList(bugged_cameras)
+	sortTim(bugged_cameras, /proc/cmp_text_asc)
 	return bugged_cameras
-
-
 
 /obj/item/camera_bug/proc/menu(var/list/cameras)
 	if(!cameras || !cameras.len)

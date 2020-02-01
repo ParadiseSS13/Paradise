@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/unary/cold_sink/freezer
 	name = "freezer"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "freezer"
 	density = 1
 	var/min_temperature = 0
@@ -8,7 +8,8 @@
 	use_power = IDLE_POWER_USE
 	current_heat_capacity = 1000
 	layer = 3
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 300
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/New()
 	..()
@@ -19,7 +20,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -31,7 +32,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -76,8 +77,8 @@
 				break
 		build_network()
 		update_icon()
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -161,14 +162,15 @@
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/
 	name = "heater"
-	icon = 'icons/obj/Cryogenic2.dmi'
+	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "heater"
 	density = 1
 	var/max_temperature = 0
 	anchored = 1.0
 	layer = 3
 	current_heat_capacity = 1000
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 300
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
 	..()
@@ -182,7 +184,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
@@ -197,7 +199,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(src)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(src)
-	component_parts += new /obj/item/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
@@ -242,8 +244,8 @@
 				break
 		build_network()
 		update_icon()
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)

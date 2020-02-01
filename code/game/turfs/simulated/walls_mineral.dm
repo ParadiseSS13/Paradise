@@ -107,6 +107,7 @@
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
 
 /turf/simulated/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
+	..()
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
@@ -139,7 +140,23 @@
 	sheet_type = /obj/item/stack/sheet/wood
 	hardness = 70
 	explosion_block = 0
-	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood)
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
+
+/turf/simulated/wall/mineral/wood/attackby(obj/item/W, mob/user)
+	if(W.sharp && W.force)
+		var/duration = (48 / W.force) * 2 //In seconds, for now.
+		if(istype(W, /obj/item/hatchet) || istype(W, /obj/item/twohanded/fireaxe))
+			duration /= 4 //Much better with hatchets and axes.
+		if(do_after(user, duration * 10, target = src)) //Into deciseconds.
+			dismantle_wall(FALSE, FALSE)
+			return
+	return ..()
+
+/turf/simulated/wall/mineral/wood/nonmetal
+	desc = "A solidly wooden wall. It's a bit weaker than a wall made with metal."
+	girder_type = /obj/structure/barricade/wooden
+	hardness = 50
+	canSmoothWith = list(/turf/simulated/wall/mineral/wood, /obj/structure/falsewall/wood, /turf/simulated/wall/mineral/wood/nonmetal)
 
 /turf/simulated/wall/mineral/iron
 	name = "rough metal wall"
@@ -168,6 +185,7 @@
 	icon = 'icons/turf/walls/shuttle_wall.dmi'
 	icon_state = "map-shuttle"
 	explosion_block = 3
+	flags_2 = CHECK_RICOCHET_2
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)
@@ -221,6 +239,34 @@
 /turf/simulated/wall/mineral/titanium/survival/pod
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium/survival, /obj/machinery/door/airlock/survival_pod)
 
+//undeconstructable type for derelict
+//these walls are undeconstructable/unthermitable
+/turf/simulated/wall/mineral/titanium/nodecon
+	name = "russian wall"
+	desc = "Like regular titanium, but able to deflect capitalist aggressors."
+
+/turf/simulated/wall/mineral/titanium/nodecon/tileblend
+	fixed_underlay = list("icon"='icons/turf/floors.dmi', "icon_state"="darkredfull")
+
+/turf/simulated/wall/mineral/titanium/nodecon/nodiagonal
+	smooth = SMOOTH_MORE
+	icon_state = "map-shuttle_nd"
+
+/turf/simulated/wall/mineral/titanium/nodecon/nosmooth
+	smooth = SMOOTH_FALSE
+	icon = 'icons/turf/shuttle.dmi'
+	icon_state = "wall"
+
+//properties for derelict sub-type to prevent said deconstruction/thermiting
+/turf/simulated/wall/mineral/titanium/nodecon/try_decon(obj/item/I, mob/user, params)
+	return
+
+/turf/simulated/wall/mineral/titanium/nodecon/thermitemelt(mob/user as mob, speed)
+	return
+
+/turf/simulated/wall/mineral/titanium/nodecon/burn_down()
+	return
+
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/mineral/plastitanium
@@ -245,6 +291,36 @@
 /turf/simulated/wall/mineral/plastitanium/overspace
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
+
+/turf/simulated/wall/mineral/plastitanium/coated
+	name = "coated wall"
+	max_temperature = INFINITY
+	icon_state = "map-shuttle_nd"
+	smooth = SMOOTH_MORE
+
+/turf/simulated/wall/mineral/plastitanium/coated/Initialize(mapload)
+	. = ..()
+	desc += " It seems to have additional plating to protect against heat."
+
+/turf/simulated/wall/mineral/plastitanium/explosive
+	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
+	icon_state = "map-shuttle_nd"
+	smooth = SMOOTH_MORE
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	GLOB.explosive_walls += src
+
+/turf/simulated/wall/mineral/plastitanium/explosive/Destroy()
+	GLOB.explosive_walls -= src
+	return ..()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/proc/self_destruct()
+	var/obj/item/bombcore/large/explosive_wall/bombcore = new(get_turf(src))
+	bombcore.detonate()
+
+/turf/simulated/wall/mineral/plastitanium/explosive/ex_act(severity)
+	return
 
 //have to copypaste this code
 /turf/simulated/wall/mineral/plastitanium/interior/copyTurf(turf/T)

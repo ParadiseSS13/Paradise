@@ -1,6 +1,6 @@
 /obj/item/mecha_parts/mecha_equipment/weapon
 	name = "mecha weapon"
-	range = RANGED
+	range = MECHA_RANGED
 	origin_tech = "materials=3;combat=3"
 	var/projectile
 	var/fire_sound
@@ -76,7 +76,8 @@
 	origin_tech = "magnets=3;combat=3;engineering=3"
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
@@ -84,6 +85,7 @@
 	projectile = /obj/item/projectile/beam/disabler
 	projectiles_per_shot = 2
 	projectile_delay = 1
+	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 10
@@ -101,7 +103,7 @@
 	origin_tech = "materials=4;combat=5;magnets=4"
 	energy_drain = 120
 	projectile = /obj/item/projectile/ion
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/tesla
 	equip_cooldown = 35
@@ -112,6 +114,7 @@
 	energy_drain = 500
 	projectile = /obj/item/projectile/energy/shock_revolver
 	fire_sound = 'sound/magic/lightningbolt.ogg'
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray
 	equip_cooldown = 35
@@ -122,6 +125,7 @@
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/xray
 	fire_sound = 'sound/weapons/laser3.ogg'
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
 	name = "X-XR Triple-barrel X-Ray Stream Projector"
@@ -137,6 +141,7 @@
 	energy_drain = 80
 	projectile = /obj/item/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	equip_cooldown = 30
@@ -146,6 +151,7 @@
 	origin_tech = "materials=3;combat=6;powerstorage=4"
 	projectile = /obj/item/projectile/beam/pulse/heavy
 	fire_sound = 'sound/weapons/marauder.ogg'
+	harmful = TRUE
 
 
 /obj/item/projectile/beam/pulse/heavy
@@ -178,7 +184,7 @@
 	energy_drain = 20
 	equip_cooldown = 8
 	projectile = /obj/item/projectile/energy/electrode
-	fire_sound = 'sound/weapons/Taser.ogg'
+	fire_sound = 'sound/weapons/taser.ogg'
 	size = 1
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
@@ -186,7 +192,7 @@
 	icon_state = "mecha_honker"
 	energy_drain = 200
 	equip_cooldown = 150
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/weapon/honker/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
@@ -202,7 +208,7 @@
 	if(!equip_ready)
 		return 0
 
-	playsound(chassis, 'sound/items/AirHorn.ogg', 100, 1)
+	playsound(chassis, 'sound/items/airhorn.ogg', 100, 1)
 	chassis.occupant_message("<font color='red' size='5'>HONK</font>")
 	for(var/mob/living/carbon/M in ohearers(6, chassis))
 		if(istype(M, /mob/living/carbon/human))
@@ -262,6 +268,7 @@
 			chassis.use_power(projectile_energy_cost)
 	send_byjax(chassis.occupant,"exosuit.browser","\ref[src]",get_equip_info())
 	log_message("Rearmed [name].")
+	playsound(src, 'sound/weapons/gun_interactions/rearm.ogg', 50, 1)
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/Topic(href, href_list)
@@ -276,13 +283,14 @@
 	origin_tech = "materials=4;combat=4"
 	equip_cooldown = 5
 	projectile = /obj/item/projectile/bullet/incendiary/shell/dragonsbreath
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
 	projectiles = 24
 	projectile_energy_cost = 15
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/carbine/silenced
 	name = "\improper S.H.H. \"Quietus\" Carbine"
-	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_silenced.ogg'
 	icon_state = "mecha_mime"
 	equip_cooldown = 15
 	projectile = /obj/item/projectile/bullet/mime
@@ -301,11 +309,12 @@
 	origin_tech = "combat=4"
 	equip_cooldown = 20
 	projectile = /obj/item/projectile/bullet/midbullet
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	projectiles = 40
 	projectile_energy_cost = 25
 	projectiles_per_shot = 4
 	variance = 25
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg
 	name = "Ultra AC 2"
@@ -313,12 +322,13 @@
 	origin_tech = "combat=4"
 	equip_cooldown = 10
 	projectile = /obj/item/projectile/bullet/weakbullet3
-	fire_sound = 'sound/weapons/Gunshot.ogg'
+	fire_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
 	projectiles = 300
 	projectile_energy_cost = 20
 	projectiles_per_shot = 3
 	variance = 6
 	projectile_delay = 2
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/dual
 	name = "XMG-9 Autocannon"
@@ -336,6 +346,7 @@
 	var/missile_speed = 2
 	var/missile_range = 30
 	var/heavy_missile = 0
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/action(target, params)
 	if(!action_checks(target))
@@ -428,6 +439,7 @@
 	missile_speed = 1.5
 	projectile_energy_cost = 100
 	equip_cooldown = 20
+	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
@@ -457,6 +469,7 @@
 	missile_speed = 1.5
 	projectile_energy_cost = 100
 	equip_cooldown = 10
+	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar/can_attach(obj/mecha/combat/honker/M as obj)
 	if(..())
@@ -488,6 +501,7 @@
 	missile_range = 30
 	projectile_energy_cost = 50
 	equip_cooldown = 10
+	harmful = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/bola/can_attach(obj/mecha/combat/gygax/M as obj)
 	if(..())
@@ -508,18 +522,21 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
-	equip_cooldown = 20
+	equip_cooldown = 10
 	name = "217-D Heavy Plasma Cutter"
 	desc = "A device that shoots resonant plasma bursts at extreme velocity. The blasts are capable of crushing rock and demloishing solid obstacles."
 	icon_state = "mecha_plasmacutter"
 	item_state = "plasmacutter"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	energy_drain = 30
 	origin_tech = "materials=3;plasmatech=4;engineering=3"
 	projectile = /obj/item/projectile/plasma/adv/mech
-	fire_sound = 'sound/weapons/Laser.ogg'
+	fire_sound = 'sound/weapons/laser.ogg'
+	harmful = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M as obj)
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working))
 		if(M.equipment.len<M.max_equip)
-			return 1
-	return 0
+			return TRUE
+	return FALSE

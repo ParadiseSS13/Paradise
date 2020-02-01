@@ -9,7 +9,6 @@
 	modtype = "Syndicate"
 	req_access = list(access_syndicate)
 	ionpulse = 1
-	magpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -18,8 +17,7 @@
 
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/hyper(src)
 
 /mob/living/silicon/robot/syndicate/init()
 	laws = new /datum/ai_laws/syndicate_override
@@ -70,11 +68,16 @@
 /mob/living/silicon/robot/syndicate/saboteur/init()
 	..()
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
+
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
 	SR.cyborg = src
 	SR.icon_state = "selfrepair_off"
-	var/datum/action/A = new /datum/action/item_action/toggle(SR)
-	A.Grant(src)
+
+	var/datum/action/self_repair = new /datum/action/item_action/toggle(SR)
+	self_repair.Grant(src)
+
+	var/datum/action/thermals = new /datum/action/innate/robot_sight/thermal()
+	thermals.Grant(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Modify Name"

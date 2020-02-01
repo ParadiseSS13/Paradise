@@ -77,21 +77,19 @@
 		else
 			icon_state = "[lasercolor]grey_target_prism"
 
-/obj/machinery/porta_turret/tag/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/porta_turret/tag/bullet_act(obj/item/projectile/P)
 	..()
-
-	if(lasercolor == "b" && disabled == 0)
-		if(istype(Proj, /obj/item/gun/energy/laser/tag/red))
-			disabled = 1
-			qdel(Proj) // qdel
-			sleep(100)
-			disabled = 0
-	if(lasercolor == "r" && disabled == 0)
-		if(istype(Proj, /obj/item/gun/energy/laser/tag/blue))
-			disabled = 1
-			qdel(Proj) // qdel
-			sleep(100)
-			disabled = 0
+	if(!disabled)
+		if(lasercolor == "b")
+			if(istype(P, /obj/item/projectile/beam/lasertag/redtag))
+				disabled  = TRUE
+				spawn(100)
+					disabled  = FALSE
+		else if(lasercolor == "r")
+			if(istype(P, /obj/item/projectile/beam/lasertag/bluetag))
+				disabled  = TRUE
+				spawn(100)
+					disabled  = FALSE
 
 /obj/machinery/porta_turret/tag/assess_living(var/mob/living/L)
 	if(!L)

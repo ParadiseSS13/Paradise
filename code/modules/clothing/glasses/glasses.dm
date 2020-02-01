@@ -30,6 +30,21 @@
 			return
 	return ..()
 
+/obj/item/clothing/glasses/visor_toggling()
+	..()
+	if(visor_vars_to_toggle & VISOR_VISIONFLAGS)
+		vision_flags ^= initial(vision_flags)
+	if(visor_vars_to_toggle & VISOR_DARKNESSVIEW)
+		see_in_dark ^= initial(see_in_dark)
+	if(visor_vars_to_toggle & VISOR_INVISVIEW)
+		invis_view ^= initial(invis_view)
+
+/obj/item/clothing/glasses/weldingvisortoggle(mob/user)
+	. = ..()
+	if(. && user)
+		user.update_sight()
+		user.update_inv_glasses()
+
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
 	desc = "Used for seeing walls, floors, and stuff through anything."
@@ -37,13 +52,14 @@
 	item_state = "glasses"
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/meson/night
@@ -52,7 +68,8 @@
 	icon_state = "nvgmeson"
 	item_state = "glasses"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
-	darkness_view = 8
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	prescription_upgradable = 0
 
 /obj/item/clothing/glasses/meson/prescription
@@ -87,10 +104,12 @@
 	origin_tech = "magnets=2;engineering=1"
 	prescription_upgradable = 0
 	scan_reagents = 1 //You can see reagents while wearing science goggles
-	species_fit = list("Vox")
+	resistance_flags = ACID_PROOF
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
@@ -103,15 +122,15 @@
 	desc = "Now you can science in darkness."
 	icon_state = "nvpurple"
 	item_state = "glasses"
-	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
 	desc = "These'll keep the soap out of your eyes."
 	icon_state = "purple"
 	item_state = "glasses"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi'
 		)
@@ -122,9 +141,9 @@
 	icon_state = "night"
 	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
-	darkness_view = 8
-	invis_view = SEE_INVISIBLE_MINIMUM //don't render darkness while wearing these
-	species_fit = list("Vox")
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -136,10 +155,11 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/monocle
@@ -148,7 +168,7 @@
 	icon_state = "monocle"
 	item_state = "headset" // lol
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -162,7 +182,7 @@
 	item_state = "glasses"
 	origin_tech = "magnets=3;engineering=3"
 	vision_flags = SEE_OBJS
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -177,16 +197,26 @@
 	flags = NODROP
 	flags_cover = null
 
+/obj/item/clothing/glasses/material/lighting
+	name = "Neutron Goggles"
+	desc = "These odd glasses use a form of neutron-based imaging to completely negate the effects of light and darkness."
+	origin_tech = null
+	vision_flags = 0
+
+	flags = NODROP
+	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+
 /obj/item/clothing/glasses/regular
 	name = "prescription glasses"
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	item_state = "glasses"
 	prescription = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/regular/hipster
@@ -200,10 +230,11 @@
 	name = "3D glasses"
 	icon_state = "3d"
 	item_state = "3d"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
 /obj/item/clothing/glasses/gglasses
@@ -211,10 +242,11 @@
 	desc = "Forest green glasses, like the kind you'd wear when hatching a nasty scheme."
 	icon_state = "gglasses"
 	item_state = "gglasses"
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 	prescription_upgradable = 1
 
@@ -223,21 +255,23 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = 1
+	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
 	prescription_upgradable = 1
-	species_fit = list("Vox")
+	dog_fashion = /datum/dog_fashion/head
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/sunglasses/fake
+/obj/item/clothing/glasses/sunglasses_fake
 	desc = "Cheap, plastic sunglasses. They don't even have UV protection."
 	name = "cheap sunglasses"
-	darkness_view = 0
+	icon_state = "sun"
+	item_state = "sunglasses"
+	see_in_dark = 0
 	flash_protect = 0
 	tint = 0
 
@@ -246,16 +280,16 @@
 	desc = "Somehow these seem even more out-of-date than normal sunglasses."
 	actions_types = list(/datum/action/item_action/noir)
 
-/obj/item/clothing/glasses/sunglasses/noir/attack_self()
-	toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/attack_self(mob/user)
+	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
 	if(slot == slot_glasses)
 		return 1
 
-/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir()
+/obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
 	color_view = color_view ? null : MATRIX_GREYSCALE //Toggles between null and grayscale, with null being the default option.
-	usr.update_client_colour()
+	user.update_client_colour()
 
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
@@ -285,10 +319,10 @@
 	name = "sunglasses"
 	icon_state = "sun"
 	item_state = "sunglasses"
-	darkness_view = 1
+	see_in_dark = 1
 	flash_protect = 1
 	tint = 1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
@@ -314,40 +348,15 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	flash_protect = 2
 	tint = 2
-	species_fit = list("Vox")
+	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/species/drask/eyes.dmi',
 		"Grey" = 'icons/mob/species/grey/eyes.dmi'
 		)
 
-/obj/item/clothing/glasses/welding/attack_self()
-	toggle()
-
-/obj/item/clothing/glasses/welding/proc/toggle()
-	if(up)
-		up = !up
-		flags_cover |= GLASSESCOVERSEYES
-		flags_inv |= HIDEEYES
-		icon_state = initial(icon_state)
-		to_chat(usr, "You flip the [src] down to protect your eyes.")
-		flash_protect = 2
-		tint = initial(tint) //better than istype
-	else
-		up = !up
-		flags_cover &= ~GLASSESCOVERSEYES
-		flags_inv &= ~HIDEEYES
-		icon_state = "[initial(icon_state)]up"
-		to_chat(usr, "You push the [src] up out of your face.")
-		flash_protect = 0
-		tint = 0
-	var/mob/living/carbon/user = usr
-	user.update_tint()
-	user.update_inv_glasses()
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
+/obj/item/clothing/glasses/welding/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/glasses/welding/superior
 	name = "superior welding goggles"
@@ -382,32 +391,27 @@
 	item_state = "glasses"
 	origin_tech = "magnets=3"
 	vision_flags = SEE_MOBS
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = -1
-	species_fit = list("Vox")
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/eyes.dmi',
-		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
 		)
 
-	emp_act(severity)
-		if(istype(src.loc, /mob/living/carbon/human))
-			var/mob/living/carbon/human/M = src.loc
-			to_chat(M, "<span class='warning'>The Optical Thermal Scanner overloads and blinds you!</span>")
-			if(M.glasses == src)
-				M.EyeBlind(3)
-				M.EyeBlurry(5)
-				if(!(M.disabilities & NEARSIGHTED))
-					M.BecomeNearsighted()
-					spawn(100)
-						M.CureNearsighted()
-		..()
-
-/obj/item/clothing/glasses/thermal/syndi	//These are now a traitor item, concealed as mesons.	-Pete
-	name = "Optical Meson Scanner"
-	desc = "Used for seeing walls, floors, and stuff through anything."
-	icon_state = "meson"
-	origin_tech = "magnets=3;syndicate=4"
-	prescription_upgradable = 1
+/obj/item/clothing/glasses/thermal/emp_act(severity)
+	if(istype(src.loc, /mob/living/carbon/human))
+		var/mob/living/carbon/human/M = src.loc
+		to_chat(M, "<span class='warning'>The Optical Thermal Scanner overloads and blinds you!</span>")
+		if(M.glasses == src)
+			M.EyeBlind(3)
+			M.EyeBlurry(5)
+			if(!(M.disabilities & NEARSIGHTED))
+				M.BecomeNearsighted()
+				spawn(100)
+					M.CureNearsighted()
+	..()
 
 /obj/item/clothing/glasses/thermal/monocle
 	name = "Thermoncle"
@@ -434,56 +438,6 @@
 	item_state = "eyepatch"
 	flags = NODROP
 
-/obj/item/clothing/glasses/proc/chameleon(var/mob/user)
-	var/input_glasses = input(user, "Choose a piece of eyewear to disguise as.", "Choose glasses style.") as null|anything in list("Sunglasses", "Medical HUD", "Mesons", "Science Goggles", "Glasses", "Security Sunglasses","Eyepatch","Welding","Gar")
-
-	if(user && src in user.contents)
-		switch(input_glasses)
-			if("Sunglasses")
-				desc = "Strangely ancient technology used to help provide rudimentary eye cover. Enhanced shielding blocks many flashes."
-				name = "sunglasses"
-				icon_state = "sun"
-				item_state = "sunglasses"
-			if("Medical HUD")
-				name = "Health Scanner HUD"
-				desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
-				icon_state = "healthhud"
-				item_state = "healthhud"
-			if("Mesons")
-				name = "Optical Meson Scanner"
-				desc = "Used by engineering and mining staff to see basic structural and terrain layouts through walls, regardless of lighting condition."
-				icon_state = "meson"
-				item_state = "meson"
-			if("Science Goggles")
-				name = "Science Goggles"
-				desc = "A pair of snazzy goggles used to protect against chemical spills."
-				icon_state = "purple"
-				item_state = "glasses"
-			if("Glasses")
-				name = "Prescription Glasses"
-				desc = "Made by Nerd. Co."
-				icon_state = "glasses"
-				item_state = "glasses"
-			if("Security Sunglasses")
-				name = "HUDSunglasses"
-				desc = "Sunglasses with a HUD."
-				icon_state = "sunhud"
-				item_state = "sunglasses"
-			if("Eyepatch")
-				name = "eyepatch"
-				desc = "Yarr."
-				icon_state = "eyepatch"
-				item_state = "eyepatch"
-			if("Welding")
-				name = "welding goggles"
-				desc = "Protects the eyes from welders; approved by the mad scientist association."
-				icon_state = "welding-g"
-				item_state = "welding-g"
-			if("Gar")
-				desc = "Just who the hell do you think I am?!"
-				name = "gar glasses"
-				icon_state = "gar"
-				item_state = "gar"
 
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"
@@ -491,11 +445,17 @@
 	icon_state = "godeye"
 	item_state = "godeye"
 	vision_flags = SEE_TURFS|SEE_MOBS|SEE_OBJS
-	darkness_view = 8
+	see_in_dark = 8
 	scan_reagents = 1
 	flags = NODROP
 	flags_cover = null
-	invis_view = SEE_INVISIBLE_MINIMUM
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/godeye/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, src) && W != src && W.loc == user)
@@ -520,6 +480,12 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = 0
 	tint = 0
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/tajblind/eng
 	name = "industrial veil"
