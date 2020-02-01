@@ -41,7 +41,7 @@ obj/item/gun/throw/crossbow/update_icon()
 		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/I,On_chamber=1)
-	if(tension && cell.use(2000)
+	if(tension && cell.use(2000))
 		var/obj/item/arrow/rod/R = I
 		visible_message("<span class='danger'>[R] plinks and crackles as it begins to glow red-hot.</span>")
 		R.throwforce = 14
