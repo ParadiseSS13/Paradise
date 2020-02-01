@@ -18,7 +18,7 @@ z7 = empty
 	#include "map_files\cyberiad\z3.dmm"
 	#include "map_files\cyberiad\z4.dmm"
 	#include "map_files\generic\Lavaland.dmm"
-	#include "map_files\cyberiad\z6.dmm"
+	#include "map_files\hispania\z6.dmm"
 	#include "map_files\generic\z7.dmm"
 
 	#define MAP_TRANSITION_CONFIG list(\
