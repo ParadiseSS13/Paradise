@@ -1,5 +1,5 @@
 //Globo
-/obj/item/toy/balloon_H
+/obj/item/toy/balloon_h
 	name = "Balloon"
 	desc = "There is a tag on the back that reads NT."
 	throwforce = 0
@@ -16,7 +16,7 @@
 	resistance_flags = FLAMMABLE
 
 //Eleccion de globo
-/obj/item/toy/balloon_H/attackby(obj/item/toy/crayon/C)
+/obj/item/toy/balloon_h/attackby(obj/item/toy/crayon/C)
 	var/colour = C.colourName
 	if(colour == "blue")
 		name = "Blue Balloon"
@@ -50,7 +50,7 @@
 		update_icon()
 
 //Aviso al atacar
-/obj/item/toy/balloon_H/attack_self(mob/user)
+/obj/item/toy/balloon_h/attack_self(mob/user)
 	if(world.time - lastused < CLICK_CD_MELEE)
 		return
 	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
@@ -58,49 +58,49 @@
 	lastused = world.time
 
 //Tipos de globos
-/obj/item/toy/balloon_H/red
+/obj/item/toy/balloon_h/red
 	name = "Balloon"
 	desc = "It's a red balloon."
 	icon_state = "balloon_red"
 	item_state = "balloon_red"
 
-/obj/item/toy/balloon_H/yellow
+/obj/item/toy/balloon_h/yellow
 	name = "Yellow balloon"
 	desc = "It's a yellow balloon."
 	icon_state = "balloon_yellow"
 	item_state = "balloon_yellow"
 
-/obj/item/toy/balloon_H/blue
+/obj/item/toy/balloon_h/blue
 	name = "Blue Balloon"
 	desc = "It's a blue Da ba dee da ba daa."
 	icon_state = "balloon_blue"
 	item_state = "balloon_blue"
 
-/obj/item/toy/balloon_H/green
+/obj/item/toy/balloon_h/green
 	name = "Green balloon"
 	desc = "It's a green balloon."
 	icon_state = "balloon_green"
 	item_state = "balloon_green"
 
-/obj/item/toy/balloon_H/corgi
+/obj/item/toy/balloon_h/corgi
 	name = "Corgi balloon"
 	desc = "Man's Best Friend."
 	icon_state = "Bcorgi"
 	item_state = "Bcorgi"
-/obj/item/toy/balloon_H/m
+/obj/item/toy/balloon_h/m
 	name = "Mcdonalds balloon."
 	desc = "Fat,Very fat"
 	icon_state = "Mballoon"
 	item_state = "Mballoon"
 	throw_range = 5
 
-/obj/item/toy/balloon_H/clown
+/obj/item/toy/balloon_h/clown
 	name = "Clown balloon."
 	desc = "Made by clowns to clowns."
 	icon_state = "balloon_clown"
 	item_state = "balloon_clown"
 
-/obj/item/toy/balloon_H/mime
+/obj/item/toy/balloon_h/mime
 	name = "Mime balloon."
 	desc = "..."
 	icon_state = "ballon_mime"

@@ -35,7 +35,7 @@
 /datum/crafting_recipe/balloon
 	name = "White balloon"
 	time = 10
-	result = /obj/item/toy/balloon_H
+	result = /obj/item/toy/balloon_h
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5)
 	category = CAT_DECORATIONS
@@ -43,7 +43,7 @@
 
 /datum/crafting_recipe/balloonm
 	name = "Macdonalds balloon"
-	result = /obj/item/toy/balloon_H/m
+	result = /obj/item/toy/balloon_h/m
 	time = 15
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
@@ -53,7 +53,7 @@
 
 /datum/crafting_recipe/ballooncorgi
 	name = "Corgi balloon"
-	result = /obj/item/toy/balloon_H/corgi
+	result = /obj/item/toy/balloon_h/corgi
 
 	parts = list(/mob/living/simple_animal/pet/dog/corgi = 1)
 	time = 10
@@ -66,7 +66,7 @@
 
 /datum/crafting_recipe/balloonclown
 	name = "Clown balloon"
-	result = /obj/item/toy/balloon_H/clown
+	result = /obj/item/toy/balloon_h/clown
 	time = 10
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
@@ -76,7 +76,7 @@
 
 /datum/crafting_recipe/balloonmime
 	name = "Mime balloon"
-	result = /obj/item/toy/balloon_H/mime
+	result = /obj/item/toy/balloon_h/mime
 	time = 10
 	reqs = list(/obj/item/stack/sheet/plastic = 5,
 		        /obj/item/stack/cable_coil = 5,
