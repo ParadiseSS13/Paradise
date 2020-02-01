@@ -62,7 +62,7 @@ obj/item/gun/throw/crossbow/update_icon()
 	..()
 	if(to_launch)
 		modify_projectile(to_launch, 1)
-	  update_icon()
+	update_icon()
 
 /obj/item/gun/throw/crossbow/attack_self(mob/living/user)
 	if(tension)
@@ -86,7 +86,7 @@ obj/item/gun/throw/crossbow/update_icon()
 		to_chat(user, "<span class='warning'>You can't draw [src] without a bolt nocked.</span>")
 		return
 	if(!cell)
-		to_chat(user, "<Span Class='warning'> Baterry Cell is missing.</span>")
+		to_chat(user, "<span class='warning'> Battery Cell is missing.</span>")
 		return
 
 	user.visible_message("[user] begins to draw back the string of [src].","You begin to draw back the string of [src].")
