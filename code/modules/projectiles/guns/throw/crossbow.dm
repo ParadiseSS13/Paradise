@@ -44,7 +44,7 @@ obj/item/gun/throw/crossbow/update_icon()
 	if(tension && cell.use(2000)
 		var/obj/item/arrow/rod/R = I
 		visible_message("<span class='danger'>[R] plinks and crackles as it begins to glow red-hot.</span>")
-		R.throwforce = 40
+		R.throwforce = 14.5
 		R.superheated = 1
 		R.embed_chance = 100
 		R.embedded_fall_chance = 0
