@@ -1,6 +1,6 @@
 /obj/item/gun/throw/crossbow
 	name = "Makeshift crossbow"
-	desc = "A Wood Cell Powered kind of Crossbow."
+	desc = "A Woody badly made ,Cell-Powered kind of Crossbow."
 	icon_state = "Mcrossbow"
 	item_state = "Mcrossbow-solid"
 	fire_sound_text = "a solid thunk"
@@ -40,8 +40,8 @@ obj/item/gun/throw/crossbow/update_icon()
 	else
 		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
 
-/obj/item/gun/throw/crossbow/modify_projectile(obj/I,)
-	if( tension && (cell.charge >= 1999))
+/obj/item/gun/throw/crossbow/modify_projectile(obj/I)
+	if(tension && cell.use(2000)
 		var/obj/item/arrow/rod/R = I
 		visible_message("<span class='danger'>[R] plinks and crackles as it begins to glow red-hot.</span>")
 		R.throwforce = 40
@@ -114,15 +114,6 @@ obj/item/gun/throw/crossbow/update_icon()
 			to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
 	else
 		..()
-
-/obj/item/gun/throw/crossbow/verb/set_tension()
-	set name = "Adjust Tension"
-	set category = "Object"
-	set src in range(0)
-
-	var/mob/user = usr
-	if(user.incapacitated())
-		return
 
 /obj/item/gun/throw/crossbow/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
 	..()
