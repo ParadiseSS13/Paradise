@@ -538,6 +538,7 @@
 
 /obj/item/areaeditor/blueprints/slime
 	name = "cerulean prints"
+	icon_state = "blueprints"
 	desc = "A one use set of blueprints made of jelly like organic material. Extends the reach of the management console."
 	color = "#2956B2"
 
