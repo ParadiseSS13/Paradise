@@ -19,11 +19,6 @@
 	e_cost = 83
 	select_name = "kill"
 
-/obj/item/ammo_casing/energy/lasergun2
-	projectile_type = /obj/item/projectile/beam/laser2
-	e_cost = 83
-	select_name = "kill"
-
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 100
 
