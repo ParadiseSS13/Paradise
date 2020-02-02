@@ -12,6 +12,7 @@
 	var/recharge_speed
 	var/recharge_speed_nutrition
 	var/repairs
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/recharge_station/New()
 	..()
@@ -49,7 +50,7 @@
 		recharge_speed_nutrition *= multiplier
 
 /obj/machinery/recharge_station/process()
-	if(!(NOPOWER|BROKEN))
+	if(!..())
 		return
 
 	if(src.occupant)
@@ -146,6 +147,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	end_processing()
 	build_icon()
 	use_power = IDLE_POWER_USE
 	return
@@ -280,6 +282,7 @@
 	user.forceMove(src)
 	occupant = user
 
+	begin_processing()
 	add_fingerprint(user)
 	build_icon()
 	update_use_power(1)

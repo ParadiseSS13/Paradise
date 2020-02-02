@@ -124,9 +124,11 @@
 		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] the [src]</span>")
 	active = !active
 	if(active)
+		begin_processing()
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 		anchored = 1
 	else
+		end_processing()
 		animate(src, pixel_y = 0, time = 10)
 		anchored = 0
 	update_icon()
@@ -144,7 +146,7 @@
 	name = "Meteor Shield Satellite"
 	desc = "Meteor Point Defense Satellite"
 	mode = "M-SHIELD"
-	speed_process = TRUE
+	processing_flags = START_PROCESSING_MANUALLY | FAST_PROCESS_SPEED
 	var/kill_range = 14
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)

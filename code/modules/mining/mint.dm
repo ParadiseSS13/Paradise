@@ -11,7 +11,7 @@
 	var/processing = FALSE
 	var/chosen = MAT_METAL //which material will be used to make coins
 	var/coinsToProduce = 10
-	speed_process = TRUE
+	processing_flags = START_PROCESSING_MANUALLY | FAST_PROCESS_SPEED
 
 
 /obj/machinery/mineral/mint/New()
@@ -74,6 +74,7 @@
 	if(href_list["makeCoins"])
 		var/temp_coins = coinsToProduce
 		processing = TRUE
+		begin_processing()
 		icon_state = "coinpress1"
 		var/coin_mat = MINERAL_MATERIAL_AMOUNT * 0.2
 		var/datum/material/M = materials.materials[chosen]
@@ -90,6 +91,7 @@
 
 		icon_state = "coinpress0"
 		processing = FALSE
+		end_processing()
 		coinsToProduce = temp_coins
 	updateUsrDialog()
 

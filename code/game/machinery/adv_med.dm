@@ -10,6 +10,7 @@
 	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
 	var/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/bodyscanner/Destroy()
 	go_out()
@@ -23,6 +24,8 @@
 		set_light(0)
 
 /obj/machinery/bodyscanner/process()
+	if(!..())
+		return
 	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
 		if(M == occupant)
 			continue
@@ -87,6 +90,7 @@
 		M.forceMove(src)
 		occupant = M
 		icon_state = "body_scanner_1"
+		begin_processing()
 		add_fingerprint(user)
 		qdel(TYPECAST_YOUR_SHIT)
 		return
@@ -129,6 +133,7 @@
 	occupant = H
 	icon_state = "bodyscanner"
 	add_fingerprint(user)
+	begin_processing()
 
 /obj/machinery/bodyscanner/attack_ai(user)
 	return attack_hand(user)
@@ -170,6 +175,7 @@
 	occupant.forceMove(loc)
 	occupant = null
 	icon_state = "body_scanner_0"
+	end_processing()
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts)
 		A.forceMove(loc)

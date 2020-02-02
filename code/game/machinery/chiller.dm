@@ -8,6 +8,7 @@
 	desc = "If you can't take the heat, use one of these."
 	set_temperature = 20		// in celcius, add T0C for kelvin
 	var/cooling_power = 40000
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/space_heater/air_conditioner/New()
 	..()
@@ -97,7 +98,13 @@
 		user << browse("<HEAD><TITLE>Air Conditioner Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=aircond")
 		onclose(user, "aircond")
 	else
-		on = !on
+		if(!on)
+			on = TRUE
+			begin_processing()
+		else
+			on = FALSE
+			end_processing()
+
 		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] the [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] the [src].</span>")
 		update_icon()
 	return
@@ -163,6 +170,8 @@
 	return 0
 
 /obj/machinery/space_heater/air_conditioner/process()
+	if(!..())
+		return
 	if(on)
 		if(cell && cell.charge > 0)
 			if(chill())

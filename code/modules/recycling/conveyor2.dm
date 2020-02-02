@@ -1,7 +1,6 @@
 #define DIRECTION_FORWARDS	1
 #define DIRECTION_OFF		0
 #define DIRECTION_REVERSED	-1
-#define IS_OPERATING		(operating && can_conveyor_run())
 
 GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the entire machines list for our things
 GLOBAL_LIST_INIT(conveyor_switches, list())
@@ -17,7 +16,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	move_force = MOVE_FORCE_DEFAULT
-	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
+	var/operating = FALSE	// If the conveyor belt is currently switched on and processing
 	var/forwards			// The direction the conveyor sends you in
 	var/backwards			// hopefully self-explanatory
 	var/clockwise = TRUE	// For corner pieces - do we go clockwise or counterclockwise?
@@ -25,6 +24,10 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	var/list/affecting		// the list of all items that will be moved this ptick
 	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed
 	var/id					//ID of the connected lever
+
+	// Starting this on fast speed, so if the conveyor switch gets turned on while the belt has items on it, it gets the items moving immediately.
+	// if there are no items, and the belt is still processing, it will switch to NORMAL_PROCESS_SPEED after the next process() call
+	processing_flags = START_PROCESSING_MANUALLY | FAST_PROCESS_SPEED
 
 	// create a conveyor
 /obj/machinery/conveyor/New(loc, new_dir, new_id)
@@ -85,7 +88,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor/update_icon()
 	..()
-	if(IS_OPERATING)
+	if(operating)
 		icon_state = "conveyor_started_[clockwise ? "cw" : "ccw"]"
 		if(reversed)
 			icon_state += "_r"
@@ -162,7 +165,8 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	update_icon()
 
 /obj/machinery/conveyor/process()
-	if(!IS_OPERATING)
+	message_admins("conveyor process")
+	if(!can_conveyor_run())
 		return
 	use_power(100)
 	affecting = loc.contents - src // moved items will be all in loc
@@ -173,13 +177,13 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		still_stuff_to_move = TRUE
 		addtimer(CALLBACK(src, .proc/move_thing, AM), 1)
 		CHECK_TICK
-	if(!still_stuff_to_move && speed_process)
-		makeNormalProcess()
-	else if(still_stuff_to_move && !speed_process)
+	if(still_stuff_to_move) // there are items on the conveyor, move to FAST_PROCESS_SPEED
 		makeSpeedProcess()
+	else  // there are no more items on the conveyor belt, but its still switched on, move to NORMAL_PROCESS_SPEED
+		makeNormalProcess()
 
 /obj/machinery/conveyor/Crossed(atom/movable/AM, oldloc)
-	if(!speed_process && !AM.anchored)
+	if(operating && !AM.anchored) // the belt should operating before we start processing. crossing it while its not on should not do anything
 		makeSpeedProcess()
 	..()
 
@@ -191,9 +195,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
-	if(stat & BROKEN)
-		return FALSE
-	else if(stat & NOPOWER)
+	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 	else if(!operable)
 		return FALSE
@@ -288,7 +290,14 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		position = reversed ? DIRECTION_REVERSED : DIRECTION_FORWARDS
 	update_icon()
 	for(var/obj/machinery/conveyor/C in conveyors)
-		C.operating = abs(position)
+		C.operating = abs(position) // If position is DIRECTION_OFF (0), operating will be 0. The other options will set operating equal to 1
+
+		if(C.operating) // the conveyor belt was just turned ON
+			C.begin_processing()
+		else // the conveyor belt was just turned OFF
+			C.end_processing()
+			C.swap_to_fast_process_flag() // switch back to the FAST_PROCESS_SPEED flag
+
 		if(C.reversed != reversed)
 			C.reversed = reversed
 			C.update_move_direction()
@@ -478,4 +487,3 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 #undef DIRECTION_FORWARDS
 #undef DIRECTION_OFF
 #undef DIRECTION_REVERSED
-#undef IS_OPERATING

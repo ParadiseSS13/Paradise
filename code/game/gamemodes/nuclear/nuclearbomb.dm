@@ -23,6 +23,7 @@ var/bomb_set
 	use_power = NO_POWER_USE
 	var/previous_level = ""
 	var/datum/wires/nuclearbomb/wires = null
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/nuclearbomb/syndicate
 	is_syndicate = 1
@@ -47,7 +48,8 @@ var/bomb_set
 			spawn
 				explode()
 		SSnanoui.update_uis(src)
-	return
+	else
+		end_processing() // timer has been stopped, stop processing
 
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
 	if(istype(O, /obj/item/screwdriver))
@@ -297,6 +299,7 @@ var/bomb_set
 					if(!lighthack)
 						icon_state = "nuclearbomb2"
 					if(!safety)
+						begin_processing()
 						message_admins("[key_name_admin(usr)] engaged a nuclear bomb (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						if(!is_syndicate)
 							set_security_level("delta")
@@ -347,6 +350,7 @@ var/bomb_set
 #define NUKERANGE 80
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
+		end_processing()
 		timing = 0
 		return
 	timing = -1.0

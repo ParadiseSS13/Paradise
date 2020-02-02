@@ -7,6 +7,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 	var/obj/item/reagent_containers/beaker = null
 	var/desired_temp = T0C
 	var/on = FALSE
@@ -20,20 +21,21 @@
 	RefreshParts()
 
 /obj/machinery/chem_heater/process()
-	..()
-	if(stat & NOPOWER)
+	if(!..())
 		return
 	var/state_change = FALSE
 	if(on)
 		if(beaker)
 			if(!beaker.reagents.total_volume)
 				on = FALSE
+				end_processing()
 				SSnanoui.update_uis(src)
 				return
 			beaker.reagents.temperature_reagents(desired_temp)
 			beaker.reagents.temperature_reagents(desired_temp)
 			if(abs(beaker.reagents.chem_temp - desired_temp) <= 3)
 				on = FALSE
+				end_processing()
 			state_change = TRUE
 
 	if(state_change)
@@ -47,6 +49,7 @@
 		beaker = null
 		icon_state = "mixer0b"
 		on = FALSE
+		end_processing()
 		SSnanoui.update_uis(src)
 
 /obj/machinery/chem_heater/power_change()
@@ -108,7 +111,12 @@
 	if(href_list["toggle_on"])
 		if(!beaker.reagents.total_volume)
 			return FALSE
-		on = !on
+		if(!on)
+			on = TRUE
+			begin_processing()
+		else
+			on = FALSE
+			end_processing()
 		. = 1
 
 	if(href_list["adjust_temperature"])

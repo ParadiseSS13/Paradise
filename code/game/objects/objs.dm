@@ -25,7 +25,7 @@
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
 	var/being_shocked = 0
-	var/speed_process = FALSE
+	var/processing_flags = 0
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
@@ -67,7 +67,7 @@
 
 /obj/Destroy()
 	if(!ismachinery(src))
-		if(!speed_process)
+		if(processing_flags & NORMAL_PROCESS_SPEED)
 			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
 		else
 			STOP_PROCESSING(SSfastprocess, src)
@@ -290,24 +290,35 @@ a {
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
+/obj/process()
+	return PROCESS_KILL
+
 /obj/proc/makeSpeedProcess()
-	if(speed_process)
-		return
-	speed_process = TRUE
-	STOP_PROCESSING(SSobj, src)
-	START_PROCESSING(SSfastprocess, src)
+	if(processing_flags & NORMAL_PROCESS_SPEED)
+		swap_to_fast_process_flag()
+		STOP_PROCESSING(SSobj, src)
+		START_PROCESSING(SSfastprocess, src)
 
 /obj/proc/makeNormalProcess()
-	if(!speed_process)
-		return
-	speed_process = FALSE
-	START_PROCESSING(SSobj, src)
-	STOP_PROCESSING(SSfastprocess, src)
+	if(processing_flags & FAST_PROCESS_SPEED)
+		swap_to_normal_process_flag()
+		STOP_PROCESSING(SSfastprocess, src)
+		START_PROCESSING(SSobj, src)
+
+// removes the normal speed flag and adds the fast speed flag
+obj/proc/swap_to_fast_process_flag()
+	processing_flags &= ~NORMAL_PROCESS_SPEED
+	processing_flags |= FAST_PROCESS_SPEED
+
+// removes the fast speed flag and adds the normal speed flag
+obj/proc/swap_to_normal_process_flag()
+	processing_flags &= ~FAST_PROCESS_SPEED
+	processing_flags |= NORMAL_PROCESS_SPEED
 
 /obj/vv_get_dropdown()
 	. = ..()
 	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
-	if(!speed_process)
+	if(processing_flags & NORMAL_PROCESS_SPEED)
 		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
 	else
 		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"

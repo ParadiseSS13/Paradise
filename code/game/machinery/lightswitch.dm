@@ -17,9 +17,10 @@
 	var/frequency = 0
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to.
 	var/logic_connect = 0							//Set this to allow the switch to send out logic signals.
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 
-/obj/machinery/light_switch/New(turf/loc, var/w_dir=null)
+/obj/machinery/light_switch/New(turf/loc, w_dir=null)
 	..()
 	switch(w_dir)
 		if(NORTH)
@@ -141,8 +142,12 @@
 	..(severity)
 
 /obj/machinery/light_switch/process()
+	if(!..())
+		return
 	if(logic_connect && powered(LIGHT))		//We won't send signals while unpowered, but the last signal will remain valid for anything that received it before we went dark
 		handle_output()
+	else
+		end_processing()
 
 /obj/machinery/light_switch/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/detective_scanner))
@@ -162,7 +167,7 @@
 
 	return ..()
 
-/obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
+/obj/machinery/light_switch/multitool_menu(mob/user, obj/item/multitool/P)
 	return {"
 	<ul>
 	<li><b>Light Circuit Connection:</b> <a href='?src=[UID()];toggle_light_connect=1'>[light_connect ? "On" : "Off"]</a></li>
@@ -170,9 +175,13 @@
 	<li><b>Logic ID Tag:</b> [format_tag("Logic ID Tag", "logic_id_tag")]</li>
 	</ul>"}
 
-/obj/machinery/light_switch/multitool_topic(var/mob/user,var/list/href_list,var/obj/O)
+/obj/machinery/light_switch/multitool_topic(mob/user, list/href_list, obj/O)
 	..()
 	if("toggle_light_connect" in href_list)
 		light_connect = !light_connect
 	if("toggle_logic" in href_list)
 		logic_connect = !logic_connect
+		if(logic_connect)
+			begin_processing()
+
+	update_multitool_menu(user)

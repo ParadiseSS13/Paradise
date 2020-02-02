@@ -141,6 +141,7 @@
 	var/list/deployed_shields = list()
 	var/is_open = FALSE //Whether or not the wires are exposed
 	var/locked = FALSE
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/shieldgen/Destroy()
 	QDEL_LIST(deployed_shields)
@@ -153,6 +154,7 @@
 		return //If it's already turned on, how did this get called?
 
 	active = 1
+	begin_processing()
 	update_icon()
 	anchored = 1
 
@@ -166,13 +168,14 @@
 		return //If it's already off, how did this get called?
 
 	active = 0
+	end_processing()
 	update_icon()
 
 	for(var/obj/machinery/shield/shield_tile in deployed_shields)
 		qdel(shield_tile)
 
 /obj/machinery/shieldgen/process()
-	if(malfunction && active)
+	if(active && malfunction)
 		if(deployed_shields.len && prob(5))
 			qdel(pick(deployed_shields))
 

@@ -12,6 +12,7 @@
 	var/open = 0
 	var/set_temperature = 50		// in celcius, add T0C for kelvin
 	var/heating_power = 40000
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/space_heater/get_cell()
 	return cell
@@ -105,7 +106,13 @@
 		onclose(user, "spaceheater")
 
 	else
-		on = !on
+		if(!on)
+			on = TRUE
+			begin_processing()
+		else
+			on = FALSE
+			end_processing()
+
 		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
 		update_icon()
 	return
@@ -154,6 +161,8 @@
 
 
 /obj/machinery/space_heater/process()
+	if(!..())
+		return
 	if(on)
 		if(cell && cell.charge > 0)
 			var/turf/simulated/L = loc

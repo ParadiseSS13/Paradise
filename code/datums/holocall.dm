@@ -173,9 +173,7 @@
 			if(!.)
 				calling_holopad.atom_say("No answer received.")
 				calling_holopad.temp = ""
-
-	else if(!.)
-		qdel(src)
+				qdel(src) // the caller failed to make a connection, therefore, delete the holocall
 
 /datum/action/innate/end_holocall
 	name = "End Holocall"

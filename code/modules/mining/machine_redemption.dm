@@ -11,23 +11,22 @@
 	input_dir = NORTH
 	output_dir = SOUTH
 	req_access = list(access_mineral_storeroom)
-	speed_process = TRUE
 	layer = BELOW_OBJ_LAYER
 	var/req_access_reclaim = access_mining_station
+	var/console_notify_timer // timer used for callbacks to send_console_message(). Used for preventing multiple calls to the proc when the ORM is processing
 	var/obj/item/card/id/inserted_id
 	var/points = 0
 	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
 	var/list/ore_values = list("sand" = 1, "iron" = 1, "plasma" = 15, "silver" = 16, "gold" = 18, "titanium" = 30, "uranium" = 30, "diamond" = 50, "bluespace crystal" = 50, "bananium" = 60, "tranquillite" = 60)
-	var/message_sent = FALSE
 	var/list/ore_buffer = list()
 	var/datum/research/files
 	var/obj/item/disk/design_disk/inserted_disk
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
 
-/obj/machinery/mineral/ore_redemption/New()
-	..()
+/obj/machinery/mineral/ore_redemption/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack)
 	files = new /datum/research/smelter(src)
 	component_parts = list()
@@ -141,7 +140,8 @@
 /obj/machinery/mineral/ore_redemption/proc/send_console_message()
 	if(!is_station_level(z))
 		return
-	message_sent = TRUE
+
+	console_notify_timer = null
 	var/area/A = get_area(src)
 	var/msg = "Now available in [A]:<br>"
 
@@ -165,14 +165,10 @@
 				D.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1)
 
 /obj/machinery/mineral/ore_redemption/process()
-	if(panel_open || !powered())
+	if(!..() || panel_open)
 		return
-	var/atom/input = get_step(src, input_dir)
-	var/obj/structure/ore_box/OB = locate() in input
-	if(OB)
-		input = OB
 
-	for(var/obj/item/stack/ore/O in input)
+	for(var/obj/item/stack/ore/O in input_turf)
 		if(QDELETED(O))
 			continue
 		ore_buffer |= O
@@ -180,15 +176,21 @@
 		CHECK_TICK
 
 	if(LAZYLEN(ore_buffer))
-		message_sent = FALSE
 		process_ores(ore_buffer)
-	else if(!message_sent)
-		send_console_message()
+		if(!console_notify_timer)
+			// gives two seconds for a load of ores to be sucked up by the ORM before it sends out request console notifications, this should be enough time for most deposits
+			console_notify_timer = addtimer(CALLBACK(src, .proc/send_console_message), 20)
+
+	end_processing()
 
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
 		return
 	if(default_unfasten_wrench(user, W))
+		if(anchored) // in case there's any ore already sitting on the input_turf when we wrench it down, we want to start processing to scoop it up
+			begin_processing() // we don't need to register the signal here. `end_processing` getting called at the end of process() and will register the signal to the input_turf
+		else
+			unregister_input_turf()
 		return
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
 		updateUsrDialog()
@@ -212,6 +214,8 @@
 		input_dir = turn(input_dir, -90)
 		output_dir = turn(output_dir, -90)
 		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+		unregister_input_turf() // someone just rotated the input and output directions, unregister the old turf
+		register_input_turf() // register the new one
 		return
 
 	if(istype(W, /obj/item/disk/design_disk))

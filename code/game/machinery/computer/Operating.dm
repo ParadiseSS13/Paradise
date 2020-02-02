@@ -19,6 +19,7 @@
 	var/nextTick = OP_COMPUTER_COOLDOWN
 	var/healthAlarm = 50
 	var/oxy = 1 //oxygen beeping toggle
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/computer/operating/New()
 	..()
@@ -170,7 +171,10 @@
 
 
 /obj/machinery/computer/operating/process()
-
+	// when someone lays down on the linked operating table, the table begins processing, and also tells this computer to begin processing
+	// you can see this in OpTable.dm, line 105-106
+	if(!..())
+		return
 	if(table && table.check_victim())
 		if(verbose)
 			if(patientName!=table.victim.name)
@@ -186,3 +190,5 @@
 					playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
 				if(healthAnnounce && victim.health <= healthAlarm)
 					atom_say("[round(victim.health)]")
+	else
+		end_processing() // we don't have a linked table and there is no victim, end processing

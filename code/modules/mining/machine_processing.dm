@@ -3,14 +3,55 @@
 /**********************Mineral processing unit console**************************/
 
 /obj/machinery/mineral
-	var/input_dir = NORTH
-	var/output_dir = SOUTH
+	var/input_dir = NORTH // the direction the machine takes in items
+	var/output_dir = SOUTH // the direction the machine outputs items
+	var/turf/input_turf = null // the turf that is to the north/south/east/west from this machine. Used for registering a signal when something crosses into the turf
+	processing_flags = START_PROCESSING_MANUALLY | FAST_PROCESS_SPEED // all /obj/machinery/mineral type machines should being processing only when certain conditions are met
+
+/obj/machinery/mineral/Initialize(mapload)
+	. = ..()
+	register_input_turf()
+
+/obj/machinery/mineral/Destroy()
+	. = ..()
+	unregister_input_turf()
 
 /obj/machinery/mineral/proc/unload_mineral(atom/movable/S)
 	S.forceMove(drop_location())
 	var/turf/T = get_step(src,output_dir)
 	if(T)
 		S.forceMove(T)
+
+obj/machinery/mineral/proc/register_input_turf()
+	input_turf = get_step(src, input_dir) // get the turf that players need to place the ore/items onto, defaults to NORTH at round start
+	if(input_turf && istype(input_turf)) // make sure there is actually a turf
+		RegisterSignal(input_turf, COMSIG_ATOM_ENTERED, .proc/begin_processing, TRUE) // listens for when an atom ENTERS the input_turf, tells the machine to begin processing
+		return TRUE
+	return FALSE
+
+obj/machinery/mineral/proc/unregister_input_turf()
+	if(input_turf)
+		UnregisterSignal(input_turf, COMSIG_ATOM_ENTERED)
+
+/obj/machinery/mineral/begin_processing()
+	. = ..()
+	// unregistering here prevents `begin_processing` getting called for every item thats dropped onto the `input_turf`
+	// if we did not unregister, that means when someone drops 200 ore stacks, it would call begin_processing 200 times. Not good, and also unnecessary.
+	unregister_input_turf()
+
+/obj/machinery/mineral/end_processing()
+	. = ..()
+	 // re-register the signal we unregistered in begin_processing
+	register_input_turf()
+
+/obj/machinery/mineral/process()
+	if(!..())
+		return FALSE
+	if(!input_turf) // there's no input turf
+		if(!register_input_turf()) // try to find one
+			end_processing() // there's no valid turf in whichever direction input_dir is set to
+			return FALSE
+	return TRUE
 
 /obj/machinery/mineral/processing_unit_console
 	name = "production machine console"
@@ -20,7 +61,6 @@
 	anchored = TRUE
 	var/obj/machinery/mineral/processing_unit/machine = null
 	var/machinedir = EAST
-	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit_console/Initialize(mapload)
 	. = ..()
@@ -67,6 +107,7 @@
 
 	if(href_list["set_on"])
 		machine.on = (href_list["set_on"] == "on")
+		machine.begin_processing()
 
 	updateUsrDialog()
 	return TRUE
@@ -88,7 +129,6 @@
 	var/selected_material = MAT_METAL
 	var/selected_alloy = null
 	var/datum/research/files
-	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit/Initialize(mapload)
 	. = ..()
@@ -103,11 +143,12 @@
 	return ..()
 
 /obj/machinery/mineral/processing_unit/process()
-	var/turf/T = get_step(src, input_dir)
-	if(T)
-		for(var/obj/item/stack/ore/O in T)
-			process_ore(O)
-			CHECK_TICK
+	if(!..())
+		return
+
+	for(var/obj/item/stack/ore/O in input_turf)
+		process_ore(O)
+		CHECK_TICK
 
 	if(on)
 		if(selected_material)
@@ -118,6 +159,8 @@
 
 		if(CONSOLE)
 			CONSOLE.updateUsrDialog()
+	else
+		end_processing()
 
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
 	GET_COMPONENT(materials, /datum/component/material_container)
@@ -171,6 +214,7 @@
 		var/sheets_to_remove = (mat.amount >= (MINERAL_MATERIAL_AMOUNT * SMELT_AMOUNT) ) ? SMELT_AMOUNT : round(mat.amount /  MINERAL_MATERIAL_AMOUNT)
 		if(!sheets_to_remove)
 			on = FALSE
+			end_processing()
 		else
 			var/out = get_step(src, output_dir)
 			materials.retrieve_sheets(sheets_to_remove, selected_material, out)
@@ -179,12 +223,14 @@
 	var/datum/design/alloy = files.FindDesignByID(selected_alloy) //check if it's a valid design
 	if(!alloy)
 		on = FALSE
+		end_processing()
 		return
 
 	var/amount = can_smelt(alloy)
 
 	if(!amount)
 		on = FALSE
+		end_processing()
 		return
 
 	GET_COMPONENT(materials, /datum/component/material_container)

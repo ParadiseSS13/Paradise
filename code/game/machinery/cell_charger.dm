@@ -11,6 +11,7 @@
 	pass_flags = PASSTABLE
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/cell_charger/deconstruct()
 	if(charging)
@@ -67,6 +68,7 @@
 			charging = I
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
+			begin_processing()
 			updateicon()
 	else if(iswrench(I))
 		if(charging)
@@ -84,6 +86,7 @@
 	charging.update_icon()
 	charging = null
 	chargelevel = -1
+	end_processing()
 	updateicon()
 
 /obj/machinery/cell_charger/attack_hand(mob/user)
@@ -120,7 +123,7 @@
 
 
 /obj/machinery/cell_charger/process()
-	if(!charging || !anchored || (stat & (BROKEN|NOPOWER)))
+	if(!..() || !charging || !anchored)
 		return
 
 	if(charging.percent() >= 100)

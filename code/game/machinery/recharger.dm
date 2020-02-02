@@ -16,6 +16,7 @@
 	var/icon_state_charging = "recharger1"
 	var/icon_state_idle = "recharger0"
 	var/recharge_coeff = 1
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/recharger/New()
 	..()
@@ -63,6 +64,7 @@
 			G.forceMove(src)
 			charging = G
 			use_power = ACTIVE_POWER_USE
+			begin_processing()
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
@@ -89,6 +91,7 @@
 		user.put_in_hands(charging)
 		charging = null
 		use_power = IDLE_POWER_USE
+		end_processing()
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -100,7 +103,7 @@
 		update_icon()
 
 /obj/machinery/recharger/process()
-	if(stat & (NOPOWER|BROKEN) || !anchored)
+	if(!..() || !anchored)
 		return
 
 	using_power = FALSE

@@ -16,6 +16,7 @@ var/global/list/rad_collectors = list()
 	var/active = 0
 	var/locked = 0
 	var/drainratio = 1
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/power/rad_collector/Initialize(mapload)
 	. = ..()
@@ -26,6 +27,8 @@ var/global/list/rad_collectors = list()
 	return ..()
 
 /obj/machinery/power/rad_collector/process()
+	if(!..())
+		return
 	if(P)
 		if(P.air_contents.toxins <= 0)
 			investigate_log("<font color='red'>out of fuel</font>.","singulo")
@@ -65,6 +68,7 @@ var/global/list/rad_collectors = list()
 		user.drop_item()
 		src.P = W
 		W.loc = src
+		begin_processing()
 		update_icons()
 	else if(istype(W, /obj/item/crowbar))
 		if(P && !src.locked)
@@ -111,6 +115,7 @@ var/global/list/rad_collectors = list()
 	Z.layer = initial(Z.layer)
 	Z.plane = initial(Z.plane)
 	src.P = null
+	end_processing()
 	if(active)
 		toggle_power()
 	else

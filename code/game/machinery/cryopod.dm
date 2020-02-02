@@ -215,6 +215,7 @@
 
 	var/obj/machinery/computer/cryopod/control_computer
 	var/last_no_computer_message = 0
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 	// These items are preserved when the process() despawn proc occurs.
 	var/list/preserve_items = list(
@@ -292,6 +293,9 @@
 
 //Lifted from Unity stasis.dm and refactored. ~Zuhayr
 /obj/machinery/cryopod/process()
+	if(!..())
+		return
+
 	if(occupant)
 		// Eject dead people
 		if(occupant.stat == DEAD)
@@ -460,6 +464,7 @@
 			occupant.ghostize(1)
 	QDEL_NULL(occupant)
 	name = initial(name)
+	end_processing()
 
 #undef CRYO_DESTROY
 #undef CRYO_PRESERVE
@@ -597,6 +602,7 @@
 	if(!E)
 		return
 	E.forceMove(src)
+	begin_processing()
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	if(orient_right)
 		icon_state = "[occupied_icon_state]-r"
@@ -688,6 +694,7 @@
 		to_chat(usr, "<span class='notice'>[on_enter_occupant_message]</span>")
 		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 		occupant = usr
+		begin_processing()
 		time_entered = world.time
 
 		add_fingerprint(usr)
@@ -701,6 +708,7 @@
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
+	end_processing()
 
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"

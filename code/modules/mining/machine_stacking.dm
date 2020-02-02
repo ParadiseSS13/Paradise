@@ -67,14 +67,16 @@
 	var/stack_amt = 50; //ammount to stack before releassing
 	input_dir = EAST
 	output_dir = WEST
-	speed_process = TRUE
 
 /obj/machinery/mineral/stacking_machine/process()
-	var/turf/T = get_step(src, input_dir)
-	if(T)
-		for(var/obj/item/stack/sheet/S in T)
-			process_sheet(S)
-			CHECK_TICK
+	if(!..())
+		return
+
+	for(var/obj/item/stack/sheet/S in input_turf)
+		process_sheet(S)
+		CHECK_TICK
+		
+	end_processing()
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(!(inp.type in stack_list)) //It's the first of this sheet added

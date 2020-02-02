@@ -17,6 +17,7 @@
 	var/list/injected_reagents = list()
 	var/reagent_target_amount = 1
 	var/inject_amount = 1
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/optable/New()
 	..()
@@ -72,11 +73,11 @@
 			src.victim = M
 			if(!no_icon_updates)
 				icon_state = M.pulse ? "table2-active" : "table2-idle"
-			return 1
+			return TRUE
 	src.victim = null
 	if(!no_icon_updates)
 		icon_state = "table2-idle"
-	return 0
+	return FALSE
 
 /obj/machinery/optable/Crossed(atom/movable/AM, oldloc)
 	. = ..()
@@ -84,7 +85,14 @@
 		to_chat(AM, "<span class='danger'>You feel a series of tiny pricks!</span>")
 
 /obj/machinery/optable/process()
-	check_victim()
+	if(!..())
+		return
+
+	if(!check_victim())
+		end_processing() // no more victim means no need to keep processing
+		computer?.end_processing() // tell the linked computer to stop as well (if there is one)
+		return
+
 	if(LAZYLEN(injected_reagents))
 		for(var/mob/living/carbon/C in get_turf(src))
 			var/datum/reagents/R = C.reagents
@@ -96,6 +104,10 @@
 		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
 	else
 		visible_message("<span class='alert'>[C] has been laid on the operating table by [user].</span>")
+		
+	begin_processing() // someone just laid down on the table, beging processing
+	computer?.begin_processing() // also also tell our operating computer to begin processing
+
 	C.resting = 1
 	C.update_canmove()
 	C.forceMove(loc)

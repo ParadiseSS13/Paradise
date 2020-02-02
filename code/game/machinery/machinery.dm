@@ -99,6 +99,7 @@ Class Procs:
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
+	processing_flags = START_PROCESSING_ON_INIT | NORMAL_PROCESS_SPEED // By default all machines will start processing when they're initialized and have a normal process speed
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -129,47 +130,57 @@ Class Procs:
 
 	if(use_power)
 		myArea = get_area(src)
-	if(!speed_process)
-		START_PROCESSING(SSmachines, src)
-	else
-		START_PROCESSING(SSfastprocess, src)
-
+	if(processing_flags & START_PROCESSING_ON_INIT)
+		begin_processing()
 	power_change()
+
+// starts up the appropriate process type based on the machine's `processing_flags`
+/obj/machinery/proc/begin_processing()
+	if(processing_flags & NORMAL_PROCESS_SPEED)
+		START_PROCESSING(SSmachines, src)
+	else if(processing_flags & FAST_PROCESS_SPEED)
+		START_PROCESSING(SSfastprocess, src)
 
 // gotta go fast
 /obj/machinery/makeSpeedProcess()
-	if(speed_process)
-		return
-	speed_process = TRUE
-	STOP_PROCESSING(SSmachines, src)
-	START_PROCESSING(SSfastprocess, src)
+	if(processing_flags & NORMAL_PROCESS_SPEED)
+		swap_to_fast_process_flag()
+		STOP_PROCESSING(SSmachines, src)
+		START_PROCESSING(SSfastprocess, src)
 
 // gotta go slow
 /obj/machinery/makeNormalProcess()
-	if(!speed_process)
-		return
-	speed_process = FALSE
-	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSmachines, src)
+	if(processing_flags & FAST_PROCESS_SPEED)
+		swap_to_normal_process_flag()
+		STOP_PROCESSING(SSfastprocess, src)
+		START_PROCESSING(SSmachines, src)
 
 /obj/machinery/Destroy()
 	if(myArea)
 		myArea = null
 	GLOB.machines.Remove(src)
-	if(!speed_process)
+	end_processing()
+	return ..()
+
+// ends the appropriate process type based on the machine's `processing_flags`
+/obj/machinery/proc/end_processing()
+	if(processing_flags & NORMAL_PROCESS_SPEED)
 		STOP_PROCESSING(SSmachines, src)
 	else
 		STOP_PROCESSING(SSfastprocess, src)
-	return ..()
 
 /obj/machinery/proc/locate_machinery()
 	return
 
 /obj/machinery/process() // If you dont use process or power why are you here
-	return PROCESS_KILL
+	if(stat & (NOPOWER|BROKEN))
+		return FALSE
+	return TRUE
 
 /obj/machinery/proc/process_atmos() //If you dont use process why are you here
-	return PROCESS_KILL
+	if(stat & (NOPOWER|BROKEN))
+		return FALSE
+	return TRUE
 
 /obj/machinery/emp_act(severity)
 	if(use_power && !stat)

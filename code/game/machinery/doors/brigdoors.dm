@@ -35,6 +35,7 @@
 	var/crimes = "None"
 	var/time = 0
 	var/officer = "None"
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/door_timer/New()
  	GLOB.celltimers_list += src
@@ -170,7 +171,7 @@
 // if it's less than 0, open door, reset timer
 // update the door_timer window and the icon
 /obj/machinery/door_timer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(!..())
 		return
 	if(timing)
 		if(timeleft() <= 0)
@@ -208,7 +209,7 @@
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
-	START_PROCESSING(SSmachines, src)
+	begin_processing()
 
 	for(var/obj/machinery/door/window/brigdoor/door in targets)
 		if(door.density)
@@ -235,6 +236,8 @@
 /obj/machinery/door_timer/proc/timer_end()
 	if(stat & (NOPOWER|BROKEN))
 		return 0
+
+	end_processing()
 
 	// Reset vars
 	occupant = "None"

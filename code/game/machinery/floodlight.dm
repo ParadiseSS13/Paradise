@@ -13,6 +13,7 @@
 	var/unlocked = FALSE
 	var/open = FALSE
 	var/brightness_on = 14
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/floodlight/get_cell()
 	return cell
@@ -32,13 +33,15 @@
 /obj/machinery/floodlight/process()
 	if(!cell && on)
 		on = FALSE
+		end_processing()
 		visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
-		update_icon()
+		updateicon()
 		set_light(0)
 	if(on)
 		cell.charge -= use
 		if(cell.charge <= 0)
 			on = FALSE
+			end_processing()
 			updateicon()
 			set_light(0)
 			visible_message("<span class='warning'>[src] shuts down due to lack of power!</span>")
@@ -68,6 +71,7 @@
 
 	if(on)
 		on = FALSE
+		end_processing()
 		to_chat(user, "<span class='notice'>You turn off the light.</span>")
 		set_light(0)
 	else
@@ -76,6 +80,7 @@
 		if(cell.charge <= 0)
 			return
 		on = TRUE
+		begin_processing()
 		to_chat(user, "<span class='notice'>You turn on the light.</span>")
 		set_light(brightness_on)
 

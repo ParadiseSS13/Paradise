@@ -885,6 +885,7 @@ var/list/ai_verbs_default = list(
 				SD.friendc = 1
 			else
 				SD.friendc = 0
+			SD.ai_update()
 	return
 
 //I am the icon meister. Bow fefore me.	//>fefore

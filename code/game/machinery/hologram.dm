@@ -52,12 +52,13 @@ var/list/holopads = list()
 	var/last_request = 0 //to prevent request spam. ~Carn
 	var/holo_range = 5 // Change to change how far the AI can move away from the holopad before deactivating.
 	var/temp = ""
-	var/list/holo_calls	//array of /datum/holocalls
+	var/list/holo_calls	//array of /datum/holocalls, these are incoming calls from other holopads to this one
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/obj/effect/overlay/holoray/ray
 	var/ringing = FALSE
 	var/dialling_input = FALSE //The user is currently selecting where to send their call
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/hologram/holopad/New()
 	..()
@@ -224,6 +225,10 @@ var/list/holopads = list()
 				temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 				new /datum/holocall(usr, src, callnames[result])
 
+				begin_processing() // begin processing the calling pad
+				var/obj/machinery/hologram/holopad/receiving_pad = callnames[result][1]
+				receiving_pad.begin_processing() // begin processing the receiving pad
+
 	else if(href_list["connectcall"])
 		var/datum/holocall/call_to_connect = locateUID(href_list["connectcall"])
 		if(!QDELETED(call_to_connect) && (call_to_connect in holo_calls))
@@ -239,7 +244,7 @@ var/list/holopads = list()
 	else if(href_list["mainmenu"])
 		temp = ""
 		if(outgoing_call)
-			outgoing_call.Disconnect()
+			outgoing_call.Disconnect(src)
 
 	updateDialog()
 
@@ -255,25 +260,33 @@ var/list/holopads = list()
 	if(user.eyeobj.loc != loc)//Set client eye on the object if it's not already.
 		user.eyeobj.setLoc(get_turf(src))
 	else if(!LAZYLEN(masters) || !masters[user])//If there is no hologram, possibly make one.
-		activate_holo(user, 1)
+		activate_holo(user, 1) // AI clicks on a holopad to activate the hologram
+		begin_processing()
 	else//If there is a hologram, remove it.
-		clear_holo(user)
+		clear_holo(user) // AI clicks on a holopad to de-activate the hologram
 
 /obj/machinery/hologram/holopad/process()
-	for(var/I in masters)
-		var/mob/living/master = I
-		if((stat & NOPOWER) || !validate_user(master) || !anchored)
-			clear_holo(master)
+	// if AIs or other people are not using the pad, the pad is not calling anyone, and is not receiving any calls. No reason to be processing
+	if(!..() || (!masters?.len && !outgoing_call && !holo_calls?.len))
+		end_processing()
 
 	if(outgoing_call)
 		outgoing_call.Check()
+		// So the user can't be dragged off the pad but still be in a call with their view focused on the receiving area
+		if(outgoing_call.user.loc != loc)
+			outgoing_call.Disconnect(src)
+
+	for(var/I in masters)
+		var/mob/living/master = I
+		if(!validate_user(master) || !anchored)
+			clear_holo(master)
 
 	ringing = FALSE
 
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		//Sanity check and skip if no longer valid call
-		if(!HC.Check())
+		if(!HC.Check()) // checks the validity of a call, qdels the holocall if it just exists without there being a pad connection
 			atom_say("Call was terminated at remote terminal.")
 			continue
 
@@ -290,7 +303,8 @@ var/list/holopads = list()
 	update_icon()
 
 
-//Try to transfer hologram to another pad that can project on T
+//This gets ran when a hologram tries to move out of the max range it can project to.
+//The game will attempt to find another valid pad which can project the hologram at that location
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
 	if(!isAI(holo_owner))
 		return
@@ -302,6 +316,7 @@ var/list/holopads = list()
 			var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
 			unset_holo(holo_owner)
 			another.set_holo(holo_owner, h)
+			another.begin_processing() // tell the new holopad to start processing. The old pad will stop processing on its next pass of `process()`, given its not in use by something else
 			return TRUE
 	return FALSE
 
@@ -329,7 +344,7 @@ var/list/holopads = list()
 		var/transfered = FALSE
 		if(!validate_location(new_turf))
 			if(!transfer_to_nearby_pad(new_turf,user))
-				clear_holo(user)
+				clear_holo(user) // while trying to move beyond the range of the current holopad, we couldn't find another pad to move to
 				return FALSE
 			else
 				transfered = TRUE

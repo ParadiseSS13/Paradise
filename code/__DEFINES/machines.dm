@@ -12,6 +12,12 @@
 #define IDLE_POWER_USE 1
 #define ACTIVE_POWER_USE 2
 
+// bitflags for a machine's processing preferences
+#define START_PROCESSING_ON_INIT 	1	// if the machine should start processing on Initialize()
+#define START_PROCESSING_MANUALLY 	2	// if the machine will start processing in the future, after Initialize(), such as when a certain condition is met
+#define NORMAL_PROCESS_SPEED		4	// normal processing speed
+#define FAST_PROCESS_SPEED			8	// fast processing speed
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
  #define PROG_CRASH      1  // Generic crash
  #define MISSING_PERIPHERAL  2  // Missing hardware

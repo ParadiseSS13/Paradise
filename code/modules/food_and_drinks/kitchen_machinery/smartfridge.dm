@@ -21,6 +21,7 @@
 	var/drying = FALSE
 	var/visible_contents = TRUE
 	var/datum/wires/smartfridge/wires = null
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 
 /obj/machinery/smartfridge/New()
 	..()
@@ -202,10 +203,16 @@
 		return 1
 
 /obj/machinery/smartfridge/process()
-	if(stat & (BROKEN|NOPOWER))
+	if(!..())
 		return
+
+	if(seconds_electrified <= 0 && !shoot_inventory) //cutting the electrify wire will set `seconds_electrifed` to -1
+		end_processing()
+		return
+
 	if(seconds_electrified > 0)
 		seconds_electrified--
+
 	if(shoot_inventory && prob(2))
 		throw_item()
 

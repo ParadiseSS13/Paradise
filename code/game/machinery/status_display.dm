@@ -35,8 +35,6 @@
 	var/friendc = 0      // track if Friend Computer mode
 	var/ignore_friendc = 0
 
-	var/spookymode = 0
-
 	maptext_height = 26
 	maptext_width = 32
 	maptext_y = -1
@@ -62,11 +60,7 @@
 
 // timed process
 /obj/machinery/status_display/process()
-	if(stat & NOPOWER)
-		remove_display()
-		return
-	if(spookymode)
-		spookymode = 0
+	if(!..())
 		remove_display()
 		return
 	update()
@@ -79,18 +73,19 @@
 	..(severity)
 
 /obj/machinery/status_display/get_spooked()
-	spookymode = TRUE
+	remove_display()
+
+/obj/machinery/status_display/proc/ai_update()
+	if(friendc && !ignore_friendc)
+		set_picture("ai_friend")
+		return TRUE
 
 // set what is displayed
 /obj/machinery/status_display/proc/update()
-	if(friendc && !ignore_friendc)
-		set_picture("ai_friend")
-		return 1
-
 	switch(mode)
 		if(STATUS_DISPLAY_BLANK)	//blank
 			remove_display()
-			return 1
+			return TRUE
 		if(STATUS_DISPLAY_TRANSFER_SHUTTLE_TIME)				//emergency shuttle timer
 			var/use_warn = 0
 			if(SSshuttle.emergency && SSshuttle.emergency.timer)
@@ -104,7 +99,7 @@
 				message1 = "TIME"
 				message2 = station_time_timestamp("hh:mm")
 			update_display(message1, message2, use_warn)
-			return 1
+			return TRUE
 		if(STATUS_DISPLAY_MESSAGE)	//custom messages
 			var/line1
 			var/line2
@@ -127,13 +122,13 @@
 				if(index2 > message2_len)
 					index2 -= message2_len
 			update_display(line1, line2)
-			return 1
+			return TRUE
 		if(STATUS_DISPLAY_TIME)
 			message1 = "TIME"
 			message2 = station_time_timestamp("hh:mm")
 			update_display(message1, message2)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /obj/machinery/status_display/examine(mob/user)
 	. = ..()
@@ -173,6 +168,7 @@
 	if(maptext)
 		maptext = ""
 
+// display receives a signal to update its screen to something else
 /obj/machinery/status_display/receive_signal(datum/signal/signal)
 	switch(signal.data["command"])
 		if("blank")
@@ -199,8 +195,6 @@
 	anchored = 1
 	density = 0
 
-	var/spookymode = 0
-
 	var/mode = 0	// 0 = Blank
 					// 1 = AI emoticon
 					// 2 = Blue screen of death
@@ -214,11 +208,7 @@
 		user.ai_statuschange()
 
 /obj/machinery/ai_status_display/process()
-	if(stat & NOPOWER)
-		overlays.Cut()
-		return
-	if(spookymode)
-		spookymode = 0
+	if(!..())
 		overlays.Cut()
 		return
 	update()
@@ -231,55 +221,56 @@
 	..(severity)
 
 /obj/machinery/ai_status_display/get_spooked()
-	spookymode = TRUE
+	overlays.Cut()
 
 /obj/machinery/ai_status_display/proc/update()
-	if(mode==0) //Blank
-		overlays.Cut()
-		return
+	switch(mode)
+		if(0) //Blank
+			overlays.Cut()
+			return
 
-	if(mode==1)	// AI emoticon
-		switch(emotion)
-			if("Very Happy")
-				set_picture("ai_veryhappy")
-			if("Happy")
-				set_picture("ai_happy")
-			if("Neutral")
-				set_picture("ai_neutral")
-			if("Unsure")
-				set_picture("ai_unsure")
-			if("Confused")
-				set_picture("ai_confused")
-			if("Sad")
-				set_picture("ai_sad")
-			if("Surprised")
-				set_picture("ai_surprised")
-			if("Upset")
-				set_picture("ai_upset")
-			if("Angry")
-				set_picture("ai_angry")
-			if("BSOD")
-				set_picture("ai_bsod")
-			if("Blank")
-				set_picture("ai_off")
-			if("Problems?")
-				set_picture("ai_trollface")
-			if("Awesome")
-				set_picture("ai_awesome")
-			if("Dorfy")
-				set_picture("ai_urist")
-			if("Facepalm")
-				set_picture("ai_facepalm")
-			if("Friend Computer")
-				set_picture("ai_friend")
-		return
+		if(1)	// AI emoticon
+			switch(emotion)
+				if("Very Happy")
+					set_picture("ai_veryhappy")
+				if("Happy")
+					set_picture("ai_happy")
+				if("Neutral")
+					set_picture("ai_neutral")
+				if("Unsure")
+					set_picture("ai_unsure")
+				if("Confused")
+					set_picture("ai_confused")
+				if("Sad")
+					set_picture("ai_sad")
+				if("Surprised")
+					set_picture("ai_surprised")
+				if("Upset")
+					set_picture("ai_upset")
+				if("Angry")
+					set_picture("ai_angry")
+				if("BSOD")
+					set_picture("ai_bsod")
+				if("Blank")
+					set_picture("ai_off")
+				if("Problems?")
+					set_picture("ai_trollface")
+				if("Awesome")
+					set_picture("ai_awesome")
+				if("Dorfy")
+					set_picture("ai_urist")
+				if("Facepalm")
+					set_picture("ai_facepalm")
+				if("Friend Computer")
+					set_picture("ai_friend")
+			return
 
-	if(mode==2)	// BSOD
-		set_picture("ai_bsod")
-		return
+		if(2)	// BSOD
+			set_picture("ai_bsod")
+			return
 
 
-/obj/machinery/ai_status_display/proc/set_picture(var/state)
+/obj/machinery/ai_status_display/proc/set_picture(state)
 	picture_state = state
 	if(overlays.len)
 		overlays.Cut()

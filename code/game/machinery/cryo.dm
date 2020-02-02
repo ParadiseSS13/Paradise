@@ -10,6 +10,7 @@
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
+	processing_flags = START_PROCESSING_MANUALLY | NORMAL_PROCESS_SPEED
 	var/on = 0
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
@@ -138,19 +139,20 @@
 				user.stop_pulling()
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
-	..()
-	if(autoeject)
-		if(occupant)
+	if(!..())
+		return
+
+	if(occupant)
+		if(autoeject)
 			if(!occupant.has_organic_damage() && !occupant.has_mutated_organs())
 				on = 0
 				go_out()
 				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 
-	if(air_contents)
-		if(occupant)
+		if(air_contents)
 			process_occupant()
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
 	..()
@@ -426,6 +428,7 @@
 		occupant.bodytemperature = 261
 	occupant = null
 	update_icon()
+	end_processing()
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
@@ -451,6 +454,7 @@
 //	M.metabslow = 1
 	add_fingerprint(usr)
 	update_icon()
+	begin_processing()
 	M.ExtinguishMob()
 	return 1
 

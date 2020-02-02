@@ -43,8 +43,11 @@ var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 	switch(index)
 		if(SMARTFRIDGE_WIRE_THROW)
 			S.shoot_inventory = !S.shoot_inventory
+			if(S.shoot_inventory)
+				S.begin_processing()
 		if(SMARTFRIDGE_WIRE_ELECTRIFY)
 			S.seconds_electrified = 30
+			S.begin_processing()
 		if(SMARTFRIDGE_WIRE_IDSCAN)
 			S.scan_id = !S.scan_id
 	..()
@@ -54,6 +57,8 @@ var/const/SMARTFRIDGE_WIRE_IDSCAN		= 4
 	switch(index)
 		if(SMARTFRIDGE_WIRE_THROW)
 			S.shoot_inventory = !mended
+			if(S.shoot_inventory)
+				S.begin_processing()
 		if(SMARTFRIDGE_WIRE_ELECTRIFY)
 			if(mended)
 				S.seconds_electrified = 0
