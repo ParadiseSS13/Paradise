@@ -54,4 +54,68 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 					/obj/item/clothing/shoes/white = 1,
 					/obj/item/clothing/gloves/color/latex = 1)
 
+/obj/machinery/vending/accesories
+	name = "\improper Xtra"
+	desc = "Accessories dispenser. Made by NT Corp."
+	product_ads = "Get fashion and useful, funny accessories for make your work better an happy, only with us NT Corp!, Remember Work is the most important."
+	icon = 'icons/hispania/obj/vending.dmi'
+	icon_state = "Xtra"
+	icon_vend = "Xtra-vend"
+	density = TRUE
+	vend_delay = 12
 
+	products = list(/obj/item/storage/wallet/random = 100,
+					/obj/item/clothing/glasses/monocle = 50,
+					/obj/item/clothing/glasses/regular = 50,
+					/obj/item/deck/cards = 10,
+					/obj/item/deck/tarot = 10,
+					/obj/item/clothing/ears/headphones = 70,
+					/obj/item/reagent_containers/food/drinks/mug = 40,
+					/obj/item/clothing/accessory/necklace = 50,
+					/obj/item/clothing/accessory/necklace = 50,
+					/obj/item/clothing/accessory/necklace/dope = 50,
+					/obj/item/clothing/accessory/necklace/locket = 50,
+					/obj/item/clothing/accessory/armband = 50,
+					/obj/item/lipstick = 50,
+					/obj/item/lipstick/blue = 50,
+					/obj/item/lipstick/lime= 50,
+					/obj/item/lipstick/purple = 50,
+					/obj/item/lipstick/jade = 50,
+   					/obj/item/lipstick/black = 50,
+   					/obj/item/lipstick/white = 50,
+    				/obj/item/lipstick/green = 50,
+   					/obj/item/clothing/head/kitty = 80,
+   					/obj/item/clothing/head/kitty/mouse= 80,
+   					/obj/item/clothing/head/collectable/rabbitears = 80,
+    				/obj/item/bikehorn/rubberducky = 30,/obj/item/clothing/head/hairflower = 50,
+    				/obj/item/storage/bag/UNO = 70,
+    				/obj/item/stack/sheet/animalhide/monkey = 30,
+    				/obj/item/stack/sheet/animalhide/lizard = 20)
+	contraband = list(/obj/item/stack/sheet/animalhide/human = 10)
+	prices = list(	/obj/item/storage/wallet/random = 700,
+					/obj/item/clothing/glasses/monocle = 800,
+					/obj/item/clothing/glasses/regular = 1500,
+					/obj/item/deck/cards = 400,
+					/obj/item/deck/tarot = 500,
+					/obj/item/clothing/ears/headphones = 1000,
+					/obj/item/reagent_containers/food/drinks/mug = 400,
+					/obj/item/clothing/accessory/necklace = 600,
+					/obj/item/clothing/accessory/necklace/dope = 700,
+					/obj/item/clothing/accessory/necklace/locket = 1200,
+					/obj/item/clothing/accessory/armband = 450,
+					/obj/item/lipstick = 200,
+					/obj/item/lipstick/green = 200,
+					/obj/item/lipstick/blue = 200,
+					/obj/item/lipstick/lime= 220,
+					/obj/item/lipstick/purple = 200,
+					/obj/item/lipstick/jade = 220,
+    				/obj/item/lipstick/black = 200,
+    				/obj/item/lipstick/white = 200,
+    				/obj/item/clothing/head/kitty = 550,
+    				/obj/item/clothing/head/kitty/mouse = 550,
+   					/obj/item/clothing/head/collectable/rabbitears = 550,
+   				 	/obj/item/bikehorn/rubberducky = 679,
+    				/obj/item/clothing/head/hairflower = 400,
+    				/obj/item/storage/bag/UNO = 200,
+    				/obj/item/stack/sheet/animalhide/monkey = 1500,
+    				/obj/item/stack/sheet/animalhide/lizard = 2000)
