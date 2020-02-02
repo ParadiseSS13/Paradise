@@ -31,6 +31,7 @@
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
+	zoomable = FALSE
 
 // Decloner //
 /obj/item/gun/energy/decloner
