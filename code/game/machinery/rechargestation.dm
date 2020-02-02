@@ -44,7 +44,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
-		var/multiplier = C.maxcharge / 10000
+		var/multiplier = C.get_part_rating() / 10000
 		recharge_speed *= multiplier
 		recharge_speed_nutrition *= multiplier
 
@@ -133,7 +133,8 @@
 			if(repairs)
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
-				R.cell.give(recharge_speed)
+				var/transfered = R.cell.give(recharge_speed)
+				use_power(transfered * 12)
 		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
@@ -187,15 +188,17 @@
 						var/obj/item/gun/energy/disabler/cyborg/D = O
 						if(D.cell.charge < D.cell.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.cell.give(E.e_cost)
+							var/transfered = D.cell.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
+							use_power(transfered * 12)
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
 						if(B.cell)
-							B.cell.charge = B.cell.maxcharge
+							var/transfered = B.cell.give(B.cell.chargerate)
+							use_power(transfered * 12)
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
