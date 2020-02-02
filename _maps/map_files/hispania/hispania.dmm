@@ -36107,6 +36107,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 28
 	},
+/obj/machinery/vending/accesories,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bnB" = (
