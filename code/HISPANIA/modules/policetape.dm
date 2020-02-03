@@ -7,7 +7,7 @@
 	var/turf/end
 	var/tape_type = /obj/item/tape
 	var/icon_base = "tape"
-	var/maxlengths = 6
+	var/maxlengths = 7
 
 	var/apply_tape = FALSE
 
