@@ -43,7 +43,7 @@
 		item_state = "balloon_green"
 		update_icon()
 	if(colour == "white")
-		name = "white Balloon"
+		name = "white balloon"
 		desc = "It's a white balloon."
 		icon_state = "balloon_w"
 		item_state = "balloon_w"
@@ -82,7 +82,7 @@
 	item_state = "balloon_yellow"
 
 /obj/item/toy/balloon_h/blue
-	name = "blue Balloon"
+	name = "blue balloon"
 	desc = "It's a blue Da ba dee da ba daa."
 	icon_state = "balloon_blue"
 	item_state = "balloon_blue"
