@@ -1,5 +1,6 @@
 /obj/item/reagent_containers/food/snacks/plazmiteleg
 	name = "plazmite leg"
+	icon = 'icons/hispania/obj/food/food.dmi'
 	desc = "A plazmite leg. It's not very edible now, but it cooks great in lava, rumors says its great for digestion."
 	icon_state = "plazmite_leg_raw"
 	list_reagents = list("protein" = 3, "plazmitevenom" = 5)
@@ -12,6 +13,7 @@
 
 /obj/item/reagent_containers/food/snacks/plazmite_fingers
 	name = "Plazmite Fingers"
+	icon = 'icons/hispania/obj/food/food.dmi'
 	desc = "A delicious, lava cooked leg."
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	icon_state = "plazmite_leg"
