@@ -48,6 +48,12 @@
 		icon_state = "balloon_w"
 		item_state = "balloon_w"
 		update_icon()
+	if(colour == "mime")
+		name = "Mime balloon."
+		desc = "..."
+		icon_state = "ballon_mime"
+		item_state = "ballon_mime"
+		update_icon()
 
 //Aviso al atacar
 /obj/item/toy/balloon_h/attack_self(mob/user)
