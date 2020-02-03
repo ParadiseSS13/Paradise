@@ -19,7 +19,7 @@
 /obj/item/toy/balloon_h/attackby(obj/item/toy/crayon/C)
 	var/colour = C.colourName
 	if(colour == "blue")
-		name = "blue Balloon"
+		name = "blue balloon"
 		desc = "It's a blue Da ba dee da ba daa."
 		icon_state = "balloon_blue"
 		item_state = "balloon_blue"
