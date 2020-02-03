@@ -10,8 +10,8 @@
 	vision_range = 4
 	speed = 4
 	move_to_delay = 4
-	maxHealth = 120
-	health = 120
+	maxHealth = 140
+	health = 140
 	harm_intent_damage = 12
 	melee_damage_lower = 12
 	melee_damage_upper = 12
