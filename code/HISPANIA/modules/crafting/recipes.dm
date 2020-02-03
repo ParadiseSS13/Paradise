@@ -64,13 +64,5 @@
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
-/datum/crafting_recipe/balloonclown
-	name = "Clown balloon"
-	result = /obj/item/toy/balloon_h/clown
-	time = 10
-	reqs = list(/obj/item/stack/sheet/plastic = 5,
-		        /obj/item/stack/cable_coil = 5,
-		        /obj/item/stack/sheet/mineral/bananium = 1)
-	category = CAT_DECORATIONS
-	subcategory = CAT_HOLIDAY
+
 
