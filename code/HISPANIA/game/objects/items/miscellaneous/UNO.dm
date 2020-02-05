@@ -37,7 +37,7 @@
 /obj/item/storage/bag/UNO/New()
 	..()
 	new /obj/item/cardholder/withcards(src)
-	for(var/j in 1 to 10)
+	for(var/j in 1 to 13)
 		new /obj/item/cardholder(src)
 
 /obj/item/cardholder
@@ -84,8 +84,10 @@
 		var/obj/item/toy/UNO/last_card = W
 		user.drop_item()
 		W.loc = src
-		user.visible_message("<span class='notice'>[user] puts [W] in [src].</span>", \
-				"<span class='notice'>You put [W] in [src].</span>")
+		if(get_turf(src) == get_turf(user))
+			to_chat(user, "<span class='notice'>You put [W] in [src].</span>")
+		else
+			user.visible_message("<span class='notice'>[user] puts [W] in [src].</span>")
 		contents.Add(W)
 		overlays += last_card.icon_state
 	if(istype(W, /obj/item/cardholder))
@@ -99,8 +101,7 @@
 		W.cut_overlays()
 		icon_state = "holder_f"
 		cut_overlays()
-		user.visible_message("<span class='notice'>[user] puts all the UNO cards of [W] in [src] and shuffles them.</span>", \
-				"<span class='notice'>You put all the UNO cards of [W] in [src] and shuffle them.</span>")
+		user.visible_message("<span class='notice'>[user] puts all the UNO cards of [W] in [src] and shuffles them.</span>")
 		contents = shuffle(contents)
 	else
 		return ..()
@@ -123,8 +124,10 @@
 		C.loc = user.loc
 		user.put_in_hands(C)
 		to_chat(user, "<span class='notice'></span>")
-		user.visible_message("<span class='notice'>[user] takes [C] out of the [src].</span>", \
-				"<span class='notice'>You take [C] out of the [src].</span>")
+		if(get_turf(src) == get_turf(user))
+			to_chat(user, "<span class='notice'>You take [C] out of the [src].</span>")
+		else
+			user.visible_message("<span class='notice'>[user] takes [C] out of the [src].</span>")
 		cut_overlays()
 		icon_state = "holder_e"
 		return
@@ -136,8 +139,10 @@
 		contents.Remove(C)
 		C.loc = user.loc
 		user.put_in_hands(C)
-		user.visible_message("<span class='notice'>[user] takes [C] out of the [src].</span>", \
-				"<span class='notice'>You take [C] out of the [src].</span>")
+		if(get_turf(src) == get_turf(user))
+			to_chat(user, "<span class='notice'>You take [C] out of the [src].</span>")
+		else
+			user.visible_message("<span class='notice'>[user] takes [C] out of the [src].</span>")
 		return
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
@@ -146,7 +151,7 @@
 	. = ..()
 	if(in_range(user, src))
 		if(contents.len > 0)
-			. += "<span class='notice'>There " + (contents.len > 1 ? "are [contents.len] UNO cards" : "is one UNO card") + " in the cardholder.</span>"
+			. += "<span class='notice'>There " + (contents.len > 1 ? "are [contents.len] UNO cards" : "is 1 UNO card") + " in the cardholder.</span>"
 		else
 			. += "<span class='notice'>There are no UNO cards in the cardholder.</span>"
 
