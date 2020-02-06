@@ -50,7 +50,7 @@
 	// All are created free
 	return FALSE
 
-/mob/proc/get_retraining_item()
+/mob/proc/get_restraining_item()
 	return null
 
 // Procs that update other things about the mob

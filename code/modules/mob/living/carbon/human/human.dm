@@ -312,7 +312,7 @@
 			return 0
 	..()
 
-/mob/living/carbon/human/get_retraining_item()
+/mob/living/carbon/human/get_restraining_item()
 	. = ..()
 	if(!. && istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
 		. = wear_suit
