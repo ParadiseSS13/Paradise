@@ -390,7 +390,7 @@
 /turf/simulated/shuttle/floor,
 /area/shuttle/escape)
 "aS" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = 0;

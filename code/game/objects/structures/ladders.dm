@@ -198,5 +198,5 @@
 	. = ..()
 	set_light(light_range, light_power)		//magical glowing anchor
 
-/obj/structure/ladder/dive_point/update_icon()
+/obj/structure/ladder/unbreakable/dive_point/update_icon()
 	return

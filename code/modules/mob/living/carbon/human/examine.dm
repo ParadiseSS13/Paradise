@@ -215,6 +215,12 @@
 				else if(E.status & ORGAN_SPLINTED)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
 
+			if(E.open)
+				if(E.is_robotic())
+					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
+				else
+					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+
 			for(var/obj/item/I in E.embedded_objects)
 				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</B>\n"
 
@@ -370,11 +376,11 @@
 
 	msg += "*---------*</span>"
 	if(pose)
-		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
+		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
-	to_chat(user, msg)
+	. = list(msg)
 
 //Helper procedure. Called by /mob/living/carbon/human/examine() and /mob/living/carbon/human/Topic() to determine HUD access to security and medical records.
 /proc/hasHUD(mob/M as mob, hudtype)
@@ -403,3 +409,29 @@
 				return 0
 	else
 		return 0
+
+// Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
+/proc/ignore_limb_branding(limb_name)
+	switch(limb_name)
+		if("chest")
+			. = "upper body"
+		if("groin")
+			. = "lower body"
+		if("head")
+			. = "head"
+		if("l_arm")
+			. = "left arm"
+		if("r_arm")
+			. = "right arm"
+		if("l_leg")
+			. = "left leg"
+		if("r_leg")
+			. = "right leg"
+		if("l_foot")
+			. = "left foot"
+		if("r_foot")
+			. = "right foot"
+		if("l_hand")
+			. = "left hand"
+		if("r_hand")
+			. = "right hand"

@@ -19,7 +19,7 @@
 		..()
 	return
 
-/mob/living/silicon/robot/attack_slime(mob/living/carbon/slime/M)
+/mob/living/silicon/robot/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime shock
 		flash_eyes(affect_silicon = 1)
 		var/stunprob = M.powerlevel * 7 + 10

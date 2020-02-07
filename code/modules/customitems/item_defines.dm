@@ -135,7 +135,7 @@
 	force = 5
 	sharp = 0
 
-/obj/item/claymore/fluff/hit_reaction()
+/obj/item/claymore/fluff/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	return 0
 
 /obj/item/fluff/rsik_katana //Xydonus: Rsik Ugsharki Atan
@@ -238,17 +238,20 @@
 	force = 2
 
 /obj/item/fluff/dogwhistle/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>", "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
-	spawn(20)
-		var/mob/living/simple_animal/pet/corgi/C = new /mob/living/simple_animal/pet/corgi(get_turf(user))
-		var/obj/item/clothing/head/det_hat/D = new /obj/item/clothing/head/det_hat(C)
-		D.flags |= NODROP
-		C.inventory_head = D
-		C.regenerate_icons()
-		C.name = "Detective Sax"
-		C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
-		to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
-		qdel(src)
+	user.visible_message("<span class='notice'>[user] blows on the whistle, but no sound comes out.</span>",  "<span class='notice'>You blow on the whistle, but don't hear anything.</span>")
+	addtimer(CALLBACK(src, .proc/summon_sax, user), 20)
+
+/obj/item/fluff/dogwhistle/proc/summon_sax(mob/user)
+	var/mob/living/simple_animal/pet/dog/corgi/C = new /mob/living/simple_animal/pet/dog/corgi(get_turf(user))
+	C.name = "Sax"
+	C.real_name = "Sax"
+	var/obj/item/clothing/head/det_hat/D = new
+	D.flags |= NODROP
+	C.place_on_head(D)
+	C.visible_message("<span class='notice'>[C] suddenly winks into existence at [user]'s feet!</span>")
+	to_chat(user, "<span class='danger'>[src] crumbles to dust in your hands!</span>")
+	user.drop_item()
+	qdel(src)
 
 /obj/item/storage/toolbox/fluff/lunchbox //godoforeos: Jason Conrad
 	name = "lunchpail"
@@ -269,12 +272,14 @@
 	new /obj/item/reagent_containers/food/drinks/cans/cola(src)
 
 
-/obj/item/instrument/guitar/jello_guitar //Antcolon3: Dan Jello
+/obj/item/instrument/guitar/jello_guitar //Pineapple Salad: Dan Jello
 	name = "Dan Jello's Pink Guitar"
 	desc = "Dan Jello's special pink guitar."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "jello_guitar"
 	item_state = "jello_guitar"
+	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 
 /obj/item/fluff/wingler_comb
 	name = "blue comb"
@@ -430,7 +435,7 @@
 		sallet.max_heat_protection_temperature = helm.max_heat_protection_temperature
 		sallet.strip_delay = helm.strip_delay
 		sallet.put_on_delay = helm.put_on_delay
-		sallet.burn_state = helm.burn_state
+		sallet.resistance_flags = helm.resistance_flags
 		sallet.flags_cover = helm.flags_cover
 		sallet.visor_flags = helm.visor_flags
 		sallet.visor_flags_inv = helm.visor_flags_inv
@@ -903,9 +908,9 @@
 	desc = "A green hoodie with the Nanotrasen logo on the back. It looks weathered."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "linda_hoodie"
-	hoodtype = /obj/item/clothing/head/hood/fluff/linda
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/linda
 
-/obj/item/clothing/head/hood/fluff/linda //Epic_Charger: Linda Clark
+/obj/item/clothing/head/hooded/hood/fluff/linda //Epic_Charger: Linda Clark
 	icon_state = "greenhood"
 
 /obj/item/clothing/suit/hooded/hoodie/hylo //Hylocereus: Sam Aria
@@ -913,9 +918,9 @@
 	desc = "A soft, cozy longline hoodie. It looks old and worn, but well cared for. There's no label, but a series of dates and names is penned on a scrap of fabric sewn on the inside of the left side of the chest - 'Sam Aria' is scrawled atop them all, next to the words 'Please Remember'."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "sam_hoodie"
-	hoodtype = /obj/item/clothing/head/hood/hylo
+	hoodtype = /obj/item/clothing/head/hooded/hood/hylo
 
-/obj/item/clothing/head/hood/hylo
+/obj/item/clothing/head/hooded/hood/hylo
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "sam_hood"
 
@@ -925,9 +930,9 @@
 	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "skeleton_suit"
-	hoodtype = /obj/item/clothing/head/hood/fluff/skeleton
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/skeleton
 
-/obj/item/clothing/head/hood/fluff/skeleton
+/obj/item/clothing/head/hooded/hood/fluff/skeleton
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "skeleton_hood"
 
@@ -973,18 +978,18 @@
 	desc = "A velvety smooth black winter coat with white and red stripes on the side."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_wintercoat"
-	hoodtype = /obj/item/clothing/head/hood/fluff/xantholne
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xantholne
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
 
-/obj/item/clothing/head/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
+/obj/item/clothing/head/hooded/hood/fluff/xantholne // Xantholne: Meex Zwichsnicrur
 	name = "black winter hood"
 	desc = "A black hood attached to a stripped winter coat."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xantholne_winterhood"
 	body_parts_covered = HEAD
-	flags = NODROP|BLOCKHAIR
+	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/hooded/hoodie/fluff/xydonus //Xydonus: Rsik Ugsharki Atan | Based off of the bomber jacket, but with a hood slapped on (for allowed suit storage)
@@ -993,18 +998,18 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_jacket"
 	ignore_suitadjust = 0
-	hoodtype = /obj/item/clothing/head/hood/fluff/xydonus
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/xydonus
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/flashlight,/obj/item/tank/emergency_oxygen,/obj/item/toy,/obj/item/storage/fancy/cigarettes,/obj/item/lighter)
 
-/obj/item/clothing/head/hood/fluff/xydonus
+/obj/item/clothing/head/hooded/hood/fluff/xydonus
 	name = "custom fit hood"
 	desc = "A hood with some horns <i>glued</i> to them, or something like that. Custom fit for a Unathi's head shape."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "xydonus_bomberhood"
 	body_parts_covered = HEAD
-	flags = NODROP|BLOCKHAIR
+	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/fluff/pineapple //Pineapple Salad: Dan Jello
@@ -1039,17 +1044,17 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat"
 	item_state = "shesicoat"
-	hoodtype = /obj/item/clothing/head/hood/fluff/shesi
+	hoodtype = /obj/item/clothing/head/hooded/hood/fluff/shesi
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 
-/obj/item/clothing/head/hood/fluff/shesi //MrSynnester : Shesi Skaklas
+/obj/item/clothing/head/hooded/hood/fluff/shesi //MrSynnester : Shesi Skaklas
 	name = "custom made winter hood"
 	desc = "A custom made winter coat hood. Looks comfy."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "shesicoat_hood2"
 	body_parts_covered = HEAD
-	flags = NODROP|BLOCKHAIR
+	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/jacket/dtx //AffectedArc07: DTX

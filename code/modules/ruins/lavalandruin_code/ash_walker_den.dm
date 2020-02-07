@@ -6,6 +6,7 @@
 	icon = 'icons/mob/nest.dmi'
 	icon_state = "ash_walker_nest"
 
+	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	anchored = TRUE
 	density = TRUE
 

@@ -43,21 +43,22 @@
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")
 		return
 
+	var/contents_log = reagents.reagent_list.Join(", ")
 	spray(A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
 	user.changeNext_move(CLICK_CD_RANGE*2)
 	user.newtonian_move(get_dir(A, user))
 
-	if(reagents.has_reagent("sacid"))
-		msg_admin_attack("[key_name_admin(user)] fired sulphuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
-		log_game("[key_name(user)] fired sulphuric acid from \a [src] at [COORD(user)].")
-	if(reagents.has_reagent("facid"))
-		msg_admin_attack("[key_name_admin(user)] fired fluorosulfuric acid from \a [src] at [COORD(user)].", ATKLOG_FEW)
-		log_game("[key_name(user)] fired fluorosulfuric Acid from \a [src] at [COORD(user)].")
-	if(reagents.has_reagent("lube"))
-		msg_admin_attack("[key_name_admin(user)] fired space lube from \a [src] at [COORD(user)].")
-		log_game("[key_name(user)] fired space lube from \a [src] at [COORD(user)].")
+	if(reagents.reagent_list.len == 1 && reagents.has_reagent("cleaner")) // Only show space cleaner logs if it's burning people from being too hot or cold
+		if(reagents.chem_temp < 300 && reagents.chem_temp > 280) // 280 is the cold threshold for slimes, 300 the hot threshold for drask
+			return
+
+	var/attack_log_type = ATKLOG_MOST
+	if(reagents.has_reagent("sacid") || reagents.has_reagent("facid") || reagents.has_reagent("lube"))
+		attack_log_type = ATKLOG_FEW
+	msg_admin_attack("[key_name_admin(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K", attack_log_type)
+	log_game("[key_name(user)] used a spray bottle at [COORD(user)] - Contents: [contents_log] - Temperature: [reagents.chem_temp]K")
 	return
 
 
@@ -83,8 +84,9 @@
 	to_chat(user, "<span class='notice'>You [amount_per_transfer_from_this == 10 ? "remove" : "fix"] the nozzle. You'll now use [amount_per_transfer_from_this] units per spray.</span>")
 
 /obj/item/reagent_containers/spray/examine(mob/user)
-	if(..(user, 0) && user == loc)
-		to_chat(user, "[round(reagents.total_volume)] units left.")
+	. = ..()
+	if(get_dist(user, src) && user == loc)
+		. += "[round(reagents.total_volume)] units left."
 
 /obj/item/reagent_containers/spray/verb/empty()
 

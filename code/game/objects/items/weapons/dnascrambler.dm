@@ -49,6 +49,7 @@
 		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
 		H.reset_markings() //...Or markings.
 		H.dna.ResetUIFrom(H)
+		H.flavor_text = ""
 	target.update_icons()
 
 	add_attack_logs(user, target, "injected with [src]")

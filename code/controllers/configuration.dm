@@ -79,7 +79,7 @@
 
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
-	
+
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/traitor_objectives_amount = 2
@@ -102,6 +102,7 @@
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 	var/discordurl = "http://example.org"
+	var/discordforumurl = "http://example.org"
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -144,6 +145,7 @@
 	var/ipintel_detailsurl = "https://iphub.info/?ip="
 
 	var/forum_link_url
+	var/forum_playerinfo_url
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
@@ -241,6 +243,12 @@
 
 	// Lavaland
 	var/lavaland_budget = 60
+
+	//cube monkey limit
+	var/cubemonkeycap = 20
+
+	// Makes gamemodes respect player limits
+	var/enable_gamemode_player_limit = 0
 
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
@@ -347,6 +355,9 @@
 
 				if("forum_link_url")
 					config.forum_link_url = value
+
+				if("forum_playerinfo_url")
+					config.forum_playerinfo_url = value
 
 				if("log_ooc")
 					config.log_ooc = 1
@@ -476,6 +487,9 @@
 
 				if("discordurl")
 					config.discordurl = value
+
+				if("discordforumurl")
+					config.discordforumurl = value
 
 				if("donationsurl")
 					config.donationsurl = value
@@ -720,6 +734,8 @@
 					config.developer_express_start = 1
 				if("disable_localhost_admin")
 					config.disable_localhost_admin = 1
+				if("enable_gamemode_player_limit")
+					config.enable_gamemode_player_limit = 1
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 
@@ -782,6 +798,8 @@
 					config.enable_night_shifts = TRUE
 				if("lavaland_budget")
 					config.lavaland_budget = text2num(value)
+				if("cubemonkey_cap")
+					config.cubemonkeycap = text2num(value)
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

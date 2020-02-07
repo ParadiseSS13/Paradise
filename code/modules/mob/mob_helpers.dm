@@ -113,6 +113,24 @@
 		return U.sensor_mode
 	return SUIT_SENSOR_OFF
 
+/proc/offer_control(mob/M)
+	to_chat(M, "Control of your mob has been offered to dead players.")
+	log_admin("[key_name(usr)] has offered control of ([key_name(M)]) to ghosts.")
+	var/minhours = input(usr, "Minimum hours required to play [M]?", "Set Min Hrs", 10) as num
+	message_admins("[key_name_admin(usr)] has offered control of ([key_name_admin(M)]) to ghosts with [minhours] hrs playtime")
+	var/list/mob/dead/observer/candidates = pollCandidates("Do you want to play as [M.real_name ? M.real_name : M.name]?", poll_time = 100, min_hours = minhours)
+	var/mob/dead/observer/theghost = null
+
+	if(LAZYLEN(candidates))
+		theghost = pick(candidates)
+		to_chat(M, "Your mob has been taken over by a ghost!")
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
+		M.ghostize()
+		M.key = theghost.key
+	else
+		to_chat(M, "There were no ghosts willing to take control.")
+		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
+
 /proc/check_zone(zone)
 	if(!zone)	return "chest"
 	switch(zone)
@@ -183,8 +201,8 @@
 
 /proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
-	var/leng=lentext(phrase)
-	var/counter=lentext(phrase)
+	var/leng=length(phrase)
+	var/counter=length(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
@@ -277,8 +295,8 @@
 
 proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
-	var/leng=lentext(phrase)
-	var/counter=lentext(phrase)
+	var/leng=length(phrase)
+	var/counter=length(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
@@ -550,10 +568,10 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 		//Fixes renames not being reflected in objective text
 		var/length
 		var/pos
-		for(var/datum/objective/objective in all_objectives)
+		for(var/datum/objective/objective in GLOB.all_objectives)
 			if(!mind || objective.target != mind)
 				continue
-			length = lentext(oldname)
+			length = length(oldname)
 			pos = findtextEx(objective.explanation_text, oldname)
 			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
 	return 1
@@ -592,8 +610,8 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
-	var/leng = lentext(phrase)
-	var/counter=lentext(phrase)
+	var/leng = length(phrase)
+	var/counter=length(phrase)
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)

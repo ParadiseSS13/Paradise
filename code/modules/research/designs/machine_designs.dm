@@ -122,16 +122,6 @@
 	build_path = /obj/item/circuitboard/bodyscanner
 	category = list("Medical Machinery")
 
-/datum/design/bodyscanner_console
-	name = "Machine Board (Body Scanner Console)"
-	desc = "Allows for the construction of circuit boards used to build a Body Scanner Console."
-	id = "bodyscanner_console"
-	req_tech = list("programming" = 3, "biotech" = 2, "engineering" = 3)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/bodyscanner_console
-	category = list("Medical Machinery")
-
 /datum/design/clonepod
 	name = "Machine Board (Cloning Pod)"
 	desc = "Allows for the construction of circuit boards used to build a Cloning Pod."

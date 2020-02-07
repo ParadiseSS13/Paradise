@@ -47,14 +47,8 @@ var/global/list/image/splatter_cache = list()
 				mode_ticker.blood_check()
 	if(type == /obj/effect/decal/cleanable/blood/gibs)
 		return
-	if(type == /obj/effect/decal/cleanable/blood)
-		if(loc && isturf(loc))
-			for(var/obj/effect/decal/cleanable/blood/B in loc)
-				if(B != src)
-					if(B.blood_DNA)
-						blood_DNA |= B.blood_DNA.Copy()
-					qdel(B)
-	dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
+	if(!.)
+		dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(GAMEMODE_IS_CULT)
@@ -148,8 +142,8 @@ var/global/list/image/splatter_cache = list()
 		icon_state = "writing1"
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
-	..(user)
-	to_chat(user, "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>")
+	. = ..()
+	. += "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>"
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
@@ -177,6 +171,9 @@ var/global/list/image/splatter_cache = list()
 	overlays.Cut()
 	overlays += giblets
 	. = ..()
+
+/obj/effect/decal/cleanable/blood/gibs/ex_act(severity)
+	return
 
 /obj/effect/decal/cleanable/blood/gibs/up
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6", "gibup1", "gibup1", "gibup1")

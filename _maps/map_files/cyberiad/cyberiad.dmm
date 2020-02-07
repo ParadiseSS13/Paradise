@@ -2820,7 +2820,7 @@
 	},
 /area/shuttle/syndicate)
 "afD" = (
-/obj/machinery/vending/wallmed1/syndicate{
+/obj/machinery/vending/wallmed/syndicate{
 	pixel_x = -30
 	},
 /turf/simulated/shuttle/floor{
@@ -3957,12 +3957,6 @@
 /area/shuttle/syndicate)
 "ahw" = (
 /obj/machinery/optable,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/shuttle/syndicate)
-"ahx" = (
-/obj/machinery/body_scanconsole,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -5211,10 +5205,7 @@
 	pixel_x = 0;
 	pixel_y = 10
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /obj/effect/decal/warning_stripes/east,
 /obj/item/clothing/glasses/welding,
 /obj/item/radio/intercom/department/security{
@@ -5330,10 +5321,6 @@
 "ajH" = (
 /obj/machinery/bodyscanner,
 /obj/machinery/light/spot,
-/turf/simulated/shuttle/floor4/vox,
-/area/shuttle/vox)
-"ajI" = (
-/obj/machinery/body_scanconsole,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "ajJ" = (
@@ -8956,7 +8943,7 @@
 	},
 /area/security/prison/cell_block/A)
 "apA" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	dir = 2;
 	name = "Emergency NanoMed";
 	pixel_x = -27;
@@ -15799,7 +15786,7 @@
 "aAd" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aAe" = (
 /turf/space,
 /turf/simulated/shuttle/wall{
@@ -15856,7 +15843,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aAm" = (
 /turf/simulated/wall/r_wall,
 /area/crew_quarters/courtroom)
@@ -16579,7 +16566,7 @@
 	initialize_directions = 10
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aBF" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
@@ -16609,7 +16596,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aBG" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
@@ -17125,7 +17112,7 @@
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aCD" = (
 /obj/machinery/door/airlock/external{
 	frequency = 1379;
@@ -17143,7 +17130,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aCE" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "1"
@@ -17575,13 +17562,13 @@
 	d2 = 4
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDv" = (
 /turf/simulated/wall,
 /area/security/lobby)
 "aDw" = (
 /turf/simulated/wall/r_wall,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDx" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
@@ -17598,7 +17585,7 @@
 	filled = 0.05
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDy" = (
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -17622,7 +17609,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aDz" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/cigarette/pipe,
@@ -18153,7 +18140,7 @@
 "aEC" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aED" = (
 /obj/machinery/power/terminal,
 /obj/machinery/light/small{
@@ -18164,7 +18151,7 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aEE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -18173,7 +18160,7 @@
 	tag = ""
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aEF" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -18753,7 +18740,7 @@
 	shock_proof = 1
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFR" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -18763,7 +18750,7 @@
 	charge = 0
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFS" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -18776,11 +18763,11 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plating,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFT" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall,
-/area/solar/auxport)
+/area/maintenance/auxsolarport)
 "aFU" = (
 /obj/structure/table,
 /obj/item/toy/figure/detective,
@@ -18897,7 +18884,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
 	},
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "aGk" = (
@@ -23706,7 +23693,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/fore)
 "aQE" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = 28;
@@ -24494,14 +24481,8 @@
 "aRZ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "aSa" = (
@@ -25837,7 +25818,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -5;
 	pixel_y = 30;
@@ -27498,7 +27479,7 @@
 	},
 /area/security/nuke_storage)
 "aXS" = (
-/obj/machinery/lapvend,
+/obj/machinery/vending/modularpc,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
 "aXU" = (
@@ -28853,7 +28834,7 @@
 /area/chapel/office)
 "baA" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 5
@@ -31966,13 +31947,13 @@
 /area/chapel/office)
 "bfW" = (
 /obj/structure/rack,
-/obj/item/storage/fancy/candle_box,
-/obj/item/storage/fancy/candle_box{
+/obj/item/storage/fancy/candle_box/full{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/fancy/candle_box{
-	pixel_x = 3;
+/obj/item/storage/fancy/candle_box/full,
+/obj/item/storage/fancy/candle_box/full{
+	pixel_x = -3;
 	pixel_y = -3
 	},
 /turf/simulated/floor/plating,
@@ -33468,7 +33449,7 @@
 	},
 /area/hallway/primary/central/north)
 "biP" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
@@ -33483,7 +33464,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "biR" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -35465,7 +35446,7 @@
 	},
 /area/library)
 "bmF" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/item/videocam,
 /obj/machinery/light_switch{
 	pixel_y = -25
@@ -35632,7 +35613,7 @@
 /area/chapel/main)
 "bmU" = (
 /obj/structure/table/wood,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42209,7 +42190,7 @@
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bAc" = (
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bAd" = (
@@ -43480,7 +43461,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCQ" = (
-/mob/living/simple_animal/pet/fox/Renault,
+/mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain)
 "bCR" = (
@@ -43532,7 +43513,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -43877,7 +43858,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bDF" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
 	pixel_x = 28;
@@ -45995,7 +45976,6 @@
 	},
 /area/medical/morgue)
 "bHL" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -25
@@ -49477,10 +49457,7 @@
 "bNN" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /obj/item/radio/intercom{
 	frequency = 1459;
 	name = "station intercom (General)";
@@ -49584,7 +49561,7 @@
 	icon_state = "4-8";
 	pixel_x = 0
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -50259,7 +50236,7 @@
 /area/assembly/robotics)
 "bPb" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/mob/living/simple_animal/pet/corgi/Ian/borgi,
+/mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50535,13 +50512,8 @@
 	pixel_x = -8;
 	pixel_y = 4
 	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000;
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus{
 	pixel_x = 5;
 	pixel_y = -5
 	},
@@ -50659,9 +50631,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/matter_bin,
 /obj/item/stock_parts/matter_bin,
 /obj/structure/table/glass,
@@ -52780,7 +52752,7 @@
 	pixel_y = 24
 	},
 /obj/structure/bed/dogbed/ian,
-/mob/living/simple_animal/pet/corgi/Ian,
+/mob/living/simple_animal/pet/dog/corgi/Ian,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bTe" = (
@@ -53796,10 +53768,7 @@
 "bUQ" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -55616,7 +55585,7 @@
 /area/medical/cryo)
 "bXP" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -56074,7 +56043,7 @@
 	},
 /area/crew_quarters/hor)
 "bYB" = (
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -58771,18 +58740,11 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/machinery/body_scanconsole,
+/obj/machinery/bodyscanner,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
-	},
-/area/medical/sleeper)
-"ccw" = (
-/obj/machinery/bodyscanner,
-/turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue";
-	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
 "ccx" = (
@@ -58812,7 +58774,7 @@
 	dir = 1;
 	network = list("SS13")
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -5;
 	pixel_y = -30;
@@ -60945,7 +60907,7 @@
 	},
 /area/medical/cmo)
 "cfY" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -61165,12 +61127,6 @@
 /area/crew_quarters/hor)
 "cgw" = (
 /obj/machinery/bodyscanner,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/administration)
-"cgx" = (
-/obj/machinery/body_scanconsole,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -62595,7 +62551,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -25;
 	pixel_y = 0;
@@ -63837,7 +63793,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "ckU" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery West";
 	dir = 1;
@@ -63979,7 +63934,6 @@
 	},
 /area/medical/surgery2)
 "clf" = (
-/obj/machinery/body_scanconsole,
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery East";
 	dir = 1;
@@ -70429,10 +70383,7 @@
 "cvA" = (
 /obj/structure/table,
 /obj/item/plant_analyzer,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cvB" = (
@@ -72124,7 +72075,6 @@
 	pixel_y = -3
 	},
 /obj/item/circuitboard/bodyscanner,
-/obj/item/circuitboard/bodyscanner_console,
 /obj/item/circuitboard/sleeper{
 	pixel_x = 3
 	},
@@ -74474,10 +74424,7 @@
 	pixel_y = 3
 	},
 /obj/item/stack/cable_coil,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "cCP" = (
@@ -74964,7 +74911,7 @@
 /area/toxins/misc_lab)
 "cDE" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -79001,7 +78948,7 @@
 "cKD" = (
 /obj/structure/table,
 /obj/structure/window/reinforced,
-/obj/item/storage/fancy/candle_box,
+/obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "cKE" = (
@@ -79735,7 +79682,7 @@
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "cMb" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -79748,7 +79695,7 @@
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint)
 "cMd" = (
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -79766,7 +79713,7 @@
 /obj/effect/landmark{
 	name = "revenantspawn"
 	},
-/mob/living/carbon/slime,
+/mob/living/simple_animal/slime,
 /turf/simulated/floor/engine,
 /area/toxins/xenobiology)
 "cMh" = (
@@ -81193,7 +81140,7 @@
 	},
 /area/toxins/xenobiology)
 "cOS" = (
-/obj/machinery/optable,
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -81960,10 +81907,8 @@
 /area/toxins/xenobiology)
 "cQt" = (
 /obj/structure/table/reinforced,
-/obj/item/circular_saw{
-	pixel_y = 0
-	},
 /obj/item/scalpel,
+/obj/item/hemostat,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -82057,7 +82002,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -83569,7 +83514,7 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cSX" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -84339,7 +84284,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/aft)
 "cUi" = (
-/obj/structure/chair/wood/normal,
+/obj/structure/chair/wood,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/mrchangs)
 "cUj" = (
@@ -84481,14 +84426,8 @@
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
 /obj/item/rcd_ammo,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus,
 /obj/item/clothing/glasses/meson{
 	pixel_y = 4
 	},
@@ -85202,10 +85141,7 @@
 	},
 /obj/item/airlock_electronics,
 /obj/item/airlock_electronics,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/storage/secure)
@@ -86337,7 +86273,7 @@
 /turf/simulated/floor/plasteel,
 /area/engine/engineering)
 "cXI" = (
-/obj/machinery/vending/wallmed1{
+/obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = 0;
 	pixel_y = -32;
@@ -88495,14 +88431,8 @@
 "dbO" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
-/obj/item/stock_parts/cell/high{
-	charge = 100;
-	maxcharge = 15000
-	},
+/obj/item/stock_parts/cell/high/plus,
+/obj/item/stock_parts/cell/high/plus,
 /obj/item/stack/cable_coil{
 	pixel_x = 3;
 	pixel_y = -7
@@ -91152,7 +91082,7 @@
 	name = "station intercom (General)";
 	pixel_y = -28
 	},
-/obj/structure/chair/wood/normal{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -106627,7 +106557,7 @@ bRA
 bPI
 cdo
 ceR
-cgx
+ceR
 cii
 ckf
 clE
@@ -107567,7 +107497,7 @@ abV
 abV
 agF
 ahg
-ahx
+abV
 ahy
 ahP
 aaa
@@ -133098,7 +133028,7 @@ bXG
 bZi
 cgM
 caI
-ccw
+ccu
 ceg
 cfI
 cho
@@ -154860,7 +154790,7 @@ agZ
 ail
 aiL
 aha
-ajI
+aha
 ajY
 akp
 aaa

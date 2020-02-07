@@ -9,6 +9,7 @@
 	item_state = "bulldog"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/tank = null //The gas tank that is drawn from to fire things
@@ -22,16 +23,14 @@
 	return ..()
 
 /obj/item/pneumatic_cannon/examine(mob/user)
-	..()
+	. = ..()
 	if(!in_range(user, src))
-		to_chat(user, "<span class='notice'>You'll need to get closer to see any more.</span>")
-		return
-	for(var/obj/item/I in loadedItems)
-		spawn(0)
-			to_chat(user, "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>")
-	if(tank)
-		to_chat(user, "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>")
-
+		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
+	else
+		if(tank)
+			. += "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>"
+		for(var/obj/item/I in loadedItems)
+			. += "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>"
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()
@@ -145,7 +144,8 @@
 				/obj/item/stack/packageWrap = 8,
 				/obj/item/pipe = 2)
 	time = 300
-	category = CAT_WEAPON
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
 
 /obj/item/pneumatic_cannon/proc/updateTank(obj/item/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)

@@ -124,6 +124,11 @@
 	securityActive2 = null
 	return ..()
 
+/mob/living/silicon/pai/can_unbuckle()
+	return FALSE
+
+/mob/living/silicon/pai/can_buckle()
+	return FALSE
 
 /mob/living/silicon/pai/movement_delay()
 	. = ..()
@@ -227,14 +232,8 @@
 // See software.dm for Topic()
 
 /mob/living/silicon/pai/attack_animal(mob/living/simple_animal/M)
-	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
-		M.custom_emote(1, "[M.friendly] [src].")
-	else
-		M.do_attack_animation(src)
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("<span class='danger'>[M]</span> [M.attacktext] [src]!", 1)
+	. = ..()
+	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		add_attack_logs(M, src, "Animal attacked for [damage] damage")
 		adjustBruteLoss(damage)
@@ -319,7 +318,7 @@
 	set category = "pAI Commands"
 	set name = "Unfold Chassis"
 
-	if(stat || sleeping || paralysis || weakened)
+	if(stat || sleeping || paralysis || IsWeakened())
 		return
 
 	if(loc != card)
@@ -354,7 +353,7 @@
 	set category = "pAI Commands"
 	set name = "Collapse Chassis"
 
-	if(stat || sleeping || paralysis || weakened)
+	if(stat || sleeping || paralysis || IsWeakened())
 		return
 
 	if(loc == card)
@@ -526,8 +525,7 @@
 	density = 0 //this is reset every canmove update otherwise
 
 /mob/living/silicon/pai/examine(mob/user)
-	to_chat(user, "<span class='info'>*---------*</span>")
-	..(user)
+	. = ..()
 
 	var/msg = "<span class='info'>"
 
@@ -540,12 +538,12 @@
 	if(print_flavor_text()) msg += "\n[print_flavor_text()]"
 
 	if(pose)
-		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
+		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 	msg += "\n*---------*</span>"
 
-	to_chat(user, msg)
+	. += msg
 
 /mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
 	..(Proj)

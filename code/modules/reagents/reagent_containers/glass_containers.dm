@@ -13,6 +13,7 @@
 	volume = 50
 	container_type = OPENCONTAINER
 	has_lid = TRUE
+	resistance_flags = ACID_PROOF
 
 	var/label_text = ""
 	// the fucking asshole who designed this can go die in a fire - Iamgoofball
@@ -51,10 +52,9 @@
 	base_name = name
 
 /obj/item/reagent_containers/glass/examine(mob/user)
-	if(!..(user, 2))
-		return
-	if(!is_open_container())
-		to_chat(user, "<span class='notice'>Airtight lid seals it completely.</span>")
+	. = ..()
+	if(get_dist(user, src) <= 2 && !is_open_container())
+		. += "<span class='notice'>Airtight lid seals it completely.</span>"
 
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
 	if(!is_open_container())
@@ -344,8 +344,9 @@
 	amount_per_transfer_from_this = 20
 	possible_transfer_amounts = list(5,10,15,20,25,30,50,80,100,120)
 	volume = 120
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
 	slot_flags = SLOT_HEAD
+	resistance_flags = NONE
 	container_type = OPENCONTAINER
 
 /obj/item/reagent_containers/glass/bucket/wooden
@@ -353,7 +354,8 @@
 	icon_state = "woodbucket"
 	item_state = "woodbucket"
 	materials = null
-	burn_state = FLAMMABLE
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50)
+	resistance_flags = FLAMMABLE
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
     ..()

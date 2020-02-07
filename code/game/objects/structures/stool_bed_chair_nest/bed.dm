@@ -17,8 +17,9 @@
 	can_buckle = TRUE
 	anchored = TRUE
 	buckle_lying = TRUE
-	burn_state = FLAMMABLE
-	burntime = 30
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	integrity_failure = 30
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 2
 	buckle_offset = -6
@@ -29,8 +30,6 @@
 	desc = "For prime comfort during psychiatric evaluations."
 	icon_state = "psychbed"
 	buildstackamount = 5
-	can_buckle = TRUE
-	buckle_lying = TRUE
 
 /obj/structure/bed/alien
 	name = "resting contraption"
@@ -41,18 +40,19 @@
 /obj/structure/bed/proc/handle_rotation()
 	return
 
-/obj/structure/bed/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(loc, W.usesound, 50, 1)
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+/obj/structure/bed/attackby(obj/item/W, mob/user, params)
+	if(iswrench(W) && !(flags & NODECONSTRUCT))
+		playsound(loc, W.usesound, 50, TRUE)
+		deconstruct(TRUE)
+	else
+		return ..()
 
-/obj/structure/bed/attack_animal(mob/living/simple_animal/user)
-	if(user.environment_smash)
-		user.do_attack_animation(src)
-		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
-		new buildstacktype(loc, buildstackamount)
-		qdel(src)
+/obj/structure/bed/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(buildstacktype)
+			new buildstacktype(loc, buildstackamount)
+	..()
+
 
 /*
  * Roller beds
@@ -62,24 +62,29 @@
 	name = "roller bed"
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
 
-/obj/structure/bed/roller/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller_holder))
-		if(buckled_mob)
-			user_unbuckle_mob(user)
+		if(has_buckled_mobs())
+			if(buckled_mobs.len > 1)
+				unbuckle_all_mobs()
+				user.visible_message("<span class='notice'>[user] unbuckles all creatures from [src].</span>")
+			else
+				user_unbuckle_mob(buckled_mobs[1], user)
 		else
 			user.visible_message("<span class='notice'>[user] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 			new/obj/item/roller(get_turf(src))
 			qdel(src)
+	else
+		return ..()
 
 /obj/structure/bed/roller/post_buckle_mob(mob/living/M)
-	if(M == buckled_mob)
-		density = TRUE
-		icon_state = "up"
-		M.pixel_y = initial(M.pixel_y)
+	density = TRUE
+	icon_state = "up"
+	M.pixel_y = initial(M.pixel_y)
 
 /obj/structure/bed/roller/post_unbuckle_mob(mob/living/M)
 	density = FALSE
@@ -112,7 +117,7 @@
 	if(over_object == usr && Adjacent(usr) && (in_range(src, usr) || usr.contents.Find(src)))
 		if(!ishuman(usr))
 			return
-		if(buckled_mob)
+		if(has_buckled_mobs())
 			return 0
 		usr.visible_message("<span class='notice'>[usr] collapses \the [name].</span>", "<span class='notice'>You collapse \the [name].</span>")
 		new/obj/item/roller(get_turf(src))

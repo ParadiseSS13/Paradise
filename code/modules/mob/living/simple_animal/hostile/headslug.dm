@@ -15,18 +15,19 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	robust_searching = 1
-	stat_attack = 2
+	stat_attack = DEAD
 	obj_damage = 0
 	environment_smash = 0
 	speak_emote = list("squeaks")
 	ventcrawler = 2
 	var/datum/mind/origin
 	var/egg_lain = 0
+	sentience_type = SENTIENCE_OTHER
 
 /mob/living/simple_animal/hostile/headslug/examine(mob/user)
-	..()
+	. = ..()
 	if(stat == DEAD)
-		to_chat(desc = "It appears to be dead.")
+		. += "It appears to be dead."
 
 /mob/living/simple_animal/hostile/headslug/proc/Infect(mob/living/carbon/victim)
 	var/obj/item/organ/internal/body_egg/changeling_egg/egg = new(victim)
@@ -36,16 +37,14 @@
 	else if(mind) // Let's make this a feature
 		egg.origin = mind
 	for(var/obj/item/organ/internal/I in src)
-		I.loc = egg
+		I.forceMove(egg)
 	visible_message("<span class='warning'>[src] plants something in [victim]'s flesh!</span>", \
 					"<span class='danger'>We inject our egg into [victim]'s body!</span>")
 	egg_lain = 1
 
 /mob/living/simple_animal/hostile/headslug/AttackingTarget()
-	if(egg_lain)
-		target.attack_animal(src)
-		return
-	if(iscarbon(target) && !issmall(target))
+	. = ..()
+	if(. && !egg_lain && iscarbon(target) && !issmall(target))
 		// Changeling egg can survive in aliens!
 		var/mob/living/carbon/C = target
 		if(C.stat == DEAD)
@@ -54,10 +53,7 @@
 				return
 			Infect(target)
 			to_chat(src, "<span class='userdanger'>With our egg laid, our death approaches rapidly...</span>")
-			spawn(100)
-				death()
-			return
-	target.attack_animal(src)
+			addtimer(CALLBACK(src, .proc/death), 100)
 
 /obj/item/organ/internal/body_egg/changeling_egg
 	name = "changeling egg"

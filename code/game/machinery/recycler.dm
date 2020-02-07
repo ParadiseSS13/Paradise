@@ -8,6 +8,7 @@ var/const/SAFETY_COOLDOWN = 100
 	layer = MOB_LAYER+1 // Overhead
 	anchored = 1
 	density = 1
+	damage_deflection = 10
 	var/safety_mode = 0 // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
 	var/blood = 0
@@ -41,10 +42,10 @@ var/const/SAFETY_COOLDOWN = 100
 	amount_produced = min(100, amt_made)
 
 /obj/machinery/recycler/examine(mob/user)
-	..(user)
-	to_chat(user, "The power light is [(stat & NOPOWER) ? "off" : "on"].")
-	to_chat(user, "The safety-mode light is [safety_mode ? "on" : "off"].")
-	to_chat(user, "The safety-sensors status light is [emagged ? "off" : "on"].")
+	. = ..()
+	. += "The power light is [(stat & NOPOWER) ? "off" : "on"]."
+	. += "The safety-mode light is [safety_mode ? "on" : "off"]."
+	. += "The safety-sensors status light is [emagged ? "off" : "on"]."
 
 /obj/machinery/recycler/power_change()
 	..()

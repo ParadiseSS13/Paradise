@@ -28,21 +28,21 @@
 /obj/machinery/poolcontroller/invisible/sea
 	name = "Sea Controller"
 	desc = "A controller for the underwater portion of the sea. Players shouldn't see this."
-	deep_water = TRUE	
+	deep_water = TRUE
 
-/obj/machinery/poolcontroller/Initialize(mapload) 
-	var/contents_loop = linked_area 
+/obj/machinery/poolcontroller/Initialize(mapload)
+	var/contents_loop = linked_area
 	if(!linked_area)
 		contents_loop = range(srange, src)
 
 	for(var/turf/T in contents_loop)
 		if(istype(T, /turf/simulated/floor/beach/water))
 			var/turf/simulated/floor/beach/water/W = T
-			W.linkedcontroller = src 
+			W.linkedcontroller = src
 			linkedturfs += T
 		else if(istype(T, /turf/unsimulated/beach/water))
 			var/turf/unsimulated/beach/water/W = T
-			W.linkedcontroller = src 
+			W.linkedcontroller = src
 			linkedturfs += T
 
 	. = ..()
@@ -116,12 +116,12 @@
 	if(!drownee)
 		return
 
-	if(drownee && (drownee.lying || deep_water)) //Mob lying down or water is deep (determined by controller)
+	if(drownee && ((drownee.lying && !drownee.player_logged) || deep_water)) //Mob lying down and not SSD or water is deep (determined by controller)
 		if(drownee.internal)
 			return //Has internals, no drowning
 		if((NO_BREATHE in drownee.dna.species.species_traits) || (BREATHLESS in drownee.mutations))
 			return //doesn't breathe, no drowning
-		if(isskrell(drownee) || isneara(drownee))
+		if(HAS_TRAIT(drownee,TRAIT_WATERBREATH))
 			return //fish things don't drown
 
 		if(drownee.stat == DEAD)	//Dead spacemen don't drown more

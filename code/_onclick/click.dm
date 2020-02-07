@@ -107,6 +107,9 @@
 	if(next_move > world.time) // in the year 2000...
 		return
 
+	if(!modifiers["catcher"] && A.IsObscured())
+		return
+
 	if(istype(loc,/obj/mecha))
 		if(!locate(/turf) in list(A,A.loc)) // Prevents inventory from being drilled
 			return
@@ -172,6 +175,24 @@
 
 	return
 
+//Is the atom obscured by a PREVENT_CLICK_UNDER_1 object above it
+/atom/proc/IsObscured()
+	if(!isturf(loc)) //This only makes sense for things directly on turfs for now
+		return FALSE
+	var/turf/T = get_turf_pixel(src)
+	if(!T)
+		return FALSE
+	for(var/atom/movable/AM in T)
+		if(AM.flags & PREVENT_CLICK_UNDER && AM.density && AM.layer > layer)
+			return TRUE
+	return FALSE
+
+/turf/IsObscured()
+	for(var/atom/movable/AM in src)
+		if(AM.flags & PREVENT_CLICK_UNDER && AM.density)
+			return TRUE
+	return FALSE
+
 // Default behavior: ignore double clicks, consider them normal clicks instead
 /mob/proc/DblClickOn(var/atom/A, var/params)
 	return
@@ -199,15 +220,8 @@
 	for things like ranged glove touches, spitting alien acid/neurotoxin,
 	animals lunging, etc.
 */
-/mob/proc/RangedAttack(var/atom/A, var/params)
-	if(!mutations.len)
-		return
-	if((LASER in mutations) && a_intent == INTENT_HARM)
-		LaserEyes(A) // moved into a proc below
-		return
-	else
-		if(TK in mutations)
-			A.attack_tk(src)
+/mob/proc/RangedAttack(atom/A, params)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED, A, params)
 /*
 	Restrained ClickOn
 
@@ -375,7 +389,7 @@
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)
 
 	LE.firer = src
-	LE.def_zone = get_organ_target()
+	LE.def_zone = ran_zone(zone_selected)
 	LE.original = A
 	LE.current = T
 	LE.yo = U.y - T.y
@@ -399,8 +413,8 @@
 	dir = direction
 
 /obj/screen/click_catcher
-	icon = 'icons/mob/screen_full.dmi'
-	icon_state = "passage0"
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "catcher"
 	plane = CLICKCATCHER_PLANE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	screen_loc = "CENTER"
@@ -430,5 +444,7 @@
 		C.swap_hand()
 	else
 		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr))
-		T.Click(location, control, params)
-	return 1
+		params += "&catcher=1"
+		if(T)
+			T.Click(location, control, params)
+	. = 1

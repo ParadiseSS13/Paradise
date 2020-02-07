@@ -202,7 +202,7 @@
 				if(ishuman(M))
 					Robot.mmi.transfer_identity(M)	//Does not transfer key/client.
 			if("slime")
-				new_mob = new /mob/living/carbon/slime/random(M.loc)
+				new_mob = new /mob/living/simple_animal/slime/random(M.loc)
 				new_mob.universal_speak = TRUE
 			if("xeno")
 				if(prob(50))
@@ -234,7 +234,7 @@
 						if("parrot")
 							new_mob = new /mob/living/simple_animal/parrot(M.loc)
 						if("corgi")
-							new_mob = new /mob/living/simple_animal/pet/corgi(M.loc)
+							new_mob = new /mob/living/simple_animal/pet/dog/corgi(M.loc)
 						if("crab")
 							new_mob = new /mob/living/simple_animal/crab(M.loc)
 						if("cat")
@@ -248,7 +248,7 @@
 						if("lizard")
 							new_mob = new /mob/living/simple_animal/lizard(M.loc)
 						if("fox")
-							new_mob = new /mob/living/simple_animal/pet/fox(M.loc)
+							new_mob = new /mob/living/simple_animal/pet/dog/fox(M.loc)
 						else
 							new_mob = new /mob/living/simple_animal/chick(M.loc)
 				new_mob.universal_speak = TRUE
