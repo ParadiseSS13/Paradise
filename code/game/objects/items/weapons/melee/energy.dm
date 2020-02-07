@@ -220,9 +220,6 @@
 	icon_state_on = "cutlass1"
 	light_color = LIGHT_COLOR_RED
 
-/obj/item/melee/energy/sword/pirate/New()
-	..()
-
 /obj/item/melee/energy/blade
 	name = "energy blade"
 	desc = "A concentrated beam of energy in the shape of a blade. Very stylish... and lethal."
