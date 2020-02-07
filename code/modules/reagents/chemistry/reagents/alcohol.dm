@@ -1190,7 +1190,7 @@
 	taste_description = "motor oil"
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
-    if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
         holder.remove_reagent(id, 3.6) //gets removed from organics very fast
         if(prob(25))
             holder.remove_reagent(id, 15)
