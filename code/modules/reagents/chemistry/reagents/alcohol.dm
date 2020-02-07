@@ -1191,12 +1191,12 @@
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
-        holder.remove_reagent(id, 3.6) //gets removed from organics very fast
-        if(prob(25))
-            holder.remove_reagent(id, 15)
-            M.fakevomit()
+		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
+		if(prob(25))
+			holder.remove_reagent(id, 15)
+			M.fakevomit()
 
-    return ..()
+	return ..()
 
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
