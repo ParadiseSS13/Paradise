@@ -1175,7 +1175,7 @@
 #include "code\HISPANIA\game\objects\items\miscellaneous\bell.dm"
 #include "code\HISPANIA\game\objects\items\miscellaneous\UNO.dm"
 #include "code\HISPANIA\game\objects\items\robot\robot_upgrades.dm"
-#include "code\HISPANIA\game\objects\items\toys\Balloons.dm"
+#include "code\HISPANIA\game\objects\items\toys\balloons.dm"
 #include "code\HISPANIA\game\objects\items\weapons\chronoeraser.dm"
 #include "code\HISPANIA\game\objects\items\weapons\manuals.dm"
 #include "code\HISPANIA\game\objects\items\weapons\stock_parts.dm"
