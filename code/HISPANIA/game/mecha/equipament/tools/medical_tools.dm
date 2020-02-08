@@ -89,7 +89,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/large
 	name = "exosuit large syringe gun"
 	desc = "Equipment for medical exosuits. A upgraded exosuit syringe gun"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/hispania/obj/guns/projectile.dmi'
 	icon_state = "rapidsyringegun"
 	max_syringes = 20
 	max_volume = 150
