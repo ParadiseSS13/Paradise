@@ -1153,6 +1153,7 @@
 #include "code\game\verbs\suicide.dm"
 #include "code\game\verbs\who.dm"
 #include "code\HISPANIA\datums\supplypacks.dm"
+#include "code\HISPANIA\datums\diseases\black_death.dm"
 #include "code\HISPANIA\datums\diseases\spacepox.dm"
 #include "code\HISPANIA\defines\procs\discord.dm"
 #include "code\HISPANIA\game\data_huds.dm"
