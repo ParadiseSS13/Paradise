@@ -215,23 +215,37 @@
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
 	var/turf/T = get_turf(user)
+	var/list/mobs_in_view = user.get_visible_mobs()
+	var/list/names = list()
+	var/unknowns = 1
+	
 	for(var/mob/living/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
 				continue
-			validtargets += M
+			var/mob_name
+			if(M in mobs_in_view)
+				mob_name = M.name
+			else
+				mob_name = "Unknown entity([unknowns++])" // Avoid dupes
+			if(validtargets[name])
+				mob_name = "[mob_name](2)"
+			names += mob_name
+			validtargets[mob_name] = M
 
 	if(!validtargets.len)
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
 		start_recharge()
 		return
 
-	targets += input("Choose the target to talk to.", "Targeting") as null|mob in validtargets
+	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in names
 
-	if(!targets.len || !targets[1]) //doesn't waste the spell
+	var/mob/living/target
+	if(!target_name || !(target = validtargets[target_name]))
 		revert_cast(user)
 		return
 
+	targets += target
 	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/remotetalk/cast(list/targets, mob/user = usr)
@@ -248,7 +262,7 @@
 			target.show_message("<span class='abductor'>You hear [user.real_name]'s voice: [say]</span>")
 		else
 			target.show_message("<span class='abductor'>You hear a voice that seems to echo around the room: [say]</span>")
-		user.show_message("<span class='abductor'>You project your mind into [target.name]: [say]</span>")
+		user.show_message("<span class='abductor'>You project your mind into [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"]: [say]</span>")
 		for(var/mob/dead/observer/G in GLOB.player_list)
 			G.show_message("<i>Telepathic message from <b>[user]</b> ([ghost_follow_link(user, ghost=G)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=G)]): [say]</i>")
 
@@ -268,23 +282,37 @@
 	var/list/targets = new /list()
 	var/list/validtargets = new /list()
 	var/turf/T = get_turf(user)
+	var/list/mobs_in_view = user.get_visible_mobs()
+	var/list/names = list()
+	var/unknowns = 1
+	
 	for(var/mob/living/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
 				continue
-			validtargets += M
+			var/mob_name
+			if(M in mobs_in_view)
+				mob_name = M.name
+			else
+				mob_name = "Unknown entity([unknowns++])" // Avoid dupes
+			if(validtargets[name])
+				mob_name = "[mob_name](2)"
+			names += mob_name
+			validtargets[mob_name] = M
 
 	if(!validtargets.len)
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
 		start_recharge()
 		return
 
-	targets += input("Choose the target to listen to.", "Targeting") as null|mob in validtargets
+	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in names
 
-	if(!targets.len || !targets[1]) //doesn't waste the spell
+	var/mob/living/target
+	if(!target_name || !(target = validtargets[target_name]))
 		revert_cast(user)
 		return
 
+	targets += target
 	perform(targets, user = user)
 
 /obj/effect/proc_holder/spell/targeted/mindscan/cast(list/targets, mob/user = usr)
@@ -294,7 +322,7 @@
 		var/message = "You feel your mind expand briefly... (Click to send a message.)"
 		if(REMOTE_TALK in target.mutations)
 			message = "You feel [user.real_name] request a response from you... (Click here to project mind.)"
-		user.show_message("<span class='abductor'>You offer your mind to [target.name].</span>")
+		user.show_message("<span class='abductor'>You offer your mind to [(target in user.get_visible_mobs()) ? target.name : "the unknown entity"].</span>")
 		target.show_message("<span class='abductor'><A href='?src=[UID()];target=[target.UID()];user=[user.UID()]'>[message]</a></span>")
 		available_targets += target
 		addtimer(CALLBACK(src, .proc/removeAvailability, target), 100)

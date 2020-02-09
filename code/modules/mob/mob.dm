@@ -500,6 +500,13 @@ var/list/slot_equipment_priority = list( \
 		return 0 //Unsupported slot
 		//END HUMAN
 
+/mob/proc/get_visible_mobs()
+	var/list/seen_mobs = list()
+	for(var/mob/M in view(src))
+		seen_mobs += M
+	
+	return seen_mobs
+
 // If you're looking for `reset_perspective`, that's a synonym for this proc.
 /mob/proc/reset_perspective(atom/A)
 	if(client)
