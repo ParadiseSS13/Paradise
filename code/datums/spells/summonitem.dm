@@ -59,17 +59,13 @@
 				if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 					var/mob/M = item_to_retrieve.loc
 
-					if(issilicon(M)) //Items in silicons warp the whole silicon
-						M.loc.visible_message("<span class='warning'>[M] suddenly disappears!</span>")
-						M.loc = target.loc
+					if(issilicon(M) || !M.unEquip(item_to_retrieve)) //Items in silicons warp the whole silicon
+						M.visible_message("<span class='warning'>[M] suddenly disappears!</span>", "<span class='danger'>A force suddenly pulls you away!</span>")
+						M.forceMove(target.loc)
 						M.loc.visible_message("<span class='caution'>[M] suddenly appears!</span>")
 						item_to_retrieve = null
 						break
 
-					if(!M.unEquip(item_to_retrieve))
-						to_chat(M, "<span class='warning'>You feel a force pulling at [item_to_retrieve]!</span>")
-						to_chat(target, "<span class='warning'>A force withholds [item_to_retrieve] to be recalled to you!</span>")
-						return
 					if(ishuman(M)) //Edge case housekeeping
 						var/mob/living/carbon/human/C = M
 						/*if(C.internal_bodyparts_by_name  && item_to_retrieve in C.internal_bodyparts_by_name ) //This won't work, as we use organ datums instead of objects. --DZD
