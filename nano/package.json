@@ -6,7 +6,8 @@
     "es5-shim": "^4.5.12",
     "font-awesome": "^4.7.0",
     "gulp-clean-css": "^3.10.0",
-    "js-url": "git+https://github.com/websanova/js-url.git"
+    "js-url": "git+https://github.com/websanova/js-url.git",
+    "less": "^3.11.0"
   },
   "devDependencies": {
     "fs-extra": "^7.0.1",
