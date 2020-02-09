@@ -138,7 +138,8 @@ services:
         image: paradisess13/paradise
         restart: unless-stopped
         ports:
-            - 1337:1337
+            - 6666:6666
+
         volumes:
             - /path/to/config:/paradise/config
             - /path/to/data:/paradise/data
