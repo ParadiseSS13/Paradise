@@ -62,5 +62,6 @@ WORKDIR /paradise
 COPY --from=paradise_build / /
 VOLUME [ "/paradise/config", "/paradise/data" ]
 ENTRYPOINT ["./docker-entrypoint.sh"]
-CMD [ "DreamDaemon", "paradise.dmb", "-port", "1337", "-trusted", "-close", "-verbose" ]
+CMD [ "DreamDaemon", "paradise.dmb", "-port", "6666", "-trusted", "-close", "-verbose" ]
+
 EXPOSE 1337
