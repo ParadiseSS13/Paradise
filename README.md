@@ -122,7 +122,8 @@ along with the bot/relay script itself.
 Alternatively, you can run the entire server within a docker container using the following:
 
 ```
-docker run -itd -p <your port>:1337 -v /path/to/config:/paradise/config -v /path/to/data:/paradise/data paradisess13/paradise <dream daemon options i.e. -public or -params>
+docker run -itd -p <your port>:6666-v /path/to/config:/paradise/config -v /path/to/data:/paradise/data paradisess13/paradise <dream daemon options i.e. -public or -params>
+
 ```
 
 If using the configuration and data volumes (as the above example shoes) the default example configuration will be copied into the configuration directory on first start. 
