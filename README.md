@@ -115,6 +115,36 @@ channel/server (thanks to Skibiliano).
 Instructions for bot setup are included in the /bot/ folder,
 along with the bot/relay script itself.
 
+---
+
+### Running on Docker
+
+Alternatively, you can run the entire server within a docker container using the following:
+
+```
+docker run -itd -p <your port>:1337 -v /path/to/config:/paradise/config -v /path/to/data:/paradise/data paradisess13/paradise <dream daemon options i.e. -public or -params>
+```
+
+If using the configuration and data volumes (as the above example shoes) the default example configuration will be copied into the configuration directory on first start. 
+You can then modify the configuration to your specification and restart the server.
+
+An example docker-compose.yml file would be as follows:
+
+```
+version: '2'
+services:
+    paradisess13:
+        image: paradisess13/paradise
+        restart: unless-stopped
+        ports:
+            - 1337:1337
+        volumes:
+            - /path/to/config:/paradise/config
+            - /path/to/data:/paradise/data
+```       
+
+---
+
 ### LICENSE
 
 Paradise is licensed under the GNU Affero General Public License version 3.
