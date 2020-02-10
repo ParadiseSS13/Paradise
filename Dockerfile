@@ -44,11 +44,10 @@ FROM base_config as paradise_build
 WORKDIR /paradise
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    libmysqlclient20 \
+    libmariadb3 \
     libssl1.0.0
 RUN apt-get autoremove
-RUN rm -rf /var/lib/apt/lists/*
-RUN cp /usr/lib/i386-linux-gnu/libmysqlclient.so.20 /usr/lib/libmariadb.so
+RUN rm -rf /var/lib/apt/lists/*#RUN cp /usr/lib/i386-linux-gnu/libmariadb.so.3 /usr/lib/libmariadb.so
 COPY --from=byond /usr/local/byond/bin/DreamMaker /usr/local/bin
 COPY --from=byond /usr/local/byond/bin/DreamDaemon /usr/local/bin
 COPY --from=byond /usr/local/byond/bin/*.so /usr/lib/
