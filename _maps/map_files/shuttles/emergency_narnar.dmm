@@ -160,7 +160,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "az" = (
-/obj/structure/cult/talisman,
+/obj/structure/cult/altar,
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aA" = (

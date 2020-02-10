@@ -1,6 +1,6 @@
 // Hellhound
 /mob/living/simple_animal/hostile/hellhound
-	// Sprites by FoS: http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
 	name = "Lesser Hellhound"
 	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
 	icon_state = "hellhound"
@@ -92,25 +92,12 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/AttackingTarget()
-	. = ..()
-	if(. && ishuman(target) && (!client || a_intent == INTENT_HARM))
-		special_aoe()
-
 /mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
 	. = ..()
 	if(target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat != CONSCIOUS)
 			target = user
-
-/mob/living/simple_animal/hostile/hellhound/proc/special_aoe()
-	if(world.time < (smoke_lastuse + smoke_freq))
-		return
-	smoke_lastuse = world.time
-	var/datum/effect_system/smoke_spread/sleeping/smoke = new
-	smoke.set_up(10, 0, loc)
-	smoke.start()
 
 /mob/living/simple_animal/hostile/hellhound/greater
 	name = "Greater Hellhound"
@@ -121,9 +108,46 @@
 	maxHealth = 400
 	health = 400
 	force_threshold = 5 // no punching
+	universal_speak = 1
 	smoke_freq = 200
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	environment_smash = 2
-	gold_core_spawnable = NO_SPAWN
+
+/mob/living/simple_animal/hostile/hellhound/greater/New()
+	. = ..()
+	// Movement
+	AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
+	var/obj/effect/proc_holder/spell/targeted/area_teleport/teleport/telespell = new
+	telespell.clothes_req = FALSE
+	telespell.invocation_type = "none"
+	AddSpell(telespell)
+	var/obj/effect/proc_holder/spell/aoe_turf/knock/knockspell = new
+	knockspell.invocation_type = "none"
+	AddSpell(knockspell)
+	// Defense
+	var/obj/effect/proc_holder/spell/targeted/forcewall/greater/wallspell = new
+	wallspell.clothes_req = FALSE
+	wallspell.invocation_type = "none"
+	AddSpell(wallspell)
+	// Offense
+	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
+	summonspell.charge_max = 1
+	summonspell.invocation_type = "none"
+	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
+	summonspell.summon_amt = 1
+	AddSpell(summonspell)
+
+/mob/living/simple_animal/hostile/hellhound/greater/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target) && (!client || a_intent == INTENT_HARM))
+		special_aoe()
+
+/mob/living/simple_animal/hostile/hellhound/greater/proc/special_aoe()
+	if(world.time < (smoke_lastuse + smoke_freq))
+		return
+	smoke_lastuse = world.time
+	var/datum/effect_system/smoke_spread/sleeping/smoke = new
+	smoke.set_up(10, 0, loc)
+	smoke.start()

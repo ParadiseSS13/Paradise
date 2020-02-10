@@ -57,7 +57,7 @@
 			if(dna)
 				if(!blood_DNA)
 					blood_DNA = list()
-				blood_DNA[dna.unique_enzymes] = dna.b_type
+				blood_DNA[dna.unique_enzymes] = dna.blood_type
 	else
 		dna = new /datum/dna(null)
 		if(species_override)
@@ -79,7 +79,7 @@
 			blood_DNA.Cut()
 		else
 			blood_DNA = list()
-		blood_DNA[dna.unique_enzymes] = dna.b_type
+		blood_DNA[dna.unique_enzymes] = dna.blood_type
 
 /obj/item/organ/proc/necrotize(update_sprite = TRUE)
 	damage = max_damage

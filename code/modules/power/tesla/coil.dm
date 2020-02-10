@@ -54,7 +54,7 @@
 			wires.Interact(user)
 
 	else
-		..()
+		return ..()
 
 /obj/machinery/power/tesla_coil/tesla_act(var/power)
 	if(anchored && !panel_open)

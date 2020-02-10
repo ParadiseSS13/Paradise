@@ -101,6 +101,9 @@ var/list/ai_verbs_default = list(
 	var/obj/machinery/camera/portable/builtInCamera
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control
+	var/mob/living/silicon/robot/deployed_shell = null //For shell control
+	var/datum/action/innate/deploy_shell/deploy_action = new
+	var/datum/action/innate/deploy_last_shell/redeploy_action = new
 
 	var/arrivalmsg = "$name, $rank, has arrived on the station."
 
@@ -163,6 +166,7 @@ var/list/ai_verbs_default = list(
 	additional_law_channels["Holopad"] = ":h"
 
 	aiCamera = new/obj/item/camera/siliconcam/ai_camera(src)
+	deploy_action.Grant(src)
 
 	if(isturf(loc))
 		add_ai_verbs(src)
@@ -246,6 +250,8 @@ var/list/ai_verbs_default = list(
 	stat(null, text("Connected cyborgs: [connected_robots.len]"))
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		var/robot_status = "Nominal"
+		if(R.shell)
+			robot_status = "AI SHELL"
 		if(R.stat || !R.client)
 			robot_status = "OFFLINE"
 		else if(!R.cell || R.cell.charge <= 0)
@@ -254,6 +260,7 @@ var/list/ai_verbs_default = list(
 		var/area/A = get_area(R)
 		stat(null, text("[R.name] | S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
 		Module: [R.designation] | Loc: [sanitize(A.name)] | Status: [robot_status]"))
+	stat(null, text("AI shell beacons detected: [LAZYLEN(available_ai_shells)]")) //Count of total AI shells
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
 	if(!..(oldname, newname))
@@ -561,16 +568,18 @@ var/list/ai_verbs_default = list(
 	user.reset_perspective(current)
 	return TRUE
 
-/mob/living/silicon/ai/blob_act()
-	if(stat != 2)
+/mob/living/silicon/ai/blob_act(obj/structure/blob/B)
+	if(stat != DEAD)
 		adjustBruteLoss(60)
-		return TRUE
-	return FALSE
+		updatehealth()
+		return 1
+	return 0
 
 /mob/living/silicon/ai/restrained()
 	return FALSE
 
 /mob/living/silicon/ai/emp_act(severity)
+	disconnect_shell()
 	if(prob(30))
 		switch(pick(1,2))
 			if(1)
@@ -1163,6 +1172,7 @@ var/list/ai_verbs_default = list(
 	if(!..())
 		return
 	if(interaction == AI_TRANS_TO_CARD)//The only possible interaction. Upload AI mob to a card.
+		disconnect_shell() //If the AI is controlling a borg, force the player back to core!
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return

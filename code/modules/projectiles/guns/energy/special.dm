@@ -13,6 +13,8 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	zoomable = TRUE
+	zoom_amt = 3
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -29,6 +31,7 @@
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
+	zoomable = FALSE
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -43,7 +46,7 @@
 /obj/item/gun/energy/decloner/update_icon()
 	..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(power_supply.charge > shot.e_cost)
+	if(cell.charge > shot.e_cost)
 		overlays += "decloner_spin"
 
 // Flora Gun //
@@ -63,7 +66,7 @@
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/hispania/obj/guns/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "c20r"
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
@@ -160,26 +163,26 @@
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
-	if(power_supply)
-		. += "<span class='notice'>[src] is [round(power_supply.percent())]% charged.</span>"
+	if(cell)
+		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
-		if(power_supply.charge >= power_supply.maxcharge)
+		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
 			return
 		var/obj/item/stack/sheet/S = A
 		S.use(1)
-		power_supply.give(1000)
+		cell.give(1000)
 		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else if(istype(A, /obj/item/stack/ore/plasma))
-		if(power_supply.charge >= power_supply.maxcharge)
+		if(cell.charge >= cell.maxcharge)
 			to_chat(user,"<span class='notice'>[src] is already fully charged.")
 			return
 		var/obj/item/stack/ore/S = A
 		S.use(1)
-		power_supply.give(500)
+		cell.give(500)
 		on_recharge()
 		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
 	else
@@ -192,8 +195,12 @@
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
 	modifystate = "adv_plasmacutter"
+	item_state = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
+	toolspeed = 0.8
 	force = 15
 
 // Wormhole Projectors //
@@ -248,7 +255,7 @@
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
 	icon_state = "l6closed0"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/hispania/obj/guns/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
 	can_charge = 0
@@ -310,6 +317,7 @@
 	name = "L.W.A.P. Sniper Rifle"
 	desc = "A rifle constructed of lightweight materials, fitted with a SMART aiming-system scope."
 	icon_state = "esniper"
+	item_state = "lwap"
 	origin_tech = "combat=6;materials=5;powerstorage=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	slot_flags = SLOT_BACK
@@ -321,7 +329,7 @@
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
-	icon = 'icons/obj/guns/gun_temperature.dmi'
+	icon = 'icons/hispania/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
 	slot_flags = SLOT_BACK
@@ -489,7 +497,7 @@
 		M.update_inv_r_hand()
 
 /obj/item/gun/energy/temperature/proc/update_charge()
-	var/charge = power_supply.charge
+	var/charge = cell.charge
 	switch(charge)
 		if(900 to INFINITY)		overlays += "900"
 		if(800 to 900)			overlays += "800"

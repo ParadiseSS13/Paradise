@@ -3,7 +3,7 @@
 	desc = "An ancient staff retrieved from the remains of Legion. The wind stirs as you move it."
 	icon_state = "staffofstorms"
 	item_state = "staffofstorms"
-	icon = 'icons/obj/guns/magic.dmi'
+	icon = 'icons/hispania/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25

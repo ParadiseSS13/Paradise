@@ -50,7 +50,7 @@
 	if(!R.allow_rename)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return 0
-	R.notify_ai(3, R.name, heldname)
+	R.notify_ai(RENAME, R.name, heldname)
 	R.name = heldname
 	R.custom_name = heldname
 	R.real_name = heldname
@@ -75,7 +75,7 @@
 	R.stat = CONSCIOUS
 	GLOB.dead_mob_list -= R //please never forget this ever kthx
 	GLOB.living_mob_list += R
-	R.notify_ai(1)
+	R.notify_ai(NEW_BORG)
 
 	return 1
 

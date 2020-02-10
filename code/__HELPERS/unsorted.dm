@@ -308,7 +308,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone) || A.shell)
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -540,9 +540,20 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/between(var/low, var/middle, var/high)
 	return max(min(middle, high), low)
 
-proc/arctan(x)
+
+
+#if DM_VERSION > 513
+#warn 513 is definitely stable now, remove this
+#endif
+#if DM_VERSION < 513
+/proc/arctan(x)
 	var/y=arcsin(x/sqrt(1+x*x))
 	return y
+/proc/islist(list/list)
+	if(istype(list))
+		return 1
+	return 0
+#endif
 
 //returns random gauss number
 proc/GaussRand(var/sigma)

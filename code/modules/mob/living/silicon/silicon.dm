@@ -26,7 +26,7 @@
 	var/next_alarm_notice
 	var/list/datum/alarm/queued_alarms = new()
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_TRACK_HUD)
 
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
@@ -92,10 +92,10 @@
 /mob/living/silicon/proc/damage_mob(var/brute = 0, var/fire = 0, var/tox = 0)
 	return
 
-/mob/living/silicon/can_inject(var/mob/user, var/error_msg)
+/mob/living/silicon/can_inject(mob/user, error_msg)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>Their outer shell is too tough.</span>")
-	return 0
+		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough.</span>")
+	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE

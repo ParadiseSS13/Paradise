@@ -218,6 +218,9 @@ GUEST_BAN
 ## URL to use to link forum accounts. If not set, no link option will be offered.
 #FORUM_LINK_URL https://example.com/link.php?token=
 
+## URL to use for admins accessing the web-based tools menu
+#FORUM_PLAYERINFO_URL https://example.com/info.php?ckey=
+
 ## Comment to disable checking for the cid randomizer dll. (disabled if database isn't enabled or connected)
 CHECK_RANDOMIZER
 
@@ -241,6 +244,15 @@ CHECK_RANDOMIZER
 
 ## Bot ip address
 # RYZORBOT http://ryzorbot.herokuapp.com
+
+## Discord address (forum-based invite)
+# DISCORDFORUMURL http://example.org
+
+## Donations address
+# DONATIONSURL http://example.org
+
+## Repository address
+# REPOSITORYURL http://example.org
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins
 # BANAPPEALS http://example.org
@@ -448,9 +460,6 @@ DISABLE_HIGH_POP_MC_MODE_AMOUNT 60
 
 ## Uncomment to give a confirmation before hitting start now
 #START_NOW_CONFIRMATION
-
-## Stickyban all brazilian and portugues
-#BR_OPERATION
 
 ## If uncommented, all gamemodes will respect the number of required players. Defaults to no.
 #ENABLE_GAMEMODE_PLAYER_LIMIT

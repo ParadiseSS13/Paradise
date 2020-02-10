@@ -45,7 +45,12 @@
 	items = list(/obj/item/reagent_containers/food/drinks/mug, /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita, /obj/item/reagent_containers/food/snacks/egg)
 	result = /obj/item/reagent_containers/food/snacks/amanita_mugcake
 
+//HoneyMugcake (for Luka) //
 
+/datum/recipe/microwave/honey_mugcake
+	reagents = list("sugar" = 5, "milk" = 5, "flour" = 5,"honey" = 5)
+	items = list(/obj/item/reagent_containers/food/drinks/mug, /obj/item/reagent_containers/food/snacks/egg)
+	result = /obj/item/reagent_containers/food/snacks/honey_mugcake
 
 /// Soups
 
@@ -68,3 +73,21 @@
 		/obj/item/reagent_containers/food/snacks/arepa_ice
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa
+
+
+/////Hot dogs///////
+
+/datum/recipe/microwave/hot_dog
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sausage,
+		/obj/item/reagent_containers/food/snacks/bun
+	)
+	result = /obj/item/reagent_containers/food/snacks/hot_dog
+
+
+/datum/recipe/microwave/butter_dog
+	items = list(
+		/obj/item/reagent_containers/food/snacks/butter,
+		/obj/item/reagent_containers/food/snacks/bun
+	)
+	result = /obj/item/reagent_containers/food/snacks/hot_dog/butter

@@ -57,8 +57,8 @@
 				updateUsrDialog()
 		else
 			to_chat(user, "<span class='warning'>There is already ID card inside.</span>")
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/machinery/computer/guestpass/proc/get_changeable_accesses()
 	return giver.access

@@ -5,7 +5,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot
 	name = "Cyborg"
 	real_name = "Cyborg"
-	icon = 'icons/mob/robots.dmi'
+	icon = 'icons/hispania/mob/robots.dmi'
 	icon_state = "robot"
 	maxHealth = 100
 	health = 100
@@ -15,6 +15,11 @@ var/list/robot_verbs_default = list(
 	var/sight_mode = 0
 	var/custom_name = ""
 	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
+
+	var/shell = FALSE
+	var/deployed = FALSE
+	var/mob/living/silicon/ai/mainframe = null
+	var/datum/action/innate/undeployment/undeployment_action = new
 
 //Hud stuff
 
@@ -94,7 +99,7 @@ var/list/robot_verbs_default = list(
 
 	var/updating = 0 //portable camera camerachunk update
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
 
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
@@ -138,7 +143,11 @@ var/list/robot_verbs_default = list(
 		if(wires.IsCameraCut()) // 5 = BORG CAMERA
 			camera.status = 0
 
-	if(mmi == null)
+		//If this body is meant to be a borg controlled by the AI player
+	if(shell)
+		make_shell()
+
+	else if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
 
@@ -151,9 +160,7 @@ var/list/robot_verbs_default = list(
 		C.wrapped = new C.external_type
 
 	if(!cell)
-		cell = new /obj/item/stock_parts/cell(src)
-		cell.maxcharge = 7500
-		cell.charge = 7500
+		cell = new /obj/item/stock_parts/cell/high(src)
 
 	..()
 
@@ -183,11 +190,13 @@ var/list/robot_verbs_default = list(
 	playsound(loc, 'sound/voice/liveagain.ogg', 75, 1)
 
 /mob/living/silicon/robot/rename_character(oldname, newname)
+	if(shell)
+		return
 	if(!..(oldname, newname))
 		return 0
 
 	if(oldname != real_name)
-		notify_ai(3, oldname, newname)
+		notify_ai(RENAME, oldname, newname)
 		custom_name = (newname != get_default_name()) ? newname : null
 		setup_PDA()
 
@@ -265,6 +274,9 @@ var/list/robot_verbs_default = list(
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 //Improved /N
 /mob/living/silicon/robot/Destroy()
+	if(shell)
+		undeploy()
+		revert_shell()
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
 		if(T)	mmi.loc = T
@@ -314,6 +326,14 @@ var/list/robot_verbs_default = list(
 			module_sprites["Android"] = "droid"
 			module_sprites["Default"] = "Standard"
 			module_sprites["Noble-STD"] = "Noble-STD"
+			module_sprites["Marina-STD"] = "marinaSD"
+			module_sprites["Noble-STD-Hulk"] = "Noble-STD-H"
+			module_sprites["Durin"] = "durin"
+			module_sprites["Kodiak-STD"] = "kodiak-standard"
+			module_sprites["Servbot"] = "servbot"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Knight-STD"] = "sleekstandard"
+			module_sprites["Spider-STD"] = "spider-standard"
 
 		if("Service")
 			module = new /obj/item/robot_module/butler(src)
@@ -326,6 +346,12 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Serv"
 			module_sprites["Noble-SRV"] = "Noble-SRV"
 			module_sprites["Cricket"] = "Cricket-SERV"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Knight-SRV"] = "sleekservice"
+			module_sprites["Kodiak-SRV"] = "kodiak-service"
+			module_sprites["LLoyd"] = "lloyd"
+			module_sprites["Marina-SRV"] = "marinaSV"
+			module_sprites["Servbot-SRV"] = "servbot-service"
 
 		if("Miner")
 			module = new /obj/item/robot_module/miner(src)
@@ -338,6 +364,15 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Mine"
 			module_sprites["Noble-DIG"] = "Noble-DIG"
 			module_sprites["Cricket"] = "Cricket-MINE"
+			module_sprites["FalloutBot"] = "mrgutsy"
+			module_sprites["Noble-SUP-Hulk"] = "Noble-SUP-H"
+			module_sprites["Ishimura"] = "ishimura"
+			module_sprites["Kodiak-DIG"] = "kodiak-miner"
+			module_sprites["Servbot-DIG"] = "servbot-miner"
+			module_sprites["Knight_DIG"] = "sleekminer"
+			module_sprites["Marina-DIG"] = "marinaMN"
+			module_sprites["Wall-E"] = "wall-e"
+			module_sprites["HAN-D"] = "han-d"
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
@@ -351,6 +386,12 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Medi"
 			module_sprites["Noble-MED"] = "Noble-MED"
 			module_sprites["Cricket"] = "Cricket-MEDI"
+			module_sprites["Noble-MED-H"] = "Noble-MED-H"
+			module_sprites["Gibbs"] = "gibbs"
+			module_sprites["Servbot-MED"] = "servbot-medi"
+			module_sprites["Knight-MED"] = "sleekmedic"
+			module_sprites["Marina-MED"] = "marina"
+			module_sprites["FalloutBot"] = "mrgutsy"
 			status_flags &= ~CANPUSH
 
 		if("Security")
@@ -363,6 +404,12 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Secy"
 			module_sprites["Noble-SEC"] = "Noble-SEC"
 			module_sprites["Cricket"] = "Cricket-SEC"
+			module_sprites["Securitron"] = "securitron"
+			module_sprites["Noble-SEC-Hulk"] = "Noble-SEC-H"
+			module_sprites["Woody"] = "woody"
+			module_sprites["Kodiak-SEC"] = "kodiak-sec"
+			module_sprites["Servbot-SEC"] = "servbot-sec"
+			module_sprites["Marina-SEC"] = "marinaSC"
 			status_flags &= ~CANPUSH
 
 		if("Engineering")
@@ -376,6 +423,13 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Engi"
 			module_sprites["Noble-ENG"] = "Noble-ENG"
 			module_sprites["Cricket"] = "Cricket-ENGI"
+			module_sprites["Noble-ENG-Hulk"] = "Noble-ENG-H"
+			module_sprites["Conagher"] = "conagher"
+			module_sprites["Kodiak-ENGI"] = "kodiak-eng"
+			module_sprites["Knight-ENGI"] = "sleekengineer"
+			module_sprites["Servbot-ENGI"] = "servbot-engi"
+			module_sprites["Marina-ENGI"] = "marinaEN"
+			module_sprites["Engiseer"] = "engiseer"
 			magpulse = 1
 
 		if("Janitor")
@@ -387,6 +441,13 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Jani"
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
+			module_sprites["MarinaJN"] = "marinaJN"
+			module_sprites["Knight-JN"] = "sleekjanitor"
+			module_sprites["Servbot-JN"] = "servbot-jani"
+			module_sprites["Flynn"] = "flynn"
+			module_sprites["Noble-JN-Hulk"] = "Noble-JAN-H"
+			module_sprites["Knight-JN"] = "sleekjanitor"
+			module_sprites["HAN-D"] = "han-d"
 
 		if("Combat")
 			module = new /obj/item/robot_module/combat(src)
@@ -419,10 +480,10 @@ var/list/robot_verbs_default = list(
 	choose_icon(6,module_sprites)
 	if(!static_radio_channels)
 		radio.config(module.channels)
-	notify_ai(2)
+	notify_ai(NEW_MODULE)
 
 /mob/living/silicon/robot/proc/reset_module()
-	notify_ai(2)
+	notify_ai(NEW_MODULE)
 
 	uneq_all()
 	sight_mode = null
@@ -442,6 +503,7 @@ var/list/robot_verbs_default = list(
 	speed = 0 // Remove upgrades.
 	ionpulse = FALSE
 	magpulse = FALSE
+	revert_shell()
 	add_language("Robot Talk", 1)
 
 	status_flags |= CANPUSH
@@ -550,14 +612,12 @@ var/list/robot_verbs_default = list(
 	if(thruster_button)
 		thruster_button.icon_state = "ionpulse[ionpulse_on]"
 
-/mob/living/silicon/robot/blob_act()
+/mob/living/silicon/robot/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
-		adjustBruteLoss(60)
-		return 1
+		adjustBruteLoss(30)
 	else
 		gib()
-		return 1
-	return 0
+	return TRUE
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
@@ -573,6 +633,10 @@ var/list/robot_verbs_default = list(
 	statpanel("Status")
 	if(client.statpanel == "Status")
 		show_cell_power()
+	var/total_user_contents = GetAllContents()
+	if(locate(/obj/item/gps/cyborg) in total_user_contents)
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
 
 /mob/living/silicon/robot/restrained()
 	return 0
@@ -741,7 +805,9 @@ var/list/robot_verbs_default = list(
 		update_icons()
 
 	else if(istype(W, /obj/item/screwdriver) && opened && cell)	// radio
-		if(radio)
+		if(shell)
+			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft
+		else if(radio)
 			radio.attackby(W,user)//Push it to the radio to let it handle everything
 		else
 			to_chat(user, "Unable to locate a radio.")
@@ -816,11 +882,19 @@ var/list/robot_verbs_default = list(
 		else if(locked)
 			to_chat(user, "You emag the cover lock.")
 			locked = 0
+			if(shell) //A warning to Traitors who may not know that emagging AI shells does not slave them.
+				to_chat(user, "<span class='boldwarning'>[src] seems to be controlled remotely! Emagging the interface may not work as expected.</span>")
 		else
 			to_chat(user, "The cover is already unlocked.")
 		return
 
 	if(opened)//Cover is open
+		if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
+			to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt disable ai control!</span>")
+			log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
+			revert_shell()
+			reset_module()
+			return
 		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
 			to_chat(user, "You must close the panel first")
@@ -904,7 +978,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/update_icons()
 
 	overlays.Cut()
-	if(stat != DEAD && !(paralysis || stunned || weakened || low_power_mode)) //Not dead, not stunned.
+	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
 			overlays += "eyes-[custom_panel]"
 		else
@@ -1128,9 +1202,6 @@ var/list/robot_verbs_default = list(
 			var/turf/tile = loc
 			if(isturf(tile))
 				var/floor_only = TRUE
-				if(istype(tile, /turf/simulated))
-					var/turf/simulated/S = tile
-					S.dirt = 0
 				for(var/A in tile)
 					if(istype(A, /obj/effect))
 						if(is_cleanable(A))
@@ -1236,7 +1307,7 @@ var/list/robot_verbs_default = list(
 		if(icontype == "Custom")
 			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		else
-			icon = 'icons/mob/robots.dmi'
+			icon = 'icons/hispania/mob/robots.dmi'
 		icon_state = module_sprites[icontype]
 		if(icontype == "Bro")
 			module.module_type = "Brobot"
@@ -1267,12 +1338,16 @@ var/list/robot_verbs_default = list(
 	if(!connected_ai)
 		return
 	switch(notifytype)
-		if(1) //New Cyborg
+		if(NEW_BORG) //New Cyborg
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a></span><br>")
-		if(2) //New Module
+		if(NEW_MODULE) //New Module
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
-		if(3) //New Name
+		if(RENAME) //New Name
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>")
+		if(AI_SHELL) //New Shell
+			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg shell detected: <a href='?src=\ref[connected_ai];track=[html_encode(name)]'>[name]</a></span><br>")
+		if(DISCONNECT) //Tampering with the wires
+			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Remote telemetry lost with [name].</span><br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1285,7 +1360,7 @@ var/list/robot_verbs_default = list(
 		disconnect_from_ai()
 		connected_ai = AI
 		connected_ai.connected_robots |= src
-		notify_ai(1)
+		notify_ai(NEW_BORG)
 		sync()
 
 /mob/living/silicon/robot/adjustOxyLoss(var/amount)
@@ -1317,8 +1392,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/deathsquad/New(loc)
 	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 /mob/living/silicon/robot/deathsquad/init()
 	laws = new /datum/ai_laws/deathsquad
@@ -1348,7 +1422,7 @@ var/list/robot_verbs_default = list(
 	status_flags &= ~CANPUSH
 
 	radio.config(module.channels)
-	notify_ai(2)
+	notify_ai(NEW_MODULE)
 
 /mob/living/silicon/robot/ert
 	designation = "ERT"
@@ -1371,8 +1445,7 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
 	..(loc)
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
 	var/rnum = rand(1,1000)
 	var/borgname = "ERT [rnum]"
 	name = borgname
@@ -1394,6 +1467,8 @@ var/list/robot_verbs_default = list(
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()
+	if(shell)
+		undeploy()
 	switch(severity)
 		if(1)
 			disable_component("comms", 160)
@@ -1462,4 +1537,4 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-	
+

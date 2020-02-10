@@ -2,6 +2,7 @@
 	name = "\improper .357 revolver"
 	desc = "A suspicious revolver. Uses .357 ammo."
 	icon_state = "revolver"
+	item_state = "revolver"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
@@ -286,7 +287,7 @@
 			var/obj/item/ammo_casing/AC = chambered
 			if(AC.fire(user, user))
 				playsound(user, fire_sound, 50, 1)
-				var/zone = check_zone(user.zone_sel.selecting)
+				var/zone = check_zone(user.zone_selected)
 				if(zone == "head" || zone == "eyes" || zone == "mouth")
 					shoot_self(user, zone)
 				else

@@ -56,7 +56,6 @@
 			SSticker.mode.implanted.Add(mindslave_target.mind)
 			SSticker.mode.implanted[mindslave_target.mind] = user.mind
 			SSticker.mode.implanter[user.mind] = implanters
-			SSticker.mode.traitors += mindslave_target.mind
 			
 			to_chat(mindslave_target, "<span class='warning'><B>You're now completely loyal to [user.name]!</B> You now must lay down your life to protect [user.p_them()] and assist in [user.p_their()] goals at any cost.</span>")
 
@@ -64,10 +63,8 @@
 			MS.owner = mindslave_target.mind
 			MS.target = user.mind
 			MS.explanation_text = "Obey every order from and protect [user.real_name], the [user.mind.assigned_role == user.mind.special_role ? (user.mind.special_role) : (user.mind.assigned_role)]."
-			
-			var/datum/antagonist/mindslave/S = new()
-			S.add_objective(MS)
-			mindslave_target.mind.add_antag_datum(S)
+			mindslave_target.mind.objectives += MS
+			mindslave_target.mind.add_antag_datum(/datum/antagonist/mindslave)
 
 			var/datum/mindslaves/slaved = user.mind.som
 			mindslave_target.mind.som = slaved
