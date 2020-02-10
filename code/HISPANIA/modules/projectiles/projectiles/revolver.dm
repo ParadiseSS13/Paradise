@@ -1,4 +1,4 @@
-///////Probabilidad de Fallo Escopeta Improvisada
+///////Probabilidad de Fallo Escopeta Improvisada //
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override = "")
 	if(prob(5))

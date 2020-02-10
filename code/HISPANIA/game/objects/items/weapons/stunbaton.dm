@@ -1,4 +1,4 @@
-///Probabilidad de Fallo Stunprod
+///Probabilidad de Fallo Stunprod //
 
 /obj/item/melee/baton/cattleprod/attack(mob/M, mob/living/user)
 	if(prob(5))
