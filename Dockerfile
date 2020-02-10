@@ -44,11 +44,11 @@ FROM base_config as paradise_build
 WORKDIR /paradise
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    libmariadb3 \
+    libmysqlclient20 \
     libssl1.0.0
 RUN apt-get autoremove
 RUN rm -rf /var/lib/apt/lists/*
-RUN cp /usr/lib/i386-linux-gnu/libmariadb.so.3 /usr/lib/libmariadb.so
+RUN cp /usr/lib/i386-linux-gnu/libmysqlclient.so.20 /usr/lib/libmariadb.so
 COPY --from=byond /usr/local/byond/bin/DreamMaker /usr/local/bin
 COPY --from=byond /usr/local/byond/bin/DreamDaemon /usr/local/bin
 COPY --from=byond /usr/local/byond/bin/*.so /usr/lib/
@@ -56,6 +56,8 @@ COPY --from=rust_g /rust_g/target/release/librust_g.so .
 COPY . .
 RUN DreamMaker -max_errors 0 paradise.dme
 RUN mv config defaultconfig
+RUN chmod a+x docker-entrypoint.sh
+
 
 FROM scratch
 WORKDIR /paradise
@@ -64,4 +66,4 @@ VOLUME [ "/paradise/config", "/paradise/data" ]
 ENTRYPOINT ["./docker-entrypoint.sh"]
 CMD [ "DreamDaemon", "paradise.dmb", "-port", "6666", "-trusted", "-close", "-verbose" ]
 
-EXPOSE 1337
+EXPOSE 6666
