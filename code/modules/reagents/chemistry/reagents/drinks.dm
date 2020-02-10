@@ -74,8 +74,9 @@
 	update_flags |= M.AdjustEyeBlind(-1, FALSE)
 	switch(current_cycle)
 		if(1 to 20)
-			if(prob(10))
-				E.heal_internal_damage(1)//Cura unicamente hasta el ciclo 21 debido a su bajo contenido de nutrientes
+			if(istype(E))
+				if(prob(10))
+					E.heal_internal_damage(1)//Cura unicamente hasta el ciclo 21 debido a su bajo contenido de nutrientes
 		if(21 to INFINITY)
 			if(prob(current_cycle-10))
 				update_flags |= M.CureNearsighted(FALSE)
