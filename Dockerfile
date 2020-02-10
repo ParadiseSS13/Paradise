@@ -47,7 +47,8 @@ RUN apt-get update \
     libmariadb3 \
     libssl1.0.0
 RUN apt-get autoremove
-RUN rm -rf /var/lib/apt/lists/*#RUN cp /usr/lib/i386-linux-gnu/libmariadb.so.3 /usr/lib/libmariadb.so
+RUN rm -rf /var/lib/apt/lists/*
+RUN ln -s /usr/lib/i386-linux-gnu/libmariadb.so.3 /usr/lib/i386-linux-gnu/libmariadb.so
 COPY --from=byond /usr/local/byond/bin/DreamMaker /usr/local/bin
 COPY --from=byond /usr/local/byond/bin/DreamDaemon /usr/local/bin
 COPY --from=byond /usr/local/byond/bin/*.so /usr/lib/
