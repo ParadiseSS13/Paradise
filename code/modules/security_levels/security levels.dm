@@ -111,7 +111,7 @@
 						FA.update_icon()
 
 			if(SEC_LEVEL_EPSILON)
-				security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad de Epsilon en la estación. Todos los contratos laborales rescindidos.","¡Atención! ¡Nivel de seguridad de Epsilon activado!", new_sound = sound('sound/effects/purge_siren.ogg'))
+				security_announcement_up.Announce("El Comando Central ha ordenado el nivel de seguridad de Epsilon en la estación. Contratos laborales rescindidos.","¡Atención! ¡Nivel de seguridad de Epsilon activado!", new_sound = sound('sound/effects/purge_siren.ogg'))
 				security_level = SEC_LEVEL_EPSILON
 
 				post_status("alert", "epsilonalert")
