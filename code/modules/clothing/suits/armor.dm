@@ -176,7 +176,7 @@
 	name = "Riot Suit"
 	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement."
 	icon_state = "riot"
-	item_state = "swat_suit"
+	item_state = "riot"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -185,6 +185,7 @@
 	strip_delay = 80
 	put_on_delay = 60
 	hide_tail_by_species = list("Vox")
+	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -192,18 +193,22 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/templar
 	name = "crusader armour"
@@ -212,6 +217,7 @@
 	item_state = "knight_templar"
 	allowed = list(/obj/item/nullrod/claymore)
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"

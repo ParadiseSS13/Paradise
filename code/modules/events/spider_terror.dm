@@ -1,6 +1,6 @@
 
 /datum/event/spider_terror
-	announceWhen = 240
+	announceWhen = 60
 	var/spawncount = 1
 
 /datum/event/spider_terror/setup()
