@@ -47,8 +47,7 @@ emp_act
 
 /mob/living/carbon/human/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
-		return ..()
-	. = TRUE
+		return
 	if(!I.tool_use_check(user, 1))
 		return
 	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
@@ -56,6 +55,7 @@ emp_act
 		return
 	if(!S.is_robotic() || S.open == 2)
 		return
+	. = TRUE
 	if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
 		to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
 		return

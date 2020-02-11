@@ -176,10 +176,6 @@
 		return 1
 	if(exchange_parts(user, O))
 		return
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
-		SSnanoui.update_uis(src)
-		return
-
 	if(stat)
 		return 1
 
@@ -207,11 +203,48 @@
 	return ..()
 
 /obj/machinery/autolathe/crowbar_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
 	if(busy)
 		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
-		return TRUE
-	if(panel_open && default_deconstruction_crowbar(user, I))
-		return TRUE
+		return
+	if(panel_open)
+		default_deconstruction_crowbar(user, I)
+		I.play_tool_sound(user, I.tool_volume)
+
+/obj/machinery/autolathe/screwdriver_act(mob/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	if(busy)
+		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		return
+	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", I))
+		SSnanoui.update_uis(src)
+		I.play_tool_sound(user, I.tool_volume)
+
+/obj/machinery/autolathe/wirecutter_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	if(busy)
+		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		return
+	interact(user)
+
+/obj/machinery/autolathe/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	. = TRUE
+	if(busy)
+		to_chat(user, "<span class='alert'>The autolathe is busy. Please wait for completion of previous operation.</span>")
+		return
+	interact(user)
 
 /obj/machinery/autolathe/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	switch(id_inserted)

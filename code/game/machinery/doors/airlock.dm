@@ -899,11 +899,9 @@ About the new airlock wires panel:
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
-	if(!I.tool_use_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
-	if(!panel_open)
-		try_to_crowbar(user, I)
-	else if(security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
+	if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_I_S)
 		to_chat(user, "<span class='notice'>You start removing the inner layer of shielding...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
@@ -915,7 +913,7 @@ About the new airlock wires panel:
 			damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
 			update_icon()
-	else if(security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
+	else if(panel_open && security_level == AIRLOCK_SECURITY_PLASTEEL_O_S)
 		to_chat(user, "<span class='notice'>You start removing outer layer of shielding...</span>")
 		if(I.use_tool(src, user, 40, volume = I.tool_volume))
 			if(!panel_open || security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
@@ -924,6 +922,8 @@ About the new airlock wires panel:
 								"<span class='notice'>You remove \the [src]'s shielding.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I
 			spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
+	else
+		try_to_crowbar(user, I)
 
 /obj/machinery/door/airlock/wirecutter_act(mob/user, obj/item/I)
 	if(!headbutt_shock_check(user))
@@ -1074,6 +1074,7 @@ About the new airlock wires panel:
 				open(1)
 			else
 				close(1)
+		return
 	else if(!ispowertool(I))
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
 		return

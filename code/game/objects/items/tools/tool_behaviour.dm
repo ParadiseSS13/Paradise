@@ -35,7 +35,6 @@
 	// but only if the delay between the beginning and the end is not too small
 	if(delay >= MIN_TOOL_SOUND_DELAY)
 		play_tool_sound(target, volume)
-
 	return TRUE
 
 // Called before use_tool if there is a delay, or by use_tool if there isn't.

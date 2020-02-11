@@ -223,14 +223,14 @@
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	if(panel_open)
 		wires.Interact(user)
 
 /obj/machinery/camera/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = 0))
 		return
 	if(panel_open)
 		wires.Interact(user)

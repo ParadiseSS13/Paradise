@@ -195,7 +195,8 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	P.attackby(T, user, params)
 
 /turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)
-	playsound(src, C.usesound, 80, 1)
+	if(!silent)
+		playsound(src, C.usesound, 80, 1)
 	return remove_tile(user, silent)
 
 /turf/simulated/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)
