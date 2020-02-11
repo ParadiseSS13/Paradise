@@ -1401,11 +1401,11 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/russian_revolver
 	name = "russian revolver"
 	desc = "for fun and games!"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/hispania/obj/guns/projectile.dmi'
 	icon_state = "detective_gold"
 	item_state = "gun"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
 	slot_flags = SLOT_BELT

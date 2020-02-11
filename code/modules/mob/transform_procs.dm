@@ -79,7 +79,7 @@
 
 	O.loc = loc
 	O.job = "Cyborg"
-	O.notify_ai(1)
+	O.notify_ai(NEW_BORG)
 
 	if(O.mind && O.mind.assigned_role == "Cyborg")
 		if(O.mind.role_alt_title == "Android")
