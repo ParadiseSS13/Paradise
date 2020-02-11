@@ -1,4 +1,8 @@
 /mob/living/simple_animal/hostile/oldman/proc/indimension(var/turf/simulated/wall/T)
+	to_chat(viewers(T), "<span class='warning'>[src] starts walking into [T]...</span>")
+	if(!do_after(src, 20, target = T))
+		return
+
 	var/mob/living/kidnapped = null
 	forceMove(get_turf(T))
 	notransform = TRUE
@@ -6,11 +10,12 @@
 	density = 0
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	dimension = TRUE
-	visible_message("<span class='danger'>[src] sinks into the wall.</span>")
-	playsound(get_turf(src), 'sound/hispania/effects/oldman/phasing.ogg', 100, 1, -1)
+	visible_message("<span class='danger'>[src] sinks into [T]!</span>")
+	playsound(get_turf(T), 'sound/hispania/effects/oldman/phasing.ogg', 100, 1, -1)
 	ExtinguishMob()
 	rust(T)
 	icon_state = "entering"
+
 	if(pulling)
 		if(istype(pulling, /mob/living/))
 			var/mob/living/victim = pulling
@@ -26,8 +31,8 @@
 
 	if(kidnapped)
 		to_chat(src, "<B>You begin to feast on [kidnapped]. You can not move while you are doing this.</B>")
-		visible_message("<span class='warning'><B>A horrible melting sound come from [T]...</B></span>")
-		playsound(get_turf(src), 'sound/hispania/effects/oldman/victim.ogg', 100, 1, -1)
+		visible_message("<span class='warning'><B>A horrible melting sound comes from [T]...</B></span>")
+		playsound(get_turf(T), 'sound/hispania/effects/oldman/victim.ogg', 100, 1, -1)
 		sleep(75)
 		if(kidnapped)
 			to_chat(src, "<B>You feed on [kidnapped]. Your health is fully restored.</B>")
@@ -35,12 +40,12 @@
 			adjustFireLoss(-3000)
 			adjustOxyLoss(-3000)
 			adjustToxLoss(-3000)
-			var/mob/living/simple_animal/hostile/oldman/scp = src
-			scp.devoured++
+			last_meal = world.time
+
 			to_chat(kidnapped, "<span class='userdanger'>You feel your flesh melting away...</span>")
 			kidnapped.adjustFireLoss(1000)
 			kidnapped.forceMove(src)
-			scp.consumed_mobs.Add(kidnapped)
+			consumed_mobs.Add(kidnapped)
 		else
 			to_chat(src, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 	else
@@ -51,19 +56,20 @@
 	return
 
 /mob/living/simple_animal/hostile/oldman/proc/outdimension(var/turf/simulated/wall/T)
-
 	if(notransform)
 		to_chat(src, "<span class='warning'>You have to finish first!</span>")
 		return
+
+	playsound(get_turf(T), 'sound/weapons/sear.ogg', 100, 1, -1)
 	to_chat(viewers(T), "<span class='warning'>[T] starts to melt away...</span>")
 	notransform = TRUE
-	if(!do_after(src, 20, target = T))
+	if(!do_after(src, 10, target = T))
 		return
 	if(!T)
 		return
 	forceMove(get_turf(T))
 	rust(T)
-	playsound(get_turf(src), 'sound/hispania/effects/oldman/phasing.ogg', 100, 1, -1)
+	playsound(get_turf(T), 'sound/hispania/effects/oldman/phasing.ogg', 100, 1, -1)
 	invisibility = 0
 	client.eye = src
 	icon_state = "emergence"
