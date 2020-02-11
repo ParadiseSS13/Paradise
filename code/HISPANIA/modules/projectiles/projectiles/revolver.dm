@@ -8,7 +8,6 @@
 		to_chat(user, "<span class='userdanger'>[src] malfunctions in your hand!</span>")
 		affecting.receive_damage(20)
 		chambered = AC
-		user.unEquip(src)
 		user.Weaken(3)
 		user.Stun(3)
 		return FALSE
