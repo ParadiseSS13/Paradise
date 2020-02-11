@@ -125,5 +125,5 @@
 	..()
 	if(!off_floor && ishuman(O))
 		var/mob/living/carbon/human/L = O
+		to_chat(O, "<span class ='danger'>The [src.name] slows you down!</span>")
 		L.adjustStaminaLoss(10)
-		L.adjustToxLoss(1)
