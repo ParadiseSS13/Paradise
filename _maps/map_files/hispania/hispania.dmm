@@ -31505,11 +31505,6 @@
 	name = "station intercom (General)";
 	pixel_y = -28
 	},
-/obj/machinery/camera{
-	c_tag = "Dormitory Center";
-	dir = 1;
-	network = list("SS13")
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -96468,7 +96463,17 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"dJw" = (
+"dVJ" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Arcade"
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/crew_quarters/dorms)
+"dXr" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/bridge/meeting_room)
+"eJO" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -96485,11 +96490,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
-"gLf" = (
-/obj/effect/landmark/start{
-	name = "Civilian"
+"fPn" = (
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/simulated/floor/plasteel{
+	tag = "icon-siding1 (NORTH)";
+	icon_state = "bluered";
+	dir = 1
 	},
-/turf/simulated/floor/carpet/black,
+/area/crew_quarters/dorms)
+"fQu" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
 "gMZ" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
@@ -96515,6 +96532,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"hkf" = (
+/obj/structure/closet/wardrobe/black,
+/turf/simulated/floor/plating,
+/area/bridge/meeting_room)
 "hsy" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -96561,6 +96582,27 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"iLt" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Dormitory Center";
+	dir = 1;
+	network = list("SS13")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner";
+	dir = 2
+	},
+/area/crew_quarters/dorms)
 "iNz" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -96569,15 +96611,6 @@
 /area/toxins/launch{
 	name = "Toxins Launch Room"
 	})
-"jbJ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/wall,
-/area/crew_quarters/dorms)
 "jnJ" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
@@ -96607,15 +96640,11 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"kik" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+"ksO" = (
+/obj/effect/landmark/start{
+	name = "Civilian"
 	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/carpet/black,
 /area/crew_quarters/dorms)
 "kOE" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
@@ -96652,6 +96681,10 @@
 	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
+"mZQ" = (
+/obj/item/twohanded/required/kirbyplants,
+/turf/simulated/floor/plasteel/dark,
+/area/crew_quarters/dorms)
 "neF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -96775,13 +96808,14 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"sSh" = (
-/obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/plasteel{
-	tag = "icon-siding1 (NORTH)";
-	icon_state = "bluered";
-	dir = 1
+"sCj" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
 	},
+/turf/simulated/wall,
 /area/crew_quarters/dorms)
 "sUK" = (
 /obj/structure/chair/comfy/shuttle{
@@ -96791,16 +96825,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
-"tjx" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plating,
-/area/bridge/meeting_room)
-"tZj" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Arcade"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/crew_quarters/dorms)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -96823,6 +96847,14 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"vmZ" = (
+/obj/machinery/newscaster,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/turf/simulated/wall,
+/area/crew_quarters/dorms)
 "vup" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -96838,10 +96870,6 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/constructionsite)
-"wAg" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel/dark,
-/area/crew_quarters/dorms)
 "wOS" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/black,
@@ -96866,14 +96894,6 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
-"wVB" = (
-/obj/machinery/newscaster,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/wall,
-/area/crew_quarters/dorms)
 "wVD" = (
 /obj/effect/landmark/start{
 	name = "Shaft Miner"
@@ -96919,10 +96939,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"xTi" = (
-/obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/plating,
-/area/bridge/meeting_room)
 "xWg" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (SOUTHEAST)";
@@ -123572,8 +123588,8 @@ bCC
 bJH
 bFI
 bxl
-tjx
-xTi
+dXr
+hkf
 bMG
 bOC
 bQl
@@ -131507,7 +131523,7 @@ aFI
 aMC
 aOb
 aPf
-sSh
+fPn
 aSJ
 aUI
 aWJ
@@ -132539,9 +132555,9 @@ aQv
 aOI
 aNV
 aWP
-tZj
-wVB
-jbJ
+dVJ
+vmZ
+sCj
 bfo
 bhe
 aOI
@@ -132798,8 +132814,8 @@ aVo
 aWU
 aWU
 bbv
-kik
-beW
+fQu
+iLt
 aOI
 bjl
 bbc
@@ -133055,7 +133071,7 @@ aUT
 aWT
 aWT
 bbu
-kik
+fQu
 bfq
 aOI
 bjk
@@ -133309,9 +133325,9 @@ aFI
 aQF
 aSM
 aVp
-gLf
+ksO
 aWT
-dJw
+eJO
 bdl
 bfv
 aOI
@@ -133565,10 +133581,10 @@ aFI
 aFI
 aQE
 aSM
-wAg
+mZQ
 aWT
 aZC
-wAg
+mZQ
 aSM
 bfr
 bpE
