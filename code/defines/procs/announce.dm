@@ -2,6 +2,7 @@
 /var/datum/announcement/priority/priority_announcement = new(do_log = 0)
 /var/datum/announcement/priority/command/command_announcement = new(do_log = 0, do_newscast = 0)
 /var/datum/announcement/priority/command/event/event_announcement = new(do_log = 0, do_newscast = 0)
+
 /datum/announcement
 	var/title = "Attention"
 	var/announcer = ""
