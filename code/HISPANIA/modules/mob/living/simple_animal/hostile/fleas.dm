@@ -7,9 +7,9 @@
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
-	harm_intent_damage = 1
-	melee_damage_lower = 1
-	melee_damage_upper = 1
+	harm_intent_damage = 0.1
+	melee_damage_lower = 0.1
+	melee_damage_upper = 0.1
 	mob_size = MOB_SIZE_TINY
 	obj_damage = 0
 	faction = list("hostile")
