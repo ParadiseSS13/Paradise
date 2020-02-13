@@ -1242,6 +1242,7 @@
 #include "code\HISPANIA\modules\reagents\chemistry\reagents\food.dm"
 #include "code\HISPANIA\modules\reagents\chemistry\recipes\drinks.dm"
 #include "code\HISPANIA\modules\reagents\reagent_containers\glass_containers.dm"
+#include "code\HISPANIA\modules\reagents\reagent_containers\patch.dm"
 #include "code\HISPANIA\modules\research\circuitprinter.dm"
 #include "code\HISPANIA\modules\research\rdconsole.dm"
 #include "code\HISPANIA\modules\research\designs\bluespace_designs.dm"
