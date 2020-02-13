@@ -1,16 +1,15 @@
 //////Delay de aplicacion parches////
-
 /obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/M, mob/user)
 	var/self_delay = 20
-	bitesize = reagents.total_volume //Los parches son comida
-	if(!istype(M))//No podemos aplicar parches en mobs
+	bitesize = reagents.total_volume
+	if(!istype(M))
 		return 0
-	if(user != M)//Delay al aplicarlo a alguien mas
+	if(user != M)
 		if(M.eat(src, user))
 			spawn(0)
 				qdel(src)
 			return 1
-	if(M == user)	//Delay para uno mismo
+	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to apply [src].</span>")
 		if(self_delay) ///Evita aplicar parches al tirarlos
 			if(!do_mob(user, M, self_delay))
