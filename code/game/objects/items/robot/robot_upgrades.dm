@@ -184,7 +184,7 @@
 	return 1
 
 /obj/item/borg/upgrade/syndicate
-	name = "illegal equipment module"
+	name = "safety override module"
 	desc = "Unlocks the hidden, deadlier functions of a cyborg. Also prevents emag subversion."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "combat=4;syndicate=1"
@@ -193,16 +193,27 @@
 /obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
 	if(..())
 		return
-
 	if(R.emagged)
 		return
-
 	if(R.weapons_unlock)
 		to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>");
 		return
-
 	R.emagged = 1
+	return 1
 
+/obj/item/borg/upgrade/lavaproof
+	name = "mining cyborg lavaproof chassis"
+	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to a mining cyborg's chassis, enabling them to withstand exposure to molten rock."
+	icon_state = "ash_plating"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	require_module = 1
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+	if(istype(R))
+		R.weather_immunities += "lava"
 	return 1
 
 /obj/item/borg/upgrade/selfrepair
