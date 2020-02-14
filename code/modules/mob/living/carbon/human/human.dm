@@ -315,13 +315,10 @@
 			return 0
 	..()
 
-/mob/living/carbon/human/restrained()
-	if(handcuffed)
-		return 1
-	if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
-		return 1
-	return 0
-
+/mob/living/carbon/human/get_restraining_item()
+	. = ..()
+	if(!. && istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
+		. = wear_suit
 
 /mob/living/carbon/human/var/temperature_resistance = T0C+75
 

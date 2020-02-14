@@ -834,6 +834,7 @@
 					/obj/item/reagent_containers/food/drinks/bottle/whiskey = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/tequila = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/vodka = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/mezcal = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/fernet = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/vermouth = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/rum = 5,
@@ -1193,7 +1194,7 @@
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?"
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
-	req_access = list(access_medical)
+	///req_access = list(access_medical)
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
@@ -1227,9 +1228,9 @@
 	icon_state = "sec"
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4)
+	products = list(/obj/item/restraints/handcuffs = 12,/obj/item/grenade/flashbang = 8,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/taperoll/police = 8,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 5,/obj/item/restraints/legcuffs/bola/energy = 10,
+					/obj/item/clothing/mask/muzzle/safety = 5)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -1556,7 +1557,7 @@
 	icon_deny = "tool-deny"
 	//req_access_txt = "12" //Maintenance access
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
-					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
+					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5,/obj/item/taperoll/engineering = 10)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
