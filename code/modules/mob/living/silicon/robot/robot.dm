@@ -348,6 +348,14 @@ var/list/robot_verbs_default = list(
 			status_flags &= ~CANPUSH
 
 		if("Security")
+			if(!weapons_unlock)
+				var/count_secborgs = 0
+				for(var/mob/living/silicon/robot/R in GLOB.living_mob_list)
+					if(R && R.module && istype(R.module, /obj/item/robot_module/security))
+						count_secborgs++
+				if(count_secborgs >= 2)
+					to_chat(src, "<span class='warning'>There are too many Security cyborgs active. Please choose another module.</span>")
+					return
 			module = new /obj/item/robot_module/security(src)
 			module.channels = list("Security" = 1)
 			module_sprites["Basic"] = "secborg"
@@ -1317,6 +1325,23 @@ var/list/robot_verbs_default = list(
 	radio = new /obj/item/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+
+/mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
+	if(istype(P) && P.is_reflectable)
+		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
+		if(P.starting)
+			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
+			var/turf/curloc = get_turf(src)
+			P.firer = src
+			P.original = locate(new_x, new_y, P.z)
+			P.starting = curloc
+			P.current = curloc
+			P.yo = new_y - curloc.y
+			P.xo = new_x - curloc.x
+			P.Angle = null
+		return -1
+	return ..(P)
 
 
 /mob/living/silicon/robot/combat
