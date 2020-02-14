@@ -79,6 +79,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"Head of Security" = "secradio",
 		"Human Resources Agent" = "secradio",
 		"Internal Affairs Agent" = "secradio",
+		"Lawyer" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
 		"Security Pod Pilot" = "secradio",
