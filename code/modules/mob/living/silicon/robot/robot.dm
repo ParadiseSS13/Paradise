@@ -16,8 +16,7 @@ var/list/robot_verbs_default = list(
 	var/custom_name = ""
 	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
 
-//Hud stuff
-
+	//Hud stuff
 	var/obj/screen/inv1 = null
 	var/obj/screen/inv2 = null
 	var/obj/screen/inv3 = null
@@ -27,7 +26,7 @@ var/list/robot_verbs_default = list(
 	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
 	var/obj/screen/robot_modules_background
 
-//3 Modules can be activated at any one time.
+	//3 Modules can be activated at any one time.
 	var/obj/item/robot_module/module = null
 	var/module_active = null
 	var/module_state_1 = null
@@ -86,7 +85,6 @@ var/list/robot_verbs_default = list(
 	var/tracking_entities = 0 //The number of known entities currently accessing the internal camera
 	var/braintype = "Cyborg"
 	var/base_icon = ""
-	var/crisis = 0
 
 	var/lamp_max = 10 //Maximum brightness of a borg lamp. Set as a var for easy adjusting.
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
@@ -96,6 +94,7 @@ var/list/robot_verbs_default = list(
 
 	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD)
 
+	var/default_cell_type = /obj/item/stock_parts/cell/high
 	var/magpulse = 0
 	var/ionpulse = 0 // Jetpack-like effect.
 	var/ionpulse_on = 0 // Jetpack-like effect.
@@ -151,7 +150,7 @@ var/list/robot_verbs_default = list(
 		C.wrapped = new C.external_type
 
 	if(!cell)
-		cell = new /obj/item/stock_parts/cell/high(src)
+		cell = new default_cell_type(src)
 
 	..()
 
@@ -290,9 +289,6 @@ var/list/robot_verbs_default = list(
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
-	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
-		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
-		modules += "Combat"
 	if(mmi != null && mmi.alien)
 		modules = list("Hunter")
 	modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
@@ -1295,6 +1291,7 @@ var/list/robot_verbs_default = list(
 	..()
 	update_module_icon()
 
+
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
@@ -1311,40 +1308,33 @@ var/list/robot_verbs_default = list(
 	modtype = "Commando"
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
-
-/mob/living/silicon/robot/deathsquad/New(loc)
-	..()
-	cell = new /obj/item/stock_parts/cell/hyper(src)
+	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/deathsquad/init()
 	laws = new /datum/ai_laws/deathsquad
 	module = new /obj/item/robot_module/deathsquad(src)
-
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	radio = new /obj/item/radio/borg/deathsquad(src)
 	radio.recalculateChannels()
-
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
+
 
 /mob/living/silicon/robot/combat
 	base_icon = "droidcombat"
 	icon_state = "droidcombat"
 	modtype = "Combat"
 	designation = "Combat"
+	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
 /mob/living/silicon/robot/combat/init()
 	..()
 	module = new /obj/item/robot_module/combat(src)
 	module.channels = list("Security" = 1)
-	//languages
 	module.add_languages(src)
-	//subsystems
 	module.add_subsystems_and_actions(src)
-
 	status_flags &= ~CANPUSH
-
 	radio.config(module.channels)
-	notify_ai(2)
+
 
 /mob/living/silicon/robot/ert
 	designation = "ERT"
@@ -1352,12 +1342,11 @@ var/list/robot_verbs_default = list(
 	scrambledcodes = 1
 	req_one_access = list(access_cent_specops)
 	ionpulse = 1
-
 	force_modules = list("Engineering", "Medical", "Security")
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
-
+	default_cell_type = /obj/item/stock_parts/cell/super
 
 /mob/living/silicon/robot/ert/init()
 	laws = new /datum/ai_laws/ert_override
@@ -1365,9 +1354,8 @@ var/list/robot_verbs_default = list(
 	radio.recalculateChannels()
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
 
-/mob/living/silicon/robot/ert/New(loc, cyborg_unlock)
+/mob/living/silicon/robot/ert/New(loc)
 	..(loc)
-	cell = new /obj/item/stock_parts/cell/hyper(src)
 	var/rnum = rand(1,1000)
 	var/borgname = "ERT [rnum]"
 	name = borgname
@@ -1378,14 +1366,18 @@ var/list/robot_verbs_default = list(
 	mind.original = src
 	mind.assigned_role = SPECIAL_ROLE_ERT
 	mind.special_role = SPECIAL_ROLE_ERT
-	if(cyborg_unlock)
-		crisis = 1
 	if(!(mind in SSticker.minds))
 		SSticker.minds += mind
 	SSticker.mode.ert += mind
 
+
+/mob/living/silicon/robot/ert/red
+	default_cell_type = /obj/item/stock_parts/cell/hyper
+
 /mob/living/silicon/robot/ert/gamma
-	crisis = 1
+	default_cell_type = /obj/item/stock_parts/cell/bluespace
+	force_modules = list("Combat", "Engineering", "Medical")
+
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()
