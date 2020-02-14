@@ -44,8 +44,8 @@
 	title = "Chef"
 	flag = CHEF
 	department_flag = SUPPORT
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")

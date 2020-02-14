@@ -68,11 +68,15 @@
 
 /datum/reagent/consumable/drink/carrotjuice/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	var/mob/living/carbon/C = M
+	var/obj/item/organ/internal/eyes/E = C.get_int_organ(/obj/item/organ/internal/eyes)
 	update_flags |= M.AdjustEyeBlurry(-1, FALSE)
 	update_flags |= M.AdjustEyeBlind(-1, FALSE)
 	switch(current_cycle)
 		if(1 to 20)
-			//nothing
+			if(istype(E))
+				if(prob(10))
+					E.heal_internal_damage(1)//Cura unicamente hasta el ciclo 21 debido a su bajo contenido de nutrientes
 		if(21 to INFINITY)
 			if(prob(current_cycle-10))
 				update_flags |= M.CureNearsighted(FALSE)

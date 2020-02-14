@@ -69,4 +69,4 @@ jobs:
         - npm install --loglevel=error
       before_script:
       script:
-        - gulp
+        - node node_modules/gulp/bin/gulp.js --require less-loader
