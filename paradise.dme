@@ -1250,6 +1250,7 @@
 #include "code\HISPANIA\modules\research\designs\equipment_designs.dm"
 #include "code\HISPANIA\modules\research\designs\machine_designs.dm"
 #include "code\HISPANIA\modules\research\designs\mechfabricator_designs.dm"
+#include "code\HISPANIA\modules\research\designs\medical_designs.dm"
 #include "code\HISPANIA\modules\research\designs\misc_designs.dm"
 #include "code\HISPANIA\modules\research\designs\power_designs.dm"
 #include "code\HISPANIA\modules\surgery\organs\subtypes\murghal.dm"
