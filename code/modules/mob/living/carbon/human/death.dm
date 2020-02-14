@@ -158,10 +158,14 @@
 	return
 
 /mob/living/carbon/human/proc/ChangeToHusk()
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
+
+	// If the target has no DNA to begin with, its DNA can't be damaged beyond repair.
+	if(NO_DNA in dna.species.species_traits)
+		return
 	if(HUSK in mutations)
 		return
 
+	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
 	if(istype(H))
 		H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
 		if(H.f_style)
