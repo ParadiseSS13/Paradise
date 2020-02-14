@@ -129,7 +129,8 @@ var/const/VOX_PATH = "sound/vox_fem/"
 
 	announcing_vox = world.time + VOX_DELAY
 
-	log_game("[key_name_admin(src)] made a vocal announcement with the following message: [message].")
+	log_game("[key_name(src)] made a vocal announcement: [message].")
+	message_admins("[key_name_admin(src)] made a vocal announcement: [message].")
 
 	for(var/word in words)
 		play_vox_word(word, src.z, null)

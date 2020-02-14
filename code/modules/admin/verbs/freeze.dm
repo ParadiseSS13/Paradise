@@ -26,7 +26,7 @@ var/global/list/frozen_mob_list = list()
 /mob/living/var/frozen = null //used for preventing attacks on admin-frozen mobs
 /mob/living/var/admin_prev_sleeping = 0 //used for keeping track of previous sleeping value with admin freeze
 
-/mob/living/proc/admin_Freeze(var/client/admin, skip_overlays = FALSE)
+/mob/living/proc/admin_Freeze(client/admin, skip_overlays = FALSE)
 	if(istype(admin))
 		to_chat(src, "<b><font color= red>You have been frozen by [admin]</b></font>")
 		message_admins("<span class='notice'>[key_name_admin(admin)]</span> froze [key_name_admin(src)]")
@@ -34,24 +34,27 @@ var/global/list/frozen_mob_list = list()
 
 	var/obj/effect/overlay/adminoverlay/AO = new
 	if(skip_overlays)
-		src.overlays += AO
+		overlays += AO
 
-	anchored = 1
-	frozen = AO
+	anchored = TRUE
+	canmove = FALSE
 	admin_prev_sleeping = sleeping
 	AdjustSleeping(20000)
+	frozen = AO
 	if(!(src in frozen_mob_list))
 		frozen_mob_list += src
 
-/mob/living/proc/admin_unFreeze(var/client/admin, skip_overlays = FALSE)
+/mob/living/proc/admin_unFreeze(client/admin, skip_overlays = FALSE)
 	if(istype(admin))
 		to_chat(src, "<b><font color= red>You have been unfrozen by [admin]</b></font>")
 		message_admins("<span class='notice'>[key_name_admin(admin)] unfroze [key_name_admin(src)]</span>")
 		log_admin("[key_name(admin)] unfroze [key_name(src)]")
 
-	anchored = 0
 	if(skip_overlays)
 		overlays -= frozen
+
+	anchored = FALSE
+	canmove = TRUE
 	frozen = null
 	SetSleeping(admin_prev_sleeping)
 	admin_prev_sleeping = null

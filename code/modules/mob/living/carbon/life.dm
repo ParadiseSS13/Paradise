@@ -258,8 +258,10 @@
 //this updates all special effects: stunned, sleeping, weakened, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
 	..()
-
-	setStaminaLoss(max((staminaloss - 3), 0))
+	if(stam_regen_start_time <= world.time)
+		if(stam_paralyzed)
+			update_stamina()
+		setStaminaLoss(0, FALSE)
 
 	var/restingpwr = 1 + 4 * resting
 

@@ -244,10 +244,10 @@ var/global/list/protected_objects = list(/obj/structure/table, /obj/structure/ca
 
 /mob/living/simple_animal/hostile/mimic/copy/ranged/OpenFire(the_target)
 	if(Zapgun)
-		if(Zapgun.power_supply)
+		if(Zapgun.cell)
 			var/obj/item/ammo_casing/energy/shot = Zapgun.ammo_type[Zapgun.select]
-			if(Zapgun.power_supply.charge >= shot.e_cost)
-				Zapgun.power_supply.use(shot.e_cost)
+			if(Zapgun.cell.charge >= shot.e_cost)
+				Zapgun.cell.use(shot.e_cost)
 				Zapgun.update_icon()
 				..()
 	else if(Zapstick)

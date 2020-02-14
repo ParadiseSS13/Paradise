@@ -106,7 +106,7 @@
 		empty()
 
 /obj/item/gun/energy/kinetic_accelerator/proc/empty()
-	power_supply.use(500)
+	cell.use(500)
 	update_icon()
 
 /obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload(recharge_time)
@@ -136,7 +136,7 @@
 	return
 
 /obj/item/gun/energy/kinetic_accelerator/proc/reload()
-	power_supply.give(500)
+	cell.give(500)
 	on_recharge()
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
