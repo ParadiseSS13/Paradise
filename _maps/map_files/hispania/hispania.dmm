@@ -49930,6 +49930,20 @@
 /area/hallway/primary/central/se)
 "bOA" = (
 /obj/machinery/computer/account_database,
+/obj/machinery/door_control{
+	id = "hopqueue";
+	name = "HoP Line Shutter";
+	pixel_x = 1;
+	pixel_y = 21;
+	req_access_txt = "57"
+	},
+/obj/machinery/door_control{
+	id = "hop";
+	name = "HoP Office Privacy";
+	pixel_x = 10;
+	pixel_y = 21;
+	req_access_txt = "57"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
