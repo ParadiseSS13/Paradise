@@ -113,9 +113,7 @@
 		output += "<br>[reason]<hr style='background:#000000; border:0; height:1px'>"
 	usr << browse(output, "window=watchwin;size=900x500")
 
-/client/proc/check_watchlist(target_ckey)
-	if(!check_rights(R_ADMIN,0))
-		return
+/proc/check_watchlist(target_ckey)
 	var/target_sql_ckey = sanitizeSQL(target_ckey)
 	var/DBQuery/query_watch = dbcon.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey = '[target_sql_ckey]'")
 	if(!query_watch.Execute())
