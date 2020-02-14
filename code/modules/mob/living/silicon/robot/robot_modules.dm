@@ -254,6 +254,7 @@
 	modules += new /obj/item/mop/advanced/cyborg(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/holosign_creator(src)
+	modules += new /obj/item/extinguisher/mini(src)
 	emag = new /obj/item/reagent_containers/spray(src)
 
 	emag.reagents.add_reagent("lube", 250)
