@@ -174,43 +174,37 @@
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.mind)
-			if(player.stat != DEAD || !iszombie(player))
-				if(issilicon(player)) //Borgs are technically dead anyways
+		if(!player.mind)
+			continue
+		if(player.stat == DEAD)  // Corpses
+			continue
+		if(iszombie(player))  // Walking corpses
+			continue
+		if(issilicon(player)) //Borgs are technically dead anyways
+			continue
+		if(isanimal(player)) //Poly does not own the shuttle
+			continue
+		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
+			var/mob/living/carbon/human/H = player
+			if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
+				continue
+			if(H.handcuffed) //cuffs
+				continue
+			if(H.wear_suit && H.wear_suit.breakouttime) //straight jacket
+				continue
+			if(istype(H.loc, /obj/structure/closet)) //locked/welded locker, all aboard the clown train honk honk
+				var/obj/structure/closet/C = H.loc
+				if(C.welded || C.locked)
 					continue
-				if(isanimal(player)) //Poly does not own the shuttle
-					continue
-				if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
-					var/mob/living/carbon/human/H = player
-					if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
-						continue
-					if(H.handcuffed) //cuffs
-						continue
-					if(H.wear_suit && H.wear_suit.breakouttime) //straight jacket
-						continue
-					if(istype(H.loc, /obj/structure/closet)) //locked/welded locker, all aboard the clown train honk honk
-						var/obj/structure/closet/C = H.loc
-						if(C.welded || C.locked)
-							continue
-				var/special_role = player.mind.special_role
-				if(special_role)
-					if(special_role == SPECIAL_ROLE_TRAITOR) // traitors can hijack the shuttle
-						continue
+		var/special_role = player.mind.special_role
+		if(special_role)
+			// There's a long list of special roles, but almost all of them are antags anyway.
+			// If you manage to escape with a pet slaughter demon - go for it! Greentext well earned!
+			if(special_role != SPECIAL_ROLE_EVENTMISC && special_role != SPECIAL_ROLE_ERT && special_role != SPECIAL_ROLE_DEATHSQUAD)
+				continue
 
-					if(special_role == SPECIAL_ROLE_CHANGELING) // changelings as well
-						continue
-
-					if(special_role == SPECIAL_ROLE_VAMPIRE || special_role == SPECIAL_ROLE_VAMPIRE_THRALL) // for traitorvamp
-						continue
-
-					if(special_role == SPECIAL_ROLE_NUKEOPS) // so can nukeops, for the hell of it
-						continue
-
-					if(special_role == SPECIAL_ROLE_SYNDICATE_DEATHSQUAD) // and the syndie deathsquad i guess
-						continue
-
-				if(get_area(player) == areaInstance)
-					return FALSE
+		if(get_area(player) == areaInstance)
+			return FALSE
 
 	return TRUE
 

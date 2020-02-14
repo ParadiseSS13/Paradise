@@ -6,7 +6,7 @@
 // -------------: AI: as green, but will evolve to queen when it can
 // -------------: SPECIAL: can evolve into a queen, if fed enough
 // -------------: TO FIGHT IT: kill it before it evolves
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/princess
 	name = "Princess of Terror spider"

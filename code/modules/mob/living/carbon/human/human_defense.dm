@@ -16,20 +16,8 @@ emp_act
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-			// Find a turf near or on the original location to bounce to
-			if(P.starting)
-				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/turf/curloc = get_turf(src)
-
-				// redirect the projectile
-				P.firer = src
-				P.original = locate(new_x, new_y, P.z)
-				P.starting = curloc
-				P.current = curloc
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
-				P.Angle = null
+			
+			P.reflect_back(src)
 
 			return -1 // complete projectile permutation
 
