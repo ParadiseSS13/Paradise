@@ -16,6 +16,5 @@
 				return FALSE
 			M.eat(src, user)
 			qdel(src)
-			to_chat(M, "<span class='notice'>You [apply_method] [src].</span>")
 		return 1
 	return FALSE
