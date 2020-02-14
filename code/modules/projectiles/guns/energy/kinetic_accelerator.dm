@@ -351,6 +351,8 @@
 /obj/item/borg/upgrade/modkit/cooldown
 	name = "cooldown decrease"
 	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
+	denied_type = /obj/item/borg/upgrade/modkit/cooldown
+	maximum_of_type = 2
 	modifier = 3.2
 	minebot_upgrade = FALSE
 
