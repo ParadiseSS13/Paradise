@@ -163,6 +163,9 @@
 		return ..()
 	if(user.zone_selected != "eyes" && user.zone_selected != "head")
 		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
+		return
 	if((CLUMSY in user.mutations) && prob(50))
 		M = user
 	return eyestab(M,user)

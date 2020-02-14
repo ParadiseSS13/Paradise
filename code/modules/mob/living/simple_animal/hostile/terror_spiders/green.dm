@@ -6,7 +6,7 @@
 // -------------: AI: after it kills you, it webs you and lays new terror eggs on your body
 // -------------: SPECIAL: can also create webs, web normal objects, etc
 // -------------: TO FIGHT IT: kill it however you like - just don't die to it!
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/green
 	name = "Green Terror spider"

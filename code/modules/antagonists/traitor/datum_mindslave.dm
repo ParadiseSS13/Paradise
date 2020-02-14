@@ -3,8 +3,8 @@
 /datum/antagonist/mindslave
 	name = "Mindslave"
 	roundend_category = "mindslaves"
-	job_rank = ROLE_MINDSLAVE
-	var/special_role = ROLE_MINDSLAVE
+	job_rank = SPECIAL_ROLE_TRAITOR
+	var/special_role = SPECIAL_ROLE_TRAITOR
 
 /datum/antagonist/mindslave/on_gain()
 	owner.special_role = special_role

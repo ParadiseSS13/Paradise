@@ -1052,7 +1052,7 @@
 	if(user.restrained())
 		to_chat(user, "<span class='notice'>You need your hands free for this.</span>")
 		return 0
-	if(user.stat || user.paralysis || user.sleeping || user.lying || user.weakened)
+	if(user.stat || user.paralysis || user.sleeping || user.lying || user.IsWeakened())
 		return 0
 	return 1
 #undef ONLY_DEPLOY

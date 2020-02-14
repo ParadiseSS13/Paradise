@@ -11,6 +11,7 @@
 	equip_cooldown = 15
 	energy_drain = 10
 	force = 15
+	harmful = TRUE
 	sharp = TRUE
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC

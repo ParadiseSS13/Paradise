@@ -17,7 +17,7 @@
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
 		idiot_brain.insert(src, make_cluwne = 0)
 		idiot_brain.dna = dna.Clone()
-	setBrainLoss(80)
+	setBrainLoss(80, use_brain_mod = FALSE)
 	set_nutrition(9000)
 	overeatduration = 9000
 	Confused(30)

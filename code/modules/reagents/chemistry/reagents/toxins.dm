@@ -419,7 +419,7 @@
 	color = "#9ACD32"
 	taste_description = "bitterness"
 
-/datum/reagent/spores/on_mob_life(mob/living/M)
+/datum/reagent/spore/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	M.damageoverlaytemp = 60

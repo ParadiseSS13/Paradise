@@ -16,20 +16,8 @@ emp_act
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-			// Find a turf near or on the original location to bounce to
-			if(P.starting)
-				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/turf/curloc = get_turf(src)
-
-				// redirect the projectile
-				P.firer = src
-				P.original = locate(new_x, new_y, P.z)
-				P.starting = curloc
-				P.current = curloc
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
-				P.Angle = null
+			
+			P.reflect_back(src)
 
 			return -1 // complete projectile permutation
 
@@ -510,6 +498,9 @@ emp_act
 
 /mob/living/carbon/human/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='warning'>You don't want to hurt [src]!</span>")
+			return FALSE
 		var/hulk_verb = pick("smash", "pummel")
 		if(check_shields(user, 15, "the [hulk_verb]ing"))
 			return
@@ -616,6 +607,9 @@ emp_act
 
 /mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
 	if(M.occupant.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM))
+			to_chat(M.occupant, "<span class='warning'>You don't want to harm other living beings!</span>")
+			return
 		M.do_attack_animation(src)
 		if(M.damtype == "brute")
 			step_away(src,M,15)
@@ -627,7 +621,7 @@ emp_act
 				if("brute")
 					if(M.force > 35) // durand and other heavy mechas
 						Paralyse(1)
-					else if(M.force > 20 && !weakened) // lightweight mechas like gygax
+					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
 						Weaken(2)
 					update |= affecting.receive_damage(dmg, 0)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)

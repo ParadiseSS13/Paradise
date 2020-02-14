@@ -326,12 +326,12 @@
 	var/moved = 0
 	if(panel_open || W.works_from_distance)
 		if(W.works_from_distance)
-			display_parts(user)
+			to_chat(user, display_parts(user))
 		for(var/I in W)
 			if(istype(I, refill_canister))
 				moved += restock(I)
 	else
-		display_parts(user)
+		to_chat(user, display_parts(user))
 	if(moved)
 		to_chat(user, "[moved] items restocked.")
 		W.play_rped_sound()
