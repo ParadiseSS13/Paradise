@@ -91,3 +91,9 @@
 		/obj/item/reagent_containers/food/snacks/bun
 	)
 	result = /obj/item/reagent_containers/food/snacks/hot_dog/butter
+
+///Drake steak
+
+/datum/recipe/microwave/drakesteak
+	items = list(/obj/item/reagent_containers/food/snacks/drakemeat, /obj/item/organ/internal/regenerative_core/legion)
+	result = /obj/item/reagent_containers/food/snacks/drakesteak
