@@ -36242,6 +36242,9 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/effect/landmark/start{
+	name = "Chef"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
