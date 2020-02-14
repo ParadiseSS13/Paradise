@@ -8,7 +8,7 @@
 		if(M.eat(src, user))
 			spawn(0)
 				qdel(src)
-		return 1
+			return TRUE
 	if(M == user)
 		M.visible_message("<span class='notice'>[user] attempts to apply [src].</span>")
 		if(self_delay) ///Evita aplicar parches al tirarlos
@@ -16,5 +16,5 @@
 				return FALSE
 			M.eat(src, user)
 			qdel(src)
-		return 1
+		return TRUE
 	return FALSE
