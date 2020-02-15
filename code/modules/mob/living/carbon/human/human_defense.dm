@@ -35,6 +35,73 @@ emp_act
 
 	return (..(P , def_zone))
 
+/mob/living/carbon/human/screwdriver_act(mob/user, obj/item/I)
+	if(!can_operate(src))  //Checks if mob is lying down on table for surgery
+		return
+	if(!ismachine(src))
+		return
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(attempt_initiate_surgery(I, src, user))
+		return TRUE
+
+/mob/living/carbon/human/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(!I.tool_use_check(user, 1))
+		return
+	var/obj/item/organ/external/S = bodyparts_by_name[user.zone_selected]
+	if(!S)
+		return
+	if(!S.is_robotic() || S.open == 2)
+		return
+	. = TRUE
+	if(S.brute_dam > ROBOLIMB_SELF_REPAIR_CAP)
+		to_chat(user, "<span class='danger'>The damage is far too severe to patch over externally.</span>")
+		return
+
+	if(!S.brute_dam)
+		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		return
+
+	var/surgery_time = 0
+	if(user == src)
+		surgery_time = 10
+	if(!I.use_tool(src, user, surgery_time, amount = 1, volume = I.tool_volume))
+		return
+	var/rembrute = HEALPERWELD
+	var/nrembrute = 0
+	var/childlist
+	if(!isnull(S.children))
+		childlist = S.children.Copy()
+	var/parenthealed = FALSE
+	while(rembrute > 0)
+		var/obj/item/organ/external/E
+		if(S.brute_dam)
+			E = S
+		else if(LAZYLEN(childlist))
+			E = pick_n_take(childlist)
+			if(!E.brute_dam || !E.is_robotic())
+				continue
+		else if(S.parent && !parenthealed)
+			E = S.parent
+			parenthealed = TRUE
+			if(!E.brute_dam || !E.is_robotic())
+				break
+		else
+			break
+		nrembrute = max(rembrute - E.brute_dam, 0)
+		E.heal_damage(rembrute,0,0,1)
+		rembrute = nrembrute
+		user.visible_message("<span class='alert'>[user] patches some dents on [src]'s [E.name] with [I].</span>")
+	if(bleed_rate && isSynthetic())
+		bleed_rate = 0
+		user.visible_message("<span class='alert'>[user] patches some leaks on [src] with [I].</span>")
+	if(IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
+		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+
+
 /mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))

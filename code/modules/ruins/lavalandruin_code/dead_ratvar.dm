@@ -92,22 +92,26 @@
 /obj/structure/clockwork/wall_gear/emp_act(severity)
 	return
 
+/obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct(TRUE)
+
+/obj/structure/clockwork/wall_gear/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 10)
+
 /obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		default_unfasten_wrench(user, I, 10)
-		return 1
-	else if(isscrewdriver(I))
-		if(anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
-		else
-			var/obj/item/screwdriver/S = I
-			user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", "<span class='notice'>You start to disassemble [src]...</span>")
-			if(do_after(user, 30 * S.toolspeed, target = src) && !anchored)
-				playsound(loc, S.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-				deconstruct(TRUE)
-		return 1
-	else if(istype(I, /obj/item/stack/tile/brass))
+	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")

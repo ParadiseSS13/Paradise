@@ -1,3 +1,10 @@
+#define NUKE_INTACT 0
+#define NUKE_COVER_OFF 1
+#define NUKE_COVER_OPEN 2
+#define NUKE_SEALANT_OPEN 3
+#define NUKE_UNWRENCHED 4
+#define NUKE_MOBILE 5
+
 var/bomb_set
 
 /obj/machinery/nuclearbomb
@@ -17,7 +24,7 @@ var/bomb_set
 	var/yes_code = 0
 	var/safety = 1
 	var/obj/item/disk/nuclear/auth = null
-	var/removal_stage = 0 // 0 is no removal, 1 is covers removed, 2 is covers open, 3 is sealant open, 4 is unwrenched, 5 is removed from bolts.
+	var/removal_stage = NUKE_INTACT
 	var/lastentered
 	var/is_syndicate = 0
 	use_power = NO_POWER_USE
@@ -50,33 +57,6 @@ var/bomb_set
 	return
 
 /obj/machinery/nuclearbomb/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/screwdriver))
-		add_fingerprint(user)
-		if(auth)
-			if(panel_open == 0)
-				panel_open = 1
-				overlays += image(icon, "npanel_open")
-				to_chat(user, "You unscrew the control panel of [src].")
-				playsound(src, O.usesound, 50, 1)
-			else
-				panel_open = 0
-				overlays -= image(icon, "npanel_open")
-				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, O.usesound, 50, 1)
-		else
-			if(panel_open == 0)
-				to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
-			if(panel_open == 1)
-				panel_open = 0
-				overlays -= image(icon, "npanel_open")
-				to_chat(user, "You screw the control panel of [src] back on.")
-				playsound(src, O.usesound, 50, 1)
-			flick("nuclearbombc", src)
-		return
-
-	if(panel_open && (istype(O, /obj/item/multitool) || istype(O, /obj/item/wirecutters)))
-		return attack_hand(user)
-
 	if(istype(O, /obj/item/disk/nuclear))
 		if(extended)
 			if(!user.drop_item())
@@ -89,76 +69,106 @@ var/bomb_set
 		else
 			to_chat(user, "<span class='notice'>You need to deploy \the [src] first. Right click on the sprite, select 'Make Deployable' then click on \the [src] with an empty hand.</span>")
 		return
-
-	if(anchored)
-		switch(removal_stage)
-			if(0)
-				if(istype(O,/obj/item/weldingtool))
-					var/obj/item/weldingtool/WT = O
-					if(!WT.isOn()) return
-					if(WT.get_fuel() < 5) // uses up 5 fuel.
-						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
-						return
-
-					user.visible_message("[user] starts cutting loose the anchoring bolt covers on [src].", "You start cutting loose the anchoring bolt covers with [O]...")
-
-					if(do_after(user,40, target = src))
-						if(!src || !user || !WT.remove_fuel(5, user)) return
-						user.visible_message("[user] cuts through the bolt covers on [src].", "You cut through the bolt cover.")
-						removal_stage = 1
-				return
-
-			if(1)
-				if(istype(O,/obj/item/crowbar))
-					user.visible_message("[user] starts forcing open the bolt covers on [src].", "You start forcing open the anchoring bolt covers with [O]...")
-
-					if(do_after(user,15, target = src))
-						if(!src || !user) return
-						user.visible_message("[user] forces open the bolt covers on [src].", "You force open the bolt covers.")
-						removal_stage = 2
-				return
-
-			if(2)
-				if(istype(O,/obj/item/weldingtool))
-
-					var/obj/item/weldingtool/WT = O
-					if(!WT.isOn()) return
-					if(WT.get_fuel() < 5) // uses up 5 fuel.
-						to_chat(user, "<span class='warning'>You need more fuel to complete this task.</span>")
-						return
-
-					user.visible_message("[user] starts cutting apart the anchoring system sealant on [src].", "You start cutting apart the anchoring system's sealant with [O]...")
-
-					if(do_after(user,40, target = src))
-						if(!src || !user || !WT.remove_fuel(5, user)) return
-						user.visible_message("[user] cuts apart the anchoring system sealant on [src].", "You cut apart the anchoring system's sealant.")
-						removal_stage = 3
-				return
-
-			if(3)
-				if(istype(O,/obj/item/wrench))
-
-					user.visible_message("[user] begins unwrenching the anchoring bolts on [src].", "You begin unwrenching the anchoring bolts...")
-
-					if(do_after(user,50, target = src))
-						if(!src || !user) return
-						user.visible_message("[user] unwrenches the anchoring bolts on [src].", "You unwrench the anchoring bolts.")
-						removal_stage = 4
-				return
-
-			if(4)
-				if(istype(O,/obj/item/crowbar))
-
-					user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
-
-					if(do_after(user,80, target = src))
-						if(!src || !user) return
-						user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
-						anchored = 0
-						removal_stage = 5
-				return
-		return
 	return ..()
+
+/obj/machinery/nuclearbomb/crowbar_act(mob/user, obj/item/I)
+	if(!anchored)
+		return
+	if(removal_stage != NUKE_UNWRENCHED && removal_stage != NUKE_COVER_OFF)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(removal_stage == NUKE_COVER_OFF)
+		user.visible_message("[user] starts forcing open the bolt covers on [src].", "You start forcing open the anchoring bolt covers with [I]...")
+		if(!I.use_tool(src, user, 15, volume = I.tool_volume) || removal_stage != NUKE_COVER_OFF)
+			return
+		user.visible_message("[user] forces open the bolt covers on [src].", "You force open the bolt covers.")
+		removal_stage = NUKE_COVER_OPEN
+	else
+		user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
+		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)
+			return
+		user.visible_message("[user] crowbars [src] off of the anchors. It can now be moved.", "You jam the crowbar under the nuclear device and lift it off its anchors. You can now move it!")
+		anchored = FALSE
+		removal_stage = NUKE_MOBILE
+
+/obj/machinery/nuclearbomb/wrench_act(mob/user, obj/item/I)
+	if(!anchored)
+		return
+	if(removal_stage != NUKE_SEALANT_OPEN)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("[user] begins unwrenching the anchoring bolts on [src].", "You begin unwrenching the anchoring bolts...")
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || removal_stage != NUKE_SEALANT_OPEN)
+		return
+	user.visible_message("[user] unwrenches the anchoring bolts on [src].", "You unwrench the anchoring bolts.")
+	removal_stage = NUKE_UNWRENCHED
+
+/obj/machinery/nuclearbomb/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	attack_hand(user)
+
+/obj/machinery/nuclearbomb/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(auth)
+		if(!panel_open)
+			panel_open = TRUE
+			overlays += image(icon, "npanel_open")
+			to_chat(user, "You unscrew the control panel of [src].")
+		else
+			panel_open = FALSE
+			overlays -= image(icon, "npanel_open")
+			to_chat(user, "You screw the control panel of [src] back on.")
+	else
+		if(!panel_open)
+			to_chat(user, "[src] emits a buzzing noise, the panel staying locked in.")
+		if(panel_open == TRUE)
+			panel_open = FALSE
+			overlays -= image(icon, "npanel_open")
+			to_chat(user, "You screw the control panel of [src] back on.")
+		flick("nuclearbombc", src)
+
+/obj/machinery/nuclearbomb/wirecutter_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	attack_hand(user)
+
+/obj/machinery/nuclearbomb/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(removal_stage != NUKE_INTACT && removal_stage != NUKE_COVER_OPEN)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	if(removal_stage == NUKE_INTACT)
+		visible_message("<span class='notice'>[user] starts cutting loose the anchoring bolt covers on [src].</span>",\
+		"<span class='notice'>You start cutting loose the anchoring bolt covers with [I]...</span>",\
+		"<span class='warning'>You hear welding.</span>")
+		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_INTACT)
+			return
+		visible_message("<span class='notice'>[user] cuts through the bolt covers on [src].</span>",\
+		"<span class='notice'>You cut through the bolt cover.</span>")
+		removal_stage = NUKE_COVER_OFF
+	else if(removal_stage == NUKE_COVER_OPEN)
+		visible_message("<span class='notice'>[user] starts cutting apart the anchoring system sealant on [src].</span>",\
+		"<span class='notice'>You start cutting apart the anchoring system's sealant with [I]...</span>",\
+		"<span class='warning'>You hear welding.</span>")
+		if(!I.use_tool(src, user, 40, 5, volume = I.tool_volume) || removal_stage != NUKE_COVER_OPEN)
+			return
+		visible_message("<span class='notice'>[user] cuts apart the anchoring system sealant on [src].</span>",\
+		"<span class='notice'>You cut apart the anchoring system's sealant.</span></span>")
+		removal_stage = NUKE_SEALANT_OPEN
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
 	if(extended)
@@ -171,7 +181,7 @@ var/bomb_set
 		else
 			ui_interact(user)
 	else if(deployable)
-		if(removal_stage < 5)
+		if(removal_stage != NUKE_MOBILE)
 			anchored = 1
 			visible_message("<span class='warning'>With a steely snap, bolts slide out of [src] and anchor it to the flooring!</span>")
 		else
@@ -317,7 +327,7 @@ var/bomb_set
 					timing = 0
 					bomb_set = 0
 			if(href_list["anchor"])
-				if(removal_stage == 5)
+				if(removal_stage == NUKE_MOBILE)
 					anchored = 0
 					visible_message("<span class='warning'>\The [src] makes a highly unpleasant crunching noise. It looks like the anchoring bolts have been cut.</span>")
 					SSnanoui.update_uis(src)
@@ -453,3 +463,10 @@ var/bomb_set
 	else
 		error("[src] was supposed to be destroyed, but we were unable to locate a blobstart landmark to spawn a new one.")
 	return QDEL_HINT_LETMELIVE // Cancel destruction unless forced.
+
+#undef NUKE_INTACT
+#undef NUKE_COVER_OFF
+#undef NUKE_COVER_OPEN
+#undef NUKE_SEALANT_OPEN
+#undef NUKE_UNWRENCHED
+#undef NUKE_MOBILE

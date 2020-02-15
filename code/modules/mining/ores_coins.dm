@@ -21,15 +21,16 @@
 	if(is_mining_level(z))
 		score_oremined++ //When ore spawns, increment score.  Only include ore spawned on mining level (No Clown Planet)
 
-/obj/item/stack/ore/attackby(obj/item/I, mob/user, params)
-	..()
-	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = I
-		if(W.remove_fuel(15) && refined_type)
-			new refined_type(get_turf(src.loc), amount)
-			qdel(src)
-		else if(W.isOn())
-			to_chat(user, "<span class='info'>Not enough fuel to smelt [src].</span>")
+/obj/item/stack/ore/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!refined_type)
+		to_chat(user, "<span class='notice'>You can't smelt [src] into anything useful!</span>")
+		return
+	if(!I.use_tool(src, user, 0, 15, volume = I.tool_volume))
+		return
+	new refined_type(drop_location(), amount)
+	to_chat(user, "<span class='notice'>You smelt [src] into its refined form!</span>")
+	qdel(src)
 
 /obj/item/stack/ore/Crossed(atom/movable/AM, oldloc)
 	var/obj/item/storage/bag/ore/OB
@@ -143,14 +144,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	points = 15
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
-
-/obj/item/stack/ore/plasma/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = I
-		if(W.welding)
-			to_chat(user, "<span class='warning'>You can't hit a high enough temperature to smelt [src] properly!</span>")
-	else
-		..()
 
 /obj/item/stack/ore/silver
 	name = "silver ore"
@@ -443,20 +436,23 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		overlays = list()
 		string_attached = null
 		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
-	else if(istype(W,/obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(WT.welding && WT.remove_fuel(0, user))
-			var/typelist = list("iron" = /obj/item/clothing/gloves/ring,
-								"silver" = /obj/item/clothing/gloves/ring/silver,
-								"gold" = /obj/item/clothing/gloves/ring/gold,
-								"plasma" = /obj/item/clothing/gloves/ring/plasma,
-								"uranium" = /obj/item/clothing/gloves/ring/uranium)
-			var/typekey = typelist[cmineral]
-			if(ispath(typekey))
-				to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
-				new typekey(get_turf(loc))
-				qdel(src)
 	else ..()
+
+/obj/item/coin/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/typelist = list("iron" = /obj/item/clothing/gloves/ring,
+						"silver" = /obj/item/clothing/gloves/ring/silver,
+						"gold" = /obj/item/clothing/gloves/ring/gold,
+						"plasma" = /obj/item/clothing/gloves/ring/plasma,
+						"uranium" = /obj/item/clothing/gloves/ring/uranium)
+	var/typekey = typelist[cmineral]
+	if(ispath(typekey))
+		to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
+		new typekey(get_turf(loc))
+		qdel(src)
+
 
 /obj/item/coin/attack_self(mob/user as mob)
 	if(cooldown < world.time - 15)

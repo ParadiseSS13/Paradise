@@ -271,6 +271,8 @@
 	desc = "A chute for big and small packages alike!"
 	density = 1
 	icon_state = "intake"
+	required_mode_to_deconstruct = 1
+	deconstructs_to = PIPE_DISPOSALS_CHUTE
 
 	var/c_mode = 0
 
@@ -357,24 +359,6 @@
 			c_mode=0
 			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "You attach the screws around the power connection.")
-			return
-	else if(istype(I,/obj/item/weldingtool) && c_mode==1)
-		var/obj/item/weldingtool/W = I
-		if(W.remove_fuel(0,user))
-			playsound(src.loc, W.usesound, 100, 1)
-			to_chat(user, "You start slicing the floorweld off the delivery chute.")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				if(!src || !W.isOn()) return
-				to_chat(user, "You sliced the floorweld off the delivery chute.")
-				var/obj/structure/disposalconstruct/C = new (src.loc)
-				C.ptype = PIPE_DISPOSALS_CHUTE
-				C.update()
-				C.anchored = 1
-				C.density = 1
-				qdel(src)
-			return
-		else
-			to_chat(user, "You need more welding fuel to complete this task.")
 			return
 
 /obj/item/shippingPackage

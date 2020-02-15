@@ -197,3 +197,6 @@
 
 /obj/structure/closet/fireaxecabinet/close()
 	return
+
+/obj/structure/closet/fireaxecabinet/welder_act(mob/user, obj/item/I) //A bastion of sanity in a sea of madness
+	return
