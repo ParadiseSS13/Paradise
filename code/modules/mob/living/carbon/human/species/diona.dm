@@ -8,13 +8,15 @@
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
+	total_health = 120
 	speed_mod = 4
 	punchdamagelow = 7
 	punchdamagehigh = 14
 
 	brute_mod = 0.75
-	burn_mod = 1.25
-	heatmod = 1.5
+	stamina_mod = 0.65
+	burn_mod = 1.3
+	heatmod = 1.6
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
@@ -122,3 +124,7 @@
 	. = ..()
 	C.faction -= "plants"
 	C.faction -= "vines"
+
+/datum/species/diona/apply_damage(obj/item/W)
+	if(is_sharp(W))
+		brute_mod = W.force / 10
