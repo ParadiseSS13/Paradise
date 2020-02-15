@@ -8,7 +8,7 @@
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
-	speed_mod = 4.5
+	speed_mod = 5
 
 	brute_mod = 0.40
 	burn_mod = 1.25
