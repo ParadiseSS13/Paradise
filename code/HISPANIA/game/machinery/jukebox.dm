@@ -17,7 +17,6 @@
 	var/list/sparkles = list()
 	var/static/list/songs = list(
 		new /datum/track("Generic",		"Fighter - Jack Strauber",						'sound/hispania/hispaniabox/fighter.ogg',	2450,	5),
-		new /datum/track("Generic",		"Piano Man - Billy Joel",						'sound/hispania/hispaniabox/pianoman2.ogg',	3450,	5),
 		new /datum/track("Generic",		"Los Marcianos Llegaron Ya - Tito Rodriguez",	'sound/music/title5.ogg',					1740,	5),
 		new /datum/track("Generic",		"Better Off Alone - SALEM Remix",				'sound/music/title12.ogg',					1750,	5),
 		new /datum/track("Cyberpunk",	"Dance With The Dead - Andromeda",				'sound/music/title1.ogg',					3010,	5),
