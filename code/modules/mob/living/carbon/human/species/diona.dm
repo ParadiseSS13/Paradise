@@ -8,22 +8,13 @@
 	speech_chance = 20
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
-	speed_mod = 5
+	speed_mod = 4.5
 
-	burn_mod = 1.1
-	heatmod = 1.2
+	brute_mod = 0.40
+	burn_mod = 1.25
+	heatmod = 1.5
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
-	warning_low_pressure = 50
-	hazard_low_pressure = -1
-
-	cold_level_1 = 50
-	cold_level_2 = -1
-	cold_level_3 = -1
-
-	heat_level_1 = 300
-	heat_level_2 = 340
-	heat_level_3 = 400
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
 	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
@@ -33,7 +24,7 @@
 	even the simplest concepts of other minds. Their alien physiology allows them survive happily off a diet of nothing but light, \
 	water and other radiation."
 
-	species_traits = list(NO_BREATHE, RADIMMUNE, IS_PLANT, NO_BLOOD, NO_PAIN, IS_PLANT, NO_GERMS, NO_DECAY)
+	species_traits = list(IS_PLANT, NO_PAIN, NO_GERMS, NO_DECAY)
 	clothing_flags = HAS_SOCKS
 	default_hair_colour = "#000000"
 	has_gender = FALSE
@@ -41,6 +32,7 @@
 	taste_sensitivity = TASTE_SENSITIVITY_DULL
 	skinned_type = /obj/item/stack/sheet/wood
 
+	blood_color = "#004400"
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
 
@@ -48,6 +40,7 @@
 
 	has_organ = list(
 		"nutrient channel" =   /obj/item/organ/internal/liver/diona,
+		"respiratory vacuoles" =   /obj/item/organ/internal/lungs/diona,
 		"neural strata" =      /obj/item/organ/internal/heart/diona,
 		"receptor node" =      /obj/item/organ/internal/eyes/diona, //Default darksight of 2.
 		"gas bladder" =        /obj/item/organ/internal/brain/diona,
