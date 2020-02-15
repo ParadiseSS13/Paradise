@@ -69,7 +69,7 @@
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
-	if(!shock(user, 70))
+	if(. && !QDELETED(src) && !shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
 /obj/structure/grille/hulk_damage()
