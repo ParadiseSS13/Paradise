@@ -146,7 +146,7 @@
 	access_card.access += access_robotics
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
-
+	Radio.follow_target = src
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
