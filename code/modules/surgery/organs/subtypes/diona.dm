@@ -2,7 +2,6 @@
 	name = "core trunk"
 	max_damage = 200
 	min_broken_damage = 50
-	cannot_break = 1
 	amputation_point = "trunk"
 	encased = null
 	gendered_icon = 0
