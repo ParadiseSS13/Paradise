@@ -29,7 +29,6 @@
 		new /datum/track("Megalovania",	"Megalovania - Toby Fox",				        'sound/hispania/hispaniabox/Megalovania.ogg',		3310,	5),
 		new /datum/track("Generic",	    "Star Wars Cantina - Meco",				        'sound/hispania/hispaniabox/star_wars_cantina.ogg',		2532,	5),
 		new /datum/track("Pop",	        "Never Gonna Give You Up - Rick Astley",	    'sound/hispania/hispaniabox/Give_You_Up.ogg',		2120,	5),
-		new /datum/track("Rock",	    "The House of the Rising Sun - The animal",     'sound/hispania/hispaniabox/The_House_of_the_Rising_Sun.ogg',	2480,5),
 		new /datum/track("Generic",	    "Golden Wind - Yugo Kanno.",                    'sound/hispania/hispaniabox/Golden_Wind.ogg',		2920,	5),
 		new /datum/track("Electro",	    "Tripaloski",									'sound/hispania/hispaniabox/Tripaloski.ogg',		1040,	5),
 		new /datum/track("Ss13",		"Space Ambience Song - Nanostrasen",			'sound/music/space.ogg',		2130,	5),
