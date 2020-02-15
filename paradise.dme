@@ -1175,6 +1175,8 @@
 #include "code\HISPANIA\game\objects\items\inducer.dm"
 #include "code\HISPANIA\game\objects\items\divices\radio\radio.dm"
 #include "code\HISPANIA\game\objects\items\miscellaneous\bell.dm"
+#include "code\HISPANIA\game\objects\items\miscellaneous\noose.dm"
+#include "code\HISPANIA\game\objects\items\miscellaneous\UNO.dm"
 #include "code\HISPANIA\game\objects\items\robot\robot_upgrades.dm"
 #include "code\HISPANIA\game\objects\items\toys\balloon.dm"
 #include "code\HISPANIA\game\objects\items\toys\uno.dm"
