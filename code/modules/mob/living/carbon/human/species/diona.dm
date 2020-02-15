@@ -9,6 +9,8 @@
 	unarmed_type = /datum/unarmed_attack/diona
 	remains_type = /obj/effect/decal/cleanable/ash
 	speed_mod = 5
+	punchdamagelow = 7
+	punchdamagehigh = 14
 
 	brute_mod = 0.75
 	burn_mod = 1.25
