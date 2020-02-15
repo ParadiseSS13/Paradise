@@ -10,11 +10,10 @@
 	remains_type = /obj/effect/decal/cleanable/ash
 	speed_mod = 5
 
-	brute_mod = 0.40
+	brute_mod = 0.75
 	burn_mod = 1.25
 	heatmod = 1.5
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
-
 
 	blurb = "Commonly referred to (erroneously) as 'plant people', the Dionaea are a strange space-dwelling collective \
 	species hailing from Epsilon Ursae Minoris. Each 'diona' is a cluster of numerous cat-sized organisms called nymphs; \
