@@ -1143,10 +1143,11 @@ var/list/can_embed_types = typecacheof(list(
 		return 1
 
 /proc/is_hot(obj/item/W as obj)
-	if(W.tool_behaviour == TOOL_WELDER && W.tool_enabled)
-		return 2500
-	else
-		return 0
+	if(W.tool_behaviour == TOOL_WELDER)
+		if(W.tool_enabled)
+			return 2500
+		else
+			return 0
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/O = W
 		if(O.lit)
