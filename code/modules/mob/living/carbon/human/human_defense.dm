@@ -16,7 +16,7 @@ emp_act
 		if(check_reflect(def_zone)) // Checks if you've passed a reflection% check
 			visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", \
 							"<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-			
+
 			P.reflect_back(src)
 
 			return -1 // complete projectile permutation
@@ -34,16 +34,6 @@ emp_act
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
 
 	return (..(P , def_zone))
-
-/mob/living/carbon/human/screwdriver_act(mob/user, obj/item/I)
-	if(!can_operate(src))  //Checks if mob is lying down on table for surgery
-		return
-	if(!ismachine(src))
-		return
-	if(user.a_intent != INTENT_HELP)
-		return
-	if(attempt_initiate_surgery(I, src, user))
-		return TRUE
 
 /mob/living/carbon/human/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
