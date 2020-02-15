@@ -58989,6 +58989,7 @@
 "ccF" = (
 /obj/structure/table/glass,
 /obj/item/stamp/cmo,
+/obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -59950,7 +59951,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/bed/dogbed/runtime,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -59967,12 +59967,11 @@
 	},
 /area/medical/cmo)
 "cem" = (
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/hud/health,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
 	},
+/obj/structure/bed/dogbed/runtime,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
