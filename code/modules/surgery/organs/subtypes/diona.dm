@@ -82,35 +82,30 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
 
+/obj/item/organ/internal/lungs/diona
+	name = "respiratory vacuoles"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "nymph"
+
 /obj/item/organ/internal/brain/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "gas bladder"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-
 /obj/item/organ/internal/kidneys/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "polyp segment"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-
 /obj/item/organ/internal/appendix/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "anchoring ligament"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "nymph"
-
 /obj/item/organ/internal/eyes/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "receptor node"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
-
 //TODO:Make absorb rads on insert
-
 /obj/item/organ/internal/liver/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "nutrient vessel"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	alcohol_intensity = 0.5
-
-/obj/item/organ/internal/lungs/diona
-	name = "respiratory vacuoles"
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "nymph"
