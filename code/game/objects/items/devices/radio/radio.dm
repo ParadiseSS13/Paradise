@@ -697,10 +697,8 @@ var/global/list/default_medbay_channels = list(
 	set_frequency(ERT_FREQ)
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
-	user.set_machine(src)
-	if(!istype(W, /obj/item/encryptionkey/ ))
-		return ..()
 	if(istype(W, /obj/item/encryptionkey/))
+		user.set_machine(src)
 		if(keyslot)
 			to_chat(user, "The radio can't hold another key!")
 			return
@@ -711,6 +709,8 @@ var/global/list/default_medbay_channels = list(
 			keyslot = W
 
 		recalculateChannels()
+	else
+		return ..()
 
 /obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE

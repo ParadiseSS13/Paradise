@@ -311,10 +311,8 @@
 	return ..()
 
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
-	user.set_machine(src)
-	if(!istype(W, /obj/item/encryptionkey))
-		return ..()
 	if(istype(W, /obj/item/encryptionkey/))
+		user.set_machine(src)
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
 			return
@@ -328,6 +326,8 @@
 			W.loc = src
 			keyslot2 = W
 		recalculateChannels()
+	else
+		return ..()
 
 /obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
