@@ -38798,7 +38798,6 @@
 "bto" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
-/obj/item/storage/bag/UNO,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "btp" = (
