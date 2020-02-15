@@ -59950,6 +59950,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/bed/dogbed/runtime,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -96684,6 +96685,10 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"lnU" = (
+/obj/structure/bed/dogbed/renault,
+/turf/simulated/floor/wood,
+/area/crew_quarters/captain)
 "lLC" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -129264,7 +129269,7 @@ bBE
 bCV
 bEv
 doB
-bzY
+lnU
 bMS
 bOy
 bQM
