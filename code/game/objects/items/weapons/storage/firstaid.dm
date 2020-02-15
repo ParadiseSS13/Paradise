@@ -42,6 +42,7 @@
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
 		new /obj/item/reagent_containers/food/pill/patch/silver_sulf( src )
+	//	new /obj/item/healthanalyzer( src )
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		new /obj/item/reagent_containers/food/pill/salicylic( src )
 		return
