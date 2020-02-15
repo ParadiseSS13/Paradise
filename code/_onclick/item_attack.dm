@@ -57,12 +57,12 @@
 					return 0
 				else
 					return 1
-
-		if(is_sharp(src) && user.a_intent == INTENT_HELP)
+		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
+		if((is_sharp(src) || (isscrewdriver(src) && O.is_robotic())) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
-				return 0
+				return FALSE
 			else
-				return 1
+				return TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
