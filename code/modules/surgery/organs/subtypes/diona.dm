@@ -10,7 +10,6 @@
 /obj/item/organ/external/groin/diona
 	name = "fork"
 	min_broken_damage = 50
-	cannot_break = 1
 	amputation_point = "lower trunk"
 	gendered_icon = 0
 
@@ -18,58 +17,49 @@
 	name = "left upper tendril"
 	max_damage = 35
 	min_broken_damage = 20
-	cannot_break = 1
 	amputation_point = "upper left trunk"
 
 /obj/item/organ/external/arm/right/diona
 	name = "right upper tendril"
 	max_damage = 35
 	min_broken_damage = 20
-	cannot_break = 1
 	amputation_point = "upper right trunk"
 
 /obj/item/organ/external/leg/diona
 	name = "left lower tendril"
 	max_damage = 35
 	min_broken_damage = 20
-	cannot_break = 1
 	amputation_point = "lower left fork"
 
 /obj/item/organ/external/leg/right/diona
 	name = "right lower tendril"
 	max_damage = 35
 	min_broken_damage = 20
-	cannot_break = 1
 	amputation_point = "lower right fork"
 
 /obj/item/organ/external/foot/diona
 	name = "left foot"
 	max_damage = 20
 	min_broken_damage = 10
-	cannot_break = 1
 	amputation_point = "branch"
 
 /obj/item/organ/external/foot/right/diona
 	name = "right foot"
 	max_damage = 20
 	min_broken_damage = 10
-	cannot_break = 1
 	amputation_point = "branch"
 
 /obj/item/organ/external/hand/diona
 	name = "left grasper"
-	cannot_break = 1
 	amputation_point = "branch"
 
 /obj/item/organ/external/hand/right/diona
 	name = "right grasper"
-	cannot_break = 1
 	amputation_point = "branch"
 
 /obj/item/organ/external/head/diona
 	max_damage = 50
 	min_broken_damage = 25
-	cannot_break = 1
 	encased = null
 	amputation_point = "upper trunk"
 	gendered_icon = 0
