@@ -127,4 +127,4 @@
 
 /datum/species/diona/apply_damage(obj/item/W)
 	if(is_sharp(W))
-		brute_mod = W.force / 10
+		brute_mod = W.force / 5
