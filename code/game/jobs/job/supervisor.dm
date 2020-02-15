@@ -241,7 +241,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	selection_color = "#ddddff"
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
-	alt_titles = list("Human Resources Agent")
+	alt_titles = list("Human Resources Agent", "Lawyer", "Prosecutor")	//Nombre Alterno a IAA
 	minimal_player_age = 30
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
