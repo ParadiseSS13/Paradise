@@ -36,7 +36,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_PRAYERNOTIFY)
-				X << 'sound/items/PDA/ambicha4-short.ogg'
+				SEND_SOUND(X, 'sound/items/PDA/ambicha4-short.ogg')
 
 	to_chat(usr, "Your prayers have been received by the gods.")
 
