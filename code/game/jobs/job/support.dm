@@ -1,10 +1,10 @@
-//Food
+/Food
 /datum/job/bartender
 	title = "Bartender"
 	flag = BARTENDER
 	department_flag = SUPPORT
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
@@ -44,8 +44,8 @@
 	title = "Chef"
 	flag = CHEF
 	department_flag = SUPPORT
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
@@ -86,7 +86,7 @@
 	selection_color = "#dddddd"
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
 	minimal_access = list(access_hydroponics, access_morgue, access_maint_tunnels)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	alt_titles = list("Hydroponicist", "Botanical Researcher", "Beekeeper")
 	required_objectives = list(
 		/datum/job_objective/further_plants
 	)
@@ -108,6 +108,23 @@
 	satchel = /obj/item/storage/backpack/satchel_hyd
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
 
+/datum/outfit/job/hydro/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if("Beekeeper")
+				uniform = /obj/item/clothing/under/rank/hydroponics
+				suit = /obj/item/clothing/suit/beekeeper_suit
+				gloves = /obj/item/clothing/gloves/botanic_leather
+				shoes = /obj/item/clothing/shoes/black
+				head = /obj/item/clothing/head/beekeeper_head
+				l_ear = /obj/item/radio/headset/headset_service
+				suit_store = /obj/item/melee/flyswatter
+				pda = /obj/item/pda/botanist
+
+				backpack = /obj/item/storage/backpack/botany
+				satchel = /obj/item/storage/backpack/satchel_hyd
+				dufflebag = /obj/item/storage/backpack/duffel/hydro
 
 
 //Cargo
