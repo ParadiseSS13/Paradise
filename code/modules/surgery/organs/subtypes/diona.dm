@@ -97,12 +97,12 @@
 	icon_state = "claw"
 
 //TODO:Make absorb rads on insert
+
 /obj/item/organ/internal/liver/diona // Turns into a nymph instantly, no transplanting possible.
 	name = "nutrient vessel"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "claw"
 	alcohol_intensity = 0.5
-
 /obj/item/organ/internal/lungs/diona
 	name = "respiratory vacuoles"
 	icon = 'icons/obj/objects.dmi'
