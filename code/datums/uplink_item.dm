@@ -1524,7 +1524,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "MBI"
 	item = /obj/item/implanter/explosive
 	cost = 2
-	gamemodes = list(/datum/game_mode/nuclear)
+	///gamemodes = list(/datum/game_mode/nuclear)
 
 // Cybernetics
 /datum/uplink_item/cyber_implants
