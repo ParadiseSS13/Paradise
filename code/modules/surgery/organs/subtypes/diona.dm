@@ -103,7 +103,6 @@
 	icon_state = "claw"
 	alcohol_intensity = 0.5
 
-
 /obj/item/organ/internal/lungs/diona
 	name = "respiratory vacuoles"
 	icon = 'icons/obj/objects.dmi'
