@@ -394,11 +394,11 @@
 				spawn(1) //This should ideally fire after the occupant is deleted.
 					if(!O) return
 					O.find_target()
-					O.owner.announce_objectives()
 					if(!(O.target))
 						GLOB.all_objectives -= O
 						O.owner.objectives -= O
 						qdel(O)
+					O.owner.announce_objectives()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
