@@ -25,6 +25,7 @@
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 312500 //a little over 5 cm thick , 312500 for 1 m by 2.5 m by 0.25 m plasteel wall
 
+	var/can_dismantle_with_welder = TRUE
 	var/hardness = 40 //lower numbers are harder. Used to determine the probability of a hulk smashing through.
 	var/slicing_duration = 100
 	var/engraving //engraving on the wall
@@ -326,54 +327,58 @@
 
 	return ..()
 
-/turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(WT.remove_fuel(0, user))
-			to_chat(user, "<span class='notice'>You burn away the fungi with [WT].</span>")
-			playsound(src, WT.usesound, 10, 1)
+/turf/simulated/wall/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(rotting)
+		if(I.use_tool(src, user, volume = I.tool_volume))
 			for(var/obj/effect/overlay/wall_rot/WR in src)
 				qdel(WR)
-			rotting = 0
-			return TRUE
-	else if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
+			rotting = FALSE
+			to_chat(user, "<span class='notice'>You burn off the fungi with [I].</span>")
+		return
+
+	if(!I.tool_use_check(user, 0)) //Wall repair stuff
+		return
+
+	var/time_required = slicing_duration
+	var/intention
+	if(can_dismantle_with_welder)
+		intention = "Dismantle"
+	if(damage || LAZYLEN(dent_decals))
+		intention = "Repair"
+		if(can_dismantle_with_welder)
+			var/moved_away = user.loc
+			intention = alert(user, "Would you like to repair or dismantle [src]?", "[src]", "Repair", "Dismantle")
+			if(user.loc != moved_away)
+				to_chat(user, "<span class='notice'>Stay still while doing this!</span>")
+				return
+			if(intention == "Repair")
+				time_required = max(5, damage / 5)
+	if(!intention)
+		return
+	if(intention == "Dismantle")
+		WELDER_ATTEMPT_SLICING_MESSAGE
+	else
+		WELDER_ATTEMPT_REPAIR_MESSAGE
+	if(I.use_tool(src, user, time_required, volume = I.tool_volume))
+		if(intention == "Dismantle")
+			WELDER_SLICING_SUCCESS_MESSAGE
+			dismantle_wall()
+		else
+			WELDER_REPAIR_SUCCESS_MESSAGE
+			cut_overlay(dent_decals)
+			dent_decals?.Cut()
+			take_damage(-damage)
+
+/turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
+	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
 		to_chat(user, "<span class='notice'>[src] crumbles away under the force of your [I.name].</span>")
 		dismantle_wall(1)
 		return TRUE
 	return FALSE
 
 /turf/simulated/wall/proc/try_decon(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(!WT.remove_fuel(0, user))
-			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-			return TRUE // this means "don't continue trying to find alternative uses in attackby", not "decon succeeded"
-
-		var/response = "Dismantle"
-		if(damage || LAZYLEN(dent_decals))
-			response = alert(user, "Would you like to repair or dismantle [src]?", "[src]", "Repair", "Dismantle")
-
-		switch(response)
-			if("Repair")
-				to_chat(user, "<span class='notice'>You start repairing the damage to [src].</span>")
-				playsound(src, WT.usesound, 100, 1)
-				if(do_after(user, max(5, damage / 5) * WT.toolspeed, target = src) && WT && WT.isOn())
-					to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
-					cut_overlay(dent_decals)
-					dent_decals?.Cut()
-					take_damage(-damage)
-			else
-				to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
-				playsound(src, WT.usesound, 100, 1)
-
-				if(do_after(user, slicing_duration * WT.toolspeed, target = src) && WT && WT.isOn())
-					to_chat(user, "<span class='notice'>You remove the outer plating.</span>")
-					dismantle_wall()
-				else
-					to_chat(user, "<span class='warning'>You stop slicing through [src].</span>")
-				return TRUE
-
-	else if(istype(I, /obj/item/gun/energy/plasmacutter))
+	if(istype(I, /obj/item/gun/energy/plasmacutter))
 		to_chat(user, "<span class='notice'>You begin slicing through the outer plating.</span>")
 		playsound(src, I.usesound, 100, 1)
 

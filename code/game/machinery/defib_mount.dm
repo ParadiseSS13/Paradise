@@ -98,16 +98,6 @@
 	else if(defib && I == defib.paddles)
 		user.drop_item()
 		return
-	else if(iswrench(I))
-		if(!defib)
-			user.visible_message("<span class='notice'>[user] unwrenches [src] from the wall!</span>", \
-			"<span class='notice'>You unwrench [src]!</span>")
-			new /obj/item/mounted/frame/defib_mount(get_turf(user))
-			playsound(get_turf(src), I.usesound, 50, 1)
-			qdel(src)
-			return
-		to_chat(user, "<span class='warning'>The [defib] is blocking access to the bolts!</span>")
-		return
 	var/obj/item/card/id = I.GetID()
 	if(id)
 		if(check_access(id) || security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
@@ -121,6 +111,17 @@
 			to_chat(user, "<span class='warning'>Insufficient access.</span>")
 		return
 	return ..()
+
+/obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(defib)
+		to_chat(user, "<span class='warning'>The [defib] is blocking access to the bolts!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new /obj/item/mounted/frame/defib_mount(get_turf(user))
+	qdel(src)
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/user)
 	if(!istype(user))

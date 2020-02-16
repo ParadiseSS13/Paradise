@@ -29,17 +29,20 @@
 	if(stacktype)
 		new stacktype(get_turf(src), drop_amount)
 
-/obj/structure/barricade/attackby(obj/item/I, mob/user, params)
-	if(iswelder(I) && user.a_intent != INTENT_HARM && bar_material == METAL)
-		var/obj/item/weldingtool/WT = I
-		if(obj_integrity < max_integrity)
-			if(WT.remove_fuel(0, user))
-				to_chat(user, "<span class='notice'>You begin repairing [src]...</span>")
-				playsound(loc, WT.usesound, 40, 1)
-				if(do_after(user, 40 * I.toolspeed, target = src))
-					obj_integrity = Clamp(obj_integrity + 20, 0, max_integrity)
-	else
-		return ..()
+/obj/structure/barricade/welder_act(mob/user, obj/item/I)
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		return
+	if(user.a_intent == INTENT_HARM)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_REPAIR_SUCCESS_MESSAGE
+		obj_integrity = Clamp(obj_integrity + 20, 0, max_integrity)
+		update_icon()
+	return TRUE
 
 /obj/structure/barricade/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
 	if(locate(/obj/structure/barricade) in get_turf(mover))

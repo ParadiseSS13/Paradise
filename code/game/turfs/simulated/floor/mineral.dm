@@ -46,6 +46,16 @@
 		return
 	..()
 
+/turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, volume = I.tool_volume))
+		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
+						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
+						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		ignite(2500) //Big enough to ignite
+		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+
 /turf/simulated/floor/mineral/plasma/proc/PlasmaBurn()
 	make_plating()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 20)

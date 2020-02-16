@@ -40,20 +40,23 @@
 		. += "<span class='notice'>It has \a [T] attached, which causes [T.effect_desc()].</span>"
 
 /obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/living/user)
-	if(iscrowbar(I))
-		if(LAZYLEN(trophies))
-			to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
-			playsound(loc, I.usesound, 100, 1)
-			for(var/t in trophies)
-				var/obj/item/crusher_trophy/T = t
-				T.remove_from(src, user)
-		else
-			to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
-	else if(istype(I, /obj/item/crusher_trophy))
+	if(istype(I, /obj/item/crusher_trophy))
 		var/obj/item/crusher_trophy/T = I
 		T.add_to(src, user)
 	else
 		return ..()
+
+/obj/item/twohanded/kinetic_crusher/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(LAZYLEN(trophies))
+		to_chat(user, "<span class='notice'>You remove [src]'s trophies.</span>")
+		for(var/t in trophies)
+			var/obj/item/crusher_trophy/T = t
+			T.remove_from(src, user)
+	else
+		to_chat(user, "<span class='warning'>There are no trophies on [src].</span>")
 
 /obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/carbon/user)
 	if(!wielded)

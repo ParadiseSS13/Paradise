@@ -68,19 +68,22 @@
 	max_charge = MC * 50
 
 /obj/machinery/mech_bay_recharge_port/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
-		return
-
-	if(default_change_direction_wrench(user, I))
-		recharging_turf = get_step(loc, dir)
-		return
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
 	return ..()
+
+/obj/machinery/mech_bay_recharge_port/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "recharge_port-o", "recharge_port", I))
+		return TRUE
+
+/obj/machinery/mech_bay_recharge_port/wrench_act(mob/user, obj/item/I)
+	if(default_change_direction_wrench(user, I))
+		recharging_turf = get_step(loc, dir)
+		return TRUE
+
+/obj/machinery/mech_bay_recharge_port/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
 
 /obj/machinery/mech_bay_recharge_port/Destroy()
 	if(recharge_console)

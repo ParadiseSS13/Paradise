@@ -435,7 +435,7 @@
 	if(exchange_parts(user, W))
 		return
 
-	if(default_deconstruction_crowbar(W))
+	if(default_deconstruction_crowbar(user, W))
 		return TRUE
 
 	if(istype(W, /obj/item/card/id))

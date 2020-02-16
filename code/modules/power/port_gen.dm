@@ -306,7 +306,7 @@
 			exchange_parts(user, O)
 			return
 		else if(istype(O, /obj/item/crowbar) && panel_open)
-			default_deconstruction_crowbar(O)
+			default_deconstruction_crowbar(user, O)
 	else
 		return ..()
 
