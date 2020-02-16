@@ -31808,10 +31808,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/structure/closet/secure_closet/hydroponics,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1
-	},
+/obj/structure/closet/secure_closet/beekeeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -96858,6 +96855,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"uzp" = (
+/obj/structure/beebox,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/hydroponics)
 "uBM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -138765,7 +138768,7 @@ bjB
 dnK
 dnU
 bov
-bqa
+uzp
 brt
 bsY
 buL
