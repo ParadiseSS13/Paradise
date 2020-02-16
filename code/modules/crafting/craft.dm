@@ -108,18 +108,24 @@
 	if(!R.tools.len)
 		return TRUE
 	var/list/possible_tools = list()
+	var/list/tools_used = list()
 	for(var/obj/item/I in user.contents)
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
-				possible_tools += SI.type
-		possible_tools += I.type
+				if(SI.tool_behaviour) //Only add things that we could actually use as a tool
+					possible_tools += SI
+		if(I.tool_behaviour)
+			possible_tools += I
 	possible_tools |= contents["other"]
-
 	main_loop:
 		for(var/A in R.tools)
-			for(var/I in possible_tools)
-				if(ispath(I,A))
+			for(var/obj/item/I in possible_tools)
+				if(A == I.tool_behaviour)
+					tools_used += I
 					continue main_loop
+			return FALSE
+	for(var/obj/item/T in tools_used)
+		if(!T.tool_start_check(user, 0)) //Check if all our tools are valid for their use
 			return FALSE
 	return TRUE
 

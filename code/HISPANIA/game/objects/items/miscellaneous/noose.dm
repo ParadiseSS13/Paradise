@@ -134,7 +134,7 @@
 			animate(src, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 			animate(buckled_mob, pixel_x = 3, time = 45, easing = ELASTIC_EASING)
 		if(buckled_mob.mob_has_gravity())
-			buckled_mob.AdjustLoseBreath(1)
+			buckled_mob.AdjustLoseBreath(5)
 			if(prob(30))
 				buckled_mob.emote("gasp")
 			if(prob(20))

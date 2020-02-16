@@ -390,18 +390,18 @@
 	origin_tech = "combat=3;engineering=4"
 	var/unit_spread = 10 // Amount of units per repeat. Can be altered with a multitool.
 
-/obj/item/grenade/chem_grenade/adv_release/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		switch(unit_spread)
-			if(0 to 24)
-				unit_spread += 5
-			if(25 to 99)
-				unit_spread += 25
-			else
-				unit_spread = 5
-		to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
+/obj/item/grenade/chem_grenade/adv_release/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	..()
+	switch(unit_spread)
+		if(0 to 24)
+			unit_spread += 5
+		if(25 to 99)
+			unit_spread += 25
+		else
+			unit_spread = 5
+	to_chat(user, "<span class='notice'> You set the time release to [unit_spread] units per detonation.</span>")
 
 /obj/item/grenade/chem_grenade/adv_release/prime()
 	if(stage != READY)

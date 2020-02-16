@@ -52,7 +52,7 @@ SUBSYSTEM_DEF(vote)
 	voting.Cut()
 	current_votes.Cut()
 
-	if(auto_muted && !config.ooc_allowed)
+	if(auto_muted && !config.ooc_allowed && !(config.auto_toggle_ooc_during_round && SSticker.current_state == GAME_STATE_PLAYING))
 		auto_muted = 0
 		config.ooc_allowed = !( config.ooc_allowed )
 		to_chat(world, "<b>The OOC channel has been automatically enabled due to vote end.</b>")

@@ -604,22 +604,30 @@ var/global/list/default_medbay_channels = list(
 		else
 			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
 
-/obj/item/radio/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	user.set_machine(src)
-	if(!( istype(W, /obj/item/screwdriver) ))
+/obj/item/radio/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	b_stat = !( b_stat )
+	user.set_machine(src)
+	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
 			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
 		else
 			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
 		updateDialog()
-			//Foreach goto(83)
-		add_fingerprint(user)
+
+/obj/item/radio/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	else return
+	interact(user)
+
+/obj/item/radio/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	interact(user)
 
 /obj/item/radio/emp_act(severity)
 	on = 0
@@ -690,33 +698,8 @@ var/global/list/default_medbay_channels = list(
 	set_frequency(ERT_FREQ)
 
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
-//	..()
-	user.set_machine(src)
-	if(!( istype(W, /obj/item/screwdriver) || (istype(W, /obj/item/encryptionkey/ ))))
-		return
-
-	if(istype(W, /obj/item/screwdriver))
-		if(keyslot)
-
-
-			for(var/ch_name in channels)
-				SSradio.remove_object(src, SSradio.radiochannels[ch_name])
-				secure_radio_connections[ch_name] = null
-
-
-			if(keyslot)
-				var/turf/T = get_turf(user)
-				if(T)
-					keyslot.loc = T
-					keyslot = null
-
-			recalculateChannels()
-			to_chat(user, "You pop out the encryption key in the radio!")
-
-		else
-			to_chat(user, "This radio doesn't have any encryption keys!")
-
 	if(istype(W, /obj/item/encryptionkey/))
+		user.set_machine(src)
 		if(keyslot)
 			to_chat(user, "The radio can't hold another key!")
 			return
@@ -727,8 +710,32 @@ var/global/list/default_medbay_channels = list(
 			keyslot = W
 
 		recalculateChannels()
+	else
+		return ..()
 
-	return
+/obj/item/radio/borg/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	user.set_machine(src)
+	if(keyslot)
+		for(var/ch_name in channels)
+			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
+			secure_radio_connections[ch_name] = null
+
+
+		if(keyslot)
+			var/turf/T = get_turf(user)
+			if(T)
+				keyslot.loc = T
+				keyslot = null
+
+		recalculateChannels()
+		to_chat(user, "You pop out the encryption key in the radio!")
+		I.play_tool_sound(user, I.tool_volume)
+
+	else
+		to_chat(user, "This radio doesn't have any encryption keys!")
 
 /obj/item/radio/borg/proc/recalculateChannels()
 	channels = list()
