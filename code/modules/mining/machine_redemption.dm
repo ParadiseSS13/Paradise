@@ -221,7 +221,7 @@
 	. = TRUE
 	if(!powered())
 		return
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	input_dir = turn(input_dir, -90)
 	output_dir = turn(output_dir, -90)

@@ -996,7 +996,7 @@
 	if(buildstage != AIR_ALARM_BUILDING)
 		return
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	to_chat(user, "You start prying out the circuit.")
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))

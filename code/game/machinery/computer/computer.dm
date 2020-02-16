@@ -135,7 +135,7 @@
 
 /obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.tool_start_check(user, 0))
+	if(!I.tool_start_check(src, user, 0))
 		return
 	if(circuit && !(flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
