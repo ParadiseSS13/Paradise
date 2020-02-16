@@ -66,34 +66,6 @@
 	toolspeed = 0.1
 	random_color = FALSE
 
-/obj/item/screwdriver/power
-	name = "hand drill"
-	desc = "A simple hand drill with a screwdriver bit attached."
-	icon_state = "drill_screw"
-	item_state = "drill"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
-	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
-	force = 8 //might or might not be too high, subject to change
-	throwforce = 8
-	throw_speed = 2
-	throw_range = 3//it's heavier than a screw driver/wrench, so it does more damage, but can't be thrown as far
-	attack_verb = list("drilled", "screwed", "jabbed","whacked")
-	hitsound = 'sound/items/drill_hit.ogg'
-	usesound = 'sound/items/drill_use.ogg'
-	toolspeed = 0.25
-	random_color = FALSE
-
-/obj/item/screwdriver/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [src] to [user.p_their()] temple. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	return BRUTELOSS
-
-/obj/item/screwdriver/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_drill.ogg', 50, 1)
-	var/obj/item/wrench/power/b_drill = new /obj/item/wrench/power
-	to_chat(user, "<span class='notice'>You attach the bolt driver bit to [src].</span>")
-	qdel(src)
-	user.put_in_active_hand(b_drill)
-
 /obj/item/screwdriver/cyborg
 	name = "powered screwdriver"
 	desc = "An electrical screwdriver, designed to be both precise and quick."

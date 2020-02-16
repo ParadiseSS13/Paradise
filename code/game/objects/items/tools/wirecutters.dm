@@ -65,31 +65,3 @@
 	desc = "This cuts wires."
 	toolspeed = 0.5
 
-/obj/item/wirecutters/power
-	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a cutting head."
-	icon_state = "jaws_cutter"
-	item_state = "jawsoflife"
-	origin_tech = "materials=2;engineering=2"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
-	usesound = 'sound/items/jaws_cut.ogg'
-	toolspeed = 0.25
-	random_color = FALSE
-
-/obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
-	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
-		if(head)
-			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
-			playsound(loc,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
-	return BRUTELOSS
-
-/obj/item/wirecutters/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
-	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
-	qdel(src)
-	user.put_in_active_hand(pryjaws)

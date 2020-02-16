@@ -59,27 +59,3 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 10
 	toolspeed = 0.5
-
-/obj/item/crowbar/power
-	name = "jaws of life"
-	desc = "A set of jaws of life, the magic of science has managed to fit it down into a device small enough to fit in a tool belt. It's fitted with a prying head."
-	icon_state = "jaws_pry"
-	item_state = "jawsoflife"
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
-	origin_tech = "materials=2;engineering=2"
-	usesound = 'sound/items/jaws_pry.ogg'
-	force = 15
-	toolspeed = 0.25
-	var/airlock_open_time = 100 // Time required to open powered airlocks
-
-/obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
-	return BRUTELOSS
-
-/obj/item/crowbar/power/attack_self(mob/user)
-	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
-	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
-	qdel(src)
-	user.put_in_active_hand(cutjaws)

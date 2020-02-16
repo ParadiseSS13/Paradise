@@ -198,7 +198,7 @@
 	req_tech = list("materials" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 3500, MAT_SILVER = 1500, MAT_TITANIUM = 2500)
-	build_path = /obj/item/screwdriver/power
+	build_path = /obj/item/powertool/drill
 	category = list("Equipment")
 
 /datum/design/jawsoflife
@@ -206,7 +206,7 @@
 	desc = "A small, compact Jaws of Life with an interchangable pry jaws and cutting jaws"
 	id = "jawsoflife"
 	req_tech = list("materials" = 4, "engineering" = 6, "magnets" = 6) // added one more requirment since the Jaws of Life are a bit OP
-	build_path = /obj/item/crowbar/power
+	build_path = /obj/item/powertool/powerjaws
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 4500, MAT_SILVER = 2500, MAT_TITANIUM = 3500)
 	category = list("Equipment")
