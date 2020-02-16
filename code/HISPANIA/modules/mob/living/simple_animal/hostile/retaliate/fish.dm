@@ -4,7 +4,7 @@
 	if(istype(F))
 		///Esto es para evitar que los kois coman cables dentro de la estacion y debajo de tiles
 	else
-		if(prob(40))
+		if(prob(10))
 			if(C.avail())
 				visible_message("<span class='warning'>[src] chews through [C]. It's toast!</span>")
 				playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
@@ -13,6 +13,7 @@
 			else
 				C.deconstruct()
 				visible_message("<span class='warning'>[src] chews through [C].</span>")
+	..()
 
 /mob/living/simple_animal/hostile/retaliate/carp/koi/proc/toast()
 	add_atom_colour("#3A3A3A", FIXED_COLOUR_PRIORITY)
