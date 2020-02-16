@@ -89,7 +89,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
 
 	// An associative list. key = surgery step, value = chance of success
-	var/list/surgery_behaviours = list() // What kind of surgery steps can we do? In the initialize of item it will add SURGERY_IMPLANT_CAVITY
+	var/list/surgery_behaviours = list() // What kind of surgery steps can we do?
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
