@@ -297,12 +297,7 @@
 		else
 			to_chat(usr, "<span class='warning'>The unit is not operational.</span>")
 		return
-	if(isscrewdriver(I))
-		panel_open = !panel_open
-		playsound(loc, I.usesound, 100, 1)
-		to_chat(user, text("<span class='notice'>You [panel_open ? "open up" : "close"] the unit's maintenance panel.</span>"))
-		updateUsrDialog()
-		return
+
 	if(panel_open)
 		wires.Interact(user)
 		return
@@ -313,10 +308,27 @@
 			updateUsrDialog()
 			to_chat(user, "<span class='notice'>You load the [I] into the storage compartment.</span>")
 		else
-			to_chat(user, "<span class='notice'>The unit already contains that item.</span>")
+			to_chat(user, "<span class='warning'>You can't fit [I] into [src]!</span>")
 		return
 	return ..()
 
+/obj/machinery/suit_storage_unit/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(shocked && shock(user, 100))
+		return
+	if(!is_operational())
+		if(panel_open)
+			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+		else
+			to_chat(user, "<span class='warning'>The unit is not operational.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+
+	panel_open = !panel_open
+	to_chat(user, text("<span class='notice'>You [panel_open ? "open up" : "close"] the unit's maintenance panel.</span>"))
+	updateUsrDialog()
+	return
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE

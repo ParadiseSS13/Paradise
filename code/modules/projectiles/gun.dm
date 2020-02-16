@@ -1,7 +1,7 @@
 /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/hispania/obj/guns/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
 	flags =  CONDUCT
@@ -44,8 +44,8 @@
 	var/current_skin = null //the skin choice if we had a reskin
 	var/list/options = list()
 
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 
 	var/obj/item/flashlight/gun_light = null
 	var/can_flashlight = 0
@@ -305,21 +305,6 @@
 				if(loc == user)
 					A.Grant(user)
 
-	if(isscrewdriver(I))
-		if(gun_light && can_flashlight)
-			for(var/obj/item/flashlight/seclite/S in src)
-				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-				gun_light = null
-				S.loc = get_turf(user)
-				update_gun_light(user)
-				S.update_brightness(user)
-				update_icon()
-				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-					qdel(TGL)
-		else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-			bayonet.forceMove(get_turf(user))
-			clear_bayonet()
-
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
 			rename_gun(user)
@@ -333,15 +318,33 @@
 		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
+		if(bayonet.icon_state in icon_states('icons/hispania/obj/guns/bayonets.dmi'))		//Snowflake state?
 			state = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
+		var/icon/bayonet_icons = 'icons/hispania/obj/guns/bayonets.dmi'
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
 		overlays += knife_overlay
 	else
 		return ..()
+
+/obj/item/gun/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(gun_light && can_flashlight)
+		for(var/obj/item/flashlight/seclite/S in src)
+			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+			gun_light = null
+			S.loc = get_turf(user)
+			update_gun_light(user)
+			S.update_brightness(user)
+			update_icon()
+			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
+				qdel(TGL)
+	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
+		bayonet.forceMove(get_turf(user))
+		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"

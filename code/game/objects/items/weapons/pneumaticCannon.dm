@@ -7,8 +7,8 @@
 	icon = 'icons/obj/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
 	item_state = "bulldog"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
 	var/loadedWeightClass = 0 //The weight of items currently in the cannon
@@ -138,8 +138,7 @@
 /datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
 	result = /obj/item/pneumatic_cannon/ghetto
-	tools = list(/obj/item/weldingtool,
-				 /obj/item/wrench)
+	tools = list(TOOL_WELDER, TOOL_WRENCH)
 	reqs = list(/obj/item/stack/sheet/metal = 4,
 				/obj/item/stack/packageWrap = 8,
 				/obj/item/pipe = 2)

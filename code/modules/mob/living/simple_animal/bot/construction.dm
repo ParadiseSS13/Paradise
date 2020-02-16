@@ -96,12 +96,10 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 				icon_state = "[lasercolor]ed209_shell"
 
 		if(3)
-			if(istype(W, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = W
-				if(WT.remove_fuel(0,user))
-					build_step++
-					name = "shielded frame assembly"
-					to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
+			if(W.tool_behaviour == TOOL_WELDER && W.use_tool(src, user, volume = W.tool_volume))
+				build_step++
+				name = "shielded frame assembly"
+				to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
 		if(4)
 			switch(lasercolor)
 				if("b")
@@ -440,19 +438,15 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if(istype(I, /obj/item/weldingtool))
+	if(I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, volume = I.tool_volume))
 		if(!build_step)
-			var/obj/item/weldingtool/WT = I
-			if(WT.remove_fuel(0, user))
-				build_step++
-				overlays += "hs_hole"
-				to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
+			build_step++
+			overlays += "hs_hole"
+			to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
 		else if(build_step == 1)
-			var/obj/item/weldingtool/WT = I
-			if(WT.remove_fuel(0, user))
-				build_step--
-				overlays -= "hs_hole"
-				to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
+			build_step--
+			overlays -= "hs_hole"
+			to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
 
 	else if(isprox(I) && (build_step == 1))
 		if(!user.unEquip(I))

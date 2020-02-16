@@ -213,19 +213,27 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(health >= HEALTH_THRESHOLD_CRIT)
-		if(src == M && ishuman(src))
-			check_self_for_injuries()
-		else
-			if(player_logged)
-				M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
-				"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
-			if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
-				add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
-				if(ishuman(src))
-					var/mob/living/carbon/human/H = src
-					if(H.w_uniform)
-						H.w_uniform.add_fingerprint(M)
+	if(src == M && ishuman(src))
+		check_self_for_injuries()
+	else
+		if(player_logged)
+			M.visible_message("<span class='notice'>[M] shakes [src], but [p_they()] [p_do()] not respond. Probably suffering from SSD.", \
+			"<span class='notice'>You shake [src], but [p_theyre()] unresponsive. Probably suffering from SSD.</span>")
+		if(lying) // /vg/: For hugs. This is how update_icon figgers it out, anyway.  - N3X15
+			add_attack_logs(M, src, "Shaked", ATKLOG_ALL)
+			if(ishuman(src))
+				var/mob/living/carbon/human/H = src
+				if(H.w_uniform)
+					H.w_uniform.add_fingerprint(M)
+			if(health <= HEALTH_THRESHOLD_CRIT)
+				AdjustWeakened(-1)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				if(!player_logged)
+					M.visible_message( \
+					"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
+					"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+					)
+			if(health >= HEALTH_THRESHOLD_CRIT)
 				AdjustSleeping(-5)
 				if(sleeping == 0)
 					StopResting()
@@ -235,29 +243,29 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
-						"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
-						"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
-						)
+					"<span class='notice'>[M] shakes [src] trying to wake [p_them()] up!</span>",\
+					"<span class='notice'>You shake [src] trying to wake [p_them()] up!</span>",\
+					)
 			// BEGIN HUGCODE - N3X
+		else
+			playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			if(M.zone_selected == "head")
+				M.visible_message(\
+				"<span class='notice'>[M] pats [src] on the head.</span>",\
+				"<span class='notice'>You pat [src] on the head.</span>",\
+				)
 			else
-				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-				if(M.zone_selected == "head")
-					M.visible_message(\
-					"<span class='notice'>[M] pats [src] on the head.</span>",\
-					"<span class='notice'>You pat [src] on the head.</span>",\
-					)
-				else
 
-					M.visible_message(\
-					"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
-					"<span class='notice'>You hug [src].</span>",\
-					)
-					if(ishuman(src))
-						var/mob/living/carbon/human/H = src
-						if(H.wear_suit)
-							H.wear_suit.add_fingerprint(M)
-						else if(H.w_uniform)
-							H.w_uniform.add_fingerprint(M)
+				M.visible_message(\
+				"<span class='notice'>[M] gives [src] a [pick("hug","warm embrace")].</span>",\
+				"<span class='notice'>You hug [src].</span>",\
+				)
+				if(ishuman(src))
+					var/mob/living/carbon/human/H = src
+					if(H.wear_suit)
+						H.wear_suit.add_fingerprint(M)
+					else if(H.w_uniform)
+						H.w_uniform.add_fingerprint(M)
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
@@ -280,11 +288,14 @@
 			status = "battered"
 		if(brutedamage > 40)
 			status = "mangled"
+		if(brutedamage > 70)
+			status = "destrosed"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " and "
-		if(burndamage > 40)
+		if(burndamage > 70)
+			status += "peeled away"
+		else if(burndamage > 40)
 			status += "peeling away"
-
 		else if(burndamage > 10)
 			status += "blistered"
 		else if(burndamage > 0)
@@ -303,6 +314,11 @@
 
 	if(H.bleed_rate)
 		to_chat(src, "<span class='danger'>You are bleeding!</span>")
+	if(H.getToxLoss() > 60)
+		to_chat(src, "<span class='danger'>You feel awfully bad!</span>")
+	for(var/obj/item/organ/external/LB in H.bodyparts)
+		if(LB.status & ORGAN_BROKEN)
+			to_chat(src, "<span class='danger'>You feel a insane pain around one of yours bones. It must be broken...</span>")
 	if(staminaloss)
 		if(staminaloss > 30)
 			to_chat(src, "<span class='info'>You're completely exhausted.</span>")
@@ -615,10 +631,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return TRUE
 
 /mob/living/carbon/restrained()
-	if(handcuffed)
+	if(get_restraining_item())
 		return TRUE
-	return
+	return FALSE
 
+/mob/living/carbon/get_restraining_item()
+	return handcuffed
 
 /mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
@@ -773,8 +791,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/resist_buckle()
 	spawn(0)
 		resist_muzzle()
-	if(restrained())
-		var/obj/item/I = handcuffed
+	var/obj/item/I
+	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
 		var/breakouttime = I.breakouttime
 		var/displaytime = breakouttime / 10
 		changeNext_move(CLICK_CD_BREAKOUT)
@@ -785,6 +803,11 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 			if(!buckled)
 				return
 			buckled.user_unbuckle_mob(src,src)
+			if(istype(I, /obj/item/restraints/handcuffs/cable))
+				playsound(loc, 'sound/effects/snap.ogg', 50, 1, -1)
+				visible_message("<span class='danger'>As [src] manages to unbuckle... It destroys [I] as well!</span>")
+				handcuffed = null
+				update_handcuffed()
 		else
 			if(src && buckled)
 				to_chat(src, "<span class='warning'>You fail to unbuckle yourself!</span>")

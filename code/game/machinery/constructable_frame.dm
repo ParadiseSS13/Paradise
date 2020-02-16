@@ -166,21 +166,39 @@
 				var/list/part_list = list()
 
 				//Assemble a list of current parts, then sort them by their rating!
-				for(var/obj/item/stock_parts/co in replacer)
+				for(var/obj/item/co in replacer)
 					part_list += co
+				//Sort the parts. This ensures that higher tier items are applied first.
+				part_list = sortTim(part_list, /proc/cmp_rped_sort)
 
 				for(var/path in req_components)
 					while(req_components[path] > 0 && (locate(path) in part_list))
 						var/obj/item/part = (locate(path) in part_list)
-						added_components[part] = path
-						replacer.remove_from_storage(part, src)
-						req_components[path]--
 						part_list -= part
+						if(istype(part,/obj/item/stack))
+							var/obj/item/stack/S = part
+							var/used_amt = min(round(S.get_amount()), req_components[path])
+							if(!used_amt || !S.use(used_amt))
+								continue
+							var/NS = new S.merge_type(src, used_amt)
+							added_components[NS] = path
+							req_components[path] -= used_amt
+						else
+							added_components[part] = path
+							replacer.remove_from_storage(part, src)
+							req_components[path]--
 
-				for(var/obj/item/stock_parts/part in added_components)
-					components += part
+				for(var/obj/item/part in added_components)
+					if(istype(part,/obj/item/stack))
+						var/obj/item/stack/S = part
+						var/obj/item/stack/NS = locate(S.merge_type) in components //find a stack to merge with
+						if(NS)
+							S.merge(NS)
+					if(!QDELETED(part)) //If we're a stack and we merged we might not exist anymore
+						components += part
 					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
-				replacer.play_rped_sound()
+				if(added_components.len)
+					replacer.play_rped_sound()
 
 				update_req_desc()
 				return
@@ -257,18 +275,20 @@ to destroy them and players will be able to make replacements.
 		/obj/machinery/vending/modularpc = "Deluxe Silicate Selections",
 		/obj/machinery/vending/crittercare = "CritterCare")
 
-/obj/item/circuitboard/vendor/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		var/static/list/display_vending_names_paths
-		if(!display_vending_names_paths)
-			display_vending_names_paths = list()
-			for(var/path in vending_names_paths)
-				display_vending_names_paths[vending_names_paths[path]] = path
-		var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
-		set_type(display_vending_names_paths[choice])
-	else
-		return ..()
-
+/obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/static/list/display_vending_names_paths
+	if(!display_vending_names_paths)
+		display_vending_names_paths = list()
+		for(var/path in vending_names_paths)
+			display_vending_names_paths[vending_names_paths[path]] = path
+	var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
+	if(loc != user)
+		to_chat(user, "<span class='notice'>You need to keep [src] in your hands while doing that!</span>")
+		return
+	set_type(display_vending_names_paths[choice])
 
 /obj/item/circuitboard/vendor/proc/set_type(obj/machinery/vending/typepath)
 	build_path = typepath
@@ -583,20 +603,20 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/manipulator = 1,
 							/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/chem_master/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		var/new_name = "ChemMaster"
-		var/new_path = /obj/machinery/chem_master
+/obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/new_name = "ChemMaster"
+	var/new_path = /obj/machinery/chem_master
 
-		if(build_path == /obj/machinery/chem_master)
-			new_name = "CondiMaster"
-			new_path = /obj/machinery/chem_master/condimaster
+	if(build_path == /obj/machinery/chem_master)
+		new_name = "CondiMaster"
+		new_path = /obj/machinery/chem_master/condimaster
 
-		build_path = new_path
-		name = "circuit board ([new_name] 3000)"
-		to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
-	else
-		return ..()
+	build_path = new_path
+	name = "circuit board ([new_name] 3000)"
+	to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
 
 /obj/item/circuitboard/chem_master/condi_master
 	name = "circuit board (CondiMaster 3000)"

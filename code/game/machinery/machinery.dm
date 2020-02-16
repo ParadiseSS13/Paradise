@@ -176,6 +176,10 @@ Class Procs:
 		use_power(7500/severity)
 		new /obj/effect/temp_visual/emp(loc)
 	..()
+/obj/machinery/default_welder_repair(mob/user, obj/item/I)
+	. = ..()
+	if(.)
+		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
@@ -371,13 +375,6 @@ Class Procs:
 	uid = gl_uid
 	gl_uid++
 
-/obj/machinery/proc/default_deconstruction_crowbar(var/obj/item/crowbar/C, var/ignore_panel = 0)
-	if(istype(C) && (panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
-		playsound(loc, C.usesound, 50, 1)
-		deconstruct(TRUE)
-		return 1
-	return 0
-
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
 		on_deconstruction()
@@ -402,9 +399,23 @@ Class Procs:
 	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
 
-/obj/machinery/proc/default_deconstruction_screwdriver(var/mob/user, var/icon_state_open, var/icon_state_closed, var/obj/item/screwdriver/S)
-	if(!(flags & NODECONSTRUCT) && istype(S))
-		playsound(loc, S.usesound, 50, 1)
+/obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
+	if(I.tool_behaviour != TOOL_CROWBAR)
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return FALSE
+	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
+		deconstruct(TRUE)
+		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+		return 1
+	return 0
+
+/obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
+	if(I.tool_behaviour != TOOL_SCREWDRIVER)
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return FALSE
+	if(!(flags & NODECONSTRUCT))
 		if(!panel_open)
 			panel_open = 1
 			icon_state = icon_state_open
@@ -416,27 +427,20 @@ Class Procs:
 		return 1
 	return 0
 
-/obj/machinery/proc/default_change_direction_wrench(var/mob/user, var/obj/item/wrench/W)
-	if(panel_open && istype(W))
-		playsound(loc, W.usesound, 50, 1)
+/obj/machinery/proc/default_change_direction_wrench(mob/user, obj/item/I)
+	if(I.tool_behaviour != TOOL_WRENCH)
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return FALSE
+	if(panel_open)
 		dir = turn(dir,-90)
 		to_chat(user, "<span class='notice'>You rotate [src].</span>")
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
-/obj/proc/default_unfasten_wrench(mob/user, obj/item/wrench/W, time = 20)
-	if(!(flags & NODECONSTRUCT) && istype(W))
-		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
-		playsound(loc, W.usesound, 50, 1)
-		if(do_after(user, time * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
-			anchored = !anchored
-			if(istype(src, /obj/machinery))
-				var/obj/machinery/M = src
-				M.power_change() //Turn on or off the machine depending on the status of power in the new area.
-			playsound(loc, W.usesound, 50, 1)
-		return 1
-	return 0
+/obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
+	if(..())
+		power_change()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
 	var/shouldplaysound = 0
@@ -448,19 +452,28 @@ Class Procs:
 			var/P
 			if(W.works_from_distance)
 				to_chat(user, display_parts(user))
-			for(var/obj/item/stock_parts/A in component_parts)
+			for(var/obj/item/A in component_parts)
 				for(var/D in CB.req_components)
 					if(ispath(A.type, D))
 						P = D
 						break
-				for(var/obj/item/stock_parts/B in W.contents)
+				for(var/obj/item/B in W.contents)
 					if(istype(B, P) && istype(A, P))
-						if(B.rating > A.rating)
-							W.remove_from_storage(B, src)
+						if(B.get_part_rating() > A.get_part_rating())
+							if(istype(B,/obj/item/stack)) //conveniently this will mean A is also a stack and I will kill the first person to prove me wrong
+								var/obj/item/stack/SA = A
+								var/obj/item/stack/SB = B
+								var/used_amt = SA.get_amount()
+								if(!SB.use(used_amt))
+									continue //if we don't have the exact amount to replace we don't
+								var/obj/item/stack/SN = new SB.merge_type(null,used_amt)
+								component_parts += SN
+							else
+								W.remove_from_storage(B, src)
+								component_parts += B
+								B.loc = null
 							W.handle_item_insertion(A, 1)
 							component_parts -= A
-							component_parts += B
-							B.loc = null
 							to_chat(user, "<span class='notice'>[A.name] replaced with [B.name].</span>")
 							shouldplaysound = 1
 							break
@@ -469,9 +482,9 @@ Class Procs:
 			to_chat(user, display_parts(user))
 		if(shouldplaysound)
 			W.play_rped_sound()
-		return 1
+		return TRUE
 	else
-		return 0
+		return FALSE
 
 /obj/machinery/proc/display_parts(mob/user)
 	. = list("<span class='notice'>Following parts detected in the machine:</span>")

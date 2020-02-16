@@ -106,7 +106,7 @@
 	R.module_actions.Cut()
 
 // Return true in an overridden subtype to prevent normal removal handling
-/obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W, params)
+/obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
 /obj/item/robot_module/proc/handle_death(gibbed)
@@ -358,10 +358,10 @@
 
 	fix_modules()
 
-/obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W, params)
+/obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
     if(component_id == "KA modkits")
         for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
-            D.attackby(W, user, params)
+            D.attackby(W, user)
         return TRUE
     return ..()
 
