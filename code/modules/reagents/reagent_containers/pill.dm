@@ -12,6 +12,7 @@
 	consume_sound = null
 	can_taste = FALSE
 	antable = FALSE
+	surgery_behaviours = list(SURGERY_INSERT_PILL = 100)
 
 /obj/item/reagent_containers/food/pill/New()
 	..()

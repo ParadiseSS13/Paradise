@@ -65,6 +65,7 @@
 #include "code\__DEFINES\station_goals.dm"
 #include "code\__DEFINES\status_effects.dm"
 #include "code\__DEFINES\subsystems.dm"
+#include "code\__DEFINES\surgery.dm"
 #include "code\__DEFINES\tools.dm"
 #include "code\__DEFINES\typeids.dm"
 #include "code\__DEFINES\vv.dm"

@@ -117,6 +117,7 @@
 	origin_tech = "biotech=2"
 	heal_brute = 10
 	stop_bleeding = 1800
+	surgery_behaviours = list(SURGERY_HEAL_ORGAN_MANIP = 20)
 
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
 	if(I.sharp)
@@ -166,6 +167,7 @@
 	icon_state = "traumakit"
 	heal_brute = 25
 	stop_bleeding = 0
+	surgery_behaviours = list(SURGERY_HEAL_ORGAN_MANIP = 100)
 
 
 

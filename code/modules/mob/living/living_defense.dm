@@ -281,6 +281,12 @@
 
 	return G
 
+/mob/living/proc/surgery_act(mob/living/user, obj/item/I)
+	if(can_operate(src) && surgeries.len)
+		for(var/datum/surgery/S in surgeries)
+			if(S.next_step(user, src))
+				return TRUE
+
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)
 		to_chat(M, "You cannot attack people before the game has started.")

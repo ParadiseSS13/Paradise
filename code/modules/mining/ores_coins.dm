@@ -323,6 +323,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/name_by_cmineral = TRUE
 	var/cooldown = 0
 	var/credits = 10
+	surgery_behaviours = list(SURGERY_ROBOTIC_UNSCREW_HATCH = 50)
 
 /obj/item/coin/New()
 	pixel_x = rand(0,16)-8

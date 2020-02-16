@@ -21,6 +21,7 @@
 	origin_tech = "magnets=1;engineering=2"
 	toolspeed = 1
 	tool_behaviour = TOOL_MULTITOOL
+	surgery_behaviours = list(SURGERY_ROBOTIC_EXTRACT_ORGAN = 100, SURGERY_ROBOTIC_REPROGRAM = 100)
 	hitsound = 'sound/weapons/tap.ogg'
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
 	var/obj/machinery/buffer // simple machine buffer for device linkage

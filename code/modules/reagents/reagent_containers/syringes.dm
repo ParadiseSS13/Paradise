@@ -17,6 +17,7 @@
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	surgery_behaviours = list(SURGERY_CLEAN_ORGAN_MANIP = 100)
 
 /obj/item/reagent_containers/syringe/New()
 	..()

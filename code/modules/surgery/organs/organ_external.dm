@@ -7,6 +7,7 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
+	surgery_behaviours = list(SURGERY_ATTACH_LIMB = 100)
 
 	var/brute_mod = 1
 	var/burn_mod = 1

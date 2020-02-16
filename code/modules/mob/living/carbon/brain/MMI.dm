@@ -6,7 +6,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=3"
 	origin_tech = "biotech=2;programming=3;engineering=2"
-
+	surgery_behaviours = list(SURGERY_ROBOTIC_INSERT_MMI)
+	
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
 	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI

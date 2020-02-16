@@ -15,6 +15,7 @@
 	sharp = TRUE
 	var/drill_delay = 7
 	var/drill_level = DRILL_BASIC
+	surgery_behaviours = list(SURGERY_DRILL_BONE = 60)
 
 /obj/item/mecha_parts/mecha_equipment/drill/action(atom/target)
 	if(!action_checks(target))

@@ -17,10 +17,10 @@
 
 /datum/surgery_step/augment
 	name = "augment limb with robotic part"
-	allowed_tools = list(/obj/item/robot_parts = 100)
+	allowed_surgery_behaviours = list(SURGERY_AUGMENT_ROBOTIC)
 	time = 32
 
-/datum/surgery_step/augment/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/augment/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
 		if(!(target_zone in p.part))
@@ -28,11 +28,11 @@
 			return 0
 	return 1
 
-/datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, surgery_behaviour)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
 
-/datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/augment/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",	\
@@ -54,4 +54,4 @@
 
 	affected.open = 0
 	affected.germ_level = 0
-	return 1
+	return TRUE

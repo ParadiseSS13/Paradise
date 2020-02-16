@@ -12,6 +12,7 @@
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
+	surgery_behaviours = list(SURGERY_DETHRALL = 40)
 
 /obj/item/flashlight/Initialize()
 	. = ..()
@@ -98,6 +99,7 @@
 	slot_flags = SLOT_BELT | SLOT_EARS
 	flags = CONDUCT
 	brightness_on = 2
+	surgery_behaviours = list(SURGERY_DETHRALL = 80)
 
 /obj/item/flashlight/seclite
 	name = "seclite"

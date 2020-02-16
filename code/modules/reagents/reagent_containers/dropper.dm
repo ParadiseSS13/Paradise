@@ -10,6 +10,7 @@
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(1, 2, 3, 4, 5)
 	volume = 5
+	surgery_behaviours = list(SURGERY_CLEAN_ORGAN_MANIP = 100)
 
 /obj/item/reagent_containers/dropper/on_reagent_change()
 	if(!reagents.total_volume)

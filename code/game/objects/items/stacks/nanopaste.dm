@@ -8,6 +8,7 @@
 	amount = 6
 	max_amount = 6
 	toolspeed = 1
+	surgery_behaviours = list(SURGERY_HEAL_ORGAN_MANIP = 100, SURGERY_ROBOTIC_MEND = 100)
 
 /obj/item/stack/nanopaste/attack(mob/living/M as mob, mob/user as mob)
 	if(!istype(M) || !istype(user))

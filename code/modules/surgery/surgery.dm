@@ -33,8 +33,8 @@
 	var/datum/surgery_step/S = get_surgery_step()
 	if(S)
 		if(S.try_op(user, target, user.zone_selected, user.get_active_hand(), src))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /datum/surgery/proc/get_surgery_step()
 	var/step_type = steps[status]
@@ -51,9 +51,7 @@
 /datum/surgery_step
 	var/priority = 0	//steps with higher priority would be attempted first
 
-	// type path referencing tools that can be used for this step, and how well are they suited for it
-	var/list/allowed_tools = null
-	var/implement_type = null
+	var/allowed_surgery_behaviours = null // The behaviours allowed for the surgery step
 
 	// duration of the step
 	var/time = 10
@@ -68,34 +66,37 @@
 	var/blood_level = 0
 
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/success = 0
+	var/success = FALSE
+	var/selected_surgery_behaviour
+	
+	if(target_zone != surgery.location)
+		return FALSE
 	if(accept_hand)
 		if(!tool)
-			success = 1
+			success = TRUE
 	if(accept_any_item)
-		if(tool && tool_quality(tool))
-			success = 1
+		if(tool)
+			success = TRUE
 	else
-		for(var/path in allowed_tools)
-			if(istype(tool, path))
-				implement_type = path
-				if(tool_quality(tool))
-					success = 1
+		for(var/surgery_behaviour in allowed_surgery_behaviours) // This way around so the surgery can decide what behaviour goes over others
+			if(surgery_behaviour in tool.surgery_behaviours)
+				success = TRUE
+				selected_surgery_behaviour = surgery_behaviour
+				break
 
 	if(success)
-		if(target_zone == surgery.location)
-			initiate(user, target, target_zone, tool, surgery)
-			return 1//returns 1 so we don't stab the guy in the dick or wherever.
-	return 0
+		initiate(user, target, target_zone, tool, surgery, selected_surgery_behaviour)
+		return TRUE //returns TRUE so we don't stab the guy in the dick or wherever.
+	return FALSE
 
-/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!can_use(user, target, target_zone, tool, surgery))
+/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+	if(!can_use(user, target, target_zone, tool, surgery, surgery_behaviour))
 		return
 	surgery.step_in_progress = 1
 
 	var/speed_mod = 1
 
-	if(begin_step(user, target, target_zone, tool, surgery) == -1)
+	if(begin_step(user, target, target_zone, tool, surgery, surgery_behaviour) == -1)
 		surgery.step_in_progress = 0
 		return
 
@@ -106,8 +107,8 @@
 		var/advance = 0
 		var/prob_chance = 100
 
-		if(implement_type)	//this means it isn't a require nd or any item step.
-			prob_chance = allowed_tools[implement_type]
+		if(surgery_behaviour)
+			prob_chance = tool.surgery_behaviours[surgery_behaviour]
 		prob_chance *= get_location_modifier(target)
 
 
@@ -117,10 +118,10 @@
 				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
 
 		if(prob(prob_chance) || isrobot(user))
-			if(end_step(user, target, target_zone, tool, surgery))
+			if(end_step(user, target, target_zone, tool, surgery, surgery_behaviour))
 				advance = 1
 		else
-			if(fail_step(user, target, target_zone, tool, surgery))
+			if(fail_step(user, target, target_zone, tool, surgery, surgery_behaviour))
 				advance = 1
 
 		if(advance)
@@ -130,13 +131,6 @@
 
 	surgery.step_in_progress = 0
 
-//returns how well tool is suited for this step
-/datum/surgery_step/proc/tool_quality(obj/item/tool)
-	for(var/T in allowed_tools)
-		if(istype(tool,T))
-			return allowed_tools[T]
-	return 0
-
 // Checks if this step applies to the user mob at all
 /datum/surgery_step/proc/is_valid_target(mob/living/carbon/human/target)
 	if(!hasorgans(target))
@@ -144,11 +138,11 @@
 	return TRUE
 
 // checks whether this step can be applied with the given user and target
-/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	return 1
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
-/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
@@ -162,11 +156,11 @@
 	return
 
 // does stuff to end the step, which is normally print a message + do whatever this step changes
-/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	return
 
 // stuff that happens when the step fails
-/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	return null
 
 /proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user, obj/item/tool)

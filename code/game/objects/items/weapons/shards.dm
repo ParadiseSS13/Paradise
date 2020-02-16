@@ -16,6 +16,7 @@
 	max_integrity = 40
 	resistance_flags = ACID_PROOF
 	sharp = TRUE
+	surgery_behaviours = list(SURGERY_SLIME_CUT_FLESH = 45, SURGERY_MAKE_INCISION = 60)
 	var/cooldown = 0
 	var/icon_prefix
 	var/obj/item/stack/sheet/welded_type = /obj/item/stack/sheet/glass

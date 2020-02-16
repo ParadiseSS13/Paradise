@@ -79,6 +79,7 @@
 	usesound = 'sound/weapons/drill.ogg'
 	origin_tech = "materials=2;powerstorage=2;engineering=3"
 	desc = "An electric mining drill for the especially scrawny."
+	surgery_behaviours = list(SURGERY_DRILL_BONE = 60)
 
 /obj/item/pickaxe/drill/cyborg
 	name = "cyborg mining drill"

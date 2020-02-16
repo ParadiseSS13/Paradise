@@ -17,6 +17,7 @@
 	light_power = 2
 	var/brightness_on = 2
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, rainbow=LIGHT_COLOR_WHITE)
+	surgery_behaviours = list(SURGERY_MAKE_INCISION = 6)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/carbon/human/user)
 	var/nemesis_faction = FALSE
@@ -116,6 +117,7 @@
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
 	sharp = 1
+	surgery_behaviours = list(SURGERY_SLIME_CUT_FLESH = 75)
 	var/hacked = 0
 
 /obj/item/melee/energy/sword/New()
@@ -154,6 +156,7 @@
 	item_color = null
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_WHITE
+	surgery_behaviours = list(SURGERY_SAW_BONE = 100, SURGERY_AMPUTATE = 100)
 
 /obj/item/melee/energy/sword/cyborg/saw/New()
 	..()

@@ -176,6 +176,7 @@
 	materials = list(MAT_GLASS=500)
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
+	surgery_behaviours = list(SURGERY_CLEAN_ORGAN_MANIP = 75)
 
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon()
@@ -348,6 +349,7 @@
 	slot_flags = SLOT_HEAD
 	resistance_flags = NONE
 	container_type = OPENCONTAINER
+	surgery_behaviours = list(SURGERY_CLEAN_ORGAN_MANIP = 50)
 
 /obj/item/reagent_containers/glass/bucket/wooden
 	name = "wooden bucket"

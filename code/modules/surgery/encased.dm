@@ -7,7 +7,7 @@
 	can_infect = 1
 	blood_level = 1
 
-/datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return 0
@@ -22,15 +22,11 @@
 
 /datum/surgery_step/open_encased/saw
 	name = "saw bone"
-	allowed_tools = list(
-	/obj/item/circular_saw = 100, \
-	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
-	)
+	allowed_surgery_behaviours = list(SURGERY_SAW_BONE)
 
 	time = 54
 
-/datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -41,7 +37,7 @@
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
 	..()
 
-/datum/surgery_step/open_encased/saw/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/saw/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -50,9 +46,9 @@
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
 	affected.open = 2.5
-	return 1
+	return TRUE
 
-/datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -64,20 +60,16 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return 0
+	return FALSE
 
 
 /datum/surgery_step/open_encased/retract
 	name = "retract bone"
-	allowed_tools = list(
-	/obj/item/scalpel/laser/manager = 100, \
-	/obj/item/retractor = 100, 	\
-	/obj/item/crowbar = 90
-	)
+	allowed_surgery_behaviours = list(SURGERY_RETRACT_BONE)
 
 	time = 24
 
-/datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -89,7 +81,7 @@
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
 	..()
 
-/datum/surgery_step/open_encased/retract/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/retract/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -101,9 +93,9 @@
 
 	affected.open = 3
 
-	return 1
+	return TRUE
 
-/datum/surgery_step/open_encased/retract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/retract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -116,19 +108,15 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return 0
+	return FALSE
 
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
-	allowed_tools = list(
-	/obj/item/scalpel/laser/manager = 100, \
-	/obj/item/retractor = 100, 	\
-	/obj/item/crowbar = 90
-	)
+	allowed_surgery_behaviours = list(SURGERY_RETRACT_BONE)
 
 	time = 24
 
-/datum/surgery_step/open_encased/close/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/close/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -140,7 +128,7 @@
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
 	..()
 
-/datum/surgery_step/open_encased/close/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/close/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -152,9 +140,9 @@
 
 	affected.open = 2.5
 
-	return 1
+	return TRUE
 
-/datum/surgery_step/open_encased/close/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/close/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -167,18 +155,15 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return 0
+	return FALSE
 
 /datum/surgery_step/open_encased/mend
 	name = "mend bone"
-	allowed_tools = list(
-	/obj/item/bonegel = 100,	\
-	/obj/item/screwdriver = 90
-	)
+	allowed_surgery_behaviours = list(SURGERY_MEND_BONE)
 
 	time = 24
 
-/datum/surgery_step/open_encased/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -190,7 +175,7 @@
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
 	..()
 
-/datum/surgery_step/open_encased/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/open_encased/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 
 	if(!hasorgans(target))
 		return
@@ -202,4 +187,4 @@
 
 	affected.open = 2
 
-	return 1
+	return TRUE
