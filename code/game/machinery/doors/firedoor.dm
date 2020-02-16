@@ -360,6 +360,7 @@
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
 				return
+		if(CONSTRUCTION_NOCIRCUIT)
 			if(istype(C, /obj/item/firelock_electronics))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									 "<span class='notice'>You begin adding a circuit board to [src]...</span>")

@@ -442,7 +442,8 @@ Class Procs:
 	return FALSE
 
 /obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
-	if(..())
+	. = ..()
+	if(.)
 		power_change()
 
 /obj/machinery/proc/exchange_parts(mob/user, obj/item/storage/part_replacer/W)
