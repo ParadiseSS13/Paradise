@@ -36,7 +36,7 @@
 		new /datum/track("For Science",	"Still Alive - GLaDOS",        					'sound/music/title7.ogg',		1840,	5),
 		new /datum/track("Pop",			"Children Of The Sun - Billy Thorpe",        	'sound/music/title8.ogg',		3470,	5),
 		new /datum/track("Electro",		"Spoiler - DJ Hyper",        					'sound/music/title9.ogg',		3500,	5),
-		new /datum/track("Ss13",		"Traitor Song - Nanostrasen",        			'sound/music/traitor.ogg',		3500,	5),
+		new /datum/track("Ss13",		"Tension Music - Nanostrasen",        			'sound/music/traitor.ogg',		3500,	5),
 		new /datum/track("Ss13",		"Thunderdome Song - Nanostrasen",        		'sound/music/thunderdome.ogg',	2020,	5),
 		)
 	var/datum/track/selection = null
