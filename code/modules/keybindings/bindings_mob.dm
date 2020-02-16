@@ -38,7 +38,7 @@
 				return
 	else
 		switch(_key)
-			if("Delete")
+			if("Delete", "C")
 				if(!pulling)
 					to_chat(src, "<span class='notice'>You are not pulling anything.</span>")
 				else

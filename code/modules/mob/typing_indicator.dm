@@ -66,6 +66,18 @@ GLOBAL_LIST_EMPTY(typing_indicator)
 	if(message)
 		me_verb(message)
 
+/mob/verb/whisper_wrapper()
+	set name = ".Whisper"
+	set hidden = 1
+
+	set_typing_indicator(1)
+	hud_typing = 1
+	var/message = typing_input(src, "", "whisper (text)")
+	hud_typing = 0
+	set_typing_indicator(0)
+	if(message)
+		whisper(message)
+
 /mob/proc/handle_typing_indicator()
 	if(client)
 		if(!(client.prefs.toggles & PREFTOGGLE_SHOW_TYPING) && !hud_typing)

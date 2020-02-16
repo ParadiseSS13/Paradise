@@ -33,23 +33,15 @@ SUBSYSTEM_DEF(input)
 	default_macro_sets = list(
 		"default" = list(
 			"Tab" = "\".winset \\\"input.focus=true?map.focus=true input.background-color=[COLOR_INPUT_DISABLED]:input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
-			"O" = "ooc",
-			"T" = ".say",
-			"M" = ".me",
 			"Back" = "\".winset \\\"input.focus=true input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
 			),
 		"old_default" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_hotkeys map.focus=true input.background-color=[COLOR_INPUT_DISABLED]\\\"\"",
-			"Ctrl+T" = ".say",
-			"Ctrl+O" = "ooc",
 			),
 		"old_hotkeys" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=old_default input.focus=true input.background-color=[COLOR_INPUT_ENABLED]\\\"\"",
-			"O" = "ooc",
-			"T" = ".say",
-			"M" = ".me",
 			"Back" = "\".winset \\\"input.focus=true input.text=\\\"\\\"\\\"\"", // This makes it so backspace can remove default inputs
 			"Any" = "\"KeyDown \[\[*\]\]\"",
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"",
@@ -62,7 +54,7 @@ SUBSYSTEM_DEF(input)
 	var/list/static/oldmode_keys = list(
 		"North", "East", "South", "West",
 		"Northeast", "Southeast", "Northwest", "Southwest",
-		"Insert", "Delete", "Ctrl", "Alt",
+		"Insert", "Delete", "Ctrl", "Alt", "Shift",
 		"F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
 		)
 
@@ -74,7 +66,7 @@ SUBSYSTEM_DEF(input)
 	var/list/static/oldmode_ctrl_override_keys = list(
 		"W" = "W", "A" = "A", "S" = "S", "D" = "D", // movement
 		"1" = "1", "2" = "2", "3" = "3", "4" = "4", // intent
-		"B" = "B", // resist
+		"B" = "B", // resist, rest
 		"E" = "E", // quick equip
 		"F" = "F", // intent left
 		"G" = "G", // intent right
@@ -84,7 +76,12 @@ SUBSYSTEM_DEF(input)
 		"X" = "X", // switch hands
 		"Y" = "Y", // activate item
 		"Z" = "Z", // activate item
-		)
+		"T" = "T", // say, whisper
+		"M" = "M", // me
+		"O" = "O", // ooc
+		"L" = "L", // looc
+		"C" = "C", // stop pulling
+	)
 
 	for(var/i in 1 to oldmode_ctrl_override_keys.len)
 		var/key = oldmode_ctrl_override_keys[i]
