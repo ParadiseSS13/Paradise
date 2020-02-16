@@ -212,21 +212,6 @@
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
 		return
-	if(!(flags & NODECONSTRUCT))
-		if(isscrewdriver(I) && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-			playsound(loc, I.usesound, 50, 1)
-			if(do_after(user, 20*I.toolspeed, target = src))
-				deconstruct(TRUE)
-			return
-
-		if(iswrench(I) && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
-			playsound(loc, I.usesound, 50, 1)
-			if(do_after(user, 40*I.toolspeed, target = src))
-				playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-				deconstruct(TRUE, 1)
-			return
 
 	if(isrobot(user))
 		return
@@ -244,6 +229,33 @@
 			item_placed(I)
 	else
 		return ..()
+
+
+/obj/structure/table/screwdriver_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	if(!deconstruction_ready)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume) && deconstruction_ready)
+		deconstruct(TRUE, 1)
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+
+/obj/structure/table/wrench_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	if(!deconstruction_ready)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume) && deconstruction_ready)
+		deconstruct(TRUE, 1)
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
 	if(!(flags & NODECONSTRUCT))
@@ -524,27 +536,14 @@
 	else
 		return ..()
 
-/obj/structure/table/reinforced/attackby(obj/item/W, mob/user, params)
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			playsound(loc, W.usesound, 50, 1)
-			if(deconstruction_ready)
-				to_chat(user, "<span class='notice'>You start strengthening the reinforced table...</span>")
-				if (do_after(user, 50*W.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You strengthen the table.</span>")
-					deconstruction_ready = FALSE
-			else
-				to_chat(user, "<span class='notice'>You start weakening the reinforced table...</span>")
-				if (do_after(user, 50*W.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You weaken the table.</span>")
-					deconstruction_ready = TRUE
-	else
-		return ..()
+/obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
+		deconstruction_ready = !deconstruction_ready
 
 /obj/structure/table/reinforced/brass
 	name = "brass table"
@@ -682,10 +681,6 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W) && !(flags & NODECONSTRUCT) && user.a_intent != INTENT_HELP)
-		playsound(loc, W.usesound, 50, 1)
-		deconstruct(TRUE)
-		return
 	if(isrobot(user))
 		return
 	if(user.a_intent == INTENT_HARM)
@@ -694,6 +689,15 @@
 		if(user.drop_item())
 			W.Move(loc)
 	return
+
+/obj/structure/rack/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
 
 /obj/structure/rack/attack_hand(mob/living/user)
 	if(user.IsWeakened() || user.resting || user.lying)
@@ -750,12 +754,12 @@
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
 
-/obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W))
-		new /obj/item/stack/sheet/metal(user.loc)
-		qdel(src)
-	else
-		return ..()
+/obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	new /obj/item/stack/sheet/metal(user.loc)
+	qdel(src)
 
 /obj/item/rack_parts/attack_self(mob/user)
 	if(building)

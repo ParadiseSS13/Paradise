@@ -77,7 +77,9 @@
 			/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0),
+			/obj/item/reagent_containers/food/snacks/drakemeat = list("drakeblood" = 10)
+
 	)
 
 	var/list/dried_items = list(
@@ -133,20 +135,34 @@
 	else
 		icon_state = "juicer0"
 
-/obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
+/obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!anchored || beaker)
 		return
+	if(!panel_open)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_crowbar(I)
+
+/obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!anchored || beaker)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I)
+
+/obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I)
+
+/obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
 
 	if(exchange_parts(user, I))
 		return
-
-	if(anchored && !beaker)
-		if(default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I))
-			return
-
-		if(panel_open && istype(I, /obj/item/crowbar))
-			default_deconstruction_crowbar(I)
-			return
 
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
 		if(beaker)
@@ -213,6 +229,8 @@
 		holdingitems += I
 		src.updateUsrDialog()
 		return FALSE
+
+
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
 		return FALSE

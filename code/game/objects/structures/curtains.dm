@@ -41,34 +41,36 @@
 /obj/structure/curtain/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/toy/crayon))
 		color = input(user, "Choose Color") as color
-	else if(isscrewdriver(W))
-		if(anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 50 * W.toolspeed, target = src))
-				if(!anchored)
-					return
-				anchored = FALSE
-				to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
-		else
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
-			if(do_after(user, 50 * W.toolspeed, target = src))
-				if(anchored)
-					return
-				anchored = TRUE
-				to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
-	else if(istype(W, /obj/item/wirecutters))
-		if(!anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("<span class='warning'>[user] cuts apart [src].</span>", "<span class='notice'>You start to cut apart [src].</span>", "You hear cutting.")
-			if(do_after(user, 50 * W.toolspeed, target = src))
-				if(anchored)
-					return
-				to_chat(user, "<span class='notice'>You cut apart [src].</span>")
-				deconstruct()
+		return
+	return ..()
+
+/obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(anchored)
+		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
+			anchored = FALSE
+			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
 	else
-		return ..()
+		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
+			anchored = TRUE
+			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
+
+
+
+/obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
+	if(anchored)
+		return
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	WIRECUTTER_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		WIRECUTTER_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct()
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cloth(loc, 2)

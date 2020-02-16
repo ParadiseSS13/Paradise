@@ -176,7 +176,7 @@
 	name = "Riot Suit"
 	desc = "A suit of armor with heavy padding to protect against melee attacks. Looks like it might impair movement."
 	icon_state = "riot"
-	item_state = "swat_suit"
+	item_state = "riot"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -185,6 +185,7 @@
 	strip_delay = 80
 	put_on_delay = 60
 	hide_tail_by_species = list("Vox")
+	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/riot/knight
 	name = "plate armour"
@@ -192,18 +193,22 @@
 	icon_state = "knight_green"
 	item_state = "knight_green"
 	slowdown = 1
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/yellow
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/blue
 	icon_state = "knight_blue"
 	item_state = "knight_blue"
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/red
 	icon_state = "knight_red"
 	item_state = "knight_red"
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/riot/knight/templar
 	name = "crusader armour"
@@ -212,6 +217,7 @@
 	item_state = "knight_templar"
 	allowed = list(/obj/item/nullrod/claymore)
 	armor = list(melee = 25, bullet = 5, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 80, acid = 80)
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"
@@ -304,7 +310,7 @@
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
-	desc = "Someone seperated our Research Director from his own head!"
+	desc = "An experimental suit of armor that will teleport the user a short distance on detection of imminent harm."
 	var/tele_range = 6
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
@@ -335,6 +341,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire
 	name = "reactive incendiary armor"
+	desc = "An experimental suit of armor with a reactive sensor array rigged to a flame emitter. For the stylish pyromaniac."
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
@@ -352,6 +359,7 @@
 
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
+	desc = "An experimental suit of armor that renders the wearer invisible on detection of imminent harm, and creates a decoy that runs away from the owner. You can't fight what you can't see."
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)
@@ -369,6 +377,7 @@
 
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"
+	desc = "An experimental suit of armor with sensitive detectors hooked up to a huge capacitor grid, with emitters strutting out of it. Zap."
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!active)

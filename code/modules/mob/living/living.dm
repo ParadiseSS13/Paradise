@@ -270,6 +270,13 @@
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
 
+/mob/living/welder_act(mob/user, obj/item/I)
+	if(!I.tool_use_check(null, 0)) //Don't need the message, just if it succeeded
+		return
+	if(IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
+		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+
 /mob/living/proc/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth

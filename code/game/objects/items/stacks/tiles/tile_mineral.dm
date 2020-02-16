@@ -8,6 +8,16 @@
 	mineralType = "plasma"
 	materials = list(MAT_PLASMA=500)
 
+/obj/item/stack/tile/mineral/plasma/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, volume = I.tool_volume))
+		atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 5)
+		user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
+							"<span class='warning'>You set the plasma tiles on fire!</span>")
+		message_admins("Plasma tiles ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma tiles ignited by [key_name(user)] in ([x],[y],[z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		qdel(src)
+
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
 	singular_name = "uranium floor tile"

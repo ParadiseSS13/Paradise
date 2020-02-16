@@ -27,3 +27,15 @@
 	req_components = list(
 						/obj/item/stock_parts/scanning_module/phasic = 2,
 						/obj/item/stock_parts/manipulator/pico = 1)
+
+
+/obj/item/circuitboard/mixer
+	name = "circuit board (Mixer)"
+	build_path = /obj/machinery/kitchen_machine/mixer
+	board_type = "machine"
+	origin_tech = "programming=0"
+	frame_desc = "Requires 1 Manipulator, 5 pieces of cable and 1 Console Screen."
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/sheet/glass = 1)

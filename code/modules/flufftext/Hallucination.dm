@@ -147,6 +147,8 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	START_PROCESSING(SSobj, src)
 
 /obj/effect/hallucination/fake_flood/process()
+	if(!target)
+		qdel(src)
 	if(next_expand <= world.time)
 		radius++
 		if(radius > FAKE_FLOOD_MAX_RADIUS)
@@ -962,7 +964,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 					halitem.plane = HUD_PLANE
 					switch(rand(1,6))
 						if(1) //revolver
-							halitem.icon = 'icons/obj/guns/projectile.dmi'
+							halitem.icon = 'icons/hispania/obj/guns/projectile.dmi'
 							halitem.icon_state = "revolver"
 							halitem.name = "Revolver"
 						if(2) //c4

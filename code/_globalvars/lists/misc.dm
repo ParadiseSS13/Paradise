@@ -48,11 +48,12 @@ GLOBAL_LIST_INIT(cooking_recipe_types, list(
 	RECIPE_MICROWAVE = /datum/recipe/microwave,
 	RECIPE_OVEN = /datum/recipe/oven,
 	RECIPE_GRILL = /datum/recipe/grill,
-	RECIPE_CANDY = /datum/recipe/candy
+	RECIPE_CANDY = /datum/recipe/candy,
+	RECIPE_MIXER = /datum/recipe/mixer
 	))
-GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
-GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
-GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
+GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list(), RECIPE_MIXER = list()))
+GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list(), RECIPE_MIXER = list()))
+GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list(), RECIPE_MIXER = list()))
 
 GLOBAL_LIST(station_level_space_turfs)
 

@@ -4,9 +4,9 @@
 	icon = 'icons/obj/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
 	item_state = "flamethrower_0"
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
 	var/fire_sound = 'sound/hispania/weapons/flamethrower.ogg'
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	flags = CONDUCT
 	force = 3
 	throwforce = 10
@@ -77,28 +77,7 @@
 			flame_turf(turflist)
 
 /obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I) && !status)//Taking this apart
-		var/turf/T = get_turf(src)
-		if(weldtool)
-			weldtool.forceMove(T)
-			weldtool = null
-		if(igniter)
-			igniter.forceMove(T)
-			igniter = null
-		if(ptank)
-			ptank.forceMove(T)
-			ptank = null
-		new /obj/item/stack/rods(T)
-		qdel(src)
-		return
-
-	else if(isscrewdriver(I) && igniter && !lit)
-		status = !status
-		to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
-		update_icon()
-		return
-
-	else if(isigniter(I))
+	if(isigniter(I))
 		var/obj/item/assembly/igniter/IG = I
 		if(IG.secured)
 			return
@@ -131,6 +110,34 @@
 	else
 		return ..()
 
+/obj/item/flamethrower/wrench_act(mob/user, obj/item/I)
+	if(status)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/turf/T = get_turf(src)
+	if(weldtool)
+		weldtool.forceMove(T)
+		weldtool = null
+	if(igniter)
+		igniter.forceMove(T)
+		igniter = null
+	if(ptank)
+		ptank.forceMove(T)
+		ptank = null
+	new /obj/item/stack/rods(T)
+	qdel(src)
+
+/obj/item/flamethrower/screwdriver_act(mob/user, obj/item/I)
+	if(!igniter || lit)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	status = !status
+	to_chat(user, "<span class='notice'>[igniter] is now [status ? "secured" : "unsecured"]!</span>")
+	update_icon()
 
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
@@ -169,7 +176,6 @@
 	..()
 	weldtool = locate(/obj/item/weldingtool) in contents
 	igniter = locate(/obj/item/assembly/igniter) in contents
-	weldtool.status = FALSE
 	igniter.secured = FALSE
 	status = TRUE
 	update_icon()
@@ -218,7 +224,6 @@
 	if(create_full)
 		if(!weldtool)
 			weldtool = new /obj/item/weldingtool(src)
-		weldtool.status = FALSE
 		if(!igniter)
 			igniter = new igniter_type(src)
 		igniter.secured = FALSE

@@ -17,7 +17,7 @@
 
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
-	cell = new /obj/item/stock_parts/cell/hyper(src)
+	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 /mob/living/silicon/robot/syndicate/init()
 	laws = new /datum/ai_laws/syndicate_override

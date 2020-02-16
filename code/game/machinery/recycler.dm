@@ -51,22 +51,25 @@ var/const/SAFETY_COOLDOWN = 100
 	..()
 	update_icon()
 
-
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
 	add_fingerprint(user)
-	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
-		return
-
 	if(exchange_parts(user, I))
 		return
+	return ..()
 
+/obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/recycler/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "grinder-oOpen", "grinder-o0", I))
+		return TRUE
+
+/obj/machinery/recycler/wrench_act(mob/user, obj/item/I)
 	if(default_unfasten_wrench(user, I))
-		return
+		return TRUE
 
-	if(default_deconstruction_crowbar(I))
-		return
-	else
-		return ..()
+
 
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
