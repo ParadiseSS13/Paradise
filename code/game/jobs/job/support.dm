@@ -1,4 +1,4 @@
-/Food
+//Food
 /datum/job/bartender
 	title = "Bartender"
 	flag = BARTENDER
