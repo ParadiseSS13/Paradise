@@ -35,7 +35,7 @@
 		playsound(get_turf(T), 'sound/hispania/effects/oldman/victim.ogg', 100, 1, -1)
 		sleep(75)
 		if(kidnapped)
-			to_chat(src, "<B>You feed on [kidnapped]. Your health is fully restored.</B>")
+			to_chat(src, "<B>You feed on [kidnapped]. Your health is restored.</B>")
 			adjustBruteLoss(-250)
 			last_meal = world.time
 
