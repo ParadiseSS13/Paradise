@@ -36,10 +36,7 @@
 		sleep(75)
 		if(kidnapped)
 			to_chat(src, "<B>You feed on [kidnapped]. Your health is fully restored.</B>")
-			adjustBruteLoss(-3000)
-			adjustFireLoss(-3000)
-			adjustOxyLoss(-3000)
-			adjustToxLoss(-3000)
+			adjustBruteLoss(-250)
 			last_meal = world.time
 
 			to_chat(kidnapped, "<span class='userdanger'>You feel your flesh melting away...</span>")
