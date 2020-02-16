@@ -1,7 +1,7 @@
 /mob/living/simple_animal/pet/dog/pug/unfunny
-	name = "\improper Vulcano"
-	real_name = "Vulcano"
-	desc = "The garbage pet, a lost brother of Ian."
+	name = "\improper Samfunn"
+	real_name = "Samfunn"
+	desc = "The garbage pet, a lost brother of Ian. Oh society!"
 	icon = 'icons/mob/pets.dmi'
 	icon_state = "pug"
 	icon_living = "pug"
