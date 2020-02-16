@@ -1160,6 +1160,7 @@
 #include "code\HISPANIA\game\gamemodes\miniantags\oldman\oldman.dm"
 #include "code\HISPANIA\game\gamemodes\miniantags\oldman\pocket_dimension.dm"
 #include "code\HISPANIA\game\jobs\job\blueshield.dm"
+#include "code\HISPANIA\game\jobs\job\support.dm"
 #include "code\HISPANIA\game\jobs\job_objectives\engineering.dm"
 #include "code\HISPANIA\game\jobs\job_objectives\hydroponics.dm"
 #include "code\HISPANIA\game\jobs\job_objectives\science.dm"
