@@ -2,7 +2,7 @@
 // will get logs that are one big line if the system is Linux and they are using notepad.  This solves it by adding CR to every line ending
 // in the logs.  ascii character 13 = CR
 
-GLOBAL_VAR_INIT(log_end, (world.system_type == UNIX ? ascii2text(13) : ""))
+GLOBAL_VAR_INIT(log_end, (ascii2text(13))) // CRLF for all logs
 GLOBAL_PROTECT(log_end)
 
 #define DIRECT_OUTPUT(A, B) A << B
