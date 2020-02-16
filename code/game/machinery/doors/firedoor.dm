@@ -87,47 +87,60 @@
 
 	if(operating)
 		return
-
-	if(welded)
-		if(iswrench(C))
-			if(boltslocked)
-				to_chat(user, "<span class='notice'>There are screws locking the bolts in place!</span>")
-				return
-			playsound(get_turf(src), C.usesound, 50, 1)
-			user.visible_message("<span class='notice'>[user] starts undoing [src]'s bolts...</span>", \
-								 "<span class='notice'>You start unfastening [src]'s floor bolts...</span>")
-			if(!do_after(user, 50 * C.toolspeed, target = src))
-				return
-			playsound(get_turf(src), C.usesound, 50, 1)
-			user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
-								 "<span class='notice'>You undo [src]'s floor bolts.</span>")
-			deconstruct(TRUE)
-			return
-		if(isscrewdriver(C))
-			user.visible_message("<span class='notice'>[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts.</span>", \
-								 "<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
-			playsound(get_turf(src), C.usesound, 50, 1)
-			boltslocked = !boltslocked
-			return
-
 	return ..()
 
 /obj/machinery/door/firedoor/try_to_activate_door(mob/user)
 	return
 
-/obj/machinery/door/firedoor/try_to_weld(obj/item/weldingtool/W, mob/user)
-	if(W.remove_fuel(0, user))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		user.visible_message("<span class='notice'>[user] starts [welded ? "unwelding" : "welding"] [src].</span>", "<span class='notice'>You start welding [src].</span>")
-		if(do_after(user, 40 * W.toolspeed, 1, target=src))
-			welded = !welded
-			to_chat(user, "<span class='danger'>[user] [welded ? "welds" : "unwelds"] [src].</span>", "<span class='notice'>You [welded ? "weld" : "unweld"] [src].</span>")
-			update_icon()
+/obj/machinery/door/firedoor/screwdriver_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
+	if(operating || !welded)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	user.visible_message("<span class='notice'>[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts.</span>", \
+						 "<span class='notice'>You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts.</span>")
+	boltslocked = !boltslocked
+
+/obj/machinery/door/firedoor/wrench_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
+	if(operating || !welded)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(boltslocked)
+		to_chat(user, "<span class='notice'>There are screws locking the bolts in place!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] starts undoing [src]'s bolts...</span>", \
+						 "<span class='notice'>You start unfastening [src]'s floor bolts...</span>")
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume) || boltslocked)
+		return
+	user.visible_message("<span class='notice'>[user] unfastens [src]'s bolts.</span>", \
+							"<span class='notice'>You undo [src]'s floor bolts.</span>")
+	deconstruct(TRUE)
+
+/obj/machinery/door/firedoor/welder_act(mob/user, obj/item/I)
+	if(!density)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_WELD_MESSAGE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
+	if(!density) //In case someone opens it while it's getting welded
+		return
+	WELDER_WELD_SUCCESS_MESSAGE
+	welded = !welded
+	update_icon()
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
-
 	if(density)
 		open()
 	else
@@ -308,40 +321,6 @@
 /obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
-			if(iscrowbar(C))
-				playsound(get_turf(src), C.usesound, 50, 1)
-				user.visible_message("<span class='notice'>[user] starts prying something out from [src]...</span>", \
-									 "<span class='notice'>You begin prying out the wire cover...</span>")
-				if(!do_after(user, 50 * C.toolspeed, target = src))
-					return
-				if(constructionStep != CONSTRUCTION_PANEL_OPEN)
-					return
-				playsound(get_turf(src), C.usesound, 50, 1)
-				user.visible_message("<span class='notice'>[user] pries out a metal plate from [src], exposing the wires.</span>", \
-									 "<span class='notice'>You remove the cover plate from [src], exposing the wires.</span>")
-				constructionStep = CONSTRUCTION_WIRES_EXPOSED
-				update_icon()
-				return
-			if(iswrench(C))
-				if(locate(/obj/machinery/door/firedoor) in get_turf(src))
-					to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
-					return
-				playsound(get_turf(src), C.usesound, 50, 1)
-				user.visible_message("<span class='notice'>[user] starts bolting down [src]...</span>", \
-									 "<span class='notice'>You begin bolting [src]...</span>")
-				if(!do_after(user, 30 * C.toolspeed, target = src))
-					return
-				if(locate(/obj/machinery/door/firedoor) in get_turf(src))
-					return
-				user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
-									 "<span class='notice'>You finish the firelock.</span>")
-				playsound(get_turf(src), C.usesound, 50, 1)
-				if(reinforced)
-					new /obj/machinery/door/firedoor/heavy(get_turf(src))
-				else
-					new /obj/machinery/door/firedoor(get_turf(src))
-				qdel(src)
-				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/P = C
 				if(reinforced)
@@ -362,53 +341,7 @@
 					P.use(2)
 					reinforced = 1
 				return
-
-		if(CONSTRUCTION_WIRES_EXPOSED)
-			if(iswirecutter(C))
-				playsound(get_turf(src), C.usesound, 50, 1)
-				user.visible_message("<span class='notice'>[user] starts cutting the wires from [src]...</span>", \
-									 "<span class='notice'>You begin removing [src]'s wires...</span>")
-				if(!do_after(user, 60 * C.toolspeed, target = src))
-					return
-				if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
-					return
-				user.visible_message("<span class='notice'>[user] removes the wires from [src].</span>", \
-									 "<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
-				var/obj/item/stack/cable_coil/B = new(get_turf(src))
-				B.amount = 5
-				constructionStep = CONSTRUCTION_GUTTED
-				update_icon()
-				return
-			if(iscrowbar(C))
-				playsound(get_turf(src), C.usesound, 50, 1)
-				user.visible_message("<span class='notice'>[user] starts prying a metal plate into [src]...</span>", \
-									 "<span class='notice'>You begin prying the cover plate back onto [src]...</span>")
-				if(!do_after(user, 80 * C.toolspeed, target = src))
-					return
-				if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
-					return
-				playsound(get_turf(src), C.usesound, 50, 1)
-				user.visible_message("<span class='notice'>[user] pries the metal plate into [src].</span>", \
-									 "<span class='notice'>You pry [src]'s cover plate into place, hiding the wires.</span>")
-				constructionStep = CONSTRUCTION_PANEL_OPEN
-				update_icon()
-				return
 		if(CONSTRUCTION_GUTTED)
-			if(iscrowbar(C))
-				user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", \
-									 "<span class='notice'>You begin prying out the circuit board from [src]...</span>")
-				playsound(get_turf(src), C.usesound, 50, 1)
-				if(!do_after(user, 50 * C.toolspeed, target = src))
-					return
-				if(constructionStep != CONSTRUCTION_GUTTED)
-					return
-				user.visible_message("<span class='notice'>[user] removes [src]'s circuit board.</span>", \
-									 "<span class='notice'>You remove the circuit board from [src].</span>")
-				new /obj/item/firelock_electronics(get_turf(src))
-				playsound(get_turf(src), C.usesound, 50, 1)
-				constructionStep = CONSTRUCTION_NOCIRCUIT
-				update_icon()
-				return
 			if(iscoil(C))
 				var/obj/item/stack/cable_coil/B = C
 				if(B.get_amount() < 5)
@@ -427,26 +360,6 @@
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
 				return
-		if(CONSTRUCTION_NOCIRCUIT)
-			if(iswelder(C))
-				var/obj/item/weldingtool/W = C
-				if(W.remove_fuel(1,user))
-					playsound(get_turf(src), W.usesound, 50, 1)
-					user.visible_message("<span class='notice'>[user] begins cutting apart [src]'s frame...</span>", \
-										 "<span class='notice'>You begin slicing [src] apart...</span>")
-					if(!do_after(user, 40 * W.toolspeed, target = src))
-						return
-					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
-						return
-					user.visible_message("<span class='notice'>[user] cuts apart [src]!</span>", \
-										 "<span class='notice'>You cut [src] into metal.</span>")
-					playsound(get_turf(src), W.usesound, 50, 1)
-					var/turf/T = get_turf(src)
-					new /obj/item/stack/sheet/metal(T, 3)
-					if(reinforced)
-						new /obj/item/stack/sheet/plasteel(T, 2)
-					qdel(src)
-				return
 			if(istype(C, /obj/item/firelock_electronics))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									 "<span class='notice'>You begin adding a circuit board to [src]...</span>")
@@ -464,6 +377,109 @@
 				update_icon()
 				return
 	return ..()
+
+/obj/structure/firelock_frame/crowbar_act(mob/user, obj/item/I)
+	if(!(constructionStep in list(CONSTRUCTION_WIRES_EXPOSED, CONSTRUCTION_PANEL_OPEN, CONSTRUCTION_GUTTED)))
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(constructionStep == CONSTRUCTION_WIRES_EXPOSED)
+		user.visible_message("<span class='notice'>[user] starts prying a metal plate into [src]...</span>", \
+							 "<span class='notice'>You begin prying the cover plate back onto [src]...</span>")
+		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+			return
+		if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
+			return
+		user.visible_message("<span class='notice'>[user] pries the metal plate into [src].</span>", \
+							 "<span class='notice'>You pry [src]'s cover plate into place, hiding the wires.</span>")
+		constructionStep = CONSTRUCTION_PANEL_OPEN
+	else if(constructionStep == CONSTRUCTION_PANEL_OPEN)
+		user.visible_message("<span class='notice'>[user] starts prying something out from [src]...</span>", \
+							 "<span class='notice'>You begin prying out the wire cover...</span>")
+		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+			return
+		if(constructionStep != CONSTRUCTION_PANEL_OPEN)
+			return
+		user.visible_message("<span class='notice'>[user] pries out a metal plate from [src], exposing the wires.</span>", \
+							 "<span class='notice'>You remove the cover plate from [src], exposing the wires.</span>")
+		constructionStep = CONSTRUCTION_WIRES_EXPOSED
+	else if(constructionStep == CONSTRUCTION_GUTTED)
+		user.visible_message("<span class='notice'>[user] begins removing the circuit board from [src]...</span>", \
+							 "<span class='notice'>You begin prying out the circuit board from [src]...</span>")
+		if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+			return
+		if(constructionStep != CONSTRUCTION_GUTTED)
+			return
+		user.visible_message("<span class='notice'>[user] removes [src]'s circuit board.</span>", \
+							 "<span class='notice'>You remove the circuit board from [src].</span>")
+		new /obj/item/firelock_electronics(get_turf(src))
+		constructionStep = CONSTRUCTION_NOCIRCUIT
+	update_icon()
+
+/obj/structure/firelock_frame/wirecutter_act(mob/user, obj/item/I)
+	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
+		return
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+
+	user.visible_message("<span class='notice'>[user] starts cutting the wires from [src]...</span>", \
+						 "<span class='notice'>You begin removing [src]'s wires...</span>")
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		return
+	if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
+		return
+	user.visible_message("<span class='notice'>[user] removes the wires from [src].</span>", \
+						 "<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
+	var/obj/item/stack/cable_coil/B = new(get_turf(src))
+	B.amount = 5
+	constructionStep = CONSTRUCTION_GUTTED
+	update_icon()
+
+/obj/structure/firelock_frame/wrench_act(mob/user, obj/item/I)
+	if(constructionStep != CONSTRUCTION_PANEL_OPEN)
+		return
+	. = TRUE
+	if(locate(/obj/machinery/door/firedoor) in get_turf(src))
+		to_chat(user, "<span class='warning'>There's already a firelock there.</span>")
+		return
+	if(!I.tool_start_check(user, 0))
+		return
+	user.visible_message("<span class='notice'>[user] starts bolting down [src]...</span>", \
+						 "<span class='notice'>You begin bolting [src]...</span>")
+	if(!I.use_tool(src, user, 50, volume = I.tool_volume))
+		return
+	if(locate(/obj/machinery/door/firedoor) in get_turf(src))
+		return
+	user.visible_message("<span class='notice'>[user] finishes the firelock.</span>", \
+						 "<span class='notice'>You finish the firelock.</span>")
+	if(reinforced)
+		new /obj/machinery/door/firedoor/heavy(get_turf(src))
+	else
+		new /obj/machinery/door/firedoor(get_turf(src))
+	qdel(src)
+
+
+
+
+
+/obj/structure/firelock_frame/welder_act(mob/user, obj/item/I)
+	if(constructionStep != CONSTRUCTION_NOCIRCUIT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(!I.use_tool(src, user, 40, amount = 1, volume = I.tool_volume))
+		return
+	if(constructionStep != CONSTRUCTION_NOCIRCUIT)
+		return
+	WELDER_SLICING_SUCCESS_MESSAGE
+	new /obj/item/stack/sheet/metal(drop_location(), 3)
+	if(reinforced)
+		new /obj/item/stack/sheet/plasteel(drop_location(), 2)
+	qdel(src)
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"

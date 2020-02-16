@@ -37,21 +37,22 @@
 	if(obj_integrity <= 0 && istype(depotarea))
 		overload(TRUE)
 
-/obj/structure/fusionreactor/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		playsound(loc, I.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
+/obj/structure/fusionreactor/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(isscrewdriver(I))
-		to_chat(user, "<span class='notice'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
-		if(prob(50))
-			empulse(src, 4, 10)
-		else
-			for(var/mob/living/M in range(10, loc))
-				M.apply_effect(rand(5, 25), IRRADIATE)
-		return
+	to_chat(user, "<span class='danger'>You try to screwdriver open [src], but accidentally release some radiation!</span>")
+	if(prob(50))
+		empulse(src, 4, 10)
 	else
-		return ..()
+		for(var/mob/living/M in range(10, loc))
+			M.apply_effect(rand(5, 25), IRRADIATE)
+
+/obj/structure/fusionreactor/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>The [src] is too well secured to the floor.</span>")
 
 /obj/structure/fusionreactor/proc/overload(containment_failure = FALSE, skip_qdel = FALSE)
 	if(has_overloaded)

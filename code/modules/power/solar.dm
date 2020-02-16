@@ -55,17 +55,15 @@
 	update_icon()
 
 
-
-/obj/machinery/power/solar/attackby(obj/item/W, mob/user, params)
-	if(iscrowbar(W))
-		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
-		user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
-		if(do_after(user, 50 * W.toolspeed, target = src))
-			playsound(src.loc, W.usesound, 50, 1)
-			user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
-			deconstruct(TRUE)
+/obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
 		return
-	return ..()
+	playsound(loc, 'sound/machines/click.ogg', 50, 1)
+	user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
+		deconstruct(TRUE)
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
