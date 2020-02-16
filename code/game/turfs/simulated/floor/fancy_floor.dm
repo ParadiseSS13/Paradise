@@ -50,15 +50,12 @@
 	floor_tile = /obj/item/stack/tile/grass
 	broken_states = list("sand")
 
-/turf/simulated/floor/grass/New()
+/turf/simulated/floor/grass/Initialize()
+	update_icon()
 	..()
-	spawn(1)
-		update_icon()
 
 /turf/simulated/floor/grass/update_icon()
-	..()
-	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
-		icon_state = "grass[pick("1","2","3","4")]"
+	icon_state = "grass[pick("1","2","3","4")]"
 
 /turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
 	if(..())
