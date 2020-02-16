@@ -238,7 +238,7 @@
 			new /obj/item/storage/backpack/duffel/mining_conscript/full(drop_location)
 		if("Spacepod Starter Kit")
 			new /obj/item/spacepod_equipment/weaponry/mining_laser_basic(drop_location)
-			new	/obj/item/spacepod_equipment/cargo/ore(drop_location)
+			new /obj/item/spacepod_equipment/cargo/ore(drop_location)
 			new /obj/item/spacepod_equipment/lock/keyed(drop_location)
 			new /obj/item/spacepod_key(drop_location)
 
