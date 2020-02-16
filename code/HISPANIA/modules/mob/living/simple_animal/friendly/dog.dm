@@ -8,3 +8,5 @@
 	icon_dead = "pug_dead"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/pug = 3)
 	collar_type = "pug"
+	gold_core_spawnable = NO_SPAWN
+	unique_pet = TRUE
