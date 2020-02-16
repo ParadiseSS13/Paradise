@@ -1,5 +1,3 @@
-#define SURGERY_ABDUCTOR_INSERT				"abductor insert"
-
 #define SURGERY_SAW_BONE					"saw bone"
 #define SURGERY_RETRACT_BONE				"retract bone"
 #define SURGERY_MEND_BONE					"mend bones" // Mending and medicating bones

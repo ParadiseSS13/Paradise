@@ -54,8 +54,13 @@
 
 /datum/surgery_step/internal/gland_insert
 	name = "insert gland"
-	allowed_surgery_behaviours = list(SURGERY_ABDUCTOR_INSERT)
+	allowed_surgery_behaviours = list(SURGERY_IMPLANT_ORGAN_MANIP)
 	time = 32
+
+/datum/surgery_step/internal/gland_insert/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+	. = istype(tool, /obj/item/organ/internal/heart/gland)
+	if(!.)
+		to_chat(user, "<span class='warning'>You must implant a gland for science!</span>")
 
 /datum/surgery_step/internal/gland_insert/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	user.visible_message("[user] starts to insert [tool] into [target].", "<span class ='notice'>You start to insert [tool] into [target]...</span>")
