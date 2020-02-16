@@ -37,7 +37,6 @@
 #define AIRLOCK_INTEGRITY_MULTIPLIER 1.5 // How much reinforced doors health increases
 #define AIRLOCK_DAMAGE_DEFLECTION_N  21  // Normal airlock damage deflection
 #define AIRLOCK_DAMAGE_DEFLECTION_R  30  // Reinforced airlock damage deflection
-#define AIRLOCK_WELD_ME "weld"
 
 var/list/airlock_overlays = list()
 
@@ -960,42 +959,10 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/welder_act(mob/user, obj/item/I) //This is god awful but I don't care
 	if(!headbutt_shock_check(user))
 		return
-	var/thing_to_do
-	if(!operating && density)
-		thing_to_do = AIRLOCK_WELD_ME
-	else
-		thing_to_do = security_level
-	if(!thing_to_do)
-		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	switch(thing_to_do)
-		if(AIRLOCK_WELD_ME)
-			if(user.a_intent != INTENT_HELP)
-				user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
-					"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
-					"<span class='italics'>You hear welding.</span>")
-
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
-					if(!density && !welded)
-						return
-					welded = !welded
-					user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
-						"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
-					update_icon()
-			else if(obj_integrity < max_integrity)
-				user.visible_message("[user] is welding the airlock.", \
-					"<span class='notice'>You begin repairing the airlock...</span>", \
-					"<span class='italics'>You hear welding.</span>")
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
-					obj_integrity = max_integrity
-					stat &= ~BROKEN
-					user.visible_message("[user.name] has repaired [src].", \
-						"<span class='notice'>You finish repairing the airlock.</span>")
-				update_icon()
-			else
-				to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
+	switch(security_level)
 		if(AIRLOCK_SECURITY_METAL)
 			to_chat(user, "<span class='notice'>You begin cutting the panel's shielding...</span>")
 			if(!I.use_tool(src, user, 40, volume = I.tool_volume))
@@ -1027,6 +994,31 @@ About the new airlock wires panel:
 				"<span class='notice'>You cut through \the [src]'s shielding.</span>",
 				"<span class='italics'>You hear welding.</span>")
 			security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
+		else
+			if(user.a_intent != INTENT_HELP)
+				user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
+					"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
+					"<span class='italics'>You hear welding.</span>")
+
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+					if(!density && !welded)
+						return
+					welded = !welded
+					user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
+						"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
+					update_icon()
+			else if(obj_integrity < max_integrity)
+				user.visible_message("[user] is welding the airlock.", \
+					"<span class='notice'>You begin repairing the airlock...</span>", \
+					"<span class='italics'>You hear welding.</span>")
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+					obj_integrity = max_integrity
+					stat &= ~BROKEN
+					user.visible_message("[user.name] has repaired [src].", \
+						"<span class='notice'>You finish repairing the airlock.</span>")
+				update_icon()
+			else
+				to_chat(user, "<span class='notice'>The airlock doesn't need repairing.</span>")
 	update_icon()
 
 /obj/machinery/door/airlock/proc/weld_checks(obj/item/I, mob/user)
@@ -1398,4 +1390,3 @@ About the new airlock wires panel:
 #undef AIRLOCK_INTEGRITY_MULTIPLIER
 #undef AIRLOCK_DAMAGE_DEFLECTION_N
 #undef AIRLOCK_DAMAGE_DEFLECTION_R
-#undef AIRLOCK_WELD_ME

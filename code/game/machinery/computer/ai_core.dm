@@ -140,7 +140,7 @@
 	update_icon()
 
 /obj/structure/AIcore/screwdriver_act(mob/living/user, obj/item/I)
-	if(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE))
+	if(!(state in list(SCREWED_CORE, CIRCUIT_CORE, GLASS_CORE, AI_READY_CORE)))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
