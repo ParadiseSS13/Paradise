@@ -348,16 +348,17 @@
 	return
 
 /obj/machinery/teleport/hub/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
-		return
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	return ..()
+
+/obj/machinery/teleport/hub/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/teleport/hub/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
+		return TRUE
 
 /obj/machinery/teleport/hub/proc/teleport(atom/movable/M as mob|obj, turf/T)
 	. = TRUE
@@ -450,16 +451,17 @@
 		icon_state = "tele0"
 
 /obj/machinery/teleport/perma/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
-		return
-
 	if(exchange_parts(user, I))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	return ..()
+
+/obj/machinery/teleport/perma/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/teleport/perma/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "tele-o", "tele0", I))
+		return TRUE
 
 /obj/machinery/teleport/station
 	name = "station"
@@ -520,8 +522,27 @@
 	return ..()
 
 /obj/machinery/teleport/station/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I) && !panel_open)
-		var/obj/item/multitool/M = I
+	if(exchange_parts(user, I))
+		return
+	if(panel_open && istype(I, /obj/item/circuitboard/teleporter_perma))
+		var/obj/item/circuitboard/teleporter_perma/C = I
+		C.target = teleporter_console.target
+		to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
+		return
+	return ..()
+
+/obj/machinery/teleport/station/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/teleport/station/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	if(!panel_open)
 		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
 			if(linked_stations.len < efficiency)
 				linked_stations.Add(M.buffer)
@@ -530,34 +551,21 @@
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 		return
+	M.set_multitool_buffer(user, src)
 
+/obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))
 		update_icon()
-		return
+		return TRUE
 
-	if(exchange_parts(user, I))
+/obj/machinery/teleport/station/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-
-	if(default_deconstruction_crowbar(I))
-		return
-
 	if(panel_open)
-		if(ismultitool(I))
-			var/obj/item/multitool/M = I
-			M.buffer = src
-			to_chat(user, "<span class='caution'>You download the data to the [M]'s buffer.</span>")
-			return
-		if(iswirecutter(I))
-			link_console_and_hub()
-			to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
-			return
-		if(istype(I, /obj/item/circuitboard/teleporter_perma))
-			var/obj/item/circuitboard/teleporter_perma/C = I
-			C.target = teleporter_console.target
-			to_chat(user, "<span class='caution'>You copy the targeting information from [src] to [C]</span>")
-			return
+		link_console_and_hub()
+		to_chat(user, "<span class='caution'>You reconnect the station to nearby machinery.</span>")
 
-	return ..()
 
 /obj/machinery/teleport/station/attack_ai()
 	src.attack_hand()

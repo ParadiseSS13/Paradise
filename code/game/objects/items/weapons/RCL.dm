@@ -36,25 +36,29 @@
 				return
 		update_icon()
 		to_chat(user, "<span class='notice'>You add the cables to the [src]. It now contains [loaded.amount].</span>")
-	else if(isscrewdriver(W))
-		if(!loaded)
-			return
-		to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
-		while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
-			var/diff = loaded.amount % 30
-			if(diff)
-				loaded.use(diff)
-				new /obj/item/stack/cable_coil(user.loc, diff)
-			else
-				loaded.use(30)
-				new /obj/item/stack/cable_coil(user.loc, 30)
-		loaded.max_amount = initial(loaded.max_amount)
-		loaded.forceMove(user.loc)
-		user.put_in_hands(loaded)
-		loaded = null
-		update_icon()
 	else
 		..()
+
+/obj/item/twohanded/rcl/screwdriver_act(mob/user, obj/item/I)
+	if(!loaded)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
+	while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
+		var/diff = loaded.amount % 30
+		if(diff)
+			loaded.use(diff)
+			new /obj/item/stack/cable_coil(user.loc, diff)
+		else
+			loaded.use(30)
+			new /obj/item/stack/cable_coil(user.loc, 30)
+	loaded.max_amount = initial(loaded.max_amount)
+	loaded.forceMove(user.loc)
+	user.put_in_hands(loaded)
+	loaded = null
+	update_icon()
 
 /obj/item/twohanded/rcl/examine(mob/user)
 	. = ..()

@@ -163,14 +163,19 @@
 		if(loaded)
 			to_chat(user, "<span class='notice'>You fill [src] with the monkey cubes stored in [O]. [src] now has [monkeys] monkey cubes stored.</span>")
 		return
-	else if(ismultitool(O))
-		var/obj/item/multitool/I = O
-		if(istype(I.buffer, /obj/machinery/monkey_recycler))
-			to_chat(user, "<span class='notice'>You link [src] with [I.buffer] in [I] buffer.</span>")
-			connected_recycler = I.buffer
-			connected_recycler.connected += src
-		return
 	return ..()
+
+/obj/machinery/computer/camera_advanced/xenobio/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	if(istype(M.buffer, /obj/machinery/monkey_recycler))
+		M.set_multitool_buffer(user, src)
+		connected_recycler = M.buffer
+		connected_recycler.connected += src
 
 /datum/action/innate/slime_place
 	name = "Place Slimes"

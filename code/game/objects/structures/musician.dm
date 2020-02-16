@@ -315,25 +315,27 @@
 /obj/structure/piano/Topic(href, href_list)
 	song.Topic(href, href_list)
 
-/obj/structure/piano/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(iswrench(O))
-		if(!anchored && !isinspace())
-			playsound(src.loc, O.usesound, 50, 1)
-			to_chat(user, "<span class='notice'> You begin to tighten \the [src] to the floor...</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message( \
-					"[user] tightens \the [src]'s casters.", \
-					"<span class='notice'> You have tightened \the [src]'s casters. Now it can be played again.</span>", \
-					"You hear ratchet.")
-				anchored = 1
-		else if(anchored)
-			playsound(src.loc, O.usesound, 50, 1)
-			to_chat(user, "<span class='notice'> You begin to loosen \the [src]'s casters...</span>")
-			if(do_after(user, 40 * O.toolspeed, target = src))
-				user.visible_message( \
-					"[user] loosens \the [src]'s casters.", \
-					"<span class='notice'> You have loosened \the [src]. Now it can be pulled somewhere else.</span>", \
-					"You hear ratchet.")
-				anchored = 0
+/obj/structure/piano/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!anchored && !isinspace())
+		WRENCH_ANCHOR_MESSAGE
+		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+			return
+		user.visible_message( \
+			"[user] tightens [src]'s casters.", \
+			"<span class='notice'> You have tightened [src]'s casters. Now it can be played again.</span>", \
+			"You hear ratchet.")
+		anchored = TRUE
+	else if(anchored)
+		to_chat(user, "<span class='notice'> You begin to loosen [src]'s casters...</span>")
+		if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+			return
+		user.visible_message( \
+			"[user] loosens [src]'s casters.", \
+			"<span class='notice'> You have loosened [src]. Now it can be pulled somewhere else.</span>", \
+			"You hear ratchet.")
+		anchored = FALSE
 	else
-		return ..()
+		to_chat(user, "<span class='warning'>[src] needs to be bolted to the floor!</span>")

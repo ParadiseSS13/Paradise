@@ -133,10 +133,10 @@
 	if(istype(user, /mob/dead/observer)) return 0
 	return ..()
 
-/obj/machinery/computer/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I) && circuit && !(flags & NODECONSTRUCT))
-		playsound(loc, I.usesound, 50, TRUE)
-		if(do_after(user, 20 * I.toolspeed, target = src))
-			deconstruct(TRUE, user)
+/obj/machinery/computer/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
 		return
-	return ..()
+	if(circuit && !(flags & NODECONSTRUCT))
+		if(I.use_tool(src, user, 20, volume = I.tool_volume))
+			deconstruct(TRUE, user)

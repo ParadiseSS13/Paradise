@@ -57,18 +57,19 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/machinery/disco/attackby(obj/item/O, mob/user, params)
-	if(!active)
-		if(iswrench(O))
-			if(!anchored && !isinspace())
-				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
-				anchored = TRUE
-			else if(anchored)
-				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
-				anchored = FALSE
-			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+/obj/machinery/disco/wrench_act(mob/user, obj/item/I)
+	if(active)
 		return
-	return ..()
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!anchored && !isinspace())
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
+	else if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 
 /obj/machinery/disco/update_icon()
 	if(active)

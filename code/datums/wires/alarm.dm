@@ -54,8 +54,7 @@ var/const/AALARM_WIRE_AALARM = 16
 //			to_chat(world, "Power wire cut")
 
 		if(AALARM_WIRE_AI_CONTROL)
-			if(A.aidisabled == !mended)
-				A.aidisabled = mended
+			A.aidisabled = !mended
 //				to_chat(world, "AI Control Wire Cut")
 
 		if(AALARM_WIRE_SYPHON)

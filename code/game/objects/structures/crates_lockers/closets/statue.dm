@@ -92,6 +92,9 @@
 		shatter(M)
 	..()
 
+/obj/structure/closet/statue/welder_act()
+	return
+
 /obj/structure/closet/statue/MouseDrop_T()
 	return
 

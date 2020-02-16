@@ -286,42 +286,6 @@
 				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
 		return
 
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(active)
-			to_chat(user, "Turn off the [src] first.")
-			return
-		switch(state)
-			if(0)
-				to_chat(user, "<span class='warning'>The [src.name] needs to be wrenched to the floor.</span>")
-			if(1)
-				if(WT.remove_fuel(0,user))
-					playsound(src.loc, WT.usesound, 50, 1)
-					user.visible_message("[user.name] starts to weld the [src.name] to the floor.", \
-						"You start to weld the [src] to the floor.", \
-						"You hear welding")
-					if(do_after(user, 20 * WT.toolspeed, target = src))
-						if(!src || !WT.isOn()) return
-						state = 2
-						to_chat(user, "You weld the [src] to the floor.")
-						connect_to_network()
-				else
-					to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
-			if(2)
-				if(WT.remove_fuel(0,user))
-					playsound(src.loc, WT.usesound, 50, 1)
-					user.visible_message("[user.name] starts to cut the [src.name] free from the floor.", \
-						"You start to cut the [src] free from the floor.", \
-						"You hear welding")
-					if(do_after(user, 20 * WT.toolspeed, target = src))
-						if(!src || !WT.isOn()) return
-						state = 1
-						to_chat(user, "You cut the [src] free from the floor.")
-						disconnect_from_network()
-				else
-					to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
-		return
-
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
@@ -343,7 +307,7 @@
 	if(exchange_parts(user, W))
 		return
 
-	if(default_deconstruction_crowbar(W))
+	if(default_deconstruction_crowbar(user, W))
 		return
 
 	return ..()
@@ -354,3 +318,29 @@
 		emagged = 1
 		if(user)
 			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")
+
+
+/obj/machinery/power/emitter/welder_act(mob/user, obj/item/I)
+	if(active)
+		to_chat(user, "<span class='notice'>Turn off [src] first.</span>")
+		return
+	if(state == 0)
+		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor.</span>")
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(state == 1)
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
+	else if(state == 2)
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	if(state == 1)
+		WELDER_FLOOR_WELD_SUCCESS_MESSAGE
+		connect_to_network()
+		state = 2
+	else if(state == 2)
+		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+		disconnect_from_network()
+		state = 1
