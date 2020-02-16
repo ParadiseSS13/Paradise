@@ -202,6 +202,8 @@
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
+	if(operating)
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	try_to_crowbar(I, user)
