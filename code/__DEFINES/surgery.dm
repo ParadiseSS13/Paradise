@@ -3,7 +3,6 @@
 #define SURGERY_MEND_BONE					"mend bones" // Mending and medicating bones
 #define SURGERY_SET_BONE					"set bones"
 #define SURGERY_MAKE_CAVITY					"make cavity"
-#define SURGERY_IMPLANT_CAVITY				"implant cavity"
 // Close cavity is the same as cauterize
 #define SURGERY_SLIME_CUT_FLESH				"slime cut flesh"
 #define SURGERY_SLIME_EXTRACT_CORE			"slime extract core"

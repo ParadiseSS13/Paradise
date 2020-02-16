@@ -137,9 +137,7 @@
 	else if(tool)
 		user.visible_message("[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.", \
 		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity." )
-	else if(IC)
-		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
-	else //no internal items..but we still need a message!
+	else
 		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
 
 	target.custom_pain("The pain in your [target_zone] is living hell!")
