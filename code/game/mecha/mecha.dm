@@ -787,7 +787,7 @@
 			// Since having maint protocols available is controllable by the pilot, I see this as a consensual way to remove a pilot without destroying the mech
 		user.visible_message("[user] begins levering out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].", "You begin to lever out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(do_after(user, 80 * W.toolspeed, target=src))
+		if(do_after(user, 80 * I.toolspeed, target=src))
 			user.visible_message("<span class='notice'>[user] pries the [pilot_is_mmi() ? "MMI" : "pilot"] out of the [src]!</span>", "<span class='notice'>You finish removing the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src]!</span>")
 			go_out()
 
