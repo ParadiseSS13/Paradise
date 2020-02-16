@@ -2,7 +2,7 @@
 	var/obj/structure/cable/C = locate() in loc
 	var/turf/simulated/floor/F = get_turf(src)
 	if(istype(F))
-		///Esto es para evitar que los kois coman cables dentro de la estacion y debajo de tiles
+		///Evitar que los kois coman cables dentro de la estacion y debajo de tiles
 	else
 		if(prob(10))
 			if(C.avail())
