@@ -64,14 +64,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 	..()
 	light()
 
+/obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
+		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
+
 /obj/item/clothing/mask/cigarette/attackby(obj/item/W as obj, mob/user as mob, params)
 	..()
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(WT.isOn())//Badasses dont get blinded while lighting their cig with a welding tool
-			light("<span class='notice'>[user] casually lights the [name] with [W], what a badass.</span>")
-
-	else if(istype(W, /obj/item/lighter/zippo))
+	if(istype(W, /obj/item/lighter/zippo))
 		var/obj/item/lighter/zippo/Z = W
 		if(Z.lit)
 			light("<span class='rose'>With a single flick of [user.p_their()] wrist, [user] smoothly lights [user.p_their()] [name] with [user.p_their()] [W]. Damn [user.p_theyre()] cool.</span>")

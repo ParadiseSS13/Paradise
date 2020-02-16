@@ -311,34 +311,8 @@
 	return ..()
 
 /obj/item/radio/headset/attackby(obj/item/W as obj, mob/user as mob)
-	user.set_machine(src)
-	if(!( istype(W, /obj/item/screwdriver) || (istype(W, /obj/item/encryptionkey/ ))))
-		return ..()
-
-	if(istype(W, /obj/item/screwdriver))
-		if(keyslot1 || keyslot2)
-
-			for(var/ch_name in channels)
-				SSradio.remove_object(src, SSradio.radiochannels[ch_name])
-				secure_radio_connections[ch_name] = null
-
-			if(keyslot1)
-				var/turf/T = get_turf(user)
-				if(T)
-					keyslot1.loc = T
-					keyslot1 = null
-			if(keyslot2)
-				var/turf/T = get_turf(user)
-				if(T)
-					keyslot2.loc = T
-					keyslot2 = null
-
-			recalculateChannels()
-			to_chat(user, "You pop out the encryption keys in the headset!")
-		else
-			to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
-
 	if(istype(W, /obj/item/encryptionkey/))
+		user.set_machine(src)
 		if(keyslot1 && keyslot2)
 			to_chat(user, "The headset can't hold another key!")
 			return
@@ -351,10 +325,37 @@
 			user.drop_item()
 			W.loc = src
 			keyslot2 = W
+		recalculateChannels()
+	else
+		return ..()
+
+/obj/item/radio/headset/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	user.set_machine(src)
+	if(keyslot1 || keyslot2)
+
+		for(var/ch_name in channels)
+			SSradio.remove_object(src, SSradio.radiochannels[ch_name])
+			secure_radio_connections[ch_name] = null
+
+		if(keyslot1)
+			var/turf/T = get_turf(user)
+			if(T)
+				keyslot1.loc = T
+				keyslot1 = null
+		if(keyslot2)
+			var/turf/T = get_turf(user)
+			if(T)
+				keyslot2.loc = T
+				keyslot2 = null
 
 		recalculateChannels()
-	return
-
+		to_chat(user, "You pop out the encryption keys in the headset!")
+		I.play_tool_sound(user, I.tool_volume)
+	else
+		to_chat(user, "This headset doesn't have any encryption keys!  How useless...")
 
 /obj/item/radio/headset/proc/recalculateChannels(var/setDescription = FALSE)
 	channels = list()

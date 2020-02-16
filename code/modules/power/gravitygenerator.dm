@@ -187,15 +187,6 @@ var/const/GRAV_NEEDS_WRENCH = 3
 				broken_state++
 				update_icon()
 			return
-		if(GRAV_NEEDS_WELDING)
-			if(istype(I, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = I
-				if(WT.remove_fuel(1, user))
-					to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
-					playsound(src.loc, WT.usesound, 50, 1)
-					broken_state++
-					update_icon()
-			return
 		if(GRAV_NEEDS_PLASTEEL)
 			if(istype(I, /obj/item/stack/sheet/plasteel))
 				var/obj/item/stack/sheet/plasteel/PS = I
@@ -215,6 +206,16 @@ var/const/GRAV_NEEDS_WRENCH = 3
 				set_fix()
 			return
 	return ..()
+
+/obj/machinery/gravity_generator/main/welder_act(mob/user, obj/item/I)
+	if(broken_state != GRAV_NEEDS_WELDING)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, amount = 1, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
+	broken_state++
+	update_icon()
 
 /obj/machinery/gravity_generator/main/attack_hand(mob/user as mob)
 	if(!..())

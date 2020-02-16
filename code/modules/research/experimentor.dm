@@ -125,7 +125,7 @@
 		return
 
 	if(panel_open && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(O)
+		default_deconstruction_crowbar(user, O)
 		return
 
 	if(!checkCircumstances(O))
@@ -157,7 +157,7 @@
 
 	return
 
-/obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(obj/item/O)
+/obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(user, obj/item/O)
 	ejectItem()
 	..(O)
 

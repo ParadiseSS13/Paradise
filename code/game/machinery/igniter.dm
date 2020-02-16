@@ -78,20 +78,22 @@
 /obj/machinery/sparker/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detective_scanner))
 		return
-	if(isscrewdriver(I))
-		add_fingerprint(user)
-		disable = !disable
-		if(disable)
-			user.visible_message("<span class='warning'>[user] has disabled [src]!</span>", "<span class='warning'>You disable the connection to [src].</span>")
-			icon_state = "[base_state]-d"
-		if(!disable)
-			user.visible_message("<span class='warning'>[user] has reconnected [src]!</span>", "<span class='warning'>You fix the connection to [src].</span>")
-			if(powered())
-				icon_state = "[base_state]"
-			else
-				icon_state = "[base_state]-p"
-		return
 	return ..()
+
+/obj/machinery/sparker/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	disable = !disable
+	if(disable)
+		user.visible_message("<span class='warning'>[user] has disabled [src]!</span>", "<span class='warning'>You disable the connection to [src].</span>")
+		icon_state = "[base_state]-d"
+	if(!disable)
+		user.visible_message("<span class='warning'>[user] has reconnected [src]!</span>", "<span class='warning'>You fix the connection to [src].</span>")
+		if(powered())
+			icon_state = "[base_state]"
+		else
+			icon_state = "[base_state]-p"
 
 /obj/machinery/sparker/attack_ai()
 	if(src.anchored)

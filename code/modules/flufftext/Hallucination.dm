@@ -147,6 +147,8 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	START_PROCESSING(SSobj, src)
 
 /obj/effect/hallucination/fake_flood/process()
+	if(!target)
+		qdel(src)
 	if(next_expand <= world.time)
 		radius++
 		if(radius > FAKE_FLOOD_MAX_RADIUS)
