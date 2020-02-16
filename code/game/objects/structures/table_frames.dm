@@ -22,13 +22,7 @@
 	var/framestackamount = 2
 
 /obj/structure/table_frame/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(user, 30*I.toolspeed, target = src))
-			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-			deconstruct(TRUE)
-	else if(istype(I, /obj/item/stack/sheet/plasteel))
+	if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/P = I
 		if(P.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one plasteel sheet to do this!</span>")
@@ -70,6 +64,17 @@
 			make_new_table(/obj/structure/table/wood/fancy)
 	else
 		return ..()
+
+/obj/structure/table_frame/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		for(var/i = 1, i <= framestackamount, i++)
+			new framestack(get_turf(src))
+		qdel(src)
 
 /obj/structure/table_frame/proc/make_new_table(table_type) //makes sure the new table made retains what we had as a frame
 	var/obj/structure/table/T = new table_type(loc)

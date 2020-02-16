@@ -101,40 +101,28 @@ field_generator power level display
 				anchored = 0
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
-
-	else if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		switch(state)
-			if(FG_UNSECURED)
-				to_chat(user, "<span class='warning'>The [name] needs to be wrenched to the floor!</span>")
-
-			if(FG_SECURED)
-				if(WT.remove_fuel(0,user))
-					playsound(loc, WT.usesound, 50, 1)
-					user.visible_message("[user.name] starts to weld the [name] to the floor.", \
-						"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
-						"<span class='italics'>You hear welding.</span>")
-					if(do_after(user, 20 * WT.toolspeed, target = src))
-						if(!src || !WT.isOn())
-							return
-						state = FG_WELDED
-						to_chat(user, "<span class='notice'>You weld the field generator to the floor.</span>")
-
-			if(FG_WELDED)
-				if(WT.remove_fuel(0,user))
-					playsound(loc, WT.usesound, 50, 1)
-					user.visible_message("[user.name] starts to cut the [name] free from the floor.", \
-						"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
-						"<span class='italics'>You hear welding.</span>")
-					if(do_after(user, 20 * WT.toolspeed, target = src))
-						if(!src || !WT.isOn())
-							return
-						state = FG_SECURED
-						to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
-
 	else
 		return ..()
 
+
+/obj/machinery/field/generator/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(state == FG_UNSECURED)
+		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	if(state == FG_SECURED)
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+	else if(state == FG_WELDED)
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(state == FG_SECURED)
+			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+			state = FG_WELDED
+		else if(state == FG_WELDED)
+			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
+			state = FG_SECURED
 
 /obj/machinery/field/generator/emp_act()
 	return 0

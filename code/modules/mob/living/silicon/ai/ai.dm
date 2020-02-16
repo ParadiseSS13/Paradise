@@ -1134,6 +1134,8 @@ var/list/ai_verbs_default = list(
 	else
 		return ..()
 
+/mob/living/silicon/ai/welder_act()
+	return
 
 /mob/living/silicon/ai/proc/control_integrated_radio()
 	set name = "Radio Settings"
@@ -1210,7 +1212,8 @@ var/list/ai_verbs_default = list(
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
-		return (cameranet && cameranet.checkTurfVis(get_turf_pixel(A))) || apc_override
+		var/turf/T = isturf(A) ? A : get_turf_pixel(A)
+		return (cameranet && cameranet.checkTurfVis(T)) || apc_override
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have x-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)

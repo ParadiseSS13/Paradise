@@ -147,20 +147,25 @@
 /obj/machinery/light_switch/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/detective_scanner))
 		return
-
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(istype(W, /obj/item/wrench))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
-			new/obj/item/mounted/frame/light_switch(get_turf(src))
-			qdel(src)
-		return 1
-
 	return ..()
+
+/obj/machinery/light_switch/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	update_multitool_menu(user)
+
+/obj/machinery/light_switch/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("<span class='notice'>[user] starts unwrenching [src] from the wall...</span>", "<span class='notice'>You are unwrenching [src] from the wall...</span>", "<span class='warning'>You hear ratcheting.</span>")
+	. = TRUE
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new/obj/item/mounted/frame/light_switch(get_turf(src))
+	qdel(src)
 
 /obj/machinery/light_switch/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"
