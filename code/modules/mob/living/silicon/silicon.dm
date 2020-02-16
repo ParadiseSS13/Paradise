@@ -100,6 +100,25 @@
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
 
+/mob/living/silicon/robot/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(user == src) //No self-repair dummy
+		return
+	. = TRUE
+	if(!getBruteLoss())
+		to_chat(user, "<span class='notice'>Nothing to fix!</span>")
+		return
+	else if(!getBruteLoss(TRUE))
+		to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
+		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	adjustBruteLoss(-30)
+	add_fingerprint(user)
+	user.visible_message("<span class='alert'>[user] patches some dents on [src] with [I].</span>")
+
+
 /mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
 
 

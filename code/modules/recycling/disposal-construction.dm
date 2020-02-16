@@ -207,12 +207,9 @@
 
 	if(istype(I, /obj/item/weldingtool))
 		if(anchored)
-			var/obj/item/weldingtool/W = I
-			if(W.remove_fuel(0,user))
-				playsound(src.loc, W.usesound, 100, 1)
+			if(I.tool_use_check(user, 0))
 				to_chat(user, "Welding the [nicetype] in place.")
-				if(do_after(user, 20 * W.toolspeed, target = src))
-					if(!src || !W.isOn()) return
+				if(I.use_tool(src, user, 20, volume = I.tool_volume))
 					to_chat(user, "The [nicetype] has been welded in place!")
 					update() // TODO: Make this neat
 					if(ispipe) // Pipe

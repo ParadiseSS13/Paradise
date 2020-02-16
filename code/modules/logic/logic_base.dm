@@ -210,7 +210,7 @@
 		to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the access panel.</span>")
 		return 1
 	if(panel_open && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(O)
+		default_deconstruction_crowbar(user, O)
 		return 1
 	return ..()
 

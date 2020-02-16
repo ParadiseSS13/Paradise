@@ -205,20 +205,7 @@
 		user.stop_pulling()
 
 /obj/machinery/dna_scannernew/attackby(var/obj/item/item as obj, var/mob/user as mob, params)
-	if(istype(item, /obj/item/screwdriver))
-		if(occupant)
-			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-			return
-		default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", item)
-		return
 	if(exchange_parts(user, item))
-		return
-
-	if(istype(item, /obj/item/crowbar))
-		if(panel_open)
-			for(var/obj/I in contents) // in case there is something in the scanner
-				I.forceMove(src.loc)
-			default_deconstruction_crowbar(item)
 		return
 	else if(istype(item, /obj/item/reagent_containers/glass))
 		if(beaker)
@@ -254,6 +241,18 @@
 		qdel(G)
 		return
 	return ..()
+
+/obj/machinery/dna_scannernew/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		for(var/obj/thing in contents) // in case there is something in the scanner
+			thing.forceMove(src.loc)
+
+/obj/machinery/dna_scannernew/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
+		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
+		return TRUE
 
 /obj/machinery/dna_scannernew/relaymove(mob/user as mob)
 	if(user.incapacitated())

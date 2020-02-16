@@ -35,11 +35,8 @@
 	light_color = LIGHT_COLOR_DARKGREEN
 
 
-/obj/machinery/computer/message_monitor/attackby(obj/item/O as obj, mob/living/user as mob, params)
-	if(!istype(user))
-		return
-	if(isscrewdriver(O) && emag)
-		//Stops people from just unscrewing the monitor and putting it back to get the console working again.
+/obj/machinery/computer/message_monitor/screwdriver_act(mob/user, obj/item/I)
+	if(emag) //Stops people from just unscrewing the monitor and putting it back to get the console working again.
 		to_chat(user, "<span class='warning'>It is too hot to mess with!</span>")
 		return
 	return ..()
