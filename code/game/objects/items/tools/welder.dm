@@ -100,9 +100,9 @@
 		return FALSE
 
 // When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
-/obj/item/weldingtool/tool_start_check(mob/living/user, amount=0)
+/obj/item/weldingtool/tool_start_check(atom/target, mob/living/user, amount=0)
 	. = tool_use_check(user, amount)
-	if(. && user)
+	if(. && user && target != user)
 		user.flash_eyes(light_intensity)
 
 /obj/item/weldingtool/use(amount)
