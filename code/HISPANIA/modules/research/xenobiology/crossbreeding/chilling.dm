@@ -131,6 +131,15 @@ Chilling extracts:
 		H.set_species(/datum/species/golem/random)
 	..()
 
+/obj/item/slimecross/chilling/lightpink
+	colour = "light pink"
+	effect_desc = "Creates a Heroine Bud, a special flower that pacifies whoever wears it on their head. They will not be able to take it off without help."
+
+/obj/item/slimecross/chilling/lightpink/do_effect(mob/user)
+	user.visible_message("<span class='notice'>[src] blooms into a beautiful flower!</span>")
+	new /obj/item/clothing/head/peaceflower(get_turf(user))
+	..()
+
 /obj/item/slimecross/chilling/adamantine
 	colour = "adamantine"
 	effect_desc = "Solidifies into a set of adamantine armor."

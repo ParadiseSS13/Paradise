@@ -1,6 +1,35 @@
 ///////////////////////////////////////////////////////
 //////////////////STABILIZED EXTRACTS//////////////////
 ///////////////////////////////////////////////////////
+/obj/screen/alert/status_effect/rainbow_protection
+	name = "Rainbow Protection"
+	desc = "You are defended from harm, but so are those you might seek to injure!"
+	icon_state = "slime_rainbowshield"
+
+/datum/status_effect/rainbow_protection
+	id = "rainbow_protection"
+	duration = 100
+	alert_type = /obj/screen/alert/status_effect/rainbow_protection
+	var/originalcolor
+
+/datum/status_effect/rainbow_protection/on_apply()
+	owner.status_flags |= GODMODE
+	ADD_TRAIT(owner, TRAIT_PACIFISM, /datum/status_effect/rainbow_protection)
+	owner.visible_message("<span class='warning'>[owner] shines with a brilliant rainbow light.</span>",
+		"<span class='notice'>You feel protected by an unknown force!</span>")
+	originalcolor = owner.color
+	return ..()
+
+/datum/status_effect/rainbow_protection/tick()
+	owner.color = rgb(rand(0,255),rand(0,255),rand(0,255))
+	return ..()
+
+/datum/status_effect/rainbow_protection/on_remove()
+	owner.status_flags &= ~GODMODE
+	owner.color = originalcolor
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, /datum/status_effect/rainbow_protection)
+	owner.visible_message("<span class='notice'>[owner] stops glowing, the rainbow light fading away.</span>",
+		"<span class='warning'>You no longer feel protected...</span>")
 
 /datum/status_effect/stabilized //The base stabilized extract effect, has no effect of its' own.
 	id = "stabilizedbase"
@@ -67,6 +96,29 @@
 	else
 		examine_text = null
 	..()
+
+/datum/status_effect/peacecookie
+	id = "peacecookie"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 100
+
+/datum/status_effect/peacecookie/tick()
+	for(var/mob/living/L in range(get_turf(owner),1))
+		L.apply_status_effect(/datum/status_effect/plur)
+
+/datum/status_effect/plur
+	id = "plur"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 30
+
+/datum/status_effect/plur/on_apply()
+	ADD_TRAIT(owner, TRAIT_PACIFISM, "peacecookie")
+	return ..()
+
+/datum/status_effect/plur/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_PACIFISM, "peacecookie")
 
 /datum/status_effect/stabilized/metal
 	id = "stabilizedmetal"
