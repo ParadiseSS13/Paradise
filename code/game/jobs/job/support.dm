@@ -109,6 +109,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/hydro
 
 
+
 //Cargo
 /datum/job/qm
 	title = "Quartermaster"
