@@ -63,7 +63,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
 	light_range = 0
-	var/datum/announcement/announcement = new
+	var/datum/announcement/request/announcement = new(do_newscast = 0)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
