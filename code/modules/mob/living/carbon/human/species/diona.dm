@@ -14,8 +14,8 @@
 	punchdamagehigh = 14
 
 	brute_mod = 0.75
-	stamina_mod = 0.65
-	burn_mod = 1.3
+	stamina_mod = 0.75
+	burn_mod = 1.4
 	heatmod = 1.6
 	var/pod = FALSE //did they come from a pod? If so, they're stronger than normal Diona.
 
@@ -127,4 +127,4 @@
 
 /datum/species/diona/apply_damage(obj/item/W)
 	if(is_sharp(W))
-		brute_mod = W.force / 5
+		brute_mod = W.force / 2
