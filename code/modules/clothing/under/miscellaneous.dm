@@ -841,10 +841,8 @@
 /obj/item/clothing/under/misc/durathread
 	name = "durathread jumpsuit"
 	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
-	hispania_icon = TRUE
-	icon_state = "durathread"
-	item_state = "durathread"
-	item_color = "durathread"
+	icon_state = "grey"
+	item_state = "durathread_s"
 	armor = list(melee = 10, bullet = 0, laser = 10, energy = 0, bomb = 5, bio = 0, rad = 0, fire = 0, acid = 0)
 
 /obj/item/clothing/under/cuban_suit
