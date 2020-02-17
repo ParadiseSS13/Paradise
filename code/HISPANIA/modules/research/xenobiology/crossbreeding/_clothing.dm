@@ -62,6 +62,37 @@
 		to_chat(owner, "<span class='notice'>You channel nearby light into a glowing, ethereal prism.</span>")
 		new /obj/structure/light_prism(get_turf(owner), glasses.glasses_color)
 
+/obj/item/clothing/head/peaceflower
+	name = "heroine bud"
+	desc = "An extremely addictive flower, full of peace magic."
+	icon = 'icons/hispania/obj/slimecrossing.dmi'
+	icon_state = "peaceflower"
+	item_state = "peaceflower"
+	slot_flags = slot_head
+	body_parts_covered = NONE
+	force = 0
+	throwforce = 0
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 1
+	throw_range = 3
+
+/obj/item/clothing/head/peaceflower/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(slot == slot_head)
+		ADD_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[ref(src)]")
+
+/obj/item/clothing/head/peaceflower/dropped(mob/living/carbon/human/user)
+	..()
+	REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[ref(src)]")
+
+/obj/item/clothing/head/peaceflower/attack_hand(mob/user)
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		if(src == C.head)
+			to_chat(user, "<span class='warning'>You feel at peace. <b style='color:pink'>Why would you want anything else?</b></span>")
+			return
+	return ..()
+
 /obj/item/clothing/suit/armor/heavy/adamantine
 	name = "adamantine armor"
 	desc = "A full suit of adamantine plate armor. Impressively resistant to damage, but weighs about as much as you do."

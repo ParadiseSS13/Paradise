@@ -32,6 +32,42 @@ Slimecrossing Potions
 	qdel(src)
 	return
 
+/*
+//Peace potion - Charged Light Pink
+/obj/item/slimepotion/peacepotion
+	name = "pacification potion"
+	desc = "A light pink solution of chemicals, smelling like liquid peace. And mercury salts."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "potlightpink"
+
+/obj/item/slimepotion/peacepotion/attack(mob/living/M, mob/user)
+	if(!isliving(M) || M.stat == DEAD)
+		to_chat(user, "<span class='warning'>The pacification potion only works on the living.</span>")
+		return ..()
+	if(istype(M, /mob/living/simple_animal/hostile/megafauna))
+		to_chat(user, "<span class='warning'>The pacification potion does not work on beings of pure evil!</span>")
+		return ..()
+	if(M != user)
+		M.visible_message("<span class='danger'>[user] starts to feed [M] a pacification potion!</span>",
+			"<span class='userdanger'>[user] starts to feed you a pacification!</span>")
+	else
+		M.visible_message("<span class='danger'>[user] starts to drink the pacification potion!</span>",
+			"<span class='danger'>You start to drink the pacification potion!</span>")
+
+	if(!do_after(user, 100, target = M))
+		return
+	if(M != user)
+		to_chat(user, "<span class='notice'>You feed [M] the pacification potion!</span>")
+	else
+		to_chat(user, "<span class='warning'>You drink the pacification potion!</span>")
+	if(isanimal(M))
+		ADD_TRAIT(M, TRAIT_PACIFISM, MAGIC_TRAIT)
+	else if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		C.gain_trauma(/datum/brain_trauma/severe/pacifism, TRAUMA_RESILIENCE_SURGERY)
+	qdel(src)
+*/
+
 /obj/item/slimepotion/slime_reviver
 	name = "slime revival potion"
 	desc = "Infused with plasma and compressed gel, this brings dead slimes back to life."
