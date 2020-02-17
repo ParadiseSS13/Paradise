@@ -391,7 +391,7 @@
 			if(prob(50))
 				back = /obj/item/bedsheet/rd/royal_cape
 			if(prob(10))
-				l_pocket = pick(list(/obj/item/powertool/powerjaws, /obj/item/powertool/drill, /obj/item/weldingtool/experimental))
+				l_pocket = pick(list(/obj/item/multifunctiontool/powerjaws, /obj/item/multifunctiontool/drill, /obj/item/weldingtool/experimental))
 		if("YeOlde")
 			mob_gender = FEMALE
 			uniform = /obj/item/clothing/under/maid

@@ -95,8 +95,8 @@
 
 /obj/item/storage/belt/utility/chief/full/New()
 	..()
-	new /obj/item/powertool/drill(src)
-	new /obj/item/powertool/powerjaws(src)
+	new /obj/item/multifunctiontool/drill(src)
+	new /obj/item/multifunctiontool/powerjaws(src)
 	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
 	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil/random(src, 30)
