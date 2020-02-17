@@ -156,6 +156,13 @@ To add a crossbreed:
 	else
 		to_chat(user, "<span class='warning'>There's no place to stick [src]!</span>")
 
+/obj/item/slimecrossbeaker/autoinjector/regenpack
+	ignore_flags = TRUE //It is, after all, intended to heal.
+	name = "mending solution"
+	desc = "A strange glob of sweet-smelling semifluid, which seems to stick to skin rather easily."
+	color = "#FF00FF"
+	list_reagents = list("regen_jelly" = 20)
+
 /obj/item/slimecrossbeaker/autoinjector/slimejelly //Primarily for slimepeople, but you do you.
 	self_use_only = TRUE
 	ignore_flags = TRUE

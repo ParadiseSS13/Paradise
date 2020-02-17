@@ -58,6 +58,12 @@ Industrial extracts:
 	itempath = /obj/item/reagent_containers/food/snacks/monkeycube
 	itemamount = 5
 
+/obj/item/slimecross/industrial/purple
+	colour = "purple"
+	effect_desc = "Produces autoinjectors with regen jelly inside."
+	plasmarequired = 5
+	itempath = /obj/item/slimecrossbeaker/autoinjector/regenpack
+
 /obj/item/slimecross/industrial/blue
 	colour = "blue"
 	effect_desc = "Produces full fire extinguishers."
