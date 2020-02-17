@@ -3596,15 +3596,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/storage/box/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/storage/box/buck,
 /obj/item/storage/box/buck{
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -3618,10 +3616,6 @@
 	pixel_y = 3
 	},
 /obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -3629,6 +3623,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
