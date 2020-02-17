@@ -10,8 +10,8 @@
 	remains_type = /obj/effect/decal/cleanable/ash
 	total_health = 120
 	speed_mod = 4
-	punchdamagelow = 7
-	punchdamagehigh = 14
+	punchdamagelow = 17
+	punchdamagehigh = 19
 
 	brute_mod = 0.75
 	stamina_mod = 0.75
