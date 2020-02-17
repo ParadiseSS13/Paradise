@@ -4,6 +4,7 @@
 	icon = 'icons/goonstation/objects/fitness.dmi'
 	icon_state = "punchingbag"
 	anchored = TRUE
+	density = TRUE
 	layer = WALL_OBJ_LAYER
 	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
