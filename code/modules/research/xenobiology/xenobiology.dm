@@ -6,7 +6,7 @@
 	desc = "Goo extracted from a slime. Legends claim these to have \"magical powers\"."
 	icon = 'icons/mob/slimes.dmi'
 	icon_state = "grey slime extract"
-	force = 1
+	force = 0
 	w_class = WEIGHT_CLASS_TINY
 	container_type = INJECTABLE | DRAWABLE
 	throwforce = 0
@@ -14,16 +14,50 @@
 	throw_range = 6
 	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
+	var/effectmod
+	var/list/activate_reagents = list() //Reagents required for activation
+	var/recurring = FALSE
+
+/obj/item/slime_extract/examine(mob/user)
+	. = ..()
+	if(Uses > 1)
+		. += "It has [Uses] uses remaining."
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/slimepotion/enhancer))
-		if(Uses >= 5)
+		if(Uses >= 5 || recurring)
 			to_chat(user, "<span class='warning'>You cannot enhance this extract further!</span>")
 			return ..()
-		to_chat(user, "<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>")
-		Uses++
+		if(O.type == /obj/item/slimepotion/enhancer) //Seriously, why is this defined here...?
+			to_chat(user, "<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>")
+			Uses++
 		qdel(O)
 	..()
+
+//Core-crossing: Feeding adult slimes extracts to obtain a much more powerful, single extract.
+/obj/item/slime_extract/attack(mob/living/simple_animal/slime/M, mob/user)
+	if(!isslime(M))
+		return ..()
+	if(M.stat)
+		to_chat(user, "<span class='warning'>The slime is dead!</span>")
+		return
+	if(!M.is_adult)
+		to_chat(user, "<span class='warning'>The slime must be an adult to cross its core!</span>")
+		return
+	if(M.effectmod && M.effectmod != effectmod)
+		to_chat(user, "<span class='warning'>The slime is already being crossed with a different extract!</span>")
+		return
+
+	if(!M.effectmod)
+		M.effectmod = effectmod
+
+	M.applied++
+	qdel(src)
+	to_chat(user, "<span class='notice'>You feed the slime [src], [M.applied == 1 ? "starting to mutate its core." : "further mutating its core."]</span>")
+	playsound(M, 'sound/effects/attackblob.ogg', 50, TRUE)
+
+	if(M.applied >= SLIME_EXTRACT_CROSSING_REQUIRED)
+		M.spawn_corecross()
 
 /obj/item/slime_extract/New()
 	..()
@@ -32,90 +66,134 @@
 /obj/item/slime_extract/grey
 	name = "grey slime extract"
 	icon_state = "grey slime extract"
+	effectmod = "reproductive"
+	activate_reagents = list("blood","plasma_dust","water")
 
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
 	icon_state = "gold slime extract"
+	effectmod = "symbiont"
+	activate_reagents = list("blood","plasma_dust","water")
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
 	icon_state = "silver slime extract"
+	effectmod = "consuming"
+	activate_reagents = list("plasma_dust","water")
 
 /obj/item/slime_extract/metal
 	name = "metal slime extract"
 	icon_state = "metal slime extract"
+	effectmod = "industrial"
+	activate_reagents = list("plasma_dust","water")
 
 /obj/item/slime_extract/purple
 	name = "purple slime extract"
 	icon_state = "purple slime extract"
+	effectmod = "regenerative"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/darkpurple
 	name = "dark purple slime extract"
 	icon_state = "dark purple slime extract"
+	effectmod = "self-sustaining"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/orange
 	name = "orange slime extract"
 	icon_state = "orange slime extract"
+	effectmod = "burning"
+	activate_reagents = list("blood","plasma_dust")
 
 /obj/item/slime_extract/yellow
 	name = "yellow slime extract"
 	icon_state = "yellow slime extract"
+	effectmod = "charged"
+	activate_reagents = list("blood","plasma_dust","water")
 
 /obj/item/slime_extract/red
 	name = "red slime extract"
 	icon_state = "red slime extract"
+	effectmod = "sanguine"
+	activate_reagents = list("blood","plasma_dust","water")
 
 /obj/item/slime_extract/blue
 	name = "blue slime extract"
 	icon_state = "blue slime extract"
+	effectmod = "stabilized"
+	activate_reagents = list("blood","plasma_dust")
 
 /obj/item/slime_extract/darkblue
 	name = "dark blue slime extract"
 	icon_state = "dark blue slime extract"
+	effectmod = "chilling"
+	activate_reagents = list("plasma_dust","water")
 
 /obj/item/slime_extract/pink
 	name = "pink slime extract"
 	icon_state = "pink slime extract"
+	effectmod = "gentle"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/green
 	name = "green slime extract"
 	icon_state = "green slime extract"
+	effectmod = "mutative"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/lightpink
 	name = "light pink slime extract"
 	icon_state = "light pink slime extract"
+	effectmod = "loyal"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/black
 	name = "black slime extract"
 	icon_state = "black slime extract"
+	effectmod = "transformative"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/oil
 	name = "oil slime extract"
 	icon_state = "oil slime extract"
+	effectmod = "detonating"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
 	icon_state = "adamantine slime extract"
+	effectmod = "crystalline"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/bluespace
 	name = "bluespace slime extract"
 	icon_state = "bluespace slime extract"
+	effectmod = "warping"
+	activate_reagents = list("blood","plasma_dust")
 
 /obj/item/slime_extract/pyrite
 	name = "pyrite slime extract"
 	icon_state = "pyrite slime extract"
+	effectmod = "prismatic"
+	activate_reagents = list("plasma_dust")
 
 /obj/item/slime_extract/cerulean
 	name = "cerulean slime extract"
 	icon_state = "cerulean slime extract"
+	effectmod = "recurring"
+	activate_reagents = list("blood","plasma_dust")
 
 /obj/item/slime_extract/sepia
 	name = "sepia slime extract"
 	icon_state = "sepia slime extract"
+	effectmod = "lengthened"
+	activate_reagents = list("blood","plasma_dust")
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
 	icon_state = "rainbow slime extract"
+	effectmod = "hyperchromatic"
+	activate_reagents = list("blood","plasma_dust")
 
 ////Slime-derived potions///
 

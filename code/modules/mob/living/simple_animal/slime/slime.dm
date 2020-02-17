@@ -374,7 +374,7 @@
 			force_effect = round(I.force / 2)
 		if(prob(10 + force_effect))
 			discipline_slime(user)
-/*	if(istype(I, /obj/item/storage/bag/bio))
+	if(istype(I, /obj/item/storage/bag/bio))
 		var/obj/item/storage/P = I
 		if(!effectmod)
 			to_chat(user, "<span class='warning'>The slime is not currently being mutated.</span>")
@@ -399,9 +399,9 @@
 			else
 				to_chat(user, "<span class='notice'>You feed the slime some extracts from the bag.</span>")
 				playsound(src, 'sound/effects/attackblob.ogg', 50, TRUE)
-		return */
+		return
 	..()
-/*
+
 /mob/living/simple_animal/slime/proc/spawn_corecross()
 	var/static/list/crossbreeds = subtypesof(/obj/item/slimecross)
 	visible_message("<span class='danger'>[src] shudders, its mutated core consuming the rest of its body!</span>")
@@ -417,7 +417,7 @@
 	else
 		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
 	qdel(src)
-*/
+
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	var/water_damage = rand(10, 15) * volume
