@@ -1,32 +1,38 @@
 //Multifunction tools
 /obj/item/multifunctiontool
-	var/stateswap = 0 //what state is it in
-	var/icon_state_swap  //which icon should it be
-	var/tool_behaviour_swap  //what tool behaviour(s) should be here
+	var/list/tool_icon_states = list() //which icon should it be
+	var/list/tool_behaviours = list()  //what tool behaviour(s) should be here
+	var/list/tool_mode_names = list() //text added to the examine description
+	var/active_behaviour_index = 1
 	var/swapsound //the sound that plays for swapping
 
 /obj/item/multifunctiontool/attack_self(mob/living/carbon/user) //activating the item causes it to swap icons and behaviours
-	stateswap = !stateswap
-	if(stateswap)
-		icon_state = icon_state_swap
-		tool_behaviour = tool_behaviour_swap
-	else
-		icon_state = initial(icon_state)
-		tool_behaviour = initial(tool_behaviour)
+	if(tool_behaviours.len > 1)
+		select_mode(user)
+	tool_behaviour = tool_behaviours[active_behaviour_index]
+	icon_state = tool_icon_states[active_behaviour_index]
 	playsound(get_turf(user), swapsound, 50, 1)
-	to_chat(user, "<span class='notice'>You attach a different bit to [src].</span>")
+	to_chat(user, "<span class='notice'>You use a different part on [src].</span>")
+
+/obj/item/multifunctiontool/proc/select_mode(mob/living/user)
+	active_behaviour_index++
+	if(active_behaviour_index > tool_behaviours.len)
+		active_behaviour_index = 1
 	return
+
+/obj/item/multifunctiontool/examine(mob/user)
+	. = ..()
+	. += "[tool_mode_names[active_behaviour_index]]"
 		
+//Tools		
 /obj/item/multifunctiontool/drill
 	name = "Power Drill"
 	desc = "A simple hand drill with bolt and screw bits."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "drill_screw"
 	item_state = "drill"
-	icon_state_swap = "drill_bolt"
 	hitsound = 'sound/items/drill_hit.ogg'
 	usesound = 'sound/items/drill_use.ogg'
-	swapsound = 'sound/items/change_drill.ogg'
 	flags = CONDUCT
 	slot_flags = SLOT_BELT
 	force = 8
@@ -40,7 +46,10 @@
 	toolspeed = 0.25
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
-	tool_behaviour_swap = TOOL_WRENCH
+	tool_behaviours = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	tool_icon_states = list("drill_screw", "drill_bolt")
+	tool_mode_names = list("Screwdriver bit attached", "Bolt bit attached")
+	swapsound = 'sound/items/change_drill.ogg'
 
 /obj/item/multifunctiontool/drill/suicide_act(mob/user)
 	if(tool_behaviour == TOOL_WRENCH)
@@ -55,7 +64,6 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "jaws_pry"
 	item_state = "jawsoflife"
-	icon_state_swap = "jaws_cutter"
 	usesound = 'sound/items/jaws_pry.ogg'
 	swapsound = 'sound/items/change_jaws.ogg'
 	flags = CONDUCT
@@ -71,7 +79,9 @@
 	toolspeed = 0.25
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_CROWBAR
-	tool_behaviour_swap = TOOL_WIRECUTTER
+	tool_behaviours = list(TOOL_CROWBAR, TOOL_WIRECUTTER)
+	tool_icon_states = list("jaws_pry", "jaws_cutter")
+	tool_mode_names = list("Pry jaws attached", "Cutting jaws attached")
 
 /obj/item/multifunctiontool/powerjaws/suicide_act(mob/user)
 	if(tool_behaviour == TOOL_WIRECUTTER)
