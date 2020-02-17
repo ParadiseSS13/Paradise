@@ -1245,6 +1245,7 @@
 #include "code\HISPANIA\modules\mob\living\silicon\robot\robot.dm"
 #include "code\HISPANIA\modules\mob\living\silicon\robot\robot_modules.dm"
 #include "code\HISPANIA\modules\mob\living\simple_animal\kiwi.dm"
+#include "code\HISPANIA\modules\mob\living\simple_animal\friendly\dog.dm"
 #include "code\HISPANIA\modules\mob\living\simple_animal\friendly\spiderbot.dm"
 #include "code\HISPANIA\modules\mob\living\simple_animal\hostile\venus_human_trap.dm"
 #include "code\HISPANIA\modules\mob\living\simple_animal\hostile\retaliate\fish.dm"
