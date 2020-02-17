@@ -5,7 +5,7 @@
 	color = "#AAAAAA55"
 	taste_description = "water"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
-/*
+
 /datum/reagent/pax/on_mob_metabolize(mob/living/L)
 	..()
 	ADD_TRAIT(L, TRAIT_PACIFISM, type)
@@ -13,7 +13,6 @@
 /datum/reagent/pax/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_PACIFISM, type)
 	..()
-*/
 
 /datum/reagent/pax/peaceborg
 	name = "synthpax"
