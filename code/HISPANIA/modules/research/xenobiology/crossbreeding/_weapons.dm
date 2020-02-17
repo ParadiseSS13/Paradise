@@ -22,6 +22,8 @@ Slimecrossing Weapons
 	icon = 'icons/hispania/obj/slimecrossing.dmi'
 	icon_state = "rainbowknife"
 	item_state = "rainbowknife"
+	righthand_file = 'icons/hispania/mob/inhands/equipment/kitchen_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/equipment/kitchen_lefthand.dmi'
 	force = 15
 	throwforce = 15
 	damtype = BRUTE
