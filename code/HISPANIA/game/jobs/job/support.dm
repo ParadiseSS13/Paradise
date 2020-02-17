@@ -1,3 +1,4 @@
+//Indumentaria para el beekeeper//
 
 /datum/outfit/job/hydro/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
     . = ..()
