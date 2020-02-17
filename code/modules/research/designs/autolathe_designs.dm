@@ -840,6 +840,14 @@
 	build_path = /obj/item/toy/crayon/spraycan
 	category = list("initial", "Tools")
 
+/datum/design/Spray
+	name = "Spray"
+	id = "Spray"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 200, MAT_GLASS = 5000)
+	build_path = /obj/item/reagent_containers/spray
+	category = list("initial", "Tools")
+
 /datum/design/desttagger
 	name = "Destination tagger"
 	id = "desttagger"
