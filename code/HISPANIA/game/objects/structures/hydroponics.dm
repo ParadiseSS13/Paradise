@@ -23,6 +23,6 @@
 	new /obj/item/clothing/head/beekeeper_head(src)
 	new /obj/item/melee/flyswatter(src)
 	new /obj/item/honey_frame(src)
-	new	/obj/item/honey_frame(src)
-	new	/obj/item/honey_frame(src)
+	new /obj/item/honey_frame(src)
+	new /obj/item/honey_frame(src)
 	new /obj/item/queen_bee(src)
