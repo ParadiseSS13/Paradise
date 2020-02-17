@@ -114,3 +114,9 @@
 
 		if(empty)
 			. += "<span class='notice'>It is currently empty. Allow some time for the internal syntheszier to produce more.</span>"
+
+
+/obj/item/reagent_containers/borghypo/basic
+	name = "Lesser Medical Hypospray"
+	desc = "A very basic medical hypospray, capable of injecting only saline glucose solution, which slowly treats brute and burn injuries over time."
+	reagent_ids = list("salglu_solution")

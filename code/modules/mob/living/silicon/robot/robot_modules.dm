@@ -113,16 +113,27 @@
 	return
 
 /obj/item/robot_module/standard
-	name = "standard robot module"
+	name = "generalist robot module"
 	module_type = "Standard"
 
 /obj/item/robot_module/standard/New()
 	..()
+	// sec
 	modules += new /obj/item/melee/baton/loaded(src)
-	modules += new /obj/item/extinguisher(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	modules += new /obj/item/crowbar/cyborg(src)
+
+	// janitorial
+	modules += new /obj/item/soap/nanotrasen(src)
+	modules += new /obj/item/lightreplacer/cyborg(src)
+
+	// eng
+	modules += new /obj/item/holosign_creator/cyborg/atmos(src) // for temporarily sealing breached areas until they can be properly fixed
+	modules += new /obj/item/extinguisher(src) // for firefighting, and propulsion in space
+
+	// med
 	modules += new /obj/item/healthanalyzer(src)
+	modules += new /obj/item/reagent_containers/borghypo/basic(src) // basic brute/burn treatment for minor ailments
+	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay
+
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
 
 	fix_modules()

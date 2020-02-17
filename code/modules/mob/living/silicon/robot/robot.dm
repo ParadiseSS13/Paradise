@@ -286,7 +286,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
 	if(mmi != null && mmi.alien)
@@ -301,7 +301,7 @@ var/list/robot_verbs_default = list(
 		return
 
 	switch(modtype)
-		if("Standard")
+		if("Generalist")
 			module = new /obj/item/robot_module/standard(src)
 			module.channels = list("Service" = 1)
 			module_sprites["Basic"] = "robot_old"
