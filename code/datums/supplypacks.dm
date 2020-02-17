@@ -79,11 +79,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/emergency/evac
 	name = "Emergency Equipment Crate"
-	contains = list(/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/floorbot,
-					/mob/living/simple_animal/bot/medbot,
-					/mob/living/simple_animal/bot/medbot,
-					/obj/item/tank/air,
+	contains = list(/obj/item/tank/air,
 					/obj/item/tank/air,
 					/obj/item/tank/air,
 					/obj/item/tank/air,
@@ -95,7 +91,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/mask/gas,
 					/obj/item/grenade/gas/oxygen,
 					/obj/item/grenade/gas/oxygen)
-	cost = 35
+	cost = 40
 	containertype = /obj/structure/closet/crate/internals
 	containername = "emergency crate"
 	group = supply_emergency
@@ -550,10 +546,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "Toolbox Crate"
 	contains = list(/obj/item/storage/toolbox/electrical,
 					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/electrical,
-					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical,
-					/obj/item/storage/toolbox/mechanical)
+					/obj/item/storage/toolbox/electrical)
 	cost = 10
 	containername = "electrical maintenance crate"
 
@@ -798,7 +791,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	cost = 10
 	containername = "advanced first aid kits crate"
 
-/datum/supply_packs/medical/firstaidmachine
+/datum/supply_packs/science/firstaidmachine
 	name = "Machine First Aid Kits Crate"
 	contains = list(/obj/item/storage/firstaid/machine,
 					/obj/item/storage/firstaid/machine,
@@ -924,11 +917,19 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	contains = list(/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
 					/obj/item/assembly/prox_sensor,
+					/obj/item/assembly/prox_sensor,
+					/obj/item/storage/firstaid/machine/empty,
+					/obj/item/storage/firstaid/machine/empty,
+					/obj/item/healthanalyzer,
+					/obj/item/healthanalyzer,
 					/obj/item/storage/toolbox/electrical,
+					/obj/item/storage/toolbox/mechanical,
 					/obj/item/storage/box/flashes,
-					/obj/item/stock_parts/cell/high,
-					/obj/item/stock_parts/cell/high)
-	cost = 10
+					/obj/item/stock_parts/cell/high/plus,
+					/obj/item/stock_parts/cell/high/plus,
+					/obj/item/reagent_containers/glass/bucket,
+					/obj/item/reagent_containers/glass/bucket)
+	cost = 20
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "robotics assembly crate"
 	access = access_robotics
@@ -1299,35 +1300,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 	name = "HEADER"
 	group = supply_materials
 	announce_beacons = list("Engineering" = list("Engineering", "Chief Engineer's Desk", "Atmospherics"))
-
-
-/datum/supply_packs/materials/metal50
-	name = "50 Metal Sheets Crate"
-	contains = list(/obj/item/stack/sheet/metal)
-	amount = 50
-	cost = 10
-	containername = "metal sheets crate"
-
-/datum/supply_packs/materials/plasteel20
-	name = "20 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
-	amount = 20
-	cost = 30
-	containername = "plasteel sheets crate"
-
-/datum/supply_packs/materials/plasteel50
-	name = "50 Plasteel Sheets Crate"
-	contains = list(/obj/item/stack/sheet/plasteel)
-	amount = 50
-	cost = 50
-	containername = "plasteel sheets crate"
-
-/datum/supply_packs/materials/glass50
-	name = "50 Glass Sheets Crate"
-	contains = list(/obj/item/stack/sheet/glass)
-	amount = 50
-	cost = 10
-	containername = "glass sheets crate"
 
 /datum/supply_packs/materials/wood30
 	name = "30 Wood Planks Crate"

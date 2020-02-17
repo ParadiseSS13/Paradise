@@ -106,7 +106,7 @@
 		speed = 0
 		update_icon()
 		return
-	..()
+	return ..()
 
 #undef BASE_MOVE_DELAY
 #undef MAX_SPEED

@@ -8,8 +8,9 @@
 	explosion_block = 3
 	heat_proof = TRUE
 	safe = FALSE
-	armor = list(melee = 50, bullet = 100, laser = 100, energy = 100, bomb = 50, bio = 100, rad = 100)
-	burn_state = FIRE_PROOF
+	max_integrity = 600
+	armor = list("melee" = 50, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
 	var/id_tag = 1.0
 	var/protected = 1
@@ -22,7 +23,7 @@
 /obj/machinery/door/poddoor/impassable
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
-	resistance_flags = INDESTRUCTIBLE
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/door/poddoor/impassable/emag_act(mob/user)
 	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
@@ -35,7 +36,7 @@
 		return 0
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
-/obj/machinery/door/poddoor/ex_act(severity, target)
+/obj/machinery/door/poddoor/ex_act(severity)
 	if(severity == 3)
 		return
 	..()

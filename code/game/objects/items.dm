@@ -15,13 +15,14 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/inhand_x_dimension = 32
 	var/inhand_y_dimension = 32
 
+	max_integrity = 200
+
 	can_be_hit = FALSE
 	suicidal_hands = TRUE
 
-	var/r_speed = 1.0
-	var/health = null
 	var/hitsound = null
 	var/usesound = null
+	var/throwhitsound
 	var/w_class = WEIGHT_CLASS_NORMAL
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
@@ -80,7 +81,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/embedded_impact_pain_multiplier = EMBEDDED_IMPACT_PAIN_MULTIPLIER //The coefficient of multiplication for the damage this item does when first embedded (this*w_class)
 	var/embedded_unsafe_removal_pain_multiplier = EMBEDDED_UNSAFE_REMOVAL_PAIN_MULTIPLIER //The coefficient of multiplication for the damage removing this without surgery causes (this*w_class)
 	var/embedded_unsafe_removal_time = EMBEDDED_UNSAFE_REMOVAL_TIME //A time in ticks, multiplied by the w_class.
+	var/embedded_ignore_throwspeed_threshold = FALSE
 
+	var/tool_behaviour = NONE //What kind of tool are we?
+	var/tool_enabled = TRUE //If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
+	var/tool_volume = 50 //How loud are we when we use our tool?
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
@@ -141,24 +146,9 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	else
 		return 1
 
-/obj/item/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(5))
-				qdel(src)
-				return
-		else
-	return
-
-/obj/item/blob_act()
-	qdel(src)
+/obj/item/blob_act(obj/structure/blob/B)
+	if(B && B.loc == loc)
+		qdel(src)
 
 /obj/item/verb/move_to_top()
 	set name = "Move To Top"
@@ -213,6 +203,22 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		msg += "*--------*"
 		. += msg
 
+/obj/item/burn()
+	if(!QDELETED(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/ash/A = new(T)
+		A.desc += "\nLooks like this used to be \an [name] some time ago."
+		..()
+
+/obj/item/acid_melt()
+	if(!QDELETED(src))
+		var/turf/T = get_turf(src)
+		var/obj/effect/decal/cleanable/molten_object/MO = new(T)
+		MO.pixel_x = rand(-16,16)
+		MO.pixel_y = rand(-16,16)
+		MO.desc = "Looks like this was \an [src] some time ago."
+		..()
+
 /obj/item/afterattack(atom/target, mob/user, proximity, params)
 	SEND_SIGNAL(src, COMSIG_ITEM_AFTERATTACK, target, user, proximity, params)
 	..()
@@ -231,7 +237,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 			to_chat(user, "<span class='warning'>You try to move your [temp.name], but cannot!</span>")
 			return 0
 
-	if(burn_state == ON_FIRE && !pickupfireoverride)
+	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
@@ -245,6 +251,15 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 				return
 		else
 			extinguish()
+
+	if(acid_level > 20 && !ismob(loc))// so we can still remove the clothes on us that have acid.
+		var/mob/living/carbon/human/H = user
+		if(istype(H))
+			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
+				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
+				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
+				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+					H.UpdateDamageIcon()
 
 	if(istype(src.loc, /obj/item/storage))
 		//If the item is in a storage item, take it out
@@ -266,13 +281,13 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 	return 1
 
-/obj/item/attack_alien(mob/user as mob)
+/obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
 	if(!A.has_fine_manipulation)
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.unEquip(src)
-		to_chat(user, "Your claws aren't capable of such fine manipulation.")
+		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
 		return
 	attack_hand(A)
 
@@ -345,6 +360,16 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 		playsound(owner.loc, 'sound/hispania/effects/shieldactivehand.ogg', 50, 1)
 		return 1
 	return 0
+
+// Generic use proc. Depending on the item, it uses up fuel, charges, sheets, etc.
+// Returns TRUE on success, FALSE on failure.
+/obj/item/proc/use(used)
+	return !used
+
+//Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
+//Not sure if there should be an argument that indicates what exactly is being refilled
+/obj/item/proc/refill(mob/user, atom/A, amount) 
+	return FALSE
 
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)
 	return
@@ -530,10 +555,11 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	return
 
 /obj/item/singularity_pull(S, current_size)
-	spawn(0) //this is needed or multiple items will be thrown sequentially and not simultaneously
-		if(current_size >= STAGE_FOUR)
-			throw_at(S,14,3)
-		else ..()
+	..()
+	if(current_size >= STAGE_FOUR)
+		throw_at(S, 14, 3, spin = 0)
+	else
+		return
 
 /obj/item/throw_impact(atom/A)
 	if(A && !QDELETED(A))
@@ -574,6 +600,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(!do_after(user, 40, target = source))
 		return
 	clean_blood()
+	acid_level = 0
 	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
 						"<span class='notice'>You wash [src] using [source].</span>")
 	return 1
@@ -598,8 +625,19 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(H.slip(src, trip_stun, trip_weaken, trip_tiles, trip_walksafe, trip_any, trip_verb))
 		return TRUE
 
+/obj/item/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	return
+
 /obj/item/attack_hulk(mob/living/carbon/human/user)
 	return FALSE
+
+/obj/item/attack_animal(mob/living/simple_animal/M)
+	if(can_be_hit)
+		return ..()
+	return FALSE
+
+/obj/item/mech_melee_attack(obj/mecha/M)
+	return 0
 
 /obj/item/proc/openTip(location, control, params, user)
 	openToolTip(user, src, params, title = name, content = "[desc]", theme = "")

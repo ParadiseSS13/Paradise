@@ -71,7 +71,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/mineral/equipment_vendor/golem/Initialize()
@@ -107,7 +107,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	RefreshParts()
 
 /obj/machinery/mineral/equipment_vendor/power_change()
@@ -187,14 +187,14 @@
 		if(istype(I, /obj/item/crowbar))
 			if(inserted_id)
 				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
-			default_deconstruction_crowbar(I)
+			default_deconstruction_crowbar(user, I)
 		return 1
 	if(istype(I, /obj/item/mining_voucher))
 		if(!powered())
 			return
 		else
 			RedeemVoucher(I, user)
-			return
+		return
 	if(istype(I,/obj/item/card/id))
 		if(!powered())
 			return
@@ -206,11 +206,11 @@
 				C.forceMove(src)
 				inserted_id = C
 				interact(user)
-			return
-	..()
+		return
+	return ..()
 
 /obj/machinery/mineral/equipment_vendor/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit", "Spacepod Starter Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -236,6 +236,11 @@
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript/full(drop_location)
+		if("Spacepod Starter Kit")
+			new /obj/item/spacepod_equipment/weaponry/mining_laser_basic(drop_location)
+			new /obj/item/spacepod_equipment/cargo/ore(drop_location)
+			new /obj/item/spacepod_equipment/lock/keyed(drop_location)
+			new /obj/item/spacepod_key(drop_location)
 
 	qdel(voucher)
 

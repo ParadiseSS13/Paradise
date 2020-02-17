@@ -36,7 +36,9 @@
 
 	switch(stat)
 		if(CONSCIOUS)
-			if(!client)
+			if(shell)
+				msg += "It appears to be an [deployed ? "active" : "empty"] AI shell.\n"
+			else if(!client)
 				msg += "It appears to be in stand-by mode.\n" //afk
 		if(UNCONSCIOUS)
 			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
@@ -50,7 +52,7 @@
 	if(print_flavor_text()) msg += "\n[print_flavor_text()]\n"
 
 	if(pose)
-		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
+		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 

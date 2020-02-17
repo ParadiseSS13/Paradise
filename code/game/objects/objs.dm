@@ -2,29 +2,28 @@
 	//var/datum/module/mod		//not used
 	var/origin_tech = null	//Used by R&D to determine what research bonuses it grants.
 	var/crit_fail = 0
-	var/unacidable = 0 //universal "unacidabliness" var, here so you can use it in any obj.
 	animate_movement = 2
-	var/throwforce = 1
 	var/list/attack_verb = list() //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/list/species_exception = null	// list() of species types, if a species cannot put items in a certain slot, but species type is in list, it will be able to wear that item
 	var/sharp = 0		// whether this object cuts
 	var/in_use = 0 // If we have a user using us, this will be set on. We will check if the user has stopped using us, and thus stop updating and LAGGING EVERYTHING!
-	var/can_deconstruct = TRUE
 	var/damtype = "brute"
 	var/force = 0
 	var/list/armor
 	var/obj_integrity	//defaults to max_integrity
-	var/max_integrity = INFINITY
+	var/max_integrity = 500
 	var/integrity_failure = 0 //0 if we have no special broken behavior
+	///Damage under this value will be completely ignored
+	var/damage_deflection = 0
 
 	var/resistance_flags = NONE // INDESTRUCTIBLE
+
+	var/acid_level = 0 //how much acid is on that obj
+
 	var/can_be_hit = TRUE //can this be bludgeoned by items?
 
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
-	var/burn_state = FIRE_PROOF // LAVA_PROOF | FIRE_PROOF | FLAMMABLE | ON_FIRE
-	var/burntime = 10 //How long it takes to burn to ashes, in seconds
-	var/burn_world_time //What world time the object will burn up completely
 	var/being_shocked = 0
 	var/speed_process = FALSE
 
@@ -32,10 +31,12 @@
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
 
+	var/drag_slowdown
+
 /obj/New()
 	..()
 	if(!armor)
-		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
+		armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
 	if(obj_integrity == null)
 		obj_integrity = max_integrity
 	if(on_blueprints && isturf(loc))
@@ -272,28 +273,53 @@ a {
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
 
+/obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		return
+	if(I.tool_behaviour != TOOL_WELDER)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	if(I.use_tool(src, user, time, volume = I.tool_volume))
+		WELDER_REPAIR_SUCCESS_MESSAGE
+		obj_integrity = max_integrity
+		update_icon()
+	return TRUE
+
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
+	if(!anchored && !isfloorturf(loc))
+		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+		return FALSE
+	if(I.tool_behaviour != TOOL_WRENCH)
+		return FALSE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return FALSE
+	if(!(flags & NODECONSTRUCT))
+		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
+		if(I.use_tool(src, user, time, volume = I.tool_volume))
+			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
+			anchored = !anchored
+		return TRUE
+	return FALSE
+
 /obj/water_act(volume, temperature, source, method = TOUCH)
 	. = ..()
 	extinguish()
+	acid_level = 0
 
 /obj/singularity_pull(S, current_size)
-	if(anchored)
-		if(current_size >= STAGE_FIVE)
-			anchored = 0
-			step_towards(src,S)
-	else step_towards(src,S)
+	..()
+	if(!anchored || current_size >= STAGE_FIVE)
+		step_towards(src,S)
 
 /obj/proc/container_resist(var/mob/living)
 	return
 
 /obj/proc/CanAStarPass()
 	. = !density
-
-/obj/proc/empty_object_contents(burn = 0, new_loc = loc)
-	for(var/obj/item/Item in contents) //Empty out the contents
-		Item.forceMove(new_loc)
-		if(burn)
-			Item.fire_act() //Set them on fire, too
 
 /obj/proc/on_mob_move(dir, mob/user)
 	return

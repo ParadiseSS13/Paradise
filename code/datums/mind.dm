@@ -225,9 +225,7 @@
 
 /datum/mind/proc/memory_edit_cult(mob/living/carbon/human/H)
 	. = _memory_edit_header("cult")
-	if(ismindshielded(H))
-		. += "<B>NO</B>|cultist"
-	else if(src in SSticker.mode.cult)
+	if(src in SSticker.mode.cult)
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
 		. += "<br>Give <a href='?src=[UID()];cult=tome'>tome</a>|<a href='?src=[UID()];cult=equip'>equip</a>."
 	else
@@ -1666,9 +1664,8 @@
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src
 	zealot_objective.explanation_text = "Obey every order from and protect [missionary.real_name], the [missionary.mind.assigned_role == missionary.mind.special_role ? (missionary.mind.special_role) : (missionary.mind.assigned_role)]."
-	var/datum/antagonist/mindslave/S = new()
-	S.add_objective(zealot_objective)
-	add_antag_datum(S)
+	objectives += zealot_objective
+	add_antag_datum(/datum/antagonist/mindslave)
 
 	var/datum/antagonist/traitor/T = missionary.mind.has_antag_datum(/datum/antagonist)
 	T.update_traitor_icons_added(missionary.mind)

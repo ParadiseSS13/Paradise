@@ -24,7 +24,7 @@
 	desc = "It's just an ordinary box."
 	icon_state = "box"
 	item_state = "syringe_kit"
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/foldable = /obj/item/stack/sheet/cardboard
 	var/amt = 1
 
@@ -73,6 +73,7 @@
 		new /obj/item/tank/emergency_oxygen( src )
 		new /obj/item/reagent_containers/hypospray/autoinjector( src )
 		new /obj/item/flashlight/flare/glowstick/emergency( src )
+		new /obj/item/crowbar/red(src)
 		return
 
 /obj/item/storage/box/survival_vox
@@ -85,6 +86,7 @@
 	new /obj/item/tank/emergency_oxygen/nitrogen(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/crowbar/red(src)
 
 /obj/item/storage/box/survival_plasmaman
 	icon_state = "box_plasma"
@@ -96,6 +98,7 @@
 	new /obj/item/tank/emergency_oxygen/plasma(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
+	new /obj/item/crowbar/red(src)
 
 /obj/item/storage/box/engineer
 	icon_state = "box_eng"
@@ -129,6 +132,7 @@
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
 		new /obj/item/reagent_containers/food/pill/initropidril(src)
 		new /obj/item/flashlight/flare/glowstick/red(src)
+		new /obj/item/crowbar/red(src) //Syndicate lives matter
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
@@ -964,6 +968,7 @@
 	desc = "A sack neatly crafted out of paper."
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
+	resistance_flags = FLAMMABLE
 	foldable = null
 	var/design = NODESIGN
 

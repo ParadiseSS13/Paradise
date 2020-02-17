@@ -6,13 +6,13 @@
 	lefthand_file = 'icons/mob/inhands/flags_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/flags_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	burntime = 20
-	burn_state = FLAMMABLE
+	max_integrity = 40
+	resistance_flags = FLAMMABLE
 	var/rolled = FALSE
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
-	..()
-	if(is_hot(W) && burn_state != ON_FIRE)
+	. = ..()
+	if(is_hot(W) && !(resistance_flags & ON_FIRE))
 		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
 		fire_act()
 
@@ -35,11 +35,11 @@
 	item_state = icon_state
 	if(rolled)
 		icon_state = "[icon_state]_rolled"
-	if(burn_state == ON_FIRE)
+	if(resistance_flags & ON_FIRE)
 		item_state = "[item_state]_fire"
-	if(burn_state == ON_FIRE && rolled)
+	if((resistance_flags & ON_FIRE) && rolled)
 		overlays += image('icons/obj/flag.dmi', src , "fire_rolled")
-	else if(burn_state == ON_FIRE && !rolled)
+	else if((resistance_flags & ON_FIRE) && !rolled)
 		overlays += image('icons/obj/flag.dmi', src , "fire")
 	if(ismob(loc))
 		var/mob/M = loc
@@ -245,22 +245,25 @@
 			message_admins("[key_name_admin(user)] has hidden [I] in the [src] ready for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 			log_game("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 			investigate_log("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
-	else if(isscrewdriver(I) && boobytrap && user == trapper)
-		to_chat(user, "<span class='notice'>You remove [boobytrap] from the [src].</span>")
-		boobytrap.forceMove(get_turf(src))
-		boobytrap = null
-		trapper = null
-	else
-		..()
-
-/obj/item/flag/chameleon/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) && burn_state != ON_FIRE && boobytrap && trapper)
+	else if(is_hot(I) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		message_admins("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
-	..()
+	else
+		return ..()
+
+/obj/item/flag/chameleon/screwdriver_act(mob/user, obj/item/I)
+	if(!boobytrap || user != trapper)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You remove [boobytrap] from [src].</span>")
+	boobytrap.forceMove(get_turf(src))
+	boobytrap = null
+	trapper = null
 
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)

@@ -8,7 +8,8 @@
 	use_power = IDLE_POWER_USE
 	current_heat_capacity = 1000
 	layer = 3
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 300
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/New()
 	..()
@@ -19,7 +20,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -31,7 +32,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -49,35 +50,38 @@
 	..(dir,dir)
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
-		on = 0
-		update_icon()
-		return
-
 	if(exchange_parts(user, I))
 		return
+	return ..()
 
-	if(default_deconstruction_crowbar(I))
-		return
+/obj/machinery/atmospherics/unary/cold_sink/freezer/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
 
-	if(iswrench(I))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
-			return
-		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
-		dir = choices[selected]
-		playsound(src.loc, I.usesound, 50, 1)
-		var/node_connect = dir
-		initialize_directions = dir
-		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-			if(target.initialize_directions & get_dir(target,src))
-				node = target
-				break
-		build_network()
+/obj/machinery/atmospherics/unary/cold_sink/freezer/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "freezer-o", "freezer", I))
+		on = FALSE
 		update_icon()
-	else
-		return ..()
+		return TRUE
+
+/obj/machinery/atmospherics/unary/cold_sink/freezer/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
+		return
+	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	dir = choices[selected]
+	var/node_connect = dir
+	initialize_directions = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
+			break
+	build_network()
+	update_icon()
 
 /obj/machinery/atmospherics/unary/cold_sink/freezer/update_icon()
 	if(panel_open)
@@ -168,7 +172,8 @@
 	anchored = 1.0
 	layer = 3
 	current_heat_capacity = 1000
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 100, bomb = 0, bio = 100, rad = 100)
+	max_integrity = 300
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/New()
 	..()
@@ -182,7 +187,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
 	component_parts += new /obj/item/stock_parts/micro_laser(src)
-	component_parts += new /obj/item/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
@@ -197,7 +202,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(src)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(src)
 	component_parts += new /obj/item/stock_parts/micro_laser/ultra(src)
-	component_parts += new /obj/item/stock_parts/console_screen(src)
+	component_parts += new /obj/item/stack/sheet/glass(src)
 	component_parts += new /obj/item/stack/cable_coil(src, 1)
 	RefreshParts()
 
@@ -215,35 +220,38 @@
 	current_heat_capacity = 1000 * ((H - 1) ** 2)
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/attackby(obj/item/I, mob/user, params)
+	if(exchange_parts(user, I))
+		return
+	return ..()
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "heater-o", "heater", I))
 		on = 0
 		update_icon()
-		return
+		return TRUE
 
-	if(exchange_parts(user, I))
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-
-	if(default_deconstruction_crowbar(I))
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
 		return
-
-	if(iswrench(I))
-		if(!panel_open)
-			to_chat(user, "<span class='notice'>Open the maintenance panel first.</span>")
-			return
-		var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
-		var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
-		dir = choices[selected]
-		playsound(src.loc, I.usesound, 50, 1)
-		var/node_connect = dir
-		initialize_directions = dir
-		for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
-			if(target.initialize_directions & get_dir(target,src))
-				node = target
-				break
-		build_network()
-		update_icon()
-	else
-		return ..()
+	var/list/choices = list("West" = WEST, "East" = EAST, "South" = SOUTH, "North" = NORTH)
+	var/selected = input(user,"Select a direction for the connector.", "Connector Direction") in choices
+	dir = choices[selected]
+	var/node_connect = dir
+	initialize_directions = dir
+	for(var/obj/machinery/atmospherics/target in get_step(src,node_connect))
+		if(target.initialize_directions & get_dir(target,src))
+			node = target
+			break
+	build_network()
+	update_icon()
 
 /obj/machinery/atmospherics/unary/heat_reservoir/heater/update_icon()
 	if(panel_open)

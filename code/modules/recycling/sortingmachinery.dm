@@ -10,6 +10,18 @@
 	var/giftwrapped = 0
 	var/sortTag = 0
 
+/obj/structure/bigDelivery/Destroy()
+	var/turf/T = get_turf(src)
+	for(var/atom/movable/AM in contents)
+		AM.forceMove(T)
+	return ..()
+
+/obj/structure/bigDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
+
 /obj/structure/bigDelivery/attack_hand(mob/user as mob)
 	playsound(src.loc, 'sound/items/poster_ripped.ogg', 50, 1)
 	if(wrapped)
@@ -64,6 +76,8 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
+	else
+		return ..()
 
 /obj/item/smallDelivery
 	name = "small parcel"
@@ -74,6 +88,12 @@
 	var/obj/item/wrapped = null
 	var/giftwrapped = 0
 	var/sortTag = 0
+
+/obj/item/smallDelivery/ex_act(severity)
+	for(var/atom/movable/AM in contents)
+		AM.ex_act()
+		CHECK_TICK
+	..()
 
 /obj/item/smallDelivery/attack_self(mob/user as mob)
 	if(wrapped && wrapped.loc) //sometimes items can disappear. For example, bombs. --rastaf0
@@ -123,6 +143,8 @@
 				new /obj/item/c_tube( get_turf(user) )
 		else
 			to_chat(user, "<span class='notice'>You need more paper.</span>")
+	else
+		return ..()
 
 /obj/item/stack/packageWrap
 	name = "package wrapper"
@@ -132,7 +154,7 @@
 	flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/stack/packageWrap/afterattack(var/obj/target as obj, mob/user as mob, proximity)
 	if(!proximity) return
@@ -249,6 +271,8 @@
 	desc = "A chute for big and small packages alike!"
 	density = 1
 	icon_state = "intake"
+	required_mode_to_deconstruct = 1
+	deconstructs_to = PIPE_DISPOSALS_CHUTE
 
 	var/c_mode = 0
 
@@ -335,24 +359,6 @@
 			c_mode=0
 			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "You attach the screws around the power connection.")
-			return
-	else if(istype(I,/obj/item/weldingtool) && c_mode==1)
-		var/obj/item/weldingtool/W = I
-		if(W.remove_fuel(0,user))
-			playsound(src.loc, W.usesound, 100, 1)
-			to_chat(user, "You start slicing the floorweld off the delivery chute.")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				if(!src || !W.isOn()) return
-				to_chat(user, "You sliced the floorweld off the delivery chute.")
-				var/obj/structure/disposalconstruct/C = new (src.loc)
-				C.ptype = PIPE_DISPOSALS_CHUTE
-				C.update()
-				C.anchored = 1
-				C.density = 1
-				qdel(src)
-			return
-		else
-			to_chat(user, "You need more welding fuel to complete this task.")
 			return
 
 /obj/item/shippingPackage

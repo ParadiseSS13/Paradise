@@ -35,27 +35,6 @@
 		victim = null
 	return ..()
 
-/obj/machinery/optable/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			//SN src = null
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				//SN src = null
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				src.density = 0
-		else
-	return
-
-/obj/machinery/optable/blob_act()
-	if(prob(75))
-		qdel(src)
-
 /obj/machinery/optable/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)
 	if(user.a_intent == INTENT_HARM)
 		..(user, TRUE)
@@ -73,7 +52,7 @@
 
 
 /obj/machinery/optable/MouseDrop_T(atom/movable/O as mob|obj, mob/user as mob)
-	if(usr.stat || (!ishuman(user) && !isrobot(user)) || user.restrained() || !check_table(user) || user.weakened || user.stunned)
+	if(usr.stat || (!ishuman(user) && !isrobot(user)) || user.restrained() || !check_table(user) || user.IsWeakened() || user.stunned)
 		return
 
 	if(!ismob(O)) //humans only
@@ -152,14 +131,17 @@
 		if(iscarbon(G.affecting))
 			take_victim(G.affecting, user)
 			qdel(G)
-	if(iswrench(I))
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
-			new /obj/item/stack/sheet/plasteel(loc, 5)
-			qdel(src)
 	else
 		return ..()
+
+/obj/machinery/optable/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+		new /obj/item/stack/sheet/plasteel(loc, 5)
+		qdel(src)
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
 	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)

@@ -10,13 +10,12 @@
 	var/window_id // mostly used to let the configuration datum update the user's UI
 	var/unlocked = FALSE
 
-/obj/machinery/computer/telecomms/traffic/attackby(obj/item/I, mob/user)
-	if(ismultitool(I))
-		unlocked = !unlocked
-		to_chat(user, "<span class='notice'>This computer is now [unlocked ? "<span class='good'>Unlocked</span>" : "<span class='bad'>Locked</span>"]. \
-Reopen the UI to see the difference.</span>")
+/obj/machinery/computer/telecomms/traffic/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	. = ..()
+	unlocked = !unlocked
+	to_chat(user, "<span class='notice'>This computer is now [unlocked ? "<span class='good'>Unlocked</span>" : "<span class='bad'>Locked</span>"]. Reopen the UI to see the difference.</span>")
 
 /obj/machinery/computer/telecomms/traffic/attack_hand(mob/user)
 	interact(user)
@@ -26,7 +25,7 @@ Reopen the UI to see the difference.</span>")
 		return 0
 
 	if(GLOB.nttc_config.valid_languages.len == 1)
-		GLOB.nttc_config.update_languages() // this is silly but it has to be done because NTTC inits before languages do 
+		GLOB.nttc_config.update_languages() // this is silly but it has to be done because NTTC inits before languages do
 
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/nttc)
 	assets.send(user)

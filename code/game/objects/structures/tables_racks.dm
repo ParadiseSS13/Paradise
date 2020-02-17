@@ -181,9 +181,11 @@
 		step(O, get_dir(O, src))
 	return
 
-/obj/structure/table/proc/tablepush(obj/item/I, mob/user)
+/obj/structure/table/proc/tablepush(obj/item/grab/G, mob/user)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='danger'>Throwing [G.affecting] onto the table might hurt them!</span>")
+		return
 	if(get_dist(src, user) < 2)
-		var/obj/item/grab/G = I
 		if(G.affecting.buckled)
 			to_chat(user, "<span class='warning'>[G.affecting] is buckled to [G.affecting.buckled]!</span>")
 			return FALSE
@@ -202,29 +204,14 @@
 		G.affecting.visible_message("<span class='danger'>[G.assailant] pushes [G.affecting] onto [src].</span>", \
 									"<span class='userdanger'>[G.assailant] pushes [G.affecting] onto [src].</span>")
 		add_attack_logs(G.assailant, G.affecting, "Pushed onto a table")
-		qdel(I)
+		qdel(G)
 		return TRUE
-	qdel(I)
+	qdel(G)
 
 /obj/structure/table/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/grab))
 		tablepush(I, user)
 		return
-	if(can_deconstruct)
-		if(isscrewdriver(I) && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-			playsound(loc, I.usesound, 50, 1)
-			if(do_after(user, 20*I.toolspeed, target = src))
-				deconstruct(TRUE)
-			return
-
-		if(iswrench(I) && deconstruction_ready)
-			to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
-			playsound(loc, I.usesound, 50, 1)
-			if(do_after(user, 40*I.toolspeed, target = src))
-				playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-				deconstruct(TRUE, 1)
-			return
 
 	if(isrobot(user))
 		return
@@ -243,8 +230,35 @@
 	else
 		return ..()
 
+
+/obj/structure/table/screwdriver_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	if(!deconstruction_ready)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume) && deconstruction_ready)
+		deconstruct(TRUE, 1)
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+
+/obj/structure/table/wrench_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	if(!deconstruction_ready)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume) && deconstruction_ready)
+		deconstruct(TRUE, 1)
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+
 /obj/structure/table/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 		if(!wrench_disassembly)
@@ -368,9 +382,10 @@
 	icon = 'icons/obj/smooth_structures/glass_table.dmi'
 	icon_state = "glass_table"
 	buildstack = /obj/item/stack/sheet/glass
-	max_integrity = 70
-	unacidable = 1
 	canSmoothWith = null
+	max_integrity = 70
+	resistance_flags = ACID_PROOF
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 100)
 	var/list/debris = list()
 
 /obj/structure/table/glass/New()
@@ -385,7 +400,7 @@
 
 /obj/structure/table/glass/Crossed(atom/movable/AM, oldloc)
 	. = ..()
-	if(!can_deconstruct)
+	if(flags & NODECONSTRUCT)
 		return
 	if(!isliving(AM))
 		return
@@ -421,13 +436,13 @@
 	qdel(src)
 
 /obj/structure/table/glass/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		if(disassembled)
 			..()
 			return
 		else
 			var/turf/T = get_turf(src)
-			playsound(T, "shatter", 50, 1)
+			playsound(T, "shatter", 50, TRUE)
 			for(var/X in debris)
 				var/atom/movable/AM = X
 				AM.forceMove(T)
@@ -452,8 +467,7 @@
 	buildstack = /obj/item/stack/sheet/wood
 	max_integrity = 70
 	canSmoothWith = list(/obj/structure/table/wood, /obj/structure/table/wood/poker)
-	burn_state = FLAMMABLE
-	burntime = 20
+	resistance_flags = FLAMMABLE
 
 /obj/structure/table/wood/narsie_act(total_override = TRUE)
 	if(!total_override)
@@ -508,7 +522,7 @@
 	canSmoothWith = list(/obj/structure/table/reinforced, /obj/structure/table)
 	max_integrity = 200
 	integrity_failure = 50
-	armor = list(melee = 10, bullet = 30, laser = 30, energy = 100, bomb = 20, bio = 0, rad = 0)
+	armor = list("melee" = 10, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70)
 
 /obj/structure/table/reinforced/deconstruction_hints(mob/user)
 	if(deconstruction_ready)
@@ -522,34 +536,21 @@
 	else
 		return ..()
 
-/obj/structure/table/reinforced/attackby(obj/item/W, mob/user, params)
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			playsound(loc, W.usesound, 50, 1)
-			if(deconstruction_ready)
-				to_chat(user, "<span class='notice'>You start strengthening the reinforced table...</span>")
-				if (do_after(user, 50*W.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You strengthen the table.</span>")
-					deconstruction_ready = FALSE
-			else
-				to_chat(user, "<span class='notice'>You start weakening the reinforced table...</span>")
-				if (do_after(user, 50*W.toolspeed, target = src))
-					if(!src || !WT.isOn())
-						return
-					to_chat(user, "<span class='notice'>You weaken the table.</span>")
-					deconstruction_ready = TRUE
-	else
-		. = ..()
+/obj/structure/table/reinforced/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table...</span>")
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You [deconstruction_ready ? "strengthen" : "weaken"] the table.</span>")
+		deconstruction_ready = !deconstruction_ready
 
 /obj/structure/table/reinforced/brass
 	name = "brass table"
 	desc = "A solid, slightly beveled brass table."
 	icon = 'icons/obj/smooth_structures/brass_table.dmi'
 	icon_state = "brass_table"
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	frame = /obj/structure/table_frame/brass
 	framestack = /obj/item/stack/tile/brass
 	buildstack = /obj/item/stack/tile/brass
@@ -616,7 +617,7 @@
 		held_items += item.UID()
 
 /obj/structure/table/tray/deconstruct(disassembled = TRUE, wrench_disassembly = 0)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		var/turf/T = get_turf(src)
 		new buildstack(T, buildstackamount)
 	qdel(src)
@@ -680,10 +681,6 @@
 		step(O, get_dir(O, src))
 
 /obj/structure/rack/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W) && can_deconstruct)
-		playsound(loc, W.usesound, 50, 1)
-		deconstruct(TRUE)
-		return
 	if(isrobot(user))
 		return
 	if(user.a_intent == INTENT_HARM)
@@ -693,8 +690,17 @@
 			W.Move(loc)
 	return
 
+/obj/structure/rack/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(flags & NODECONSTRUCT)
+		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct(TRUE)
+
 /obj/structure/rack/attack_hand(mob/living/user)
-	if(user.weakened || user.resting || user.lying)
+	if(user.IsWeakened() || user.resting || user.lying)
 		return
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
@@ -706,11 +712,11 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(damage_amount)
-				playsound(loc, 'sound/items/dodgeball.ogg', 80, 1)
+				playsound(loc, 'sound/items/dodgeball.ogg', 80, TRUE)
 			else
-				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
-			playsound(loc, 'sound/items/welder.ogg', 40, 1)
+			playsound(loc, 'sound/items/welder.ogg', 40, TRUE)
 
 /obj/structure/rack/skeletal_bar
 	name = "skeletal minibar"
@@ -729,7 +735,7 @@
  */
 
 /obj/structure/rack/deconstruct(disassembled = TRUE)
-	if(can_deconstruct)
+	if(!(flags & NODECONSTRUCT))
 		density = FALSE
 		var/obj/item/rack_parts/newparts = new(loc)
 		transfer_fingerprints_to(newparts)
@@ -748,12 +754,12 @@
 	materials = list(MAT_METAL=2000)
 	var/building = FALSE
 
-/obj/item/rack_parts/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W))
-		new /obj/item/stack/sheet/metal(user.loc)
-		qdel(src)
-	else
-		. = ..()
+/obj/item/rack_parts/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	new /obj/item/stack/sheet/metal(user.loc)
+	qdel(src)
 
 /obj/item/rack_parts/attack_self(mob/user)
 	if(building)

@@ -6,7 +6,8 @@
 	icon_living = "spiderbot-chassis"
 	icon_dead = "spiderbot-smashed"
 	wander = 0
-	universal_speak = 1
+	voice_name = "synthesized voice"
+	universal_speak = TRUE
 	health = 40
 	maxHealth = 40
 	pass_flags = PASSTABLE
@@ -28,12 +29,14 @@
 	minbodytemp = 0
 	maxbodytemp = 500
 
-	can_hide = 1
+	can_hide = TRUE
 	ventcrawler = 2
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1
 
-	var/emagged = 0               //is it getting ready to explode?
+	var/obj/item/held_item = null //Storage for single item they can hold.
+	var/lob_range = 3
+	var/emagged = FALSE               //is it getting ready to explode?
 	var/obj/item/mmi/mmi = null
 	var/mob/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
 
@@ -55,15 +58,15 @@
 			to_chat(user, "<span class='warning'>Sticking an empty MMI into the frame would sort of defeat the purpose.</span>")
 			return
 		if(!B.brainmob.key)
-			var/ghost_can_reenter = 0
+			var/ghost_can_reenter = FALSE
 			if(B.brainmob.mind)
 				for(var/mob/dead/observer/G in GLOB.player_list)
 					if(G.can_reenter_corpse && G.mind == B.brainmob.mind)
-						ghost_can_reenter = 1
+						ghost_can_reenter = TRUE
 						break
 				for(var/mob/living/simple_animal/S in GLOB.player_list)
 					if(S in GLOB.respawnable_list)
-						ghost_can_reenter = 1
+						ghost_can_reenter = TRUE
 						break
 			if(!ghost_can_reenter)
 				to_chat(user, "<span class='notice'>[B] is completely unresponsive; there's no point.</span>")
@@ -85,29 +88,16 @@
 		transfer_personality(B)
 
 		update_icon()
-		return 1
+		return TRUE
 
-	else if(iswelder(O) && user.a_intent == INTENT_HELP)
-		var/obj/item/weldingtool/WT = O
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(WT.remove_fuel(0))
-			if(health < maxHealth)
-				adjustHealth(-5)
-				playsound(loc, WT.usesound, 50, 1)
-				add_fingerprint(user)
-				visible_message("<span class='warning'>[user] has spot-welded some of the damage to [src]!</span>")
-			else
-				to_chat(user, "<span class='notice'>[src] is undamaged!</span>")
-		else
-			to_chat(user, "Need more welding fuel!")
 	else if(istype(O, /obj/item/card/id) || istype(O, /obj/item/pda))
 		if(!mmi)
 			to_chat(user, "<span class='warning'>There's no reason to swipe your ID - the spiderbot has no brain to remove.</span>")
-			return 0
+			return FALSE
 
 		if(emagged)
 			to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
-			return 0
+			return FALSE
 
 		var/obj/item/card/id/id_card
 
@@ -120,20 +110,37 @@
 		if(access_robotics in id_card.access)
 			to_chat(user, "<span class='notice'>You swipe your access card and pop the brain out of [src].</span>")
 			eject_brain()
-			return 1
+			return TRUE
 		else
 			to_chat(user, "<span class='warning'>You swipe your card, with no effect.</span>")
-			return 0
+			return FALSE
 
 	else
 		..()
 
+/mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(user == src) //No self-repair dummy
+		return
+	if(health >= maxHealth)
+		to_chat(user, "<span class='warning'>[src] does not need repairing!</span>")
+		return
+		to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	adjustHealth(-5)
+	add_fingerprint(user)
+	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
+
 /mob/living/simple_animal/spiderbot/emag_act(mob/living/user)
 	if(emagged)
 		to_chat(user, "<span class='warning'>[src] doesn't seem to respond.</span>")
-		return 0
+		return FALSE
 	else
-		emagged = 1
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You short out the security protocols and rewrite [src]'s internal memory.</span>")
 		to_chat(src, "<span class='userdanger'>You have been emagged; you are now completely loyal to [user] and [user.p_their()] every order!</span>")
 		emagged_master = user

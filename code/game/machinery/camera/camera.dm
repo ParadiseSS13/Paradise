@@ -7,8 +7,9 @@
 	idle_power_usage = 5
 	active_power_usage = 10
 	layer = WALL_OBJ_LAYER
-
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
+	resistance_flags = FIRE_PROOF
+	damage_deflection = 12
+	armor = list("melee" = 50, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 50)
 	var/datum/wires/camera/wires = null // Wires datum
 	max_integrity = 100
 	integrity_failure = 50
@@ -117,31 +118,16 @@
 	view_range = num
 	cameranet.updateVisibility(src, 0)
 
+/obj/machinery/camera/singularity_pull(S, current_size)
+	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
+		toggle_cam(null, 0)
+	..()
+
 /obj/machinery/camera/attackby(obj/item/I, mob/living/user, params)
 	var/msg = "<span class='notice'>You attach [I] into the assembly inner circuits.</span>"
 	var/msg2 = "<span class='notice'>The camera already has that upgrade!</span>"
 
-	// DECONSTRUCTION
-	if(isscrewdriver(I))
-		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
-		playsound(loc, I.usesound, 50, 1)
-
-	else if((iswirecutter(I) || ismultitool(I)) && panel_open)
-		wires.Interact(user)
-
-	else if(iswelder(I) && panel_open && wires.CanDeconstruct())
-		var/obj/item/weldingtool/WT = I
-		if(!WT.remove_fuel(0, user))
-			return
-		to_chat(user, "<span class='notice'>You start to weld [src]...</span>")
-		playsound(loc, WT.usesound, 50, 1)
-		if(do_after(user, 100 * WT.toolspeed, target = src))
-			user.visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
-								"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
-			deconstruct(TRUE)
-
-	else if(istype(I, /obj/item/analyzer) && panel_open) //XRay
+	if(istype(I, /obj/item/analyzer) && panel_open) //XRay
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to your hand!</span>")
 			return
@@ -227,29 +213,65 @@
 	else
 		return ..()
 
+
+/obj/machinery/camera/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You screw [src]'s panel [panel_open ? "open" : "closed"].</span>")
+
+/obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(panel_open)
+		wires.Interact(user)
+
+/obj/machinery/camera/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(panel_open)
+		wires.Interact(user)
+
+/obj/machinery/camera/welder_act(mob/user, obj/item/I)
+	if(!panel_open || !wires.CanDeconstruct())
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_WELD_MESSAGE
+	if(I.use_tool(src, user, 100, volume = I.tool_volume))
+		visible_message("<span class='warning'>[user] unwelds [src], leaving it as just a frame bolted to the wall.</span>",
+						"<span class='warning'>You unweld [src], leaving it as just a frame bolted to the wall</span>")
+		deconstruct(TRUE)
+
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 12 && !(stat & BROKEN))
-		return 0
+	if(stat & BROKEN)
+		return damage_amount
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status)
+	if(status && !(flags & NODECONSTRUCT))
 		triggerCameraAlarm()
 		toggle_cam(null, FALSE)
 		wires.CutAll()
 
 /obj/machinery/camera/deconstruct(disassembled = TRUE)
-	if(disassembled)
-		if(!assembly)
-			assembly = new()
-		assembly.forceMove(loc)
-		assembly.state = 1
-		assembly.setDir(dir)
-		assembly.update_icon()
-		assembly = null
-	else
-		new /obj/item/camera_assembly(loc)
-		new /obj/item/stack/cable_coil(loc, 2)
+	if(!(flags & NODECONSTRUCT))
+		if(disassembled)
+			if(!assembly)
+				assembly = new()
+			assembly.forceMove(drop_location())
+			assembly.state = 1
+			assembly.setDir(dir)
+			assembly.update_icon()
+			assembly = null
+		else
+			var/obj/item/I = new /obj/item/camera_assembly(loc)
+			I.obj_integrity = I.max_integrity * 0.5
+			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
 /obj/machinery/camera/update_icon()

@@ -65,11 +65,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		T += M.rating
 	efficiency_coeff = 2 ** (T - 1) //Only 1 manipulator here, you're making runtimes Razharas
 
-/obj/machinery/r_n_d/circuit_imprinter/blob_act()
-	if(prob(50))
-		qdel(src)
-
-
 /obj/machinery/r_n_d/circuit_imprinter/proc/check_mat(datum/design/being_built, var/M)
 	var/list/all_materials = being_built.reagents_list + being_built.materials
 
@@ -99,7 +94,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 					reagents.trans_to(I, reagents.total_volume)
 				I.loc = src.loc
 			materials.retrieve_all()
-			default_deconstruction_crowbar(O)
+			default_deconstruction_crowbar(user, O)
 			return
 		else
 			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")

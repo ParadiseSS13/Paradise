@@ -64,7 +64,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
@@ -78,7 +78,7 @@
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	biomass = CLONE_BIOMASS
@@ -363,14 +363,7 @@
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(!(occupant || mess))
-		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
-			return
-
 	if(exchange_parts(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
 		return
 
 	if(I.GetID())
@@ -392,28 +385,41 @@
 			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
 			biomass += BIOMASS_MEAT_AMOUNT
 			qdel(I)
-	else if(iswrench(I))
-		if(occupant)
-			to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
-		else
-			if(anchored)
-				anchored = FALSE
-				connected.pods -= src
-				connected = null
-			else
-				anchored = TRUE
-			playsound(loc, I.usesound, 100, 1)
-			if(anchored)
-				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
-			else
-				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
-	else if(ismultitool(I))
-		var/obj/item/multitool/M = I
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You load connection data from [src] to [M].</span>")
-		return
 	else
 		return ..()
+
+/obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/clonepod/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	M.set_multitool_buffer(user, src)
+
+/obj/machinery/clonepod/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I)
+
+/obj/machinery/clonepod/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(occupant)
+		to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
+		return
+	if(anchored)
+		WRENCH_UNANCHOR_MESSAGE
+		anchored = FALSE
+		connected.pods -= src
+		connected = null
+	else
+		WRENCH_ANCHOR_MESSAGE
+		anchored = TRUE
 
 /obj/machinery/clonepod/emag_act(user)
 	if(isnull(occupant))
@@ -538,29 +544,19 @@
 	..()
 
 /obj/machinery/clonepod/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/atom/movable/A as mob|obj in src)
-				A.forceMove(src.loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2.0)
-			if(prob(50))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3.0)
-			if(prob(25))
-				for(var/atom/movable/A as mob|obj in src)
-					A.forceMove(src.loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		else
-	return
+	..()
+	if(!QDELETED(src) && occupant)
+		go_out()
+
+/obj/machinery/clonepod/handle_atom_del(atom/A)
+	if(A == occupant)
+		occupant = null
+		countdown.stop()
+
+/obj/machinery/clonepod/deconstruct(disassembled = TRUE)
+	if(occupant)
+		go_out()
+	..()
 
 /obj/machinery/clonepod/onSoullinkRevive(mob/living/L)
 	if(occupant && L == clonemind.current)

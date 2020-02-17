@@ -6,6 +6,7 @@
 	icon_state = "mixer0"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/reagent_containers/beaker = null
 	var/obj/item/storage/pill_bottle/loaded_pill_bottle = null
 	var/mode = 0
@@ -24,7 +25,7 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/chem_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()
@@ -41,12 +42,21 @@
 		reagents.maximum_volume += B.reagents.maximum_volume
 
 /obj/machinery/chem_master/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
+	if(severity < 3)
+		if(beaker)
+			beaker.ex_act(severity)
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.ex_act(severity)
+		..()
+
+/obj/machinery/chem_master/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		reagents.clear_reagents()
+		update_icon()
+	else if(A == loaded_pill_bottle)
+		loaded_pill_bottle = null
 
 /obj/machinery/chem_master/update_icon()
 	overlays.Cut()
@@ -54,7 +64,7 @@
 	if(powered())
 		overlays += "waitlight"
 
-/obj/machinery/chem_master/blob_act()
+/obj/machinery/chem_master/blob_act(obj/structure/blob/B)
 	if(prob(50))
 		qdel(src)
 
@@ -67,30 +77,12 @@
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
-			beaker = null
-			reagents.clear_reagents()
-		if(loaded_pill_bottle)
-			loaded_pill_bottle.forceMove(get_turf(src))
-			loaded_pill_bottle = null
-		return
-
 	if(exchange_parts(user, I))
 		return
 
 	if(panel_open)
-		if(iscrowbar(I))
-			default_deconstruction_crowbar(I)
-			return TRUE
-		else
-			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
-			return TRUE
-
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
+		to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+		return TRUE
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
@@ -120,6 +112,35 @@
 		SSnanoui.update_uis(src)
 	else
 		return ..()
+
+
+
+
+
+/obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/chem_master/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
+		if(beaker)
+			beaker.forceMove(get_turf(src))
+			beaker = null
+			reagents.clear_reagents()
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.forceMove(get_turf(src))
+			loaded_pill_bottle = null
+		return TRUE
+
+/obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
+	if(panel_open)
+		return
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return TRUE
 
 /obj/machinery/chem_master/Topic(href, href_list)
 	if(..())
@@ -478,7 +499,7 @@
 	QDEL_LIST(component_parts)
 	component_parts += new /obj/item/circuitboard/chem_master/condi_master(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	component_parts += new /obj/item/reagent_containers/glass/beaker(null)
 	RefreshParts()

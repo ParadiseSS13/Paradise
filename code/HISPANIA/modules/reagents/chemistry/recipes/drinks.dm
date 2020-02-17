@@ -72,3 +72,11 @@
 	mix_message = "The ingredients mix into a dark brown substance."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
+/datum/chemical_reaction/hotline_bling // By reptile
+	name = "Hotline Bling"
+	id = "hotline_bling"
+	result = "hotline_bling"
+	required_reagents = list("bloodymary" = 1, "drakeblood" = 1)
+	result_amount = 5
+	mix_message = "You used to, you used to..."
+	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'

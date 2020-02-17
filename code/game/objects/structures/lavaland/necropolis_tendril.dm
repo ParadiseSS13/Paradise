@@ -7,13 +7,13 @@
 	icon_state = "tendril"
 
 	faction = list("mining")
-	max_mobs = 3
-	max_integrity = 250
+	max_mobs = 4
+	max_integrity = 300
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/tendril)
 
 	move_resist = INFINITY // just killing it tears a massive hole in the ground, let's not move it
 	anchored = TRUE
-	burn_state = LAVA_PROOF
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
 
 	var/gps = null
 	var/obj/effect/light_emitter/tendril/emitted_light

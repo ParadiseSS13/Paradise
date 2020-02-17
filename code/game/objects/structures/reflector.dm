@@ -12,9 +12,9 @@
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
 	var/turf/reflect_turf
-	var/new_dir = get_reflection(dir, P.dir)
 	if(!istype(P, /obj/item/projectile/beam))
 		return ..()
+	var/new_dir = get_reflection(dir, P.dir)
 	if(new_dir)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
@@ -30,46 +30,15 @@
 	P.current = reflector_turf
 	P.yo = reflect_turf.y - reflector_turf.y
 	P.xo = reflect_turf.x - reflector_turf.x
+	P.ignore_source_check = TRUE		//If shot by a laser, will now hit the mob that fired it
+	var/reflect_angle = dir2angle(new_dir)
+	P.setAngle(reflect_angle)
+
 	new_dir = 0
 	return -1
 
 
 /obj/structure/reflector/attackby(obj/item/W, mob/user, params)
-	if(iswrench(W))
-		if(anchored)
-			to_chat(user, "Unweld [src] first!")
-			return
-		playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
-		to_chat(user, "You begin to dismantle [src].")
-		if(do_after(user, 80, target = src))
-			playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
-			to_chat(user, "You dismantle [src].")
-			new /obj/item/stack/sheet/metal(src.loc, 5)
-			qdel(src)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(!anchored)
-			if(WT.remove_fuel(0,user))
-				playsound(user, 'sound/items/Welder2.ogg', 50, 1)
-				user.visible_message("[user.name] starts to weld [src.name] to the floor.", \
-					"<span class='notice'>You start to weld [src] to the floor...</span>", \
-					"<span class='italics'>You hear welding.</span>")
-				if(do_after(user,20, target = src))
-					if(!src || !WT.isOn())
-						return
-					anchored = 1
-					to_chat(user, "<span class='notice'>You weld [src] to the floor.</span>")
-		else
-			if(WT.remove_fuel(0,user))
-				playsound(user, 'sound/items/Welder2.ogg', 50, 1)
-				user.visible_message("[user] starts to cut [src] free from the floor.", \
-					"<span class='notice'>You start to cut [src] free from the floor...</span>", \
-					"<span class='italics'>You hear welding.</span>")
-				if(do_after(user,20, target = src))
-					if(!src || !WT.isOn())
-						return
-					anchored  = 0
-					to_chat(user, "<span class='notice'>You cut [src] free from the floor.</span>")
 	//Finishing the frame
 	if(istype(W,/obj/item/stack/sheet))
 		if(finished)
@@ -96,6 +65,40 @@
 				S.use(1)
 				new /obj/structure/reflector/box (src.loc)
 				qdel(src)
+		return
+	return ..()
+
+/obj/structure/reflector/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		to_chat(user, "Unweld [src] first!")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
+		return
+	playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	new /obj/item/stack/sheet/metal(src.loc, 5)
+	qdel(src)
+
+/obj/structure/reflector/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(anchored)
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+			return
+		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+		anchored = FALSE
+	else
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
+		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+			return
+		WELDER_FLOOR_WELD_SUCCESS_MESSAGE
+		anchored = TRUE
 
 /obj/structure/reflector/proc/get_reflection(srcdir,pdir)
 	return 0

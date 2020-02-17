@@ -3,7 +3,6 @@
 	desc = "Looks unstable. Best to test it with the clown."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
-	unacidable = TRUE
 	anchored = TRUE
 
 	var/obj/item/target = null
@@ -71,12 +70,14 @@
 	if(target)
 		O.forceMove(target)
 
-/obj/effect/portal/attackby(obj/item/A, mob/user)
-	if(ismultitool(A) && can_multitool_to_remove)
+/obj/effect/portal/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(can_multitool_to_remove)
 		qdel(src)
-	else if(user && Adjacent(user))
+	else
 		user.forceMove(get_turf(src))
-		return TRUE
 
 /obj/effect/portal/proc/can_teleport(atom/movable/M)
 	. = TRUE
@@ -110,7 +111,7 @@
 		if(!do_teleport(M, target, precision, bypass_area_flag = ignore_tele_proof_area_setting)) // Try to send them to a turf adjacent to target.
 			invalid_teleport()
 			return FALSE
-	
+
 	return TRUE
 
 /obj/effect/portal/proc/invalid_teleport()

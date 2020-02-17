@@ -6,6 +6,7 @@
 	icon_state = "dispenser"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 40
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/ui_title = "Chem Dispenser 5000"
 	var/cell_type = /obj/item/stock_parts/cell/high
 	var/obj/item/stock_parts/cell/cell
@@ -35,7 +36,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
 	dispensable_reagents = sortList(dispensable_reagents)
@@ -48,14 +49,14 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Creates and dispenses chemicals useful for botany."
-	can_deconstruct = FALSE
+	flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
 		"mutagen",
@@ -81,7 +82,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/bluespace(null)
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic(null)
 	component_parts += new /obj/item/stock_parts/manipulator/femto(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null)
 	RefreshParts()
 
@@ -133,16 +134,16 @@
 	SSnanoui.update_uis(src) // update all UIs attached to src
 
 /obj/machinery/chem_dispenser/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
+	if(severity < 3)
+		if(beaker)
+			beaker.ex_act(severity)
+		..()
 
-/obj/machinery/chem_dispenser/blob_act()
-	if(prob(50))
-		qdel(src)
+/obj/machinery/chem_dispenser/handle_atom_del(atom/A)
+	..()
+	if(A == beaker)
+		beaker = null
+		overlays.Cut()
 
 /obj/machinery/chem_dispenser/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	// update the ui if it exists, returns null if no ui is passed/found
@@ -241,45 +242,9 @@
 	return TRUE // update UIs attached to this object
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		if(!hackedcheck)
-			to_chat(user, hack_message)
-			dispensable_reagents += hacked_reagents
-			hackedcheck = TRUE
-		else
-			to_chat(user, unhack_message)
-			dispensable_reagents -= hacked_reagents
-			hackedcheck = FALSE
-		SSnanoui.update_uis(src)
-		return
-
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
-		return
-
 	if(exchange_parts(user, I))
 		SSnanoui.update_uis(src)
 		return
-
-	if(iswrench(I))
-		playsound(src, I.usesound, 50, 1)
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='caution'>[src] can now be moved.</span>")
-		else if(!anchored)
-			anchored = TRUE
-			to_chat(user, "<span class='caution'>[src] is now secured.</span>")
-		return
-
-	if(panel_open)
-		if(iscrowbar(I))
-			if(beaker)
-				beaker.forceMove(loc)
-				beaker = null
-			if(cell)
-				cell.forceMove(loc)
-				cell = null
-			default_deconstruction_crowbar(I)
-			return TRUE
 
 	if(isrobot(user))
 		return
@@ -306,6 +271,48 @@
 		return
 	return ..()
 
+/obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		if(beaker)
+			beaker.forceMove(loc)
+			beaker = null
+		if(cell)
+			cell.forceMove(loc)
+			cell = null
+		return TRUE
+
+
+/obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!hackedcheck)
+		to_chat(user, hack_message)
+		dispensable_reagents += hacked_reagents
+		hackedcheck = TRUE
+	else
+		to_chat(user, unhack_message)
+		dispensable_reagents -= hacked_reagents
+		hackedcheck = FALSE
+	SSnanoui.update_uis(src)
+
+
+/obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
+		return TRUE
+
+/obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+	else if(!anchored)
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)
@@ -341,7 +348,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
 
@@ -353,7 +360,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
 
@@ -376,7 +383,7 @@
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()
 
@@ -388,6 +395,6 @@
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new cell_type(null)
 	RefreshParts()

@@ -5,14 +5,14 @@
 	icon_state = "left"
 	layer = ABOVE_WINDOW_LAYER
 	closingLayer = ABOVE_WINDOW_LAYER
+	resistance_flags = ACID_PROOF
 	visible = 0
 	flags = ON_BORDER
 	opacity = 0
 	dir = EAST
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	integrity_failure = 0
-	armor = list(melee = 20, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100)
-	unacidable = 1
+	armor = list("melee" = 20, "bullet" = 50, "laser" = 50, "energy" = 50, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100)
 	var/obj/item/airlock_electronics/electronics
 	var/base_state = "left"
 	var/reinf = 0
@@ -40,8 +40,7 @@
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
-	for(var/I in debris)
-		qdel(I)
+	QDEL_LIST(debris)
 	if(obj_integrity == 0)
 		playsound(src, "shatter", 70, 1)
 	QDEL_NULL(electronics)
@@ -180,13 +179,12 @@
 /obj/machinery/door/window/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+			playsound(src, 'sound/effects/glasshit.ogg', 90, TRUE)
 		if(BURN)
-			playsound(loc, 'sound/items/welder.ogg', 100, 1)
-
+			playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/window/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && !disassembled)
+	if(!(flags & NODECONSTRUCT) && !disassembled)
 		for(var/obj/fragment in debris)
 			fragment.forceMove(get_turf(src))
 			transfer_fingerprints_to(fragment)
@@ -233,68 +231,78 @@
 		return
 
 	add_fingerprint(user)
-
-	if(can_deconstruct)
-		if(isscrewdriver(I))
-			if(density || operating)
-				to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
-				return
-			playsound(src.loc, I.usesound, 50, 1)
-			panel_open = !panel_open
-			to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
-			return
-
-		if(iscrowbar(I))
-			if(panel_open && !density && !operating)
-				playsound(loc, I.usesound, 100, 1)
-				user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
-									 "You start to remove electronics from the [name]...")
-				if(do_after(user, 40 * I.toolspeed, target = src))
-					if(panel_open && !density && !operating && loc)
-						var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
-						switch(base_state)
-							if("left")
-								WA.facing = "l"
-							if("right")
-								WA.facing = "r"
-							if("leftsecure")
-								WA.facing = "l"
-								WA.secure = TRUE
-							if("rightsecure")
-								WA.facing = "r"
-								WA.secure = TRUE
-						WA.anchored = TRUE
-						WA.state= "02"
-						WA.setDir(dir)
-						WA.ini_dir = dir
-						WA.update_icon()
-						WA.created_name = name
-
-						if(emagged)
-							to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
-							qdel(src)
-							return
-
-						to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
-
-						var/obj/item/airlock_electronics/ae
-						if(!electronics)
-							ae = new/obj/item/airlock_electronics(loc)
-							if(!req_access)
-								check_access()
-							if(req_access.len)
-								ae.conf_access = req_access
-							else if(req_one_access.len)
-								ae.conf_access = req_one_access
-								ae.one_access = 1
-						else
-							ae = electronics
-							electronics = null
-							ae.forceMove(loc)
-
-						qdel(src)
-				return
 	return ..()
+
+/obj/machinery/door/window/screwdriver_act(mob/user, obj/item/I)
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(density || operating)
+		to_chat(user, "<span class='warning'>You need to open the door to access the maintenance panel!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You [panel_open ? "open":"close"] the maintenance panel of the [src.name].</span>")
+
+
+/obj/machinery/door/window/crowbar_act(mob/user, obj/item/I)
+	if(operating)
+		return
+	if(flags & NODECONSTRUCT)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(panel_open && !density && !operating)
+		user.visible_message("<span class='warning'>[user] removes the electronics from the [name].</span>", \
+							 "You start to remove electronics from the [name]...")
+		if(I.use_tool(src, user, 40, volume = I.tool_volume))
+			if(panel_open && !density && !operating && loc)
+				var/obj/structure/windoor_assembly/WA = new /obj/structure/windoor_assembly(loc)
+				switch(base_state)
+					if("left")
+						WA.facing = "l"
+					if("right")
+						WA.facing = "r"
+					if("leftsecure")
+						WA.facing = "l"
+						WA.secure = TRUE
+					if("rightsecure")
+						WA.facing = "r"
+						WA.secure = TRUE
+				WA.anchored = TRUE
+				WA.state= "02"
+				WA.setDir(dir)
+				WA.ini_dir = dir
+				WA.update_icon()
+				WA.created_name = name
+
+				if(emagged)
+					to_chat(user, "<span class='warning'>You discard the damaged electronics.</span>")
+					qdel(src)
+					return
+
+				to_chat(user, "<span class='notice'>You remove the airlock electronics.</span>")
+
+				var/obj/item/airlock_electronics/ae
+				if(!electronics)
+					ae = new/obj/item/airlock_electronics(loc)
+					if(!req_access)
+						check_access()
+					if(req_access.len)
+						ae.conf_access = req_access
+					else if(req_one_access.len)
+						ae.conf_access = req_one_access
+						ae.one_access = 1
+				else
+					ae = electronics
+					electronics = null
+					ae.forceMove(loc)
+
+				qdel(src)
+	else
+		try_to_crowbar(I, user)
 
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
 	if(!hasPower())
@@ -335,7 +343,7 @@
 	base_state = "clockwork"
 	shards = 0
 	rods = 0
-	burn_state = FIRE_PROOF
+	resistance_flags = ACID_PROOF | FIRE_PROOF
 	cancolor = FALSE
 	var/made_glow = FALSE
 

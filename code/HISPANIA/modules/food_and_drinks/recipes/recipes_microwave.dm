@@ -73,3 +73,27 @@
 		/obj/item/reagent_containers/food/snacks/arepa_ice
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa
+
+
+/////Hot dogs///////
+
+/datum/recipe/microwave/hot_dog
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sausage,
+		/obj/item/reagent_containers/food/snacks/bun
+	)
+	result = /obj/item/reagent_containers/food/snacks/hot_dog
+
+
+/datum/recipe/microwave/butter_dog
+	items = list(
+		/obj/item/reagent_containers/food/snacks/butter,
+		/obj/item/reagent_containers/food/snacks/bun
+	)
+	result = /obj/item/reagent_containers/food/snacks/hot_dog/butter
+
+///Drake steak
+
+/datum/recipe/microwave/drakesteak
+	items = list(/obj/item/reagent_containers/food/snacks/drakemeat, /obj/item/organ/internal/regenerative_core/legion)
+	result = /obj/item/reagent_containers/food/snacks/drakesteak

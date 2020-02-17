@@ -36,7 +36,8 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
 
 /obj/item/clothing/gloves/bracer
 	name = "bone bracers"
@@ -51,7 +52,7 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
-	armor = list(melee = 15, bullet = 25, laser = 15, energy = 15, bomb = 20, bio = 10, rad = 0)
+	armor = list("melee" = 15, "bullet" = 25, "laser" = 15, "energy" = 15, "bomb" = 20, "bio" = 10, "rad" = 0, "fire" = 0, "acid" = 0)
 
 /obj/item/clothing/gloves/botanic_leather
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
@@ -63,7 +64,8 @@
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
-	burn_state = FIRE_PROOF
+	resistance_flags = NONE
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
 
 /obj/item/clothing/gloves/batmangloves
 	desc = "Used for handling all things bat related."
@@ -141,13 +143,18 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+	else
+		return ..()
 
-	else if(iswirecutter(W))
-		if(cell)
-			to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
-			cell.forceMove(get_turf(loc))
-			cell = null
-			update_icon()
+/obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(cell)
+		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
+		cell.forceMove(get_turf(loc))
+		cell = null
+		update_icon()
 
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "Gloves of the North Star"

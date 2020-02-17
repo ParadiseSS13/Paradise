@@ -27,7 +27,9 @@ field_generator power level display
 	anchored = 0
 	density = 1
 	use_power = NO_POWER_USE
-	armor = list(melee = 25, bullet = 10, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 500
+	//100% immune to lasers and energy projectiles since it absorbs their energy.
+	armor = list("melee" = 25, "bullet" = 10, "laser" = 100, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70)
 	var/const/num_power_levels = 6	// Total number of power level icon has
 	var/power_level = 0
 	var/active = FG_OFFLINE
@@ -99,46 +101,43 @@ field_generator power level display
 				anchored = 0
 			if(FG_WELDED)
 				to_chat(user, "<span class='warning'>The [name] needs to be unwelded from the floor!</span>")
-
-	else if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		switch(state)
-			if(FG_UNSECURED)
-				to_chat(user, "<span class='warning'>The [name] needs to be wrenched to the floor!</span>")
-
-			if(FG_SECURED)
-				if(WT.remove_fuel(0,user))
-					playsound(loc, WT.usesound, 50, 1)
-					user.visible_message("[user.name] starts to weld the [name] to the floor.", \
-						"<span class='notice'>You start to weld \the [src] to the floor...</span>", \
-						"<span class='italics'>You hear welding.</span>")
-					if(do_after(user, 20 * WT.toolspeed, target = src))
-						if(!src || !WT.isOn())
-							return
-						state = FG_WELDED
-						to_chat(user, "<span class='notice'>You weld the field generator to the floor.</span>")
-
-			if(FG_WELDED)
-				if(WT.remove_fuel(0,user))
-					playsound(loc, WT.usesound, 50, 1)
-					user.visible_message("[user.name] starts to cut the [name] free from the floor.", \
-						"<span class='notice'>You start to cut \the [src] free from the floor...</span>", \
-						"<span class='italics'>You hear welding.</span>")
-					if(do_after(user, 20 * WT.toolspeed, target = src))
-						if(!src || !WT.isOn())
-							return
-						state = FG_SECURED
-						to_chat(user, "<span class='notice'>You cut \the [src] free from the floor.</span>")
-
 	else
 		return ..()
 
 
+/obj/machinery/field/generator/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(state == FG_UNSECURED)
+		to_chat(user, "<span class='warning'>[src] needs to be wrenched to the floor!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	if(state == FG_SECURED)
+		WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+	else if(state == FG_WELDED)
+		WELDER_ATTEMPT_FLOOR_WELD_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(state == FG_SECURED)
+			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+			state = FG_WELDED
+		else if(state == FG_WELDED)
+			WELDER_FLOOR_WELD_SUCCESS_MESSAGE
+			state = FG_SECURED
+
 /obj/machinery/field/generator/emp_act()
 	return 0
 
+/obj/machinery/field/generator/attack_animal(mob/living/simple_animal/M)
+	if(M.environment_smash & ENVIRONMENT_SMASH_RWALLS && active == FG_OFFLINE && state != FG_UNSECURED)
+		state = FG_UNSECURED
+		anchored = FALSE
+		M.visible_message("<span class='warning'>[M] rips [src] free from its moorings!</span>")
+	else
+		..()
+	if(!anchored)
+		step(src, get_dir(M, src))
 
-/obj/machinery/field/generator/blob_act()
+/obj/machinery/field/generator/blob_act(obj/structure/blob/B)
 	if(active)
 		return 0
 	else

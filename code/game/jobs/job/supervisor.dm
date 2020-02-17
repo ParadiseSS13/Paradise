@@ -24,7 +24,6 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 /datum/job/captain/announce(mob/living/carbon/human/H)
 	. = ..()
 	captain_announcement.Announce("All hands, Captain [H.real_name] on deck!")
-	updateDisplaycase(H)
 
 /datum/outfit/job/captain
 	name = "Captain"
@@ -202,7 +201,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_SECURITY
 	access = list(access_security, access_sec_doors, access_court, access_forensics_lockers,
-			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
+			            access_medical, access_engine, access_brig, access_change_ids, access_eva, access_heads,
 			            access_all_personal_lockers, access_morgue, access_lawyer, access_theatre, access_RC_announce, access_keycard_auth, access_gateway, access_magistrate)
 	minimal_access = list(access_security, access_sec_doors, access_court, access_maint_tunnels, access_lawyer, access_magistrate, access_heads)
 	outfit = /datum/outfit/job/judge
@@ -242,7 +241,7 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	selection_color = "#ddddff"
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
-	alt_titles = list("Human Resources Agent")
+	alt_titles = list("Human Resources Agent", "Lawyer", "Prosecutor")	//Nombre Alterno a IAA
 	minimal_player_age = 30
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW

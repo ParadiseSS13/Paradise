@@ -5,7 +5,6 @@
 	name = "Light emitter"
 	anchored = TRUE
 	invisibility = 101
-	unacidable = TRUE
 	var/set_luminosity = 8
 	var/set_cap = 0
 
@@ -63,7 +62,7 @@
 	new /obj/item/storage/bag/plants(src)
 	new /obj/item/storage/bag/ore(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
-	new /obj/item/gun/energy/kinetic_accelerator(src)
+	//new /obj/item/gun/energy/kinetic_accelerator(src)   		//Recuerda comentar, no borrar
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/survivalcapsule(src)
 

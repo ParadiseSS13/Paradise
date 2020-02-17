@@ -12,7 +12,9 @@
 	materials = list(MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("stabbed", "slashed", "sliced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0)
+	armor = list("melee" = 100, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	max_integrity = 40
+	resistance_flags = ACID_PROOF
 	sharp = TRUE
 	var/cooldown = 0
 	var/icon_prefix
@@ -58,25 +60,26 @@
 				H.UpdateDamageIcon()
 
 /obj/item/shard/attackby(obj/item/I, mob/user, params)
-	if(iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(WT.remove_fuel(0, user))
-			var/obj/item/stack/sheet/NG = new welded_type(user.loc)
-			for(var/obj/item/stack/sheet/G in user.loc)
-				if(!istype(G, welded_type))
-					continue
-				if(G == NG)
-					continue
-				if(G.amount >= G.max_amount)
-					continue
-				G.attackby(NG, user)
-			to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
-			qdel(src)
-		return
 	if(istype(I, /obj/item/lightreplacer))
 		I.attackby(src, user)
 		return
 	return ..()
+
+/obj/item/shard/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	var/obj/item/stack/sheet/NG = new welded_type(user.loc)
+	for(var/obj/item/stack/sheet/G in user.loc)
+		if(!istype(G, welded_type))
+			continue
+		if(G == NG)
+			continue
+		if(G.amount >= G.max_amount)
+			continue
+		G.attackby(NG, user)
+	to_chat(user, "<span class='notice'>You add the newly-formed glass to the stack. It now contains [NG.amount] sheet\s.</span>")
+	qdel(src)
 
 /obj/item/shard/Crossed(mob/living/L, oldloc)
 	if(istype(L) && has_gravity(loc))

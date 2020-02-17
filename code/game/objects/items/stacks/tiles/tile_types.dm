@@ -21,56 +21,38 @@
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little
 
-/obj/item/stack/tile/attackby(obj/item/W, mob/user, params)
-	if(iswelder(W))
-		var/obj/item/weldingtool/WT = W
+/obj/item/stack/tile/welder_act(mob/user, obj/item/I)
+	if(get_amount() < 4)
+		to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		to_chat(user, "<span class='warning'>You can not reform this!</span>")
+		return
+	if (mineralType == "metal")
+		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
+		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
+					 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
+					 "<span class='italics'>You hear welding.</span>")
+		var/obj/item/stack/rods/R = src
+		src = null
+		var/replace = (user.get_inactive_hand()==R)
+		R.use(4)
+		if(!R && replace)
+			user.put_in_hands(new_item)
 
-		if(is_hot(W) && !mineralType)
-			to_chat(user, "<span class='warning'>You can not reform this!</span>")
-			return
-
-		if(get_amount() < 4)
-			to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
-			return
-
-		if(WT.remove_fuel(0,user))
-
-			if(mineralType == "plasma")
-				atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 5)
-				user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
-									"<span class='warning'>You set the plasma tiles on fire!</span>")
-				message_admins("Plasma tiles ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
-				log_game("Plasma tiles ignited by [key_name(user)] in ([x],[y],[z])")
-				investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
-				qdel(src)
-				return
-
-			if (mineralType == "metal")
-				var/obj/item/stack/sheet/metal/new_item = new(user.loc)
-				user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
-				var/obj/item/stack/rods/R = src
-				src = null
-				var/replace = (user.get_inactive_hand()==R)
-				R.use(4)
-				if(!R && replace)
-					user.put_in_hands(new_item)
-
-			else
-				var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
-				var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
-				user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
-							 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
-							 "<span class='italics'>You hear welding.</span>")
-				var/obj/item/stack/rods/R = src
-				src = null
-				var/replace = (user.get_inactive_hand()==R)
-				R.use(4)
-				if (!R && replace)
-					user.put_in_hands(new_item)
 	else
-		return ..()
+		var/sheet_type = text2path("/obj/item/stack/sheet/mineral/[mineralType]")
+		var/obj/item/stack/sheet/mineral/new_item = new sheet_type(user.loc)
+		user.visible_message("[user.name] shaped [src] into a sheet with the welding tool.", \
+					 "<span class='notice'>You shaped [src] into a sheet with the welding tool.</span>", \
+					 "<span class='italics'>You hear welding.</span>")
+		var/obj/item/stack/rods/R = src
+		src = null
+		var/replace = (user.get_inactive_hand()==R)
+		R.use(4)
+		if (!R && replace)
+			user.put_in_hands(new_item)
 
 //Grass
 /obj/item/stack/tile/grass
@@ -81,7 +63,7 @@
 	icon_state = "tile_grass"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/grass
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 //Wood
 /obj/item/stack/tile/wood
@@ -92,7 +74,7 @@
 	icon_state = "tile-wood"
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 //Carpets
 /obj/item/stack/tile/carpet
@@ -101,7 +83,7 @@
 	desc = "A piece of carpet. It is the same size as a floor tile"
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/stack/tile/carpet/black
 	name = "black carpet"
@@ -123,6 +105,8 @@
 	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	resistance_flags = FIRE_PROOF
 
 //Light
 /obj/item/stack/tile/light
@@ -143,7 +127,7 @@
 	desc = "A piece of carpet with a convincing star pattern."
 	icon_state = "tile_space"
 	turf_type = /turf/simulated/floor/fakespace
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/tile/fakespace
 
 /obj/item/stack/tile/fakespace/loaded
@@ -191,7 +175,7 @@
 	icon_state = "tile_space"
 	turf_type = /turf/simulated/floor/carpet/arcade
 	merge_type = /obj/item/stack/tile/arcade_carpet
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20

@@ -24,7 +24,7 @@
 
 	if(istype(M,/mob/living/carbon/human)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.get_organ(user.zone_sel.selecting)
+		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
 
 		if(S && S.is_robotic())
 			if(S.get_damage())

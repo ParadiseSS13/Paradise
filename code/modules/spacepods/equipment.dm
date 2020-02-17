@@ -1,4 +1,7 @@
 /obj/item/spacepod_equipment/weaponry/proc/fire_weapons()
+	if(HAS_TRAIT(usr, TRAIT_PACIFISM) && harmful)
+		to_chat(usr, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return
 	if(my_atom.next_firetime > world.time)
 		to_chat(usr, "<span class='warning'>Your weapons are recharging.</span>")
 		return
@@ -83,6 +86,7 @@
 	var/shots_per = 1
 	var/fire_sound
 	var/fire_delay = 15
+	var/harmful = TRUE
 
 /obj/item/spacepod_equipment/weaponry/taser
 	name = "disabler system"
@@ -91,6 +95,7 @@
 	projectile_type = /obj/item/projectile/beam/disabler
 	shot_cost = 400
 	fire_sound = 'sound/weapons/taser.ogg'
+	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/burst_taser
 	name = "burst taser system"
@@ -101,6 +106,7 @@
 	shots_per = 3
 	fire_sound = 'sound/weapons/taser.ogg'
 	fire_delay = 30
+	harmful = FALSE
 
 /obj/item/spacepod_equipment/weaponry/laser
 	name = "laser system"
@@ -150,16 +156,16 @@
 	icon_state = "pod_locator"
 	enabled = 0
 
-/obj/item/spacepod_equipment/misc/tracker/attackby(obj/item/I as obj, mob/user as mob, params)
-	if(isscrewdriver(I))
-		if(enabled)
-			enabled = 0
-			user.show_message("<span class='notice'>You disable \the [src]'s power.")
-			return
-		enabled = 1
-		user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
-	else
-		..()
+/obj/item/spacepod_equipment/misc/tracker/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(enabled)
+		enabled = 0
+		user.show_message("<span class='notice'>You disable \the [src]'s power.")
+		return
+	enabled = 1
+	user.show_message("<span class='notice'>You enable \the [src]'s power.</span>")
 
 /*
 ///////////////////////////////////////
@@ -272,4 +278,4 @@
 		else
 			to_chat(user, "<span class='warning'>This key is already ground!</span>")
 	else
-		..()
+		return ..()

@@ -12,6 +12,7 @@ var/const/INGEST = 2
 	var/chem_temp = T20C
 	var/list/datum/reagent/addiction_list = new/list()
 	var/flags
+	var/list/reagents_generated_per_cycle = new/list()
 
 /datum/reagents/New(maximum = 100)
 	maximum_volume = maximum
@@ -209,7 +210,7 @@ var/const/INGEST = 2
 		return
 
 	var/datum/reagents/R = target.reagents
-	if(get_reagent_amount(reagent)<amount)
+	if(get_reagent_amount(reagent) < amount)
 		amount = get_reagent_amount(reagent)
 	amount = min(amount, R.maximum_volume-R.total_volume)
 	var/trans_data = null
@@ -314,7 +315,6 @@ var/const/INGEST = 2
 	if(update_flags & STATUS_UPDATE_CANMOVE)
 		M.update_canmove()
 	if(update_flags & STATUS_UPDATE_STAMINA)
-		M.handle_hud_icons_health()
 		M.update_stamina()
 	if(update_flags & STATUS_UPDATE_BLIND)
 		M.update_blind_effects()
@@ -349,7 +349,8 @@ var/const/INGEST = 2
 	if(flags & REAGENT_NOREACT)
 		STOP_PROCESSING(SSobj, src)
 		return
-
+	for(var/thing in reagents_generated_per_cycle)
+		add_reagent(thing, reagents_generated_per_cycle[thing])
 	for(var/datum/reagent/R in reagent_list)
 		R.on_tick()
 
@@ -649,6 +650,8 @@ var/const/INGEST = 2
 		if(data)
 			R.data = data
 
+		if(isliving(my_atom))
+			R.on_mob_add(my_atom) //Must occur befor it could posibly run on_mob_delete
 		update_total()
 		if(my_atom)
 			my_atom.on_reagent_change()

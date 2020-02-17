@@ -101,6 +101,16 @@
 		return
 	..()
 
+/turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
+	if(I.tool_enabled)
+		ignite(2500) //The number's big enough
+		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
+							"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
+							"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)
 	new girder_type(src)
 	ChangeTurf(/turf/simulated/floor)
@@ -185,6 +195,7 @@
 	icon = 'icons/turf/walls/shuttle_wall.dmi'
 	icon_state = "map-shuttle"
 	explosion_block = 3
+	flags_2 = CHECK_RICOCHET_2
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_MORE|SMOOTH_DIAGONAL
 	canSmoothWith = list(/turf/simulated/wall/mineral/titanium, /obj/machinery/door/airlock/shuttle, /obj/machinery/door/airlock, /obj/structure/window/full/shuttle, /obj/structure/shuttle/engine/heater, /obj/structure/falsewall/titanium)

@@ -12,6 +12,11 @@
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
 
+/obj/machinery/cell_charger/deconstruct()
+	if(charging)
+		charging.forceMove(drop_location())
+	return ..()
+
 /obj/machinery/cell_charger/Destroy()
 	QDEL_NULL(charging)
 	return ..()
@@ -63,16 +68,21 @@
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
 			updateicon()
-	else if(iswrench(I))
-		if(charging)
-			to_chat(user, "<span class='warning'>Remove the cell first!</span>")
-			return
-
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "attach" : "detach"] the cell charger [anchored ? "to" : "from"] the ground</span>")
-		playsound(src.loc, I.usesound, 75, 1)
 	else
 		return ..()
+
+/obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(charging)
+		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 
 /obj/machinery/cell_charger/proc/removecell()
@@ -121,7 +131,7 @@
 	if(charging.percent() >= 100)
 		return
 
-	use_power(200)		//this used to use CELLRATE, but CELLRATE is fucking awful. feel free to fix this properly!
-	charging.give(175)	//inefficiency.
-
-	updateicon()
+	var/powertransfer = (charging.chargerate)/5
+	var/transfered = charging.give(powertransfer)
+	use_power(transfered * 11)
+	update_icon()

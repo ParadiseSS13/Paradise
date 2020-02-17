@@ -13,7 +13,7 @@
 #define DROPLIMB_BLUNT 1
 #define DROPLIMB_BURN 2
 
-#define AGE_MIN 17			//youngest a character can be
+#define AGE_MIN 18			//youngest a character can be
 #define AGE_MAX 85			//oldest a character can be
 
 
@@ -94,6 +94,8 @@
 #define APPEARANCE_ALT_HEAD 16384
 #define APPEARANCE_ALL_BODY APPEARANCE_ALL_HAIR|APPEARANCE_HEAD_ACCESSORY|APPEARANCE_MARKINGS|APPEARANCE_BODY_ACCESSORY|APPEARANCE_ALT_HEAD
 #define APPEARANCE_ALL 32767
+
+#define STAMINA_REGEN_BLOCK_TIME (10 SECONDS)
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10

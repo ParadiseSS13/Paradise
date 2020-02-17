@@ -8,6 +8,7 @@
 	energy_drain = 10
 	var/dam_force = 20
 	var/obj/mecha/working/ripley/cargo_holder
+	harmful = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/can_attach(obj/mecha/working/ripley/M)
 	if(..())
@@ -35,10 +36,12 @@
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = 1
+				playsound(src, 'sound/mecha/hydraulic.ogg', 50, 1)
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = 0
+					playsound(src, 'sound/mecha/hydraulic.ogg', 50, 1)
 					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
@@ -84,10 +87,12 @@
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
 				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
 				O.anchored = 1
+				playsound(src, 'sound/mecha/hydraulic.ogg', 50, 1)
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.loc = chassis
 					O.anchored = 0
+					playsound(src, 'sound/mecha/hydraulic.ogg', 50, 1)
 					occupant_message("<span class='notice'>[target] successfully loaded.</span>")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]")
 				else
@@ -119,7 +124,7 @@
 	icon_state = "mecha_exting"
 	equip_cooldown = 5
 	energy_drain = 0
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/New()
 	create_reagents(1000)
@@ -190,7 +195,7 @@
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 	flags_2 = NO_MAT_REDEMPTION_2
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/canRwall = 0
@@ -290,7 +295,7 @@
 	origin_tech = "materials=4;bluespace=3;magnets=4;powerstorage=4;engineering=4"
 	equip_cooldown = 10
 	energy_drain = 250
-	range = MELEE|RANGED
+	range = MECHA_MELEE | MECHA_RANGED
 
 /obj/item/mecha_parts/mecha_equipment/mimercd/can_attach(obj/mecha/combat/reticence/M)
 	if(..())

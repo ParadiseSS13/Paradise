@@ -298,7 +298,7 @@
 
 	..()
 
-/mob/living/carbon/human/blob_act()
+/mob/living/carbon/human/blob_act(obj/structure/blob/B)
 	if(stat == DEAD)
 		return
 	show_message("<span class='userdanger'>The blob attacks you!</span>")
@@ -315,13 +315,10 @@
 			return 0
 	..()
 
-/mob/living/carbon/human/restrained()
-	if(handcuffed)
-		return 1
-	if(istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
-		return 1
-	return 0
-
+/mob/living/carbon/human/get_restraining_item()
+	. = ..()
+	if(!. && istype(wear_suit, /obj/item/clothing/suit/straight_jacket))
+		. = wear_suit
 
 /mob/living/carbon/human/var/temperature_resistance = T0C+75
 
@@ -671,7 +668,7 @@
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
-						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -1009,14 +1006,14 @@
 			xylophone=0
 	return
 
-/mob/living/carbon/human/can_inject(var/mob/user, var/error_msg, var/target_zone, var/penetrate_thick = 0)
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	. = 1
 
 	if(!target_zone)
 		if(!user)
 			target_zone = pick("chest","chest","chest","left leg","right leg","left arm", "right arm", "head")
 		else
-			target_zone = user.zone_sel.selecting
+			target_zone = user.zone_selected
 
 
 	if(PIERCEIMMUNE in dna.species.species_traits)
@@ -1592,17 +1589,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	return threatcount
 
 /mob/living/carbon/human/singularity_act()
-	var/gain = 20
+	. = 20
 	if(mind)
 		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
-			gain = 100
+			. = 100
 		if(mind.assigned_role == "Clown")
-			gain = rand(-300, 300)
-	investigate_log("([key_name(src)]) has been consumed by the singularity.","singulo") //Oh that's where the clown ended up!
-	gib()
-	return(gain)
+			. = rand(-1000, 1000)
+	..() //Called afterwards because getting the mind after getting gibbed is sketchy
 
 /mob/living/carbon/human/singularity_pull(S, current_size)
+	..()
 	if(current_size >= STAGE_THREE)
 		var/list/handlist = list(l_hand, r_hand)
 		for(var/obj/item/hand in handlist)
@@ -1610,9 +1606,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				step_towards(hand, src)
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
-	if(mob_negates_gravity())
-		return
-	..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)

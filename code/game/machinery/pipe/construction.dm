@@ -159,6 +159,8 @@
 	var/obj/machinery/atmospherics/binary/circulator/circP = make_from
 	if(istype(circP) && circP.side == circP.CIRC_RIGHT)
 		icon_state = "m_[icon_state]"
+	if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
+		resistance_flags |= FIRE_PROOF | LAVA_PROOF
 
 // called by turf to know if should treat as bent or not on placement
 /obj/item/pipe/proc/is_bent_pipe()
@@ -321,11 +323,10 @@
 /obj/item/pipe/attack_self(mob/user as mob)
 	return rotate()
 
-/obj/item/pipe/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	..()
-
-	if(!istype(W, /obj/item/wrench))
-		return ..()
+/obj/item/pipe/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
 
 	if(!isturf(src.loc))
 		return 1
@@ -506,7 +507,6 @@
 			var/obj/machinery/atmospherics/omni/filter/P = new(loc)
 			P.on_construction(dir, pipe_dir, color)
 
-	playsound(src.loc, W.usesound, 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"<span class='notice'>You have fastened the [src].</span>", \
@@ -524,8 +524,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	..()
-
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	if(!locate(/obj/machinery/atmospherics/pipe, src.loc))
@@ -551,7 +549,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/pipe_gsensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	..()
 	if(!istype(W, /obj/item/wrench))
 		return ..()
 	new/obj/machinery/air_sensor( src.loc )

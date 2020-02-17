@@ -9,6 +9,8 @@
 	throwforce = 10
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 40)
+	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=5;powerstorage=3;syndicate=3"
 	var/click_delay = 1.5
 	var/fisto_setting = 1
@@ -35,20 +37,29 @@
 				to_chat(user, "<span class='warning'>[IT] is too small for [src].</span>")
 				return
 			updateTank(W, 0, user)
-	else if(iswrench(W))
-		switch(fisto_setting)
-			if(1)
-				fisto_setting = 2
-			if(2)
-				fisto_setting = 3
-			if(3)
-				fisto_setting = 1
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You tweak [src]'s piston valve to [fisto_setting].</span>")
-	else if(isscrewdriver(W))
-		if(tank)
-			updateTank(tank, 1, user)
+			return
+	return ..()
 
+/obj/item/melee/powerfist/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(fisto_setting)
+		if(1)
+			fisto_setting = 2
+		if(2)
+			fisto_setting = 3
+		if(3)
+			fisto_setting = 1
+	to_chat(user, "<span class='notice'>You tweak [src]'s piston valve to [fisto_setting].</span>")
+
+/obj/item/melee/powerfist/screwdriver_act(mob/user, obj/item/I)
+	if(!tank)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	updateTank(tank, 1, user)
 
 /obj/item/melee/powerfist/proc/updateTank(obj/item/tank/thetank, removing = 0, mob/living/carbon/human/user)
 	if(removing)

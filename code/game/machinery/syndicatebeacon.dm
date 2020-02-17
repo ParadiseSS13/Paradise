@@ -73,12 +73,16 @@
 					objective = "Make certain at least 80% of the station evacuates on the shuttle."
 
 			var/datum/objective/custom_objective = new(objective)
+			custom_objective.owner = N.mind
+			N.mind.objectives += custom_objective
+			var/datum/objective/escape/escape_objective = new
+			escape_objective.owner = N.mind
+			N.mind.objectives += escape_objective
+
 			var/datum/antagonist/traitor/T = new()
 			T.give_objectives = FALSE
-			T.add_objective(custom_objective)
-			T.add_objective(/datum/objective/escape)
 			N.mind.add_antag_datum(T)
-	
+
 			to_chat(M, "<B>You have joined the ranks of the Syndicate and become a traitor to the station!</B>")
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
@@ -149,26 +153,24 @@
 		return
 
 
-/obj/machinery/power/singularity_beacon/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		if(active)
-			to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
-			return
-
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='notice'>You unscrew the beacon from the floor.</span>")
-			disconnect_from_network()
-			return
-		else
-			if(!connect_to_network())
-				to_chat(user, "This device must be placed over an exposed cable.")
-				return
-			anchored = TRUE
-			to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
+/obj/machinery/power/singularity_beacon/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(active)
+		to_chat(user, "<span class='warning'>You need to deactivate the beacon first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		anchored = FALSE
+		to_chat(user, "<span class='notice'>You unscrew the beacon from the floor.</span>")
+		disconnect_from_network()
+		return
 	else
-		return ..()
-
+		if(!connect_to_network())
+			to_chat(user, "This device must be placed over an exposed cable.")
+			return
+		anchored = TRUE
+		to_chat(user, "<span class='notice'>You screw the beacon to the floor and attach the cable.</span>")
 
 /obj/machinery/power/singularity_beacon/Destroy()
 	if(active)

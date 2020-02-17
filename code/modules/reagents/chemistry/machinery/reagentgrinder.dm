@@ -8,6 +8,7 @@
 	idle_power_usage = 5
 	active_power_usage = 100
 	pass_flags = PASSTABLE
+	resistance_flags = ACID_PROOF
 	var/operating = 0
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit = null
@@ -76,7 +77,9 @@
 			/obj/item/reagent_containers/food/snacks/grown/apple = list("applejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes = list("grapejuice" = 0),
 			/obj/item/reagent_containers/food/snacks/grown/grapes/green = list("grapejuice" = 0),
-			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0)
+			/obj/item/reagent_containers/food/snacks/grown/pineapple = list("pineapplejuice" = 0),
+			/obj/item/reagent_containers/food/snacks/drakemeat = list("drakeblood" = 10)
+
 	)
 
 	var/list/dried_items = list(
@@ -121,83 +124,116 @@
 		beaker.ex_act(severity)
 	..()
 
+/obj/machinery/reagentgrinder/handle_atom_del(atom/A)
+	if(A == beaker)
+		beaker = null
+		update_icon()
+
 /obj/machinery/reagentgrinder/update_icon()
 	if(beaker)
 		icon_state = "juicer1"
 	else
 		icon_state = "juicer0"
 
+/obj/machinery/reagentgrinder/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!anchored || beaker)
+		return
+	if(!panel_open)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_crowbar(I)
+
+/obj/machinery/reagentgrinder/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!anchored || beaker)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I)
+
+/obj/machinery/reagentgrinder/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I)
+
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
-		if(default_unfasten_wrench(user, I))
-				return
 
-		if(exchange_parts(user, I))
-				return
+	if(exchange_parts(user, I))
+		return
 
-		if(anchored && !beaker)
-				if(default_deconstruction_screwdriver(user, "juicer_open", "juicer0", I))
-						return
+	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
+		if(beaker)
+			to_chat(user, "<span class='warning'>There's already a container inside.</span>")
+		else if(panel_open)
+			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
+		else
+			if(!user.drop_item())
+				return FALSE
+			beaker =  I
+			beaker.loc = src
+			update_icon()
+			updateUsrDialog()
+		return TRUE //no afterattack
 
-				if(panel_open && istype(I, /obj/item/crowbar))
-						default_deconstruction_crowbar(I)
-						return
+	if(is_type_in_list(I, dried_items))
+		if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
+			var/obj/item/reagent_containers/food/snacks/grown/G = I
+			if(!G.dry)
+				to_chat(user, "<span class='warning'>You must dry that first!</span>")
+				return FALSE
 
-		if (istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER) )
-				if(beaker)
-						to_chat(user, "<span class='warning'>There's already a container inside.</span>")
-				else if(panel_open)
-						to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
-				else
-						if(!user.drop_item())
-								return 1
-						beaker =  I
-						beaker.loc = src
-						update_icon()
-						src.updateUsrDialog()
-				return 1 //no afterattack
+	if(holdingitems && holdingitems.len >= limit)
+		to_chat(usr, "The machine cannot hold anymore items.")
+		return FALSE
 
-		if(is_type_in_list(I, dried_items))
-				if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
-						var/obj/item/reagent_containers/food/snacks/grown/G = I
-						if(!G.dry)
-								to_chat(user, "<span class='warning'>You must dry that first!</span>")
-								return 1
+	//Fill machine with a bag!
+	if(istype(I, /obj/item/storage/bag))
+		var/obj/item/storage/bag/B = I
+		if(!B.contents.len)
+			to_chat(user, "<span class='warning'>[B] is empty.</span>")
+			return FALSE
 
-		if(holdingitems && holdingitems.len >= limit)
-				to_chat(usr, "The machine cannot hold anymore items.")
-				return 1
+		var/original_contents_len = B.contents.len
 
-		//Fill machine with a bag!
-		if(istype(I, /obj/item/storage/bag))
-				var/obj/item/storage/bag/B = I
-				for (var/obj/item/reagent_containers/food/snacks/grown/G in B.contents)
-						B.remove_from_storage(G, src)
-						holdingitems += G
-						if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
-								to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
-								break
+		for(var/obj/item/G in B.contents)
+			if(is_type_in_list(G, blend_items) || is_type_in_list(G, juice_items))
+				B.remove_from_storage(G, src)
+				holdingitems += G
+				if(holdingitems && holdingitems.len >= limit) //Sanity checking so the blender doesn't overfill
+					to_chat(user, "<span class='notice'>You fill the All-In-One grinder to the brim.</span>")
+					break
 
-				if(!I.contents.len)
-						to_chat(user, "<span class='notice'>You empty the plant bag into the All-In-One grinder.</span>")
+		if(B.contents.len == original_contents_len)
+			to_chat(user, "<span class='warning'>Nothing in [B] can be put into the All-In-One grinder.</span>")
+			return FALSE
+		else if(!B.contents.len)
+			to_chat(user, "<span class='notice'>You empty all of [B]'s contents into the All-In-One grinder.</span>")
+		else
+			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
 
-				src.updateUsrDialog()
-				return 1
+		updateUsrDialog()
+		return TRUE
 
-		if (!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
-				if(user.a_intent == INTENT_HARM)
-						return ..()
-				else
-						to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
-						return 1
+	if(!is_type_in_list(I, blend_items) && !is_type_in_list(I, juice_items))
+		if(user.a_intent == INTENT_HARM)
+			return ..()
+		else
+			to_chat(user, "<span class='warning'>Cannot refine into a reagent!</span>")
+			return TRUE
 
-		if(user.drop_item())
-				I.loc = src
-				holdingitems += I
-				src.updateUsrDialog()
-				return 0
+	if(user.drop_item())
+		I.loc = src
+		holdingitems += I
+		src.updateUsrDialog()
+		return FALSE
+
+
 
 /obj/machinery/reagentgrinder/attack_ai(mob/user)
-		return 0
+		return FALSE
 
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
 		user.set_machine(src)
@@ -295,8 +331,8 @@
 /obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
 		for (var/i in blend_items)
 				if(istype(O, i))
-						return 1
-		return 0
+						return TRUE
+		return FALSE
 
 /obj/machinery/reagentgrinder/proc/get_allowed_by_id(obj/item/O)
 		for (var/i in blend_items)

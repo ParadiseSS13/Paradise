@@ -45,7 +45,8 @@ var/list/holopads = list()
 	active_power_usage = 100
 	layer = TURF_LAYER+0.1 //Preventing mice and drones from sneaking under them.
 	plane = FLOOR_PLANE
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
+	max_integrity = 300
+	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
 	var/list/masters = list()//List of living mobs that use the holopad
 	var/list/holorays = list()//Holoray-mob link.
 	var/last_request = 0 //to prevent request spam. ~Carn
@@ -87,6 +88,11 @@ var/list/holopads = list()
 		if(outgoing_call)
 			outgoing_call.ConnectionFailure(src)
 
+/obj/machinery/hologram/holopad/obj_break()
+	. = ..()
+	if(outgoing_call)
+		outgoing_call.ConnectionFailure(src)
+
 /obj/machinery/hologram/holopad/RefreshParts()
 	var/holograph_range = 4
 	for(var/obj/item/stock_parts/capacitor/B in component_parts)
@@ -94,20 +100,22 @@ var/list/holopads = list()
 	holo_range = holograph_range
 
 /obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I))
-		return
-
 	if(exchange_parts(user, I))
 		return
+	return ..()
 
-	if(default_unfasten_wrench(user, I))
-		return
+/obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I)
 
-	if(default_deconstruction_crowbar(I))
-		return
-	else
-		return ..()
 
+/obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+/obj/machinery/hologram/holopad/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
 	if(..())
@@ -480,7 +488,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/effect/overlay/holo_pad_hologram/examine(mob/user)
 	if(Impersonation)
 		. = Impersonation.examine(user)
-	else 
+	else
 		. = ..()
 
 

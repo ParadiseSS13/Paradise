@@ -5,6 +5,7 @@
 	force = 20
 	use_power = NO_POWER_USE
 	can_unwrench = 1
+	damage_deflection = 12
 	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
 
 	//Buckling

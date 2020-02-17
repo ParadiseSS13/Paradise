@@ -176,26 +176,16 @@
 			playsound(loc, W.usesound, 100, 1)
 			rigged = FALSE
 			return
-	else return attack_hand(user)
+	else if(user.a_intent != INTENT_HARM)
+		attack_hand(user)
+	else
+		return ..()
 
-/obj/structure/closet/crate/ex_act(severity)
-	switch(severity)
-		if(1.0)
-			for(var/obj/O in src.contents)
-				qdel(O)
-			qdel(src)
-			return
-		if(2.0)
-			for(var/obj/O in src.contents)
-				if(prob(50))
-					qdel(O)
-			qdel(src)
-			return
-		if(3.0)
-			if(prob(50))
-				qdel(src)
-			return
-		else
+/obj/structure/closet/singularity_act()
+	dump_contents()
+	..()
+
+/obj/structure/closet/crate/welder_act()
 	return
 
 /obj/structure/closet/crate/attack_hand(mob/user)
@@ -236,9 +226,12 @@
 	var/greenlight = "securecrateg"
 	var/sparks = "securecratesparks"
 	var/emag = "securecrateemag"
+	max_integrity = 500
+	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	damage_deflection = 25
+	var/tamperproof = 0
 	broken = 0
 	locked = 1
-	health = 1000
 
 /obj/structure/closet/crate/secure/update_icon()
 	..()
@@ -251,6 +244,21 @@
 		overlays += emag
 	else
 		overlays += greenlight
+
+/obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
+	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
+		boom()
+	else
+		return ..()
+
+/obj/structure/closet/crate/secure/proc/boom(mob/user)
+	if(user)
+		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
+		investigate_log("[key_name(user)] has detonated a [src]", INVESTIGATE_BOMB)
+	for(var/atom/movable/AM in src)
+		qdel(AM)
+	explosion(get_turf(src), 0, 1, 5, 5)
+	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
@@ -434,35 +442,11 @@
 	icon_closed = "largebin"
 	anchored = TRUE
 
-/obj/structure/closet/crate/can/attackby(obj/item/W, mob/living/user, params)
-	if(iswrench(W))
-		add_fingerprint(user)
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(anchored)
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] starts loosening [src]'s floor casters.", \
-								 					"<span class='notice'>You start loosening [src]'s floor casters...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				if(!loc || !anchored)
-					return
-				user.visible_message("[user] loosened [src]'s floor casters.", \
-									 					"<span class='notice'>You loosen [src]'s floor casters.</span>")
-				anchored = FALSE
-		else
-			if(!isfloorturf(loc))
-				user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
-				return
-			playsound(loc, W.usesound, 100, 1)
-			user.visible_message("[user] start securing [src]'s floor casters...", \
-													"<span class='notice'>You start securing [src]'s floor casters...</span>")
-			if(do_after(user, 40 * W.toolspeed, target = src))
-				if(!loc || anchored)
-					return
-				user.visible_message("[user] has secured [src]'s floor casters.", \
-						 								"<span class='notice'>You have secured [src]'s floor casters.</span>")
-				anchored = TRUE
-	else
-		..()
+/obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 40)
 
 /obj/structure/closet/crate/radiation
 	desc = "A crate with a radiation sign on it."
@@ -527,6 +511,7 @@
 	icon_state = "largemetal"
 	icon_opened = "largemetalopen"
 	icon_closed = "largemetal"
+	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
 
 /obj/structure/closet/crate/large/close()
 	. = ..()

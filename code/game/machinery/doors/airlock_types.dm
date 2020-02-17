@@ -359,7 +359,7 @@
 	name = "gamma level hatch"
 	hackProof = 1
 	aiControlDisabled = 1
-	unacidable = 1
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	is_special = 1
 
 /obj/machinery/door/airlock/hatch/gamma/attackby(obj/C, mob/user, params)
@@ -379,14 +379,20 @@
 		return
 
 	add_fingerprint(user)
-	if((iswelder(C) && !operating && density))
-		var/obj/item/weldingtool/W = C
-		if(W.remove_fuel(0,user))
-			welded = !welded
-			update_icon()
-			return
-		else
-			return
+
+/obj/machinery/door/airlock/hatch/gamma/welder_act(mob/user, obj/item/I)
+	if(shock_user(user, 75))
+		return
+	if(operating || !density)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
+		return
+	welded = !welded
+	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
+					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
+					"<span class='warning'>You hear welding.</span>")
+	update_icon()
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -424,14 +430,22 @@
 		return
 
 	add_fingerprint(user)
-	if((iswelder(C) && !operating && density))
-		var/obj/item/weldingtool/W = C
-		if(W.remove_fuel(0,user))
-			welded = !welded
-			update_icon()
-			return
-		else
-			return
+
+
+/obj/machinery/door/airlock/highsecurity/red/welder_act(mob/user, obj/item/I)
+	if(shock_user(user, 75))
+		return
+	if(operating || !density)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	welded = !welded
+	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
+					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
+					"<span class='warning'>You hear welding.</span>")
+	update_icon()
+
 
 //////////////////////////////////
 /*
@@ -470,15 +484,19 @@
 /obj/machinery/door/airlock/cult
 	name = "cult airlock"
 	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/runed/overlays.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult
+	damage_deflection = 10
 	hackProof = TRUE
 	aiControlDisabled = TRUE
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 
-/obj/machinery/door/airlock/cult/New()
-	..()
+/obj/machinery/door/airlock/cult/Initialize()
+	. = ..()
+	icon = SSticker.cultdat?.airlock_runed_icon_file
+	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	update_icon()
 	new openingoverlaytype(loc)
 
 /obj/machinery/door/airlock/cult/canAIControl(mob/user)
@@ -510,14 +528,24 @@
 	glass = TRUE
 	opacity = 0
 
+/obj/machinery/door/airlock/cult/glass/Initialize()
+	. = ..()
+	update_icon()
+
 /obj/machinery/door/airlock/cult/glass/friendly
 	friendly = TRUE
 
 /obj/machinery/door/airlock/cult/unruned
 	icon = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/overlays.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_cult/unruned
 	openingoverlaytype = /obj/effect/temp_visual/cult/door/unruned
+
+/obj/machinery/door/airlock/cult/unruned/Initialize()
+	. = ..()
+	icon = SSticker.cultdat?.airlock_unruned_icon_file
+	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
+	update_icon()
 
 /obj/machinery/door/airlock/cult/unruned/friendly
 	friendly = TRUE
@@ -525,6 +553,10 @@
 /obj/machinery/door/airlock/cult/unruned/glass
 	glass = TRUE
 	opacity = 0
+
+/obj/machinery/door/airlock/cult/unruned/glass/Initialize()
+	. = ..()
+	update_icon()
 
 /obj/machinery/door/airlock/cult/unruned/glass/friendly
 	friendly = TRUE

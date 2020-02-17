@@ -14,9 +14,9 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
-	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 5)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -24,9 +24,9 @@
 	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
-	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
+	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 5)
 	component_parts += new /obj/item/stock_parts/capacitor/super(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
@@ -37,20 +37,28 @@
 	efficiency = E
 
 /obj/machinery/telepad/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I))
-		return
-
-	if(panel_open)
-		if(istype(I, /obj/item/multitool))
-			var/obj/item/multitool/M = I
-			M.buffer = src
-			to_chat(user, "<span class = 'caution'>You save the data in the [I.name]'s buffer.</span>")
-
 	if(exchange_parts(user, I))
 		return
+	return ..()
 
-	default_deconstruction_crowbar(I)
+/obj/machinery/telepad/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I)
 
+/obj/machinery/telepad/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	M.set_multitool_buffer(user, src)
+
+/obj/machinery/telepad/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 //CARGO TELEPAD//
 /obj/machinery/telepad_cargo
@@ -58,35 +66,36 @@
 	desc = "A telepad used by the Rapid Crate Sender."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "pad-idle"
-	anchored = 1
+	anchored = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 500
 	var/stage = 0
-/obj/machinery/telepad_cargo/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		playsound(src, W.usesound, 50, 1)
-		if(anchored)
-			anchored = 0
-			to_chat(user, "<span class = 'caution'> The [src] can now be moved.</span>")
-		else if(!anchored)
-			anchored = 1
-			to_chat(user, "<span class = 'caution'> The [src] is now secured.</span>")
-	if(istype(W, /obj/item/screwdriver))
-		if(stage == 0)
-			playsound(src, W.usesound, 50, 1)
-			to_chat(user, "<span class = 'caution'> You unscrew the telepad's tracking beacon.</span>")
-			stage = 1
-		else if(stage == 1)
-			playsound(src, W.usesound, 50, 1)
-			to_chat(user, "<span class = 'caution'> You screw in the telepad's tracking beacon.</span>")
-			stage = 0
-	if(istype(W, /obj/item/weldingtool) && stage == 1)
-		playsound(src, W.usesound, 50, 1)
-		to_chat(user, "<span class = 'caution'> You disassemble the telepad.</span>")
-		new /obj/item/stack/sheet/metal(get_turf(src))
-		new /obj/item/stack/sheet/glass(get_turf(src))
-		qdel(src)
+
+/obj/machinery/telepad_cargo/crowbar_act(mob/living/user, obj/item/I)
+	if(stage != 1)
+		return
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/telepad_cargo/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class = 'caution'> You [stage ? "screw in" : "unscrew"] the telepad's tracking beacon.</span>")
+	stage = !stage
+
+/obj/machinery/telepad_cargo/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+	
+
+/obj/machinery/telepad_cargo/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/metal(loc)
+		new /obj/item/stack/sheet/glass(loc)
+	..()
+
 
 ///TELEPAD CALLER///
 /obj/item/telepad_beacon

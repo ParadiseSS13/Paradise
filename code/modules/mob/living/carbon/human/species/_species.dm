@@ -18,7 +18,6 @@
 	var/tail                     // Name of tail image in species effects icon file.
 	var/datum/unarmed_attack/unarmed                  //For empty hand harm-intent attack
 	var/unarmed_type = /datum/unarmed_attack
-	var/slowdown = 0              // Passive movement speed malus (or boost, if negative)
 	var/silent_steps = 0          // Stops step noises
 
 	var/cold_level_1 = 260  // Cold damage level 1 below this point.
@@ -52,7 +51,7 @@
 	var/brain_mod = 1    // Brain damage damage reduction/amplification
 	var/stamina_mod = 1
 	var/stun_mod = 1	 // If a species is more/less impacated by stuns/weakens/paralysis
-	var/speedmod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
+	var/speed_mod = 0	// this affects the race's speed. positive numbers make it move slower, negative numbers make it move faster
 	var/blood_damage_type = OXY //What type of damage does this species take if it's low on blood?
 	var/obj/item/mutanthands
 	var/total_health = 100
@@ -232,8 +231,8 @@
 		gravity = 1
 
 	if(!ignoreslow && gravity)
-		if(slowdown)
-			. = slowdown
+		if(speed_mod)
+			. = speed_mod
 
 		if(H.wear_suit)
 			. += H.wear_suit.slowdown
@@ -247,7 +246,7 @@
 		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
 			. += H.r_hand.slowdown
 
-		var/health_deficiency = (H.maxHealth - H.health + H.staminaloss)
+		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
 		if(H.reagents)
 			for(var/datum/reagent/R in H.reagents.reagent_list)
@@ -271,6 +270,12 @@
 			. -= 1
 		if(H.status_flags & GOTTAGOFAST_METH)
 			. -= 1
+
+		if(H.pulling)
+			if(isobj(H.pulling))
+				var/obj/structure/S = H.pulling
+				if(S.drag_slowdown)
+					. = S.drag_slowdown
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
@@ -375,13 +380,13 @@
 	return
 
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(user.zone_selected == "mouth")
+		user.do_cpr(target)
 	if(attacker_style && attacker_style.help_act(user, target))//adminfu only...
 		return TRUE
-	if(target.health >= HEALTH_THRESHOLD_CRIT && !(target.status_flags & FAKEDEATH))
+	if(!(target.status_flags & FAKEDEATH))
 		target.help_shake_act(user)
 		return TRUE
-	else
-		user.do_cpr(target)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_block())
@@ -394,8 +399,11 @@
 		return TRUE
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [target]!</span>")
+		return FALSE
 	//Vampire code
-	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_sel && user.zone_sel.selecting == "head" && target != user)
+	if(user.mind && user.mind.vampire && (user.mind in SSticker.mode.vampires) && !user.mind.vampire.draining && user.zone_selected == "head" && target != user)
 		if((NO_BLOOD in target.dna.species.species_traits) || target.dna.species.exotic_blood || !target.blood_volume)
 			to_chat(user, "<span class='warning'>They have no blood!</span>")
 			return
@@ -438,7 +446,7 @@
 			return FALSE
 
 
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/armor_block = target.run_armor_check(affecting, "melee")
 
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
@@ -465,7 +473,7 @@
 		user.do_attack_animation(target, ATTACK_EFFECT_DISARM)
 		if(target.w_uniform)
 			target.w_uniform.add_fingerprint(user)
-		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_sel.selecting))
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		var/randn = rand(1, 100)
 		if(randn <= 25)
 			target.apply_effect(2, WEAKEN, target.run_armor_check(affecting, "melee"))
@@ -749,7 +757,7 @@
 	return FALSE //Unsupported slot
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return H.health - H.getStaminaLoss()
+	return min(H.health, H.maxHealth - H.getStaminaLoss())
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)

@@ -9,8 +9,9 @@
 	layer = OPEN_DOOR_LAYER
 	power_channel = ENVIRON
 	max_integrity = 350
-	armor = list(melee = 30, bullet = 30, laser = 20, energy = 20, bomb = 10, bio = 100, rad = 100)
+	armor = list("melee" = 30, "bullet" = 30, "laser" = 20, "energy" = 20, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 70)
 	flags = PREVENT_CLICK_UNDER
+	damage_deflection = 10
 	var/closingLayer = CLOSED_DOOR_LAYER
 	var/visible = 1
 	var/operating = FALSE
@@ -24,7 +25,6 @@
 	var/auto_close_time_dangerous = 15
 	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
-	var/damage_deflection = 10
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/heat_proof = FALSE // For rglass-windowed airlocks and firedoors
 	var/emergency = FALSE
@@ -185,28 +185,26 @@
 /obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
 	return get_dir(src, M) & unres_sides
 
-/obj/machinery/door/proc/try_to_weld(obj/item/weldingtool/W, mob/user)
-	return
-
 /obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent != INTENT_HARM && (iscrowbar(I) || istype(I, /obj/item/twohanded/fireaxe)))
+	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
 		try_to_crowbar(I, user)
-		return 1
-	else if(iswelder(I))
-		try_to_weld(I, user)
 		return 1
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
 		return 1
 	return ..()
 
-/obj/machinery/door/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < damage_deflection)
-		return 0
-	. = ..()
+
+/obj/machinery/door/crowbar_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	try_to_crowbar(I, user)
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -218,13 +216,13 @@
 	switch(damage_type)
 		if(BRUTE)
 			if(glass)
-				playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
+				playsound(loc, 'sound/effects/glasshit.ogg', 90, TRUE)
 			else if(damage_amount)
-				playsound(loc, 'sound/weapons/smash.ogg', 50, 1)
+				playsound(loc, 'sound/weapons/smash.ogg', 50, TRUE)
 			else
-				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
+				playsound(src, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
-			playsound(loc, 'sound/items/welder.ogg', 100, 1)
+			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/door/emag_act(mob/user)
 	if(density)
@@ -377,32 +375,10 @@
 	if(!stat) //Opens only powered doors.
 		open() //Open everything!
 
-/obj/machinery/door/blob_act(obj/structure/blob/B)
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor
-			return
-	take_damage(400, BRUTE, "melee", 0, get_dir(src, B))
+/obj/machinery/door/ex_act(severity)
+	//if it blows up a wall it should blow up a door
+	..(severity ? max(1, severity - 1) : 0)
 
-/obj/machinery/door/ex_act(severity, target)
-	if(severity)
-		severity = max(1, severity - 1)
-	else
-		severity = 0
-	if(resistance_flags & INDESTRUCTIBLE)
-		return
-	if(target == src)
-		obj_integrity = 0
-		qdel(src)
-		return
-	switch(severity)
-		if(1)
-			obj_integrity = 0
-			qdel(src)
-		if(2)
-			take_damage(rand(100, 250), BRUTE, "bomb", 0)
-		if(3)
-			take_damage(rand(10, 90), BRUTE, "bomb", 0)
 
 /obj/machinery/door/GetExplosionBlock()
 	return density ? real_explosion_block : 0

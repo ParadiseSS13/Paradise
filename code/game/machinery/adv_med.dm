@@ -34,37 +34,13 @@
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/bodyscanner(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
-	component_parts += new /obj/item/stock_parts/console_screen(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
+	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 2)
 	RefreshParts()
 
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
-	if(isscrewdriver(I))
-		if(occupant)
-			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-			return
-		default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I)
-		return
-
-	if(iswrench(I))
-		if(occupant)
-			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
-			return
-		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-			return
-		if(dir == EAST)
-			setDir(WEST)
-		else
-			setDir(EAST)
-		playsound(loc, I.usesound, 50, 1)
-		return
-
 	if(exchange_parts(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
 		return
 
 	if(istype(I, /obj/item/grab))
@@ -93,6 +69,28 @@
 
 	return ..()
 
+/obj/machinery/bodyscanner/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/bodyscanner/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "bodyscanner-o", "bodyscanner-open", I))
+		return TRUE
+
+/obj/machinery/bodyscanner/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(occupant)
+		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+		return
+	if(panel_open)
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		return
+	if(dir == EAST)
+		setDir(WEST)
+	else
+		setDir(EAST)
 
 /obj/machinery/bodyscanner/MouseDrop_T(mob/living/carbon/human/H, mob/user)
 	if(!istype(H))
@@ -140,6 +138,9 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	if(occupant == user)
+		return // you cant reach that
+
 	if(panel_open)
 		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
 		return
@@ -172,46 +173,21 @@
 		A.forceMove(loc)
 
 /obj/machinery/bodyscanner/ex_act(severity)
-	switch(severity)
-		if(1)
-			for(var/atom/movable/A in src)
-				A.forceMove(loc)
-				A.ex_act(severity)
-			qdel(src)
-			return
-		if(2)
-			if(prob(50))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
-		if(3)
-			if(prob(25))
-				for(var/atom/movable/A in src)
-					A.forceMove(loc)
-					A.ex_act(severity)
-				qdel(src)
-				return
+	if(occupant)
+		occupant.ex_act(severity)
+	..()
 
-/obj/machinery/bodyscanner/blob_act()
-	if(prob(50))
-		var/atom/movable/A = occupant
-		go_out()
-		A.blob_act()
-		qdel(src)
+/obj/machinery/bodyscanner/handle_atom_del(atom/A)
+	..()
+	if(A == occupant)
+		occupant = null
+		updateUsrDialog()
+		update_icon()
 
 /obj/machinery/bodyscanner/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
 	qdel(src)
-
-/obj/machinery/bodyscanner/attack_animal(mob/living/simple_animal/M)//Stop putting hostile mobs in things guise
-	if(M.environment_smash)
-		M.do_attack_animation(src)
-		visible_message("<span class='danger'>[M.name] smashes [src] apart!</span>")
-		go_out()
-		qdel(src)
 
 /obj/machinery/bodyscanner/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)

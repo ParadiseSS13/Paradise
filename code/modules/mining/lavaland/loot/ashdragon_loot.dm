@@ -161,15 +161,14 @@
 	desc = "The ability to fill the emergency shuttle with lava. What more could you want out of life?"
 	icon_state = "staffofstorms"
 	item_state = "staffofstorms"
-	icon = 'icons/obj/guns/magic.dmi'
+	icon = 'icons/hispania/obj/guns/magic.dmi'
 	slot_flags = SLOT_BACK
 	item_state = "staffofstorms"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
-	burn_state = LAVA_PROOF
-	unacidable = 1
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/turf_type = /turf/simulated/floor/plating/lava/smooth
 	var/transform_string = "lava"
 	var/reset_turf_type = /turf/simulated/floor/plating/asteroid/basalt

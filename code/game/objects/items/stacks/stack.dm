@@ -38,10 +38,10 @@
 		merge(O)
 	..()
 
-/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush)
+/obj/item/stack/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(istype(AM, merge_type) && !(amount >= max_amount))
 		merge(AM)
-	..()
+	. = ..()
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
@@ -130,7 +130,7 @@
 			if(R.max_res_amount > 1 && max_multiplier > 1)
 				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
 				t1 += " |"
-				
+
 				var/list/multipliers = list(5, 10, 25)
 				for(var/n in multipliers)
 					if(max_multiplier >= n)
@@ -222,7 +222,7 @@
 			interact(usr)
 			return
 
-/obj/item/stack/proc/use(used, check = TRUE)
+/obj/item/stack/use(used, check = TRUE)
 	if(check && zero_amount())
 		return FALSE
 	if(amount < used)
@@ -296,6 +296,8 @@
 	else
 		return ..()
 
+// Returns TRUE if the stack amount is zero.
+// Also qdels the stack gracefully if it is.
 /obj/item/stack/proc/zero_amount()
 	if(amount < 1)
 		if(isrobot(loc))
@@ -305,7 +307,11 @@
 		if(ismob(loc))
 			var/mob/living/L = loc // At this stage, stack code is so horrible and atrocious, I wouldn't be all surprised ghosts can somehow have stacks. If this happens, then the world deserves to burn.
 			L.unEquip(src, TRUE)
-		qdel(src)
+		if(amount < 1)
+			// If you stand on top of a stack, and drop a - different - 0-amount stack on the floor,
+			// the two get merged, so the amount of items in the stack can increase from the 0 that it had before.
+			// Check the amount again, to be sure we're not qdeling healthy stacks.
+			qdel(src)
 		return TRUE
 	return FALSE
 

@@ -7,8 +7,8 @@
 	strip_delay = 80
 	flash_protect = 2
 	tint = 2
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0)
-	burn_state = FIRE_PROOF
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
+	resistance_flags = FIRE_PROOF
 	var/brightness_on = 4 //luminosity when the light is on
 	var/on = FALSE
 	var/smile = FALSE
@@ -62,14 +62,21 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
+	toggle_light(user)
+
+/obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	on = !on
 	icon_state = "[initial(icon_state)][on ? "-light":""]"
 	item_state = icon_state
-	user.update_inv_head() //So the mob overlay updates
+	
+	var/mob/living/carbon/human/H = user
+	if(istype(H))
+		H.update_inv_head()
 
 	if(on)
 		if(!up)
-			to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
+			if(istype(H))
+				to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 			set_light(0)
 		else
 			set_light(brightness_on)
@@ -80,12 +87,16 @@
 		var/datum/action/A=X
 		A.UpdateButtonIcon()
 
+/obj/item/clothing/head/helmet/space/plasmaman/extinguish_light()
+	if(on)
+		toggle_light()
+
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
 	desc = "A plasmaman containment helmet designed for security officers, protecting them from being flashed and burning alive, along-side other undesirables."
 	icon_state = "security_envirohelm"
 	item_state = "security_envirohelm"
-	armor = list(melee = 10, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 0)
+	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 100, "acid" = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
 	name = "warden's plasma envirosuit helmet"
@@ -152,7 +163,7 @@
 	desc = "A space-worthy helmet specially designed for engineer plasmamen, the usual purple stripes being replaced by engineering's orange."
 	icon_state = "engineer_envirohelm"
 	item_state = "engineer_envirohelm"
-	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 10)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 10, "fire" = 100, "acid" = 75)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
 	name = "chief engineer's plasma envirosuit helmet"

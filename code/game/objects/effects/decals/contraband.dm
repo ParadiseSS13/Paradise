@@ -8,7 +8,7 @@
 	desc = "The poster comes with its own automatic adhesive mechanism, for easy pinning to any vertical surface. Its vulgar themes have marked it as contraband aboard Nanotrasen space facilities."
 	icon = 'icons/obj/contraband.dmi'
 	force = 0
-	burn_state = FLAMMABLE
+	resistance_flags = FLAMMABLE
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
@@ -85,15 +85,16 @@
 	poster_item_icon_state = initial(selected.poster_item_icon_state)
 	ruined = initial(selected.ruined)
 
-/obj/structure/sign/poster/attackby(obj/item/I, mob/user, params)
-	if(iswirecutter(I))
-		playsound(loc, I.usesound, 100, 1)
-		if(ruined)
-			to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
-			roll_and_drop(user.loc)
+/obj/structure/sign/poster/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(ruined)
+		to_chat(user, "<span class='notice'>You remove the remnants of the poster.</span>")
+		qdel(src)
+	else
+		to_chat(user, "<span class='notice'>You carefully remove the poster from the wall.</span>")
+		roll_and_drop(user.loc)
 
 /obj/structure/sign/poster/attack_hand(mob/user)
 	if(ruined)

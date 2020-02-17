@@ -308,7 +308,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	var/select = null
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
-		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone))
+		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || istype(A,/mob/living/silicon/robot/drone) || A.shell)
 			continue
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
@@ -540,9 +540,20 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/between(var/low, var/middle, var/high)
 	return max(min(middle, high), low)
 
-proc/arctan(x)
+
+
+#if DM_VERSION > 513
+#warn 513 is definitely stable now, remove this
+#endif
+#if DM_VERSION < 513
+/proc/arctan(x)
 	var/y=arcsin(x/sqrt(1+x*x))
 	return y
+/proc/islist(list/list)
+	if(istype(list))
+		return 1
+	return 0
+#endif
 
 //returns random gauss number
 proc/GaussRand(var/sigma)
@@ -1131,70 +1142,9 @@ var/list/can_embed_types = typecacheof(list(
 	if(is_type_in_typecache(W, can_embed_types))
 		return 1
 
-//Quick type checks for some tools
-var/global/list/common_tools = list(
-/obj/item/stack/cable_coil,
-/obj/item/wrench,
-/obj/item/weldingtool,
-/obj/item/screwdriver,
-/obj/item/wirecutters,
-/obj/item/multitool,
-/obj/item/crowbar)
-
-/proc/istool(O)
-	if(O && is_type_in_list(O, common_tools))
-		return 1
-	return 0
-
-/proc/iswrench(O)
-	if(istype(O, /obj/item/wrench))
-		return 1
-	return 0
-
-/proc/iswelder(O)
-	if(istype(O, /obj/item/weldingtool))
-		return 1
-	return 0
-
-/proc/iscoil(O)
-	if(istype(O, /obj/item/stack/cable_coil))
-		return 1
-	return 0
-
-/proc/iswirecutter(O)
-	if(istype(O, /obj/item/wirecutters))
-		return 1
-	return 0
-
-/proc/isscrewdriver(O)
-	if(istype(O, /obj/item/screwdriver))
-		return 1
-	return 0
-
-/proc/ismultitool(O)
-	if(istype(O, /obj/item/multitool))
-		return 1
-	return 0
-
-/proc/iscrowbar(O)
-	if(istype(O, /obj/item/crowbar))
-		return 1
-	return 0
-
-/proc/ispowertool(O)//used to check if a tool can force powered doors
-	if(istype(O, /obj/item/crowbar/power) || istype(O, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
-		return TRUE
-	return FALSE
-
-/proc/iswire(O)
-	if(istype(O, /obj/item/stack/cable_coil))
-		return 1
-	return 0
-
 /proc/is_hot(obj/item/W as obj)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/O = W
-		if(O.isOn())
+	if(W.tool_behaviour == TOOL_WELDER)
+		if(W.tool_enabled)
 			return 2500
 		else
 			return 0
@@ -1248,16 +1198,6 @@ var/global/list/common_tools = list(
 	if(O.sharp)
 		return 1
 	return 0
-
-/proc/is_surgery_tool(obj/item/W as obj)
-	return (	\
-	istype(W, /obj/item/scalpel)			||	\
-	istype(W, /obj/item/hemostat)		||	\
-	istype(W, /obj/item/retractor)		||	\
-	istype(W, /obj/item/cautery)			||	\
-	istype(W, /obj/item/bonegel)			||	\
-	istype(W, /obj/item/bonesetter)
-	)
 
 /proc/reverse_direction(var/dir)
 	switch(dir)

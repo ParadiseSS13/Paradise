@@ -13,6 +13,7 @@
 	icon_state = "control_standby"
 	anchored = 1
 	density = 0
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/enabled = 0
 	var/lethal = 0
 	var/locked = 1

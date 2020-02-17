@@ -1274,14 +1274,6 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
-"acV" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/pod_1)
 "acW" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -1648,7 +1640,7 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
+	icon_state = "swall_f5";
 	dir = 2
 	},
 /area/shuttle/pod_1)
@@ -1656,10 +1648,10 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
+	icon_state = "swall_f9";
 	dir = 2
 	},
-/area/shuttle/pod_2)
+/area/shuttle/pod_1)
 "adN" = (
 /turf/simulated/wall/r_wall,
 /area/hallway/secondary/entry)
@@ -1689,22 +1681,18 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
+	icon_state = "swall_f5";
 	dir = 2
 	},
 /area/shuttle/pod_2)
 "adR" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)";
-	icon_state = "propulsion";
-	dir = 1
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f9";
+	dir = 2
 	},
-/turf/space,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6"
-	},
-/area/shuttle/transport)
+/area/shuttle/pod_2)
 "adS" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28
@@ -1828,8 +1816,8 @@
 	},
 /turf/space,
 /turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10"
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6"
 	},
 /area/shuttle/transport)
 "aei" = (
@@ -2679,13 +2667,17 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "afL" = (
-/obj/machinery/hispaniabox{
-	anchored = 1
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)";
+	icon_state = "propulsion";
+	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "redyellowfull"
+/turf/space,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f10";
+	icon_state = "swall_f10"
 	},
-/area/crew_quarters/bar/atrium)
+/area/shuttle/transport)
 "afM" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
@@ -5694,17 +5686,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
-"ami" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/pod_3)
 "amj" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -6092,22 +6073,6 @@
 /obj/machinery/light/spot,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
-"anf" = (
-/obj/machinery/suit_storage_unit/captain,
-/obj/machinery/light{
-	dir = 1;
-	in_use = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/southwest,
-/obj/machinery/vending/walldrobe/cap{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/crew_quarters/captain/bedroom)
 "ang" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
@@ -9641,11 +9606,11 @@
 	pixel_y = 0
 	},
 /obj/item/circuitboard/microwave,
-/obj/item/stock_parts/console_screen{
+/obj/item/stack/sheet/glass{
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/stack/cable_coil/random{
 	pixel_x = 5;
 	pixel_y = 5
@@ -27890,15 +27855,6 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"bat" = (
-/obj/machinery/vending/walldrobe/rd{
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitepurplecorner"
-	},
-/area/crew_quarters/hor)
 "bau" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
@@ -28769,17 +28725,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/atmos)
-"bbU" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 0;
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
-	},
-/area/medical/genetics)
 "bbV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -36145,15 +36090,16 @@
 	},
 /area/construction/hallway)
 "bpr" = (
-/obj/structure/table/glass,
-/obj/item/clipboard,
-/obj/item/toy/figure/geneticist,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
 	},
-/area/medical/genetics)
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
+	},
+/area/shuttle/pod_3)
 "bps" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40585,21 +40531,16 @@
 /turf/simulated/wall/r_wall,
 /area/engine/gravitygenerator)
 "bwO" = (
-/obj/machinery/newscaster{
-	pixel_y = 32
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
 	},
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 5;
-	pixel_y = 5
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5";
+	dir = 2
 	},
-/obj/item/storage/box/masks,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
-	},
-/area/medical/genetics)
+/area/shuttle/pod_3)
 "bwP" = (
 /turf/simulated/wall/r_wall,
 /area/engine/break_room)
@@ -48033,9 +47974,9 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
 /obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
 	dir = 8
@@ -55390,7 +55331,7 @@
 	},
 /area/crew_quarters/captain)
 "bUZ" = (
-/obj/structure/displaycase/captains_laser,
+/obj/structure/displaycase/captain,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -59306,13 +59247,18 @@
 	},
 /area/maintenance/fpmaint2)
 "cbz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+/obj/machinery/suit_storage_unit/captain,
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
 	},
-/area/medical/genetics)
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/crew_quarters/captain/bedroom)
 "cbA" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -69150,7 +69096,7 @@
 /obj/item/clipboard,
 /obj/item/folder/blue,
 /obj/item/firelock_electronics,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/engine/engine_smes)
@@ -70697,7 +70643,7 @@
 	},
 /area/library)
 "cvo" = (
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /obj/machinery/newscaster{
 	pixel_x = -32;
 	pixel_y = 0
@@ -83196,7 +83142,7 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/airlock_electronics,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/assembly/signaler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -87183,9 +87129,9 @@
 	},
 /obj/item/folder/white,
 /obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/toxins/lab)
@@ -91062,8 +91008,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics_cloning)
 "dgK" = (
@@ -91081,8 +91026,7 @@
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics_cloning)
 "dgM" = (
@@ -91105,8 +91049,7 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics_cloning)
 "dgO" = (
@@ -91637,7 +91580,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/structure/lamarr,
+/obj/structure/displaycase/labcage,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/hor)
@@ -92176,8 +92119,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics_cloning)
 "diG" = (
@@ -92205,9 +92147,8 @@
 	req_access_txt = "5"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTH)";
-	icon_state = "whiteblue";
-	dir = 1
+	dir = 1;
+	icon_state = "whitepurple"
 	},
 /area/medical/genetics_cloning)
 "diI" = (
@@ -92246,9 +92187,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 1;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/medbay)
 "diK" = (
@@ -92407,9 +92347,9 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
 /obj/item/stock_parts/cell/high,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
+/obj/item/stack/sheet/glass,
 /turf/simulated/floor/plating,
 /area/medical/research)
 "djc" = (
@@ -92996,11 +92936,9 @@
 	},
 /area/medical/genetics_cloning)
 "djY" = (
-/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics_cloning)
 "djZ" = (
@@ -93612,17 +93550,12 @@
 	},
 /area/medical/medbay)
 "dli" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
-/area/medical/medbay)
+/area/medical/genetics_cloning)
 "dlj" = (
 /turf/simulated/floor/plasteel{
 	tag = "icon-whitebluecorner (WEST)";
@@ -93661,21 +93594,10 @@
 	},
 /area/medical/genetics_cloning)
 "dln" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/medbay)
 "dlo" = (
@@ -94807,19 +94729,11 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
 "dnE" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 1;
-	icon_state = "pipe-j1s";
-	name = "Genetics Junction";
-	sortType = 13
-	},
+/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "bluecorner"
+	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft)
 "dnF" = (
@@ -94832,16 +94746,13 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "dnG" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 0;
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics)
 "dnH" = (
@@ -95357,7 +95268,7 @@
 /area/maintenance/gambling_den)
 "dox" = (
 /obj/structure/table/reinforced,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/item/stock_parts/micro_laser,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -95654,25 +95565,21 @@
 	},
 /area/hallway/primary/aft)
 "dpa" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1;
+	icon_state = "pipe-j1s";
+	name = "Genetics Junction";
+	sortType = 13
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	dir = 2;
+	icon_state = "purplecorner"
 	},
-/area/medical/genetics)
+/area/hallway/primary/aft)
 "dpb" = (
 /obj/machinery/light_switch{
 	pixel_x = 24;
@@ -95692,19 +95599,15 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
 "dpd" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/chair/office/light{
-	dir = 8
-	},
-/obj/effect/landmark/start{
-	name = "Geneticist"
-	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (NORTHWEST)";
-	icon_state = "whiteblue";
-	dir = 9
+	dir = 1;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics)
 "dpe" = (
@@ -95775,10 +95678,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/chair/office/light{
+	dir = 8
+	},
+/obj/effect/landmark/start{
+	name = "Geneticist"
+	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	tag = "icon-whitepurple (NORTHWEST)";
+	icon_state = "whitepurple";
+	dir = 9
 	},
 /area/medical/genetics)
 "dpk" = (
@@ -95792,15 +95701,12 @@
 	},
 /area/medical/genetics)
 "dpl" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4;
-	initialize_directions = 11;
-	level = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (EAST)";
-	icon_state = "whiteblue";
-	dir = 4
+	dir = 1;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics)
 "dpm" = (
@@ -95819,15 +95725,17 @@
 	},
 /area/medical/genetics)
 "dpn" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "bluecorner"
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4;
+	initialize_directions = 11;
+	level = 1
 	},
-/area/hallway/primary/aft)
+/turf/simulated/floor/plasteel{
+	tag = "icon-whitepurple (EAST)";
+	icon_state = "whitepurple";
+	dir = 4
+	},
+/area/medical/genetics)
 "dpo" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -95852,12 +95760,14 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "dpq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/hologram/holopad,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11;
+	level = 1
+	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/medbay)
 "dpr" = (
@@ -96180,7 +96090,7 @@
 /obj/item/clipboard,
 /obj/item/folder/yellow,
 /obj/item/firealarm_electronics,
-/obj/item/stock_parts/console_screen,
+/obj/item/stack/sheet/glass,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -96467,8 +96377,8 @@
 	},
 /obj/item/storage/box/disks,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (WEST)";
-	icon_state = "whiteblue";
+	tag = "icon-whitepurple (WEST)";
+	icon_state = "whitepurple";
 	dir = 8
 	},
 /area/medical/genetics)
@@ -96672,15 +96582,20 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "dqE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/sign/electricshock{
-	pixel_x = -32;
-	pixel_y = -32
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/medbay)
 "dqF" = (
@@ -97273,26 +97188,17 @@
 	},
 /area/hallway/primary/aft)
 "drM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/sign/science{
+	pixel_x = 32;
+	pixel_y = 32
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	dir = 2;
+	icon_state = "purplecorner"
 	},
-/area/medical/genetics)
+/area/hallway/primary/aft)
 "drN" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -97308,17 +97214,18 @@
 	},
 /area/medical/research)
 "drO" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/sign/science{
-	pixel_x = 32;
-	pixel_y = 32
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	on = 1
+	},
+/obj/structure/chair/office/light{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "bluecorner"
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
-/area/hallway/primary/aft)
+/area/medical/genetics)
 "drP" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -97345,11 +97252,12 @@
 	},
 /area/medical/genetics)
 "drR" = (
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluefull";
-	icon_state = "whitebluefull"
+	dir = 2;
+	icon_state = "whitepurplecorner"
 	},
-/area/hallway/primary/aft)
+/area/medical/genetics)
 "drS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -97374,17 +97282,14 @@
 	},
 /area/medical/genetics)
 "drU" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	on = 1
-	},
-/obj/structure/chair/office/light{
-	dir = 8
+/obj/structure/chair/office/light,
+/obj/effect/landmark/start{
+	name = "Geneticist"
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	tag = "icon-whitepurple (SOUTHWEST)";
+	icon_state = "whitepurple";
+	dir = 10
 	},
 /area/medical/genetics)
 "drV" = (
@@ -97398,11 +97303,9 @@
 	},
 /area/medical/genetics)
 "drW" = (
-/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics)
 "drX" = (
@@ -97411,14 +97314,11 @@
 	},
 /area/medical/genetics)
 "drY" = (
-/obj/structure/chair/office/light,
-/obj/effect/landmark/start{
-	name = "Geneticist"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (SOUTHWEST)";
-	icon_state = "whiteblue";
-	dir = 10
+	tag = "icon-whitepurple (EAST)";
+	icon_state = "whitepurple";
+	dir = 4
 	},
 /area/medical/genetics)
 "drZ" = (
@@ -97444,16 +97344,13 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "dsb" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/pod_3)
+/area/medical/medbay)
 "dsc" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/camera{
@@ -97794,12 +97691,15 @@
 /turf/simulated/floor/plasteel,
 /area/assembly/robotics)
 "dsI" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/firedoor,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 2;
+	icon_state = "purplecorner"
 	},
-/area/medical/genetics)
+/area/hallway/primary/aft)
 "dsJ" = (
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
@@ -97871,23 +97771,6 @@
 /turf/simulated/floor/plating,
 /area/medical/genetics)
 "dsO" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue (EAST)";
-	icon_state = "whiteblue";
-	dir = 4
-	},
-/area/medical/genetics)
-"dsP" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	tag = "icon-whitebluefull";
-	icon_state = "whitebluefull"
-	},
-/area/hallway/primary/aft)
-"dsQ" = (
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -97905,12 +97788,11 @@
 	pixel_y = -26
 	},
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics)
-"dsR" = (
+"dsP" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -97925,9 +97807,25 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	tag = "icon-whitebluecorner (WEST)";
-	icon_state = "whitebluecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/genetics)
+"dsQ" = (
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "Station Intercom (General)";
+	pixel_y = -29
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/genetics)
+"dsR" = (
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics)
 "dsS" = (
@@ -98031,6 +97929,17 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/medical/genetics)
+"dtb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/sign/electricshock{
+	pixel_x = -32;
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/medbay)
 "dtc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -98580,17 +98489,11 @@
 /turf/simulated/floor/plating,
 /area/toxins/misc_lab)
 "dtY" = (
-/obj/item/radio/intercom{
-	dir = 1;
-	name = "Station Intercom (General)";
-	pixel_y = -29
-	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	icon_state = "whitepurplecorner"
 	},
-/area/medical/genetics)
+/area/crew_quarters/hor)
 "dtZ" = (
 /obj/structure/cable,
 /obj/structure/cable{
@@ -107691,7 +107594,7 @@
 /area/library/abandoned)
 "dKF" = (
 /obj/effect/decal/cleanable/cobweb,
-/obj/structure/cult/tome,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/library/abandoned)
 "dKG" = (
@@ -115096,10 +114999,34 @@
 /turf/simulated/wall,
 /area/medical/surgery1)
 "dYb" = (
+/obj/structure/table/glass,
+/obj/item/clipboard,
+/obj/item/toy/figure/geneticist,
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "whitebluecorner";
-	tag = "icon-whitebluecorner"
+	dir = 1;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/genetics)
+"dYc" = (
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/structure/table/glass,
+/obj/item/storage/box/beakers{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/storage/box/masks,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/genetics)
+"dYd" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner"
 	},
 /area/medical/genetics)
 "dYe" = (
@@ -115157,6 +115084,25 @@
 	icon_state = "white"
 	},
 /area/medical/genetics)
+"dYj" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner"
+	},
+/area/medical/genetics)
 "dYk" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -115173,6 +115119,27 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
+	},
+/area/medical/genetics)
+"dYl" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4;
+	level = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/turf/simulated/floor/plasteel{
+	tag = "icon-whitepurple (EAST)";
+	icon_state = "whitepurple";
+	dir = 4
 	},
 /area/medical/genetics)
 "dYm" = (
@@ -150772,7 +150739,7 @@ aaa
 aaa
 aaa
 aaa
-adR
+aeh
 aih
 aih
 aiQ
@@ -150902,7 +150869,7 @@ doL
 dfi
 drz
 dsD
-bat
+dtY
 dff
 dwi
 dwi
@@ -151028,7 +150995,7 @@ aaa
 aaa
 aaa
 aaa
-adR
+aeh
 ahQ
 aii
 aiC
@@ -151542,7 +151509,7 @@ aaa
 aaa
 aaa
 aaa
-aeh
+afL
 ahS
 aij
 aiD
@@ -151800,7 +151767,7 @@ aaa
 aaa
 aaa
 aaa
-aeh
+afL
 aih
 aih
 aiQ
@@ -153075,7 +153042,7 @@ aaa
 add
 adw
 adw
-acV
+adL
 aey
 acC
 afc
@@ -153589,7 +153556,7 @@ aaa
 adf
 adw
 adw
-adL
+adM
 aeA
 acC
 afj
@@ -154925,7 +154892,7 @@ aJb
 aKs
 aZZ
 aNj
-afL
+aNi
 aNi
 aRG
 aNi
@@ -156037,11 +156004,11 @@ diw
 dle
 cSw
 dmh
-cKL
 dnE
-dpn
-drO
-cKL
+dpa
+dsI
+drM
+dnE
 cSw
 cTW
 dwu
@@ -156297,8 +156264,8 @@ dfv
 dmi
 drG
 dmi
-drR
-dsP
+dce
+drK
 duk
 duk
 duk
@@ -156808,11 +156775,11 @@ diy
 dlf
 dpf
 dfv
-bbU
 dnG
+dpd
 dqr
-drU
-dsQ
+drO
+dsO
 duk
 dvt
 dww
@@ -157065,11 +157032,11 @@ diz
 dmk
 dpg
 dfv
-bpr
+dYb
 dpe
 dqs
 drP
-dsR
+dsP
 dxG
 dvu
 dwx
@@ -157322,11 +157289,11 @@ djV
 dfv
 dfv
 dfv
-bwO
+dYc
 dYi
 dYk
 drQ
-dtY
+dsQ
 duk
 dvv
 dwy
@@ -157579,11 +157546,11 @@ djW
 dmn
 dqt
 dqu
-cbz
-dpa
-drM
-drW
-dYb
+dYd
+dYj
+dYl
+drR
+dsR
 dum
 dvw
 dvx
@@ -157701,7 +157668,7 @@ aaa
 adg
 ady
 ady
-adM
+adQ
 aey
 acC
 afc
@@ -158215,7 +158182,7 @@ aaa
 adi
 ady
 ady
-adQ
+adR
 aeA
 acC
 afj
@@ -158347,13 +158314,13 @@ dfw
 dfx
 dgJ
 diB
-dlj
+djY
 doF
 dml
 dnN
-dpd
+dpj
 dqx
-drY
+drU
 dsV
 duo
 dvt
@@ -158561,7 +158528,7 @@ bQR
 bSR
 bUY
 bWX
-anf
+cbz
 cap
 cck
 cdW
@@ -158605,7 +158572,7 @@ dfy
 dgK
 diC
 djZ
-djY
+dli
 dml
 doa
 dpk
@@ -158865,9 +158832,9 @@ dka
 dlj
 dmm
 dnO
-dpj
+dpl
 dqz
-dsI
+drW
 dsW
 dun
 dvy
@@ -159379,9 +159346,9 @@ dkc
 dll
 dmo
 dnQ
-dpl
+dpn
 dqB
-dsO
+drY
 dsY
 dun
 duk
@@ -160147,13 +160114,13 @@ dgx
 dgP
 diJ
 dkf
-dgP
+dln
 dmp
-dgP
-dli
 dln
 dpq
 dqE
+dsb
+dtb
 dup
 dvC
 dwD
@@ -174978,9 +174945,9 @@ aaa
 abi
 abj
 aMq
-ami
+bpr
 bbI
-dsb
+bwO
 aMq
 abj
 abj

@@ -139,24 +139,21 @@
 	..()
 	return
 
-/obj/item/assembly_holder/attackby(obj/item/W, mob/user, params)
-	if(isscrewdriver(W))
-		if(!a_left || !a_right)
-			to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
-			return
-		a_left.toggle_secure()
-		a_right.toggle_secure()
-		secured = !secured
-		if(secured)
-			to_chat(user, "<span class='notice'>[src] is ready!</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
-		update_icon()
+/obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
+	if(!a_left || !a_right)
+		to_chat(user, "<span class='warning'>BUG:Assembly part missing, please report this!</span>")
 		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	a_left.toggle_secure()
+	a_right.toggle_secure()
+	secured = !secured
+	if(secured)
+		to_chat(user, "<span class='notice'>[src] is ready!</span>")
 	else
-		..()
-	return
-
+		to_chat(user, "<span class='notice'>[src] can now be taken apart!</span>")
+	update_icon()
 
 /obj/item/assembly_holder/attack_self(mob/user)
 	add_fingerprint(user)
@@ -198,14 +195,3 @@
 	if(master)
 		master.receive_signal()
 	return TRUE
-
-/obj/item/assembly_holder/ex_act(severity)
-	switch(severity)
-		if(1)
-			qdel(src)
-		if(2)
-			if(prob(50))
-				qdel(src)
-		if(3)
-			if(prob(25))
-				qdel(src)

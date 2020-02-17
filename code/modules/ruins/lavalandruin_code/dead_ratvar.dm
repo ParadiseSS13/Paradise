@@ -12,9 +12,10 @@
 	bound_width = 416
 	bound_height = 64
 	pixel_y = -10
-	unacidable = TRUE
-	resistance_flags = INDESTRUCTIBLE
-	burn_state = LAVA_PROOF
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+
+/obj/effect/clockwork
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 // An "overlay" used by clockwork walls and floors to appear normal to mesons.
 /obj/effect/clockwork/overlay
@@ -30,6 +31,7 @@
 
 /obj/effect/clockwork/overlay/singularity_act()
 	return
+
 /obj/effect/clockwork/overlay/singularity_pull()
 	return
 
@@ -75,11 +77,9 @@
 	icon_state = "wall_gear"
 	climbable = TRUE
 	max_integrity = 100
-	can_deconstruct = TRUE
 	anchored = TRUE
 	density = TRUE
-	unacidable = TRUE
-	burn_state = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
 
 /obj/structure/clockwork/wall_gear/displaced
@@ -92,22 +92,26 @@
 /obj/structure/clockwork/wall_gear/emp_act(severity)
 	return
 
+/obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(anchored)
+		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(I.use_tool(src, user, 30, volume = I.tool_volume))
+		TOOL_DISMANTLE_SUCCESS_MESSAGE
+		deconstruct(TRUE)
+
+/obj/structure/clockwork/wall_gear/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_unfasten_wrench(user, I, 10)
+
 /obj/structure/clockwork/wall_gear/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		default_unfasten_wrench(user, I, 10)
-		return 1
-	else if(isscrewdriver(I))
-		if(anchored)
-			to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
-		else
-			var/obj/item/screwdriver/S = I
-			user.visible_message("<span class='warning'>[user] starts to disassemble [src].</span>", "<span class='notice'>You start to disassemble [src]...</span>")
-			if(do_after(user, 30 * S.toolspeed, target = src) && !anchored)
-				playsound(loc, S.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-				deconstruct(TRUE)
-		return 1
-	else if(istype(I, /obj/item/stack/tile/brass))
+	if(istype(I, /obj/item/stack/tile/brass))
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
@@ -140,9 +144,13 @@
 	return ..()
 
 /obj/structure/clockwork/wall_gear/deconstruct(disassembled = TRUE)
-	if(can_deconstruct && disassembled)
+	if(!(flags & NODECONSTRUCT) && disassembled)
 		new /obj/item/stack/tile/brass(loc, 3)
 	return ..()
+
+//The base clockwork item. Can have an alternate desc and will show up in the list of clockwork objects.
+/obj/item/clockwork
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 //Shards of Alloy, suitable only as a source of power for a replica fabricator.
 /obj/item/clockwork/alloy_shards
@@ -150,8 +158,7 @@
 	desc = "Broken shards of some oddly malleable metal. They occasionally move and seem to glow."
 	icon = 'icons/obj/clockwork_objects.dmi'
 	icon_state = "alloy_shards"
-	burn_state = LAVA_PROOF
-	unacidable = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	var/randomsinglesprite = FALSE
 	var/randomspritemax = 2
 	var/sprite_shift = 9
@@ -212,6 +219,10 @@
 	name = "pinion lock"
 	desc = "A dented and scratched gear. It's very heavy."
 	icon_state = "pinion_lock"
+
+//Components: Used in scripture.
+/obj/item/clockwork/component
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clockwork/component/belligerent_eye
 	name = "belligerent eye"

@@ -39,8 +39,8 @@
 /obj/item/gun/energy/gun/mini/New()
 	gun_light = new /obj/item/flashlight/seclite(src)
 	..()
-	power_supply.maxcharge = 600
-	power_supply.charge = 600
+	cell.maxcharge = 600
+	cell.charge = 600
 
 /obj/item/gun/energy/gun/mini/update_icon()
 	..()
@@ -55,6 +55,7 @@
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler)
 	ammo_x_offset = 4
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/gun/energy/gun/blueshield
 	name = "advanced stun revolver"
@@ -88,11 +89,14 @@
 	name = "advanced energy gun"
 	desc = "An energy gun with an experimental miniaturized nuclear reactor that automatically charges the internal power cell."
 	icon_state = "nucgun"
-	item_state = "nucgun"
+	item_state = null //so the human update icon uses the icon_state instead.
 	origin_tech = "combat=4;magnets=4;powerstorage=4"
 	var/fail_tick = 0
 	charge_delay = 5
 	can_charge = 0
-	ammo_x_offset = 1
+	ammo_x_offset = 3
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/disabler)
 	selfcharge = 1
+	flight_x_offset = 15
+	flight_y_offset = 10
+	modifystate = 3

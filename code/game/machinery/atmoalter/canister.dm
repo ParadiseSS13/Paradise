@@ -48,9 +48,10 @@ var/datum/canister_icons/canister_icon_container = new()
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "yellow"
 	density = 1
-	var/health = 100.0
 	flags = CONDUCT
-	armor = list(melee = 50, bullet = 50, laser = 50, energy = 100, bomb = 10, bio = 100, rad = 100)
+	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 50)
+	max_integrity = 250
+	integrity_failure = 100
 
 	var/menu = 0
 	//used by nanoui: 0 = main menu, 1 = relabel
@@ -77,7 +78,6 @@ var/datum/canister_icons/canister_icon_container = new()
 	use_power = NO_POWER_USE
 	interact_offline = 1
 	var/release_log = ""
-	var/busy = 0
 	var/update_flag = 0
 
 /obj/machinery/portable_atmospherics/canister/New()
@@ -246,30 +246,38 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > temperature_resistance)
-		health -= 5
-		healthcheck()
+		take_damage(5, BURN, 0)
 
-/obj/machinery/portable_atmospherics/canister/proc/healthcheck()
-	if(destroyed)
-		return 1
+/obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		if(!(stat & BROKEN))
+			canister_break()
+		if(disassembled)
+			new /obj/item/stack/sheet/metal (loc, 10)
+		else
+			new /obj/item/stack/sheet/metal (loc, 5)
+	qdel(src)
 
-	if(src.health <= 10)
-		var/atom/location = src.loc
-		location.assume_air(air_contents)
-		air_update_turf()
+/obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
+	if((stat & BROKEN) || (flags & NODECONSTRUCT))
+		return
+	canister_break()
 
-		src.destroyed = 1
-		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
-		src.density = 0
-		update_icon()
+/obj/machinery/portable_atmospherics/canister/proc/canister_break()
+	disconnect()
+	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
+	var/turf/T = get_turf(src)
+	T.assume_air(expelled_gas)
+	air_update_turf()
 
-		if(src.holding)
-			src.holding.loc = src.loc
-			src.holding = null
+	stat |= BROKEN
+	density = FALSE
+	playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
+	update_icon()
 
-		return 1
-	else
-		return 1
+	if(holding)
+		holding.forceMove(T)
+		holding = null
 
 /obj/machinery/portable_atmospherics/canister/process_atmos()
 	if(destroyed)
@@ -326,51 +334,6 @@ update_flag
 		return GM.return_pressure()
 	return 0
 
-/obj/machinery/portable_atmospherics/canister/blob_act()
-	src.health -= 200
-	healthcheck()
-	return
-
-/obj/machinery/portable_atmospherics/canister/bullet_act(var/obj/item/projectile/Proj)
-	if((Proj.damage_type == BRUTE || Proj.damage_type == BURN))
-		if(Proj.damage)
-			src.health -= round(Proj.damage / 2)
-			healthcheck()
-	..()
-
-/obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	user.changeNext_move(CLICK_CD_MELEE)
-	if(iswelder(W) && src.destroyed)
-		if(weld(W, user))
-			to_chat(user, "<span class='notice'>You salvage whats left of \the [src]</span>")
-			var/obj/item/stack/sheet/metal/M = new /obj/item/stack/sheet/metal(src.loc)
-			M.amount = 3
-			qdel(src)
-		return
-
-	if(!istype(W, /obj/item/wrench) && !istype(W, /obj/item/tank) && !istype(W, /obj/item/analyzer) && !istype(W, /obj/item/pda))
-		visible_message("<span class='warning'>[user] hits the [src] with a [W]!</span>")
-		src.health -= W.force
-		src.add_fingerprint(user)
-		healthcheck()
-
-	if(istype(user, /mob/living/silicon/robot) && istype(W, /obj/item/tank/jetpack))
-		var/datum/gas_mixture/thejetpack = W:air_contents
-		var/env_pressure = thejetpack.return_pressure()
-		var/pressure_delta = min(10*ONE_ATMOSPHERE - env_pressure, (air_contents.return_pressure() - env_pressure)/2)
-		//Can not have a pressure delta that would cause environment pressure > tank pressure
-		var/transfer_moles = 0
-		if((air_contents.temperature > 0) && (pressure_delta > 0))
-			transfer_moles = pressure_delta*thejetpack.volume/(air_contents.temperature * R_IDEAL_GAS_EQUATION)//Actually transfer the gas
-			var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
-			thejetpack.merge(removed)
-			to_chat(user, "You pulse-pressurize your jetpack from the tank.")
-		return
-
-	..()
-
-	SSnanoui.update_uis(src) // Update all NanoUIs attached to src
-
 /obj/machinery/portable_atmospherics/canister/replace_tank(mob/living/user, close_valve)
 	. = ..()
 	if(.)
@@ -384,9 +347,6 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attack_ai(var/mob/user as mob)
 	src.add_hiddenprint(user)
 	return src.attack_hand(user)
-
-/obj/machinery/portable_atmospherics/canister/attack_alien(mob/living/carbon/alien/humanoid/user)
-	return
 
 /obj/machinery/portable_atmospherics/canister/attack_ghost(var/mob/user as mob)
 	return src.ui_interact(user)
@@ -633,21 +593,14 @@ update_flag
 	src.update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 	return 1
 
-/obj/machinery/portable_atmospherics/canister/proc/weld(var/obj/item/weldingtool/WT, var/mob/user)
-
-	if(busy)
-		return 0
-	if(!WT.remove_fuel(0, user))
-		return 0
-
-	// Do after stuff here
-	to_chat(user, "<span class='notice'>You start to slice away at \the [src]...</span>")
-	playsound(src.loc, WT.usesound, 50, 1)
-	busy = 1
-	if(do_after(user, 50 * WT.toolspeed, target = src))
-		busy = 0
-		if(!WT.isOn())
-			return 0
-		return 1
-	busy = 0
-	return 0
+/obj/machinery/portable_atmospherics/canister/welder_act(mob/user, obj/item/I)
+	if(!(stat & BROKEN))
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You salvage whats left of [src]!</span>")
+		new /obj/item/stack/sheet/metal(drop_location(), 3)
+		qdel(src)
