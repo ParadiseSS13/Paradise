@@ -451,6 +451,10 @@
 	list_reagents = list("nutriment" = 6, "vitamin" = 2)
 	tastes = list("bun" = 3, "meat" = 2)
 
+/obj/item/reagent_containers/food/snacks/meatbun/Initialize(mapload)
+	. = ..()
+	icon_state = "meatbun[rand(1,2)]"
+
 /obj/item/reagent_containers/food/snacks/sliceable/turkey
 	name = "turkey"
 	desc = "A traditional turkey served with stuffing."

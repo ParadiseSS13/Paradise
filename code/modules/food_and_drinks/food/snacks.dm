@@ -293,8 +293,36 @@
 	name = "box of cereal"
 	desc = "A box of cereal."
 	icon = 'icons/obj/food/food.dmi'
-	icon_state = "cereal_box"
+	icon_state = "cereal_plain"
 	list_reagents = list("nutriment" = 3)
+	
+
+/obj/item/reagent_containers/food/snacks/cereal/attackby(obj/item/pen, mob/user)
+	if(istype(pen))
+		var/option = alert(user, "Rename the [src] or change how it looks?", "", "Rename", "Change the look")
+		if(option == "Rename")
+			return ..()
+
+		var/list/boxes = list(
+			"Plain",
+			"Syndicate",
+			"Nanotrasen",
+			"Clown",
+			"Singulo"
+		)
+		var/choice = input(user, "Choose which cereal box you want:", "", null) as null|anything in boxes
+		switch(choice)
+			if("Plain")
+				icon_state = "cereal_plain"
+			if("Syndicate")
+				icon_state = "cereal_syndi"
+			if("Nanotrasen")
+				icon_state = "cereal_nt"
+			if("Clown")
+				icon_state = "cereal_clown"
+			if("Singulo")
+				icon_state = "cereal_singulo"
+		update_icon()
 
 /obj/item/reagent_containers/food/snacks/deepfryholder
 	name = "Deep Fried Foods Holder Obj"
