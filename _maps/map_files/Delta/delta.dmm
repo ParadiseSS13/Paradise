@@ -48293,6 +48293,11 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Magistrate";
+	dir = 8;
+	network = list("SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -116081,6 +116086,10 @@
 /obj/structure/sign/poster/official/state_laws,
 /turf/simulated/wall/r_wall,
 /area/magistrateoffice)
+"soy" = (
+/obj/machinery/newscaster/security_unit,
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
 "svX" = (
 /obj/machinery/firealarm,
 /turf/simulated/wall/r_wall,
@@ -162727,7 +162736,7 @@ bwv
 bvc
 btL
 abj
-vOI
+soy
 bHI
 bJt
 bFS
