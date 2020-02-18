@@ -135,14 +135,7 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 
 /obj/item/clothing/mask/muzzle/safety/shock/attackby(obj/item/W, mob/user, params)
-	if(isscrewdriver(W) && trigger)
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-		trigger.forceMove(get_turf(user))
-		trigger.master = null
-		trigger.holder = null
-		trigger = null
-		return TRUE
-	else if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
+	if(istype(W, /obj/item/assembly/signaler) || istype(W, /obj/item/assembly/voice))
 		if(istype(trigger, /obj/item/assembly/signaler) || istype(trigger, /obj/item/assembly/voice))
 			to_chat(user, "<span class='notice'>Something is already attached to [src].</span>")
 			return FALSE
@@ -161,6 +154,17 @@
 
 	return ..()
 
+/obj/item/clothing/mask/muzzle/safety/shock/screwdriver_act(mob/user, obj/item/I)
+	if(!trigger)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You remove [trigger] from [src].</span>")
+	trigger.forceMove(get_turf(user))
+	trigger.master = null
+	trigger.holder = null
+	trigger = null
 
 /obj/item/clothing/mask/muzzle/safety/shock/proc/can_shock(obj/item/clothing/C)
 	if(istype(C))
@@ -489,6 +493,7 @@
 	name = "durathread bandana"
 	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
 	icon_state = "banddurathread"
+	item_state = "banddurathread"
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"

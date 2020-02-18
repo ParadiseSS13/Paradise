@@ -246,25 +246,6 @@
 			SSnanoui.update_uis(src)
 			return // don't smack that machine with your 2 thalers
 
-	if(default_unfasten_wrench(user, I, time = 60))
-		return
-
-	if(isscrewdriver(I) && anchored)
-		playsound(loc, I.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		overlays.Cut()
-		if(panel_open)
-			overlays += image(icon, "[initial(icon_state)]-panel")
-		SSnanoui.update_uis(src)  // Speaker switch is on the main UI, not wires UI
-		return
-
-	if(panel_open)
-		if(ismultitool(I) || iswirecutter(I))
-			return attack_hand(user)
-		if(component_parts && iscrowbar(I))
-			default_deconstruction_crowbar(I)
-			return
 	if(istype(I, /obj/item/coin) && premium.len)
 		if(!user.drop_item())
 			return
@@ -295,6 +276,46 @@
 		insert_item(user, I)
 		return
 	return ..()
+
+
+
+/obj/machinery/vending/crowbar_act(mob/user, obj/item/I)
+	if(!component_parts)
+		return
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/vending/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wires.Interact(user)
+
+/obj/machinery/vending/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		panel_open = !panel_open
+		if(panel_open)
+			SCREWDRIVER_OPEN_PANEL_MESSAGE
+			overlays += image(icon, "[initial(icon_state)]-panel")
+		else
+			SCREWDRIVER_CLOSE_PANEL_MESSAGE
+			overlays.Cut()
+		SSnanoui.update_uis(src)  // Speaker switch is on the main UI, not wires UI
+
+/obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wires.Interact(user)
+
+/obj/machinery/vending/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	default_unfasten_wrench(user, I, time = 60)
 
 //Override this proc to do per-machine checks on the inserted item, but remember to call the parent to handle these generic checks before your logic!
 /obj/machinery/vending/proc/item_slot_check(mob/user, obj/item/I)
@@ -834,6 +855,7 @@
 					/obj/item/reagent_containers/food/drinks/bottle/whiskey = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/tequila = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/vodka = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/mezcal = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/fernet = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/vermouth = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/rum = 5,

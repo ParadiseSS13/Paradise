@@ -89,7 +89,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
    					/obj/item/clothing/head/collectable/rabbitears = 10,
     					/obj/item/bikehorn/rubberducky = 5,
 					/obj/item/clothing/head/hairflower = 5,
-    					/obj/item/storage/bag/UNO = 15,
+    					/obj/item/storage/bag/uno = 15,
     					/obj/item/stack/sheet/animalhide/monkey = 5,
     					/obj/item/stack/sheet/animalhide/lizard = 5)
 	contraband = list(		/obj/item/stack/sheet/animalhide/human = 5)
@@ -117,6 +117,6 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
    					/obj/item/clothing/head/collectable/rabbitears = 550,
    				 	/obj/item/bikehorn/rubberducky = 679,
     					/obj/item/clothing/head/hairflower = 400,
-    					/obj/item/storage/bag/UNO = 200,
+    					/obj/item/storage/bag/uno = 200,
     					/obj/item/stack/sheet/animalhide/monkey = 1500,
     					/obj/item/stack/sheet/animalhide/lizard = 2000)

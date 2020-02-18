@@ -62,6 +62,10 @@
 #define MAX_TEMPERATURE 363.15 // 90C
 #define MIN_TEMPERATURE 233.15 // -40C
 
+#define AIR_ALARM_FRAME		0
+#define AIR_ALARM_BUILDING	1
+#define AIR_ALARM_READY		2
+
 //all air alarms in area are connected via magic
 /area
 	var/obj/machinery/alarm/master_air_alarm
@@ -111,7 +115,7 @@
 	var/danger_level = ATMOS_ALARM_NONE
 	var/alarmActivated = 0 // Manually activated (independent from danger level)
 
-	var/buildstage = 2 //2 is built, 1 is building, 0 is frame.
+	var/buildstage = AIR_ALARM_READY
 
 	var/target_temperature = T20C
 	var/regulating_temperature = 0
@@ -948,24 +952,6 @@
 
 	switch(buildstage)
 		if(2)
-			if(isscrewdriver(I))  // Opening that Air Alarm up.
-				wiresexposed = !wiresexposed
-				to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
-				update_icon()
-				return
-
-			if(iswirecutter(I))  // cutting the wires out
-				if(wires.wires_status == 31) // all wires cut
-					var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil()
-					new_coil.amount = 5
-					new_coil.forceMove(user.loc)
-					buildstage = 1
-					update_icon()
-				return
-
-			if(wiresexposed && ((ismultitool(I) || iswirecutter(I))))
-				return attack_hand(user)
-
 			if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))// trying to unlock the interface with an ID card
 				if(stat & (NOPOWER|BROKEN))
 					to_chat(user, "It does nothing")
@@ -980,7 +966,7 @@
 				return
 
 		if(1)
-			if(istype(I, /obj/item/stack/cable_coil))
+			if(iscoil(I))
 				var/obj/item/stack/cable_coil/coil = I
 				if(coil.amount < 5)
 					to_chat(user, "You need more cable for this!")
@@ -996,19 +982,6 @@
 				update_icon()
 				first_run()
 				return
-
-			else if(iscrowbar(I))
-				to_chat(user, "You start prying out the circuit.")
-				playsound(get_turf(src), I.usesound, 50, 1)
-				if(do_after(user, 20 * I.toolspeed, target = src))
-					if(buildstage != 1)
-						return
-					to_chat(user, "You pry out the circuit!")
-					var/obj/item/airalarm_electronics/circuit = new /obj/item/airalarm_electronics()
-					circuit.forceMove(user.loc)
-					buildstage = 0
-					update_icon()
-				return
 		if(0)
 			if(istype(I, /obj/item/airalarm_electronics))
 				to_chat(user, "You insert the circuit!")
@@ -1017,15 +990,69 @@
 				buildstage = 1
 				update_icon()
 				return
-
-			else if(iswrench(I))
-				to_chat(user, "You remove the fire alarm assembly from the wall!")
-				new /obj/item/mounted/frame/alarm_frame(get_turf(user))
-				playsound(get_turf(src), I.usesound, 50, 1)
-				qdel(src)
-				return
-
 	return ..()
+
+/obj/machinery/alarm/crowbar_act(mob/user, obj/item/I)
+	if(buildstage != AIR_ALARM_BUILDING)
+		return
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	to_chat(user, "You start prying out the circuit.")
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	if(buildstage != AIR_ALARM_BUILDING)
+		return
+	to_chat(user, "You pry out the circuit!")
+	new /obj/item/airalarm_electronics(user.drop_location())
+	buildstage = AIR_ALARM_FRAME
+	update_icon()
+
+/obj/machinery/alarm/multitool_act(mob/user, obj/item/I)
+	if(buildstage != AIR_ALARM_READY)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(wiresexposed)
+		attack_hand(user)
+
+/obj/machinery/alarm/screwdriver_act(mob/user, obj/item/I)
+	if(buildstage != AIR_ALARM_READY)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wiresexposed = !wiresexposed
+	update_icon()
+	if(wiresexposed)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+
+/obj/machinery/alarm/wirecutter_act(mob/user, obj/item/I)
+	if(buildstage != AIR_ALARM_READY)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(wires.wires_status == 31) // all wires cut
+		var/obj/item/stack/cable_coil/new_coil = new /obj/item/stack/cable_coil(user.drop_location())
+		new_coil.amount = 5
+		buildstage = AIR_ALARM_BUILDING
+		update_icon()
+	if(wiresexposed)
+		wires.Interact(user)
+
+/obj/machinery/alarm/wrench_act(mob/user, obj/item/I)
+	if(buildstage != AIR_ALARM_FRAME)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	new /obj/item/mounted/frame/alarm_frame(get_turf(user))
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	qdel(src)
 
 /obj/machinery/alarm/power_change()
 	if(powered(power_channel))
@@ -1076,3 +1103,8 @@ Just an object used in constructing air alarms
 	origin_tech = "engineering=2;programming=1"
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+
+
+#undef AIR_ALARM_FRAME
+#undef AIR_ALARM_BUILDING
+#undef AIR_ALARM_READY

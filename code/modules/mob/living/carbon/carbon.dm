@@ -631,10 +631,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return TRUE
 
 /mob/living/carbon/restrained()
-	if(handcuffed)
+	if(get_restraining_item())
 		return TRUE
-	return
+	return FALSE
 
+/mob/living/carbon/get_restraining_item()
+	return handcuffed
 
 /mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
@@ -789,8 +791,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/resist_buckle()
 	spawn(0)
 		resist_muzzle()
-	if(restrained())
-		var/obj/item/I = handcuffed
+	var/obj/item/I
+	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
 		var/breakouttime = I.breakouttime
 		var/displaytime = breakouttime / 10
 		changeNext_move(CLICK_CD_BREAKOUT)
