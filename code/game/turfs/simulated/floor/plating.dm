@@ -189,11 +189,31 @@
 /turf/simulated/floor/engine/cult
 	name = "engraved floor"
 	icon_state = "cult"
+	var/obj/effect/temp_visual/cult/turf/open/floor/realappearance
 
 /turf/simulated/floor/engine/cult/New()
 	..()
 	if(SSticker.mode)//only do this if the round is going..otherwise..fucking asteroid..
 		icon_state = SSticker.cultdat.cult_floor_icon_state
+
+/turf/simulated/floor/engine/cult/Initialize()
+	. = ..()
+	new /obj/effect/temp_visual/cult/turf(src)
+	realappearance = new /obj/effect/temp_visual/cult/turf/open/floor(src)
+	realappearance = src
+
+/turf/simulated/floor/engine/cult/Destroy()
+	be_removed()
+	return ..()
+
+/turf/simulated/floor/engine/cult/ChangeTurf(path, new_baseturf, flags)
+	if(path != type)
+		be_removed()
+	return ..()
+
+/turf/simulated/floor/engine/cult/proc/be_removed()
+	qdel(realappearance)
+	realappearance = null
 
 /turf/simulated/floor/engine/cult/narsie_act()
 	return

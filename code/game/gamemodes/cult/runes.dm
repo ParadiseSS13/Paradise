@@ -92,12 +92,12 @@ To draw a rune, use an arcane tome.
 		else
 			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
 
-/obj/effect/rune/proc/talismanhide() //for talisman of revealing/hiding
+/obj/effect/rune/proc/conceal() //for talisman of revealing/hiding
 	visible_message("<span class='danger'>[src] fades away.</span>")
 	invisibility = INVISIBILITY_OBSERVER
 	alpha = 100 //To help ghosts distinguish hidden runes
 
-/obj/effect/rune/proc/talismanreveal() //for talisman of revealing/hiding
+/obj/effect/rune/proc/reveal() //for talisman of revealing/hiding
 	invisibility = 0
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
@@ -207,54 +207,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return N
 	return 0
 
-//Rite of Binding: A paper on top of the rune to a talisman.
-/obj/effect/rune/imbue
-	cultist_name = "Rite of Binding"
-	cultist_desc = "transforms paper into powerful magic talismans."
-	invocation = "H'drak v'loso, mir'kanas verbot!"
-	icon_state = "3"
-
-/obj/effect/rune/imbue/invoke(var/list/invokers)
-	var/mob/living/user = invokers[1] //the first invoker is always the user
-	var/turf/T = get_turf(src)
-	var/list/papers_on_rune = list()
-	var/entered_talisman_name
-	var/obj/item/paper/talisman/talisman_type
-	var/list/possible_talismans = list()
-	for(var/obj/item/paper/P in T)
-		if(!P.info)
-			papers_on_rune.Add(P)
-	if(!papers_on_rune.len)
-		to_chat(user, "<span class='cultitalic'>There must be a blank paper on top of [src]!</span>")
-		fail_invoke()
-		log_game("Talisman Creation rune failed - no blank papers on rune")
-		return
-	if(rune_in_use)
-		to_chat(user, "<span class='cultitalic'>[src] can only support one ritual at a time!</span>")
-		fail_invoke()
-		log_game("Talisman Creation rune failed - already in use")
-		return
-	var/obj/item/paper/paper_to_imbue = pick(papers_on_rune)
-	for(var/I in subtypesof(/obj/item/paper/talisman) - /obj/item/paper/talisman/malformed - /obj/item/paper/talisman/supply - /obj/item/paper/talisman/supply/weak)
-		var/obj/item/paper/talisman/J = I
-		var/talisman_cult_name = initial(J.cultist_name)
-		if(talisman_cult_name)
-			possible_talismans[talisman_cult_name] = J //This is to allow the menu to let cultists select talismans by name
-	entered_talisman_name = input(user, "Choose a talisman to imbue.", "Talisman Choices") as null|anything in possible_talismans
-	talisman_type = possible_talismans[entered_talisman_name]
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || rune_in_use || !talisman_type)
-		return
-	..()
-	visible_message("<span class='warning'>Dark power begins to channel into the paper!.</span>")
-	rune_in_use = 1
-	if(!do_after(user, 100, target = get_turf(user)))
-		rune_in_use = 0
-		return
-	new talisman_type(get_turf(src))
-	visible_message("<span class='warning'>[src] glows with power, and bloody images form themselves on [paper_to_imbue].</span>")
-	qdel(paper_to_imbue)
-	rune_in_use = 0
-
 var/list/teleport_runes = list()
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
@@ -339,8 +291,23 @@ var/list/teleport_runes = list()
 	else
 		fail_invoke()
 
-
 //Rite of Offering: Converts a normal crewmember to the cult or sacrifices mindshielded and sacrifice targets.
+/obj/effect/rune/empower
+	cultist_name = "Empower"
+	cultist_desc = "allows cultists to prepare greater amounts of blood magic at far less of a cost."
+	invocation = "H'drak v'loso, mir'kanas verbot!"
+	icon_state = "3"
+	color = RUNE_COLOR_TALISMAN
+	construct_invoke = FALSE
+
+/obj/effect/rune/empower/invoke(var/list/invokers)
+	. = ..()
+	var/mob/living/user = invokers[1] //the first invoker is always the user
+	for(var/datum/action/innate/blood_magic/BM in user.actions)
+		BM.Activate()
+
+
+//Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Rite of Offering"
 	cultist_desc = "Offers a non-cultists on top of it to your deity, either converting or sacrificing them."
@@ -349,7 +316,7 @@ var/list/teleport_runes = list()
 	req_cultists = 1
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
-	
+
 /obj/effect/rune/convert/do_invoke_glow()
 	return
 
@@ -459,7 +426,7 @@ var/list/teleport_runes = list()
 /obj/effect/rune/narsie/check_icon()
 	return
 
-/obj/effect/rune/narsie/talismanhide() //can't hide this, and you wouldn't want to
+/obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
 	return
 
 /obj/effect/rune/narsie/invoke(var/list/invokers)
@@ -527,7 +494,7 @@ var/list/teleport_runes = list()
 /obj/effect/rune/slaughter/check_icon()
 	return
 
-/obj/effect/rune/slaughter/talismanhide() //can't hide this, and you wouldn't want to
+/obj/effect/rune/slaughter/conceal() //can't hide this, and you wouldn't want to
 	return
 
 /obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.

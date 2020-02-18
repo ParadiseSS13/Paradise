@@ -504,19 +504,37 @@
 
 /obj/machinery/door/airlock/cult/allowed(mob/living/L)
 	if(!density)
-		return 1
+		return TRUE
 	if(friendly || iscultist(L) || isshade(L)|| isconstruct(L))
 		new openingoverlaytype(loc)
-		return 1
+		return TRUE
 	else
-		new /obj/effect/temp_visual/cult/sac(loc)
-		var/atom/throwtarget
-		throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
-		L << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
-		L.Weaken(2)
-		spawn(0)
+		if(!stealthy)
+			new /obj/effect/temp_visual/cult/sac(loc)
+			var/atom/throwtarget
+			throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(L, src)))
+			L << pick(sound('sound/hallucinations/turn_around1.ogg',0,1,50), sound('sound/hallucinations/turn_around2.ogg',0,1,50))
+			L.Weaken(2)
+			spawn(0)
 			L.throw_at(throwtarget, 5, 1,src)
-		return 0
+		return FALSE
+
+/obj/machinery/door/airlock/cult/proc/conceal()
+	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+	name = "airlock"
+	desc = "It opens and closes."
+	stealthy = TRUE
+	update_icon()
+
+/obj/machinery/door/airlock/cult/proc/reveal()
+	icon = initial(icon)
+	overlays_file = initial(overlays_file)
+	name = initial(name)
+	desc = initial(desc)
+	stealthy = initial(stealthy)
+	update_icon()
+
 
 /obj/machinery/door/airlock/cult/narsie_act()
 	return

@@ -2,6 +2,11 @@ var/global/list/all_cults = list()
 
 /datum/game_mode
 	var/list/datum/mind/cult = list()
+	var/cultist_count = 0
+	var/cult_rise_thresshold = 4
+	var/cult_ascend_thresshold = 5
+	var/cult_risen = FALSE
+	var/cult_ascendent = FALSE
 
 /proc/iscultist(mob/living/M as mob)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
@@ -44,9 +49,9 @@ var/global/list/all_cults = list()
 	config_tag = "cult"
 	restricted_jobs = list("Chaplain","AI", "Cyborg", "Internal Affairs Agent", "Security Officer", "Warden", "Detective", "Security Pod Pilot", "Head of Security", "Captain", "Head of Personnel", "Blueshield", "Nanotrasen Representative", "Magistrate", "Brig Physician", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_jobs = list()
-	required_players = 30
-	required_enemies = 3
-	recommended_enemies = 4
+	required_players = 1 //30
+	required_enemies = 1 //3
+	recommended_enemies = 1 //4
 
 	var/datum/mind/sacrifice_target = null
 	var/finished = 0
@@ -57,9 +62,9 @@ var/global/list/all_cults = list()
 	var/eldergod = 1 //for the summon god objective
 	var/demons_summoned = 0
 
-	var/acolytes_needed = 4 //for the survive objective - base number of acolytes, increased by 1 for every 10 players
-	var/const/min_cultists_to_start = 3
-	var/const/max_cultists_to_start = 4
+	var/acolytes_needed = 1 //for the survive objective - base number of acolytes, increased by 1 for every 10 players
+	var/const/min_cultists_to_start = 1
+	var/const/max_cultists_to_start = 1
 	var/acolytes_survived = 0
 
 	var/narsie_condition_cleared = 0	//allows Nar-Sie to be summonned during cult rounds. set to 1 once the cult reaches the second phase.
@@ -120,8 +125,10 @@ var/global/list/all_cults = list()
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
+		var/datum/action/innate/blood_magic/magic = new
 		var/datum/action/innate/cultcomm/C = new()
 		C.Grant(cult_mind.current)
+		magic.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
 
@@ -151,51 +158,103 @@ var/global/list/all_cults = list()
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
 
-/datum/game_mode/proc/equip_cultist(mob/living/carbon/human/mob)
+/datum/game_mode/proc/equip_cultist(mob/living/carbon/human/mob, metal = TRUE)
 	if(!istype(mob))
 		return
 
 	if(mob.mind)
 		if(mob.mind.assigned_role == "Clown")
-			to_chat(mob, "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+			to_chat(mob, "A dark power has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 			mob.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(mob)
-	var/obj/item/paper/talisman/supply/T = new(mob)
-	var/list/slots = list (
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
+	var/mob/living/carbon/H = mob.current
+	if(!istype(H))
+		return
+	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
+	if(metal)
+		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
+	to_chat(owner, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+
+/datum/game_mode/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
+	var/list/slots = list(
+		"backpack" = ITEM_SLOT_BACKPACK,
+		"left pocket" = ITEM_SLOT_LPOCKET,
+		"right pocket" = ITEM_SLOT_RPOCKET
 	)
+
+	var/T = new item_path(mob)
+	var/item_name = initial(item_path.name)
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if(!where)
-		to_chat(mob, "<span class='danger'>Unfortunately, you weren't able to get a talisman. This is very bad and you should adminhelp immediately.</span>")
-	else
-		to_chat(mob, "<span class='cult'>You have a talisman in your [where], one that will help you start the cult on this station. Use it well and remember - there are others.</span>")
-		mob.update_icons()
-		return 1
-
-
-/datum/game_mode/proc/add_cultist(datum/mind/cult_mind) //BASE
-	if(!istype(cult_mind))
+		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
 		return 0
+	else
+		to_chat(mob, "<span class='danger'>You have a [item_name] in your [where].</span>")
+		return TRUE
+
+/datum/game_mode/proc/add_cultist(datum/mind/cult_mind)
+	if(!istype(cult_mind))
+		return FALSE
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(cult_mind in cult))
+	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
+		var/datum/action/innate/blood_magic/magic = new
 		C.Grant(cult_mind.current)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		magic.Grant(cult_mind.current)
+		//SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
 		cult_mode.memorize_cult_objectives(cult_mind)
+		check_cult_size(cultist_count += 1)
 		if(GAMEMODE_IS_CULT)
 			cult_mode.check_numbers()
-		return 1
+		if(cult_risen)
+			rise(cult_mind.current)
+			if(cult_ascendent)
+				ascend(cult_mind.current)
+		return TRUE
+
+/datum/game_mode/proc/check_cult_size()
+	if(cultist_count > cult_rise_thresshold && !cult_risen)//if equal or more than cult_rise_thresshold
+		for(var/datum/mind/B in cult)
+			SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
+			to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+			addtimer(CALLBACK(src, .proc/rise, B.current), 200)
+			cult_risen = TRUE
+	if(cultist_count > cult_ascend_thresshold && !cult_ascendent)
+		for(var/datum/mind/B in cult)
+			if(B.current)
+				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
+				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")
+				addtimer(CALLBACK(src, .proc/ascend, B.current), 200)
+		cult_ascendent = TRUE
+
+
+
+/datum/game_mode/proc/rise(cultist)
+	if(ishuman(cultist))
+		var/mob/living/carbon/human/H = cultist
+		H.change_eye_color("#FF0000", FALSE)
+		H.update_eyes()
+		H.update_body()
+		to_chat(world, "<span class='warning'> The cult has Risen!</FONT></span>")
+
+/datum/game_mode/proc/ascend(cultist, y_offset)
+	if(ishuman(cultist))
+		var/mob/living/carbon/human/H = cultist
+		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
+		//var/istate = pick("cult_halo1","cult_halo2")
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/effects.dmi', "cult_halo1", -MISC_LAYER)
+		H.overlays_standing[ABOVE_HUD_LAYER] = new_halo_overlay
+		//H.Shift(NORTH, y_offset + 4)
+		H.apply_overlay(ABOVE_HUD_LAYER)
+		to_chat(world, "<span class='warning'> The cult has Ascended!</FONT></span>")
+
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)
@@ -206,7 +265,15 @@ var/global/list/all_cults = list()
 		cult_mind.special_role = null
 		for(var/datum/action/innate/cultcomm/C in cult_mind.current.actions)
 			qdel(C)
+		for(var/datum/action/innate/blood_magic/magic in cult_mind.current.actions)
+			qdel(magic)
 		update_cult_icons_removed(cult_mind)
+		var/mob/living/carbon/human/H = cult_mind.current
+		H.update_eyes()
+		H.remove_overlay(ABOVE_HUD_LAYER)
+		H.update_body()
+		check_cult_size(cultist_count -= 1)
+		//cultist_removed()
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
 				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</FONT>")
