@@ -3596,15 +3596,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/storage/box/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/storage/box/buck,
 /obj/item/storage/box/buck{
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -3618,10 +3616,6 @@
 	pixel_y = 3
 	},
 /obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -3629,6 +3623,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -31808,10 +31803,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/structure/closet/secure_closet/hydroponics,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1
-	},
+/obj/structure/closet/secure_closet/beekeeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -43892,6 +43884,9 @@
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -46460,6 +46455,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/mob/living/simple_animal/pet/dog/pug/unfunny,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bIE" = (
@@ -96858,6 +96854,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"uzp" = (
+/obj/structure/beebox,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/hydroponics)
 "uBM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -138765,7 +138767,7 @@ bjB
 dnK
 dnU
 bov
-bqa
+uzp
 brt
 bsY
 buL
