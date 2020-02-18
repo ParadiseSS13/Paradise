@@ -158,29 +158,26 @@ var/global/list/all_cults = list()
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
 
-/datum/game_mode/proc/equip_cultist(mob/living/carbon/human/mob, metal = TRUE)
-	if(!istype(mob))
-		return
-
-	if(mob.mind)
-		if(mob.mind.assigned_role == "Clown")
-			to_chat(mob, "A dark power has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			mob.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(mob)
-	var/mob/living/carbon/H = mob.current
+/datum/game_mode/proc/equip_cultist(mob/living/carbon/human/H, metal = TRUE)
 	if(!istype(H))
 		return
+
+	if(H.mind)
+		if(H.mind.assigned_role == "Clown")
+			to_chat(H, "A dark power has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+			H.mutations.Remove(CLUMSY)
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(H)
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
-	to_chat(owner, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(H, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
-/datum/game_mode/cult/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
+/datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
 	var/list/slots = list(
-		"backpack" = ITEM_SLOT_BACKPACK,
-		"left pocket" = ITEM_SLOT_LPOCKET,
-		"right pocket" = ITEM_SLOT_RPOCKET
+		"backpack" = slot_in_backpack,
+		"left pocket" = slot_l_store,
+		"right pocket" = slot_r_store,
 	)
 
 	var/T = new item_path(mob)

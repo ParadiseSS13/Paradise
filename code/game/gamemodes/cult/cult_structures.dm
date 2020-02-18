@@ -71,7 +71,7 @@
 		to_chat(user, "<span class='danger'>You cannot seem to manipulate this structure with your bulky hands!</span>")
 		return
 	if(!anchored)
-		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a tome first.</span>")
+		to_chat(user, "<span class='cultitalic'>You need to anchor [src] to the floor with a dagger first.</span>")
 		return
 	if(cooldowntime > world.time)
 		to_chat(user, "<span class='cultitalic'>The magic in [src] is weak, it will be ready to use again in [getETA()].</span>")
@@ -102,7 +102,7 @@
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with an %ITEM%!</span>"
-	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, "Zealot's Blindfold" = /obj/item/clothing/glasses/night/cultblind, \
+	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, \
 							"Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, "Cultist Dagger" = /obj/item/melee/cultblade/dagger)
 
 /obj/structure/cult/functional/altar/New()
@@ -249,7 +249,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
 	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating %ITEM%!</span>"
-	choosable_items = list("Supply Talisman" = /obj/item/paper/talisman/supply/weak, "Shuttle Curse" = /obj/item/shuttle_curse, \
+	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind, \
 							"Veil Shifter" = /obj/item/cult_shift)
 
 /obj/structure/cult/functional/archives/New()

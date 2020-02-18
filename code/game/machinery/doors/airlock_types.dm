@@ -491,6 +491,7 @@
 	aiControlDisabled = TRUE
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
+	var/stealthy = FALSE
 
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
@@ -578,6 +579,14 @@
 
 /obj/machinery/door/airlock/cult/unruned/glass/friendly
 	friendly = TRUE
+
+/obj/machinery/door/airlock/cult/weak
+	name = "brittle cult airlock"
+	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
+	normal_integrity = 150
+	damage_deflection = 5
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+
 
 //////////////////////////////////
 /*

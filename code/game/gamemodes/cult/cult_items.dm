@@ -212,13 +212,15 @@
 	color = "#333333"
 	list_reagents = list("unholywater" = 40)
 
-/obj/item/clothing/glasses/night/cultblind
+/obj/item/clothing/glasses/hud/health/night/cultblind
 	desc = "May the master guide you through the darkness and shield you from the light."
 	name = "zealot's blindfold"
 	icon_state = "blindfold"
 	item_state = "blindfold"
 	see_in_dark = 8
 	flash_protect = 1
+	prescription = TRUE
+	origin_tech = null
 
 /obj/item/clothing/glasses/night/cultblind/equipped(mob/user, slot)
 	..()

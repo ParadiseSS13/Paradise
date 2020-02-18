@@ -267,7 +267,7 @@ re-enable this to have the buttons start out above the inventory bar
 		var/mob/living/carbon/human/H = target
 		H.hallucination = max(H.hallucination, 120)
 		SEND_SOUND(ranged_ability_user, sound('sound/effects/ghost.ogg',0,1,50))
-		var/image/C = image('icons/effects/cult_effects.dmi',H,"bloodsparkles", ABOVE_MOB_LAYER)
+		var/image/C = image('icons/effects/cult_effects.dmi', H, "bloodsparkles", ABOVE_MOB_LAYER)
 		add_alt_appearance(HUDType = ANTAG_HUD_CULT, "cult_apoc", C, NONE)
 		addtimer(CALLBACK(H,/atom/.proc/remove_alt_appearance,"cult_apoc",TRUE), 2400, TIMER_OVERRIDE|TIMER_UNIQUE)
 		to_chat(ranged_ability_user,"<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
@@ -296,8 +296,8 @@ re-enable this to have the buttons start out above the inventory bar
 		owner.whisper(invocation, language = /datum/language/common)
 		for(var/obj/effect/rune/R in range(5,owner))
 			R.conceal()
-		for(var/obj/structure/cult/functional/S in range(5,owner))
-			S.conceal()
+		//for(var/obj/structure/cult/functional/S in range(5,owner))
+			//S.conceal()
 		for(var/turf/simulated/floor/engine/cult/T  in range(5,owner))
 			T.realappearance.alpha = 0
 		for(var/obj/machinery/door/airlock/cult/AL in range(5, owner))
@@ -313,8 +313,8 @@ re-enable this to have the buttons start out above the inventory bar
 		SEND_SOUND(owner, sound('sound/misc/enter_blood.ogg',0,1,25))
 		for(var/obj/effect/rune/R in range(7,owner)) //More range in case you weren't standing in exactly the same spot
 			R.reveal()
-		for(var/obj/structure/cult/functional/S in range(6,owner))
-			S.reveal()
+		//for(var/obj/structure/cult/functional/S in range(6,owner))
+		//	S.reveal()
 		for(var/turf/simulated/floor/engine/cult/T  in range(6,owner))
 			T.realappearance.alpha = initial(T.realappearance.alpha)
 		for(var/obj/machinery/door/airlock/cult/AL in range(6, owner))
