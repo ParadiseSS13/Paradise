@@ -39454,21 +39454,15 @@
 /turf/space,
 /area/atmos)
 "buY" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8";
-	tag = ""
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/obj/structure/table/reinforced/brass,
+/obj/item/pen/multi/gold,
+/obj/item/stamp/magistrate,
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
 "buZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -40854,19 +40848,19 @@
 	},
 /area/bridge)
 "bxx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
+/obj/structure/disposalpipe/segment,
+/obj/structure/table/reinforced/brass,
+/obj/item/paper_bin,
+/obj/machinery/door_control{
+	id = "magistrateofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	pixel_x = -6;
+	pixel_y = 16;
+	req_access_txt = "74"
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Auxiliary Storage";
-	req_access_txt = "0";
-	req_one_access_txt = "65;12"
-	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
 "bxy" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -47209,25 +47203,27 @@
 	},
 /area/hallway/primary/central)
 "bHD" = (
+/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
-	d1 = 4;
+	d1 = 2;
 	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "2-8"
 	},
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bHE" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+/obj/structure/disposalpipe/trunk{
+	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/obj/machinery/disposal,
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
 "bHF" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -47249,13 +47245,20 @@
 /area/quartermaster/miningdock)
 "bHH" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
+	icon_state = "0-4";
+	d2 = 4
 	},
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_x = 0;
+	pixel_y = 24
+	},
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
 "bHI" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -47263,11 +47266,13 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/maintenance/starboard)
+/obj/structure/table/reinforced/brass,
+/obj/machinery/computer/secure_data/laptop,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bHJ" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
@@ -48280,8 +48285,23 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/plating,
-/area/maintenance/starboard)
+/obj/item/radio/intercom{
+	dir = 1;
+	name = "Station Intercom (General)";
+	pixel_y = -29
+	},
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Magistrate";
+	dir = 8;
+	network = list("SS13")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bJu" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -48289,11 +48309,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Detective Maintenance";
-	req_access_txt = "4"
-	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/wall/r_wall,
 /area/security/detectives_office)
 "bJv" = (
 /obj/structure/cable{
@@ -49366,64 +49382,35 @@
 	},
 /area/crew_quarters/captain)
 "bLh" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/storage/tools)
 "bLi" = (
-/obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "yellow"
+/obj/machinery/light{
+	dir = 8
 	},
-/area/storage/tools)
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
 "bLj" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/disposal,
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_x = 0;
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "yellowcorner"
-	},
-/area/storage/tools)
+/obj/structure/table/reinforced/brass,
+/obj/item/gavelhammer,
+/obj/item/megaphone,
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
 "bLk" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel,
-/area/storage/tools)
-"bLl" = (
-/obj/structure/closet/toolcloset,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
-	},
-/area/storage/tools)
+/obj/structure/disposalpipe/segment,
+/obj/structure/table/reinforced/brass,
+/obj/item/book/manual/security_space_law/black,
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
 "bLm" = (
-/obj/structure/closet/toolcloset,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "yellow"
+/obj/machinery/light{
+	dir = 4;
+	icon_state = "tube1"
 	},
-/area/storage/tools)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bLn" = (
 /turf/simulated/wall,
 /area/security/detectives_office)
@@ -50521,58 +50508,28 @@
 	icon_state = "wood"
 	},
 /area/crew_quarters/captain)
-"bNi" = (
-/obj/structure/rack,
-/obj/item/clothing/gloves/color/fyellow,
-/obj/item/clothing/suit/storage/hazardvest,
-/obj/item/multitool,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28;
-	pixel_y = 0
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellow"
-	},
-/area/storage/tools)
 "bNj" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "grimy"
 	},
-/area/storage/tools)
+/area/magistrateoffice)
 "bNk" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "grimy"
 	},
-/area/storage/tools)
+/area/magistrateoffice)
 "bNl" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	on = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
+	icon_state = "grimy"
 	},
-/area/storage/tools)
+/area/magistrateoffice)
 "bNm" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -51549,55 +51506,36 @@
 	},
 /area/hallway/primary/central)
 "bPd" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/emergency,
-/obj/item/storage/toolbox/emergency,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "yellow"
+	icon_state = "grimy"
 	},
-/area/storage/tools)
+/area/magistrateoffice)
 "bPe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/table,
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = -2;
-	pixel_y = 3
-	},
-/obj/item/stack/rods,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "yellowcorner"
+	icon_state = "grimy"
 	},
-/area/storage/tools)
-"bPf" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
-/area/storage/tools)
+/area/magistrateoffice)
 "bPg" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/table,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "yellowcorner"
+	icon_state = "grimy"
 	},
-/area/storage/tools)
+/area/magistrateoffice)
 "bPh" = (
-/obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
 	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "yellow"
+/obj/structure/table/reinforced/brass,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Magistrate's Office"
 	},
-/area/storage/tools)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bPi" = (
 /obj/structure/morgue,
 /obj/machinery/light/small{
@@ -52671,26 +52609,40 @@
 /obj/structure/sign/directions/evac{
 	pixel_y = -8
 	},
-/turf/simulated/wall,
-/area/storage/tools)
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
 "bQW" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plating,
-/area/storage/tools)
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bQX" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/glass{
-	name = "Auxiliary Tool Storage";
-	req_access_txt = "12"
+/obj/machinery/door/airlock{
+	name = "Magistrate's Office";
+	req_access_txt = "74"
 	},
-/turf/simulated/floor/plasteel,
-/area/storage/tools)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bQY" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plating,
-/area/storage/tools)
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bQZ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -54027,6 +53979,11 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "cautioncorner"
@@ -54051,6 +54008,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -54094,19 +54056,15 @@
 /turf/simulated/floor/plating,
 /area/turret_protected/aisat)
 "bTd" = (
-/obj/item/radio/intercom{
-	dir = 1;
-	name = "station intercom (General)";
-	pixel_x = 28;
-	pixel_y = 0
-	},
 /obj/machinery/camera{
-	c_tag = "Auxiliary Tool Storage";
+	c_tag = "Magistrate";
 	dir = 8;
 	network = list("SS13")
 	},
-/turf/simulated/floor/plasteel,
-/area/storage/tools)
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
 "bTe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -69560,18 +69518,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
-"ctt" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/obj/effect/landmark/start{
-	name = "Magistrate"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/crew_quarters/courtroom)
 "ctu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -115991,12 +115937,172 @@
 	},
 /turf/space,
 /area/space)
+"ebH" = (
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
+"ekn" = (
+/obj/machinery/light_switch,
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
+"eyJ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet/magistrate,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
+"eEt" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
+"eQo" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/table/reinforced/brass,
+/obj/item/folder/red,
+/obj/item/folder/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
+"fzr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/starboard)
+"ivq" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/filingcabinet/security,
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
+"iOG" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/central)
+"keG" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner";
+	dir = 4
+	},
+/area/hallway/primary/central)
+"kls" = (
+/obj/structure/sign/poster/official/nanotrasen_logo,
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
+"lkB" = (
+/obj/structure/chair/comfy/black{
+	dir = 4
+	},
+/obj/effect/landmark/start{
+	name = "Magistrate"
+	},
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
+"lGh" = (
+/obj/machinery/computer/security/telescreen/entertainment,
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
+"ndY" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/black,
+/area/magistrateoffice)
+"nGP" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "neutralfull"
+	},
+/area/hallway/primary/starboard)
+"ofg" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/magistrateoffice)
+"saH" = (
+/obj/structure/sign/poster/official/state_laws,
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
+"soy" = (
+/obj/machinery/newscaster/security_unit,
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
+"svX" = (
+/obj/machinery/firealarm,
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
 "udT" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
+"vOI" = (
+/turf/simulated/wall/r_wall,
+/area/magistrateoffice)
 
 (1,1,1) = {"
 aaa
@@ -160321,7 +160427,7 @@ bFs
 bHB
 bva
 bva
-bva
+iOG
 bva
 bSi
 bwn
@@ -160578,7 +160684,7 @@ bEq
 bHC
 bvb
 bvb
-bvb
+keG
 bPc
 bSV
 bSU
@@ -160831,12 +160937,12 @@ btH
 btH
 bsv
 bsv
-bng
+vOI
 bHD
-bng
-bLh
-bLh
-bLh
+ofg
+vOI
+bHD
+ofg
 bQV
 bXC
 bYL
@@ -161088,13 +161194,13 @@ btH
 aaa
 abj
 aaa
-bng
+lGh
 bHE
-bng
+ebH
 bLi
-bNi
+eEt
 bPd
-bLh
+vOI
 bSW
 bVg
 bXc
@@ -161345,15 +161451,15 @@ bzc
 btL
 btL
 aaa
-bng
-bHF
-bng
+kls
+ivq
+lkB
 bLj
 bNj
 bPe
 bQW
 bSX
-bVg
+fzr
 bXd
 bYI
 caw
@@ -161602,12 +161708,12 @@ bwv
 bvc
 btL
 abj
-bng
+svX
 buY
 bxx
 bLk
 bNk
-bPf
+bNk
 bQX
 bSY
 bVg
@@ -161859,15 +161965,15 @@ bwu
 bAI
 btL
 aaa
-bng
+vOI
 bHH
-bng
-bLl
+ndY
+ndY
 bNl
 bPg
 bQY
 bSZ
-bVh
+nGP
 bXe
 bYK
 cay
@@ -162116,9 +162222,9 @@ bzd
 bAJ
 btL
 aaa
-bng
-bHF
-bqC
+vOI
+eyJ
+eEt
 bLm
 bTd
 bPh
@@ -162373,13 +162479,13 @@ bwu
 bAK
 btL
 aaa
-bqC
-bHF
-bqC
-bLn
-bLn
-bLn
-bLn
+saH
+eQo
+eEt
+ekn
+vOI
+vOI
+vOI
 bTb
 bVi
 bXf
@@ -162630,10 +162736,10 @@ bwv
 bvc
 btL
 abj
-bng
+soy
 bHI
 bJt
-bLn
+bFS
 bNn
 bPi
 bLn
@@ -163673,7 +163779,7 @@ caE
 ccv
 cej
 cfY
-ctt
+chJ
 cjh
 ckQ
 cml
