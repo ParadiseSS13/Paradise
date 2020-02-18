@@ -40859,6 +40859,13 @@
 	pixel_y = 16;
 	req_access_txt = "74"
 	},
+/obj/machinery/door_control{
+	id = "magistrateshutters";
+	name = "Privacy Shutters";
+	pixel_x = -6;
+	pixel_y = 7;
+	req_one_access_txt = "18"
+	},
 /turf/simulated/floor/carpet/black,
 /area/magistrateoffice)
 "bxy" = (
@@ -47213,6 +47220,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/shutters/preopen,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -48308,6 +48316,9 @@
 	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
+	},
+/obj/machinery/newscaster/security_unit{
+	pixel_x = -7
 	},
 /turf/simulated/wall/r_wall,
 /area/security/detectives_office)
@@ -52618,6 +52629,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/shutters/preopen,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -52625,9 +52637,11 @@
 "bQX" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock{
+	id_tag = "magistrateofficedoor";
 	name = "Magistrate's Office";
 	req_access_txt = "74"
 	},
+/obj/machinery/door/poddoor/shutters/preopen,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -52639,6 +52653,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/door/poddoor/shutters/preopen,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -115942,7 +115957,9 @@
 /turf/simulated/floor/carpet/black,
 /area/magistrateoffice)
 "ekn" = (
-/obj/machinery/light_switch,
+/obj/machinery/light_switch{
+	pixel_x = -9
+	},
 /turf/simulated/wall/r_wall,
 /area/magistrateoffice)
 "eyJ" = (
@@ -115975,7 +115992,10 @@
 	},
 /obj/structure/table/reinforced/brass,
 /obj/item/folder/red,
-/obj/item/folder/blue,
+/obj/item/folder/blue{
+	pixel_x = 1;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -116078,6 +116098,7 @@
 "ofg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
+/obj/machinery/door/poddoor/shutters/preopen,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -116086,12 +116107,10 @@
 /obj/structure/sign/poster/official/state_laws,
 /turf/simulated/wall/r_wall,
 /area/magistrateoffice)
-"soy" = (
-/obj/machinery/newscaster/security_unit,
-/turf/simulated/wall/r_wall,
-/area/magistrateoffice)
 "svX" = (
-/obj/machinery/firealarm,
+/obj/machinery/firealarm{
+	pixel_y = -6
+	},
 /turf/simulated/wall/r_wall,
 /area/magistrateoffice)
 "udT" = (
@@ -162736,7 +162755,7 @@ bwv
 bvc
 btL
 abj
-soy
+vOI
 bHI
 bJt
 bFS
