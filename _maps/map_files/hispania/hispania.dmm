@@ -41249,8 +41249,11 @@
 	icon_state = "pipe-c"
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/door/window/northleft{
-	name = "Delivery Door";
+/obj/machinery/door/window{
+	base_state = "right";
+	dir = 1;
+	icon_state = "left";
+	name = "Mailing Room";
 	req_access_txt = "50"
 	},
 /turf/simulated/floor/plasteel,
@@ -42013,9 +42016,12 @@
 	id = "packageSort1"
 	},
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/door/window/northleft{
+/obj/machinery/door/window{
+	base_state = "right";
 	dir = 8;
-	name = "Delivery Door"
+	icon_state = "right";
+	name = "Mailing Room";
+	req_access_txt = "50"
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
@@ -96896,7 +96902,7 @@
 	pixel_x = -5
 	},
 /obj/structure/extinguisher_cabinet{
-	pixel_y = 30;
+	pixel_y = 30
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
