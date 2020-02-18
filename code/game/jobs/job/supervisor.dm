@@ -162,8 +162,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
 			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
 			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_blueshield)
-	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_construction, access_engine, access_maint_tunnels, access_research,
-			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
+	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_surgery, access_construction, access_engine, access_minisat, access_maint_tunnels, access_research,
+			            access_RC_announce, access_keycard_auth, access_heads, access_ai_upload, access_teleporter, access_eva, access_tcomsat, access_gateway, access_heads_vault,
+			            access_blueshield, access_weapons)
 	outfit = /datum/outfit/job/blueshield
 
 /datum/outfit/job/blueshield
