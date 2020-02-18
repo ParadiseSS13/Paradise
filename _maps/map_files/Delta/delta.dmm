@@ -1274,6 +1274,14 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/administration)
+"acV" = (
+/obj/structure/shuttle/engine/propulsion/burst,
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/pod_1)
 "acW" = (
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
@@ -1640,7 +1648,7 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
+	icon_state = "swall_f9";
 	dir = 2
 	},
 /area/shuttle/pod_1)
@@ -1648,10 +1656,10 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_f9";
+	icon_state = "swall_f5";
 	dir = 2
 	},
-/area/shuttle/pod_1)
+/area/shuttle/pod_2)
 "adN" = (
 /turf/simulated/wall/r_wall,
 /area/hallway/secondary/entry)
@@ -1681,18 +1689,22 @@
 /obj/structure/shuttle/engine/propulsion/burst,
 /turf/simulated/floor/plating,
 /turf/simulated/shuttle/wall{
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/pod_2)
-"adR" = (
-/obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
 	icon_state = "swall_f9";
 	dir = 2
 	},
 /area/shuttle/pod_2)
+"adR" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)";
+	icon_state = "propulsion";
+	dir = 1
+	},
+/turf/space,
+/turf/simulated/shuttle/wall/interior{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6"
+	},
+/area/shuttle/transport)
 "adS" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28
@@ -1816,8 +1828,8 @@
 	},
 /turf/space,
 /turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6"
+	tag = "icon-swall_f10";
+	icon_state = "swall_f10"
 	},
 /area/shuttle/transport)
 "aei" = (
@@ -2667,17 +2679,16 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry)
 "afL" = (
-/obj/structure/shuttle/engine/propulsion{
-	tag = "icon-propulsion (NORTH)";
-	icon_state = "propulsion";
-	dir = 1
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
 	},
-/turf/space,
-/turf/simulated/shuttle/wall/interior{
-	tag = "icon-swall_f10";
-	icon_state = "swall_f10"
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f6";
+	icon_state = "swall_f6";
+	dir = 2
 	},
-/area/shuttle/transport)
+/area/shuttle/pod_3)
 "afM" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
@@ -5686,6 +5697,17 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"ami" = (
+/obj/structure/shuttle/engine/propulsion/burst{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/turf/simulated/shuttle/wall{
+	tag = "icon-swall_f5";
+	icon_state = "swall_f5";
+	dir = 2
+	},
+/area/shuttle/pod_3)
 "amj" = (
 /obj/machinery/door/poddoor/shutters{
 	density = 0;
@@ -6073,6 +6095,16 @@
 /obj/machinery/light/spot,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
+"anf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4;
+	level = 1
+	},
+/obj/structure/closet/secure_closet/psychiatrist,
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/medical/psych)
 "ang" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
@@ -36089,17 +36121,6 @@
 	icon_state = "dark"
 	},
 /area/construction/hallway)
-"bpr" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f6";
-	icon_state = "swall_f6";
-	dir = 2
-	},
-/area/shuttle/pod_3)
 "bps" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -40524,17 +40545,6 @@
 "bwN" = (
 /turf/simulated/wall/r_wall,
 /area/engine/gravitygenerator)
-"bwO" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/turf/simulated/shuttle/wall{
-	tag = "icon-swall_f5";
-	icon_state = "swall_f5";
-	dir = 2
-	},
-/area/shuttle/pod_3)
 "bwP" = (
 /turf/simulated/wall/r_wall,
 /area/engine/break_room)
@@ -116109,15 +116119,6 @@
 /obj/structure/sign/poster/official/nanotrasen_logo,
 /turf/simulated/wall/r_wall,
 /area/magistrateoffice)
-"kAm" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/medical/psych)
 "lkB" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -151071,7 +151072,7 @@ aaa
 aaa
 aaa
 aaa
-aeh
+adR
 aih
 aih
 aiQ
@@ -151327,7 +151328,7 @@ aaa
 aaa
 aaa
 aaa
-aeh
+adR
 ahQ
 aii
 aiC
@@ -151841,7 +151842,7 @@ aaa
 aaa
 aaa
 aaa
-afL
+aeh
 ahS
 aij
 aiD
@@ -152099,7 +152100,7 @@ aaa
 aaa
 aaa
 aaa
-afL
+aeh
 aih
 aih
 aiQ
@@ -153374,7 +153375,7 @@ aaa
 add
 adw
 adw
-adL
+acV
 aey
 acC
 afc
@@ -153888,7 +153889,7 @@ aaa
 adf
 adw
 adw
-adM
+adL
 aeA
 acC
 afj
@@ -158000,7 +158001,7 @@ aaa
 adg
 ady
 ady
-adQ
+adM
 aey
 acC
 afc
@@ -158514,7 +158515,7 @@ aaa
 adi
 ady
 ady
-adR
+adQ
 aeA
 acC
 afj
@@ -164056,7 +164057,7 @@ dvL
 wXB
 vDT
 xyo
-kAm
+anf
 wXB
 dCk
 dDx
@@ -175277,9 +175278,9 @@ aaa
 abi
 abj
 aMq
-bpr
+afL
 bbI
-bwO
+ami
 aMq
 abj
 abj
