@@ -1212,6 +1212,7 @@
 #include "code\HISPANIA\game\objects\structures\stool_bed_chair_nest\bed.dm"
 #include "code\HISPANIA\modules\assembly\assembly.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_suit.dm"
+#include "code\HISPANIA\modules\client\preference\loadout\loadout_uniform.dm"
 #include "code\HISPANIA\modules\clothing\glasses\engine_goggles.dm"
 #include "code\HISPANIA\modules\clothing\head\jobs.dm"
 #include "code\HISPANIA\modules\clothing\head\misc.dm"
