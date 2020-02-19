@@ -150,4 +150,6 @@
 			K.visible_message("<span class='notice'>The Killer Tomato growls as it suddenly awakens.</span>")
 			if(user)
 				user.unEquip(src)
+			message_admins("[key_name_admin(usr)] released a killer tomato at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
+			log_game("[key_name(usr)] released a killer tomato at ([x],[y],[z])")
 			qdel(src)
