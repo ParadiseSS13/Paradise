@@ -1354,10 +1354,12 @@ About the new airlock wires panel:
 		return TRUE
 	return FALSE
 
-/obj/machinery/door/airlock/narsie_act()
+/obj/machinery/door/airlock/narsie_act(var/weak = FALSE)
 	var/turf/T = get_turf(src)
 	var/runed = prob(20)
 	var/obj/machinery/door/airlock/cult/A
+	if(weak)
+		A = new/obj/machinery/door/airlock/cult/weak(T)
 	if(glass)
 		if(runed)
 			A = new/obj/machinery/door/airlock/cult/glass(T)

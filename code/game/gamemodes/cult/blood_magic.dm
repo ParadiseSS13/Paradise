@@ -1,42 +1,39 @@
-/datum/action/innate/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
+/datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
 	name = "Prepare Blood Magic"
-	button_icon_state = "blood_magic_carve"
+	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon_state = "carve"
 	background_icon_state = "bg_demon"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
 	var/list/spells = list()
 	var/channeling = FALSE
 
-/datum/action/innate/blood_magic/Grant()
+/datum/action/innate/cult/blood_magic/Grant()
 	..()
 	button.screen_loc = DEFAULT_BLOODSPELLS
 	button.moved = DEFAULT_BLOODSPELLS
 
-/datum/action/innate/blood_magic/Remove()
+/datum/action/innate/cult/blood_magic/Remove()
 	for(var/X in spells)
 		qdel(X)
 	..()
 
-/datum/action/innate/blood_magic/IsAvailable()
+/datum/action/innate/cult/blood_magic/IsAvailable()
 	if(!iscultist(owner))
 		return FALSE
 	return ..()
 
-/*
-/datum/action/innate/blood_magic/proc/Positioning()
+/datum/action/innate/cult/blood_magic/proc/Positioning()
 	var/list/screen_loc_split = splittext(button.screen_loc,",")
 	var/list/screen_loc_X = splittext(screen_loc_split[1],":")
 	var/list/screen_loc_Y = splittext(screen_loc_split[2],":")
 	var/pix_X = text2num(screen_loc_X[2])
-	for(var/datum/action/innate/blood_spell/B in spells)
+	for(var/datum/action/innate/cult/blood_spell/B in spells)
 		if(B.button.locked)
 			var/order = pix_X+spells.Find(B)*31
 			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
 			B.button.moved = B.button.screen_loc
-re-enable this to have the buttons start out above the inventory bar
 
-*/
-
-/datum/action/innate/blood_magic/Activate()
+/datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
 	var/limit = RUNELESS_MAX_BLOODCHARGE
 	for(var/obj/effect/rune/empower/R in range(1, owner))
@@ -54,10 +51,10 @@ re-enable this to have the buttons start out above the inventory bar
 			qdel(nullify_spell)
 		return
 	var/entered_spell_name
-	var/datum/action/innate/blood_spell/BS
+	var/datum/action/innate/cult/blood_spell/BS
 	var/list/possible_spells = list()
-	for(var/I in subtypesof(/datum/action/innate/blood_spell))
-		var/datum/action/innate/blood_spell/J = I
+	for(var/I in subtypesof(/datum/action/innate/cult/blood_spell))
+		var/datum/action/innate/cult/blood_spell/J = I
 		var/cult_name = initial(J.name)
 		possible_spells[cult_name] = J
 	possible_spells += "(REMOVE SPELL)"
@@ -81,14 +78,14 @@ re-enable this to have the buttons start out above the inventory bar
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			H.bleed(40 - rune*32)
-		var/datum/action/innate/blood_spell/new_spell = new BS(owner)
+		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		new_spell.Grant(owner, src)
 		spells += new_spell
-		//Positioning() also enable this for the action buttons moving downwards
+		Positioning()
 		to_chat(owner, "<span class='warning'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
 	channeling = FALSE
 
-/datum/action/innate/blood_spell //The next generation of talismans, handles storage/creation of blood magic
+/datum/action/innate/cult/blood_spell //The next generation of talismans, handles storage/creation of blood magic
 	name = "Blood Magic"
 	button_icon_state = "telerune"
 	background_icon_state = "bg_demon"
@@ -96,12 +93,12 @@ re-enable this to have the buttons start out above the inventory bar
 	var/charges = 1
 	var/magic_path = null
 	var/obj/item/melee/blood_magic/hand_magic
-	var/datum/action/innate/blood_magic/all_magic
+	var/datum/action/innate/cult/blood_magic/all_magic
 	var/base_desc //To allow for updating tooltips
 	var/invocation = "Hoi there something's wrong!"
 	var/health_cost = 0
 
-/datum/action/innate/blood_spell/Grant(mob/living/owner, datum/action/innate/blood_magic/BM)
+/datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
 		desc += "<br>Deals <u>[health_cost] damage</u> to your arm per use."
 	base_desc = desc
@@ -109,7 +106,7 @@ re-enable this to have the buttons start out above the inventory bar
 	all_magic = BM
 	..()
 
-/datum/action/innate/blood_spell/Remove()
+/datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
 		all_magic.spells -= src
 	if(hand_magic)
@@ -117,12 +114,12 @@ re-enable this to have the buttons start out above the inventory bar
 		hand_magic = null
 	..()
 
-/datum/action/innate/blood_spell/IsAvailable()
+/datum/action/innate/cult/blood_spell/IsAvailable()
 	if(!iscultist(owner) || owner.incapacitated()  || !charges)
 		return FALSE
 	return ..()
 
-/datum/action/innate/blood_spell/Activate()
+/datum/action/innate/cult/blood_spell/Activate()
 	if(magic_path) //If this spell flows from the hand
 		if(!hand_magic)
 			hand_magic = new magic_path(owner, src)
@@ -142,28 +139,28 @@ re-enable this to have the buttons start out above the inventory bar
 
 //the spell list
 
-/datum/action/innate/blood_spell/stun
+/datum/action/innate/cult/blood_spell/stun
 	name = "Stun"
 	desc = "Empowers your hand to stun and mute a victim on contact."
-	button_icon_state = "blood_magic_stun"
+	button_icon_state = "stun"
 	magic_path = "/obj/item/melee/blood_magic/stun"
 	health_cost = 10
 
-/datum/action/innate/blood_spell/teleport
+/datum/action/innate/cult/blood_spell/teleport
 	name = "Teleport"
 	desc = "Empowers your hand to teleport yourself or another cultist to a teleport rune on contact."
-	button_icon_state = "blood_magic_teleport"
+	button_icon_state = "teleport"
 	magic_path = "/obj/item/melee/blood_magic/teleport"
 	health_cost = 7
 
-/datum/action/innate/blood_spell/emp
+/datum/action/innate/cult/blood_spell/emp
 	name = "Electromagnetic Pulse"
 	desc = "Emits a large electromagnetic pulse."
 	button_icon_state = "emp"
 	health_cost = 10
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 
-/datum/action/innate/blood_spell/emp/Activate()
+/datum/action/innate/cult/blood_spell/emp/Activate()
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
 	empulse(owner, 2, 5)
@@ -172,27 +169,27 @@ re-enable this to have the buttons start out above the inventory bar
 	if(charges<=0)
 		qdel(src)
 
-/datum/action/innate/blood_spell/shackles
+/datum/action/innate/cult/blood_spell/shackles
 	name = "Shadow Shackles"
 	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
-	button_icon_state = "blood_magic_shackles"
+	button_icon_state = "shackles"
 	charges = 4
 	magic_path = "/obj/item/melee/blood_magic/shackles"
 
-/datum/action/innate/blood_spell/construction
+/datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
 	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Living cyborgs into constructs after a delay<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
-	button_icon_state = "blood_magic_transmute"
+	button_icon_state = "transmute"
 	magic_path = "/obj/item/melee/blood_magic/construction"
 	health_cost = 12
 
-/datum/action/innate/blood_spell/equipment
+/datum/action/innate/cult/blood_spell/equipment
 	name = "Summon Equipment"
 	desc = "Allows you to summon a ritual dagger, or empowers your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
-	button_icon_state = "blood_magic_equip"
+	button_icon_state = "equip"
 	magic_path = "/obj/item/melee/blood_magic/armor"
 
-/datum/action/innate/blood_spell/equipment/Activate()
+/datum/action/innate/cult/blood_spell/equipment/Activate()
 	var/choice = alert(owner,"Choose your equipment type",,"Combat Equipment","Ritual Dagger","Cancel")
 	if(choice == "Ritual Dagger")
 		var/turf/T = get_turf(owner)
@@ -213,35 +210,35 @@ re-enable this to have the buttons start out above the inventory bar
 	else if(choice == "Combat Equipment")
 		..()
 
-/datum/action/innate/blood_spell/horror
+/datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
 	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
-	button_icon_state = "blood_magic_horror"
+	button_icon_state = "horror"
 	var/obj/effect/proc_holder/horror/PH
 	charges = 4
 
-/datum/action/innate/blood_spell/horror/New()
+/datum/action/innate/cult/blood_spell/horror/New()
 	PH = new()
 	PH.attached_action = src
 	..()
 
-/datum/action/innate/blood_spell/horror/Destroy()
+/datum/action/innate/cult/blood_spell/horror/Destroy()
 	var/obj/effect/proc_holder/horror/destroy = PH
 	. = ..()
 	if(destroy  && !QDELETED(destroy))
 		QDEL_NULL(destroy)
 
-/datum/action/innate/blood_spell/horror/Activate()
+/datum/action/innate/cult/blood_spell/horror/Activate()
 	PH.toggle(owner) //the important bit
 	return TRUE
 
 /obj/effect/proc_holder/horror
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
-	var/datum/action/innate/blood_spell/attached_action
+	var/datum/action/innate/cult/blood_spell/attached_action
 
 /obj/effect/proc_holder/horror/Destroy()
-	var/datum/action/innate/blood_spell/AA = attached_action
+	var/datum/action/innate/cult/blood_spell/AA = attached_action
 	. = ..()
 	if(AA && !QDELETED(AA))
 		QDEL_NULL(AA)
@@ -279,15 +276,15 @@ re-enable this to have the buttons start out above the inventory bar
 			user.ranged_ability.remove_ranged_ability(user, "<span class='cult'>You have exhausted the spell's power!</span>")
 			qdel(src)
 
-/datum/action/innate/blood_spell/veiling
+/datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
 	desc = "Alternates between hiding and revealing nearby cult structures and runes."
 	invocation = "Kla'atu barada nikt'o!"
-	button_icon_state = "blood_magic_veiling"
+	button_icon_state = "veiling"
 	charges = 10
 	var/revealing = FALSE //if it reveals or not
 
-/datum/action/innate/blood_spell/veiling/Activate()
+/datum/action/innate/cult/blood_spell/veiling/Activate()
 	if(!revealing)
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 			"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes.</span>")
@@ -304,7 +301,7 @@ re-enable this to have the buttons start out above the inventory bar
 			AL.conceal()
 		revealing = TRUE
 		name = "Reveal Runes"
-		button_icon_state = "blood_magic_revealing"
+		button_icon_state = "revealing"
 	else
 		owner.visible_message("<span class='warning'>A flash of light shines from [owner]'s hand!</span>", \
 			 "<span class='cultitalic'>You invoke the counterspell, revealing nearby runes.</span>")
@@ -321,7 +318,7 @@ re-enable this to have the buttons start out above the inventory bar
 			AL.reveal()
 		revealing = FALSE
 		name = "Conceal Runes"
-		button_icon_state = "blood_magic_veiling"
+		button_icon_state = "veiling"
 	if(charges<= 0)
 		qdel(src)
 	desc = base_desc
@@ -347,7 +344,7 @@ re-enable this to have the buttons start out above the inventory bar
 	var/invocation
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
-	var/datum/action/innate/blood_spell/source
+	var/datum/action/innate/cult/blood_spell/source
 
 /obj/item/melee/blood_magic/New(loc, spell)
 	source = spell
@@ -605,7 +602,7 @@ re-enable this to have the buttons start out above the inventory bar
 				uses--
 				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!</span>")
 				new /obj/structure/constructshell(T)
-				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg',0,1,25))
+				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 			else
 				to_chat(user, "<span class='warning'>You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!</span>")
 				return
@@ -616,7 +613,7 @@ re-enable this to have the buttons start out above the inventory bar
 				uses --
 				new /obj/item/stack/sheet/runed_metal(T,quantity)
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
-				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg',0,1,25))
+				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 		else if(istype(target,/mob/living/silicon/robot))
 			var/mob/living/silicon/robot/candidate = target
 			if(candidate.mmi)
@@ -639,7 +636,7 @@ re-enable this to have the buttons start out above the inventory bar
 							makeNewConstruct(/mob/living/simple_animal/hostile/construct/wraith, candidate, user, 0, T)
 						if("Artificer")
 							makeNewConstruct(/mob/living/simple_animal/hostile/construct/builder, candidate, user, 0, T)
-					SEND_SOUND(user, sound('sound/magic/cult_spell.ogg',0,1,25))
+					SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 					uses--
 					candidate.mmi = null
 					qdel(candidate)
@@ -652,7 +649,7 @@ re-enable this to have the buttons start out above the inventory bar
 				uses--
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around [candidate] - twisting it into a construct shell!</span>")
 				new /obj/structure/constructshell(T)
-				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg',0,1,25))
+				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 				qdel(candidate)
 		else if(istype(target,/obj/machinery/door/airlock))
 			channeling = TRUE
@@ -662,10 +659,10 @@ re-enable this to have the buttons start out above the inventory bar
 				if(QDELETED(target))
 					channeling = FALSE
 					return
-				target.narsie_act()
+				target.narsie_act(TRUE)
 				uses--
 				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")
-				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg',0,1,25))
+				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 				channeling = FALSE
 			else
 				channeling = FALSE
@@ -686,6 +683,7 @@ re-enable this to have the buttons start out above the inventory bar
 		uses--
 		var/mob/living/carbon/C = target
 		C.visible_message("<span class='warning'>Otherworldly armor suddenly appears on [C]!</span>")
+		C.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(user), slot_w_uniform)
 		C.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/cultrobes/alt(user), slot_wear_suit)
 		C.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(user), slot_back)
 		C.equip_to_slot_or_del(new /obj/item/clothing/shoes/cult(user), slot_shoes)

@@ -1,3 +1,11 @@
+/obj/item/tome
+	name = "arcane tome"
+	desc = "An old, dusty tome with frayed edges and a sinister-looking cover."
+	icon_state = "tome"
+	throw_speed = 2
+	throw_range = 5
+	w_class = WEIGHT_CLASS_SMALL
+
 /obj/item/melee/cultblade
 	name = "Cult Blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
@@ -35,23 +43,6 @@
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")
 		return FALSE
-
-/obj/item/melee/cultblade/dagger
-	name = "sacrificial dagger"
-	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "render"
-	w_class = WEIGHT_CLASS_SMALL
-	force = 15
-	throwforce = 25
-	embed_chance = 75
-
-/obj/item/melee/cultblade/dagger/attack(atom/target, mob/living/carbon/human/user)
-	..()
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		if((H.stat != DEAD) && !(NO_BLOOD in H.dna.species.species_traits))
-			H.bleed(50)
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
@@ -126,7 +117,7 @@
 	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	w_class = WEIGHT_CLASS_NORMAL
-	allowed = list(/obj/item/tome,/obj/item/melee/cultblade,/obj/item/tank)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank)
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 

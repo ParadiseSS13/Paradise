@@ -109,6 +109,8 @@ To draw a rune, use an arcane tome.
 	icon_state = "rune[runenum]"
 	color = rgb(255, 0, 0)
 
+
+
 /*
 There are a few different procs each rune runs through when a cultist activates it.
 can_invoke() is called when a cultist activates the rune with an empty hand. If there are multiple cultists, this rune determines if the required amount is nearby.
@@ -186,6 +188,23 @@ structure_check() searches for nearby cultist structures required for the invoca
 	spawn(0) //animate is a delay, we want to avoid being delayed
 		animate(src, color = rgb(255, 0, 0), time = 0)
 		animate(src, color = initial(color), time = 5)
+
+/obj/effect/rune/proc/fizzle()
+	if(istype(src, /obj/effect/rune))
+		usr.say(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
+	else
+		usr.whisper(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
+	for (var/mob/V in viewers(src))
+		V.show_message("<span class='warning'>The markings pulse with a small burst of light, then fall dark.</span>", 3, "<span class='warning'>You hear a faint fizzle.</span>", 2)
+	return
+
+/obj/effect/rune/proc/check_icon()
+	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
+		var/bits = make_bit_triplet()
+		icon = get_rune(bits)
+	else
+		icon = get_rune_cult(invocation)
+
 
 //Malformed Rune: This forms if a rune is not drawn correctly. Invoking it does nothing but hurt the user.
 /obj/effect/rune/malformed
@@ -303,7 +322,7 @@ var/list/teleport_runes = list()
 /obj/effect/rune/empower/invoke(var/list/invokers)
 	. = ..()
 	var/mob/living/user = invokers[1] //the first invoker is always the user
-	for(var/datum/action/innate/blood_magic/BM in user.actions)
+	for(var/datum/action/innate/cult/blood_magic/BM in user.actions)
 		BM.Activate()
 
 
@@ -634,37 +653,6 @@ var/list/teleport_runes = list()
 	for(var/mob/living/M in range(1,src))
 		if(M.stat == DEAD)
 			M.visible_message("<span class='warning'>[M] twitches.</span>")
-
-
-//Rite of Disruption: Emits an EMP blast.
-/obj/effect/rune/emp
-	cultist_name = "Rite of Disruption"
-	cultist_desc = "emits a large electromagnetic pulse, increasing in size for each cultist invoking it, hindering electronics and disabling silicons."
-	invocation = "Ta'gh fara'qha fel d'amar det!"
-	icon_state = "5"
-	allow_excess_invokers = 1
-
-/obj/effect/rune/emp/invoke(var/list/invokers)
-	var/turf/E = get_turf(src)
-	..()
-	visible_message("<span class='warning'>[src] glows blue for a moment before vanishing.</span>")
-	switch(invokers.len)
-		if(1 to 2)
-			playsound(E, 'sound/items/welder2.ogg', 25, 1)
-			for(var/M in invokers)
-				to_chat(M, "<span class='warning'>You feel a minute vibration pass through you...</span>")
-		if(3 to 6)
-			playsound(E, 'sound/effects/EMPulse.ogg', 50, 1)
-			for(var/M in invokers)
-				to_chat(M, "<span class='danger'>Your hair stands on end as a shockwave eminates from the rune!</span>")
-		if(7 to INFINITY)
-			playsound(E, 'sound/effects/EMPulse.ogg', 100, 1)
-			for(var/M in invokers)
-				var/mob/living/L = M
-				to_chat(L, "<span class='userdanger'>You chant in unison and a colossal burst of energy knocks you backward!</span>")
-				L.Weaken(2)
-	qdel(src) //delete before pulsing because it's a delay reee
-	empulse(E, 9*invokers.len, 12*invokers.len, 1) // Scales now, from a single room to most of the station depending on # of chanters
 
 //Rite of Astral Communion: Separates one's spirit from their body. They will take damage while it is active.
 /obj/effect/rune/astral

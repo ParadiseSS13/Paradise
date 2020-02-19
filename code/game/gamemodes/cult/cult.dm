@@ -125,8 +125,8 @@ var/global/list/all_cults = list()
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
-		var/datum/action/innate/blood_magic/magic = new
-		var/datum/action/innate/cultcomm/C = new()
+		var/datum/action/innate/cult/blood_magic/magic = new
+		var/datum/action/innate/cult/comm/C = new()
 		C.Grant(cult_mind.current)
 		magic.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
@@ -197,8 +197,8 @@ var/global/list/all_cults = list()
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
-		var/datum/action/innate/cultcomm/C = new()
-		var/datum/action/innate/blood_magic/magic = new
+		var/datum/action/innate/cult/comm/C = new()
+		var/datum/action/innate/cult/blood_magic/magic = new
 		C.Grant(cult_mind.current)
 		magic.Grant(cult_mind.current)
 		//SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
@@ -260,9 +260,9 @@ var/global/list/all_cults = list()
 		cult_mind.current.faction -= "cult"
 		cult_mind.memory = ""
 		cult_mind.special_role = null
-		for(var/datum/action/innate/cultcomm/C in cult_mind.current.actions)
+		for(var/datum/action/innate/cult/comm/C in cult_mind.current.actions)
 			qdel(C)
-		for(var/datum/action/innate/blood_magic/magic in cult_mind.current.actions)
+		for(var/datum/action/innate/cult/blood_magic/magic in cult_mind.current.actions)
 			qdel(magic)
 		update_cult_icons_removed(cult_mind)
 		var/mob/living/carbon/human/H = cult_mind.current
@@ -288,7 +288,7 @@ var/global/list/all_cults = list()
 	set_antag_hud(cult_mind.current, null)
 
 /datum/game_mode/proc/update_cult_comms_added(datum/mind/cult_mind)
-	var/datum/action/innate/cultcomm/C = new()
+	var/datum/action/innate/cult/comm/C = new()
 	C.Grant(cult_mind.current)
 
 /datum/game_mode/cult/proc/get_unconvertables()

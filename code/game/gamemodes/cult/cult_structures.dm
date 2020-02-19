@@ -102,8 +102,8 @@
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
 	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with an %ITEM%!</span>"
-	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, \
-							"Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, "Cultist Dagger" = /obj/item/melee/cultblade/dagger)
+	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, \
+							"Construct Shell" = /obj/structure/constructshell)
 
 /obj/structure/cult/functional/altar/New()
 	. = ..()
@@ -120,8 +120,7 @@
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
 	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating %ITEM%!</span>"
-	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
-							"Cultist Hardsuit" = /obj/item/storage/box/cult)
+	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker) //Add Mirror Shield
 
 /obj/structure/cult/functional/forge/New()
 	. = ..()
@@ -250,7 +249,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	selection_title = "Archives"
 	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating %ITEM%!</span>"
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind, \
-							"Veil Shifter" = /obj/item/cult_shift)
+							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
 
 /obj/structure/cult/functional/archives/New()
 	. = ..()
@@ -258,7 +257,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 
 /obj/effect/gateway
 	name = "gateway"
-	desc = "You're pretty sure that abyss is staring back"
+	desc = "You're pretty sure that the abyss is staring back"
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "hole"
 	density = 1
@@ -278,18 +277,4 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 /obj/effect/gateway/Crossed(AM as mob|obj, oldloc)
 	spawn(0)
 		return
-	return
-
-
-//Armor kit
-
-/obj/item/storage/box/cult
-	name = "Dark Forge Cache"
-	can_hold = list("/obj/item/clothing/suit/space/cult", "/obj/item/clothing/head/helmet/space/cult")
-	max_w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/box/cult/New()
-	..()
-	new /obj/item/clothing/suit/space/cult(src)
-	new /obj/item/clothing/head/helmet/space/cult(src)
 	return
