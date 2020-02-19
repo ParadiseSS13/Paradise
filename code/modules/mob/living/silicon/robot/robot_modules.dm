@@ -126,6 +126,7 @@
 	modules += new /obj/item/lightreplacer/cyborg(src)
 
 	// eng
+	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/holosign_creator/cyborg/atmos(src) // for temporarily sealing breached areas until they can be properly fixed
 	modules += new /obj/item/extinguisher(src) // for firefighting, and propulsion in space
 
