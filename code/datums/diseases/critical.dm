@@ -25,7 +25,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
 	severity = DANGEROUS
-	disease_flags = CURABLE
+	disease_flags = CURABLE|MED_EMERGENCY
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 
@@ -87,7 +87,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 5
 	severity = DANGEROUS
-	disease_flags = CURABLE
+	disease_flags = CURABLE|MED_EMERGENCY
 	required_organs = list(/obj/item/organ/internal/heart)
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE

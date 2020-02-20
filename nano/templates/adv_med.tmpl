@@ -47,6 +47,11 @@ Used In File(s): \code\game\machinery\adv_med.dm
 			{{:helper.smoothRound(data.occupant.bodyTempC)}}&deg;C, {{:helper.smoothRound(data.occupant.bodyTempF)}}&deg;F
 		</div>
 	</div>
+	{{if data.occupant.hasMedEmergency}}
+		<span class="bad">
+			Medical Emergency detected. Immediate treatment required.
+		</span> <br>
+	{{/if}}
 	{{if data.occupant.hasBorer}}
 		<span class="bad">
 			Large growth detected in frontal lobe, possibly cancerous. Surgical removal is recommended. </span> <br>

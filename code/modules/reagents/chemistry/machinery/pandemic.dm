@@ -252,11 +252,13 @@
 				var/list/vir = Blood.data["viruses"]
 				if(vir.len)
 					var/i = 0
+					var/show_virus = FALSE
 					for(var/thing in Blood.data["viruses"])
 						var/datum/disease/D = thing
 						i++
-						if(!(D.visibility_flags & HIDDEN_PANDEMIC))
+						if(!(D.visibility_flags & HIDDEN_PANDEMIC) && !(D.disease_flags & MED_EMERGENCY))
 
+							show_virus = TRUE
 							if(istype(D, /datum/disease/advance))
 
 								var/datum/disease/advance/A = D
@@ -284,8 +286,8 @@
 									english_symptoms += S.name
 								dat += english_list(english_symptoms)
 
-						else
-							dat += "No detectable virus in the sample."
+					if (!(show_virus))
+						dat += "No detectable virus in the sample."
 			else
 				dat += "No detectable virus in the sample."
 
