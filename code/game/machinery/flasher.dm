@@ -40,18 +40,6 @@
 		icon_state = "[base_state]1-p"
 //		sd_set_light(0)
 
-//Don't want to render prison breaks impossible
-/obj/machinery/flasher/attackby(obj/item/I, mob/user, params)
-	if(iswirecutter(I))
-		add_fingerprint(user)
-		disable = !disable
-		if(disable)
-			user.visible_message("<span class='warning'>[user] has disconnected [src]'s flashbulb!</span>", "<span class='warning'>You disconnect [src]'s flashbulb!</span>")
-		if(!disable)
-			user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
-	else
-		return ..()
-
 //Let the AI trigger them directly.
 /obj/machinery/flasher/attack_ai(mob/user)
 	if(anchored)
@@ -100,20 +88,28 @@
 		if((M.m_intent != MOVE_INTENT_WALK) && (anchored))
 			flash()
 
-/obj/machinery/flasher/portable/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		add_fingerprint(user)
-		anchored = !anchored
+//Don't want to render prison breaks impossible
+/obj/machinery/flasher/portable/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	disable = !disable
+	if(disable)
+		user.visible_message("<span class='warning'>[user] has disconnected [src]'s flashbulb!</span>", "<span class='warning'>You disconnect [src]'s flashbulb!</span>")
+	if(!disable)
+		user.visible_message("<span class='warning'>[user] has connected [src]'s flashbulb!</span>", "<span class='warning'>You connect [src]'s flashbulb!</span>")
 
-		if(!anchored)
-			user.show_message(text("<span class='warning'>[src] can now be moved.</span>"))
-			overlays.Cut()
-
-		else if(anchored)
-			user.show_message(text("<span class='warning'>[src] is now secured.</span>"))
-			overlays += "[base_state]-s"
-	else
-		return ..()
+/obj/machinery/flasher/portable/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+		overlays.Cut()
+	else if(anchored)
+		WRENCH_UNANCHOR_MESSAGE
+		overlays += "[base_state]-s"
 
 // Flasher button
 /obj/machinery/flasher_button

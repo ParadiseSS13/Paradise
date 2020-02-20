@@ -110,20 +110,22 @@
 		icon_state = "borgcharger0"
 
 /obj/machinery/recharge_station/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		if(occupant)
-			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-			return
-		default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", I)
-		return
-
 	if(exchange_parts(user, I))
 		return
 
-	if(default_deconstruction_crowbar(I))
-		return
 	else
 		return ..()
+
+/obj/machinery/recharge_station/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/recharge_station/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
+		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "borgdecon2", "borgcharger0", I))
+		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
 	if(occupant)
@@ -216,7 +218,7 @@
 					//Welding tools
 					if(istype(O, /obj/item/weldingtool))
 						var/obj/item/weldingtool/weld = O
-						weld.reagents.check_and_add("fuel", weld.max_fuel, 2 * coeff)
+						weld.reagents.check_and_add("fuel", weld.maximum_fuel, 2 * coeff)
 				if(R)
 					if(R.module)
 						R.module.respawn_consumable(R)
@@ -269,7 +271,8 @@
 		if(!R.cell)
 			to_chat(R, "<span class='warning'>Without a power cell, you can't be recharged.</span>")
 			//Make sure they actually HAVE a cell, now that they can get in while powerless. --NEO
-		can_accept_user = TRUE
+			return
+		can_accept_user = 1
 
 	else if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -282,7 +285,7 @@
 		else if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
-		can_accept_user = TRUE
+		can_accept_user = 1
 
 	else if(istype(user, /mob/living/simple_animal/spiderbot))
 		can_accept_user = TRUE

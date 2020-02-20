@@ -296,6 +296,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/gun/energy/laser/retro,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -361,13 +362,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/shuttle/floor{
-	icon_state = "floor3"
-	},
-/area/shuttle/abandoned)
-"aaX" = (
-/obj/structure/table,
-/obj/item/gun/energy/laser/retro,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
@@ -3602,15 +3596,13 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/item/storage/box/buck{
-	pixel_x = -3;
-	pixel_y = 3
-	},
 /obj/item/storage/box/buck,
 /obj/item/storage/box/buck{
 	pixel_x = 3;
 	pixel_y = -3
 	},
+/obj/item/ammo_box/magazine/wt550m9,
+/obj/item/ammo_box/magazine/wt550m9,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -3624,10 +3616,6 @@
 	pixel_y = 3
 	},
 /obj/item/gun/projectile/shotgun/riot,
-/obj/item/gun/projectile/shotgun/riot{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -3635,6 +3623,7 @@
 	dir = 1;
 	layer = 2.9
 	},
+/obj/item/gun/projectile/automatic/wt550,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -31814,10 +31803,7 @@
 	pixel_x = 0;
 	tag = ""
 	},
-/obj/structure/closet/secure_closet/hydroponics,
-/obj/machinery/atmospherics/binary/pump{
-	dir = 1
-	},
+/obj/structure/closet/secure_closet/beekeeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -38686,7 +38672,7 @@
 "bto" = (
 /obj/structure/table/wood,
 /obj/item/deck/cards,
-/obj/item/storage/bag/UNO,
+/obj/item/storage/bag/uno,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "btp" = (
@@ -43898,6 +43884,9 @@
 	icon_state = "tube1";
 	dir = 8
 	},
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -46466,6 +46455,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/mob/living/simple_animal/pet/dog/pug/unfunny,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
 "bIE" = (
@@ -49930,6 +49920,20 @@
 /area/hallway/primary/central/se)
 "bOA" = (
 /obj/machinery/computer/account_database,
+/obj/machinery/door_control{
+	id = "hopqueue";
+	name = "HoP Line Shutter";
+	pixel_x = 1;
+	pixel_y = 21;
+	req_access_txt = "57"
+	},
+/obj/machinery/door_control{
+	id = "hop";
+	name = "HoP Office Privacy";
+	pixel_x = 10;
+	pixel_y = 21;
+	req_access_txt = "57"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "blue"
@@ -58981,6 +58985,7 @@
 "ccF" = (
 /obj/structure/table/glass,
 /obj/item/stamp/cmo,
+/obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -59958,12 +59963,11 @@
 	},
 /area/medical/cmo)
 "cem" = (
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/hud/health,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24
 	},
+/obj/structure/bed/dogbed/runtime,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -96614,6 +96618,12 @@
 /area/toxins/launch{
 	name = "Toxins Launch Room"
 	})
+"jje" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
 "jnJ" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
@@ -96670,6 +96680,10 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"lnU" = (
+/obj/structure/bed/dogbed/renault,
+/turf/simulated/floor/wood,
+/area/crew_quarters/captain)
 "lLC" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -96820,6 +96834,12 @@
 	},
 /turf/simulated/wall,
 /area/crew_quarters/dorms)
+"sJA" = (
+/mob/living/simple_animal/hostile/hivebot/range,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor3"
+	},
+/area/shuttle/abandoned)
 "sUK" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -96834,6 +96854,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"uzp" = (
+/obj/structure/beebox,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/hydroponics)
 "uBM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -129244,7 +129270,7 @@ bBE
 bCV
 bEv
 doB
-bzY
+lnU
 bMS
 bOy
 bQM
@@ -130170,7 +130196,7 @@ aag
 aai
 aai
 aai
-aaX
+aaG
 abd
 aaG
 aai
@@ -130425,7 +130451,7 @@ aap
 aag
 aai
 aai
-aai
+jje
 aai
 aaz
 abe
@@ -131448,7 +131474,7 @@ aaa
 aaa
 aac
 aai
-aai
+sJA
 aai
 aae
 aaB
@@ -131720,7 +131746,7 @@ aat
 aak
 abu
 aai
-aai
+sJA
 aai
 aai
 aac
@@ -132741,7 +132767,7 @@ aai
 aac
 aaV
 aba
-aai
+sJA
 aaV
 aac
 aai
@@ -134540,7 +134566,7 @@ aap
 aah
 aai
 aai
-aai
+sJA
 aai
 aai
 aaM
@@ -137110,7 +137136,7 @@ aaa
 aaa
 aac
 aai
-aai
+sJA
 aai
 aac
 aaa
@@ -138741,7 +138767,7 @@ bjB
 dnK
 dnU
 bov
-bqa
+uzp
 brt
 bsY
 buL

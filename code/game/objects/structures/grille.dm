@@ -69,7 +69,7 @@
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
-	if(!shock(user, 70))
+	if(. && !QDELETED(src) && !shock(user, 70))
 		take_damage(rand(5,10), BRUTE, "melee", 1)
 
 /obj/structure/grille/hulk_damage()
@@ -118,18 +118,7 @@
 /obj/structure/grille/attackby(obj/item/W, mob/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
 	add_fingerprint(user)
-	if(iswirecutter(W))
-		if(!shock(user, 100))
-			playsound(loc, W.usesound, 100, 1)
-			deconstruct()
-	else if((isscrewdriver(W)) && (istype(loc, /turf/simulated) || anchored))
-		if(!shock(user, 90))
-			playsound(src, W.usesound, 100, 1)
-			anchored = !anchored
-			user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
-								 "<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
-			return
-	else if(istype(W, /obj/item/stack/rods) && broken)
+	if(istype(W, /obj/item/stack/rods) && broken)
 		var/obj/item/stack/rods/R = W
 		if(!shock(user, 90))
 			user.visible_message("<span class='notice'>[user] rebuilds the broken grille.</span>", \
@@ -147,6 +136,26 @@
 
 	else if(istype(W, /obj/item/shard) || !shock(user, 70))
 		return ..()
+
+/obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(shock(user, 100))
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	deconstruct()
+
+/obj/structure/grille/screwdriver_act(mob/user, obj/item/I)
+	if(!(istype(loc, /turf/simulated) || anchored))
+		return
+	. = TRUE
+	if(shock(user, 90))
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	user.visible_message("<span class='notice'>[user] [anchored ? "fastens" : "unfastens"] [src].</span>", \
+							"<span class='notice'>You [anchored ? "fasten [src] to" : "unfasten [src] from"] the floor.</span>")
 
 /obj/structure/grille/proc/build_window(obj/item/stack/sheet/S, mob/user)
 	var/dir_to_set = NORTH

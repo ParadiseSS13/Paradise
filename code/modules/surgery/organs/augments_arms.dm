@@ -33,17 +33,18 @@
 	. = ..()
 	. += "<span class='info'>[src] is assembled in the [parent_organ == "r_arm" ? "right" : "left"] arm configuration. You can use a screwdriver to reassemble it.</span>"
 
-/obj/item/organ/internal/cyberimp/arm/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I))
-		if(parent_organ == "r_arm")
-			parent_organ = "l_arm"
-		else
-			parent_organ = "r_arm"
-		slot = parent_organ + "_device"
-		to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
-		update_icon()
+/obj/item/organ/internal/cyberimp/arm/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(parent_organ == "r_arm")
+		parent_organ = "l_arm"
 	else
-		return ..()
+		parent_organ = "r_arm"
+	slot = parent_organ + "_device"
+	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [parent_organ == "r_arm" ? "right" : "left"] arm.</span>")
+	update_icon()
+
 
 /obj/item/organ/internal/cyberimp/arm/remove(mob/living/carbon/M, special = 0)
 	Retract()

@@ -685,28 +685,7 @@ var/list/robot_verbs_default = list(
 
 				return
 
-	if(istype(W, /obj/item/weldingtool) && user.a_intent == INTENT_HELP)
-		if(W == module_active)
-			return
-		if(!getBruteLoss())
-			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
-			return
-		else if(!getBruteLoss(TRUE))
-			to_chat(user, "<span class='warning'>The damaged components are beyond saving!</span>")
-			return
-		var/obj/item/weldingtool/WT = W
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(WT.remove_fuel(0))
-			playsound(src.loc, W.usesound, 50, 1)
-			adjustBruteLoss(-30)
-			add_fingerprint(user)
-			user.visible_message("<span class='alert'>\The [user] patches some dents on \the [src] with \the [WT].</span>")
-		else
-			to_chat(user, "<span class='warning'>Need more welding fuel!</span>")
-			return
-
-
-	else if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
+	if(istype(W, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HELP && (wiresexposed || istype(src, /mob/living/silicon/robot/drone)))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(!getFireLoss())
 			to_chat(user, "<span class='notice'>Nothing to fix!</span>")
@@ -720,58 +699,6 @@ var/list/robot_verbs_default = list(
 		add_fingerprint(user)
 		coil.use(1)
 		user.visible_message("<span class='alert'>\The [user] fixes some of the burnt wires on \the [src] with \the [coil].</span>")
-
-	else if(istype(W, /obj/item/crowbar))	// crowbar means open or close the cover
-		if(opened)
-			if(cell)
-				to_chat(user, "You close the cover.")
-				opened = 0
-				update_icons()
-			else if(wiresexposed && wires.IsAllCut())
-				//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
-				if(!mmi)
-					to_chat(user, "[src] has no brain to remove.")
-					return
-
-				to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts.")
-				if(do_after(user, 30 * W.toolspeed, target = src))
-					user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
-					deconstruct()
-			else
-				// Okay we're not removing the cell or an MMI, but maybe something else?
-				var/list/removable_components = list()
-				for(var/V in components)
-					if(V == "power cell") continue
-					var/datum/robot_component/C = components[V]
-					if(C.installed == 1 || C.installed == -1)
-						removable_components += V
-				if(module)
-					removable_components += module.custom_removals
-				var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
-				if(!remove)
-					return
-				if(module && module.handle_custom_removal(remove, user, W, params))
-					return
-				var/datum/robot_component/C = components[remove]
-				var/obj/item/robot_parts/robot_component/I = C.wrapped
-				to_chat(user, "You remove \the [I].")
-				if(istype(I))
-					I.brute = C.brute_damage
-					I.burn = C.electronics_damage
-
-				I.loc = src.loc
-				var/was_installed = C.installed
-				C.installed = 0
-				if(was_installed == 1)
-					C.uninstall()
-
-		else
-			if(locked)
-				to_chat(user, "The cover is locked and cannot be opened.")
-			else
-				to_chat(user, "You open the cover.")
-				opened = 1
-				update_icons()
 
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/C = components["power cell"]
@@ -792,26 +719,6 @@ var/list/robot_verbs_default = list(
 			C.brute_damage = 0
 			C.electronics_damage = 0
 			diag_hud_set_borgcell()
-
-	else if(istype(W, /obj/item/wirecutters) || istype(W, /obj/item/multitool))
-		if(wiresexposed)
-			wires.Interact(user)
-		else
-			to_chat(user, "You can't reach the wiring.")
-
-	else if(istype(W, /obj/item/screwdriver) && opened && !cell)	// haxing
-		wiresexposed = !wiresexposed
-		to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
-		update_icons()
-
-	else if(istype(W, /obj/item/screwdriver) && opened && cell)	// radio
-		if(shell)
-			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft
-		else if(radio)
-			radio.attackby(W,user)//Push it to the radio to let it handle everything
-		else
-			to_chat(user, "Unable to locate a radio.")
-		update_icons()
 
 	else if(istype(W, /obj/item/encryptionkey/) && opened)
 		if(radio)//sanityyyyyy
@@ -866,6 +773,110 @@ var/list/robot_verbs_default = list(
 			qdel(W)
 	else
 		return ..()
+
+/mob/living/silicon/robot/wirecutter_act(mob/user, obj/item/I)
+	if(!opened)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(wiresexposed)
+		wires.Interact(user)
+
+/mob/living/silicon/robot/multitool_act(mob/user, obj/item/I)
+	if(!opened)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(wiresexposed)
+		wires.Interact(user)
+
+/mob/living/silicon/robot/screwdriver_act(mob/user, obj/item/I)
+	if(!opened)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(!cell)	// haxing
+		wiresexposed = !wiresexposed
+		to_chat(user, "<span class='notice'>The wires have been [wiresexposed ? "exposed" : "unexposed"]</span>")
+		update_icons()
+		I.play_tool_sound(user, I.tool_volume)
+	else //radio check
+		if(shell)
+			to_chat(user, "You cannot seem to open the radio compartment")	//Prevent AI radio key theft
+		else if(radio)
+			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
+		else
+			to_chat(user, "Unable to locate a radio.")
+		update_icons()
+
+/mob/living/silicon/robot/crowbar_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!opened)
+		if(locked)
+			to_chat(user, "The cover is locked and cannot be opened.")
+			return
+		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+			return
+		to_chat(user, "You open the cover.")
+		opened = TRUE
+		update_icons()
+		return
+	else if(cell)
+		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+			return
+		to_chat(user, "You close the cover.")
+		opened = FALSE
+		update_icons()
+		return
+	else if(wiresexposed && wires.IsAllCut())
+		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
+		if(!mmi)
+			to_chat(user, "[src] has no brain to remove.")
+			return
+		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
+		if(I.use_tool(src, user, 30, volume = I.tool_volume))
+			user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
+			deconstruct()
+		return
+	// Okay we're not removing the cell or an MMI, but maybe something else?
+	var/list/removable_components = list()
+	for(var/V in components)
+		if(V == "power cell")
+			continue
+		var/datum/robot_component/C = components[V]
+		if(C.installed == 1 || C.installed == -1)
+			removable_components += V
+	if(module)
+		removable_components += module.custom_removals
+	var/remove = input(user, "Which component do you want to pry out?", "Remove Component") as null|anything in removable_components
+	if(!remove)
+		return
+	if(module && module.handle_custom_removal(remove, user, I))
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/datum/robot_component/C = components[remove]
+	var/obj/item/robot_parts/robot_component/thing = C.wrapped
+	to_chat(user, "You remove \the [thing].")
+	if(istype(thing))
+		thing.brute = C.brute_damage
+		thing.burn = C.electronics_damage
+
+	thing.loc = loc
+	var/was_installed = C.installed
+	C.installed = 0
+	if(was_installed == 1)
+		C.uninstall()
+
+
+
 
 /mob/living/silicon/robot/attacked_by(obj/item/I, mob/living/user, def_zone)
 	if(I.force && I.damtype != STAMINA && stat != DEAD) //only sparks if real damage is dealt.
@@ -1377,6 +1388,7 @@ var/list/robot_verbs_default = list(
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
 	designation = "SpecOps"
+	icon = 'icons/mob/robots.dmi'
 	lawupdate = 0
 	scrambledcodes = 1
 	req_one_access = list(access_cent_specops)
@@ -1537,4 +1549,3 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
-

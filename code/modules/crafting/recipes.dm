@@ -65,7 +65,7 @@
 				/obj/item/gun/energy/gun/advtaser = 1,
 				/obj/item/stock_parts/cell = 1,
 				/obj/item/assembly/prox_sensor = 1)
-	tools = list(/obj/item/weldingtool, /obj/item/screwdriver)
+	tools = list(TOOL_WELDER, TOOL_SCREWDRIVER)
 	time = 60
 	category = CAT_ROBOT
 
@@ -77,7 +77,7 @@
 				/obj/item/melee/baton = 1,
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 1)
-	tools = list(/obj/item/weldingtool)
+	tools = list(TOOL_WELDER)
 	time = 60
 	category = CAT_ROBOT
 
@@ -90,7 +90,7 @@
 				/obj/item/assembly/prox_sensor = 1,
 				/obj/item/robot_parts/r_arm = 2,
 				/obj/item/robot_parts/l_arm = 2)
-	tools = list(/obj/item/weldingtool)
+	tools = list(TOOL_WELDER)
 	time = 120
 	category = CAT_ROBOT
 
@@ -142,7 +142,7 @@
 				/obj/item/stack/rods = 1)
 	parts = list(/obj/item/assembly/igniter = 1,
 				/obj/item/weldingtool = 1)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 10
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -153,7 +153,7 @@
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/rcd_ammo = 1,
 				/obj/item/stock_parts/manipulator = 2)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -164,7 +164,7 @@
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/capacitor/adv = 2,
 				/obj/item/stock_parts/micro_laser/ultra = 1)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -174,7 +174,7 @@
 	result = /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/datum/reagent/phosphorus = 5,)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -186,7 +186,7 @@
 				/datum/reagent/glycerol = 5,
 				/datum/reagent/acid = 5,
 				/datum/reagent/acid/facid = 5,)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -197,7 +197,7 @@
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/micro_laser/ultra = 1,
 				/obj/item/stock_parts/subspace/crystal = 1)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -209,7 +209,7 @@
 				/obj/item/stack/sheet/metal = 1,
 				/obj/item/stack/cable_coil = 1,
 				/datum/reagent/fuel = 10)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -220,7 +220,7 @@
 	reqs = list(/obj/item/ammo_casing/shotgun/improvised = 1,
 				/datum/reagent/blackpowder = 10,
 				/datum/reagent/plasma_dust = 20)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -231,7 +231,7 @@
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/capacitor/adv = 1,
 				/obj/item/stock_parts/micro_laser/high = 1)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
@@ -243,7 +243,7 @@
 				/obj/item/pipe = 1,
 				/obj/item/weaponcrafting/stock = 1,
 				/obj/item/stack/packageWrap = 5,)
-	tools = list(/obj/item/screwdriver)
+	tools = list(TOOL_SCREWDRIVER)
 	time = 100
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -254,7 +254,7 @@
 	reqs = list(/obj/item/circular_saw = 1,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/stack/sheet/plasteel = 1)
-	tools = list(/obj/item/weldingtool)
+	tools = list(TOOL_WELDER)
 	time = 50
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
@@ -316,7 +316,7 @@
 	result = /obj/item/arrow/rod
 	time = 5
 	reqs = list(/obj/item/stack/rods = 1)
-	tools = list(/obj/item/weldingtool)
+	tools = list(TOOL_WELDER)
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 
@@ -328,8 +328,8 @@
 				/obj/item/stack/cable_coil = 10,
 				/obj/item/stack/sheet/plastic = 3,
 				/obj/item/stack/sheet/wood = 5)
-	tools = list(/obj/item/weldingtool,
-				/obj/item/screwdriver)
+	tools = list(TOOL_WELDER,
+				TOOL_SCREWDRIVER)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -525,7 +525,7 @@
 	reqs = list(/obj/item/stack/sheet/plasteel = 3,
 		        /obj/item/stack/sheet/wood = 20,
 		        /obj/item/stack/cable_coil = 10)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
 /datum/crafting_recipe/drill
@@ -537,7 +537,7 @@
 		        /obj/item/stock_parts/cell = 1,
 		        /obj/item/stack/rods = 2,
 		        /obj/item/assembly/timer = 1)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
 /datum/crafting_recipe/d_drill
@@ -549,7 +549,7 @@
 		        /obj/item/stock_parts/cell = 1,
 		        /obj/item/stack/rods = 2,
 		        /obj/item/assembly/prox_sensor = 1) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
-	tools = list(/obj/item/screwdriver, /obj/item/wrench)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
 	category = CAT_MISC
 
 /datum/crafting_recipe/faketoolbox
