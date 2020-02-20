@@ -100,7 +100,7 @@
 /datum/game_mode/cult/proc/gtfo_phase()//YOU HAD ONE JOB
 	var/explanation
 	objectives += "survive"
-	explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
+	explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on another station."
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
 			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
@@ -114,10 +114,10 @@
 
 	if(prob(40))//split the chance of this
 		objectives += "eldergod"
-		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
+		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the 'Tear Reality' rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
 	else
 		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
+		explanation = "Bring the Slaughter via the rune 'The Slaughter'. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
@@ -142,7 +142,7 @@
 		if("hijack")
 			explanation = "[SSticker.cultdat.entity_name] wishes for their troops to start the assault on Centcom immediately. Hijack the escape shuttle and don't let a single non-cultist board it."
 		if("massacre")
-			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station (until less than [massacre_target] humans are left alive)."
+			explanation = "[SSticker.cultdat.entity_name] wants to watch you as you massacre the remaining humans on the station, until less than [massacre_target] humans are left alive."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
@@ -174,7 +174,7 @@
 			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
 			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
 			cult_mind.memory = updated_memory
-			
+
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()

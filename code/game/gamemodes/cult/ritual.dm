@@ -178,11 +178,16 @@ obj/item/melee/cultblade/dagger
 		Remove(owner)
 
 /datum/action/item_action/cult_dagger/Trigger()
-//	for(var/obj/item/H in owner.held_items) //In case we were already holding another dagger
-//		if(istype(H, /obj/item/melee/cultblade/dagger))
-//			H.attack_self(owner)
-//			return
-	var/obj/item/I = target
-//	owner.temporarilyRemoveItemFromInventory(I) //todo : proper hand checks
-	owner.put_in_hands(I)
-	I.attack_self(owner)
+	var/obj/item/I
+	I = owner.get_active_hand()
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		I.attack_self(owner)
+		return
+	I = owner.get_inactive_hand()
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		I.attack_self(owner)
+		return
+	var/obj/item/T = target
+	owner.remove_from_mob(T)
+	owner.put_in_hands(T)
+	T.attack_self(owner)

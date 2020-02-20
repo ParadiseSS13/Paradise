@@ -227,7 +227,7 @@
 	. = _memory_edit_header("cult")
 	if(src in SSticker.mode.cult)
 		. += "<a href='?src=[UID()];cult=clear'>no</a>|<b><font color='red'>CULTIST</font></b>"
-		. += "<br>Give <a href='?src=[UID()];cult=tome'>tome</a>|<a href='?src=[UID()];cult=equip'>equip</a>."
+		. += "<br>Give <a href='?src=[UID()];cult=dagger'>dagger</a>|<a href='?src=[UID()];cult=runedmetal'>runedmetal</a>."
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];cult=cultist'>cultist</a>"
 
@@ -850,32 +850,18 @@
 							var/area/summon = pick(return_sorted_areas() - summon_spots)
 							if(summon && is_station_level(summon.z) && summon.valid_territory)
 								summon_spots += summon
-			if("tome")
+			if("dagger")
 				var/mob/living/carbon/human/H = current
-				if(istype(H))
-					var/obj/item/tome/T = new(H)
-
-					var/list/slots = list (
-						"backpack" = slot_in_backpack,
-						"left pocket" = slot_l_store,
-						"right pocket" = slot_r_store,
-						"left hand" = slot_l_hand,
-						"right hand" = slot_r_hand,
-					)
-					var/where = H.equip_in_one_of_slots(T, slots)
-					if(!where)
-						to_chat(usr, "<span class='warning'>Spawning tome failed!</span>")
-						qdel(T)
-					else
-						to_chat(H, "A tome, a message from your new master, appears in your [where].")
-						log_admin("[key_name(usr)] has spawned a tome for [key_name(current)]")
-						message_admins("[key_name_admin(usr)] has spawned a tome for [key_name_admin(current)]")
-
-			if("equip")
-				if(!SSticker.mode.equip_cultist(current))
-					to_chat(usr, "<span class='warning'>Spawning equipment failed!</span>")
-				log_admin("[key_name(usr)] has equipped [key_name(current)] as a cultist")
-				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] as a cultist")
+				if(!SSticker.mode.cult_give_item(/obj/item/melee/cultblade/dagger, H))
+					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
+				log_admin("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
+				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] with a cult dagger")
+			if("runedmetal")
+				var/mob/living/carbon/human/H = current
+				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
+					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
+				log_admin("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
+				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
 
@@ -1165,7 +1151,7 @@
 					remove_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
-					
+
 			if("traitor")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
 					var/datum/antagonist/traitor/T = new()
@@ -1659,7 +1645,7 @@
 	SSticker.mode.implanter[missionary.mind] = implanters
 	SSticker.mode.traitors += src
 
-	
+
 	var/datum/objective/protect/zealot_objective = new
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src

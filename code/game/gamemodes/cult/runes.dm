@@ -328,7 +328,7 @@ var/list/teleport_runes = list()
 
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
-	cultist_name = "Rite of Offering"
+	cultist_name = "Offer"
 	cultist_desc = "Offers a non-cultists on top of it to your deity, either converting or sacrificing them."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
@@ -421,160 +421,9 @@ var/list/teleport_runes = list()
 	else
 		offering.dust()
 
-//Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
-/obj/effect/rune/narsie
-	cultist_name = "Tear Reality (God)"
-	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
-	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
-	req_cultists = 9
-	icon = 'icons/effects/96x96.dmi'
-	color = rgb(125,23,23)
-	icon_state = "rune_large"
-	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
-	pixel_y = -32
-	mouse_opacity = MOUSE_OPACITY_ICON //we're huge and easy to click
-	scribe_delay = 450 //how long the rune takes to create
-	scribe_damage = 40.1 //how much damage you take doing it
-	var/used
-
-/obj/effect/rune/narsie/New()
-	..()
-	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
-	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]. Requires 9 invokers."
-
-/obj/effect/rune/narsie/check_icon()
-	return
-
-/obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
-	return
-
-/obj/effect/rune/narsie/invoke(var/list/invokers)
-	if(used)
-		return
-	var/mob/living/user = invokers[1]
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(CULT_ELDERGOD in cult_mode.objectives))
-		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
-		burn_invokers(invokers)
-		log_game("Summon Nar-Sie rune failed - improper objective")
-		return
-	if(!is_station_level(user.z))
-		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
-		burn_invokers(invokers)
-		log_game("Summon Nar-Sie rune failed - off station Z level")
-		return
-	if(!cult_mode.eldergod)
-		for(var/M in invokers)
-			to_chat(M, "<span class='warning'>[SSticker.cultdat.entity_name] is already on this plane!</span>")
-		log_game("Summon god rune failed - already summoned")
-		return
-	//BEGIN THE SUMMONING
-	used = 1
-	color = rgb(255, 0, 0)
-	..()
-	world << 'sound/effects/dimensional_rend.ogg'
-	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
-	icon_state = "rune_large_distorted"
-	var/turf/T = get_turf(src)
-	sleep(40)
-	new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
-	cult_mode.eldergod = 0
-
-/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/tome) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
-		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
-			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
-		return
-	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
-		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
-		return
-	return ..()
-
-
-
-/obj/effect/rune/slaughter
-	cultist_name = "Call Forth The Slaughter (Demons)"
-	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
-	invocation = null
-	req_cultists = 9
-	color = rgb(125,23,23)
-	scribe_delay = 450
-	scribe_damage = 40.1 //how much damage you take doing it
-	icon = 'icons/effects/96x96.dmi'
-	icon_state = "rune_large"
-	pixel_x = -32
-	pixel_y = -32
-
-	var/used = 0
-
-/obj/effect/rune/slaughter/check_icon()
-	return
-
-/obj/effect/rune/slaughter/conceal() //can't hide this, and you wouldn't want to
-	return
-
-/obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/tome) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
-		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon demon rune erased by [key_name(user)] with a tome")
-			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
-		return
-	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-		log_game("Summon demon rune erased by [key_name(user)] using a null rod")
-		message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
-		return
-	return ..()
-
-
-/obj/effect/rune/slaughter/invoke(var/list/invokers)
-	if(used)
-		return
-	var/mob/living/user = invokers[1]
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(CULT_SLAUGHTER in cult_mode.objectives))
-		message_admins("[key_name_admin(user)] tried to summon demons when the objective was wrong")
-		burn_invokers(invokers)
-		log_game("Summon Demons rune failed - improper objective")
-		return
-	if(!is_station_level(user.z))
-		message_admins("[key_name_admin(user)] tried to summon demons off station")
-		burn_invokers(invokers)
-		log_game("Summon demons rune failed - off station Z level")
-		return
-	if(cult_mode.demons_summoned)
-		for(var/M in invokers)
-			to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
-			log_game("Summon Demons rune failed - already summoned")
-			return
-	//BEGIN THE SLAUGHTER
-	used = 1
-	for(var/mob/living/M in range(1,src))
-		if(iscultist(M))
-			M.say("TOK-LYR RQA-NAP SHA-NEX!!")
-	world << 'sound/effects/dimensional_rend.ogg'
-	to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
-	icon_state = "rune_large_distorted"
-	sleep(55)
-	to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
-	visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
-	var/turf/T = get_turf(src)
-	new /mob/living/simple_animal/slaughter/cult(T)
-	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
-	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
-	cult_mode.demons_summoned = 1
-	SSshuttle.emergency.request(null, 0.5,null)
-	SSshuttle.emergency.canRecall = FALSE
-	cult_mode.third_phase()
-	qdel(src)
-
-
 //Rite of Resurrection: Requires two corpses. Revives one and gibs the other.
 /obj/effect/rune/raise_dead
-	cultist_name = "Rite of Resurrection"
+	cultist_name = "Revive"
 	cultist_desc = "requires two corpses, one on the rune and one adjacent to the rune. The one on the rune is brought to life, the other is turned to ash."
 	invocation = null //Depends on the name of the user - see below
 	icon_state = "1"
@@ -654,9 +503,87 @@ var/list/teleport_runes = list()
 		if(M.stat == DEAD)
 			M.visible_message("<span class='warning'>[M] twitches.</span>")
 
+//Rite of the Corporeal Shield: When invoked, becomes solid and cannot be passed. Invoke again to undo.
+/obj/effect/rune/wall
+	cultist_name = "Barrier"
+	cultist_desc = "when invoked, makes an invisible wall to block passage. Can be invoked again to reverse this."
+	invocation = "Khari'd! Eske'te tannin!"
+	icon_state = "1"
+	invoke_damage = 2
+
+/obj/effect/rune/wall/examine(mob/user)
+	. = ..()
+	if(density)
+		. += "<span class='cultitalic'>There is a barely perceptible shimmering of the air above [src].</span>"
+
+/obj/effect/rune/wall/invoke(var/list/invokers)
+	var/mob/living/user = invokers[1]
+	..()
+	density = !density
+	user.visible_message("<span class='warning'>[user] places [user.p_their()] hands on [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
+						 "<span class='cultitalic'>You channel your life energy into [src], [density ? "preventing" : "allowing"] passage above it.</span>")
+	if(iscarbon(user))
+		var/mob/living/carbon/C = user
+		C.apply_damage(2, BRUTE, pick("l_arm", "r_arm"))
+
+
+//Rite of Joined Souls: Summons a single cultist.
+/obj/effect/rune/summon
+	cultist_name = "Summon Cultist"
+	cultist_desc = "summons a single cultist to the rune. Requires 2 invokers."
+	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
+	req_cultists = 2
+	allow_excess_invokers = 1
+	icon_state = "5"
+	invoke_damage = 5
+	var/summontime = 0
+
+/obj/effect/rune/summon/invoke(var/list/invokers)
+	var/mob/living/user = invokers[1]
+	var/list/cultists = list()
+	for(var/datum/mind/M in SSticker.mode.cult)
+		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
+			cultists |= M.current
+	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [SSticker.cultdat.entity_title3]") as null|anything in cultists
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
+		return
+	if(!cultist_to_summon)
+		to_chat(user, "<span class='cultitalic'>You require a summoning target!</span>")
+		fail_invoke()
+		log_game("Summon Cultist rune failed - no target")
+		return
+	if(!iscultist(cultist_to_summon))
+		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not a follower of [SSticker.cultdat.entity_title3]!</span>")
+		fail_invoke()
+		log_game("Summon Cultist rune failed - no target")
+		return
+	if(!is_level_reachable(cultist_to_summon.z))
+		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not in our dimension!</span>")
+		fail_invoke()
+		log_game("Summon Cultist rune failed - target in away mission")
+		return
+	if((cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained()) && invokers.len < 3)
+		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow! You need 3 chanters to counter it!</span>")
+		fail_invoke()
+		new /obj/effect/temp_visual/cult/sparks(get_turf(cultist_to_summon)) //observer warning
+		log_game("Summon Cultist rune failed - holywater in target")
+		return
+
+	..()
+	if(cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained())
+		summontime = 20
+
+	if(do_after(user, summontime, target = loc))
+		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
+										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
+		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifies into [cultist_to_summon]!</span>")
+
+		cultist_to_summon.forceMove(get_turf(src))
+		qdel(src)
+
 //Rite of Astral Communion: Separates one's spirit from their body. They will take damage while it is active.
 /obj/effect/rune/astral
-	cultist_name = "Astral Communion"
+	cultist_name = "Ghost Communion"
 	cultist_desc = "severs the link between one's spirit and body. This effect is taxing and one's physical body will take damage while this is active."
 	invocation = "Fwe'sh mah erl nyag r'ya!"
 	icon_state = "6"
@@ -727,154 +654,9 @@ var/list/teleport_runes = list()
 		sleep(10)
 	rune_in_use = 0
 
-
-//Rite of the Corporeal Shield: When invoked, becomes solid and cannot be passed. Invoke again to undo.
-/obj/effect/rune/wall
-	cultist_name = "Rite of the Corporeal Shield"
-	cultist_desc = "when invoked, makes an invisible wall to block passage. Can be invoked again to reverse this."
-	invocation = "Khari'd! Eske'te tannin!"
-	icon_state = "1"
-	invoke_damage = 2
-
-/obj/effect/rune/wall/examine(mob/user)
-	. = ..()
-	if(density)
-		. += "<span class='cultitalic'>There is a barely perceptible shimmering of the air above [src].</span>"
-
-/obj/effect/rune/wall/invoke(var/list/invokers)
-	var/mob/living/user = invokers[1]
-	..()
-	density = !density
-	user.visible_message("<span class='warning'>[user] places [user.p_their()] hands on [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
-						 "<span class='cultitalic'>You channel your life energy into [src], [density ? "preventing" : "allowing"] passage above it.</span>")
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.apply_damage(2, BRUTE, pick("l_arm", "r_arm"))
-
-
-//Rite of Joined Souls: Summons a single cultist.
-/obj/effect/rune/summon
-	cultist_name = "Rite of Joined Souls"
-	cultist_desc = "summons a single cultist to the rune. Requires 2 invokers."
-	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
-	req_cultists = 2
-	allow_excess_invokers = 1
-	icon_state = "5"
-	invoke_damage = 5
-	var/summontime = 0
-
-/obj/effect/rune/summon/invoke(var/list/invokers)
-	var/mob/living/user = invokers[1]
-	var/list/cultists = list()
-	for(var/datum/mind/M in SSticker.mode.cult)
-		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
-			cultists |= M.current
-	var/mob/living/cultist_to_summon = input(user, "Who do you wish to call to [src]?", "Followers of [SSticker.cultdat.entity_title3]") as null|anything in cultists
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
-		return
-	if(!cultist_to_summon)
-		to_chat(user, "<span class='cultitalic'>You require a summoning target!</span>")
-		fail_invoke()
-		log_game("Summon Cultist rune failed - no target")
-		return
-	if(!iscultist(cultist_to_summon))
-		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not a follower of [SSticker.cultdat.entity_title3]!</span>")
-		fail_invoke()
-		log_game("Summon Cultist rune failed - no target")
-		return
-	if(!is_level_reachable(cultist_to_summon.z))
-		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not in our dimension!</span>")
-		fail_invoke()
-		log_game("Summon Cultist rune failed - target in away mission")
-		return
-	if((cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained()) && invokers.len < 3)
-		to_chat(user, "<span class='cultitalic'>The summoning of [cultist_to_summon] is being blocked somehow! You need 3 chanters to counter it!</span>")
-		fail_invoke()
-		new /obj/effect/temp_visual/cult/sparks(get_turf(cultist_to_summon)) //observer warning
-		log_game("Summon Cultist rune failed - holywater in target")
-		return
-
-	..()
-	if(cultist_to_summon.reagents.has_reagent("holywater") || cultist_to_summon.restrained())
-		summontime = 20
-
-	if(do_after(user, summontime, target = loc))
-		cultist_to_summon.visible_message("<span class='warning'>[cultist_to_summon] suddenly disappears in a flash of red light!</span>", \
-										  "<span class='cultitalic'><b>Overwhelming vertigo consumes you as you are hurled through the air!</b></span>")
-		visible_message("<span class='warning'>A foggy shape materializes atop [src] and solidifies into [cultist_to_summon]!</span>")
-
-		cultist_to_summon.forceMove(get_turf(src))
-		qdel(src)
-
-//Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
-/obj/effect/rune/blood_boil
-	cultist_name = "Boil Blood"
-	cultist_desc = "boils the blood of non-believers who can see the rune, dealing extreme amounts of damage. Requires 3 invokers."
-	invocation = "Dedo ol'btoh!"
-	icon_state = "4"
-	construct_invoke = 0
-	req_cultists = 3
-	invoke_damage = 15
-
-/obj/effect/rune/blood_boil/do_invoke_glow()
-	return
-
-/obj/effect/rune/blood_boil/invoke(var/list/invokers)
-	..()
-	var/turf/T = get_turf(src)
-	visible_message("<span class='warning'>[src] briefly bubbles before exploding!</span>")
-	for(var/mob/living/carbon/C in viewers(T))
-		if(!iscultist(C))
-			var/obj/item/nullrod/N = C.null_rod_check()
-			if(N)
-				to_chat(C, "<span class='userdanger'>\The [N] suddenly burns hotly before returning to normal!</span>")
-				continue
-			to_chat(C, "<span class='cultlarge'>Your blood boils in your veins!</span>")
-			C.take_overall_damage(45,45)
-			C.Stun(7)
-	qdel(src)
-	explosion(T, -1, 0, 1, 5)
-
-//Deals brute damage to all targets on the rune and heals the invoker for each target drained.
-/obj/effect/rune/leeching
-	cultist_name = "Drain Life"
-	cultist_desc = "drains the life of all targets on the rune, restoring life to the user."
-	invocation = "Yu'gular faras desdae. Umathar uf'kal thenar!"
-	icon_state = "3"
-
-/obj/effect/rune/leeching/can_invoke(mob/living/user)
-	if(world.time <= user.next_move)
-		return list()
-	var/turf/T = get_turf(src)
-	var/list/potential_targets = list()
-	for(var/mob/living/carbon/M in T.contents - user)
-		if(M.stat != DEAD)
-			potential_targets += M
-	if(!potential_targets.len)
-		to_chat(user, "<span class='cultitalic'>There must be at least one valid target on the rune!</span>")
-		log_game("Leeching rune failed - no valid targets")
-		return list()
-	return ..()
-
-/obj/effect/rune/leeching/invoke(var/list/invokers)
-	var/mob/living/user = invokers[1]
-	user.changeNext_move(CLICK_CD_MELEE)
-	..()
-	var/turf/T = get_turf(src)
-	for(var/mob/living/carbon/M in T.contents - user)
-		if(M.stat != DEAD)
-			var/drained_amount = rand(10,20)
-			M.apply_damage(drained_amount, BRUTE, "chest")
-			user.adjustBruteLoss(-drained_amount)
-			to_chat(M, "<span class='cultitalic'>You feel extremely weak.</span>")
-	user.Beam(T,icon_state="drainbeam",time=5)
-	user.visible_message("<span class='warning'>Blood flows from the rune into [user]!</span>", \
-	"<span class='cult'>Blood flows into you, healing your wounds and revitalizing your spirit.</span>")
-
-
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest
-	cultist_name = "Rite of Spectral Manifestation"
+	cultist_name = "Manifest Ghost"
 	cultist_desc = "manifests a spirit as a servant of your god. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
 	icon_state = "6"
@@ -975,3 +757,153 @@ var/list/teleport_runes = list()
 		guy.dust()
 	summoned_guys.Cut()
 	return ..()
+
+//Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
+/obj/effect/rune/narsie
+	cultist_name = "Tear Reality"
+	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
+	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
+	req_cultists = 9
+	icon = 'icons/effects/96x96.dmi'
+	color = rgb(125,23,23)
+	icon_state = "rune_large"
+	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
+	pixel_y = -32
+	mouse_opacity = MOUSE_OPACITY_ICON //we're huge and easy to click
+	scribe_delay = 450 //how long the rune takes to create
+	scribe_damage = 40.1 //how much damage you take doing it
+	var/used
+
+/obj/effect/rune/narsie/New()
+	..()
+	cultist_name = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"]"
+	cultist_desc = "tears apart dimensional barriers, calling forth [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "your god"]. Requires 9 invokers."
+
+/obj/effect/rune/narsie/check_icon()
+	return
+
+/obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
+	return
+
+/obj/effect/rune/narsie/invoke(var/list/invokers)
+	if(used)
+		return
+	var/mob/living/user = invokers[1]
+	var/datum/game_mode/cult/cult_mode = SSticker.mode
+	if(!(CULT_ELDERGOD in cult_mode.objectives))
+		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
+		burn_invokers(invokers)
+		log_game("Summon Nar-Sie rune failed - improper objective")
+		return
+	if(!is_station_level(user.z))
+		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
+		burn_invokers(invokers)
+		log_game("Summon Nar-Sie rune failed - off station Z level")
+		return
+	if(!cult_mode.eldergod)
+		for(var/M in invokers)
+			to_chat(M, "<span class='warning'>[SSticker.cultdat.entity_name] is already on this plane!</span>")
+		log_game("Summon god rune failed - already summoned")
+		return
+	//BEGIN THE SUMMONING
+	used = 1
+	color = rgb(255, 0, 0)
+	..()
+	world << 'sound/effects/dimensional_rend.ogg'
+	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
+	icon_state = "rune_large_distorted"
+	var/turf/T = get_turf(src)
+	sleep(40)
+	new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
+	cult_mode.eldergod = 0
+
+/obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+	if((istype(I, /obj/item/tome) && iscultist(user)))
+		user.visible_message("<span class='warning'>[user] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
+		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
+			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
+			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
+		return
+	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
+		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
+		return
+	return ..()
+
+
+
+/obj/effect/rune/slaughter
+	cultist_name = "The Slaughter"
+	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
+	invocation = null
+	req_cultists = 9
+	color = rgb(125,23,23)
+	scribe_delay = 450
+	scribe_damage = 40.1 //how much damage you take doing it
+	icon = 'icons/effects/96x96.dmi'
+	icon_state = "rune_large"
+	pixel_x = -32
+	pixel_y = -32
+
+	var/used = 0
+
+/obj/effect/rune/slaughter/check_icon()
+	return
+
+/obj/effect/rune/slaughter/conceal() //can't hide this, and you wouldn't want to
+	return
+
+/obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
+	if((istype(I, /obj/item/tome) && iscultist(user)))
+		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
+		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
+			log_game("Summon demon rune erased by [key_name(user)] with a tome")
+			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
+		return
+	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
+		log_game("Summon demon rune erased by [key_name(user)] using a null rod")
+		message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
+		return
+	return ..()
+
+
+/obj/effect/rune/slaughter/invoke(var/list/invokers)
+	if(used)
+		return
+	var/mob/living/user = invokers[1]
+	var/datum/game_mode/cult/cult_mode = SSticker.mode
+	if(!(CULT_SLAUGHTER in cult_mode.objectives))
+		message_admins("[key_name_admin(user)] tried to summon demons when the objective was wrong")
+		burn_invokers(invokers)
+		log_game("Summon Demons rune failed - improper objective")
+		return
+	if(!is_station_level(user.z))
+		message_admins("[key_name_admin(user)] tried to summon demons off station")
+		burn_invokers(invokers)
+		log_game("Summon demons rune failed - off station Z level")
+		return
+	if(cult_mode.demons_summoned)
+		for(var/M in invokers)
+			to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
+			log_game("Summon Demons rune failed - already summoned")
+			return
+	//BEGIN THE SLAUGHTER
+	used = 1
+	for(var/mob/living/M in range(1,src))
+		if(iscultist(M))
+			M.say("TOK-LYR RQA-NAP SHA-NEX!!")
+	world << 'sound/effects/dimensional_rend.ogg'
+	to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
+	icon_state = "rune_large_distorted"
+	sleep(55)
+	to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
+	visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
+	var/turf/T = get_turf(src)
+	new /mob/living/simple_animal/slaughter/cult(T)
+	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
+	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
+	cult_mode.demons_summoned = 1
+	SSshuttle.emergency.request(null, 0.5, null)
+	SSshuttle.emergency.canRecall = FALSE
+	cult_mode.third_phase()
+	qdel(src)

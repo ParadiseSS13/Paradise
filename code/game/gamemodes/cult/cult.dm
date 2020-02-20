@@ -126,9 +126,9 @@ var/global/list/all_cults = list()
 		equip_cultist(cult_mind.current)
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cult/blood_magic/magic = new
-		var/datum/action/innate/cult/comm/C = new()
-		C.Grant(cult_mind.current)
+		var/datum/action/innate/cult/comm/C = new
 		magic.Grant(cult_mind.current)
+		C.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
 
@@ -162,12 +162,6 @@ var/global/list/all_cults = list()
 	if(!istype(H))
 		return
 
-	if(H.mind)
-		if(H.mind.assigned_role == "Clown")
-			to_chat(H, "A dark power has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
-			H.mutations.Remove(CLUMSY)
-			var/datum/action/innate/toggle_clumsy/A = new
-			A.Grant(H)
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
@@ -185,7 +179,7 @@ var/global/list/all_cults = list()
 	var/where = mob.equip_in_one_of_slots(T, slots)
 	if(!where)
 		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
-		return 0
+		return FALSE
 	else
 		to_chat(mob, "<span class='danger'>You have a [item_name] in your [where].</span>")
 		return TRUE
@@ -197,6 +191,11 @@ var/global/list/all_cults = list()
 	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
+		if(cult_mind.assigned_role == "Clown")
+			to_chat(cult_mind.current, "A dark power has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
+			cult_mind.current.mutations.Remove(CLUMSY)
+			var/datum/action/innate/toggle_clumsy/A = new
+			A.Grant(cult_mind.current)
 		var/datum/action/innate/cult/comm/C = new()
 		var/datum/action/innate/cult/blood_magic/magic = new
 		C.Grant(cult_mind.current)
