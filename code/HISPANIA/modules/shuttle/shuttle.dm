@@ -3,4 +3,4 @@
 	desc = "Used to control the Trans Solar Federation Shuttle."
 	circuit = /obj/item/circuitboard/tsf
 	shuttleId = "tsf"
-	possible_destinations = "tsf_away;tsf_home;tsf_lavaland"
+	possible_destinations = "tsf_away;tsf_home"
