@@ -1,21 +1,9 @@
-/datum/surgery/cavity_implant
-	name = "Cavity Implant/Removal"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head")
-
-
-/datum/surgery/cavity_implant/soft
-	name = "Cavity Implant/Removal"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
-
-	possible_locs = list("groin")
-
+/*
 /datum/surgery/cavity_implant/synth
 	name = "Robotic Cavity Implant/Removal"
 	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
 	possible_locs = list("chest","head","groin")
-	requires_organic_bodypart = 0
+	requires_organic_bodypart = 0*/
 
 /datum/surgery/cavity_implant/can_start(mob/user, mob/living/carbon/human/target)
 	if(!istype(target))
@@ -66,8 +54,9 @@
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
-	allowed_surgery_behaviours = list(SURGERY_MAKE_CAVITY)
-
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_CUT
+	next_surgery_stage = SURGERY_STAGE_CAVITY_OPEN
+	allowed_surgery_behaviour = SURGERY_MAKE_CAVITY
 	time = 54
 
 /datum/surgery_step/cavity/make_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
@@ -84,11 +73,21 @@
 
 	return TRUE
 
+// Base is for the groin only
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
-	allowed_surgery_behaviours = list(SURGERY_CAUTERIZE_INCISION)
-
+	surgery_start_stage = list(SURGERY_STAGE_CAVITY_OPEN, SURGERY_STAGE_CAVITY_CLOSING)
+	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
+	allowed_surgery_behaviour = SURGERY_CAUTERIZE_INCISION
+	possible_locs = list("groin")
 	time = 24
+
+// For the chest and head
+/datum/surgery_step/cavity/close_space/bone
+	name = "close cavity space (bone)"
+	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_BONES
+	possible_locs = list("chest","head")
+
 
 /datum/surgery_step/cavity/close_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -107,6 +106,8 @@
 
 /datum/surgery_step/cavity/place_item
 	name = "implant/extract object"
+	surgery_start_stage = SURGERY_STAGE_CAVITY_OPEN
+	next_surgery_stage = SURGERY_STAGE_CAVITY_CLOSING
 	accept_hand = TRUE
 	accept_any_item = TRUE
 	var/obj/item/IC = null

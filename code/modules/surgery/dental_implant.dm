@@ -1,25 +1,40 @@
-/datum/surgery/dental_implant
-	name = "dental implant"
-	steps = list(/datum/surgery_step/generic/drill, /datum/surgery_step/insert_pill)
+/datum/surgery_step/dental
 	possible_locs = list("mouth")
+	can_infect = TRUE
 
-/datum/surgery/dental_implant/can_start(mob/user, mob/living/carbon/target)
+/datum/surgery_step/dental/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+	. = FALSE
 	if(istype(target,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = target
-		if(!H.check_has_mouth())
-			return 0
-		return 1
+		. = H.check_has_mouth()
 
-/datum/surgery_step/insert_pill
+/datum/surgery_step/dental/drill
+	name = "drill bone"
+	surgery_start_stage = SURGERY_STAGE_START
+	next_surgery_stage = SURGERY_STAGE_DENTAL
+	allowed_surgery_behaviour = SURGERY_DRILL_BONE
+	time = 30
+
+/datum/surgery_step/dental/drill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+	user.visible_message("[user] begins to drill into the bone in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to drill into the bone in [target]'s [parse_zone(target_zone)]...</span>")
+	..()
+
+/datum/surgery_step/dental/drill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message("[user] drills into [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You drill into [target]'s [parse_zone(target_zone)].</span>")
+	return TRUE
+
+/datum/surgery_step/dental/dental/insert_pill
 	name = "insert pill"
-	allowed_surgery_behaviours = list(SURGERY_INSERT_PILL)
+	surgery_start_stage = SURGERY_STAGE_DENTAL
+	next_surgery_stage = SURGERY_STAGE_START
+	allowed_surgery_behaviour = SURGERY_INSERT_PILL
 	time = 16
 
-/datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/dental/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	user.visible_message("[user] begins to wedge \the [tool] in [target]'s [parse_zone(target_zone)].", "<span class='notice'>You begin to wedge [tool] in [target]'s [parse_zone(target_zone)]...</span>")
 	..()
 
-/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
+/datum/surgery_step/dental/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, var/obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
 		return FALSE
 

@@ -1,42 +1,13 @@
 //////////////////////////////////////////////////////////////////
 //					IMPLANT REMOVAL SURGERY						//
 //////////////////////////////////////////////////////////////////
-
-/datum/surgery/implant_removal
-	name = "Implant Removal"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,/datum/surgery_step/extract_implant,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest")
-
-/datum/surgery/implant_removal/synth
-	name = "Implant Removal"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/extract_implant,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest")
-	requires_organic_bodypart = 0
-
-/datum/surgery/implant_removal/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return 0
-	if(affected.is_robotic())
-		return 0
-	return 1
-
-/datum/surgery/implant_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return 0
-	if(!affected.is_robotic())
-		return 0
-
-	return 1
-
 /datum/surgery_step/extract_implant
 	name = "extract implant"
-	allowed_surgery_behaviours = list(SURGERY_EXTRACT_IMPLANT)
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SAME
+	allowed_surgery_behaviour = SURGERY_EXTRACT_IMPLANT
+	possible_locs = list("chest")
+	requires_organic_bodypart = 0
 	time = 64
 	var/obj/item/implant/I = null
 

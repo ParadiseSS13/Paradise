@@ -2,21 +2,19 @@
 //////////////////////////////////////////////////////////////////
 //					INTERNAL WOUND PATCHING						//
 //////////////////////////////////////////////////////////////////
-
-/datum/surgery/infection
-	name = "External Infection Treatment"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/cauterize)
+/datum/surgery_step/debridement
+	name = "disinfect wound"
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+	surgery_start_stage = SURGERY_STAGE_INCISION
+	next_surgery_stage = SURGERY_STAGE_START
+	allowed_surgery_behaviour = SURGERY_CAUTERIZE_INCISION
+	time = 24
 
-/datum/surgery/bleeding
-	name = "Internal Bleeding"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_vein,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
+/datum/surgery_step/generic/cut_open/cut_further
+	name = "cut flesh"
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 
-/datum/surgery/debridement
-	name = "Debridement"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders,/datum/surgery_step/generic/retract_skin,/datum/surgery_step/fix_dead_tissue,/datum/surgery_step/treat_necrosis,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 
 /datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
 	if(ishuman(target))
@@ -60,7 +58,9 @@
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
-	allowed_surgery_behaviours = list(SURGERY_MEND_INTERNAL_BLEEDING)
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SAME
+	allowed_surgery_behaviour = SURGERY_MEND_INTERNAL_BLEEDING
 	can_infect = 1
 	blood_level = 1
 
@@ -102,7 +102,9 @@
 
 /datum/surgery_step/fix_dead_tissue		//Debridement
 	name = "remove dead tissue"
-	allowed_surgery_behaviours = list(SURGERY_MAKE_INCISION)
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
+	allowed_surgery_behaviour = SURGERY_MAKE_INCISION
 
 	can_infect = 1
 	blood_level = 1
@@ -147,7 +149,9 @@
 
 /datum/surgery_step/treat_necrosis
 	name = "treat necrosis"
-	allowed_surgery_behaviours = list(SURGERY_CLEAN_ORGAN_MANIP)
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_CUT
+	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
+	allowed_surgery_behaviour = SURGERY_CLEAN_ORGAN_MANIP
 
 	can_infect = 0
 	blood_level = 0
@@ -224,62 +228,28 @@
 //////////////////////////////////////////////////////////////////
 //					Dethrall Shadowling 						//
 //////////////////////////////////////////////////////////////////
-/datum/surgery/remove_thrall
-	name = "Remove Shadow Tumor"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin,  /datum/surgery_step/internal/dethrall, /datum/surgery_step/generic/cauterize)
-	possible_locs = list("head", "chest", "groin")
-
-/datum/surgery/remove_thrall/synth
-	name = "Debug Shadow Tumor"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/internal/dethrall,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("head", "chest", "groin")
-	requires_organic_bodypart = 0
-
-/datum/surgery/remove_thrall/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	if(!is_thrall(target))
-		return 0
-	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!B)
-		// No brain to remove the tumor from
-		return 0
-	if(affected.is_robotic())
-		return 0
-	if(!(B in affected.internal_organs))
-		return 0
-	return 1
-
-/datum/surgery/remove_thrall/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	if(!is_thrall(target))
-		return 0
-	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!B)
-		// No brain to remove the tumor from
-		return 0
-	if(!affected.is_robotic())
-		return 0
-	if(!(B in affected.internal_organs))
-		return 0
-	return 1
-
-
 /datum/surgery_step/internal/dethrall
 	name = "cleanse contamination"
-	allowed_surgery_behaviours = list(SURGERY_DETHRALL)
+	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
+	next_surgery_stage = SURGERY_STAGE_SAME
+	possible_locs = list("head", "chest", "groin")
+	allowed_surgery_behaviour = SURGERY_DETHRALL
 	blood_level = 0
+	requires_organic_bodypart = FALSE
 	time = 30
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	if(!..())
-		return 0
+		return FALSE
+		
 	if(!is_thrall(target))
-		return 0
-	return 1
+		return FALSE
+	
+	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(!B || !(B in affected.internal_organs))
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/internal/dethrall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	var/braincase = target.named_organ_parent("brain")

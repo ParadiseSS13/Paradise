@@ -1,32 +1,30 @@
-/datum/surgery/limb_augmentation
-	name = "Augment Limb"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/augment)
-	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
-
-/datum/surgery/limb_augmentation/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return 0
-		if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
-			return 0
-		if(affected.is_robotic())
-			return 0
-		return 1
-
 /datum/surgery_step/augment
 	name = "augment limb with robotic part"
-	allowed_surgery_behaviours = list(SURGERY_AUGMENT_ROBOTIC)
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_START
+	allowed_surgery_behaviour = SURGERY_AUGMENT_ROBOTIC
+	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
 	time = 32
 
 /datum/surgery_step/augment/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+	if(!ishuman(target))
+		return FALSE
+	
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	if(!affected)
+		return FALSE
+	if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
+		return FALSE
+	if(affected.is_robotic())
+		return FALSE
+	
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
 		if(!(target_zone in p.part))
-			to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
-			return 0
-	return 1
+			//to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
+			return FALSE
+	return TRUE
 
 /datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, surgery_behaviour)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

@@ -1,30 +1,18 @@
 //Procedures in this file: Unsealing a Rig.
-
-/datum/surgery/rigsuit
-	name = "Rig Unsealing"
-	steps = list(/datum/surgery_step/rigsuit)
-	possible_locs = list("chest")
-
-/datum/surgery/rigsuit/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/backitem = H.get_item_by_slot(slot_back)
-		if(istype(backitem,/obj/item/rig)) //Check if we have a rig to operate on
-			if(backitem.flags&NODROP) //Check if the rig is sealed, if not, we don't need to operate
-				return 1
-	return 0
-
 //Bay12 removal
 /datum/surgery_step/rigsuit
 	name="Cut Seals"
-	allowed_surgery_behaviours = list(SURGERY_CUT_SEALS)
-
+	allowed_surgery_behaviour = SURGERY_CUT_SEALS
+	surgery_start_stage = SURGERY_STAGE_START
+	next_surgery_stage = SURGERY_STAGE_START
+	possible_locs = list("chest")
+	pain = FALSE
 	can_infect = 0
 	blood_level = 0
 
 	time = 50
 
-/datum/surgery_step/hardsuit/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/rigsuit/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	if(!istype(target))
 		return 0
 	if(tool.tool_behaviour == TOOL_WELDER)

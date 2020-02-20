@@ -1,23 +1,19 @@
-/datum/surgery/plastic_surgery
-	name = "Plastic Surgery"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/reshape_face, /datum/surgery_step/generic/cauterize)
+/datum/surgery_step/reshape_face
+	name = "reshape face"
+	allowed_surgery_behaviour = SURGERY_RESHAPE_FACE
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SAME
 	possible_locs = list("head")
+	time = 64
 
-/datum/surgery/plastic_surgery/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/head/head = H.get_organ(user.zone_selected)
+/datum/surgery_step/reshape_face/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+	if(istype(target))
+		var/obj/item/organ/external/head/head = target.get_organ(user.zone_selected)
 		if(!head)
 			return FALSE
 		if(head.is_robotic())
 			return FALSE
 		return TRUE
-
-
-/datum/surgery_step/reshape_face
-	name = "reshape face"
-	allowed_surgery_behaviours = list(SURGERY_RESHAPE_FACE)
-	time = 64
 
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	user.visible_message("[user] begins to alter [target]'s appearance.", "<span class='notice'>You begin to alter [target]'s appearance...</span>")

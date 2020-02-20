@@ -17,28 +17,12 @@
 	if(!istype(target, /mob/living) || user == target || user.a_intent != INTENT_HELP)
 		return FALSE
 	var/mob/living/L = target
+	if(can_operate(L))
+		var/datum/surgery/S = get_or_initiate_surgery(src, L, user)
+		if(S)
+			return L.surgery_act(user, src, S)
 	
-	. = L.surgery_act(user, src)
-
-	if(!. && can_operate(L))  //Checks if mob is lying down on table for surgery
-		if(istype(src,/obj/item/robot_parts))//popup override for direct attach
-			if(!attempt_initiate_surgery(src, L, user, 1))
-				return 0
-			else
-				return 1
-		if(istype(src,/obj/item/organ/external))
-			var/obj/item/organ/external/E = src
-			if(E.is_robotic()) // Robot limbs are less messy to attach
-				if(!attempt_initiate_surgery(src, L, user, 1))
-					return 0
-				else
-					return 1
-		var/obj/item/organ/external/O = L.get_organ(user.zone_selected)
-		if((is_sharp(src) || (tool_behaviour == TOOL_SCREWDRIVER && O.is_robotic())) && user.a_intent == INTENT_HELP)
-			if(!attempt_initiate_surgery(src, L, user))
-				return FALSE
-			else
-				return TRUE
+	return FALSE
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)

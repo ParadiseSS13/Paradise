@@ -1,37 +1,11 @@
-/datum/surgery/embedded_removal
-	name = "Removal of Embedded Objects"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/remove_object,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
-
-/datum/surgery/embedded_removal/synth
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/remove_object,/datum/surgery_step/robotics/external/close_hatch)
-	requires_organic_bodypart = 0
-
-/datum/surgery/embedded_removal/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return 0
-	if(affected.is_robotic())
-		return 0
-	return 1
-
-/datum/surgery/embedded_removal/synth/can_start(mob/user, mob/living/carbon/human/target)
-	if(!istype(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return 0
-	if(!affected.is_robotic())
-		return 0
-
-	return 1
-
 /datum/surgery_step/remove_object
 	name = "Remove Embedded Objects"
 	time = 32
 	accept_hand = 1
+	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
+	next_surgery_stage = SURGERY_STAGE_SAME
+	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin")
+	requires_organic_bodypart = FALSE
 	var/obj/item/organ/external/L = null
 
 

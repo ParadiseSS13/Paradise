@@ -2,21 +2,12 @@
 /datum/surgery
 	var/name
 	var/status = 1
-	var/list/steps = list()
-	/*
-	var/eyes	=	0
-	var/face	=	0
-	var/appendix =	0
-	var/ribcage =	0
-	var/head_reattach = 0									//Steps in a surgery
-	*/
+	var/current_stage = SURGERY_STAGE_START
 
 	var/can_cancel = 1
-	var/step_in_progress = 0
+	var/step_in_progress = FALSE
 	var/list/in_progress = list()									//Actively performing a Surgery
 	var/location = "chest"										//Surgery location
-	var/requires_organic_bodypart = 1							//Prevents you from performing an operation on robotic limbs
-	var/list/possible_locs = list() 							//Multiple locations -- c0
 	var/obj/item/organ/organ_ref									//Operable body part
 	var/current_organ = "organ"
 	var/list/allowed_mob = list(/mob/living/carbon/human)
@@ -27,19 +18,42 @@
 	return 1
 
 
-/datum/surgery/proc/next_step(mob/user, mob/living/carbon/target)
-	if(step_in_progress)	return
-
-	var/datum/surgery_step/S = get_surgery_step()
+/datum/surgery/proc/next_step(mob/user, mob/living/carbon/target, obj/item/tool)
+	if(step_in_progress)	return FALSE
+	. = TRUE // Person 
+	var/list/steps = get_surgery_steps(user, target, tool)
+	var/datum/surgery_step/S
+	if(steps.len == 0)
+		return FALSE // No surgery steps. So stab that person in the ****
+	if(steps.len == 1)
+		S = steps[steps[1]]
+	else
+		var/P = input("Begin which procedure?", "Surgery", null, null) as null|anything in steps
+		if(P && user && user.Adjacent(target) && tool == user.get_active_hand() && can_operate(target))
+			S = steps[P]
 	if(S)
-		if(S.try_op(user, target, user.zone_selected, user.get_active_hand(), src))
-			return TRUE
-	return FALSE
+		S = new S.type() // Make a new step. Don't fuck this one up
+		step_in_progress = TRUE
+		if(S.try_op(user, target, user.zone_selected, tool, src))
+			if(S.next_surgery_stage != SURGERY_STAGE_SAME)
+				current_stage = S.next_surgery_stage
+		step_in_progress = FALSE
 
-/datum/surgery/proc/get_surgery_step()
-	var/step_type = steps[status]
-	return new step_type
+/datum/surgery/proc/get_surgery_steps(mob/user, mob/living/carbon/target, obj/item/tool)
+	var/list/possible_steps = list()
+	var/selected_zone = user.zone_selected
+	var/list/all_steps = GLOB.surgery_steps[current_stage] + GLOB.surgery_steps[SURGERY_STAGE_ALWAYS]
 
+	for(var/datum/surgery_step/S in all_steps)
+		if(S.possible_locs?.len && !(selected_zone in S.possible_locs))
+			continue
+		if((S.accept_hand && !tool) || (tool && (S.accept_any_item \
+			|| (S.allowed_surgery_behaviour in tool.surgery_behaviours))))
+			if(S.can_use(user, target, location, tool, src))
+				possible_steps[S.name] = S
+
+	return possible_steps
+	
 
 /datum/surgery/proc/complete(mob/living/carbon/human/target)
 	target.surgeries -= src
@@ -49,10 +63,14 @@
 
 /* SURGERY STEPS */
 /datum/surgery_step
-	var/priority = 0	//steps with higher priority would be attempted first
+	var/priority = 0	//steps with higher priority will be put higher in the possible steps list
 
-	var/allowed_surgery_behaviours = null // The behaviours allowed for the surgery step
+	var/allowed_surgery_behaviour = null // The behaviours allowed for the surgery step
 
+	var/surgery_start_stage = null 			// The stage that the surgery should be in should this step be an option
+	var/next_surgery_stage = null 			// The stage surgery will be in after this step completes
+	var/list/possible_locs = null 			//Multiple locations -- c0
+	var/requires_organic_bodypart = TRUE	//Prevents you from performing an operation on robotic limbs
 	// duration of the step
 	var/time = 10
 
@@ -60,14 +78,19 @@
 	var/accept_hand = 0				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
 	var/accept_any_item = 0
 
+	var/pain = TRUE
 	// evil infection stuff that will make everyone hate me
 	var/can_infect = 0
 	//How much blood this step can get on surgeon. 1 - hands, 2 - full body.
 	var/blood_level = 0
 
+/datum/surgery_step/New()
+	. = ..()
+	if(!islist(surgery_start_stage))
+		surgery_start_stage = list(surgery_start_stage)
+
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/success = FALSE
-	var/selected_surgery_behaviour
 	
 	if(target_zone != surgery.location)
 		return FALSE
@@ -78,58 +101,48 @@
 		if(tool)
 			success = TRUE
 	else
-		for(var/surgery_behaviour in allowed_surgery_behaviours) // This way around so the surgery can decide what behaviour goes over others
-			if(surgery_behaviour in tool.surgery_behaviours)
-				success = TRUE
-				selected_surgery_behaviour = surgery_behaviour
-				break
+		if(allowed_surgery_behaviour in tool.surgery_behaviours)
+			success = TRUE
 
 	if(success)
-		initiate(user, target, target_zone, tool, surgery, selected_surgery_behaviour)
-		return TRUE //returns TRUE so we don't stab the guy in the dick or wherever.
+		return initiate(user, target, target_zone, tool, surgery) //returns TRUE so we don't stab the guy in the dick or wherever.
 	return FALSE
 
-/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
-	if(!can_use(user, target, target_zone, tool, surgery, surgery_behaviour))
+/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!can_use(user, target, target_zone, tool, surgery))
 		return
-	surgery.step_in_progress = 1
 
 	var/speed_mod = 1
 
-	if(begin_step(user, target, target_zone, tool, surgery, surgery_behaviour) == -1)
-		surgery.step_in_progress = 0
+	if(begin_step(user, target, target_zone, tool, surgery) == -1)
 		return
 
 	if(tool)
 		speed_mod = tool.toolspeed
 
 	if(do_after(user, time * speed_mod, target = target))
-		var/advance = 0
+		var/advance = FALSE
 		var/prob_chance = 100
 
-		if(surgery_behaviour)
-			prob_chance = tool.surgery_behaviours[surgery_behaviour]
+		if(allowed_surgery_behaviour)
+			prob_chance = tool.surgery_behaviours[allowed_surgery_behaviour]
 		prob_chance *= get_location_modifier(target)
 
 
-		if(!ispath(surgery.steps[surgery.status], /datum/surgery_step/robotics) && !ispath(surgery.steps[surgery.status], /datum/surgery_step/rigsuit))//Repairing robotic limbs doesn't hurt, and neither does cutting someone out of a rig
+		if(pain)
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target //typecast to human
 				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
 
 		if(prob(prob_chance) || isrobot(user))
-			if(end_step(user, target, target_zone, tool, surgery, surgery_behaviour))
-				advance = 1
+			if(end_step(user, target, target_zone, tool, surgery))
+				advance = TRUE
 		else
-			if(fail_step(user, target, target_zone, tool, surgery, surgery_behaviour))
-				advance = 1
+			if(fail_step(user, target, target_zone, tool, surgery))
+				advance = TRUE
+		
+		return advance
 
-		if(advance)
-			surgery.status++
-			if(surgery.status > surgery.steps.len)
-				surgery.complete(target)
-
-	surgery.step_in_progress = 0
 
 // Checks if this step applies to the user mob at all
 /datum/surgery_step/proc/is_valid_target(mob/living/carbon/human/target)
@@ -138,7 +151,7 @@
 	return TRUE
 
 // checks whether this step can be applied with the given user and target
-/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
 	return 1
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
@@ -201,6 +214,7 @@
 
 	E.germ_level += germs
 
+/*
 /proc/sort_surgeries()
 	var/gap = GLOB.surgery_steps.len
 	var/swapped = 1
@@ -216,3 +230,4 @@
 			if(l.priority < r.priority)
 				GLOB.surgery_steps.Swap(i, gap + i)
 				swapped = 1
+*/

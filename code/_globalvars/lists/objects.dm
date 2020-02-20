@@ -3,7 +3,6 @@ GLOBAL_LIST(cable_list)								//Index for all cables, so that powernets don't h
 GLOBAL_LIST(chemical_reactions_list)			//list of all /datum/chemical_reaction datums. Used during chemical reactions
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_INIT(landmarks_list, list())				//list of all landmarks created
-GLOBAL_LIST_INIT(surgery_steps, list())				//list of all surgery steps  |BS12
 GLOBAL_LIST_INIT(side_effects, list())				//list of all medical sideeffects types by thier names |BS12
 GLOBAL_LIST_INIT(mechas_list, list())				//list of all mechs. Used by hostile mobs target tracking.
 GLOBAL_LIST_INIT(spacepods_list, list())				//list of all space pods. Used by hostile mobs target tracking.

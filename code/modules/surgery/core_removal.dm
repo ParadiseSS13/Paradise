@@ -1,8 +1,8 @@
-/datum/surgery/core_removal
+/*/datum/surgery/core_removal
 	name = "core removal"
 	steps = list(/datum/surgery_step/slime/cut_flesh, /datum/surgery_step/slime/extract_core)
 	allowed_mob = list(/mob/living/simple_animal/slime)
-	possible_locs = list("chest", "head", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
+	possible_locs = list("chest", "head", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")*/
 
 /datum/surgery_step/slime
 
@@ -13,7 +13,7 @@
 	return istype(target) && target.stat == DEAD
 
 /datum/surgery_step/slime/cut_flesh
-	allowed_surgery_behaviours = list(SURGERY_SLIME_CUT_FLESH)
+	allowed_surgery_behaviour = SURGERY_SLIME_CUT_FLESH
 	time = 16
 
 /datum/surgery_step/slime/cut_flesh/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool, surgery_behaviour)
@@ -31,7 +31,7 @@
 
 /datum/surgery_step/slime/extract_core
 	name = "extract core"
-	allowed_surgery_behaviours = list(SURGERY_SLIME_EXTRACT_CORE)
+	allowed_surgery_behaviour = SURGERY_SLIME_EXTRACT_CORE
 	time = 16
 
 /datum/surgery_step/slime/extract_core/begin_step(mob/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool, surgery_behaviour)

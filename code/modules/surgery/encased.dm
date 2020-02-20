@@ -8,21 +8,22 @@
 	blood_level = 1
 
 /datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
-
-	if(!hasorgans(target))
-		return 0
+	if(!ishuman(target))
+		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
-		return 0
-	if(affected.is_robotic())
-		return 0
-	return 1
+		return FALSE
+	if(affected.is_robotic() || !affected.encased)
+		return FALSE
+	return TRUE
 
 
 /datum/surgery_step/open_encased/saw
 	name = "saw bone"
-	allowed_surgery_behaviours = list(SURGERY_SAW_BONE)
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
+	next_surgery_stage = SURGERY_STAGE_SAWN_BONES
+	allowed_surgery_behaviour = SURGERY_SAW_BONE
 
 	time = 54
 
@@ -46,6 +47,7 @@
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
 	affected.open = 2.5
+	affected.fracture(TRUE, "bones sawn")
 	return TRUE
 
 /datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
@@ -65,8 +67,9 @@
 
 /datum/surgery_step/open_encased/retract
 	name = "retract bone"
-	allowed_surgery_behaviours = list(SURGERY_RETRACT_BONE)
-
+	allowed_surgery_behaviour = SURGERY_RETRACT_BONE
+	surgery_start_stage = SURGERY_STAGE_SAWN_BONES
+	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_BONES
 	time = 24
 
 /datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
@@ -112,7 +115,9 @@
 
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
-	allowed_surgery_behaviours = list(SURGERY_RETRACT_BONE)
+	allowed_surgery_behaviour = SURGERY_RETRACT_BONE
+	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_BONES
+	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
 
 	time = 24
 
@@ -156,35 +161,3 @@
 	affected.fracture()
 
 	return FALSE
-
-/datum/surgery_step/open_encased/mend
-	name = "mend bone"
-	allowed_surgery_behaviours = list(SURGERY_MEND_BONE)
-
-	time = 24
-
-/datum/surgery_step/open_encased/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
-
-	if(!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	var/msg = "[user] starts applying \the [tool] to [target]'s [affected.encased]."
-	var/self_msg = "You start applying \the [tool] to [target]'s [affected.encased]."
-	user.visible_message(msg, self_msg)
-	target.custom_pain("Something hurts horribly in your [affected.name]!")
-	..()
-
-/datum/surgery_step/open_encased/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
-
-	if(!hasorgans(target))
-		return
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	var/msg = "<span class='notice'> [user] applied \the [tool] to [target]'s [affected.encased].</span>"
-	var/self_msg = "<span class='notice'> You applied \the [tool] to [target]'s [affected.encased].</span>"
-	user.visible_message(msg, self_msg)
-
-	affected.open = 2
-
-	return TRUE

@@ -120,9 +120,8 @@
 		if(occupant.surgeries.len)
 			occupantData["inSurgery"] = 1
 			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryName"] = "[capitalize(procedure.name)]"
-				var/datum/surgery_step/surgery_step = procedure.get_surgery_step()
-				occupantData["stepName"] = "[capitalize(surgery_step.name)]"
+				occupantData["surgeryLocation"] = "[capitalize(procedure.location)]"
+				occupantData["surgeryStage"] = "[capitalize(procedure.current_stage)]"
 
 	data["occupant"] = occupantData
 	data["verbose"]=verbose

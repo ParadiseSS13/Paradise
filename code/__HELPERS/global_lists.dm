@@ -21,10 +21,14 @@
 	//alt heads
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
-	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
-
-	for(var/path in (subtypesof(/datum/surgery)))
-		GLOB.surgeries_list += new path()
+	for(var/path in (subtypesof(/datum/surgery_step)))
+		var/datum/surgery_step/S = new path()
+		for(var/start_step in S.surgery_start_stage)
+			if(!GLOB.surgery_steps[start_step])
+				GLOB.surgery_steps[start_step] = list(S)
+			else
+				var/list/SS = GLOB.surgery_steps[start_step]
+				SS.Add(S)
 
 	init_datum_subtypes(/datum/job, GLOB.joblist, list(/datum/job/ai, /datum/job/cyborg), "title")
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")

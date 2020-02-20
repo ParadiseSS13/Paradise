@@ -601,13 +601,13 @@ Note that amputating the affected organ does in fact remove the infection from t
 			"\The [holder.legcuffed.name] falls off you.")
 		holder.unEquip(holder.legcuffed)
 
-/obj/item/organ/external/proc/fracture()
+/obj/item/organ/external/proc/fracture(quiet = FALSE, description = null)
 	if(is_robotic())
 		return	//ORGAN_BROKEN doesn't have the same meaning for robot limbs
 
 	if((status & ORGAN_BROKEN) || cannot_break)
 		return
-	if(owner)
+	if(owner && !quiet)
 		owner.visible_message(\
 			"<span class='warning'>You hear a loud cracking sound coming from \the [owner].</span>",\
 			"<span class='danger'>Something feels like it shattered in your [name]!</span>",\
@@ -617,7 +617,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			owner.emote("scream")
 
 	status |= ORGAN_BROKEN
-	broken_description = pick("broken","fracture","hairline fracture")
+	broken_description = description ? description : pick("broken","fracture","hairline fracture")
 	perma_injury = brute_dam
 
 	// Fractures have a chance of getting you out of restraints
