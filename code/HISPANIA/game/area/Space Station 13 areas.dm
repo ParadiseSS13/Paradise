@@ -13,4 +13,4 @@
 
 area/ship/tsf/longlost
 	name = "TSF Discovery"
-	icon_state = "yellow"
+	icon_state = "shuttle"

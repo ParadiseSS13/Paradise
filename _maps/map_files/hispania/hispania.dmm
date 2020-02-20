@@ -97043,6 +97043,7 @@
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/vial,
 /obj/item/reagent_scanner/adv,
+/obj/structure/spawner/headcrab_old,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97356,7 +97357,7 @@
 	},
 /area/ship/tsf/longlost)
 "nYG" = (
-/obj/structure/spawner/headcrab,
+/obj/structure/spawner/headcrab_old,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97653,13 +97654,6 @@
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
-"sJr" = (
-/obj/structure/lattice,
-/turf/simulated/shuttle/wall{
-	dir = 8;
-	icon_state = "diagonalWall3"
-	},
-/area/ship/tsf/longlost)
 "sJA" = (
 /mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/shuttle/floor{
@@ -97824,6 +97818,13 @@
 /area/ship/tsf/longlost)
 "vdP" = (
 /obj/machinery/optable,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"vkZ" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spawner/headcrab_old,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -141765,7 +141766,7 @@ aaa
 vIC
 kvZ
 gIV
-nYG
+gIV
 tNP
 gIV
 dYa
@@ -142278,7 +142279,7 @@ vIC
 dYa
 dYa
 iPO
-xhm
+vkZ
 dvs
 gIV
 gIV
@@ -142528,7 +142529,7 @@ aab
 aaa
 aaa
 aaa
-aab
+aaa
 aaa
 lDA
 dYa
@@ -142785,8 +142786,8 @@ aaa
 aaa
 aaa
 aaa
-aab
-sJr
+aaa
+vIC
 idz
 rFV
 xhm
@@ -142805,7 +142806,7 @@ xhm
 hjf
 dWr
 gIV
-xhm
+vkZ
 dYa
 dYa
 qML
@@ -143062,7 +143063,7 @@ xhm
 qtw
 dWr
 xhm
-nYG
+gIV
 dYa
 vdM
 dYa
@@ -143309,7 +143310,7 @@ xhm
 peE
 dYa
 qnL
-xhm
+vkZ
 gIV
 dYa
 fSw
@@ -143823,7 +143824,7 @@ xhm
 dFL
 dYa
 iWx
-nYG
+gIV
 xhm
 dYa
 gIV
@@ -145355,14 +145356,14 @@ aab
 aaa
 aaa
 aaa
-aab
+aaa
 aaa
 aaa
 sfJ
 dYa
 dYa
 vEg
-xhm
+vkZ
 fSw
 xhm
 xhm
@@ -145621,7 +145622,7 @@ dYa
 vEg
 gIV
 xhm
-nYG
+gIV
 xhm
 nwp
 dYa
@@ -146126,10 +146127,10 @@ aab
 aaa
 aaa
 aaa
-aab
-aab
-aab
-aab
+aaa
+aaa
+aaa
+aaa
 aaa
 aaa
 wJx
