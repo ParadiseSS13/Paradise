@@ -247,10 +247,7 @@
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \
 						 "<span class='danger'>An unnatural hunger consumes you. You raise [src] to your mouth and devour it!</span>")
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, 1)
-	for(var/obj/effect/proc_holder/spell/knownspell in user.mind.spell_list)
-		if(knownspell.type == /obj/effect/proc_holder/spell/bloodcrawl)
-			qdel(src)
-			return
+
 
 	if(user.bloodcrawl == 0)
 		user.visible_message("<span class='warning'>[user]'s eyes flare a deep crimson!</span>", \
@@ -259,10 +256,13 @@
 	else if(user.bloodcrawl == BLOODCRAWL)
 		to_chat(user, "You feel diffr-<span class = 'danger'> CONSUME THEM! </span>")
 		user.bloodcrawl = BLOODCRAWL_EAT
-	else
+	else if(user.bloodcrawl == BLOODCRAWL_EAT)
 		to_chat(user, "<span class='warning'>...and you don't feel any different.</span>")
 
 	user.drop_item()
+
+	if(istype(user.get_organ_slot(slot), /obj/item/organ/internal/heart/demon))
+		return
 	insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E
 
 /obj/item/organ/internal/heart/demon/insert(mob/living/carbon/M, special = 0)
