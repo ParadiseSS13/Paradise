@@ -96867,6 +96867,7 @@
 	dir = 8;
 	layer = 2.9
 	},
+/obj/item/clothing/under/solgov,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97348,6 +97349,12 @@
 	icon_state = "floor4"
 	},
 /area/ship/tsf/longlost)
+"nPf" = (
+/obj/item/clothing/under/solgov,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "nYG" = (
 /obj/structure/spawner/headcrab,
 /turf/simulated/shuttle/floor{
@@ -97776,6 +97783,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"uIt" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/clothing/under/solgov,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "uJX" = (
 /obj/structure/showcase/horrific_experiment,
 /turf/simulated/shuttle/floor{
@@ -97877,6 +97891,13 @@
 /area/shuttle/constructionsite)
 "vXn" = (
 /obj/structure/barricade/wooden/crude,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"vZA" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/item/clothing/head/soft/solgov,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -141996,7 +142017,7 @@ dYa
 kRU
 gIV
 hpt
-gIV
+nPf
 xhm
 euU
 dYa
@@ -143021,7 +143042,7 @@ eKL
 gIV
 gmX
 ioS
-peE
+vZA
 tNP
 dYa
 dYa
@@ -143808,7 +143829,7 @@ dWr
 gIV
 xhm
 gRV
-xhm
+uIt
 gox
 vAG
 nMx
