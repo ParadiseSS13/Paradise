@@ -513,7 +513,7 @@
 							playsound(loc, pick(dna.species.male_dying_gasp_sounds), 100, 1, frequency = get_age_pitch())
 
 					else
-						playsound(loc, "[dna.species.gasp_sound]", 15, 1, frequency = get_age_pitch())
+						playsound(loc, dna.species.gasp_sound, 15, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a weak noise."
@@ -837,9 +837,9 @@
 					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, "[dna.species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
+						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, "[dna.species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
