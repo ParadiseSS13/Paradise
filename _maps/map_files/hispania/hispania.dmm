@@ -97752,6 +97752,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"uzf" = (
+/obj/machinery/computer/shuttle/tsf,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "uzp" = (
 /obj/structure/beebox,
 /turf/simulated/floor/plasteel{
@@ -142542,7 +142548,7 @@ mKQ
 dWr
 dWr
 gIV
-gIV
+qnL
 dYa
 qML
 aaa
@@ -143569,7 +143575,7 @@ dWr
 dWr
 dWr
 dWr
-xhm
+vAG
 gIV
 dYa
 xhm
@@ -143826,7 +143832,7 @@ fVt
 xhm
 dTN
 dWr
-gIV
+uzf
 xhm
 gRV
 uIt
@@ -144083,7 +144089,7 @@ iam
 gIV
 dTN
 dWr
-xhm
+vAG
 gIV
 dYa
 xhm
@@ -145112,7 +145118,7 @@ uzH
 sKS
 dWr
 gIV
-xhm
+vAG
 dYa
 faq
 aaa
