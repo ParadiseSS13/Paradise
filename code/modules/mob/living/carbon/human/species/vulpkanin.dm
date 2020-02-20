@@ -19,9 +19,19 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	dietflags = DIET_OMNI
-	hunger_drain = 0.11
+	hunger_drain = 0.17
+	speed_mod = -0.5
+	burn_mod = 2
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 	reagent_tag = PROCESS_ORG
+
+	cold_level_1 = 230
+	cold_level_2 = 170
+	cold_level_3 = 100
+
+	heat_level_1 = 330
+	heat_level_2 = 370
+	heat_level_3 = 430
 
 	flesh_color = "#966464"
 	base_color = "#CF4D2F"

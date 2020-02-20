@@ -19,6 +19,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | HAS_HEAD_ACCESSORY | HAS_BODY_MARKINGS | HAS_HEAD_MARKINGS | HAS_SKIN_COLOR | HAS_ALT_HEADS | TAIL_WAGGING
 	dietflags = DIET_CARN
+	hunger_drain = 0.17
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
 
 	cold_level_1 = 280 //Default 260 - Lower is better
@@ -36,7 +37,8 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	brute_mod = 1.05
+	brute_mod = 0.8
+	speed_mod = 0.2
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
