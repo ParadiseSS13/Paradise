@@ -1728,6 +1728,8 @@
 			SStickets.takeTicket(index)
 
 	else if(href_list["resolve"])
+		if(!check_rights(R_MENTOR|R_MOD|R_ADMIN))
+			return
 		var/index = text2num(href_list["resolve"])
 		if(href_list["is_mhelp"])
 			SSmentor_tickets.resolveTicket(index)
@@ -2750,13 +2752,13 @@
 		if(number == 1)
 			log_admin("[key_name(usr)] created a [english_list(paths)]")
 			for(var/path in paths)
-				if(ispath(path, /mob))
+				if(ispath(path, /mob) || ispath(path, /obj))
 					message_admins("[key_name_admin(usr)] created a [english_list(paths)]")
 					break
 		else
 			log_admin("[key_name(usr)] created [number]ea [english_list(paths)]")
 			for(var/path in paths)
-				if(ispath(path, /mob))
+				if(ispath(path, /mob) || ispath(path, /obj))
 					message_admins("[key_name_admin(usr)] created [number]ea [english_list(paths)]")
 					break
 		return
