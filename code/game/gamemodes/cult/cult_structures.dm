@@ -3,6 +3,7 @@
 	density = 1
 	anchored = 1
 	icon = 'icons/obj/cult.dmi'
+	light_power = 2
 
 //Noncult As we may have this on maps
 /obj/structure/cult/altar
@@ -14,18 +15,22 @@
 	name = "Daemon forge"
 	desc = "A forge used in crafting the unholy weapons used by the armies of Nar-Sie"
 	icon_state = "forge"
+	light_range = 2
+	light_color = LIGHT_COLOR_LAVA
 
 /obj/structure/cult/pylon
 	name = "Pylon"
 	desc = "A floating crystal that hums with an unearthly energy"
 	icon_state = "pylon"
-	light_range = 5
-	light_color = "#3e0000"
+	light_range = 1.5
+	light_color = LIGHT_COLOR_RED
 
 /obj/structure/cult/archives
 	name = "Desk"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl"
 	icon_state = "archives"
+	light_range = 1.5
+	light_color = LIGHT_COLOR_FIRE
 
 //Cult versions cuase fuck map conflicts
 /obj/structure/cult/functional
@@ -113,6 +118,8 @@
 	name = "daemon forge"
 	desc = "A forge used in crafting the unholy weapons used by the armies of a cult."
 	icon_state = "forge"
+	light_range = 2
+	light_color = LIGHT_COLOR_LAVA
 	max_integrity = 300 //Made of metal
 	death_message = "<span class='warning'>The forge falls apart, its lava cooling and winking away!</span>"
 	death_sound = 'sound/effects/forge_destroy.ogg'
@@ -122,6 +129,7 @@
 	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating %ITEM%!</span>"
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
 							"Mirror Shield" = /obj/item/shield/mirror)
+
 /obj/structure/cult/functional/forge/New()
 	. = ..()
 	icon_state = SSticker.cultdat?.forge_icon_state
@@ -165,8 +173,8 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	name = "pylon"
 	desc = "A floating crystal that slowly heals those faithful to a cult."
 	icon_state = "pylon"
-	light_range = 5
-	light_color = "#3e0000"
+	light_range = 1.5
+	light_color = LIGHT_COLOR_RED
 	max_integrity = 50 //Very fragile
 	death_message = "<span class='warning'>The pylon's crystal vibrates and glows fiercely before violently shattering!</span>"
 	death_sound = 'sound/effects/pylon_shatter.ogg'
@@ -202,11 +210,13 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))
 						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
+					if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+						L.blood_volume += 1.0
 					if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)
 							M.adjustHealth(-1)
-	if(last_corrupt <= world.time)
+	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
 		var/list/validturfs = list()
 		var/list/cultturfs = list()
 		for(var/T in circleviewturfs(src, 5))
@@ -235,12 +245,12 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 				// convertable turfs?
 				last_corrupt = world.time + corrupt_delay*2
 
-
-
 /obj/structure/cult/functional/archives
 	name = "archives"
 	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
 	icon_state = "archives"
+	light_range = 1.5
+	light_color = LIGHT_COLOR_FIRE
 	max_integrity = 125 //Slightly sturdy
 	death_message = "<span class='warning'>The desk breaks apart, its books falling to the floor.</span>"
 	death_sound = 'sound/effects/wood_break.ogg'
