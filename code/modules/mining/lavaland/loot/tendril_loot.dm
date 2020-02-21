@@ -93,6 +93,19 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
+/obj/item/ancient_tome
+	name = "Ancient Tome"
+	desc = "This book is really old, despite that you feel like reading it could teach you a thing or two."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "book1"
+	w_class = 2
+
+/obj/item/ancient_tome/attack_self(mob/user)
+	user.add_language("Sinta'unathi")
+	to_chat(user, "Reading the book gave you a lot of insights to what seems to be the Unathi language, enough so that you feel confident in your ability to communicate with and understand it. Unfortunately, presumably due to the tome's age, it crumbles into a pile of dust after you're finished with it. Whoops.")
+	new /obj/effect/decal/cleanable/ash(get_turf(user))
+	qdel(src)
+
 //Potion of Flight: as we do not have the "Angel" species this currently does not work.
 
 /obj/item/reagent_containers/glass/bottle/potion
