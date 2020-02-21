@@ -1,0 +1,41 @@
+"a" = (/turf/simulated/mineral/volcanic/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"b" = (/turf/simulated/wall/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"c" = (/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"d" = (/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"e" = (/obj/structure/table/holotable/wood,/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"f" = (/obj/structure/table/holotable/wood,/obj/item/ancient_tome,/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"g" = (/obj/item/stack/sheet/wood,/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"h" = (/obj/structure/bookcase,/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"i" = (/mob/living/simple_animal/hostile/asteroid/goliath/beast,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"j" = (/obj/structure/stone_tile/slab/burnt,/turf/simulated/floor/plating/lava/smooth/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"k" = (/obj/structure/stone_tile/block/burnt,/turf/simulated/floor/plating/lava/smooth/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"l" = (/obj/structure/stone_tile/block/cracked{dir = 4},/turf/simulated/floor/plating/lava/smooth/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"m" = (/obj/structure/fluff/drake_statue/falling,/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"n" = (/obj/structure/stone_tile/block/cracked{dir = 8},/turf/simulated/floor/plating/lava/smooth/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+"o" = (/obj/item/paper/crumpled/ancient_crumpled_1,/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"p" = (/obj/item/paper/crumpled/ancient_crumpled_2,/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"q" = (/obj/structure/necropolis_gate,/turf/simulated/floor/indestructible/boss,/area/ruin/unpowered/ash_walkers)
+"r" = (/obj/structure/stone_tile/block/cracked{dir = 1},/turf/simulated/floor/plating/lava/smooth/lava_land_surface,/area/lavaland/surface/outdoors/explored)
+
+(1,1,1) = {"
+aaaaaaaaaaaaaaaaaaaa
+aaaabbbbbbbbbbbcccaa
+aaaabdddefedddbcccaa
+aaaabdddddddddbcccaa
+aaaabdddddddddbcccaa
+aaccbgghdddhhhbcccaa
+aaccbddoddddpdbcccaa
+aaccbdddddddddbcccaa
+aaccbhghdddgggbcccaa
+aaccbdddddddddbccaaa
+aaccbdddddddddbccaaa
+aaccbdddddddddbccaaa
+aaccbbbbbqbbbbbccaaa
+aacccccccccccccccaaa
+aacccccciccccccccaaa
+aaaccjkjcccjkjcccaaa
+aaacclmnccclmncccaaa
+aaaccjrjcccjrjcccaaa
+cccccccccccccccccaaa
+cccccccccccccccccccc
+"}
