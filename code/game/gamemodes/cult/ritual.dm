@@ -4,8 +4,8 @@
 obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
-	icon = 'icons/obj/wizard.dmi'
-	icon_state = "render"
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "cult_dagger"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
@@ -14,10 +14,8 @@ obj/item/melee/cultblade/dagger
 	var/drawing_rune = FALSE
 
 /obj/item/melee/cultblade/dagger/New()
-	if(!SSticker.mode)
-		icon_state = "render"
-	//else
-	//	icon_state = SSticker.cultdat.dagger_icon
+	if(SSticker.mode)
+		icon_state = SSticker.cultdat.dagger_icon
 	..()
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
@@ -168,10 +166,12 @@ obj/item/melee/cultblade/dagger
 	icon_icon = 'icons/mob/actions/actions_cult.dmi'
 	button_icon_state = "draw"
 	background_icon_state = "bg_demon"
+	buttontooltipstyle = "cult"
 
 /datum/action/item_action/cult_dagger/Grant(mob/M)
 	if(iscultist(M))
 		..()
+		button.ordered = FALSE
 		button.screen_loc = "6:157,4:-2"
 		button.moved = "6:157,4:-2"
 	else

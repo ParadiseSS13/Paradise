@@ -1360,16 +1360,17 @@ About the new airlock wires panel:
 	var/obj/machinery/door/airlock/cult/A
 	if(weak)
 		A = new/obj/machinery/door/airlock/cult/weak(T)
-	if(glass)
-		if(runed)
-			A = new/obj/machinery/door/airlock/cult/glass(T)
-		else
-			A = new/obj/machinery/door/airlock/cult/unruned/glass(T)
 	else
-		if(runed)
-			A = new/obj/machinery/door/airlock/cult(T)
+		if(glass)
+			if(runed)
+				A = new/obj/machinery/door/airlock/cult/glass(T)
+			else
+				A = new/obj/machinery/door/airlock/cult/unruned/glass(T)
 		else
-			A = new/obj/machinery/door/airlock/cult/unruned(T)
+			if(runed)
+				A = new/obj/machinery/door/airlock/cult(T)
+			else
+				A = new/obj/machinery/door/airlock/cult/unruned(T)
 	A.name = name
 	qdel(src)
 

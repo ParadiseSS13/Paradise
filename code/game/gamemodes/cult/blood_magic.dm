@@ -9,6 +9,7 @@
 
 /datum/action/innate/cult/blood_magic/Grant()
 	..()
+	button.ordered = FALSE
 	button.screen_loc = DEFAULT_BLOODSPELLS
 	button.moved = DEFAULT_BLOODSPELLS
 
@@ -29,7 +30,7 @@
 	var/pix_X = text2num(screen_loc_X[2])
 	for(var/datum/action/innate/cult/blood_spell/B in spells)
 		if(B.button.locked)
-			var/order = pix_X+spells.Find(B)*31
+			var/order = pix_X + spells.Find(B) * 31
 			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
 			B.button.moved = B.button.screen_loc
 
@@ -104,6 +105,7 @@
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
+	button.ordered = FALSE
 	..()
 
 /datum/action/innate/cult/blood_spell/Remove()
@@ -183,32 +185,38 @@
 	magic_path = "/obj/item/melee/blood_magic/construction"
 	health_cost = 12
 
+/datum/action/innate/cult/blood_spell/dagger
+	name = "Summon Dagger"
+	desc = "Summon a ritual dagger, necessary to scribe runes."
+	button_icon_state = "cult_dagger"
+
+/datum/action/innate/cult/blood_spell/dagger/New()
+	if(SSticker.mode)
+		button_icon_state = SSticker.cultdat.dagger_icon
+	..()
+
+/datum/action/innate/cult/blood_spell/dagger/Activate()
+	var/turf/T = get_turf(owner)
+	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
+		"<span class='cultitalic'>Red light begins to shimmer and take form within your hand!</span>")
+	var/obj/O = new /obj/item/melee/cultblade/dagger(T)
+	if(owner.put_in_hands(O))
+		to_chat(owner, "<span class='warning'>A ritual dagger appears in your hand!</span>")
+	else
+		owner.visible_message("<span class='warning'>A ritual dagger appears at [owner]'s feet!</span>", \
+			 "<span class='cultitalic'>A ritual dagger materializes at your feet.</span>")
+	SEND_SOUND(owner, sound('sound/magic/cult_spell.ogg',0,1,25))
+	charges--
+	desc = base_desc
+	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	if(charges <= 0)
+		qdel(src)
+
 /datum/action/innate/cult/blood_spell/equipment
 	name = "Summon Equipment"
-	desc = "Allows you to summon a ritual dagger, or empowers your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
+	desc = "Allows you to empower your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
 	button_icon_state = "equip"
 	magic_path = "/obj/item/melee/blood_magic/armor"
-
-/datum/action/innate/cult/blood_spell/equipment/Activate()
-	var/choice = alert(owner,"Choose your equipment type",,"Combat Equipment","Ritual Dagger","Cancel")
-	if(choice == "Ritual Dagger")
-		var/turf/T = get_turf(owner)
-		owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
-			"<span class='cultitalic'>Red light begins to shimmer and take form within your hand!</span>")
-		var/obj/O = new /obj/item/melee/cultblade/dagger(T)
-		if(owner.put_in_hands(O))
-			to_chat(owner, "<span class='warning'>A ritual dagger appears in your hand!</span>")
-		else
-			owner.visible_message("<span class='warning'>A ritual dagger appears at [owner]'s feet!</span>", \
-				 "<span class='cultitalic'>A ritual dagger materializes at your feet.</span>")
-		SEND_SOUND(owner, sound('sound/magic/cult_spell.ogg',0,1,25))
-		charges--
-		desc = base_desc
-		desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
-		if(charges<=0)
-			qdel(src)
-	else if(choice == "Combat Equipment")
-		..()
 
 /datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
@@ -263,10 +271,7 @@
 			return
 		var/mob/living/carbon/human/H = target
 		H.hallucination = max(H.hallucination, 120)
-		SEND_SOUND(ranged_ability_user, sound('sound/effects/ghost.ogg',0,1,50))
-		var/image/C = image('icons/effects/cult_effects.dmi', H, "bloodsparkles", ABOVE_MOB_LAYER)
-		add_alt_appearance(HUDType = ANTAG_HUD_CULT, "cult_apoc", C, NONE)
-		addtimer(CALLBACK(H,/atom/.proc/remove_alt_appearance,"cult_apoc",TRUE), 2400, TIMER_OVERRIDE|TIMER_UNIQUE)
+		SEND_SOUND(ranged_ability_user, sound('sound/effects/ghost.ogg',0, 1, 50))
 		to_chat(ranged_ability_user,"<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
@@ -477,7 +482,7 @@
 			return ..(user, 0)
 
 		user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
-							"<span class='cultitalic'>You speak the words of the talisman and find yourself somewhere else!</span>")
+							"<span class='cultitalic'>You speak the words and find yourself somewhere else!</span>")
 		user.forceMove(get_turf(actual_selected_rune))
 		return ..()
 //spell doesn't vanish

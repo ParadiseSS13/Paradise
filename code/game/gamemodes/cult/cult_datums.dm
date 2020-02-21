@@ -2,6 +2,7 @@
 	var/name = "Cult of Nar'Sie"
 	var/theme = "blood"
 	var/tome_icon = "tome"
+	var/dagger_icon = "cult_dagger"
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -75,6 +76,7 @@
 	name = "Cult of Pyr'Kaeus"
 	theme = "fire"
 	tome_icon = "firetome"
+	dagger_icon = "firecult_dagger"
 
 	entity_name = "Pyr'Kaeus"
 	entity_title1 = "The Burning One"
@@ -107,6 +109,7 @@
 	name = "Cult of Mortality"
 	theme = "death"
 	tome_icon = "deathtome"
+	dagger_icon = "deathcult_dagger"
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"

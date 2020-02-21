@@ -2,6 +2,7 @@
 	icon_icon = 'icons/mob/actions/actions_cult.dmi'
 	background_icon_state = "bg_cult"
 	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS
+	buttontooltipstyle = "cult"
 
 /datum/action/innate/cult/IsAvailable()
 	if(!iscultist(owner))
