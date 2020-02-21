@@ -12,7 +12,7 @@
 
 	time = 50
 
-/datum/surgery_step/rigsuit/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/rigsuit/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!istype(target))
 		return 0
 	if(tool.tool_behaviour == TOOL_WELDER)
@@ -22,12 +22,12 @@
 			return
 	return (target_zone == "chest") && istype(target.back, /obj/item/rig) && (target.back.flags&NODROP)
 
-/datum/surgery_step/rigsuit/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, surgery_behaviour)
+/datum/surgery_step/rigsuit/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("[user] starts cutting through the support systems of [target]'s [target.back] with \the [tool]." , \
 	"You start cutting through the support systems of [target]'s [target.back] with \the [tool].")
 	..()
 
-/datum/surgery_step/rigsuit/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/rigsuit/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/rig/rig = target.back
 	if(!istype(rig))
 		return
@@ -36,7 +36,7 @@
 		"<span class='notice'>You have cut through the support systems of [target]'s [rig] with \the [tool].</span>")
 	return TRUE
 
-/datum/surgery_step/rigsuit/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/rigsuit/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='danger'>[user]'s [tool] can't quite seem to get through the metal...</span>", \
 	"<span class='danger'>Your [tool] can't quite seem to get through the metal. It's weakening, though - try again.</span>")
 	return FALSE

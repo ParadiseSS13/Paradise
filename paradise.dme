@@ -2409,7 +2409,6 @@
 #include "code\modules\store\store.dm"
 #include "code\modules\surgery\bones.dm"
 #include "code\modules\surgery\cavity_implant.dm"
-#include "code\modules\surgery\core_removal.dm"
 #include "code\modules\surgery\dental_implant.dm"
 #include "code\modules\surgery\encased.dm"
 #include "code\modules\surgery\generic.dm"

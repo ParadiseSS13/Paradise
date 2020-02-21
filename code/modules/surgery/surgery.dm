@@ -63,7 +63,7 @@
 
 /* SURGERY STEPS */
 /datum/surgery_step
-	var/priority = 0	//steps with higher priority will be put higher in the possible steps list
+	var/priority = 1	//steps with higher priority will be put higher in the possible steps list
 
 	var/allowed_surgery_behaviour = null // The behaviours allowed for the surgery step
 
@@ -94,15 +94,11 @@
 	
 	if(target_zone != surgery.location)
 		return FALSE
-	if(accept_hand)
-		if(!tool)
+	if(tool)
+		if(accept_any_item || (allowed_surgery_behaviour in tool.surgery_behaviours))
 			success = TRUE
-	if(accept_any_item)
-		if(tool)
-			success = TRUE
-	else
-		if(allowed_surgery_behaviour in tool.surgery_behaviours)
-			success = TRUE
+	else if(accept_hand)
+		success = TRUE
 
 	if(success)
 		return initiate(user, target, target_zone, tool, surgery) //returns TRUE so we don't stab the guy in the dick or wherever.
@@ -124,7 +120,7 @@
 		var/advance = FALSE
 		var/prob_chance = 100
 
-		if(allowed_surgery_behaviour)
+		if(tool && allowed_surgery_behaviour)
 			prob_chance = tool.surgery_behaviours[allowed_surgery_behaviour]
 		prob_chance *= get_location_modifier(target)
 
@@ -151,11 +147,11 @@
 	return TRUE
 
 // checks whether this step can be applied with the given user and target
-/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return 1
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
-/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
@@ -169,11 +165,11 @@
 	return
 
 // does stuff to end the step, which is normally print a message + do whatever this step changes
-/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return
 
 // stuff that happens when the step fails
-/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return null
 
 /proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user, obj/item/tool)
@@ -203,7 +199,7 @@
 		if(AStar(E.loc, M.loc, /turf/proc/Distance, 2, simulated_only = 0))
 			germs++
 
-	if(tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
+	if(tool && tool.blood_DNA && tool.blood_DNA.len) //germs from blood-stained tools
 		germs += 30
 
 	if(E.internal_organs.len)

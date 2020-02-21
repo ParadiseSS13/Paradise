@@ -6,7 +6,7 @@
 	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
 	time = 32
 
-/datum/surgery_step/augment/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/augment/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!ishuman(target))
 		return FALSE
 	
@@ -26,11 +26,11 @@
 			return FALSE
 	return TRUE
 
-/datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, surgery_behaviour)
+/datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
 
-/datum/surgery_step/augment/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery, surgery_behaviour)
+/datum/surgery_step/augment/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",	\

@@ -1,4 +1,4 @@
-/proc/get_or_initiate_surgery(obj/item/I, mob/living/M, mob/user)
+/proc/get_or_initiate_surgery(mob/living/M, mob/user)
 	if(istype(M))
 		var/selected_zone = user.zone_selected
 
@@ -54,10 +54,13 @@
 //check if mob is lying down on something we can operate him on.
 /proc/can_operate(mob/living/carbon/M)
 	if(locate(/obj/machinery/optable, M.loc) && (M.lying || M.resting))
+		message_admins("surg1")
 		return TRUE
 	if(locate(/obj/structure/bed, M.loc) && (M.buckled || M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+		message_admins("surg2")
 		return TRUE
 	if(locate(/obj/structure/table, M.loc) && (M.lying || M.IsWeakened() || M.stunned || M.paralysis || M.sleeping || M.stat))
+		message_admins("surg3")
 		return TRUE
 	return FALSE
 

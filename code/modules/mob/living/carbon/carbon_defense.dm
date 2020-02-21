@@ -33,11 +33,11 @@
 		if(D.IsSpreadByTouch())
 			ContractDisease(D)
 
-	if(lying && surgeries.len)
-		if(user.a_intent == INTENT_HELP)
-			for(var/datum/surgery/S in surgeries)
-				if(S.next_step(user, src))
-					return 1
+	if(can_operate(src))
+		var/datum/surgery/S = get_or_initiate_surgery(src, user)
+		if(S)
+			return surgery_act(user, null, S)
+
 	return 0
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)

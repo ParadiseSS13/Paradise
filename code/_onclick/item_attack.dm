@@ -18,7 +18,7 @@
 		return FALSE
 	var/mob/living/L = target
 	if(can_operate(L))
-		var/datum/surgery/S = get_or_initiate_surgery(src, L, user)
+		var/datum/surgery/S = get_or_initiate_surgery(L, user)
 		if(S)
 			return L.surgery_act(user, src, S)
 	
