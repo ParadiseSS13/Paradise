@@ -15,13 +15,14 @@ To draw a rune, use an arcane tome.
 	var/cultist_name = "basic rune"
 	desc = "An odd collection of symbols drawn in what seems to be blood."
 	var/cultist_desc = "a basic rune with no function." //This is shown to cultists who examine the rune in order to determine its true purpose.
-	anchored = 1
+	anchored = TRUE
 	icon = 'icons/obj/rune.dmi'
 	icon_state = "1"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	var/visibility = 0
 	var/view_range = 7
-	layer = TURF_LAYER
+	layer = SIGIL_LAYER
+	color = RUNE_COLOR_RED
 
 	var/invocation = "Aiy ele-mayo!" //This is said by cultists when the rune is invoked.
 	var/req_cultists = 1 //The amount of cultists required around the rune to invoke it. If only 1, any cultist can invoke it.
@@ -43,7 +44,7 @@ To draw a rune, use an arcane tome.
 	..()
 	if(set_keyword)
 		keyword = set_keyword
-	check_icon()
+	//check_icon()
 	var/image/blood = image(loc = src)
 	blood.override = 1
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
@@ -101,15 +102,6 @@ To draw a rune, use an arcane tome.
 	invisibility = 0
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
-
-/obj/effect/rune/proc/talismanfake() //for rune disguising
-	var/runenum = pick(1,2,3,4,5,6)
-	visible_message("<span class='danger'>[src] takes on a waxy apperance!</span>")
-	icon = 'icons/effects/crayondecal.dmi'
-	icon_state = "rune[runenum]"
-	color = rgb(255, 0, 0)
-
-
 
 /*
 There are a few different procs each rune runs through when a cultist activates it.
@@ -332,6 +324,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "Offers a non-cultists on top of it to your deity, either converting or sacrificing them."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
+	color = RUNE_COLOR_OFFER
 	req_cultists = 1
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
@@ -427,6 +420,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "requires two corpses, one on the rune and one adjacent to the rune. The one on the rune is brought to life, the other is turned to ash."
 	invocation = null //Depends on the name of the user - see below
 	icon_state = "1"
+	color = RUNE_COLOR_MEDIUMRED
 
 /obj/effect/rune/raise_dead/invoke(var/list/invokers)
 	var/turf/T = get_turf(src)
@@ -508,7 +502,8 @@ var/list/teleport_runes = list()
 	cultist_name = "Barrier"
 	cultist_desc = "when invoked, makes an invisible wall to block passage. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
-	icon_state = "1"
+	icon_state = "4"
+	color = RUNE_COLOR_DARKRED
 	invoke_damage = 2
 
 /obj/effect/rune/wall/examine(mob/user)
@@ -534,7 +529,8 @@ var/list/teleport_runes = list()
 	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
 	req_cultists = 2
 	allow_excess_invokers = 1
-	icon_state = "5"
+	icon_state = "3"
+	color = RUNE_COLOR_SUMMON
 	invoke_damage = 5
 	var/summontime = 0
 
@@ -586,7 +582,8 @@ var/list/teleport_runes = list()
 	cultist_name = "Ghost Communion"
 	cultist_desc = "severs the link between one's spirit and body. This effect is taxing and one's physical body will take damage while this is active."
 	invocation = "Fwe'sh mah erl nyag r'ya!"
-	icon_state = "6"
+	icon_state = "5"
+	color = RUNE_COLOR_DARKRED
 	rune_in_use = 0 //One at a time, please!
 	construct_invoke = 0
 	var/mob/living/affecting = null
@@ -661,7 +658,7 @@ var/list/teleport_runes = list()
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
 	icon_state = "6"
 	construct_invoke = 0
-	color = rgb(200, 0, 0)
+	color =  RUNE_COLOR_DARKRED
 	var/list/summoned_guys = list()
 	var/ghost_limit = 5
 	var/ghosts = 0
@@ -765,7 +762,7 @@ var/list/teleport_runes = list()
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
 	icon = 'icons/effects/96x96.dmi'
-	color = rgb(125,23,23)
+	color = RUNE_COLOR_DARKRED
 	icon_state = "rune_large"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32

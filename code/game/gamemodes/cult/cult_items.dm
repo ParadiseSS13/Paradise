@@ -224,9 +224,8 @@
 /obj/item/shuttle_curse
 	name = "cursed orb"
 	desc = "You peer within this smokey orb and glimpse terrible fates befalling the escape shuttle."
-	icon = 'icons/obj/projectiles.dmi'
-	icon_state ="bluespace"
-	color = "#ff0000"
+	icon = 'icons/obj/cult.dmi'
+	icon_state ="shuttlecurse"
 	var/global/curselimit = 0
 
 /obj/item/shuttle_curse/attack_self(mob/user)
@@ -367,3 +366,94 @@
 	shoes = /obj/item/clothing/shoes/cult/ghost
 	head = /obj/item/clothing/head/hooded/culthood/alt/ghost
 	r_hand = /obj/item/melee/cultblade/ghost
+
+/obj/item/shield/mirror
+	name = "mirror shield"
+	desc = "An infamous shield used by Nar'Sien sects to confuse and disorient their enemies. Its edges are weighted for use as a throwing weapon - capable of disabling multiple foes with preternatural accuracy."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "mirror_shield"
+	item_state = "mirror_shield"
+	force = 5
+	throwforce = 15
+	throw_speed = 1
+	throw_range = 4
+	w_class = WEIGHT_CLASS_BULKY
+	attack_verb = list("bumped", "prodded")
+	hitsound = 'sound/weapons/smash.ogg'
+	var/illusions = 2
+
+/obj/item/shield/mirror/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(iscultist(owner))
+		if(istype(hitby, /obj/item/projectile))
+			var/obj/item/projectile/P = hitby
+			if(P.damage_type == BRUTE || P.damage_type == BURN)
+				if(P.damage >= 30)
+					var/turf/T = get_turf(owner)
+					T.visible_message("<span class='warning'>The sheer force from [P] shatters the mirror shield!</span>")
+					new /obj/effect/temp_visual/cult/sparks(T)
+					playsound(T, 'sound/effects/glassbr3.ogg', 100)
+					owner.Weaken(2)
+					qdel(src)
+					return FALSE
+			if(P.is_reflectable)
+				return FALSE //To avoid reflection chance double-dipping with block chance
+		. = ..()
+		if(.)
+			if(illusions > 0)
+				illusions--
+				addtimer(CALLBACK(src, /obj/item/shield/mirror.proc/readd), 450)
+				if(prob(60))
+					var/mob/living/simple_animal/hostile/illusion/M = new(owner.loc)
+					M.faction = list("cult")
+					M.Copy_Parent(owner, 70, 10, 5)
+					//M.move_to_delay = owner.cached_multiplicative_slowdown
+				else
+					var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
+					E.Copy_Parent(owner, 70, 10)
+					E.GiveTarget(owner)
+					E.Goto(owner, E.move_to_delay, E.minimum_distance)
+			return TRUE
+	else
+		if(prob(50))
+			var/mob/living/simple_animal/hostile/illusion/H = new(owner.loc)
+			H.Copy_Parent(owner, 100, 20, 5)
+			H.faction = list("cult")
+			H.GiveTarget(owner)
+		//	H.move_to_delay = owner.cached_multiplicative_slowdown
+			to_chat(owner, "<span class='danger'><b>[src] betrays you!</b></span>")
+		return FALSE
+
+/obj/item/shield/mirror/proc/readd()
+	illusions++
+	if(illusions == initial(illusions) && isliving(loc))
+		var/mob/living/holder = loc
+		to_chat(holder, "<span class='cult italic'>The shield's illusions are back at full strength!</span>")
+
+/obj/item/shield/mirror/IsReflect()
+	if(prob(block_chance))
+		return TRUE
+	return FALSE
+
+/obj/item/shield/mirror/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/turf/T = get_turf(hit_atom)
+	var/datum/thrownthing/D = throwingdatum
+	if(isliving(hit_atom))
+		var/mob/living/L = hit_atom
+		if(iscultist(L))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
+			if(L.put_in_active_hand(src))
+				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
+			else
+				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
+		else if(!..())
+			if(!L.null_rod_check() )
+				L.Weaken(2)
+				if(D?.thrower)
+					for(var/mob/living/Next in orange(2, T))
+						if(!Next.density || iscultist(Next))
+							continue
+						throw_at(Next, 3, 1, D.thrower)
+						return
+					throw_at(D.thrower, 7, 1, null)
+	else
+		..()
