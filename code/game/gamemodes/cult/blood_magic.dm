@@ -468,12 +468,12 @@
 
 		if(!potential_runes.len)
 			to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-			log_game("Teleport talisman failed - no other teleport runes")
+			log_game("Teleport spell failed - no other teleport runes")
 			return ..(user, 0)
 
 		if(!is_level_reachable(user.z))
 			to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-			log_game("Teleport talisman failed - user in away mission")
+			log_game("Teleport spell failed - user in away mission")
 			return ..(user, 0)
 		uses--
 		var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked

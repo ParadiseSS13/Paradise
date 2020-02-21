@@ -13,6 +13,7 @@ var/global/list/all_cults = list()
 
 
 /proc/is_convertable_to_cult(datum/mind/mind)
+	return TRUE //test
 	if(!mind)
 		return FALSE
 	if(!mind.current)
@@ -75,7 +76,6 @@ var/global/list/all_cults = list()
 	var/convert_target = 0	//how many members the cult needs to reach to complete the convert objective
 	var/harvested = 0
 
-	var/list/sacrificed = list()	//contains the mind of the sacrifice target ONCE the sacrifice objective has been completed
 	var/mass_convert = 0	//set to 1 if the convert objective has been accomplised once that round
 	var/spilled_blood = 0	//set to 1 if the bloodspill objective has been accomplised once that round
 	var/max_spilled_blood = 0	//highest quantity of blood covered tiles during the round
@@ -131,7 +131,6 @@ var/global/list/all_cults = list()
 		C.Grant(cult_mind.current)
 		update_cult_icons_added(cult_mind)
 		to_chat(cult_mind.current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
-
 	first_phase()
 
 	..()
@@ -308,7 +307,7 @@ var/global/list/all_cults = list()
 		if(!demons_summoned)
 			cult_fail++
 	if(objectives.Find("sacrifice"))
-		if(sacrifice_target && !(sacrifice_target in sacrificed)) //if the target has been sacrificed, ignore this step. otherwise, add 1 to cult_fail
+		if(sacrifice_target && !(sacrifice_target in GLOB.sacrificed)) //if the target has been sacrificed, ignore this step. otherwise, add 1 to cult_fail
 			cult_fail++
 	if(objectives.Find("convert"))
 		if(cult.len < convert_target)
@@ -368,7 +367,7 @@ var/global/list/all_cults = list()
 						feedback_add_details("cult_objective","cult_survive|FAIL|[acolytes_needed]")
 				if("sacrifice")
 					if(sacrifice_target)
-						if(sacrifice_target in sacrificed)
+						if(sacrifice_target in GLOB.sacrificed)
 							explanation = "Sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role]. <font color='green'><B>Success!</B></font>"
 							feedback_add_details("cult_objective","cult_sacrifice|SUCCESS")
 						else if(sacrifice_target && sacrifice_target.current)

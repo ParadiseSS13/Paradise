@@ -37,7 +37,7 @@
 	if(!iscultist(user))
 		to_chat(user, "<span class='cultlarge'>\"I wouldn't advise that.\"</span>")
 		to_chat(user, "<span class='warning'>An overwhelming sense of nausea overpowers you!</span>")
-		user.Dizzy(120)
+		user.Dizzy(30)
 
 	if(HULK in user.mutations)
 		to_chat(user, "<span class='danger'>You can't seem to hold the blade properly!</span>")

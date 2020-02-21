@@ -38,7 +38,7 @@
 		if("bloodspill")
 			spilled_blood = 1
 		if("sacrifice")
-			sacrificed += sacrifice_target
+			GLOB.sacrificed += sacrifice_target
 	additional_phase()
 
 /datum/game_mode/cult/proc/additional_phase()
@@ -66,7 +66,7 @@
 		gtfo_phase()
 		return
 
-	if(!sacrificed.len && (new_objective != "sacrifice"))
+	if(!GLOB.sacrificed.len && (new_objective != "sacrifice"))
 		sacrifice_target = null
 
 	if(new_objective == "eldergod" || new_objective == "slaughter")
@@ -182,7 +182,7 @@
 	if(!spilled_blood && (bloody_floors.len < spilltarget))
 		possible_objectives |= "bloodspill"
 
-	if(!sacrificed.len)
+	if(!GLOB.sacrificed.len)
 		var/list/possible_targets = get_possible_sac_targets()
 		if(possible_targets.len > 0)
 			sacrifice_target = pick(possible_targets)

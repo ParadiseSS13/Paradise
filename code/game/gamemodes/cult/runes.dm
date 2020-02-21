@@ -1,4 +1,4 @@
-var/list/sacrificed = list()
+GLOBAL_LIST_EMPTY(sacrificed) //a mixed list of minds and mobs
 var/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
 
 /*
@@ -261,7 +261,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
-	if(invokers.len < 2)
+	if(invokers.len < 1)
 		fail_invoke()
 		for(var/I in invokers)
 			to_chat(I, "<span class='warning'>You need at least two invokers to convert!</span>")
@@ -270,13 +270,35 @@ structure_check() searches for nearby cultist structures required for the invoca
 		convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
 									"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 		SSticker.mode.add_cultist(convertee.mind, 1)
-		new /obj/item/tome(get_turf(src))
 		convertee.mind.special_role = "Cultist"
 		to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 		and something evil takes root.</b></span>")
 		to_chat(convertee, "<span class='cultitalic'><b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. You serve [SSticker.cultdat.entity_title3] above all else. Bring it back.\
 		</b></span>")
-		return
+		if(ishuman(convertee))
+			var/brutedamage = convertee.getBruteLoss()
+			var/burndamage = convertee.getFireLoss()
+			if(brutedamage || burndamage)
+				if(ismachine(convertee))
+					convertee.visible_message("<span class='warning'>A dark force repairs [convertee]!</span>", \
+												"<span class='cultitalic'>Your damage has been repaired. Now spread the blood to others.</span>")
+				else
+					convertee.visible_message("<span class='warning'>[convertee]'s wounds heal and close!</span>", \
+												"<span class='cultitalic'>Your wounds have been healed. Now spread the blood to others.</span>")
+				convertee.adjustBruteLoss(-(brutedamage * 0.90))
+				convertee.adjustFireLoss(-(burndamage * 0.90))
+			var/mob/living/carbon/human/H = convertee
+			for(var/obj/item/organ/external/E in H.bodyparts)
+				E.mend_fracture()
+				E.internal_bleeding = FALSE
+			for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
+				crit.cure()
+			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
+			if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))
+				to_chat(H, "<span class='cultitalic'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
+			else
+				to_chat(H, "<span class='cultitalic'>There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding.</span>")
+	return
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/offering, list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
@@ -291,9 +313,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/sacrifice_fulfilled
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	if(offering.mind)
-		sacrificed.Add(offering.mind)
+		GLOB.sacrificed += offering.mind
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
+	else
+		GLOB.sacrificed += offering
+
 	new /obj/effect/temp_visual/cult/sac(loc)
 	if(SSticker && SSticker.mode && SSticker.mode.name == "cult")
 		cult_mode.harvested++
@@ -314,7 +339,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 		stone.transfer_soul("FORCE", offering, user) //If it cannot be added
 		stone.invisibility = 0
 	else
-		offering.dust()
+		if(isrobot(offering))
+			playsound(offering, 'sound/magic/disable_tech.ogg', 100, TRUE)
+			offering.dust() //To prevent the MMI from remaining
+		else
+			playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
+			offering.gib()
+	return TRUE
 
 var/list/teleport_runes = list()
 
@@ -324,9 +355,8 @@ var/list/teleport_runes = list()
 	invocation = "Sas'so c'arta forbici!"
 	icon_state = "2"
 	color = RUNE_COLOR_TELEPORT
-	req_keyword = 1
+	req_keyword = TRUE
 	var/listkey
-	invoke_damage = 6 //but theres some checks for z-level
 
 /obj/effect/rune/teleport/New(loc, set_keyword)
 	..()
@@ -375,9 +405,13 @@ var/list/teleport_runes = list()
 		return
 
 	var/turf/T = get_turf(src)
+	var/turf/target = get_turf(actual_selected_rune)
 	var/movedsomething = 0
 	var/moveuserlater = 0
 	for(var/atom/movable/A in T)
+		if(ishuman(A))
+			new /obj/effect/temp_visual/dir_setting/cult/phase/out(T, A.dir)
+			new /obj/effect/temp_visual/dir_setting/cult/phase(target, A.dir)
 		if(A.move_resist == INFINITY)
 			continue  //object cant move, shouldnt teleport
 		if(A == user)
@@ -386,13 +420,13 @@ var/list/teleport_runes = list()
 			continue
 		if(!A.anchored)
 			movedsomething = 1
-			A.forceMove(get_turf(actual_selected_rune))
+			A.forceMove(target)
 	if(movedsomething)
 		..()
 		visible_message("<span class='warning'>There is a sharp crack of inrushing air, and everything above the rune disappears!</span>")
 		to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
 		if(moveuserlater)
-			user.forceMove(get_turf(actual_selected_rune))
+			user.forceMove(target)
 		var/mob/living/carbon/human/H = user
 		if(user.z != T.z)
 			H.bleed(5)
@@ -532,7 +566,7 @@ var/list/teleport_runes = list()
 	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
 	req_cultists = 2
 	allow_excess_invokers = 1
-	icon_state = "4"
+	icon_state = "3"
 	color = RUNE_COLOR_SUMMON
 	invoke_damage = 5
 	var/summontime = 0
@@ -585,7 +619,7 @@ var/list/teleport_runes = list()
 	cultist_name = "Ghost Communion"
 	cultist_desc = "severs the link between one's spirit and body. This effect is taxing and one's physical body will take damage while this is active."
 	invocation = "Fwe'sh mah erl nyag r'ya!"
-	icon_state = "5"
+	icon_state = "7"
 	color = RUNE_COLOR_LIGHTRED
 	rune_in_use = 0 //One at a time, please!
 	construct_invoke = 0
@@ -659,9 +693,9 @@ var/list/teleport_runes = list()
 	cultist_name = "Manifest Ghost"
 	cultist_desc = "manifests a spirit as a servant of your god. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
-	icon_state = "6"
+	icon_state = "7"
 	construct_invoke = 0
-	color =  RUNE_COLOR_LIGHTRED
+	color =  RUNE_COLOR_DARKRED
 	var/list/summoned_guys = list()
 	var/ghost_limit = 5
 	var/ghosts = 0
@@ -670,7 +704,6 @@ var/list/teleport_runes = list()
 /obj/effect/rune/manifest/New(loc)
 	..()
 	cultist_desc = "manifests a spirit as a servant of [SSticker.cultdat.entity_title3]. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
-
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound='sound/effects/ghost2.ogg', source = src)
 
 /obj/effect/rune/manifest/can_invoke(mob/living/user)
@@ -831,11 +864,11 @@ var/list/teleport_runes = list()
 	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
-	color = RUNE_COLOR_LIGHTRED
+	color = RUNE_COLOR_DARKRED
 	scribe_delay = 450
 	scribe_damage = 40.1 //how much damage you take doing it
 	icon = 'icons/effects/96x96.dmi'
-	icon_state = "rune_large"
+	icon_state = "apoc"
 	pixel_x = -32
 	pixel_y = -32
 
