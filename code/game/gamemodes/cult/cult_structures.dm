@@ -57,7 +57,7 @@
 	. += "<span class='notice'>\The [src] is [anchored ? "":"not "]secured to the floor.</span>"
 
 /obj/structure/cult/functional/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/tome) && iscultist(user))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
 		playsound(loc, 'sound/hallucinations/wail.ogg', 75, 1)

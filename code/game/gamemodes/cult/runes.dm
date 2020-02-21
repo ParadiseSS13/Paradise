@@ -61,8 +61,10 @@ To draw a rune, use an arcane tome.
 
 /obj/effect/rune/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
-		to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
-		qdel(src)
+		user.visible_message("<span class='warning'>[user] begins to erase [src] with [I].</span>")
+		if(do_after(user, 50, target = src))
+			to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
+			qdel(src)
 		return
 	if(istype(I, /obj/item/nullrod))
 		if(iscultist(user))//cultist..what are doing..cultist..staph...
@@ -530,7 +532,7 @@ var/list/teleport_runes = list()
 	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
 	req_cultists = 2
 	allow_excess_invokers = 1
-	icon_state = "3"
+	icon_state = "4"
 	color = RUNE_COLOR_SUMMON
 	invoke_damage = 5
 	var/summontime = 0
@@ -817,25 +819,19 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
-		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
-			message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
-		return
+		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
+		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
 	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
 		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
-		return
 	return ..()
-
-
 
 /obj/effect/rune/slaughter
 	cultist_name = "The Slaughter"
 	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
-	color = RUNE_COLOR_TALISMAN
+	color = RUNE_COLOR_LIGHTRED
 	scribe_delay = 450
 	scribe_damage = 40.1 //how much damage you take doing it
 	icon = 'icons/effects/96x96.dmi'
@@ -853,17 +849,12 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
-		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
-		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon demon rune erased by [key_name(user)] with a cult dagger")
-			message_admins("[key_name_admin(user)] erased a demon rune with a cult dagger")
-		return
+		log_game("Summon demon rune erased by [key_name(user)] with a cult dagger")
+		message_admins("[key_name_admin(user)] erased a demon rune with a cult dagger")
 	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
 		log_game("Summon demon rune erased by [key_name(user)] using a null rod")
 		message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
-		return
 	return ..()
-
 
 /obj/effect/rune/slaughter/invoke(var/list/invokers)
 	if(used)
