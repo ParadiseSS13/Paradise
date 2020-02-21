@@ -75,10 +75,10 @@
 	else
 		to_chat(owner, "<span class='cultitalic'>You are already invoking blood magic!</span>")
 		return
-	if(do_after(owner, 100 - rune*60, target = owner))
+	if(do_after(owner, 100 - rune * 60, target = owner))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			H.bleed(40 - rune*32)
+			H.bleed(20 - rune * 12)
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		new_spell.Grant(owner, src)
 		spells += new_spell
@@ -166,7 +166,7 @@
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
 	empulse(owner, 2, 5)
-	owner.whisper(invocation, language = /datum/language/common)
+	owner.whisper(invocation)
 	charges--
 	if(charges<=0)
 		qdel(src)
@@ -295,7 +295,7 @@
 			"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes.</span>")
 		charges--
 		SEND_SOUND(owner, sound('sound/magic/smoke.ogg',0,1,25))
-		owner.whisper(invocation, language = /datum/language/common)
+		owner.whisper(invocation)
 		for(var/obj/effect/rune/R in range(5,owner))
 			R.conceal()
 		//for(var/obj/structure/cult/functional/S in range(5,owner))
@@ -311,7 +311,7 @@
 		owner.visible_message("<span class='warning'>A flash of light shines from [owner]'s hand!</span>", \
 			 "<span class='cultitalic'>You invoke the counterspell, revealing nearby runes.</span>")
 		charges--
-		owner.whisper(invocation, language = /datum/language/common)
+		owner.whisper(invocation)
 		SEND_SOUND(owner, sound('sound/misc/enter_blood.ogg',0,1,25))
 		for(var/obj/effect/rune/R in range(7,owner)) //More range in case you weren't standing in exactly the same spot
 			R.reveal()
@@ -386,7 +386,7 @@
 /obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
 	if(invocation)
-		user.whisper(invocation, language = /datum/language/common)
+		user.whisper(invocation)
 	if(health_cost && iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.apply_damage(health_cost, BRUTE, pick("l_arm", "r_arm"))

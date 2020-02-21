@@ -60,7 +60,7 @@ To draw a rune, use an arcane tome.
 			. += "<b>Keyword:</b> [keyword]"
 
 /obj/effect/rune/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/tome) && iscultist(user))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		to_chat(user, "<span class='notice'>You carefully erase the [lowertext(cultist_name)] rune.</span>")
 		qdel(src)
 		return
@@ -218,106 +218,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return N
 	return 0
 
-var/list/teleport_runes = list()
-/obj/effect/rune/teleport
-	cultist_name = "Teleport"
-	cultist_desc = "warps everything above it to another chosen teleport rune."
-	invocation = "Sas'so c'arta forbici!"
-	icon_state = "2"
-	req_keyword = 1
-	var/listkey
-	invoke_damage = 6 //but theres some checks for z-level
-
-/obj/effect/rune/teleport/New(loc, set_keyword)
-	..()
-	var/area/A = get_area(src)
-	var/locname = initial(A.name)
-	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
-	teleport_runes += src
-
-/obj/effect/rune/teleport/Destroy()
-	teleport_runes -= src
-	return ..()
-
-/obj/effect/rune/teleport/invoke(var/list/invokers)
-	var/mob/living/user = invokers[1] //the first invoker is always the user
-	var/list/potential_runes = list()
-	var/list/teleportnames = list()
-	var/list/duplicaterunecount = list()
-	for(var/R in teleport_runes)
-		var/obj/effect/rune/teleport/T = R
-		var/resultkey = T.listkey
-		if(resultkey in teleportnames)
-			duplicaterunecount[resultkey]++
-			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
-		else
-			teleportnames.Add(resultkey)
-			duplicaterunecount[resultkey] = 1
-		if(T != src && is_level_reachable(T.z))
-			potential_runes[resultkey] = T
-
-	if(!potential_runes.len)
-		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-		log_game("Teleport rune failed - no other teleport runes")
-		fail_invoke()
-		return
-
-	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-		log_game("Teleport rune failed - user in away mission")
-		fail_invoke()
-		return
-
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
-	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
-		fail_invoke()
-		return
-
-	var/turf/T = get_turf(src)
-	var/movedsomething = 0
-	var/moveuserlater = 0
-	for(var/atom/movable/A in T)
-		if(A.move_resist == INFINITY)
-			continue  //object cant move, shouldnt teleport
-		if(A == user)
-			moveuserlater = 1
-			movedsomething = 1
-			continue
-		if(!A.anchored)
-			movedsomething = 1
-			A.forceMove(get_turf(actual_selected_rune))
-	if(movedsomething)
-		..()
-		visible_message("<span class='warning'>There is a sharp crack of inrushing air, and everything above the rune disappears!</span>")
-		to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
-		if(moveuserlater)
-			user.forceMove(get_turf(actual_selected_rune))
-		var/mob/living/carbon/human/H = user
-		if(user.z != T.z)
-			H.bleed(5)
-			user.apply_damage(5, BRUTE)
-		else
-			H.bleed(rand(5,10))
-	else
-		fail_invoke()
-
-//Rite of Offering: Converts a normal crewmember to the cult or sacrifices mindshielded and sacrifice targets.
-/obj/effect/rune/empower
-	cultist_name = "Empower"
-	cultist_desc = "allows cultists to prepare greater amounts of blood magic at far less of a cost."
-	invocation = "H'drak v'loso, mir'kanas verbot!"
-	icon_state = "3"
-	color = RUNE_COLOR_TALISMAN
-	construct_invoke = FALSE
-
-/obj/effect/rune/empower/invoke(var/list/invokers)
-	. = ..()
-	var/mob/living/user = invokers[1] //the first invoker is always the user
-	for(var/datum/action/innate/cult/blood_magic/BM in user.actions)
-		BM.Activate()
-
-
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Offer"
@@ -413,6 +313,107 @@ var/list/teleport_runes = list()
 		stone.invisibility = 0
 	else
 		offering.dust()
+
+var/list/teleport_runes = list()
+
+/obj/effect/rune/teleport
+	cultist_name = "Teleport"
+	cultist_desc = "warps everything above it to another chosen teleport rune."
+	invocation = "Sas'so c'arta forbici!"
+	icon_state = "2"
+	color = RUNE_COLOR_TELEPORT
+	req_keyword = 1
+	var/listkey
+	invoke_damage = 6 //but theres some checks for z-level
+
+/obj/effect/rune/teleport/New(loc, set_keyword)
+	..()
+	var/area/A = get_area(src)
+	var/locname = initial(A.name)
+	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
+	teleport_runes += src
+
+/obj/effect/rune/teleport/Destroy()
+	teleport_runes -= src
+	return ..()
+
+/obj/effect/rune/teleport/invoke(var/list/invokers)
+	var/mob/living/user = invokers[1] //the first invoker is always the user
+	var/list/potential_runes = list()
+	var/list/teleportnames = list()
+	var/list/duplicaterunecount = list()
+	for(var/R in teleport_runes)
+		var/obj/effect/rune/teleport/T = R
+		var/resultkey = T.listkey
+		if(resultkey in teleportnames)
+			duplicaterunecount[resultkey]++
+			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
+		else
+			teleportnames.Add(resultkey)
+			duplicaterunecount[resultkey] = 1
+		if(T != src && is_level_reachable(T.z))
+			potential_runes[resultkey] = T
+
+	if(!potential_runes.len)
+		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
+		log_game("Teleport rune failed - no other teleport runes")
+		fail_invoke()
+		return
+
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		log_game("Teleport rune failed - user in away mission")
+		fail_invoke()
+		return
+
+	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
+		fail_invoke()
+		return
+
+	var/turf/T = get_turf(src)
+	var/movedsomething = 0
+	var/moveuserlater = 0
+	for(var/atom/movable/A in T)
+		if(A.move_resist == INFINITY)
+			continue  //object cant move, shouldnt teleport
+		if(A == user)
+			moveuserlater = 1
+			movedsomething = 1
+			continue
+		if(!A.anchored)
+			movedsomething = 1
+			A.forceMove(get_turf(actual_selected_rune))
+	if(movedsomething)
+		..()
+		visible_message("<span class='warning'>There is a sharp crack of inrushing air, and everything above the rune disappears!</span>")
+		to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
+		if(moveuserlater)
+			user.forceMove(get_turf(actual_selected_rune))
+		var/mob/living/carbon/human/H = user
+		if(user.z != T.z)
+			H.bleed(5)
+			user.apply_damage(5, BRUTE)
+		else
+			H.bleed(rand(5,10))
+	else
+		fail_invoke()
+
+//Rite of Offering: Converts a normal crewmember to the cult or sacrifices mindshielded and sacrifice targets.
+/obj/effect/rune/empower
+	cultist_name = "Empower"
+	cultist_desc = "allows cultists to prepare greater amounts of blood magic at far less of a cost."
+	invocation = "H'drak v'loso, mir'kanas verbot!"
+	icon_state = "3"
+	color = RUNE_COLOR_TALISMAN
+	construct_invoke = FALSE
+
+/obj/effect/rune/empower/invoke(var/list/invokers)
+	. = ..()
+	var/mob/living/user = invokers[1] //the first invoker is always the user
+	for(var/datum/action/innate/cult/blood_magic/BM in user.actions)
+		BM.Activate()
 
 //Rite of Resurrection: Requires two corpses. Revives one and gibs the other.
 /obj/effect/rune/raise_dead
@@ -583,7 +584,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "severs the link between one's spirit and body. This effect is taxing and one's physical body will take damage while this is active."
 	invocation = "Fwe'sh mah erl nyag r'ya!"
 	icon_state = "5"
-	color = RUNE_COLOR_DARKRED
+	color = RUNE_COLOR_LIGHTRED
 	rune_in_use = 0 //One at a time, please!
 	construct_invoke = 0
 	var/mob/living/affecting = null
@@ -658,7 +659,7 @@ var/list/teleport_runes = list()
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
 	icon_state = "6"
 	construct_invoke = 0
-	color =  RUNE_COLOR_DARKRED
+	color =  RUNE_COLOR_LIGHTRED
 	var/list/summoned_guys = list()
 	var/ghost_limit = 5
 	var/ghosts = 0
@@ -815,11 +816,11 @@ var/list/teleport_runes = list()
 	cult_mode.eldergod = 0
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/tome) && iscultist(user)))
+	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
 		user.visible_message("<span class='warning'>[user] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon Narsie rune erased by [key_name(user)] with a tome")
-			message_admins("[key_name_admin(user)] erased a Narsie rune with a tome")
+			log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
+			message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
 		return
 	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
 		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
@@ -834,7 +835,7 @@ var/list/teleport_runes = list()
 	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
 	invocation = null
 	req_cultists = 9
-	color = rgb(125,23,23)
+	color = RUNE_COLOR_TALISMAN
 	scribe_delay = 450
 	scribe_damage = 40.1 //how much damage you take doing it
 	icon = 'icons/effects/96x96.dmi'
@@ -851,11 +852,11 @@ var/list/teleport_runes = list()
 	return
 
 /obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/tome) && iscultist(user)))
+	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
 		user.visible_message("<span class='warning'>[user.name] begins erasing the [src]...</span>", "<span class='notice'>You begin erasing the [src]...</span>")
 		if(do_after(user, 50, target = src))	//Prevents accidental erasures.
-			log_game("Summon demon rune erased by [key_name(user)] with a tome")
-			message_admins("[key_name_admin(user)] erased a demon rune with a tome")
+			log_game("Summon demon rune erased by [key_name(user)] with a cult dagger")
+			message_admins("[key_name_admin(user)] erased a demon rune with a cult dagger")
 		return
 	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
 		log_game("Summon demon rune erased by [key_name(user)] using a null rod")

@@ -45,11 +45,17 @@
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim."
+	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Phases through fellow cultists."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	breakouttime = 45
 	weaken = 1
+
+/obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(iscultist(hit_atom))
+		hit_atom.visible_message("<span class='warning'>[src] bounces off of [hit_atom], as if repelled by an unseen force!</span>")
+		return
+	. = ..()
 
 /obj/item/clothing/head/hooded/culthood
 	name = "cult hood"
