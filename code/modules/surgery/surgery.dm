@@ -97,7 +97,7 @@
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/success = FALSE
 	
-	if(target_zone != surgery.location || !(surgery.current_stage in surgery_start_stage) || !can_operate(target)) // No distance check. Not needed
+	if(target_zone != surgery.location || (!(SURGERY_STAGE_ALWAYS in surgery_start_stage) && !(surgery.current_stage in surgery_start_stage)) || !can_operate(target)) // No distance check. Not needed
 		return FALSE
 	if(tool)
 		if(accept_any_item || (allowed_surgery_behaviour in tool.surgery_behaviours))
