@@ -147,7 +147,8 @@ var/global/list/all_cults = list()
 					explanation = "Free objective."
 			if("eldergod")
 				explanation = "Summon [SSticker.cultdat.entity_name] by invoking the 'Tear Reality' rune.<b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
-		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
+		if(cult_mind.current)
+			to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
 
@@ -221,12 +222,14 @@ var/global/list/all_cults = list()
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
-	culthud.leave_hud(cult_mind.current)
-	set_antag_hud(cult_mind.current, null)
+	if(cult_mind.current)
+		culthud.leave_hud(cult_mind.current)
+		set_antag_hud(cult_mind.current, null)
 
 /datum/game_mode/proc/update_cult_comms_added(datum/mind/cult_mind)
 	var/datum/action/innate/cultcomm/C = new()
-	C.Grant(cult_mind.current)
+	if(cult_mind.current)
+		C.Grant(cult_mind.current)
 
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()
