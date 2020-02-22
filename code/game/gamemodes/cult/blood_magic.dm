@@ -16,11 +16,6 @@
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/IsAvailable()
-	if(!iscultist(owner))
-		return FALSE
-	return ..()
-
 /datum/action/innate/cult/blood_magic/proc/Positioning()
 	var/list/screen_loc_split = splittext(button.screen_loc,",")
 	var/list/screen_loc_X = splittext(screen_loc_split[1],":")

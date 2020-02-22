@@ -27,19 +27,35 @@
 	..()
 	icon_state = SSticker.cultdat?.entity_icon_state
 	name = SSticker.cultdat?.entity_name
-	to_chat(world, "<font size='15' color='red'><b> [name] HAS RISEN</b></font>")
+	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS RISEN</b></font>")
 	world << pick(sound('sound/hallucinations/im_here1.ogg'), sound('sound/hallucinations/im_here2.ogg'))
+
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(gamemode)
+		gamemode.cult_objs.succesful_summon()
 
 	var/area/A = get_area(src)
 	if(A)
 		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
-		notify_ghosts("Nar-Sie has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
+		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action=NOTIFY_ATTACK)
 
 	narsie_spawn_animation()
 
 	sleep(70)
 	SSshuttle.emergency.request(null, 0.3) // Cannot recall
 	SSshuttle.emergency.canRecall = FALSE
+
+/obj/singularity/narsie/large/Destroy()
+	to_chat(world, "<font size='15' color='red'><b> [uppertext(name)] HAS FALLEN</b></font>")
+	world << sound('sound/hallucinations/wail.ogg')
+	var/datum/game_mode/gamemode = SSticker.mode
+	if(gamemode)
+		gamemode.cult_objs.narsie_death()
+		for(var/datum/mind/cult_mind in SSticker.mode.cult)
+			if(cult_mind && cult_mind.current)
+				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
+				to_chat(cult_mind.current, "<span class='cult'>Current goal : Slaughter the unbelievers!</span>")
+	..()
 
 /obj/singularity/narsie/large/attack_ghost(mob/dead/observer/user as mob)
 	makeNewConstruct(/mob/living/simple_animal/hostile/construct/harvester, user, null, 1)
@@ -73,7 +89,6 @@
 		var/turf/T = A
 		T.ChangeTurf(/turf/simulated/floor/engine/cult)
 
-
 /obj/singularity/narsie/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
@@ -85,10 +100,11 @@
 /obj/singularity/narsie/consume(var/atom/A)
 	A.narsie_act()
 
-
 /obj/singularity/narsie/ex_act() //No throwing bombs at it either. --NEO
 	return
 
+/obj/singularity/narsie/singularity_act() //handled in /obj/singularity/proc/consume
+	return
 
 /obj/singularity/narsie/proc/pickcultist() //Narsie rewards his cultists with being devoured first, then picks a ghost to follow. --NEO
 	var/list/cultists = list()
@@ -126,6 +142,8 @@
 
 /obj/singularity/narsie/proc/acquire(var/mob/food)
 	if(food == target)
+		return
+	if(!target)
 		return
 	to_chat(target, "<span class='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
 	target = food

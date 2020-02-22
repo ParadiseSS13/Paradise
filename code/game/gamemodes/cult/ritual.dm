@@ -42,38 +42,26 @@
 		return
 	scribe_rune(user)
 
-/obj/item/melee/cultblade/dagger/proc/finale_runes_ok(mob/living/user, obj/effect/rune/rune_to_scribe)
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
+/obj/item/melee/cultblade/dagger/proc/narsie_rune_check(mob/living/user)
+	var/datum/game_mode/gamemode = SSticker.mode
+
+	if(gamemode.cult_objs.status < NARSIE_NEEDS_SUMMONING)
+		to_chat(user, "<span class='warning'>[SSticker.cultdat.entity_name] is not ready to be summoned yet!</span>")
+		return FALSE
+	if(gamemode.cult_objs.status == NARSIE_HAS_RISEN)
+		to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
+		return FALSE
 	var/area/A = get_area(src)
-	if(GAMEMODE_IS_CULT)
-		if(!cult_mode.narsie_condition_cleared)
-			to_chat(user, "<span class='warning'>There is still more to do before unleashing [SSticker.cultdat.entity_name] power!</span>")
-			return 0
-		if(!cult_mode.eldergod)
-			to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
-			return 0
-		if(cult_mode.demons_summoned)
-			to_chat(user, "<span class='cultlarge'>\"We are already here. There is no need to try to summon us now.\"</span>")
-			return 0
-		if(!((CULT_ELDERGOD in cult_mode.objectives) || (CULT_SLAUGHTER in cult_mode.objectives)))
-			to_chat(user, "<span class='warning'>[SSticker.cultdat.entity_name]'s power does not wish to be unleashed!</span>")
-			return 0
-		if(!(A in summon_spots))
-			to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_spots)]!</span>")
-			return 0
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
-		if(confirm_final == "No" || confirm_final == null)
-			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
-			return 0
-		else
-			return 1
-	else//the game mode is not cult..but we ARE a cultist...ALL ON THE ADMINBUS
-		var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
-		if(confirm_final == "No" || confirm_final == null)
-			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
-			return 0
-		else
-			return 1
+	var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
+	if(!(A in summon_areas))
+		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
+		return FALSE
+	var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
+	if(confirm_final == "No" || confirm_final == null)
+		to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+		return FALSE
+	else
+		return TRUE
 
 /obj/item/melee/cultblade/dagger/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)
@@ -111,16 +99,17 @@
 		return
 	runeturf = get_turf(user) //we may have moved. adjust as needed...
 	A = get_area(src)
+	var/datum/game_mode/gamemode = SSticker.mode
 	if(locate(/obj/effect/rune) in runeturf)
 		to_chat(user, "<span class='cult'>There is already a rune here.</span>")
 		return
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
-	if(ispath(rune_to_scribe, /obj/effect/rune/narsie) || ispath(rune_to_scribe, /obj/effect/rune/slaughter))//may need to change this - Fethas
-		if(finale_runes_ok(user,rune_to_scribe))
-			A = get_area(src)
-			if(!(A in summon_spots))  // Check again to make sure they didn't move
-				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_spots)]!</span>")
+	if(ispath(rune_to_scribe, /obj/effect/rune/narsie))//may need to change this - Fethas
+		if(narsie_rune_check(user))
+			var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
+			if(!(A in summon_areas))  // Check again to make sure they didn't move
+				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 				return
 			command_announcement.Announce("Figments from an eldritch god are being summoned somewhere on the station from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))
@@ -165,7 +154,7 @@
 	desc = "Use the ritual dagger to create a powerful blood rune"
 	icon_icon = 'icons/mob/actions/actions_cult.dmi'
 	button_icon_state = "draw"
-	background_icon_state = "bg_demon"
+	background_icon_state = "bg_cult"
 	buttontooltipstyle = "cult"
 
 /datum/action/item_action/cult_dagger/Grant(mob/M)

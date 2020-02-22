@@ -29,3 +29,10 @@
 #define SOULS_TO_REVIVE 3
 #define BLOODCULT_EYE "f00"
 #define SUMMON_POSSIBILITIES 3
+
+//cult objective status
+#define NARSIE_IS_ASLEEP 0
+#define NARSIE_DEMANDS_SACRIFICE 1
+#define NARSIE_NEEDS_SUMMONING 2
+#define NARSIE_HAS_RISEN 3
+#define NARSIE_HAS_FALLEN -1

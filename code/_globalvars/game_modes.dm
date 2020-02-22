@@ -6,5 +6,3 @@ var/datum/station_state/start_state = null // Used in round-end report
 
 var/custom_event_msg = null
 var/custom_event_admin_msg = null
-
-var/list/summon_spots = list()

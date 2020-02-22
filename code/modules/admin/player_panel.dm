@@ -475,7 +475,7 @@
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
-		
+
 		if(SSticker.mode.blob_overminds.len)
 			dat += check_role_table("Blob Overminds", SSticker.mode.blob_overminds)
 
@@ -494,11 +494,9 @@
 		if(SSticker.mode.cult.len)
 			dat += check_role_table("Cultists", SSticker.mode.cult, 0)
 			dat += "<br> use <a href='?src=[UID()];cult_mindspeak=[UID()]'>Cult Mindspeak</a>"
-			if(GAMEMODE_IS_CULT)
-				var/datum/game_mode/cult/cult_round = SSticker.mode
-				if(!cult_round.narsie_condition_cleared)
-					dat += "<br><a href='?src=[UID()];cult_nextobj=[UID()]'>complete objective (debug)</a>"
-
+			var/datum/game_mode/gamemode = SSticker.mode
+			if(!gamemode.cult_objs.status < NARSIE_NEEDS_SUMMONING)
+				dat += "<br><a href='?src=[UID()];cult_nextobj=[UID()]'>Unlock Nar'Sie rune (debug)</a>"
 		if(SSticker.mode.traitors.len)
 			dat += check_role_table("Traitors", SSticker.mode.traitors)
 

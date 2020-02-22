@@ -113,7 +113,7 @@
 	if(allowed_size >= STAGE_TWO)
 		// Start moving even before we reach "true" stage two.
 		// If we are stage one and are sufficiently energetic to be allowed to 2,
-		//  it might mean we are stuck in a corner somewere. So move around to try to expand. 
+		//  it might mean we are stuck in a corner somewere. So move around to try to expand.
 		move()
 	if(current_size >= STAGE_TWO)
 		pulse()
@@ -280,6 +280,15 @@
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
 		set_light(10)
+	if(istype(A, /obj/singularity/narsie))
+		if(current_size == STAGE_SIX)
+			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
+			qdel(A)
+		else
+			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
+			investigate_log("has been destroyed by Nar'Sie","singulo")
+			qdel(src)
+
 	return
 
 

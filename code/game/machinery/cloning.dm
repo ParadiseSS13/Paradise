@@ -433,8 +433,8 @@
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
 	if(H.mind in SSticker.mode.cult)
-		SSticker.mode.update_cult_icons_added(H.mind) //So the icon actually appears
-		SSticker.mode.update_cult_comms_added(H.mind) //So the comms actually appears
+		SSticker.mode.update_cult_icons_added(H.mind)
+		SSticker.mode.add_cult_actions(H.mind)
 	if(H.mind.vampire)
 		H.mind.vampire.update_owner(H)
 	if((H.mind in SSticker.mode.vampire_thralls) || (H.mind in SSticker.mode.vampire_enthralled))

@@ -149,7 +149,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	//This proc contains the effects of the rune as well as things that happen afterwards. If you want it to spawn an object and then delete itself, have both here.
 	for(var/M in invokers)
 		var/mob/living/L = M
-		if(invocation)
+		if(invocation && L)
 			if(!L.IsVocal())
 				L.emote("gestures ominously.")
 			else
@@ -159,17 +159,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 			L.apply_damage(invoke_damage, BRUTE)
 			to_chat(L, "<span class='cultitalic'>[src] saps your strength!</span>")
 	do_invoke_glow()
-
-/obj/effect/rune/proc/burn_invokers(var/list/mobstoburn)
-	for(var/M in mobstoburn)
-		var/mob/living/L = M
-		if(L)
-			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-			if(L.reagents)
-				L.reagents.add_reagent("hell_water", 10)
-			L.Weaken(7)
-			L.Stun(7)
-	fail_invoke()
 
 /obj/effect/rune/proc/do_invoke_glow()
     var/oldtransform = transform
@@ -241,7 +230,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/myriad_targets = list()
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
-		if(!iscultist(M) || is_sacrifice_target(new_cultist.mind))
+		if(!iscultist(M) || (M.mind && is_sacrifice_target(M.mind)))
 			myriad_targets |= M
 	if(!myriad_targets.len)
 		fail_invoke()
@@ -270,7 +259,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	else
 		convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
 									"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
-		SSticker.mode.add_cultist(convertee.mind, 1)
+		SSticker.mode.add_cultist(convertee.mind)
 		convertee.mind.special_role = "Cultist"
 		to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 		and something evil takes root.</b></span>")
@@ -312,21 +301,19 @@ structure_check() searches for nearby cultist structures required for the invoca
 			return
 
 	var/sacrifice_fulfilled
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
+	var/datum/game_mode/gamemode = SSticker.mode
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
+			gamemode.cult_objs.succesful_sacrifice()
 	else
 		GLOB.sacrificed += offering
 
 	new /obj/effect/temp_visual/cult/sac(loc)
-	if(SSticker && SSticker.mode && SSticker.mode.name == "cult")
-		cult_mode.harvested++
 	for(var/M in invokers)
 		if(sacrifice_fulfilled)
 			to_chat(M, "<span class='cultlarge'>\"Yes! This is the one I desire! You have done well.\"</span>")
-			cult_mode.additional_phase()
 		else
 			if(ishuman(offering) || isrobot(offering))
 				to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
@@ -857,23 +844,18 @@ var/list/teleport_runes = list()
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(CULT_ELDERGOD in cult_mode.objectives))
-		message_admins("[key_name_admin(user)] tried to summonn an eldritch horror when the objective was wrong")
-		burn_invokers(invokers)
-		log_game("Summon Nar-Sie rune failed - improper objective")
-		return
+	var/datum/game_mode/gamemode = SSticker.mode
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
-		burn_invokers(invokers)
 		log_game("Summon Nar-Sie rune failed - off station Z level")
 		return
-	if(!cult_mode.eldergod)
+	if(gamemode.cult_objs.status == NARSIE_HAS_RISEN)
 		for(var/M in invokers)
 			to_chat(M, "<span class='warning'>[SSticker.cultdat.entity_name] is already on this plane!</span>")
 		log_game("Summon god rune failed - already summoned")
 		return
 	//BEGIN THE SUMMONING
+	gamemode.cult_objs.succesful_summon()
 	used = 1
 	color = rgb(255, 0, 0)
 	..()
@@ -883,7 +865,6 @@ var/list/teleport_runes = list()
 	var/turf/T = get_turf(src)
 	sleep(40)
 	new /obj/singularity/narsie/large(T) //Causes Nar-Sie to spawn even if the rune has been removed
-	cult_mode.eldergod = 0
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
 	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
@@ -893,74 +874,3 @@ var/list/teleport_runes = list()
 		log_game("Summon Narsie rune erased by [key_name(user)] using a null rod")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a null rod")
 	return ..()
-
-/obj/effect/rune/slaughter
-	cultist_name = "The Slaughter"
-	cultist_desc = "Calls forth the doom of an eldritch being. Three slaughter demons will appear to wreak havoc on the station."
-	invocation = null
-	req_cultists = 9
-	color = RUNE_COLOR_DARKRED
-	scribe_delay = 450
-	scribe_damage = 40.1 //how much damage you take doing it
-	icon = 'icons/effects/96x96.dmi'
-	icon_state = "apoc"
-	pixel_x = -32
-	pixel_y = -32
-
-	var/used = 0
-
-/obj/effect/rune/slaughter/check_icon()
-	return
-
-/obj/effect/rune/slaughter/conceal() //can't hide this, and you wouldn't want to
-	return
-
-/obj/effect/rune/slaughter/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
-		log_game("Summon demon rune erased by [key_name(user)] with a cult dagger")
-		message_admins("[key_name_admin(user)] erased a demon rune with a cult dagger")
-	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
-		log_game("Summon demon rune erased by [key_name(user)] using a null rod")
-		message_admins("[key_name_admin(user)] erased a demon rune with a null rod")
-	return ..()
-
-/obj/effect/rune/slaughter/invoke(var/list/invokers)
-	if(used)
-		return
-	var/mob/living/user = invokers[1]
-	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(CULT_SLAUGHTER in cult_mode.objectives))
-		message_admins("[key_name_admin(user)] tried to summon demons when the objective was wrong")
-		burn_invokers(invokers)
-		log_game("Summon Demons rune failed - improper objective")
-		return
-	if(!is_station_level(user.z))
-		message_admins("[key_name_admin(user)] tried to summon demons off station")
-		burn_invokers(invokers)
-		log_game("Summon demons rune failed - off station Z level")
-		return
-	if(cult_mode.demons_summoned)
-		for(var/M in invokers)
-			to_chat(M, "<span class='warning'>Demons are already on this plane!</span>")
-			log_game("Summon Demons rune failed - already summoned")
-			return
-	//BEGIN THE SLAUGHTER
-	used = 1
-	for(var/mob/living/M in range(1,src))
-		if(iscultist(M))
-			M.say("TOK-LYR RQA-NAP SHA-NEX!!")
-	world << 'sound/effects/dimensional_rend.ogg'
-	to_chat(world, "<span class='userdanger'>A hellish cacaphony bombards from all around as something awful tears through the world...</span>")
-	icon_state = "rune_large_distorted"
-	sleep(55)
-	to_chat(world, "<span class='cultlarge'><i>\"LIBREATE TE EX INFERIS!\"</i></span>")//Fethas note:I COULDN'T HELP IT OKAY?!
-	visible_message("<span class='warning'>[src] melts away into blood, and three horrific figures emerge from within!</span>")
-	var/turf/T = get_turf(src)
-	new /mob/living/simple_animal/slaughter/cult(T)
-	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTH, EAST, SOUTH, WEST))
-	new /mob/living/simple_animal/slaughter/cult(T, pick(NORTHEAST, SOUTHEAST, NORTHWEST, SOUTHWEST))
-	cult_mode.demons_summoned = 1
-	SSshuttle.emergency.request(null, 0.5, null)
-	SSshuttle.emergency.canRecall = FALSE
-	cult_mode.third_phase()
-	qdel(src)
