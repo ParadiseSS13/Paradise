@@ -834,20 +834,17 @@
 					special_role = SPECIAL_ROLE_CULTIST
 					to_chat(current, "<span class='cultitalic'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>")
 					to_chat(current, "<span class='cultitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve [SSticker.cultdat.entity_title2] above all else. Bring It back.</span>")
-					log_admin("[key_name(usr)] has culted [key_name(current)]")
-					message_admins("[key_name_admin(usr)] has culted [key_name_admin(current)]")
+					admin_log_and_message_admins("[key_name(usr)] has culted [key_name(current)]")
 			if("dagger")
 				var/mob/living/carbon/human/H = current
 				if(!SSticker.mode.cult_give_item(/obj/item/melee/cultblade/dagger, H))
 					to_chat(usr, "<span class='warning'>Spawning dagger failed!</span>")
-				log_admin("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
-				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] with a cult dagger")
+				admin_log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with a cult dagger")
 			if("runedmetal")
 				var/mob/living/carbon/human/H = current
 				if(!SSticker.mode.cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H))
 					to_chat(usr, "<span class='warning'>Spawning runed metal failed!</span>")
-				log_admin("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
-				message_admins("[key_name_admin(usr)] has equipped [key_name_admin(current)] with 10 runed metal sheets")
+				admin_log_and_message_admins("[key_name(usr)] has equipped [key_name(current)] with 10 runed metal sheets")
 
 	else if(href_list["wizard"])
 

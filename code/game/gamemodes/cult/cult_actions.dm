@@ -20,7 +20,6 @@
 	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
 	if(!input || !IsAvailable())
 		return
-
 	cultist_commune(usr, input)
 	return
 
@@ -52,7 +51,6 @@
 
 	log_say("(CULT) [message]", user)
 
-
 //Objectives
 
 /datum/action/innate/cult/check_progress
@@ -64,7 +62,6 @@
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
 		return
-
 	if(SSticker && SSticker.mode)
 		SSticker.mode.cult_objs.study(usr)
 	else

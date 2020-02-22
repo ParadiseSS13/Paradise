@@ -45,14 +45,11 @@
 	status = NARSIE_HAS_FALLEN
 	obj_summon.killed = TRUE
 
-
 //Objectives
-
 
 /datum/objective/servecult //Given to cultists on conversion
 	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
 	completed = TRUE
-
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
