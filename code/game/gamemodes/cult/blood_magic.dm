@@ -1,8 +1,6 @@
 /datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
 	name = "Prepare Blood Magic"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
 	button_icon_state = "carve"
-	background_icon_state = "bg_demon"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
 	var/list/spells = list()
 	var/channeling = FALSE

@@ -28,3 +28,4 @@
 //misc
 #define SOULS_TO_REVIVE 3
 #define BLOODCULT_EYE "f00"
+#define SUMMON_POSSIBILITIES 3

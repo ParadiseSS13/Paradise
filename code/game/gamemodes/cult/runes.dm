@@ -224,7 +224,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Offer"
-	cultist_desc = "Offers a non-cultists on top of it to your deity, either converting or sacrificing them."
+	cultist_desc = "Offers non-cultists on top of it to your deity, either converting or sacrificing them."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	color = RUNE_COLOR_OFFER
@@ -241,7 +241,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/myriad_targets = list()
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
-		if(!iscultist(M))
+		if(!iscultist(M) || is_sacrifice_target(new_cultist.mind))
 			myriad_targets |= M
 	if(!myriad_targets.len)
 		fail_invoke()
@@ -828,7 +828,7 @@ var/list/teleport_runes = list()
 
 //Ritual of Dimensional Rending: Calls forth the avatar of Nar-Sie upon the station.
 /obj/effect/rune/narsie
-	cultist_name = "Tear Reality"
+	cultist_name = "Tear Veil"
 	cultist_desc = "tears apart dimensional barriers, calling forth your god. Requires 9 invokers."
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
