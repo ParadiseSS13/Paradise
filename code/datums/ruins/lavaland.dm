@@ -218,3 +218,11 @@ datum/map_template/ruin/lavaland/ash_walker
 	description = "Mystery to be solved."
 	suffix = "lavaland_surface_puzzle.dmm"
 	cost = 5
+
+/datum/map_template/ruin/lavaland/ancientarchives
+	name = "Ancient Archives"
+	id = "archives"
+	description = "An ancient archives from a long since fallen civilization, perhaps there may be something useful remaining"
+	suffix = "lavaland_surface_ancientlibrary.dmm"
+	allow_duplicates = FALSE
+	cost = 10
