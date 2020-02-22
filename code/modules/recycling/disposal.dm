@@ -26,8 +26,11 @@
 	var/flush_every_ticks = 30 //Every 30 ticks it will look whether it is ready to flush
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
+	var/required_mode_to_deconstruct = -1
+	var/deconstructs_to = PIPE_DISPOSALS_CHUTE
 	active_power_usage = 600
 	idle_power_usage = 100
+
 
 // create a new disposal
 // find the attached trunk (if present)
@@ -110,30 +113,6 @@
 				playsound(src.loc, I.usesound, 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
-		else if(istype(I,/obj/item/weldingtool) && mode==-1)
-			if(contents.len > 0)
-				to_chat(user, "Eject the items first!")
-				return
-			var/obj/item/weldingtool/W = I
-			if(W.remove_fuel(0,user))
-				playsound(src.loc, W.usesound, 100, 1)
-				to_chat(user, "You start slicing the floorweld off the disposal unit.")
-
-				if(do_after(user, 20 * W.toolspeed, target = src))
-					if(!src || !W.isOn()) return
-					to_chat(user, "You sliced the floorweld off the disposal unit.")
-					var/obj/structure/disposalconstruct/C = new (src.loc)
-					src.transfer_fingerprints_to(C)
-					C.ptype = PIPE_DISPOSALS_BIN
-					C.anchored = 1
-					C.density = 1
-					C.update()
-					qdel(src)
-				return
-			else
-				to_chat(user, "You need more welding fuel to complete this task.")
-				return
-
 	if(istype(I, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
@@ -178,6 +157,25 @@
 		M.show_message("[user.name] places \the [I] into the [src].", 3)
 
 	update()
+
+/obj/machinery/disposal/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(mode != required_mode_to_deconstruct)
+		return
+	if(contents.len > 0)
+		to_chat(user, "Eject the items first!")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+		var/obj/structure/disposalconstruct/C = new (src.loc)
+		C.ptype = deconstructs_to
+		C.update()
+		C.anchored = 1
+		C.density = 1
+		qdel(src)
 
 // mouse drop another mob or self
 //
@@ -893,21 +891,15 @@
 
 	add_fingerprint(user)
 
-	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = I
-		if(W.remove_fuel(0, user))
-			to_chat(user, "<span class='notice'>You begin slicing \the [src].</span>")
-			playsound(loc, W.usesound, 100, 1)
-			if(do_after(user, 30 * W.toolspeed, target = src))
-				to_chat(user, "<span class='notice'>You finish slicing \the [src].</span>")
-				welded()
-		else
-			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
-
-// called when pipe is cut with welder
-/obj/structure/disposalpipe/proc/welded()
-
-	var/obj/structure/disposalconstruct/C = new (src.loc)
+/obj/structure/disposalpipe/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	WELDER_SLICING_SUCCESS_MESSAGE
+	var/obj/structure/disposalconstruct/C = new (get_turf(src))
 	switch(base_icon_state)
 		if("pipe-s")
 			C.ptype = PIPE_DISPOSALS_STRAIGHT
@@ -927,8 +919,8 @@
 			C.ptype = PIPE_DISPOSALS_SORT_LEFT
 	src.transfer_fingerprints_to(C)
 	C.dir = dir
-	C.density = 0
-	C.anchored = 1
+	C.density = FALSE
+	C.anchored = TRUE
 	C.update()
 
 	qdel(src)
@@ -1210,19 +1202,6 @@
 	if(T.intact)
 		return		// prevent interaction with T-scanner revealed pipes
 	src.add_fingerprint(user)
-	if(istype(I, /obj/item/weldingtool))
-		var/obj/item/weldingtool/W = I
-
-		if(W.remove_fuel(0,user))
-			playsound(loc, W.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>Slicing the disposal pipe.</span>")
-			if(do_after(user, 30 * W.toolspeed, target = src))
-				if(!W.isOn())
-					return
-				welded()
-		else
-			to_chat(user, "<span class='warning'>You need more welding fuel to cut the pipe.</span>")
-			return
 
 	// would transfer to next pipe segment, but we are in a trunk
 	// if not entering from disposal bin,
@@ -1269,8 +1248,12 @@
 	update()
 	return
 
-/obj/structure/disposalpipe/broken/welded()
-	qdel(src)
+/obj/structure/disposalpipe/broken/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, 0, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You remove [src]!</span>")
+		I.play_tool_sound(src, I.tool_volume)
+		qdel(src)
+		return TRUE
 
 // the disposal outlet machine
 
@@ -1334,25 +1317,21 @@
 			playsound(src.loc, I.usesound, 50, 1)
 			to_chat(user, "You attach the screws around the power connection.")
 			return
-	else if(istype(I,/obj/item/weldingtool) && mode==1)
-		var/obj/item/weldingtool/W = I
-		if(W.remove_fuel(0,user))
-			playsound(src.loc, W.usesound, 100, 1)
-			to_chat(user, "You start slicing the floorweld off the disposal outlet.")
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				if(!src || !W.isOn()) return
-				to_chat(user, "You sliced the floorweld off the disposal outlet.")
-				var/obj/structure/disposalconstruct/C = new (src.loc)
-				src.transfer_fingerprints_to(C)
-				C.ptype = PIPE_DISPOSALS_OUTLET
-				C.update()
-				C.anchored = 1
-				C.density = 1
-				qdel(src)
-			return
-		else
-			to_chat(user, "You need more welding fuel to complete this task.")
-			return
+
+/obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+		var/obj/structure/disposalconstruct/C = new (src.loc)
+		C.ptype = PIPE_DISPOSALS_OUTLET
+		C.update()
+		C.anchored = TRUE
+		C.density = TRUE
+		transfer_fingerprints_to(C)
+		qdel(src)
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot or the recall item spell for instance
 /obj/structure/disposaloutlet/Moved(atom/OldLoc, Dir)

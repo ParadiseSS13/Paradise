@@ -253,7 +253,7 @@
 		power_change()
 		return
 
-	if(default_deconstruction_crowbar(O))
+	if(default_deconstruction_crowbar(user, O))
 		return
 
 	if(istype(O, /obj/item/multitool)||istype(O, /obj/item/wirecutters))
@@ -386,7 +386,7 @@
 	return data
 
 /obj/machinery/smartfridge/Topic(href, href_list)
-	if(..()) 
+	if(..())
 		return FALSE
 
 	var/mob/user = usr
@@ -492,7 +492,7 @@
 /obj/machinery/smartfridge/drying_rack/spawn_frame()
 	return
 
-/obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(obj/item/crowbar/C, ignore_panel = 1)
+/obj/machinery/smartfridge/drying_rack/default_deconstruction_crowbar(user, obj/item/crowbar/C, ignore_panel = 1)
 	..()
 
 /obj/machinery/smartfridge/drying_rack/Topic(href, href_list)

@@ -119,15 +119,19 @@
 				return
 			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
 			ChangeToWall()
-		if(istype(W, /obj/item/weldingtool))
-			var/obj/item/weldingtool/WT = W
-			if(WT.remove_fuel(0,user))
-				dismantle(user, TRUE)
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
 		dismantle(user, TRUE)
+
+/obj/structure/falsewall/welder_act(mob/user, obj/item/I)
+	if(!density)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	dismantle(user, TRUE)
 
 /obj/structure/falsewall/proc/dismantle(mob/user, disassembled = TRUE)
 	user.visible_message("<span class='notice'>[user] dismantles the false wall.</span>", "<span class='warning'>You dismantle the false wall.</span>")

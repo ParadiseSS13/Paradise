@@ -323,9 +323,10 @@
 /obj/item/pipe/attack_self(mob/user as mob)
 	return rotate()
 
-/obj/item/pipe/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(!istype(W, /obj/item/wrench))
-		return ..()
+/obj/item/pipe/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
 
 	if(!isturf(src.loc))
 		return 1
@@ -506,7 +507,6 @@
 			var/obj/machinery/atmospherics/omni/filter/P = new(loc)
 			P.on_construction(dir, pipe_dir, color)
 
-	playsound(src.loc, W.usesound, 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"<span class='notice'>You have fastened the [src].</span>", \

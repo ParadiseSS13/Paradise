@@ -830,23 +830,6 @@ var/list/turret_icons
 				build_step = 3
 				return
 
-			else if(istype(I, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = I
-				if(!WT.isOn())
-					return
-				if(WT.get_fuel() < 5) //uses up 5 fuel.
-					to_chat(user, "<span class='notice'>You need more fuel to complete this task.</span>")
-					return
-
-				playsound(loc, WT.usesound, 50, 1)
-				if(do_after(user, 20 * WT.toolspeed, target = src))
-					if(!src || !WT.remove_fuel(5, user)) return
-					build_step = 1
-					to_chat(user, "You remove the turret's interior metal armor.")
-					new /obj/item/stack/sheet/metal( loc, 2)
-					return
-
-
 		if(3)
 			if(istype(I, /obj/item/gun/energy)) //the gun installation part
 
@@ -911,31 +894,6 @@ var/list/turret_icons
 				build_step = 5
 				to_chat(user, "<span class='notice'>You open the internal access hatch.</span>")
 				return
-
-		if(7)
-			if(istype(I, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = I
-				if(!WT.isOn()) return
-				if(WT.get_fuel() < 5)
-					to_chat(user, "<span class='notice'>You need more fuel to complete this task.</span>")
-
-				playsound(loc, WT.usesound, 50, 1)
-				if(do_after(user, 30 * WT.toolspeed, target = src))
-					if(!src || !WT.remove_fuel(5, user))
-						return
-					build_step = 8
-					to_chat(user, "<span class='notice'>You weld the turret's armor down.</span>")
-
-					//The final step: create a full turret
-					var/obj/machinery/porta_turret/Turret = new target_type(loc)
-					Turret.name = finish_name
-					Turret.installation = installation
-					Turret.gun_charge = gun_charge
-					Turret.enabled = 0
-					Turret.setup()
-
-					qdel(src) // qdel
-
 			else if(istype(I, /obj/item/crowbar))
 				playsound(loc, I.usesound, 75, 1)
 				to_chat(user, "<span class='notice'>You pry off the turret's exterior armor.</span>")
@@ -955,6 +913,33 @@ var/list/turret_icons
 		return
 	..()
 
+/obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(build_step == 2)
+		if(!I.use_tool(src, user, 20, 5, volume = I.tool_volume))
+			return
+		if(build_step != 2)
+			return
+		build_step = 1
+		to_chat(user, "<span class='notice'>You remove the turret's interior metal armor.</span>")
+		new /obj/item/stack/sheet/metal(drop_location(), 2)
+	else if(build_step == 7)
+		if(!I.use_tool(src, user, 50, amount = 5, volume = I.tool_volume))
+			return
+		if(build_step != 7)
+			return
+		build_step = 8
+		to_chat(user, "<span class='notice'>You weld the turret's armor down.</span>")
+
+		//The final step: create a full turret
+		var/obj/machinery/porta_turret/Turret = new target_type(loc)
+		Turret.name = finish_name
+		Turret.installation = installation
+		Turret.gun_charge = gun_charge
+		Turret.enabled = 0
+		Turret.setup()
+
+		qdel(src)
 
 /obj/machinery/porta_turret_construct/attack_hand(mob/user)
 	switch(build_step)

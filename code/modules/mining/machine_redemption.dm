@@ -188,13 +188,6 @@
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
 		return
-	if(default_unfasten_wrench(user, W))
-		return
-	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", W))
-		updateUsrDialog()
-		return
-	if(default_deconstruction_crowbar(W))
-		return
 
 	if(!powered())
 		return
@@ -208,12 +201,6 @@
 			interact(user)
 		return
 
-	if(ismultitool(W) && panel_open)
-		input_dir = turn(input_dir, -90)
-		output_dir = turn(output_dir, -90)
-		to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
-		return
-
 	if(istype(W, /obj/item/disk/design_disk))
 		if(user.drop_item())
 			W.forceMove(src)
@@ -222,6 +209,32 @@
 			return TRUE
 
 	return ..()
+
+
+/obj/machinery/mineral/ore_redemption/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/mineral/ore_redemption/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!powered())
+		return
+	if(!I.tool_start_check(user, 0))
+		return
+	input_dir = turn(input_dir, -90)
+	output_dir = turn(output_dir, -90)
+	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+
+/obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
+		updateUsrDialog()
+		return TRUE
+
+/obj/machinery/mineral/ore_redemption/wrench_act(mob/user, obj/item/I)
+	if(default_unfasten_wrench(user, I))
+		return TRUE
 
 /obj/machinery/mineral/ore_redemption/attack_hand(mob/user)
 	if(..())

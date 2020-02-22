@@ -105,31 +105,6 @@
 			toggle_lock(user)
 		else
 			to_chat(user,  "<span class='warning'>Access denied.</span>")
-	else if(iswelder(I) && user.a_intent == INTENT_HELP && !broken)
-		var/obj/item/weldingtool/WT = I
-		if(obj_integrity < max_integrity && WT.remove_fuel(5, user))
-			to_chat(user, "<span class='notice'>You begin repairing [src].</span>")
-			playsound(loc, WT.usesound, 40, 1)
-			if(do_after(user, 40 * WT.toolspeed, target = src))
-				obj_integrity = max_integrity
-				playsound(loc, 'sound/items/welder2.ogg', 50, 1)
-				update_icon()
-				to_chat(user, "<span class='notice'>You repair [src].</span>")
-		else
-			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
-		return
-	else if(!alert && iscrowbar(I) && openable) //Only applies to the lab cage and player made display cases
-		if(broken)
-			if(showpiece)
-				to_chat(user, "<span class='notice'>Remove the displayed object first.</span>")
-			else
-				to_chat(user, "<span class='notice'>You remove the destroyed case</span>")
-				qdel(src)
-		else
-			to_chat(user, "<span class='notice'>You start to [open ? "close":"open"] [src].</span>")
-			if(do_after(user, 20 * I.toolspeed, target = src))
-				to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
-				toggle_lock(user)
 	else if(open && !showpiece)
 		if(user.drop_item())
 			I.forceMove(src)
@@ -149,6 +124,30 @@
 			update_icon()
 	else
 		return ..()
+
+/obj/structure/displaycase/crowbar_act(mob/user, obj/item/I) //Only applies to the lab cage and player made display cases
+	if(alert || !openable)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(broken)
+		if(showpiece)
+			to_chat(user, "<span class='notice'>Remove the displayed object first.</span>")
+		if(I.use_tool(src, user, 0, volume = I.tool_volume))
+			to_chat(user, "<span class='notice'>You remove the destroyed case</span>")
+			qdel(src)
+	else
+		to_chat(user, "<span class='notice'>You start to [open ? "close":"open"] [src].</span>")
+		if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+			return
+		to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+		toggle_lock(user)
+
+obj/structure/displaycase/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(default_welder_repair(user, I))
+		broken = FALSE
 
 /obj/structure/displaycase/proc/toggle_lock(mob/user)
 	open = !open
@@ -180,15 +179,7 @@
 	var/obj/item/airlock_electronics/electronics
 
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I)) //The player can only deconstruct the wooden frame
-		to_chat(user, "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 30 * I.toolspeed, target = src))
-			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
-			new /obj/item/stack/sheet/wood(get_turf(src), 5)
-			qdel(src)
-
-	else if(istype(I, /obj/item/airlock_electronics))
+	if(istype(I, /obj/item/airlock_electronics))
 		to_chat(user, "<span class='notice'>You start installing the electronics into [src]...</span>")
 		playsound(src.loc, I.usesound, 50, 1)
 		if(do_after(user, 30, target = src))
@@ -217,6 +208,16 @@
 	else
 		return ..()
 
+/obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	TOOL_ATTEMPT_DISMANTLE_MESSAGE
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	TOOL_DISMANTLE_SUCCESS_MESSAGE
+	new /obj/item/stack/sheet/wood(get_turf(src), 5)
+	qdel(src)
 
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
 /obj/structure/displaycase/captain

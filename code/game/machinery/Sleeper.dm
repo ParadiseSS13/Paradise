@@ -280,33 +280,7 @@
 			to_chat(user, "<span class='warning'>The sleeper has a beaker already.</span>")
 			return
 
-	if(isscrewdriver(I))
-		if(occupant)
-			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-			return
-		default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I)
-		return
-
-	if(iswrench(I))
-		if(occupant)
-			to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
-			return
-		if(panel_open)
-			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
-			return
-		if(dir == EAST)
-			orient = "LEFT"
-			setDir(WEST)
-		else
-			orient = "RIGHT"
-			setDir(EAST)
-		playsound(loc, I.usesound, 50, 1)
-		return
-
 	if(exchange_parts(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
 		return
 
 	if(istype(I, /obj/item/grab))
@@ -342,6 +316,34 @@
 
 	return ..()
 
+
+/obj/machinery/sleeper/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/sleeper/screwdriver_act(mob/user, obj/item/I)
+	if(occupant)
+		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "[base_icon]-o", "[base_icon]-open", I))
+		return TRUE
+
+/obj/machinery/sleeper/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(occupant)
+		to_chat(user, "<span class='notice'>The scanner is occupied.</span>")
+		return
+	if(panel_open)
+		to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
+		return
+	if(dir == EAST)
+		orient = "LEFT"
+		setDir(WEST)
+	else
+		orient = "RIGHT"
+		setDir(EAST)
 
 /obj/machinery/sleeper/ex_act(severity)
 	if(filtering)

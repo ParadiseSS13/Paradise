@@ -379,14 +379,20 @@
 		return
 
 	add_fingerprint(user)
-	if((iswelder(C) && !operating && density))
-		var/obj/item/weldingtool/W = C
-		if(W.remove_fuel(0,user))
-			welded = !welded
-			update_icon()
-			return
-		else
-			return
+
+/obj/machinery/door/airlock/hatch/gamma/welder_act(mob/user, obj/item/I)
+	if(shock_user(user, 75))
+		return
+	if(operating || !density)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, amount = 0, volume = I.tool_volume))
+		return
+	welded = !welded
+	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
+					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
+					"<span class='warning'>You hear welding.</span>")
+	update_icon()
 
 /obj/machinery/door/airlock/maintenance_hatch
 	name = "maintenance hatch"
@@ -424,14 +430,22 @@
 		return
 
 	add_fingerprint(user)
-	if((iswelder(C) && !operating && density))
-		var/obj/item/weldingtool/W = C
-		if(W.remove_fuel(0,user))
-			welded = !welded
-			update_icon()
-			return
-		else
-			return
+
+
+/obj/machinery/door/airlock/highsecurity/red/welder_act(mob/user, obj/item/I)
+	if(shock_user(user, 75))
+		return
+	if(operating || !density)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	welded = !welded
+	visible_message("<span class='notice'>[user] [welded ? null : "un"]welds [src]!</span>",\
+					"<span class='notice'>You [welded ? null : "un"]weld [src]!</span>",\
+					"<span class='warning'>You hear welding.</span>")
+	update_icon()
+
 
 //////////////////////////////////
 /*

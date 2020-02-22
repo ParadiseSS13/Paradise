@@ -100,19 +100,22 @@ var/list/holopads = list()
 	holo_range = holograph_range
 
 /obj/machinery/hologram/holopad/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I))
-		return
-
 	if(exchange_parts(user, I))
-		return
-
-	if(default_unfasten_wrench(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
 
+/obj/machinery/hologram/holopad/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "holopad_open", "holopad0", I)
+
+
+/obj/machinery/hologram/holopad/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+/obj/machinery/hologram/holopad/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 /obj/machinery/hologram/holopad/attack_hand(mob/living/carbon/human/user)
 	if(..())

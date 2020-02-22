@@ -79,24 +79,24 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/security/telescreen/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
-		if(!direction || !Adjacent(user))
-			return
-		pixel_x = 0
-		pixel_y = 0
-		switch(direction)
-			if("North")
-				pixel_y = 32
-			if("East")
-				pixel_x = 32
-			if("South")
-				pixel_y = -32
-			if("West")
-				pixel_x = -32
-	else
-		return ..()
+/obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	if(!direction || !Adjacent(user))
+		return
+	pixel_x = 0
+	pixel_y = 0
+	switch(direction)
+		if("North")
+			pixel_y = 32
+		if("East")
+			pixel_x = 32
+		if("South")
+			pixel_y = -32
+		if("West")
+			pixel_x = -32
 
 /obj/machinery/computer/security/emag_act(user as mob)
 	if(!emagged)
