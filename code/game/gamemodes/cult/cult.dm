@@ -204,10 +204,9 @@ var/global/list/all_cults = list()
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
-		if(GAMEMODE_IS_CULT)
-			cult_mode.memorize_cult_objectives(cult_mind)
 		check_cult_size(cultist_count += 1)
 		if(GAMEMODE_IS_CULT)
+			cult_mode.memorize_cult_objectives(cult_mind)
 			cult_mode.check_numbers()
 		if(cult_risen)
 			rise(cult_mind.current)
@@ -277,18 +276,21 @@ var/global/list/all_cults = list()
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
-	culthud.join_hud(cult_mind.current)
-	set_antag_hud(cult_mind.current, "hudcultist")
+	if(cult_mind.current)
+		culthud.join_hud(cult_mind.current)
+		set_antag_hud(cult_mind.current, "hudcultist")
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
-	culthud.leave_hud(cult_mind.current)
-	set_antag_hud(cult_mind.current, null)
+	if(cult_mind.current)
+		culthud.leave_hud(cult_mind.current)
+		set_antag_hud(cult_mind.current, null)
 
 /datum/game_mode/proc/update_cult_comms_added(datum/mind/cult_mind)
 	var/datum/action/innate/cult/comm/C = new()
-	C.Grant(cult_mind.current)
+	if(cult_mind.current)
+		C.Grant(cult_mind.current)
 
 /datum/game_mode/cult/proc/get_unconvertables()
 	var/list/ucs = list()
