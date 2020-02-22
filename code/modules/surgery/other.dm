@@ -10,10 +10,35 @@
 	allowed_surgery_behaviour = SURGERY_CAUTERIZE_INCISION
 	time = 24
 
-/datum/surgery_step/generic/cut_open/cut_further
-	name = "cut flesh"
+/datum/surgery_step/generic/cut_open/cut_further // Debridement and cavity surgery
+	name = "cut tissue"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
+
+/datum/surgery_step/generic/cut_open/cut_further/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/dead_flesh = (affected.status & ORGAN_DEAD)
+	user.visible_message("[user] starts cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool]." , \
+	"You start cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].")
+	target.custom_pain("The pain in [affected.name] is unbearable!")
+	..()
+
+/datum/surgery_step/generic/cut_open/cut_further/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/dead_flesh = (affected.status & ORGAN_DEAD)
+	user.visible_message("<span class='notice'> [user] has cut away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>", \
+		"<span class='notice'> You have cut away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>")
+	affected.open = 3
+
+	return TRUE
+
+/datum/surgery_step/generic/cut_open/cut_further/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
+	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
+	affected.receive_damage(20)
+
+	return FALSE
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
@@ -31,10 +56,8 @@
 /datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return FALSE
 
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	return affected.internal_bleeding
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -61,56 +84,6 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>" , \
 	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
 	affected.receive_damage(5, 0)
-
-	return FALSE
-
-/datum/surgery_step/fix_dead_tissue		//Debridement
-	name = "remove dead tissue"
-	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
-	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
-	allowed_surgery_behaviour = SURGERY_MAKE_INCISION
-
-	can_infect = TRUE
-	blood_level = 1
-
-	time = 16
-
-/datum/surgery_step/fix_dead_tissue/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
-
-/datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	if(!affected)
-		return FALSE
-
-	if(!(affected.status & ORGAN_DEAD))
-		return FALSE
-	return TRUE
-
-/datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]." , \
-	"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].")
-	target.custom_pain("The pain in [affected.name] is unbearable!")
-	..()
-
-/datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='notice'> [user] has cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You have cut away necrotic tissue in [target]'s [affected.name] with \the [tool].</span>")
-	affected.open = 3
-
-	return TRUE
-
-/datum/surgery_step/fix_dead_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
-	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
-	affected.receive_damage(20)
 
 	return FALSE
 
@@ -169,7 +142,7 @@
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 		if(has_mitocholide)
-			affected.status &= ~ORGAN_DEAD
+			affected.rejuvenate() // Just like splashing mito baby
 			target.update_body()
 
 		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \

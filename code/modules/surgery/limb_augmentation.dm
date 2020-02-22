@@ -14,17 +14,12 @@
 		return FALSE
 	
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return FALSE
 	if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
-		return FALSE
-	if(affected.is_robotic())
 		return FALSE
 	
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
 		if(!(target_zone in p.part))
-			//to_chat(user, "<span class='warning'>[tool] cannot be used to augment this limb!</span>")
 			return FALSE
 	return TRUE
 

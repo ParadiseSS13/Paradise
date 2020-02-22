@@ -58,6 +58,7 @@
 	var/next_surgery_stage = null 			// The stage surgery will be in after this step completes
 	var/list/possible_locs = null 			//Multiple locations -- c0
 	var/requires_organic_bodypart = TRUE	//Prevents you from performing an operation on robotic limbs
+	var/affected_organ_available = TRUE 		// If the surgery step actually needs an organ to be on the selected spot
 	// duration of the step
 	var/time = 10
 
@@ -111,7 +112,11 @@
 		var/prob_chance = 100
 
 		if(tool && allowed_surgery_behaviour)
-			prob_chance = tool.surgery_behaviours[allowed_surgery_behaviour]
+			if(!(allowed_surgery_behaviour in tool.surgery_behaviours))
+				if(!accept_any_item)
+					prob_chance = 0 // No chance of success... how did we even get here?!
+			else
+				prob_chance = tool.surgery_behaviours[allowed_surgery_behaviour]
 		prob_chance *= get_location_modifier(target)
 
 
@@ -135,7 +140,16 @@
 
 // checks whether this step can be applied with the given user and target
 /datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return is_valid_target(target)
+	if(!is_valid_target(target))
+		return FALSE
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if((!affected_organ_available && affected) || (affected_organ_available && !affected))
+		return FALSE
+	if((requires_organic_bodypart && affected.is_robotic()))
+		return FALSE
+
+	return TRUE
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
 /datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

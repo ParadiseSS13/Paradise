@@ -49,7 +49,7 @@
 	name = "insert gland"
 	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES)
 	next_surgery_stage = SURGERY_STAGE_SAME
-	allowed_surgery_behaviour = SURGERY_IMPLANT_ORGAN_MANIP
+	accept_any_item = TRUE // can_use will check if it's a gland
 	time = 32
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

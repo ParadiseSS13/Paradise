@@ -117,7 +117,6 @@
 	origin_tech = "combat=3;magnets=4;syndicate=4"
 	block_chance = 50
 	sharp = 1
-	surgery_behaviours = list(SURGERY_SLIME_CUT_FLESH = 75)
 	var/hacked = 0
 
 /obj/item/melee/energy/sword/New()

@@ -24,7 +24,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
-	surgery_behaviours = list(SURGERY_SLIME_EXTRACT_CORE = 100, SURGERY_CLAMP_BLEEDERS = 100, SURGERY_EXTRACT_IMPLANT = 100, SURGERY_CONNECT_LIMB = 100, SURGERY_EXTRACT_ORGAN_MANIP = 100)
+	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_EXTRACT_IMPLANT = 100, SURGERY_CONNECT_LIMB = 100, SURGERY_EXTRACT_ORGAN_MANIP = 100)
 
 /obj/item/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
@@ -90,7 +90,7 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	surgery_behaviours = list(SURGERY_SLIME_CUT_FLESH = 100, SURGERY_MAKE_INCISION = 100, SURGERY_RESHAPE_FACE = 100)
+	surgery_behaviours = list(SURGERY_MAKE_INCISION = 100, SURGERY_RESHAPE_FACE = 100)
 
 /obj/item/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -112,7 +112,7 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
-	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_SLIME_CUT_FLESH = 100, SURGERY_MAKE_INCISION = 100, SURGERY_CAUTERIZE_INCISION = 100, SURGERY_RESHAPE_FACE = 100)
+	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_MAKE_INCISION = 100, SURGERY_CAUTERIZE_INCISION = 100, SURGERY_RESHAPE_FACE = 100)
 
 /obj/item/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "laser scalpel"
@@ -137,7 +137,7 @@
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
-	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_SLIME_CUT_FLESH = 100, SURGERY_MAKE_INCISION = 100, SURGERY_CAUTERIZE_INCISION = 100, SURGERY_RESHAPE_FACE = 100, SURGERY_RETRACT_SKIN = 100, SURGERY_RETRACT_BONE = 100, SURGERY_RETRACT_CARAPACE = 100)
+	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_MAKE_INCISION = 100, SURGERY_CAUTERIZE_INCISION = 100, SURGERY_RESHAPE_FACE = 100, SURGERY_RETRACT_SKIN = 100, SURGERY_RETRACT_BONE = 100, SURGERY_RETRACT_CARAPACE = 100)
 
 /obj/item/circular_saw
 	name = "circular saw"

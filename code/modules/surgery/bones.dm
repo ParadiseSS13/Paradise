@@ -15,7 +15,7 @@
 	if(!..())
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected && !affected.is_robotic() && !(affected.cannot_break)
+	return !affected.cannot_break
 
 /datum/surgery_step/encasing/glue_bone
 	name = "mend bone"

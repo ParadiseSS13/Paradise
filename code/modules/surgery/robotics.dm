@@ -16,8 +16,6 @@
 	if(!..())
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(affected == null)
-		return FALSE
 	if(!affected.is_robotic())
 		return FALSE
 	return TRUE
@@ -225,8 +223,15 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant
 	name = "implant internal part"
-	allowed_surgery_behaviour = SURGERY_IMPLANT_ORGAN_MANIP
+	accept_any_item = TRUE // can_use will check if it's an organ or not
 
+/datum/surgery_step/robotics/manipulate_robotic_organs/implant/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+	if(!istype(tool, /obj/item/organ/internal))
+		return FALSE
+	var/obj/item/organ/internal/I = tool
+	return I.is_robotic()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))

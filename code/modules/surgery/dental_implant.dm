@@ -3,10 +3,7 @@
 	can_infect = TRUE
 
 /datum/surgery_step/dental/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
-
-/datum/surgery_step/dental/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return ..() && target.check_has_mouth()
+	return istype(target) && target.check_has_mouth()
 
 /datum/surgery_step/dental/drill
 	name = "drill bone"
@@ -27,7 +24,7 @@
 	name = "insert pill"
 	surgery_start_stage = SURGERY_STAGE_DENTAL
 	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_behaviour = SURGERY_INSERT_PILL
+	accept_any_item = TRUE // can_use will check if it's a pill or not
 	time = 16
 
 /datum/surgery_step/dental/insert_pill/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
@@ -48,9 +45,8 @@
 	user.drop_item()
 	tool.forceMove(target)
 
-	var/datum/action/item_action/hands_free/activate_pill/P = new
+	var/datum/action/item_action/hands_free/activate_pill/P = new(tool)
 	P.button_icon_state = tool.icon_state
-	P.target = tool
 	P.name = "Activate Pill ([tool.name])"
 	P.Grant(target)
 

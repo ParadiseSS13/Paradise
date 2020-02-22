@@ -22,7 +22,7 @@
 		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return affected && !affected.cannot_amputate && !affected.is_robotic()
+	return !affected.cannot_amputate
 
 /datum/surgery_step/limb/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -57,6 +57,8 @@
 	next_surgery_stage = SURGERY_STAGE_ATTACH_LIMB
 	allowed_surgery_behaviour = SURGERY_ATTACH_LIMB
 	var/robo_man_allowed = FALSE
+	affected_organ_available = FALSE // Can't put on another limb when another is already there
+	requires_organic_bodypart = TRUE
 	time = 32
 
 /datum/surgery_step/limb/attach/is_valid_target(mob/living/carbon/human/target)
@@ -67,9 +69,6 @@
 	if(!..())
 		return FALSE
 	
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(affected)
-		return FALSE
 	if(!istype(tool, /obj/item/organ/external))
 		return FALSE
 	
@@ -80,8 +79,6 @@
 	if(E.limb_name != target_zone)
 		// This ensures you must be aiming at the appropriate location to attach
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
-		return FALSE
-	if(!is_correct_limb(E))
 		return FALSE
 
 	return TRUE
@@ -125,11 +122,13 @@
 	name = "attach robotic limb"
 	next_surgery_stage = SURGERY_STAGE_START
 	robo_man_allowed = TRUE
+	requires_organic_bodypart = FALSE
 
-/datum/surgery_step/limb/attach/robo/is_correct_limb(obj/item/organ/external/E)
-	if(!E.is_robotic())
+/datum/surgery_step/limb/attach/robo/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
 		return FALSE
-	return TRUE
+	var/obj/item/organ/external/E = tool
+	return E.is_robotic()
 
 /datum/surgery_step/limb/attach/robo/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
 	// Fixes fabricator IPC heads
@@ -154,16 +153,12 @@
 
 	time = 32
 
+/datum/surgery_step/limb/connect/is_valid_target(mob/living/carbon/human/target)
+	return ..() && !ismachine(target)
 
 /datum/surgery_step/limb/connect/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
-	if(ismachine(target))
-		// RIP bi-centennial man
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return FALSE // Shouldn't happen
 	return TRUE
 
 /datum/surgery_step/limb/connect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -192,13 +187,11 @@
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_START
 	allowed_surgery_behaviour = SURGERY_AUGMENT_ROBOTIC
+	requires_organic_bodypart = FALSE // Can also replace robo arms
 	time = 32
 
 /datum/surgery_step/limb/mechanize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(affected)
 		return FALSE
 	var/obj/item/robot_parts/p = tool
 	if(p.part)

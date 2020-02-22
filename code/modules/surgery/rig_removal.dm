@@ -9,7 +9,7 @@
 	pain = FALSE
 	can_infect = FALSE
 	blood_level = 0
-
+	requires_organic_bodypart = FALSE
 	time = 50
 
 /datum/surgery_step/rigsuit/is_valid_target(mob/living/carbon/human/target)

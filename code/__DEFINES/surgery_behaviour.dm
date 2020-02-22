@@ -4,9 +4,6 @@
 #define SURGERY_SET_BONE					"set bones"
 #define SURGERY_MAKE_CAVITY					"make cavity"
 // Close cavity is the same as cauterize
-#define SURGERY_SLIME_CUT_FLESH				"slime cut flesh"
-#define SURGERY_SLIME_EXTRACT_CORE			"slime extract core"
-#define SURGERY_INSERT_PILL					"insert pill"
 #define SURGERY_MAKE_INCISION				"make incision"
 #define SURGERY_CLAMP_BLEEDERS				"clamp bleeders"
 #define SURGERY_RETRACT_SKIN				"retract skin"
@@ -18,7 +15,6 @@
 #define SURGERY_ATTACH_LIMB					"attach limb"
 #define SURGERY_CONNECT_LIMB 				"connect limb"
 #define SURGERY_ATTACH_ROBOTIC_LIMB			"attach robotic limb"
-#define SURGERY_IMPLANT_ORGAN_MANIP			"implant organ manip"
 #define SURGERY_EXTRACT_ORGAN_MANIP			"extract organ manip"
 #define SURGERY_HEAL_ORGAN_MANIP			"heal organ manip"
 #define SURGERY_CLEAN_ORGAN_MANIP			"clean organ manip"
@@ -45,6 +41,5 @@
 #define SURGERY_ROBOTIC_INSERT_MMI			"robotic insert mmi"
 #define SURGERY_ROBOTIC_EXTRACT_ORGAN		"robotic extract organ"
 #define SURGERY_ROBOTIC_MEND				"robotic mend"
-// #define SURGERY_ROBOTIC_INSERT_ORGAN		"robotic insert organ" same as SURGERY_IMPLANT_ORGAN_MANIP
 // #define SURGERY_ROBOTIC_AMPUTATE			"robotic amputate" SAME AS SURGERY_ROBOTIC_EXTRACT_ORGAN
 #define SURGERY_ROBOTIC_REPROGRAM			"robotic reprogram"

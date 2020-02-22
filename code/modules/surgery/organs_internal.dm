@@ -6,17 +6,6 @@
 	can_infect = TRUE
 	blood_level = 1
 
-/datum/surgery_step/internal/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!(. = ..()))
-		return FALSE
-	if(ishuman(target))
-		var/obj/item/organ/external/affected = target.get_organ(target_zone)
-		if(!affected)
-			// I'd like to see you do surgery on LITERALLY NOTHING
-			return FALSE
-		if(requires_organic_bodypart && affected.is_robotic())
-			return FALSE
-
 /datum/surgery_step/internal/manipulate_organs
 	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES, SURGERY_STAGE_CARAPACE_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
@@ -314,7 +303,12 @@
 
 /datum/surgery_step/internal/manipulate_organs/implant
 	name = "implant organ"
-	allowed_surgery_behaviour = SURGERY_IMPLANT_ORGAN_MANIP
+	accept_any_item = TRUE // can_use will check if it's an organ or not
+
+/datum/surgery_step/internal/manipulate_organs/implant/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+	return istype(tool, /obj/item/reagent_containers/food/snacks/organ) || istype(tool, /obj/item/organ/internal)
 
 /datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))

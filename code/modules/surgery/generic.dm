@@ -10,23 +10,12 @@
 /datum/surgery_step/generic/is_valid_target(mob/living/carbon/human/target)
 	return istype(target)
 
-/datum/surgery_step/generic/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(affected == null)
-		return FALSE
-	if(affected.is_robotic())
-		return FALSE
-	return TRUE
-
-
 /datum/surgery_step/generic/cut_open
 	name = "make incision"
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_INCISION
 	allowed_surgery_behaviour = SURGERY_MAKE_INCISION
-
+	blood_level = 1
 	time = 16
 
 /datum/surgery_step/generic/cut_open/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

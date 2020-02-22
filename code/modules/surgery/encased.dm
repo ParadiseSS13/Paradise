@@ -4,24 +4,20 @@
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/open_encased
 	priority = 2
-	can_infect = 1
+	can_infect = TRUE
 	blood_level = 1
 
 /datum/surgery_step/open_encased/is_valid_target(mob/living/carbon/human/target)
 	return istype(target)
-	
 
 /datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return FALSE
-	if(affected.is_robotic() || !affected.encased)
+	if(!affected.encased)
 		return FALSE
 	return TRUE
-
 
 /datum/surgery_step/open_encased/saw
 	name = "saw bone"

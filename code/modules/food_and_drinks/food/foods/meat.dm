@@ -476,7 +476,6 @@
 	filling_color = "#E00D34"
 	bitesize = 3
 	list_reagents = list("protein" = 4, "vitamin" = 4)
-	surgery_behaviours = list(SURGERY_IMPLANT_ORGAN_MANIP = 0) // For the message
 
 /obj/item/reagent_containers/food/snacks/appendix
 //yes, this is the same as meat. I might do something different in future

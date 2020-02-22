@@ -13,11 +13,6 @@
 	if(!..())
 		return FALSE
 
-	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
-	if(!head)
-		return FALSE
-	if(head.is_robotic())
-		return FALSE
 	return TRUE
 
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

@@ -5,17 +5,6 @@
 /datum/surgery_step/cavity/is_valid_target(mob/living/carbon/human/target)
 	return istype(target)
 
-/datum/surgery_step/cavity/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!affected)
-		return FALSE
-	if(requires_organic_bodypart && affected.is_robotic())
-		return FALSE
-	return TRUE
-	
-
 /datum/surgery_step/cavity/proc/get_max_wclass(obj/item/organ/external/affected)
 	switch(affected.limb_name)
 		if("head")
@@ -42,6 +31,7 @@
 	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(20)
 
+
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
 	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION_CUT, SURGERY_STAGE_OPEN_INCISION_BONES)
@@ -63,7 +53,7 @@
 
 	return TRUE
 
-// Base is for the groin only
+
 /datum/surgery_step/cavity/close_space
 	name = "close cavity space"
 	surgery_start_stage = list(SURGERY_STAGE_CAVITY_OPEN, SURGERY_STAGE_CAVITY_CLOSING)
@@ -170,7 +160,7 @@
 			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 			user.put_in_hands(IC)
 			affected.hidden = null
-			return TRUE
+			return FALSE
 		else
 			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
 			return FALSE
