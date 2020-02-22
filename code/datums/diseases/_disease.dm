@@ -9,7 +9,6 @@
 #define CURABLE		1
 #define CAN_CARRY	2
 #define CAN_RESIST	4
-#define MED_EMERGENCY 8
 
 //Spread Flags
 #define SPECIAL 1
