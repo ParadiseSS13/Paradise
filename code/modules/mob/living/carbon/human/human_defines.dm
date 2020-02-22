@@ -59,6 +59,8 @@ var/global/default_martial_art = new/datum/martial_art
 	var/max_blood = BLOOD_VOLUME_NORMAL // For stuff in the vessel
 	var/bleed_rate = 0
 	var/bleedsuppress = 0 //for stopping bloodloss
+	var/bleed_rate_modifier = 1 //bleeding rate modifiered via percentage, 1 = 100%
+	var/internal_bleed_rate_modifier = 1 //bleeding rate modifiered via percentage, 1 = 100%
 
 	var/check_mutations=0 // Check mutations on next life tick
 
