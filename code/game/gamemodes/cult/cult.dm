@@ -192,8 +192,8 @@ var/global/list/all_cults = list()
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		update_cult_icons_added(cult_mind)
-		cult_mode.memorize_cult_objectives(cult_mind)
 		if(GAMEMODE_IS_CULT)
+			cult_mode.memorize_cult_objectives(cult_mind)
 			cult_mode.check_numbers()
 		return 1
 

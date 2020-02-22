@@ -27,7 +27,8 @@
 			explanation = "We need to sacrifice [sacrifice_target.name], the [sacrifice_target.assigned_role], for [sacrifice_target.p_their()] blood is the key that will lead our master to this realm. You will need 3 cultists around a Sacrifice rune to perform the ritual."
 
 	for(var/datum/mind/cult_mind in cult)
-		to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+		if(cult_mind.current)
+			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 /datum/game_mode/cult/proc/bypass_phase()
@@ -104,8 +105,9 @@
 	explanation = "Our knowledge must live on. Make sure at least [acolytes_needed] acolytes escape on the shuttle to spread their work on an another station."
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
-			to_chat(cult_mind.current, "<B>Objective Survive</B>: [explanation]")
+			if(cult_mind.current)
+				to_chat(cult_mind.current, "<span class='cult'>You and your acolytes suddenly feel the urge to do your best, but survive!</span>")
+				to_chat(cult_mind.current, "<B>Objective Survive</B>: [explanation]")
 			cult_mind.memory += "<B>Objective Survive</B>: [explanation]<BR>"
 
 
@@ -122,8 +124,9 @@
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+			if(cult_mind.current)
+				to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
+				to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
 			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 /datum/game_mode/cult/proc/third_phase()
@@ -147,7 +150,8 @@
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
-			to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+			if(cult_mind.current)
+				to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
 			cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 	message_admins("Last Cult Objective: [last_objective]")
