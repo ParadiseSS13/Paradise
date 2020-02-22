@@ -7,14 +7,17 @@
 	next_surgery_stage = SURGERY_STAGE_START
 	possible_locs = list("chest")
 	pain = FALSE
-	can_infect = 0
+	can_infect = FALSE
 	blood_level = 0
 
 	time = 50
 
-/datum/surgery_step/rigsuit/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!istype(target))
-		return 0
+/datum/surgery_step/rigsuit/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
+/datum/surgery_step/rigsuit/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
 	if(tool.tool_behaviour == TOOL_WELDER)
 		if(!tool.tool_use_check(user, 0))
 			return
@@ -22,12 +25,12 @@
 			return
 	return (target_zone == "chest") && istype(target.back, /obj/item/rig) && (target.back.flags&NODROP)
 
-/datum/surgery_step/rigsuit/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/rigsuit/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("[user] starts cutting through the support systems of [target]'s [target.back] with \the [tool]." , \
 	"You start cutting through the support systems of [target]'s [target.back] with \the [tool].")
 	..()
 
-/datum/surgery_step/rigsuit/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/rigsuit/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/rig/rig = target.back
 	if(!istype(rig))
 		return
@@ -36,7 +39,7 @@
 		"<span class='notice'>You have cut through the support systems of [target]'s [rig] with \the [tool].</span>")
 	return TRUE
 
-/datum/surgery_step/rigsuit/fail_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/rigsuit/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='danger'>[user]'s [tool] can't quite seem to get through the metal...</span>", \
 	"<span class='danger'>Your [tool] can't quite seem to get through the metal. It's weakening, though - try again.</span>")
 	return FALSE

@@ -7,8 +7,12 @@
 	can_infect = 1
 	blood_level = 1
 
+/datum/surgery_step/open_encased/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+	
+
 /datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!ishuman(target))
+	if(!..())
 		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -28,9 +32,6 @@
 	time = 54
 
 /datum/surgery_step/open_encased/saw/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message("[user] begins to cut through [target]'s [affected.encased] with \the [tool].", \
@@ -39,9 +40,6 @@
 	..()
 
 /datum/surgery_step/open_encased/saw/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message("<span class='notice'> [user] has cut [target]'s [affected.encased] open with \the [tool].</span>",		\
@@ -51,9 +49,6 @@
 	return TRUE
 
 /datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased] with \the [tool]!</span>" , \
@@ -73,9 +68,6 @@
 	time = 24
 
 /datum/surgery_step/open_encased/retract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	var/msg = "[user] starts to force open the [affected.encased] in [target]'s [affected.name] with \the [tool]."
@@ -85,9 +77,6 @@
 	..()
 
 /datum/surgery_step/open_encased/retract/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	var/msg = "<span class='notice'> [user] forces open [target]'s [affected.encased] with \the [tool].</span>"
@@ -99,9 +88,6 @@
 	return TRUE
 
 /datum/surgery_step/open_encased/retract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	var/msg = "<span class='warning'> [user]'s hand slips, cracking [target]'s [affected.encased]!</span>"
@@ -122,9 +108,6 @@
 	time = 24
 
 /datum/surgery_step/open_encased/close/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	var/msg = "[user] starts bending [target]'s [affected.encased] back into place with \the [tool]."
@@ -134,9 +117,6 @@
 	..()
 
 /datum/surgery_step/open_encased/close/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with \the [tool].</span>"
@@ -148,9 +128,6 @@
 	return TRUE
 
 /datum/surgery_step/open_encased/close/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	var/msg = "<span class='warning'> [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>"

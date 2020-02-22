@@ -281,6 +281,15 @@
 
 	return G
 
+/mob/living/proc/surgery_attack_chain(mob/living/user, obj/item/I)
+	if(user == src || user.a_intent != INTENT_HELP)
+		return FALSE
+	if(can_operate(src))
+		var/datum/surgery/S = get_or_initiate_surgery(src, user)
+		if(S)
+			return surgery_act(user, I, S)
+	return FALSE
+
 /mob/living/proc/surgery_act(mob/living/user, obj/item/I, datum/surgery/S)
 	. = S.next_step(user, src, I)
 	if(S.current_stage == SURGERY_STAGE_START) // Remove surgeries that haven't started yet

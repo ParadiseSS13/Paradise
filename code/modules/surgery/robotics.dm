@@ -2,40 +2,18 @@
 //////////////////////////////////////////////////////////////////
 //						COMMON STEPS							//
 //////////////////////////////////////////////////////////////////
-/datum/surgery/cybernetic_repair/can_start(mob/user, mob/living/carbon/target)
-
-	if(istype(target,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return 0
-		if(!affected.is_robotic())
-			return 0
-		return 1
-
-/datum/surgery/cybernetic_amputation/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return 0
-		if(!affected.is_robotic())
-			return 0
-		if(affected.cannot_amputate)
-			return 0
-		return 1
-
 //to do, moar surgerys or condense down ala manipulate organs.
 /datum/surgery_step/robotics
 	can_infect = 0
 	pain = FALSE
 	requires_organic_bodypart = FALSE
 
+/datum/surgery_step/robotics/is_valid_target(mob/living/carbon/human/target)
+	return istype(target) && ismachine(target)
+
 /datum/surgery_step/robotics/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!istype(target))
+	if(!..())
 		return FALSE
-	if(!hasorgans(target))
-		return TRUE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected == null)
 		return FALSE
@@ -164,8 +142,6 @@
 
 /datum/surgery_step/robotics/external/repair/brute/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return -1
 	if(!(affected.brute_dam > 0 || affected.disfigured))
 		to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 		return -1
@@ -202,8 +178,6 @@
 
 /datum/surgery_step/robotics/external/repair/burn/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		return -1
 	
 	var/obj/item/stack/cable_coil/C = tool
 	if(!(affected.burn_dam > 0))
@@ -278,7 +252,6 @@
 	..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	
 	var/obj/item/organ/internal/I = tool
 
 	if(!user.canUnEquip(I, 0))
@@ -302,8 +275,6 @@
 	allowed_surgery_behaviour = SURGERY_ROBOTIC_MEND
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	var/found_damaged_organ = FALSE
@@ -321,8 +292,6 @@
 	..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	for(var/obj/item/organ/internal/I in affected.internal_organs)
 		if(I && I.damage)
@@ -334,8 +303,6 @@
 	return FALSE
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
-		return
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, gumming up the mechanisms inside of [target]'s [affected.name] with \the [tool]!</span>", \
@@ -356,11 +323,9 @@
 	var/obj/item/organ/internal/organ_being_removed = null
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	
 	organ_being_removed = null
 	var/list/organs = target.get_organs_zone(target_zone)
-	if(!(affected && affected.is_robotic()))
-		return -1
 	if(!organs.len)
 		to_chat(user, "<span class='notice'>There is no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
 		return -1
@@ -373,10 +338,12 @@
 		organ_being_removed = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
 		if(organ_being_removed && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 			organ_being_removed = organs[organ_being_removed]
-			if(!organ_being_removed) return -1
+			if(!organ_being_removed)
+				return -1
+			var/obj/item/organ/external/affected = target.get_organ(target_zone)
 			user.visible_message("[user] starts to decouple [target]'s [organ_being_removed] with \the [tool].", \
 			"You start to decouple [target]'s [organ_being_removed] with \the [tool]." )
-
+			
 			target.custom_pain("The pain in your [affected.name] is living hell!")
 		else
 			return -1
@@ -408,23 +375,20 @@
 /datum/surgery_step/robotics/manipulate_robotic_organs/mmi
 	name = "insert MMI"
 	allowed_surgery_behaviour = SURGERY_ROBOTIC_INSERT_MMI
+	possible_locs = list("chest")
 
-/datum/surgery_step/robotics/manipulate_robotic_organs/mmi/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/robotics/manipulate_robotic_organs/mmi/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/mmi/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+
+	if(!istype(tool))
+		return FALSE
+	return TRUE
+
+/datum/surgery_step/robotics/manipulate_robotic_organs/mmi/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/mmi/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(target_zone != "chest")
-		to_chat(user, "<span class='notice'> You must target the chest cavity.</span>")
 
-		return -1
-	var/obj/item/mmi/M = tool
-
-
-	if(!affected)
-		return -1
-
-	if(!istype(M))
-		return -1
-
-	if(!M.brainmob || !M.brainmob.client || !M.brainmob.ckey || M.brainmob.stat >= DEAD)
+	if(!tool.brainmob || !tool.brainmob.client || !tool.brainmob.ckey || tool.brainmob.stat >= DEAD)
 		to_chat(user, "<span class='danger'>That brain is not usable.</span>")
 		return -1
 
@@ -449,15 +413,13 @@
 
 	..()
 
-/datum/surgery_step/robotics/manipulate_robotic_organs/mmi/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/robotics/manipulate_robotic_organs/mmi/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/mmi/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] has installed \the [tool] into [target]'s [affected.name].</span>", \
 		"<span class='notice'> You have installed \the [tool] into [target]'s [affected.name].</span>")
 
-	var/obj/item/mmi/M = tool
-
 	user.unEquip(tool)
-	M.attempt_become_organ(affected,target)
+	tool.attempt_become_organ(affected, target)
 
 	return FALSE
 
@@ -476,9 +438,10 @@
 	time = 100
 
 /datum/surgery_step/robotics/external/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	. = ..()
+	if(!..())
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	return . && !affected.cannot_amputate
+	return !affected.cannot_amputate
 
 /datum/surgery_step/robotics/external/amputate/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

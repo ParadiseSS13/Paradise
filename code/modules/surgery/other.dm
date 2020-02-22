@@ -15,47 +15,6 @@
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 
-
-/datum/surgery/infection/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return 0
-		if(affected.is_robotic())
-			return 0
-		return 1
-	return 0
-
-/datum/surgery/bleeding/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			return 0
-
-		if(affected.internal_bleeding)
-			return 1
-		return 0
-
-/datum/surgery/debridement/can_start(mob/user, mob/living/carbon/target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-
-		if(!hasorgans(target))
-			return 0
-
-		if(!affected)
-			return 0
-
-		if(!(affected.status & ORGAN_DEAD))
-			return 0
-
-		return 1
-
-	return 0
-
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
@@ -66,10 +25,15 @@
 
 	time = 32
 
+/datum/surgery_step/fix_vein/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
 /datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
-		return 0
+		return FALSE
 
 	return affected.internal_bleeding
 
@@ -106,23 +70,26 @@
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 	allowed_surgery_behaviour = SURGERY_MAKE_INCISION
 
-	can_infect = 1
+	can_infect = TRUE
 	blood_level = 1
 
 	time = 16
 
+/datum/surgery_step/fix_dead_tissue/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
 /datum/surgery_step/fix_dead_tissue/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
-		return 0
+	if(!..())
+		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!affected)
-		return 0
+		return FALSE
 
 	if(!(affected.status & ORGAN_DEAD))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/fix_dead_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -153,28 +120,30 @@
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
 	allowed_surgery_behaviour = SURGERY_CLEAN_ORGAN_MANIP
 
-	can_infect = 0
-	blood_level = 0
+	can_infect = FALSE
 
 	time = 24
 
+/datum/surgery_step/treat_necrosis/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
 /datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+
 	if(!istype(tool, /obj/item/reagent_containers))
-		return 0
+		return FALSE
 
 	var/obj/item/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
 		user.visible_message("[user] looks at \the [tool] and ponders." , \
 		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
-		return 0
-
-	if(!hasorgans(target))
-		return 0
+		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.status & ORGAN_DEAD))
-		return 0
-	return 1
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -238,6 +207,9 @@
 	requires_organic_bodypart = FALSE
 	time = 30
 
+/datum/surgery_step/internal/dethrall/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
@@ -246,7 +218,7 @@
 		return FALSE
 	
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!B || !(B in affected.internal_organs))
 		return FALSE
 	return TRUE

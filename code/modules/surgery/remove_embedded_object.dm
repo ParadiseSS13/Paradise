@@ -8,33 +8,29 @@
 	requires_organic_bodypart = FALSE
 	var/obj/item/organ/external/L = null
 
+/datum/surgery_step/remove_object/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
 
-/datum/surgery_step/remove_object/begin_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/remove_object/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_ref
 	if(L)
 		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]...</span>")
+	..()
+
+/datum/surgery_step/remove_object/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	
+	var/mob/living/carbon/human/H = target
+	var/objects = 0
+	for(var/obj/item/I in L.embedded_objects)
+		objects++
+		I.forceMove(get_turf(H))
+		L.embedded_objects -= I
+	if(!H.has_embedded_objects())
+		H.clear_alert("embeddedobject")
+
+	if(objects > 0)
+		user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L]!", "<span class='notice'>You successfully remove [objects] objects from [H]'s [L.name].</span>")
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
-
-
-/datum/surgery_step/remove_object/end_step(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(L)
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			var/objects = 0
-			for(var/obj/item/I in L.embedded_objects)
-				objects++
-				I.forceMove(get_turf(H))
-				L.embedded_objects -= I
-			if(!H.has_embedded_objects())
-				H.clear_alert("embeddedobject")
-
-			if(objects > 0)
-				user.visible_message("[user] sucessfully removes [objects] objects from [H]'s [L]!", "<span class='notice'>You successfully remove [objects] objects from [H]'s [L.name].</span>")
-			else
-				to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L]!</span>")
-
-	else
-		to_chat(user, "<span class='warning'>You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!</span>")
+		to_chat(user, "<span class='warning'>You find no objects embedded in [H]'s [L]!</span>")
 
 	return TRUE

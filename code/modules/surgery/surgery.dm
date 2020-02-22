@@ -1,24 +1,12 @@
 ///Datum Surgery Helpers//
 /datum/surgery
-	var/name
-	var/status = 1
 	var/current_stage = SURGERY_STAGE_START
-
-	var/can_cancel = 1
 	var/step_in_progress = FALSE
 	var/list/in_progress = list()									//Actively performing a Surgery
 	var/location = "chest"										//Surgery location
 	var/obj/item/organ/organ_ref									//Operable body part
-	var/current_organ = "organ"
-	var/list/allowed_mob = list(/mob/living/carbon/human)
 
-/datum/surgery/proc/can_start(mob/user, mob/living/carbon/target)
-	// if 0 surgery wont show up in list
-	// put special restrictions here
-	return 1
-
-
-/datum/surgery/proc/next_step(mob/user, mob/living/carbon/target, obj/item/tool)
+/datum/surgery/proc/next_step(mob/living/user, mob/living/carbon/target, obj/item/tool)
 	if(step_in_progress)	return FALSE
 	. = TRUE // Person 
 	var/list/steps = get_surgery_steps(user, target, tool)
@@ -58,13 +46,6 @@
 				possible_steps[S.name] = S
 
 	return possible_steps
-	
-
-/datum/surgery/proc/complete(mob/living/carbon/human/target)
-	target.surgeries -= src
-	qdel(src)
-
-
 
 /* SURGERY STEPS */
 /datum/surgery_step
@@ -142,19 +123,18 @@
 		
 		return advance
 
-
 // Checks if this step applies to the user mob at all
-/datum/surgery_step/proc/is_valid_target(mob/living/carbon/human/target)
-	if(!hasorgans(target))
+/datum/surgery_step/proc/is_valid_target(mob/living/carbon/target)
+	if(!istype(target))
 		return FALSE
 	return TRUE
 
 // checks whether this step can be applied with the given user and target
 /datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return 1
+	return is_valid_target(target)
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too
-/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(ishuman(target))
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
@@ -168,11 +148,11 @@
 	return
 
 // does stuff to end the step, which is normally print a message + do whatever this step changes
-/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return
 
 // stuff that happens when the step fails
-/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return null
 
 /proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user, obj/item/tool)

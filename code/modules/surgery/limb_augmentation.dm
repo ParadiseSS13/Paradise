@@ -6,12 +6,14 @@
 	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
 	time = 32
 
-/datum/surgery_step/augment/can_use(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!ishuman(target))
+/datum/surgery_step/augment/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
+/datum/surgery_step/augment/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
 		return FALSE
 	
-	var/mob/living/carbon/human/H = target
-	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected)
 		return FALSE
 	if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
@@ -26,11 +28,11 @@
 			return FALSE
 	return TRUE
 
-/datum/surgery_step/augment/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+/datum/surgery_step/augment/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
 
-/datum/surgery_step/augment/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",	\

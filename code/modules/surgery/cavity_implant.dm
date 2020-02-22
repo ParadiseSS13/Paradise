@@ -23,8 +23,11 @@
 	priority = 1
 	possible_locs = list("chest","head","groin")
 
-/datum/surgery_step/cavity/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!istype(target))
+/datum/surgery_step/cavity/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
+/datum/surgery_step/cavity/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 	if(!affected)
@@ -122,18 +125,15 @@
 	priority = 0
 
 /datum/surgery_step/cavity/place_item/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!ishuman(target))
-		return 0
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected)
-		to_chat(user, "<span class='warning'>\The [target] lacks a [parse_zone(target_zone)]!</span>")
-		return 0
+	if(!..())
+		return FALSE
+	
 	if(tool)
+		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		var/can_fit = !affected.hidden && tool.w_class <= get_max_wclass(affected)
 		if(!can_fit)
-			to_chat(user, "<span class='warning'>\The [tool] won't fit in \The [affected.name]!</span>")
-			return 0
-	return ..()
+			return FALSE
+	return TRUE
 
 /datum/surgery_step/cavity/place_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

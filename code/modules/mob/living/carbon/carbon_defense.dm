@@ -33,12 +33,7 @@
 		if(D.IsSpreadByTouch())
 			ContractDisease(D)
 
-	if(can_operate(src))
-		var/datum/surgery/S = get_or_initiate_surgery(src, user)
-		if(S)
-			return surgery_act(user, null, S)
-
-	return 0
+	. = surgery_attack_chain(user, null)
 
 /mob/living/carbon/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack

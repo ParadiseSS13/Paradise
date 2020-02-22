@@ -1,11 +1,11 @@
-/proc/get_or_initiate_surgery(mob/living/M, mob/user)
+/proc/get_or_initiate_surgery(mob/living/M, mob/living/user)
 	if(istype(M))
 		var/selected_zone = user.zone_selected
 
-		if(can_operate(M) || isslime(M))	//if they're prone or a slime
+		if(can_operate(M))
 			var/mob/living/carbon/human/H
 			var/obj/item/organ/external/affecting
-			if(istype(M, /mob/living/carbon/human))
+			if(ishuman(M))
 				H = M
 				affecting = H.get_organ(check_zone(selected_zone))
 			

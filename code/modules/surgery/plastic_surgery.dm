@@ -6,19 +6,24 @@
 	possible_locs = list("head")
 	time = 64
 
+/datum/surgery_step/reshape_face/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
+
 /datum/surgery_step/reshape_face/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(istype(target))
-		var/obj/item/organ/external/head/head = target.get_organ(user.zone_selected)
-		if(!head)
-			return FALSE
-		if(head.is_robotic())
-			return FALSE
-		return TRUE
+	if(!..())
+		return FALSE
+
+	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
+	if(!head)
+		return FALSE
+	if(head.is_robotic())
+		return FALSE
+	return TRUE
 
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] begins to alter [target]'s appearance.", "<span class='notice'>You begin to alter [target]'s appearance...</span>")
 
-/datum/surgery_step/reshape_face/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/reshape_face/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
 	var/species_names = target.dna.species.name
 	if(head.disfigured)

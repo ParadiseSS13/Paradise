@@ -1,5 +1,5 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(!tool_attack_chain(user, target) && !surgery_attack_chain(user, target) && pre_attackby(target, user, params))
+	if(!surgery_attack_chain(user, target) && !tool_attack_chain(user, target) && pre_attackby(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
@@ -13,16 +13,10 @@
 	return target.tool_act(user, src, tool_behaviour)
 
 
-/obj/item/proc/surgery_attack_chain(mob/user, atom/target)
-	if(!istype(target, /mob/living) || user == target || user.a_intent != INTENT_HELP)
+/obj/item/proc/surgery_attack_chain(mob/living/user, mob/living/target)
+	if(!istype(target))
 		return FALSE
-	var/mob/living/L = target
-	if(can_operate(L))
-		var/datum/surgery/S = get_or_initiate_surgery(L, user)
-		if(S)
-			return L.surgery_act(user, src, S)
-	
-	return FALSE
+	return target.surgery_attack_chain(user, src)
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)

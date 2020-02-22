@@ -7,9 +7,12 @@
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_behaviour = SURGERY_EXTRACT_IMPLANT
 	possible_locs = list("chest")
-	requires_organic_bodypart = 0
+	requires_organic_bodypart = FALSE
 	time = 64
 	var/obj/item/implant/I = null
+
+/datum/surgery_step/extract_implant/is_valid_target(mob/living/carbon/human/target)
+	return istype(target)
 
 /datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

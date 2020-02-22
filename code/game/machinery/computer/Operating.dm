@@ -120,7 +120,7 @@
 		if(occupant.surgeries.len)
 			occupantData["inSurgery"] = 1
 			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryLocation"] = "[capitalize(procedure.location)]"
+				occupantData["surgeryLocation"] = "[capitalize(parse_zone(procedure.location))]"
 				occupantData["surgeryStage"] = "[capitalize(procedure.current_stage)]"
 
 	data["occupant"] = occupantData
