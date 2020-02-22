@@ -1,7 +1,8 @@
 #define GHETTO_DISINFECT_AMOUNT 5 //Amount of units to transfer from the container to the organs during ghetto surgery disinfection step
+#define MITO_REVIVAL_COST 3
 // Internal surgeries.
 /datum/surgery_step/internal
-	priority = 2
+	priority = 20 // Usually what you want to do
 	can_infect = TRUE
 	blood_level = 1
 
@@ -149,36 +150,60 @@
 	var/datum/reagents/R = C.reagents
 	var/ethanol = 0 //how much alcohol is in the thing
 	var/spaceacillin = 0 //how much actual antibiotic is in the thing
-
+	var/mito_tot = 0
 	if(R.reagent_list.len)
 		for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
 			ethanol += alcohol.alcohol_perc * 300
 		ethanol /= R.reagent_list.len
-
+		mito_tot = R.get_reagent_amount("mitocholide")
 		spaceacillin = R.get_reagent_amount("spaceacillin")
-
 
 	for(var/obj/item/organ/internal/I in target.get_organs_zone(target_zone))
 		if(I)
 			if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-				user.visible_message("[user] notices there is not enough in [tool].", \
-				"You notice there is not enough in [tool].")
+				user.visible_message("<span class='notice'>[user] notices there is not enough in [tool].</span>", \
+				"<span class='warning'>You notice there is not enough in [tool].</span>")
 				return FALSE
-			if(I.germ_level < INFECTION_LEVEL_ONE / 2)
-				to_chat(user, "[I] does not appear to be infected.")
+			if(I.germ_level < INFECTION_LEVEL_ONE / 2 && !(I.status & ORGAN_DEAD))
+				to_chat(user, "<span class='notice'>[I] does not appear to be infected.</span>")
+				continue // Not dead so no need to inject
+			var/success = FALSE
 			if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
-				if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
-					I.germ_level = 0
+				if(spaceacillin || ethanol)
+					if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
+						I.germ_level = 0
+					else
+						I.germ_level = max(I.germ_level-ethanol, 0)
+					success = TRUE // Actually inject chems
+				else if(!(I.status & ORGAN_DEAD)) // Not dead and got nothing to disinfect the organ with. Don't waste the other chems
+					to_chat(user, "<span class='warning'>[I] does appear mildly infected but [C] does not seem to contain disinfectants. You decide to not inject the chemicals into [I].</span>")
+					continue
+			var/mito_trans
+			if(mito_tot && (I.status & ORGAN_DEAD) && !I.is_robotic())
+				mito_trans = min(mito_tot, C.amount_per_transfer_from_this / R.reagent_list.len)// How much mito is actually transfered
+				success = TRUE
+			if(!success)
+				to_chat(user, "<span class='warning'>[C] does not seem to have the chemicals needed to clean [I]. You decide against wasting chemicals.</span>")
+				continue
+			if(istype(C, /obj/item/reagent_containers/syringe))
+				user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
+					"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
+			else
+				user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
+					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
+			
+			R.reaction(target, INGEST, R.total_volume / C.amount_per_transfer_from_this)
+			R.trans_to(target, C.amount_per_transfer_from_this)
+			
+			if(mito_trans)
+				mito_tot -= mito_trans
+				if(I.is_robotic()) // Get out cyborg people
+					continue
+				if(mito_trans >= MITO_REVIVAL_COST)
+					I.rejuvenate() // Just like splashing it onto it
 				else
-					I.germ_level = max(I.germ_level-ethanol, 0)
-				if(istype(C,/obj/item/reagent_containers/syringe))
-					user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
-				"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
-				else
-					user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
-				"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
-				R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
-				R.reaction(target, INGEST)
+					to_chat(user, "<span class='warning'>[I] does not seem to respond to the amount of mitocholide inside the injection. Try injecting more next time.</span>")
+				
 	return FALSE
 
 /datum/surgery_step/internal/manipulate_organs/clean/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)

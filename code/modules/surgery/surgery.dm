@@ -37,15 +37,16 @@
 	var/selected_zone = user.zone_selected
 	var/list/all_steps = GLOB.surgery_steps[current_stage] + GLOB.surgery_steps[SURGERY_STAGE_ALWAYS]
 
-	for(var/datum/surgery_step/S in all_steps)
+	for(var/i in all_steps)
+		var/datum/surgery_step/S = i
 		if(S.possible_locs?.len && !(selected_zone in S.possible_locs))
 			continue
 		if((S.accept_hand && !tool) || (tool && (S.accept_any_item \
 			|| (S.allowed_surgery_behaviour in tool.surgery_behaviours))))
 			if(S.can_use(user, target, location, tool, src))
 				possible_steps[S.name] = S
-
-	return possible_steps
+	
+	return sortInsert(possible_steps, /proc/compare_surgery_steps, TRUE)
 
 /* SURGERY STEPS */
 /datum/surgery_step
@@ -61,14 +62,17 @@
 	var/time = 10
 
 	var/name
-	var/accept_hand = 0				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
-	var/accept_any_item = 0
+	var/accept_hand = FALSE				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
+	var/accept_any_item = FALSE
 
 	var/pain = TRUE
 	// evil infection stuff that will make everyone hate me
-	var/can_infect = 0
+	var/can_infect = FALSE
 	//How much blood this step can get on surgeon. 1 - hands, 2 - full body.
 	var/blood_level = 0
+
+/proc/compare_surgery_steps(datum/surgery_step/A, datum/surgery_step/B)
+	return A.priority < B.priority
 
 /datum/surgery_step/New()
 	. = ..()

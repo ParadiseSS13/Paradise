@@ -1,24 +1,3 @@
-/*
-/datum/surgery/cavity_implant
-	name = "Cavity Implant/Removal"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/open_encased/close,/datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head")
-
-
-/datum/surgery/cavity_implant/soft
-	name = "Cavity Implant/Removal"
-	steps = list(/datum/surgery_step/generic/cut_open, /datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/generic/cut_open, /datum/surgery_step/cavity/make_space,/datum/surgery_step/cavity/place_item,/datum/surgery_step/cavity/close_space,/datum/surgery_step/generic/cauterize)
-
-	possible_locs = list("groin")
-
-
-/datum/surgery/cavity_implant/synth
-	name = "Robotic Cavity Implant/Removal"
-	steps = list(/datum/surgery_step/robotics/external/unscrew_hatch,/datum/surgery_step/robotics/external/open_hatch,/datum/surgery_step/cavity/place_item,/datum/surgery_step/robotics/external/close_hatch)
-	possible_locs = list("chest","head","groin")
-	requires_organic_bodypart = 0*/
-
 /datum/surgery_step/cavity
 	priority = 1
 	possible_locs = list("chest","head","groin")
@@ -110,6 +89,7 @@
 
 /datum/surgery_step/cavity/place_item
 	name = "implant/extract object"
+	priority = 0 // Pretty low
 	surgery_start_stage = SURGERY_STAGE_CAVITY_OPEN
 	next_surgery_stage = SURGERY_STAGE_CAVITY_CLOSING
 	accept_hand = TRUE

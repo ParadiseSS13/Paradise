@@ -5,6 +5,7 @@
 //to do, moar surgerys or condense down ala manipulate organs.
 /datum/surgery_step/robotics
 	can_infect = 0
+	priority = 10
 	pain = FALSE
 	requires_organic_bodypart = FALSE
 
@@ -50,6 +51,7 @@
 
 /datum/surgery_step/robotics/external/screw_hatch
 	name = "screw hatch"
+	priority = -1 // Same as cauterise really
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_UNLOCKED
 	next_surgery_stage = SURGERY_STAGE_START
 	allowed_surgery_behaviour = SURGERY_ROBOTIC_UNSCREW_HATCH
@@ -131,6 +133,7 @@
 
 /datum/surgery_step/robotics/external/repair
 	name = "repair damage internally"
+	priority = 15
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 	next_surgery_stage =  SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
@@ -214,6 +217,7 @@
 ///////condenseing remove/extract/repair here.	/////////////
 /datum/surgery_step/robotics/manipulate_robotic_organs
 	name = "internal part manipulation"
+	priority = 15
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 	next_surgery_stage =  SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 	possible_locs = list("eyes", "mouth", "chest","head","groin","l_arm","r_arm")
