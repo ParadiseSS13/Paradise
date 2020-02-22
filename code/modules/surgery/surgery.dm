@@ -32,12 +32,17 @@
 		if(P && user && user.Adjacent(target) && tool == user.get_active_hand() && can_operate(target))
 			S = steps[P]
 	if(S)
-		S = new S.type() // Make a new step. Don't fuck this one up
-		step_in_progress = TRUE
-		if(S.try_op(user, target, user.zone_selected, tool, src))
-			if(S.next_surgery_stage != SURGERY_STAGE_SAME)
-				current_stage = S.next_surgery_stage
-		step_in_progress = FALSE
+		var/result
+		. = TRUE
+		do
+			S = new S.type() // Make a new step. Don't fuck this one up
+			step_in_progress = TRUE
+			result = S.try_op(user, target, user.zone_selected, tool, src)
+			if(result)
+				if(S.next_surgery_stage != SURGERY_STAGE_SAME)
+					current_stage = S.next_surgery_stage
+			step_in_progress = FALSE
+		while(result == SURGERY_CONTINUE)
 
 /datum/surgery/proc/get_surgery_steps(mob/user, mob/living/carbon/target, obj/item/tool)
 	var/list/possible_steps = list()
@@ -92,7 +97,7 @@
 /datum/surgery_step/proc/try_op(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/success = FALSE
 	
-	if(target_zone != surgery.location)
+	if(target_zone != surgery.location || !(surgery.current_stage in surgery_start_stage) || !can_operate(target)) // No distance check. Not needed
 		return FALSE
 	if(tool)
 		if(accept_any_item || (allowed_surgery_behaviour in tool.surgery_behaviours))
@@ -131,11 +136,9 @@
 				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
 
 		if(prob(prob_chance) || isrobot(user))
-			if(end_step(user, target, target_zone, tool, surgery))
-				advance = TRUE
+			advance = end_step(user, target, target_zone, tool, surgery)
 		else
-			if(fail_step(user, target, target_zone, tool, surgery))
-				advance = TRUE
+			advance = fail_step(user, target, target_zone, tool, surgery)
 		
 		return advance
 

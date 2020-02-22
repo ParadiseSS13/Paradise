@@ -185,7 +185,7 @@
 	affected.heal_damage(rand(30,50),0,1,1)
 	affected.disfigured = FALSE
 	
-	return FALSE
+	return affected.brute_dam > 0 ? SURGERY_CONTINUE : FALSE
 
 /datum/surgery_step/robotics/external/repair/brute/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -227,7 +227,7 @@
 		"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
 	affected.heal_damage(0,rand(30,50),1,1)
 	
-	return FALSE
+	return affected.burn_dam > 0 ? SURGERY_CONTINUE : FALSE
 
 /datum/surgery_step/robotics/external/repair/burn/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
