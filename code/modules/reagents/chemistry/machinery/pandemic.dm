@@ -256,7 +256,7 @@
 					for(var/thing in Blood.data["viruses"])
 						var/datum/disease/D = thing
 						i++
-						if(!(D.visibility_flags & HIDDEN_PANDEMIC) && !(D.disease_flags & MED_EMERGENCY))
+						if(!(D.visibility_flags & HIDDEN_PANDEMIC) && !(D.form == "Medical Emergency"))
 
 							show_virus = TRUE
 							if(istype(D, /datum/disease/advance))
