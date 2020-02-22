@@ -88,8 +88,9 @@
 
 		for(var/datum/mind/cult_mind in cult)
 			if(cult_mind)
-				to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
-				to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
+				if(cult_mind.current)
+					to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have completed your task, but this place requires yet more preparation!</span>")
+					to_chat(cult_mind.current, "<B>Objective #[current_objective]</B>: [explanation]")
 				cult_mind.memory += "<B>Objective #[current_objective]</B>: [explanation]<BR>"
 
 		message_admins("New Cult Objective: [new_objective]")
@@ -174,7 +175,7 @@
 			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
 			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
 			cult_mind.memory = updated_memory
-			
+
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()

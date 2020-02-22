@@ -214,8 +214,9 @@ var/global/list/all_cults = list()
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
-	culthud.join_hud(cult_mind.current)
-	set_antag_hud(cult_mind.current, "hudcultist")
+	if(cult_mind.current)
+		culthud.join_hud(cult_mind.current)
+		set_antag_hud(cult_mind.current, "hudcultist")
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)

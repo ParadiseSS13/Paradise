@@ -167,11 +167,12 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/proc/burn_invokers(var/list/mobstoburn)
 	for(var/M in mobstoburn)
 		var/mob/living/L = M
-		to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
-		if(L.reagents)
-			L.reagents.add_reagent("hell_water", 10)
-		L.Weaken(7)
-		L.Stun(7)
+		if(L)
+			to_chat(L, "<span class='cultlarge'><i>\"YOUR SOUL BURNS WITH YOUR ARROGANCE!!!\"</i></span>")
+			if(L.reagents)
+				L.reagents.add_reagent("hell_water", 10)
+			L.Weaken(7)
+			L.Stun(7)
 	fail_invoke()
 
 /obj/effect/rune/proc/do_invoke_glow()
@@ -349,7 +350,7 @@ var/list/teleport_runes = list()
 	req_cultists = 1
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
-	
+
 /obj/effect/rune/convert/do_invoke_glow()
 	return
 
