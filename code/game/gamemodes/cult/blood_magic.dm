@@ -379,9 +379,8 @@
 		uses = 0
 		qdel(src)
 		return
-	add_attack_logs(user, M, "used a cult spell on", source.name, "")
+	add_attack_logs(user, M, "used a cult spell ([src]) on")
 	M.lastattacker = user.real_name
-	//M.lastattackerckey = user.ckey
 
 /obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity)
 	. = ..()
@@ -476,57 +475,28 @@
 			log_game("Teleport spell failed - user in away mission")
 			return ..(user, 0)
 		uses--
+		var/mob/living/L = target
 		var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 		var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 		if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
 			return ..(user, 0)
-
-		user.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
-							"<span class='cultitalic'>You speak the words and find yourself somewhere else!</span>")
-		user.forceMove(get_turf(actual_selected_rune))
-		return ..()
-//spell doesn't vanish
-
-/*
-
-		var/list/potential_runes = list()
-		var/list/teleportnames = list()
-		for(var/R in GLOB.teleport_runes)
-			var/obj/effect/rune/teleport/T = R
-			potential_runes[avoid_assoc_duplicate_keys(T.listkey, teleportnames)] = T
-
-		if(!potential_runes.len)
-			to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-			log_game("Teleport talisman failed - no other teleport runes")
-			return
-
-		var/turf/T = get_turf(src)
-		if(is_away_level(T.z))
-			to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-			log_game("Teleport spell failed - user in away mission")
-			return
-
-		var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
-		var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-		if(QDELETED(src) || !user || !user.is_holding(src) || user.incapacitated() || !actual_selected_rune || !proximity)
-			return
-		var/turf/dest = get_turf(actual_selected_rune)
-		if(is_blocked_turf(dest, TRUE))
-			to_chat(user, "<span class='warning'>The target rune is blocked. You cannot teleport there.</span>")
-			return
-		uses--
 		var/turf/origin = get_turf(user)
-		var/mob/living/L = target
-		if(do_teleport(L, dest, channel = TELEPORT_CHANNEL_CULT))
-			origin.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] with a sharp crack!</span>", \
-				"<span class='cultitalic'>You speak the words of the talisman and find yourself somewhere else!</span>", "<i>You hear a sharp crack.</i>")
-			dest.visible_message("<span class='warning'>There is a boom of outrushing air as something appears above the rune!</span>", null, "<i>You hear a boom.</i>")
-		..()
-
-*/
-
-
-
+		var/turf/destination = get_turf(actual_selected_rune)
+		new /obj/effect/temp_visual/dir_setting/cult/phase/out(origin)
+		new /obj/effect/temp_visual/dir_setting/cult/phase(destination)
+		if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
+			actual_selected_rune.handle_portal("lava")
+		else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
+			actual_selected_rune.handle_portal("space", origin)
+		if(user == target)
+			target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
+							"<span class='cultitalic'>You speak the words and find yourself somewhere else!</span>")
+		else
+			target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [target] disappears in a flash of red light!</span>", \
+						"<span class='cultitalic'>You suddenly find yourself somewhere else!</span>")
+		destination.visible_message("<span class='warning'>There is a boom of outrushing air as something appears above the rune!</span>", null, "<i>You hear a boom.</i>")
+		L.forceMove(destination)
+		return ..()
 
 //Shackles
 /obj/item/melee/blood_magic/shackles

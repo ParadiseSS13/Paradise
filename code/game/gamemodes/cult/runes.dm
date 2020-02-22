@@ -356,6 +356,9 @@ var/list/teleport_runes = list()
 	icon_state = "2"
 	color = RUNE_COLOR_TELEPORT
 	req_keyword = TRUE
+	light_power = 4
+	var/obj/effect/temp_visual/cult/portal/inner_portal //The portal "hint" for off-station teleportations
+	var/obj/effect/temp_visual/cult/rune_spawn/rune2/outer_portal
 	var/listkey
 
 /obj/effect/rune/teleport/New(loc, set_keyword)
@@ -423,18 +426,49 @@ var/list/teleport_runes = list()
 			A.forceMove(target)
 	if(movedsomething)
 		..()
+		if(is_mining_level(z) && !is_mining_level(target.z)) //No effect if you stay on lavaland
+			actual_selected_rune.handle_portal("lava")
+		else if(!is_station_level(z) || istype(get_area(src), /area/space))
+			actual_selected_rune.handle_portal("space", T)
 		visible_message("<span class='warning'>There is a sharp crack of inrushing air, and everything above the rune disappears!</span>")
 		to_chat(user, "<span class='cult'>You[moveuserlater ? "r vision blurs, and you suddenly appear somewhere else":" send everything above the rune away"].</span>")
 		if(moveuserlater)
 			user.forceMove(target)
-		var/mob/living/carbon/human/H = user
-		if(user.z != T.z)
-			H.bleed(5)
-			user.apply_damage(5, BRUTE)
-		else
-			H.bleed(rand(5,10))
 	else
 		fail_invoke()
+
+/obj/effect/rune/teleport/proc/handle_portal(portal_type, turf/origin)
+	var/turf/T = get_turf(src)
+	close_portal() // To avoid stacking descriptions/animations
+	playsound(T, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg', 'sound/effects/sparks4.ogg'), 100, TRUE, 14)
+	inner_portal = new /obj/effect/temp_visual/cult/portal(T)
+	if(portal_type == "space")
+		light_color = color
+		var/area/A = get_area(origin)
+		var/locname = initial(A.name)
+		desc += "<br><b>A tear in reality reveals a black void interspersed with dots of light... something recently teleported here from space.<br>"
+		if(is_station_level(origin.z))
+			desc += "<u>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], near the station!</u></b>"
+		else if(locname == "Space")
+			desc += "<u>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of space sector [origin.z]!</u></b>"
+		else
+			desc += "<u>The void feels like it's trying to pull you to the [dir2text(get_dir(T, origin))], in the direction of [locname]!</u></b>"
+	else
+		inner_portal.icon_state = "lava"
+		light_color = LIGHT_COLOR_FIRE
+		desc += "<br><b>A tear in reality reveals a coursing river of lava... something recently teleported here from the Lavaland Mines!</b>"
+	outer_portal = new(T, 600, color)
+	light_range = 4
+	update_light()
+	addtimer(CALLBACK(src, .proc/close_portal), 600, TIMER_UNIQUE)
+
+/obj/effect/rune/teleport/proc/close_portal()
+	qdel(inner_portal)
+	qdel(outer_portal)
+	desc = initial(desc)
+	light_range = 0
+	update_light()
+
 
 //Rite of Offering: Converts a normal crewmember to the cult or sacrifices mindshielded and sacrifice targets.
 /obj/effect/rune/empower
