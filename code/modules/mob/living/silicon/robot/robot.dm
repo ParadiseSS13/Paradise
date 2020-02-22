@@ -130,7 +130,7 @@ var/list/robot_verbs_default = list(
 
 	init()
 
-	if(!scrambledcodes && !camera)
+	if(!camera && (!scrambledcodes || designation == "ERT"))
 		camera = new /obj/machinery/camera(src)
 		camera.c_tag = real_name
 		camera.network = list("SS13","Robots")
