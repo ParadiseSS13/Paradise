@@ -142,7 +142,8 @@
 		container.reagents.reaction(target, INGEST)	//technically it's contact, but the reagents are being applied to internal tissue
 
 		if(has_mitocholide)
-			affected.rejuvenate() // Just like splashing mito baby
+			affected.status &= ~ORGAN_DEAD
+			affected.germ_level = 0
 			target.update_body()
 
 		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
