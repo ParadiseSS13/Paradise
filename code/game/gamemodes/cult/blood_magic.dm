@@ -40,9 +40,7 @@
 			to_chat(owner, "<span class='cultitalic'>You cannot store more than [MAX_BLOODCHARGE] spells. <b>Pick a spell to remove.</b></span>")
 		else
 			to_chat(owner, "<span class='cultitalic'><b><u>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spells without an empowering rune! Pick a spell to remove.</b></u></span>")
-		var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
-		if(nullify_spell)
-			qdel(nullify_spell)
+		remove_spell()
 		return
 	var/entered_spell_name
 	var/datum/action/innate/cult/blood_spell/BS
@@ -54,9 +52,7 @@
 	possible_spells += "(REMOVE SPELL)"
 	entered_spell_name = input(owner, "Pick a blood spell to prepare...", "Spell Choices") as null|anything in possible_spells
 	if(entered_spell_name == "(REMOVE SPELL)")
-		var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
-		if(nullify_spell)
-			qdel(nullify_spell)
+		remove_spell()
 		return
 	BS = possible_spells[entered_spell_name]
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (spells.len >= limit))
@@ -78,6 +74,11 @@
 		Positioning()
 		to_chat(owner, "<span class='warning'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
 	channeling = FALSE
+
+/datum/action/innate/cult/blood_magic/proc/remove_spell()
+	var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
+	if(nullify_spell)
+		qdel(nullify_spell)
 
 /datum/action/innate/cult/blood_spell //The next generation of talismans, handles storage/creation of blood magic
 	name = "Blood Magic"
@@ -125,10 +126,9 @@
 				return
 			to_chat(owner, "<span class='notice'>Your wounds glow as you invoke the [name].</span>")
 			return
-		if(hand_magic)
-			qdel(hand_magic)
-			hand_magic = null
-			to_chat(owner, "<span class='warning'>You snuff out the spell, saving it for later.</span>")
+		qdel(hand_magic)
+		hand_magic = null
+		to_chat(owner, "<span class='warning'>You snuff out the spell, saving it for later.</span>")
 
 
 
