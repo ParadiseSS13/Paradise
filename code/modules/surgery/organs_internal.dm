@@ -15,7 +15,7 @@
 	return ishuman(target) || isalienadult(target)
 
 /datum/surgery_step/internal/manipulate_organs/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
-	if(!(.()))
+	if(!..())
 		return FALSE
 
 	if(ishuman(target))
