@@ -14,7 +14,7 @@
 /datum/surgery_step/remove_object/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_ref
 	if(L)
-		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(location)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(location)]...</span>")
+		user.visible_message("[user] looks for objects embedded in [target]'s [parse_zone(surgery.location)].", "<span class='notice'>You look for objects embedded in [target]'s [parse_zone(surgery.location)]...</span>")
 	..()
 
 /datum/surgery_step/remove_object/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
