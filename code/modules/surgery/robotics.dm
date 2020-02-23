@@ -142,17 +142,6 @@
 	name = "repair internal brute damage"
 	allowed_surgery_behaviour = SURGERY_ROBOTIC_HEAL_BRUTE
 
-/datum/surgery_step/robotics/external/repair/brute/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-
-	if(tool.tool_behaviour == TOOL_WELDER)
-		var/obj/item/weldingtool/W = tool
-		if(W)
-			if(!W.tool_enabled || !tool.use(1))
-				return FALSE
-	return TRUE
-
 /datum/surgery_step/robotics/external/repair/brute/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.brute_dam > 0 || affected.disfigured))
@@ -190,16 +179,6 @@
 /datum/surgery_step/robotics/external/repair/burn
 	name = "repair internal burn damage"
 	allowed_surgery_behaviour = SURGERY_ROBOTIC_HEAL_BURN
-
-/datum/surgery_step/robotics/external/repair/burn/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-
-	var/obj/item/stack/cable_coil/C = tool
-	if(istype(C)) // Handy if somebody wants to add another way later
-		if(!C.get_amount() >= 3)
-			return FALSE
-	return TRUE
 
 /datum/surgery_step/robotics/external/repair/burn/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
