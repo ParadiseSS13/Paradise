@@ -236,12 +236,12 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 					new /obj/effect/temp_visual/heal(get_turf(src), "#960000")
 					if(ishuman(L))
 						L.heal_overall_damage(1, 1, TRUE, FALSE, TRUE)
-					if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
-						L.blood_volume += 1.0
 					if(istype(L, /mob/living/simple_animal/shade) || istype(L, /mob/living/simple_animal/hostile/construct))
 						var/mob/living/simple_animal/M = L
 						if(M.health < M.maxHealth)
 							M.adjustHealth(-1)
+				if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+					L.blood_volume += 1.0
 	if(!is_station_level(z) && last_corrupt <= world.time) //Pylons only convert tiles on offstation bases to help hide onstation cults from meson users
 		var/list/validturfs = list()
 		var/list/cultturfs = list()
