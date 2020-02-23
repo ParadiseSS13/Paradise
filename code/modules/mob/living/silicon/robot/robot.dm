@@ -1388,6 +1388,7 @@ var/list/robot_verbs_default = list(
 	base_icon = "nano_bloodhound"
 	icon_state = "nano_bloodhound"
 	designation = "SpecOps"
+	icon = 'icons/mob/robots.dmi'
 	lawupdate = 0
 	scrambledcodes = 1
 	req_one_access = list(access_cent_specops)

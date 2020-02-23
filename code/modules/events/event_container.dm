@@ -202,7 +202,7 @@ var/list/event_last_fired = list()
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",	/datum/event/spawn_slaughter,	15, is_one_shot = 1),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = 1)
 		// Hispania Events
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Old Man",			/datum/event/spawn_oldman,		75, is_one_shot = 1)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Old Man",			/datum/event/spawn_oldman,		30, is_one_shot = 1)
 	)
 
 
