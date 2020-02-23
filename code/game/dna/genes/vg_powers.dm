@@ -217,8 +217,7 @@
 	var/turf/T = get_turf(user)
 	var/list/mobs_in_view = user.get_visible_mobs()
 	var/list/names = list()
-	var/unknowns = 1
-	
+
 	for(var/mob/living/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
@@ -227,11 +226,16 @@
 			if(M in mobs_in_view)
 				mob_name = M.name
 			else
-				mob_name = "Unknown entity([unknowns++])" // Avoid dupes
-			if(validtargets[name])
-				mob_name = "[mob_name](2)"
-			names += mob_name
-			validtargets[mob_name] = M
+				mob_name = "Unknown entity"
+			var/i = 0
+			var/result_name
+			do
+				result_name = mob_name
+				if(i++)
+					result_name += " ([i])" // Avoid dupes
+			while(validtargets[result_name])
+			names += result_name
+			validtargets[result_name] = M
 
 	if(!validtargets.len)
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
@@ -284,8 +288,7 @@
 	var/turf/T = get_turf(user)
 	var/list/mobs_in_view = user.get_visible_mobs()
 	var/list/names = list()
-	var/unknowns = 1
-	
+
 	for(var/mob/living/M in range(14, T))
 		if(M && M.mind)
 			if(M == user)
@@ -294,11 +297,16 @@
 			if(M in mobs_in_view)
 				mob_name = M.name
 			else
-				mob_name = "Unknown entity([unknowns++])" // Avoid dupes
-			if(validtargets[name])
-				mob_name = "[mob_name](2)"
-			names += mob_name
-			validtargets[mob_name] = M
+				mob_name = "Unknown entity"
+			var/i = 0
+			var/result_name
+			do
+				result_name = mob_name
+				if(i++)
+					result_name += " ([i])" // Avoid dupes
+			while(validtargets[result_name])
+			names += result_name
+			validtargets[result_name] = M
 
 	if(!validtargets.len)
 		to_chat(user, "<span class='warning'>There are no valid targets!</span>")
