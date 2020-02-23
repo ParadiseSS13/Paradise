@@ -134,7 +134,8 @@
 			occupantData["surgeries"] = surgeries
 			for(var/datum/surgery/procedure in occupant.surgeries)
 				surgeries[++surgeries.len] = list("location" = capitalize(parse_zone(procedure.location)), "ref" = "\ref[procedure]")
-				
+	else
+		selected_surgery = null // Remove the selected surgery
 
 	data["occupant"] = occupantData
 	data["verbose"]=verbose
