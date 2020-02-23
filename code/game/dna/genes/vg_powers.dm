@@ -238,7 +238,7 @@
 		start_recharge()
 		return
 
-	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in names
+	var/target_name = input("Choose the target to talk to.", "Targeting") as null|anything in names
 
 	var/mob/living/target
 	if(!target_name || !(target = validtargets[target_name]))
