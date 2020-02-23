@@ -14,7 +14,6 @@
 /datum/action/innate/cult/comm
 	name = "Communion"
 	button_icon_state = "cult_comms"
-	check_flags = AB_CHECK_CONSCIOUS
 
 /datum/action/innate/cult/comm/Activate()
 	var/input = stripped_input(usr, "Please choose a message to tell to the other acolytes.", "Voice of Blood", "")
@@ -28,7 +27,7 @@
 		return
 
 	if((user.disabilities & MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("[user] appears to whisper to themselves.","You begin to whisper to yourself.") //Make them do *something* abnormal.
+		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>","<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
 	else
 		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
 	sleep(10)

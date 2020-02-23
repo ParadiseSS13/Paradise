@@ -1372,6 +1372,9 @@ About the new airlock wires panel:
 			else
 				A = new/obj/machinery/door/airlock/cult/unruned(T)
 	A.name = name
+	A.stealth_icon = icon
+	A.stealth_overlays = overlays_file
+	A.stealth_opacity = opacity
 	qdel(src)
 
 #undef AIRLOCK_CLOSED

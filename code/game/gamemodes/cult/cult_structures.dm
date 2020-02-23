@@ -96,6 +96,24 @@
 		eta = "[round(time, 1)] seconds"
 	return eta
 
+/obj/structure/cult/functional/cult_conceal()
+	density = FALSE
+	visible_message("<span class='danger'>[src] fades away.</span>")
+	invisibility = INVISIBILITY_OBSERVER
+	alpha = 100 //To help ghosts distinguish hidden objs
+	light_range = 0
+	light_power = 0
+	update_light()
+
+/obj/structure/cult/functional/cult_reveal()
+	density = initial(density)
+	invisibility = 0
+	visible_message("<span class='danger'>[src] suddenly appears!</span>")
+	alpha = initial(alpha)
+	light_range = initial(light_range)
+	light_power = initial(light_power)
+	update_light()
+
 /obj/structure/cult/functional/altar
 	name = "altar"
 	desc = "A bloodstained altar dedicated to a cult."
@@ -198,6 +216,14 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 /obj/structure/cult/functional/pylon/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/structure/cult/functional/pylon/cult_conceal()
+	STOP_PROCESSING(SSobj, src)
+	..()
+
+/obj/structure/cult/functional/pylon/cult_reveal()
+	START_PROCESSING(SSobj, src)
+	..()
 
 /obj/structure/cult/functional/pylon/process()
 	if(!anchored)

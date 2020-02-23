@@ -492,6 +492,9 @@
 	var/openingoverlaytype = /obj/effect/temp_visual/cult/door
 	var/friendly = FALSE
 	var/stealthy = FALSE
+	var/stealth_icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
+	var/stealth_overlays = 'icons/obj/doors/airlocks/station/overlays.dmi'
+	var/stealth_opacity = TRUE
 
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
@@ -522,8 +525,9 @@
 		return FALSE
 
 /obj/machinery/door/airlock/cult/cult_conceal()
-	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
-	overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
+	icon = stealth_icon
+	overlays_file = stealth_overlays
+	opacity = stealth_opacity
 	name = "airlock"
 	desc = "It opens and closes."
 	stealthy = TRUE
@@ -532,6 +536,7 @@
 /obj/machinery/door/airlock/cult/cult_reveal()
 	icon = initial(icon)
 	overlays_file = initial(overlays_file)
+	opacity = initial(opacity)
 	name = initial(name)
 	desc = initial(desc)
 	stealthy = initial(stealthy)
@@ -587,7 +592,6 @@
 	normal_integrity = 150
 	damage_deflection = 5
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-
 
 //////////////////////////////////
 /*

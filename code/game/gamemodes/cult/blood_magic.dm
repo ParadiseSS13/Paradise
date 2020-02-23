@@ -83,7 +83,6 @@
 /datum/action/innate/cult/blood_spell //The next generation of talismans, handles storage/creation of blood magic
 	name = "Blood Magic"
 	button_icon_state = "telerune"
-	background_icon_state = "bg_demon"
 	desc = "Fear the Old Blood."
 	var/charges = 1
 	var/magic_path = null
@@ -299,7 +298,7 @@
 		charges--
 		owner.whisper(invocation)
 		SEND_SOUND(owner, sound('sound/misc/enter_blood.ogg', 0, 1, 25))
-		for(var/obj/O in range(6, owner)) //a little bit of additional range in case we arent in the exact same spot
+		for(var/obj/O in range(5, owner))
 			O.cult_reveal()
 		revealing = FALSE
 		name = "Conceal Runes"
