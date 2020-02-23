@@ -405,6 +405,7 @@
 				return FALSE //To avoid reflection chance double-dipping with block chance
 		. = ..()
 		if(.)
+			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
 			if(illusions > 0)
 				illusions--
 				addtimer(CALLBACK(src, /obj/item/shield/mirror.proc/readd), 450)

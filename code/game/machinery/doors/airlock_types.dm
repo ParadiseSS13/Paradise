@@ -534,8 +534,8 @@
 	update_icon()
 
 /obj/machinery/door/airlock/cult/cult_reveal()
-	icon = initial(icon)
-	overlays_file = initial(overlays_file)
+	icon = SSticker.cultdat?.airlock_runed_icon_file
+	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
 	opacity = initial(opacity)
 	name = initial(name)
 	desc = initial(desc)
