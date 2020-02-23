@@ -36,9 +36,9 @@
 	SA.universal_speak = 1
 	SA.sentience_act()
 	SA.can_collar = 1
-	SA.maxHealth += 200
-	SA.melee_damage_lower += 15
-	SA.melee_damage_upper += 15
+	SA.maxHealth = min(SA.maxHealth + 200, 300)
+	SA.melee_damage_lower = min(SA.melee_damage_lower + 15, 20)
+	SA.melee_damage_upper = min(SA.melee_damage_upper + 15, 25)
 	SA.health = SA.maxHealth
 	SA.del_on_death = FALSE
 	greet_sentient(SA)
