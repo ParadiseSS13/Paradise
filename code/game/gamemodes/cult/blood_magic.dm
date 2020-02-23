@@ -367,7 +367,7 @@
 		user.whisper(invocation)
 	if(health_cost && iscarbon(user))
 		var/mob/living/carbon/C = user
-		C.apply_damage(health_cost, BRUTE, pick("l_arm", "r_arm"))
+		C.apply_damage(health_cost, BRUTE, pick("l_arm", "l_hand", "r_arm", "r_hand"))
 	if(uses <= 0)
 		qdel(src)
 	else if(source)

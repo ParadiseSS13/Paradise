@@ -13,6 +13,7 @@
 
 /datum/action/innate/cult/comm
 	name = "Communion"
+	desc = "Whispered words that all cultists can hear.<br><b>Warning:</b>Nearby non-cultists can still hear you."
 	button_icon_state = "cult_comms"
 
 /datum/action/innate/cult/comm/Activate()
@@ -49,6 +50,11 @@
 			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
 
 	log_say("(CULT) [message]", user)
+
+/datum/action/innate/cult/comm/spirit
+	name = "Spiritual Communion"
+	desc = "Conveys a message from the spirit realm that all cultists can hear."
+	check_flags = null
 
 //Objectives
 

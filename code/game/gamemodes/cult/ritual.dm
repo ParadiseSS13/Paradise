@@ -105,7 +105,10 @@
 		return
 	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated())
 		return
-	if(ispath(rune_to_scribe, /obj/effect/rune/narsie))//may need to change this - Fethas
+	if(ispath(rune_to_scribe, /obj/effect/rune/summon) && (!is_station_level(runeturf.z) || istype(get_area(src), /area/space)))
+		to_chat(user, "<span class='cultitalic'><b>The veil is not weak enough here to summon a cultist, you must be on station!</b></span>")
+		return
+	if(ispath(rune_to_scribe, /obj/effect/rune/narsie))
 		if(narsie_rune_check(user))
 			var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
 			if(!(A in summon_areas))  // Check again to make sure they didn't move
@@ -124,10 +127,10 @@
 			return//don't do shit
 
 	var/mob/living/carbon/human/H = user
-	var/dam_zone = pick("head", "chest", "groin", "l_arm", "l_hand", "r_arm", "r_hand", "l_leg", "l_foot", "r_leg", "r_foot")
-	var/obj/item/organ/external/affecting = H.get_organ(ran_zone(dam_zone))
-	user.visible_message("<span class='warning'>[user] cuts open [user.p_their()] [affecting] and begins writing in [user.p_their()] own blood!</span>", "<span class='cult'>You slice open your [affecting] and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
-	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE , affecting)
+	var/dam_zone = pick("l_arm", "l_hand", "r_arm", "r_hand")
+	var/obj/item/organ/external/affecting = H.get_organ(dam_zone)
+	user.visible_message("<span class='warning'>[user] cuts open [user.p_their()] [affecting.name] and begins writing in [user.p_their()] own blood!</span>", "<span class='cult'>You slice open your [affecting.name] and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
+	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, affecting)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay), target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V

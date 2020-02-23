@@ -364,10 +364,13 @@
 /obj/item/clothing/shoes/cult/ghost
 	flags = NODROP | DROPDEL
 
+/obj/item/clothing/under/color/black/ghost
+	flags = NODROP | DROPDEL
+
 /datum/outfit/ghost_cultist
 	name = "Cultist Ghost"
 
-	uniform = /obj/item/clothing/under/color/black
+	uniform = /obj/item/clothing/under/color/black/ghost
 	suit = /obj/item/clothing/suit/cultrobesghost
 	shoes = /obj/item/clothing/shoes/cult/ghost
 	head = /obj/item/clothing/head/hooded/culthood/alt/ghost
