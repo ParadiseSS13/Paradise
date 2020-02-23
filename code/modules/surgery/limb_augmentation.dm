@@ -12,10 +12,11 @@
 /datum/surgery_step/augment/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
 		return FALSE
-	
+
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
 		return FALSE
+	return TRUE
 
 /datum/surgery_step/augment/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())

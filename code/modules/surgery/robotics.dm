@@ -19,6 +19,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected.is_robotic())
 		return FALSE
+	return TRUE
 
 /datum/surgery_step/robotics/external/unscrew_hatch
 	name = "unscrew hatch"

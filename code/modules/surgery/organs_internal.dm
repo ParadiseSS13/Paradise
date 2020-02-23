@@ -15,7 +15,7 @@
 	return ishuman(target) || isalienadult(target)
 
 /datum/surgery_step/internal/manipulate_organs/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
-	if(!(. = ..()))
+	if(!(.()))
 		return FALSE
 
 	if(ishuman(target))
@@ -23,6 +23,7 @@
 			var/obj/item/organ/external/affected = target.get_organ(target_zone)
 			if(affected.encased && current_stage != SURGERY_STAGE_OPEN_INCISION_BONES)
 				return FALSE
+	return TRUE
 
 /datum/surgery_step/internal/manipulate_organs/heal_organs
 	name = "heal organs"
