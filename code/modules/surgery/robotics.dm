@@ -142,14 +142,27 @@
 	name = "repair internal brute damage"
 	allowed_surgery_behaviour = SURGERY_ROBOTIC_HEAL_BRUTE
 
+/datum/surgery_step/robotics/external/repair/brute/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+
+	if(tool.tool_behaviour == TOOL_WELDER)
+		var/obj/item/weldingtool/W = tool
+		if(W)
+			if(!W.tool_enabled || !tool.use(1))
+				return FALSE
+	return TRUE
+
 /datum/surgery_step/robotics/external/repair/brute/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.brute_dam > 0 || affected.disfigured))
 		to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 		return -1
 	if(tool.tool_behaviour == TOOL_WELDER)
-		if(!tool.use(1))
-			return -1
+		var/obj/item/weldingtool/W = tool
+		if(W)
+			if(!W.tool_enabled || !tool.use(1))
+				return -1
 	user.visible_message("[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool]." , \
 		"You begin to patch damage to [target]'s [affected.name]'s support structure with \the [tool].")
 
@@ -178,21 +191,30 @@
 	name = "repair internal burn damage"
 	allowed_surgery_behaviour = SURGERY_ROBOTIC_HEAL_BURN
 
+/datum/surgery_step/robotics/external/repair/burn/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+
+	var/obj/item/stack/cable_coil/C = tool
+	if(istype(C)) // Handy if somebody wants to add another way later
+		if(!C.get_amount() >= 3)
+			return FALSE
+	return TRUE
+
 /datum/surgery_step/robotics/external/repair/burn/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	
-	var/obj/item/stack/cable_coil/C = tool
 	if(!(affected.burn_dam > 0))
 		to_chat(user, "<span class='warning'>The [affected] does not have any burn damage!</span>")
 		return -1
-	if(!istype(C))
-		return -1
-	if(!C.get_amount() >= 3)
-		to_chat(user, "<span class='warning'>You need three or more cable pieces to repair this damage.</span>")
-		return -1
-	C.use(3)
-	user.visible_message("[user] begins to splice new cabling into [target]'s [affected.name]." , \
-		"You begin to splice new cabling into [target]'s [affected.name].")
+	var/obj/item/stack/cable_coil/C = tool
+	if(istype(C))
+		if(!C.get_amount() >= 3)
+			to_chat(user, "<span class='warning'>You need three or more cable pieces to repair this damage.</span>")
+			return -1
+		C.use(3)
+		user.visible_message("[user] begins to splice new cabling into [target]'s [affected.name]." , \
+			"You begin to splice new cabling into [target]'s [affected.name].")
 
 	..()
 
