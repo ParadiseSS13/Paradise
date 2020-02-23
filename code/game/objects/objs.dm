@@ -346,3 +346,9 @@ a {
 
 /obj/proc/check_uplink_validity()
 	return 1
+
+/obj/proc/cult_conceal() //Called by cult conceal spell
+	return
+
+/obj/proc/cult_reveal() //Called by cult reveal spell and chaplain's bible
+	return

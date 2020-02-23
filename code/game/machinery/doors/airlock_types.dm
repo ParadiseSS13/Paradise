@@ -520,7 +520,7 @@
 			L.throw_at(throwtarget, 5, 1,src)
 		return FALSE
 
-/obj/machinery/door/airlock/cult/proc/conceal()
+/obj/machinery/door/airlock/cult/cult_conceal()
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 	overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	name = "airlock"
@@ -528,7 +528,7 @@
 	stealthy = TRUE
 	update_icon()
 
-/obj/machinery/door/airlock/cult/proc/reveal()
+/obj/machinery/door/airlock/cult/cult_reveal()
 	icon = initial(icon)
 	overlays_file = initial(overlays_file)
 	name = initial(name)

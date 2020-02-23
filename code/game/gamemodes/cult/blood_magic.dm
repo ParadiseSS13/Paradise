@@ -259,7 +259,7 @@
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
-	if(target in view(7, get_turf(ranged_ability_user)))
+	if(target in view(7, T))
 		if(!ishuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target
@@ -276,7 +276,7 @@
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
-	desc = "Alternates between hiding and revealing nearby cult structures and runes."
+	desc = "Alternates between hiding and revealing nearby cult structures, cult airlocks and runes."
 	invocation = "Kla'atu barada nikt'o!"
 	button_icon_state = "veiling"
 	charges = 10
@@ -285,35 +285,23 @@
 /datum/action/innate/cult/blood_spell/veiling/Activate()
 	if(!revealing)
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
-			"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes.</span>")
+			"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
 		SEND_SOUND(owner, sound('sound/magic/smoke.ogg',0,1,25))
 		owner.whisper(invocation)
-		for(var/obj/effect/rune/R in range(5,owner))
-			R.conceal()
-		//for(var/obj/structure/cult/functional/S in range(5,owner))
-			//S.conceal()
-		for(var/turf/simulated/floor/engine/cult/T  in range(5,owner))
-			T.realappearance.alpha = 0
-		for(var/obj/machinery/door/airlock/cult/AL in range(5, owner))
-			AL.conceal()
+		for(var/obj/O in range(5, owner))
+			O.cult_conceal()
 		revealing = TRUE
 		name = "Reveal Runes"
 		button_icon_state = "revealing"
 	else
 		owner.visible_message("<span class='warning'>A flash of light shines from [owner]'s hand!</span>", \
-			 "<span class='cultitalic'>You invoke the counterspell, revealing nearby runes.</span>")
+			 "<span class='cultitalic'>You invoke the counterspell, revealing nearby runes and cult structures.</span>")
 		charges--
 		owner.whisper(invocation)
 		SEND_SOUND(owner, sound('sound/misc/enter_blood.ogg',0,1,25))
-		for(var/obj/effect/rune/R in range(7,owner)) //More range in case you weren't standing in exactly the same spot
-			R.reveal()
-		//for(var/obj/structure/cult/functional/S in range(6,owner))
-		//	S.reveal()
-		for(var/turf/simulated/floor/engine/cult/T  in range(6,owner))
-			T.realappearance.alpha = initial(T.realappearance.alpha)
-		for(var/obj/machinery/door/airlock/cult/AL in range(6, owner))
-			AL.reveal()
+		for(var/obj/O in range(5, owner))
+			O.cult_reveal()
 		revealing = FALSE
 		name = "Conceal Runes"
 		button_icon_state = "veiling"

@@ -95,12 +95,12 @@ To draw a rune, use an arcane tome.
 		else
 			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
 
-/obj/effect/rune/proc/conceal() //for talisman of revealing/hiding
+/obj/effect/rune/cult_conceal() //for concealing spell
 	visible_message("<span class='danger'>[src] fades away.</span>")
 	invisibility = INVISIBILITY_OBSERVER
 	alpha = 100 //To help ghosts distinguish hidden runes
 
-/obj/effect/rune/proc/reveal() //for talisman of revealing/hiding
+/obj/effect/rune/cult_reveal() //for revealing spell
 	invisibility = 0
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
@@ -837,7 +837,7 @@ var/list/teleport_runes = list()
 /obj/effect/rune/narsie/check_icon()
 	return
 
-/obj/effect/rune/narsie/conceal() //can't hide this, and you wouldn't want to
+/obj/effect/rune/narsie/cult_conceal() //can't hide this, and you wouldn't want to
 	return
 
 /obj/effect/rune/narsie/invoke(var/list/invokers)
