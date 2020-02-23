@@ -120,14 +120,14 @@
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(occupant.surgeries.len)
 			occupantData["inSurgery"] = 1
-			if(!selected_surgery)
+			if(!selected_surgery || QDELETED(selected_surgery))
 				selected_surgery = occupant.surgeries[1] // Default to the first surgery
 			var/list/possible_steps = selected_surgery.get_all_possible_steps_on_stage(user, occupant)
 			var/surgery_steps_string = ""
 			for(var/thing in possible_steps)
 				var/datum/surgery_step/S = thing
 				surgery_steps_string += "[capitalize(S.name)], "
-			surgery_steps_string = copytext(surgery_steps_string, 1, lentext(surgery_steps_string) - 1) // Remove the ", " from the end
+			surgery_steps_string = copytext(surgery_steps_string, 1, length(surgery_steps_string) - 1) // Remove the ", " from the end
 			occupantData["selected_surgery"] = list("location" = "[capitalize(parse_zone(selected_surgery.location))]", \
 				"stage" = "[capitalize(selected_surgery.current_stage)]", "possible_steps" = surgery_steps_string)
 			var/list/surgeries = list()
