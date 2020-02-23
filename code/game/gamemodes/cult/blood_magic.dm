@@ -198,7 +198,7 @@
 	else
 		owner.visible_message("<span class='warning'>A ritual dagger appears at [owner]'s feet!</span>", \
 			 "<span class='cultitalic'>A ritual dagger materializes at your feet.</span>")
-	SEND_SOUND(owner, sound('sound/magic/cult_spell.ogg',0,1,25))
+	SEND_SOUND(owner, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 	charges--
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
@@ -259,19 +259,18 @@
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
-	if(target in view(7, T))
+	if(target in view(7, ranged_ability_user))
 		if(!ishuman(target) || iscultist(target))
 			return
 		var/mob/living/carbon/human/H = target
 		H.hallucination = max(H.hallucination, 120)
-		SEND_SOUND(ranged_ability_user, sound('sound/effects/ghost.ogg',0, 1, 50))
-		to_chat(ranged_ability_user,"<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
 		attached_action.UpdateButtonIcon()
+		user.ranged_ability.remove_ranged_ability(user, "<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
 		if(attached_action.charges <= 0)
-			user.ranged_ability.remove_ranged_ability(user, "<span class='cult'>You have exhausted the spell's power!</span>")
+			to_chat(ranged_ability_user, "<span class='cult'>You have exhausted the spell's power!</span>")
 			qdel(src)
 
 /datum/action/innate/cult/blood_spell/veiling
@@ -287,7 +286,7 @@
 		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
 			"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
-		SEND_SOUND(owner, sound('sound/magic/smoke.ogg',0,1,25))
+		SEND_SOUND(owner, sound('sound/magic/smoke.ogg', 0, 1, 25))
 		owner.whisper(invocation)
 		for(var/obj/O in range(5, owner))
 			O.cult_conceal()
@@ -299,13 +298,13 @@
 			 "<span class='cultitalic'>You invoke the counterspell, revealing nearby runes and cult structures.</span>")
 		charges--
 		owner.whisper(invocation)
-		SEND_SOUND(owner, sound('sound/misc/enter_blood.ogg',0,1,25))
+		SEND_SOUND(owner, sound('sound/misc/enter_blood.ogg', 0, 1, 25))
 		for(var/obj/O in range(6, owner)) //a little bit of additional range in case we arent in the exact same spot
 			O.cult_reveal()
 		revealing = FALSE
 		name = "Conceal Runes"
 		button_icon_state = "veiling"
-	if(charges<= 0)
+	if(charges <= 0)
 		qdel(src)
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
@@ -449,18 +448,18 @@
 		if(!potential_runes.len)
 			to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
 			log_game("Teleport spell failed - no other teleport runes")
-			return ..(user, 0)
+			return
 
 		if(!is_level_reachable(user.z))
 			to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
 			log_game("Teleport spell failed - user in away mission")
-			return ..(user, 0)
-		uses--
+			return
 		var/mob/living/L = target
 		var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 		var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 		if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
-			return ..(user, 0)
+			return
+		uses--
 		var/turf/origin = get_turf(user)
 		var/turf/destination = get_turf(actual_selected_rune)
 		new /obj/effect/temp_visual/dir_setting/cult/phase/out(origin)
@@ -489,7 +488,7 @@
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(iscultist(user) && iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
-		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
+		if(C.canBeHandcuffed() || C.get_arm_ignore())
 			CuffAttack(C, user)
 		else
 			user.visible_message("<span class='cultitalic'>This victim doesn't have enough arms to complete the restraint!</span>")

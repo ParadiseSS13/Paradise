@@ -739,6 +739,9 @@ var/list/ghostteleportlocs = list()
 
 //Hallway
 
+/area/hallway
+	valid_territory = FALSE //too many areas with similar/same names, also not very interesting summon spots
+
 /area/hallway/primary/fore
 	name = "\improper Fore Primary Hallway"
 	icon_state = "hallF"

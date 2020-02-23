@@ -39,7 +39,6 @@ To draw a rune, use an arcane tome.
 
 	var/invoke_damage = 0 //how much damage invokers take when invoking it
 
-
 /obj/effect/rune/New(loc, set_keyword)
 	..()
 	if(set_keyword)

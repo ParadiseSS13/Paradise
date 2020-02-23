@@ -507,7 +507,8 @@
 	if(!density)
 		return TRUE
 	if(friendly || iscultist(L) || isshade(L)|| isconstruct(L))
-		new openingoverlaytype(loc)
+		if(!stealthy)
+			new openingoverlaytype(loc)
 		return TRUE
 	else
 		if(!stealthy)
