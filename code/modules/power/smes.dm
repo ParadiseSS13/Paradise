@@ -85,7 +85,7 @@
 	input_level_max = 200000 * IO
 	output_level_max = 200000 * IO
 	for(var/obj/item/stock_parts/cell/PC in component_parts)
-		C += PC.get_part_rating()
+		C += PC.maxcharge
 	capacity = C / (15000) * 1e6
 
 /obj/machinery/power/smes/update_icon()

@@ -105,7 +105,6 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		"Custodial Technician" = "srvradio",
 		"Hair Stylist" = "srvradio",
 		"Hydroponicist" = "srvradio",
-		"Beekeeper" = "srvradio",
 		"Janitor" = "srvradio",
 		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",

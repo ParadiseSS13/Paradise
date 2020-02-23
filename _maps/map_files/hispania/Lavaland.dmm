@@ -240,7 +240,7 @@
 "eF" = (/obj/machinery/power/terminal,/obj/structure/cable{icon_state = "0-8"},/turf/simulated/floor/plating,/area/mine/laborcamp)
 "eG" = (/obj/machinery/light/small{dir = 1},/turf/simulated/floor/plating,/area/mine/laborcamp)
 "eH" = (/turf/simulated/floor/plating,/area/mine/laborcamp)
-"eI" = (/obj/docking_port/stationary{area_type = /area/lavaland/surface/outdoors; dir = 8; dwidth = 3; height = 7; id = "mining_away"; name = "lavaland mine"; turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface; width = 7},/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
+"eI" = (/obj/docking_port/stationary{area_type = /area/lavaland/surface/outdoors; dir = 8; dwidth = 3; height = 5; id = "mining_away"; name = "lavaland mine"; turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface; width = 7},/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,/area/lavaland/surface/outdoors)
 "eJ" = (/obj/machinery/door/airlock/external{glass = 1; id_tag = "mining_away"; name = "Mining Shuttle Airlock"; opacity = 0; req_one_access_txt = "48"},/obj/structure/fans/tiny,/turf/simulated/floor/plasteel,/area/mine/production)
 "eK" = (/obj/machinery/door/airlock/external{glass = 1; id_tag = "mining_away"; name = "Mining Shuttle Airlock"; opacity = 0; req_access_txt = "48"},/obj/structure/fans/tiny,/turf/simulated/floor/plasteel,/area/mine/production)
 "eL" = (/obj/effect/turf_decal/tile/brown{dir = 1},/obj/effect/turf_decal/tile/brown{dir = 8},/turf/simulated/floor/plasteel,/area/mine/production)

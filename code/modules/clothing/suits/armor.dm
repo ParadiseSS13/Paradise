@@ -222,9 +222,8 @@
 /obj/item/clothing/suit/armor/vest/durathread
 	name = "durathread vest"
 	desc = "A vest made of durathread with strips of leather acting as trauma plates."
-	hispania_icon = TRUE
-	icon_state = "durathread_vest"
-	item_state = "durathread_vest"
+	icon_state = "durathread"
+	item_state = "durathread"
 	strip_delay = 60
 	max_integrity = 200
 	resistance_flags = FLAMMABLE
