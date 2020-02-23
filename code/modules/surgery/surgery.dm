@@ -25,7 +25,7 @@
 		do
 			S = new S.type() // Make a new step. Don't fuck this one up
 			step_in_progress = TRUE
-			result = S.try_op(user, target, user.zone_selected, tool, src)
+			result = S.try_op(user, target, location, tool, src)
 			if(result)
 				if(S.next_surgery_stage != SURGERY_STAGE_SAME)
 					current_stage = S.next_surgery_stage
@@ -34,12 +34,11 @@
 
 /datum/surgery/proc/get_surgery_steps(mob/user, mob/living/carbon/target, obj/item/tool)
 	var/list/possible_steps = list()
-	var/selected_zone = user.zone_selected
 	var/list/all_steps = GLOB.surgery_steps[current_stage] + GLOB.surgery_steps[SURGERY_STAGE_ALWAYS]
 
 	for(var/i in all_steps)
 		var/datum/surgery_step/S = i
-		if(S.possible_locs?.len && !(selected_zone in S.possible_locs))
+		if(S.possible_locs?.len && !(location in S.possible_locs))
 			continue
 		if((S.accept_hand && !tool) || (tool && (S.accept_any_item \
 			|| (S.allowed_surgery_behaviour in tool.surgery_behaviours))))
@@ -47,6 +46,20 @@
 				possible_steps[S.name] = S
 	
 	return sortInsert(possible_steps, /proc/compare_surgery_steps, TRUE)
+
+// Used by the operating computer
+/datum/surgery/proc/get_all_possible_steps_on_stage(mob/user, mob/living/carbon/target)
+	var/list/all_steps = GLOB.surgery_steps[current_stage] + GLOB.surgery_steps[SURGERY_STAGE_ALWAYS]
+	var/list/possible_steps = list()
+
+	for(var/i in all_steps)
+		var/datum/surgery_step/S = i
+		if(S.possible_locs?.len && !(location in S.possible_locs))
+			continue
+		if(S.is_valid_target(target) && (isobserver(user) || S.is_valid_user(user)) && S.is_zone_valid(target, location, current_stage))
+			possible_steps.Add(S)
+
+	return sortInsert(possible_steps, /proc/compare_surgery_steps)
 
 /* SURGERY STEPS */
 /datum/surgery_step
@@ -138,17 +151,23 @@
 		return FALSE
 	return TRUE
 
-// checks whether this step can be applied with the given user and target
-/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!is_valid_target(target))
-		return FALSE
+/datum/surgery_step/proc/is_valid_user(mob/living/user)
+	return istype(user)
 
+/datum/surgery_step/proc/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if((!affected_organ_available && affected) || (affected_organ_available && !affected))
 		return FALSE
 	if((requires_organic_bodypart && affected.is_robotic()))
 		return FALSE
+	return TRUE
 
+// checks whether this step can be applied with the given user and target
+/datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!is_valid_target(target) || !is_valid_user(user))
+		return FALSE
+	if(!is_zone_valid(target, target_zone, surgery.current_stage))
+		return FALSE
 	return TRUE
 
 // does stuff to begin the step, usually just printing messages. Moved germs transfering and bloodying here too

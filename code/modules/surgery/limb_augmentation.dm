@@ -9,14 +9,18 @@
 /datum/surgery_step/augment/is_valid_target(mob/living/carbon/human/target)
 	return istype(target)
 
-/datum/surgery_step/augment/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/augment/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
 		return FALSE
 	
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(affected.status & ORGAN_BROKEN) //The arm has to be in prime condition to augment it.
 		return FALSE
-	
+
+/datum/surgery_step/augment/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
 		if(!(target_zone in p.part))

@@ -9,12 +9,6 @@
 /datum/surgery_step/reshape_face/is_valid_target(mob/living/carbon/human/target)
 	return istype(target)
 
-/datum/surgery_step/reshape_face/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-
-	return TRUE
-
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("[user] begins to alter [target]'s appearance.", "<span class='notice'>You begin to alter [target]'s appearance...</span>")
 

@@ -12,6 +12,7 @@
 
 /datum/surgery_step/generic/cut_open/cut_further // Debridement and cavity surgery
 	name = "cut tissue"
+	priority = 1
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 
@@ -53,7 +54,7 @@
 /datum/surgery_step/fix_vein/is_valid_target(mob/living/carbon/human/target)
 	return istype(target)
 
-/datum/surgery_step/fix_vein/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/fix_vein/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
 		return FALSE
 
@@ -182,13 +183,10 @@
 	time = 30
 
 /datum/surgery_step/internal/dethrall/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return istype(target) && is_thrall(target)
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
-		return FALSE
-		
-	if(!is_thrall(target))
 		return FALSE
 	
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)

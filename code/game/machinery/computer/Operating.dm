@@ -19,6 +19,7 @@
 	var/nextTick = OP_COMPUTER_COOLDOWN
 	var/healthAlarm = 50
 	var/oxy = 1 //oxygen beeping toggle
+	var/datum/surgery/selected_surgery
 
 /obj/machinery/computer/operating/New()
 	..()
@@ -119,9 +120,21 @@
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(occupant.surgeries.len)
 			occupantData["inSurgery"] = 1
+			if(!selected_surgery)
+				selected_surgery = occupant.surgeries[1] // Default to the first surgery
+			var/list/possible_steps = selected_surgery.get_all_possible_steps_on_stage(user, occupant)
+			var/surgery_steps_string = ""
+			for(var/thing in possible_steps)
+				var/datum/surgery_step/S = thing
+				surgery_steps_string += "[capitalize(S.name)], "
+			surgery_steps_string = copytext(surgery_steps_string, 1, lentext(surgery_steps_string) - 1) // Remove the ", " from the end
+			occupantData["selected_surgery"] = list("location" = "[capitalize(parse_zone(selected_surgery.location))]", \
+				"stage" = "[capitalize(selected_surgery.current_stage)]", "possible_steps" = surgery_steps_string)
+			var/list/surgeries = list()
+			occupantData["surgeries"] = surgeries
 			for(var/datum/surgery/procedure in occupant.surgeries)
-				occupantData["surgeryLocation"] = "[capitalize(parse_zone(procedure.location))]"
-				occupantData["surgeryStage"] = "[capitalize(procedure.current_stage)]"
+				surgeries[++surgeries.len] = list("location" = capitalize(parse_zone(procedure.location)), "ref" = "\ref[procedure]")
+				
 
 	data["occupant"] = occupantData
 	data["verbose"]=verbose
@@ -165,6 +178,8 @@
 		choice=0
 	if(href_list["health_adj"]!=0)
 		healthAlarm=healthAlarm+text2num(href_list["health_adj"])
+	if(href_list["change_surgery"])
+		selected_surgery = locate(href_list["change_surgery"])
 	return
 
 

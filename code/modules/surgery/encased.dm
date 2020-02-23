@@ -10,7 +10,7 @@
 /datum/surgery_step/open_encased/is_valid_target(mob/living/carbon/human/target)
 	return istype(target)
 
-/datum/surgery_step/open_encased/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/open_encased/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
 		return FALSE
 

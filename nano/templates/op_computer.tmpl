@@ -113,10 +113,20 @@ Used In File(s): \code\game\machinery\computer\Operating.dm
 				{{/if}}
 				{{if data.occupant.inSurgery}}
 				<div class="line">
-					<div class="statusLabel">Surgery Location:</div> <div class="statusValue">{{:data.occupant.surgeryLocation}}</div>
+					<div class="statusLabel">Surgeries:</div>
+					<div class="statusValue">
+						{{for data.occupant.surgeries}}
+							{{:helper.link(value.location, 'arrow-down', {'change_surgery' : value.ref}, (value.location == data.occupant.selected_surgery.location) ? 'selected' : null)}}
+						{{/for}}
+					</div>
+				</div>
+				<div class="line">
+					<div class="statusLabel">Surgery Location:</div> <div class="statusValue">{{:data.occupant.selected_surgery.location}}</div>
 					<br>
-					<div class="statusLabel">Current Stage:</div> <div class="statusValue">{{:data.occupant.surgeryStage}}</div>
-
+					<div class="statusLabel">Current Stage:</div> <div class="statusValue">{{:data.occupant.selected_surgery.stage}}</div>
+				</div>
+				<div class="line">
+					<div class="statusLabel">Possible Steps:</div> <div class="statusValue">{{:data.occupant.selected_surgery.possible_steps}}</div>
 				</div>
 				{{/if}}
 				<br>

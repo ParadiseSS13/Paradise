@@ -14,13 +14,14 @@
 /datum/surgery_step/internal/manipulate_organs/is_valid_target(mob/living/carbon/target)
 	return ishuman(target) || isalienadult(target)
 
-/datum/surgery_step/internal/manipulate_organs/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/internal/manipulate_organs/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!(. = ..()))
 		return FALSE
+
 	if(ishuman(target))
 		if(target_zone != "eyes" && target_zone != "mouth") // Head will be the external organ. Which is encased
 			var/obj/item/organ/external/affected = target.get_organ(target_zone)
-			if(affected.encased && surgery.current_stage != SURGERY_STAGE_OPEN_INCISION_BONES)
+			if(affected.encased && current_stage != SURGERY_STAGE_OPEN_INCISION_BONES)
 				return FALSE
 
 /datum/surgery_step/internal/manipulate_organs/heal_organs

@@ -17,7 +17,7 @@
 
 	time = 100
 
-/datum/surgery_step/limb/amputate/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/limb/amputate/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
 		return FALSE
 

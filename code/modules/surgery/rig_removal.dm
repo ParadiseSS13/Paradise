@@ -23,7 +23,7 @@
 			return
 		if(!tool.use(1))
 			return
-	return (target_zone == "chest") && istype(target.back, /obj/item/rig) && (target.back.flags&NODROP)
+	return istype(target.back, /obj/item/rig) && (target.back.flags&NODROP)
 
 /datum/surgery_step/rigsuit/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message("[user] starts cutting through the support systems of [target]'s [target.back] with \the [tool]." , \

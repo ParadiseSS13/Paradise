@@ -24,6 +24,8 @@
 	for(var/path in (subtypesof(/datum/surgery_step)))
 		var/datum/surgery_step/S = new path()
 		for(var/start_step in S.surgery_start_stage)
+			if(!S.name) // abstract subtype
+				continue
 			if(!GLOB.surgery_steps[start_step])
 				GLOB.surgery_steps[start_step] = list(S)
 			else
