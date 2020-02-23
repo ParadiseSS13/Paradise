@@ -30,8 +30,8 @@
 	minbodytemp = 0
 	maxbodytemp = INFINITY
 	attacktext = "lashes"
-	maxHealth = 1000
-	health = 1000
+	maxHealth = 750
+	health = 750
 	environment_smash = 1
 	universal_understand = 1
 	obj_damage = 50
@@ -45,10 +45,7 @@
 	var/list/consumed_mobs = list()
 
 	loot = list(/obj/effect/decal/cleanable/blood/oil/sludge, /obj/effect/decal/cleanable/blood/oil/sludge, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic)
-	var/playstyle_string = "<B>You are the Old Man, an ancient entity who has been hunting humanity for centuries and still hungers for more.  \
-						You are slow, but very durable. Your attacks slows and corrode your victims. \
-						You may Click on walls to travel through them, appearing and disappearing from the station at will. \
-						Pulling a dead or critical mob while you enter a wall will pull them in with you, sending them to your pocket dimension. </B>"
+
 	del_on_death = 1
 	deathmessage = "lets out a screeching scream as it escapes to its pocket dimension!"
 
@@ -60,10 +57,16 @@
 	..()
 	remove_from_all_data_huds()
 	last_meal = world.time
+	sleep(100)
 	if(mind)
-		to_chat(src, src.playstyle_string)
+		mind.wipe_memory()
+		SEND_SOUND(src, 'sound/hispania/effects/oldman/oldlaugh.ogg')
+		to_chat(src, "<B>You are the Old Man, an ancient entity who has been hunting humanity for centuries and still hungers for more.</B>")
+		to_chat(src, "<B>You are slow, but very durable. Your attacks slows and corrode your victims.</B>")
+		to_chat(src, "<B>You may Click on walls to travel through them, appearing and disappearing from the station at will.</B>")
+		to_chat(src, "<B>You hunger is endless. If you do not find a new meal after the previous one, you will leave this station to continue hunting.</B>")
+		to_chat(src, "<B>Pulling a dead or critical mob while you enter a wall will pull them in with you, healing you and sending them to your pocket dimension.</B>")
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Click a wall to emerge.</span></B>")
-		to_chat(src, "<B>Objective #[1]</B>: Hunt down as much of the crew as you can.")
 
 /mob/living/simple_animal/hostile/oldman/Life(seconds, times_fired)
 	..()
@@ -71,7 +74,7 @@
 		if(prob(20))
 			new /obj/effect/decal/cleanable/blood/oil/sludge(get_turf(src))
 	if(world.time - last_meal > 1200) //2 minutes
-		if(world.time - last_meal > 3000) //5 minutes
+		if(world.time - last_meal > 2400) //4 minutes
 			adjustBruteLoss(5)
 			if(prob(5))
 				to_chat(src, "<span class ='danger'>You are getting weaker by hunger!</span>")
