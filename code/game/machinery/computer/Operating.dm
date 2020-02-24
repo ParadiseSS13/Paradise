@@ -120,7 +120,7 @@
 			occupantData["bloodType"] = occupant.dna.blood_type
 		if(occupant.surgeries.len)
 			occupantData["inSurgery"] = 1
-			if(!selected_surgery || QDELETED(selected_surgery))
+			if(QDELETED(selected_surgery) || !(selected_surgery in occupant.surgeries))
 				selected_surgery = occupant.surgeries[1] // Default to the first surgery
 			var/list/possible_steps = selected_surgery.get_all_possible_steps_on_stage(user, occupant)
 			var/surgery_steps_string = ""
