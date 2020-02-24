@@ -132,7 +132,7 @@ var/global/list/all_cults = list()
 			cult_mind.current.mutations.Remove(CLUMSY)
 			var/datum/action/innate/toggle_clumsy/A = new
 			A.Grant(cult_mind.current)
-		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
+		//SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
@@ -173,7 +173,7 @@ var/global/list/all_cults = list()
 		H.change_eye_color("#FF0000", FALSE)
 		H.update_eyes()
 		H.update_body()
-		to_chat(world, "<span class='warning'> The cult has Risen!</FONT></span>")
+		to_chat(world, "<span class='warning'>The cult has Risen!</FONT></span>") //replace with CC announcement
 
 /datum/game_mode/proc/ascend(cultist, y_offset)
 	if(ishuman(cultist))
@@ -184,7 +184,7 @@ var/global/list/all_cults = list()
 		H.overlays_standing[ABOVE_HUD_LAYER] = new_halo_overlay
 		//H.Shift(NORTH, y_offset + 4)
 		H.apply_overlay(ABOVE_HUD_LAYER)
-		to_chat(world, "<span class='warning'> The cult has Ascended!</FONT></span>")
+		to_chat(world, "<span class='warning'>The cult has Ascended!</FONT></span>") //replace with CC announcement
 
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
@@ -244,10 +244,10 @@ var/global/list/all_cults = list()
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.status == NARSIE_HAS_RISEN)
 		feedback_set_details("round_end_result","cult win - cult win")
-		to_chat(world, "<span class='danger'> <FONT size = 3> The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
+		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
 	else if(cult_objs.status == NARSIE_HAS_FALLEN)
 		feedback_set_details("round_end_result","cult draw - narsie died, nobody wins")
-		to_chat(world, "<span class='danger'> <FONT size = 3> Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished by a supercharged singularity!</FONT></span>")
+		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
 	else
 		feedback_set_details("round_end_result","cult loss - staff stopped the cult")
 		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
