@@ -590,7 +590,7 @@
 				message = "<B>[src]</B> sighs contentedly."
 				m_type = 2
 			else
-				message = "<B>[src]</B> makes a [pick("chill", relaxed")] noise"
+				message = "<B>[src]</B> makes a [pick("chill", "relaxed")] noise"
 				m_type = 2
 
 		if("laugh", "laughs")
