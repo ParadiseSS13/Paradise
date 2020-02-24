@@ -585,6 +585,14 @@
 					message = "<B>[src]</B> makes a weak noise"
 					m_type = 2
 
+		if("hsigh", "hsighs")
+			if(!muzzled)
+				message = "<B>[src]</B> sighs contentedly."
+				m_type = 2
+			else
+				message = "<B>[src]</B> makes a weak noise"
+				m_type = 2
+
 		if("laugh", "laughs")
 			var/M = handle_emote_param(param)
 			if(miming)

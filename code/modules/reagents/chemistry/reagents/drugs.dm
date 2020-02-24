@@ -517,6 +517,32 @@
 			M.Drowsy(10)
 	return ..()
 
+/datum/reagent/cbd
+	name = "Cannabidiol"
+	id = "cbd"
+	description = "A non-psychoactive phytocannabinoid extracted from the cannabis plant."
+	reagent_state = LIQUID
+	color = "#00e100"
+	taste_description = "relaxation"
+
+/datum/reagent/cbd/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		M.emote(pick("hsigh", "yawn"))
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You breathe softly.", "You feel chill.", "You vibe.")]</span>")
+	if(prob(10))
+		M.AdjustConfused(-5)
+		update_flags |= M.SetWeakened(0, FALSE)
+	if(volume >= 70 && prob(25))
+		if(M.reagents.has_reagent("thc") <= 20)
+			M.Drowsy(10)
+	if(prob(25))
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
+	return ..() | update_flags
+
+
 /datum/reagent/fliptonium
 	name = "Fliptonium"
 	id = "fliptonium"
