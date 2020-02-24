@@ -88,7 +88,7 @@
 	name = "telescopic baton"
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
 	icon_state = "telebaton_0"
-	cooldownTime = 70
+	cooldownTime = 50
 	item_state = null
 	slot_flags = SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
