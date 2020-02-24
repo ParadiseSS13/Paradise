@@ -43,30 +43,6 @@
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=5;abductor=3"
 
-/obj/item/wrench/power
-	name = "hand drill"
-	desc = "A simple powered drill with a bolt bit."
-	icon_state = "drill_bolt"
-	item_state = "drill"
-	usesound = 'sound/items/drill_use.ogg'
-	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
-	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
-	force = 8 //might or might not be too high, subject to change
-	throwforce = 8
-	attack_verb = list("drilled", "screwed", "jabbed")
-	toolspeed = 0.25
-
-/obj/item/wrench/power/attack_self(mob/user)
-	playsound(get_turf(user),'sound/items/change_drill.ogg', 50, 1)
-	var/obj/item/wirecutters/power/s_drill = new /obj/item/screwdriver/power
-	to_chat(user, "<span class='notice'>You attach the screwdriver bit to [src].</span>")
-	qdel(src)
-	user.put_in_active_hand(s_drill)
-
-/obj/item/wrench/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is pressing [src] against [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!")
-	return BRUTELOSS
-
 /obj/item/wrench/medical
 	name = "medical wrench"
 	desc = "A medical wrench with common (medical?) uses. Can be found in your hand."

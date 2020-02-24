@@ -70,16 +70,44 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 15
 	toolspeed = 0.25
-	var/airlock_open_time = 100 // Time required to open powered airlocks
+
+obj/item/crowbar/power/examine()
+	. = ..()
+	. += " It's fitted with a [tool_behaviour == TOOL_CROWBAR ? "prying" : "cutting"] head."
 
 /obj/item/crowbar/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
+	if(tool_behaviour == TOOL_CROWBAR)
+		user.visible_message("<span class='suicide'>[user] is putting [user.p_their()] head in [src]. It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		playsound(loc, 'sound/items/jaws_pry.ogg', 50, 1, -1)
+	else
+		user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+		playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			var/obj/item/organ/external/head/head = H.bodyparts_by_name["head"]
+			if(head)
+				head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
+				playsound(loc,pick('sound/misc/desceration-01.ogg','sound/misc/desceration-02.ogg','sound/misc/desceration-01.ogg') ,50, 1, -1)
 	return BRUTELOSS
 
 /obj/item/crowbar/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
-	var/obj/item/wirecutters/power/cutjaws = new /obj/item/wirecutters/power
-	to_chat(user, "<span class='notice'>You attach the cutting jaws to [src].</span>")
-	qdel(src)
-	user.put_in_active_hand(cutjaws)
+	if(tool_behaviour == TOOL_CROWBAR)
+		tool_behaviour = TOOL_WIRECUTTER
+		to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
+		usesound = 'sound/items/jaws_cut.ogg'
+		icon_state = "jaws_cutter"
+	else
+		tool_behaviour = TOOL_CROWBAR
+		to_chat(user, "<span class='notice'>You attach the prying jaws to [src].</span>")
+		usesound = 'sound/items/jaws_pry.ogg'
+		icon_state = "jaws_pry"
+
+/obj/item/crowbar/power/attack(mob/living/carbon/C, mob/user)
+	if(istype(C) && C.handcuffed && tool_behaviour == TOOL_WIRECUTTER)
+		user.visible_message("<span class='notice'>[user] cuts [C]'s restraints with [src]!</span>")
+		QDEL_NULL(C.handcuffed)
+		return
+	else
+		..()
+
