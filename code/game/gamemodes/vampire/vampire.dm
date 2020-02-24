@@ -287,6 +287,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		draining = null
 		return
 	add_attack_logs(owner, H, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
+	playsound(owner.loc, 'sound/hispania/effects/drain_blood_new.ogg', 50, 1)
 	owner.visible_message("<span class='danger'>[owner] grabs [H]'s neck harshly and sinks in [owner.p_their()] fangs!</span>", "<span class='danger'>You sink your fangs into [H] and begin to drain [owner.p_their()] blood.</span>", "<span class='notice'>You hear a soft puncture and a wet sucking noise.</span>")
 	if(!iscarbon(owner))
 		H.LAssailant = null
@@ -313,6 +314,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		if(old_bloodtotal != bloodtotal)
 			if(H.ckey || H.player_ghosted) // Requires ckey regardless if monkey or human, and has not ghosted, otherwise no power
 				to_chat(owner, "<span class='notice'><b>You have accumulated [bloodtotal] [bloodtotal > 1 ? "units" : "unit"] of blood[bloodusable != old_bloodusable ? ", and have [bloodusable] left to use" : ""].</b></span>")
+				playsound(owner.loc, 'sound/hispania/effects/drain_blood_new.ogg', 50, 1)
 		check_vampire_upgrade()
 		H.blood_volume = max(H.blood_volume - 25, 0)
 		if(ishuman(owner))
