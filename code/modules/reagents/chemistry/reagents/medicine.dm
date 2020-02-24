@@ -877,6 +877,43 @@
 	M.reagents.remove_reagent("sugar", 5)
 	return ..()
 
+/datum/reagent/heparin
+	name = "Heparin"
+	id = "heparin"
+	description = "An anticoagulant used in heart surgeries, and in the treatment of heart attacks and blood clots."
+	reagent_state = LIQUID
+	color = "#eee6da"
+	overdose_threshold = 20
+	taste_description = "bitterness"
+
+/datum/reagent/heparin/on_mob_life(mob/living/M)
+	M.reagents.remove_reagent("cholesterol", 2)
+	return ..()
+
+/datum/reagent/heparin/overdose_process(mob/living/carbon/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(5, 10), 0)
+		else if(effect <= 4)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(1, 2), 0)
+	else if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] is bleeding from [M.p_their()] very pores!</span>")
+			M.bleed(rand(10, 20))
+		else if(effect <= 4)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(5, 10), 0)
+		else if(effect <= 8)
+			M.vomit(0, TRUE, FALSE)
+			M.blood_volume = max(M.blood_volume - rand(1, 2), 0)
+	return list(effect, update_flags)
+
+
 /datum/reagent/medicine/teporone
 	name = "Teporone"
 	id = "teporone"
