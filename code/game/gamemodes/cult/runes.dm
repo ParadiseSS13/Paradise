@@ -293,7 +293,8 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/offering, list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
-	if(offering.stat != DEAD || is_sacrifice_target(offering.mind)) //Requires three people to sacrifice living targets/sacrifice objective
+
+	if(offering.stat != DEAD || (offering.mind && is_sacrifice_target(offering.mind))) //Requires three people to sacrifice living targets/sacrifice objective
 		if(invokers.len < 3)
 			for(var/M in invokers)
 				to_chat(M, "<span class='cultitalic'>[offering] is too greatly linked to the world! You need three acolytes!</span>")
