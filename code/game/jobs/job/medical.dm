@@ -11,10 +11,10 @@
 	req_admin_notify = 1
 	access = list(access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom, access_eva)
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom, access_eva,access_maint_tunnels)
 	minimal_access = list(access_eva, access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom, access_maint_tunnels)
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom, access_maint_tunnels)
 	minimal_player_age = 15
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_MEDICAL
