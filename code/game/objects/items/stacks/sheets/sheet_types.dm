@@ -48,6 +48,8 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("rack parts", /obj/item/rack_parts),
 	new /datum/stack_recipe("closet", /obj/structure/closet, 2, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
+	new /datum/stack_recipe("Shower", /obj/item/mounted/shower, 5, time = 7, one_per_turf = 0, on_floor = 1),
+	null,
 	new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 15, one_per_turf = 1, on_floor = 1),
 	null,
 	new /datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, 1, 4, 20),
