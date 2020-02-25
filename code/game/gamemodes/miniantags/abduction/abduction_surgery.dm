@@ -1,5 +1,8 @@
 /datum/surgery_step/internal/manipulate_organs/abduct
+	priority = 20 //DO THIS NOT THE IMPLANT ORGAN ONE!
 	possible_locs = list("chest", "head")
+	time = 32
+	requires_organic_bodypart = FALSE // Also for IPCs
 
 /datum/surgery_step/internal/manipulate_organs/abduct/is_valid_target(mob/living/carbon/human/target)
 	return ishuman(target)
@@ -10,7 +13,6 @@
 /datum/surgery_step/internal/manipulate_organs/abduct/extract_organ
 	name = "remove heart"
 	accept_hand = 1
-	time = 32
 	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_behaviour = SURGERY_EXTRACT_ORGAN_MANIP
@@ -45,10 +47,9 @@
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert
 	name = "insert gland"
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES)
+	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	accept_any_item = TRUE // can_use will check if it's a gland
-	time = 32
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	return ..() && istype(tool, /obj/item/organ/internal/heart/gland)
@@ -62,26 +63,16 @@
 	user.drop_item()
 	var/obj/item/organ/internal/heart/gland/gland = tool
 	gland.insert(target, 2)
+	target.setOxyLoss(0)
+	target.set_heartattack(FALSE)
+	for(var/v in target.viruses)
+		if(istype(v, /datum/disease/critical))
+			var/datum/disease/critical/V = v
+			V.cure()
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	affected.mend_fracture() // Aylmao tech baby
 	return TRUE
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='warning'>[user]'s hand slips, failing to insert the gland!</span>", "<span class='warning'>Your hand slips, failing to insert the gland!</span>")
 	return FALSE
-
-//IPC Gland Surgery//
-/datum/surgery_step/internal/manipulate_organs/abduct/extract_organ/synth
-	name = "remove cell"
-	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_OPEN
-	possible_locs = list("chest")
-	requires_organic_bodypart = FALSE
-
-
-
-/datum/surgery_step/internal/manipulate_organs/abduct/extract_organ/synth/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(!..())
-		return FALSE
-
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!affected.is_robotic())
-		return FALSE
-	return TRUE
