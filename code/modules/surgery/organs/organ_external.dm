@@ -7,7 +7,6 @@
 	max_damage = 0
 	dir = SOUTH
 	organ_tag = "limb"
-	surgery_behaviours = list(SURGERY_ATTACH_LIMB = 100)
 
 	var/brute_mod = 1
 	var/burn_mod = 1
@@ -710,6 +709,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		I.forceMove(src)
 	if(!owner.has_embedded_objects())
 		owner.clear_alert("embeddedobject")
+
+	for(var/s in owner.surgeries)
+		var/datum/surgery/S = s
+		if(S.location == limb_name)
+			owner.surgeries -= S
+			qdel(S) // Surgery can't continue on something that is not there
 
 	. = ..()
 

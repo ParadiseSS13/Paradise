@@ -10,7 +10,7 @@
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/robotics/is_valid_target(mob/living/carbon/human/target)
-	return ishuman(target) && ismachine(target)
+	return ishuman(target)
 
 /datum/surgery_step/robotics/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
@@ -131,87 +131,82 @@
 	return FALSE
 
 /datum/surgery_step/robotics/external/repair
-	name = "repair damage internally"
+	name = "repair internal damage"
 	priority = 15
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 	next_surgery_stage =  SURGERY_STAGE_ROBOTIC_HATCH_OPEN
+	accept_any_item = TRUE // Let can_use fix this
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 	time = 32
 
-/datum/surgery_step/robotics/external/repair/brute
-	name = "repair internal brute damage"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_HEAL_BRUTE
+/datum/surgery_step/robotics/external/repair/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!..())
+		return FALSE
+	return TOOL_WELDER == tool.tool_behaviour || istype(tool, /obj/item/stack/cable_coil)
 
-/datum/surgery_step/robotics/external/repair/brute/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/robotics/external/repair/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!(affected.brute_dam > 0 || affected.disfigured))
-		to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
-		return -1
-	if(tool.tool_behaviour == TOOL_WELDER)
-		var/obj/item/weldingtool/W = tool
-		if(W)
-			if(!W.tool_enabled || !tool.use(1))
-				return -1
-	user.visible_message("[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool]." , \
-		"You begin to patch damage to [target]'s [affected.name]'s support structure with \the [tool].")
+	var/success = FALSE
+	if(TOOL_WELDER == tool.tool_behaviour)
+		if(affected.brute_dam <= 0 && !affected.disfigured)
+			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
+		else
+			var/obj/item/weldingtool/W = tool
+			if(W)
+				if(!W.tool_enabled || !tool.use(1))
+					return -1 // Still an early return here
+			user.visible_message("<span class='notice'>[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool].</span>" , \
+				"<span class='notice'>You begin to patch damage to [target]'s [affected.name]'s support structure with \the [tool].</span>")
+			success = TRUE
 
+	if(istype(tool, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/C = tool
+		if(affected.burn_dam <= 0)
+			to_chat(user, "<span class='warning'>The [affected] does not have any burn damage!</span>")
+		else 
+			if(C.get_amount() < 4) // 4 because else the stack will disappear after you use 3
+				to_chat(user, "<span class='warning'>You need four or more cable pieces to repair this damage.</span>")
+				return -1 // Still an early return here
+			C.use(3)
+			user.visible_message("<span class='notice'>[user] begins to splice new cabling into [target]'s [affected.name].</span>" , \
+				"<span class='notice'>You begin to splice new cabling into [target]'s [affected.name].</span>")
+			success = TRUE
+
+	if(!success)
+		return -1
 	..()
 
-/datum/surgery_step/robotics/external/repair/brute/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/robotics/external/repair/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/continue_repairing = FALSE
+	if(TOOL_WELDER == tool.tool_behaviour)
+		user.visible_message("<span class='notice'>[user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
+			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
+		affected.heal_damage(rand(30,50),0,1,1)
+		affected.disfigured = FALSE
+		continue_repairing = affected.brute_dam > 0
 
-	user.visible_message("<span class='notice'> [user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
-		"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
-	affected.heal_damage(rand(30,50),0,1,1)
-	affected.disfigured = FALSE
-	
-	return affected.brute_dam > 0 ? SURGERY_CONTINUE : FALSE
-
-/datum/surgery_step/robotics/external/repair/brute/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	
-	user.visible_message("<span class='warning'> [user]'s [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>",
-		"<span class='warning'> Your [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>")
-	target.apply_damage(rand(5,10), BURN, affected)
-
-	return FALSE
-
-/datum/surgery_step/robotics/external/repair/burn
-	name = "repair internal burn damage"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_HEAL_BURN
-
-/datum/surgery_step/robotics/external/repair/burn/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	
-	if(!(affected.burn_dam > 0))
-		to_chat(user, "<span class='warning'>The [affected] does not have any burn damage!</span>")
-		return -1
 	var/obj/item/stack/cable_coil/C = tool
 	if(istype(C))
-		if(!C.get_amount() >= 3)
-			to_chat(user, "<span class='warning'>You need three or more cable pieces to repair this damage.</span>")
-			return -1
-		C.use(3)
-		user.visible_message("[user] begins to splice new cabling into [target]'s [affected.name]." , \
-			"You begin to splice new cabling into [target]'s [affected.name].")
+		user.visible_message("<span class='notice'>[user] finishes splicing cable into [target]'s [affected.name].</span>", \
+			"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
+		affected.heal_damage(0,rand(30,50),1,1)
+		continue_repairing = continue_repairing || affected.burn_dam > 0
 
-	..()
+	return continue_repairing ? SURGERY_CONTINUE : FALSE
 
-/datum/surgery_step/robotics/external/repair/burn/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/robotics/external/repair/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(TOOL_WELDER == tool.tool_behaviour)
+		user.visible_message("<span class='warning'>[user]'s [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>",
+				"<span class='warning'> Your [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>")
 	
-	user.visible_message("<span class='notice'> [user] finishes splicing cable into [target]'s [affected.name].</span>", \
-		"<span class='notice'> You finishes splicing new cable into [target]'s [affected.name].</span>")
-	affected.heal_damage(0,rand(30,50),1,1)
+	if(istype(tool, /obj/item/stack/cable_coil))
+		user.visible_message("<span class='warning'>[user] causes a short circuit in [target]'s [affected.name]!</span>",
+			"<span class='warning'> You cause a short circuit in [target]'s [affected.name]!</span>")
 	
-	return affected.burn_dam > 0 ? SURGERY_CONTINUE : FALSE
+	target.apply_damage(rand(5,10), BURN, affected)
 
-/datum/surgery_step/robotics/external/repair/burn/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-
-	user.visible_message("<span class='warning'> [user] causes a short circuit in [target]'s [affected.name]!</span>",
-		"<span class='warning'> You cause a short circuit in [target]'s [affected.name]!</span>")
-	
 	return FALSE
 
 ///////condenseing remove/extract/repair here.	/////////////
@@ -385,7 +380,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mmi
 	name = "insert MMI"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_INSERT_MMI
+	accept_any_item = TRUE
 	possible_locs = list("chest")
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mmi/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/mmi/tool, datum/surgery/surgery)

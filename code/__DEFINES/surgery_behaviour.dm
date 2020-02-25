@@ -11,10 +11,7 @@
 #define SURGERY_DRILL_BONE					"drill bone"
 #define SURGERY_AMPUTATE					"amputate"
 #define SURGERY_EXTRACT_IMPLANT				"extract implant"
-#define SURGERY_AUGMENT_ROBOTIC				"augment robotic"
-#define SURGERY_ATTACH_LIMB					"attach limb"
 #define SURGERY_CONNECT_LIMB 				"connect limb"
-#define SURGERY_ATTACH_ROBOTIC_LIMB			"attach robotic limb"
 #define SURGERY_EXTRACT_ORGAN_MANIP			"extract organ manip"
 #define SURGERY_HEAL_ORGAN_MANIP			"heal organ manip"
 #define SURGERY_CLEAN_ORGAN_MANIP			"clean organ manip"
@@ -38,7 +35,6 @@
 #define SURGERY_ROBOTIC_OPEN_CLOSE_HATCH	"open close hatch"
 #define SURGERY_ROBOTIC_HEAL_BURN			"robotic heal burn"
 #define SURGERY_ROBOTIC_HEAL_BRUTE			"robotic heal brute"
-#define SURGERY_ROBOTIC_INSERT_MMI			"robotic insert mmi"
 #define SURGERY_ROBOTIC_EXTRACT_ORGAN		"robotic extract organ"
 #define SURGERY_ROBOTIC_MEND				"robotic mend"
 // #define SURGERY_ROBOTIC_AMPUTATE			"robotic amputate" SAME AS SURGERY_ROBOTIC_EXTRACT_ORGAN

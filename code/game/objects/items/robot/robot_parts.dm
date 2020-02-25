@@ -9,7 +9,6 @@
 	var/sabotaged = 0 //Emagging limbs can have repercussions when installed as prosthetics.
 	var/model_info = "Unbranded"
 	dir = SOUTH
-	surgery_behaviours = list(SURGERY_AUGMENT_ROBOTIC = 100, SURGERY_ATTACH_ROBOTIC_LIMB = 100)
 
 /obj/item/robot_parts/New(newloc, model)
 	..(newloc)

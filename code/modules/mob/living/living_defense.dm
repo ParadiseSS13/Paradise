@@ -292,7 +292,7 @@
 
 /mob/living/proc/surgery_act(mob/living/user, obj/item/I, datum/surgery/S)
 	. = S.next_step(user, src, I)
-	if(S.current_stage == SURGERY_STAGE_START) // Remove surgeries that haven't started yet
+	if(!QDELETED(S) && S.current_stage == SURGERY_STAGE_START) // Remove surgeries that haven't started yet. Amputate will qdel the surgery itself
 		surgeries -= S
 		qdel(S)
 

@@ -160,8 +160,13 @@
 // Check if the given zone is valid on this surgery step for the given target and stage
 /datum/surgery_step/proc/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if((!affected_organ_available && affected) || (affected_organ_available && !affected))
-		return FALSE
+	
+	if(affected_organ_available)
+		if(!affected)
+			return FALSE
+	else
+		return !affected // No more checks needed
+
 	if((requires_organic_bodypart && affected.is_robotic()))
 		return FALSE
 	return TRUE

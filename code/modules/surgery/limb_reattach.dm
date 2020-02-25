@@ -55,15 +55,14 @@
 	name = "attach limb"
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_ATTACH_LIMB
-	allowed_surgery_behaviour = SURGERY_ATTACH_LIMB
-	var/robo_man_allowed = FALSE
-	affected_organ_available = FALSE // Can't put on another limb when another is already there
-	requires_organic_bodypart = TRUE
+	accept_any_item = TRUE
+	var/robo_man_allowed = FALSE		// If IPCs are allowed
+	var/robotic_limb = FALSE 			// If it should be a robotic limb. If false then it should be organic
+	affected_organ_available = FALSE 	// Can't put on another limb when another is already there
 	time = 32
 
 /datum/surgery_step/limb/attach/is_valid_target(mob/living/carbon/human/target)
 	return ..() && (robo_man_allowed || !ismachine(target))
-	
 
 /datum/surgery_step/limb/attach/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
@@ -73,6 +72,9 @@
 		return FALSE
 	
 	var/obj/item/organ/external/E = tool
+	var/is_robo_limb = E.is_robotic()
+	if((robotic_limb && !is_robo_limb) || (!robotic_limb && is_robo_limb))
+		return FALSE
 	if(target.get_organ(E.limb_name))
 		// This catches attaching an arm to a missing hand while the arm is still there
 		return FALSE
@@ -122,7 +124,7 @@
 	name = "attach robotic limb"
 	next_surgery_stage = SURGERY_STAGE_START
 	robo_man_allowed = TRUE
-	requires_organic_bodypart = FALSE
+	robotic_limb = TRUE
 
 /datum/surgery_step/limb/attach/robo/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
@@ -177,18 +179,21 @@
 	target.apply_damage(10, BRUTE, null, sharp = 1)
 	return FALSE
 
+// Difference between this and attach robo limb is that this one uses obj/item/robot_parts
 /datum/surgery_step/limb/mechanize
 	name = "apply robotic prosthetic"
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_behaviour = SURGERY_AUGMENT_ROBOTIC
-	requires_organic_bodypart = FALSE // Can also replace robo arms
+	accept_any_item = TRUE
+	affected_organ_available = FALSE // Can't place if it's still there!
 	time = 32
 
 /datum/surgery_step/limb/mechanize/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
 		return FALSE
 	var/obj/item/robot_parts/p = tool
+	if(!istype(p))
+		return FALSE
 	if(p.part)
 		if(!(target_zone in p.part))
 			to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")

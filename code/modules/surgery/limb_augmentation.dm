@@ -2,7 +2,7 @@
 	name = "augment limb with robotic part"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_behaviour = SURGERY_AUGMENT_ROBOTIC
+	accept_any_item = TRUE
 	possible_locs = list("head", "chest","l_arm","r_arm","r_leg","l_leg")
 	time = 32
 
@@ -23,6 +23,9 @@
 		return FALSE
 
 	var/obj/item/robot_parts/p = tool
+	if(!istype(p))
+		return FALSE
+
 	if(p.part)
 		if(!(target_zone in p.part))
 			return FALSE
