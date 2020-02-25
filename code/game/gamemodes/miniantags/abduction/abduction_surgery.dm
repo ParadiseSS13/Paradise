@@ -55,6 +55,12 @@
 	return ..() && istype(tool, /obj/item/organ/internal/heart/gland)
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	for(var/obj/item/I in target.get_organs_zone(target_zone))
+		// Allows for multiple subtypes of heart.
+		if(istype(I, /obj/item/organ/internal/heart))
+			to_chat(user, "<span class='warning'>Remove the original heart first!</span>")
+			return -1
+	
 	user.visible_message("[user] starts to insert [tool] into [target].", "<span class ='notice'>You start to insert [tool] into [target]...</span>")
 	..()
 
