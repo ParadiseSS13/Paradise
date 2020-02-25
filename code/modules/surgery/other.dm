@@ -52,7 +52,7 @@
 	time = 32
 
 /datum/surgery_step/fix_vein/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/fix_vein/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())
@@ -99,7 +99,7 @@
 	time = 24
 
 /datum/surgery_step/treat_necrosis/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/treat_necrosis/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())
@@ -183,7 +183,7 @@
 	time = 30
 
 /datum/surgery_step/internal/dethrall/is_valid_target(mob/living/carbon/human/target)
-	return istype(target) && is_thrall(target)
+	return ishuman(target) && is_thrall(target)
 
 /datum/surgery_step/internal/dethrall/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!..())

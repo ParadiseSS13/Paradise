@@ -10,7 +10,7 @@
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/robotics/is_valid_target(mob/living/carbon/human/target)
-	return istype(target) && ismachine(target)
+	return ishuman(target) && ismachine(target)
 
 /datum/surgery_step/robotics/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())

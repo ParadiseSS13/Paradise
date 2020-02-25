@@ -9,7 +9,7 @@
 	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin", "head")
 
 /datum/surgery_step/encasing/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/encasing/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())

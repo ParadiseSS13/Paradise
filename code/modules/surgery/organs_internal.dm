@@ -378,7 +378,7 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery_step/alien/is_valid_target(mob/living/carbon/alien/humanoid/target)
-	return istype(target)
+	return isalienadult(target)
 
 /datum/surgery_step/alien/saw_carapace
 	name = "saw carapace"

@@ -2,10 +2,10 @@
 	possible_locs = list("chest", "head")
 
 /datum/surgery_step/internal/manipulate_organs/abduct/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/internal/manipulate_organs/abduct/is_valid_user(mob/living/carbon/human/user)
-	return istype(user) && (isabductor(user) || (locate(/obj/item/implant/abductor) in user))
+	return ishuman(user) && (isabductor(user) || (locate(/obj/item/implant/abductor) in user))
 
 /datum/surgery_step/internal/manipulate_organs/abduct/extract_organ
 	name = "remove heart"

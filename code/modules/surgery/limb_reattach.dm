@@ -7,7 +7,7 @@
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot")
 
 /datum/surgery_step/limb/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/limb/amputate
 	name = "amputate limb"
@@ -155,11 +155,6 @@
 
 /datum/surgery_step/limb/connect/is_valid_target(mob/living/carbon/human/target)
 	return ..() && !ismachine(target)
-
-/datum/surgery_step/limb/connect/can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-	return TRUE
 
 /datum/surgery_step/limb/connect/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)

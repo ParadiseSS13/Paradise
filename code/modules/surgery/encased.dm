@@ -8,7 +8,7 @@
 	blood_level = 1
 
 /datum/surgery_step/open_encased/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/open_encased/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	if(!..())

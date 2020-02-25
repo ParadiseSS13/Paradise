@@ -8,7 +8,7 @@
 	priority = 10 // Pretty high. Usually what you want
 
 /datum/surgery_step/generic/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/generic/cut_open
 	name = "make incision"

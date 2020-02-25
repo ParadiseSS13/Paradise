@@ -63,20 +63,22 @@
 
 /* SURGERY STEPS */
 /datum/surgery_step
+	var/name			// Don't forget to name actual steps and make sure the name is unique. This will be used in the selecting logic
+	
 	var/priority = 1	//steps with higher priority will be put higher in the possible steps list
 
-	var/allowed_surgery_behaviour = null // The behaviours allowed for the surgery step
 
-	var/surgery_start_stage = null 			// The stage that the surgery should be in should this step be an option
+
+	var/surgery_start_stage = null 			// The stage that the surgery should be in should this step be an option. Can be a list of stages
 	var/next_surgery_stage = null 			// The stage surgery will be in after this step completes
 	var/list/possible_locs = null 			//Multiple locations -- c0
 	var/requires_organic_bodypart = TRUE	//Prevents you from performing an operation on robotic limbs
-	var/affected_organ_available = TRUE 		// If the surgery step actually needs an organ to be on the selected spot
-	// duration of the step
-	var/time = 10
+	var/affected_organ_available = TRUE 	// If the surgery step actually needs an organ to be on the selected spot
+	var/time = 10							// duration of the step
+	
 
-	var/name
-	var/accept_hand = FALSE				//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
+	var/allowed_surgery_behaviour = null	// The behaviours allowed for the surgery step	
+	var/accept_hand = FALSE					//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
 	var/accept_any_item = FALSE
 
 	var/pain = TRUE
@@ -151,9 +153,11 @@
 		return FALSE
 	return TRUE
 
+// Check if the user is valid for this surgery step
 /datum/surgery_step/proc/is_valid_user(mob/living/user)
 	return istype(user)
 
+// Check if the given zone is valid on this surgery step for the given target and stage
 /datum/surgery_step/proc/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if((!affected_organ_available && affected) || (affected_organ_available && !affected))
@@ -229,21 +233,3 @@
 				O.germ_level += germs
 
 	E.germ_level += germs
-
-/*
-/proc/sort_surgeries()
-	var/gap = GLOB.surgery_steps.len
-	var/swapped = 1
-	while(gap > 1 || swapped)
-		swapped = 0
-		if(gap > 1)
-			gap = round(gap / 1.247330950103979)
-		if(gap < 1)
-			gap = 1
-		for(var/i = 1; gap + i <= GLOB.surgery_steps.len; i++)
-			var/datum/surgery_step/l = GLOB.surgery_steps[i]		//Fucking hate
-			var/datum/surgery_step/r = GLOB.surgery_steps[gap+i]	//how lists work here
-			if(l.priority < r.priority)
-				GLOB.surgery_steps.Swap(i, gap + i)
-				swapped = 1
-*/

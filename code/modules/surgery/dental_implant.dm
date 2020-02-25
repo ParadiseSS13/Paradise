@@ -3,7 +3,7 @@
 	can_infect = TRUE
 
 /datum/surgery_step/dental/is_valid_target(mob/living/carbon/human/target)
-	return istype(target) && target.check_has_mouth()
+	return ishuman(target) && target.check_has_mouth()
 
 /datum/surgery_step/dental/drill
 	name = "drill bone"

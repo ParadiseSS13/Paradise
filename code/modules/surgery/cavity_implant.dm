@@ -3,7 +3,7 @@
 	possible_locs = list("chest","head","groin")
 
 /datum/surgery_step/cavity/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/cavity/proc/get_max_wclass(obj/item/organ/external/affected)
 	switch(affected.limb_name)

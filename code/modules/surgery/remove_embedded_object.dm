@@ -9,7 +9,7 @@
 	var/obj/item/organ/external/L = null
 
 /datum/surgery_step/remove_object/is_valid_target(mob/living/carbon/human/target)
-	return istype(target)
+	return ishuman(target)
 
 /datum/surgery_step/remove_object/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.organ_ref
