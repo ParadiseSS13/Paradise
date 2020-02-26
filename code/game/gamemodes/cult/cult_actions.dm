@@ -71,3 +71,71 @@
 		SSticker.mode.cult_objs.study(usr)
 	else
 		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+
+//Draw rune
+
+
+/datum/action/innate/cult/use_dagger
+	name = "Draw Blood Rune"
+	desc = "Use the ritual dagger to create a powerful blood rune"
+	button_icon_state = "cult_dagger"
+
+/datum/action/innate/cult/use_dagger/Grant()
+	if(SSticker.mode)
+		button_icon_state = SSticker.cultdat.dagger_icon
+	..()
+	button.ordered = FALSE
+	button.screen_loc = "6:157,4:-2"
+	button.moved = "6:157,4:-2"
+
+/datum/action/innate/cult/use_dagger/Activate()
+	var/obj/item/I
+	I = usr.get_active_hand()
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		I.attack_self(usr)
+		return
+	I = owner.get_inactive_hand()
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		I.attack_self(usr)
+		return
+	var/obj/item/melee/cultblade/dagger/D = locate() in usr
+	if(!D)
+		D = locate() in usr.get_item_by_slot(slot_back)
+	if(!D)
+		to_chat(usr, "<span class='cultitalic'>You do not seem to carry a ritual dagger to draw a rune with. If you need a new one, scribe and use the Summon Dagger spell.</span>")
+		return FALSE
+	usr.remove_from_mob(D)
+	usr.put_in_hands(D)
+	D.attack_self(usr)
+
+/datum/action/item_action/cult_dagger
+	name = "Draw Blood Rune"
+	desc = "Use the ritual dagger to create a powerful blood rune"
+	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	button_icon_state = "draw"
+	background_icon_state = "bg_cult"
+	buttontooltipstyle = "cult"
+
+/datum/action/item_action/cult_dagger/Grant(mob/M)
+	if(iscultist(M))
+		..()
+		button.ordered = FALSE
+		button.screen_loc = "6:157,4:-2"
+		button.moved = "6:157,4:-2"
+	else
+		Remove(owner)
+
+/datum/action/item_action/cult_dagger/Trigger()
+	var/obj/item/I
+	I = owner.get_active_hand()
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		I.attack_self(owner)
+		return
+	I = owner.get_inactive_hand()
+	if(istype(I, /obj/item/melee/cultblade/dagger))
+		I.attack_self(owner)
+		return
+	var/obj/item/T = target
+	owner.remove_from_mob(T)
+	owner.put_in_hands(T)
+	T.attack_self(owner)

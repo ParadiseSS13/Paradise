@@ -151,35 +151,3 @@
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
 	R.add_hiddenprint(H)
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune_to_scribe.cultist_name))] rune [initial(rune_to_scribe.cultist_desc)]</span>")
-
-/datum/action/item_action/cult_dagger
-	name = "Draw Blood Rune"
-	desc = "Use the ritual dagger to create a powerful blood rune"
-	icon_icon = 'icons/mob/actions/actions_cult.dmi'
-	button_icon_state = "draw"
-	background_icon_state = "bg_cult"
-	buttontooltipstyle = "cult"
-
-/datum/action/item_action/cult_dagger/Grant(mob/M)
-	if(iscultist(M))
-		..()
-		button.ordered = FALSE
-		button.screen_loc = "6:157,4:-2"
-		button.moved = "6:157,4:-2"
-	else
-		Remove(owner)
-
-/datum/action/item_action/cult_dagger/Trigger()
-	var/obj/item/I
-	I = owner.get_active_hand()
-	if(istype(I, /obj/item/melee/cultblade/dagger))
-		I.attack_self(owner)
-		return
-	I = owner.get_inactive_hand()
-	if(istype(I, /obj/item/melee/cultblade/dagger))
-		I.attack_self(owner)
-		return
-	var/obj/item/T = target
-	owner.remove_from_mob(T)
-	owner.put_in_hands(T)
-	T.attack_self(owner)
