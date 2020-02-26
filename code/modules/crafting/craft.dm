@@ -109,19 +109,28 @@
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
+	var/list/other_tools = list()
 	for(var/obj/item/I in user.contents)
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
 				if(SI.tool_behaviour) //Only add things that we could actually use as a tool
 					possible_tools += SI
+				else
+					other_tools += SI.type				
 		if(I.tool_behaviour)
 			possible_tools += I
+		else
+			other_tools += I.type
 	possible_tools |= contents["other"]
+	other_tools |= contents["other"]
 	main_loop:
 		for(var/A in R.tools)
 			for(var/obj/item/I in possible_tools)
 				if(A == I.tool_behaviour)
 					tools_used += I
+					continue main_loop
+			for(var/I in other_tools)
+				if(ispath(I,A))
 					continue main_loop
 			return FALSE
 	for(var/obj/item/T in tools_used)
