@@ -80,7 +80,7 @@
 	item_state = "cultrobes"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/culthood
-	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
 
@@ -105,26 +105,26 @@
 	icon_state = "magusred"
 	item_state = "magusred"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
+	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list("melee" = 50, "bullet" = 30, "laser" = 50, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 
-/obj/item/clothing/head/helmet/space/cult
-	name = "cult helmet"
+/obj/item/clothing/head/helmet/space/hardsuit/cult
+	name = "cult reinforced helmet"
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
 
-/obj/item/clothing/suit/space/cult
-	name = "cult armor"
+/obj/item/clothing/suit/space/hardsuit/cult
+	name = "cult reinforced hardsuit"
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
-	w_class = WEIGHT_CLASS_NORMAL
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
+	actions_types = list() //No inbuilt light
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank)
-	slowdown = 1
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cult
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robe"
@@ -451,7 +451,7 @@
 		var/mob/living/L = hit_atom
 		if(iscultist(L))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-			if(L.put_in_active_hand(src))
+			if(!L.restrained() && L.put_in_active_hand(src))
 				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")

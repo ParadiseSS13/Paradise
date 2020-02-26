@@ -149,8 +149,7 @@ var/sc_safecode5 = "[rand(0,9)]"
 	l_set = 1
 	new /obj/item/gun/energy/mindflayer(src)
 	new /obj/item/soulstone(src)
-	new /obj/item/clothing/head/helmet/space/cult(src)
-	new /obj/item/clothing/suit/space/cult(src)
+	new /obj/item/clothing/suit/space/hardsuit/cult(src)
 	//new /obj/item/teleportation_scroll(src)
 	new /obj/item/stack/ore/diamond(src)
 

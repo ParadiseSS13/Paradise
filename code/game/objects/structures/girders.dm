@@ -337,7 +337,6 @@
 		state = GIRDER_DISASSEMBLED
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 		refundMetal(metalUsed)
-		M.add_fingerprint(user)
 		qdel(src)
 	else
 		if(!isfloorturf(loc))

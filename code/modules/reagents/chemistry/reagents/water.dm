@@ -273,8 +273,8 @@
 		M.Dizzy(5)
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
-				to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
+					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
 					qdel(BS)
 			if(prob(5))
 				M.AdjustCultSlur(5)//5 seems like a good number...
