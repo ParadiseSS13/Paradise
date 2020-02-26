@@ -228,6 +228,8 @@ var/global/list/all_cults = list()
 		if(ishuman(cult_mind.current))
 			var/datum/action/innate/cult/blood_magic/magic = new
 			magic.Grant(cult_mind.current)
+			var/datum/action/innate/cult/use_dagger/dagger = new
+			dagger.Grant(cult_mind.current)
 		cult_mind.current.update_action_buttons(TRUE)
 
 /datum/game_mode/cult/proc/get_unconvertables()

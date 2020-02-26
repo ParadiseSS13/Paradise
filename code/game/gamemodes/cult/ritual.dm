@@ -10,7 +10,6 @@
 	force = 15
 	throwforce = 25
 	armour_penetration = 35
-	actions_types = list(/datum/action/item_action/cult_dagger)
 	var/drawing_rune = FALSE
 
 /obj/item/melee/cultblade/dagger/New()

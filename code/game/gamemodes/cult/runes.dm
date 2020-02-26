@@ -487,7 +487,7 @@ var/list/teleport_runes = list()
 /obj/effect/rune/raise_dead/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
-		. += "<b>Sacrifices unrewarded:</b> [LAZYLEN(GLOB.sacrificed) - sacrifices_used]"
+		. += "<b>Revives available:</b> [LAZYLEN(GLOB.sacrificed) - sacrifices_used / 3]"
 
 /obj/effect/rune/raise_dead/invoke(var/list/invokers)
 	var/turf/T = get_turf(src)
