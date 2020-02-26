@@ -759,6 +759,38 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
+	if(!(usr in GLOB.respawnable_list))
+		to_chat(usr, "You are not dead or you have given up your right to be respawned!")
+		return
+
+	var/deathtime = world.time - src.timeofdeath
+	var/joinedasobserver = 0
+	if(istype(src,/mob/dead/observer))
+		var/mob/dead/observer/G = src
+		if(cannotPossess(G))
+			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return
+		if(G.started_as_observer == 1)
+			joinedasobserver = 1
+
+	var/deathtimeminutes = round(deathtime / 600)
+	var/pluralcheck = "minute"
+	if(deathtimeminutes == 0)
+		pluralcheck = ""
+	else if(deathtimeminutes == 1)
+		pluralcheck = " [deathtimeminutes] minute and"
+	else if(deathtimeminutes > 1)
+		pluralcheck = " [deathtimeminutes] minutes and"
+	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
+
+	if(deathtimeminutes < config.respawn_delay && joinedasobserver == 0)
+		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
+		to_chat(usr, "<span class='warning'>You must wait [config.respawn_delay] minutes to respawn!</span>")
+		return
+
+	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
+		return
+
 	log_game("[key_name(usr)] has respawned.")
 
 	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
@@ -773,6 +805,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		log_game("[key_name(usr)] respawn failed due to disconnect.")
 		return
 
+	GLOB.respawnable_list -= usr
 	var/mob/new_player/M = new /mob/new_player()
 	if(!client)
 		log_game("[key_name(usr)] respawn failed due to disconnect.")
@@ -780,6 +813,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 
 	M.key = key
+	GLOB.respawnable_list += usr
 	return
 
 /mob/verb/observe()
@@ -1101,7 +1135,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in GLOB.respawnable_list) && (stat==2 || istype(usr,/mob/dead/observer)))
+	if(stat==2 || istype(usr,/mob/dead/observer)) // Always can respawn as NPC
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/L in GLOB.alive_mob_list)
 			if(safe_respawn(L.type) && L.stat!=2)

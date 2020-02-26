@@ -275,6 +275,11 @@
 	/// Limit of how many SQL threads can run at once
 	var/rust_sql_thread_limit = 50
 
+	// Delay before respawning for players and drones (minutes)
+	var/respawn_delay = 20
+	var/respawn_delay_drone = 10
+	var/respawn_observer = FALSE
+
 /datum/configuration/New()
 	for(var/T in subtypesof(/datum/game_mode))
 		var/datum/game_mode/M = T
@@ -782,6 +787,18 @@
 				// End discord stuff
 				if("centcom_ban_db_url")
 					centcom_ban_db_url = value
+
+				if ("disable_respawn")
+					GLOB.abandon_allowed = 0
+				if ("respawn_observer")
+					config.respawn_observer = TRUE
+				if ("respawn_delay")
+					config.respawn_delay = text2num(value)
+					config.respawn_delay = config.respawn_delay > 0 ? config.respawn_delay : 0
+				if ("respawn_delay_drone")
+					config.respawn_delay_drone = text2num(value)
+					config.respawn_delay_drone = config.respawn_delay_drone > 0 ? config.respawn_delay_drone : 0
+
 				else
 					log_config("Unknown setting in configuration: '[name]'")
 

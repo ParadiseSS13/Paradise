@@ -134,9 +134,9 @@
 		pluralcheck = " [deathtimeminutes] minutes and"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
-	if(deathtime < 6000 && joinedasobserver == 0)
+	if(deathtimeminutes < config.respawn_delay_drone && joinedasobserver == 0)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait 10 minutes to respawn as a drone!</span>")
+		to_chat(usr, "<span class='warning'>You must wait [config.respawn_delay_drone] minutes to respawn as a drone!</span>")
 		return
 
 	if(alert("Are you sure you want to respawn as a drone?", "Are you sure?", "Yes", "No") != "Yes")

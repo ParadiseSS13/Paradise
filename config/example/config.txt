@@ -492,3 +492,16 @@ BYOND_ACCOUNT_AGE_THRESHOLD 7
 ## THE TRAILING SLASH ON THE END IS IMPORTANT SINCE IT JUST APPENDS THE CKEY TO THE END IN RAW
 ## Add a hash before the line below to disable the system
 CENTCOM_BAN_DB_URL https://centcom.melonmesa.com/ban/search/
+
+
+## Uncomment to disable respawning by default.
+#DISABLE_RESPAWN
+
+## Uncomment to allow players joined as observer respawning.
+#RESPAWN_OBSERVER
+
+## Respawn delay in minutes before one may respawn as a crew member.
+RESPAWN_DELAY 20
+
+## Respawn delay in minutes before one may respawn as a drone.
+RESPAWN_DELAY_DRONE 10
