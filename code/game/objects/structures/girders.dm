@@ -70,7 +70,7 @@
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 		if(istype(W, /obj/item/stack/sheet/runed_metal))
-			to_chat(user, "<span class='warning'>You can't seem to make the metal bend..</span>")
+			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")
 			return
 
 		if(istype(W,/obj/item/stack/rods))
@@ -336,7 +336,7 @@
 			return
 		state = GIRDER_DISASSEMBLED
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
-		var/obj/item/stack/sheet/metal/M = new(loc, 2)
+		refundMetal(metalUsed)
 		M.add_fingerprint(user)
 		qdel(src)
 	else
@@ -417,13 +417,9 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
-/obj/structure/girder/cult/refundMetal(metalAmount)
-	for(var/i=0;i < metalAmount;i++)
-		new /obj/item/stack/sheet/runed_metal(get_turf(src))
-
 /obj/structure/girder/cult/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
-	if(istype(W, /obj/structure/girder/cult) && iscultist(user)) //Cultists can demolish cult girders instantly with their tomes
+	if(istype(W, /obj/item/melee/cultblade/dagger) && iscultist(user)) //Cultists can demolish cult girders instantly with their dagger
 		user.visible_message("<span class='warning'>[user] strikes [src] with [W]!</span>", "<span class='notice'>You demolish [src].</span>")
 		refundMetal(metalUsed)
 		qdel(src)

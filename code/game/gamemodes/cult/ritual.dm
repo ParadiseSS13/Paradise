@@ -6,6 +6,7 @@
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "cult_dagger"
+	item_state = "cult_dagger"
 	w_class = WEIGHT_CLASS_SMALL
 	force = 15
 	throwforce = 25
@@ -15,6 +16,7 @@
 /obj/item/melee/cultblade/dagger/New()
 	if(SSticker.mode)
 		icon_state = SSticker.cultdat.dagger_icon
+		item_state = SSticker.cultdat.dagger_icon
 	..()
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)

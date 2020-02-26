@@ -271,9 +271,14 @@
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
 		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
 		M.Dizzy(5)
-		if(iscultist(M) && prob(5))
-			M.AdjustCultSlur(5)//5 seems like a good number...
-			M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+		if(iscultist(M))
+			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
+				to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
+					qdel(BS)
+			if(prob(5))
+				M.AdjustCultSlur(5)//5 seems like a good number...
+				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
 		M.AdjustConfused(3)
 		if(isvampirethrall(M))

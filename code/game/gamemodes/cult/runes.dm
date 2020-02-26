@@ -213,7 +213,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
 /obj/effect/rune/convert
 	cultist_name = "Offer"
-	cultist_desc = "Offers non-cultists on top of it to the Dark One, either converting or sacrificing them."
+	cultist_desc = "offers non-cultists on top of it to the Dark One, either converting or sacrificing them."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
 	icon_state = "3"
 	color = RUNE_COLOR_OFFER
