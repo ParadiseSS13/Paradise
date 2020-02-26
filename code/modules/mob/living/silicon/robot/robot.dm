@@ -332,6 +332,8 @@ var/list/robot_verbs_default = list(
 			module_sprites["Standard"] = "Standard-Mine"
 			module_sprites["Noble-DIG"] = "Noble-DIG"
 			module_sprites["Cricket"] = "Cricket-MINE"
+			module_sprites["Lavaland"] = "lavaland"
+			module_sprites["Spidermin"] = "spidermin"
 
 		if("Medical")
 			module = new /obj/item/robot_module/medical(src)
