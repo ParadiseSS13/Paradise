@@ -89,12 +89,6 @@
 				else
 					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
 				return
-
-			if(istype(P, /obj/item/wrench))
-				playsound(src.loc, P.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
-				deconstruct(TRUE)
-				return
 		if(2)
 			if(istype(P, /obj/item/circuitboard))
 				var/obj/item/circuitboard/B = P
@@ -113,53 +107,7 @@
 				else
 					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
 				return
-			if(istype(P, /obj/item/wirecutters))
-				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
-				state = 1
-				icon_state = "box_0"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
-				A.amount = 5
-				return
 		if(3)
-			if(istype(P, /obj/item/crowbar))
-				playsound(src.loc, P.usesound, 50, 1)
-				state = 2
-				circuit.loc = src.loc
-				circuit = null
-				if(components.len == 0)
-					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				else
-					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
-					for(var/obj/item/I in components)
-						I.loc = src.loc
-				desc = initial(desc)
-				req_components = null
-				components = null
-				icon_state = "box_1"
-				return
-
-			if(istype(P, /obj/item/screwdriver))
-				var/component_check = 1
-				for(var/R in req_components)
-					if(req_components[R] > 0)
-						component_check = 0
-						break
-				if(component_check)
-					playsound(src.loc, P.usesound, 50, 1)
-					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.loc = null
-						new_machine.component_parts += O
-					circuit.loc = null
-					new_machine.RefreshParts()
-					qdel(src)
-				return
-
 			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
 				var/obj/item/storage/part_replacer/replacer = P
 				var/list/added_components = list()
@@ -215,6 +163,70 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+/obj/machinery/constructable_frame/machine_frame/crowbar_act(mob/user, obj/item/I)
+	if(state != 3)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	state = 2
+	circuit.loc = drop_location()
+	circuit = null
+	if(components.len == 0)
+		to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
+	else
+		to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
+		for(var/obj/item/thing in components)
+			thing.loc = drop_location()
+	desc = initial(desc)
+	req_components = null
+	components = null
+	icon_state = "box_1"
+
+/obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/user, obj/item/I)
+	if(state != 3)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/component_check = 1
+	for(var/R in req_components)
+		if(req_components[R] > 0)
+			component_check = 0
+			break
+	if(component_check)
+		var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
+		new_machine.on_construction()
+		for(var/obj/O in new_machine.component_parts)
+			qdel(O)
+		new_machine.component_parts = list()
+		for(var/obj/O in src)
+			O.loc = null
+			new_machine.component_parts += O
+		circuit.loc = null
+		new_machine.RefreshParts()
+		qdel(src)
+
+/obj/machinery/constructable_frame/machine_frame/wirecutter_act(mob/user, obj/item/I)
+	if(state != 2)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You remove the cables.</span>")
+	state = 1
+	icon_state = "box_0"
+	var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(drop_location(), 5)
+	A.amount = 5
+
+/obj/machinery/constructable_frame/machine_frame/wrench_act(mob/user, obj/item/I)
+	if(state != 1)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
+	deconstruct(TRUE)
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
@@ -328,18 +340,19 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stack/cable_coil = 1,
 							/obj/item/stack/sheet/glass = 1)
 
-/obj/item/circuitboard/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
-			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-			name = "circuit board (Heater)"
-			to_chat(user, "<span class='notice'>You set the board to heating.</span>")
-		else
-			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
-			name = "circuit board (Freezer)"
-			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
+/obj/item/circuitboard/thermomachine/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	return ..()
+	if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
+		build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+		name = "circuit board (Heater)"
+		to_chat(user, "<span class='notice'>You set the board to heating.</span>")
+	else
+		build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+		name = "circuit board (Freezer)"
+		to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
+
 
 /obj/item/circuitboard/recharger
 	name = "circuit board (Recharger)"
@@ -523,11 +536,11 @@ to destroy them and players will be able to make replacements.
 
 
 
-/obj/item/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		set_type(null, user)
+/obj/item/circuitboard/smartfridge/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	return ..()
+	set_type(null, user)
 
 /obj/item/circuitboard/smartfridge/proc/set_type(typepath, mob/user)
 	var/new_name = ""
@@ -1069,11 +1082,11 @@ to destroy them and players will be able to make replacements.
 		var/new_path = names_paths[pick(names_paths)]
 		set_type(new_path)
 
-/obj/item/circuitboard/logic_gate/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		set_type(null, user)
+/obj/item/circuitboard/logic_gate/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	return ..()
+	set_type(null, user)
 
 /obj/item/circuitboard/logic_gate/proc/set_type(typepath, mob/user)
 	var/new_name = "Logic Base"

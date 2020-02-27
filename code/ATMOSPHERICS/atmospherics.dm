@@ -162,40 +162,42 @@ GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new())
 		P.other_atmosmch -= src
 
 //(De)construction
-/obj/machinery/atmospherics/attackby(obj/item/W, mob/user)
-	if(can_unwrench && istype(W, /obj/item/wrench))
-		var/turf/T = get_turf(src)
-		if(level == 1 && isturf(T) && T.intact)
-			to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
-			return 1
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
-		add_fingerprint(user)
+/obj/machinery/atmospherics/wrench_act(mob/user, obj/item/I)
+	if(!can_unwrench)
+		return
+	. = TRUE
+	var/turf/T = get_turf(src)
+	if(level == 1 && isturf(T) && T.intact)
+		to_chat(user, "<span class='danger'>You must remove the plating first.</span>")
+		return 1
+	if(!I.tool_use_check(user, 0))
+		return
+	var/datum/gas_mixture/int_air = return_air()
+	var/datum/gas_mixture/env_air = loc.return_air()
+	add_fingerprint(user)
 
-		var/unsafe_wrenching = FALSE
-		var/I = int_air ? int_air.return_pressure() : 0
-		var/E = env_air ? env_air.return_pressure() : 0
-		var/internal_pressure = I - E
+	var/unsafe_wrenching = FALSE
+	var/A = int_air ? int_air.return_pressure() : 0
+	var/E = env_air ? env_air.return_pressure() : 0
+	var/internal_pressure = A - E
 
-		playsound(src.loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-		if(internal_pressure > 2*ONE_ATMOSPHERE)
-			to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gush of air blows in your face... maybe you should reconsider?</span>")
-			unsafe_wrenching = TRUE //Oh dear oh dear
+	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
+	if(internal_pressure > 2 * ONE_ATMOSPHERE)
+		to_chat(user, "<span class='warning'>As you begin unwrenching [src] a gush of air blows in your face... maybe you should reconsider?</span>")
+		unsafe_wrenching = TRUE //Oh dear oh dear
 
-		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
-			user.visible_message( \
-				"[user] unfastens \the [src].", \
-				"<span class='notice'>You have unfastened \the [src].</span>", \
-				"<span class='italics'>You hear ratchet.</span>")
-			investigate_log("was <span class='warning'>REMOVED</span> by [key_name(usr)]", "atmos")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || QDELETED(src))
+		return
+	user.visible_message( \
+		"[user] unfastens [src].", \
+		"<span class='notice'>You have unfastened [src].</span>", \
+		"<span class='italics'>You hear ratchet.</span>")
+	investigate_log("was <span class='warning'>REMOVED</span> by [key_name(user)]", "atmos")
 
-			//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
-			if(unsafe_wrenching)
-				unsafe_pressure_release(user,internal_pressure)
-			deconstruct(TRUE)
-	else
-		return ..()
+	//You unwrenched a pipe full of pressure? let's splat you into the wall silly.
+	if(unsafe_wrenching)
+		unsafe_pressure_release(user,internal_pressure)
+	deconstruct(TRUE)
 
 //Called when an atmospherics object is unwrenched while having a large pressure difference
 //with it's locs air contents.

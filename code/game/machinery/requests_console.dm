@@ -49,7 +49,6 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 		// 2 = high priority
 	var/screen = RCS_MAINMENU
 	var/silent = 0 // set to 1 for it not to beep all the time
-//	var/hackState = 0
 		// 0 = not hacked
 		// 1 = hacked
 	var/announcementConsole = 0
@@ -271,28 +270,6 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 					//err... hacking code, which has no reason for existing... but anyway... it was once supposed to unlock priority 3 messanging on that console (EXTREME priority...), but the code for that was removed.
 /obj/machinery/requests_console/attackby(obj/item/I, mob/user)
-	/*
-	if(istype(O, /obj/item/crowbar))
-		if(open)
-			open = 0
-			icon_state="req_comp0"
-		else
-			open = 1
-			if(hackState == 0)
-				icon_state="req_comp_open"
-			else if(hackState == 1)
-				icon_state="req_comp_rewired"
-	if(istype(O, /obj/item/screwdriver))
-		if(open)
-			if(hackState == 0)
-				hackState = 1
-				icon_state="req_comp_rewired"
-			else if(hackState == 1)
-				hackState = 0
-				icon_state="req_comp_open"
-		else
-			to_chat(user, "You can't do much with that.")*/
-
 	if(istype(I, /obj/item/card/id))
 		if(inoperable(MAINT))
 			return

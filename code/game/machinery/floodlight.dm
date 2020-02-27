@@ -90,46 +90,36 @@
 		set_light(brightness_on)
 		updateicon()
 
+/obj/machinery/floodlight/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I, 0)
+
+/obj/machinery/floodlight/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(open)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	unlocked = !unlocked
+	to_chat(user, "You [unlocked ? "unscrew": "secure"] the battery panel.")
+	updateicon()
+
+/obj/machinery/floodlight/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!unlocked)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(open)
+		open = FALSE
+		overlays = null
+		to_chat(user, "You crowbar the battery panel in place.")
+	else
+		open = TRUE
+		to_chat(user, "You remove the battery panel.")
+	updateicon()
+
 /obj/machinery/floodlight/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		if(!anchored && !isinspace())
-			playsound(loc, W.usesound, 50, 1)
-			user.visible_message( \
-				"[user] tightens \the [src]'s casters.", \
-				"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
-				"You hear ratchet.")
-			anchored = TRUE
-		else if(anchored)
-			playsound(loc, W.usesound, 50, 1)
-			user.visible_message( \
-				"[user] loosens \the [src]'s casters.", \
-				"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-				"You hear ratchet.")
-			anchored = FALSE
-		updateicon()
-		return
-	if(istype(W, /obj/item/screwdriver))
-		if(!open)
-			if(unlocked)
-				unlocked = FALSE
-				to_chat(user, "You screw the battery panel in place.")
-			else
-				unlocked = TRUE
-				to_chat(user, "You unscrew the battery panel.")
-		updateicon()
-		return
-	if(istype(W, /obj/item/crowbar))
-		if(unlocked)
-			if(open)
-				open = FALSE
-				overlays = null
-				to_chat(user, "You crowbar the battery panel in place.")
-			else
-				if(unlocked)
-					open = TRUE
-					to_chat(user, "You remove the battery panel.")
-		updateicon()
-		return
 	if(istype(W, /obj/item/stock_parts/cell))
 		if(open)
 			if(cell)
@@ -140,8 +130,8 @@
 				cell = W
 				to_chat(user, "You insert the power cell.")
 		updateicon()
-		return
-	return ..()
+	else
+		return ..()
 
 /obj/machinery/floodlight/extinguish_light()
 	on = 0
