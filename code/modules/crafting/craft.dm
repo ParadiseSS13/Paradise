@@ -89,7 +89,8 @@
 
 /datum/personal_crafting/proc/get_surroundings(mob/user)
 	. = list()
-	.["other"] = list()
+	.["other"] = list() //paths go in here
+	.["toolsother"] = list() // items go in here
 	for(var/obj/item/I in get_environment(user))
 		if(I.flags_2 & HOLOGRAM_2)
 			continue
@@ -103,13 +104,15 @@
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
 						.["other"][A.type] += A.volume
 			.["other"][I.type] += 1
+	for(var/obj/item/B in get_environment(user))
+		.["toolsother"][B] += 1
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len) //does not run if no tools are needed
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
-	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
+	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
 				if(SI.tool_behaviour) //filters for tool behaviours
@@ -117,7 +120,7 @@
 		if(I.tool_behaviour)
 			possible_tools += I
 
-	possible_tools |= contents["other"] // This checks tool behaviours
+	possible_tools |= contents["toolsother"] // this add contents to possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
 		for(var/A in R.tools)
 			for(var/obj/item/I in possible_tools)
@@ -133,14 +136,14 @@
 /datum/personal_crafting/proc/check_pathtools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.pathtools.len) //does not run if no tools are needed
 		return TRUE
-	var/list/other_possible_tools = list()
+	var/list/other_possible_tools = list() 
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
 				other_possible_tools += SI.type	// filters type paths
 		other_possible_tools += I.type
 	
-	other_possible_tools |= contents["other"] // This check for type paths
+	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
 		for(var/A in R.pathtools)
 			for(var/I in other_possible_tools)
