@@ -237,7 +237,7 @@ var/const/INGEST = 2
 
 	if(LAZYLEN(addiction_threshold_accumulated))
 		for(var/thing in addiction_threshold_accumulated)
-			if(reagent_list.Find(thing))
+			if(has_reagent(thing))
 				continue // if we have the reagent in our system, then don't deplete the addiction threshold
 			addiction_threshold_accumulated[thing] -= 0.01 // Otherwise very slowly deplete the buildup
 			if(addiction_threshold_accumulated[thing] <= 0)
