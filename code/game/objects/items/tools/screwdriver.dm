@@ -83,7 +83,7 @@
 	toolspeed = 0.25
 	random_color = FALSE
 
-/obj/item/screwdriver/power/examine()
+/obj/item/screwdriver/power/examine(mob/user)
 	. = ..()
 	. += " It's fitted with a [tool_behaviour == TOOL_SCREWDRIVER ? "screw" : "bolt"] bit."
 	

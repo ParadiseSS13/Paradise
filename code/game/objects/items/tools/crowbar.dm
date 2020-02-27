@@ -71,7 +71,7 @@
 	force = 15
 	toolspeed = 0.25
 
-obj/item/crowbar/power/examine()
+/obj/item/crowbar/power/examine(mob/user)
 	. = ..()
 	. += " It's fitted with a [tool_behaviour == TOOL_CROWBAR ? "prying" : "cutting"] head."
 
