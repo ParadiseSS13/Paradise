@@ -1,7 +1,8 @@
 //Noncult
 /obj/structure/cult
-	density = 1
-	anchored = 1
+	density = TRUE
+	layer = BELOW_OBJ_LAYER
+	anchored = TRUE
 	icon = 'icons/obj/cult.dmi'
 	light_power = 2
 
@@ -60,7 +61,6 @@
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
 		anchored = !anchored
 		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
-		playsound(loc, 'sound/hallucinations/wail.ogg', 75, 1)
 		if(!anchored)
 			icon_state = SSticker.cultdat?.get_icon("[initial(icon_state)]_off")
 		else

@@ -6,8 +6,15 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/tome/New()
+	if(!SSticker.mode)
+		icon_state = "tome"
+	else
+		icon_state = SSticker.cultdat.tome_icon
+	..()
+
 /obj/item/melee/cultblade
-	name = "Cult Blade"
+	name = "cult blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
 	icon_state = "cultblade"
 	item_state = "cultblade"
@@ -115,6 +122,7 @@
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
+	actions_types = list() //No inbuilt light
 
 /obj/item/clothing/suit/space/hardsuit/cult
 	name = "cult reinforced hardsuit"
@@ -122,7 +130,6 @@
 	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
-	actions_types = list() //No inbuilt light
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cult
 
@@ -135,8 +142,10 @@
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade)
-	var/current_charges = 3
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
+	var/current_charges = 3
+	var/shield_state = "shield-cult"
+	var/shield_on = "shield-cult"
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist robe"
@@ -163,9 +172,13 @@
 		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 		if(!current_charges)
 			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
+			shield_state = "broken"
 			owner.update_inv_wear_suit()
-		return 1
-	return 0
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/special_overlays()
+	return mutable_appearance('icons/effects/effects.dmi', shield_state, MOB_LAYER + 0.01)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
@@ -457,7 +470,7 @@
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
 			if(!L.null_rod_check() )
-				L.Weaken(2)
+				L.Weaken(1)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))
 						if(!Next.density || iscultist(Next))

@@ -24,7 +24,7 @@
 	cultist_commune(usr, input)
 	return
 
-/proc/cultist_commune(mob/living/user, message)
+/datum/action/innate/cult/comm/proc/cultist_commune(mob/living/user, message)
 	if(!message)
 		return
 
@@ -56,13 +56,37 @@
 	name = "Spiritual Communion"
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
 
+/datum/action/innate/cult/comm/spirit/IsAvailable()
+	if(iscultist(owner))
+		return TRUE
+
+/datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
+	var/my_message
+	if(!message)
+		return
+	my_message = "<span class='cultboldtalic'>The [user.name]: [message]</span>"
+	for(var/mob/M in GLOB.player_list)
+		if(iscultist(M))
+			to_chat(M, my_message)
+		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
+			to_chat(M, "<span class='cultspeech'> <a href='?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+
 //Objectives
 
 /datum/action/innate/cult/check_progress
 	name = "Study the Veil"
-	button_icon_state = "cult_mark"
+	button_icon_state = "tome"
 	desc = "Check your cult's current progress and objective."
 	check_flags = AB_CHECK_CONSCIOUS
+
+/datum/action/innate/cult/check_progress/New()
+	if(SSticker.mode)
+		button_icon_state = SSticker.cultdat.tome_icon
+	..()
+
+/datum/action/innate/cult/IsAvailable()
+	if(iscultist(owner))
+		return TRUE
 
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())

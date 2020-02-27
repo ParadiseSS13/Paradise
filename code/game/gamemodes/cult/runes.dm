@@ -797,7 +797,6 @@ var/list/teleport_runes = list()
 			fail_invoke()
 			log_game("Manifest rune failed - not enough health")
 			return list()
-		notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound='sound/effects/ghost2.ogg', source = src)
 		if(ghosts >= ghost_limit)
 			to_chat(user, "<span class='cultitalic'>You are sustaining too many ghosts to summon more!</span>")
 			fail_invoke()
@@ -839,23 +838,22 @@ var/list/teleport_runes = list()
 				if(G)
 					to_chat(G, "<span class='cultitalic'>You feel your connection to [new_human] severs as they are destroyed.</span>")
 				break
-			if(user.stat || affecting.health <= 40)
+			if(user.stat || user.health <= 40)
 				to_chat(user, "<span class='cultitalic'>Your body can no longer sustain the connection, and your link to the spirit realm fades.</span>")
 				if(G)
 					to_chat(G, "<span class='cultitalic'>Your body is damaged and your connection to the spirit realm weakens, any ghost you may have manifested are destroyed.</span>")
 				break
 			user.apply_damage(0.1, BRUTE)
-			sleep(1)
+			user.apply_damage(0.1, BURN)
+			sleep(2) //Takes two pylons to sustain the damage taken by summoning one ghost
 		qdel(N)
 		ghosts--
 		if(new_human)
 			new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>", \
 									  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
-			for(var/obj/I in new_human)
-				if(I.flags & NODROP)
-					qdel(I)
-				else
-					I.forceMove(new_human.drop_location())
+			for(var/obj/item/I in new_human)
+				I.forceMove(drop_location())
+				I.dropped(new_human)
 			new_human.dust()
 	else if(choice == "Ascend as a Dark Spirit")
 		affecting = user
@@ -864,10 +862,12 @@ var/list/teleport_runes = list()
 						 "<span class='cult'>You see what lies beyond. All is revealed. In this form you find that your voice booms louder and you can mark targets for the entire cult</span>")
 		G = affecting.ghostize(TRUE)
 		var/datum/action/innate/cult/comm/spirit/CM = new
+		var/datum/action/innate/cult/check_progress/V = new
 		//var/datum/action/innate/cult/ghostmark/GM = new
 		G.name = "Dark Spirit of [G.name]"
 		G.color = "red"
 		CM.Grant(G)
+		V.Grant(G)
 		//GM.Grant(G)
 		while(!QDELETED(affecting))
 			if(!(affecting in T))
@@ -884,6 +884,7 @@ var/list/teleport_runes = list()
 				break
 			sleep(5)
 		CM.Remove(G)
+		V.Remove(G)
 		//GM.Remove(G)
 		affecting.remove_atom_colour(ADMIN_COLOUR_PRIORITY, RUNE_COLOR_DARKRED)
 		affecting.grab_ghost()
