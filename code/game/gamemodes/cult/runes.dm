@@ -817,8 +817,7 @@ var/list/teleport_runes = list()
 		new_human.real_name = ghost_to_spawn.real_name
 		new_human.alpha = 150 //Makes them translucent
 		new_human.equipOutfit(/datum/outfit/ghost_cultist) //give them armor
-		new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts
-		new_human.see_invisible = SEE_INVISIBLE_OBSERVER
+		new_human.apply_status_effect(STATUS_EFFECT_SUMMONEDGHOST) //ghosts can't summon more ghosts, also lets you see actual ghosts
 		ghosts++
 		playsound(src, 'sound/misc/exit_blood.ogg', 50, TRUE)
 		visible_message("<span class='warning'>A cloud of red mist forms above [src], and from within steps... a [new_human.gender == FEMALE ? "wo":""]man.</span>")
@@ -834,9 +833,9 @@ var/list/teleport_runes = list()
 		to_chat(new_human, "<span class='cultitalic'><b>You are a servant of the [SSticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [SSticker.cultdat.entity_name], and you are to serve them at all costs.</b></span>")
 		while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))
 			if(new_human.InCritical())
-				to_chat(user, "<span class='cultitalic'>You feel your connection to [new_human] severs as they are destroyed.</span>")
+				to_chat(user, "<span class='cultitalic'>You feel your connection to [new_human.real_name] severs as they are destroyed.</span>")
 				if(G)
-					to_chat(G, "<span class='cultitalic'>You feel your connection to [new_human] severs as they are destroyed.</span>")
+					to_chat(G, "<span class='cultitalic'>You feel your connection to [new_human.real_name] severs as they are destroyed.</span>")
 				break
 			if(user.stat || user.health <= 40)
 				to_chat(user, "<span class='cultitalic'>Your body can no longer sustain the connection, and your link to the spirit realm fades.</span>")
@@ -851,9 +850,8 @@ var/list/teleport_runes = list()
 		if(new_human)
 			new_human.visible_message("<span class='warning'>[new_human] suddenly dissolves into bones and ashes.</span>", \
 									  "<span class='cultlarge'>Your link to the world fades. Your form breaks apart.</span>")
-			for(var/obj/item/I in new_human)
-				I.forceMove(drop_location())
-				I.dropped(new_human)
+			for(var/obj/item/I in new_human.get_all_slots())
+				new_human.unEquip(I)
 			new_human.dust()
 	else if(choice == "Ascend as a Dark Spirit")
 		affecting = user
