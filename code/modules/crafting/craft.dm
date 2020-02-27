@@ -103,9 +103,8 @@
 				if(RC.is_drainable())
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
 						.["other"][A.type] += A.volume
-			.["other"][I.type] += 1
-	for(var/obj/item/B in get_environment(user))
-		.["toolsother"][B] += 1
+			.["other"][I.type] += 1 
+		.["toolsother"][I] += 1
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.tools.len) //does not run if no tools are needed
@@ -152,7 +151,7 @@
 			return FALSE
 	return TRUE
 
-/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
+/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R) 
 	var/list/contents = get_surroundings(user)
 	var/send_feedback = 1
 	if(check_contents(R, contents))
