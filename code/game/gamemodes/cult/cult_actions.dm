@@ -57,14 +57,13 @@
 	desc = "Conveys a message from the spirit realm that all cultists can hear."
 
 /datum/action/innate/cult/comm/spirit/IsAvailable()
-	if(iscultist(owner))
-		return TRUE
+	return TRUE
 
 /datum/action/innate/cult/comm/spirit/cultist_commune(mob/living/user, message)
 	var/my_message
 	if(!message)
 		return
-	my_message = "<span class='cultboldtalic'>The [user.name]: [message]</span>"
+	my_message = "<span class='cultlarge'>The [user.name]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
@@ -84,9 +83,10 @@
 		button_icon_state = SSticker.cultdat.tome_icon
 	..()
 
-/datum/action/innate/cult/IsAvailable()
-	if(iscultist(owner))
+/datum/action/innate/cult/check_progress/IsAvailable()
+	if(iscultist(owner) || isobserver(owner))
 		return TRUE
+	return FALSE
 
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
