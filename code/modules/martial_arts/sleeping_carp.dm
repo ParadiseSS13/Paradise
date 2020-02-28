@@ -46,6 +46,7 @@
 		D.drop_item()
 		D.apply_damage(5, BRUTE, pick("l_arm", "r_arm"))
 		D.Stun(3)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Wrist Wrench", ATKLOG_ALL)
 		return 1
 	return basic_hit(A,D)
 
@@ -59,6 +60,7 @@
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		if(prob(80))
 			A.say(pick("SURRPRIZU!","BACK STRIKE!","WOPAH!", "WATAAH", "ZOTA!", "Never turn your back to the enemy!"))
+			add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Back Kick", ATKLOG_ALL)
 		return 1
 	return basic_hit(A,D)
 
@@ -73,6 +75,7 @@
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		if(prob(80))
 			A.say(pick("HWOP!", "KUH!", "YAKUUH!", "KYUH!", "KNEESTRIKE!"))
+			add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Stomach Knee", ATKLOG_ALL)
 		return 1
 	return basic_hit(A,D)
 
@@ -87,6 +90,7 @@
 		if(prob(60))
 			A.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))
 		D.Stun(4)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Head Kick", ATKLOG_ALL)
 		return 1
 	return basic_hit(A,D)
 
@@ -101,6 +105,7 @@
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
 		if(prob(80))
 			A.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA"))
+			add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Elbow Drop", ATKLOG_ALL)
 		return 1
 	return basic_hit(A,D)
 
