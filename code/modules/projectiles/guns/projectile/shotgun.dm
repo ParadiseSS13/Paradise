@@ -258,19 +258,37 @@
 	..()
 	guns_left = 0
 
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/attack_self()
+	return
+
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
 	..()
 	if(guns_left)
-		var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new
+		var/obj/item/gun/projectile/shotgun/boltaction/enchanted/GUN = new type
 		GUN.guns_left = guns_left - 1
-		user.drop_item()
+		discard_gun(user)
 		user.swap_hand()
+		user.drop_item()
 		user.put_in_hands(GUN)
 	else
-		user.drop_item()
-	spawn(0)
-		throw_at(pick(oview(7,get_turf(user))),1,1)
+		discard_gun(user)
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/proc/discard_gun(mob/living/user)
 	user.visible_message("<span class='warning'>[user] tosses aside the spent rifle!</span>")
+	user.throw_item(pick(oview(7, get_turf(user))))
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage
+	name = "arcane barrage"
+	desc = "Pew Pew Pew."
+	fire_sound = 'sound/weapons/emitter.ogg'
+	icon_state = "arcane_barrage"
+	item_state = "arcane_barrage"
+	slot_flags = null
+	flags = NOBLUDGEON | DROPDEL | ABSTRACT
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/discard_gun(mob/living/user)
+	qdel(src)
 
 // Automatic Shotguns//
 

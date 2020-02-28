@@ -480,3 +480,143 @@
 					throw_at(D.thrower, 7, 1, null)
 	else
 		..()
+
+
+/obj/item/twohanded/cult_spear
+	name = "blood halberd"
+	desc = "A sickening spear composed entirely of crystallized blood."
+	icon = 'icons/obj/cult.dmi'
+	icon_state = "bloodspear0"
+	slot_flags = 0
+	force = 17
+	force_unwielded = 17
+	force_wielded = 24
+	throwforce = 40
+	throw_speed = 2
+	armour_penetration = 30
+	block_chance = 30
+	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
+	sharp = TRUE
+	no_spin_thrown = TRUE
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	var/datum/action/innate/cult/spear/spear_act
+
+/obj/item/twohanded/cult_spear/Destroy()
+	if(spear_act)
+		qdel(spear_act)
+	..()
+
+/obj/item/twohanded/cult_spear/update_icon()
+	icon_state = "bloodspear[wielded]"
+
+/obj/item/twohanded/cult_spear/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	var/turf/T = get_turf(hit_atom)
+	if(isliving(hit_atom))
+		var/mob/living/L = hit_atom
+		if(iscultist(L))
+			playsound(src, 'sound/weapons/throwtap.ogg', 50)
+			if(!L.restrained() && L.put_in_active_hand(src))
+				L.visible_message("<span class='warning'>[L] catches [src] out of the air!</span>")
+			else
+				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
+		else if(!..())
+			if(!L.null_rod_check())
+				L.Weaken(3)
+			break_spear(T)
+	else
+		..()
+
+/obj/item/twohanded/cult_spear/proc/break_spear(turf/T)
+	if(src)
+		if(!T)
+			T = get_turf(src)
+		if(T)
+			T.visible_message("<span class='warning'>[src] shatters and melts back into blood!</span>")
+			new /obj/effect/temp_visual/cult/sparks(T)
+			new /obj/effect/decal/cleanable/blood/splatter(T)
+			playsound(T, 'sound/effects/glassbr3.ogg', 100)
+	qdel(src)
+
+/obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(wielded)
+		final_block_chance *= 2
+	if(prob(final_block_chance))
+		if(attack_type == PROJECTILE_ATTACK)
+			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
+			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
+			return TRUE
+		else
+			playsound(src, 'sound/weapons/parry.ogg', 100, TRUE)
+			owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+			return TRUE
+	return FALSE
+
+/datum/action/innate/cult/spear
+	name = "Bloody Bond"
+	desc = "Call the blood spear back to your hand!"
+	background_icon_state = "bg_cult"
+	button_icon_state = "bloodspear"
+	var/obj/item/twohanded/cult_spear/spear
+	var/cooldown = 0
+
+/datum/action/innate/cult/spear/Grant(mob/user, obj/blood_spear)
+	. = ..()
+	spear = blood_spear
+
+/datum/action/innate/cult/spear/Activate()
+	if(owner == spear.loc || cooldown > world.time)
+		return
+	var/ST = get_turf(spear)
+	var/OT = get_turf(owner)
+	if(get_dist(OT, ST) > 10)
+		to_chat(owner,"<span class='cult'>The spear is too far away!</span>")
+	else
+		cooldown = world.time + 20
+		if(isliving(spear.loc))
+			var/mob/living/L = spear.loc
+			L.unEquip(spear)
+			L.visible_message("<span class='warning'>An unseen force pulls the blood spear from [L]'s hands!</span>")
+		spear.throw_at(owner, 10, 2, null)
+
+/obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood
+	name = "blood bolt barrage"
+	desc = "Blood for blood."
+	color = "#ff0000"
+	guns_left = 24
+	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
+	fire_sound = 'sound/magic/wand_teleport.ogg'
+	flags = NOBLUDGEON | DROPDEL
+
+/obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
+	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
+
+/obj/item/ammo_casing/magic/arcane_barrage/blood
+	projectile_type = /obj/item/projectile/magic/arcane_barrage/blood
+
+/obj/item/projectile/magic/arcane_barrage/blood
+	name = "blood bolt"
+	icon_state = "blood_bolt"
+	damage_type = BRUTE
+	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
+	hitsound = 'sound/effects/splat.ogg'
+
+/obj/item/projectile/magic/arcane_barrage/blood/on_hit(target)
+	if(ismob(target))
+		var/mob/M = target
+		if(M.null_rod_check())
+			M.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
+			qdel(src)
+			return FALSE
+		if(iscultist(target))
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				if(H.stat != DEAD)
+					H.reagents.add_reagent("unholywater", 4)
+			if(isshade(target) || isconstruct(target))
+				var/mob/living/simple_animal/S = target
+				if(S.health + 5 < S.maxHealth)
+					S.adjustHealth(-5)
+			new /obj/effect/temp_visual/cult/sparks(T)
+			qdel(src)
+			return FALSE
+	..()

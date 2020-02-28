@@ -40,6 +40,9 @@
 	projectile_type = pick(typesof(/obj/item/projectile/magic))
 	..()
 
+/obj/item/ammo_casing/magic/arcane_barrage
+	projectile_type = /obj/item/projectile/magic/arcane_barrage
+
 /obj/item/ammo_casing/forcebolt
 	projectile_type = /obj/item/projectile/forcebolt
 
