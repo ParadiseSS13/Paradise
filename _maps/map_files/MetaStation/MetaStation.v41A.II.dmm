@@ -42204,9 +42204,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/hologram/holopad,
-/obj/effect/landmark/start{
-	name = "Cyborg"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44000,6 +43997,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44011,6 +44011,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44026,6 +44029,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/effect/landmark/start{
+	name = "Cyborg"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45010,6 +45016,9 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start{
+	name = "Cyborg"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
