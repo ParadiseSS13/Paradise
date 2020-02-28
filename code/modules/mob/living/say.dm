@@ -273,7 +273,7 @@ proc/get_radio_key_from_channel(var/channel)
 				O.hear_talk(src, message_pieces, verb)
 
 	//Log of what we've said, plain message, no spans or junk
-	if(!message_mode) //only if we are not talking on a radio to avoid duplictes. as we handle radio logs in radio.dm. if we handled it here, we would log any attempt to talk on a radio channel as if they were speaking on it, even if they didn't have it. (i.e. a civillian typing :c hi command would show up as "(command) hi command")
+	if(!message_mode) //only if we are not talking on a radio to avoid duplicates. as we handle radio logs in radio.dm. if we handled it here, we would log any attempt to talk on a radio channel as if they were speaking on it, even if they didn't have it. (i.e. a civillian typing :c hi command would show up as "(command) hi command")
 		say_log += message
 		log_say(message, src)
 	return 1
