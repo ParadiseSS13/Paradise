@@ -4,7 +4,6 @@ var/host = null
 var/join_motd = null
 GLOBAL_VAR(join_tos)
 var/game_version = "ParaCode"
-var/changelog_hash = md5('html/changelog.html') //used to check if the CL changed
 var/game_year = (text2num(time2text(world.realtime, "YYYY")) + 544)
 
 var/aliens_allowed = 1

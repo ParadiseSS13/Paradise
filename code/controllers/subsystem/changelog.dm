@@ -1,0 +1,220 @@
+/*
+	Subsystem core for ParadiseSS13 changelogs
+	Author: AffectedArc07
+
+	Basically this SS extracts changelogs from the past 30 days from the database, and cleanly formats them into HTML that the players can see
+	It only runs the extraction on initialize to ensure that the changelog doesnt change mid round, and to reduce the amount of DB calls that need to be done
+	The changelog entries are generated from the PHP scripts in tools/githubChangelogProcessor.php
+
+	This SS also handles the checking of player CL dates and informing them if it has changed
+
+*/
+
+SUBSYSTEM_DEF(changelog)
+	name = "Changelog"
+	flags = SS_NO_FIRE
+	var/current_cl_timestamp = "0" // Timestamp is seconds since UNIX epoch (1st January 1970)
+	var/ss_ready = 0 // Is the SS ready? We dont want to run procs if we have not generated yet
+	var/list/startup_clients_button = list() // Clients who connected before initialization who need their button color updating
+	var/list/startup_clients_open = list() // Clients who connected before initialization who need the CL opening
+	var/changelogHTML = "" // HTML that the changelog will use to display
+
+/datum/controller/subsystem/changelog/Initialize()
+	// This entire subsystem relies on SQL being here.
+	if(!config.sql_enabled)
+		return ..() 
+	
+	var/DBQuery/latest_cl_date = dbcon.NewQuery("SELECT UNIX_TIMESTAMP(date_merged) AS ut FROM [format_table_name("changelog")] ORDER BY date_merged DESC LIMIT 1")
+	if(!latest_cl_date.Execute())
+		var/err = latest_cl_date.ErrorMsg()
+		log_game("SQL ERROR during SSchangelog initialization L24. Error: \[[err]\]\n")
+		message_admins("SQL ERROR during SSchangelog initialization L24. Error: \[[err]\]\n")
+		// Abort if we cant do this
+		return ..()
+
+	while(latest_cl_date.NextRow())
+		current_cl_timestamp = latest_cl_date.item[1]
+
+	if(!GenerateChangelogHTML()) // if this failed to generate
+		to_chat(world, "<span class='alert'>WARNING: Changelog failed to generate. Please inform a coder/server dev</span>")
+		return ..()
+
+	ss_ready = 1
+	// Now we can alert anyone who wanted to check the changelog
+	for(var/client/C in startup_clients_button)
+		UpdatePlayerChangelogButton(C)
+
+	// Now we can alert anyone who wanted to check the changelog
+	for(var/client/C in startup_clients_open)
+		OpenChangelog(C)
+
+	return ..()
+
+	
+/datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogDate(client/C)
+	if(!ss_ready)
+		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
+	// Technically this is only for the date but we can also do the UI button at the same time
+	if(preferences_datums[C.ckey].toggles & UI_DARKMODE)
+		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
+	else
+		winset(C, "rpane.changelog", "background-color=none;font-style=none")
+	C.prefs.lastchangelog = current_cl_timestamp
+	var/DBQuery/updatePlayerCLTime = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[sanitizeSQL(current_cl_timestamp)]' WHERE ckey='[C.ckey]'")
+	if(!updatePlayerCLTime.Execute())
+		var/err = updatePlayerCLTime.ErrorMsg()
+		log_game("SQL ERROR during lastchangelog updating. Error: \[[err]\]\n")
+		message_admins("SQL ERROR during lastchangelog updating. Error: \[[err]\]\n")
+		to_chat(C, "Couldn't update your last seen changelog, please try again later.")
+		return FALSE
+	return TRUE
+
+/datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogButton(client/C)
+	// If SQL aint even enabled, just set the button to default style
+	if(!config.sql_enabled)
+		if(C.prefs.toggles & UI_DARKMODE)
+			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+		else
+			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
+		return
+
+	// If SQL is enabled but we aint ready, queue them up, and use the default style
+	if(!ss_ready)
+		startup_clients_button += C
+		if(C.prefs.toggles & UI_DARKMODE)
+			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+		else
+			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
+		return
+
+	// If we are ready, process the button style
+	if(C.prefs.lastchangelog != current_cl_timestamp)
+		winset(C, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
+		to_chat(C, "<span class='info'>Changelog has changed since your last visit.</span>")
+	else
+		if(C.prefs.toggles & UI_DARKMODE)
+			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
+		else
+			winset(C, "rpane.changelog", "background-color=none;text-color=#000000")
+
+
+/datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
+	// If SQL is enabled but we aint ready, queue them up
+	if(!ss_ready)
+		startup_clients_open += C
+		to_chat(C, "<span class='notice'>The changelog system is still initializing. The changelog will open for you once it has initialized.</span>")
+		return
+
+	UpdatePlayerChangelogDate(C)
+	UpdatePlayerChangelogButton(C)
+
+	var/datum/browser/cl_popup = new(C.mob, "changelog", "Changelog", 700, 800)
+	cl_popup.set_content(changelogHTML)
+	cl_popup.open()
+
+/client/verb/changes()
+	set name = "Changelog"
+	set desc = "View the changelog."
+	set category = "OOC"
+	// Just invoke the actual CL thing
+	SSchangelog.OpenChangelog(src)
+
+// Helper to turn CL types into a fontawesome icon instead of an image
+/datum/controller/subsystem/changelog/proc/Text2Icon(text)
+	switch(text)
+		if("FIX")
+			return "<i class='fas fa-tools'></i>"
+		if("WIP")
+			return "<i class='fas fa-hard-hat'></i>"
+		if("TWEAK")
+			return "<i class='fas fa-sliders-h'></i>"
+		if("SOUNDADD")
+			return "<i class='fas fa-volume-up'></i>"
+		if("SOUNDDEL")
+			return "<i class='fas fa-volume-mute'></i>"
+		if("CODEADD")
+			return "<i class='fas fa-plus'></i>"
+		if("CODEDEL")
+			return "<i class='fas fa-minus'></i>"
+		if("IMAGEADD")
+			return "<i class='fas fa-folder-plus'></i>"
+		if("IMAGEDEL")
+			return "<i class='fas fa-folder-minus'></i>"
+		if("SPELLCHECK")
+			return "<i class='fas fa-font'></i>"
+		if("EXPERIMENT")
+			return "<i class='fas fa-exclamation-triangle'></i>"
+		// No default here because its not possible to be anything else unless the DB schema changes
+
+// This proc is the star of the show
+/datum/controller/subsystem/changelog/proc/GenerateChangelogHTML()
+	// Modify the code below to modify the header of the changelog
+	var/changelog_header = {"
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet">
+		<title>ParadiseSS13 Changelog</title>
+		<base target='_blank' />
+		<link rel='styelsheet' href='fontawesome.min.css'>
+		<center>
+			<p style='font-size: 20px'><b>Paradise Station Changelog</b></p>
+			<p><a href='[config.forum_link_url]'>Forum</a> - <a href='[config.wikiurl]'>Wiki</a> - <a href='[config.githuburl]'>GitHub</a></p>
+		</center>
+	"}
+
+	var/list/prs_to_process = list()
+	// Grab all from last 30 days
+	var/DBQuery/pr_list_query = dbcon.NewQuery("SELECT DISTINCT pr_number FROM changelog WHERE date_merged BETWEEN NOW() - INTERVAL 30 DAY AND NOW()")
+	if(!pr_list_query.Execute())
+		var/err = pr_list_query.ErrorMsg()
+		log_game("SQL ERROR during CL generation L143. Error: \[[err]\]\n")
+		message_admins("SQL ERROR during CL generation L143. Error: \[[err]\]\n")
+		return FALSE
+	
+	while(pr_list_query.NextRow())
+		prs_to_process += text2num(pr_list_query.item[1])
+	
+	// Load in the header
+	changelogHTML += changelog_header
+
+	// Make blocks for all the PRs
+	for(var/pr_number in prs_to_process)
+		// Initial declarations
+		var/pr_block = "" // HTML for the changelog section
+		var/author = "" // Author of the PR
+		var/merge_date = "" // Timestamp of when the PR was merged
+		
+		// Now we gather the data from the DB
+		// Also we probably dont need to sanitize the PR number but you never know
+		var/DBQuery/pr_meta = dbcon.NewQuery("SELECT author,DATE(date_merged) AS date FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)] LIMIT 1")
+		if(!pr_meta.Execute())
+			var/err = pr_meta.ErrorMsg()
+			log_game("SQL ERROR during CL generation L190. Error: \[[err]\]\n")
+			message_admins("SQL ERROR during CL generation L190. Error: \[[err]\]\n")
+			return FALSE
+
+		while(pr_meta.NextRow())
+			author = pr_meta.item[1]
+			merge_date = pr_meta.item[2]
+
+		// Now for each actual entry
+		var/DBQuery/db_entries = dbcon.NewQuery("SELECT cl_type, cl_entry FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)]")
+		if(!db_entries.Execute())
+			var/err = db_entries.ErrorMsg()
+			log_game("SQL ERROR during CL generation L204. Error: \[[err]\]\n")
+			message_admins("SQL ERROR during CL generation L204. Error: \[[err]\]\n")
+			return FALSE
+
+
+		// Now we make a changelog block
+		pr_block += "<div class='statusDisplay'>"
+		// If the github URL in the config has a trailing slash, it doesnt matter here, thankfully github accepts having a double slash: https://github.com/org/repo//pull/1
+		pr_block += "<p class='white'><a href='[config.githuburl]/pull/[pr_number]'>#[pr_number]</a> by <b>[author]</b> (Merged on [merge_date])</span>"
+
+		while(db_entries.NextRow())
+			pr_block += "<p>[Text2Icon(db_entries.item[1])] [db_entries.item[2]]</p>"
+
+		pr_block += "</div><br>"
+
+		changelogHTML += pr_block
+
+	// Make sure we return TRUE so we know it worked
+	return TRUE
