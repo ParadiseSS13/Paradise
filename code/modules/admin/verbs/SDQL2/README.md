@@ -25,7 +25,7 @@ Can you see where this is going? You can select objects with an arbitrary expres
 Okay. What if you want to get every machine in the `SSmachine` process list? Looping through world is kinda slow.
 
 ```sql
-SELECT * IN global.SSmachines.processing
+SELECT * IN SSmachines.processing
 ```
 
 Here `*` as type functions as a wildcard. We know everything in the global `SSmachines.processing` list is a machine.
@@ -34,9 +34,9 @@ You can specify `IN <expression>` to return a list to operate on. This can be an
 
 You can of course combine these.
 ```sql
-SELECT * IN global.SSmachines.processing WHERE z == 4
-SELECT * IN global.SSmachines.processing WHERE stat & 2 // (2 is NOPOWER, cannot use defines from SDQL. Sorry!)
-SELECT * IN global.SSmachines.processing WHERE stat & 2 && z == 4
+SELECT * IN SSmachines.processing WHERE z == 4
+SELECT * IN SSmachines.processing WHERE stat & 2 // (2 is NOPOWER, cannot use defines from SDQL. Sorry!)
+SELECT * IN SSmachines.processing WHERE stat & 2 && z == 4
 ```
 
 The possibilities are endless (just don't crash the server, okay?).
