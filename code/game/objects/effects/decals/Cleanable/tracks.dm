@@ -55,7 +55,7 @@ var/global/list/image/fluidtrack_cache = list()
 			if(!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
 				update_icon()
-				
+
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
 	..()
 	if(ishuman(O))
@@ -136,3 +136,8 @@ var/global/list/image/fluidtrack_cache = list()
 	if(blood_state != C.blood_state) //We only replace footprints of the same type as us
 		return
 	..()
+
+/obj/effect/decal/cleanable/blood/footprints/can_bloodcrawl_in()
+	if(basecolor == "#030303") //to be replaced by defines or something. IPC 'blood'
+		return FALSE
+	return TRUE

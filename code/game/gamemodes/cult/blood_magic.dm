@@ -67,7 +67,12 @@
 	if(do_after(owner, 100 - rune * 60, target = owner))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			H.bleed(20 - rune * 12)
+			if(H.dna && NO_BLOOD in H.dna.species.species_traits)
+				var/dam_zone = pick("l_arm", "l_hand", "r_arm", "r_hand")
+				var/obj/item/organ/external/affecting = H.get_organ(dam_zone)
+				H.apply_damage(5 - rune * 3, BRUTE, affecting)
+			else
+				H.bleed(20 - rune * 12)
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		new_spell.Grant(owner, src)
 		spells += new_spell
@@ -311,7 +316,8 @@
 
 /datum/action/innate/cult/blood_spell/manipulation
 	name = "Blood Rites"
-	desc = "Empowers your hand to absorb blood to be used for advanced rites, or heal a cultist on contact. Use the spell in-hand to cast advanced rites."
+	desc = "Empowers your hand to manipulate blood. Use on blood or a noncultist to absorb blood to be used later, use on yourself or another cultist to heal them using absorbed blood. \
+		Use the spell in-hand to cast advanced rites, such as summoning a magical blood spear or firing blood projectiles out of your hands."
 	invocation = "Fel'th Dol Ab'orod!"
 	button_icon_state = "manip"
 	charges = 5
@@ -667,25 +673,23 @@
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			if(H.dna && (NO_BLOOD in H.dna.species.species_traits || H.dna.species.exotic_blood))
-				to_chat(user,"<span class='warning'>Blood rites do not work on species with no blood!</span>")
-				return
 			if(iscultist(H))
 				if(H.stat == DEAD)
 					to_chat(user,"<span class='warning'>Only a revive rune can bring back the dead!</span>")
 					return
-				if(H.blood_volume < BLOOD_VOLUME_SAFE)
-					var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
-					if(uses * 2 < restore_blood)
-						H.blood_volume += uses*2
-						to_chat(user,"<span class='danger'>You use the last of your blood rites to restore what blood you could!</span>")
-						uses = 0
-						return ..()
-					else
-						H.blood_volume = BLOOD_VOLUME_SAFE
-						uses -= round(restore_blood / 2)
-						to_chat(user,"<span class='warning'>Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!</span>")
-				var/overall_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
+				if(H.dna && (NO_BLOOD in H.dna.species.species_traits || H.dna.species.exotic_blood != null))
+					if(H.blood_volume < BLOOD_VOLUME_SAFE)
+						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
+						if(uses * 2 < restore_blood)
+							H.blood_volume += uses*2
+							to_chat(user,"<span class='danger'>You use the last of your blood rites to restore what blood you could!</span>")
+							uses = 0
+							return ..()
+						else
+							H.blood_volume = BLOOD_VOLUME_SAFE
+							uses -= round(restore_blood / 2)
+							to_chat(user,"<span class='warning'>Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!</span>")
+				var/overall_damage = H.getBruteLoss() + H.getFireLoss()
 				if(overall_damage == 0)
 					to_chat(user,"<span class='cult'>That cultist doesn't require healing!</span>")
 				else
@@ -702,14 +706,14 @@
 						H.visible_message("<span class='warning'>[H] is partially healed by [H==user ? "[H.p_their()]":"[H]'s"] blood magic.</span>")
 						uses = 0
 					ratio *= -1
-					H.adjustOxyLoss((overall_damage*ratio) * (H.getOxyLoss() / overall_damage), 0)
-					H.adjustToxLoss((overall_damage*ratio) * (H.getToxLoss() / overall_damage), 0)
-					H.adjustFireLoss((overall_damage*ratio) * (H.getFireLoss() / overall_damage), 0)
-					H.adjustBruteLoss((overall_damage*ratio) * (H.getBruteLoss() / overall_damage), 0)
+					H.adjustOxyLoss((overall_damage * ratio) * (H.getOxyLoss() / overall_damage), FALSE, null, TRUE)
+					H.adjustToxLoss((overall_damage * ratio) * (H.getToxLoss() / overall_damage), FALSE, null, TRUE)
+					H.adjustFireLoss((overall_damage * ratio) * (H.getFireLoss() / overall_damage), FALSE, null, TRUE)
+					H.adjustBruteLoss((overall_damage * ratio) * (H.getBruteLoss() / overall_damage), FALSE, null, TRUE)
 					H.updatehealth()
 					playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25)
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
-					user.Beam(H,icon_state="sendbeam",time=15)
+					user.Beam(H,icon_state="sendbeam", time = 15)
 			else
 				if(H.stat == DEAD)
 					to_chat(user,"<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
@@ -717,16 +721,20 @@
 				if(H.cultslurring)
 					to_chat(user,"<span class='danger'>[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!</span>")
 					return
-				if(H.blood_volume > BLOOD_VOLUME_SAFE)
-					H.blood_volume -= 100
-					uses += 50
-					user.Beam(H,icon_state="drainbeam",time=10)
-					playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
-					H.visible_message("<span class='danger'>[user] has drained some of [H]'s blood!</span>")
-					to_chat(user,"<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
-					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
+				if(H.dna && (NO_BLOOD in H.dna.species.species_traits || H.dna.species.exotic_blood != null))
+					if(H.blood_volume > BLOOD_VOLUME_SAFE)
+						H.blood_volume -= 100
+						uses += 50
+						user.Beam(H,icon_state="drainbeam",time=10)
+						playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
+						H.visible_message("<span class='danger'>[user] has drained some of [H]'s blood!</span>")
+						to_chat(user,"<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
+						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
+					else
+						to_chat(user,"<span class='warning'>[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!</span>")
+						return
 				else
-					to_chat(user,"<span class='warning'>[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!</span>")
+					to_chat(user,"<span class='warning'>[H] does not have any usable blood!</span>")
 					return
 		if(isconstruct(target))
 			var/mob/living/simple_animal/M = target
@@ -760,6 +768,7 @@
 				qdel(B)
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
 			qdel(TH)
+		var/obj/item/clothing/shoes/shoecheck = user.shoes
 		if(temp)
 			user.Beam(T,icon_state="drainbeam", time = 15)
 			new /obj/effect/temp_visual/cult/sparks(get_turf(user))

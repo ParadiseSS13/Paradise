@@ -599,24 +599,3 @@
 	damage_type = BRUTE
 	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
 	hitsound = 'sound/effects/splat.ogg'
-
-/obj/item/projectile/magic/arcane_barrage/blood/on_hit(target)
-	if(ismob(target))
-		var/mob/M = target
-		if(M.null_rod_check())
-			M.visible_message("<span class='warning'>[src] vanishes on contact with [target]!</span>")
-			qdel(src)
-			return FALSE
-		if(iscultist(target))
-			if(ishuman(target))
-				var/mob/living/carbon/human/H = target
-				if(H.stat != DEAD)
-					H.reagents.add_reagent("unholywater", 4)
-			if(isshade(target) || isconstruct(target))
-				var/mob/living/simple_animal/S = target
-				if(S.health + 5 < S.maxHealth)
-					S.adjustHealth(-5)
-			new /obj/effect/temp_visual/cult/sparks(T)
-			qdel(src)
-			return FALSE
-	..()
