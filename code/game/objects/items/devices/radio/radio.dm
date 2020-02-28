@@ -447,6 +447,10 @@ var/global/list/default_medbay_channels = list(
 		signal.frequency = connection.frequency // Quick frequency set
 
 	  //#### Sending the signal to all subspace receivers ####//
+		//log radio message if it is transmitted
+		var/log_message = "([channel]) [multilingual_to_message(message_pieces)]"
+		M.say_log += log_message
+		log_say(log_message, M)
 
 		for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
 			spawn(0)
