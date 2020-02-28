@@ -293,7 +293,7 @@
 	name = "stool"
 	desc = "Apply butt."
 	icon_state = "stool"
-	can_buckle = FALSE
+	can_buckle = TRUE
 	item_chair = /obj/item/chair/stool
 
 /obj/structure/chair/stool/bar
@@ -308,6 +308,7 @@
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair_toppled"
 	item_state = "chair"
+	can_buckle = TRUE
 	lefthand_file = 'icons/mob/inhands/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
