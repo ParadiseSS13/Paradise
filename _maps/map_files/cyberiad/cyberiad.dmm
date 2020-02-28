@@ -2316,6 +2316,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/carpet,
 /area/security/hos)
 "afN" = (
@@ -43870,6 +43871,7 @@
 /obj/item/book/manual/sop_general,
 /obj/item/book/manual/sop_command,
 /obj/item/megaphone,
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bFM" = (
@@ -54074,6 +54076,7 @@
 /obj/item/book/manual/sop_supply,
 /obj/item/book/manual/sop_command,
 /obj/item/paper_bin/nanotrasen,
+/obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bXa" = (
