@@ -242,45 +242,9 @@
 	return TRUE // update UIs attached to this object
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		if(!hackedcheck)
-			to_chat(user, hack_message)
-			dispensable_reagents += hacked_reagents
-			hackedcheck = TRUE
-		else
-			to_chat(user, unhack_message)
-			dispensable_reagents -= hacked_reagents
-			hackedcheck = FALSE
-		SSnanoui.update_uis(src)
-		return
-
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
-		return
-
 	if(exchange_parts(user, I))
 		SSnanoui.update_uis(src)
 		return
-
-	if(iswrench(I))
-		playsound(src, I.usesound, 50, 1)
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='caution'>[src] can now be moved.</span>")
-		else if(!anchored)
-			anchored = TRUE
-			to_chat(user, "<span class='caution'>[src] is now secured.</span>")
-		return
-
-	if(panel_open)
-		if(iscrowbar(I))
-			if(beaker)
-				beaker.forceMove(loc)
-				beaker = null
-			if(cell)
-				cell.forceMove(loc)
-				cell = null
-			default_deconstruction_crowbar(I)
-			return TRUE
 
 	if(isrobot(user))
 		return
@@ -307,6 +271,48 @@
 		return
 	return ..()
 
+/obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		if(beaker)
+			beaker.forceMove(loc)
+			beaker = null
+		if(cell)
+			cell.forceMove(loc)
+			cell = null
+		return TRUE
+
+
+/obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!hackedcheck)
+		to_chat(user, hack_message)
+		dispensable_reagents += hacked_reagents
+		hackedcheck = TRUE
+	else
+		to_chat(user, unhack_message)
+		dispensable_reagents -= hacked_reagents
+		hackedcheck = FALSE
+	SSnanoui.update_uis(src)
+
+
+/obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
+		return TRUE
+
+/obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+	else if(!anchored)
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)

@@ -12,11 +12,10 @@
 	var/see_invisible = 0
 	var/lighting_alpha
 	
-	var/eye_colour = "#000000"
+	var/eye_colour = "#000000" // Should never be null
 	var/old_eye_colour = "#000000"
 	var/flash_protect = 0
 	var/aug_message = "Your vision is augmented!"
-
 
 /obj/item/organ/internal/cyberimp/eyes/insert(var/mob/living/carbon/M, var/special = 0)
 	..()

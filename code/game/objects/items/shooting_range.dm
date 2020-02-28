@@ -31,15 +31,12 @@
 	// the stake now, we have to push the target.
 
 
-
-/obj/item/target/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0, user))
-			overlays.Cut()
-			to_chat(usr, "You slice off [src]'s uneven chunks of aluminum and scorch marks.")
-			return
-
+/obj/item/target/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!use_tool(src, user, 0,, volume = I.tool_volume))
+		return
+	overlays.Cut()
+	to_chat(usr, "You slice off [src]'s uneven chunks of aluminum and scorch marks.")
 
 /obj/item/target/attack_hand(mob/user as mob)
 	// taking pinned targets off!

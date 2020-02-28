@@ -97,6 +97,9 @@
 	return real_name
 
 /mob/living/carbon/human/IsVocal()
+	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate(/obj/item/organ/internal/cyberimp/brain/speech_translator) in internal_organs
+	if(translator && translator.active)
+		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!(NO_BREATHE in dna.species.species_traits))
 	var/obj/item/organ/internal/L = get_organ_slot("lungs")

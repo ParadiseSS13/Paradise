@@ -240,15 +240,6 @@
 		malfunction = TRUE
 		update_icon()
 
-	else if(isscrewdriver(I))
-		playsound(loc, I.usesound, 100, 1)
-		if(is_open)
-			to_chat(user, "<span class='notice'>You close the panel.</span>")
-			is_open = FALSE
-		else
-			to_chat(user, "<span class='notice'>You open the panel and expose the wiring.</span>")
-			is_open = TRUE
-
 	else if(istype(I, /obj/item/stack/cable_coil) && malfunction && is_open)
 		var/obj/item/stack/cable_coil/coil = I
 		to_chat(user, "<span class='notice'>You begin to replace the wires.</span>")
@@ -262,25 +253,6 @@
 			to_chat(user, "<span class='notice'>You repair the [src]!</span>")
 			update_icon()
 
-	else if(istype(I, /obj/item/wrench))
-		if(locked)
-			to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
-			return
-		if(anchored)
-			playsound(loc, I.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You unsecure the [src] from the floor!</span>")
-			if(active)
-				to_chat(user, "<span class='notice'>The [src] shuts off!</span>")
-				shields_down()
-			anchored = 0
-		else
-			if(istype(get_turf(src), /turf/space))
-				return //No wrenching these in space!
-			playsound(loc, I.usesound, 100, 1)
-			to_chat(user, "<span class='notice'>You secure the [src] to the floor!</span>")
-			anchored = 1
-
-
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			locked = !locked
@@ -289,8 +261,36 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 	else
-		..()
+		return ..()
 
+/obj/machinery/shieldgen/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	is_open = !is_open
+	if(is_open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+
+/obj/machinery/shieldgen/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(locked)
+		to_chat(user, "The bolts are covered, unlocking this would retract the covers.")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		WRENCH_UNANCHOR_MESSAGE
+		if(active)
+			visible_message("<span class='warning'>[src] shuts off!</span>")
+			shields_down()
+		anchored = FALSE
+	else
+		if(istype(get_turf(src), /turf/space))
+			return //No wrenching these in space!
+		WRENCH_ANCHOR_MESSAGE
+		anchored = TRUE
 
 /obj/machinery/shieldgen/update_icon()
 	if(active)

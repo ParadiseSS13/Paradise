@@ -25,22 +25,20 @@
 									 "<span class='notice'>You slice apart the [name].</span>")
 				deconstruct(TRUE)
 			return
-
-		else if(iswelder(W))
-			var/obj/item/weldingtool/WT = W
-			if(WT.remove_fuel(0, user))
-				playsound(loc, W.usesound, 40, 1)
-				user.visible_message("[user] is slicing apart the [name].", \
-									 "<span class='notice'>You are slicing apart the [name]...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
-					if(!loc)
-						return
-					playsound(loc, W.usesound, 50, 1)
-					user.visible_message("[user] slices apart the [name].", \
-										 "<span class='notice'>You slice apart the [name]!</span>")
-					deconstruct(TRUE)
-			return
 	return ..()
+
+
+/obj/structure/statue/welder_act(mob/user, obj/item/I)
+	if(anchored)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		deconstruct(TRUE)
+
 
 /obj/structure/statue/attack_hand(mob/living/user)
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -138,6 +136,18 @@
 		ignite(is_hot(W))
 		return
 	return ..()
+
+/obj/structure/statue/plasma/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
+						"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
+						"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+	message_admins("[key_name_admin(user)] ignited a plasma statue at [COORD(loc)]")
+	log_game("[key_name(user)] ignited plasma a statue at [COORD(loc)]")
+	investigate_log("[key_name(user)] ignited a plasma statue at [COORD(loc)]", "atmos")
+	ignite(2500)
 
 /obj/structure/statue/plasma/proc/PlasmaBurn()
 	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 160)

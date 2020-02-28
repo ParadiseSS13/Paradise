@@ -12,6 +12,8 @@
 	sheet_type = /obj/item/stack/sheet/plasteel
 	sheet_amount = 1
 	girder_type = /obj/structure/girder/reinforced
+	can_dismantle_with_welder = FALSE
+
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
@@ -34,50 +36,48 @@
 			. += "<span class='notice'>The support rods have been <i>sliced through</i>, and the outer sheath is <b>connected loosely</b> to the girder.</span>"
 
 /turf/simulated/wall/r_wall/attackby(obj/item/I, mob/user, params)
-	if(try_repair(I, user, params))
+	if(d_state == RWALL_COVER && istype(I, /obj/item/gun/energy/plasmacutter))
+		to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
+		if(I.use_tool(src, user, 40, volume = I.tool_volume) && d_state == RWALL_COVER)
+			d_state = RWALL_CUT_COVER
+			update_icon()
+			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
 		return
-	return ..()
-
-/turf/simulated/wall/r_wall/proc/try_repair(obj/item/I, mob/user, params)
-	if((damage || LAZYLEN(dent_decals)) && iswelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(!WT.remove_fuel(0, user))
-			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
-			return TRUE
-
-		to_chat(user, "<span class='notice'>You start repairing the damage to [src].</span>")
-		playsound(src, WT.usesound, 100, 1)
-		if(do_after(user, max(5, damage / 5) * WT.toolspeed, target = src) && WT && WT.isOn())
-			to_chat(user, "<span class='notice'>You finish repairing the damage to [src].</span>")
-			cut_overlay(dent_decals)
-			dent_decals?.Cut()
-			take_damage(-damage)
-			return TRUE
-
-	if(d_state)
+	else if(RWALL_SUPPORT_RODS && istype(I, /obj/item/gun/energy/plasmacutter))
+		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
+		if(I.use_tool(src, user, 70, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
+			d_state = RWALL_SHEATH
+			update_icon()
+		return
+	else if(d_state == RWALL_SUPPORT_LINES && istype(I, /obj/item/stack/rods))
+		var/obj/item/stack/S = I
+		if(S.use(1))
+			d_state = RWALL_INTACT
+			update_icon()
+			to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
+		else
+			to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
+		return
+	else if(d_state)
 		// Repairing
 		if(istype(I, /obj/item/stack/sheet/metal))
 			var/obj/item/stack/sheet/metal/MS = I
-
 			to_chat(user, "<span class='notice'>You begin patching-up the wall with [MS]...</span>")
 			if(do_after(user, max(20 * d_state, 100) * MS.toolspeed, target = src) && d_state)
 				if(!MS.use(1))
 					to_chat(user, "<span class='warning'>You don't have enough [MS.name] for that!</span>")
-					return TRUE
-
+					return
 				d_state = RWALL_INTACT
 				update_icon()
 				queue_smooth_neighbors(src)
 				to_chat(user, "<span class='notice'>You repair the last of the damage.</span>")
-
-			return TRUE
+			return
 
 	else if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/PS = I
 		if(!can_be_reinforced)
 			to_chat(user, "<span class='notice'>The wall is already coated!</span>")
-			return FALSE
-
+			return
 		to_chat(user, "<span class='notice'>You begin adding an additional layer of coating to the wall with [PS]...</span>")
 		if(do_after(user, 40 * PS.toolspeed, target = src) && !d_state)
 			if(!PS.use(2))
@@ -88,185 +88,113 @@
 			update_icon()
 			queue_smooth_neighbors(src)
 			can_be_reinforced = FALSE
-		return TRUE
-	return FALSE
+		return
+	else
+		return ..()
 
+/turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
+	if(!(d_state in list(RWALL_COVER, RWALL_SUPPORT_RODS, RWALL_CUT_COVER)))
+		return ..()
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(d_state == RWALL_COVER)
+		to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
+		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_COVER)
+			d_state = RWALL_CUT_COVER
+			to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
+	else if(d_state == RWALL_SUPPORT_RODS)
+		to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
+		if(I.use_tool(src, user, 100, volume = I.tool_volume) && d_state == RWALL_SUPPORT_RODS)
+			d_state = RWALL_SHEATH
+	else if(d_state == RWALL_CUT_COVER)
+		to_chat(user, "<span class='notice'>You begin welding the metal cover back to the frame...</span>")
+		if(I.use_tool(src, user, 60, volume = I.tool_volume) && d_state == RWALL_CUT_COVER)
+			to_chat(user, "<span class='notice'>The metal cover has been welded securely to the frame.</span>")
+			d_state = RWALL_COVER
+	update_icon()
 
-/turf/simulated/wall/r_wall/try_decon(obj/item/I, mob/user, params)
+/turf/simulated/wall/r_wall/crowbar_act(mob/user, obj/item/I)
+	if(!(d_state in list(RWALL_CUT_COVER, RWALL_SHEATH, RWALL_BOLTS)))
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
 	switch(d_state)
-		if(RWALL_INTACT)
-			// RWALL_INTACT > RWALL_SUPPORT_LINES
-			if(iswirecutter(I))
-				playsound(src, I.usesound, 100, 1)
-				d_state = RWALL_SUPPORT_LINES
-				update_icon()
-				new /obj/item/stack/rods(src)
-				to_chat(user, "<span class='notice'>You cut the outer grille.</span>")
-				return TRUE
-
-		if(RWALL_SUPPORT_LINES)
-			// RWALL_SUPPORT_LINES > RWALL_COVER
-			if(isscrewdriver(I))
-				to_chat(user, "<span class='notice'>You begin unsecuring the support lines...</span>")
-				playsound(src, I.usesound, 100, 1)
-
-				if(do_after(user, 40 * I.toolspeed, target = src) && d_state == RWALL_SUPPORT_LINES)
-					d_state = RWALL_COVER
-					update_icon()
-					to_chat(user, "<span class='notice'>You unsecure the support lines.</span>")
-				return TRUE
-
-			// RWALL_INTACT < RWALL_SUPPORT_LINES
-			if(istype(I, /obj/item/stack/rods))
-				var/obj/item/stack/S = I
-				if(S.use(1))
-					d_state = RWALL_INTACT
-					update_icon()
-					to_chat(user, "<span class='notice'>You replace the outer grille.</span>")
-				else
-					to_chat(user, "<span class='warning'>You don't have enough rods for that!</span>")
-				return TRUE
-
-		if(RWALL_COVER)
-			// RWALL_COVER > RWALL_CUT_COVER
-			if(iswelder(I))
-				var/obj/item/weldingtool/WT = I
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-					return TRUE
-
-				to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
-				playsound(src, WT.usesound, 100, 1)
-
-				if(do_after(user, 60 * WT.toolspeed, target = src) && d_state == RWALL_COVER)
-					d_state = RWALL_CUT_COVER
-					update_icon()
-					to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
-				return TRUE
-
-			// RWALL_COVER > RWALL_CUT_COVER
-			if(istype(I, /obj/item/gun/energy/plasmacutter))
-				to_chat(user, "<span class='notice'>You begin slicing through the metal cover...</span>")
-				playsound(src, I.usesound, 100, 1)
-
-				if(do_after(user, 40 * I.toolspeed, target = src) && d_state == RWALL_COVER)
-					d_state = RWALL_CUT_COVER
-					update_icon()
-					to_chat(user, "<span class='notice'>You press firmly on the cover, dislodging it.</span>")
-				return TRUE
-
-			// RWALL_SUPPORT_LINES < RWALL_COVER
-			if(isscrewdriver(I))
-				to_chat(user, "<span class='notice'>You begin securing the support lines...</span>")
-				playsound(src, I.usesound, 100, 1)
-				if(do_after(user, 40 * I.toolspeed, target = src))
-					if(!istype(src, /turf/simulated/wall/r_wall) || !I || d_state != RWALL_COVER)
-						return TRUE
-					d_state = RWALL_SUPPORT_LINES
-					update_icon()
-					to_chat(user, "<span class='notice'>The support lines have been secured.</span>")
-				return TRUE
-
 		if(RWALL_CUT_COVER)
-			// RWALL_CUT_COVER > RWALL_BOLTS
-			if(iscrowbar(I))
-				to_chat(user, "<span class='notice'>You struggle to pry off the cover...</span>")
-				playsound(src, I.usesound, 100, 1)
-
-				if(do_after(user, 100 * I.toolspeed, target = src) && d_state == RWALL_CUT_COVER)
-					d_state = RWALL_BOLTS
-					update_icon()
-					to_chat(user, "<span class='notice'>You pry off the cover.</span>")
-				return TRUE
-
-			// RWALL_COVER < RWALL_CUT_COVER
-			if(iswelder(I))
-				var/obj/item/weldingtool/WT = I
-				if(!WT.remove_fuel(0, user))
-					return TRUE
-
-				to_chat(user, "<span class='notice'>You begin welding the metal cover back to the frame...</span>")
-				playsound(src, WT.usesound, 100, 1)
-				if(do_after(user, 60 * WT.toolspeed, target = src))
-					if(!istype(src, /turf/simulated/wall/r_wall) || !WT || !WT.isOn() || d_state != RWALL_CUT_COVER)
-						return TRUE
-					d_state = RWALL_COVER
-					update_icon()
-					to_chat(user, "<span class='notice'>The metal cover has been welded securely to the frame.</span>")
-				return TRUE
-
-		if(RWALL_BOLTS)
-			// RWALL_BOLTS > RWALL_SUPPORT_RODS
-			if(iswrench(I))
-				to_chat(user, "<span class='notice'>You start loosening the anchoring bolts which secure the support rods to their frame...</span>")
-				playsound(src, I.usesound, 100, 1)
-
-				if(do_after(user, 40 * I.toolspeed, target = src) && d_state == RWALL_BOLTS)
-					d_state = RWALL_SUPPORT_RODS
-					update_icon()
-					to_chat(user, "<span class='notice'>You remove the bolts anchoring the support rods.</span>")
-				return TRUE
-
-			// RWALL_CUT_COVER < RWALL_BOLTS
-			if(iscrowbar(I))
-				to_chat(user, "<span class='notice'>You start to pry the cover back into place...</span>")
-				playsound(src, I.usesound, 100, 1)
-				if(do_after(user, 20 * I.toolspeed, target = src))
-					if(!istype(src, /turf/simulated/wall/r_wall) || !I || d_state != RWALL_BOLTS)
-						return TRUE
-					d_state = RWALL_CUT_COVER
-					update_icon()
-					to_chat(user, "<span class='notice'>The metal cover has been pried back into place.</span>")
-				return TRUE
-
-		if(RWALL_SUPPORT_RODS)
-			// RWALL_SUPPORT_RODS > RWALL_SHEATH
-			if(iswelder(I))
-				var/obj/item/weldingtool/WT = I
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-					return TRUE
-
-				to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
-				playsound(src, WT.usesound, 100, 1)
-
-				if(do_after(user, 100 * WT.toolspeed, target = src) && d_state == RWALL_SUPPORT_RODS)
-					d_state = RWALL_SHEATH
-					update_icon()
-				return TRUE
-
-			// RWALL_SUPPORT_RODS > RWALL_SHEATH
-			if(istype(I, /obj/item/gun/energy/plasmacutter))
-				to_chat(user, "<span class='notice'>You begin slicing through the support rods...</span>")
-				playsound(src, I.usesound, 100, 1)
-
-				if(do_after(user, 70 * I.toolspeed, target = src) && d_state == RWALL_SUPPORT_RODS)
-					d_state = RWALL_SHEATH
-					update_icon()
-				return TRUE
-
-			// RWALL_BOLTS < RWALL_SUPPORT_RODS
-			if(iswrench(I))
-				to_chat(user, "<span class='notice'>You start tightening the bolts which secure the support rods to their frame...</span>")
-				playsound(src, I.usesound, 100, 1)
-				if(do_after(user, 40 * I.toolspeed, target = src))
-					if(!istype(src, /turf/simulated/wall/r_wall) || !I || d_state != RWALL_SUPPORT_RODS)
-						return TRUE
-					d_state = RWALL_BOLTS
-					update_icon()
-					to_chat(user, "<span class='notice'>You tighten the bolts anchoring the support rods.</span>")
-				return TRUE
-
+			to_chat(user, "<span class='notice'>You struggle to pry off the cover...</span>")
+			if(!I.use_tool(src, user, 100, volume = I.tool_volume) || d_state != RWALL_CUT_COVER)
+				return
+			d_state = RWALL_BOLTS
+			to_chat(user, "<span class='notice'>You pry off the cover.</span>")
 		if(RWALL_SHEATH)
-			// RWALL_SHEATH > deconstructed
-			if(iscrowbar(I))
-				to_chat(user, "<span class='notice'>You struggle to pry off the outer sheath...</span>")
-				playsound(src, I.usesound, 100, 1)
+			to_chat(user, "<span class='notice'>You struggle to pry off the outer sheath...</span>")
+			if(!I.use_tool(src, user, 100, volume = I.tool_volume) || d_state != RWALL_SHEATH)
+				return
+			to_chat(user, "<span class='notice'>You pry off the outer sheath.</span>")
+			dismantle_wall()
+			return
+		if(RWALL_BOLTS)
+			to_chat(user, "<span class='notice'>You start to pry the cover back into place...</span>")
+			playsound(src, I.usesound, 100, 1)
+			if(!I.use_tool(src, user, 20, volume = I.tool_volume) || d_state != RWALL_BOLTS)
+				return
+			d_state = RWALL_CUT_COVER
+			to_chat(user, "<span class='notice'>The metal cover has been pried back into place.</span>")
+	update_icon()
 
-				if(do_after(user, 100 * I.toolspeed, target = src) && d_state == RWALL_SHEATH)
-					to_chat(user, "<span class='notice'>You pry off the outer sheath.</span>")
-					dismantle_wall()
-				return TRUE
+/turf/simulated/wall/r_wall/screwdriver_act(mob/user, obj/item/I)
+	if(d_state != RWALL_SUPPORT_LINES && d_state != RWALL_COVER)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	var/state_check = d_state
+	if(d_state == RWALL_SUPPORT_LINES)
+		to_chat(user, "<span class='notice'>You begin unsecuring the support lines...</span>")
+	else
+		to_chat(user, "<span class='notice'>You begin securing the support lines...</span>")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state_check != d_state)
+		return
+	if(d_state == RWALL_SUPPORT_LINES)
+		d_state = RWALL_COVER
+		to_chat(user, "<span class='notice'>You unsecure the support lines.</span>")
+	else
+		d_state = RWALL_SUPPORT_LINES
+		to_chat(user, "<span class='notice'>The support lines have been secured.</span>")
+	update_icon()
+
+/turf/simulated/wall/r_wall/wirecutter_act(mob/user, obj/item/I)
+	if(d_state != RWALL_INTACT)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	d_state = RWALL_SUPPORT_LINES
+	update_icon()
+	new /obj/item/stack/rods(src)
+	to_chat(user, "<span class='notice'>You cut the outer grille.</span>")
+
+/turf/simulated/wall/r_wall/wrench_act(mob/user, obj/item/I)
+	if(d_state != RWALL_BOLTS && d_state != RWALL_SUPPORT_RODS)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	var/state_check = d_state
+	if(d_state == RWALL_BOLTS)
+		to_chat(user, "<span class='notice'>You start loosening the anchoring bolts which secure the support rods to their frame...</span>")
+	else
+		to_chat(user, "<span class='notice'>You start tightening the bolts which secure the support rods to their frame...</span>")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state_check != d_state)
+		return
+	if(d_state == RWALL_BOLTS)
+		d_state = RWALL_SUPPORT_RODS
+		to_chat(user, "<span class='notice'>You remove the bolts anchoring the support rods.</span>")
+	else
+		d_state = RWALL_BOLTS
+		to_chat(user, "<span class='notice'>You tighten the bolts anchoring the support rods.</span>")
+	update_icon()
 
 /turf/simulated/wall/r_wall/try_destroy(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pickaxe/drill/diamonddrill))

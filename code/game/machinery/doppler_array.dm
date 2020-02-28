@@ -41,23 +41,24 @@ var/list/doppler_arrays = list()
 	return PROCESS_KILL
 
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		if(!anchored && !isinspace())
-			anchored = TRUE
-			power_change()
-			to_chat(user, "<span class='notice'>You fasten [src].</span>")
-		else if(anchored)
-			anchored = FALSE
-			power_change()
-			to_chat(user, "<span class='notice'>You unfasten [src].</span>")
-		playsound(loc, I.usesound, 50, 1)
-		return
 	if(istype(I, /obj/item/disk/tech_disk))
 		var/obj/item/disk/tech_disk/disk = I
 		disk.load_tech(toxins_tech)
 		to_chat(user, "<span class='notice'>You swipe the disk into [src].</span>")
 		return
 	return ..()
+
+/obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!anchored && !isinspace())
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
+	else if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+	power_change()
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())

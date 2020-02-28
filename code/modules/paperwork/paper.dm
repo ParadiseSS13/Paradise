@@ -720,6 +720,7 @@
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
 /obj/item/paper/researchnotes/New()
+	..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)

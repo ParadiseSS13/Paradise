@@ -316,6 +316,7 @@ var/list/world_uplinks = list()
 // implant uplink (not the implant tool) and a preset headset uplink.
 
 /obj/item/radio/uplink/New()
+	..()
 	hidden_uplink = new(src)
 	icon_state = "radio"
 
@@ -339,6 +340,7 @@ var/list/world_uplinks = list()
 		hidden_uplink.uplink_type = "sst"
 
 /obj/item/multitool/uplink/New()
+	..()
 	hidden_uplink = new(src)
 
 /obj/item/multitool/uplink/attack_self(mob/user as mob)
