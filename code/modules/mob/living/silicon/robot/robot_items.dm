@@ -96,3 +96,58 @@
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "shock"
 	powerneeded = 25
+
+
+//APC power adapter for cyborgs, adapted from apc_powercord code
+//Allows cyborgs to recharge via APC, at first faster than a stock cyborg recharging station, upgraded stations are faster.
+obj/item/ccharger
+	name = "APC power adapter"
+	desc = "A cyborg specific power adapter, allowing cyborgs to siphon power from APCs to recharge their powercells"
+	icon = 'icons/obj/cyborg.dmi'
+	icon_state = "c-charger"
+	flags = NOBLUDGEON
+
+/obj/item/ccharger/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!istype(target, /obj/machinery/power/apc) || !issilicon(user) || !proximity_flag)
+		return ..()
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/obj/machinery/power/apc/A = target
+	var/mob/living/silicon/robot/H = user
+	if(H.cell)
+		if(A.emagged || A.stat & BROKEN)
+			do_sparks(3, 1, A)
+			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
+			H.adjustFireLoss(10,0)
+		else if(A.cell && A.cell.charge > 0)
+			if(H.cell.charge >= H.cell.maxcharge)
+				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+			else
+				INVOKE_ASYNC(src, .proc/powerdraw_loop, A, H)
+		else
+			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+	else
+		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+
+/obj/item/ccharger/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/silicon/robot/H)
+	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
+	while(do_after(H, 10, target = A))
+		if(loc != H)
+			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+			break
+		if(A.cell.charge == 0)
+			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
+			break
+		A.charging = 1
+		if(A.cell.charge >= 200)
+			H.cell.charge += 200 * H.cell.rating // replenishment scales with higher capacity cells
+			A.cell.charge -= 200 // as to not rapidly drain and depower rooms 
+			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+		else
+			H.cell.charge += A.cell.charge
+			A.cell.charge = 0
+			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
+			break
+		if(H.cell.charge >= H.cell.maxcharge)
+			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+			break
+	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
