@@ -1,4 +1,4 @@
-#Updating the SQL from version 10 to version 11. -AffectedArc07
+#Updating the SQL from version 11 to version 12. -AffectedArc07
 #Creating a table for the new changelog system
 
 DROP TABLE IF EXISTS `changelog`;
