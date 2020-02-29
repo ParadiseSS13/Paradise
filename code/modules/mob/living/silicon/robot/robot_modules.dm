@@ -113,30 +113,39 @@
 	return
 
 /obj/item/robot_module/standard
+	// if station is fine, assist with constructing station goal room, cleaning, and repairing cables chewed by rats
+	// if medical crisis, assist by providing basic healthcare, retrieving corpses, and monitoring crew lifesigns
+	// if eng crisis, assist by helping repair hull breaches
+	// if sec crisis, assist by opening doors for sec and providing a backup stunbaton on patrols
 	name = "generalist robot module"
 	module_type = "Standard"
+	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
+	stacktypes = list(
+		/obj/item/stack/sheet/metal/cyborg = 50,
+		/obj/item/stack/cable_coil/cyborg = 50,
+		/obj/item/stack/rods/cyborg = 60,
+		/obj/item/stack/tile/plasteel = 20
+		)
 
 /obj/item/robot_module/standard/New()
 	..()
 	// sec
 	modules += new /obj/item/melee/baton/loaded(src)
-
 	// janitorial
 	modules += new /obj/item/soap/nanotrasen(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
-
 	// eng
 	modules += new /obj/item/crowbar/cyborg(src)
-	modules += new /obj/item/holosign_creator/cyborg/atmos(src) // for temporarily sealing breached areas until they can be properly fixed
 	modules += new /obj/item/extinguisher(src) // for firefighting, and propulsion in space
-
 	// med
 	modules += new /obj/item/healthanalyzer(src)
-	modules += new /obj/item/reagent_containers/borghypo/basic(src) // basic brute/burn treatment for minor ailments
-	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay
-
+	modules += new /obj/item/reagent_containers/borghypo/basic(src)
+	modules += new /obj/item/roller_holder(src) // for taking the injured to medbay without worsening their injuries or leaving a blood trail the whole way
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
-
+	for(var/G in stacktypes)
+		var/obj/item/stack/sheet/M = new G(src)
+		M.amount = stacktypes[G]
+		modules += M
 	fix_modules()
 
 /obj/item/robot_module/medical
