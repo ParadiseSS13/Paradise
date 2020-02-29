@@ -1333,19 +1333,9 @@ var/list/robot_verbs_default = list(
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
 /mob/living/silicon/robot/deathsquad/bullet_act(var/obj/item/projectile/P)
-	if(istype(P) && P.is_reflectable)
+	if(istype(P) && P.is_reflectable && P.starting)
 		visible_message("<span class='danger'>The [P.name] gets reflected by [src]!</span>", "<span class='userdanger'>The [P.name] gets reflected by [src]!</span>")
-		if(P.starting)
-			var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-			var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-			var/turf/curloc = get_turf(src)
-			P.firer = src
-			P.original = locate(new_x, new_y, P.z)
-			P.starting = curloc
-			P.current = curloc
-			P.yo = new_y - curloc.y
-			P.xo = new_x - curloc.x
-			P.Angle = null
+		P.reflect_back(src)
 		return -1
 	return ..(P)
 
