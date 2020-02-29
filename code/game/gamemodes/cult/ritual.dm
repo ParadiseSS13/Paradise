@@ -18,7 +18,7 @@
 	name = "ritual dagger of scribing, +1"
 	desc = "very fast cultist scribing at incredible hihg speed"
 	force = 16
-	scribe_reduction = 0.1
+	scribe_multiplier = 0.1
 
 /obj/item/melee/cultblade/dagger/New()
 	if(SSticker.mode)
