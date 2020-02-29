@@ -1378,6 +1378,8 @@ var/list/robot_verbs_default = list(
 	allow_rename = FALSE
 	weapons_unlock = TRUE
 	default_cell_type = /obj/item/stock_parts/cell/super
+	var/eprefix = "Amber"
+
 
 /mob/living/silicon/robot/ert/init()
 	laws = new /datum/ai_laws/ert_override
@@ -1388,7 +1390,7 @@ var/list/robot_verbs_default = list(
 /mob/living/silicon/robot/ert/New(loc)
 	..(loc)
 	var/rnum = rand(1,1000)
-	var/borgname = "ERT [rnum]"
+	var/borgname = "[eprefix] ERT [rnum]"
 	name = borgname
 	custom_name = borgname
 	real_name = name
@@ -1403,13 +1405,16 @@ var/list/robot_verbs_default = list(
 
 
 /mob/living/silicon/robot/ert/red
+	eprefix = "Red"
 	default_cell_type = /obj/item/stock_parts/cell/hyper
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	force_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
+	eprefix = "Gamma"
 	xeno_disarm_chance = 40
+
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()
