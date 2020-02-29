@@ -675,7 +675,7 @@
 				if(H.stat == DEAD)
 					to_chat(user,"<span class='warning'>Only a revive rune can bring back the dead!</span>")
 					return
-				if(H.dna && (NO_BLOOD in H.dna.species.species_traits || H.dna.species.exotic_blood != null))
+				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
 						if(uses * 2 < restore_blood)
@@ -687,7 +687,7 @@
 							H.blood_volume = BLOOD_VOLUME_SAFE
 							uses -= round(restore_blood / 2)
 							to_chat(user,"<span class='warning'>Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!</span>")
-				var/overall_damage = H.getBruteLoss() + H.getFireLoss()
+				var/overall_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
 				if(overall_damage == 0)
 					to_chat(user,"<span class='cult'>That cultist doesn't require healing!</span>")
 				else
@@ -719,7 +719,7 @@
 				if(H.cultslurring)
 					to_chat(user,"<span class='danger'>[H.p_their(TRUE)] blood has been tainted by an even stronger form of blood magic, it's no use to us like this!</span>")
 					return
-				if(H.dna && (NO_BLOOD in H.dna.species.species_traits || H.dna.species.exotic_blood != null))
+				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)
 					if(H.blood_volume > BLOOD_VOLUME_SAFE)
 						H.blood_volume -= 100
 						uses += 50
