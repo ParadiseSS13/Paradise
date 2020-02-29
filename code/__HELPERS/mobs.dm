@@ -346,24 +346,35 @@ This is always put in the attack log.
 	if(progress)
 		qdel(progbar)
 
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
+/*	Use this proc when you want to have code under it execute after a delay, and ensure certain conditions are met during that delay...
+ *	Such as the user not being interrupted via getting stunned or by moving off the tile they're currently on.
+ *
+ *	Example usage:
+ *
+ *	if(do_after(user, 50, target = sometarget, extra_checks = list(callback_check1, callback_check2)))
+ *		do_stuff()
+ *	
+ *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
+ *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
+ */
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE)
 	if(!user)
-		return 0
+		return FALSE
 	var/atom/Tloc = null
 	if(target)
 		Tloc = target.loc
 
 	var/atom/Uloc = user.loc
 
-	var/drifting = 0
+	var/drifting = FALSE
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
-		drifting = 1
+		drifting = TRUE
 
 	var/holding = user.get_active_hand()
 
-	var/holdingnull = 1 //User's hand started out empty, check for an empty hand
+	var/holdingnull = TRUE //User's hand started out empty, check for an empty hand
 	if(holding)
-		holdingnull = 0 //Users hand started holding something, check to see if it's still holding that
+		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
 
 	var/datum/progressbar/progbar
 	if(progress)
@@ -371,22 +382,34 @@ This is always put in the attack log.
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
-	. = 1
+	. = TRUE
+
+	// By default, checks for weakness and stunned get added to the extra_checks list.
+	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
+	if(use_default_checks)
+		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
+		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+
+	for(var/check in extra_checks)
+		var/datum/callback/CB = check
+		if(!istype(CB))
+			extra_checks.Remove(CB)
+
 	while(world.time < endtime)
 		sleep(1)
 		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(drifting && !user.inertia_dir)
-			drifting = 0
+			drifting = FALSE
 			Uloc = user.loc
 
-		if(!user || user.stat || user.IsWeakened() || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
-			. = 0
+		if(!user || user.stat || (!drifting && user.loc != Uloc) || invoke_callback_list(extra_checks))
+			. = FALSE
 			break
 
 		if(Tloc && (!target || Tloc != target.loc))
-			. = 0
+			. = FALSE
 			break
 
 		if(needhand)
@@ -394,13 +417,20 @@ This is always put in the attack log.
 			//i.e the hand is used to pull some item/tool out of the construction
 			if(!holdingnull)
 				if(!holding)
-					. = 0
+					. = FALSE
 					break
 			if(user.get_active_hand() != holding)
-				. = 0
+				. = FALSE
 				break
 	if(progress)
 		qdel(progbar)
+
+// Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
+/proc/invoke_callback_list(list/extra_checks)
+	for(var/datum/callback/CB in extra_checks)
+		if(CB.Invoke())
+			return TRUE
+	return FALSE
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_INIT(do_after_once_tracker, list())
@@ -414,7 +444,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key))
+	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)
