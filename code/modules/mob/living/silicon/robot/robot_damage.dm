@@ -72,7 +72,7 @@
 
 /mob/living/silicon/robot/heal_organ_damage(brute, burn, updating_health = TRUE)
 	var/list/datum/robot_component/parts = get_damaged_components(brute, burn)
-	if(!LAZYLEN(parts))	
+	if(!LAZYLEN(parts))
 		return
 	var/datum/robot_component/picked = pick(parts)
 	picked.heal_damage(brute, burn, updating_health)
@@ -133,7 +133,13 @@
 		updatehealth("heal overall damage")
 
 /mob/living/silicon/robot/take_overall_damage(brute = 0, burn = 0, updating_health = TRUE, used_weapon = null, sharp = 0)
-	if(status_flags & GODMODE)	return	//godmode
+	if(status_flags & GODMODE)
+		return
+
+	if(damage_protection)
+		brute = Clamp(brute - damage_protection, 0, brute)
+		burn = Clamp(burn - damage_protection, 0, burn)
+
 	var/list/datum/robot_component/parts = get_damageable_components()
 
 	 //Combat shielding absorbs a percentage of damage directly into the cell.
@@ -157,7 +163,10 @@
 		else
 			brute -= absorb_brute
 			burn -= absorb_burn
-			to_chat(src, "<span class='warning'>Your shield absorbs some of the impact!</span>")
+			if(brute || burn)
+				to_chat(src, "<span class='warning'>Your shield absorbs some of the impact!</span>")
+			else
+				to_chat(src, "<span class='warning'>Your shield absorbs all of the impact!</span>")
 
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)
