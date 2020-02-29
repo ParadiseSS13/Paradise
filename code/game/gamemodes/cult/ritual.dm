@@ -12,6 +12,13 @@
 	throwforce = 25
 	armour_penetration = 35
 	var/drawing_rune = FALSE
+	var/scribe_multiplier = 1
+
+/obj/item/melee/cultblade/dagger/adminbus
+	name = "ritual dagger of scribing, +1"
+	desc = "very fast cultist scribing at incredible hihg speed"
+	force = 16
+	scribe_reduction = 0.1
 
 /obj/item/melee/cultblade/dagger/New()
 	if(SSticker.mode)
@@ -132,7 +139,7 @@
 	var/obj/item/organ/external/affecting = H.get_organ(dam_zone)
 	user.visible_message("<span class='warning'>[user] cuts open [user.p_their()] [affecting.name] and begins writing in [user.p_their()] own blood!</span>", "<span class='cult'>You slice open your [affecting.name] and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
 	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, affecting)
-	if(!do_after(user, initial(rune_to_scribe.scribe_delay), target = get_turf(user)))
+	if(!do_after(user, initial(rune_to_scribe.scribe_delay) * scribe_multiplier, target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V
 			if(S && !QDELETED(S))

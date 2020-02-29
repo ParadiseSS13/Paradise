@@ -30,7 +30,7 @@ To draw a rune, use an arcane tome.
 	var/rune_in_use = 0 // Used for some runes, this is for when you want a rune to not be usable when in use.
 
 	var/scribe_delay = 50 //how long the rune takes to create
-	var/scribe_damage = 0.1 //how much damage you take doing it
+	var/scribe_damage = 1 //how much damage you take doing it
 
 	var/allow_excess_invokers = 0 //if we allow excess invokers when being invoked
 	var/construct_invoke = TRUE //if constructs can invoke it
@@ -902,7 +902,7 @@ var/list/teleport_runes = list()
 	pixel_y = -32
 	mouse_opacity = MOUSE_OPACITY_ICON //we're huge and easy to click
 	scribe_delay = 450 //how long the rune takes to create
-	scribe_damage = 40.1 //how much damage you take doing it
+	scribe_damage = 30 //how much damage you take doing it
 	var/used
 
 /obj/effect/rune/narsie/New()

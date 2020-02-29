@@ -134,8 +134,6 @@
 		hand_magic = null
 		to_chat(owner, "<span class='warning'>You snuff out the spell, saving it for later.</span>")
 
-
-
 //the spell list
 
 /datum/action/innate/cult/blood_spell/stun
@@ -578,10 +576,10 @@
 			var/quantity = candidate.amount
 			if(candidate.use(quantity))
 				uses --
-				new /obj/item/stack/sheet/runed_metal(T,quantity)
+				new /obj/item/stack/sheet/runed_metal(T, quantity)
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
 				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
-		else if(istype(target,/mob/living/silicon/robot))
+		else if(istype(target, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/candidate = target
 			if(candidate.mmi)
 				channeling = TRUE
@@ -768,7 +766,6 @@
 				qdel(B)
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
 			qdel(TH)
-		var/obj/item/clothing/shoes/shoecheck = user.shoes
 		if(temp)
 			user.Beam(T,icon_state="drainbeam", time = 15)
 			new /obj/effect/temp_visual/cult/sparks(get_turf(user))
