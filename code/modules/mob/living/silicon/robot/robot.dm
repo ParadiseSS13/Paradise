@@ -57,6 +57,7 @@ var/list/robot_verbs_default = list(
 	var/eye_protection = 0
 	var/ear_protection = 0
 	var/damage_protection = 0
+	var/xeno_disarm_chance = 85
 
 	var/list/force_modules = list()
 	var/allow_rename = TRUE
@@ -1316,6 +1317,7 @@ var/list/robot_verbs_default = list(
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = 1 // Immunity to the audio part of flashbangs
 	damage_protection = 10 // Reduce all incoming damage by this number
+	xeno_disarm_chance = 20
 	allow_rename = FALSE
 	modtype = "Commando"
 	faction = list("nanotrasen")
@@ -1407,6 +1409,7 @@ var/list/robot_verbs_default = list(
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 	force_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
+	xeno_disarm_chance = 40
 
 /mob/living/silicon/robot/emp_act(severity)
 	..()
