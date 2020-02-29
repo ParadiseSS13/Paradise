@@ -131,7 +131,7 @@
 	else if(istype(target, /obj/item)) //Check that we're not pocketing a mob.
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
-			to_chat(user, "You collect [I].")
+			to_chat(user, "<span class='notice'>You collect [I].</span>")
 			I.forceMove(src)
 			gripped_item = I
 		else
