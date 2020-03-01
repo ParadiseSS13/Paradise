@@ -560,7 +560,7 @@ var/const/INGEST = 2
 			can_process = 1
 	return can_process
 
-/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1)
+/datum/reagents/proc/reaction(atom/A, method = TOUCH, volume_modifier = 1, show_message = TRUE)
 	var/react_type
 	if(isliving(A))
 		react_type = "LIVING"
@@ -605,7 +605,7 @@ var/const/INGEST = 2
 				var/check = reaction_check(A, R)
 				if(!check)
 					continue
-				R.reaction_mob(A, method, R.volume * volume_modifier)
+				R.reaction_mob(A, method, R.volume * volume_modifier, show_message)
 			if("TURF")
 				R.reaction_turf(A, R.volume * volume_modifier)
 			if("OBJ")
