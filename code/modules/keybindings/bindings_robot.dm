@@ -11,8 +11,12 @@
 			return
 		if("Q")
 			if(!(client.prefs.toggles & AZERTY))
-				uneq_active()
-				return
+				var/obj/item/gripper/G = get_active_hand()
+				if(istype(G) && G.gripped_item)
+					G.drop_gripped_item()
+				else
+					uneq_active()
+					return
 		if("A")
 			if(client.prefs.toggles & AZERTY)
 				uneq_active()

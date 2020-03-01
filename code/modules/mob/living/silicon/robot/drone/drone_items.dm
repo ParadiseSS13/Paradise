@@ -32,14 +32,6 @@
 		/obj/item/stack/ore/bluespace_crystal
 	)
 
-	var/list/configurable_items = list(
-		/obj/item/airlock_electronics,
-		/obj/item/rack_parts,
-		/obj/item/clipboard,
-		/obj/item/paper,
-		/obj/item/card/id
-	)
-
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
@@ -84,17 +76,7 @@
 
 /obj/item/gripper/attack_self(mob/user)
 	if(gripped_item)
-		if(gripped_item.type in configurable_items)
-			var/choice = alert(user, "Do you want to configure/place the item, or drop it?", "Gripper selection", "Configure/place", "Drop", "Cancel")
-			switch(choice)
-				if("Configure/place")
-					gripped_item.attack_self(user)
-				if("Drop")
-					drop_gripped_item()
-				if("Cancel")
-					return FALSE
-		else
-			drop_gripped_item()
+		gripped_item.attack_self(user)
 	else
 		to_chat(user, "<span class='warning'>[src] is empty.</span>")
 

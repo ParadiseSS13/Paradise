@@ -115,9 +115,8 @@
 		return 0
 
 /mob/living/silicon/robot/drop_item()
-	var/obj/item/I = get_active_hand()
-	if(istype(I, /obj/item/gripper))
-		var/obj/item/gripper/G = I
+	var/obj/item/gripper/G = get_active_hand()
+	if(istype(G))
 		G.drop_gripped_item(silent = TRUE)
 	return TRUE
 
