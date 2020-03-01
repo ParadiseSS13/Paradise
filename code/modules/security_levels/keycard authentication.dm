@@ -165,9 +165,10 @@
 			feedback_inc("alert_keycard_auth_stationRevoke",1)
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				to_chat(usr, "<span class='warning'>All Emergency Response Teams are dispatched and can not be called at this time.</span>")
+				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
-			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
+			atom_say("ERT request transmitted!")
+			command_announcer.autosay("ERT request transmitted.")
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
 			var/fullmin_count = 0
