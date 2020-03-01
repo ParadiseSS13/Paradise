@@ -390,11 +390,6 @@ This is always put in the attack log.
 		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
 		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
 
-	for(var/check in extra_checks)
-		var/datum/callback/CB = check
-		if(!istype(CB))
-			extra_checks.Remove(CB)
-
 	while(world.time < endtime)
 		sleep(1)
 		if(progress)
