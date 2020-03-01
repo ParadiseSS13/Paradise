@@ -861,8 +861,10 @@
 			var/farted_on_thing = FALSE
 			for(var/atom/A in get_turf(src))
 				farted_on_thing += A.fart_act(src)
+				playsound(loc,'sound/hispania/effects/fart_oc.ogg',50,1)
 			if(!farted_on_thing)
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
+				playsound(loc,'sound/hispania/effects/fart_oc.ogg',50,1)
 			m_type = 2
 
 		if("hem")
