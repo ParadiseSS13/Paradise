@@ -302,19 +302,18 @@
 	else
 		deactivate()
 
-/obj/item/borg/upgrade/ccharger
+/obj/item/borg/upgrade/borgcharger
 	name = "Cyborg APC power adapter"
 	desc = "An APC power adaptor for cyborgs, allows cyborgs to siphon power from APCs."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4"
-	require_module = 1
-	module_type = /obj/item/robot_module/miner
+	require_module = TRUE
 
-/obj/item/borg/upgrade/ccharger/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/borgcharger/action(mob/living/silicon/robot/R)
 	if(..())
 		return
 
-	R.module.modules += new /obj/item/ccharger(R.module)
+	R.module.modules += new /obj/item/borgcharger(R.module)
 	R.module.rebuild()
 
-	return 1
+	return TRUE

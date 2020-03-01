@@ -1101,11 +1101,11 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/ccharger
+/datum/design/borgcharger
 	name = "Cyborg APC power adapter"
 	id = "ccharger"
 	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/ccharger
+	build_path = /obj/item/borg/upgrade/borgcharger
 	req_tech = list("materials" = 4, "engineering" = 4, "powerstorage" = 4)
 	materials = list(MAT_METAL=15000, MAT_GLASS=15000, MAT_GOLD= 2000)
 	construction_time = 120

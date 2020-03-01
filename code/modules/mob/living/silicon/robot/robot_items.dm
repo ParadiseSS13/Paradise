@@ -100,14 +100,14 @@
 
 //APC power adapter for cyborgs, adapted from apc_powercord code
 //Allows cyborgs to recharge via APC, at first faster than a stock cyborg recharging station, upgraded stations are faster.
-obj/item/ccharger
+obj/item/borgcharger
 	name = "APC power adapter"
 	desc = "A cyborg specific power adapter, allowing cyborgs to siphon power from APCs to recharge their powercells"
 	icon = 'icons/obj/cyborg.dmi'
 	icon_state = "c-charger"
 	flags = NOBLUDGEON
 
-/obj/item/ccharger/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/borgcharger/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/machinery/power/apc) || !issilicon(user) || !proximity_flag)
 		return ..()
 	user.changeNext_move(CLICK_CD_MELEE)
@@ -128,7 +128,7 @@ obj/item/ccharger
 	else
 		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
 
-/obj/item/ccharger/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/silicon/robot/H)
+/obj/item/borgcharger/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/silicon/robot/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
 	while(do_after(H, 10, target = A))
 		if(loc != H)
@@ -137,13 +137,13 @@ obj/item/ccharger
 		if(A.cell.charge == 0)
 			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
 			break
-		A.charging = 1
+		A.charging = TRUE
 		if(A.cell.charge >= 200)
-			H.cell.charge += 200 * H.cell.rating // replenishment scales with higher capacity cells
-			A.cell.charge -= 200 // as to not rapidly drain and depower rooms 
+			H.cell.give(200 * H.cell.rating) // replenishment scales with higher capacity cells
+			A.cell.use(200) // as to not rapidly drain and depower rooms 
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
-			H.cell.charge += A.cell.charge
+			H.cell.give(A.cell.charge)
 			A.cell.charge = 0
 			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
 			break
