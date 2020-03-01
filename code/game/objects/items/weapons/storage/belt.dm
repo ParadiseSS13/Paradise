@@ -134,6 +134,7 @@
 		/obj/item/rad_laser,
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
+		/obj/item/pinpointer/crew,
 		/obj/item/handheld_defibrillator
 	)
 
@@ -195,15 +196,18 @@
 		/obj/item/cultivator,
 		/obj/item/hatchet,
 		/obj/item/reagent_containers/glass/bottle,
-//		/obj/item/reagent_containers/syringe,
-//		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/shovel/spade,
 		/obj/item/flashlight/pen,
 		/obj/item/seeds,
 		/obj/item/wirecutters,
-        /obj/item/wrench,
+		/obj/item/wrench,
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/reagent_containers/spray/plantbgone,
+		/obj/item/melee/flyswatter,
 	)
 
 /obj/item/storage/belt/security
@@ -211,7 +215,7 @@
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
 	item_state = "security"//Could likely use a better one.
-	storage_slots = 5
+	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_NORMAL
 	use_item_overlays = 1
 	can_hold = list(

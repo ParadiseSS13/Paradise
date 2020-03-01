@@ -156,6 +156,9 @@
 /mob/living/carbon/human/stok/Initialize(mapload)
 	..(mapload, /datum/species/monkey/unathi)
 
+/mob/living/carbon/human/murghal/Initialize(mapload)
+	..(mapload, "Murghal")
+
 /mob/living/carbon/human/Stat()
 	..()
 	statpanel("Status")
@@ -1179,6 +1182,7 @@
 		return 1
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
+
 	if(HULK in mutations)
 		say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		if(..(I, cuff_break = 1))

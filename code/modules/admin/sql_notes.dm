@@ -54,6 +54,7 @@
 	if(logged)
 		log_admin("[key_name(usr)] has added a note to [target_ckey]: [notetext]")
 		message_admins("[key_name_admin(usr)] has added a note to [target_ckey]:<br>[notetext]")
+		ryzorbot("notify", "addnote=[key_name(usr)]&[target_ckey]","[notetext]")
 		show_note(target_ckey)
 
 /proc/remove_note(note_id)
@@ -84,6 +85,7 @@
 		return
 	log_admin("[key_name(usr)] has removed a note made by [adminckey] from [ckey]: [notetext]")
 	message_admins("[key_name_admin(usr)] has removed a note made by [adminckey] from [ckey]:<br>[notetext]")
+	ryzorbot("notify", "removenote=[key_name(usr)]&[adminckey]&[ckey]","[notetext]")
 	show_note(ckey)
 
 /proc/edit_note(note_id)

@@ -44,7 +44,7 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		repairs += M.rating - 1
 	for(var/obj/item/stock_parts/cell/C in component_parts)
-		var/multiplier = C.maxcharge / 10000
+		var/multiplier = C.get_part_rating() / 10000
 		recharge_speed *= multiplier
 		recharge_speed_nutrition *= multiplier
 
@@ -128,20 +128,33 @@
 		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
+	if(occupant)
+		if(isrobot(occupant))
 			var/mob/living/silicon/robot/R = occupant
 			restock_modules()
 			if(repairs)
 				R.heal_overall_damage(repairs, repairs)
 			if(R.cell)
-				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(istype(occupant, /mob/living/carbon/human))
+				var/transfered = R.cell.give(recharge_speed)
+				use_power(transfered * 12)
+		else if(ishuman(occupant))
 			var/mob/living/carbon/human/H = occupant
 			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
 				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
 				if(repairs)
 					H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+			for(var/A in H.reagents.addiction_list)
+				var/datum/reagent/R = A
+				var/addiction_removal_chance = 5
+				if(world.timeofday > (R.last_addiction_dose + 1500)) // 2.5 minutes
+					addiction_removal_chance = 10
+				if(prob(addiction_removal_chance))
+					to_chat(H, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+					H.reagents.addiction_list.Remove(R)
+					qdel(R)
+		else if(istype(occupant, /mob/living/simple_animal/spiderbot))
+			var/mob/living/simple_animal/spiderbot/H = occupant
+			H.adjustBruteLoss(-repairs-1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
@@ -177,15 +190,17 @@
 						var/obj/item/gun/energy/disabler/cyborg/D = O
 						if(D.cell.charge < D.cell.maxcharge)
 							var/obj/item/ammo_casing/energy/E = D.ammo_type[D.select]
-							D.cell.give(E.e_cost)
+							var/transfered = D.cell.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
+							use_power(transfered * 12)
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
 						if(B.cell)
-							B.cell.charge = B.cell.maxcharge
+							var/transfered = B.cell.give(B.cell.chargerate)
+							use_power(transfered * 12)
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)
@@ -250,9 +265,6 @@
 	if(isrobot(user))
 		var/mob/living/silicon/robot/R = user
 
-		if(R.stat == DEAD)
-			//Whoever had it so that a borg with a dead cell can't enter this thing should be shot. --NEO
-			return
 		if(occupant)
 			to_chat(R, "<span class='warning'>The cell is already occupied!</span>")
 			return
@@ -262,17 +274,21 @@
 			return
 		can_accept_user = 1
 
-	else if(istype(user, /mob/living/carbon/human))
+	else if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		if(H.stat == DEAD)
-			return
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
-		if(!H.get_int_organ(/obj/item/organ/internal/cell))
+		if(ismachine(H))
+			can_accept_user = TRUE
+		else if(!H.get_int_organ(/obj/item/organ/internal/cell))
+			to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")
 			return
 		can_accept_user = 1
+
+	else if(istype(user, /mob/living/simple_animal/spiderbot))
+		can_accept_user = TRUE
 
 	if(!can_accept_user)
 		to_chat(user, "<span class='notice'>Only non-organics may enter the recharger!</span>")

@@ -44,8 +44,8 @@
 	title = "Chef"
 	flag = CHEF
 	department_flag = SUPPORT
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
@@ -78,7 +78,7 @@
 	title = "Botanist"
 	flag = BOTANIST
 	department_flag = SUPPORT
-	total_positions = 3
+	total_positions = 2
 	spawn_positions = 2
 	is_service = 1
 	supervisors = "the head of personnel"
@@ -86,7 +86,10 @@
 	selection_color = "#dddddd"
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
 	minimal_access = list(access_hydroponics, access_morgue, access_maint_tunnels)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	alt_titles = list("Hydroponicist", "Botanical Researcher", "Beekeeper")
+	required_objectives = list(
+		/datum/job_objective/further_plants
+	)
 	outfit = /datum/outfit/job/hydro
 
 /datum/outfit/job/hydro
@@ -118,6 +121,8 @@
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
+	exp_requirements = 600
+	exp_type = EXP_TYPE_CREW
 	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	outfit = /datum/outfit/job/qm
@@ -146,7 +151,7 @@
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
+	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_maint_tunnels, access_cargo, access_cargo_bot, access_mailsorting, access_mineral_storeroom)
 	outfit = /datum/outfit/job/cargo_tech
 
@@ -172,7 +177,7 @@
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
+	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_mint, access_mining, access_mining_station, access_mineral_storeroom)
 	minimal_access = list(access_mining, access_mint, access_mining_station, access_mailsorting, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining

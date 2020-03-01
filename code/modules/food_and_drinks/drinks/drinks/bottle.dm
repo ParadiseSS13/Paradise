@@ -366,3 +366,4 @@
 		to_chat(user, "<span class='info'>You snuff out the flame on \the [src].</span>")
 		overlays -= fire_overlay
 		active = 0
+

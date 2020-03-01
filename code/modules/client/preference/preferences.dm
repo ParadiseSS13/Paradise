@@ -543,10 +543,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
 				var/ticked = (G.display_name in gear)
-				if(G.donator_tier > user.client.donator_level)
-					dat += "<tr style='vertical-align:top;'><td width=15%><B>[G.display_name]</B></td>"
-				else
-					dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
+				dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
 					dat += "<font size=2>Restrictions: "
@@ -636,6 +633,9 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		lastJob = job
 		if(!is_job_whitelisted(user, rank))
 			HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[KARMA]</b></font></td></tr>"
+			continue
+		if(!is_heads_whitelisted(user, rank))
+			HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[WHITELIST]</b></font></td></tr>"
 			continue
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
@@ -1164,9 +1164,6 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			if(TG.display_name in gear)
 				gear -= TG.display_name
 			else
-				if(TG.donator_tier && user.client.donator_level < TG.donator_tier)
-					to_chat(user, "<span class='warning'>That gear is only available at a higher donation tier than you are on.</span>")
-					return
 				var/total_cost = 0
 				var/list/type_blacklist = list()
 				for(var/gear_name in gear)
@@ -1294,9 +1291,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					if(new_age)
 						age = max(min(round(text2num(new_age)), AGE_MAX),AGE_MIN)
 				if("species")
-					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin")
+					var/list/new_species = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Machine", "Plasmaman", "Kidan", "Drask", "Vox", "Slime People")
 					var/prev_species = species
 //						var/whitelisted = 0
+					new_species -= list(/*"Tajaran", "Vulpkanin",*/ "Vox Armalis", "Nucleation")
 
 					if(config.usealienwhitelist) //If we're using the whitelist, make sure to check it!
 						for(var/Spec in GLOB.whitelisted_species)
@@ -1305,8 +1303,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 //									whitelisted = 1
 //							if(!whitelisted)
 //								alert(user, "You cannot change your species as you need to be whitelisted. If you wish to be whitelisted contact an admin in-game, on the forums, or on IRC.")
-					else //Not using the whitelist? Aliens for everyone!
-						new_species += GLOB.whitelisted_species
+//					else //Not using the whitelist? Aliens for everyone!
+//						new_species += GLOB.whitelisted_species
 
 					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
 					var/datum/species/NS = GLOB.all_species[species]

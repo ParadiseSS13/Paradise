@@ -138,9 +138,6 @@ ALLOW_ADMIN_OOCCOLOR
 ## If metadata is supported
 ALLOW_METADATA
 
-## The time it takes for a round to start in seconds
-PREGAME_TIMESTART 240
-
 ## allow players to initiate a restart vote
 #ALLOW_VOTE_RESTART
 
@@ -167,6 +164,14 @@ DEFAULT_NO_VOTE
 
 ## allow AI job
 ALLOW_AI
+
+## Secborg ###
+## Uncomment to prevent the security cyborg module from being chosen
+#DISABLE_SECBORG
+
+## Peacekeeper Borg ###
+## Uncomment to prevent the peacekeeper cyborg module from being chosen
+#DISABLE_PEACEBORG
 
 ## Allow ghosts to see antagonist through AntagHUD
 ALLOW_ANTAG_HUD
@@ -233,11 +238,11 @@ CHECK_RANDOMIZER
 ## Rules address
 # RULESURL http://example.org
 
-## GitHub address
-# GITHUBURL http://example.org
-
 ## Discord address
 # DISCORDURL http://example.org
+
+## Bot ip address
+# RYZORBOT http://ryzorbot.herokuapp.com
 
 ## Discord address (forum-based invite)
 # DISCORDFORUMURL http://example.org

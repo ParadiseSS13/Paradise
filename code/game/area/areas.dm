@@ -33,7 +33,7 @@
 	var/static_equip
 	var/static_light = FALSE
 	var/static_environ
-
+	
 	var/has_gravity = TRUE
 	var/list/apc = list()
 	var/no_air = null

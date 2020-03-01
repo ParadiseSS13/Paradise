@@ -1,4 +1,8 @@
 /datum/configuration
+	// Hispania Configs
+	var/ryzorbot = "http://example.org"
+
+
 	var/server_name = null				// server name (for world name / status)
 	var/server_tag_line = null			// server tagline (for showing on hub entry)
 	var/server_extra_features = null		// server-specific extra features (for hub entry)
@@ -493,6 +497,9 @@
 
 				if("donationsurl")
 					config.donationsurl = value
+
+				if("ryzorbot")
+					config.ryzorbot = value
 
 				if("repositoryurl")
 					config.repositoryurl = value

@@ -3,13 +3,13 @@
 var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 
 /datum/lore/atc_controller
-	var/delay_max = 10 MINUTES			//Maximum amount of tiem between ATC messages.  Default is 10 mins.
-	var/delay_min = 5 MINUTES			//Minimum amount of time between ATC messages.  Default is 5 mins.
+	var/delay_max = 120 MINUTES			//Maximum amount of tiem between ATC messages.  Default is 10 mins.
+	var/delay_min = 60 MINUTES			//Minimum amount of time between ATC messages.  Default is 5 mins.
 	var/backoff_delay = 5 MINUTES		//How long to back off if we can't talk and want to.  Default is 5 mins.
 	var/next_message					//When the next message should happen in world.time
 	var/force_chatter_type				//Force a specific type of messages
 
-	var/squelched = FALSE				//If ATC is squelched currently
+	var/squelched = TRUE				//If ATC is squelched currently
 
 /datum/lore/atc_controller/New()
 	spawn(30 SECONDS) //Lots of lag at the start of a shift.
@@ -31,6 +31,7 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 /datum/lore/atc_controller/proc/msg(var/message,var/sender)
 	ASSERT(message)
 	global_announcer.autosay("[message]", sender ? sender : "[using_map.station_short] Space Control")
+
 
 /datum/lore/atc_controller/proc/reroute_traffic(var/yes = 1)
 	if(yes)

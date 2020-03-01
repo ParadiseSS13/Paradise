@@ -53,9 +53,9 @@ var/const/NANO				=(1<<0)
 var/const/BLUESHIELD		=(1<<1)
 var/const/BARBER			=(1<<3)
 var/const/MECHANIC			=(1<<4)
-var/const/BRIGDOC			=(1<<5)
-var/const/JUDGE				=(1<<6)
-var/const/PILOT				=(1<<7)
+var/const/JUDGE				=(1<<5)
+var/const/PILOT				=(1<<6)
+var/const/FORENSIC			=(1<<7)
 
 var/list/assistant_occupations = list(
 )
@@ -95,7 +95,6 @@ var/list/medical_positions = list(
 var/list/science_positions = list(
 	"Research Director",
 	"Scientist",
-	"Geneticist",	//Part of both medical and science
 	"Roboticist",
 )
 
@@ -135,9 +134,9 @@ var/list/security_positions = list(
 	"Warden",
 	"Detective",
 	"Security Officer",
-	"Brig Physician",
 	"Security Pod Pilot",
-	"Magistrate"
+	"Magistrate",
+	"Forensic Specialist"
 )
 
 
@@ -157,14 +156,31 @@ var/list/whitelisted_positions = list(
 	"Nanotrasen Representative",
 	"Barber",
 	"Mechanic",
-	"Brig Physician",
 	"Magistrate",
 	"Security Pod Pilot",
+)
+
+var/list/hispa_whitelist = list (
+	"Captain",
+	"Head of Personnel",
+	"Head of Security",
+	"Chief Engineer",
+	"Research Director",
+	"Chief Medical Officer",
+	"Nanotrasen Representative",
+	"AI",
+	"Blueshield",
+	"Cyborg",
+	"Magistrate",
+	"Warden",
 )
 
 
 /proc/guest_jobbans(var/job)
 	return (job in whitelisted_positions)
+
+/proc/heads_jobbans(var/job)
+	return (job in hispa_whitelist)
 
 /proc/get_job_datums()
 	var/list/occupations = list()

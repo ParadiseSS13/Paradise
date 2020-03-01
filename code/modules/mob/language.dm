@@ -453,7 +453,7 @@
 	ask_verb = "chitters"
 	exclaim_verb = "chitters"
 	colour = "alien"
-	key = "y"
+	key = "asd"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 

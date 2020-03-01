@@ -11,12 +11,12 @@
 	req_admin_notify = 1
 	access = list(access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom)
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom, access_eva,access_maint_tunnels)
 	minimal_access = list(access_eva, access_medical, access_morgue, access_genetics, access_heads,
 			access_chemistry, access_virology, access_cmo, access_surgery, access_RC_announce,
-			access_keycard_auth, access_sec_doors, access_psychiatrist, access_maint_tunnels, access_paramedic, access_mineral_storeroom)
-	minimal_player_age = 21
-	exp_requirements = 300
+			access_keycard_auth, access_sec_doors, access_psychiatrist, access_paramedic, access_mineral_storeroom, access_maint_tunnels)
+	minimal_player_age = 15
+	exp_requirements = 2880
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
 
@@ -50,7 +50,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
@@ -85,7 +85,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_maint_tunnels)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -125,6 +125,9 @@
 			if("Medical Doctor")
 				uniform = /obj/item/clothing/under/rank/medical
 			if("Nurse")
+				backpack_contents = list(
+			/*		/obj/item/clothing/head/helmet/paramedic */
+				)
 				if(H.gender == FEMALE)
 					if(prob(50))
 						uniform = /obj/item/clothing/under/rank/nursesuit
@@ -134,20 +137,19 @@
 				else
 					uniform = /obj/item/clothing/under/rank/medical/purple
 
-
-
 //Chemist is a medical job damnit	//YEAH FUCK YOU SCIENCE	-Pete	//Guys, behave -Erro
+
 /datum/job/chemist
 	title = "Chemist"
 	flag = CHEMIST
 	department_flag = MEDSCI
-	total_positions = 2
+	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
@@ -175,13 +177,13 @@
 	title = "Geneticist"
 	flag = GENETICIST
 	department_flag = MEDSCI
-	total_positions = 2
+	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
-	supervisors = "the chief medical officer and the research director"
-	department_head = list("Chief Medical Officer", "Research Director")
+	supervisors = "the chief medical officer"
+	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_research, access_mineral_storeroom)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -195,7 +197,7 @@
 	uniform = /obj/item/clothing/under/rank/geneticist
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
 	shoes = /obj/item/clothing/shoes/white
-	l_ear = /obj/item/radio/headset/headset_medsci
+	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/geneticist
@@ -203,7 +205,6 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
-
 
 /datum/job/virologist
 	title = "Virologist"
@@ -215,12 +216,12 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
-	exp_requirements = 300
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 600
+	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
@@ -250,7 +251,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_psychiatrist)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_psychiatrist, access_maint_tunnels)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
@@ -288,8 +289,8 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue)
-	minimal_access=list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_chemistry, access_surgery, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	minimal_access=list(access_paramedic, access_medical, access_maint_tunnels, access_external_airlocks, access_morgue, access_surgery)
 	minimal_player_age = 3
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -315,4 +316,3 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/engineer
-

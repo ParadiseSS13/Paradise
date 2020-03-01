@@ -671,7 +671,6 @@ About the new airlock wires panel:
 	else
 		..()
 
-
 //Checks if the user can headbutt the airlock and does it if it can. Returns TRUE if it happened
 /obj/machinery/door/airlock/proc/headbutt_airlock(mob/user)
 	if(ishuman(user) && prob(40) && density)

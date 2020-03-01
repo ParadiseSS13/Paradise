@@ -29,7 +29,7 @@ var/list/doppler_arrays = list()
 /obj/machinery/doppler_array/New()
 	..()
 	doppler_arrays += src
-	explosion_target = rand(8, 20)
+	explosion_target = rand(10, 50)
 	toxins_tech = new /datum/tech/toxins(src)
 
 /obj/machinery/doppler_array/Destroy()

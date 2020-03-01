@@ -854,6 +854,8 @@
 					/obj/item/reagent_containers/food/drinks/bottle/whiskey = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/tequila = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/vodka = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/mezcal = 5,
+					/obj/item/reagent_containers/food/drinks/bottle/fernet = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/vermouth = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/rum = 5,
 					/obj/item/reagent_containers/food/drinks/bottle/wine = 5,
@@ -1212,6 +1214,7 @@
 	product_ads = "Go save some lives!;The best stuff for your medbay.;Only the finest tools.;Natural chemicals!;This stuff saves lives.;Don't you want some?"
 	icon_state = "wallmed"
 	icon_deny = "wallmed-deny"
+	///req_access = list(access_medical)
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
@@ -1245,9 +1248,9 @@
 	icon_state = "sec"
 	icon_deny = "sec-deny"
 	req_access_txt = "1"
-	products = list(/obj/item/restraints/handcuffs = 8,/obj/item/restraints/handcuffs/cable/zipties = 8,/obj/item/grenade/flashbang = 4,/obj/item/flash = 5,
-					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 4,/obj/item/restraints/legcuffs/bola/energy = 7,
-					/obj/item/clothing/mask/muzzle/safety = 4)
+	products = list(/obj/item/restraints/handcuffs = 12,/obj/item/grenade/flashbang = 8,/obj/item/flash = 5,
+					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/taperoll/police = 8,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 5,/obj/item/restraints/legcuffs/bola/energy = 10,
+					/obj/item/clothing/mask/muzzle/safety = 5)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -1327,16 +1330,17 @@
 					/obj/item/seeds/tower = 3,
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
-					/obj/item/seeds/whitebeet = 3)
+					/obj/item/seeds/whitebeet = 3,
+					/obj/item/seeds/fungus = 3)
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					  /obj/item/seeds/amanita = 2,
-					  /obj/item/seeds/fungus = 3,
 					  /obj/item/seeds/glowshroom = 2,
 					  /obj/item/seeds/liberty = 2,
 					  /obj/item/seeds/nettle = 2,
 					  /obj/item/seeds/plump = 2,
 					  /obj/item/seeds/reishi = 2,
 					  /obj/item/seeds/starthistle = 2,
+					  /obj/item/seeds/money = 2,
 					  /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
@@ -1534,7 +1538,7 @@
 					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
 					/obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 1,
 					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1,
-					/obj/item/kitchen/cutter = 2)
+					/obj/item/kitchen/cutter = 2, /obj/item/storage/bag/kitchenbag = 3)
 	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
 	refill_canister = /obj/item/vending_refill/dinnerware
 
@@ -1573,7 +1577,7 @@
 	icon_deny = "tool-deny"
 	//req_access_txt = "12" //Maintenance access
 	products = list(/obj/item/stack/cable_coil/random = 10,/obj/item/crowbar = 5,/obj/item/weldingtool = 3,/obj/item/wirecutters = 5,
-					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5)
+					/obj/item/wrench = 5,/obj/item/analyzer = 5,/obj/item/t_scanner = 5,/obj/item/screwdriver = 5,/obj/item/taperoll/engineering = 10)
 	contraband = list(/obj/item/weldingtool/hugetank = 2,/obj/item/clothing/gloves/color/fyellow = 2)
 	premium = list(/obj/item/clothing/gloves/color/yellow = 1)
 	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
@@ -1585,7 +1589,7 @@
 	icon_state = "engivend"
 	icon_deny = "engivend-deny"
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
-	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10)
+	products = list(/obj/item/clothing/glasses/meson = 2,/obj/item/multitool = 4,/obj/item/airlock_electronics = 10,/obj/item/firelock_electronics = 10,/obj/item/firealarm_electronics = 10,/obj/item/apc_electronics = 10,/obj/item/airalarm_electronics = 10,/obj/item/stock_parts/cell/high = 10,/obj/item/camera_assembly = 10, /obj/item/storage/bag/component/inge = 5)
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
 	premium = list(/obj/item/storage/belt/utility = 3)
 	refill_canister = /obj/item/vending_refill/engivend

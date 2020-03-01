@@ -772,7 +772,7 @@
 
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
-	if(state != 2 && state != 3 && !(state == 4 && pilot_is_mmi()))
+	if(state != 2 && state != 3 && !(state == 4 && (pilot_is_mmi() || istype(occupant, /mob/living/carbon))))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -784,11 +784,11 @@
 		state = 2
 		to_chat(user, "You close the hatch to the power unit")
 	else
-		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
-		user.visible_message("[user] begins levering out the MMI from the [src].", "You begin to lever out the MMI from the [src].")
+			// Since having maint protocols available is controllable by the pilot, I see this as a consensual way to remove a pilot without destroying the mech
+		user.visible_message("[user] begins levering out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].", "You begin to lever out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(I.use_tool(src, user, 80, volume = I.tool_volume) && pilot_is_mmi())
-			user.visible_message("<span class='notice'>[user] pries the MMI out of the [src]!</span>", "<span class='notice'>You finish removing the MMI from the [src]!</span>")
+		if(do_after(user, 80 * I.toolspeed, target=src))
+			user.visible_message("<span class='notice'>[user] pries the [pilot_is_mmi() ? "MMI" : "pilot"] out of the [src]!</span>", "<span class='notice'>You finish removing the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src]!</span>")
 			go_out()
 
 /obj/mecha/screwdriver_act(mob/user, obj/item/I)

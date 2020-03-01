@@ -4,8 +4,9 @@
 	icon = 'icons/obj/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
 	item_state = "flamethrower_0"
-	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/hispania/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/hispania/mob/inhands/guns_righthand.dmi'
+	var/fire_sound = 'sound/hispania/weapons/flamethrower.ogg'
 	flags = CONDUCT
 	force = 3
 	throwforce = 10
@@ -184,6 +185,7 @@
 	if(!lit || operating)
 		return
 	operating = TRUE
+	playsound(src, fire_sound, 70, 1)
 	var/turf/previousturf = get_turf(src)
 	for(var/turf/simulated/T in turflist)
 		if(!T.air)

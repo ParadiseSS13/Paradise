@@ -16,7 +16,7 @@
 	restricted_jobs = list("Security Officer", "Warden", "Detective", "Internal Affairs Agent", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician")
 	required_players = 20
 	required_enemies = 1
-	recommended_enemies = 3
+	recommended_enemies = 2
 
 	var/finished = 0
 	var/check_counter = 0

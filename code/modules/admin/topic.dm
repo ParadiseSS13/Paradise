@@ -839,6 +839,7 @@
 						else
 							msg += ", [job]"
 					add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+					ryzorbot("notify", "jobban=[key_name(usr)]&[key_name(M)]&[msg]&true&[mins]", "[reason]")
 					message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes</span>", 1)
 					to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
 					to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -860,6 +861,7 @@
 							if(!msg)	msg = job
 							else		msg += ", [job]"
 						add_note(M.ckey, "Banned  from [msg] - [reason]", null, usr.ckey, 0)
+						ryzorbot("notify", "jobban=[key_name(usr)]&[key_name(M)]&[msg]&false&", "[reason]")
 						message_admins("<span class='notice'>[key_name_admin(usr)] banned [key_name_admin(M)] from [msg]</span>", 1)
 						to_chat(M, "<span class='warning'><BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG></span>")
 						to_chat(M, "<span class='danger'>The reason is: [reason]</span>")
@@ -893,6 +895,7 @@
 					else
 						continue
 			if(msg)
+				ryzorbot("notify", "unjobban=[key_name(usr)]&[key_name(M)]&[msg]")
 				message_admins("<span class='notice'>[key_name_admin(usr)] unbanned [key_name_admin(M)] from [msg]</span>", 1)
 				to_chat(M, "<span class='warning'><BIG><B>You have been un-jobbanned by [usr.client.ckey] from [msg].</B></BIG></span>")
 				href_list["jobban2"] = 1 // lets it fall through and refresh
@@ -1010,6 +1013,8 @@
 					to_chat(M, "<span class='warning'>No ban appeals URL has been set.</span>")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.</span>")
+				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&This will be removed in [mins] minutes.","[reason]")
+				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 
 				del(M.client)
 				//qdel(M)	// See no reason why to delete mob. Important stuff can be lost. And ban can be lifted before round ends.
@@ -1029,9 +1034,10 @@
 				ban_unban_log_save("[usr.client.ckey] has permabanned [M.ckey]. - Reason: [reason] - This ban does not expire automatically and must be appealed.")
 				log_admin("[key_name(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.")
 				message_admins("<span class='notice'>[key_name_admin(usr)] has banned [M.ckey].\nReason: [reason]\nThis ban does not expire automatically and must be appealed.</span>")
+				ryzorbot("notify", "addban=[key_name(usr)]&[M.ckey]&This ban does not expire automatically and must be appealed.","[reason]")
 				feedback_inc("ban_perma",1)
 				DB_ban_record(BANTYPE_PERMA, M, -1, reason)
-
+				to_chat(world, "<b><span class='info'>El jugador <span class='warning'>[M.ckey]</span> fue baneado.</span></b><p><span class='rose'>[reason]</span></p>")
 				del(M.client)
 				//qdel(M)
 			if("Cancel")
@@ -2819,7 +2825,7 @@
 				for(var/obj/item/W in world)
 					if(istype(W, /obj/item/clothing) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
 						continue
-					W.icon = 'icons/obj/guns/projectile.dmi'
+					W.icon = 'icons/hispania/obj/guns/projectile.dmi'
 					W.icon_state = "revolver"
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
@@ -2896,8 +2902,62 @@
 				var/area/template = locate(/area/tdome/arena_source)
 				template.copy_contents_to(thunderdome)
 
-				log_admin("[key_name(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].", 1)
-				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to default with delete_mobs==[delete_mobs].</span>")
+				log_admin("[key_name(usr)] Set the thunderdome Snow Field with==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] Set the thunderdome to Gladiator Arena with==[delete_mobs].</span>")
+			if("tdomereset2")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/thunderdome = locate(/area/tdome/arena)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in thunderdome)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in thunderdome)
+					if(!istype(obj,/obj/machinery/camera))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/tdome/arena_source2)
+				template.copy_contents_to(thunderdome)
+
+				log_admin("[key_name(usr)] Set the thunderdome Techno Hell with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] Set the thunderdome to Techno Hell with delete_mobs==[delete_mobs].</span>")
+			if("tdomereset3")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/thunderdome = locate(/area/tdome/arena)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in thunderdome)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in thunderdome)
+					if(!istype(obj,/obj/machinery/camera))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/tdome/arena_source3)
+				template.copy_contents_to(thunderdome)
+
+				log_admin("[key_name(usr)] reset the thunderdome to Makeshift Battle with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to Makeshift Battle with delete_mobs==[delete_mobs].</span>")
+			if("tdomereset4")
+				var/delete_mobs = alert("Clear all mobs?","Confirm","Yes","No","Cancel")
+				if(delete_mobs == "Cancel")
+					return
+
+				var/area/thunderdome = locate(/area/tdome/arena)
+				if(delete_mobs == "Yes")
+					for(var/mob/living/mob in thunderdome)
+						qdel(mob) //Clear mobs
+				for(var/obj/obj in thunderdome)
+					if(!istype(obj,/obj/machinery/camera))
+						qdel(obj) //Clear objects
+
+				var/area/template = locate(/area/tdome/arena_source4)
+				template.copy_contents_to(thunderdome)
+
+				log_admin("[key_name(usr)] reset the thunderdome to Chemotherapy with delete_mobs==[delete_mobs].", 1)
+				message_admins("<span class='adminnotice'>[key_name_admin(usr)] reset the thunderdome to Chemotherapy with delete_mobs==[delete_mobs].</span>")
 
 			if("tdomestart")
 				var/confirmation = alert("Start a Thunderdome match?","Confirm","Yes","No")

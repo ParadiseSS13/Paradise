@@ -39,6 +39,7 @@ var/global/list/default_medbay_channels = list(
 	var/subspace_transmission = 0
 	var/obj/item/encryptionkey/syndicate/syndiekey = null //Holder for the syndicate encryption key if present
 	var/disable_timer = 0 //How many times this is disabled by EMPs
+	var/syndie = FALSE
 
 	var/is_special = 0 //For electropacks mostly, skips Topic() checks
 
