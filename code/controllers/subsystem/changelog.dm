@@ -14,7 +14,7 @@ SUBSYSTEM_DEF(changelog)
 	name = "Changelog"
 	flags = SS_NO_FIRE
 	var/current_cl_timestamp = "0" // Timestamp is seconds since UNIX epoch (1st January 1970)
-	var/ss_ready = 0 // Is the SS ready? We dont want to run procs if we have not generated yet
+	var/ss_ready = FALSE // Is the SS ready? We dont want to run procs if we have not generated yet
 	var/list/startup_clients_button = list() // Clients who connected before initialization who need their button color updating
 	var/list/startup_clients_open = list() // Clients who connected before initialization who need the CL opening
 	var/changelogHTML = "" // HTML that the changelog will use to display
@@ -39,9 +39,10 @@ SUBSYSTEM_DEF(changelog)
 		to_chat(world, "<span class='alert'>WARNING: Changelog failed to generate. Please inform a coder/server dev</span>")
 		return ..()
 
-	ss_ready = 1
+	ss_ready = TRUE
 	// Now we can alert anyone who wanted to check the changelog
-	for(var/client/C in startup_clients_button)
+	for(var/x in startup_clients_button)
+		var/client/C = x
 		UpdatePlayerChangelogButton(C)
 
 	// Now we can alert anyone who wanted to check the changelog
@@ -80,7 +81,7 @@ SUBSYSTEM_DEF(changelog)
 
 	// If SQL is enabled but we aint ready, queue them up, and use the default style
 	if(!ss_ready)
-		startup_clients_button += C
+		startup_clients_button |= C
 		if(C.prefs.toggles & UI_DARKMODE)
 			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
@@ -101,7 +102,7 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
 	// If SQL is enabled but we aint ready, queue them up
 	if(!ss_ready)
-		startup_clients_open += C
+		startup_clients_open |= C
 		to_chat(C, "<span class='notice'>The changelog system is still initializing. The changelog will open for you once it has initialized.</span>")
 		return
 
@@ -144,7 +145,8 @@ SUBSYSTEM_DEF(changelog)
 			return "<i class='fas fa-font'></i>"
 		if("EXPERIMENT")
 			return "<i class='fas fa-exclamation-triangle'></i>"
-		// No default here because its not possible to be anything else unless the DB schema changes
+		else // Just incase the DB somehow breaks
+			return "<i class='fas fa-plus'></i>"
 
 // This proc is the star of the show
 /datum/controller/subsystem/changelog/proc/GenerateChangelogHTML()
