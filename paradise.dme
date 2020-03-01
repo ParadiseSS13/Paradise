@@ -1211,6 +1211,7 @@
 #include "code\HISPANIA\game\objects\structures\crates_lockers\closets\secure\security.dm"
 #include "code\HISPANIA\game\objects\structures\lavaland\necropolis_tendril.dm"
 #include "code\HISPANIA\game\objects\structures\stool_bed_chair_nest\bed.dm"
+#include "code\HISPANIA\game\turf\hispania_floor.dm"
 #include "code\HISPANIA\modules\assembly\assembly.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_racial.dm"
 #include "code\HISPANIA\modules\client\preference\loadout\loadout_suit.dm"
