@@ -152,6 +152,8 @@ Any-Mode: (hotkey doesn't need to be on)
 \tPGDN = activate held object
 \tEND = throw
 \tCtrl+Numpad = Body target selection (Press 8 repeatedly for Head->Eyes->Mouth)
+\tF11 = Fulscreen
+\tCtrl+F11 = Fit Viewport
 </font>"}
 
 	to_chat(src, hotkey_mode)
@@ -204,6 +206,8 @@ Any-Mode: (hotkey doesn't need to be on)
 \tF2 = OOC
 \tF3 = Say
 \tF4 = Me
+\tF11 = Fulscreen
+\tCtrl+F11 = Fit Viewport
 </font>"}
 
 	to_chat(src, hotkey_mode)

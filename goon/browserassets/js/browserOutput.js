@@ -30,7 +30,7 @@ var opts = {
 	'popups': 0, //Amount of popups opened ever
 	'wasd': false, //Is the user in wasd mode?
 	'chatMode': 'default', //The mode the chat is in
-	'priorChatHeight': 0, //Thing for height-resizing detection
+	'priorChatSize': 0, //Thing for resizing detection
 	'restarting': false, //Is the round restarting?
 	'previousMessage': '',
 	'previousMessageCount': 1,
@@ -941,9 +941,9 @@ $(function() {
 
 	//Mildly hacky fix for scroll issues on mob change (interface gets resized sometimes, messing up snap-scroll)
 	$(window).on('resize', function(e) {
-		if ($(this).height() !== opts.priorChatHeight) {
+		if ($(this).height() + $(this).width() !== opts.priorChatSize) {
 			$('body,html').scrollTop($messages.outerHeight());
-			opts.priorChatHeight = $(this).height();
+			opts.priorChatSize = $(this).height() + $(this).width();
 		}
 	});
 
@@ -1220,5 +1220,5 @@ $(function() {
 		$('#loading').remove();
 	}
 	$('#userBar').show();
-	opts.priorChatHeight = $(window).height();
+	opts.priorChatSize = $(window).height() + $(window).width();
 });

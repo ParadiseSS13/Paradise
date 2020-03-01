@@ -67,6 +67,12 @@
 		if("F4")
 			mob.me_wrapper()
 			return
+		if("F11") // Toggles Fullscreen or Fits Viewport
+			if(keys_held["Ctrl"])
+				fit_viewport()
+			else
+				toggle_fullscreen()
+			return
 		if("F12") // Toggles minimal HUD
 			mob.button_pressed_F12()
 			return
