@@ -46,6 +46,10 @@
 	for(var/obj/structure/closet/closet in get_turf(src))
 		if(closet != src && closet.anchored != 1)
 			return FALSE
+	for(var/mob/living/silicon/ai/ai in get_turf(src))
+		if(ai)
+			return FALSE
+
 	return TRUE
 
 /obj/structure/closet/proc/dump_contents()
