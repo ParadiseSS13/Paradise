@@ -273,7 +273,7 @@
 	icon_state = "intake"
 	required_mode_to_deconstruct = 1
 	deconstructs_to = PIPE_DISPOSALS_CHUTE
-	var/c_mode = 0 //1 = we can deconstruct, 0 means we cannot
+	var/can_deconstruct = FALSE
 
 /obj/machinery/disposal/deliveryChute/New()
 	..()
@@ -348,12 +348,12 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	c_mode = !c_mode
-	to_chat(user, "You [c_mode ? "unfasten": "fasten"] the screws around the power connection.")
+	can_deconstruct = !can_deconstruct
+	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
 
 /obj/machinery/disposal/deliveryChute/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!c_mode)
+	if(!can_deconstruct)
 		return
 	if(contents.len > 0)
 		to_chat(user, "Eject the items first!")
@@ -363,11 +363,11 @@
 	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume))
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
-		var/obj/structure/disposalconstruct/C = new (src.loc)
+		var/obj/structure/disposalconstruct/C = new (loc)
 		C.ptype = deconstructs_to
 		C.update()
-		C.anchored = 1
-		C.density = 1
+		C.anchored = TRUE
+		C.density = TRUE
 		qdel(src)
 
 /obj/item/shippingPackage
