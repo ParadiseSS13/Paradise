@@ -12,8 +12,8 @@
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
-	speak_emote = list("shigs")
-	emote_hear = list("shigs")
+	speak_emote = list("sighs")
+	emote_hear = list("sighs")
 	emote_see = list("sighs")
 	density = 0
 	speak_chance = 2
