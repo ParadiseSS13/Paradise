@@ -1,4 +1,4 @@
-/mob/living/simple_animal/ducktron
+/mob/living/simple_animal/pet/ducktron
 	name = "Duck Tron"
 	desc = "Pet of security, he looks tired."
 	gender = MALE
@@ -16,7 +16,7 @@
 	emote_see = list("sighs")
 	density = 0
 	speak_chance = 2
-	turns_per_move = 2
+	turns_per_move = 10
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
 	response_help  = "pets the"
 	response_disarm = "gently pushes aside the"
