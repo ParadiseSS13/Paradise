@@ -26,4 +26,3 @@
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	can_hide = 1
-	can_collar = 1
