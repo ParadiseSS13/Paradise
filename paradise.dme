@@ -1197,6 +1197,7 @@
 #include "code\HISPANIA\game\objects\items\weapons\stock_parts.dm"
 #include "code\HISPANIA\game\objects\items\weapons\stunbaton.dm"
 #include "code\HISPANIA\game\objects\items\weapons\grenades\custom_grenades.dm"
+#include "code\HISPANIA\game\objects\items\weapons\melee\misc.dm"
 #include "code\HISPANIA\game\objects\items\weapons\storage\bags.dm"
 #include "code\HISPANIA\game\objects\items\weapons\storage\fancy.dm"
 #include "code\HISPANIA\game\objects\items\weapons\tanks\tank_types.dm"
