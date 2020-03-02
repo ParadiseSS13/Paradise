@@ -21,7 +21,7 @@
 	if(cell && severity)
 		emp_act(severity)
 
-obj/item/gun/throw/crossbow/update_icon()
+/obj/item/gun/throw/crossbow/update_icon()
 	icon_state = "[initial(icon_state)]"
 	if(cell)
 		icon_state += "-Cell"
