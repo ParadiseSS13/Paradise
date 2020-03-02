@@ -75,8 +75,14 @@
 	current_cycle++
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency * M.digestion_ratio // Cache it
 
+	handle_addiction(M, total_depletion_rate)
+
+	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
+	return STATUS_UPDATE_NONE
+
+/datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && !is_type_in_list(src, M.reagents.addiction_list))
-		M.reagents.addiction_threshold_accumulated[id] += total_depletion_rate
+		M.reagents.addiction_threshold_accumulated[id] += consumption_rate
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
@@ -84,9 +90,6 @@
 			var/datum/reagent/new_reagent = new type()
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
-
-	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
-	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return

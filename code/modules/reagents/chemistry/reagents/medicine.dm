@@ -6,7 +6,11 @@
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
-	holder.remove_reagent(id, (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio) //medicine reagents stay longer if you have a better metabolism
+	var/total_depletion_rate = (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio // Cache it
+
+	handle_addiction(M, total_depletion_rate)
+
+	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
