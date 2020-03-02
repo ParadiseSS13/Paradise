@@ -6,6 +6,7 @@
 	maxHealth = 1
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "chick"
 	icon_living = "chick"
 	icon_dead = "chick_dead"

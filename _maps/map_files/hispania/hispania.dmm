@@ -14424,6 +14424,7 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
+/mob/living/simple_animal/pet/ducktron,
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "axU" = (
@@ -96636,14 +96637,6 @@
 	dir = 2
 	},
 /area/shuttle/mining)
-"ijR" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4;
-	level = 1
-	},
-/mob/living/simple_animal/ducktron,
-/turf/simulated/floor/plasteel,
-/area/security/main)
 "izn" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
@@ -130506,7 +130499,7 @@ akF
 adX
 aoJ
 amM
-ijR
+anQ
 aoI
 apM
 apR
