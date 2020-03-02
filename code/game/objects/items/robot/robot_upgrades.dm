@@ -303,8 +303,8 @@
 		deactivate()
 
 /obj/item/borg/upgrade/borgcharger
-	name = "Cyborg APC power adapter"
-	desc = "An APC power adaptor for cyborgs, allows cyborgs to siphon power from APCs."
+	name = "Cyborg power adapter"
+	desc = "A cyborg specific power adapter, allowing cyborgs to siphon power from APCs or power cells to recharge for own, or it can pump power to recharge power cells or energy weapons."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4"
 	require_module = TRUE
@@ -313,7 +313,7 @@
 	if(..())
 		return
 
-	R.module.modules += new /obj/item/borgcharger(R.module)
+	R.module.modules += new /obj/item/borg/charger(R.module)
 	R.module.rebuild()
 
 	return TRUE

@@ -1102,7 +1102,7 @@
 	category = list("Cyborg Upgrade Modules")
 
 /datum/design/borgcharger
-	name = "Cyborg APC power adapter"
+	name = "Cyborg power adapter"
 	id = "ccharger"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/borgcharger

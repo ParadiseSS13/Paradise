@@ -98,56 +98,129 @@
 	powerneeded = 25
 
 
-//APC power adapter for cyborgs, adapted from apc_powercord code
-//Allows cyborgs to recharge via APC, at first faster than a stock cyborg recharging station, upgraded stations are faster.
-obj/item/borgcharger
-	name = "APC power adapter"
-	desc = "A cyborg specific power adapter, allowing cyborgs to siphon power from APCs to recharge their powercells"
+
+//Allows cyborgs to recharge via any sort of charging station, and allows a cyborg to funnel power into powercells and energy weapons.
+obj/item/borg/charger
+	name = "cyborg power adapter"
+	desc = "A cyborg specific power adapter, allowing cyborgs to siphon power from APCs or power cells to recharge for own, or it can pump power to recharge power cells or energy weapons."
 	icon = 'icons/obj/cyborg.dmi'
 	icon_state = "c-charger"
 	flags = NOBLUDGEON
+	var/mode = "siphon"
+	var/static/list/charge_machines = typecacheof(list(/obj/machinery/power/apc)) //technically capable of charging from any machine with a power cell
+	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy)) //technically capable of recharging from anything too
 
-/obj/item/borgcharger/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(!istype(target, /obj/machinery/power/apc) || !issilicon(user) || !proximity_flag)
-		return ..()
-	user.changeNext_move(CLICK_CD_MELEE)
-	var/obj/machinery/power/apc/A = target
-	var/mob/living/silicon/robot/H = user
-	if(H.cell)
-		if(A.emagged || A.stat & BROKEN)
-			do_sparks(3, 1, A)
-			to_chat(H, "<span class='warning'>The APC power currents surge erratically, damaging your chassis!</span>")
-			H.adjustFireLoss(10,0)
-		else if(A.cell && A.cell.charge > 0)
-			if(H.cell.charge >= H.cell.maxcharge)
-				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
-			else
-				INVOKE_ASYNC(src, .proc/powerdraw_loop, A, H)
-		else
-			to_chat(user, "<span class='warning'>There is no charge to draw from that APC.</span>")
+/obj/item/borg/charger/examine(mob/user)
+	. = ..()
+	. += "it's in [mode = "siphon" ? "siphoning" : "charging"] mode."
+
+
+/obj/item/borg/charger/attack_self(mob/user)
+	if(mode == "siphon")
+		mode = "charge"
 	else
-		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+		mode = "siphon"
+	to_chat(user, "<span class='notice'>You toggle [src] to \"[mode]\" mode.</span>")
 
-/obj/item/borgcharger/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/silicon/robot/H)
-	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [A].</span>", "<span class='notice'>You begin to draw power from \the [A].</span>")
-	while(do_after(H, 10, target = A))
-		if(loc != H)
-			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
-			break
-		if(A.cell.charge == 0)
-			to_chat(H, "<span class='warning'>\The [A] has no more charge.</span>")
-			break
-		A.charging = TRUE
-		if(A.cell.charge >= 200)
-			H.cell.give(200 * H.cell.rating) // replenishment scales with higher capacity cells
-			A.cell.use(200) // as to not rapidly drain and depower rooms 
-			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
-		else
-			H.cell.give(A.cell.charge)
-			A.cell.charge = 0
-			to_chat(H, "<span class='notice'>You siphon off the last of \the [A]'s charge.</span>")
-			break
-		if(H.cell.charge >= H.cell.maxcharge)
-			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
-			break
-	H.visible_message("<span class='notice'>[H] unplugs from \the [A].</span>", "<span class='notice'>You unplug from \the [A].</span>")
+/obj/item/borg/charger/afterattack(obj/item/target, mob/living/silicon/robot/user, proximity_flag)
+	. = ..()
+	if(!proximity_flag || !issilicon(user))
+		return
+	if(mode == "siphon") // what happens if we are in siphon mode?
+		if(is_type_in_list(target, charge_machines)) // if the target is a machine
+			var/obj/machinery/M = target
+			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored) //doesn't work if broken, has no power or not anchored
+				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
+				return
+
+			to_chat(user, "<span class='notice'>You connect to [M]'s power line...</span>")
+			while(do_after(user, 15, target = M, progress = 0)) // drawing power from machines
+				if(!user || !user.cell || mode != "siphon")
+					return
+
+				if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+					break
+
+				if(!user.cell.give(150))
+					break
+
+				M.use_power(200)
+
+			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
+
+		else if(is_type_in_list(target, charge_items)) // drawing power from powercells in side objects
+			var/obj/item/stock_parts/cell/cell = target
+			if(!istype(cell))
+				cell = locate(/obj/item/stock_parts/cell) in target
+			if(!cell)
+				to_chat(user, "<span class='warning'>[target] has no power cell!</span>")
+				return
+
+			if(istype(target, /obj/item/gun/energy))
+				var/obj/item/gun/energy/E = target
+				if(!E.can_charge)
+					to_chat(user, "<span class='warning'>[target] has no power port!</span>")
+					return
+
+			if(!cell.charge)
+				to_chat(user, "<span class='warning'>[target] has no power!</span>")
+
+
+			to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
+
+			while(do_after(user, 15, target = target, progress = 0)) //drawing power from target
+				if(!user || !user.cell || mode != "siphon")
+					return
+
+				if(!cell || !target)
+					return
+
+				if(cell != target && cell.loc != target)
+					return
+
+				var/draw = min(cell.charge, cell.chargerate*0.5, user.cell.maxcharge-user.cell.charge) //sets the rate of charge.
+				if(!cell.use(draw))
+					break
+				if(!user.cell.give(draw))
+					break
+				target.update_icon()
+
+			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
+
+	else if(is_type_in_list(target, charge_items)) // what happens when we are in charge mode?
+		var/obj/item/stock_parts/cell/cell = target // if target is a power cell
+		if(!istype(cell)) 
+			cell = locate(/obj/item/stock_parts/cell) in target
+		if(!cell)
+			to_chat(user, "<span class='warning'>[target] has no power cell!</span>")
+			return
+
+		if(istype(target, /obj/item/gun/energy)) // if target is a energy gun
+			var/obj/item/gun/energy/E = target
+			if(!E.can_charge)
+				to_chat(user, "<span class='warning'>[target] has no power port!</span>")
+				return
+
+		if(cell.charge >= cell.maxcharge)
+			to_chat(user, "<span class='warning'>[target] is already charged!</span>")
+
+		to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
+
+		while(do_after(user, 15, target = target, progress = 0)) //giving power to target
+			if(!user || !user.cell || mode != "charge")
+				return
+
+			if(!cell || !target)
+				return
+
+			if(cell != target && cell.loc != target)
+				return
+
+			var/draw = min(user.cell.charge, cell.chargerate*0.5, cell.maxcharge-cell.charge) //sets charge rate
+			if(!user.cell.use(draw))
+				break
+			if(!cell.give(draw))
+				break
+			target.update_icon()
+
+		to_chat(user, "<span class='notice'>You stop charging [target].</span>")
