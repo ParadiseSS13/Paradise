@@ -3,6 +3,8 @@
 	set name = "wiki"
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser."
 	set hidden = 1
+	log_admin("[key_name(src)] has pressed the \'WIKI\' button!")
+	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'WIKI\' button!</span>")
 	if(config.wikiurl)
 		var/query = stripped_input(src, "Enter Search:", "Wiki Search", "Homepage")
 		if(query == "Homepage")
@@ -18,6 +20,8 @@
 	set name = "forum"
 	set desc = "Visit the forum."
 	set hidden = 1
+	log_admin("[key_name(src)] has pressed the \'FORUM\' button!")
+	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'FORUM\' button!</span>")
 	if(config.forumurl)
 		if(alert("Open the forum in your browser?", null, "Yes", "No") == "Yes")
 			if(config.forum_link_url && prefs && !prefs.fuid)
@@ -30,6 +34,8 @@
 	set name = "Rules"
 	set desc = "View the server rules."
 	set hidden = 1
+	log_admin("[key_name(src)] has pressed the \'RULES\' button!")
+	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'RULES\' button!</span>")
 	if(config.rulesurl)
 		if(alert("This will open the rules in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
@@ -41,6 +47,8 @@
 	set name = "GitHub"
 	set desc = "Visit the GitHub page."
 	set hidden = 1
+	log_admin("[key_name(src)] has pressed the \'GITHUB\' button!")
+	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'GITHUB\' button!</span>")
 	if(config.githuburl)
 		if(alert("This will open our GitHub repository in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
@@ -52,6 +60,8 @@
 	set name = "Discord"
 	set desc = "Join our Discord server."
 	set hidden = 1
+	log_admin("[key_name(src)] has pressed the \'DISCORD\' button!")
+	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'DISCORD\' button!</span>")
 
 	var/durl = config.discordurl
 	if(config.forum_link_url && prefs && prefs.fuid && config.discordforumurl)
@@ -67,6 +77,8 @@
 	set name = "Donate"
 	set desc = "Donate to help with hosting costs."
 	set hidden = 1
+	log_admin("[key_name(src)] has pressed the \'DONATE\' button!")
+	message_admins("[key_name_admin(src)] <span class='red'>has pressed the \'DONATE\' button!</span>")
 	if(config.donationsurl)
 		if(alert("This will open the donation page in your browser. Are you sure?", null, "Yes", "No") == "No")
 			return
