@@ -28,6 +28,7 @@
 
 
 /obj/item/robot_module/New()
+	..()
 	modules += new /obj/item/flash/cyborg(src)
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
@@ -106,7 +107,7 @@
 	R.module_actions.Cut()
 
 // Return true in an overridden subtype to prevent normal removal handling
-/obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W, params)
+/obj/item/robot_module/proc/handle_custom_removal(component_id, mob/living/user, obj/item/W)
 	return FALSE
 
 /obj/item/robot_module/proc/handle_death(gibbed)
@@ -380,10 +381,10 @@
 
 	fix_modules()
 
-/obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W, params)
+/obj/item/robot_module/miner/handle_custom_removal(component_id, mob/living/user, obj/item/W)
     if(component_id == "KA modkits")
         for(var/obj/item/gun/energy/kinetic_accelerator/cyborg/D in src)
-            D.attackby(W, user, params)
+            D.attackby(W, user)
         return TRUE
     return ..()
 
@@ -527,6 +528,7 @@
 	)
 
 /obj/item/robot_module/alien/hunter/New()
+	..()
 	modules += new /obj/item/melee/energy/alien/claws(src)
 	modules += new /obj/item/flash/cyborg/alien(src)
 	var/obj/item/reagent_containers/spray/alien/stun/S = new /obj/item/reagent_containers/spray/alien/stun(src)
@@ -560,6 +562,7 @@
 		)
 
 /obj/item/robot_module/drone/New()
+	..()
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/screwdriver/cyborg(src)
 	modules += new /obj/item/wrench/cyborg(src)

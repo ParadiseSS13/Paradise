@@ -187,7 +187,7 @@
 		if(istype(I, /obj/item/crowbar))
 			if(inserted_id)
 				inserted_id.forceMove(loc) //Prevents deconstructing the ORM from deleting whatever ID was inside it.
-			default_deconstruction_crowbar(I)
+			default_deconstruction_crowbar(user, I)
 		return 1
 	if(istype(I, /obj/item/mining_voucher))
 		if(!powered())
@@ -299,8 +299,4 @@
 
 /obj/item/storage/backpack/duffel/mining_conscript/full/New()
 	..()
-	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/card/id/mining_access_card(src)
-	new /obj/item/gun/energy/kinetic_accelerator(src)
-	new /obj/item/kitchen/knife/combat/survival(src)
-	new /obj/item/flashlight/seclite(src)

@@ -131,14 +131,17 @@
 		if(iscarbon(G.affecting))
 			take_victim(G.affecting, user)
 			qdel(G)
-	if(iswrench(I))
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
-			new /obj/item/stack/sheet/plasteel(loc, 5)
-			qdel(src)
 	else
 		return ..()
+
+/obj/machinery/optable/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		to_chat(user, "<span class='notice'>You deconstruct the table.</span>")
+		new /obj/item/stack/sheet/plasteel(loc, 5)
+		qdel(src)
 
 /obj/machinery/optable/proc/check_table(mob/living/carbon/patient as mob)
 	if(src.victim && get_turf(victim) == get_turf(src) && victim.lying)
