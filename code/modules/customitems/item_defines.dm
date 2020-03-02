@@ -1186,7 +1186,7 @@
 	icon_state = "aegisuniform"
 	item_state = "aegisuniform"
 	item_color = "aegisuniform"
-	displays_id = 0
+	displays_id = 1
 
 /obj/item/clothing/under/fluff/elo_turtleneck // vforcebomber: E.L.O.
 	name = "E.L.O's Turtleneck"
@@ -1195,7 +1195,7 @@
 	icon_override = 'icons/obj/custom_items.dmi' // for the mob sprite
 	icon_state = "eloturtleneckfloor"
 	item_color = "eloturtleneck"
-	displays_id = FALSE
+	displays_id = 1
 
 //////////// Masks ////////////
 
@@ -1499,7 +1499,7 @@
 	icon_state = "victorianlightfire"
 	item_state = "victorianvest"
 	item_color = "victorianlightfire"
-	displays_id = FALSE
+	displays_id = 1
 
 
 /obj/item/fluff/decemviri_spacepod_kit //Decemviri: Sylus Cain
@@ -1612,7 +1612,7 @@
 	icon_state = "kiaoutfit"
 	item_state = "kiaoutfit"
 	item_color = "kiaoutfit"
-	displays_id = FALSE
+	displays_id = 1
 	species_restricted = list("Vox")
 
 /obj/item/clothing/head/fluff/kiahat //FullOfSkittles: Kiachi

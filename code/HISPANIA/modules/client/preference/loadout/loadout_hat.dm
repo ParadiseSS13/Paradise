@@ -13,3 +13,7 @@
 /datum/gear/hat/green_beret
 	display_name = "pimp hat"
 	path = /obj/item/clothing/head/fluff/kaki
+
+/datum/gear/hat/ra_re_213
+	display_name = "rabbit ears with makeup"
+	path = /obj/item/clothing/head/rabbitears/fluff/pinesalad_bunny

@@ -48,3 +48,11 @@
 /datum/gear/uniform/nerd_turtle_blue
 	display_name = "blue turtleneck"
 	path = /obj/item/clothing/under/fluff/elo_turtleneck
+
+/datum/gear/uniform/nerd_turtle_blue
+	display_name = "old aeronautics jumpsuit"
+	path = /obj/item/clothing/under/fluff/fox
+
+/datum/gear/uniform/black_s_32
+	display_name = "black suit"
+	path = /obj/item/clothing/under/fluff/lfvicsuit

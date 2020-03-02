@@ -73,6 +73,18 @@
 	path = /obj/item/clothing/suit/jacket/fluff/kidosvest
 
 /datum/gear/suit/grey_labcoat
-	display_name = "grey old labcoat
+	display_name = "grey old labcoat"
 	path = /obj/item/clothing/suit/storage/labcoat/fluff/ionward_labcoat
 	allowed_roles = list("Research Director","Roboticist", "Scientist")
+
+/datum/gear/suit/fox_jacket
+	display_name = "old aeronautics jacket"
+	path = /obj/item/clothing/suit/storage/fox
+
+/datum/gear/suit/fox_jacket
+	display_name = "rugged military jacket"
+	path = /obj/item/clothing/suit/storage/fox/miljacket_desert
+
+/datum/gear/suit/nt_old_coat
+	display_name = "old nanotrasen coat red"
+	path = /obj/item/clothing/suit/fluff/vetcoat/red
