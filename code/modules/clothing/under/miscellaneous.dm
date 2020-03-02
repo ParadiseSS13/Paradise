@@ -96,21 +96,22 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
-	name = "\improper Nanotrasen Officers Uniform"
-	icon_state = "officer"
-	item_state = "g_suit"
-	item_color = "officer"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Officer Uniform"
+	icon_state = "navy_gold"
+	item_state = "navy_gold"
+	item_color = "navy_gold"
 	displays_id = 0
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
-	name = "\improper Nanotrasen Captains Uniform"
-	icon_state = "centcom"
-	item_state = "dg_suit"
-	item_color = "centcom"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Captain Uniform"
+	icon_state = "navy_gold"
+	item_state = "navy_gold"
+	item_color = "navy_gold"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder."
