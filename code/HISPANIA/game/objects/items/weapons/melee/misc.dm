@@ -8,7 +8,7 @@
 	icon = 'icons/hispania/obj/items.dmi'
 	icon_state = "woodsword"
 	item_state = "woodsword"
-	force = 5
+	force = 8
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 0
 	armour_penetration = 0
