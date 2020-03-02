@@ -67,6 +67,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stock_parts/New()
+	..()
 	src.pixel_x = rand(-5.0, 5)
 	src.pixel_y = rand(-5.0, 5)
 

@@ -105,11 +105,13 @@ var/sc_safecode5 = "[rand(0,9)]"
 	name = "smudged paper"
 
 /obj/item/paper/sc_safehint_paper_prison/New()
+	..()
 	info = "<i>The ink is smudged, you can only make out a couple numbers:</i> '[sc_safecode1]**[sc_safecode4]*'"
 
 /obj/item/paper/sc_safehint_paper_hydro
 	name = "shredded paper"
 /obj/item/paper/sc_safehint_paper_hydro/New()
+	..()
 	info = "<i>Although the paper is shredded, you can clearly see the number:</i> '[sc_safecode2]'"
 
 /obj/item/paper/sc_safehint_paper_caf
@@ -120,6 +122,7 @@ var/sc_safecode5 = "[rand(0,9)]"
 /obj/item/paper/sc_safehint_paper_bible
 	name = "hidden paper"
 /obj/item/paper/sc_safehint_paper_bible/New()
+	..()
 	info = {"<i>It would appear that the pen hidden with the paper had leaked ink over the paper.
 			However you can make out the last three digits:</i>'[sc_safecode3][sc_safecode4][sc_safecode5]'
 			"}
