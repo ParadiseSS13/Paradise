@@ -12510,6 +12510,8 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
+/obj/structure/bed/dogbed/ducktron,
+/mob/living/simple_animal/pet/ducktron,
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "auU" = (
@@ -14424,7 +14426,6 @@
 	icon_state = "1-2";
 	pixel_y = 0
 	},
-/mob/living/simple_animal/pet/ducktron,
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "axU" = (
