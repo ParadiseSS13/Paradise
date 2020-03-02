@@ -20,6 +20,9 @@
 	var/can_synth = TRUE //whether or not a mech syringe gun and synthesize this reagent
 	var/overdose_threshold = 0
 	var/addiction_chance = 0
+	var/addiction_chance_additional = 100 // If we want to lower the chance of addiction even more, set this
+	var/addiction_threshold = 0 // How much of a chem do we have to absorb before we can start rolling for its ill effects?
+	var/minor_addiction = FALSE
 	var/addiction_stage = 1
 	var/last_addiction_dose = 0
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
@@ -53,12 +56,7 @@
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 
 			if(can_become_addicted)
-				if(prob(addiction_chance) && !is_type_in_list(src, M.reagents.addiction_list))
-					to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
-					var/datum/reagent/new_reagent = new type()
-					new_reagent.last_addiction_dose = world.timeofday
-					M.reagents.addiction_list.Add(new_reagent)
-				else if(is_type_in_list(src, M.reagents.addiction_list))
+				if(is_type_in_list(src, M.reagents.addiction_list))
 					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>")
 					for(var/A in M.reagents.addiction_list)
 						var/datum/reagent/AD = A
@@ -75,8 +73,23 @@
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
 	current_cycle++
-	holder.remove_reagent(id, metabolization_rate * M.metabolism_efficiency * M.digestion_ratio) //By default it slowly disappears.
+	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency * M.digestion_ratio // Cache it
+
+	handle_addiction(M, total_depletion_rate)
+
+	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
 	return STATUS_UPDATE_NONE
+
+/datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
+	if(addiction_chance && !is_type_in_list(src, M.reagents.addiction_list))
+		M.reagents.addiction_threshold_accumulated[id] += consumption_rate
+		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[id]
+
+		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
+			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+			var/datum/reagent/new_reagent = new type()
+			new_reagent.last_addiction_dose = world.timeofday
+			M.reagents.addiction_list.Add(new_reagent)
 
 /datum/reagent/proc/on_mob_death(mob/living/M)	//use this to have chems have a "death-triggered" effect
 	return
@@ -140,6 +153,8 @@
 	if(prob(8))
 		M.emote("shiver")
 	if(prob(4))
+		to_chat(M, "<span class='warning'>Your head hurts.</span>")
+	if(prob(4))
 		to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
 	return STATUS_UPDATE_NONE
 
@@ -147,23 +162,32 @@
 	if(prob(8))
 		M.emote("twitch")
 	if(prob(4))
-		to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+		to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
 	if(prob(4))
+		to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+	else if(prob(4))
 		to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	if(minor_addiction)
+		if(prob(6))
+			M.AdjustSlowed(3)
+			to_chat(M, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
+	else
+		if(prob(6))
+			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
+			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+			update_flags |= M.Stun(rand(2,4), FALSE)
+			update_flags |= M.Weaken(rand(2,4), FALSE)
 	if(prob(8))
-		M.emote("twitch")
-	if(prob(6))
-		to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
-		M.visible_message("<span class='warning'>[M] gags and retches!</span>")
-		update_flags |= M.Stun(rand(2,4), FALSE)
-		update_flags |= M.Weaken(rand(2,4), FALSE)
+		M.emote(pick("twitch", "twitch_s", "shiver"))
+	if(prob(4))
+		to_chat(M, "<span class='warning'>Your head is killing you!</span>")
 	if(prob(5))
 		to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
-	if(prob(5))
+	else if(prob(5))
 		to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
 	return update_flags
 

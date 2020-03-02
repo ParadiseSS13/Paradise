@@ -208,10 +208,7 @@
 	if(empty)
 		return
 	new /obj/item/reagent_containers/hypospray/combat(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src) // Because you ain't got no time to look at what damage dey taking yo
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new new /obj/item/reagent_containers/applicator/dual(src) // Because you ain't got no time to look at what damage dey taking yo
 	new /obj/item/defibrillator/compact/combat/loaded(src)
 	new /obj/item/clothing/glasses/hud/health/night(src)
 

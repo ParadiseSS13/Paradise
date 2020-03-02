@@ -273,8 +273,7 @@
 	icon_state = "intake"
 	required_mode_to_deconstruct = 1
 	deconstructs_to = PIPE_DISPOSALS_CHUTE
-
-	var/c_mode = 0
+	var/can_deconstruct = FALSE
 
 /obj/machinery/disposal/deliveryChute/New()
 	..()
@@ -345,21 +344,31 @@
 	update()
 	return
 
-/obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
-	if(!I || !user)
+/obj/machinery/disposal/deliveryChute/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	can_deconstruct = !can_deconstruct
+	to_chat(user, "You [can_deconstruct ? "unfasten": "fasten"] the screws around the power connection.")
 
-	if(istype(I, /obj/item/screwdriver))
-		if(c_mode==0)
-			c_mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(c_mode==1)
-			c_mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
+/obj/machinery/disposal/deliveryChute/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!can_deconstruct)
+		return
+	if(contents.len > 0)
+		to_chat(user, "Eject the items first!")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_FLOOR_SLICE_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
+		var/obj/structure/disposalconstruct/C = new (loc)
+		C.ptype = deconstructs_to
+		C.update()
+		C.anchored = TRUE
+		C.density = TRUE
+		qdel(src)
 
 /obj/item/shippingPackage
 	name = "Shipping package"

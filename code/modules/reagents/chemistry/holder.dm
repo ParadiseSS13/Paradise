@@ -11,6 +11,7 @@ var/const/INGEST = 2
 	var/atom/my_atom = null
 	var/chem_temp = T20C
 	var/list/datum/reagent/addiction_list = new/list()
+	var/list/addiction_threshold_accumulated = new/list()
 	var/flags
 	var/list/reagents_generated_per_cycle = new/list()
 
@@ -233,6 +234,15 @@ var/const/INGEST = 2
 	if(M)
 		temperature_reagents(M.bodytemperature - 30)
 
+
+	if(LAZYLEN(addiction_threshold_accumulated))
+		for(var/thing in addiction_threshold_accumulated)
+			if(has_reagent(thing))
+				continue // if we have the reagent in our system, then don't deplete the addiction threshold
+			addiction_threshold_accumulated[thing] -= 0.01 // Otherwise very slowly deplete the buildup
+			if(addiction_threshold_accumulated[thing] <= 0)
+				addiction_threshold_accumulated -= thing
+
 	// a bitfield filled in by each reagent's `on_mob_life` to find out which states to update
 	var/update_flags = STATUS_UPDATE_NONE
 	for(var/A in reagent_list)
@@ -291,17 +301,21 @@ var/const/INGEST = 2
 			if(R.addiction_stage < 5)
 				if(prob(5))
 					R.addiction_stage++
-			switch(R.addiction_stage)
-				if(1)
-					update_flags |= R.addiction_act_stage1(M)
-				if(2)
-					update_flags |= R.addiction_act_stage2(M)
-				if(3)
-					update_flags |= R.addiction_act_stage3(M)
-				if(4)
-					update_flags |= R.addiction_act_stage4(M)
-				if(5)
-					update_flags |= R.addiction_act_stage5(M)
+			if(M.reagents.has_reagent(R.id))
+				R.last_addiction_dose = world.timeofday
+				R.addiction_stage = 1
+			else
+				switch(R.addiction_stage)
+					if(1)
+						update_flags |= R.addiction_act_stage1(M)
+					if(2)
+						update_flags |= R.addiction_act_stage2(M)
+					if(3)
+						update_flags |= R.addiction_act_stage3(M)
+					if(4)
+						update_flags |= R.addiction_act_stage4(M)
+					if(5)
+						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)

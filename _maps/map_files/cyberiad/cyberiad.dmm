@@ -72015,7 +72015,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/rdconsole/public{
+/obj/item/circuitboard/rdconsole{
 	pixel_x = -4
 	},
 /obj/item/circuitboard/rdserver{
