@@ -51,7 +51,7 @@
 	if(!iscarbon(M))
 		return
 
-	if(reagents.total_volume && (ignore_flags || M.can_inject(user, TRUE)))
+	if(ignore_flags || M.can_inject(user, TRUE))
 		if(M == user)
 			M.visible_message("[user] begins mending [user.p_them()]self with [src].", "<span class='notice'>You begin mending yourself with [src].</span>")
 		else

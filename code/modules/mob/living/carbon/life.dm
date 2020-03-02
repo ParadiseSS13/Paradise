@@ -450,10 +450,10 @@
 
 			if(P.reagents && P.reagents.total_volume)
 				var/fractional_applied_amount = applied_amount  / P.reagents.total_volume
-				P.reagents.reaction(src, TOUCH, fractional_applied_amount, P.reagents.total_volume == P.reagents.maximum_volume ? TRUE : FALSE)
+				P.reagents.reaction(src, TOUCH, fractional_applied_amount, P.reagents.total_volume == P.reagents.maximum_volume)
 				P.reagents.trans_to(src, applied_amount * 0.5)
 				P.reagents.remove_any(applied_amount * 0.5)
 			else
-				if(P.reagents.total_volume <= 0)
+				if(!P.reagents || P.reagents.total_volume <= 0)
 					processing_patches -= P
 					qdel(P)
