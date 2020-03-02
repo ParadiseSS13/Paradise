@@ -81,6 +81,7 @@ var/global/list/bad_blocks[0]
 	var/uni_identity="" // Encoded UI
 	var/struc_enzymes="" // Encoded SE
 	var/unique_enzymes="" // MD5 of player name
+	var/clone_generation = 0 //This increments every time you clone, to detrimental effects.
 
 	// Original Encoded SE, for use with Ryetalin
 	var/struc_enzymes_original="" // Encoded SE
@@ -111,6 +112,7 @@ var/global/list/bad_blocks[0]
 	new_dna.blood_type = blood_type
 	new_dna.real_name=real_name
 	new_dna.species = new species.type
+	new_dna.clone_generation = clone_generation
 	for(var/b=1;b<=DNA_SE_LENGTH;b++)
 		new_dna.SE[b]=SE[b]
 		if(b<=DNA_UI_LENGTH)

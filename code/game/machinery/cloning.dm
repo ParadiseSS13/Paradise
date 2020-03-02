@@ -258,6 +258,7 @@
 		H.real_name = R.dna.real_name
 
 	H.dna = R.dna.Clone()
+	H.dna.clone_generation++
 
 	for(var/datum/language/L in R.languages)
 		H.add_language(L.name)
@@ -573,6 +574,7 @@
 
 	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)
+	H.maxHealth -= (H.dna.clone_generation - 1) * 15
 
 	for(var/o in H.internal_organs)
 		var/obj/item/organ/O = o
