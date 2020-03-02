@@ -1,10 +1,11 @@
 /mob/living/simple_animal/chick/ducktron
-	name = "Sergeant Duck"
+	name = "Major Duck"
 	desc = "Pet of security, he looks tired."
 	gender = MALE
 	health = 1
 	maxHealth = 1
 	unique_pet = TRUE
+	density = 0
 	icon = 'icons/hispania/mob/animals.dmi'
 	icon_resting = "duck_sleep"
 	icon_state = "duck"
