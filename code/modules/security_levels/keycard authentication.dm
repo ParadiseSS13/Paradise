@@ -99,7 +99,7 @@
 	if(href_list["reset"])
 		reset()
 	if(href_list["ert"])
-		ert_reason = input(usr, "Reason for ERT Call:", "", "")
+		ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
 
 	SSnanoui.update_uis(src)
 	add_fingerprint(usr)
@@ -168,7 +168,7 @@
 				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
 			atom_say("ERT request transmitted!")
-			command_announcer.autosay("ERT request transmitted.")
+			command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
 			var/fullmin_count = 0
