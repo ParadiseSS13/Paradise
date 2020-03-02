@@ -1,0 +1,29 @@
+/mob/living/simple_animal/ducktron
+	name = "Duck Tron"
+	desc = "Pet of security, he looks tired."
+	gender = MALE
+	health = 1
+	maxHealth = 1
+	gold_core_spawnable = NO_SPAWN
+	unique_pet = TRUE
+	icon_state = "chick"
+	icon_living = "chick"
+	icon_dead = "chick_dead"
+	icon_gib = "chick_gib"
+	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
+	speak_emote = list("shigs")
+	emote_hear = list("shigs")
+	emote_see = list("sighs")
+	density = 0
+	speak_chance = 2
+	turns_per_move = 2
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
+	response_help  = "pets the"
+	response_disarm = "gently pushes aside the"
+	response_harm   = "kicks the"
+	attacktext = "kicks"
+	ventcrawler = 2
+	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
+	mob_size = MOB_SIZE_TINY
+	can_hide = 1
+	can_collar = 1
