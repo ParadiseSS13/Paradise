@@ -1,10 +1,9 @@
 /mob/living/simple_animal/pet/ducktron
-	name = "Duck Tron"
+	name = "Sergeant Duck"
 	desc = "Pet of security, he looks tired."
 	gender = MALE
 	health = 1
 	maxHealth = 1
-	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "chick"
