@@ -20,3 +20,31 @@
 	display_name = "scientist retro"
 	path = /obj/item/clothing/under/retro/science
 	allowed_roles = list("Research Director","Scientist")
+
+/datum/gear/uniform/sci
+	display_name = "green heart jumpsuit"
+	path = /obj/item/clothing/under/fluff/counterfeitguise_uniform
+
+/datum/gear/uniform/skirt/khar12
+	display_name = "skirt, WandB "
+	path = /obj/item/clothing/under/fluff/kharshai
+
+/datum/gear/uniform/red_strip
+	display_name = "red and white jumpsuit"
+	path = /obj/item/clothing/under/fluff/xantholne
+
+/datum/gear/uniform/nerd_turtle
+	display_name = "blue and black turtleneck"
+	path = /obj/item/clothing/under/fluff/jay_turtleneck
+
+/datum/gear/uniform/nerd_turtle
+	display_name = "blue and black turtleneck"
+	path = /obj/item/clothing/under/fluff/jay_turtleneck
+
+/datum/gear/uniform/casual_waitcoast
+	display_name = "white and black whaitcost jumpsuit"
+	path = /obj/item/clothing/under/fluff/aegis
+
+/datum/gear/uniform/nerd_turtle_blue
+	display_name = "blue turtleneck"
+	path = /obj/item/clothing/under/fluff/elo_turtleneck

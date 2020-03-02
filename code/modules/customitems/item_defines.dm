@@ -1123,7 +1123,7 @@
 	icon_state = "elishirt"
 	item_state = "elishirt"
 	item_color = "elishirt"
-	displays_id = 0
+	displays_id = 1
 
 /obj/item/clothing/under/fluff/jay_turtleneck // Jayfeather: Jay Wingler
 	name = "Mar's Pattern Custom Turtleneck"
@@ -1132,7 +1132,7 @@
 	icon_state = "jaywingler"
 	item_state = "jaywingler"
 	item_color = "jaywingler"
-	displays_id = 0
+	displays_id = 1
 
 /obj/item/clothing/under/psysuit/fluff/isaca_sirius_1 // Xilia: Isaca Sirius
 	name = "Isaca's suit"
