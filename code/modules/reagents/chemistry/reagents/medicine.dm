@@ -174,7 +174,7 @@
 	id = "silver_sulfadiazine"
 	description = "This antibacterial compound is used to treat burn victims."
 	reagent_state = LIQUID
-	color = "#F0C814"
+	color = "#F0DC00"
 	metabolization_rate = 3
 	harmless = FALSE	//toxic if ingested, and I am NOT going to account for the difference
 	taste_description = "burn cream"
@@ -201,7 +201,7 @@
 	id = "styptic_powder"
 	description = "Styptic (aluminum sulfate) powder helps control bleeding and heal physical wounds."
 	reagent_state = LIQUID
-	color = "#C8A5DC"
+	color = "#FF9696"
 	metabolization_rate = 3
 	harmless = FALSE
 	taste_description = "wound cream"

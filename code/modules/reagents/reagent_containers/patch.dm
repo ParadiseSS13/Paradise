@@ -31,12 +31,20 @@
 	instant_application = 1
 	list_reagents = list("styptic_powder" = 30)
 
+/obj/item/reagent_containers/food/pill/patch/styptic/small
+	name = "healing mini-patch"
+	list_reagents = list("styptic_powder" = 15)
+
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
 	name = "burn patch"
 	desc = "Helps with burn injuries."
 	icon_state = "bandaid_burn"
 	instant_application = 1
 	list_reagents = list("silver_sulfadiazine" = 30)
+
+/obj/item/reagent_containers/food/pill/patch/silver_sulf/small
+	name = "burn mini-patch"
+	list_reagents = list("silver_sulfadiazine" = 15)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
 	name = "synthflesh patch"
