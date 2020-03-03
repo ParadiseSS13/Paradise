@@ -6067,6 +6067,9 @@
 /obj/item/kitchen/knife/combat,
 /obj/item/kitchen/knife/combat,
 /obj/item/kitchen/knife/combat,
+/obj/item/knife/folding/combat/tacticool,
+/obj/item/knife/folding/combat/tacticool,
+/obj/item/knife/folding/combat/tacticool,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},

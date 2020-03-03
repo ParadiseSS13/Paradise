@@ -119,4 +119,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
     					/obj/item/clothing/head/hairflower = 400,
     					/obj/item/storage/bag/uno = 200,
     					/obj/item/stack/sheet/animalhide/monkey = 1500,
+    					/obj/item/knife/folding/wood = 300,
+    					/obj/item/knife/folding/normal = 550,
+    					/obj/item/knife/folding/butterfly = 550,
     					/obj/item/stack/sheet/animalhide/lizard = 2000)
