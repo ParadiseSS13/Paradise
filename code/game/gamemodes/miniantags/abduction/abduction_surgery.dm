@@ -12,8 +12,8 @@
 
 /datum/surgery_step/internal/manipulate_organs/abduct/extract_organ
 	name = "remove heart"
-	accept_hand = 1
-	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES)
+	accept_hand = TRUE
+	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_OPEN_INCISION_BONES, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_behaviour = SURGERY_EXTRACT_ORGAN_MANIP
 	var/obj/item/organ/internal/IC = null
@@ -24,6 +24,9 @@
 		if(istype(I, /obj/item/organ/internal/heart))
 			IC = I
 			break
+	if(!IC)
+		to_chat(user, "<span class='warning'>You can't seem to find an organ that functions like a heart in [target].</span>")
+		return -1
 	user.visible_message("[user] starts to remove [target]'s organs.", "<span class='notice'>You start to remove [target]'s organs...</span>")
 	..()
 

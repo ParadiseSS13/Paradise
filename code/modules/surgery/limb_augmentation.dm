@@ -25,14 +25,13 @@
 	var/obj/item/robot_parts/p = tool
 	if(!istype(p))
 		return FALSE
-
-	if(p.part)
-		if(!(target_zone in p.part))
-			return FALSE
 	return TRUE
 
 /datum/surgery_step/augment/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(!p.part || !(target_zone in p.part))
+		to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
+		return -1
 	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
 
 /datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -41,7 +40,7 @@
 	user.visible_message("<span class='notice'>[user] has finished augmenting [affected] with [tool].</span>",	\
 	"<span class='notice'>You augment [affected] with [tool].</span>")
 
-	if(L.part)
+	if(L.part) // Safeguard against admemes. Shouldn't happen normally
 		for(var/part_name in L.part)
 			if(!target.get_organ(part_name))
 				continue
