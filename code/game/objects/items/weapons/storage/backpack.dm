@@ -61,10 +61,6 @@
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 50)
 
-/obj/item/storage/backpack/holding/New()
-	..()
-	return
-
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
 		var/response = alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?","IMMINENT DEATH!", "No", "Yes")
@@ -399,6 +395,10 @@
 	new /obj/item/clothing/under/rank/miner/lavaland(src)
 	new /obj/item/encryptionkey/headset_cargo(src)
 	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
+	new /obj/item/kitchen/knife/combat/survival(src)
+	new /obj/item/flashlight/seclite(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
 
 
 /obj/item/storage/backpack/duffel/syndie/ammo/smg

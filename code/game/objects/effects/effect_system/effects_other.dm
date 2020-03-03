@@ -172,7 +172,7 @@
 
 		// Clamp all values to MAX_EXPLOSION_RANGE
 		if(round(amount/12) > 0)
-			devastation = min (MAX_EX_DEVESTATION_RANGE, devastation + round(amount/12))
+			devastation = min (MAX_EX_DEVASTATION_RANGE, devastation + round(amount/12))
 
 		if(round(amount/6) > 0)
 			heavy = min (MAX_EX_HEAVY_RANGE, heavy + round(amount/6))

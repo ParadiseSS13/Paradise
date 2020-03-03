@@ -326,6 +326,7 @@
 	on = TRUE //Bio-luminesence has one setting, on.
 
 /obj/item/flashlight/slime/New()
+	..()
 	set_light(brightness_on)
 	spawn(1) //Might be sloppy, but seems to be necessary to prevent further runtimes and make these work as intended... don't judge me!
 		update_brightness()
