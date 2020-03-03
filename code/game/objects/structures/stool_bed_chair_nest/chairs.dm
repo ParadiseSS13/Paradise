@@ -293,14 +293,13 @@
 	name = "stool"
 	desc = "Apply butt."
 	icon_state = "stool"
-	can_buckle = TRUE
+	//can_buckle = TRUE
 	item_chair = /obj/item/chair/stool
 
 /obj/structure/chair/stool/bar
 	name = "bar stool"
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
-	can_buckle = TRUE
 	item_chair = /obj/item/chair/stool/bar
 
 /obj/item/chair
@@ -312,7 +311,6 @@
 	lefthand_file = 'icons/mob/inhands/chairs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/chairs_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	can_buckle = FALSE
 	force = 8
 	throwforce = 10
 	throw_range = 3
