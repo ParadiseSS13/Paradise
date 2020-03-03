@@ -54,9 +54,9 @@ var/const/BLUESHIELD		=(1<<1)
 var/const/BARBER			=(1<<3)
 var/const/MECHANIC			=(1<<4)
 var/const/BRIGDOC			=(1<<5)
-var/const/JUDGE				=(1<<5)
-var/const/PILOT				=(1<<6)
-var/const/FORENSIC			=(1<<7)
+var/const/JUDGE				=(1<<6)
+var/const/PILOT				=(1<<7)
+var/const/FORENSIC			=(1<<8)
 
 var/list/assistant_occupations = list(
 )
