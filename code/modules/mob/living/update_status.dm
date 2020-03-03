@@ -72,7 +72,7 @@
 		extra_checks += CALLBACK(src, /mob.proc/IsWeakened)
 		extra_checks += CALLBACK(src, /mob.proc/IsStunned)
 
-	if(stat || paralysis || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || invoke_callback_list(extra_checks))
+	if(stat || paralysis || (!ignore_restraints && restrained()) || (!ignore_lying && lying) || check_for_true_callbacks(extra_checks))
 		return TRUE
 
 // wonderful proc names, I know - used to check whether the blur overlay

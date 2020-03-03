@@ -399,7 +399,7 @@ This is always put in the attack log.
 			drifting = FALSE
 			Uloc = user.loc
 
-		if(!user || user.stat || (!drifting && user.loc != Uloc) || invoke_callback_list(extra_checks))
+		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
 			. = FALSE
 			break
 
@@ -421,7 +421,7 @@ This is always put in the attack log.
 		qdel(progbar)
 
 // Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
-/proc/invoke_callback_list(list/extra_checks)
+/proc/check_for_true_callbacks(list/extra_checks)
 	for(var/datum/callback/CB in extra_checks)
 		if(CB.Invoke())
 			return TRUE
