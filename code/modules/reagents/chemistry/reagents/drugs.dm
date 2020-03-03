@@ -35,7 +35,8 @@
 	reagent_state = LIQUID
 	color = "#9087A2"
 	metabolization_rate = 0.2
-	addiction_chance = 65
+	addiction_chance = 15
+	addiction_threshold = 10
 	heart_rate_decrease = 1
 	taste_description = "a synthetic high"
 
@@ -88,7 +89,9 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
-	addiction_chance = 70
+	addiction_chance = 15
+	addiction_threshold = 10
+	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "calm"
 
@@ -154,7 +157,8 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 5
 	taste_description = "bitterness"
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
@@ -227,7 +231,8 @@
 	reagent_state = LIQUID
 	color = "#0264B4"
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 10
 	taste_description = "very poor life choices"
 
 
@@ -299,7 +304,8 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_chance = 60
+	addiction_chance = 10
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	heart_rate_increase = 1
 	taste_description = "speed"
@@ -360,7 +366,8 @@
 	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
-	addiction_chance = 80
+	addiction_chance = 15
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	taste_description = "WAAAAGH"
 
@@ -460,7 +467,8 @@
 	description = "Jenkem is a prison drug made from fermenting feces in a solution of urine. Extremely disgusting."
 	reagent_state = LIQUID
 	color = "#644600"
-	addiction_chance = 30
+	addiction_chance = 5
+	addiction_threshold = 5
 	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
@@ -526,7 +534,9 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
-	addiction_chance = 10
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 10
 	taste_description = "flips"
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
@@ -631,7 +641,8 @@
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_chance = 60
+	addiction_chance = 10
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	taste_description = "wiper fluid"
 
@@ -684,7 +695,8 @@
 
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 5
 	taste_description = "silicon"
 
 

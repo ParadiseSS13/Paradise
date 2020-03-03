@@ -11,7 +11,7 @@
 
 	if(!ignorecap)
 		// Clamp all values to MAX_EXPLOSION_RANGE
-		devastation_range = min (MAX_EX_DEVESTATION_RANGE, devastation_range)
+		devastation_range = min (MAX_EX_DEVASTATION_RANGE, devastation_range)
 		heavy_impact_range = min (MAX_EX_HEAVY_RANGE, heavy_impact_range)
 		light_impact_range = min (MAX_EX_LIGHT_RANGE, light_impact_range)
 		flash_range = min (MAX_EX_FLASH_RANGE, flash_range)

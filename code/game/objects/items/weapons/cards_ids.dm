@@ -681,6 +681,7 @@
 
 /obj/item/card/id/prisoner/random
 /obj/item/card/id/prisoner/random/New()
+	..()
 	var/random_number = "#[rand(0, 99)]-[rand(0, 999)]"
 	name = "Prisoner [random_number]"
 	registered_name = name

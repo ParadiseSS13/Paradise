@@ -198,6 +198,7 @@
 		if(!S.reagents)
 			S.create_reagents(volume)
 		S.reagents.add_reagent("thermite", volume)
+		S.thermite = TRUE
 		S.overlays.Cut()
 		S.overlays = image('icons/effects/effects.dmi', icon_state = "thermite")
 		if(S.active_hotspot)

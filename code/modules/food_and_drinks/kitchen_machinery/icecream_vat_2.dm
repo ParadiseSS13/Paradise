@@ -232,6 +232,7 @@ var/list/ingredients_source = list(
 	bitesize = 3
 
 /obj/item/reagent_containers/food/snacks/icecream/New()
+	..()
 	create_reagents(20)
 	reagents.add_reagent("nutriment", 5)
 
