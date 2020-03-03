@@ -116,7 +116,7 @@
 
 	if(!msg)
 		return
-	msg = pencode_to_html(msg)
+	msg = admin_pencode_to_html(msg)
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
