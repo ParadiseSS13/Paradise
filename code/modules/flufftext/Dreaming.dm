@@ -24,7 +24,7 @@
 
 //NIGHTMARES
 /mob/living/carbon/proc/nightmare()
-	var/list/nightmares = GLOB.nightmare_strings.Copy()
+	var/list/nightmares = custom_dreams(GLOB.nightmare_strings, src)
 
 	for(var/obj/item/bedsheet/sheet in loc)
 		nightmares += sheet.nightmare_messages
