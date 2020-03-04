@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////
 //surgery steps
 /datum/surgery_step/encasing
-	can_infect = 1
+	can_infect = TRUE
 	blood_level = 1
 	possible_locs = list("chest", "l_arm", "l_hand", "r_arm", "r_hand","r_leg", "r_foot", "l_leg", "l_foot", "groin", "head")
 

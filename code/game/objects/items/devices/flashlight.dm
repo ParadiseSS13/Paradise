@@ -12,7 +12,7 @@
 	var/on = FALSE
 	var/brightness_on = 4 //luminosity when on
 	var/togglesound = 'sound/weapons/empty.ogg'
-	
+
 /obj/item/flashlight/Initialize()
 	. = ..()
 	if(on)

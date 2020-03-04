@@ -3,7 +3,6 @@
 var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
-	enable_debugger()
 	SetupLogs()
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
@@ -35,11 +34,6 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 #undef RECOMMENDED_VERSION
 
 	return
-
-/world/proc/enable_debugger()
-    var/dll = world.GetConfig("env", "EXTOOLS_DLL")
-    if (dll)
-        call(dll, "debug_initialize")()
 
 //world/Topic(href, href_list[])
 //		to_chat(world, "Received a Topic() call!")

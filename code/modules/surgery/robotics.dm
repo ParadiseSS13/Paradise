@@ -4,7 +4,6 @@
 //////////////////////////////////////////////////////////////////
 //to do, moar surgerys or condense down ala manipulate organs.
 /datum/surgery_step/robotics
-	can_infect = 0
 	priority = 10
 	pain = FALSE
 	requires_organic_bodypart = FALSE

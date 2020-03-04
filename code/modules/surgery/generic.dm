@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/surgery_step/generic/
-	can_infect = 1
+	can_infect = TRUE
 	priority = 10 // Pretty high. Usually what you want
 
 /datum/surgery_step/generic/is_valid_target(mob/living/carbon/human/target)

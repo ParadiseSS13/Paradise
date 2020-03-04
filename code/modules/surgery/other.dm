@@ -46,7 +46,7 @@
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_SAME
 	allowed_surgery_tools = SURGERY_TOOLS_MEND_INTERNAL_BLEEDING
-	can_infect = 1
+	can_infect = TRUE
 	blood_level = 1
 
 	time = 32
@@ -93,8 +93,6 @@
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
 	allowed_surgery_tools = SURGERY_TOOLS_CLEAN_ORGAN
-
-	can_infect = FALSE
 
 	time = 24
 

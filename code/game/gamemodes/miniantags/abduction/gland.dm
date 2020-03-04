@@ -14,6 +14,7 @@
 	var/human_only = 0
 	var/active = 0
 	tough = TRUE //not easily broken by combat damage
+
 	var/mind_control_uses = 1
 	var/mind_control_duration = 1800
 	var/active_mind_control = FALSE

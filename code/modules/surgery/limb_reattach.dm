@@ -3,7 +3,6 @@
 //						LIMB SURGERY							//
 //////////////////////////////////////////////////////////////////
 /datum/surgery_step/limb/
-	can_infect = 0
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot")
 
 /datum/surgery_step/limb/is_valid_target(mob/living/carbon/human/target)
