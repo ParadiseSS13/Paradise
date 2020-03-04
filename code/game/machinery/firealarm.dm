@@ -309,13 +309,14 @@ FIRE ALARM
 	update_icon()
 
 /obj/machinery/firealarm/New(location, direction, building)
-	..()
+	. = ..()
 
 	if(building)
 		buildstage = 0
 		wiresexposed = TRUE
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
+		setDir(direction)
+		pixel_x = (dir & 3) ? 0 : (dir == 4 ? 26 : -26)
+		pixel_y = (dir & 3) ? (dir ==1 ? 24 : -24) : 0
 
 	if(is_station_contact(z) && show_alert_level)
 		if(GLOB.security_level)

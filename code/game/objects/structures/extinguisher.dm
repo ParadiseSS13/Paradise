@@ -17,11 +17,12 @@
 	var/opened = 0
 	var/material_drop = /obj/item/stack/sheet/metal
 
-/obj/structure/extinguisher_cabinet/New(turf/loc, ndir = null)
+/obj/structure/extinguisher_cabinet/New(turf/loc, direction = null)
 	..()
-	if(ndir)
-		pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
-		pixel_y = (ndir & NORTH|SOUTH)? (ndir == WEST ? 28 : -28) : 0
+	if(direction)
+		setDir(direction)
+		pixel_x = (dir & 3) ? 0 : (dir == 4 ? 28 : -28)
+		pixel_y = (dir & 3) ? (dir == 1 ? 30 : -30) : 0
 	switch(extinguishertype)
 		if(NO_EXTINGUISHER)
 			return
@@ -165,9 +166,9 @@
 	else
 		icon_state = "extinguisher_empty"
 
-/obj/structure/extinguisher_cabinet/empty/New(turf/loc, ndir = null)
+/obj/structure/extinguisher_cabinet/empty/New(turf/loc, direction = null)
 	extinguishertype = NO_EXTINGUISHER
-	..()
+	return ..()
 
 #undef NO_EXTINGUISHER
 #undef NORMAL_EXTINGUISHER
