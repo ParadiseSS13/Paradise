@@ -230,7 +230,9 @@ var/list/admin_verbs_ticket = list(
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		verbs += admin_verbs_default
+		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs
+		if(holder.rights != R_VIEWRUNTIMES)
+			verbs += admin_verbs_default
 		if(holder.rights & R_BUILDMODE)
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
@@ -264,6 +266,8 @@ var/list/admin_verbs_ticket = list(
 			verbs += admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
 			verbs += admin_verbs_proccall
+		if(holder.rights & R_VIEWRUNTIMES)
+			verbs += /client/proc/view_runtimes
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
