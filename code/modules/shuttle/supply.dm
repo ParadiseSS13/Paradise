@@ -414,7 +414,6 @@
 		ui.open()
 
 /obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
-	message_admins("UI DATA CALLED")
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
@@ -422,7 +421,6 @@
 	for(var/category in all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
 	data["categories"] = category_list
-	message_admins("UI DATA 424")
 	var/cat = text2num(last_viewed_group)
 	var/packs_list[0]
 	for(var/set_name in SSshuttle.supply_packs)
@@ -449,7 +447,6 @@
 				owned = 1
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "owned" = owned, "command1" = list("rreq" = SO.ordernum))))
 	data["requests"] = requests_list
-	message_admins("UI DATA 451")
 	var/orders_list[0]
 	for(var/set_name in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = set_name
@@ -463,7 +460,6 @@
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
-	message_admins("UI DATA 465")
 	return data
 
 /obj/machinery/computer/ordercomp/Topic(href, href_list)
