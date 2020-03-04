@@ -27,7 +27,7 @@
 
 /datum/surgery_step/internal/manipulate_organs/heal_organs
 	name = "heal organs"
-	allowed_surgery_behaviour = SURGERY_HEAL_ORGAN_MANIP
+	allowed_surgery_tools = SURGERY_TOOLS_HEAL_ORGAN
 	// TODO: Can do check for encased places
 
 
@@ -106,7 +106,7 @@
 
 /datum/surgery_step/internal/manipulate_organs/clean
 	name = "clean organs"
-	allowed_surgery_behaviour = SURGERY_CLEAN_ORGAN_MANIP
+	allowed_surgery_tools = SURGERY_TOOLS_CLEAN_ORGAN
 
 /datum/surgery_step/internal/manipulate_organs/clean/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -223,7 +223,7 @@
 
 /datum/surgery_step/internal/manipulate_organs/extract
 	name = "extract organ"
-	allowed_surgery_behaviour = SURGERY_EXTRACT_ORGAN_MANIP
+	allowed_surgery_tools = SURGERY_TOOLS_EXTRACT_ORGAN
 	var/obj/item/organ/internal/organ_being_removed = null
 
 /datum/surgery_step/internal/manipulate_organs/extract/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -382,7 +382,7 @@
 
 /datum/surgery_step/alien/saw_carapace
 	name = "saw carapace"
-	allowed_surgery_behaviour = SURGERY_SAW_BONE
+	allowed_surgery_tools = SURGERY_TOOLS_SAW_BONE
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_CARAPACE_SAWN
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
@@ -406,7 +406,7 @@
 
 /datum/surgery_step/alien/cut_carapace
 	name = "cut carapace"
-	allowed_surgery_behaviour = SURGERY_MAKE_INCISION
+	allowed_surgery_tools = SURGERY_TOOLS_INCISION
 	surgery_start_stage = SURGERY_STAGE_CARAPACE_SAWN
 	next_surgery_stage = SURGERY_STAGE_CARAPACE_CUT
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
@@ -429,7 +429,7 @@
 
 /datum/surgery_step/retract_carapace
 	name = "retract carapace"
-	allowed_surgery_behaviour = SURGERY_RETRACT_SKIN
+	allowed_surgery_tools = SURGERY_TOOLS_RETRACT_SKIN
 	surgery_start_stage = SURGERY_STAGE_CARAPACE_CUT
 	next_surgery_stage = SURGERY_STAGE_CARAPACE_OPEN
 	possible_locs = list("chest", "head", "groin", "eyes", "mouth")

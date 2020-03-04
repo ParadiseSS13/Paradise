@@ -547,7 +547,6 @@
 	origin_tech = "materials=6;syndicate=4"
 	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
 	sharp = TRUE
-	surgery_behaviours = list(SURGERY_MAKE_INCISION = 1)
 
 /obj/item/twohanded/chainsaw/update_icon()
 	if(wielded)

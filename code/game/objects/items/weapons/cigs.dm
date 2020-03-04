@@ -38,7 +38,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
 		"Grey" = 'icons/mob/species/grey/mask.dmi'
 		)
-	surgery_behaviours = list(SURGERY_CAUTERIZE_INCISION = 90)
 
 
 /obj/item/clothing/mask/cigarette/New()

@@ -22,7 +22,7 @@
 	name = "mend bone"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_BONES_GELLED
-	allowed_surgery_behaviour = SURGERY_MEND_BONE
+	allowed_surgery_tools = SURGERY_TOOLS_MEND_BONES
 
 	time = 24
 
@@ -50,7 +50,7 @@
 	name = "set bone"
 	surgery_start_stage = SURGERY_STAGE_BONES_GELLED
 	next_surgery_stage = SURGERY_STAGE_BONES_SET
-	allowed_surgery_behaviour = SURGERY_SET_BONE
+	allowed_surgery_tools = SURGERY_TOOLS_SET_BONES
 
 	time = 32
 

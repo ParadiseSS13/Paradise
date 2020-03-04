@@ -1,6 +1,6 @@
 /datum/surgery_step/reshape_face
 	name = "reshape face"
-	allowed_surgery_behaviour = SURGERY_RESHAPE_FACE
+	allowed_surgery_tools = SURGERY_TOOLS_RESHAPE_FACE
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_SAME
 	possible_locs = list("head")

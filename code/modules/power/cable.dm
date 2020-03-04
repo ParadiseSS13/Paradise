@@ -492,7 +492,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
-	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 90, SURGERY_CONNECT_LIMB = 90, SURGERY_MEND_INTERNAL_BLEEDING = 90, SURGERY_ROBOTIC_HEAL_BURN = 100)
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)

@@ -30,7 +30,6 @@
 	var/light_intensity = 2
 	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
 	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
-	surgery_behaviours = list(SURGERY_CAUTERIZE_INCISION = 30, SURGERY_CUT_SEALS = 80, SURGERY_ROBOTIC_HEAL_BRUTE = 100)
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()

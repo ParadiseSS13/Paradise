@@ -7,7 +7,6 @@
 	flags = CONDUCT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "materials=1;biotech=1"
-	surgery_behaviours = list(SURGERY_RETRACT_SKIN = 100, SURGERY_RETRACT_BONE = 100, SURGERY_RETRACT_CARAPACE = 100, SURGERY_ROBOTIC_OPEN_CLOSE_HATCH = 100)
 
 /obj/item/retractor/augment
 	desc = "Micro-mechanical manipulator for retracting stuff."
@@ -24,7 +23,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "pinched")
-	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_EXTRACT_IMPLANT = 100, SURGERY_CONNECT_LIMB = 100, SURGERY_EXTRACT_ORGAN_MANIP = 100)
 
 /obj/item/hemostat/augment
 	desc = "Tiny servos power a pair of pincers to stop bleeding."
@@ -40,7 +38,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("burnt")
-	surgery_behaviours = list(SURGERY_CAUTERIZE_INCISION = 100)
 
 /obj/item/cautery/augment
 	desc = "A heated element that cauterizes wounds."
@@ -59,7 +56,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("drilled")
-	surgery_behaviours = list(SURGERY_MAKE_CAVITY = 100, SURGERY_DRILL_BONE = 100)
 
 /obj/item/surgicaldrill/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is pressing [src] to [user.p_their()] temple and activating it! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -90,7 +86,6 @@
 	origin_tech = "materials=1;biotech=1"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	surgery_behaviours = list(SURGERY_MAKE_INCISION = 100, SURGERY_RESHAPE_FACE = 100)
 
 /obj/item/scalpel/suicide_act(mob/user)
 	to_chat(viewers(user), pick("<span class='suicide'>[user] is slitting [user.p_their()] wrists with [src]! It looks like [user.p_theyre()] trying to commit suicide.</span>",
@@ -112,7 +107,6 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
-	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_MAKE_INCISION = 100, SURGERY_CAUTERIZE_INCISION = 100, SURGERY_RESHAPE_FACE = 100)
 
 /obj/item/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "laser scalpel"
@@ -137,7 +131,6 @@
 	desc = "A true extension of the surgeon's body, this marvel instantly and completely prepares an incision allowing for the immediate commencement of therapeutic steps."
 	icon_state = "scalpel_manager_on"
 	toolspeed = 0.2
-	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 100, SURGERY_MAKE_INCISION = 100, SURGERY_CAUTERIZE_INCISION = 100, SURGERY_RESHAPE_FACE = 100, SURGERY_RETRACT_SKIN = 100, SURGERY_RETRACT_BONE = 100, SURGERY_RETRACT_CARAPACE = 100)
 
 /obj/item/circular_saw
 	name = "circular saw"
@@ -156,7 +149,6 @@
 	materials = list(MAT_METAL=10000, MAT_GLASS=6000)
 	origin_tech = "biotech=1;combat=1"
 	attack_verb = list("attacked", "slashed", "sawed", "cut")
-	surgery_behaviours = list(SURGERY_SAW_BONE = 100, SURGERY_AMPUTATE = 100, SURGERY_CUT_SEALS = 60)
 
 /obj/item/circular_saw/augment
 	desc = "A small but very fast spinning saw. Edges dulled to prevent accidental cutting inside of the surgeon."
@@ -173,7 +165,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
-	surgery_behaviours = list(SURGERY_MEND_BONE = 100, SURGERY_ROBOTIC_MEND = 30)
 
 /obj/item/bonegel/augment
 	toolspeed = 0.5
@@ -186,7 +177,6 @@
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=1"
 	w_class = WEIGHT_CLASS_SMALL
-	surgery_behaviours = list(SURGERY_MEND_INTERNAL_BLEEDING = 100)
 
 /obj/item/FixOVein/augment
 	toolspeed = 0.5
@@ -202,7 +192,6 @@
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("attacked", "hit", "bludgeoned")
 	origin_tech = "materials=1;biotech=1"
-	surgery_behaviours = list(SURGERY_SET_BONE = 100)
 
 /obj/item/bonesetter/augment
 	toolspeed = 0.5

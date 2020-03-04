@@ -41,7 +41,7 @@
 		if(S.possible_locs?.len && !(location in S.possible_locs))
 			continue
 		if((S.accept_hand && !tool) || (tool && (S.accept_any_item \
-			|| (S.allowed_surgery_behaviour in tool.surgery_behaviours))))
+			|| S.get_path_key_from_tool(tool))))
 			if(S.can_use(user, target, location, tool, src))
 				possible_steps[S.name] = S
 	
@@ -77,7 +77,7 @@
 	var/time = 10							// duration of the step
 	
 
-	var/allowed_surgery_behaviour = null	// The behaviours allowed for the surgery step	
+	var/allowed_surgery_tools = null		// The tools allowed for the surgery step	
 	var/accept_hand = FALSE					//does the surgery step require an open hand? If true, ignores implements. Compatible with accept_any_item.
 	var/accept_any_item = FALSE
 
@@ -100,17 +100,19 @@
 	
 	if(target_zone != surgery.location || (!(SURGERY_STAGE_ALWAYS in surgery_start_stage) && !(surgery.current_stage in surgery_start_stage)) || !can_operate(target)) // No distance check. Not needed
 		return FALSE
+	var/tool_path_key = null
 	if(tool)
-		if(accept_any_item || (allowed_surgery_behaviour in tool.surgery_behaviours))
+		tool_path_key = get_path_key_from_tool(tool)
+		if(accept_any_item || tool_path_key)
 			success = TRUE
 	else if(accept_hand)
 		success = TRUE
 
 	if(success)
-		return initiate(user, target, target_zone, tool, surgery) //returns TRUE so we don't stab the guy in the dick or wherever.
+		return initiate(user, target, target_zone, tool, surgery, tool_path_key)
 	return FALSE
 
-/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, tool_path_key)
 	if(!can_use(user, target, target_zone, tool, surgery))
 		return
 
@@ -125,13 +127,12 @@
 	if(do_after(user, time * speed_mod, target = target))
 		var/advance = FALSE
 		var/prob_chance = 100
-
-		if(tool && allowed_surgery_behaviour)
-			if(!(allowed_surgery_behaviour in tool.surgery_behaviours))
+		if(tool && allowed_surgery_tools)
+			if(!tool_path_key) // tools path ain't in the allowed tools.
 				if(!accept_any_item)
 					prob_chance = 0 // No chance of success... how did we even get here?!
 			else
-				prob_chance = tool.surgery_behaviours[allowed_surgery_behaviour]
+				prob_chance = allowed_surgery_tools[tool_path_key]
 		prob_chance *= get_location_modifier(target)
 
 
@@ -146,6 +147,11 @@
 			advance = fail_step(user, target, target_zone, tool, surgery)
 		
 		return advance
+
+/datum/surgery_step/proc/get_path_key_from_tool(obj/item/tool)
+	for(var/path in allowed_surgery_tools)
+		if(istype(tool, path))
+			return path
 
 // Checks if this step applies to the user mob at all
 /datum/surgery_step/proc/is_valid_target(mob/living/carbon/target)

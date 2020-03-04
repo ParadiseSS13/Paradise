@@ -18,7 +18,6 @@
 	toolspeed = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_SCREWDRIVER
-	surgery_behaviours = list(SURGERY_MEND_BONE = 90, SURGERY_DRILL_BONE = 20, SURGERY_ROBOTIC_UNSCREW_HATCH = 100, SURGERY_ROBOTIC_MEND = 70)
 	var/random_color = TRUE //if the screwdriver uses random coloring
 
 /obj/item/screwdriver/nuke

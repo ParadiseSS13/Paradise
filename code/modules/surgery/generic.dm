@@ -14,7 +14,7 @@
 	name = "make incision"
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_INCISION
-	allowed_surgery_behaviour = SURGERY_MAKE_INCISION
+	allowed_surgery_tools = SURGERY_TOOLS_INCISION
 	blood_level = 1
 	time = 16
 
@@ -43,7 +43,7 @@
 	name = "clamp bleeders"
 	surgery_start_stage = SURGERY_STAGE_INCISION
 	next_surgery_stage = SURGERY_STAGE_CLAMPED
-	allowed_surgery_behaviour = SURGERY_CLAMP_BLEEDERS
+	allowed_surgery_tools = SURGERY_TOOLS_CLAMP
 
 	time = 24
 
@@ -73,7 +73,7 @@
 	name = "retract skin"
 	surgery_start_stage = SURGERY_STAGE_CLAMPED
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
-	allowed_surgery_behaviour = SURGERY_RETRACT_SKIN
+	allowed_surgery_tools = SURGERY_TOOLS_RETRACT_SKIN
 
 	time = 24
 
@@ -125,7 +125,7 @@
 	surgery_start_stage = SURGERY_STAGE_ALWAYS // Can always be started
 	next_surgery_stage = SURGERY_STAGE_START
 
-	allowed_surgery_behaviour = SURGERY_CAUTERIZE_INCISION
+	allowed_surgery_tools = SURGERY_TOOLS_CAUTERIZE
 
 	time = 24
 

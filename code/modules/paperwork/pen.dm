@@ -23,7 +23,6 @@
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
-	surgery_behaviours = list(SURGERY_MAKE_CAVITY = 90)
 
 /obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
@@ -152,7 +151,6 @@
 	var/on = 0
 	var/brightness_on = 2
 	light_color = LIGHT_COLOR_RED
-	surgery_behaviours = list(SURGERY_MAKE_INCISION = 6)
 
 /obj/item/pen/edagger/attack_self(mob/living/user)
 	if(on)

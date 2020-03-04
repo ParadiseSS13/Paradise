@@ -16,7 +16,6 @@
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
 	var/lit = 0
-	surgery_behaviours = list(SURGERY_CAUTERIZE_INCISION = 60)
 
 /obj/item/lighter/zippo
 	name = "zippo lighter"

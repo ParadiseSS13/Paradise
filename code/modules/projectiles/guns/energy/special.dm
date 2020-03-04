@@ -157,7 +157,6 @@
 	force = 12
 	sharp = 1
 	can_charge = 0
-	surgery_behaviours = list(SURGERY_CUT_SEALS = 100, SURGERY_ROBOTIC_HEAL_BRUTE = 50)
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()

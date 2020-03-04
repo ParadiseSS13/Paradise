@@ -2,7 +2,7 @@
 //Bay12 removal
 /datum/surgery_step/rigsuit
 	name="Cut Seals"
-	allowed_surgery_behaviour = SURGERY_CUT_SEALS
+	allowed_surgery_tools = SURGERY_TOOLS_RIGSUIT_CUT
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_START
 	possible_locs = list("chest")

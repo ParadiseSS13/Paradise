@@ -7,7 +7,7 @@
 	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
 	surgery_start_stage = SURGERY_STAGE_INCISION
 	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_behaviour = SURGERY_CAUTERIZE_INCISION
+	allowed_surgery_tools = SURGERY_TOOLS_CAUTERIZE
 	time = 24
 
 /datum/surgery_step/generic/cut_open/cut_further // Debridement and cavity surgery
@@ -45,7 +45,7 @@
 	name = "mend internal bleeding"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_SAME
-	allowed_surgery_behaviour = SURGERY_MEND_INTERNAL_BLEEDING
+	allowed_surgery_tools = SURGERY_TOOLS_MEND_INTERNAL_BLEEDING
 	can_infect = 1
 	blood_level = 1
 
@@ -92,7 +92,7 @@
 	name = "treat necrosis"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_CUT
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
-	allowed_surgery_behaviour = SURGERY_CLEAN_ORGAN_MANIP
+	allowed_surgery_tools = SURGERY_TOOLS_CLEAN_ORGAN
 
 	can_infect = FALSE
 
@@ -177,7 +177,7 @@
 	surgery_start_stage = list(SURGERY_STAGE_OPEN_INCISION, SURGERY_STAGE_ROBOTIC_HATCH_OPEN)
 	next_surgery_stage = SURGERY_STAGE_SAME
 	possible_locs = list("head", "chest", "groin")
-	allowed_surgery_behaviour = SURGERY_DETHRALL
+	allowed_surgery_tools = SURGERY_TOOLS_DETHRALL
 	blood_level = 0
 	requires_organic_bodypart = FALSE
 	time = 30

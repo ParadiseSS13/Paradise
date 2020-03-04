@@ -52,7 +52,6 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
-	surgery_behaviours = list(SURGERY_MAKE_INCISION = 6)
 
 /obj/item/claymore/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")

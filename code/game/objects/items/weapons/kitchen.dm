@@ -34,7 +34,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	sharp = 0
 	var/max_contents = 1
-	surgery_behaviours = list(SURGERY_ROBOTIC_OPEN_CLOSE_HATCH = 50)
 
 /obj/item/kitchen/utensil/New()
 	if(prob(60))
@@ -71,7 +70,6 @@
 	name = "fork"
 	desc = "It's a fork. Sure is pointy."
 	icon_state = "fork"
-	surgery_behaviours = list(SURGERY_RETRACT_SKIN = 60, SURGERY_EXTRACT_ORGAN_MANIP = 70)
 
 /obj/item/kitchen/utensil/pfork
 	name = "plastic fork"
@@ -120,7 +118,6 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = TRUE
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
-	surgery_behaviours = list(SURGERY_MAKE_INCISION = 90, SURGERY_RESHAPE_FACE = 50, SURGERY_ROBOTIC_UNSCREW_HATCH = 50)
 	var/bayonet = FALSE	//Can this be attached to a gun?
 
 /obj/item/kitchen/knife/suicide_act(mob/user)

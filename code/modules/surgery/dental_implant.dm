@@ -9,7 +9,7 @@
 	name = "drill bone"
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_DENTAL
-	allowed_surgery_behaviour = SURGERY_DRILL_BONE
+	allowed_surgery_tools = SURGERY_TOOLS_DRILL
 	time = 30
 
 /datum/surgery_step/dental/drill/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

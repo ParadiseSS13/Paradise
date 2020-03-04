@@ -21,7 +21,6 @@ var/global/list/datum/stack_recipe/rod_recipes = list ( \
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
-	surgery_behaviours = list(SURGERY_MAKE_CAVITY = 60)
 
 /obj/item/stack/rods/cyborg
 	materials = list()

@@ -98,7 +98,6 @@
 	attack_verb = list("chopped", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
-	surgery_behaviours = list(SURGERY_SAW_BONE = 90, SURGERY_AMPUTATE = 90)
 
 /obj/item/hatchet/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is chopping at [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")

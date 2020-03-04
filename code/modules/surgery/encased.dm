@@ -23,7 +23,7 @@
 	name = "saw bone"
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_SAWN_BONES
-	allowed_surgery_behaviour = SURGERY_SAW_BONE
+	allowed_surgery_tools = SURGERY_TOOLS_SAW_BONE
 
 	time = 54
 
@@ -58,7 +58,7 @@
 
 /datum/surgery_step/open_encased/retract
 	name = "retract bone"
-	allowed_surgery_behaviour = SURGERY_RETRACT_BONE
+	allowed_surgery_tools = SURGERY_TOOLS_RETRACT_BONE
 	surgery_start_stage = SURGERY_STAGE_SAWN_BONES
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_BONES
 	time = 24
@@ -97,7 +97,7 @@
 
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
-	allowed_surgery_behaviour = SURGERY_RETRACT_BONE
+	allowed_surgery_tools = SURGERY_TOOLS_RETRACT_BONE
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION_BONES
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION
 

@@ -5,7 +5,6 @@
 	materials = list(MAT_METAL=100)
 	origin_tech = "combat=1;materials=2;engineering=1"
 	var/armed = FALSE
-	surgery_behaviours = list(SURGERY_CLAMP_BLEEDERS = 25, SURGERY_CONNECT_LIMB = 25)
 	bomb_name = "contact mine"
 
 /obj/item/assembly/mousetrap/examine(mob/user)

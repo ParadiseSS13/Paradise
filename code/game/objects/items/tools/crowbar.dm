@@ -18,7 +18,6 @@
 
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_CROWBAR
-	surgery_behaviours = list(SURGERY_RETRACT_BONE = 90, SURGERY_RETRACT_SKIN = 90, SURGERY_EXTRACT_IMPLANT = 65, SURGERY_ROBOTIC_OPEN_CLOSE_HATCH = 100)
 
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"

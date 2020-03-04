@@ -19,7 +19,6 @@
 	var/overcharged = 0   //if overcharged the flash will set people on fire then immediately burn out (does so even if it doesn't blind them).
 	var/can_overcharge = TRUE //set this to FALSE if you don't want your flash to be overcharge capable
 	var/use_sound = 'sound/weapons/flash.ogg'
-	surgery_behaviours = list(SURGERY_DETHRALL = 100)
 
 /obj/item/flash/proc/clown_check(mob/user)
 	if(user && (CLUMSY in user.mutations) && prob(50))

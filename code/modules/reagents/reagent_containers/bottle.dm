@@ -11,7 +11,6 @@
 	possible_transfer_amounts = list(5,10,15,25,30)
 	container_type = OPENCONTAINER
 	volume = 30
-	surgery_behaviours = list(SURGERY_CLEAN_ORGAN_MANIP = 90)
 
 /obj/item/reagent_containers/glass/bottle/romerol
 	name = "romerol bottle"

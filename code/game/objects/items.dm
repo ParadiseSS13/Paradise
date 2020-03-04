@@ -88,9 +88,6 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/tool_volume = 50 //How loud are we when we use our tool?
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
 
-	// An associative list. key = surgery step, value = chance of success
-	var/list/surgery_behaviours = list() // What kind of surgery steps can we do?
-
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
 	sprite_sheets = list(

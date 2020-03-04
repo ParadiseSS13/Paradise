@@ -13,7 +13,7 @@
 	name = "amputate limb"
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_behaviour = SURGERY_AMPUTATE
+	allowed_surgery_tools = SURGERY_TOOLS_AMPUTATE
 
 	time = 100
 
@@ -150,7 +150,7 @@
 	name = "connect limb"
 	surgery_start_stage = SURGERY_STAGE_ATTACH_LIMB
 	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_behaviour = SURGERY_CONNECT_LIMB
+	allowed_surgery_tools = SURGERY_TOOLS_CONNECT_LIMB
 	can_infect = TRUE
 
 	time = 32

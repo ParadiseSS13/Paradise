@@ -9,7 +9,6 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("slices", "cuts", "stabs", "jabs")
 	toolspeed = 1
-	surgery_behaviours = list(SURGERY_MAKE_INCISION = 12)
 
 /obj/item/scissors/barber
 	name = "Barber's Scissors"

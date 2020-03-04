@@ -25,7 +25,7 @@
 	name = "unscrew hatch"
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage = SURGERY_STAGE_ROBOTIC_HATCH_UNLOCKED
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_UNSCREW_HATCH
+	allowed_surgery_tools = SURGERY_TOOLS_UNSCREW_HATCH
 
 	time = 16
 
@@ -53,7 +53,7 @@
 	priority = -1 // Same as cauterise really
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_UNLOCKED
 	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_UNSCREW_HATCH
+	allowed_surgery_tools = SURGERY_TOOLS_UNSCREW_HATCH
 
 	time = 16
 
@@ -78,7 +78,7 @@
 
 /datum/surgery_step/robotics/external/open_hatch
 	name = "open hatch"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_OPEN_CLOSE_HATCH
+	allowed_surgery_tools = SURGERY_TOOLS_OPEN_CLOSE_HATCH
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_UNLOCKED
 	next_surgery_stage =  SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 
@@ -105,7 +105,7 @@
 
 /datum/surgery_step/robotics/external/close_hatch
 	name = "close hatch"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_OPEN_CLOSE_HATCH
+	allowed_surgery_tools = SURGERY_TOOLS_OPEN_CLOSE_HATCH
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 	next_surgery_stage =  SURGERY_STAGE_START
 
@@ -135,19 +135,15 @@
 	priority = 15
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_OPEN
 	next_surgery_stage =  SURGERY_STAGE_ROBOTIC_HATCH_OPEN
-	accept_any_item = TRUE // Let can_use fix this
+	allowed_surgery_tools = SURGERY_TOOLS_ROBOTIC_REPAIR
 	possible_locs = list("chest","head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot","groin")
 	time = 32
-
-/datum/surgery_step/robotics/external/repair/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!..())
-		return FALSE
-	return TOOL_WELDER == tool.tool_behaviour || istype(tool, /obj/item/stack/cable_coil)
 
 /datum/surgery_step/robotics/external/repair/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/success = FALSE
-	if(TOOL_WELDER == tool.tool_behaviour)
+
+	if(TOOL_WELDER == tool.tool_behaviour || istype(tool, /obj/item/gun/energy/plasmacutter))
 		if(affected.brute_dam <= 0 && !affected.disfigured)
 			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 		else
@@ -179,7 +175,7 @@
 /datum/surgery_step/robotics/external/repair/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/continue_repairing = FALSE
-	if(TOOL_WELDER == tool.tool_behaviour)
+	if(TOOL_WELDER == tool.tool_behaviour || istype(tool, /obj/item/gun/energy/plasmacutter))
 		user.visible_message("<span class='notice'>[user] finishes patching damage to [target]'s [affected.name] with \the [tool].</span>", \
 			"<span class='notice'> You finish patching damage to [target]'s [affected.name] with \the [tool].</span>")
 		affected.heal_damage(rand(30,50),0,1,1)
@@ -197,7 +193,7 @@
 
 /datum/surgery_step/robotics/external/repair/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(TOOL_WELDER == tool.tool_behaviour)
+	if(TOOL_WELDER == tool.tool_behaviour || istype(tool, /obj/item/gun/energy/plasmacutter))
 		user.visible_message("<span class='warning'>[user]'s [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>",
 				"<span class='warning'> Your [tool.name] slips, damaging the internal structure of [target]'s [affected.name].</span>")
 	
@@ -278,7 +274,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend
 	name = "mend internal part"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_MEND
+	allowed_surgery_tools = SURGERY_TOOLS_ROBOTIC_MEND_ORGAN
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/mend/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -325,7 +321,7 @@
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract
 	name = "extract internal part"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_EXTRACT_ORGAN
+	allowed_surgery_tools = SURGERY_TOOLS_ROBOTIC_REMOVE_ORGAN
 	var/obj/item/organ/internal/organ_being_removed = null
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/extract/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -436,7 +432,7 @@
 
 /datum/surgery_step/robotics/external/amputate
 	name = "remove robotic limb"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_EXTRACT_ORGAN
+	allowed_surgery_tools = SURGERY_TOOLS_ROBOTIC_REMOVE_ORGAN
 	possible_locs = list("head","l_arm", "l_hand","r_arm","r_hand","r_leg","r_foot","l_leg","l_foot")
 	surgery_start_stage = SURGERY_STAGE_START
 	next_surgery_stage =  SURGERY_STAGE_START
@@ -478,7 +474,7 @@
 
 /datum/surgery_step/robotics/external/customize_appearance
 	name = "reprogram limb"
-	allowed_surgery_behaviour = SURGERY_ROBOTIC_REPROGRAM
+	allowed_surgery_tools = SURGERY_TOOLS_ROBOTIC_REPORGRAM
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_UNLOCKED
 	next_surgery_stage =  SURGERY_STAGE_START
