@@ -5,6 +5,7 @@
 	var/list/in_progress = list()									//Actively performing a Surgery
 	var/location = "chest"										//Surgery location
 	var/obj/item/organ/organ_ref									//Operable body part
+	var/list/surgery_steps_history = list()
 
 /datum/surgery/proc/next_step(mob/living/user, mob/living/carbon/target, obj/item/tool)
 	if(step_in_progress)	return FALSE
@@ -29,6 +30,7 @@
 			if(result)
 				if(S.next_surgery_stage != SURGERY_STAGE_SAME)
 					current_stage = S.next_surgery_stage
+				surgery_steps_history += current_stage // Add it to the history
 			step_in_progress = FALSE
 		while(result == SURGERY_CONTINUE)
 
