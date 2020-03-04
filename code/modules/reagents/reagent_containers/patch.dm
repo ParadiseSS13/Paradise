@@ -9,6 +9,8 @@
 	apply_type = TOUCH
 	apply_method = "apply"
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
+	temperature_min = 270
+	temperature_max = 350
 
 /obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))

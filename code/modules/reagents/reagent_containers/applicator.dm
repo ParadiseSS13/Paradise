@@ -7,6 +7,8 @@
 	volume = 200
 	resistance_flags = ACID_PROOF
 	container_type = REFILLABLE | AMOUNT_VISIBLE
+	temperature_min = 270
+	temperature_max = 350
 	var/ignore_flags = FALSE
 	var/emagged = FALSE
 	var/applied_amount = 8 // How much it applies
