@@ -107,7 +107,7 @@ obj/item/borg/charger
 	icon_state = "c-charger"
 	flags = NOBLUDGEON
 	var/mode = "siphon"
-	var/static/list/charge_machines = typecacheof(list(/obj/machinery/power/apc)) //technically capable of charging from any machine with a power cell
+	var/static/list/charge_machines = typecacheof(list(/obj/machinery/power/apc)) //technically capable of charging from any machine
 	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy)) //technically capable of recharging from anything too
 
 /obj/item/borg/charger/examine(mob/user)
@@ -127,7 +127,7 @@ obj/item/borg/charger
 	if(!proximity_flag || !issilicon(user))
 		return
 	if(mode == "siphon") // what happens if we are in siphon mode?
-		if(is_type_in_list(target, charge_machines)) // if the target is a machine
+		if(is_type_in_typecache(target, charge_machines)) // if the target is a machine
 			var/obj/machinery/M = target
 			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored) //doesn't work if broken, has no power or not anchored
 				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
@@ -148,7 +148,7 @@ obj/item/borg/charger
 
 			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
 
-		else if(is_type_in_list(target, charge_items)) // drawing power from powercells in side objects
+		else if(is_type_in_typecache(target, charge_items)) // drawing power from powercells
 			var/obj/item/stock_parts/cell/cell = target
 			if(!istype(cell))
 				cell = locate(/obj/item/stock_parts/cell) in target
@@ -187,8 +187,8 @@ obj/item/borg/charger
 
 			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
 
-	else if(is_type_in_list(target, charge_items)) // what happens when we are in charge mode?
-		var/obj/item/stock_parts/cell/cell = target // if target is a power cell
+	else if(is_type_in_typecache(target, charge_items)) // what happens when we are in charge mode?
+		var/obj/item/stock_parts/cell/cell = target // if target has a power cell
 		if(!istype(cell)) 
 			cell = locate(/obj/item/stock_parts/cell) in target
 		if(!cell)
