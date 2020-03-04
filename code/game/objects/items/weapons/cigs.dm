@@ -29,21 +29,23 @@ LIGHTERS ARE IN LIGHTERS.DM
 	var/icon_off = "cigoff"
 	var/type_butt = /obj/item/cigbutt
 	var/lastHolder = null
-	var/smoketime = 300
-	var/chem_volume = 30
+	var/smoketime = 150
+	var/chem_volume = 60
+	var/list/list_reagents = list("nicotine" = 40)
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/mask.dmi',
 		"Unathi" = 'icons/mob/species/unathi/mask.dmi',
 		"Tajaran" = 'icons/mob/species/tajaran/mask.dmi',
 		"Vulpkanin" = 'icons/mob/species/vulpkanin/mask.dmi',
-		"Grey" = 'icons/mob/species/grey/mask.dmi'
-		)
+		"Grey" = 'icons/mob/species/grey/mask.dmi')
 
 
 /obj/item/clothing/mask/cigarette/New()
 	..()
 	create_reagents(chem_volume) // making the cigarrete a chemical holder with a maximum volume of 30
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
+	if(list_reagents)
+		reagents.add_reagent_list(list_reagents)
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
@@ -168,7 +170,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(isliving(loc))
 		M.IgniteMob()
 	smoketime--
-	if(smoketime < 1)
+	if(reagents.total_volume <= 0 || smoketime < 1)
 		die()
 		return
 	smoke()
@@ -219,9 +221,20 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/random
 
 /obj/item/clothing/mask/cigarette/random/New()
+	list_reagents = list("nicotine" = 40, pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin") = 20)
 	..()
-	var/random_reagent = pick("fuel","saltpetre","synaptizine","green_vomit","potass_iodide","msg","lexorin","mannitol","spaceacillin","cryoxadone","holywater","tea","egg","haloperidol","mutagen","omnizine","carpet","aranesp","cryostylane","chocolate","bilk","cheese","rum","blood","charcoal","coffee","ectoplasm","space_drugs","milk","mutadone","antihol","teporone","insulin","salbutamol","toxin")
-	reagents.add_reagent(random_reagent, 10)
+
+/obj/item/clothing/mask/cigarette/syndicate
+	list_reagents = list("nicotine" = 40, "omnizine" = 20)
+
+/obj/item/clothing/mask/cigarette/medical_marijuana
+	list_reagents = list("thc" = 40)
+
+/obj/item/clothing/mask/cigarette/robustgold
+	list_reagents = list("nicotine" = 40, "gold" = 1)
+
+/obj/item/clothing/mask/cigarette/shadyjims
+	list_reagents = list("nicotine" = 40, "lipolicide" = 7.5, "ammonia" = 2, "atrazine" = 1, "toxin" = 1.5)
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
@@ -232,8 +245,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	type_butt = /obj/item/cigbutt/roach
 	throw_speed = 0.5
 	item_state = "spliffoff"
-	smoketime = 250
-	chem_volume = 100
 
 /obj/item/clothing/mask/cigarette/rollie/New()
 	..()
@@ -263,12 +274,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	type_butt = /obj/item/cigbutt/cigarbutt
 	throw_speed = 0.5
 	item_state = "cigaroff"
-	smoketime = 1500
-	chem_volume = 40
-
-/obj/item/clothing/mask/cigarette/cigar/New()
-	..()
-	reagents.add_reagent("nicotine", chem_volume/2)
+	smoketime = 300
+	chem_volume = 120
+	list_reagents = list("nicotine" = 120)
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "Cohiba Robusto Cigar"
@@ -283,8 +291,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
 	icon_off = "cigar2off"
-	smoketime = 7200
-	chem_volume = 60
+	smoketime = 450
+	chem_volume = 180
+	list_reagents = list("nicotine" = 180)
 
 /obj/item/cigbutt
 	name = "cigarette butt"
