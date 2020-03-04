@@ -11,6 +11,7 @@
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
 	temperature_min = 270
 	temperature_max = 350
+	var/needs_to_apply_reagents = TRUE
 
 /obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
