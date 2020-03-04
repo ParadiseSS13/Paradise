@@ -29,6 +29,7 @@
 
 /datum/surgery_step/augment/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/obj/item/robot_parts/p = tool
 	if(!p.part || !(target_zone in p.part))
 		to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
 		return -1
