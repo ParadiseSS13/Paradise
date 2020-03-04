@@ -295,7 +295,7 @@
 
 /obj/item/storage/backpack/satchel_blueshield
 	name = "blueshield satchel"
-	desc = "A robust satchel issue to Nanotrasen's finest."
+	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
 
 /obj/item/storage/backpack/satchel_flat
@@ -544,7 +544,7 @@
 
 obj/item/storage/backpack/duffel/blueshield
 	name = "blueshield duffelbag"
-	desc = "A robust duffelbag issue to Nanotrasen's finest."
+	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"
 	item_state = "duffel-blueshield"
 
