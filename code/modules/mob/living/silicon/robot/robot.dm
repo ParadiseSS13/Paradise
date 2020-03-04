@@ -57,6 +57,7 @@ var/list/robot_verbs_default = list(
 	var/eye_protection = 0
 	var/ear_protection = 0
 	var/damage_protection = 0
+	var/emp_protection = FALSE
 	var/xeno_disarm_chance = 85
 
 	var/list/force_modules = list()
@@ -145,7 +146,7 @@ var/list/robot_verbs_default = list(
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new default_cell_type(src)
-	
+
 	initialize_components()
 	//if(!unfinished)
 	// Create all the robot parts.
@@ -394,10 +395,16 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-CLN"] = "Noble-CLN"
 			module_sprites["Cricket"] = "Cricket-JANI"
 
-		if("Combat")
-			module = new /obj/item/robot_module/combat(src)
+		if("Destroyer") // Rolling Borg
+			module = new /obj/item/robot_module/destroyer(src)
 			module.channels = list("Security" = 1)
 			icon_state =  "droidcombat"
+			status_flags &= ~CANPUSH
+
+		if("Combat") // Gamma ERT
+			module = new /obj/item/robot_module/combat(src)
+			icon_state = "ertgamma"
+			status_flags &= ~CANPUSH
 
 		if("Hunter")
 			module = new /obj/item/robot_module/alien/hunter(src)
@@ -923,7 +930,6 @@ var/list/robot_verbs_default = list(
 	return 0
 
 /mob/living/silicon/robot/update_icons()
-
 	overlays.Cut()
 	if(stat != DEAD && !(paralysis || stunned || IsWeakened() || low_power_mode)) //Not dead, not stunned.
 		if(custom_panel in custom_eye_names)
@@ -932,35 +938,23 @@ var/list/robot_verbs_default = list(
 			overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
-
 	if(opened)
 		var/panelprefix = "ov"
 		if(custom_sprite) //Custom borgs also have custom panels, heh
 			panelprefix = "[ckey]"
-
 		if(custom_panel in custom_panel_names) //For default borgs with different panels
 			panelprefix = custom_panel
-
 		if(wiresexposed)
 			overlays += "[panelprefix]-openpanel +w"
 		else if(cell)
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
-
-	var/combat = list("Combat")
-	if(modtype in combat)
-		if(base_icon == "")
-			base_icon = icon_state
-		if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
-			icon_state = "[base_icon]-roll"
-		else
-			icon_state = base_icon
-		if(module)
-			for(var/obj/item/borg/combat/shield/S in module.modules)
-				if(activated(S))
-					overlays += "[base_icon]-shield"
+	borg_icons()
 	update_fire()
+
+/mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
+	return
 
 /mob/living/silicon/robot/proc/installed_modules()
 	if(weapon_lock)
@@ -1316,6 +1310,15 @@ var/list/robot_verbs_default = list(
 	..()
 	update_module_icon()
 
+/mob/living/silicon/robot/emp_act(severity)
+	if(emp_protection)
+		return
+	..()
+	switch(severity)
+		if(1)
+			disable_component("comms", 160)
+		if(2)
+			disable_component("comms", 60)
 
 /mob/living/silicon/robot/deathsquad
 	base_icon = "nano_bloodhound"
@@ -1351,23 +1354,6 @@ var/list/robot_verbs_default = list(
 		P.reflect_back(src)
 		return -1
 	return ..(P)
-
-
-/mob/living/silicon/robot/combat
-	base_icon = "droidcombat"
-	icon_state = "droidcombat"
-	modtype = "Combat"
-	designation = "Combat"
-	default_cell_type = /obj/item/stock_parts/cell/bluespace
-
-/mob/living/silicon/robot/combat/init()
-	..()
-	module = new /obj/item/robot_module/combat(src)
-	module.channels = list("Security" = 1)
-	module.add_languages(src)
-	module.add_subsystems_and_actions(src)
-	status_flags &= ~CANPUSH
-	radio.config(module.channels)
 
 
 /mob/living/silicon/robot/ert
@@ -1416,16 +1402,49 @@ var/list/robot_verbs_default = list(
 	force_modules = list("Combat", "Engineering", "Medical")
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
+	magpulse = 1
 	xeno_disarm_chance = 40
 
 
-/mob/living/silicon/robot/emp_act(severity)
+/mob/living/silicon/robot/destroyer
+	// admin-only borg, the seraph / special ops officer of borgs
+	base_icon = "droidcombat"
+	icon_state = "droidcombat"
+	modtype = "Destroyer"
+	designation = "Destroyer"
+	lawupdate = 0
+	scrambledcodes = 1
+	req_one_access = list(access_cent_specops)
+	ionpulse = 1
+	magpulse = 1
+	pdahide = 1
+	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
+	ear_protection = 1 // Immunity to the audio part of flashbangs
+	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
+	damage_protection = 20 // Reduce all incoming damage by this number. High in the case of /destroyer borgs, since it replaces old energy shield mechanic.
+	xeno_disarm_chance = 10
+	default_cell_type = /obj/item/stock_parts/cell/bluespace
+
+/mob/living/silicon/robot/destroyer/init()
 	..()
-	switch(severity)
-		if(1)
-			disable_component("comms", 160)
-		if(2)
-			disable_component("comms", 60)
+	module = new /obj/item/robot_module/destroyer(src)
+	module.add_languages(src)
+	module.add_subsystems_and_actions(src)
+	status_flags &= ~CANPUSH
+	if(radio)
+		qdel(radio)
+	radio = new /obj/item/radio/borg/ert/specops(src)
+	radio.recalculateChannels()
+
+/mob/living/silicon/robot/destroyer/borg_icons()
+	if(base_icon == "")
+		base_icon = icon_state
+	if(module_active && istype(module_active,/obj/item/borg/destroyer/mobility))
+		icon_state = "[base_icon]-roll"
+	else
+		icon_state = base_icon
+		overlays += "[base_icon]-shield"
+
 
 /mob/living/silicon/robot/extinguish_light()
 	update_headlamp(1, 150)

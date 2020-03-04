@@ -82,29 +82,6 @@
 	if(!LAZYLEN(components))
 		return
 
-	 //Combat shielding absorbs a percentage of damage directly into the cell.
-	var/obj/item/borg/combat/shield/shield
-	if(module_state_1 && istype(module_state_1, /obj/item/borg/combat/shield))
-		shield = module_state_1
-	else if(module_state_2 && istype(module_state_2, /obj/item/borg/combat/shield))
-		shield = module_state_2
-	else if(module_state_3 && istype(module_state_3, /obj/item/borg/combat/shield))
-		shield = module_state_3
-	if(shield)
-		//Shields absorb a certain percentage of damage based on their power setting.
-		var/absorb_brute = brute * shield.shield_level
-		var/absorb_burn = burn * shield.shield_level
-		var/cost = (absorb_brute+absorb_burn) * 100
-
-		cell.charge -= cost
-		if(cell.charge <= 0)
-			cell.charge = 0
-			to_chat(src, "<span class='warning'>Your shield has overloaded!</span>")
-		else
-			brute -= absorb_brute
-			burn -= absorb_burn
-			to_chat(src, "<span class='warning'>Your shield absorbs some of the impact!</span>")
-
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)
 		A.take_damage(brute, burn, sharp, updating_health)
@@ -141,32 +118,6 @@
 		burn = Clamp(burn - damage_protection, 0, burn)
 
 	var/list/datum/robot_component/parts = get_damageable_components()
-
-	 //Combat shielding absorbs a percentage of damage directly into the cell.
-	var/obj/item/borg/combat/shield/shield
-	if(module_state_1 && istype(module_state_1, /obj/item/borg/combat/shield))
-		shield = module_state_1
-	else if(module_state_2 && istype(module_state_2, /obj/item/borg/combat/shield))
-		shield = module_state_2
-	else if(module_state_3 && istype(module_state_3, /obj/item/borg/combat/shield))
-		shield = module_state_3
-	if(shield)
-		//Shields absorb a certain percentage of damage based on their power setting.
-		var/absorb_brute = brute * shield.shield_level
-		var/absorb_burn = burn * shield.shield_level
-		var/cost = (absorb_brute+absorb_burn) * 100
-
-		cell.charge -= cost
-		if(cell.charge <= 0)
-			cell.charge = 0
-			to_chat(src, "<span class='warning'>Your shield has overloaded!</span>")
-		else
-			brute -= absorb_brute
-			burn -= absorb_burn
-			if(brute || burn)
-				to_chat(src, "<span class='warning'>Your shield absorbs some of the impact!</span>")
-			else
-				to_chat(src, "<span class='warning'>Your shield absorbs all of the impact!</span>")
 
 	var/datum/robot_component/armour/A = get_armour()
 	if(A)

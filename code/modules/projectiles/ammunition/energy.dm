@@ -12,7 +12,7 @@
 	select_name = "kill"
 
 /obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
-    e_cost = 250
+	e_cost = 250
 
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
@@ -68,12 +68,16 @@
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/item/projectile/beam/immolator
 	fire_sound = 'sound/weapons/laser3.ogg'
-	e_cost = 125
+	e_cost = 100 // 10 shots for the gamma sec ERT who get this, used to be 8
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/item/projectile/beam/immolator/strong
-	e_cost = 125
+	e_cost = 100 // 10 shots for the gamma sec ERT who get this, used to be 8
 	select_name = "precise"
+
+/obj/item/ammo_casing/energy/immolator/strong/cyborg
+	// Used by gamma ERT borgs
+	e_cost = 1000 // 5x that of the standard laser, for 2.25x the damage (if 1/1 shots hit) plus ignite. Not energy-efficient, but can be used for sniping.
 
 /obj/item/ammo_casing/energy/immolator/scatter
 	projectile_type = /obj/item/projectile/beam/immolator/weak
@@ -81,6 +85,10 @@
 	pellets = 6
 	variance = 25
 	select_name = "scatter"
+
+/obj/item/ammo_casing/energy/immolator/scatter/cyborg
+	// Used by gamma ERT borgs
+	e_cost = 1000 // 5x that of the standard laser, for 7.5x the damage (if 6/6 shots hit) plus ignite. Efficient only if you hit with at least 4/6 of the shots.
 
 /obj/item/ammo_casing/energy/electrode
 	projectile_type = /obj/item/projectile/energy/electrode

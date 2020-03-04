@@ -696,6 +696,9 @@ var/global/list/default_medbay_channels = list(
 	..()
 	set_frequency(ERT_FREQ)
 
+/obj/item/radio/borg/ert/specops
+	keyslot = new /obj/item/encryptionkey/centcom
+
 /obj/item/radio/borg/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/encryptionkey/))
 		user.set_machine(src)

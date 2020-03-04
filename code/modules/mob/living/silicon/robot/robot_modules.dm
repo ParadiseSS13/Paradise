@@ -149,6 +149,7 @@
 		modules += M
 	fix_modules()
 
+
 /obj/item/robot_module/medical
 	name = "medical robot module"
 	module_type = "Medical"
@@ -501,24 +502,43 @@
 
 	fix_modules()
 
-/obj/item/robot_module/combat
-	name = "combat robot module"
+/obj/item/robot_module/destroyer
+	name = "destroyer robot module"
 	module_type = "Malf"
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
 
+/obj/item/robot_module/destroyer/New()
+	..()
+
+	modules += new /obj/item/gun/energy/immolator/multi/cyborg(src) // See comments on /robot_module/combat below
+	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
+	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
+	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
+	modules += new /obj/item/borg/destroyer/mobility(src)
+	emag = null
+	fix_modules()
+
+
+/obj/item/robot_module/combat
+	name = "combat robot module"
+	module_type = "Malf"
+	module_actions = list()
+
 /obj/item/robot_module/combat/New()
 	..()
+	modules += new /obj/item/gun/energy/immolator/multi/cyborg(src) // primary weapon, strong at close range (ie: against blob/terror/xeno), but consumes a lot of energy per shot.
+	// Borg gets 40 shots of this weapon. Gamma Sec ERT gets 10.
+	// So, borg has way more burst damage, but also takes way longer to recharge / get back in the fight once depleted. Has to find a borg recharger and sit in it for ages.
+	// Organic gamma sec ERT carries alternate weapons, including a box of flashbangs, and can load up on a huge number of guns from science. Borg cannot do either.
+	// Overall, gamma borg has higher skill floor but lower skill ceiling.
+	modules += new /obj/item/melee/baton/loaded(src) // secondary weapon, for things immune to burn, immune to ranged weapons, or for arresting low-grade threats
 	modules += new /obj/item/restraints/handcuffs/cable/zipties/cyborg(src)
-	modules += new /obj/item/gun/energy/gun/cyborg(src)
-	modules += new /obj/item/pickaxe/drill/jackhammer(src)
-	modules += new /obj/item/borg/combat/shield(src)
-	modules += new /obj/item/borg/combat/mobility(src)
-	modules += new /obj/item/wrench/cyborg(src)
-	emag = new /obj/item/gun/energy/lasercannon/cyborg(src)
-
+	modules += new /obj/item/pickaxe/drill/jackhammer(src) // for breaking walls to execute flanking moves
+	emag = null
 	fix_modules()
+
 
 /obj/item/robot_module/alien/hunter
 	name = "alien hunter module"
