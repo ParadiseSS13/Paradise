@@ -123,3 +123,4 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
     					/obj/item/knife/folding/normal = 550,
     					/obj/item/knife/folding/butterfly = 550,
     					/obj/item/stack/sheet/animalhide/lizard = 2000)
+	premium = list(/obj/item/knife/folding/wood =5,/obj/item/knife/folding/normal =5,/obj/item/knife/folding/butterfly =5)
