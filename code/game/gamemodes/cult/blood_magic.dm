@@ -152,15 +152,33 @@
 
 /datum/action/innate/cult/blood_spell/emp
 	name = "Electromagnetic Pulse"
-	desc = "Emits a large electromagnetic pulse."
+	desc = "Channel an electromagnetic pulse inside your body, then release it, affecting nearby non-cultists. <b>The pulse will still affect you.</b>"
 	button_icon_state = "emp"
 	health_cost = 10
 	invocation = "Ta'gh fara'qha fel d'amar det!"
 
+/datum/action/innate/cult/blood_spell/emp/Grant(mob/living/owner)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		var/oof = FALSE
+		for(var/obj/item/organ/external/E in H.bodyparts)
+			if(E.is_robotic())
+				oof = TRUE
+				break
+		if(!oof)
+			for(var/obj/item/organ/internal/I in H.internal_organs)
+				if(I.is_robotic())
+					oof = TRUE
+					break
+		if(oof)
+			to_chat(owner, "<span class='userdanger'>You get the feeling this is a bad idea.</span>")
+	..()
+
 /datum/action/innate/cult/blood_spell/emp/Activate()
-	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
-						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
-	empulse(owner, 2, 5)
+	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
+						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
+	owner.emp_act(2)
+	empulse(owner, 2, 5, cause = "cult")
 	owner.whisper(invocation)
 	charges--
 	if(charges<=0)

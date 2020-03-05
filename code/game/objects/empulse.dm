@@ -1,4 +1,4 @@
-/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, cause = null)
+/proc/empulse(turf/epicenter, heavy_range, light_range, log = FALSE, cause = null)
 	if(!epicenter) return
 
 	if(!istype(epicenter, /turf))
@@ -17,6 +17,8 @@
 	for(var/mob/M in range(heavy_range, epicenter))
 		M << 'sound/effects/empulse.ogg'
 	for(var/atom/T in range(light_range, epicenter))
+		if(cause == "cult" && iscultist(T))
+			continue
 		var/distance = get_dist(epicenter, T)
 		if(distance < 0)
 			distance = 0
