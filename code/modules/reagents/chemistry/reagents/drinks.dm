@@ -280,7 +280,10 @@
 	adj_sleepy = -2
 	adj_temp_hot = 25
 	overdose_threshold = 45
-	addiction_chance = 1 // It's true.
+	addiction_chance = 2 // It's true.
+	addiction_chance_additional = 20
+	addiction_threshold = 10
+	minor_addiction = TRUE
 	heart_rate_increase = 1
 	drink_icon = "glass_brown"
 	drink_name = "Glass of coffee"
@@ -371,6 +374,10 @@
 	adj_drowsy = -1
 	adj_sleepy = -3
 	adj_temp_hot = 20
+	addiction_chance = 1
+	addiction_chance_additional = 1
+	addiction_threshold = 10
+	minor_addiction = TRUE
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
