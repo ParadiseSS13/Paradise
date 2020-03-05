@@ -404,6 +404,7 @@
 		if(C.reagents)
 			C.reagents.clear_reagents()
 			QDEL_LIST(C.reagents.addiction_list)
+			C.reagents.addiction_threshold_accumulated.Cut()
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.

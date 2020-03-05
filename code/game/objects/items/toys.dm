@@ -38,6 +38,7 @@
 	item_state = "balloon-empty"
 
 /obj/item/toy/balloon/New()
+	..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
@@ -799,6 +800,7 @@ obj/item/toy/cards/deck/syndicate/black
 	resistance_flags = FLAMMABLE
 
 /obj/item/toy/therapy/New()
+	..()
 	if(item_color)
 		name = "[item_color] therapy doll"
 		desc += " This one is [item_color]."

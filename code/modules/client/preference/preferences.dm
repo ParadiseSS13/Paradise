@@ -1306,7 +1306,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 //					else //Not using the whitelist? Aliens for everyone!
 //						new_species += GLOB.whitelisted_species
 
-					species = input("Please select a species", "Character Generation", null) in new_species
+					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
 					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						species = prev_species
@@ -1404,7 +1404,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					language = input("Please select a secondary language", "Character Generation", null) in new_languages
+					language = input("Please select a secondary language", "Character Generation", null) in sortTim(new_languages, /proc/cmp_text_asc)
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)

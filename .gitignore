@@ -23,3 +23,16 @@ stddef.dm
 .atom-build.json
 *.vscode/*
 !/.vscode/extensions.json
+
+# ignore DMI tool build cache
+/tools/dmitool/bin/
+/tools/dmitool/.gradle/
+/tools/dmitool/.settings/
+/tools/dmitool/.classpath
+/tools/dmitool/.project
+
+# ignore midi2piano build cache
+/tools/midi2piano/obj/*
+
+
+

@@ -304,8 +304,4 @@
 
 /obj/item/storage/backpack/duffel/mining_conscript/full/New()
 	..()
-	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/card/id/mining_access_card(src)
-	new /obj/item/gun/energy/kinetic_accelerator(src)
-	new /obj/item/kitchen/knife/combat/survival(src)
-	new /obj/item/flashlight/seclite(src)
