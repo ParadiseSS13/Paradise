@@ -46,16 +46,15 @@
 	name = "station intercom (Security)"
 	frequency = SEC_I_FREQ
 
-/obj/item/radio/intercom/New(turf/loc, ndir, building = 3)
-	..()
+/obj/item/radio/intercom/New(turf/loc, direction, building = 3)
+	. = ..()
 	buildstage = building
 	if(buildstage)
 		START_PROCESSING(SSobj, src)
 	else
-		if(ndir)
-			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
-			pixel_y = (ndir & NORTH|SOUTH) ? (ndir == NORTH ? 28 : -28) : 0
-			dir=ndir
+		if(direction)
+			setDir(direction)
+			set_pixel_offsets(28, -28, 28, -28)
 		b_stat=1
 		on = 0
 	GLOB.global_intercoms.Add(src)
@@ -63,13 +62,13 @@
 
 /obj/item/radio/intercom/department/medbay/New()
 	..()
-	internal_channels = GLOB.default_medbay_channels.Copy()
+	internal_channels = default_medbay_channels.Copy()
 
 /obj/item/radio/intercom/department/security/New()
 	..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
-		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
+		num2text(SEC_I_FREQ) = list(access_security)
 	)
 
 /obj/item/radio/intercom/syndicate
@@ -81,7 +80,7 @@
 
 /obj/item/radio/intercom/syndicate/New()
 	..()
-	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
+	internal_channels[num2text(SYND_FREQ)] = list(access_syndicate)
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"
@@ -204,7 +203,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
-	if(!buildstage)
+	if(buildstage != 0)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 3))
@@ -271,4 +270,4 @@
 
 /obj/item/radio/intercom/locked/prison/New()
 	..()
-	wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
+	wires.CutWireIndex(WIRE_TRANSMIT)

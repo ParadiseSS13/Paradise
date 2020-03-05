@@ -83,7 +83,7 @@
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
-	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
+	req_one_access = list(access_atmospherics, access_engine_equip)
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -132,7 +132,7 @@
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE
 	remote_control = FALSE
-	req_access = list(ACCESS_SYNDICATE)
+	req_access = list(access_syndicate)
 	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
@@ -199,8 +199,8 @@
 		mode = AALARM_MODE_REPLACEMENT
 		apply_mode()
 
-/obj/machinery/alarm/New(var/loc, var/dir, var/building = 0)
-	..()
+/obj/machinery/alarm/New(loc, direction, building = 0)
+	. = ..()
 	GLOB.air_alarms += src
 	GLOB.air_alarms = sortAtom(GLOB.air_alarms)
 
@@ -211,12 +211,11 @@
 			src.loc = loc
 
 		if(dir)
-			src.dir = dir
+			setDir(direction)
 
 		buildstage = 0
 		wiresexposed = 1
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
-		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
+		set_pixel_offsets(-24, 24, -24, 24)
 		update_icon()
 		return
 
@@ -227,7 +226,7 @@
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
-	GLOB.air_alarm_repository.update_cache(src)
+	air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
 	if(alarm_area && alarm_area.master_air_alarm == src)
 		alarm_area.master_air_alarm = null
@@ -241,7 +240,7 @@
 	if(name == "alarm")
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
-	GLOB.air_alarm_repository.update_cache(src)
+	air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/Initialize()
 	..()
@@ -251,7 +250,7 @@
 
 /obj/machinery/alarm/proc/master_is_operating()
 	if(!alarm_area)
-		alarm_area = areaMaster
+		alarm_area = get_area(src)
 	if(!alarm_area)
 		log_runtime(EXCEPTION("Air alarm /obj/machinery/alarm lacks alarm_area and areaMaster vars during proc/master_is_operating()"), src)
 		return FALSE
@@ -658,7 +657,7 @@
 	data["danger"] = danger
 	return data
 
-/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
+/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
 	var/data[0]
 
 	var/list/href_list = state.href_list(user)
@@ -774,7 +773,7 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
+/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)

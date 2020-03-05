@@ -21,8 +21,7 @@
 	..()
 	if(direction)
 		setDir(direction)
-		pixel_x = (dir & 3) ? 0 : (dir == 4 ? 28 : -28)
-		pixel_y = (dir & 3) ? (dir == 1 ? 30 : -30) : 0
+		set_pixel_offsets(28, -28, 30, -30)
 	switch(extinguishertype)
 		if(NO_EXTINGUISHER)
 			return

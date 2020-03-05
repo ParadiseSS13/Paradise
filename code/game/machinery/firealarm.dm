@@ -315,8 +315,7 @@ FIRE ALARM
 		buildstage = 0
 		wiresexposed = TRUE
 		setDir(direction)
-		pixel_x = (dir & 3) ? 0 : (dir == 4 ? 26 : -26)
-		pixel_y = (dir & 3) ? (dir ==1 ? 24 : -24) : 0
+		set_pixel_offsets(26, -26, 26, -26)
 
 	if(is_station_contact(z) && show_alert_level)
 		if(GLOB.security_level)
