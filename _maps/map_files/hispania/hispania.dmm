@@ -12510,6 +12510,8 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
+/obj/structure/bed/dogbed/ducktron,
+/mob/living/simple_animal/chick/ducktron,
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "auU" = (
@@ -32492,7 +32494,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L11"
 	},
 /area/hallway/primary/central/north)
@@ -32534,17 +32536,15 @@
 	},
 /area/crew_quarters/dorms)
 "bha" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "L1"
-	},
+/turf/simulated/floor/plasteel/hispania,
 /area/hallway/primary/central/north)
 "bhb" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L3"
 	},
 /area/hallway/primary/central/north)
 "bhc" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L5"
 	},
 /area/hallway/primary/central/north)
@@ -33398,7 +33398,7 @@
 "biI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L7"
 	},
 /area/hallway/primary/central/north)
@@ -33417,7 +33417,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "biK" = (
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L9"
 	},
 /area/hallway/primary/central/north)
@@ -33489,10 +33489,8 @@
 	},
 /area/ai_monitored/storage/eva)
 "biO" = (
-/turf/simulated/floor/plasteel{
-	desc = "";
-	icon_state = "L13";
-	name = "floor"
+/turf/simulated/floor/plasteel/hispania{
+	icon_state = "L13"
 	},
 /area/hallway/primary/central/north)
 "biP" = (
@@ -35742,7 +35740,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L4"
 	},
 /area/hallway/primary/central/north)
@@ -35755,14 +35753,14 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L2"
 	},
 /area/hallway/primary/central/north)
 "bnf" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L8"
 	},
 /area/hallway/primary/central/north)
@@ -35786,7 +35784,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L6"
 	},
 /area/hallway/primary/central/north)
@@ -35803,7 +35801,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L12"
 	},
 /area/hallway/primary/central/north)
@@ -35818,7 +35816,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L10"
 	},
 /area/hallway/primary/central/north)
@@ -35829,8 +35827,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	desc = "";
+/turf/simulated/floor/plasteel/hispania{
 	icon_state = "L14"
 	},
 /area/hallway/primary/central/north)

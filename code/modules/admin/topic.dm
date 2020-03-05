@@ -2729,15 +2729,15 @@
 				if(newBombCap > 128)
 					newBombCap = 128
 
-				MAX_EX_DEVESTATION_RANGE = round(newBombCap/4)
+				MAX_EX_DEVASTATION_RANGE = round(newBombCap/4)
 				MAX_EX_HEAVY_RANGE = round(newBombCap/2)
 				MAX_EX_LIGHT_RANGE = newBombCap
 				//I don't know why these are their own variables, but fuck it, they are.
 				MAX_EX_FLASH_RANGE = newBombCap
 				MAX_EX_FLAME_RANGE = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</span>")
-				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
+				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVASTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</span>")
+				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVASTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
 
 			if("flicklights")
 				feedback_inc("admin_secrets_fun_used",1)
