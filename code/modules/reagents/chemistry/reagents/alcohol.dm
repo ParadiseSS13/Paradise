@@ -15,6 +15,25 @@
 	M.AdjustDizzy(dizzy_adj)
 	return ..()
 
+/datum/reagent/consumable/ethanol/on_mob_add(mob/living/carbon/M)
+	..()
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/H = M
+	if(H.age >= 21) // Yes. Its 21. This is Space America. That is canon now.
+		return
+	if(!cameranet.checkTurfVis(get_turf(M)))
+		return
+	for(var/datum/data/record/E in data_core.general)
+		if(E.fields["name"] == M.real_name)
+			for(var/datum/data/record/R in data_core.security)
+				if(R.fields["id"] == E.fields["id"])
+					R.fields["criminal"] = "*Arrest*"
+					R.fields["mi_crim"] = "Underage Drinking"
+					R.fields["comments"] += "Set to *Arrest* by Nanotrasen Alcohol Oversight Committee on [current_date_string] [station_time_timestamp()]."
+					update_all_mob_security_hud()
+				break
+
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
 	if(istype(O,/obj/item/paper))
 		if(istype(O,/obj/item/paper/contract/infernal))
