@@ -193,6 +193,9 @@
 	. = ..()
 
 /obj/item/gun/energy/proc/robocharge()
+	if(cell.charge == cell.maxcharge)
+		// No point in recharging a weapon's cell that is already at 100%. That would just waste borg cell power for no reason.
+		return
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell)
