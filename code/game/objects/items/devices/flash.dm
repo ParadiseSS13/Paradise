@@ -27,20 +27,22 @@
 	return 1
 
 /obj/item/flash/attackby(obj/item/W, mob/user, params)
-	if(can_overcharge)
-		if(istype(W, /obj/item/screwdriver))
-			if(battery_panel)
-				to_chat(user, "<span class='notice'>You close the battery compartment on the [src].</span>")
-				battery_panel = 0
-			else
-				to_chat(user, "<span class='notice'>You open the battery compartment on the [src].</span>")
-				battery_panel = 1
-		if(battery_panel && !overcharged)
-			if(istype(W, /obj/item/stock_parts/cell))
-				to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
-				qdel(W)
-				overcharged = 1
-				overlays += "overcharge"
+	if(!istype(W, /obj/item/stock_parts/cell))
+		return ..()
+	if(can_overcharge && battery_panel && !overcharged)
+		to_chat(user, "<span class='notice'>You jam the cell into battery compartment on the [src].</span>")
+		qdel(W)
+		overcharged = TRUE
+		overlays += "overcharge"
+
+/obj/item/flash/screwdriver_act(mob/living/user, obj/item/I)
+	if(!can_overcharge)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You [battery_panel ? "close" : "open"] the battery compartment on [src].</span>")
+	battery_panel = !battery_panel
 
 /obj/item/flash/random/New()
 	..()

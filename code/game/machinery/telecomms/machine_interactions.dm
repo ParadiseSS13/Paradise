@@ -10,87 +10,93 @@
 	var/construct_op = 0
 
 
-/obj/machinery/telecomms/attackby(obj/item/P as obj, mob/user as mob, params)
+/obj/machinery/telecomms/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/stack/cable_coil) || construct_op != 3)
+		return ..()
+	var/obj/item/stack/cable_coil/C = I
+	if(!C.use(5))
+		to_chat(user, "<span class='warning'>You need more cable!</span>")
+		return
+	playsound(loc, C.usesound, 50, 1)
+	to_chat(user, "You insert the cables.")
+	construct_op = 2
+	stat &= ~BROKEN // the machine's not borked anymore!
 
-	// Using a multitool lets you access the receiver's interface
-	if(istype(P, /obj/item/multitool))
-		attack_hand(user)
+/obj/machinery/telecomms/crowbar_act(mob/user, obj/item/I)
+	if(construct_op != 3)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "You begin prying out the circuit board and other components...")
+	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
+		return
+	to_chat(user, "You finish prying out the components.")
+	// Drop all the component stuff
+	if(component_parts)
+		for(var/obj/I in component_parts)
+			I.loc = src.loc
+	else
+		// If the machine wasn't made during runtime, probably doesn't have components:
+		// manually find the components and drop them!
+		var/obj/item/circuitboard/C = new circuitboard
+		for(var/I in C.req_components)
+			for(var/i = 1, i <= C.req_components[I], i++)
+				var/obj/item/s = new I
+				s.loc = src.loc
+				if(istype(s, /obj/item/stack/cable_coil))
+					var/obj/item/stack/cable_coil/A = s
+					A.amount = 1
 
+		// Drop a circuit board too
+		C.loc = src.loc
 
-	switch(construct_op)
-		if(0)
-			if(istype(P, /obj/item/screwdriver))
-				to_chat(user, "You unfasten the bolts.")
-				playsound(src.loc, P.usesound, 50, 1)
-				construct_op++
-			return
-		if(1)
-			if(istype(P, /obj/item/screwdriver))
-				to_chat(user, "You fasten the bolts.")
-				playsound(src.loc,P.usesound, 50, 1)
-				construct_op--
-			if(istype(P, /obj/item/wrench))
-				to_chat(user, "You dislodge the external plating.")
-				playsound(src.loc, P.usesound, 75, 1)
-				construct_op++
-			return
-		if(2)
-			if(istype(P, /obj/item/wrench))
-				to_chat(user, "You secure the external plating.")
-				playsound(src.loc, P.usesound, 75, 1)
-				construct_op--
-			if(istype(P, /obj/item/wirecutters))
-				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, "You remove the cables.")
-				construct_op++
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( user.loc )
-				A.amount = 5
-				stat |= BROKEN // the machine's been borked!
-			return
-		if(3)
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/A = P
-				if(A.amount >= 5)
-					playsound(loc, A.usesound, 50, 1)
-					to_chat(user, "You insert the cables.")
-					A.amount -= 5
-					if(A.amount <= 0)
-						user.drop_item()
-						qdel(A)
-					construct_op--
-					stat &= ~BROKEN // the machine's not borked anymore!
-				return
-			if(istype(P, /obj/item/crowbar))
-				to_chat(user, "You begin prying out the circuit board other components...")
-				playsound(src.loc, P.usesound, 50, 1)
-				if(do_after(user, 60 * P.toolspeed, target = src))
-					to_chat(user, "You finish prying out the components.")
+	// Create a machine frame and delete the current machine
+	var/obj/machinery/constructable_frame/machine_frame/F = new
+	F.loc = src.loc
+	qdel(src)
 
-					// Drop all the component stuff
-					if(component_parts)
-						for(var/obj/I in component_parts)
-							I.loc = src.loc
-					else
-						// If the machine wasn't made during runtime, probably doesn't have components:
-						// manually find the components and drop them!
-						var/obj/item/circuitboard/C = new circuitboard
-						for(var/I in C.req_components)
-							for(var/i = 1, i <= C.req_components[I], i++)
-								var/obj/item/s = new I
-								s.loc = src.loc
-								if(istype(s, /obj/item/stack/cable_coil))
-									var/obj/item/stack/cable_coil/A = s
-									A.amount = 1
+/obj/machinery/telecomms/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	attack_hand(user)
 
-						// Drop a circuit board too
-						C.loc = src.loc
+/obj/machinery/telecomms/screwdriver_act(mob/user, obj/item/I)
+	if(construct_op != 0 && construct_op != 1)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You [construct_op == 0 ? "unfasten": "fasten"] the bolts.</span>")
+	if(construct_op == 0)
+		construct_op = 1
+	else
+		construct_op = 0
 
-					// Create a machine frame and delete the current machine
-					var/obj/machinery/constructable_frame/machine_frame/F = new
-					F.loc = src.loc
-					qdel(src)
-				return
-	return ..()
+/obj/machinery/telecomms/wirecutter_act(mob/user, obj/item/I)
+	if(construct_op != 2)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	WIRECUTTER_SNIP_MESSAGE
+	construct_op = 3
+	var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil( user.loc )
+	A.amount = 5
+	stat |= BROKEN // the machine's been borked!
+
+/obj/machinery/telecomms/wrench_act(mob/user, obj/item/I)
+	if(construct_op != 1 && construct_op != 2)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You [construct_op == 1 ? "dislodge": "secure"] the external plating.</span>")
+	if(construct_op == 1)
+		construct_op = 2
+	else
+		construct_op = 1
 
 /obj/machinery/telecomms/proc/formatInput(var/label,var/varname, var/input)
 	var/value = vars[varname]
@@ -104,11 +110,12 @@
 /obj/machinery/telecomms/attack_hand(var/mob/user as mob)
 	update_multitool_menu(user)
 
-/obj/machinery/telecomms/multitool_menu(var/mob/user,var/obj/item/multitool/P)
+/obj/machinery/telecomms/multitool_menu(mob/user, obj/item/multitool/P)
 	// You need a multitool to use this, or be silicon
 	if(!issilicon(user))
 		// istype returns false if the value is null
-		if(!istype(user.get_active_hand(), /obj/item/multitool))
+		var/obj/item/I = user.get_active_hand()
+		if(!(I && I.tool_behaviour == TOOL_MULTITOOL))
 			return
 
 	if(stat & (BROKEN|NOPOWER))

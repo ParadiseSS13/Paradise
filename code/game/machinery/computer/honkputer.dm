@@ -12,6 +12,7 @@
 	var/message_cooldown = 0
 	var/state = STATE_DEFAULT
 	var/const/STATE_DEFAULT = 1
+	deconstructs_to = /obj/structure/computerframe/HONKputer
 
 /obj/machinery/computer/HONKputer/process()
 	if(..())
@@ -91,28 +92,3 @@
 	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<A HREF='?src=[UID()];operation=main'>Main Menu</A> | " : ""]<A HREF='?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
 	user << browse(dat, "window=honkputer;size=400x500")
 	onclose(user, "honkputer")
-
-
-/obj/machinery/computer/HONKputer/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver) && circuit)
-		var/obj/item/screwdriver/S = I
-		playsound(src.loc, S.usesound, 50, 1)
-		if(do_after(user, 20 * S.toolspeed, target = src))
-			var/obj/structure/computerframe/HONKputer/A = new /obj/structure/computerframe/HONKputer( src.loc )
-			var/obj/item/circuitboard/M = new circuit( A )
-			A.circuit = M
-			A.anchored = 1
-			for(var/obj/C in src)
-				C.loc = src.loc
-			if(src.stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				new /obj/item/shard( src.loc )
-				A.state = 3
-				A.icon_state = "3"
-			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				A.state = 4
-				A.icon_state = "4"
-			qdel(src)
-	else
-		return ..()

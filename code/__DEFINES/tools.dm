@@ -36,8 +36,10 @@
 #define WELDER_FLOOR_WELD_SUCCESS_MESSAGE	to_chat(user, "<span class='notice'>You weld [src] to [get_turf(src)]!</span>")
 
 //Wrench messages
-#define WRENCH_ANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
-#define WRENCH_UNANCHOR_MESSAGE				user.visible_message("<span class='notice'>[user] loosens the bolts on [src]!</span>", "<span class='notice'>You loosen the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_ATTEMPT_ANCHOR_MESSAGE		user.visible_message("<span class='notice'>[user] begins tightening the bolts on [src]...</span>", "<span class='notice'>You begin to tighten the bolts on [src]...</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_ANCHOR_SUCCESS_MESSAGE		user.visible_message("<span class='notice'>[user] tightens the bolts on [src]!</span>", "<span class='notice'>You tighten the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_ATTEMPT_UNANCHOR_MESSAGE		user.visible_message("<span class='notice'>[user] begins loosening the bolts on [src]...</span>", "<span class='notice'>You begin to loosen the bolts on [src]...</span>", "<span class='warning'>You hear ratcheting.</span>")
+#define WRENCH_UNANCHOR_SUCCESS_MESSAGE		user.visible_message("<span class='notice'>[user] loosens the bolts on [src]!</span>", "<span class='notice'>You loosen the bolts on [src]!</span>", "<span class='warning'>You hear ratcheting.</span>")
 #define WRENCH_UNANCHOR_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] unwrenches [src] from the wall!</span>", "<span class='notice'>You unwrench [src] from the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
 #define WRENCH_ANCHOR_TO_WALL_MESSAGE		user.visible_message("<span class='notice'>[user] affixes [src] to the wall!</span>", "<span class='notice'>You affix [src] to the wall!</span>", "<span class='warning'>You hear ratcheting.</span>")
 

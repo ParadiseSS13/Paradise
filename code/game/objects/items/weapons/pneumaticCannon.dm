@@ -43,19 +43,6 @@
 	if(W.type == type)
 		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
 		return
-	if(istype(W, /obj/item/wrench))
-		switch(pressureSetting)
-			if(1)
-				pressureSetting = 2
-			if(2)
-				pressureSetting = 3
-			if(3)
-				pressureSetting = 1
-		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
-		return
-	if(istype(W, /obj/item/screwdriver) && tank)
-		updateTank(tank, 1, user)
-		return
 	if(loadedWeightClass >= maxWeightClass)
 		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
 		return
@@ -75,6 +62,27 @@
 		IW.loc = src
 		return
 
+/obj/item/pneumatic_cannon/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!tank)
+		to_chat(user, "<span class='notice'>There's no tank to remove!</span>")
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	updateTank(tank, 1, user)
+
+/obj/item/pneumatic_cannon/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	switch(pressureSetting)
+		if(1)
+			pressureSetting = 2
+		if(2)
+			pressureSetting = 3
+		if(3)
+			pressureSetting = 1
+	to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
 
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	if(istype(target, /obj/item/storage)) //So you can store it in backpacks

@@ -88,28 +88,31 @@
 		toggle_paddles()
 
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
-		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-		else
-			if(C.maxcharge < paddles.revivecost)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
-				return
-			user.drop_item()
-			W.loc = src
-			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-
-	if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(src.loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-
+	if(!istype(W, /obj/item/stock_parts/cell))
+		return ..()
+	var/obj/item/stock_parts/cell/C = W
+	if(cell)
+		to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+		return
+	if(C.maxcharge < paddles.revivecost)
+		to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+		return
+	user.drop_item()
+	W.loc = src
+	cell = W
+	to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
 	update_icon()
-	return
+
+/obj/item/defibrillator/screwdriver_act(mob/living/user, obj/item/I)
+	if(!cell)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	cell.update_icon()
+	cell.loc = get_turf(src.loc)
+	cell = null
+	to_chat(user, "<span class='notice'>You remove the cell from [src].</span>")
 
 /obj/item/defibrillator/emag_act(user as mob)
 	if(safety)

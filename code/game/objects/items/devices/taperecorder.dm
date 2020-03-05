@@ -305,18 +305,25 @@
 
 
 /obj/item/tape/attackby(obj/item/I, mob/user)
-	if(ruined && istype(I, /obj/item/screwdriver))
-		to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
-		if(do_after(user, 120 * I.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
-			fix()
-	else if(istype(I, /obj/item/pen))
-		var/title = stripped_input(usr,"What do you want to name the tape?", "Tape Renaming", name, MAX_NAME_LEN)
-		if(!title || !length(title))
-			name = initial(name)
-			return
-		name = "tape - [title]"
+	if(!istype(I, /obj/item/pen))
+		return ..()
+	var/title = stripped_input(usr,"What do you want to name the tape?", "Tape Renaming", name, MAX_NAME_LEN)
+	if(!title || !length(title))
+		name = initial(name)
+		return
+	name = "tape - [title]"
 
+/obj/item/tape/screwdriver_act(mob/user, obj/item/I)
+	if(!ruined)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start winding the tape back in.</span>")
+	if(!I.use_tool(src, user, 120, volume = I.tool_volume) || !ruined)
+		return
+	to_chat(user, "<span class='notice'>You wound the tape back in!</span>")
+	fix()
 
 //Random colour tapes
 /obj/item/tape/random/New()

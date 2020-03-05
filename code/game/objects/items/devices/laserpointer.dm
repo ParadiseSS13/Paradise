@@ -47,23 +47,26 @@
 	laser_act(M, user)
 
 /obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/micro_laser))
-		if(!diode)
-			user.drop_item()
-			W.loc = src
-			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+	if(!istype(W, /obj/item/stock_parts/micro_laser))
+		return ..()
+	if(!diode)
+		user.drop_item()
+		W.loc = src
+		diode = W
+		to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
+	else
+		to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
 
-	else if(istype(W, /obj/item/screwdriver))
-		if(diode)
-			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
-			diode.loc = get_turf(src.loc)
-			diode = null
-			return
-		..()
-	return
+/obj/item/laser_pointer/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!diode)
+		to_chat(user, "<span class='notice'>[src] has no diode to remove.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
+	diode.loc = get_turf(src.loc)
+	diode = null
 
 /obj/item/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
