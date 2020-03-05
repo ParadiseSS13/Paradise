@@ -1104,9 +1104,10 @@
 		if(SSticker && SSticker.mode)
 			return alert(usr, "The game has already started.", null, null, null, null)
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
+		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A><br>"}
-		dat += {"<A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><A href='?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
+		dat += {"</table><br><A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
 		dat += {"<A href='?src=[UID()];c_mode2=random'>Random</A><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
 		usr << browse(dat, "window=c_mode")
@@ -1119,9 +1120,10 @@
 		if(GLOB.master_mode != "secret")
 			return alert(usr, "The game mode has to be secret!", null, null, null, null)
 		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
+		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A><br>"}
-		dat += {"<A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><A href='?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
+		dat += {"</table><br><A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		usr << browse(dat, "window=f_secret")
 

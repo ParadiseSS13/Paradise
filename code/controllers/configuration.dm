@@ -52,6 +52,7 @@
 	var/list/modes = list()				// allowed modes
 	var/list/votable_modes = list()		// votable modes
 	var/list/probabilities = list()		// relative probability of each mode
+	var/list/mode_required_players = list()		// relative required_players of each mode
 	var/humans_need_surnames = 0
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
@@ -283,6 +284,7 @@
 				src.modes += initial(M.config_tag)
 				src.mode_names[initial(M.config_tag)] = initial(M.name)
 				src.probabilities[initial(M.config_tag)] = initial(M.probability)
+				src.mode_required_players[initial(M.config_tag)] = initial(M.required_players)
 				if(initial(M.votable))
 					src.votable_modes += initial(M.config_tag)
 	src.votable_modes += "secret"
@@ -564,6 +566,21 @@
 							log_config("Unknown game mode probability configuration definition: [prob_name].")
 					else
 						log_config("Incorrect probability configuration definition: [prob_name]  [prob_value].")
+
+				if("minplayers")
+					var/minreq_pos = findtext(value, " ")
+					var/minreq_name = null
+					var/minreq_value = null
+
+					if(minreq_pos)
+						minreq_name = lowertext(copytext(value, 1, minreq_pos))
+						minreq_value = copytext(value, minreq_pos + 1)
+						if(minreq_name in config.modes)
+							config.mode_required_players[minreq_name] = text2num(minreq_value)
+						else
+							log_config("Unknown game mode minplayers configuration definition: [minreq_name].")
+					else
+						log_config("Incorrect minplayers configuration definition: [minreq_name]  [minreq_value].")
 
 				if("allow_random_events")
 					config.allow_random_events = 1

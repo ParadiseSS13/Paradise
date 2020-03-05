@@ -50,7 +50,9 @@
 		if((player.client)&&(player.ready))
 			playerC++
 
-	if(!config.enable_gamemode_player_limit || (playerC >= required_players))
+	if(playerC < required_enemies)
+		return 0
+	if(!config.enable_gamemode_player_limit || (playerC >= config.mode_required_players[src.config_tag]))
 		return 1
 	return 0
 
