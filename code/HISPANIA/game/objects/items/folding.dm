@@ -149,7 +149,6 @@
 	foldedforce = 20
 	throwforce = 20
 	origin_tech = "materials=3;combat=4"
-	backstab_bonus = 6
 
 /obj/item/knife/folding/butterfly
 	name = "butterfly knife"
