@@ -290,3 +290,68 @@
 	icon_state = "honeybreadslice"
 	trash = /obj/item/trash/plate
 	filling_color = "#EFD8A7"
+
+///        Pancakes    (Coughthanksumeandevancough) ///
+
+
+/obj/item/reagent_containers/food/snacks/pancake
+    name = "pancake"
+    desc = "A fluffy pancake. The softer, superior relative of the waffle."
+    icon = 'icons/hispania/obj/food/food.dmi'
+    icon_state = "pancake_1"
+    trash = /obj/item/trash/plate
+    filling_color = "#D2691E"
+    bitesize = 3
+    list_reagents = list("nutriment" = 4, "vitamin" = 1, "sugar" = 4)
+    var/list/pancakes = list()// If the pancakes are stacked, they come here
+
+
+obj/item/reagent_containers/food/snacks/pancake/update_icon()
+    overlays = list()
+    if(pancakes.len > 0)
+        desc = "A pile of delicious pancakes. There appears to be [pancakes.len+1] pancakes in the pile."
+    icon_state = "pancake_[pancakes.len+1]"
+
+/obj/item/reagent_containers/food/snacks/pancake/attackby(obj/item/reagent_containers/food/snacks/pancake/I, mob/user, params)
+    if(istype(I, /obj/item/reagent_containers/food/snacks/pancake/))
+        var/obj/item/reagent_containers/food/snacks/pancake = I
+
+        var/list/pancakestoadd = list()
+        pancakestoadd += pancake
+        for(var/obj/item/reagent_containers/food/snacks/pancake/i in I.pancakes)
+            pancakestoadd += i
+        if((pancakes.len) + pancakestoadd.len <= 2)
+            user.drop_item()
+            pancake.loc = src
+            pancakes.Add(pancakestoadd)
+            pancake.update_icon()
+            update_icon()
+            to_chat(user, "<span class='warning'>You put the [pancake] ontop of the [src]!</span>")
+        else
+            to_chat(user, "<span class='warning'>The stack is too high!</span>")
+
+
+
+//Toast//
+/obj/item/reagent_containers/food/snacks/toast
+	name = "toast"
+	desc = "Is a slice of bread but toasted."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "butter_toast"
+	filling_color = "#D2691E"
+	list_reagents = list("nutriment" = 2, "vitamin" = 1)
+	tastes = list("toast" = 1)
+	bitesize = 3
+
+
+//ButterToast//
+
+/obj/item/reagent_containers/food/snacks/butter_toast
+	name = "buttered toast"
+	desc = "Butter lightly spread over a piece of toast."
+	icon = 'icons/hispania/obj/food/food.dmi'
+	icon_state = "toast"
+	filling_color = "#D2691E"
+	list_reagents = list("nutriment" = 4, "vitamin" = 1)
+	tastes = list("butter" = 1,"toast" = 1)
+	bitesize = 5
