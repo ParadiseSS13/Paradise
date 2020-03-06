@@ -63,6 +63,7 @@
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
+	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/human_squish_check)
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	unload(0)
@@ -865,6 +866,11 @@
 		unload(get_dir(loc, A))
 	else
 		..()
+
+/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
+	if(!ishuman(AM))
+		return
+	RunOver(AM)
 
 #undef SIGH
 #undef ANNOYED
