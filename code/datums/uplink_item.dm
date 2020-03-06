@@ -1249,7 +1249,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_tools/floor_closet
 	name = "Floor Closet"
-	desc = "A bluespace closet fitted with chameleon technology, disguising it as whatever floor it is closed on. However, it only holds as much as a normal closet."
+	desc = "A bluespace closet fitted with chameleon technology, disguising it as whatever floor it is closed on. However, due to the space occupied by said technology, it only holds as much as a normal closet."
 	reference = "FCLS"
 	item = /obj/structure/closet/floor_closet
 	cost = 4
