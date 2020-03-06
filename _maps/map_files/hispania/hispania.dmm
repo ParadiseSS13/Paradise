@@ -89673,18 +89673,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engi_shuttle)
 "ddX" = (
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	frequency = 1450;
-	master_tag = "sci_maint";
-	name = "exterior access button";
-	pixel_x = 8;
-	pixel_y = 25;
-	req_access_txt = "13"
-	},
 /obj/structure/lattice/catwalk,
+/obj/effect/spawner/window/reinforced,
 /turf/space,
-/area/space/nearstation)
+/area/maintenance/asmaint2)
 "ddZ" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/structure/cable{
@@ -96484,6 +96476,22 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"dwU" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Kitchen";
+	req_access_txt = "28"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"dEd" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/barricade/wooden,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "dVJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Arcade"
@@ -96518,6 +96526,54 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"ecB" = (
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"ehI" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/clothing/under/solgov,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"epg" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)";
+	icon_state = "propulsion";
+	dir = 1
+	},
+/turf/simulated/shuttle/wall{
+	dir = 1;
+	icon_state = "diagonalWall3"
+	},
+/area/ship/tsf/longlost)
+"etj" = (
+/obj/structure/sign/directions/science{
+	dir = 4;
+	pixel_x = 0;
+	pixel_y = -7
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"evG" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/filingcabinet,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"eFB" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer/mech_bay_power_console,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "eJO" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -96525,6 +96581,25 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/crew_quarters/dorms)
+"eKD" = (
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"eKL" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"eNs" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "fbx" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96536,6 +96611,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"fdD" = (
+/obj/machinery/computer/station_alert/all,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "fdZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack{
@@ -96545,6 +96626,29 @@
 /obj/item/storage/pill_bottle/patch_pack,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"ffG" = (
+/obj/structure/table,
+/obj/machinery/reagentgrinder,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"fmB" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 5
+	},
+/obj/item/stack/sheet/metal{
+	amount = 50
+	},
+/obj/item/multitool{
+	pixel_x = 5
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "fpP" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96555,6 +96659,31 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
+"fAT" = (
+/obj/structure/sign/bobross,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"fIX" = (
+/obj/effect/decal/cleanable/blood,
+/mob/living/carbon/human/monkey,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"fOc" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "fPn" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -96573,6 +96702,19 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"gcp" = (
+/obj/structure/sign/greencross,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"gpw" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/mech_bay_recharge_port,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "gMZ" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 6
@@ -96591,12 +96733,32 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"gOc" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "gQL" = (
 /obj/machinery/computer/card,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"hhn" = (
+/obj/effect/decal/remains/human,
+/mob/living/carbon/human/monkey,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"hjx" = (
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
 "hkf" = (
 /obj/structure/closet/wardrobe/black,
 /turf/simulated/floor/plating,
@@ -96622,6 +96784,22 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"hGx" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer/atmos_alert,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"hGM" = (
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = 7
+	},
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
 "hHX" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
@@ -96630,6 +96808,16 @@
 	dir = 2
 	},
 /area/shuttle/mining)
+"hIJ" = (
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "hMH" = (
 /obj/structure/window/full/shuttle,
 /obj/structure/grille,
@@ -96638,12 +96826,85 @@
 	dir = 2
 	},
 /area/shuttle/mining)
+"hTA" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/obj/structure/barricade/wooden/crude,
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 10;
+	height = 26;
+	id = "tsf";
+	name = "TSF";
+	roundstart_move = "tsf_away";
+	width = 21
+	},
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 10;
+	height = 26;
+	id = "tsf_home";
+	name = "TSF_Home";
+	width = 21
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"iid" = (
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"irn" = (
+/obj/structure/closet/firecloset,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"isQ" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/table/glass,
+/obj/item/reagent_containers/glass/beaker/vial,
+/obj/item/reagent_scanner/adv,
+/obj/structure/spawner/headcrab_old,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"ivZ" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "izn" = (
 /obj/machinery/atmospherics/unary/passive_vent{
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
+"izq" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/welded,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "iAO" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall_f6";
@@ -96669,6 +96930,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"iJH" = (
+/obj/structure/barricade/wooden,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "iLt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4;
@@ -96698,12 +96965,34 @@
 /area/toxins/launch{
 	name = "Toxins Launch Room"
 	})
+"jfq" = (
+/obj/machinery/computer/operating,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "jje" = (
 /mob/living/simple_animal/hostile/carp/megacarp,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor3"
 	},
 /area/shuttle/abandoned)
+"jjy" = (
+/obj/machinery/vending/sovietsoda,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"jnr" = (
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "jnJ" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
@@ -96733,17 +97022,79 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"jsp" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"jxN" = (
+/obj/structure/sign/directions/engineering,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"jyG" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock/welded,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "jAQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/medical,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"jGq" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"jJQ" = (
+/obj/structure/showcase/horrific_experiment,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"jXK" = (
+/turf/simulated/shuttle/wall{
+	dir = 1;
+	icon_state = "diagonalWall3"
+	},
+/area/ship/tsf/longlost)
+"kbW" = (
+/obj/machinery/vending/dinnerware,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "ksO" = (
 /obj/effect/landmark/start{
 	name = "Civilian"
 	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/dorms)
+"kMp" = (
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "diagonalWall3"
+	},
+/area/ship/tsf/longlost)
 "kMP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96780,6 +97131,13 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"llx" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/mecha_wreckage/durand/old,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "lnU" = (
 /obj/structure/bed/dogbed/renault,
 /turf/simulated/floor/wood,
@@ -96796,6 +97154,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
+"lIr" = (
+/obj/machinery/computer/shuttle/tsf,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "lLC" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -96804,6 +97168,41 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"lRi" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"lWT" = (
+/obj/machinery/suit_storage_unit/engine,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"lYa" = (
+/obj/structure/sink{
+	dir = 8;
+	icon_state = "sink";
+	pixel_x = -12
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"lYQ" = (
+/obj/structure/lattice,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"maL" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/spawner/headcrab_old,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "mgh" = (
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
@@ -96852,6 +97251,12 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
+"mBe" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "mMw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -96878,12 +97283,47 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
+"nig" = (
+/obj/item/clothing/under/solgov,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"njb" = (
+/obj/structure/sign/vacuum,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"nxX" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/effect/decal/cleanable/vomit,
+/obj/structure/table,
+/obj/item/kitchen/knife,
+/obj/item/seeds/apple,
+/obj/item/seeds/apple,
+/obj/item/seeds/apple,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
 	},
 /turf/space,
 /area/space/nearstation)
+"nYP" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/door/airlock/highsecurity{
+	locked = 1;
+	name = "TSF Discovery";
+	req_access_txt = "20"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "oed" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -96892,6 +97332,18 @@
 /obj/item/clipboard,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"ogY" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/obj/structure/chair/comfy/shuttle,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "opX" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
@@ -96919,6 +97371,17 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"pjt" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"pry" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "pwN" = (
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
@@ -96930,6 +97393,44 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"pxa" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Bay";
+	req_access_txt = "31"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"pMP" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock{
+	name = "Unisex Restrooms";
+	req_access_txt = "0"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"pWh" = (
+/obj/machinery/door/airlock/command{
+	id_tag = "captainofficedoor";
+	name = "Captain's Office";
+	req_access = null;
+	req_access_txt = "20"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"pYk" = (
+/obj/structure/lattice,
+/obj/structure/curtain/open,
+/obj/item/mounted/shower,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "pZO" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 10
@@ -96958,11 +97459,28 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"qhO" = (
+/obj/structure/barricade/wooden/crude,
+/obj/machinery/door/airlock{
+	name = "Port Emergency Storage";
+	req_access_txt = "0"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "qmP" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"qov" = (
+/obj/effect/decal/cleanable/blood,
+/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "qth" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -96976,6 +97494,18 @@
 	icon_state = "purple"
 	},
 /area/hallway/primary/starboard/east)
+"qyP" = (
+/obj/structure/closet/secure_closet/medical3,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"qGf" = (
+/turf/simulated/shuttle/wall{
+	dir = 8;
+	icon_state = "diagonalWall3"
+	},
+/area/ship/tsf/longlost)
 "qUv" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
 /turf/space,
@@ -97003,6 +97533,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"rwX" = (
+/obj/machinery/sleeper,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "rEw" = (
 /obj/machinery/computer/shuttle/admin{
 	name = "NTV Argos shuttle console"
@@ -97017,6 +97553,24 @@
 	},
 /turf/simulated/shuttle/floor,
 /area/shuttle/mining)
+"rOK" = (
+/obj/structure/sign/restroom,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"rSa" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/autoimplanter,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "rSv" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -97036,6 +97590,55 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"siO" = (
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/flashlight/flare,
+/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/emergency_oxygen/engi,
+/obj/item/tank/emergency_oxygen/engi,
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/item/clothing/under/solgov,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"ssQ" = (
+/obj/structure/lattice/catwalk,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	frequency = 1450;
+	master_tag = "sci_maint";
+	name = "exterior access button";
+	pixel_x = 19;
+	pixel_y = 5;
+	req_access_txt = "13"
+	},
+/turf/space,
+/area/maintenance/asmaint2)
+"svn" = (
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"swz" = (
+/obj/structure/shuttle/window{
+	tag = "icon-window5_mid";
+	icon = 'icons/turf/shuttle.dmi';
+	icon_state = "window5_mid";
+	dir = 2
+	},
+/obj/structure/grille,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "sCj" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97063,10 +97666,65 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
+"thM" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"tjD" = (
+/obj/structure/noticeboard,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"tkf" = (
+/obj/machinery/hydroponics/constructable,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "tla" = (
 /obj/structure/lattice,
 /turf/simulated/wall/r_wall,
 /area/maintenance/apmaint)
+"tre" = (
+/obj/structure/lattice,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"txM" = (
+/obj/effect/decal/cleanable/blood,
+/obj/structure/dispenser,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"tGr" = (
+/obj/structure/sink/kitchen,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"tLs" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/cleanable/vomit,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"tLz" = (
+/obj/structure/toilet{
+	dir = 4
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "tMr" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
@@ -97077,6 +97735,23 @@
 	icon_state = "dark"
 	},
 /area/security/hos)
+"tXp" = (
+/obj/structure/ore_box,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"utU" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/remains/human{
+	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
+	icon_state = "remains";
+	name = "Human remains"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -97089,6 +97764,12 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
+"uzu" = (
+/obj/machinery/floodlight,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "uBM" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 8;
@@ -97105,6 +97786,13 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"vff" = (
+/obj/effect/decal/cleanable/vomit,
+/obj/item/clothing/head/soft/solgov,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "vmZ" = (
 /obj/machinery/newscaster,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -97113,6 +97801,23 @@
 	},
 /turf/simulated/wall,
 /area/crew_quarters/dorms)
+"vpk" = (
+/obj/item/book/manual/research_and_development,
+/obj/structure/table/glass,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"vrs" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering";
+	req_access_txt = "32";
+	req_one_access_txt = "0"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "vup" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -97120,6 +97825,23 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"vxw" = (
+/obj/structure/shuttle/engine/propulsion{
+	tag = "icon-propulsion (NORTH)";
+	icon_state = "propulsion";
+	dir = 1
+	},
+/turf/simulated/shuttle/wall{
+	dir = 8;
+	icon_state = "diagonalWall3"
+	},
+/area/ship/tsf/longlost)
+"vHa" = (
+/obj/structure/spawner/headcrab_old,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "vUm" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -97128,6 +97850,12 @@
 	icon_state = "floor2"
 	},
 /area/shuttle/constructionsite)
+"vWT" = (
+/obj/machinery/shieldgen,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "wiZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/rack{
@@ -97145,6 +97873,39 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
+"wjJ" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"wsb" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular,
+/obj/item/storage/firstaid/brute{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"wxy" = (
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"wFs" = (
+/turf/simulated/shuttle/wall{
+	icon_state = "diagonalWall3"
+	},
+/area/ship/tsf/longlost)
+"wGo" = (
+/obj/machinery/washing_machine,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "wOS" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/black,
@@ -97169,6 +97930,22 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"wSo" = (
+/obj/machinery/optable,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"wSM" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_x = -3;
+	pixel_y = 6
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "wVD" = (
 /obj/effect/landmark/start{
 	name = "Shaft Miner"
@@ -97178,6 +97955,18 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
+"wZV" = (
+/obj/structure/barricade/wooden/crude,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"xfW" = (
+/obj/machinery/vending/medical,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "xiQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack{
@@ -97202,6 +97991,25 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"xnH" = (
+/obj/machinery/door/airlock/research{
+	name = "Research Division Access";
+	req_access_txt = "47"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"xnT" = (
+/obj/machinery/door/airlock/medical/glass{
+	id_tag = null;
+	name = "Chemistry Lab";
+	req_access_txt = "33"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "xpU" = (
 /obj/machinery/light,
 /obj/structure/cable{
@@ -97229,6 +98037,12 @@
 	dir = 2
 	},
 /area/shuttle/mining)
+"xBf" = (
+/obj/effect/decal/remains/human,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "xWg" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	tag = "icon-intact (SOUTHEAST)";
@@ -97263,6 +98077,25 @@
 	icon_state = "white"
 	},
 /area/assembly/robotics)
+"yhn" = (
+/obj/item/mounted/mirror,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"yhC" = (
+/mob/living/carbon/human/monkey,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"yit" = (
+/obj/structure/sign/cargo,
+/turf/simulated/shuttle/wall{
+	dir = 4;
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
 "ylx" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -97274,6 +98107,12 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"ylE" = (
+/obj/structure/sign/biohazard,
+/turf/simulated/shuttle/wall{
+	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
 
 (1,1,1) = {"
 aaa
@@ -140408,10 +141247,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+qGf
+pjt
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -140664,12 +141503,12 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vxw
+pjt
+wSM
+jnr
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -140920,14 +141759,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+qGf
+tGr
+wjJ
+yhC
+jGq
+wjJ
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -141176,23 +142015,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vxw
+pjt
+jjy
+wjJ
+nxX
+nig
+eKD
+tkf
+pjt
+pjt
+pjt
+pjt
+pjt
+pjt
+pjt
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -141432,25 +142271,25 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+qGf
+pjt
+pjt
+kbW
+maL
+ffG
+wjJ
+wjJ
+tkf
+pjt
+eKD
+eKD
+eKD
+eKD
+wjJ
+izq
+wjJ
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -141688,27 +142527,27 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+vxw
+pjt
+tLz
+pjt
+hjx
+hjx
+pjt
+dwU
+pjt
+etj
+pjt
+wjJ
+pjt
+jxN
+vrs
+hjx
+hjx
+wjJ
+thM
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -141944,29 +142783,29 @@ aab
 aab
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+qGf
+yhn
+lYa
+eKD
+pMP
+eKD
+xBf
+wZV
+tLs
+wjJ
+wjJ
+izq
+eKD
+pjt
+fdD
+eKD
+lWT
+hjx
+wjJ
+maL
+pjt
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -142201,30 +143040,30 @@ aaa
 aab
 aab
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+tre
+pYk
+wjJ
+wGo
+rOK
+vff
+jGq
+pjt
+pjt
+ylE
+xnH
+pjt
+wjJ
+pjt
+hGx
+eKD
+txM
+hjx
+eKD
+wjJ
+pjt
+evG
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -142457,32 +143296,32 @@ aaa
 aaa
 aaa
 aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+qGf
+pjt
+tre
+pjt
+njb
+pjt
+eKD
+ecB
+pjt
+thM
+maL
+wjJ
+pjt
+iid
+pjt
+eNs
+xBf
+fmB
+hjx
+wjJ
+eKD
+pWh
+eKD
+ivZ
+pjt
+wFs
 aaa
 aaa
 aaa
@@ -142714,32 +143553,32 @@ bZZ
 bZZ
 bZZ
 ddX
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+jsp
+utU
+hIJ
+eKD
+iJH
+dEd
+wjJ
+gpw
+pjt
+vpk
+eKD
+eKD
+pjt
+eKD
+pjt
+hjx
+hjx
+hjx
+hjx
+ivZ
+wjJ
+pjt
+eKD
+eKL
+ivZ
+swz
 aaa
 aaa
 aaa
@@ -142970,33 +143809,33 @@ dnR
 dnS
 dnX
 dom
-doE
-aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+ssQ
+hTA
+eKD
+nYP
+wjJ
+dEd
+iJH
+eKD
+llx
+pjt
+isQ
+yhC
+eKD
+pjt
+wjJ
+pjt
+lRi
+eKD
+uzu
+hjx
+lIr
+qov
+fAT
+ehI
+ogY
+ivZ
+swz
 aaa
 aaa
 aaa
@@ -143227,33 +144066,33 @@ bZZ
 bZZ
 bZZ
 bZZ
-doE
-aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+ddX
+fOc
+eKD
+hIJ
+eKD
+iJH
+dEd
+wjJ
+eFB
+pjt
+wjJ
+eKD
+wjJ
+pjt
+wjJ
+pjt
+wxy
+wjJ
+uzu
+hjx
+ivZ
+wjJ
+pjt
+eKD
+eKL
+ivZ
+swz
 aaa
 aaa
 aaa
@@ -143485,32 +144324,32 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+jXK
+pjt
+pjt
+pjt
+tre
+tjD
+iid
+wjJ
+pjt
+jJQ
+jJQ
+jJQ
+pjt
+eKD
+pjt
+hjx
+pxa
+hjx
+hjx
+vHa
+wjJ
+pWh
+eKD
+ivZ
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -143743,30 +144582,30 @@ aaa
 aaa
 aaa
 aaa
-aab
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pjt
+tXp
+tXp
+lYQ
+pjt
+wjJ
+eKD
+pjt
+pjt
+pjt
+pjt
+pjt
+wjJ
+pjt
+mBe
+gOc
+vWT
+hjx
+eKD
+eKD
+pjt
+evG
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -144000,29 +144839,29 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-abp
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+jXK
+pjt
+tXp
+wjJ
+qhO
+eKD
+wjJ
+wZV
+wjJ
+eKD
+wjJ
+izq
+wjJ
+pjt
+irn
+iid
+pry
+hjx
+wjJ
+wjJ
+pjt
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -144258,27 +145097,27 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+epg
+pjt
+siO
+pjt
+hjx
+hjx
+gcp
+xnT
+hGM
+pjt
+pjt
+eKD
+pjt
+pjt
+pxa
+yit
+hjx
+wjJ
+ivZ
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -144516,25 +145355,25 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+jXK
+pjt
+pjt
+wsb
+maL
+iid
+eKD
+fIX
+wSo
+pjt
+wjJ
+iid
+eKD
+wjJ
+wjJ
+jyG
+wjJ
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -144774,23 +145613,23 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+epg
+pjt
+rSa
+wjJ
+eKD
+wjJ
+eKD
+jfq
+pjt
+pjt
+pjt
+pjt
+pjt
+pjt
+pjt
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -145032,14 +145871,14 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+jXK
+pjt
+rwX
+hhn
+eKD
+qyP
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -145284,18 +146123,18 @@ aab
 aab
 aab
 aab
-aab
 aaa
 aaa
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+epg
+pjt
+xfW
+svn
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -145548,10 +146387,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+jXK
+pjt
+pjt
+kMp
 aaa
 aaa
 aaa
@@ -147868,7 +148707,7 @@ deg
 aab
 amW
 aaa
-aaa
+abp
 aaa
 aaa
 aaa
