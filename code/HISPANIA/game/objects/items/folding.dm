@@ -6,14 +6,13 @@
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
 	force = 0.2 //force of folded obj
-	throwforce = 15
+	throwforce = 2
 	attack_verb = list("prodded", "tapped")
 	hitsound = "swing_hit"
 	materials = list(MAT_METAL=12000)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sharp = FALSE
 
-	var/backstab_bonus = 4
 	var/foldedforce = 12
 	var/open = FALSE
 	var/takes_colour = TRUE
@@ -49,11 +48,13 @@
 	if(open)
 		sharp = 1
 		force = (foldedforce)
+		throwforce = 15
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		w_class = WEIGHT_CLASS_NORMAL
 		attack_verb = list("slashed", "stabbed")
 		..()
 	else
+		throwforce = initial(throwforce)
 		force = initial(force)
 		sharp = initial(sharp)
 		hitsound = initial(hitsound)

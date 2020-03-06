@@ -285,3 +285,5 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi')
 	sprite_sheets_obj = null
+
+
