@@ -115,36 +115,38 @@
 			return 0
 	..()
 
-/obj/item/gun/projectile/revolver/detective/attackby(obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/screwdriver))
-		if(magazine.caliber == "38")
-			to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
-			if(magazine.ammo_count())
-				afterattack(user, user)	//you know the drill
-				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-				return
-			if(do_after(user, 30 * A.toolspeed, target = src))
-				if(magazine.ammo_count())
-					to_chat(user, "<span class='warning'>You can't modify it!</span>")
-					return
-				magazine.caliber = "357"
-				desc = "The barrel and chamber assembly seems to have been modified."
-				to_chat(user, "<span class='notice'>You reinforce the barrel of [src]. Now it will fire .357 rounds.</span>")
-		else
-			to_chat(user, "<span class='notice'>You begin to revert the modifications to [src]...</span>")
-			if(magazine.ammo_count())
-				afterattack(user, user)	//and again
-				user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
-				return
-			if(do_after(user, 30 * A.toolspeed, target = src))
-				if(magazine.ammo_count())
-					to_chat(user, "<span class='warning'>You can't modify it!</span>")
-					return
-				magazine.caliber = "38"
-				desc = initial(desc)
-				to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
+/obj/item/gun/projectile/revolver/detective/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(magazine.caliber == "38")
+		to_chat(user, "<span class='notice'>You begin to reinforce the barrel of [src]...</span>")
+		if(magazine.ammo_count())
+			afterattack(user, user)	//you know the drill
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+			return
+		if(magazine.ammo_count())
+			to_chat(user, "<span class='warning'>You can't modify it!</span>")
+			return
+		magazine.caliber = "357"
+		desc = "The barrel and chamber assembly seems to have been modified."
+		to_chat(user, "<span class='notice'>You reinforce the barrel of [src]. Now it will fire .357 rounds.</span>")
 	else
-		return ..()
+		to_chat(user, "<span class='notice'>You begin to revert the modifications to [src]...</span>")
+		if(magazine.ammo_count())
+			afterattack(user, user)	//and again
+			user.visible_message("<span class='danger'>[src] goes off!</span>", "<span class='userdanger'>[src] goes off in your face!</span>")
+			return
+		if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+			return
+		if(magazine.ammo_count())
+			to_chat(user, "<span class='warning'>You can't modify it!</span>")
+			return
+		magazine.caliber = "38"
+		desc = initial(desc)
+		to_chat(user, "<span class='notice'>You remove the modifications on [src]. Now it will fire .38 rounds.</span>")
 
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "\improper finger gun"

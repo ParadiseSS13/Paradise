@@ -241,7 +241,7 @@
 		return
 	TOOL_ATTEMPT_DISMANTLE_MESSAGE
 	if(I.use_tool(src, user, 20, volume = I.tool_volume) && deconstruction_ready)
-		deconstruct(TRUE, 1)
+		deconstruct(TRUE)
 		TOOL_DISMANTLE_SUCCESS_MESSAGE
 
 /obj/structure/table/wrench_act(mob/user, obj/item/I)

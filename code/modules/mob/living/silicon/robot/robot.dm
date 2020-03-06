@@ -151,6 +151,9 @@ var/list/robot_verbs_default = list(
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
 		mmi.icon_state = "boris"
 
+	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
+		cell = new /obj/item/stock_parts/cell/high(src)
+
 	initialize_components()
 	//if(!unfinished)
 	// Create all the robot parts.
@@ -158,9 +161,6 @@ var/list/robot_verbs_default = list(
 		var/datum/robot_component/C = components[V]
 		C.installed = 1
 		C.wrapped = new C.external_type
-
-	if(!cell)
-		cell = new /obj/item/stock_parts/cell/high(src)
 
 	..()
 
@@ -408,7 +408,6 @@ var/list/robot_verbs_default = list(
 			module_sprites["Noble-SEC-Hulk"] = "Noble-SEC-H"
 			module_sprites["Woody"] = "woody"
 			module_sprites["Kodiak-SEC"] = "kodiak-sec"
-			module_sprites["Servbot-SEC"] = "servbot-sec"
 			module_sprites["Marina-SEC"] = "marinaSC"
 			status_flags &= ~CANPUSH
 
@@ -666,7 +665,8 @@ var/list/robot_verbs_default = list(
 
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
-	if(opened) // Are they trying to insert something?
+	// Check if the user is trying to insert another component like a radio, actuator, armor etc.
+	if(istype(W, /obj/item/robot_parts/robot_component) && opened)
 		for(var/V in components)
 			var/datum/robot_component/C = components[V]
 			if(!C.installed && istype(W, C.external_type))
@@ -701,7 +701,7 @@ var/list/robot_verbs_default = list(
 		user.visible_message("<span class='alert'>\The [user] fixes some of the burnt wires on \the [src] with \the [coil].</span>")
 
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
-		var/datum/robot_component/C = components["power cell"]
+		var/datum/robot_component/cell/C = components["power cell"]
 		if(wiresexposed)
 			to_chat(user, "Close the panel first.")
 		else if(cell)
@@ -715,6 +715,7 @@ var/list/robot_verbs_default = list(
 			C.installed = 1
 			C.wrapped = W
 			C.install()
+			C.external_type = W.type // Update the cell component's `external_type` to the path of new cell
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
@@ -1500,6 +1501,8 @@ var/list/robot_verbs_default = list(
 		burn = borked_part.electronics_damage
 		borked_part.installed = 1
 		borked_part.wrapped = new borked_part.external_type
+		if(ispath(borked_part.external_type, /obj/item/stock_parts/cell)) // is the broken part a cell?
+			cell = new borked_part.external_type // borgs that have their cell destroyed have their `cell` var set to null. we need create a new cell for them based on their old cell type.
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
 
