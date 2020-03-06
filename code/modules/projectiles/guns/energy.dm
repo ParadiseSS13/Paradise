@@ -98,7 +98,7 @@
 		return
 	if(!chambered)
 		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-		if(cell.charge >= shot.e_cost) //if there's enough power in the cell cell...
+		if(cell.charge >= shot.e_cost) //if there's enough power in the WEAPON'S cell...
 			chambered = shot //...prepare a new shot based on the current ammo type selected
 			if(!chambered.BB)
 				chambered.newshot()
@@ -110,6 +110,11 @@
 		robocharge()
 	chambered = null //either way, released the prepared shot
 	newshot()
+
+/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
+	if(!chambered && can_shoot())
+		process_chamber()
+	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
 	select++
