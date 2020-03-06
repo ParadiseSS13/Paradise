@@ -27,9 +27,10 @@
 	..()
 
 
-/obj/item/robot_module/New()
+/obj/item/robot_module/New(loc, should_have_flash = TRUE)
 	..()
-	modules += new /obj/item/flash/cyborg(src)
+	if(should_have_flash)
+		modules += new /obj/item/flash/cyborg(src)
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
 
@@ -539,7 +540,7 @@
 		/obj/item/stack/cable_coil/cyborg = 30
 		)
 
-/obj/item/robot_module/drone/New()
+/obj/item/robot_module/drone/New(loc, should_have_flash = FALSE)
 	..()
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/screwdriver/cyborg(src)
