@@ -12,8 +12,9 @@
 	var/one_per_turf = 0
 	var/on_floor = 0
 	var/window_checks = FALSE
+	var/no_structure = FALSE
 
-/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE)
+/datum/stack_recipe/New(title, result_type, req_amount = 1, res_amount = 1, max_res_amount = 1, time = 0, one_per_turf = 0, on_floor = 0, window_checks = FALSE, no_structure = FALSE)
 	src.title = title
 	src.result_type = result_type
 	src.req_amount = req_amount
@@ -23,6 +24,7 @@
 	src.one_per_turf = one_per_turf
 	src.on_floor = on_floor
 	src.window_checks = window_checks
+	src.no_structure = no_structure
 
 /datum/stack_recipe/proc/post_build(var/obj/item/stack/S, var/obj/result)
 	return

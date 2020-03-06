@@ -9,26 +9,28 @@
 //Noncult As we may have this on maps
 /obj/structure/cult/altar
 	name = "Altar"
-	desc = "A bloodstained altar dedicated to Nar-Sie"
+	desc = "A bloodstained altar."
 	icon_state = "altar"
+
+/obj/structure/cult/altar/New()
 
 /obj/structure/cult/forge
 	name = "Daemon forge"
-	desc = "A forge used in crafting the unholy weapons used by the armies of Nar-Sie"
+	desc = "A forge used in crafting unholy armors and weapons."
 	icon_state = "forge"
 	light_range = 2
 	light_color = LIGHT_COLOR_LAVA
 
 /obj/structure/cult/pylon
 	name = "Pylon"
-	desc = "A floating crystal that hums with an unearthly energy"
+	desc = "A floating crystal that hums with an unearthly energy."
 	icon_state = "pylon"
 	light_range = 1.5
 	light_color = LIGHT_COLOR_RED
 
 /obj/structure/cult/archives
 	name = "Desk"
-	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl"
+	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
 	icon_state = "archives"
 	light_range = 1.5
 	light_color = LIGHT_COLOR_FIRE

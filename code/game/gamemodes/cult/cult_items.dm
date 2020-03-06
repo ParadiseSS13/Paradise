@@ -100,7 +100,7 @@
 	name = "magus helm"
 	icon_state = "magus"
 	item_state = "magus"
-	desc = "A helm worn by the followers of Nar-Sie."
+	desc = "A helm worn by cultists."
 	flags = BLOCKHAIR
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
@@ -108,7 +108,7 @@
 
 /obj/item/clothing/suit/magusred
 	name = "magus robes"
-	desc = "A set of armored robes worn by the followers of Nar-Sie"
+	desc = "A set of armored robes worn by cultists."
 	icon_state = "magusred"
 	item_state = "magusred"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -391,7 +391,7 @@
 
 /obj/item/shield/mirror
 	name = "mirror shield"
-	desc = "An infamous shield used by Nar'Sien sects to confuse and disorient their enemies. Its edges are weighted for use as a throwing weapon - capable of disabling multiple foes with preternatural accuracy."
+	desc = "An infamous shield used by eldritch sects to confuse and disorient their enemies. Its edges are weighted for use as a throwing weapon - capable of disabling multiple foes with preternatural accuracy."
 	icon = 'icons/obj/cult.dmi'
 	icon_state = "mirror_shield"
 	item_state = "mirror_shield"
