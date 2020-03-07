@@ -325,6 +325,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/credits = 10
 
 /obj/item/coin/New()
+	..()
 	pixel_x = rand(0,16)-8
 	pixel_y = rand(0,8)-8
 

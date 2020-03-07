@@ -88,7 +88,7 @@
 	desc = "Robust black synthcotton vest with lots of pockets to hold whatever you need, but cannot hold in hands."
 	icon_state = "vest_black"
 	item_color = "vest_black"
-	slots = 5
+	slots = 3
 
 /obj/item/clothing/accessory/storage/brown_vest
 	name = "brown webbing vest"

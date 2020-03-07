@@ -51,8 +51,8 @@
 	if(colour == "mime")
 		name = "mime balloon."
 		desc = "..."
-		icon_state = "ballon_mime"
-		item_state = "ballon_mime"
+		icon_state = "balloon_mime"
+		item_state = "balloon_mime"
 		update_icon()
 	if(colour == "rainbow")
 		name = "clown balloon."
@@ -114,5 +114,5 @@
 /obj/item/toy/balloon_h/mime
 	name = "mime balloon."
 	desc = "..."
-	icon_state = "ballon_mime"
-	item_state = "ballon_mime"
+	icon_state = "balloon_mime"
+	item_state = "balloon_mime"

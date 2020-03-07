@@ -6,7 +6,11 @@
 
 /datum/reagent/medicine/on_mob_life(mob/living/M)
 	current_cycle++
-	holder.remove_reagent(id, (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio) //medicine reagents stay longer if you have a better metabolism
+	var/total_depletion_rate = (metabolization_rate / M.metabolism_efficiency) * M.digestion_ratio // Cache it
+
+	handle_addiction(M, total_depletion_rate)
+
+	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/medicine/hydrocodone
@@ -293,7 +297,9 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
 	overdose_threshold = 30
-	addiction_chance = 5
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 5
 	harmless = FALSE
 	taste_description = "health"
 
@@ -440,7 +446,9 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	metabolization_rate = 0.2
-	addiction_chance = 20
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "oxygenation"
 
@@ -462,7 +470,9 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
 	overdose_threshold = 35
-	addiction_chance = 25
+	addiction_chance = 1
+	addiction_chance = 10
+	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
 
@@ -512,7 +522,8 @@
 	description = "Anti-allergy medication. May cause drowsiness, do not operate heavy machinery while using this."
 	reagent_state = LIQUID
 	color = "#5BCBE1"
-	addiction_chance = 10
+	addiction_chance = 1
+	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "antihistamine"
 
@@ -535,7 +546,8 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 15
 	shock_reduction = 50
 	harmless = FALSE
 	taste_description = "a delightful numbing"
@@ -884,7 +896,9 @@
 	description = "This experimental plasma-based compound seems to regulate body temperature."
 	reagent_state = LIQUID
 	color = "#D782E6"
-	addiction_chance = 20
+	addiction_chance = 1
+	addiction_chance_additional = 10
+	addiction_threshold = 10
 	overdose_threshold = 50
 	taste_description = "warmth and stability"
 

@@ -207,6 +207,7 @@
 		/obj/item/wrench,
 		/obj/item/reagent_containers/spray/pestspray,
 		/obj/item/reagent_containers/spray/plantbgone,
+		/obj/item/melee/flyswatter,
 	)
 
 /obj/item/storage/belt/security
