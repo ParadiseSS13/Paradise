@@ -89672,11 +89672,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/engi_shuttle)
-"ddX" = (
-/obj/structure/lattice/catwalk,
-/obj/effect/spawner/window/reinforced,
-/turf/space,
-/area/maintenance/asmaint2)
 "ddZ" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/structure/cable{
@@ -96665,25 +96660,6 @@
 	icon_state = "wall3"
 	},
 /area/ship/tsf/longlost)
-"fIX" = (
-/obj/effect/decal/cleanable/blood,
-/mob/living/carbon/human/monkey,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/ship/tsf/longlost)
-"fOc" = (
-/obj/effect/decal/cleanable/blood,
-/obj/machinery/door/airlock/highsecurity{
-	locked = 1;
-	name = "TSF Discovery";
-	req_access_txt = "20"
-	},
-/obj/structure/barricade/wooden/crude,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/ship/tsf/longlost)
 "fPn" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
@@ -96702,6 +96678,16 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/dorms)
+"fWO" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Medical Sensor Computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "gcp" = (
 /obj/structure/sign/greencross,
 /turf/simulated/shuttle/wall{
@@ -96746,13 +96732,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
-"hhn" = (
-/obj/effect/decal/remains/human,
-/mob/living/carbon/human/monkey,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
-	},
-/area/ship/tsf/longlost)
 "hjx" = (
 /turf/simulated/shuttle/wall{
 	dir = 4;
@@ -96784,6 +96763,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/mixing)
+"hyx" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Shield System Computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "hGx" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer/atmos_alert,
@@ -96834,7 +96823,6 @@
 	name = "TSF Discovery";
 	req_access_txt = "20"
 	},
-/obj/structure/barricade/wooden/crude,
 /obj/docking_port/mobile{
 	dir = 2;
 	dwidth = 10;
@@ -96874,10 +96862,9 @@
 /area/ship/tsf/longlost)
 "isQ" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/vial,
 /obj/item/reagent_scanner/adv,
-/obj/structure/spawner/headcrab_old,
+/obj/structure/table/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97030,7 +97017,6 @@
 	name = "TSF Discovery";
 	req_access_txt = "20"
 	},
-/obj/structure/barricade/wooden/crude,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97067,6 +97053,16 @@
 /area/ship/tsf/longlost)
 "jJQ" = (
 /obj/structure/showcase/horrific_experiment,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"jOE" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Transit Computer"
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97117,6 +97113,16 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"lcu" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Telecoms Computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "leC" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -97186,6 +97192,7 @@
 	icon_state = "sink";
 	pixel_x = -12
 	},
+/obj/effect/mob_spawn/human/sol_gov_dead_default,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97253,6 +97260,16 @@
 /area/shuttle/mining)
 "mBe" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"mEu" = (
+/obj/effect/decal/cleanable/blood,
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken RnD Computer"
+	},
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97348,6 +97365,15 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
+"owE" = (
+/obj/machinery/computer{
+	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
+	name = "Broken Research Logs Computer"
+	},
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
 "oXt" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -97374,6 +97400,13 @@
 "pjt" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
+	},
+/area/ship/tsf/longlost)
+"poo" = (
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mob_spawn/human/sol_gov_dead_captain,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
 	},
 /area/ship/tsf/longlost)
 "pry" = (
@@ -97427,6 +97460,7 @@
 /obj/structure/lattice,
 /obj/structure/curtain/open,
 /obj/item/mounted/shower,
+/obj/structure/spawner/headcrab_old,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97474,9 +97508,9 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"qov" = (
+"qpP" = (
 /obj/effect/decal/cleanable/blood,
-/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+/obj/effect/mob_spawn/human/sol_gov_dead_default,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97608,7 +97642,6 @@
 	},
 /area/ship/tsf/longlost)
 "ssQ" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/access_button{
 	command = "cycle_exterior";
 	frequency = 1450;
@@ -97618,7 +97651,7 @@
 	pixel_y = 5;
 	req_access_txt = "13"
 	},
-/turf/space,
+/turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "svn" = (
 /obj/structure/bed,
@@ -97803,7 +97836,7 @@
 /area/crew_quarters/dorms)
 "vpk" = (
 /obj/item/book/manual/research_and_development,
-/obj/structure/table/glass,
+/obj/structure/table/reinforced,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -97874,6 +97907,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "wjJ" = (
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/ship/tsf/longlost)
+"wmN" = (
+/obj/effect/mob_spawn/human/sol_gov_dead_default,
 /turf/simulated/shuttle/floor{
 	icon_state = "floor4"
 	},
@@ -98081,12 +98120,6 @@
 /obj/item/mounted/mirror,
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
-	},
-/area/ship/tsf/longlost)
-"yhC" = (
-/mob/living/carbon/human/monkey,
-/turf/simulated/shuttle/floor{
-	icon_state = "floor4"
 	},
 /area/ship/tsf/longlost)
 "yit" = (
@@ -141762,7 +141795,7 @@ aaa
 qGf
 tGr
 wjJ
-yhC
+wjJ
 jGq
 wjJ
 pjt
@@ -142018,7 +142051,7 @@ aaa
 vxw
 pjt
 jjy
-wjJ
+wmN
 nxX
 nig
 eKD
@@ -143059,7 +143092,7 @@ eKD
 txM
 hjx
 eKD
-wjJ
+wmN
 pjt
 evG
 pjt
@@ -143305,7 +143338,7 @@ pjt
 eKD
 ecB
 pjt
-thM
+owE
 maL
 wjJ
 pjt
@@ -143319,7 +143352,7 @@ wjJ
 eKD
 pWh
 eKD
-ivZ
+hyx
 pjt
 wFs
 aaa
@@ -143552,7 +143585,7 @@ bZZ
 bZZ
 bZZ
 bZZ
-ddX
+bZZ
 jsp
 utU
 hIJ
@@ -143563,7 +143596,7 @@ wjJ
 gpw
 pjt
 vpk
-eKD
+qpP
 eKD
 pjt
 eKD
@@ -143577,7 +143610,7 @@ wjJ
 pjt
 eKD
 eKL
-ivZ
+fWO
 swz
 aaa
 aaa
@@ -143820,7 +143853,7 @@ eKD
 llx
 pjt
 isQ
-yhC
+wjJ
 eKD
 pjt
 wjJ
@@ -143830,11 +143863,11 @@ eKD
 uzu
 hjx
 lIr
-qov
+eKD
 fAT
 ehI
 ogY
-ivZ
+jOE
 swz
 aaa
 aaa
@@ -144066,8 +144099,8 @@ bZZ
 bZZ
 bZZ
 bZZ
-ddX
-fOc
+bZZ
+nYP
 eKD
 hIJ
 eKD
@@ -144086,12 +144119,12 @@ wxy
 wjJ
 uzu
 hjx
-ivZ
+mEu
 wjJ
 pjt
 eKD
 eKL
-ivZ
+lcu
 swz
 aaa
 aaa
@@ -144600,7 +144633,7 @@ mBe
 gOc
 vWT
 hjx
-eKD
+poo
 eKD
 pjt
 evG
@@ -145362,7 +145395,7 @@ wsb
 maL
 iid
 eKD
-fIX
+eKD
 wSo
 pjt
 wjJ
@@ -145617,7 +145650,7 @@ epg
 pjt
 rSa
 wjJ
-eKD
+qpP
 wjJ
 eKD
 jfq
@@ -145874,7 +145907,7 @@ aaa
 jXK
 pjt
 rwX
-hhn
+xBf
 eKD
 qyP
 pjt
