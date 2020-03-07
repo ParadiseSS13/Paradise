@@ -29,7 +29,7 @@
 		setDir(direction)
 
 	if(building)
-		set_pixel_offsets(30, -30, 30, -30)
+		set_pixel_offsets_from_dir(30, -30, 30, -30)
 
 /obj/machinery/defibrillator_mount/loaded/New() //loaded subtype for mapping use
 	..()

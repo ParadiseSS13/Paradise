@@ -215,7 +215,7 @@
 
 		buildstage = 0
 		wiresexposed = 1
-		set_pixel_offsets(-24, 24, -24, 24)
+		set_pixel_offsets_from_dir(-24, 24, -24, 24)
 		update_icon()
 		return
 

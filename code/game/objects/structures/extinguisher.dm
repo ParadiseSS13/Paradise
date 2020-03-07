@@ -21,7 +21,7 @@
 	..()
 	if(direction)
 		setDir(direction)
-		set_pixel_offsets(28, -28, 30, -30)
+		set_pixel_offsets_from_dir(28, -28, 30, -30)
 	switch(extinguishertype)
 		if(NO_EXTINGUISHER)
 			return
@@ -165,9 +165,8 @@
 	else
 		icon_state = "extinguisher_empty"
 
-/obj/structure/extinguisher_cabinet/empty/New(turf/loc, direction = null)
+/obj/structure/extinguisher_cabinet/empty
 	extinguishertype = NO_EXTINGUISHER
-	return ..()
 
 #undef NO_EXTINGUISHER
 #undef NORMAL_EXTINGUISHER

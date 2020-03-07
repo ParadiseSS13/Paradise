@@ -54,7 +54,7 @@
 	else
 		if(direction)
 			setDir(direction)
-			set_pixel_offsets(28, -28, 28, -28)
+			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat=1
 		on = 0
 	GLOB.global_intercoms.Add(src)
