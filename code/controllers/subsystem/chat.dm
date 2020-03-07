@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(chat)
 			C << output(payload[C], "browseroutput:output")
 			payload -= C
 		else
-			qdel(i)
+			payload -= i
 
 		if(MC_TICK_CHECK)
 			return
