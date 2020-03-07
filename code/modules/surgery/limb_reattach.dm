@@ -28,7 +28,7 @@
 	user.visible_message("[user] is beginning to amputate [target]'s [affected.name] with \the [tool]." , \
 	"You are beginning to cut through [target]'s [affected.amputation_point] with \the [tool].")
 	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
-	..()
+	return ..()
 
 /datum/surgery_step/limb/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -40,7 +40,7 @@
 	var/atom/movable/thing = affected.droplimb(1,DROPLIMB_SHARP)
 	if(istype(thing,/obj/item))
 		user.put_in_hands(thing)
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/limb/amputate/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -48,7 +48,7 @@
 	"<span class='warning'> Your hand slips, sawing through the bone in [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(30)
 	affected.fracture()
-	return FALSE
+	return SURGERY_FAILED
 
 /datum/surgery_step/limb/attach
 	name = "attach limb"
@@ -88,20 +88,21 @@
 	var/obj/item/organ/external/E = tool
 	user.visible_message("[user] starts attaching [E.name] to [target]'s [E.amputation_point].", \
 	"You start attaching [E.name] to [target]'s [E.amputation_point].")
+	return ..()
 
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = tool
 	user.visible_message("<span class='notice'>[user] has attached [target]'s [E.name] to the [E.amputation_point].</span>",	\
 	"<span class='notice'>You have attached [target]'s [E.name] to the [E.amputation_point].</span>")
 	attach_limb(user, target, E)
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = tool
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = 1)
-	return FALSE
+	return SURGERY_FAILED
 
 
 /datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E)
@@ -161,6 +162,7 @@
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("[user] starts connecting tendons and muscles in [target]'s [E.amputation_point] with [tool].", \
 	"You start connecting tendons and muscle in [target]'s [E.amputation_point].")
+	return ..()
 
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
@@ -169,14 +171,14 @@
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s [E.amputation_point]!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s [E.amputation_point]!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = 1)
-	return FALSE
+	return SURGERY_FAILED
 
 // Difference between this and attach robo limb is that this one uses obj/item/robot_parts
 /datum/surgery_step/limb/mechanize
@@ -199,8 +201,9 @@
 	var/obj/item/robot_parts/p = tool
 	if(!p.part || !(target_zone in p.part))
 		to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
-		return -1
+		return SURGERY_FAILED
 	user.visible_message("<span class='notice'>[user] starts attaching \the [tool] to [target].", "You start attaching \the [tool] to [target].</span>")
+	return ..()
 
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/robot_parts/L = tool
@@ -229,10 +232,10 @@
 
 	qdel(tool)
 
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='alert'>[user]'s hand slips, damaging [target]'s flesh!</span>", \
 	"<span class='alert'>Your hand slips, damaging [target]'s flesh!</span>")
 	target.apply_damage(10, BRUTE, null, sharp = 1)
-	return FALSE
+	return SURGERY_FAILED

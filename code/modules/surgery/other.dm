@@ -19,10 +19,10 @@
 /datum/surgery_step/generic/cut_open/cut_further/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/dead_flesh = (affected.status & ORGAN_DEAD)
-	user.visible_message("[user] starts cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool]." , \
-	"You start cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].")
+	user.visible_message("<span class='notice'>[user] starts cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>" , \
+	"<span class='notice'>You start cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>")
 	target.custom_pain("The pain in [affected.name] is unbearable!")
-	..()
+	return ..()
 
 /datum/surgery_step/generic/cut_open/cut_further/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -31,7 +31,7 @@
 		"<span class='notice'> You have cut away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>")
 	affected.open = 3
 
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/generic/cut_open/cut_further/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -39,7 +39,7 @@
 	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(20)
 
-	return FALSE
+	return SURGERY_FAILED
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
@@ -63,10 +63,10 @@
 
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool]." , \
-	"You start patching the damaged vein in [target]'s [affected.name] with \the [tool].")
+	user.visible_message("<span class='notice'>[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool].</span>" , \
+	"<span class='notice'>You start patching the damaged vein in [target]'s [affected.name] with \the [tool].</span>")
 	target.custom_pain("The pain in [affected.name] is unbearable!")
-	..()
+	return ..()
 
 /datum/surgery_step/fix_vein/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -78,7 +78,7 @@
 		var/mob/living/carbon/human/U = user
 		U.bloody_hands(target, 0)
 
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/fix_vein/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -86,7 +86,7 @@
 	"<span class='warning'> Your hand slips, smearing [tool] in the incision in [target]'s [affected.name]!</span>")
 	affected.receive_damage(5, 0)
 
-	return FALSE
+	return SURGERY_FAILED
 
 /datum/surgery_step/treat_necrosis
 	name = "treat necrosis"
@@ -108,8 +108,8 @@
 
 	var/obj/item/reagent_containers/container = tool
 	if(!container.reagents.has_reagent("mitocholide"))
-		user.visible_message("[user] looks at \the [tool] and ponders." , \
-		"You are not sure if \the [tool] contains mitocholide to treat the necrosis.")
+		user.visible_message("<span class='notice'>[user] looks at \the [tool] and ponders.</span>" , \
+		"<span class='notice'>You are not sure if \the [tool] contains mitocholide to treat the necrosis.</span>")
 		return FALSE
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -119,16 +119,16 @@
 
 /datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	user.visible_message("[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]." , \
-	"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].")
+	user.visible_message("<span class='notice'>[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].</span>" , \
+	"<span class='notice'>You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].</span>")
 	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
-	..()
+	return ..()
 
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/reagent_containers))
-		return FALSE
+		return SURGERY_FAILED
 
 	var/obj/item/reagent_containers/container = tool
 	var/has_mitocholide = FALSE
@@ -148,13 +148,13 @@
 		user.visible_message("<span class='notice'> [user] applies [trans] units of the solution to affected tissue in [target]'s [affected.name]</span>", \
 			"<span class='notice'> You apply [trans] units of the solution to affected tissue in [target]'s [affected.name] with \the [tool].</span>")
 
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/treat_necrosis/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!istype(tool, /obj/item/reagent_containers))
-		return
+		return SURGERY_FAILED
 
 	var/obj/item/reagent_containers/container = tool
 
@@ -164,6 +164,7 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>" , \
 	"<span class='warning'> Your hand slips, applying [trans] units of the solution to the wrong place in [target]'s [affected.name] with the [tool]!</span>")
 
+	return SURGERY_FAILED
 	//no damage or anything, just wastes medicine
 
 
@@ -195,9 +196,9 @@
 
 /datum/surgery_step/internal/dethrall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/braincase = target.named_organ_parent("brain")
-	user.visible_message("[user] reaches into [target]'s head with [tool].", "<span class='notice'>You begin aligning [tool]'s light to the tumor on [target]'s brain...</span>")
+	user.visible_message("<span class='notice'>[user] reaches into [target]'s head with [tool].</span>", "<span class='notice'>You begin aligning [tool]'s light to the tumor on [target]'s brain...</span>")
 	to_chat(target, "<span class='boldannounce'>A small part of your [braincase] pulses with agony as the light impacts it.</span>")
-	..()
+	return ..()
 
 /datum/surgery_step/internal/dethrall/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(isshadowlinglesser(target)) //Empowered thralls cannot be deconverted
@@ -218,10 +219,10 @@
 			S.Weaken(8)
 			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
-		return FALSE
+		return SURGERY_FAILED
 	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
 	var/obj/item/organ/external/E = target.get_organ(check_zone(B.parent_organ))
-	user.visible_message("[user] shines light onto the tumor in [target]'s [E]!", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
+	user.visible_message("<span class='notice'>[user] shines light onto the tumor in [target]'s [E]!</span>", "<span class='notice'>You cleanse the contamination from [target]'s brain!</span>")
 	if(target.vision_type) //Turns off their darksight if it's still active.
 		to_chat(target, "<span class='boldannounce'>Your eyes are suddenly wrought with immense pain as your darksight is forcibly dismissed!</span>")
 		target.vision_type = null
@@ -230,4 +231,4 @@
 	var/obj/item/organ/thing = new /obj/item/organ/internal/shadowtumor(get_turf(target))
 	thing.set_dna(target.dna)
 	user.put_in_hands(thing)
-	return TRUE
+	return SURGERY_SUCCESS

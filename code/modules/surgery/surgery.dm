@@ -2,9 +2,8 @@
 /datum/surgery
 	var/current_stage = SURGERY_STAGE_START
 	var/step_in_progress = FALSE
-	var/list/in_progress = list()									//Actively performing a Surgery
-	var/location = "chest"										//Surgery location
-	var/obj/item/organ/organ_ref									//Operable body part
+	var/list/in_progress = list()				//Actively performing a Surgery
+	var/location = "chest"						//Surgery location
 	var/list/surgery_steps_history = list()
 
 /datum/surgery/proc/next_step(mob/living/user, mob/living/carbon/target, obj/item/tool)
@@ -27,7 +26,7 @@
 			S = new S.type() // Make a new step. Don't fuck this one up
 			step_in_progress = TRUE
 			result = S.try_op(user, target, location, tool, src)
-			if(result)
+			if(result == SURGERY_SUCCESS)
 				if(S.next_surgery_stage != SURGERY_STAGE_SAME)
 					current_stage = S.next_surgery_stage
 				surgery_steps_history += current_stage // Add it to the history
@@ -101,7 +100,7 @@
 	var/success = FALSE
 	
 	if(target_zone != surgery.location || (!(SURGERY_STAGE_ALWAYS in surgery_start_stage) && !(surgery.current_stage in surgery_start_stage)) || !can_operate(target)) // No distance check. Not needed
-		return FALSE
+		return SURGERY_FAILED
 	var/tool_path_key = null
 	if(tool)
 		tool_path_key = get_path_key_from_tool(tool)
@@ -112,22 +111,21 @@
 
 	if(success)
 		return initiate(user, target, target_zone, tool, surgery, tool_path_key)
-	return FALSE
+	return SURGERY_FAILED
 
 /datum/surgery_step/proc/initiate(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery, tool_path_key)
 	if(!can_use(user, target, target_zone, tool, surgery))
-		return
+		return SURGERY_FAILED
 
 	var/speed_mod = 1
 
-	if(begin_step(user, target, target_zone, tool, surgery) == -1)
-		return
+	if(begin_step(user, target, target_zone, tool, surgery) == SURGERY_FAILED)
+		return SURGERY_FAILED
 
 	if(tool)
 		speed_mod = tool.toolspeed
-
+	. = SURGERY_FAILED
 	if(do_after(user, time * speed_mod, target = target))
-		var/advance = FALSE
 		var/prob_chance = 100
 		if(tool && allowed_surgery_tools)
 			if(!tool_path_key) // tools path ain't in the allowed tools.
@@ -144,11 +142,9 @@
 				prob_chance *= get_pain_modifier(H)//operating on conscious people is hard.
 
 		if(prob(prob_chance) || isrobot(user))
-			advance = end_step(user, target, target_zone, tool, surgery)
+			. = end_step(user, target, target_zone, tool, surgery)
 		else
-			advance = fail_step(user, target, target_zone, tool, surgery)
-		
-		return advance
+			. = fail_step(user, target, target_zone, tool, surgery)
 
 /datum/surgery_step/proc/get_path_key_from_tool(obj/item/tool)
 	for(var/path in allowed_surgery_tools)
@@ -193,21 +189,21 @@
 		var/obj/item/organ/external/affected = target.get_organ(target_zone)
 		if(can_infect && affected)
 			spread_germs_to_organ(affected, user, tool)
-	if(ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
+	if(blood_level && ishuman(user) && !(istype(target,/mob/living/carbon/alien)) && prob(60))
 		var/mob/living/carbon/human/H = user
 		if(blood_level)
 			H.bloody_hands(target,0)
 		if(blood_level > 1)
 			H.bloody_body(target,0)
-	return
+	return SURGERY_SUCCESS
 
 // does stuff to end the step, which is normally print a message + do whatever this step changes
 /datum/surgery_step/proc/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return
+	return SURGERY_SUCCESS
 
 // stuff that happens when the step fails
 /datum/surgery_step/proc/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	return null
+	return SURGERY_FAILED
 
 /proc/spread_germs_to_organ(obj/item/organ/E, mob/living/carbon/human/user, obj/item/tool)
 	if(!istype(user) || !istype(E) || E.is_robotic() || E.sterile)

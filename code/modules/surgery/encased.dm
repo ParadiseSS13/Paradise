@@ -33,7 +33,7 @@
 	user.visible_message("[user] begins to cut through [target]'s [affected.encased] with \the [tool].", \
 	"You begin to cut through [target]'s [affected.encased] with \the [tool].")
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
-	..()
+	return ..()
 
 /datum/surgery_step/open_encased/saw/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -42,7 +42,7 @@
 	"<span class='notice'> You have cut [target]'s [affected.encased] open with \the [tool].</span>")
 	affected.open = 2.5
 	affected.fracture(TRUE, "bones sawn")
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/open_encased/saw/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -53,7 +53,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return FALSE
+	return SURGERY_FAILED
 
 
 /datum/surgery_step/open_encased/retract
@@ -70,7 +70,7 @@
 	var/self_msg = "You start to force open the [affected.encased] in [target]'s [affected.name] with \the [tool]."
 	user.visible_message(msg, self_msg)
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
-	..()
+	return ..()
 
 /datum/surgery_step/open_encased/retract/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -81,7 +81,7 @@
 
 	affected.open = 3
 
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/open_encased/retract/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -93,7 +93,7 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return FALSE
+	return SURGERY_FAILED
 
 /datum/surgery_step/open_encased/close
 	name = "unretract bone" //i suck at names okay? give me a new one
@@ -110,7 +110,7 @@
 	var/self_msg = "You start bending [target]'s [affected.encased] back into place with \the [tool]."
 	user.visible_message(msg, self_msg)
 	target.custom_pain("Something hurts horribly in your [affected.name]!")
-	..()
+	return ..()
 
 /datum/surgery_step/open_encased/close/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -121,7 +121,7 @@
 
 	affected.open = 2.5
 
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/open_encased/close/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -133,4 +133,4 @@
 	affected.receive_damage(20)
 	affected.fracture()
 
-	return FALSE
+	return SURGERY_FAILED

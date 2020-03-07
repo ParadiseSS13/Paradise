@@ -30,7 +30,7 @@
 	user.visible_message("<span class='warning'> [user]'s hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, scraping around inside [target]'s [affected.name] with \the [tool]!</span>")
 	affected.receive_damage(20)
-
+	return SURGERY_FAILED
 
 /datum/surgery_step/cavity/make_space
 	name = "make cavity space"
@@ -44,14 +44,14 @@
 	user.visible_message("[user] starts making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].", \
 	"You start making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]." )
 	target.custom_pain("The pain in your chest is living hell!")
-	..()
+	return ..()
 
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] makes some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>", \
 	"<span class='notice'> You make some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].</span>" )
 
-	return TRUE
+	return SURGERY_SUCCESS
 
 
 /datum/surgery_step/cavity/close_space
@@ -66,7 +66,7 @@
 	user.visible_message("[user] starts mending [target]'s [get_cavity(affected)] cavity wall with \the [tool].", \
 	"You start mending [target]'s [get_cavity(affected)] cavity wall with \the [tool]." )
 	target.custom_pain("The pain in your chest is living hell!")
-	..()
+	return ..()
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
@@ -74,8 +74,7 @@
 	user.visible_message("<span class='notice'> [user] mends [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>", \
 	"<span class='notice'> You mend [target]'s [get_cavity(affected)] cavity walls with \the [tool].</span>" )
 
-	return TRUE
-
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/cavity/place_item
 	name = "implant/extract object"
@@ -118,32 +117,31 @@
 		user.visible_message("[user] checks for items in [target]'s [target_zone].", "<span class='notice'>You check for items in [target]'s [target_zone]...</span>")
 
 	target.custom_pain("The pain in your [target_zone] is living hell!")
-	..()
+	return ..()
 
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 
 	if(istype(tool, /obj/item/disk/nuclear))
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone.</span>")
-		return FALSE //fail
+		return SURGERY_FAILED
 
 	var/obj/item/disk/nuclear/datdisk = locate() in tool
 	if(datdisk)
 		to_chat(user, "<span class='warning'>Central command would kill you if you implanted the disk into someone. Even if in a box. Especially in a box.</span>")
-		return FALSE //fail
+		return SURGERY_FAILED
 
 	if(istype(tool,/obj/item/organ))
 		to_chat(user, "<span class='warning'>This isn't the type of surgery for organ transplants!</span>")
-		return FALSE//fail
+		return SURGERY_FAILED
 
 	if(!user.canUnEquip(tool, 0))
 		to_chat(user, "<span class='warning'>[tool] is stuck to your hand, you can't put it in [target]!</span>")
-		return FALSE
+		return SURGERY_FAILED
 
 	if(tool)
 		if(IC)
 			to_chat(user, "<span class='notice'>There seems to be something in there already!</span>")
-			return TRUE
 		else
 			user.visible_message("<span class='notice'> [user] puts \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>", \
 			"<span class='notice'> You put \the [tool] inside [target]'s [get_cavity(affected)] cavity.</span>" )
@@ -154,13 +152,12 @@
 			user.drop_item()
 			affected.hidden = tool
 			tool.forceMove(affected)
-			return TRUE
 	else
 		if(IC)
 			user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", "<span class='notice'>You pull [IC] out of [target]'s [target_zone].</span>")
 			user.put_in_hands(IC)
 			affected.hidden = null
-			return FALSE
 		else
 			to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone].</span>")
-			return FALSE
+
+	return SURGERY_SUCCESS

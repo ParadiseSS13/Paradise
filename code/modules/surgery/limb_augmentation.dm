@@ -32,8 +32,9 @@
 	var/obj/item/robot_parts/p = tool
 	if(!p.part || !(target_zone in p.part))
 		to_chat(user, "<span class='warning'>\The [tool] does not go there!</span>")
-		return -1
+		return SURGERY_FAILED
 	user.visible_message("[user] starts augmenting [affected] with [tool].", "You start augmenting [affected] with [tool].")
+	return ..()
 
 /datum/surgery_step/augment/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/robot_parts/L = tool
@@ -57,4 +58,4 @@
 
 	affected.open = 0
 	affected.germ_level = 0
-	return TRUE
+	return SURGERY_SUCCESS

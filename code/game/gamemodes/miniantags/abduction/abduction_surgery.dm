@@ -26,23 +26,23 @@
 			break
 	if(!foundHeart)
 		to_chat(user, "<span class='warning'>You can't seem to find an organ that functions like a heart in [target].</span>")
-		return -1
+		return SURGERY_FAILED
 	user.visible_message("<span class='warning'>[user] starts to remove [target]'s organs.</span>", "<span class='notice'>You start to remove [target]'s organs...</span>")
-	..()
+	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/abduct/extract_organ/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(foundHeart)
 		user.visible_message("<span class='warning'>[user] pulls [foundHeart] out of [target]'s [target_zone]!</span>", "<span class='notice'>You pull [foundHeart] out of [target]'s [target_zone].</span>")
 		user.put_in_hands(foundHeart)
 		foundHeart.remove(target, special = TRUE)
-		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You don't find anything in [target]'s [target_zone]!</span>")
-		return TRUE
+
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/internal/manipulate_organs/abduct/extract_organ/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='warning'>[user]'s hand slips, failing to extract anything!</span>", "<span class='warning'>Your hand slips, failing to extract anything!</span>")
-	return FALSE
+	return SURGERY_FAILED
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert
 	name = "insert gland"
@@ -58,10 +58,10 @@
 		// Allows for multiple subtypes of heart.
 		if(istype(I, /obj/item/organ/internal/heart))
 			to_chat(user, "<span class='warning'>Remove the original heart first!</span>")
-			return -1
+			return SURGERY_FAILED
 	
 	user.visible_message("<span class ='notice'>[user] starts to insert [tool] into [target].</span>", "<span class ='notice'>You start to insert [tool] into [target]...</span>")
-	..()
+	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class ='notice'>[user] inserts [tool] into [target].</span>", "<span class ='notice'>You insert [tool] into [target].</span>")
@@ -76,8 +76,8 @@
 			V.cure()
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	affected.mend_fracture() // Aylmao tech baby
-	return TRUE
+	return SURGERY_SUCCESS
 
 /datum/surgery_step/internal/manipulate_organs/abduct/gland_insert/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message("<span class='warning'>[user]'s hand slips, failing to insert the gland!</span>", "<span class='warning'>Your hand slips, failing to insert the gland!</span>")
-	return FALSE
+	return SURGERY_FAILED

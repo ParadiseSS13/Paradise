@@ -1,4 +1,7 @@
-#define SURGERY_CONTINUE 2 // Return value where a surgery step will be repeated after it's done
+#define SURGERY_FAILED			0
+#define SURGERY_SUCCESS			1
+#define SURGERY_CONTINUE		2 	// Return value where a surgery step will be repeated after it's done
+
 // Start of all surgeries
 #define SURGERY_STAGE_START					"start"
 #define SURGERY_STAGE_ALWAYS				"always" 	// Can always be used

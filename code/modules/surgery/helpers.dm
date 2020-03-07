@@ -3,19 +3,12 @@
 		var/selected_zone = user.zone_selected
 
 		if(can_operate(M))
-			var/mob/living/carbon/human/H
-			var/obj/item/organ/external/affecting
-			if(ishuman(M))
-				H = M
-				affecting = H.get_organ(check_zone(selected_zone))
-			
 			for(var/datum/surgery/S in M.surgeries)
 				if(S.location == selected_zone)
 					return S
 
 			var/datum/surgery/new_surgery = new()
 			new_surgery.location = selected_zone
-			new_surgery.organ_ref = affecting
 			M.surgeries += new_surgery
 
 			return new_surgery
