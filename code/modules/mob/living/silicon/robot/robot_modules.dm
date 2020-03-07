@@ -27,10 +27,9 @@
 	..()
 
 
-/obj/item/robot_module/New(loc, should_have_flash = TRUE)
+/obj/item/robot_module/New()
 	..()
-	if(should_have_flash)
-		modules += new /obj/item/flash/cyborg(src)
+	add_default_robot_items()
 	emag = new /obj/item/toy/sword(src)
 	emag.name = "Placeholder Emag Item"
 
@@ -38,6 +37,10 @@
 	QDEL_LIST(modules)
 	QDEL_NULL(emag)
 	return ..()
+
+// By default, all robots will get the items in this proc, unless you override it for you specific module. See: ../robot_module/drone
+/obj/item/robot_module/proc/add_default_robot_items()
+	modules += new /obj/item/flash/cyborg(src)
 
 /obj/item/robot_module/proc/fix_modules()
 	for(var/obj/item/I in modules)
@@ -540,7 +543,7 @@
 		/obj/item/stack/cable_coil/cyborg = 30
 		)
 
-/obj/item/robot_module/drone/New(loc, should_have_flash = FALSE)
+/obj/item/robot_module/drone/New()
 	..()
 	modules += new /obj/item/weldingtool/largetank/cyborg(src)
 	modules += new /obj/item/screwdriver/cyborg(src)
@@ -562,6 +565,9 @@
 		modules += W
 
 	fix_modules()
+
+/obj/item/robot_module/drone/add_default_robot_items()
+	return
 
 /obj/item/robot_module/drone/respawn_consumable(mob/living/silicon/robot/R)
 	var/obj/item/reagent_containers/spray/cleaner/C = locate() in modules
