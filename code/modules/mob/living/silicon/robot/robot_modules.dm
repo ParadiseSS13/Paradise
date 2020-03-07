@@ -38,7 +38,7 @@
 	QDEL_NULL(emag)
 	return ..()
 
-// By default, all robots will get the items in this proc, unless you override it for you specific module. See: ../robot_module/drone
+// By default, all robots will get the items in this proc, unless you override it for your specific module. See: ../robot_module/drone
 /obj/item/robot_module/proc/add_default_robot_items()
 	modules += new /obj/item/flash/cyborg(src)
 
