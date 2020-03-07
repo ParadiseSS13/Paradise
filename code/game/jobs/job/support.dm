@@ -218,7 +218,7 @@
 		/obj/item/kitchen/knife/combat/survival=1,
 		/obj/item/mining_voucher=1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		/obj/item/gun/energy/kinetic_accelerator=1,\
+///	/obj/item/gun/energy/kinetic_accelerator=1,\  //Genera Runtime Error al dar un KA a un muerto en Ruina.
 		/obj/item/stack/marker_beacon/ten=1
 	)
 
