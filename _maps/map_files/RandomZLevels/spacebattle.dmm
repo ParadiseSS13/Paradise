@@ -2599,7 +2599,7 @@
 /obj/effect/mob_spawn/human/engineer{
 	name = "Cyrion"
 	},
-/obj/item/flamethrower/full,
+/obj/item/flamethrower/basic/full,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)

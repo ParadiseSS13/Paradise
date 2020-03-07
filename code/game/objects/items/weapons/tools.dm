@@ -586,7 +586,7 @@
 	if(!status)
 		var/obj/item/stack/rods/R = I
 		if(R.use(1))
-			var/obj/item/flamethrower/F = new /obj/item/flamethrower(user.loc)
+			var/obj/item/flamethrower/basic/F = new /obj/item/flamethrower/basic(user.loc)
 			if(!remove_item_from_storage(F))
 				user.unEquip(src)
 				loc = F

@@ -137,7 +137,7 @@
 
 /datum/crafting_recipe/flamethrower
 	name = "Flamethrower"
-	result = /obj/item/flamethrower
+	result = /obj/item/flamethrower/basic
 	reqs = list(/obj/item/weldingtool = 1,
 				/obj/item/assembly/igniter = 1,
 				/obj/item/stack/rods = 1)

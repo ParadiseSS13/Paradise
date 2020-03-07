@@ -100,7 +100,7 @@ obj/item/tank/oxygen/empty/New()
 
 	if(istype(W, /obj/item/flamethrower))
 		var/obj/item/flamethrower/F = W
-		if((!F.status)||(F.ptank))	return
+		if((!F.lit)||(F.ptank))	return
 		master = F
 		F.ptank = src
 		user.unEquip(src)

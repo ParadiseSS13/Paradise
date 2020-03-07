@@ -432,7 +432,7 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 
 /datum/supply_packs/security/armory/eweapons
 	name = "Incendiary Weapons Crate"
-	contains = list(/obj/item/flamethrower/full,
+	contains = list(/obj/item/flamethrower/basic/full,
 					/obj/item/tank/plasma,
 					/obj/item/tank/plasma,
 					/obj/item/tank/plasma,
