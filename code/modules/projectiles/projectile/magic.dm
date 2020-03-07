@@ -263,7 +263,7 @@
 				return
 
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
-		new_mob.attack_log = M.attack_log
+		new_mob.attack_log_old = M.attack_log_old
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)

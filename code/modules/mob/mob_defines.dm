@@ -33,7 +33,7 @@
 	var/computer_id = null
 	var/lastattacker = null
 	var/lastattacked = null
-	var/list/attack_log = list( )
+	var/list/attack_log_old = list( )
 	var/list/debug_log = null
 	var/last_log = 0
 	var/obj/machinery/machine = null
