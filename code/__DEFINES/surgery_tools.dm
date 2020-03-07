@@ -1,3 +1,6 @@
+// Order of the tools matters. The most specific path should go first. 
+// /obj/item/stack/medical/bruise_pack/advanced should go before /obj/item/stack/medical/bruise_pack
+
 #define SURGERY_TOOLS_INCISION list(/obj/item/scalpel = 100,		\
 									/obj/item/kitchen/knife = 90,	\
 									/obj/item/shard = 60, 		\
@@ -59,7 +62,7 @@
 
 #define SURGERY_TOOLS_EXTRACT_ORGAN	list(/obj/item/hemostat = 100, /obj/item/kitchen/utensil/fork = 70)
 
-#define SURGERY_TOOLS_HEAL_ORGAN	list(/obj/item/stack/medical/bruise_pack = 20, /obj/item/stack/medical/bruise_pack/advanced = 100, /obj/item/stack/nanopaste = 100)
+#define SURGERY_TOOLS_HEAL_ORGAN	list(/obj/item/stack/medical/bruise_pack/advanced = 100, /obj/item/stack/medical/bruise_pack = 20, /obj/item/stack/nanopaste = 100)
 
 #define SURGERY_TOOLS_CLEAN_ORGAN	list(/obj/item/reagent_containers/dropper = 100, \
 										/obj/item/reagent_containers/syringe = 100, \
