@@ -295,7 +295,7 @@ a {
 		return FALSE
 	if(I.tool_behaviour != TOOL_WRENCH)
 		return FALSE
-	if(!I.tool_use_check(user, 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return FALSE
 	if(!(flags & NODECONSTRUCT))
 		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")

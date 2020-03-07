@@ -148,10 +148,8 @@
 			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
 			LoseTarget()
 
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
+/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_movement()
 	. = ..()
-	if(!.)
-		return
 	if(!istype(depotarea))
 		return
 	if(seen_enemy)
@@ -185,10 +183,6 @@
 			pointed(body)
 	else
 		scan_cycles++
-
-/mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/AIShouldSleep(var/list/possible_targets)
-	FindTarget(possible_targets, 1)
-	return FALSE
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/proc/raise_alert(var/reason)
 	if(istype(depotarea) && (!raised_alert || seen_revived_enemy) && !depotarea.used_self_destruct)

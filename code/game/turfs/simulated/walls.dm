@@ -250,7 +250,7 @@
 
 	var/turf/simulated/floor/F = src
 	F.burn_tile()
-	F.icon_state = "plating"
+	F.icon_state = "wall_thermite"
 	if(user)
 		to_chat(user, "<span class='warning'>The thermite starts melting through the wall.</span>")
 
@@ -329,9 +329,6 @@
 
 /turf/simulated/wall/welder_act(mob/user, obj/item/I)
 	. = TRUE
-	if(thermite && I.use_tool(src, user, volume = I.tool_volume))
-		thermitemelt(user)
-		return
 	if(rotting)
 		if(I.use_tool(src, user, volume = I.tool_volume))
 			for(var/obj/effect/overlay/wall_rot/WR in src)

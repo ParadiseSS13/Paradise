@@ -323,7 +323,7 @@
 
 		valid_species += current_species_name
 
-	return sortTim(valid_species, /proc/cmp_text_asc)
+	return valid_species
 
 /mob/living/carbon/human/proc/generate_valid_hairstyles()
 	var/list/valid_hairstyles = new()
@@ -351,7 +351,7 @@
 			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
 				valid_hairstyles += hairstyle
 
-	return sortTim(valid_hairstyles, /proc/cmp_text_asc)
+	return valid_hairstyles
 
 /mob/living/carbon/human/proc/generate_valid_facial_hairstyles()
 	var/list/valid_facial_hairstyles = new()
@@ -380,7 +380,7 @@
 			if(H.dna.species.name in S.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 				valid_facial_hairstyles += facialhairstyle
 
-	return sortTim(valid_facial_hairstyles, /proc/cmp_text_asc)
+	return valid_facial_hairstyles
 
 /mob/living/carbon/human/proc/generate_valid_head_accessories()
 	var/list/valid_head_accessories = new()
@@ -395,7 +395,7 @@
 			continue
 		valid_head_accessories += head_accessory
 
-	return sortTim(valid_head_accessories, /proc/cmp_text_asc)
+	return valid_head_accessories
 
 /mob/living/carbon/human/proc/generate_valid_markings(var/location = "body")
 	var/list/valid_markings = new()
@@ -433,7 +433,7 @@
 					continue
 		valid_markings += marking
 
-	return sortTim(valid_markings, /proc/cmp_text_asc)
+	return valid_markings
 
 /mob/living/carbon/human/proc/generate_valid_body_accessories()
 	var/list/valid_body_accessories = new()
@@ -448,7 +448,7 @@
 			if(dna.species.name in A.allowed_species) //If the user is not of a species the body accessory style allows, skip it. Otherwise, add it to the list.
 				valid_body_accessories += B
 
-	return sortTim(valid_body_accessories, /proc/cmp_text_asc)
+	return valid_body_accessories
 
 /mob/living/carbon/human/proc/generate_valid_alt_heads()
 	var/list/valid_alt_heads = list()
@@ -463,7 +463,7 @@
 
 		valid_alt_heads += alternate_head
 
-	return sortTim(valid_alt_heads, /proc/cmp_text_asc)
+	return valid_alt_heads
 
 /mob/living/carbon/human/proc/scramble_appearance()
 	scramble(1, src, 100)

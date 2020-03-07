@@ -89,8 +89,7 @@
 
 /datum/personal_crafting/proc/get_surroundings(mob/user)
 	. = list()
-	.["other"] = list() //paths go in here
-	.["toolsother"] = list() // items go in here
+	.["other"] = list()
 	for(var/obj/item/I in get_environment(user))
 		if(I.flags_2 & HOLOGRAM_2)
 			continue
@@ -103,24 +102,22 @@
 				if(RC.is_drainable())
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
 						.["other"][A.type] += A.volume
-			.["other"][I.type] += 1 
-		.["toolsother"][I] += 1
+			.["other"][I.type] += 1
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.tools.len) //does not run if no tools are needed
+	if(!R.tools.len)
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
-	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
+	for(var/obj/item/I in user.contents)
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
-				if(SI.tool_behaviour) //filters for tool behaviours
+				if(SI.tool_behaviour) //Only add things that we could actually use as a tool
 					possible_tools += SI
 		if(I.tool_behaviour)
 			possible_tools += I
-
-	possible_tools |= contents["toolsother"] // this add contents to possible_tools
-	main_loop: // checks if all tools found are usable with the recipe
+	possible_tools |= contents["other"]
+	main_loop:
 		for(var/A in R.tools)
 			for(var/obj/item/I in possible_tools)
 				if(A == I.tool_behaviour)
@@ -132,49 +129,26 @@
 			return FALSE
 	return TRUE
 
-/datum/personal_crafting/proc/check_pathtools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.pathtools.len) //does not run if no tools are needed
-		return TRUE
-	var/list/other_possible_tools = list() 
-	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
-			for(var/obj/item/SI in I.contents)
-				other_possible_tools += SI.type	// filters type paths
-		other_possible_tools += I.type
-	
-	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
-	main_loop: // checks if all tools found are usable with the recipe
-		for(var/A in R.pathtools)
-			for(var/I in other_possible_tools)
-				if(ispath(I,A))
-					continue main_loop
-			return FALSE
-	return TRUE
-
-/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R) 
+/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(user)
 	var/send_feedback = 1
 	if(check_contents(R, contents))
 		if(check_tools(user, R, contents))
-			if(check_pathtools(user, R, contents))
-				if(do_after(user, R.time, target = user))
-					contents = get_surroundings(user)
-					if(!check_contents(R, contents))
-						return ", missing component."
-					if(!check_tools(user, R, contents))
-						return ", missing tool."
-					if(!check_pathtools(user, R, contents))
-						return ", missing tool."
-					var/list/parts = del_reqs(R, user)
-					var/atom/movable/I = new R.result (get_turf(user.loc))
-					I.CheckParts(parts, R)
-					if(isitem(I))
-						user.put_in_hands(I)
-					if(send_feedback)
-						feedback_add_details("object_crafted","[I.type]")
-					return 0
-				return "."
-			return ", missing tool."
+			if(do_after(user, R.time, target = user))
+				contents = get_surroundings(user)
+				if(!check_contents(R, contents))
+					return ", missing component."
+				if(!check_tools(user, R, contents))
+					return ", missing tool."
+				var/list/parts = del_reqs(R, user)
+				var/atom/movable/I = new R.result (get_turf(user.loc))
+				I.CheckParts(parts, R)
+				if(isitem(I))
+					user.put_in_hands(I)
+				if(send_feedback)
+					feedback_add_details("object_crafted","[I.type]")
+				return 0
+			return "."
 		return ", missing tool."
 	return ", missing component."
 
@@ -439,15 +413,12 @@
 	catalyst_text = replacetext(catalyst_text, ",", "", -1)
 	data["catalyst_text"] = catalyst_text
 
-	for(var/a in R.pathtools)
+	for(var/a in R.tools)
 		if(ispath(a, /obj/item))
 			var/obj/item/b = a
 			tool_text += " [initial(b.name)],"
 		else
 			tool_text += " [a],"
-	for(var/a in R.tools)
-		var/b = a
-		tool_text += " [b],"
 	tool_text = replacetext(tool_text, ",", "", -1)
 	data["tool_text"] = tool_text
 

@@ -307,12 +307,13 @@
 
 /obj/machinery/vending/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
-	if(I.use_tool(src, user, 0, volume = 0))
-		wires.Interact(user)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	wires.Interact(user)
 
 /obj/machinery/vending/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = 0))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	default_unfasten_wrench(user, I, time = 60)
 

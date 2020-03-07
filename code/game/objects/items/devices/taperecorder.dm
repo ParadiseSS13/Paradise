@@ -15,14 +15,11 @@
 	var/obj/item/tape/mytape
 	var/open_panel = 0
 	var/canprint = 1
-	var/starts_with_tape = TRUE
 
 
 /obj/item/taperecorder/New()
-	..()
-	if(starts_with_tape)
-		mytape = new /obj/item/tape/random(src)
-		update_icon()
+	mytape = new /obj/item/tape/random(src)
+	update_icon()
 
 /obj/item/taperecorder/Destroy()
 	QDEL_NULL(mytape)
@@ -246,8 +243,8 @@
 	canprint = 1
 
 //empty tape recorders
-/obj/item/taperecorder/empty
-	starts_with_tape = FALSE
+/obj/item/taperecorder/empty/New()
+	return
 
 
 /obj/item/tape
@@ -320,5 +317,4 @@
 
 //Random colour tapes
 /obj/item/tape/random/New()
-	..()
 	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"

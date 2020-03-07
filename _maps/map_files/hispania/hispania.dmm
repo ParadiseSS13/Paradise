@@ -6618,8 +6618,9 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "alH" = (
-/obj/machinery/vending/walldrobe/hos{
-	pixel_x = 28
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9203,13 +9204,9 @@
 	pixel_x = -5;
 	pixel_y = 0
 	},
+/obj/machinery/light,
 /obj/item/radio{
 	pixel_x = 5
-	},
-/obj/machinery/firealarm,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12510,8 +12507,6 @@
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
-/obj/structure/bed/dogbed/ducktron,
-/mob/living/simple_animal/chick/ducktron,
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "auU" = (
@@ -32494,7 +32489,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L11"
 	},
 /area/hallway/primary/central/north)
@@ -32536,15 +32531,17 @@
 	},
 /area/crew_quarters/dorms)
 "bha" = (
-/turf/simulated/floor/plasteel/hispania,
+/turf/simulated/floor/plasteel{
+	icon_state = "L1"
+	},
 /area/hallway/primary/central/north)
 "bhb" = (
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L3"
 	},
 /area/hallway/primary/central/north)
 "bhc" = (
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L5"
 	},
 /area/hallway/primary/central/north)
@@ -33398,7 +33395,7 @@
 "biI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L7"
 	},
 /area/hallway/primary/central/north)
@@ -33417,7 +33414,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/port)
 "biK" = (
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L9"
 	},
 /area/hallway/primary/central/north)
@@ -33489,8 +33486,10 @@
 	},
 /area/ai_monitored/storage/eva)
 "biO" = (
-/turf/simulated/floor/plasteel/hispania{
-	icon_state = "L13"
+/turf/simulated/floor/plasteel{
+	desc = "";
+	icon_state = "L13";
+	name = "floor"
 	},
 /area/hallway/primary/central/north)
 "biP" = (
@@ -35740,7 +35739,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L4"
 	},
 /area/hallway/primary/central/north)
@@ -35753,14 +35752,14 @@
 	initialize_directions = 11;
 	level = 1
 	},
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L2"
 	},
 /area/hallway/primary/central/north)
 "bnf" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L8"
 	},
 /area/hallway/primary/central/north)
@@ -35784,7 +35783,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L6"
 	},
 /area/hallway/primary/central/north)
@@ -35801,7 +35800,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L12"
 	},
 /area/hallway/primary/central/north)
@@ -35816,7 +35815,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
 	icon_state = "L10"
 	},
 /area/hallway/primary/central/north)
@@ -35827,7 +35826,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/hispania{
+/turf/simulated/floor/plasteel{
+	desc = "";
 	icon_state = "L14"
 	},
 /area/hallway/primary/central/north)
@@ -61942,21 +61942,17 @@
 	pixel_x = 0;
 	pixel_y = -30
 	},
-/obj/machinery/alarm{
-	dir = 8;
-	icon_state = "alarm0";
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
 	},
 /area/medical/cmo)
 "chE" = (
-/obj/machinery/photocopier,
-/obj/machinery/vending/walldrobe/cmo{
-	pixel_y = -28
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "darkblue"
@@ -62724,6 +62720,54 @@
 	dir = 8
 	},
 /area/medical/medbay2)
+"ciV" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "cmooffice";
+	name = "Privacy Shutters";
+	opacity = 0
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "cmooffice";
+	name = "Privacy Shutters";
+	opacity = 0
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating,
+/area/medical/cmo)
+"ciW" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "cmooffice";
+	name = "Privacy Shutters";
+	opacity = 0
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "cmooffice";
+	name = "Privacy Shutters";
+	opacity = 0
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating,
+/area/medical/cmo)
 "ciX" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters{
@@ -62733,6 +62777,19 @@
 	id_tag = "cmooffice";
 	name = "Privacy Shutters";
 	opacity = 0
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "cmooffice";
+	name = "Privacy Shutters";
+	opacity = 0
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -82188,10 +82245,6 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/machinery/keycard_auth{
-	pixel_x = 0;
-	pixel_y = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -84575,6 +84628,10 @@
 /turf/simulated/floor/plasteel,
 /area/engine/equipmentstorage)
 "cUu" = (
+/obj/machinery/keycard_auth{
+	pixel_x = 0;
+	pixel_y = 24
+	},
 /obj/structure/table/reinforced,
 /obj/item/rcd,
 /obj/item/rcd_ammo,
@@ -84590,9 +84647,6 @@
 	},
 /obj/item/megaphone,
 /obj/item/lock_buster,
-/obj/machinery/vending/walldrobe/ce{
-	pixel_y = 28
-	},
 /mob/living/simple_animal/parrot/Poly,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -97071,12 +97125,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
-"tWd" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/hos)
 "uxy" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
@@ -132301,7 +132349,7 @@ amv
 amS
 ajV
 aiY
-tWd
+aiY
 aqG
 ajJ
 asy
@@ -137003,7 +137051,7 @@ ccF
 cej
 cfS
 chy
-bXU
+ciV
 cjv
 chC
 cms
@@ -137517,7 +137565,7 @@ ccH
 cek
 cfU
 chA
-chr
+ciW
 ceJ
 cli
 cmu

@@ -67,7 +67,6 @@
 	name = "cryptographic sequencer"
 	icon_state = "emag"
 	item_state = "card-id"
-	var/uses = 20 //Numero de usos posibles
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -79,14 +78,7 @@
 	var/atom/A = target
 	if(!proximity)
 		return
-	if(uses > 0)
-		--uses
-		A.emag_act(user)
-		if(uses == 1) //Si es nuestro ultimo uso avisa al usuario que deja de funcionar
-			to_chat(user, "<span class='userdanger'>[src] sparks and seems to stop working. </span>")
-	else
-		to_chat(user, "<span class='userdanger'>[src] its not working anymore. </span>")
-		return
+	A.emag_act(user)
 
 /obj/item/card/id
 	name = "identification card"
@@ -689,7 +681,6 @@
 
 /obj/item/card/id/prisoner/random
 /obj/item/card/id/prisoner/random/New()
-	..()
 	var/random_number = "#[rand(0, 99)]-[rand(0, 999)]"
 	name = "Prisoner [random_number]"
 	registered_name = name

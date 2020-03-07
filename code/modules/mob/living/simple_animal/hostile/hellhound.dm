@@ -114,7 +114,6 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	environment_smash = 2
-	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/hellhound/greater/New()
 	. = ..()

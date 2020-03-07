@@ -293,7 +293,7 @@
 	name = "stool"
 	desc = "Apply butt."
 	icon_state = "stool"
-	//can_buckle = TRUE
+	can_buckle = FALSE
 	item_chair = /obj/item/chair/stool
 
 /obj/structure/chair/stool/bar
