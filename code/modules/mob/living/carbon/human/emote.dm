@@ -118,6 +118,10 @@
 			on_CD = handle_emote_CD()				//proc located in code\modules\mob\emote.dm
 		if("cough", "coughs", "slap", "slaps", "highfive")
 			on_CD = handle_emote_CD()
+		if("gasp", "gasps")
+			on_CD = handle_emote_CD()
+		if("deathgasp", "deathgasps")
+			on_CD = handle_emote_CD(50)
 		if("sneeze", "sneezes")
 			on_CD = handle_emote_CD()
 		if("clap", "claps")
@@ -502,6 +506,14 @@
 			else
 				if(!muzzled)
 					message = "<B>[src]</B> gasps!"
+					if(health <= 0)
+						if(gender == FEMALE)
+							playsound(loc, pick(dna.species.female_dying_gasp_sounds), 100, 1, frequency = get_age_pitch())
+						else
+							playsound(loc, pick(dna.species.male_dying_gasp_sounds), 100, 1, frequency = get_age_pitch())
+
+					else
+						playsound(loc, dna.species.gasp_sound, 15, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a weak noise."
@@ -509,6 +521,7 @@
 
 		if("deathgasp", "deathgasps")
 			message = "<B>[src]</B> [replacetext(dna.species.death_message, "their", p_their())]"
+			playsound(loc, pick(dna.species.death_sounds), 40, 1, frequency = get_age_pitch())
 			m_type = 1
 
 		if("giggle", "giggles")
@@ -824,9 +837,9 @@
 					message = "<B>[src]</B> [dna.species.scream_verb][M ? " at [M]" : ""]!"
 					m_type = 2
 					if(gender == FEMALE)
-						playsound(loc, "[dna.species.female_scream_sound]", 80, 1, frequency = get_age_pitch())
+						playsound(loc, dna.species.female_scream_sound, 80, 1, frequency = get_age_pitch())
 					else
-						playsound(loc, "[dna.species.male_scream_sound]", 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
+						playsound(loc, dna.species.male_scream_sound, 80, 1, frequency = get_age_pitch()) //default to male screams if no gender is present.
 
 				else
 					message = "<B>[src]</B> makes a very loud noise[M ? " at [M]" : ""]."
@@ -861,8 +874,10 @@
 			var/farted_on_thing = FALSE
 			for(var/atom/A in get_turf(src))
 				farted_on_thing += A.fart_act(src)
+				playsound(loc,'sound/hispania/effects/fart_oc.ogg',50,1)
 			if(!farted_on_thing)
 				message = "<b>[src]</b> [pick("passes wind", "farts")]."
+				playsound(loc,'sound/hispania/effects/fart_oc.ogg',50,1)
 			m_type = 2
 
 		if("hem")

@@ -79,11 +79,11 @@
 /obj/item/clothing/head/peaceflower/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
 	if(slot == slot_head)
-		ADD_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[ref(src)]")
+		ADD_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[(src)]")
 
 /obj/item/clothing/head/peaceflower/dropped(mob/living/carbon/human/user)
 	..()
-	REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[ref(src)]")
+	REMOVE_TRAIT(user, TRAIT_PACIFISM, "peaceflower_[(src)]")
 
 /obj/item/clothing/head/peaceflower/attack_hand(mob/user)
 	if(iscarbon(user))
