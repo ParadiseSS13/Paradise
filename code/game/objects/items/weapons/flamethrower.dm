@@ -10,7 +10,7 @@
 
 /obj/item/flamethrower/process()
 	var/turf/location = loc
-	if(istype(location, /mob/))
+	if(ismob(location))
 		var/mob/M = location
 		if(M.l_hand == src || M.r_hand == src)
 			location = M.loc
@@ -58,8 +58,10 @@
 /obj/item/flamethrower/proc/toggle_igniter(turn_off = FALSE)
 	lit = turn_off ? FALSE : !lit
 	if(lit)
+		playsound(loc, 'sound/items/welderactivate.ogg', 50, 1)
 		START_PROCESSING(SSobj, src)		
 	else
+		playsound(loc, 'sound/items/welderdeactivate.ogg', 50, 1)
 		STOP_PROCESSING(SSobj,src)
 	update_icon()
 
@@ -67,6 +69,7 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	ptank.air_contents.remove_ratio(amount * efficiency)
 	if(ptank.air_contents.toxins < 5)
 		toggle_igniter(TRUE)
+	update_icon()
 		
 /obj/item/flamethrower/proc/ignite_turf(obj/item/flamethrower/F, turf/simulated/location, release_amount = 0.05)
 	F.default_ignite(location, release_amount)
@@ -156,9 +159,9 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 		return // too close
 	if(lit)
 		if(user && user.get_active_hand() == src) // Make sure our user is still holding us
+			playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
 			fireline(target, user)
 			consume_fuel(consumption_rate)
-	
 
 /obj/item/flamethrower/basic/wrench_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -222,5 +225,152 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	create_full = TRUE
 
 /obj/item/flamethrower/basic/full/tank
+	create_with_tank = TRUE
+
+/obj/item/flamethrower/advanced
+	name = "Burner Boyes Flamethrower"
+	desc = "Adapted from specialised salavaging equipment, the Burner Boyes flamerthrower lets you roast the average spaceman or cut through them."
+	icon = 'icons/obj/burner.dmi'
+	icon_state = "burner0"
+	item_state = "burner0"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	flags = CONDUCT
+	force = 15 //it's heavy
+	armour_penetration = 0
+	throwforce = 10
+	throw_speed = 1
+	throw_range = 2 //again heavy
+	w_class = WEIGHT_CLASS_BULKY //not stuffing this into a backpack
+	materials = list(MAT_METAL=500)
+	resistance_flags = FIRE_PROOF
+	origin_tech = "combat=1;plasmatech=2;engineering=2"
+	consumption_rate = 0.05
+	efficiency = 5
+	lit = FALSE
+	tool_behaviour = null
+	toolspeed = 0.5
+	usesound = 'sound/items/welder.ogg'
+	var/status = 1
+	var/create_with_tank = FALSE
+
+/obj/item/flamethrower/advanced/Destroy()
+	QDEL_NULL(ptank)
+	return ..()
+
+/obj/item/flamethrower/advanced/update_icon()
+	cut_overlays()
+	if(ptank)
+		add_overlay("+ptank")
+	else 
+		add_overlay("+fuel0")
+	if(ptank.air_contents.toxins > 20)
+		add_overlay("+fuel5")
+	else if(ptank.air_contents.toxins > 15)
+		add_overlay("+fuel4")
+	else if(ptank.air_contents.toxins > 10)
+		add_overlay("+fuel3")
+	else if(ptank.air_contents.toxins > 5)
+		add_overlay("+fuel2")
+	else if(ptank.air_contents.toxins < 5)
+		add_overlay("+fuel1")
+	if(lit)
+		item_state = "burner[status]"
+		add_overlay("+lit[status]")
+	else
+		item_state = "burner0"
+		icon_state = "burner[status]"
+	if(ismob(loc))
+		var/mob/M = loc
+		M.update_inv_l_hand()
+		M.update_inv_r_hand()
+
+/obj/item/flamethrower/advanced/attack(mob/living/M, mob/living/user)
+	if(user.get_inactive_hand())
+		to_chat(user, "<span class='userdanger'>You need both hands free to attack with \the [src]!</span>")
+		return
+	if(lit && status == 2)
+		damtype = BURN
+		hitsound = 'sound/items/welder.ogg'
+		consume_fuel(consumption_rate)
+	else
+		damtype = BRUTE
+		hitsound = "swing_hit"
+	..()
+
+/obj/item/flamethrower/advanced/afterattack(atom/target, mob/user, flag)
+	. = ..()
+	if(flag)
+		return // too close
+	if(user.get_inactive_hand())
+		to_chat(user, "<span class='userdanger'>You need both hands free to use \the [src]!</span>")
+		return
+	if(lit)
+		if(status == 2)
+			return
+		else if(user && user.get_active_hand() == src) // Make sure our user is still holding us
+			playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
+			fireline(target, user)
+			consume_fuel(consumption_rate)
+
+/obj/item/flamethrower/advanced/AltClick(mob/user)
+	if(lit)
+		to_chat(user, "<span class='notice'> turn off [src] first!</span>")
+	else if(ptank && isliving(user) && user.Adjacent(src))
+		user.put_in_hands(ptank)
+		ptank = null
+		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
+		update_icon()
+
+obj/item/flamethrower/advanced/CtrlClick(mob/user)
+	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
+	if(status == 1)
+		status = 2
+		force = 30
+		armour_penetration = 50
+		efficiency = 1
+		tool_behaviour = TOOL_WELDER
+		to_chat(user, "<span class='notice'> You swap to welder mode.</span>")
+	else
+		status = 1
+		force = 15
+		armour_penetration = 0
+		efficiency = 5
+		tool_behaviour = null
+		to_chat(user, "<span class='notice'> You swap to flamethrower mode.</span>")
+	update_icon()
+
+/obj/item/flamethrower/advanced/examine(mob/user)
+	. = ..()
+	if(ptank)
+		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
+	if(status == 2)
+		. += "<span class='notice'>[src] is in welder mode. Ctrl-click to swap modes.</span>"
+	else
+		. += "<span class='notice'>[src] is in flamethrower mode. Ctrl-click to swap modes.</span>"
+
+/obj/item/flamethrower/advanced/Initialize(mapload)
+	. = ..()
+	if(create_with_tank)
+		ptank = new /obj/item/tank/plasma/full(src)
+	update_icon()
+
+/obj/item/flamethrower/advanced/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	var/obj/item/projectile/P = hitby
+	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(10))
+		if(prob(20))
+			owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
+			var/turf/target_turf = get_turf(owner)
+			log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
+			ignite_turf(src,target_turf, release_amount = 0.2)
+			QDEL_NULL(ptank)
+			return 1 //It hit the flamethrower, not them
+		else
+			owner.visible_message("<span class='danger'>[attack_text] deflects off of [owner]'s [src] protective cowling!</span>")
+			return //doesn't mean it didn't also hit them
+	if(attack_type == MELEE_ATTACK) //this is a pretty study flamethrower
+		final_block_chance = 50 
+
+/obj/item/flamethrower/advanced/tank
 	create_with_tank = TRUE
 
