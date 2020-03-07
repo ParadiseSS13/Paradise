@@ -1,0 +1,5 @@
+#define ATTACK_LOG		"attack log"
+#define SAY_LOG			"say log"
+#define WHISPER_LOG		"whisper log"
+#define EMOTE_LOG		"emote log"
+#define MISC_LOG		"misc log"

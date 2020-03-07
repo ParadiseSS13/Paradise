@@ -35,6 +35,9 @@
 	var/lastattacked = null
 	var/list/attack_log_old = list( )
 	var/list/debug_log = null
+
+	var/list/logs = list() // Logs for each log type defined in __DEFINES/logs.dm
+
 	var/last_log = 0
 	var/obj/machinery/machine = null
 	var/other_mobs = null
