@@ -395,35 +395,29 @@
 
 	return data
 
-/obj/machinery/power/solar_control/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		playsound(src.loc, I.usesound, 50, 1)
-		if(do_after(user, 20 * I.toolspeed, target = src))
-			if(src.stat & BROKEN)
-				to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				new /obj/item/shard( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 3
-				A.icon_state = "3"
-				A.anchored = 1
-				qdel(src)
-			else
-				to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
-				var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control( A )
-				for(var/obj/C in src)
-					C.loc = src.loc
-				A.circuit = M
-				A.state = 4
-				A.icon_state = "4"
-				A.anchored = 1
-				qdel(src)
+/obj/machinery/power/solar_control/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
+	var/obj/item/circuitboard/solar_control/M = new /obj/item/circuitboard/solar_control(A)
+	A.anchored = TRUE
+	A.circuit = M
+	for(var/obj/C in src)
+			C.loc = src.loc
+	
+	if(src.stat & BROKEN)
+		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		new /obj/item/shard( src.loc )
+		A.state = 3
+		A.icon_state = "3"
 	else
-		return ..()
+		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		A.state = 4
+		A.icon_state = "4"
+	qdel(src)
 
 /obj/machinery/power/solar_control/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

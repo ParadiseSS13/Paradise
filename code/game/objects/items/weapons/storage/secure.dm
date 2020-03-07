@@ -33,38 +33,43 @@
 		. += "The service panel is [open ? "open" : "closed"]."
 
 /obj/item/storage/secure/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(locked)
-		if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
-			emag_act(user, W)
+	if(!locked)
+		return ..()
+	if((istype(W, /obj/item/melee/energy/blade)) && (!emagged))
+		emag_act(user, W)
 
-		if(istype(W, /obj/item/screwdriver))
-			if(do_after(user, 20 * W.toolspeed, target = src))
-				open = !open
-				user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
-			return
-
-		if((istype(W, /obj/item/multitool)) && (open == 1) && (!l_hacking))
-			user.show_message("<span class='danger'>Now attempting to reset internal memory, please hold.</span>", 1)
-			l_hacking = 1
-			if(do_after(usr, 100 * W.toolspeed, target = src))
-				if(prob(40))
-					l_setshort = 1
-					l_set = 0
-					user.show_message("<span class='danger'>Internal memory reset. Please give it a few seconds to reinitialize.</span>", 1)
-					sleep(80)
-					l_setshort = 0
-					l_hacking = 0
-				else
-					user.show_message("<span class='danger'>Unable to reset internal memory.</span>", 1)
-					l_hacking = 0
-			else
-				l_hacking = 0
-			return
-		//At this point you have exhausted all the special things to do when locked
-		// ... but it's still locked.
+/obj/item/storage/secure/multitool_act(mob/user, obj/item/I)
+	if(!locked)
 		return
+	if(!open || l_hacking)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>Now attempting to reset internal memory, please hold.</span>")
+	l_hacking = TRUE
+	if(!I.use_tool(src, user, 100, volume = I.tool_volume))
+		l_hacking = FALSE
+		return
+	if(prob(40))
+		l_setshort = TRUE
+		l_set = FALSE
+		to_chat(user, "<span class='notice'>Internal memory reset. Please give it a few seconds to reinitialize.</span>")
+		sleep(80)
+		l_setshort = FALSE
+		l_hacking = FALSE
+	else
+		to_chat(user, "<span class='warning'>Unable to reset internal memory.</span>")
+		l_hacking = FALSE
 
-	return ..()
+/obj/item/storage/secure/screwdriver_act(mob/user, obj/item/I)
+	if(!locked)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume) || locked)
+		return
+	open = !open
+	user.show_message("<span class='notice'>You [open ? "open" : "close"] the service panel.</span>", 1)
 
 /obj/item/storage/secure/emag_act(user as mob, weapon as obj)
 	if(!emagged)

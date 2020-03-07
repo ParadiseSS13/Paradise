@@ -98,13 +98,12 @@
 		return TRUE
 	return FALSE
 
-/obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
-	if(..())
+/obj/item/computer_hardware/card_slot/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(istype(I, /obj/item/screwdriver))
-		to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
-		try_eject(0,user)
-		return
+	to_chat(user, "<span class='notice'>You press down on the manual eject button with \the [I].</span>")
+	try_eject(0,user)
 
 /obj/item/computer_hardware/card_slot/examine(mob/user)
 	. = ..()

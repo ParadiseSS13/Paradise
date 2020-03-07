@@ -48,15 +48,20 @@
 		attached_signaler = S
 		to_chat(user, "<span class='notice'>You attach \the [S] to the I/O connection port and secure it.</span>")
 		return
-	if(attached_signaler && istype(O, /obj/item/screwdriver))		//Makes sure we remove the attached signaler before we can open up and deconstruct the machine
-		var/obj/item/assembly/signaler/S = attached_signaler
-		attached_signaler = null
-		S.forceMove(get_turf(src))
-		S.holder = null
-		S.toggle_secure()
-		to_chat(user, "<span class='notice'>You unsecure and detach \the [S] from the I/O connection port.</span>")
-		return
 	return ..()
+
+/obj/machinery/logic_gate/convert/screwdriver_act(mob/user, obj/item/I)
+	if(tamperproof || !attached_signaler)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/item/assembly/signaler/S = attached_signaler
+	attached_signaler = null
+	S.forceMove(get_turf(src))
+	S.holder = null
+	S.toggle_secure()
+	to_chat(user, "<span class='notice'>You unsecure and detach \the [S] from the I/O connection port.</span>")
 
 /obj/machinery/logic_gate/convert/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	var/logic_state_string

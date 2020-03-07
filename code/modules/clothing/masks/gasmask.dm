@@ -305,33 +305,38 @@
 			else
 				to_chat(user, "<span class='notice'>It's broken.</span>")
 
-/obj/item/clothing/mask/gas/sechailer/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/screwdriver))
-		switch(aggressiveness)
-			if(1)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
-				aggressiveness = 2
-				phrase = 7
-			if(2)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the third position.</span>")
-				aggressiveness = 3
-				phrase = 13
-			if(3)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the fourth position.</span>")
-				aggressiveness = 4
-				phrase = 1
-			if(4)
-				to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the first position.</span>")
-				aggressiveness = 1
-				phrase = 1
-			if(5)
-				to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
-	else if(istype(W, /obj/item/wirecutters))
-		if(aggressiveness != 5)
-			to_chat(user, "<span class='warning'>You broke it!</span>")
-			aggressiveness = 5
-	else
-		..()
+/obj/item/clothing/mask/gas/sechailer/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(aggressiveness)
+		if(1)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the second position.</span>")
+			aggressiveness = 2
+			phrase = 7
+		if(2)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the third position.</span>")
+			aggressiveness = 3
+			phrase = 13
+		if(3)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the fourth position.</span>")
+			aggressiveness = 4
+			phrase = 1
+		if(4)
+			to_chat(user, "<span class='notice'>You set the aggressiveness restrictor to the first position.</span>")
+			aggressiveness = 1
+			phrase = 1
+		if(5)
+			to_chat(user, "<span class='warning'>You adjust the restrictor but nothing happens, probably because its broken.</span>")
+
+/obj/item/clothing/mask/gas/sechailer/wirecutter_act(mob/user, obj/item/I)
+	if(aggressiveness == 5)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='warning'>You broke it!</span>")
+	aggressiveness = 5
 
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()

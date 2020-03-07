@@ -63,38 +63,9 @@
 	if(operating)
 		return
 	if(!broken && dirty < 100)
-		if(default_deconstruction_screwdriver(user, open_icon, off_icon, O))
-			return
 		if(exchange_parts(user, O))
 			return
-	if(!broken && istype(O, /obj/item/wrench))
-		playsound(src, O.usesound, 50, 1)
-		if(anchored)
-			anchored = 0
-			to_chat(user, "<span class='alert'>\The [src] can now be moved.</span>")
-			return
-		else if(!anchored)
-			anchored = 1
-			to_chat(user, "<span class='alert'>\The [src] is now secured.</span>")
-			return
-
-	default_deconstruction_crowbar(user, O)
-
 	if(broken > 0)
-		if(broken == 2 && istype(O, /obj/item/screwdriver)) // If it's broken and they're using a screwdriver
-			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message("<span class='notice'>[user] fixes part of [src].</span>", "<span class='notice'>You have fixed part of \the [src].</span>")
-				broken = 1 // Fix it a bit
-		else if(broken == 1 && istype(O, /obj/item/wrench)) // If it's broken and they're doing the wrench
-			user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
-			if(do_after(user, 20 * O.toolspeed, target = src))
-				user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
-				icon_state = off_icon
-				broken = 0 // Fix it!
-				dirty = 0 // just to be sure
-				container_type = OPENCONTAINER
-		else
 			to_chat(user, "<span class='alert'>It's broken!</span>")
 			return 1
 	else if(dirty==100) // The machine is all dirty so can't be used!
@@ -137,6 +108,36 @@
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with this [O].</span>")
 		return 1
 	updateUsrDialog()
+
+/obj/machinery/kitchen_machine/crowbar_act(mob/user, obj/item/I)
+	if(operating)
+		return
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/kitchen_machine/screwdriver_act(mob/user, obj/item/I)
+	if(operating || broken || dirty >= 100)
+		return
+	. = TRUE
+	default_deconstruction_screwdriver(user, open_icon, off_icon, I)
+
+/obj/machinery/kitchen_machine/wrench_act(mob/user, obj/item/I)
+	if(operating || broken > 1)
+		return
+	. = TRUE
+	if(!broken)
+		if(I.use_tool(src, user, 0, volume = I.tool_volume))
+			anchored = !anchored
+			to_chat(user, "<span class='alert'>\The [src] [anchored ? "is now secured" : "can now be moved"].</span>")
+		return
+	user.visible_message("<span class='notice'>[user] starts to fix part of [src].</span>", "<span class='notice'>You start to fix part of [src].</span>")
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	user.visible_message("<span class='notice'>[user] fixes [src].</span>", "<span class='notice'>You have fixed [src].</span>")
+	icon_state = off_icon
+	broken = 0 // Fix it!
+	dirty = 0 // just to be sure
+	container_type = OPENCONTAINER
 
 /obj/machinery/kitchen_machine/proc/add_item(obj/item/I, mob/user)
 	if(!user.drop_item())

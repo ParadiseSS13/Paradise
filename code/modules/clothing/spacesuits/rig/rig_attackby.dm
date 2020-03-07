@@ -7,7 +7,7 @@
 			return
 
 	// Pass repair items on to the chestpiece.
-	if(chest && (istype(W,/obj/item/stack) || istype(W, /obj/item/weldingtool)))
+	if(chest && istype(W,/obj/item/stack))
 		return chest.attackby(W,user)
 
 	// Lock or unlock the access panel.
@@ -30,25 +30,7 @@
 		to_chat(user, "You [locked ? "lock" : "unlock"] \the [src] access panel.")
 		return
 
-	else if(istype(W,/obj/item/crowbar))
-
-		if(!open && locked)
-			to_chat(user, "The access panel is locked shut.")
-			return
-
-		open = !open
-		to_chat(user, "You [open ? "open" : "close"] the access panel.")
-		return
-
 	if(open)
-
-		// Hacking.
-		if(istype(W,/obj/item/wirecutters) || istype(W,/obj/item/multitool))
-			if(open)
-				wires.Interact(user)
-			else
-				to_chat(user, "You can't reach the wiring.")
-			return
 		// Air tank.
 		if(istype(W,/obj/item/tank)) //Todo, some kind of check for suits without integrated air supplies.
 
@@ -100,75 +82,6 @@
 			src.cell = W
 			return
 
-		else if(istype(W,/obj/item/wrench))
-
-			if(!air_supply)
-				to_chat(user, "There is not tank to remove.")
-				return
-
-			if(user.r_hand && user.l_hand)
-				air_supply.forceMove(get_turf(user))
-			else
-				user.put_in_hands(air_supply)
-			to_chat(user, "You detach and remove \the [air_supply].")
-			air_supply = null
-			return
-
-		else if(istype(W,/obj/item/screwdriver))
-
-			var/list/current_mounts = list()
-			if(cell) current_mounts   += "cell"
-			if(installed_modules && installed_modules.len) current_mounts += "system module"
-
-			var/to_remove = input("Which would you like to modify?") as null|anything in current_mounts
-			if(!to_remove)
-				return
-
-			if(istype(src.loc,/mob/living/carbon/human) && to_remove != "cell")
-				var/mob/living/carbon/human/H = src.loc
-				if(H.back == src)
-					to_chat(user, "You can't remove an installed device while the hardsuit is being worn.")
-					return
-
-			switch(to_remove)
-
-				if("cell")
-
-					if(cell)
-						to_chat(user, "You detatch \the [cell] from \the [src]'s battery mount.")
-						for(var/obj/item/rig_module/module in installed_modules)
-							module.deactivate()
-						if(user.r_hand && user.l_hand)
-							cell.forceMove(get_turf(user))
-						else
-							user.put_in_hands(cell)
-						cell = null
-					else
-						to_chat(user, "There is nothing loaded in that mount.")
-
-				if("system module")
-
-					var/list/possible_removals = list()
-					for(var/obj/item/rig_module/module in installed_modules)
-						if(module.permanent)
-							continue
-						possible_removals[module.name] = module
-
-					if(!possible_removals.len)
-						to_chat(user, "There are no installed modules to remove.")
-						return
-
-					var/removal_choice = input("Which module would you like to remove?") as null|anything in possible_removals
-					if(!removal_choice)
-						return
-
-					var/obj/item/rig_module/removed = possible_removals[removal_choice]
-					to_chat(user, "You detatch \the [removed] from \the [src].")
-					removed.forceMove(get_turf(src))
-					removed.removed()
-					installed_modules -= removed
-					update_icon()
-
 		return
 
 	// If we've gotten this far, all we have left to do before we pass off to root procs
@@ -178,6 +91,130 @@
 			return
 	..()
 
+
+/obj/item/rig/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(electrified && shock(user))
+		return
+	if(!open && locked)
+		to_chat(user, "The access panel is locked shut.")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	open = !open
+	to_chat(user, "You [open ? "open" : "close"] the access panel.")
+
+/obj/item/rig/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(electrified && shock(user))
+		return
+	if(!open)
+		to_chat(user, "<span class='warning'>You can't reach the wiring.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	wires.Interact(user)
+
+/obj/item/rig/screwdriver_act(mob/user, obj/item/I) //Like hell am I refactoring this pile of baycode
+	. = TRUE
+	if(electrified && shock(user))
+		return
+	if(!open)
+		to_chat(user, "<span class='warning'>You can't inside.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/list/current_mounts = list()
+	if(cell) current_mounts   += "cell"
+	if(installed_modules && installed_modules.len) current_mounts += "system module"
+
+	var/to_remove = input("Which would you like to modify?") as null|anything in current_mounts
+	if(!to_remove)
+		return
+
+	if(istype(src.loc,/mob/living/carbon/human) && to_remove != "cell")
+		var/mob/living/carbon/human/H = src.loc
+		if(H.back == src)
+			to_chat(user, "You can't remove an installed device while the hardsuit is being worn.")
+			return
+
+	switch(to_remove)
+
+		if("cell")
+
+			if(cell)
+				to_chat(user, "You detatch \the [cell] from \the [src]'s battery mount.")
+				for(var/obj/item/rig_module/module in installed_modules)
+					module.deactivate()
+				if(user.r_hand && user.l_hand)
+					cell.forceMove(get_turf(user))
+				else
+					user.put_in_hands(cell)
+				cell = null
+			else
+				to_chat(user, "There is nothing loaded in that mount.")
+
+		if("system module")
+
+			var/list/possible_removals = list()
+			for(var/obj/item/rig_module/module in installed_modules)
+				if(module.permanent)
+					continue
+				possible_removals[module.name] = module
+
+			if(!possible_removals.len)
+				to_chat(user, "There are no installed modules to remove.")
+				return
+
+			var/removal_choice = input("Which module would you like to remove?") as null|anything in possible_removals
+			if(!removal_choice)
+				return
+
+			var/obj/item/rig_module/removed = possible_removals[removal_choice]
+			to_chat(user, "You detatch \the [removed] from \the [src].")
+			removed.forceMove(get_turf(src))
+			removed.removed()
+			installed_modules -= removed
+			update_icon()
+
+/obj/item/rig/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(electrified && shock(user))
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(chest)
+		chest.attackby(I, user)
+
+/obj/item/rig/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(electrified && shock(user))
+		return
+	if(!open)
+		to_chat(user, "<span class='warning'>You can't reach the wiring.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	wires.Interact(user)
+
+/obj/item/rig/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(electrified && shock(user))
+		return
+	if(!open)
+		to_chat(user, "<span class='warning'>You can't reach inside.</span>")
+		return
+	if(!air_supply)
+		to_chat(user, "There is not tank to remove.")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(user.r_hand && user.l_hand)
+		air_supply.forceMove(get_turf(user))
+	else
+		user.put_in_hands(air_supply)
+	to_chat(user, "You detach and remove \the [air_supply].")
+	air_supply = null
 
 /obj/item/rig/attack_hand(var/mob/user)
 

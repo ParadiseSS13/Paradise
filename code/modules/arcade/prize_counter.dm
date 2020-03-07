@@ -31,30 +31,41 @@
 		icon_state = "prize_counter-on"
 	return
 
-/obj/machinery/prize_counter/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/stack/tickets))
-		var/obj/item/stack/tickets/T = O
-		if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
-			tickets += T.amount
-			qdel(T)
-		else
-			to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
+/obj/machinery/prize_counter/attackby(obj/item/O as obj, mob/user as mob, params)
+	if(!istype(O, /obj/item/stack/tickets))
+		return ..()
+	var/obj/item/stack/tickets/T = O
+	if(user.unEquip(T))		//Because if you can't drop it for some reason, you shouldn't be increasing the tickets var
+		tickets += T.amount
+		qdel(T)
+	else
+		to_chat(user, "<span class='warning'>\The [T] seems stuck to your hand!</span>")
+
+/obj/machinery/prize_counter/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open || !component_parts)
 		return
-	if(istype(O, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, O.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		update_icon()
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(panel_open)
-		if(istype(O, /obj/item/wrench))
-			default_unfasten_wrench(user, O)
-		if(component_parts && istype(O, /obj/item/crowbar))
-			if(tickets)		//save the tickets!
-				print_tickets()
-			default_deconstruction_crowbar(user, O)
+	if(tickets)		//save the tickets!
+		print_tickets()
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/prize_counter/screwdriver_act(mob/user, obj/item/I)
+	if(!anchored)
 		return
-	return ..()
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
+	update_icon()
+
+/obj/machinery/prize_counter/wrench_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	default_unfasten_wrench(user, I)
 
 /obj/machinery/prize_counter/attack_hand(mob/user as mob)
 	if(..())

@@ -59,13 +59,7 @@
 			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
 		return
 
-/obj/machinery/arcade/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, O.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		update_icon()
-		return
+/obj/machinery/arcade/attackby(obj/item/O, mob/user, params)
 	if(!freeplay)
 		if(istype(O, /obj/item/card/id))
 			var/obj/item/card/id/C = O
@@ -77,10 +71,23 @@
 			if(pay_with_cash(C, user))
 				tokens += 1
 		return
-	if(panel_open && component_parts && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
-		return
 	return ..()
+
+/obj/machinery/arcade/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open || !component_parts)
+		return
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/arcade/screwdriver_act(mob/user, obj/item/I)
+	if(!anchored)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
+	update_icon()
 
 /obj/machinery/arcade/update_icon()
 	return

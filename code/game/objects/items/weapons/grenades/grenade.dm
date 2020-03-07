@@ -88,23 +88,23 @@
 		M.unEquip(src)
 
 
-/obj/item/grenade/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/screwdriver))
-		switch(det_time)
-			if("1")
-				det_time = 10
-				to_chat(user, "<span class='notice'>You set the [name] for 1 second detonation time.</span>")
-			if("10")
-				det_time = 30
-				to_chat(user, "<span class='notice'>You set the [name] for 3 second detonation time.</span>")
-			if("30")
-				det_time = 50
-				to_chat(user, "<span class='notice'>You set the [name] for 5 second detonation time.</span>")
-			if("50")
-				det_time = 1
-				to_chat(user, "<span class='notice'>You set the [name] for instant detonation.</span>")
-		add_fingerprint(user)
-	..()
+/obj/item/grenade/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	switch(det_time)
+		if("1")
+			det_time = 10
+			to_chat(user, "<span class='notice'>You set the [name] for 1 second detonation time.</span>")
+		if("10")
+			det_time = 30
+			to_chat(user, "<span class='notice'>You set the [name] for 3 second detonation time.</span>")
+		if("30")
+			det_time = 50
+			to_chat(user, "<span class='notice'>You set the [name] for 5 second detonation time.</span>")
+		if("50")
+			det_time = 1
+			to_chat(user, "<span class='notice'>You set the [name] for instant detonation.</span>")
 
 /obj/item/grenade/attack_hand()
 	walk(src, null, null)

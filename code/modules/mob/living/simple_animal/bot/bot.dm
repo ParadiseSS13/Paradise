@@ -303,13 +303,7 @@
 	show_controls(user)
 
 /mob/living/simple_animal/bot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/screwdriver))
-		if(!locked)
-			open = !open
-			to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
-		else
-			to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
-	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
+	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(bot_core.allowed(user) && !open && !emagged)
 			locked = !locked
 			to_chat(user, "Controls are now [locked ? "locked." : "unlocked."]")
@@ -359,6 +353,18 @@
 	else
 		return ..()
 
+/mob/living/simple_animal/bot/screwdriver_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!locked)
+		open = !open
+		to_chat(user, "<span class='notice'>The maintenance panel is now [open ? "opened" : "closed"].</span>")
+	else
+		to_chat(user, "<span class='warning'>The maintenance panel is locked.</span>")
+
 /mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
 		return
@@ -371,7 +377,7 @@
 	if(!open)
 		to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
 		return
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	adjustBruteLoss(-10)
 	add_fingerprint(user)

@@ -83,12 +83,7 @@
 	reached_target = 0
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		..()
-		if(open)
-			on = FALSE
-		update_controls()
-	else if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
+	if(istype(I,/obj/item/stock_parts/cell) && open && !cell)
 		if(!user.drop_item())
 			return
 		var/obj/item/stock_parts/cell/C = I
@@ -97,25 +92,6 @@
 		visible_message("[user] inserts a cell into [src].",
 						"<span class='notice'>You insert the new cell into [src].</span>")
 		update_controls()
-	else if(istype(I, /obj/item/crowbar) && open && cell)
-		cell.add_fingerprint(usr)
-		cell.forceMove(loc)
-		cell = null
-		visible_message("[user] crowbars out the power cell from [src].",
-						"<span class='notice'>You pry the powercell out of [src].</span>")
-		update_controls()
-	else if(istype(I, /obj/item/wrench))
-		if(health < maxHealth)
-			adjustBruteLoss(-25)
-			updatehealth()
-			user.visible_message(
-				"<span class='notice'>[user] repairs [src]!</span>",
-				"<span class='notice'>You repair [src]!</span>"
-			)
-		else
-			to_chat(user, "<span class='notice'>[src] does not need a repair!</span>")
-	else if((istype(I, /obj/item/multitool) || istype(I, /obj/item/wirecutters)) && open)
-		return attack_hand(user)
 	else if(load && ismob(load))  // chance to knock off rider
 		if(prob(1 + I.force * 2))
 			unload(0)
@@ -128,6 +104,40 @@
 		..()
 	update_icon()
 	return
+
+/mob/living/simple_animal/bot/mulebot/crowbar_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(!open)
+		return
+	. = TRUE
+	if(!cell)
+		to_chat(user, "<span class='warning'>There isn't a cell to remove!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	cell.add_fingerprint(usr)
+	cell.forceMove(loc)
+	cell = null
+	visible_message("[user] crowbars out the power cell from [src].",
+					"<span class='notice'>You pry the powercell out of [src].</span>")
+	update_controls()
+
+/mob/living/simple_animal/bot/mulebot/multitool_act(mob/user, obj/item/I)
+	if(open)
+		attack_hand(user)
+		return TRUE
+
+/mob/living/simple_animal/bot/mulebot/screwdriver_act(mob/user, obj/item/I)
+	. = ..()
+	if(. && open)
+		on = FALSE
+		update_controls()
+
+/mob/living/simple_animal/bot/mulebot/wirecutter_act(mob/user, obj/item/I)
+	if(open)
+		attack_hand(user)
+		return TRUE
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
 	if(emagged < 1)

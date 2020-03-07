@@ -314,49 +314,53 @@
 	if(istype(W, /obj/item/computer_hardware))
 		if(install_component(W, user))
 			return
-
-	if(istype(W, /obj/item/wrench))
-		if(all_components.len)
-			to_chat(user, "<span class='warning'>Remove all components from \the [src] before disassembling it.</span>")
-			return
-		new /obj/item/stack/sheet/metal(get_turf(loc), steel_sheet_cost)
-		physical.visible_message("\The [src] has been disassembled by [user].")
-		relay_qdel()
-		qdel(src)
-		return
-
-	if(istype(W, /obj/item/screwdriver))
-		if(!all_components.len)
-			to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
-			return
-		var/list/component_names = list()
-		for(var/h in all_components)
-			var/obj/item/computer_hardware/H = all_components[h]
-			component_names.Add(H.name)
-
-		var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in component_names
-
-		if(!choice)
-			return
-
-		if(!Adjacent(user))
-			return
-
-		var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
-
-		if(!H)
-			return
-
-		uninstall_component(H, user)
-		return
-
 	..()
+
+/obj/item/modular_computer/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!all_components.len)
+		to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/list/component_names = list()
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
+		component_names.Add(H.name)
+
+	var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in component_names
+
+	if(!choice)
+		return
+
+	if(!Adjacent(user))
+		return
+
+	var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
+
+	if(!H)
+		return
+
+	uninstall_component(H, user)
 
 /obj/item/modular_computer/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	default_welder_repair(user, I)
+
+/obj/item/modular_computer/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(all_components.len)
+		to_chat(user, "<span class='warning'>Remove all components from \the [src] before disassembling it.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	new /obj/item/stack/sheet/metal(get_turf(loc), steel_sheet_cost)
+	physical.visible_message("\The [src] has been disassembled by [user].")
+	relay_qdel()
+	qdel(src)
+	return
 
 // Used by processor to relay qdel() to machinery type.
 /obj/item/modular_computer/proc/relay_qdel()

@@ -342,11 +342,7 @@
 /obj/item/ammo_casing/caseless/foam_dart/attackby(obj/item/A, mob/user, params)
 	..()
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB
-	if(istype(A, /obj/item/screwdriver) && !modified)
-		modified = 1
-		FD.damage_type = BRUTE
-		update_icon()
-	else if((istype(A, /obj/item/pen)) && modified && !FD.pen)
+	if((istype(A, /obj/item/pen)) && modified && !FD.pen)
 		if(!user.unEquip(A))
 			return
 		harmful = TRUE
@@ -356,7 +352,16 @@
 		FD.damage = 5
 		FD.nodamage = 0
 		to_chat(user, "<span class='notice'>You insert [A] into [src].</span>")
-	return
+
+/obj/item/ammo_casing/caseless/foam_dart/screwdriver_act(mob/user, obj/item/I)
+	if(modified)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	modified = TRUE
+	BB.damage_type = BRUTE
+	update_icon()
 
 /obj/item/ammo_casing/caseless/foam_dart/attack_self(mob/living/user)
 	var/obj/item/projectile/bullet/reusable/foam_dart/FD = BB

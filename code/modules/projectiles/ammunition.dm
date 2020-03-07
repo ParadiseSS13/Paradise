@@ -57,28 +57,30 @@
 				playsound(src, 'sound/weapons/gun_interactions/bulletinsert.ogg', 50, 1)
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
-	else
-		if(istype(I, /obj/item/screwdriver))
-			if(BB)
-				if(initial(BB.name) == "bullet")
-					var/tmp_label = ""
-					var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
-					if(length(label_text) > 20)
-						to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
-					else
-						if(label_text == "")
-							to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
-							BB.name = initial(BB.name)
-						else
-							to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
-							BB.name = "[initial(BB.name)] \"[label_text]\""
-				else
-					to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
-
-			else
-				to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
 		..()
 
+/obj/item/ammo_casing/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!BB)
+		to_chat(user, "<span class='notice'>There is no bullet in the casing to inscribe anything into.</span>")
+		return
+	if(initial(BB.name) != "bullet")
+		to_chat(user, "<span class='notice'>You can only inscribe a metal bullet.</span>")//because inscribing beanbags is silly
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/tmp_label = ""
+	var/label_text = sanitize(input(user, "Inscribe some text into \the [initial(BB.name)]","Inscription",tmp_label))
+	if(length(label_text) > 20)
+		to_chat(user, "<span class='warning''>The inscription can be at most 20 characters long.</span>")
+	else
+		if(label_text == "")
+			to_chat(user, "<span class='notice'>You scratch the inscription off of [initial(BB)].</span>")
+			BB.name = initial(BB.name)
+		else
+			to_chat(user, "<span class='notice'>You inscribe \"[label_text]\" into \the [initial(BB.name)].</span>")
+			BB.name = "[initial(BB.name)] \"[label_text]\""
+		
 //Boxes of ammo
 /obj/item/ammo_box
 	name = "ammo box (generic)"

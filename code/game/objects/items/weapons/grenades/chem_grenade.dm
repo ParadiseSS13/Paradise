@@ -136,37 +136,6 @@
 				update_icon()
 				to_chat(user, "You remove the label from [src].")
 				return 1
-	if(istype(I, /obj/item/screwdriver))
-		if(stage == WIRED)
-			if(beakers.len)
-				to_chat(user, "<span class='notice'>You lock the assembly.</span>")
-				playsound(loc, prime_sound, 25, -3)
-				stage = READY
-				update_icon()
-				contained = ""
-				cores = "" // clear them out so no recursive logging by accidentally
-				for(var/obj/O in beakers)
-					if(!O.reagents) continue
-					if(istype(O,/obj/item/slime_extract))
-						cores += " [O]"
-					for(var/reagent in O.reagents.reagent_list)
-						contained += " [reagent] "
-				if(contained)
-					if(cores)
-						contained = "\[[cores];[contained]\]"
-					else
-						contained = "\[[contained]\]"
-				var/turf/bombturf = get_turf(loc)
-				var/area/A = bombturf.loc
-				message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
-				log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
-			else
-				to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
-		else if(stage == READY && !nadeassembly)
-			det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
-			to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
-		else if(stage == EMPTY)
-			to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
 
 	else if(stage == WIRED && is_type_in_list(I, allowed_containers))
 		if(beakers.len == 2)
@@ -205,26 +174,73 @@
 		to_chat(user, "<span class='notice'>You rig [src].</span>")
 		update_icon()
 
-	else if(stage == READY && istype(I, /obj/item/wirecutters))
-		to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
-		stage = WIRED
+/obj/item/grenade/chem_grenade/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(stage == EMPTY)
+		to_chat(user, "<span class='notice'>You need to add an activation mechanism.</span>")
+		return
+	else if(stage == WIRED && !beakers.len)
+		to_chat(user, "<span class='notice'>You need to add at least one beaker before locking the assembly.</span>")
+		return
+	else if(stage == READY && nadeassembly)
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(stage == WIRED)
+		to_chat(user, "<span class='notice'>You lock the assembly.</span>")
+		playsound(loc, prime_sound, 25, -3)
+		stage = READY
 		update_icon()
+		contained = ""
+		cores = "" // clear them out so no recursive logging by accidentally
+		for(var/obj/O in beakers)
+			if(!O.reagents) continue
+			if(istype(O,/obj/item/slime_extract))
+				cores += " [O]"
+			for(var/reagent in O.reagents.reagent_list)
+				contained += " [reagent] "
+		if(contained)
+			if(cores)
+				contained = "\[[cores];[contained]\]"
+			else
+				contained = "\[[contained]\]"
+		var/turf/bombturf = get_turf(loc)
+		var/area/A = bombturf.loc
+		message_admins("[key_name_admin(usr)] has completed [name] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a> [contained].")
+		log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
+	else if(stage == READY)
+		det_time = det_time == 50 ? 30 : 50	//toggle between 30 and 50
+		to_chat(user, "<span class='notice'>You modify the time delay. It's set for [det_time / 10] second\s.</span>")
 
-	else if(stage == WIRED && istype(I, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
-		stage = EMPTY
-		payload_name = null
-		label = null
-		if(nadeassembly)
-			nadeassembly.loc = get_turf(src)
-			nadeassembly.master = null
-			nadeassembly = null
-		if(beakers.len)
-			for(var/obj/O in beakers)
-				O.loc = get_turf(src)
-			beakers = list()
-		update_icon()
+/obj/item/grenade/chem_grenade/wirecutter_act(mob/user, obj/item/I)
+	if(stage != READY)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You unlock the assembly.</span>")
+	stage = WIRED
+	update_icon()
 
+/obj/item/grenade/chem_grenade/wrench_act(mob/user, obj/item/I)
+	if(stage != WIRED)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You open the grenade and remove the contents.</span>")
+	stage = EMPTY
+	payload_name = null
+	label = null
+	if(nadeassembly)
+		nadeassembly.loc = get_turf(src)
+		nadeassembly.master = null
+		nadeassembly = null
+	if(beakers.len)
+		for(var/obj/O in beakers)
+			O.loc = get_turf(src)
+		beakers = list()
+	update_icon()
 
 //assembly stuff
 /obj/item/grenade/chem_grenade/receive_signal()

@@ -104,15 +104,19 @@
 			process_chamber()
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell installed.</span>")
-	else if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.loc = get_turf(src)
-			to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [W].</span>")
-			cell = null
-		else
-			to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
 	else
 		..()
+
+/obj/item/gun/throw/crossbow/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!cell)
+		to_chat(user, "<span class='notice'>[src] doesn't have a cell installed.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	cell.loc = get_turf(src)
+	to_chat(user, "<span class='notice'>You jimmy [cell] out of [src] with [I].</span>")
+	cell = null
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Adjust Tension"

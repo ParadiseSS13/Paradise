@@ -202,17 +202,32 @@
 	if(tamperproof)
 		to_chat(user, "<span class='warning'>The [src] appears to be tamperproofed! You can't interact with it!</span>")
 		return 0
-	if(istype(O, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	if(istype(O, /obj/item/screwdriver))
-		panel_open = !panel_open
-		to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the access panel.</span>")
-		return 1
-	if(panel_open && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, O)
-		return 1
 	return ..()
+
+/obj/machinery/logic_gate/crowbar_act(mob/user, obj/item/I)
+	if(tamperproof)
+		return
+	if(!panel_open)
+		return
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/logic_gate/multitool_act(mob/user, obj/item/I)
+	if(tamperproof)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	update_multitool_menu(user)
+
+/obj/machinery/logic_gate/screwdriver_act(mob/user, obj/item/I)
+	if(tamperproof)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the access panel.</span>")
 
 //////////////////////////////////////
 //			Attack procs			//

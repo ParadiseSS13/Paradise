@@ -14,24 +14,29 @@
 	QDEL_NULL(part2)
 	return ..()
 
-/obj/item/assembly/shock_kit/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench) && !status)
-		var/turf/T = loc
-		if(ismob(T))
-			T = T.loc
-		part1.loc = T
-		part2.loc = T
-		part1.master = null
-		part2.master = null
-		part1 = null
-		part2 = null
-		qdel(src)
+/obj/item/assembly/shock_kit/wrench_act(mob/user, obj/item/I)
+	if(status)
 		return
-	if(istype(W, /obj/item/screwdriver))
-		status = !status
-		to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
-	add_fingerprint(user)
-	return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/turf/T = loc
+	if(ismob(T))
+		T = T.loc
+	part1.loc = T
+	part2.loc = T
+	part1.master = null
+	part2.master = null
+	part1 = null
+	part2 = null
+	qdel(src)
+
+/obj/item/assembly/shock_kit/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	status = !status
+	to_chat(user, "<span class='notice'>[src] is now [status ? "secured" : "unsecured"]!</span>")
 
 /obj/item/assembly/shock_kit/attack_self(mob/user as mob)
 	part1.attack_self(user, status)

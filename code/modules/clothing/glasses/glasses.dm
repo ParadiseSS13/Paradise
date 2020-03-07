@@ -19,16 +19,23 @@
 			prescription = 1
 			name = "prescription [name]"
 			return
-		if(prescription && istype(O, /obj/item/screwdriver))
-			var/obj/item/clothing/glasses/regular/G = locate() in src
-			if(!G)
-				G = new(get_turf(H))
-			to_chat(H, "You salvage the prescription lenses from \the [name].")
-			prescription = 0
-			name = initial(name)
-			H.put_in_hands(G)
-			return
 	return ..()
+
+/obj/item/clothing/glasses/screwdriver_act(mob/user, obj/item/I)
+	if(!prescription_upgradable)
+		return
+	if(prescription)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/item/clothing/glasses/regular/G = locate() in src
+	if(!G)
+		G = new(get_turf(user))
+	to_chat(user, "You salvage the prescription lenses from \the [name].")
+	prescription = FALSE
+	name = initial(name)
+	user.put_in_hands(G)
 
 /obj/item/clothing/glasses/visor_toggling()
 	..()

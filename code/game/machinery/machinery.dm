@@ -399,17 +399,16 @@ Class Procs:
 	if(!(flags & NODECONSTRUCT))
 		stat |= BROKEN
 
-/obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
+/obj/machinery/proc/default_deconstruction_crowbar(mob/user, obj/item/I, ignore_panel = 0)
 	if(I.tool_behaviour != TOOL_CROWBAR)
 		return FALSE
-	if(!I.use_tool(src, user, 0, volume = 0))
+	if(!(panel_open || ignore_panel) || (flags & NODECONSTRUCT))
 		return FALSE
-	if((panel_open || ignore_panel) && !(flags & NODECONSTRUCT))
-		deconstruct(TRUE)
-		to_chat(user, "<span class='notice'>You disassemble [src].</span>")
-		I.play_tool_sound(user, I.tool_volume)
-		return 1
-	return 0
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return FALSE
+	deconstruct(TRUE)
+	to_chat(user, "<span class='notice'>You disassemble [src].</span>")
+	return TRUE
 
 /obj/machinery/proc/default_deconstruction_screwdriver(mob/user, icon_state_open, icon_state_closed, obj/item/I)
 	if(I.tool_behaviour != TOOL_SCREWDRIVER)

@@ -283,32 +283,43 @@
 		SSnanoui.update_uis(src)
 		return
 	else if(!active)
-		if(istype(O, /obj/item/wrench))
-
-			if(!anchored)
-				connect_to_network()
-				to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
-			else
-				disconnect_from_network()
-				to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
-
-			playsound(src.loc, O.usesound, 50, 1)
-			anchored = !anchored
-
-		else if(istype(O, /obj/item/screwdriver))
-			panel_open = !panel_open
-			playsound(src.loc, O.usesound, 50, 1)
-			if(panel_open)
-				to_chat(user, "<span class='notice'>You open the access panel.</span>")
-			else
-				to_chat(user, "<span class='notice'>You close the access panel.</span>")
-		else if(istype(O, /obj/item/storage/part_replacer) && panel_open)
+		if(istype(O, /obj/item/storage/part_replacer) && panel_open)
 			exchange_parts(user, O)
 			return
-		else if(istype(O, /obj/item/crowbar) && panel_open)
-			default_deconstruction_crowbar(user, O)
 	else
 		return ..()
+
+/obj/machinery/power/port_gen/pacman/crowbar_act(mob/user, obj/item/I)
+	if(active || !panel_open)
+		return
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/power/port_gen/pacman/screwdriver_act(mob/user, obj/item/I)
+	if(active)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	panel_open = !panel_open
+	if(panel_open)
+		to_chat(user, "<span class='notice'>You open the access panel.</span>")
+	else
+		to_chat(user, "<span class='notice'>You close the access panel.</span>")
+
+/obj/machinery/power/port_gen/pacman/wrench_act(mob/user, obj/item/I)
+	if(active)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!anchored)
+		connect_to_network()
+		to_chat(user, "<span class='notice'>You secure the generator to the floor.</span>")
+	else
+		disconnect_from_network()
+		to_chat(user, "<span class='notice'>You unsecure the generator from the floor.</span>")
+	anchored = !anchored
 
 /obj/machinery/power/port_gen/pacman/attack_hand(mob/user as mob)
 	..()

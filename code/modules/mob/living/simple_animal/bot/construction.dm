@@ -95,11 +95,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 				item_state = "[lasercolor]ed209_shell"
 				icon_state = "[lasercolor]ed209_shell"
 
-		if(3)
-			if(W.tool_behaviour == TOOL_WELDER && W.use_tool(src, user, volume = W.tool_volume))
-				build_step++
-				name = "shielded frame assembly"
-				to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
+
 		if(4)
 			switch(lasercolor)
 				if("b")
@@ -175,15 +171,6 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 			icon_state = "[lasercolor]ed209_taser"
 			qdel(W)
 
-		if(8)
-			if(istype(W, /obj/item/screwdriver))
-				playsound(loc, W.usesound, 100, 1)
-				to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
-				if(do_after(user, 40 * W.toolspeed, target = src))
-					build_step++
-					name = "armed [name]"
-					to_chat(user, "<span class='notice'>Taser gun attached.</span>")
-
 		if(9)
 			if(istype(W, /obj/item/stock_parts/cell))
 				if(!user.unEquip(W))
@@ -195,6 +182,29 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 				qdel(W)
 				user.unEquip(src, 1)
 				qdel(src)
+
+/obj/item/ed209_assembly/screwdriver_act(mob/user, obj/item/I)
+	if(build_step != 8)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start attaching the gun to the frame...</span>")
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume) || build_step != 8)
+		return
+	build_step = 9
+	name = "armed [name]"
+	to_chat(user, "<span class='notice'>Taser gun attached.</span>")
+
+/obj/item/ed209_assembly/welder_act(mob/user, obj/item/I)
+	if(build_step != 3)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	build_step = 4
+	name = "shielded frame assembly"
+	to_chat(user, "<span class='notice'>You weld the vest to [src].</span>")
 
 //Floorbot assemblies
 /obj/item/toolbox_tiles
@@ -438,17 +448,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if(I.tool_behaviour == TOOL_WELDER && I.use_tool(src, user, volume = I.tool_volume))
-		if(!build_step)
-			build_step++
-			overlays += "hs_hole"
-			to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
-		else if(build_step == 1)
-			build_step--
-			overlays -= "hs_hole"
-			to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
-
-	else if(isprox(I) && (build_step == 1))
+	if(isprox(I) && (build_step == 1))
 		if(!user.unEquip(I))
 			return
 		build_step++
@@ -488,33 +488,55 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		created_name = t
 		log_game("[key_name(user)] has renamed a robot to [t]")
 
-	else if(istype(I, /obj/item/screwdriver))
-		if(!build_step)
+/obj/item/secbot_assembly/screwdriver_act(mob/user, obj/item/I)
+	if(!(build_step in list(0, 2, 3)))
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(build_step)
+		if(0)
 			new /obj/item/assembly/signaler(get_turf(src))
 			new /obj/item/clothing/head/helmet(get_turf(src))
 			to_chat(user, "<span class='notice'>You disconnect the signaler from the helmet.</span>")
 			qdel(src)
-
-		else if(build_step == 2)
+		if(2)
 			overlays -= "hs_eye"
 			new /obj/item/assembly/prox_sensor(get_turf(src))
 			to_chat(user, "<span class='notice'>You detach the proximity sensor from [src].</span>")
-			build_step--
-
-		else if(build_step == 3)
+			build_step = 0
+		if(3)
 			overlays -= "hs_arm"
 			new /obj/item/robot_parts/l_arm(get_turf(src))
 			to_chat(user, "<span class='notice'>You remove the robot arm from [src].</span>")
-			build_step--
+			build_step = 2
 
-//General Griefsky
+/obj/item/secbot_assembly/welder_act(mob/user, obj/item/I)
+	if(build_step != 0 && build_step != 1)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!build_step)
+		build_step = 1
+		overlays += "hs_hole"
+		to_chat(user, "<span class='notice'>You weld a hole in [src]!</span>")
+	else if(build_step == 1)
+		build_step = 0
+		overlays -= "hs_hole"
+		to_chat(user, "<span class='notice'>You weld the hole in [src] shut!</span>")
 
-	else if((istype(I, /obj/item/wrench)) && (build_step == 3))
-		var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly
-		user.put_in_hands(A)
-		to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
-		user.unEquip(src, 1)
-		qdel(src)
+/obj/item/secbot_assembly/wrench_act(mob/user, obj/item/I) //General Griefsky
+	if(build_step != 3)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/item/griefsky_assembly/A = new /obj/item/griefsky_assembly
+	user.put_in_hands(A)
+	to_chat(user, "<span class='notice'>You adjust the arm slots for extra weapons!.</span>")
+	user.unEquip(src, 1)
+	qdel(src)
 
 /obj/item/griefsky_assembly
 	name = "\improper Griefsky assembly"
@@ -559,15 +581,20 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 		qdel(I)
 		qdel(src)
 
-	else if(istype(I, /obj/item/screwdriver))
-		if((build_step == 1) || (build_step == 2) || (build_step == 3) || (build_step == 4))
-			new /obj/item/melee/energy/sword(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
-			build_step--
-		else if((toy_step == 1) || (toy_step == 2) || (toy_step == 3) || (toy_step == 4))
-			new /obj/item/toy/sword(get_turf(src))
-			to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
-			toy_step--
+/obj/item/griefsky_assembly/screwdriver_act(mob/user, obj/item/I)
+	if(!build_step && !toy_step)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(build_step)
+		new /obj/item/melee/energy/sword(get_turf(src))
+		to_chat(user, "<span class='notice'>You detach the energy sword from [src].</span>")
+		build_step--
+	else
+		new /obj/item/toy/sword(get_turf(src))
+		to_chat(user, "<span class='notice'>You detach the toy sword from [src].</span>")
+		toy_step--
 
 //Honkbot Assembly
 /obj/item/storage/box/clown/attackby(obj/item/W, mob/user, params)

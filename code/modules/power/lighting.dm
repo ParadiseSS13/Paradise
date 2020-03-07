@@ -41,39 +41,6 @@
 
 /obj/machinery/light_construct/attackby(obj/item/W as obj, mob/living/user as mob, params)
 	src.add_fingerprint(user)
-	if(istype(W, /obj/item/wrench))
-		if(src.stage == 1)
-			playsound(src.loc, W.usesound, 75, 1)
-			to_chat(usr, "You begin deconstructing [src].")
-			if(!do_after(usr, 30 * W.toolspeed, target = src))
-				return
-			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
-			user.visible_message("[user.name] deconstructs [src].", \
-				"You deconstruct [src].", "You hear a noise.")
-			playsound(src.loc, W.usesound, 75, 1)
-			qdel(src)
-		if(src.stage == 2)
-			to_chat(usr, "You have to remove the wires first.")
-			return
-
-		if(src.stage == 3)
-			to_chat(usr, "You have to unscrew the case first.")
-			return
-
-	if(istype(W, /obj/item/wirecutters))
-		if(src.stage != 2) return
-		src.stage = 1
-		switch(fixture_type)
-			if("tube")
-				src.icon_state = "tube-construct-stage1"
-			if("bulb")
-				src.icon_state = "bulb-construct-stage1"
-		new /obj/item/stack/cable_coil(get_turf(src.loc), 1, paramcolor = COLOR_RED)
-		user.visible_message("[user.name] removes the wiring from [src].", \
-			"You remove the wiring from [src].", "You hear a noise.")
-		playsound(loc, W.usesound, 100, 1)
-		return
-
 	if(istype(W, /obj/item/stack/cable_coil))
 		if(src.stage != 1) return
 		var/obj/item/stack/cable_coil/coil = W
@@ -88,32 +55,62 @@
 		user.visible_message("[user.name] adds wires to [src].", \
 			"You add wires to [src].")
 		return
-
-	if(istype(W, /obj/item/screwdriver))
-		if(src.stage == 2)
-			switch(fixture_type)
-				if("tube")
-					src.icon_state = "tube-empty"
-				if("bulb")
-					src.icon_state = "bulb-empty"
-			src.stage = 3
-			user.visible_message("[user.name] closes [src]'s casing.", \
-				"You close [src]'s casing.", "You hear a noise.")
-			playsound(src.loc, W.usesound, 75, 1)
-
-			switch(fixture_type)
-
-				if("tube")
-					newlight = new /obj/machinery/light/built(src.loc)
-				if("bulb")
-					newlight = new /obj/machinery/light/small/built(src.loc)
-
-			newlight.dir = src.dir
-			src.transfer_fingerprints_to(newlight)
-			qdel(src)
-			return
 	else
 		return ..()
+
+/obj/machinery/light_construct/screwdriver_act(mob/user, obj/item/I)
+	if(stage != 2)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	switch(fixture_type)
+		if("tube")
+			src.icon_state = "tube-empty"
+		if("bulb")
+			src.icon_state = "bulb-empty"
+	stage = 3
+	user.visible_message("[user.name] closes [src]'s casing.", "You close [src]'s casing.", "You hear a noise.")
+	switch(fixture_type)
+		if("tube")
+			newlight = new /obj/machinery/light/built(src.loc)
+		if("bulb")
+			newlight = new /obj/machinery/light/small/built(src.loc)
+	newlight.dir = dir
+	transfer_fingerprints_to(newlight)
+	qdel(src)
+
+/obj/machinery/light_construct/wirecutter_act(mob/user, obj/item/I)
+	if(stage != 2)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	stage = 1
+	switch(fixture_type)
+		if("tube")
+			icon_state = "tube-construct-stage1"
+		if("bulb")
+			icon_state = "bulb-construct-stage1"
+	new /obj/item/stack/cable_coil(get_turf(loc), 1, paramcolor = COLOR_RED)
+	user.visible_message("[user.name] removes the wiring from [src].", "You remove the wiring from [src].", "You hear a noise.")
+
+/obj/machinery/light_construct/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	switch(stage)
+		if(1)
+			if(!I.tool_use_check(user, 0))
+				return
+			to_chat(user, "You begin deconstructing [src].")
+			if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+				return
+			new /obj/item/stack/sheet/metal( get_turf(src.loc), sheets_refunded )
+			user.visible_message("[user.name] deconstructs [src].", "You deconstruct [src].", "You hear a noise.")
+			qdel(src)
+		if(2)
+			to_chat(user, "You have to remove the wires first.")
+		if(3)
+			to_chat(user, "You have to unscrew the case first.")
 
 /obj/machinery/light_construct/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
@@ -375,12 +372,7 @@
 
 	// attempt to stick weapon into light socket
 	else if(status == LIGHT_EMPTY)
-		if(istype(W, /obj/item/screwdriver)) //If it's a screwdriver open it.
-			playsound(src.loc, W.usesound, 75, 1)
-			user.visible_message("[user.name] opens [src]'s casing.", \
-				"You open [src]'s casing.", "You hear a noise.")
-			deconstruct()
-			return
+
 
 		to_chat(user, "You stick \the [W] into the light socket!")
 		if(has_power() && (W.flags & CONDUCT))
@@ -389,6 +381,16 @@
 				electrocute_mob(user, get_area(src), src, rand(0.7, 1), TRUE)
 	else
 		return ..()
+
+/obj/machinery/light/screwdriver_act(mob/user, obj/item/I)
+	if(status != LIGHT_EMPTY)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	user.visible_message("[user.name] opens [src]'s casing.", \
+		"You open [src]'s casing.", "You hear a noise.")
+	deconstruct()
 
 /obj/machinery/light/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

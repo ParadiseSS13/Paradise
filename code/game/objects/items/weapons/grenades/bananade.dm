@@ -45,15 +45,20 @@ var/turf/T
 			qdel(I)
 		else
 			to_chat(usr, "<span class='notice'>The bananade is full, screwdriver it shut to lock it down.</span>")
-	if(istype(I, /obj/item/screwdriver))
-		if(fillamt)
-			var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
-			user.unEquip(src)
-			user.put_in_hands(G)
-			G.deliveryamt = src.fillamt
-			to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
-			qdel(src)
-		else
-			to_chat(usr, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
 	else
 		to_chat(usr, "<span class='notice'>Only banana peels fit in this assembly, up to 9.</span>")
+
+/obj/item/grenade/bananade/casing/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!fillamt)
+		to_chat(user, "<span class='notice'>You need to add banana peels before you can ready the grenade!.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/obj/item/grenade/bananade/G = new /obj/item/grenade/bananade
+	user.unEquip(src)
+	user.put_in_hands(G)
+	G.deliveryamt = src.fillamt
+	to_chat(user, "<span  class='notice'>You lock the assembly shut, readying it for HONK.</span>")
+	qdel(src)
+

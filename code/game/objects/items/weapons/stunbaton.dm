@@ -83,35 +83,37 @@
 		. += "<span class='warning'>The baton does not have a power source installed.</span>"
 
 /obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
-		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-		else
-			if(C.maxcharge < hitcost)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
-				return
-			if(!user.unEquip(W))
-				return
-			W.loc = src
-			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
+	if(!istype(W, /obj/item/stock_parts/cell))
+		return ..()
+	var/obj/item/stock_parts/cell/C = W
+	if(cell)
+		to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+		return
+	if(C.maxcharge < hitcost)
+		to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
+		return
+	if(!user.unEquip(W))
+		return
+	W.loc = src
+	cell = W
+	to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
+	update_icon()
 
-	else if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(src.loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-			status = 0
-			update_icon()
-			return
-		..()
-	return
+/obj/item/melee/baton/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!cell)
+		to_chat(user, "<span class='warning'>There's no cell to remove!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	cell.update_icon()
+	cell.loc = get_turf(src.loc)
+	cell = null
+	to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
+	status = 0
+	update_icon()
 
 /obj/item/melee/baton/attack_self(mob/user)
-
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
 		if(R && R.cell &&  R.cell.charge >= (hitcost))

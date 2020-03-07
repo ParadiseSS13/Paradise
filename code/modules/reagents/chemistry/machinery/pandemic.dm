@@ -323,9 +323,6 @@
 
 
 /obj/machinery/computer/pandemic/attackby(obj/item/I, mob/user, params)
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
 	if(istype(I, /obj/item/reagent_containers) && (I.container_type & OPENCONTAINER))
 		if(stat & (NOPOWER|BROKEN))
 			return
@@ -340,9 +337,17 @@
 		to_chat(user, "<span class='notice'>You add the beaker to the machine.</span>")
 		updateUsrDialog()
 		icon_state = "mixer1"
-
-	else if(istype(I, /obj/item/screwdriver))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
 	else
 		return ..()
+
+/obj/machinery/computer/pandemic/screwdriver_act(mob/user, obj/item/I)
+	if(!beaker)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	beaker.forceMove(get_turf(src))
+
+/obj/machinery/computer/pandemic/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I))

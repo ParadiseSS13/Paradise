@@ -179,33 +179,28 @@ var/const/GRAV_NEEDS_WRENCH = 3
 
 // Fixing the gravity generator.
 /obj/machinery/gravity_generator/main/attackby(obj/item/I as obj, mob/user as mob, params)
-	switch(broken_state)
-		if(GRAV_NEEDS_SCREWDRIVER)
-			if(istype(I, /obj/item/screwdriver))
-				to_chat(user, "<span class='notice'>You secure the screws of the framework.</span>")
-				playsound(src.loc, I.usesound, 50, 1)
-				broken_state++
-				update_icon()
-			return
-		if(GRAV_NEEDS_PLASTEEL)
-			if(istype(I, /obj/item/stack/sheet/plasteel))
-				var/obj/item/stack/sheet/plasteel/PS = I
-				if(PS.amount >= 10)
-					PS.use(10)
-					to_chat(user, "<span class='notice'>You add the plating to the framework.</span>")
-					playsound(src.loc, PS.usesound, 75, 1)
-					broken_state++
-					update_icon()
-				else
-					to_chat(user, "<span class='notice'>You need 10 sheets of plasteel.</span>")
-			return
-		if(GRAV_NEEDS_WRENCH)
-			if(istype(I, /obj/item/wrench))
-				to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
-				playsound(src.loc, I.usesound, 75, 1)
-				set_fix()
-			return
-	return ..()
+	if(broken_state == GRAV_NEEDS_PLASTEEL && istype(I, /obj/item/stack/sheet/plasteel))
+		var/obj/item/stack/sheet/plasteel/PS = I
+		if(PS.amount >= 10)
+			PS.use(10)
+			to_chat(user, "<span class='notice'>You add the plating to the framework.</span>")
+			playsound(src.loc, PS.usesound, 75, 1)
+			broken_state++
+			update_icon()
+		else
+			to_chat(user, "<span class='notice'>You need 10 sheets of plasteel.</span>")
+	else
+		return ..()
+
+/obj/machinery/gravity_generator/main/screwdriver_act(mob/user, obj/item/I)
+	if(broken_state != GRAV_NEEDS_SCREWDRIVER)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, amount = 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You secure the screws of the framework.</span>")
+	broken_state = GRAV_NEEDS_WELDING
+
 
 /obj/machinery/gravity_generator/main/welder_act(mob/user, obj/item/I)
 	if(broken_state != GRAV_NEEDS_WELDING)
@@ -214,8 +209,17 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	if(!I.use_tool(src, user, amount = 1, volume = I.tool_volume))
 		return
 	to_chat(user, "<span class='notice'>You mend the damaged framework.</span>")
-	broken_state++
+	broken_state = GRAV_NEEDS_PLASTEEL
 	update_icon()
+
+/obj/machinery/gravity_generator/main/wrench_act(mob/user, obj/item/I)
+	if(broken_state != GRAV_NEEDS_WRENCH)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, amount = 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You secure the plating to the framework.</span>")
+	set_fix()
 
 /obj/machinery/gravity_generator/main/attack_hand(mob/user as mob)
 	if(!..())

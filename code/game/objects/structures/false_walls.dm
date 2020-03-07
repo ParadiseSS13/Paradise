@@ -113,17 +113,23 @@
 		if(T.density)
 			to_chat(user, "<span class='warning'>[src] is blocked!</span>")
 			return
-		if(istype(W, /obj/item/screwdriver))
-			if(!istype(T, /turf/simulated/floor))
-				to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
-				return
-			user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
-			ChangeToWall()
 	else
 		to_chat(user, "<span class='warning'>You can't reach, close it first!</span>")
 
 	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade))
 		dismantle(user, TRUE)
+
+/obj/structure/falsewall/screwdriver_act(mob/user, obj/item/I)
+	if(opening || !density)
+		return
+	. = TRUE
+	if(!istype(T, /turf/simulated/floor))
+		to_chat(user, "<span class='warning'>[src] bolts must be tightened on the floor!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	user.visible_message("<span class='notice'>[user] tightens some bolts on the wall.</span>", "<span class='warning'>You tighten the bolts on the wall.</span>")
+	ChangeToWall()
 
 /obj/structure/falsewall/welder_act(mob/user, obj/item/I)
 	if(!density)
