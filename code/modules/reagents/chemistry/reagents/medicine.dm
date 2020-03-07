@@ -405,7 +405,7 @@
 	id = "sal_acid"
 	description = "This is a is a standard salicylate pain reliever and fever reducer."
 	reagent_state = LIQUID
-	color = "#B3B3B3"
+	color = "#B54848"
 	metabolization_rate = 0.1
 	shock_reduction = 25
 	overdose_threshold = 25
@@ -415,7 +415,26 @@
 /datum/reagent/medicine/sal_acid/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(55))
-		update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		update_flags |= M.adjustBruteLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(M.bodytemperature > 310.15)
+		M.bodytemperature = max(310.15, M.bodytemperature - 10)
+	return ..() | update_flags
+
+/datum/reagent/medicine/menthol
+	name = "Menthol"
+	id = "menthol"
+	description = "Menthol relieves burns and aches while providing a cooling sensation."
+	reagent_state = LIQUID
+	color = "#F0F9CA"
+	metabolization_rate = 0.1
+	taste_description = "soothing"
+
+/datum/reagent/medicine/menthol/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(55))
+		update_flags |= M.adjustFireLoss(-2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	if(M.bodytemperature > 280)
+		M.bodytemperature = max(280, M.bodytemperature - 10)
 	return ..() | update_flags
 
 /datum/reagent/medicine/salbutamol

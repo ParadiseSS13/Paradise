@@ -218,6 +218,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	qdel(src)
 
 
+/obj/item/clothing/mask/cigarette/menthol
+	list_reagents = list("nicotine" = 40, "menthol" = 20)
+
 /obj/item/clothing/mask/cigarette/random
 
 /obj/item/clothing/mask/cigarette/random/New()
