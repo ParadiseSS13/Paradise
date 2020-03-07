@@ -79,5 +79,5 @@ In all, this is a lot like the monkey code. /N
 		if(M.is_adult)
 			damage = rand(10, 40)
 		adjustBruteLoss(damage)
-		add_attack_logs(src, M, "Slime'd for [damage] damage")
+		add_attack_logs(M, src, "Slime'd for [damage] damage")
 		updatehealth("slime attack")
