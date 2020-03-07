@@ -167,7 +167,7 @@
 		to_chat(user, "You can only attach the [nicetype] if the floor plating is removed.")
 		return
 
-	if(istype(I, /obj/item/wrench))
+	if(I.tool_behaviour == TOOL_WRENCH && I.use_tool(src, user, 0, volume = I.tool_volume))
 		if(anchored)
 			anchored = 0
 			if(ispipe)
@@ -205,7 +205,7 @@
 					to_chat(user, "There is already a [nicetype] at that location.")
 					return
 
-	if(istype(I, /obj/item/weldingtool))
+	if(I.tool_behaviour == TOOL_WELDER && I.tool_use_check(user, 0))
 		if(anchored)
 			if(I.tool_use_check(user, 0))
 				to_chat(user, "Welding the [nicetype] in place.")

@@ -19,17 +19,32 @@
 	. = ..()
 	. += "<span class='notice'>Use a multitool to lock/unlock it.</span>"
 
+/obj/structure/closet/fireaxecabinet/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(locked)
+		to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
+		playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
+		if(!I.use_tool(src, user, 20, volume = 0))
+			return
+		locked = FALSE
+		to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
+		update_icon()
+		return
+	if(localopened)
+		localopened = FALSE
+		update_icon_closing()
+		return
+	to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
+	if(!I.use_tool(src, user, 20, volume = 0))
+		return
+	locked = TRUE
+	to_chat(user, "<span class='caution'> You re-enable the locking modules.</span>")
+
 /obj/structure/closet/fireaxecabinet/attackby(var/obj/item/O as obj, var/mob/living/user as mob)  //Marker -Agouri
 	if(isrobot(user) || locked)
-		if(istype(O, /obj/item/multitool))
-			to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
-			playsound(user, 'sound/machines/lockreset.ogg', 50, 1)
-			if(do_after(user, 20 * O.toolspeed, target = src))
-				locked = FALSE
-				to_chat(user, "<span class = 'caution'> You disable the locking modules.</span>")
-				update_icon()
-			return
-		else if(istype(O, /obj/item))
+		if(istype(O, /obj/item))
 			user.changeNext_move(CLICK_CD_MELEE)
 			var/obj/item/W = O
 			if(smashed || localopened)
@@ -76,18 +91,6 @@
 	else
 		if(smashed)
 			return
-		if(istype(O, /obj/item/multitool))
-			if(localopened)
-				localopened = FALSE
-				update_icon_closing()
-				return
-			else
-				to_chat(user, "<span class='warning'>Resetting circuitry...</span>")
-				playsound(user, 'sound/machines/lockenable.ogg', 50, 1)
-				if(do_after(user, 20 * O.toolspeed, target = src))
-					locked = TRUE
-					to_chat(user, "<span class = 'caution'> You re-enable the locking modules.</span>")
-				return
 		else
 			localopened = !localopened
 			if(localopened)

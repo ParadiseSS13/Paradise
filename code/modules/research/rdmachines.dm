@@ -62,7 +62,7 @@
 	src.add_fingerprint(usr)
 	if(href_list["pulse"])
 		var/temp_wire = href_list["wire"]
-		if(!istype(usr.get_active_hand(), /obj/item/multitool))
+		if(I.tool_behaviour != TOOL_MULTITOOL || !I.use_tool(src, usr, 0, volume = I.tool_volume))
 			to_chat(usr, "You need a multitool!")
 		else
 			if(src.wires[temp_wire])
@@ -80,7 +80,7 @@
 					src.shock(usr,50)
 					spawn(100) src.shocked = !src.shocked
 	if(href_list["cut"])
-		if(!istype(usr.get_active_hand(), /obj/item/wirecutters))
+		if(I.tool_behaviour != TOOL_WIRECUTTER || !I.use_tool(src, usr, 0, volume = I.tool_volume))
 			to_chat(usr, "You need wirecutters!")
 		else
 			var/temp_wire = href_list["wire"]

@@ -235,30 +235,38 @@
 *   Item Adding
 ********************/
 
-/obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/screwdriver/S)
-	. = ..(user, icon_state, icon_state, S)
-
+/obj/machinery/smartfridge/default_deconstruction_screwdriver(mob/user, obj/item/I)
+	. = ..(user, icon_state, icon_state, I)
+	if(!.)
+		return
 	overlays.Cut()
 	if(panel_open)
 		overlays += image(icon, "[initial(icon_state)]-panel")
 
+/obj/machinery/smartfridge/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/smartfridge/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		attack_hand(user)
+
+/obj/machinery/smartfridge/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(panel_open)
+		attack_hand(user)
+
+/obj/machinery/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, I)
+
+/obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
 /obj/machinery/smartfridge/attackby(obj/item/O, var/mob/user)
-	if(default_deconstruction_screwdriver(user, O))
-		return
-
 	if(exchange_parts(user, O))
-		return
-
-	if(default_unfasten_wrench(user, O))
-		power_change()
-		return
-
-	if(default_deconstruction_crowbar(user, O))
-		return
-
-	if(istype(O, /obj/item/multitool)||istype(O, /obj/item/wirecutters))
-		if(panel_open)
-			attack_hand(user)
 		return
 
 	if(stat & NOPOWER)

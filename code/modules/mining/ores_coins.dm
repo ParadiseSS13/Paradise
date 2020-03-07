@@ -233,7 +233,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 
 	if(wires && !primed)
-		if(istype(I, /obj/item/wirecutters) || istype(I, /obj/item/multitool) || istype(I, /obj/item/assembly/signaler))
+		if(istype(I, /obj/item/assembly/signaler))
 			wires.Interact(user)
 			return
 
@@ -241,13 +241,26 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		GibtoniteReaction(user)
 		return
 	if(primed)
-		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner) || istype(I, /obj/item/multitool))
-			primed = 0
-			user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
-			icon_state = "Gibtonite ore"
-			quality = GIBTONITE_QUALITY_LOW
+		if(istype(I, /obj/item/mining_scanner) || istype(I, /obj/item/t_scanner/adv_mining_scanner))
+			defuse(user)
 			return
 	..()
+
+/obj/item/twohanded/required/gibtonite/multitool_act(mob/user, obj/item/I)
+	if(!primed && wires && I.use_tool(src, user, 0, volume = 0))
+		wires.Interact(user)
+		return TRUE
+	if(primed && I.use_tool(src, user, 0, volume = I.tool_volume))
+		defuse(user)
+		return TRUE
+
+/obj/item/twohanded/required/gibtonite/wirecutter_act(mob/user, obj/item/I)
+	if(!wires || primed)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	wires.Interact(user)
 
 /obj/item/twohanded/required/gibtonite/attack_ghost(mob/user)
 	if(wires)
@@ -265,6 +278,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/twohanded/required/gibtonite/ex_act()
 	GibtoniteReaction(null, 1)
+
+/obj/item/twohanded/required/gibtonite/proc/defuse(mob/user)
+	if(!primed)
+		return
+	primed = FALSE
+	user.visible_message("The chain reaction was stopped! ...The ore's quality looks diminished.", "<span class='notice'>You stopped the chain reaction. ...The ore's quality looks diminished.</span>")
+	icon_state = "Gibtonite ore"
+	quality = GIBTONITE_QUALITY_LOW
 
 /obj/item/twohanded/required/gibtonite/proc/GibtoniteReaction(mob/user, triggered_by = 0)
 	if(!primed)

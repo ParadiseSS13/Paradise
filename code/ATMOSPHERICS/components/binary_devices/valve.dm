@@ -142,11 +142,11 @@
 				if(open)
 					close()
 
-/obj/machinery/atmospherics/binary/valve/digital/attackby(var/obj/item/W as obj, var/mob/user)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	return ..()
+/obj/machinery/atmospherics/binary/valve/digital/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
 /obj/machinery/atmospherics/binary/valve/digital/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"

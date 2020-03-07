@@ -50,10 +50,7 @@ var/global/list/rad_collectors = list()
 
 
 /obj/machinery/power/rad_collector/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
-		return 1
-	else if(istype(W, /obj/item/analyzer) && P)
+	if(istype(W, /obj/item/analyzer) && P)
 		atmosanalyzer_scan(P.air_contents, user)
 	else if(istype(W, /obj/item/tank/plasma))
 		if(!src.anchored)
@@ -66,23 +63,7 @@ var/global/list/rad_collectors = list()
 		src.P = W
 		W.loc = src
 		update_icons()
-	else if(istype(W, /obj/item/crowbar))
-		if(P && !src.locked)
-			eject()
-			return 1
-	else if(istype(W, /obj/item/wrench))
-		if(P)
-			to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
-			return 1
-		playsound(src.loc, W.usesound, 75, 1)
-		src.anchored = !src.anchored
-		user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
-			"You [anchored? "secure":"undo"] the external bolts.", \
-			"You hear a ratchet")
-		if(anchored)
-			connect_to_network()
-		else
-			disconnect_from_network()
+
 	else if(istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))
 		if(src.allowed(user))
 			if(active)
@@ -96,6 +77,37 @@ var/global/list/rad_collectors = list()
 			return 1
 	else
 		return ..()
+
+
+/obj/machinery/power/rad_collector/crowbar_act(mob/user, obj/item/I)
+	if(!P || locked)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	eject()
+
+/obj/machinery/power/rad_collector/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(P)	
+		to_chat(user, "<span class='notice'>Remove the plasma tank first.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	user.visible_message("[user.name] [anchored? "secures":"unsecures"] the [src.name].", \
+		"You [anchored? "secure":"undo"] the external bolts.", \
+		"You hear a ratchet")
+	if(anchored)
+		connect_to_network()
+	else
+		disconnect_from_network()
+
+/obj/machinery/power/rad_collector/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>The [W.name] detects that [last_power]W were recently produced.</span>")
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))

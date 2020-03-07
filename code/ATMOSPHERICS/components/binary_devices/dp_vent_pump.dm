@@ -244,12 +244,12 @@
 		broadcast_status()
 	update_icon()
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
+/obj/machinery/atmospherics/binary/dp_vent_pump/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
-	return ..()
 
 /obj/machinery/atmospherics/binary/dp_vent_pump/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return {"

@@ -158,11 +158,9 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 		return
 
 
-/obj/machinery/gateway/centerstation/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/multitool))
-		to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
-		return
-	return ..()
+/obj/machinery/gateway/centerstation/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, "The gate is already calibrated, there is no work for you to do here.")
 
 /////////////////////////////////////Away////////////////////////
 
@@ -283,13 +281,12 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 			return 1
 	return 0
 
-/obj/machinery/gateway/centeraway/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W,/obj/item/multitool))
-		if(calibrated)
-			to_chat(user, "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>")
-			return
-		else
-			to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
-			calibrated = 1
+/obj/machinery/gateway/centeraway/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	return ..()
+	if(calibrated)
+		to_chat(user, "<span class='notice'>The gate is already calibrated, there is no work for you to do here.</span>")
+		return
+	to_chat(user, "<span class='boldnotice'>Recalibration successful!</span><span class='notice'>: This gate's systems have been fine tuned.  Travel to this gate will now be on target.</span>")
+	calibrated = TRUE

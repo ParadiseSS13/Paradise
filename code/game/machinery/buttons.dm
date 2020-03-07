@@ -66,23 +66,26 @@
 		return attack_hand(user)
 
 /obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
+	if(!istype(W, /obj/item/detective_scanner))
+		return ..()
 
-	if(istype(W, /obj/item/detective_scanner))
+
+/obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
 		return
+	WRENCH_ATTEMPT_UNANCHOR_MESSAGE
+	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_WALL_MESSAGE
+	new/obj/item/mounted/frame/driver_button(get_turf(src))
+	qdel(src)
 
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(istype(W, /obj/item/wrench))
-		playsound(get_turf(src), W.usesound, 50, 1)
-		if(do_after(user, 30 * W.toolspeed, target = src))
-			to_chat(user, "<span class='notice'>You detach \the [src] from the wall.</span>")
-			new/obj/item/mounted/frame/driver_button(get_turf(src))
-			qdel(src)
-		return 1
-
-	return ..()
+/obj/machinery/driver_button/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
 /obj/machinery/driver_button/multitool_menu(var/mob/user, var/obj/item/multitool/P)
 	return {"

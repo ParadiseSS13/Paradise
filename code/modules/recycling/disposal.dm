@@ -1305,22 +1305,12 @@
 				return
 			AM.throw_at(target, 3, 1)
 
-
-/obj/structure/disposaloutlet/attackby(var/obj/item/I, var/mob/user, params)
-	if(!I || !user)
+/obj/structure/disposaloutlet/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	src.add_fingerprint(user)
-	if(istype(I, /obj/item/screwdriver))
-		if(mode==0)
-			mode=1
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(mode==1)
-			mode=0
-			playsound(src.loc, I.usesound, 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
+	mode = !mode
+	to_chat(user, "You [mode ? "remove": "attach"] the screws around the power connection.")
 
 /obj/structure/disposaloutlet/welder_act(mob/user, obj/item/I)
 	. = TRUE

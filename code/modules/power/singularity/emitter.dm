@@ -259,33 +259,6 @@
 	return P
 
 /obj/machinery/power/emitter/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-
-	if(istype(W, /obj/item/wrench))
-		if(active)
-			to_chat(user, "Turn off the [src] first.")
-			return
-		switch(state)
-			if(0)
-				state = 1
-				playsound(src.loc, W.usesound, 75, 1)
-				user.visible_message("[user.name] secures [src.name] to the floor.", \
-					"You secure the external reinforcing bolts to the floor.", \
-					"You hear a ratchet")
-				src.anchored = 1
-			if(1)
-				state = 0
-				playsound(src.loc,W.usesound, 75, 1)
-				user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
-					"You undo the external reinforcing bolts.", \
-					"You hear a ratchet")
-				src.anchored = 0
-			if(2)
-				to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
-		return
-
 	if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))
 		if(emagged)
 			to_chat(user, "<span class='warning'>The lock seems to be broken</span>")
@@ -301,24 +274,25 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
-	if(default_deconstruction_screwdriver(user, "emitter_open", "emitter", W))
-		return
-
 	if(exchange_parts(user, W))
-		return
-
-	if(default_deconstruction_crowbar(user, W))
 		return
 
 	return ..()
 
-/obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
-	if(!emagged)
-		locked = 0
-		emagged = 1
-		if(user)
-			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")
+/obj/machinery/power/emitter/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
+
+/obj/machinery/power/emitter/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
+
+/obj/machinery/power/emitter/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "emitter_open", "emitter", I)
 
 /obj/machinery/power/emitter/welder_act(mob/user, obj/item/I)
 	if(active)
@@ -344,3 +318,35 @@
 		WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 		disconnect_from_network()
 		state = 1
+
+
+/obj/machinery/power/emitter/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(active)
+		to_chat(user, "Turn off [src] first.")
+		return
+	if(state == 2)
+		to_chat(user, "<span class='warning'>The [src.name] needs to be unwelded from the floor.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(state == 0)
+		state = 1
+		user.visible_message("[user.name] secures [src.name] to the floor.", \
+			"You secure the external reinforcing bolts to the floor.", \
+			"You hear a ratchet")
+		anchored = TRUE
+	else if(state == 1)
+		state = 0
+		user.visible_message("[user.name] unsecures [src.name] reinforcing bolts from the floor.", \
+			"You undo the external reinforcing bolts.", \
+			"You hear a ratchet")
+		anchored = FALSE
+
+
+/obj/machinery/power/emitter/emag_act(var/mob/living/user as mob)
+	if(!emagged)
+		locked = 0
+		emagged = 1
+		if(user)
+			user.visible_message("[user.name] emags the [src.name].","<span class='warning'>You short out the lock.</span>")

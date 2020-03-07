@@ -148,15 +148,12 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		holder.add_hiddenprint(L)
 		switch(href_list["action"])
 			if("cut") // Toggles the cut/mend status
-				if(istype(I, /obj/item/wirecutters) || L.can_admin_interact())
-					if(istype(I))
-						playsound(holder, I.usesound, 20, 1)
+				if((I.tool_behaviour == TOOL_WIRECUTTER && I.use_tool(src, user, 0, volume = I.tool_volume)) || L.can_admin_interact())
 					CutWireColour(colour)
 				else
 					to_chat(L, "<span class='error'>You need wirecutters!</span>")
 			if("pulse")
-				if(istype(I, /obj/item/multitool) || L.can_admin_interact())
-					playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
+				if((I.tool_behaviour == TOOL_MULTITOOL && I.use_tool(src, user, 0, volume = I.tool_volume)) || L.can_admin_interact())
 					PulseColour(colour)
 				else
 					to_chat(L, "<span class='error'>You need a multitool!</span>")

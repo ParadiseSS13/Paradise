@@ -539,19 +539,16 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!I.multitool_check_buffer(user))
-		return
-	var/obj/item/multitool/M = I
 	if(!panel_open)
-		if(M.buffer && istype(M.buffer, /obj/machinery/teleport/station) && M.buffer != src)
+		if(I.buffer && istype(I.buffer, /obj/machinery/teleport/station) && I.buffer != src)
 			if(linked_stations.len < efficiency)
-				linked_stations.Add(M.buffer)
-				M.buffer = null
-				to_chat(user, "<span class='caution'>You upload the data from [M]'s buffer.</span>")
+				linked_stations.Add(I.buffer)
+				I.buffer = null
+				to_chat(user, "<span class='caution'>You upload the data from [I]'s buffer.</span>")
 			else
 				to_chat(user, "<span class='alert'>This station can't hold more information, try to use better parts.</span>")
 		return
-	M.set_multitool_buffer(user, src)
+	I.set_multitool_buffer(user, src)
 
 /obj/machinery/teleport/station/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "controller-o", "controller", I))

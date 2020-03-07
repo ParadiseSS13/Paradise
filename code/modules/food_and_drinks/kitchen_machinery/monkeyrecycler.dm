@@ -46,40 +46,10 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	required_grind = req_grind
 
 /obj/machinery/monkey_recycler/attackby(obj/item/O, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "grinder_open", "grinder", O))
-		return
 
 	if(exchange_parts(user, O))
 		return
 
-	if(default_unfasten_wrench(user, O))
-		power_change()
-		return
-
-	if(default_deconstruction_crowbar(user, O))
-		return
-
-	if(istype(O, /obj/item/multitool))
-		if(!panel_open)
-			cycle_through++
-			switch(cycle_through)
-				if(1)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
-				if(2)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
-				if(3)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
-				if(4)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
-				if(5)
-					cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
-					cycle_through = 0
-			to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
-		else
-			var/obj/item/multitool/M = O
-			M.buffer = src
-			to_chat(user, "<span class='notice'>You log [src] in the [M]'s buffer.</span>")
-		return
 	if(stat != 0) //NOPOWER etc
 		return
 	if(istype(O, /obj/item/grab))
@@ -108,6 +78,41 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			to_chat(user, "<span class='warning'>The machine only accepts monkeys!</span>")
 		return
 	return ..()
+
+/obj/machinery/monkey_recycler/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/monkey_recycler/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "grinder_open", "grinder", I)
+
+/obj/machinery/monkey_recycler/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+
+/obj/machinery/monkey_recycler/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!panel_open)
+		cycle_through++
+		switch(cycle_through)
+			if(1)
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
+			if(2)
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
+			if(3)
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
+			if(4)
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
+			if(5)
+				cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+				cycle_through = 0
+		to_chat(user, "<span class='notice'>You change the monkeycube type to [initial(cube_type.name)].</span>")
+	else
+		I.set_multitool_buffer(user, src)
+	return
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc

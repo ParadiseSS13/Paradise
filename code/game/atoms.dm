@@ -355,12 +355,6 @@
 /atom/proc/multitool_act(mob/living/user, obj/item/I)
 	return
 
-//Check if the multitool has an item in its data buffer
-/atom/proc/multitool_check_buffer(user, silent = FALSE)
-	if(!silent)
-		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
-	return FALSE
-
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
 	return
 

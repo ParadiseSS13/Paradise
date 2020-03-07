@@ -136,20 +136,33 @@
 	if(shocked)
 		shock(user,50)
 
-	if(istype(O, /obj/item/screwdriver))
-		default_deconstruction_screwdriver(user, "server_o", "server", O)
-		return 1
-
 	if(exchange_parts(user, O))
 		return 1
 
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
 			griefProtection()
 			default_deconstruction_crowbar(user, O)
 			return 1
 	else
 		return ..()
+
+/obj/machinery/r_n_d/server/crowbar_act(mob/user, obj/item/I)
+	if(disabled)
+		return
+	if(!panel_open)
+		return
+	. = TRUE
+	if(shocked && shock(user,50))
+		return
+	griefProtection()
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/r_n_d/server/screwdriver_act(mob/user, obj/item/I)
+	if(disabled)
+		return
+	. = TRUE
+	if(shocked && shock(user,50))
+		return
+	default_deconstruction_screwdriver(user, "server_o", "server", I)
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user as mob)
 	if(disabled)

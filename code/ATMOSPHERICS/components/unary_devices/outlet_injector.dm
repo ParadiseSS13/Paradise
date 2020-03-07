@@ -176,15 +176,18 @@
 	</ul>
 "}
 
-/obj/machinery/atmospherics/unary/outlet_injector/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/multitool))
-		interact(user)
-		return 1
-	if(istype(W, /obj/item/wrench))
-		if(!(stat & NOPOWER) && on)
-			to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn if off first.</span>")
-			return 1
+/obj/machinery/atmospherics/unary/outlet_injector/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	interact(user)
+
+/obj/machinery/atmospherics/unary/outlet_injector/wrench_act(mob/user, obj/item/I)
+	if(!(stat & NOPOWER) && on)
+		to_chat(user, "<span class='danger'>You cannot unwrench this [src], turn it off first.</span>")
+		return TRUE
 	return ..()
+
 
 /obj/machinery/atmospherics/unary/outlet_injector/interact(mob/user as mob)
 	update_multitool_menu(user)

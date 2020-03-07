@@ -195,23 +195,26 @@
 			qdel(W)
 			qdel(src)
 			user.put_in_hands(newSaber)
-	else if(istype(W, /obj/item/multitool))
-		if(hacked == 0)
-			hacked = 1
-			item_color = "rainbow"
-			to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
 
-			if(active)
-				icon_state = "swordrainbow"
-				// Updating overlays, copied from welder code.
-				// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
-				if(user.r_hand == src)
-					user.update_inv_r_hand()
-				else if(user.l_hand == src)
-					user.update_inv_l_hand()
+/obj/item/melee/energy/sword/saber/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(hacked)
+		to_chat(user, "<span class='warning'>It's already fabulous!</span>")
+		return
+	hacked = TRUE
+	item_color = "rainbow"
+	to_chat(user, "<span class='warning'>RNBW_ENGAGE</span>")
+	if(active)
+		icon_state = "swordrainbow"
+		// Updating overlays, copied from welder code.
+		// I tried calling attack_self twice, which looked cool, except it somehow didn't update the overlays!!
+		if(user.r_hand == src)
+			user.update_inv_r_hand()
+		else if(user.l_hand == src)
+			user.update_inv_l_hand()
 
-		else
-			to_chat(user, "<span class='warning'>It's already fabulous!</span>")
 
 /obj/item/melee/energy/sword/pirate
 	name = "energy cutlass"

@@ -210,12 +210,6 @@
 		else
 			to_chat(user, "<span class='notice'>You need to attach a flash to it first!</span>")
 
-	if(istype(W, /obj/item/multitool))
-		if(check_completion())
-			Interact(user)
-		else
-			to_chat(user, "<span class='warning'>The endoskeleton must be assembled before debugging can begin!</span>")
-
 	if(istype(W, /obj/item/mmi))
 		var/obj/item/mmi/M = W
 		if(check_completion())
@@ -322,6 +316,15 @@
 		to_chat(user, "<span class='warning'>You need to use a multitool to name [src]!</span>")
 	return
 
+/obj/item/robot_parts/robot_suit/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	if(check_completion())
+		Interact(user)
+	else
+		to_chat(user, "<span class='warning'>The endoskeleton must be assembled before debugging can begin!</span>")
+
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <A href='?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
 			t1 += "Master AI: <A href='?src=[UID()];Master=1'>[(forced_ai ? "[forced_ai.name]" : "Automatic")]</a><br><br>\n"
@@ -340,7 +343,7 @@
 
 	var/mob/living/living_user = usr
 	var/obj/item/item_in_hand = living_user.get_active_hand()
-	if(!istype(item_in_hand, /obj/item/multitool))
+	if(item_in_hand.tool_behaviour != TOOL_MULTITOOL) || !I.use_tool(src, user, 0, volume = 0))
 		to_chat(living_user, "<span class='warning'>You need a multitool!</span>")
 		return
 

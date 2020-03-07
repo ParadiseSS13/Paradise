@@ -169,12 +169,8 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!I.multitool_check_buffer(user))
-		return
-	var/obj/item/multitool/M = I
-	if(istype(M.buffer, /obj/machinery/monkey_recycler))
-		M.set_multitool_buffer(user, src)
-		connected_recycler = M.buffer
+	if(istype(I.buffer, /obj/machinery/monkey_recycler) && I.set_multitool_buffer(user, src))
+		connected_recycler = I.buffer
 		connected_recycler.connected += src
 
 /datum/action/innate/slime_place

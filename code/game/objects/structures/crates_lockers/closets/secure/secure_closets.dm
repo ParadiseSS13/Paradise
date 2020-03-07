@@ -85,8 +85,6 @@
 			W.forceMove(loc)
 	else if((istype(W, /obj/item/card/emag)||istype(W, /obj/item/melee/energy/blade)) && !broken)
 		emag_act(user)
-	else if(istype(W,/obj/item/stack/packageWrap) || istype(W,/obj/item/weldingtool))
-		return ..(W, user)
 	else if(user.a_intent != INTENT_HARM)
 		togglelock(user)
 	else

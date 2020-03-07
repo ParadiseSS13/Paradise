@@ -172,36 +172,33 @@
 	else
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/W, mob/user)
-	if(locked)
-		if(istype(W, /obj/item/card/emag))
-			boom(user)
-			return 1
-		if(istype(W, /obj/item/multitool))
-			to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
-			if(attempts == 1)
-				to_chat(user, "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>")
-			else
-				to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [attempts] failed access attempts.</span>")
-			if(lastattempt != null)
-				var/bulls = 0
-				var/cows = 0
-				var/list/banned = list()
-				for(var/i in 1 to codelen)
-					var/list/a = copytext(lastattempt, i, i + 1)
-					if(a in banned)
-						continue
-					var/g = findtext(code, a)
-					if(g)
-						banned += a
-						if(g == i)
-							++bulls
-						else
-							++cows
-
-				to_chat(user, "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
-			return 1
-	return ..()
+/obj/structure/closet/crate/secure/loot/multitool_act(mob/user, obj/item/I)
+	if(!locked)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>DECA-CODE LOCK REPORT:</span>")
+	if(attempts == 1)
+		to_chat(user, "<span class='warning'>* Anti-Tamper Bomb will activate on next failed access attempt.</span>")
+	else
+		to_chat(user, "<span class='notice'>* Anti-Tamper Bomb will activate after [attempts] failed access attempts.</span>")
+	if(lastattempt != null)
+		var/bulls = 0
+		var/cows = 0
+		var/list/banned = list()
+		for(var/i in 1 to codelen)
+			var/list/a = copytext(lastattempt, i, i + 1)
+			if(a in banned)
+				continue
+			var/g = findtext(code, a)
+			if(g)
+				banned += a
+				if(g == i)
+					++bulls
+				else
+					++cows
+		to_chat(user, "<span class='notice'>Last code attempt had [bulls] correct digits at correct positions and [cows] correct digits at incorrect positions.</span>")
 
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
 	if(locked)

@@ -67,23 +67,25 @@
 			visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
 		return TRUE
 
-/obj/machinery/air_sensor/attackby(var/obj/item/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	if(istype(W, /obj/item/wrench))
-		if(bolts)
-			to_chat(usr, "The [src] is bolted to the floor! You can't detach it like this.")
-			return 1
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-		if(do_after(user, 40 * W.toolspeed, target = src))
-			user.visible_message("[user] unfastens \the [src].", "<span class='notice'>You have unfastened \the [src].</span>", "You hear ratchet.")
-			new /obj/item/pipe_gsensor(src.loc)
-			qdel(src)
-			return 1
+/obj/machinery/air_sensor/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(bolts)
+		to_chat(user, "[src] is bolted to the floor! You can't detach it like this.")
 		return
-	return ..()
+	if(!I.tool_use_check(user, 0))
+		return
+	WRENCH_ATTEMPT_UNANCHOR_MESSAGE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_SUCCESS_MESSAGE
+	new /obj/item/pipe_gsensor(loc)
+	qdel(src)
+
+/obj/machinery/air_sensor/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
 /obj/machinery/air_sensor/process_atmos()
 	if(on)
@@ -179,12 +181,11 @@
 		sensors = list()
 	src.updateUsrDialog()
 
-/obj/machinery/computer/general_air_control/attackby(I as obj, user as mob, params)
-	if(istype(I, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	return ..()
-
+/obj/machinery/computer/general_air_control/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
 /obj/machinery/computer/general_air_control/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption) return
@@ -383,12 +384,11 @@
 
 	var/pressure_setting = ONE_ATMOSPHERE * 45
 
-/obj/machinery/computer/general_air_control/large_tank_control/attackby(I as obj, user as mob)
-	if(istype(I, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	return ..()
-
+/obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_menu(mob/user, obj/item/multitool/P)
 	var/dat= {"
@@ -595,11 +595,11 @@
 	var/cutoff_temperature = 2000
 	var/on_temperature = 1200
 
-/obj/machinery/computer/general_air_control/fuel_injection/attackby(I as obj, user as mob, params)
-	if(istype(I, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
-	return ..()
+/obj/machinery/computer/general_air_control/fuel_injection/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
 /obj/machinery/computer/general_air_control/fuel_injection/process()
 	if(automation)

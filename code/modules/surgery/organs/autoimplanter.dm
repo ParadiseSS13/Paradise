@@ -27,11 +27,14 @@
 		I.forceMove(src)
 		storedorgan = I
 		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
-	else if(istype(I, /obj/item/screwdriver))
-		if(!storedorgan)
-			to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
-		else
-			storedorgan.forceMove(get_turf(user))
-			storedorgan = null
-			to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")
-			playsound(get_turf(user), I.usesound, 50, 1)
+
+/obj/item/autoimplanter/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!storedorgan)
+		to_chat(user, "<span class='notice'>There's no implant in [src] for you to remove.</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	storedorgan.forceMove(get_turf(user))
+	storedorgan = null
+	to_chat(user, "<span class='notice'>You remove the [storedorgan] from [src].</span>")

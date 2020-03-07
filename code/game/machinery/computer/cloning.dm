@@ -93,17 +93,20 @@
 			to_chat(user, "You insert [W].")
 			SSnanoui.update_uis(src)
 			return
-	else if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer && istype(M.buffer, /obj/machinery/clonepod))
-			var/obj/machinery/clonepod/P = M.buffer
-			if(P && !(P in pods))
-				pods += P
-				P.connected = src
-				P.name = "[initial(P.name)] #[pods.len]"
-				to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
 	else
 		return ..()
+
+/obj/machinery/computer/cloning/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(I.buffer && istype(I.buffer, /obj/machinery/clonepod))
+		var/obj/machinery/clonepod/P = I.buffer
+		if(P && !(P in pods))
+			pods += P
+			P.connected = src
+			P.name = "[initial(P.name)] #[pods.len]"
+			to_chat(user, "<span class='notice'>You connect [P] to [src].</span>")
 
 
 /obj/machinery/computer/cloning/attack_ai(mob/user as mob)

@@ -56,13 +56,10 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(!I.multitool_check_buffer(user))
-		return
-	var/obj/item/multitool/M = I
 	if(panel_open)
-		M.set_multitool_buffer(user, src)
+		I.set_multitool_buffer(user, src)
 	else
-		linked_pad = M.buffer
+		linked_pad = I.buffer
 		to_chat(user, "<span class='notice'>You link the [src] to the one in the [I.name]'s buffer.</span>")
 
 /obj/machinery/quantumpad/screwdriver_act(mob/user, obj/item/I)

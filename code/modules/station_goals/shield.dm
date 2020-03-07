@@ -134,11 +134,11 @@
 /obj/machinery/satellite/update_icon()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
-/obj/machinery/satellite/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/multitool))
-		to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
-	else
-		return ..()
+/obj/machinery/satellite/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>// NTSAT-[id] // Mode : [active ? "PRIMARY" : "STANDBY"] //[emagged ? "DEBUG_MODE //" : ""]</span>")
 
 /obj/machinery/satellite/meteor_shield
 	name = "Meteor Shield Satellite"

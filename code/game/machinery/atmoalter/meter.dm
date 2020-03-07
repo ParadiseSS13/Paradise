@@ -123,21 +123,21 @@
 
 	return ..()
 
-/obj/machinery/meter/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	if(istype(W, /obj/item/multitool))
-		update_multitool_menu(user)
-		return 1
+/obj/machinery/meter/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	update_multitool_menu(user)
 
-	if(!istype(W, /obj/item/wrench))
-		return ..()
-	playsound(loc, W.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You begin to unfasten \the [src]...</span>")
-	if(do_after(user, 40 * W.toolspeed, target = src))
-		user.visible_message( \
-			"[user] unfastens \the [src].", \
-			"<span class='notice'>You have unfastened \the [src].</span>", \
-			"You hear ratchet.")
-		deconstruct(TRUE)
+/obj/machinery/meter/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WRENCH_ATTEMPT_UNANCHOR_MESSAGE
+	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
+		return
+	WRENCH_UNANCHOR_SUCCESS_MESSAGE
+	deconstruct(TRUE)
 
 /obj/machinery/meter/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

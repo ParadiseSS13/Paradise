@@ -23,23 +23,6 @@
 	tool_behaviour = TOOL_MULTITOOL
 	hitsound = 'sound/weapons/tap.ogg'
 	var/shows_wire_information = FALSE // shows what a wire does if set to TRUE
-	var/obj/machinery/buffer // simple machine buffer for device linkage
-
-/obj/item/multitool/proc/IsBufferA(var/typepath)
-	if(!buffer)
-		return 0
-	return istype(buffer,typepath)
-
-/obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
-	return TRUE
-
-/obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
-	if(!ismachinery(M))
-		to_chat(user, "<span class='warning'>That's not a machine!</span>")
-		return
-	buffer = M
-	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
-	return TRUE
 
 // Syndicate device disguised as a multitool; it will turn red when an AI camera is nearby.
 

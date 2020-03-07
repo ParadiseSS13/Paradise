@@ -87,6 +87,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/tool_enabled = TRUE //If we can turn on or off, are we currently active? Mostly for welders and this will normally be TRUE
 	var/tool_volume = 50 //How loud are we when we use our tool?
 	var/toolspeed = 1 // If this item is a tool, the speed multiplier
+	var/obj/machinery/buffer // simple machine buffer for device linkage. At the item level so things that aren't obj/item/multitool can also act as multitools
 
 	/* Species-specific sprites, concept stolen from Paradise//vg/.
 	ex:
@@ -679,3 +680,26 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	if(flags & SLOT_PDA)
 		owner.update_inv_wear_pda()
 
+//Multitool-speficic procs down below
+//Check if the item has a multitool buffer
+/obj/item/proc/multitool_check_buffer(user, message = TRUE)
+	if(I.tool_behaviour == TOOL_MULTITOOL)
+		return TRUE
+	if(message)
+		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
+	return FALSE
+
+//Checks if a given typepath matches the buffer path
+/obj/item/proc/IsBufferA(typepath)
+	if(buffer)
+		return istype(buffer,typepath)
+
+//Loads a machine into memory, and returns TRUE if it does. Should do the relevant checks beforehand
+/obj/item/proc/set_multitool_buffer(mob/user, obj/machinery/M)
+	if(!ismachinery(M))
+		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		return
+	. = multitool_check_buffer(user)
+	if(.)
+		buffer = M
+		to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")

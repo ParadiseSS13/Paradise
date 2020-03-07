@@ -65,15 +65,19 @@
 			W.loc = src
 			user.visible_message("<span class='notice'>[user] inserts [W] into [src]'s GPS device slot.</span>")
 			updateUsrDialog()
-	else if(istype(W, /obj/item/multitool))
-		var/obj/item/multitool/M = W
-		if(M.buffer && istype(M.buffer, /obj/machinery/telepad))
-			telepad = M.buffer
-			M.buffer = null
-			to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
-			updateUsrDialog()
+
 	else
 		return ..()
+
+/obj/machinery/computer/telescience/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(I.buffer && I.IsBufferA(/obj/machinery/telepad))
+		telepad = I.buffer
+		I.buffer = null
+		to_chat(user, "<span class = 'caution'>You upload the data from the [W.name]'s buffer.</span>")
+		updateUsrDialog()
 
 /obj/machinery/computer/telescience/emag_act(user as mob)
 	if(!emagged)
