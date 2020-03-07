@@ -23,3 +23,8 @@
 	var/obj/structure/bed/roller/bluespace/R = new /obj/structure/bed/roller/bluespace(user.loc)
 	R.add_fingerprint(user)
 	qdel(src)
+
+/obj/structure/bed/dogbed/ducktron
+	desc = "A comfy-looking duck bed. You can even strap your pet in, in case the gravity turns off."
+	name = "Ducks's bed"
+	anchored = TRUE

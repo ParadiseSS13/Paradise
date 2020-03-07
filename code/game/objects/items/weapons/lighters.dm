@@ -26,10 +26,11 @@
 	icon_off = "zippo"
 
 /obj/item/lighter/random/New()
-		var/color = pick("r","c","y","g")
-		icon_on = "lighter-[color]-on"
-		icon_off = "lighter-[color]"
-		icon_state = icon_off
+	..()
+	var/color = pick("r","c","y","g")
+	icon_on = "lighter-[color]-on"
+	icon_off = "lighter-[color]"
+	icon_state = icon_off
 
 /obj/item/lighter/attack_self(mob/living/user)
 	if(user.r_hand == src || user.l_hand == src || isrobot(user))

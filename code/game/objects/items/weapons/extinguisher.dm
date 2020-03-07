@@ -46,6 +46,7 @@
 
 
 /obj/item/extinguisher/New()
+	..()
 	create_reagents(max_water)
 	reagents.add_reagent("water", max_water)
 
