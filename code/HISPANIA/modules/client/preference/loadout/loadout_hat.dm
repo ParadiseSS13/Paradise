@@ -10,7 +10,7 @@
 	display_name = "green, blue"
 	path = /obj/item/clothing/head/beret/fluff/linda
 
-/datum/gear/hat/green_beret
+/datum/gear/hat/pimp_hat
 	display_name = "pimp hat"
 	path = /obj/item/clothing/head/fluff/kaki
 
