@@ -81,7 +81,16 @@
 		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/photo/proc/show(mob/user as mob)
-	usr << browse_rsc(img, "tmp_photo.png")
+	var/icon/img_shown = new/icon(img)
+	var/colormatrix = user.get_screen_colour()
+	// Apply colorblindness effects, if any.
+	if(islist(colormatrix))
+		img_shown.MapColors(
+			colormatrix[1], colormatrix[2], colormatrix[3],
+			colormatrix[4], colormatrix[5], colormatrix[6],
+			colormatrix[7], colormatrix[8], colormatrix[9],
+		)
+	usr << browse_rsc(img_shown, "tmp_photo.png")
 	usr << browse("<html><head><title>[name]</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
 		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
