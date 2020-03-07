@@ -21,7 +21,7 @@
 	path = /obj/item/clothing/under/retro/science
 	allowed_roles = list("Research Director","Scientist")
 
-/datum/gear/uniform/sci
+/datum/gear/uniform/grean_heart_jump
 	display_name = "green heart jumpsuit"
 	path = /obj/item/clothing/under/fluff/counterfeitguise_uniform
 
@@ -37,10 +37,6 @@
 	display_name = "blue and black turtleneck"
 	path = /obj/item/clothing/under/fluff/jay_turtleneck
 
-/datum/gear/uniform/nerd_turtle
-	display_name = "blue and black turtleneck"
-	path = /obj/item/clothing/under/fluff/jay_turtleneck
-
 /datum/gear/uniform/casual_waitcoast
 	display_name = "white and black whaitcost jumpsuit"
 	path = /obj/item/clothing/under/fluff/aegis
@@ -49,7 +45,7 @@
 	display_name = "blue turtleneck"
 	path = /obj/item/clothing/under/fluff/elo_turtleneck
 
-/datum/gear/uniform/nerd_turtle_blue
+/datum/gear/uniform/old_jump_aero
 	display_name = "old aeronautics jumpsuit"
 	path = /obj/item/clothing/under/fluff/fox
 

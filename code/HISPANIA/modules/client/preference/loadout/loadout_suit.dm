@@ -64,10 +64,6 @@
 	path = /obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil
 	allowed_roles = list("Research Director","Roboticist")
 
-/datum/gear/suit/old_jack23
-	display_name = "old dusty jacket"
-	path = /obj/item/clothing/suit/fluff/dusty_jacket
-
 /datum/gear/suit/grey_ves12
 	display_name = "old dusty jacket"
 	path = /obj/item/clothing/suit/jacket/fluff/kidosvest
@@ -81,7 +77,7 @@
 	display_name = "old aeronautics jacket"
 	path = /obj/item/clothing/suit/storage/fox
 
-/datum/gear/suit/fox_jacket
+/datum/gear/suit/fox_jacket_military
 	display_name = "rugged military jacket"
 	path = /obj/item/clothing/suit/storage/fox/miljacket_desert
 
