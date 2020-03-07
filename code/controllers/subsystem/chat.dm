@@ -13,9 +13,7 @@ SUBSYSTEM_DEF(chat)
 		var/client/C = i
 		if(C)
 			C << output(payload[C], "browseroutput:output")
-			payload -= C
-		else
-			payload -= i
+		payload -= C
 
 		if(MC_TICK_CHECK)
 			return
