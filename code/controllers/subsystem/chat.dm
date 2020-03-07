@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(chat)
 	name = "Chat"
-	flags = SS_TICKER|SS_NO_INIT
+	flags = SS_TICKER
 	wait = 1
 	priority = FIRE_PRIORITY_CHAT
 	init_order = INIT_ORDER_CHAT
@@ -11,7 +11,8 @@ SUBSYSTEM_DEF(chat)
 /datum/controller/subsystem/chat/fire()
 	for(var/i in payload)
 		var/client/C = i
-		C << output(payload[C], "browseroutput:output")
+		if(C)
+			C << output(payload[C], "browseroutput:output")
 		payload -= C
 
 		if(MC_TICK_CHECK)
