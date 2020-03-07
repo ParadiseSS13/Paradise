@@ -175,7 +175,7 @@
 		return FALSE
 	return TRUE
 
-// checks whether this step can be applied with the given user and target
+// checks whether this step can be applied with the given user and target. Should not contain to_chat messages. These should be handled in begin_step
 /datum/surgery_step/proc/can_use(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(!is_valid_target(target) || !is_valid_user(user))
 		return FALSE

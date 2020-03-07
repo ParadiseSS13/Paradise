@@ -106,18 +106,18 @@
 	if(!istype(tool, /obj/item/reagent_containers))
 		return FALSE
 
-	var/obj/item/reagent_containers/container = tool
-	if(!container.reagents.has_reagent("mitocholide"))
-		user.visible_message("<span class='notice'>[user] looks at \the [tool] and ponders.</span>" , \
-		"<span class='notice'>You are not sure if \the [tool] contains mitocholide to treat the necrosis.</span>")
-		return FALSE
-
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.status & ORGAN_DEAD))
 		return FALSE
 	return TRUE
 
 /datum/surgery_step/treat_necrosis/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/reagent_containers/container = tool
+	if(!container.reagents.has_reagent("mitocholide"))
+		user.visible_message("<span class='notice'>[user] looks at \the [tool] and ponders.</span>" , \
+		"<span class='notice'>You are not sure if \the [tool] contains mitocholide to treat the necrosis.</span>")
+		return SURGERY_FAILED
+	
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'>[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].</span>" , \
 	"<span class='notice'>You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].</span>")
