@@ -234,7 +234,7 @@
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 						if(!prob(bomb_armor))
-							processing_dismember.droplimb(1, DROPLIMB_SHARP, 0, 1)
+							processing_dismember.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
@@ -259,7 +259,7 @@
 				processing_dismember = pick(valid_limbs)
 				if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 					if(!prob(bomb_armor))
-						processing_dismember.droplimb(1, DROPLIMB_SHARP, 0, 1)
+						processing_dismember.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 					valid_limbs -= processing_dismember
 					limbs_affected -= 1
 				else valid_limbs -= processing_dismember
@@ -288,7 +288,7 @@
 					processing_dismember = pick(valid_limbs)
 					if(processing_dismember.limb_name != "chest" && processing_dismember.limb_name != "head" && processing_dismember.limb_name != "groin")
 						if(!prob(bomb_armor))
-							processing_dismember.droplimb(1, DROPLIMB_SHARP, 0, 1)
+							processing_dismember.droplimb(TRUE, DROPLIMB_SHARP, FALSE, TRUE)
 						valid_limbs -= processing_dismember
 						limbs_affected -= 1
 					else valid_limbs -= processing_dismember
