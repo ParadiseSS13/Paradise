@@ -357,7 +357,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	var/message = multilingual_to_message(message_pieces)
 
-	whisper_log += message
+	say_log += "whisper: [message]"
 	log_whisper(message, src)
 	var/message_range = 1
 	var/eavesdropping_range = 2
