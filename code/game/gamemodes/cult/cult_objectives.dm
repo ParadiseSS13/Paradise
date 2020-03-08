@@ -91,7 +91,19 @@
 	var/sanity = 0
 	while(summon_spots.len < SUMMON_POSSIBILITIES && sanity < 100)
 		var/area/summon = pick(return_sorted_areas() - summon_spots)
-		if(summon && is_station_level(summon.z) && summon.valid_territory)
+		var/valid_spot = FALSE
+		if(summon && is_station_level(summon.z) && summon.valid_territory) //check if there's a turf that you can walk on, if not it's not valid
+			for(var/turf/T in get_area_turfs(summon))
+				if(!T.density)
+					var/clear = TRUE
+					for(var/obj/O in T)
+						if(O.density)
+							clear = FALSE
+							break
+					if(clear)
+						valid_spot = TRUE
+						break
+		if(valid_spot)
 			summon_spots += summon
 		sanity++
 	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil'. <b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
