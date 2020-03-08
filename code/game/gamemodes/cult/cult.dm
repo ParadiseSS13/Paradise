@@ -197,7 +197,7 @@ var/global/list/all_cults = list()
 		update_cult_icons_removed(cult_mind)
 		var/mob/living/carbon/human/H = cult_mind.current
 		REMOVE_TRAIT(H, CULT_EYES, null)
-		H.change_eye_color(original_eye_color, FALSE)
+		H.change_eye_color(H.original_eye_color, FALSE)
 		H.update_eyes()
 		H.remove_overlay(MISC_LAYER)
 		H.update_body()
