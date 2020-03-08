@@ -39,6 +39,7 @@ To draw a rune, use an arcane tome.
 	var/keyword //The actual keyword for the rune
 
 	var/invoke_damage = 0 //how much damage invokers take when invoking it
+	var/rune_blood_color = COLOR_BLOOD_BASE
 
 /obj/effect/rune/New(loc, set_keyword)
 	..()
@@ -162,7 +163,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/proc/do_invoke_glow()
     var/oldtransform = transform
     spawn(0) //animate is a delay, we want to avoid being delayed
-        animate(src, transform = matrix()*2, alpha = 0, time = 5) //fade out
+        animate(src, transform = matrix() * 2, alpha = 0, time = 5) //fade out
         animate(transform = oldtransform, alpha = 255, time = 0)
 
 /obj/effect/rune/proc/fail_invoke(var/mob/living/user)
@@ -170,7 +171,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	visible_message("<span class='warning'>The markings pulse with a small flash of red light, then fall dark.</span>")
 	spawn(0) //animate is a delay, we want to avoid being delayed
 		animate(src, color = rgb(255, 0, 0), time = 0)
-		animate(src, color = initial(color), time = 5)
+		animate(src, color = rune_blood_color, time = 5)
 
 /obj/effect/rune/proc/fizzle()
 	if(istype(src, /obj/effect/rune))
@@ -573,12 +574,6 @@ var/list/teleport_runes = list()
 /obj/effect/forcefield/CanAtmosPass(turf/T)
 	return !density
 
-/obj/effect/rune/wall/examine(mob/user)
-	. = ..()
-	if(density && iscultist(user))
-		if(density_timer)
-			. += "<span class='cultitalic'>The air above this rune has hardened into a barrier that will last [DisplayTimeText(density_timer.timeToRun - world.time)].</span>"
-
 /obj/effect/rune/wall/Destroy()
 	GLOB.wall_runes -= src
 	return ..()
@@ -620,7 +615,7 @@ var/list/teleport_runes = list()
 
 /obj/effect/rune/wall/proc/recharge()
 	recharging = FALSE
-	add_atom_colour(RUNE_COLOR_MEDIUMRED, FIXED_COLOUR_PRIORITY)
+	add_atom_colour(rune_blood_color, FIXED_COLOUR_PRIORITY)
 
 /obj/effect/rune/wall/proc/update_state()
 	deltimer(density_timer)
@@ -634,7 +629,7 @@ var/list/teleport_runes = list()
 		add_atom_colour(RUNE_COLOR_RED, FIXED_COLOUR_PRIORITY)
 	else
 		cut_overlays()
-		add_atom_colour(RUNE_COLOR_MEDIUMRED, FIXED_COLOUR_PRIORITY)
+		add_atom_colour(rune_blood_color, FIXED_COLOUR_PRIORITY)
 
 //Rite of Joined Souls: Summons a single cultist.
 /obj/effect/rune/summon
@@ -892,7 +887,7 @@ var/list/teleport_runes = list()
 	pixel_y = -32
 	mouse_opacity = MOUSE_OPACITY_ICON //we're huge and easy to click
 	scribe_delay = 450 //how long the rune takes to create
-	scribe_damage = 30 //how much damage you take doing it
+	scribe_damage = 10 //how much damage you take doing it
 	var/used
 
 /obj/effect/rune/narsie/New()

@@ -64,7 +64,7 @@
 	if(!(A in summon_areas))
 		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
-	var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
+	var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence AND your location!", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
 	if(confirm_final == "No" || confirm_final == null)
 		to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
 		return FALSE
@@ -122,7 +122,7 @@
 			if(!(A in summon_areas))  // Check again to make sure they didn't move
 				to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 				return
-			command_announcement.Announce("Figments from an eldritch god are being summoned somewhere on the station from an unknown dimension. Potential locations are [english_list(summon_areas)]. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
+			command_announcement.Announce("Figments from an eldritch god are being summoned into [A.map_name] from an unknown dimension. Disrupt the ritual at all costs!","Central Command Higher Dimensional Affairs", 'sound/AI/spanomalies.ogg')
 			for(var/B in spiral_range_turfs(1, user, 1))
 				var/turf/T = B
 				var/obj/machinery/shield/N = new(T)
@@ -160,6 +160,8 @@
 	R.add_hiddenprint(H)
 	if(isslimeperson(H)) //slime people get runes colored by their body, using their internal fluids as blood
 		R.color = H.skin_colour
+		R.rune_blood_color = H.skin_colour
 	else if(H.dna.species && H.dna.species && !(NO_BLOOD in H.dna.species.species_traits)) //other mobs with blood gets the rune colored by their blood, otherwise it stays red (OCCULT MAGIC)
 		R.color = H.dna.species.blood_color
+		R.rune_blood_color = H.dna.species.blood_color
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune_to_scribe.cultist_name))] rune [initial(rune_to_scribe.cultist_desc)]</span>")
