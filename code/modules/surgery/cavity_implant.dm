@@ -39,6 +39,16 @@
 	allowed_surgery_tools = SURGERY_TOOLS_MAKE_CAVITY
 	time = 54
 
+/datum/surgery_step/cavity/make_space/is_zone_valid(mob/living/carbon/target, target_zone, current_stage)
+	if(!..())
+		return FALSE
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(current_stage != SURGERY_STAGE_OPEN_INCISION_BONES && affected.encased)
+		return FALSE
+
+	return TRUE
+
 /datum/surgery_step/cavity/make_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("[user] starts making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].", \
