@@ -138,6 +138,6 @@ var/global/list/image/fluidtrack_cache = list()
 	..()
 
 /obj/effect/decal/cleanable/blood/footprints/can_bloodcrawl_in()
-	if(basecolor == "#030303") //to be replaced by defines or something. IPC 'blood'
+	if(basecolor == COLOR_BLOOD_MACHINE)
 		return FALSE
 	return TRUE

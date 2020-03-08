@@ -23,7 +23,7 @@ To draw a rune, use an arcane tome.
 	var/visibility = 0
 	var/view_range = 7
 	layer = SIGIL_LAYER
-	color = RUNE_COLOR_RED
+	color = COLOR_BLOOD_BASE
 
 	var/invocation = "Aiy ele-mayo!" //This is said by cultists when the rune is invoked.
 	var/req_cultists = 1 //The amount of cultists required around the rune to invoke it. If only 1, any cultist can invoke it.
