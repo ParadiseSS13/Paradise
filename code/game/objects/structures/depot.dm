@@ -119,7 +119,7 @@
 	for(var/mob/living/M in range(30, T))
 		M.gib()
 	for(var/obj/mecha/E in range(30, T))
-		E.Destroy()
+		E.take_damage(E.max_integrity)
 	explosion(get_turf(src), 25, 35, 45, 55, 1, 1, 60, 0, 0)
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
