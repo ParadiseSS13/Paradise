@@ -80,7 +80,7 @@
 	else
 		data = "<div id='markdown'>[infolinks ? info_links : info]</div>[stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, name, , paper_width, paper_height)
+		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
 		popup.stylesheets = list()
 		popup.set_content(data)
 		if(!stars)
@@ -720,6 +720,7 @@
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
 /obj/item/paper/researchnotes/New()
+	..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)

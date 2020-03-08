@@ -146,7 +146,7 @@
 	access_card.access += access_robotics
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
-
+	Radio.follow_target = src
 	add_language("Galactic Common", 1)
 	add_language("Sol Common", 1)
 	add_language("Tradeband", 1)
@@ -357,25 +357,25 @@
 					user.visible_message("<span class='notice'>[user] uses [W] to pull [paicard] out of [bot_name]!</span>","<span class='notice'>You pull [paicard] out of [bot_name] with [W].</span>")
 					ejectpai(user)
 	else
-		user.changeNext_move(CLICK_CD_MELEE)
-		if(istype(W, /obj/item/weldingtool) && user.a_intent != INTENT_HARM)
-			if(health >= maxHealth)
-				to_chat(user, "<span class='warning'>[src] does not need a repair!</span>")
-				return
-			if(!open)
-				to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
-				return
-			var/obj/item/weldingtool/WT = W
-			if(WT.remove_fuel(0, user))
-				adjustHealth(-10)
-				add_fingerprint(user)
-				user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
-			else
-				to_chat(user, "<span class='warning'>The welder must be on for this task!</span>")
-		else
-			if(W.force) //if force is non-zero
-				do_sparks(5, 1, src)
-			..()
+		return ..()
+
+/mob/living/simple_animal/bot/welder_act(mob/user, obj/item/I)
+	if(user.a_intent != INTENT_HELP)
+		return
+	if(user == src) //No self-repair dummy
+		return
+	. = TRUE
+	if(health >= maxHealth)
+		to_chat(user, "<span class='warning'>[src] does not need a repair!</span>")
+		return
+	if(!open)
+		to_chat(user, "<span class='warning'>Unable to repair with the maintenance panel closed!</span>")
+		return
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return
+	adjustBruteLoss(-10)
+	add_fingerprint(user)
+	user.visible_message("[user] repairs [src]!","<span class='notice'>You repair [src].</span>")
 
 /mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))

@@ -41,15 +41,17 @@
 		return
 	to_chat(user, "<span class='notice'>Picking up the swarmer may cause it to activate. You should be careful about this.</span>")
 
-/obj/effect/mob_spawn/swarmer/attackby(obj/item/I, mob/user, params)
-	if(isscrewdriver(I)  && user.a_intent != INTENT_HARM)
-		user.visible_message("<span class='warning'>[usr.name] deactivates [src].</span>",
-			"<span class='notice'>After some fiddling, you find a way to disable [src]'s power source.</span>",
-			"<span class='italics'>You hear clicking.</span>")
-		new /obj/item/deactivated_swarmer(get_turf(src))
-		qdel(src)
-	else
-		return ..()
+/obj/effect/mob_spawn/swarmer/screwdriver_act(mob/user, obj/item/I)
+	if(user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	user.visible_message("<span class='warning'>[usr.name] deactivates [src].</span>",
+		"<span class='notice'>After some fiddling, you find a way to disable [src]'s power source.</span>",
+		"<span class='italics'>You hear clicking.</span>")
+	new /obj/item/deactivated_swarmer(get_turf(src))
+	qdel(src)
 
 ////The Mob itself////
 

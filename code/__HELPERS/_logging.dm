@@ -1,5 +1,5 @@
 //location of the rust-g library
-#define RUST_G "rust_g"
+#define RUST_G (world.system_type == UNIX ? "./librust_g.so" : "./rust_g.dll")
 
 // On Linux/Unix systems the line endings are LF, on windows it's CRLF, admins that don't use notepad++
 // will get logs that are one big line if the system is Linux and they are using notepad.  This solves it by adding CR to every line ending
@@ -139,6 +139,9 @@
 
 /proc/log_asset(text)
 	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
+
+/proc/log_runtime_summary(text)
+	WRITE_LOG(GLOB.runtime_summary_log, "[text]")
 
 /**
  * Standardized method for tracking startup times.

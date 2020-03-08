@@ -212,7 +212,7 @@
 			if(admin_ranks.len)
 				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in (admin_ranks|"*New Rank*")
 			else
-				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Game Master","Game Admin", "Trial Admin", "Admin Observer","*New Rank*")
+				new_rank = input("Please select a rank", "New rank", null, null) as null|anything in list("Mentor", "Trial Admin", "Game Admin", "*New Rank*")
 
 			var/rights = 0
 			if(D)
@@ -936,6 +936,13 @@
 		target = text2num(target)
 		show_note(index = target)
 
+	else if(href_list["webtools"])
+		var/target_ckey = href_list["webtools"]
+		if(config.forum_playerinfo_url)
+			var/url_to_open = config.forum_playerinfo_url + target_ckey
+			if(alert("Open [url_to_open]",,"Yes","No")=="Yes")
+				usr.client << link(url_to_open)
+
 	else if(href_list["shownoteckey"])
 		var/target_ckey = href_list["shownoteckey"]
 		show_note(target_ckey)
@@ -995,6 +1002,8 @@
 				feedback_inc("ban_tmp",1)
 				DB_ban_record(BANTYPE_TEMP, M, mins, reason)
 				feedback_inc("ban_tmp_mins",mins)
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
@@ -1011,6 +1020,8 @@
 				AddBan(M.ckey, M.computer_id, reason, usr.ckey, 0, 0, M.lastKnownIP)
 				to_chat(M, "<span class='warning'><BIG><B>You have been banned by [usr.client.ckey].\nReason: [reason].</B></BIG></span>")
 				to_chat(M, "<span class='warning'>This ban does not expire automatically and must be appealed.</span>")
+				if(M.client)
+					M.client.link_forum_account(TRUE)
 				if(config.banappeals)
 					to_chat(M, "<span class='warning'>To try to resolve this matter head to [config.banappeals]</span>")
 				else
@@ -2153,7 +2164,7 @@
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 
-			usr << browse(data, "window=[B.name]")
+			usr << browse(data, "window=PaperBundle[B.UID()]")
 		else
 			to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>")
 
@@ -2712,15 +2723,15 @@
 				if(newBombCap > 128)
 					newBombCap = 128
 
-				MAX_EX_DEVESTATION_RANGE = round(newBombCap/4)
+				MAX_EX_DEVASTATION_RANGE = round(newBombCap/4)
 				MAX_EX_HEAVY_RANGE = round(newBombCap/2)
 				MAX_EX_LIGHT_RANGE = newBombCap
 				//I don't know why these are their own variables, but fuck it, they are.
 				MAX_EX_FLASH_RANGE = newBombCap
 				MAX_EX_FLAME_RANGE = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</span>")
-				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
+				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVASTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</span>")
+				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVASTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
 
 			if("flicklights")
 				feedback_inc("admin_secrets_fun_used",1)
@@ -3066,7 +3077,7 @@
 	else if(href_list["ac_set_channel_name"])
 		src.admincaster_feed_channel.channel_name = strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
 		while(findtext(src.admincaster_feed_channel.channel_name," ") == 1)
-			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,lentext(src.admincaster_feed_channel.channel_name)+1)
+			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,length(src.admincaster_feed_channel.channel_name)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_set_channel_lock"])
@@ -3105,7 +3116,7 @@
 	else if(href_list["ac_set_new_message"])
 		src.admincaster_feed_message.body = adminscrub(input(usr, "Write your Feed story", "Network Channel Handler", ""))
 		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,lentext(src.admincaster_feed_message.body)+1)
+			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_submit_new_message"])
@@ -3159,13 +3170,13 @@
 	else if(href_list["ac_set_wanted_name"])
 		src.admincaster_feed_message.author = adminscrub(input(usr, "Provide the name of the Wanted person", "Network Security Handler", ""))
 		while(findtext(src.admincaster_feed_message.author," ") == 1)
-			src.admincaster_feed_message.author = copytext(admincaster_feed_message.author,2,lentext(admincaster_feed_message.author)+1)
+			src.admincaster_feed_message.author = copytext(admincaster_feed_message.author,2,length(admincaster_feed_message.author)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_set_wanted_desc"])
 		src.admincaster_feed_message.body = adminscrub(input(usr, "Provide the a description of the Wanted person and any other details you deem important", "Network Security Handler", ""))
 		while(findtext(src.admincaster_feed_message.body," ") == 1)
-			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,lentext(src.admincaster_feed_message.body)+1)
+			src.admincaster_feed_message.body = copytext(src.admincaster_feed_message.body,2,length(src.admincaster_feed_message.body)+1)
 		src.access_news_network()
 
 	else if(href_list["ac_submit_wanted"])

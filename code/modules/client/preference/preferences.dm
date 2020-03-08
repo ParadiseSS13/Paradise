@@ -294,8 +294,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[nanotrasen_relation]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
-			if(lentext(flavor_text) <= 40)
-				if(!lentext(flavor_text))	dat += "\[...\]<br>"
+			if(length(flavor_text) <= 40)
+				if(!length(flavor_text))	dat += "\[...\]<br>"
 				else						dat += "[flavor_text]<br>"
 			else dat += "[TextPreview(flavor_text)]...<br>"
 
@@ -886,21 +886,21 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	HTML += "<a href=\"byond://?_src_=prefs;preference=records;task=med_record\">Medical Records</a><br>"
 
-	if(lentext(med_record) <= 40)
+	if(length(med_record) <= 40)
 		HTML += "[med_record]"
 	else
 		HTML += "[copytext(med_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=gen_record\">Employment Records</a><br>"
 
-	if(lentext(gen_record) <= 40)
+	if(length(gen_record) <= 40)
 		HTML += "[gen_record]"
 	else
 		HTML += "[copytext(gen_record, 1, 37)]..."
 
 	HTML += "<br><a href=\"byond://?_src_=prefs;preference=records;task=sec_record\">Security Records</a><br>"
 
-	if(lentext(sec_record) <= 40)
+	if(length(sec_record) <= 40)
 		HTML += "[sec_record]<br>"
 	else
 		HTML += "[copytext(sec_record, 1, 37)]...<br>"
@@ -1308,7 +1308,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					else //Not using the whitelist? Aliens for everyone!
 						new_species += GLOB.whitelisted_species
 
-					species = input("Please select a species", "Character Generation", null) in new_species
+					species = input("Please select a species", "Character Generation", null) in sortTim(new_species, /proc/cmp_text_asc)
 					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						species = prev_species
@@ -1406,7 +1406,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					language = input("Please select a secondary language", "Character Generation", null) in new_languages
+					language = input("Please select a secondary language", "Character Generation", null) in sortTim(new_languages, /proc/cmp_text_asc)
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)

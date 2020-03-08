@@ -19,7 +19,7 @@
 	attack_sound = 'sound/creatures/headcrab_attack.ogg'
 	speak_emote = list("hisses")
 	var/is_zombie = 0
-	stat_attack = DEAD //so they continue to attack when they are on the ground. 
+	stat_attack = DEAD // Necessary for them to attack (zombify) dead humans
 	robust_searching = 1
 	var/host_species = ""
 	var/list/human_overlays = list()
@@ -37,7 +37,7 @@
 				visible_message("<span class='danger'>[src] consumes [target] whole!</span>")
 				if(health < maxHealth)
 					health += 10
-				qdel(K)	
+				qdel(K)
 				break
 			cycles = 0
 	cycles++
@@ -71,6 +71,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	ranged = 0
+	stat_attack = CONSCIOUS // Disables their targeting of dead mobs once they're already a zombie
 	icon = H.icon
 	speak = list('sound/creatures/zombie_idle1.ogg','sound/creatures/zombie_idle2.ogg','sound/creatures/zombie_idle3.ogg')
 	speak_chance = 50
@@ -118,7 +119,13 @@
 			I = image('icons/mob/headcrab.dmi', icon_state = "headcrabpod_gray")
 		overlays += I
 
-
+/mob/living/simple_animal/hostile/headcrab/CanAttack(atom/the_target)
+	if(stat_attack == DEAD && isliving(the_target) && !ishuman(the_target))
+		var/mob/living/L = the_target
+		if(L.stat == DEAD)
+			// Override default behavior of stat_attack, to stop headcrabs targeting dead mobs they cannot infect, such as silicons.
+			return FALSE
+	return ..()
 
 /mob/living/simple_animal/hostile/headcrab/fast
 	name = "fast headcrab"

@@ -108,7 +108,7 @@
 	if(default_unfasten_wrench(user, P))
 		return
 
-	if(default_deconstruction_crowbar(P))
+	if(default_deconstruction_crowbar(user, P))
 		return
 	return ..()
 

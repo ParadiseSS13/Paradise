@@ -380,7 +380,7 @@
 			cult_mode.bypass_phase()
 
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in all_objectives)
+	for(var/datum/objective/O in GLOB.all_objectives)
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
@@ -395,9 +395,10 @@
 					if(!O) return
 					O.find_target()
 					if(!(O.target))
-						all_objectives -= O
+						GLOB.all_objectives -= O
 						O.owner.objectives -= O
 						qdel(O)
+					O.owner.announce_objectives()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role

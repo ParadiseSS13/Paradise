@@ -1,9 +1,16 @@
 /obj/item/proc/melee_attack_chain(mob/user, atom/target, params)
-	if(pre_attackby(target, user, params))
+	if(!tool_attack_chain(user, target) && pre_attackby(target, user, params))
 		// Return 1 in attackby() to prevent afterattack() effects (when safely moving items for example)
 		var/resolved = target.attackby(src, user, params)
 		if(!resolved && target && !QDELETED(src))
 			afterattack(target, user, 1, params) // 1: clicking something Adjacent
+
+//Checks if the item can work as a tool, calling the appropriate tool behavior on the target
+//Note that if tool_act returns TRUE, then the tool won't call attack_by.
+/obj/item/proc/tool_attack_chain(mob/user, atom/target)
+	if(!tool_behaviour)
+		return FALSE
+	return target.tool_act(user, src, tool_behaviour)
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
 /obj/item/proc/attack_self(mob/user)
@@ -50,17 +57,12 @@
 					return 0
 				else
 					return 1
-
-		if(isscrewdriver(src) && ismachine(M) && user.a_intent == INTENT_HELP)
+		var/obj/item/organ/external/O = M.get_organ(user.zone_selected)
+		if((is_sharp(src) || (isscrewdriver(src) && O.is_robotic())) && user.a_intent == INTENT_HELP)
 			if(!attempt_initiate_surgery(src, M, user))
-				return 0
+				return FALSE
 			else
-				return 1
-		if(is_sharp(src) && user.a_intent == INTENT_HELP)
-			if(!attempt_initiate_surgery(src, M, user))
-				return 0
-			else
-				return 1
+				return TRUE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")

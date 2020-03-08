@@ -116,7 +116,7 @@
 
 	if(!msg)
 		return
-	msg = pencode_to_html(msg)
+	msg = admin_pencode_to_html(msg)
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
 	message_admins("<span class='boldnotice'>GlobalNarrate: [key_name_admin(usr)]: [msg]<BR></span>", 1)
@@ -989,12 +989,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(job_string in command_positions)
 			job_string = "<U>" + job_string + "</U>"
 		role_string = "-"
+		obj_count = 0
+		obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
 				role_string = "<U>[H.mind.special_role]</U>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
-			for(var/datum/objective/O in all_objectives)
+			for(var/datum/objective/O in GLOB.all_objectives)
 				if(O.target == H.mind)
 					obj_count++
 			if(obj_count > 0)
@@ -1033,7 +1035,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				role_string = "<U>[H.mind.special_role]</U>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
-			for(var/datum/objective/O in all_objectives)
+			for(var/datum/objective/O in GLOB.all_objectives)
 				if(O.target == H.mind)
 					obj_count++
 			if(obj_count > 0)
