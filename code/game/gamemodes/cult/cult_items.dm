@@ -16,6 +16,7 @@
 /obj/item/melee/cultblade
 	name = "cult blade"
 	desc = "An arcane weapon wielded by the followers of a cult."
+	icon = 'icons/obj/cult.dmi'
 	icon_state = "cultblade"
 	item_state = "cultblade"
 	w_class = WEIGHT_CLASS_BULKY

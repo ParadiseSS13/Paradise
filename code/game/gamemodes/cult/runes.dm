@@ -231,6 +231,18 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/mob/living/M in T)
 		if(!iscultist(M) || (M.mind && is_sacrifice_target(M.mind)))
 			myriad_targets |= M
+
+	for(var/obj/item/organ/external/head/head in T)
+		var/obj/item/organ/internal/brain/brain = locate(/obj/item/organ/internal/brain) in head
+		if(brain)
+			var/mob/living/carbon/brain/B = locate(/mob/living/carbon/brain) in brain
+			if(B.mind && is_sacrifice_target(B.mind))
+				myriad_targets |= B
+	for(var/obj/item/organ/internal/brain/brain in T)
+		var/mob/living/carbon/brain/B = locate(/mob/living/carbon/brain) in brain
+		if(B.mind && is_sacrifice_target(B.mind))
+			myriad_targets |= B
+
 	if(!myriad_targets.len)
 		fail_invoke()
 		log_game("Offer rune failed - no eligible targets")

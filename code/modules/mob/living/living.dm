@@ -407,9 +407,9 @@
 			C.reagents.addiction_threshold_accumulated.Cut()
 		if(iscultist(src))
 			if(SSticker.mode.cult_risen)
-				SSticker.mode.rise(H)
+				SSticker.mode.rise(src)
 			if(SSticker.mode.cult_ascendent)
-				SSticker.mode.ascend(H)
+				SSticker.mode.ascend(src)
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.

@@ -4,7 +4,6 @@
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
 	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
-	icon = 'icons/obj/cult.dmi'
 	icon_state = "cult_dagger"
 	item_state = "cult_dagger"
 	w_class = WEIGHT_CLASS_SMALL
