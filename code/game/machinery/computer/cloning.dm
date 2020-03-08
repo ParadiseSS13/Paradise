@@ -359,7 +359,7 @@
 	if(scan_brain && !can_brainscan())
 		return
 	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
-		scantemp = "<span class=\"bad\">Error: Subject is not scannable.</span>"
+		scantemp = "<span class=\"bad\">Error: Unable to locate valid genetic data.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
