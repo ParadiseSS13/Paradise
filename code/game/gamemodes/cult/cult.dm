@@ -140,13 +140,15 @@ var/global/list/all_cults = list()
 			cult_objs.setup()
 		update_cult_icons_added(cult_mind)
 		add_cult_actions(cult_mind)
-		/*
-		check_cult_size(cultist_count += 1)
+		var/datum/objective/servecult/obj = new
+		obj.owner = cult_mind
+		cult_mind.objectives += obj
+		cultist_count++
 		if(cult_risen)
 			rise(cult_mind.current)
 			if(cult_ascendent)
 				ascend(cult_mind.current)
-		*/
+		check_cult_size(cultist_count)
 		return TRUE
 
 /datum/game_mode/proc/check_cult_size()
@@ -156,13 +158,13 @@ var/global/list/all_cults = list()
 			SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/rise, B.current), 200)
-			cult_risen = TRUE
+		cult_risen = TRUE
 //	if(cultist_count > cult_ascend_thresshold && !cult_ascendent)
 	if(cultist_count == 2)
 		for(var/datum/mind/B in cult)
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
-				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!!")
+				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!")
 				addtimer(CALLBACK(src, .proc/ascend, B.current), 200)
 		cult_ascendent = TRUE
 
@@ -170,22 +172,19 @@ var/global/list/all_cults = list()
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
-		H.change_eye_color("#FF0000", FALSE)
+		H.change_eye_color(BLOODCULT_EYE, FALSE)
 		H.update_eyes()
+		ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
 		H.update_body()
-		to_chat(world, "<span class='warning'>The cult has Risen!</FONT></span>") //replace with CC announcement
 
 /datum/game_mode/proc/ascend(cultist, y_offset)
 	if(ishuman(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		//var/istate = pick("cult_halo1","cult_halo2")
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/effects.dmi', "cult_halo1", -MISC_LAYER)
-		H.overlays_standing[ABOVE_HUD_LAYER] = new_halo_overlay
-		//H.Shift(NORTH, y_offset + 4)
-		H.apply_overlay(ABOVE_HUD_LAYER)
-		to_chat(world, "<span class='warning'>The cult has Ascended!</FONT></span>") //replace with CC announcement
-
+		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
+		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -MISC_LAYER)
+		H.overlays_standing[MISC_LAYER] = new_halo_overlay
+		H.apply_overlay(MISC_LAYER)
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = 1)
 	if(cult_mind in cult)
@@ -197,11 +196,13 @@ var/global/list/all_cults = list()
 			qdel(C)
 		update_cult_icons_removed(cult_mind)
 		var/mob/living/carbon/human/H = cult_mind.current
+		REMOVE_TRAIT(H, CULT_EYES, null)
+		H.change_eye_color(original_eye_color, FALSE)
 		H.update_eyes()
-		H.remove_overlay(ABOVE_HUD_LAYER)
+		H.remove_overlay(MISC_LAYER)
 		H.update_body()
-		check_cult_size(cultist_count -= 1)
-		//cultist_removed()
+		cultist_count--
+		check_cult_size(cultist_count)
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
 				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</FONT>")

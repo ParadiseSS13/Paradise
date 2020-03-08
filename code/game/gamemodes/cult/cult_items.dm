@@ -96,42 +96,22 @@
 	item_state = "cultrobesalt"
 	hoodtype = /obj/item/clothing/head/hooded/culthood/alt
 
-/obj/item/clothing/head/magus
-	name = "magus helm"
-	icon_state = "magus"
-	item_state = "magus"
-	desc = "A helm worn by cultists."
-	flags = BLOCKHAIR
-	flags_inv = HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	armor = list("melee" = 50, "bullet" = 30, "laser" = 50, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
-
-/obj/item/clothing/suit/magusred
-	name = "magus robes"
-	desc = "A set of armored robes worn by cultists."
-	icon_state = "magusred"
-	item_state = "magusred"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	armor = list("melee" = 50, "bullet" = 30, "laser" = 50, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-
-/obj/item/clothing/head/helmet/space/hardsuit/cult
-	name = "cult reinforced helmet"
+/obj/item/clothing/head/helmet/space/cult
+	name = "cult helmet"
 	desc = "A space worthy helmet used by the followers of a cult."
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
-	actions_types = list() //No inbuilt light
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 
-/obj/item/clothing/suit/space/hardsuit/cult
-	name = "cult reinforced hardsuit"
+/obj/item/clothing/suit/space/cult
+	name = "cult armor"
 	icon_state = "cult_armour"
 	item_state = "cult_armour"
 	desc = "A bulky suit of armor, bristling with spikes. It looks space proof."
-	armor = list("melee" = 70, "bullet" = 50, "laser" = 30, "energy" = 15, "bomb" = 35, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75)
-	allowed = list(/obj/item/tome, /obj/item/melee/cultblade, /obj/item/tank)
-	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/cult
+	w_class = WEIGHT_CLASS_NORMAL
+	allowed = list(/obj/item/tome,/obj/item/melee/cultblade, /obj/item/tank)
+	slowdown = 1
+	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robe"

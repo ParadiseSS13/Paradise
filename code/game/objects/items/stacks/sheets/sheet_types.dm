@@ -349,8 +349,7 @@ var/global/list/datum/stack_recipe/cult = list ( \
 	new /datum/stack_recipe/cult("pylon", /obj/structure/cult/functional/pylon, 4, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
 	new /datum/stack_recipe/cult("forge", /obj/structure/cult/functional/forge, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
 	new /datum/stack_recipe/cult("archives", /obj/structure/cult/functional/archives, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("altar", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE), \
-	new /datum/stack_recipe/cult("reinforced hardsuit", /obj/item/clothing/suit/space/hardsuit/cult, 2, time = 50, one_per_turf = FALSE, on_floor = FALSE),
+	new /datum/stack_recipe/cult("altar", /obj/structure/cult/functional/altar, 3, time = 40, one_per_turf = TRUE, on_floor = TRUE, no_cult_structure = TRUE),
 	)
 
 /obj/item/stack/sheet/runed_metal
