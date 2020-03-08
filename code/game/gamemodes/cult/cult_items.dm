@@ -469,7 +469,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.null_rod_check() )
+			if(!L.null_rod_check())
 				L.Weaken(1)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

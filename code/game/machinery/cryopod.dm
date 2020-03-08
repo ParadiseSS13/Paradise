@@ -372,7 +372,7 @@
 			for(var/datum/mind/M in gamemode.cult)
 				if(M.current)
 					to_chat(M.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [gamemode.cult_objs.obj_sac.target] instead...</span></span>")
-					M.current << 'sound/ambience/alarm4.ogg'
+					SEND_SOUND(M.current, 'sound/ambience/alarm4.ogg')
 		else
 			gamemode.cult_objs.succesful_sacrifice()
 

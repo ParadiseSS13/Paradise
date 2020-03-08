@@ -308,7 +308,7 @@
 		charges--
 		SEND_SOUND(owner, sound('sound/magic/smoke.ogg', 0, 1, 25))
 		owner.whisper(invocation)
-		for(var/obj/O in range(5, owner))
+		for(var/obj/O in range(4, owner))
 			O.cult_conceal()
 		revealing = TRUE
 		name = "Reveal Runes"
@@ -319,7 +319,7 @@
 		charges--
 		owner.whisper(invocation)
 		SEND_SOUND(owner, sound('sound/misc/enter_blood.ogg', 0, 1, 25))
-		for(var/obj/O in range(5, owner))
+		for(var/obj/O in range(5, owner)) //slightly higher in case we arent in the exact same spot
 			O.cult_reveal()
 		revealing = FALSE
 		name = "Conceal Runes"

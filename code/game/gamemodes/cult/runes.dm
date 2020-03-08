@@ -925,7 +925,7 @@ var/list/teleport_runes = list()
 	used = 1
 	color = rgb(255, 0, 0)
 	..()
-	world << 'sound/effects/dimensional_rend.ogg'
+	SEND_SOUND(world, 'sound/effects/dimensional_rend.ogg')
 	to_chat(world, "<span class='cultitalic'><b>The veil... <span class='big'>is...</span> <span class='reallybig'>TORN!!!--</span></b></span>")
 	icon_state = "rune_large_distorted"
 	var/turf/T = get_turf(src)
