@@ -184,7 +184,7 @@
 			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
 			return FALSE
 
-		if(R.no_structure && (locate(/obj/structure) in usr.drop_location()))
+		if(R.no_cult_structure && (locate(/obj/structure/cult) in usr.drop_location()))
 			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
 			return FALSE
 
