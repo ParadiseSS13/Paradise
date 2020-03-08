@@ -170,7 +170,7 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/proc/rise(cultist)
-	if(ishuman(cultist))
+	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
 		H.change_eye_color(BLOODCULT_EYE, FALSE)
 		H.update_eyes()
@@ -178,7 +178,7 @@ var/global/list/all_cults = list()
 		H.update_body()
 
 /datum/game_mode/proc/ascend(cultist, y_offset)
-	if(ishuman(cultist))
+	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
 		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")

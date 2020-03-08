@@ -31,7 +31,7 @@
 	if(iscultist(user) || user.stat == DEAD)
 		. += "<span class='cult'>A dagger gifted by [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>"
 		. += "<span class='cult'>Striking another cultist with it will purge holy water from them.</span>"
-		. += "<span class='cult'>Striking a noncultist, however, will tear their flesh.</span>"
+		. += "<span class='cult'>Striking a noncultist will tear their flesh.</span>"
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
 	if(iscultist(M))

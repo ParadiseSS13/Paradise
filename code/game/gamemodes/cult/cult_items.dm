@@ -194,6 +194,11 @@
 /obj/item/whetstone/cult/update_icon()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
+/obj/item/whetstone/cult/attackby(obj/item/I, mob/user, params)
+	..()
+	to_chat(user, "<span class='notice'>[src] crumbles to ashes.</span>")
+	qdel(src)
+
 /obj/item/reagent_containers/food/drinks/bottle/unholywater
 	name = "flask of unholy water"
 	desc = "Toxic to nonbelievers; this water renews and reinvigorates the faithful of a cult."
