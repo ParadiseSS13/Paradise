@@ -4,8 +4,8 @@
 	var/lit = FALSE	//on or off
 	var/operating = FALSE//cooldown
 	var/warned_admins = FALSE //for the message_admins() when lit
-	var/consumption_rate = 0 //for flame intensity and fuel useage 
-	var/efficiency = 1 // higher is worse
+	var/flame_intensity = 0 //for flame intensity
+	var/consumption_rate = 25 // how much fuel is used as a percentage
 	var/obj/item/tank/plasma/ptank = null
 
 /obj/item/flamethrower/process()
@@ -16,7 +16,7 @@
 			location = M.loc
 	if(isturf(location)) //start a fire if possible
 		location.hotspot_expose(700, 2)
-	if(prob(5)) //sometimes consume full
+	if(prob(5)) //sometimes consume fuel
 		consume_fuel(consumption_rate)
 	..()
 
@@ -66,7 +66,7 @@
 	update_icon()
 
 obj/item/flamethrower/proc/consume_fuel(amount) 
-	ptank.air_contents.remove_ratio(amount * efficiency)
+	ptank.air_contents.remove_ratio(amount / 100) //using whole numbers then turning them into percentages
 	if(ptank.air_contents.toxins < 5)
 		toggle_igniter(TRUE)
 	update_icon()
@@ -77,7 +77,7 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 /obj/item/flamethrower/proc/default_ignite(turf/target, amount)
 	var/turf/simulated/target_turf = target
 	if(istype(target_turf))
-		target_turf.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, 29.11 * amount) //based on the moles of plasma in a full plasma tank
+		target_turf.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, amount) //amount of plasma spawned based on flame intensity
 	target.hotspot_expose(1000,500)
 	SSair.add_to_active(target, 0)
 
@@ -101,7 +101,7 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 			continue	//so we don't burn the tile we be standing on
 		if(!T.CanAtmosPass(previousturf))
 			break
-		default_ignite(T, consumption_rate)
+		default_ignite(T, flame_intensity)
 		sleep(1)
 		previousturf = T
 	operating = FALSE
@@ -126,8 +126,8 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	materials = list(MAT_METAL=500)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
-	consumption_rate = 0.04
-	efficiency = 6
+	flame_intensity = 1
+	consumption_rate = 25
 	lit = FALSE	
 	var/obj/item/weldingtool/weldtool = null //so you can recover the welding tool you used
 	var/create_full = FALSE
@@ -213,12 +213,13 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 /obj/item/flamethrower/basic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
-		var/turf/target_turf = get_turf(owner)
-		log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
-		ignite_turf(src,target_turf, release_amount = 1)
-		QDEL_NULL(ptank)
-		return 1 //It hit the flamethrower, not them
+		if(ptank) //need to check is ptank exists first
+			owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
+			var/turf/target_turf = get_turf(owner)
+			log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
+			ignite_turf(src,target_turf, release_amount = 10)
+			QDEL_NULL(ptank)
+			return 1 //It hit the flamethrower, not them
 
 
 /obj/item/flamethrower/basic/full
@@ -226,6 +227,7 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 
 /obj/item/flamethrower/basic/full/tank
 	create_with_tank = TRUE
+
 
 /obj/item/flamethrower/advanced
 	name = "Burner Boyes Flamethrower"
@@ -245,12 +247,15 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	materials = list(MAT_METAL=500)
 	resistance_flags = FIRE_PROOF
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
-	consumption_rate = 0.05
-	efficiency = 5
+	flame_intensity = 1.4
+	consumption_rate = 20
 	lit = FALSE
 	tool_behaviour = null
 	toolspeed = 0.5
 	usesound = 'sound/items/welder.ogg'
+	var/consumption_rate_welder = 5
+	var/force_welder = 30
+	var/armour_penetration_welder = 50
 	var/status = 1
 	var/create_with_tank = FALSE
 
@@ -262,18 +267,18 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	cut_overlays()
 	if(ptank)
 		add_overlay("+ptank")
+		if(ptank.air_contents.toxins > 20) //preempting that runetime.
+			add_overlay("+fuel5")
+		else if(ptank.air_contents.toxins > 15)
+			add_overlay("+fuel4")
+		else if(ptank.air_contents.toxins > 10)
+			add_overlay("+fuel3")
+		else if(ptank.air_contents.toxins > 5)
+			add_overlay("+fuel2")
+		else if(ptank.air_contents.toxins < 5)
+			add_overlay("+fuel1")
 	else 
 		add_overlay("+fuel0")
-	if(ptank.air_contents.toxins > 20)
-		add_overlay("+fuel5")
-	else if(ptank.air_contents.toxins > 15)
-		add_overlay("+fuel4")
-	else if(ptank.air_contents.toxins > 10)
-		add_overlay("+fuel3")
-	else if(ptank.air_contents.toxins > 5)
-		add_overlay("+fuel2")
-	else if(ptank.air_contents.toxins < 5)
-		add_overlay("+fuel1")
 	if(lit)
 		item_state = "burner[status]"
 		add_overlay("+lit[status]")
@@ -289,12 +294,16 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='userdanger'>You need both hands free to attack with \the [src]!</span>")
 		return
-	if(lit && status == 2)
+	if(lit && status == 2) //we want it to have different attack values depending on what status and if it's on or not
 		damtype = BURN
+		force = force_welder
+		armour_penetration = armour_penetration_welder
 		hitsound = 'sound/items/welder.ogg'
 		consume_fuel(consumption_rate)
 	else
 		damtype = BRUTE
+		force = initial(force)
+		armour_penetration = initial(armour_penetration)
 		hitsound = "swing_hit"
 	..()
 
@@ -313,6 +322,16 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 			fireline(target, user)
 			consume_fuel(consumption_rate)
 
+obj/item/flamethrower/advanced/tool_use_check(mob/living/user)
+	if(!lit)
+		to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
+		return FALSE
+	return TRUE
+
+obj/item/flamethrower/advanced/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
+	. = ..()
+	consume_fuel(consumption_rate)
+
 /obj/item/flamethrower/advanced/AltClick(mob/user)
 	if(lit)
 		to_chat(user, "<span class='notice'> turn off [src] first!</span>")
@@ -326,16 +345,12 @@ obj/item/flamethrower/advanced/CtrlClick(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	if(status == 1)
 		status = 2
-		force = 30
-		armour_penetration = 50
-		efficiency = 1
+		consumption_rate = consumption_rate_welder
 		tool_behaviour = TOOL_WELDER
 		to_chat(user, "<span class='notice'> You swap to welder mode.</span>")
 	else
 		status = 1
-		force = 15
-		armour_penetration = 0
-		efficiency = 5
+		consumption_rate = initial(consumption_rate)
 		tool_behaviour = null
 		to_chat(user, "<span class='notice'> You swap to flamethrower mode.</span>")
 	update_icon()
@@ -358,16 +373,17 @@ obj/item/flamethrower/advanced/CtrlClick(mob/user)
 /obj/item/flamethrower/advanced/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	var/obj/item/projectile/P = hitby
 	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(10))
-		if(prob(20))
-			owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
-			var/turf/target_turf = get_turf(owner)
-			log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
-			ignite_turf(src,target_turf, release_amount = 0.2)
-			QDEL_NULL(ptank)
-			return 1 //It hit the flamethrower, not them
-		else
-			owner.visible_message("<span class='danger'>[attack_text] deflects off of [owner]'s [src] protective cowling!</span>")
-			return //doesn't mean it didn't also hit them
+		if(ptank)
+			if(prob(20))
+				owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
+				var/turf/target_turf = get_turf(owner)
+				log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
+				ignite_turf(src,target_turf, release_amount = 10)
+				QDEL_NULL(ptank)
+				return 1 //It hit the flamethrower, not them
+			else
+				owner.visible_message("<span class='danger'>[attack_text] deflects off of [owner]'s [src] protective cowling!</span>")
+				return //doesn't mean it didn't also hit them
 	if(attack_type == MELEE_ATTACK) //this is a pretty study flamethrower
 		final_block_chance = 50 
 
