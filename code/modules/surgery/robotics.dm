@@ -66,7 +66,6 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] has closed the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You have closed the maintenance hatch on [target]'s [affected.name] with \the [tool].</span>",)
-	affected.open = 0
 	return SURGERY_SUCCESS
 
 /datum/surgery_step/robotics/external/screw_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -120,7 +119,6 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] closes and secures the hatch on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You close and secure the hatch on [target]'s [affected.name] with \the [tool].</span>")
-	affected.open = 0
 	return SURGERY_SUCCESS
 
 /datum/surgery_step/robotics/external/close_hatch/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -500,7 +498,6 @@
 	target.UpdateDamageIcon()
 	user.visible_message("<span class='notice'> [user] reprograms the appearance of [target]'s [affected.name] with [tool].</span>", \
 	"<span class='notice'> You reprogram the appearance of [target]'s [affected.name] with [tool].</span>")
-	affected.open = 0
 	return SURGERY_SUCCESS
 
 /datum/surgery_step/robotics/external/customize_appearance/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

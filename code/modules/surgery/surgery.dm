@@ -2,7 +2,6 @@
 /datum/surgery
 	var/current_stage = SURGERY_STAGE_START
 	var/step_in_progress = FALSE
-	var/list/in_progress = list()				//Actively performing a Surgery
 	var/location = "chest"						//Surgery location
 	var/list/surgery_steps_history = list()
 

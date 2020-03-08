@@ -291,10 +291,19 @@
 	return FALSE
 
 /mob/living/proc/surgery_act(mob/living/user, obj/item/I, datum/surgery/S)
+	if(S.step_in_progress)
+		return FALSE
+	var/obj/item/organ/external/E = get_organ(S.location)
 	. = S.next_step(user, src, I)
 	if(!QDELETED(S) && S.current_stage == SURGERY_STAGE_START) // Remove surgeries that haven't started yet. Amputate will qdel the surgery itself
-		surgeries -= S
-		qdel(S)
+		if(E)
+			E.open = 0
+		remove_surgery(S)
+
+/mob/living/proc/remove_surgery(datum/surgery/S)
+	surgeries[S.location] = null
+	surgeries.Remove(S.location)
+	qdel(S)
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)
 	if(!SSticker)

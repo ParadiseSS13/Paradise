@@ -810,7 +810,7 @@ REAGENT SCANNER
 			AN = "[e.broken_description]:"
 		if(e.is_robotic())
 			robot = "Robotic:"
-		if(e.open)
+		if(target.surgeries[e.limb_name])
 			open = "Open:"
 		switch(e.germ_level)
 			if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)

@@ -57,12 +57,12 @@
 			RefreshInfectionImage()
 
 	if(stage == 5 && prob(50))
-		for(var/datum/surgery/S in owner.surgeries)
-			if(S.location == parent_organ)
-				var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
-				if(affected && ((!affected.encased && S.current_stage == SURGERY_STAGE_OPEN_INCISION) || S.current_stage == SURGERY_STAGE_OPEN_INCISION_BONES))
-					AttemptGrow(0)
-					return
+		if(owner.surgeries[parent_organ])
+			var/datum/surgery/S = owner.surgeries[parent_organ]
+			var/obj/item/organ/external/affected = owner.get_organ(parent_organ)
+			if(affected && ((!affected.encased && S.current_stage == SURGERY_STAGE_OPEN_INCISION) || S.current_stage == SURGERY_STAGE_OPEN_INCISION_BONES))
+				AttemptGrow(0)
+				return
 		AttemptGrow()
 
 

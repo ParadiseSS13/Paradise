@@ -3,13 +3,12 @@
 		var/selected_zone = user.zone_selected
 
 		if(can_operate(M))
-			for(var/datum/surgery/S in M.surgeries)
-				if(S.location == selected_zone)
-					return S
+			if(M.surgeries[selected_zone])
+				return M.surgeries[selected_zone]
 
 			var/datum/surgery/new_surgery = new()
 			new_surgery.location = selected_zone
-			M.surgeries += new_surgery
+			M.surgeries[selected_zone] = new_surgery
 
 			return new_surgery
 

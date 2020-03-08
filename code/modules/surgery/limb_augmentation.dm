@@ -56,6 +56,5 @@
 
 	qdel(tool)
 
-	affected.open = 0
 	affected.germ_level = 0
 	return SURGERY_SUCCESS

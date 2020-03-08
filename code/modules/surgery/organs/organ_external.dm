@@ -710,12 +710,10 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(!owner.has_embedded_objects())
 		owner.clear_alert("embeddedobject")
 
-	for(var/s in owner.surgeries)
-		var/datum/surgery/S = s
-		if(S.location == limb_name)
-			owner.surgeries -= S
-			qdel(S) // Surgery can't continue on something that is not there
-
+	if(owner.surgeries[limb_name])
+		owner.remove_surgery(owner.surgeries[limb_name]) // Surgery can't continue on something that is not there
+	open = 0	// All surgerical wounds magically close
+	
 	. = ..()
 
 	// Attached organs also fly off.

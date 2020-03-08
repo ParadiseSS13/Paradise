@@ -256,7 +256,7 @@
 		for(var/obj/item/organ/external/E in occupant.bodyparts)
 			var/organData[0]
 			organData["name"] = E.name
-			organData["open"] = E.open
+			organData["open"] = occupant.surgeries[E.limb_name] != null
 			organData["germ_level"] = E.germ_level
 			organData["bruteLoss"] = E.brute_dam
 			organData["fireLoss"] = E.burn_dam
@@ -441,7 +441,7 @@
 				AN = "[e.broken_description]:"
 			if(e.is_robotic())
 				robot = "Robotic:"
-			if(e.open)
+			if(occupant.surgeries[e.limb_name])
 				open = "Open:"
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)

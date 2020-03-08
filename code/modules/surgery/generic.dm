@@ -143,7 +143,6 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='notice'> [user] cauterizes the incision on [target]'s [affected.name] with \the [tool].</span>", \
 	"<span class='notice'> You cauterize the incision on [target]'s [affected.name] with \the [tool].</span>")
-	affected.open = 0
 	affected.germ_level = 0
 	return SURGERY_SUCCESS
 

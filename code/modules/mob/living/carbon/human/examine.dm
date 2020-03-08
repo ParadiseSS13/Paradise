@@ -215,7 +215,7 @@
 				else if(E.status & ORGAN_SPLINTED)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
 
-			if(E.open)
+			if(surgeries[E.limb_name])
 				if(E.is_robotic())
 					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
 				else

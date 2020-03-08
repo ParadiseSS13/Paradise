@@ -2,29 +2,24 @@
 //////////////////////////////////////////////////////////////////
 //					INTERNAL WOUND PATCHING						//
 //////////////////////////////////////////////////////////////////
-/datum/surgery_step/debridement
-	name = "disinfect wound"
-	possible_locs = list("chest","head","groin", "l_arm", "r_arm", "l_leg", "r_leg", "r_hand", "l_hand", "r_foot", "l_foot")
-	surgery_start_stage = SURGERY_STAGE_INCISION
-	next_surgery_stage = SURGERY_STAGE_START
-	allowed_surgery_tools = SURGERY_TOOLS_CAUTERIZE
-	time = 24
-
-/datum/surgery_step/generic/cut_open/cut_further // Debridement and cavity surgery
+/datum/surgery_step/generic/cut_tissue // Debridement and cavity surgery
 	name = "cut tissue"
 	priority = 1
 	surgery_start_stage = SURGERY_STAGE_OPEN_INCISION
 	next_surgery_stage = SURGERY_STAGE_OPEN_INCISION_CUT
+	allowed_surgery_tools = SURGERY_TOOLS_INCISION
+	blood_level = 1
+	time = 16
 
-/datum/surgery_step/generic/cut_open/cut_further/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/generic/cut_tissue/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/dead_flesh = (affected.status & ORGAN_DEAD)
 	user.visible_message("<span class='notice'>[user] starts cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>" , \
 	"<span class='notice'>You start cutting away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>")
-	target.custom_pain("The pain in [affected.name] is unbearable!")
+	target.custom_pain("The pain in your [affected.name] is unbearable!")
 	return ..()
 
-/datum/surgery_step/generic/cut_open/cut_further/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/generic/cut_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	var/dead_flesh = (affected.status & ORGAN_DEAD)
 	user.visible_message("<span class='notice'> [user] has cut away [dead_flesh ? "necrotic" : ""] tissue in [target]'s [affected.name] with \the [tool].</span>", \
@@ -33,7 +28,7 @@
 
 	return SURGERY_SUCCESS
 
-/datum/surgery_step/generic/cut_open/cut_further/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/generic/cut_tissue/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message("<span class='warning'> [user]'s hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>", \
 	"<span class='warning'> Your hand slips, slicing an artery inside [target]'s [affected.name] with \the [tool]!</span>")

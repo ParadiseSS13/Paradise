@@ -95,7 +95,7 @@
 			parenthealed = TRUE
 		else
 			break // If the organ have no child left and no parent / parent healed, break
-		if(E.status & ORGAN_ROBOT || E.open) // Ignore robotic or open limb
+		if(E.status & ORGAN_ROBOT || M.surgeries[E.limb_name]) // Ignore robotic or open limb
 			continue
 		else if(!E.brute_dam && !E.burn_dam) // Ignore undamaged limb
 			continue
@@ -139,7 +139,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(!M.surgeries[affecting.limb_name])
 			affecting.germ_level = 0
 
 			if(stop_bleeding)
@@ -190,7 +190,7 @@
 		var/mob/living/carbon/human/H = M
 		var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
 
-		if(affecting.open == FALSE)
+		if(!M.surgeries[affecting.limb_name])
 			affecting.germ_level = 0
 
 			heal(H, user)
