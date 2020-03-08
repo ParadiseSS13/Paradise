@@ -44,7 +44,6 @@ To draw a rune, use an arcane tome.
 	..()
 	if(set_keyword)
 		keyword = set_keyword
-	//check_icon()
 	var/image/blood = image(loc = src)
 	blood.override = 1
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
@@ -215,8 +214,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	cultist_name = "Offer"
 	cultist_desc = "offers non-cultists on top of it to the Dark One, either converting or sacrificing them."
 	invocation = "Mah'weyh pleggh at e'ntrath!"
-	icon_state = "3"
-	color = RUNE_COLOR_OFFER
+	icon_state = "offering"
 	req_cultists = 1
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
@@ -343,8 +341,7 @@ var/list/teleport_runes = list()
 	cultist_name = "Teleport"
 	cultist_desc = "warps everything above it to another chosen teleport rune."
 	invocation = "Sas'so c'arta forbici!"
-	icon_state = "2"
-	color = RUNE_COLOR_TELEPORT
+	icon_state = "teleport"
 	req_keyword = TRUE
 	light_power = 4
 	var/obj/effect/temp_visual/cult/portal/inner_portal //The portal "hint" for off-station teleportations
@@ -465,8 +462,7 @@ var/list/teleport_runes = list()
 	cultist_name = "Empower"
 	cultist_desc = "allows cultists to prepare greater amounts of blood magic at far less of a cost."
 	invocation = "H'drak v'loso, mir'kanas verbot!"
-	icon_state = "3"
-	color = RUNE_COLOR_TALISMAN
+	icon_state = "empower"
 	construct_invoke = FALSE
 
 /obj/effect/rune/empower/invoke(var/list/invokers)
@@ -480,8 +476,7 @@ var/list/teleport_runes = list()
 	cultist_name = "Revive"
 	cultist_desc = "requires a dead, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken"
 	invocation = "Pasnar val'keriam usinar. Savrae ines amutan. Yam'toth remium il'tarat!" //Depends on the name of the user - see below
-	icon_state = "1"
-	color = RUNE_COLOR_MEDIUMRED
+	icon_state = "revive"
 	var/static/sacrifices_used = -SOULS_TO_REVIVE // Cultists get one "free" revive
 
 /obj/effect/rune/raise_dead/examine(mob/user)
@@ -567,8 +562,7 @@ var/list/teleport_runes = list()
 	cultist_name = "Barrier"
 	cultist_desc = "when invoked, makes a temporary invisible wall to block passage. Will chain-invoke nearby unactive barrier runes. Can be invoked again to reverse this."
 	invocation = "Khari'd! Eske'te tannin!"
-	icon_state = "4"
-	color = RUNE_COLOR_DARKRED
+	icon_state = "barrier"
 	var/datum/timedevent/density_timer
 	var/recharging = FALSE
 
@@ -649,8 +643,7 @@ var/list/teleport_runes = list()
 	invocation = "N'ath reth sh'yro eth d'rekkathnor!"
 	req_cultists = 2
 	invoke_damage = 10
-	icon_state = "3"
-	color = RUNE_COLOR_SUMMON
+	icon_state = "summon"
 
 /obj/effect/rune/summon/invoke(var/list/invokers)
 	var/mob/living/user = invokers[1]
@@ -700,8 +693,7 @@ var/list/teleport_runes = list()
 	cultist_name = "Boil Blood"
 	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 3 invokers."
 	invocation = "Dedo ol'btoh!"
-	icon_state = "4"
-	color = RUNE_COLOR_BURNTORANGE
+	icon_state = "blood_boil"
 	light_color = LIGHT_COLOR_LAVA
 	req_cultists = 3
 	invoke_damage = 10
@@ -760,9 +752,8 @@ var/list/teleport_runes = list()
 	cultist_name = "Spirit Realm"
 	cultist_desc = "manifests a spirit servant of the Dark One and allows you to ascend as a spirit yourself. The invoker must not move from atop the rune, and will take damage for each summoned spirit."
 	invocation = "Gal'h'rfikk harfrandid mud'gib!" //how the fuck do you pronounce this
-	icon_state = "7"
+	icon_state = "spirit_realm"
 	construct_invoke = FALSE
-	color = RUNE_COLOR_DARKRED
 	var/mob/living/affecting = null //The living mob of the user
 	var/mob/dead/observer/G = null //The cult ghost of the user
 	var/ghost_limit = 3
@@ -896,7 +887,6 @@ var/list/teleport_runes = list()
 	invocation = "TOK-LYR RQA-NAP G'OLT-ULOFT!!"
 	req_cultists = 9
 	icon = 'icons/effects/96x96.dmi'
-	color = RUNE_COLOR_DARKRED
 	icon_state = "rune_large"
 	pixel_x = -32 //So the big ol' 96x96 sprite shows up right
 	pixel_y = -32

@@ -158,4 +158,8 @@
 	R.blood_DNA = list()
 	R.blood_DNA[H.dna.unique_enzymes] = H.dna.blood_type
 	R.add_hiddenprint(H)
+	if(isslimeperson(H)) //slime people get runes colored by their body, using their internal fluids as blood
+		R.color = H.skin_colour
+	else if(H.dna.species && H.dna.species && !(NO_BLOOD in H.dna.species.species_traits)) //other mobs with blood gets the rune colored by their blood, otherwise it stays red (OCCULT MAGIC)
+		R.color = H.dna.species.blood_color
 	to_chat(user, "<span class='cult'>The [lowertext(initial(rune_to_scribe.cultist_name))] rune [initial(rune_to_scribe.cultist_desc)]</span>")
