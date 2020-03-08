@@ -3,7 +3,7 @@
 	desc = "It is a lot of space fleas."
 	icon = 'icons/hispania/mob/animals.dmi'
 	icon_state = "fleas"
-	health = 1
+	health = 5
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
@@ -13,7 +13,7 @@
 	mob_size = MOB_SIZE_TINY
 	obj_damage = 0
 	faction = list("hostile")
-	maxHealth = 1
+	maxHealth = 5
 	turns_per_move = 5
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 270
@@ -33,3 +33,11 @@
 		var/inject_target = pick("chest", "head")
 		if(C.can_inject(null, 0, inject_target, 0))
 			C.reagents.add_reagent("infected_blood", venom_per_bite)
+
+/mob/living/simple_animal/hostile/poison/fleas/borg
+	name = "Bunch of robot fleas"
+	desc = "It is a lot of robot fleas."
+	icon_state = "borg_fleas"
+	health = 10
+	maxHealth = 10
+	loot = list(/obj/effect/decal/cleanable/liquid_fuel)
