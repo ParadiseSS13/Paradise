@@ -427,7 +427,7 @@
 
 		var/obj/item/nullrod/N = locate() in target
 		if(N)
-			target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the talisman's light!</span>", \
+			target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
 								   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
 		else
 			to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")

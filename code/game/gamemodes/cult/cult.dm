@@ -4,8 +4,6 @@ var/global/list/all_cults = list()
 	var/list/datum/mind/cult = list()
 	var/datum/cult_objectives/cult_objs = new
 	var/cultist_count = 0
-	var/cult_rise_thresshold = 4
-	var/cult_ascend_thresshold = 5
 	var/cult_risen = FALSE
 	var/cult_ascendent = FALSE
 
@@ -152,22 +150,33 @@ var/global/list/all_cults = list()
 		return TRUE
 
 /datum/game_mode/proc/check_cult_size()
-	//if(cultist_count > cult_rise_thresshold && !cult_risen)//if equal or more than cult_rise_thresshold
-	if(cultist_count == 1)
+	if(cult_ascendent)
+		return
+	var/alive = 0
+	var/cultplayers = 0
+	for(var/I in GLOB.player_list)
+		var/mob/M = I
+		if(M.stat != DEAD)
+			if(iscultist(M))
+				++cultplayers
+			else
+				++alive
+	if(alive == 0)
+		alive = 1
+	var/ratio = cultplayers / alive
+	if(ratio > CULT_RISEN && !cult_risen)
 		for(var/datum/mind/B in cult)
 			SEND_SOUND(B.current, 'sound/hallucinations/i_see_you2.ogg')
 			to_chat(B.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
 			addtimer(CALLBACK(src, .proc/rise, B.current), 200)
 		cult_risen = TRUE
-//	if(cultist_count > cult_ascend_thresshold && !cult_ascendent)
-	if(cultist_count == 2)
+	if(ratio > CULT_ASCENDENT && !cult_ascendent)
 		for(var/datum/mind/B in cult)
 			if(B.current)
 				SEND_SOUND(B.current, 'sound/hallucinations/im_here1.ogg')
 				to_chat(B.current, "<span class='cultlarge'>Your cult is ascendent and the red harvest approaches - you cannot hide your true nature for much longer!")
 				addtimer(CALLBACK(src, .proc/ascend, B.current), 200)
 		cult_ascendent = TRUE
-
 
 /datum/game_mode/proc/rise(cultist)
 	if(ishuman(cultist) && iscultist(cultist))
