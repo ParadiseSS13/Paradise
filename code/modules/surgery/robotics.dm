@@ -145,7 +145,7 @@
 			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 		else
 			var/obj/item/weldingtool/W = tool
-			if(W && !tool.tool_enabled || !tool.use(1))
+			if(W && !tool.use(1))
 				return SURGERY_FAILED // Still an early return here
 			user.visible_message("<span class='notice'>[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool].</span>" , \
 				"<span class='notice'>You begin to patch damage to [target]'s [affected.name]'s support structure with \the [tool].</span>")
@@ -471,7 +471,7 @@
 
 /datum/surgery_step/robotics/external/customize_appearance
 	name = "reprogram limb"
-	allowed_surgery_tools = SURGERY_TOOLS_ROBOTIC_REPORGRAM
+	allowed_surgery_tools = SURGERY_TOOLS_ROBOTIC_REPROGRAM
 	possible_locs = list("head", "chest", "l_arm", "l_hand", "r_arm", "r_hand", "r_leg", "r_foot", "l_leg", "l_foot", "groin")
 	surgery_start_stage = SURGERY_STAGE_ROBOTIC_HATCH_UNLOCKED
 	next_surgery_stage =  SURGERY_STAGE_START

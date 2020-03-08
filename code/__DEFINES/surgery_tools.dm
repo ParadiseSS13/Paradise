@@ -100,4 +100,4 @@
 
 #define SURGERY_TOOLS_ROBOTIC_MEND_ORGAN	list(/obj/item/stack/nanopaste = 100,/obj/item/bonegel = 30, /obj/item/screwdriver = 70)
 
-#define SURGERY_TOOLS_ROBOTIC_REPORGRAM		list(/obj/item/multitool = 100)
+#define SURGERY_TOOLS_ROBOTIC_REPROGRAM		list(/obj/item/multitool = 100)
