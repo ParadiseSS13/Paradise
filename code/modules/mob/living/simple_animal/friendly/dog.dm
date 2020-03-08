@@ -730,7 +730,6 @@
 		if(prob(0.005))
 			new /mob/living/simple_animal/hostile/poison/fleas(T)
 
-
 /mob/living/simple_animal/pet/dog/corgi/borgi/handle_automated_action()
 	if(emagged && prob(25))
 		var/mob/living/carbon/target = locate() in view(10, src)
