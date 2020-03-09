@@ -1,5 +1,5 @@
 /mob/living/simple_animal/hostile/poison/fleas
-	name = "Bunch of space fleas"
+	name = "bunch of space fleas"
 	desc = "It is a lot of space fleas."
 	icon = 'icons/hispania/mob/animals.dmi'
 	icon_state = "fleas"
@@ -35,7 +35,7 @@
 			C.reagents.add_reagent("infected_blood", venom_per_bite)
 
 /mob/living/simple_animal/hostile/poison/fleas/borg
-	name = "Bunch of robot fleas"
+	name = "bunch of robot fleas"
 	desc = "It is a lot of robot fleas."
 	icon_state = "borg_fleas"
 	health = 10
