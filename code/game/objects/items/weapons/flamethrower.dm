@@ -26,7 +26,7 @@
 	if(ptank.air_contents.toxins < 5)
 		to_chat(user, "<span class='notice'>Plasma tank is low on plasma!</span>")
 		return
-	if(!warned_admins)
+	if(!warned_admins) //informing who lit it first.
 		message_admins("[ADMIN_LOOKUPFLW(user)] has lit a [src].")
 		warned_admins = TRUE
 	to_chat(user, "<span class='notice'>You [lit ? "extinguish" : "ignite"] [src]!</span>")
@@ -55,15 +55,17 @@
 
 /obj/item/flamethrower/AltClick(mob/user)
 	if(lit)
-		to_chat(user, "<span class='notice'> turn off [src] first!</span>")
+		to_chat(user, "<span class='notice'> Turn off [src] first!</span>")
 	else if(ptank && isliving(user) && user.Adjacent(src))
 		user.put_in_hands(ptank)
 		ptank = null
 		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
 		update_icon()
 
-//turn it on or off, also informs the admins
+//turn it on or off
 /obj/item/flamethrower/proc/toggle_igniter(turn_off = FALSE)
+	if(!lit && turn_off)
+		return
 	lit = turn_off ? FALSE : !lit
 	if(lit)
 		playsound(loc, 'sound/items/welderactivate.ogg', 50, 1)
@@ -128,7 +130,7 @@
 			owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
 			var/turf/target_turf = get_turf(owner)
 			log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
-			ignite_turf(src,target_turf, release_amount = 10)
+			ignite_turf(src,target_turf, release_amount = ptank.air_contents.toxins)
 			QDEL_NULL(ptank)
 			return TRUE //It hit the flamethrower, not them
 
@@ -341,9 +343,9 @@
 /obj/item/flamethrower/advanced/examine(mob/user)
 	. = ..()
 	if(status == 2)
-		. += "<span class='notice'>[src] is in welder mode. Ctrl-click to swap modes.</span>"
+		. += "<span class='notice'>[src] is in welder mode.</span>"
 	else
-		. += "<span class='notice'>[src] is in flamethrower mode. Ctrl-click to swap modes.</span>"
+		. += "<span class='notice'>[src] is in flamethrower mode.</span>"
 
 /obj/item/flamethrower/advanced/Initialize(mapload)
 	. = ..()
