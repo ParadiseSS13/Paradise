@@ -212,12 +212,12 @@
 	var/turf/T = get_turf(owner)
 	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
 		"<span class='cultitalic'>Red light begins to shimmer and take form within your hand!</span>")
-	var/obj/O = new /obj/item/melee/cultblade/dagger(T)
+	var/obj/item/melee/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
-		to_chat(owner, "<span class='warning'>A ritual dagger appears in your hand!</span>")
+		to_chat(owner, "<span class='warning'>A [O.name] appears in your hand!</span>")
 	else
-		owner.visible_message("<span class='warning'>A ritual dagger appears at [owner]'s feet!</span>", \
-			 "<span class='cultitalic'>A ritual dagger materializes at your feet.</span>")
+		owner.visible_message("<span class='warning'>A [O.name] appears at [owner]'s feet!</span>", \
+			 "<span class='cultitalic'>A [O.name] materializes at your feet.</span>")
 	SEND_SOUND(owner, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 	charges--
 	desc = base_desc
@@ -593,7 +593,7 @@
 			var/obj/item/stack/sheet/plasteel/candidate = target
 			var/quantity = candidate.amount
 			if(candidate.use(quantity))
-				uses --
+				uses--
 				new /obj/item/stack/sheet/runed_metal(T, quantity)
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
 				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
@@ -744,7 +744,7 @@
 						user.Beam(H,icon_state="drainbeam",time=10)
 						playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50)
 						H.visible_message("<span class='danger'>[user] has drained some of [H]'s blood!</span>")
-						to_chat(user,"<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
+						to_chat(user, "<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
 						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					else
 						to_chat(user,"<span class='warning'>[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!</span>")

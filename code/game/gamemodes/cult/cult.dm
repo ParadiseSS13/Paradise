@@ -99,7 +99,7 @@ var/global/list/all_cults = list()
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
-	to_chat(H, "These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(H, "<span class='cultitalic'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
 /datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
 	var/list/slots = list(

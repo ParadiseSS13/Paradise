@@ -403,7 +403,7 @@ var/list/teleport_runes = list()
 
 	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-	if(!Adjacent(user) || !src || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
+	if(!src || !Adjacent(user) || QDELETED(src) || user.incapacitated() || !actual_selected_rune)
 		fail_invoke()
 		return
 
@@ -470,7 +470,7 @@ var/list/teleport_runes = list()
 	update_light()
 
 
-//Rite of Offering: Converts a normal crewmember to the cult or sacrifices mindshielded and sacrifice targets.
+//Rune of Empowering : Enables carrying 4 blood spells, greatly reduce blood cost
 /obj/effect/rune/empower
 	cultist_name = "Empower"
 	cultist_desc = "allows cultists to prepare greater amounts of blood magic at far less of a cost."

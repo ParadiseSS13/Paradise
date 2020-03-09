@@ -88,7 +88,7 @@
 	if(pickedtype && Adjacent(user) && src && !QDELETED(src) && !user.incapacitated() && cooldowntime <= world.time)
 		cooldowntime = world.time + creation_delay
 		var/obj/item/N = new pickedtype(get_turf(src))
-		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[N]"))
+		to_chat(user, replacetext("[creation_message]", "%ITEM%", "[N.name]"))
 
 /obj/structure/cult/functional/proc/getETA()
 	var/time = (cooldowntime - world.time)/600
@@ -126,7 +126,7 @@
 	heathen_message = "<span class='warning'>There is a foreboding aura to the altar and you want nothing to do with it.</span>"
 	selection_prompt = "You study the rituals on the altar..."
 	selection_title = "Altar"
-	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with an %ITEM%!</span>"
+	creation_message = "<span class='cultitalic'>You kneel before the altar and your faith is rewarded with a %ITEM%!</span>"
 	choosable_items = list("Eldritch Whetstone"= /obj/item/whetstone/cult, "Flask of Unholy Water" = /obj/item/reagent_containers/food/drinks/bottle/unholywater, \
 							"Construct Shell" = /obj/structure/constructshell)
 
@@ -146,7 +146,7 @@
 	heathen_message = "<span class='warning'>Your hand feels like it's melting off as you try to touch the forge.</span>"
 	selection_prompt = "You study the schematics etched on the forge..."
 	selection_title = "Forge"
-	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating %ITEM%!</span>"
+	creation_message = "<span class='cultitalic'>You work the forge as dark knowledge guides your hands, creating a %ITEM%!</span>"
 	choosable_items = list("Shielded Robe" = /obj/item/clothing/suit/hooded/cultrobes/cult_shield, "Flagellant's Robe" = /obj/item/clothing/suit/hooded/cultrobes/berserker, \
 							"Mirror Shield" = /obj/item/shield/mirror)
 
@@ -285,7 +285,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 	heathen_message = "<span class='cultlarge'>What do you hope to seek?</span>"
 	selection_prompt = "You flip through the black pages of the archives..."
 	selection_title = "Archives"
-	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating %ITEM%!</span>"
+	creation_message = "<span class='cultitalic'>You invoke the dark magic of the tomes creating a %ITEM%!</span>"
 	choosable_items = list("Shuttle Curse" = /obj/item/shuttle_curse, "Zealot's Blindfold" = /obj/item/clothing/glasses/hud/health/night/cultblind, \
 							"Veil Shifter" = /obj/item/cult_shift) //Add void torch to veil shifter spawn
 
