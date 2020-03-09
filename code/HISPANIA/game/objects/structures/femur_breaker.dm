@@ -96,8 +96,8 @@
 
 		if(!H)
 			return
-
-		playsound(src, 'sound/hispania/machines/femur_breaker.ogg', 50, FALSE)
+		if(H.stat == CONSCIOUS)
+			playsound(src, 'sound/hispania/machines/femur_breaker.ogg', 50, FALSE)
 		H.Stun(BREAKER_ANIMATION_LENGTH)
 		addtimer(CALLBACK(src, .proc/damage_leg, H), BREAKER_ANIMATION_LENGTH, TIMER_UNIQUE)
 		add_attack_logs(user, H, "femur broke with [src]")
