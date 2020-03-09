@@ -3,7 +3,12 @@
 	var/current_stage = SURGERY_STAGE_START
 	var/step_in_progress = FALSE
 	var/location = "chest"						//Surgery location
-	var/list/surgery_steps_history = list()
+	var/list/surgery_steps_history = list()		// For debugging and maybe later expansions that require previous surgeries
+
+/datum/surgery/Destroy(force, ...)
+	QDEL_LIST(surgery_steps_history)
+	surgery_steps_history = null
+	. = ..()
 
 /datum/surgery/proc/next_step(mob/living/user, mob/living/carbon/target, obj/item/tool)
 	if(step_in_progress)	return FALSE
@@ -28,7 +33,7 @@
 			if(result == SURGERY_SUCCESS)
 				if(S.next_surgery_stage != SURGERY_STAGE_SAME)
 					current_stage = S.next_surgery_stage
-				surgery_steps_history += current_stage // Add it to the history
+				surgery_steps_history += S // Add it to the history
 			step_in_progress = FALSE
 		while(result == SURGERY_CONTINUE)
 
