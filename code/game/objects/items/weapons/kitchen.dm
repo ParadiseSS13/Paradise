@@ -108,9 +108,9 @@
 	icon_state = "knife"
 	desc = "A general purpose Chef's Knife made by SpaceCook Incorporated. Guaranteed to stay sharp for years to come."
 	flags = CONDUCT
-	force = 12
+	force = 10
 	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 12
+	throwforce = 10
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	throw_speed = 3
 	throw_range = 6
