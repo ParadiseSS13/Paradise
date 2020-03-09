@@ -1627,7 +1627,6 @@ var/list/all_supply_groups = list(supply_emergency,supply_security,supply_engine
 					/obj/item/clothing/head/collectable/welding,
 					/obj/item/clothing/head/collectable/flatcap,
 					/obj/item/clothing/head/collectable/pirate,
-					/obj/item/clothing/head/collectable/kitty,
 					/obj/item/clothing/head/crown/fancy,
 					/obj/item/clothing/head/collectable/rabbitears,
 					/obj/item/clothing/head/collectable/wizard,
