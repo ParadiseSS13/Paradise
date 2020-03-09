@@ -96,14 +96,22 @@
 
 		if(!H)
 			return
-
-		playsound(src, 'sound/hispania/machines/femur_breaker.ogg', 50, FALSE)
+		if(H.stat == CONSCIOUS)
+			playsound(src, 'sound/hispania/machines/femur_breaker.ogg', 50, FALSE)
 		H.Stun(BREAKER_ANIMATION_LENGTH)
 		addtimer(CALLBACK(src, .proc/damage_leg, H), BREAKER_ANIMATION_LENGTH, TIMER_UNIQUE)
 		add_attack_logs(user, H, "femur broke with [src]")
 
 	slat_status = BREAKER_SLAT_DROPPED
 	icon_state = "breaker"
+	for(var/mob/living/simple_animal/hostile/oldman/M in GLOB.player_list)
+		to_chat(M, "<span class='warning'>You sense an incapacited victim nearby...</span>")
+		if(M.dimension)
+			M.forceMove(get_turf(src))
+			M.notransform = TRUE
+			to_chat(M, "<span class='danger'>You cannot resist your hunger and you go directly to them!</span>")
+			sleep(20)
+			M.notransform = FALSE
 
 /obj/structure/femur_breaker/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
 	if(!anchored)
