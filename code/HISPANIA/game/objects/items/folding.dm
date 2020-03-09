@@ -183,7 +183,7 @@
 	options["Blackout"] = color = COLOR_GRAY20
 	options["Cancel"] = null
 
-/proc/overlay_image(icon,icon_state,color,flags)
+/obj/item/knife/folding/proc/overlay_image(icon,icon_state,color,flags)
 	var/image/ret = image(icon,icon_state)
 	ret.color = color
 	ret.appearance_flags = flags
