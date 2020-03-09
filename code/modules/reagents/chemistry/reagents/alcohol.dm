@@ -1192,15 +1192,16 @@
 	taste_description = "motor oil"
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
-	if(!M.isSynthetic())
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
 		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
 		if(prob(25))
 			holder.remove_reagent(id, 15)
 			M.fakevomit()
+
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.isSynthetic())
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
 		return
 	if(method == REAGENT_INGEST)
 		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))

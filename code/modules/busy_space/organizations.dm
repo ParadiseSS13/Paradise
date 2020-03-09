@@ -439,7 +439,7 @@
 
 /datum/lore/organization/gov/synth
 	name = "Synthetic Union"
-	short_name = "Synthtica"
+	short_name = "Synthetica"
 	acronym = "SYN"
 	desc = "A defensive coalition of synthetics based out of New Canaan,\
 			 the Synthetic Union is an organization which aims to establish and consolidate synthetic rights across the galaxy.\

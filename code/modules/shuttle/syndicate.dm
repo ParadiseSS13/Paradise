@@ -9,6 +9,7 @@
 	shuttleId = "syndicate"
 	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags = NODECONSTRUCT
 	var/challenge = FALSE
 	var/moved = FALSE
 

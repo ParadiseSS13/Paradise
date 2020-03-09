@@ -270,7 +270,7 @@
 	desc = "A prescription packet containing six marijuana cigarettes."
 	icon_state = "medpacket"
 	item_state = "cigpacket"
-	default_reagents = list("thc" = 15)
+	default_reagents = list("thc" = 15, "cbd" = 15)
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"

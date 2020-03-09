@@ -182,9 +182,9 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/gun/energy/gun/blueshield = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
-	backpack = /obj/item/storage/backpack/security
-	satchel = /obj/item/storage/backpack/satchel_sec
-	dufflebag = /obj/item/storage/backpack/duffel/security
+	backpack = /obj/item/storage/backpack/blueshield
+	satchel = /obj/item/storage/backpack/satchel_blueshield
+	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
 
 /datum/job/judge
