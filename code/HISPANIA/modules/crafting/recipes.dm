@@ -25,7 +25,7 @@
 				/obj/item/stack/rods = 20,
 				/obj/item/stack/sheet/metal = 10,
 		        /obj/item/stack/cable_coil = 30)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
  ////////////////

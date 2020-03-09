@@ -96,7 +96,6 @@
 		new /obj/item/storage/backpack/satchel_sec(src)
 	new	/obj/item/radio/headset/heads/hos/alt(src)
 	new /obj/item/cartridge/hos(src)
-	new /obj/item/clothing/gloves/color/yellow(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
@@ -182,7 +181,7 @@
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
-	req_access = list(access_security)
+	req_access = list(access_medical)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
