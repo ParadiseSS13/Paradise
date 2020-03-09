@@ -4,6 +4,7 @@
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away;specops_custom"
 	resistance_flags = INDESTRUCTIBLE
+	flags = NODECONSTRUCT
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/ert
 	name = "specops navigation computer"
@@ -16,6 +17,7 @@
 	x_offset = 0
 	y_offset = 0
 	resistance_flags = INDESTRUCTIBLE
+	flags = NODECONSTRUCT
 	access_tcomms = FALSE
 	access_construction = FALSE
 	access_mining = FALSE

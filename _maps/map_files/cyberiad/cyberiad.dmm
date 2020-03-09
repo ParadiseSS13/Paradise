@@ -35447,7 +35447,6 @@
 /area/library)
 "bmF" = (
 /obj/structure/cult/archives,
-/obj/item/videocam,
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
@@ -72015,7 +72014,7 @@
 	dir = 8;
 	layer = 2.9
 	},
-/obj/item/circuitboard/rdconsole/public{
+/obj/item/circuitboard/rdconsole{
 	pixel_x = -4
 	},
 /obj/item/circuitboard/rdserver{

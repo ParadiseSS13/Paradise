@@ -247,6 +247,7 @@
 	item_state = "cigpacket"
 	cigarette_type = /obj/item/clothing/mask/cigarette/medical_marijuana
 
+
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
 	desc = "Your favorite brand, now menthol flavored."

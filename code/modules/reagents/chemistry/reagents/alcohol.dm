@@ -6,6 +6,8 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
+	addiction_chance = 1
+	addiction_threshold = 10
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
@@ -1190,15 +1192,17 @@
 	taste_description = "motor oil"
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
-	if(!M.isSynthetic())
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
 		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
 		if(prob(25))
 			holder.remove_reagent(id, 15)
 			M.fakevomit()
+
 	return ..()
 
+
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(M.isSynthetic())
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
 		return
 	if(method == INGEST)
 		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
