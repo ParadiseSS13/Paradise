@@ -1,3 +1,6 @@
+#define FLAMETHROWERMODE 1
+#define WELDERMODE 2
+
 /obj/item/flamethrower //do not spawn
 	name = "flamethrower"
 	desc = "how did you get this?"
@@ -6,18 +9,14 @@
 	var/warned_admins = FALSE //for the message_admins() when lit
 	var/flame_intensity = 0 //for flame intensity
 	var/consumption_rate = 25 // how much fuel is used as a percentage
+	var/tank_exposure = 0 //defensive purposes, namely how likely your to blow up upon being shot holding a flamethrower
 	var/obj/item/tank/plasma/ptank = null
 
 /obj/item/flamethrower/process()
-	var/turf/location = loc
-	if(ismob(location))
-		var/mob/M = location
-		if(M.l_hand == src || M.r_hand == src)
-			location = M.loc
-	if(isturf(location)) //start a fire if possible
-		location.hotspot_expose(700, 2)
+	var/turf/T = get_turf(src)
+	T.hotspot_expose(700, 2) //start a fire if possible
 	if(prob(5)) //sometimes consume fuel
-		consume_fuel(consumption_rate)
+		consume_fuel(5) //and not massive chunks of it
 	..()
 
 /obj/item/flamethrower/attack_self(mob/user)
@@ -34,25 +33,34 @@
 	toggle_igniter()
 
 /obj/item/flamethrower/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/tank/plasma))
-		if(ptank)
-			if(user.drop_item())
-				I.forceMove(src)
+	if(istype(I, /obj/item/tank/plasma))		
+		if(user.drop_item())
+			if(ptank)			
 				ptank.forceMove(get_turf(src))
-				ptank = I
 				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
+			I.forceMove(src)
+			ptank = I
+			update_icon()
 			return
-		if(!user.drop_item())
-			return
-		I.forceMove(src)
-		ptank = I
-		update_icon()
-		return
 
 	else if(istype(I, /obj/item/analyzer) && ptank)
 		atmosanalyzer_scan(ptank.air_contents, user)
 	else
 		return ..()
+
+/obj/item/flamethrower/examine(mob/user)
+	. = ..()
+	if(ptank)
+		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
+
+/obj/item/flamethrower/AltClick(mob/user)
+	if(lit)
+		to_chat(user, "<span class='notice'> turn off [src] first!</span>")
+	else if(ptank && isliving(user) && user.Adjacent(src))
+		user.put_in_hands(ptank)
+		ptank = null
+		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
+		update_icon()
 
 //turn it on or off, also informs the admins
 /obj/item/flamethrower/proc/toggle_igniter(turn_off = FALSE)
@@ -65,7 +73,7 @@
 		STOP_PROCESSING(SSobj,src)
 	update_icon()
 
-obj/item/flamethrower/proc/consume_fuel(amount) 
+/obj/item/flamethrower/proc/consume_fuel(amount) 
 	ptank.air_contents.remove_ratio(amount / 100) //using whole numbers then turning them into percentages
 	if(ptank.air_contents.toxins < 5)
 		toggle_igniter(TRUE)
@@ -105,9 +113,25 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 		sleep(1)
 		previousturf = T
 	operating = FALSE
-	for(var/mob/M in viewers(1, loc))
-		if((M.client && M.machine == src))
-			attack_self(M)
+
+/obj/item/flamethrower/proc/startfireline(atom/target, mob/user)
+	if(lit)
+		if(user && user.get_active_hand() == src) // Make sure our user is still holding us
+			playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
+			fireline(target, user)
+			consume_fuel(consumption_rate)
+
+/obj/item/flamethrower/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	var/obj/item/projectile/P = hitby
+	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(tank_exposure))
+		if(ptank) //need to check is ptank exists first
+			owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
+			var/turf/target_turf = get_turf(owner)
+			log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
+			ignite_turf(src,target_turf, release_amount = 10)
+			QDEL_NULL(ptank)
+			return TRUE //It hit the flamethrower, not them
+
 
 /obj/item/flamethrower/basic
 	name = "flamethrower"
@@ -128,6 +152,7 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	flame_intensity = 1
 	consumption_rate = 25
+	tank_exposure = 15
 	lit = FALSE	
 	var/obj/item/weldingtool/weldtool = null //so you can recover the welding tool you used
 	var/create_full = FALSE
@@ -157,11 +182,7 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	. = ..()
 	if(flag)
 		return // too close
-	if(lit)
-		if(user && user.get_active_hand() == src) // Make sure our user is still holding us
-			playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
-			fireline(target, user)
-			consume_fuel(consumption_rate)
+	startfireline(target, user)
 
 /obj/item/flamethrower/basic/wrench_act(mob/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -177,28 +198,10 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	new /obj/item/assembly/igniter(T) //why did it care about this in the first place?
 	qdel(src)
 
-
-/obj/item/flamethrower/basic/AltClick(mob/user)
-	if(lit)
-		to_chat(user, "<span class='notice'> turn off [src] first!</span>")
-	else if(ptank && isliving(user) && user.Adjacent(src))
-		user.put_in_hands(ptank)
-		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
-		update_icon()
-
-
-/obj/item/flamethrower/basic/examine(mob/user)
-	. = ..()
-	if(ptank)
-		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
-
-
 /obj/item/flamethrower/basic/CheckParts(list/parts_list)
 	..()
 	weldtool = locate(/obj/item/weldingtool) in contents
 	update_icon()
-
 
 /obj/item/flamethrower/basic/Initialize(mapload)
 	. = ..()
@@ -208,19 +211,6 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 		if(create_with_tank)
 			ptank = new /obj/item/tank/plasma/full(src)
 		update_icon()
-
-
-/obj/item/flamethrower/basic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/obj/item/projectile/P = hitby
-	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
-		if(ptank) //need to check is ptank exists first
-			owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
-			var/turf/target_turf = get_turf(owner)
-			log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
-			ignite_turf(src,target_turf, release_amount = 10)
-			QDEL_NULL(ptank)
-			return 1 //It hit the flamethrower, not them
-
 
 /obj/item/flamethrower/basic/full
 	create_full = TRUE
@@ -249,14 +239,16 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	origin_tech = "combat=1;plasmatech=2;engineering=2"
 	flame_intensity = 1.4
 	consumption_rate = 20
+	tank_exposure = 3
 	lit = FALSE
 	tool_behaviour = null
 	toolspeed = 0.5
 	usesound = 'sound/items/welder.ogg'
+	actions_types = list(/datum/action/item_action/toggle_flamethrowermode)
 	var/consumption_rate_welder = 5
 	var/force_welder = 30
 	var/armour_penetration_welder = 50
-	var/status = 1
+	var/status = FLAMETHROWERMODE
 	var/create_with_tank = FALSE
 
 /obj/item/flamethrower/advanced/Destroy()
@@ -294,7 +286,7 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='userdanger'>You need both hands free to attack with \the [src]!</span>")
 		return
-	if(lit && status == 2) //we want it to have different attack values depending on what status and if it's on or not
+	if(lit && status == WELDERMODE) //we want it to have different attack values depending on what status and if it's on or not
 		damtype = BURN
 		force = force_welder
 		armour_penetration = armour_penetration_welder
@@ -314,42 +306,33 @@ obj/item/flamethrower/proc/consume_fuel(amount)
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='userdanger'>You need both hands free to use \the [src]!</span>")
 		return
-	if(lit)
-		if(status == 2)
-			return
-		else if(user && user.get_active_hand() == src) // Make sure our user is still holding us
-			playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
-			fireline(target, user)
-			consume_fuel(consumption_rate)
-
-obj/item/flamethrower/advanced/tool_use_check(mob/living/user)
+	if(status == WELDERMODE)
+		return
+	else
+		startfireline(target, user)
+	
+/obj/item/flamethrower/advanced/tool_use_check(mob/living/user)
 	if(!lit)
 		to_chat(user, "<span class='notice'>[src] has to be on to complete this task!</span>")
 		return FALSE
 	return TRUE
 
-obj/item/flamethrower/advanced/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
+/obj/item/flamethrower/advanced/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
 	. = ..()
 	consume_fuel(consumption_rate)
 
-/obj/item/flamethrower/advanced/AltClick(mob/user)
-	if(lit)
-		to_chat(user, "<span class='notice'> turn off [src] first!</span>")
-	else if(ptank && isliving(user) && user.Adjacent(src))
-		user.put_in_hands(ptank)
-		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
-		update_icon()
+/obj/item/flamethrower/advanced/ui_action_click(mob/user, actiontype)
+	toggle_mode(user)
 
-obj/item/flamethrower/advanced/CtrlClick(mob/user)
+/obj/item/flamethrower/advanced/proc/toggle_mode(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
-	if(status == 1)
-		status = 2
+	if(status == FLAMETHROWERMODE)
+		status = WELDERMODE
 		consumption_rate = consumption_rate_welder
 		tool_behaviour = TOOL_WELDER
 		to_chat(user, "<span class='notice'> You swap to welder mode.</span>")
 	else
-		status = 1
+		status = FLAMETHROWERMODE
 		consumption_rate = initial(consumption_rate)
 		tool_behaviour = null
 		to_chat(user, "<span class='notice'> You swap to flamethrower mode.</span>")
@@ -357,8 +340,6 @@ obj/item/flamethrower/advanced/CtrlClick(mob/user)
 
 /obj/item/flamethrower/advanced/examine(mob/user)
 	. = ..()
-	if(ptank)
-		. += "<span class='notice'>[src] has \a [ptank] attached. Alt-click to remove it.</span>"
 	if(status == 2)
 		. += "<span class='notice'>[src] is in welder mode. Ctrl-click to swap modes.</span>"
 	else
@@ -371,22 +352,14 @@ obj/item/flamethrower/advanced/CtrlClick(mob/user)
 	update_icon()
 
 /obj/item/flamethrower/advanced/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	var/obj/item/projectile/P = hitby
-	if(damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(10))
-		if(ptank)
-			if(prob(20))
-				owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
-				var/turf/target_turf = get_turf(owner)
-				log_game("A projectile ([hitby]) detonated a flamethrower tank held by [key_name(owner)] at [COORD(target_turf)]")
-				ignite_turf(src,target_turf, release_amount = 10)
-				QDEL_NULL(ptank)
-				return 1 //It hit the flamethrower, not them
-			else
-				owner.visible_message("<span class='danger'>[attack_text] deflects off of [owner]'s [src] protective cowling!</span>")
-				return //doesn't mean it didn't also hit them
+	. = ..()
 	if(attack_type == MELEE_ATTACK) //this is a pretty study flamethrower
-		final_block_chance = 50 
+		final_block_chance = 33
 
 /obj/item/flamethrower/advanced/tank
 	create_with_tank = TRUE
 
+//////// advanced flamethrower actions //////
+
+/datum/action/item_action/toggle_flamethrowermode
+	name = "Toggle Flamethrower mode"
