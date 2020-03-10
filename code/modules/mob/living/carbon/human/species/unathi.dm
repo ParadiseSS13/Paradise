@@ -117,7 +117,5 @@
 	default_language = "Sinta'unathi"
 
 	speed_mod = -0.80
-	burn_mod = 0
-	brute_mod = 1.1
-	tox_mod = 2
+	burn_mod = 0.9
 	species_traits = list(NO_BREATHE, NOGUNS)
