@@ -98,6 +98,9 @@
 	sentience_type = SENTIENCE_OTHER
 	loot = list()
 
+/mob/living/simple_animal/hostile/asteroid/goliath/juvenile/subadult
+	growth = 599
+
 /mob/living/simple_animal/hostile/asteroid/goliath/examine(mob/user)
 	. = ..()
 	if(stat != DEAD)
@@ -170,8 +173,8 @@
 	if(growth >= 600 && growth_stage == JUVENILE && !stat) // Grow to subadult
 		name = "subadult goliath"
 		growth_stage = SUBADULT
-		maxHealth = maxHealth += 50
-		health = health += 50
+		maxHealth += 50
+		health += 50
 		speed = 2
 		move_to_delay = 4
 		obj_damage = 70
@@ -190,8 +193,8 @@
 	if(growth >= 1200 && growth_stage == SUBADULT && !stat) // Grow to adult
 		name = "goliath"
 		growth_stage = ADULT
-		maxHealth = maxHealth += 150
-		health = health += 150
+		maxHealth += 150
+		health += 150
 		speed = 3
 		move_to_delay = 40
 		obj_damage = 100
@@ -219,8 +222,9 @@
 		stat_attack = UNCONSCIOUS
 		robust_searching = TRUE
 		add_draconian_effect()
-		if(tame_stage != TAMED)
+		if(tame_stage != TAMED) // If you didn't manage to tame it before it grew up, I got bad news for 'ya.
 			tame_progress = 0
+			handle_tame_progress()
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/handle_tame_progress()
 	if(tame_progress <= 599 && tame_stage != WILD) // Become feral if left alone for too long
@@ -305,7 +309,7 @@
 	if(!isturf(tturf))
 		return
 	if(get_dist(src, target) <= 7)//Screen range check, so you can't get tentacle'd offscreen
-		if(aux_tentacles != 0)
+		if((aux_tentacles != 0) || (growth_stage == JUVENILE && draconian != NOT_DRACONIAN))
 			visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
 		else
 			visible_message("<span class='warning'>[src] digs a tentacle under [target]!</span>")
@@ -403,7 +407,7 @@
 		G.leader = src
 	if(stat != DEAD && goliaths_owned <= 4) // Pick up stray juveniles and subadults for a max of 5, up from 3 it can spawn
 		for(var/mob/living/simple_animal/hostile/asteroid/goliath/S in range(7,src))
-			if(get_dist(S, src) <= 7 && (S.leader == null || S.leader.stat == DEAD) && S.tame_stage == WILD && (S.growth_stage != ADULT && S.growth_stage != ANCIENT))
+			if((S.leader == null || S.leader.stat == DEAD) && S.tame_stage == WILD && (S.growth_stage != ADULT && S.growth_stage != ANCIENT))
 				S.leader = src
 				goliaths_owned++
 		return
@@ -453,7 +457,7 @@
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
 		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
-		if(istype(spawner, /mob/living/simple_animal/hostile/asteroid/goliath) && G.growth_stage == ADULT)
+		if(istype(G, /mob/living/simple_animal/hostile/asteroid/goliath) && G.growth_stage == ADULT)
 			L.Stun(5)
 			L.adjustBruteLoss(rand(10,15))
 		else
@@ -509,13 +513,16 @@
 					var/obj/item/organ/internal/regenerative_core/R = O
 					if(!R.inert)
 						tame_progress += rand(250, 450)
+						adjustBruteLoss(-25)
 					else
 						tame_progress += rand(150, 250) // Inert cores don't count a lot
 						visible_message("<span class='notice'>\The [src] didn't like [O] too much...</span>")
 				if(FLORA)
 					tame_progress += rand(150, 350)
 				if(ORGANS)
-					if((!istype(O, CORE)) || (!istype(O, CYBERORGAN))) // No legion or cyberimp organs if it wants organs.
+					if((istype(O, CORE)) || (istype(O, CYBERORGAN))) // No legion or cyberimp organs if it wants organs.
+						return
+					else
 						tame_progress += rand(300, 500)
 			user.visible_message("<span class='notice'>[user] feeds [O] to [src].</span>")
 			playsound(get_turf(src), 'sound/items/eatfood.ogg', 50, 0)
@@ -538,8 +545,8 @@
 			qdel(O)
 			playsound(get_turf(src), 'sound/items/drink.ogg', 50, 0)
 			tame_progress += rand(950, 1200)
-			maxHealth = maxHealth += 100
-			health = health += 100
+			maxHealth += 100
+			health += 100
 			to_chat(src, "<span class='biggerdanger'>You feel flames coursing through your body!</span>")
 			draconian++
 			add_draconian_effect()

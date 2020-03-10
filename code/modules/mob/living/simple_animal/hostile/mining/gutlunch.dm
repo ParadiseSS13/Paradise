@@ -170,7 +170,6 @@
 	. = ..()
 	if(prob(45))
 		new /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck(loc)
-		return INITIALIZE_HINT_QDEL
 	else
 		new /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen(loc)
-		return INITIALIZE_HINT_QDEL
+	return INITIALIZE_HINT_QDEL
