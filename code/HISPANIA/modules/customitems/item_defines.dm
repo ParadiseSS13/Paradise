@@ -12,7 +12,7 @@
 
 //Codex Arcanum STARTS HERE
 
-/obj/item/toy/codex_arcanum // Xombie666: Tostada
+/obj/item/toy/codex_arcanum // PapayasTehSkeletor: Codex Arcanun
 	name = "codex arcanum"
 	desc = "Old book with metal, frame you can't understand the language thats inside"
 	icon = 'icons/hispania/obj/items.dmi'
