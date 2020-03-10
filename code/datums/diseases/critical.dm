@@ -146,7 +146,7 @@
 	max_stages = 3
 	spread_flags = SPECIAL
 	spread_text = "The patient has low blood sugar."
-	cure_text = "Eating or glucose treatment"
+	cure_text = "Eating or administration of vitamins or nutrients"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 1
 	severity = DANGEROUS
