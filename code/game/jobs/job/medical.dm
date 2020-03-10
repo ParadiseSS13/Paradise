@@ -50,7 +50,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_surgery, access_maint_tunnels)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
@@ -85,7 +85,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_maint_tunnels)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -149,7 +149,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_chemistry, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
@@ -183,7 +183,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_morgue, access_genetics, access_research, access_maint_tunnels)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -216,7 +216,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_virology, access_maint_tunnels, access_mineral_storeroom)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
@@ -251,7 +251,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_paramedic, access_maint_tunnels, access_external_airlocks)
+	access = list(access_psychiatrist, access_medical, access_morgue, access_surgery, access_chemistry, access_virology, access_genetics, access_mineral_storeroom, access_maint_tunnels, access_external_airlocks)
 	minimal_access = list(access_medical, access_psychiatrist, access_maint_tunnels)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
