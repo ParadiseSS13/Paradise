@@ -2,5 +2,5 @@
 	name = "Gangster Swithblade"
 	desc = "A little harder for concealing than a energy dagger but sligthly stronger... An ganster alternative"
 	reference = "FOLD"
-	item = /obj/item/knife/folding/combat/gangsta
+	item = /obj/item/kitchen/knife/folding/combat/gangsta
 	cost = 2
