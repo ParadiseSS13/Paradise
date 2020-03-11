@@ -42,7 +42,7 @@
 /datum/gear/doublecards
 	display_name = "a double deck of standard cards"
 	path = /obj/item/deck/doublecards
-	
+
 /datum/gear/tarot
 	display_name = "a deck of tarot cards"
 	path = /obj/item/deck/tarot
@@ -82,6 +82,10 @@
 /datum/gear/skullbandana
 	display_name = "bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
+
+/datum/gear/sterilemask
+	display_name = "sterile mask"
+	path = /obj/item/clothing/mask/surgical
 
 /datum/gear/mob_hunt_game
 	display_name = "Nano-Mob Hunter GO! Cartridge"
