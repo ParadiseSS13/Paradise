@@ -359,9 +359,15 @@
 	if(scan_brain && !can_brainscan())
 		return
 	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
-		scantemp = "<span class=\"bad\">Error: Subject is not scannable.</span>"
-		SSnanoui.update_uis(src)
-		return
+		if(isalien(subject)) 
+			scantemp = "<span class=\"bad\">Error: Xenomorphs are not scannable.</span>"
+			SSnanoui.update_uis(src)
+			return
+		// can add more conditions for specific non-human messages here
+		else 
+			scantemp = "<span class=\"bad\">Error: Subject species is not scannable.</span>"
+			SSnanoui.update_uis(src)
+			return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
