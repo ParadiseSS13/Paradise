@@ -389,6 +389,7 @@
 	description = "A weak acid that is the main component of vinegar and bad hangovers."
 	color = "#0080ff"
 	reagent_state = LIQUID
+	taste_description = "vinegar"
 
 /datum/reagent/acetic_acid/reaction_mob(mob/M, method = TOUCH, volume)
 	if(ishuman(M))
