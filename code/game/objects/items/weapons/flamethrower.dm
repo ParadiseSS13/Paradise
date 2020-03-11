@@ -11,13 +11,23 @@
 	var/consumption_rate = 25 // how much fuel is used as a percentage
 	var/tank_exposure = 0 //defensive purposes, namely how likely your to blow up upon being shot holding a flamethrower
 	var/obj/item/tank/plasma/ptank = null
+	var/create_with_tank = FALSE
+
+/obj/item/flamethrower/Destroy()
+	QDEL_NULL(ptank)
+	return ..()
+
+/obj/item/flamethrower/Initialize(mapload)
+	. = ..()
+	if(create_with_tank)
+		ptank = new /obj/item/tank/plasma/full(src)
+		update_icon()
 
 /obj/item/flamethrower/process()
 	var/turf/T = get_turf(src)
 	T.hotspot_expose(700, 2) //start a fire if possible
 	if(prob(5)) //sometimes consume fuel
 		consume_fuel(5) //and not massive chunks of it
-	..()
 
 /obj/item/flamethrower/attack_self(mob/user)
 	if(!ptank)
@@ -37,7 +47,7 @@
 		if(user.drop_item())
 			if(ptank)			
 				ptank.forceMove(get_turf(src))
-				to_chat(user, "<span class='notice'>You swap the plasma tank in [src]!</span>")
+				to_chat(user, "<span class='notice'>You swap the [ptank] in [src]!</span>")
 			I.forceMove(src)
 			ptank = I
 			update_icon()
@@ -59,7 +69,7 @@
 	else if(ptank && isliving(user) && user.Adjacent(src))
 		user.put_in_hands(ptank)
 		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
+		to_chat(user, "<span class='notice'>You remove the [ptank] from [src]!</span>")
 		update_icon()
 
 //turn it on or off
@@ -158,12 +168,10 @@
 	lit = FALSE	
 	var/obj/item/weldingtool/weldtool = null //so you can recover the welding tool you used
 	var/create_full = FALSE
-	var/create_with_tank = FALSE
 
 /obj/item/flamethrower/basic/Destroy()
 	QDEL_NULL(weldtool)
-	QDEL_NULL(ptank)
-	return ..()
+	. = ..()
 
 /obj/item/flamethrower/basic/update_icon()
 	cut_overlays()
@@ -207,12 +215,8 @@
 
 /obj/item/flamethrower/basic/Initialize(mapload)
 	. = ..()
-	if(create_full)
-		if(!weldtool)
-			weldtool = new /obj/item/weldingtool(src)
-		if(create_with_tank)
-			ptank = new /obj/item/tank/plasma/full(src)
-		update_icon()
+	if(!weldtool && create_full) // if not done this way the original weldtool used for building the flamethrower will get replaced with a standard one
+		weldtool = new /obj/item/weldingtool(src)
 
 /obj/item/flamethrower/basic/full
 	create_full = TRUE
@@ -251,11 +255,6 @@
 	var/force_welder = 30
 	var/armour_penetration_welder = 50
 	var/status = FLAMETHROWERMODE
-	var/create_with_tank = FALSE
-
-/obj/item/flamethrower/advanced/Destroy()
-	QDEL_NULL(ptank)
-	return ..()
 
 /obj/item/flamethrower/advanced/update_icon()
 	cut_overlays()
@@ -288,24 +287,13 @@
 	if(user.get_inactive_hand())
 		to_chat(user, "<span class='userdanger'>You need both hands free to attack with \the [src]!</span>")
 		return
-	if(lit && status == WELDERMODE) //we want it to have different attack values depending on what status and if it's on or not
-		damtype = BURN
-		force = force_welder
-		armour_penetration = armour_penetration_welder
-		hitsound = 'sound/items/welder.ogg'
-		consume_fuel(consumption_rate)
-	else
-		damtype = BRUTE
-		force = initial(force)
-		armour_penetration = initial(armour_penetration)
-		hitsound = "swing_hit"
 	..()
 
 /obj/item/flamethrower/advanced/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	if(flag)
 		return // too close
-	if(user.get_inactive_hand())
+	if(lit && user.get_inactive_hand()) //don't want this message if it's turned off!
 		to_chat(user, "<span class='userdanger'>You need both hands free to use \the [src]!</span>")
 		return
 	if(status == WELDERMODE)
@@ -326,6 +314,23 @@
 /obj/item/flamethrower/advanced/ui_action_click(mob/user, actiontype)
 	toggle_mode(user)
 
+/obj/item/flamethrower/advanced/toggle_igniter(turn_off)
+	. = ..()
+	check_weldermode()
+
+/obj/item/flamethrower/advanced/proc/check_weldermode(mob/user)
+	if(lit && status == WELDERMODE) //we want it to have different attack values depending on what status and if it's on or not
+		damtype = BURN
+		force = force_welder
+		armour_penetration = armour_penetration_welder
+		hitsound = 'sound/items/welder.ogg'
+		consume_fuel(consumption_rate)
+	else
+		damtype = BRUTE
+		force = initial(force)
+		armour_penetration = initial(armour_penetration)
+		hitsound = "swing_hit"
+
 /obj/item/flamethrower/advanced/proc/toggle_mode(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	if(status == FLAMETHROWERMODE)
@@ -338,20 +343,15 @@
 		consumption_rate = initial(consumption_rate)
 		tool_behaviour = null
 		to_chat(user, "<span class='notice'> You swap to flamethrower mode.</span>")
+	check_weldermode()
 	update_icon()
 
 /obj/item/flamethrower/advanced/examine(mob/user)
 	. = ..()
-	if(status == 2)
+	if(status == WELDERMODE)
 		. += "<span class='notice'>[src] is in welder mode.</span>"
 	else
 		. += "<span class='notice'>[src] is in flamethrower mode.</span>"
-
-/obj/item/flamethrower/advanced/Initialize(mapload)
-	. = ..()
-	if(create_with_tank)
-		ptank = new /obj/item/tank/plasma/full(src)
-	update_icon()
 
 /obj/item/flamethrower/advanced/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	. = ..()
