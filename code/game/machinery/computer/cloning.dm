@@ -384,7 +384,7 @@
 		SSnanoui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
-		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding. Further attempts may succeed.</span>"
+		scantemp = "<span class=\"bad\">Error: Subject's brain is not responding. Further attempts after a short delay may succeed.</span>"
 		SSnanoui.update_uis(src)
 		return
 	if((NOCLONE in subject.mutations) && src.scanner.scan_level < 2)
