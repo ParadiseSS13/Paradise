@@ -69,6 +69,10 @@ proc/get_radio_key_from_channel(var/channel)
 		if((HULK in mutations) && health >= 25)
 			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
+			
+		if(findtext(S.message, "~"))
+			adjustBrainLoss(10) 
+			to_chat(src, "<span class='warning'>You feel dumber for having spoken in such a mannerism.</span>")
 
 		if(slurring)
 			if(robot)
