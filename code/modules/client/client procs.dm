@@ -417,13 +417,14 @@
 	// Update the state of the panic bunker based on current playercount
 	var/threshold = config.panic_bunker_threshold
 
-	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
-		GLOB.panic_bunker_enabled = TRUE
-		message_admins("Panic bunker has been automatically enabled due to playercount rising above [threshold]")
-
-	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
-		GLOB.panic_bunker_enabled = FALSE
-		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
+	if(GLOB.panic_bunker_enabled)
+		if(playercount < threshold)
+			GLOB.panic_bunker_enabled = FALSE
+			message_admins("Panic bunker has been automatically disabled due to playercount dropping below Server Capacity [threshold]")
+	else
+		if(playercount > threshold)
+			GLOB.panic_bunker_enabled = TRUE
+			message_admins("Panic bunker has been automatically enabled due to playercount rising above Server Capacity [threshold]")
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
