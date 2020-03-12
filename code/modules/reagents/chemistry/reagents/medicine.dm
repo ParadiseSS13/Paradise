@@ -818,7 +818,8 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	M.SetSlur(0)
 	M.AdjustDrunk(-4)
-	M.reagents.remove_all_type(/datum/reagent/consumable/ethanol, 8, 0, 1)
+	M.reagents.remove_all_type(/datum/reagent/consumable/alcohol, 8, 0, 1)
+	M.reagents.remove_reagent("ethanol", 8)
 	if(M.getToxLoss() <= 25)
 		update_flags |= M.adjustToxLoss(-2.0, FALSE)
 	return ..() | update_flags

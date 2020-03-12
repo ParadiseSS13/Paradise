@@ -150,6 +150,64 @@
 			update_flags |= M.adjustOxyLoss(20, FALSE)
 	return list(effect, update_flags)
 
+/datum/reagent/caffeine
+	name = "caffeine"
+	id = "caffeine"
+	description = "Common nerve stimulant, helps keep you awake. often found in coffee and tea."
+	reagent_state = LIQUID
+	color = "#ffffff"
+	overdose_threshold = 35
+	addiction_chance = 2 
+	addiction_chance_additional = 20
+	addiction_threshold = 10
+	minor_addiction = TRUE
+	heart_rate_increase = 1
+
+/datum/reagent/caffeine/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(50))
+		update_flags |= M.AdjustParalysis(-1, FALSE)
+		update_flags |= M.AdjustStunned(-1, FALSE)
+		update_flags |= M.AdjustWeakened(-1, FALSE)
+	return ..() | update_flags
+	
+/datum/reagent/caffeine/overdose_process(mob/living/M, severity) //caffeine overdose is nasty
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] looks confused!</span>")
+			M.AdjustConfused(20)
+			M.Jitter(20)
+			M.emote("scream")
+		else if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] is all sweaty!</span>")
+			M.bodytemperature += rand(5,30)
+			update_flags |= M.adjustBrainLoss(1, FALSE)
+			update_flags |= M.adjustToxLoss(1, FALSE)
+			update_flags |= M.Stun(2, FALSE)
+		else if(effect <= 7)
+			M.visible_message("<span class = 'warning'>[M] looks irritated!</span>")
+			M.Jitter(30)
+			M.emote("grumble")
+	if(severity == 2)
+		if(effect <= 2)
+			M.visible_message("<span class='warning'>[M] suddenly cluches [M.p_their()] chest!</span>")
+			M.emote("scream")
+			update_flags |= M.Stun(7, FALSE)
+			update_flags |= M.Weaken(7, FALSE)
+		else if(effect <= 5)
+			M.visible_message("<span class='warning'>[M] jerks bolt upright, then collapses!</span>")
+			update_flags |= M.Paralyse(5, FALSE)
+			update_flags |= M.Weaken(4, FALSE)
+		else if(effect <= 8)
+			M.visible_message("<span class='warning'>[M] stumbles and staggers.</span>")
+			M.Dizzy(5)
+			update_flags |= M.Weaken(3, FALSE)
+	return list(effect, update_flags)
+
+
 /datum/reagent/crank
 	name = "Crank"
 	id = "crank"
