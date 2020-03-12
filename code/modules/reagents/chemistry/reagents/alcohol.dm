@@ -11,7 +11,7 @@
 	taste_description = "liquid fire"
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
-	if(M.reagents.has_reagent('ethanol', 1) // don't want this activing along with your drink.
+	if(M.reagents.has_reagent('ethanol', 1) // don't want this activing along with your drink. but mutliple drinks, sure lets make it worse.
 		M.AdjustDrunk(1)
 		M.AdjustDizzy(3)
 	return ..()

@@ -313,8 +313,10 @@
 		var/spaceacillin = 0 //how much actual antibiotic is in the thing
 
 		if(R.reagent_list.len)
-			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+			for(var/datum/reagent/consumable/alcoholic/alcohol in R.reagent_list)
 				ethanol += alcohol.alcohol_perc * 300
+			if(istype(R, /datum/reagent/consumable/ethanol))
+				ethanol += 300
 			ethanol /= R.reagent_list.len
 
 			spaceacillin = R.get_reagent_amount("spaceacillin")
@@ -401,8 +403,10 @@
 		var/ethanol = 0 //how much alcohol is in the thing
 
 		if(R.reagent_list.len)
-			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+			for(var/datum/reagent/consumable/alcoholic/alcohol in R.reagent_list)
 				ethanol += alcohol.alcohol_perc * 300
+			if(istype(R, /datum/reagent/consumable/ethanol))
+				ethanol += 300
 			ethanol /= C.reagents.reagent_list.len
 
 		for(var/obj/item/organ/internal/I in affected.internal_organs)
