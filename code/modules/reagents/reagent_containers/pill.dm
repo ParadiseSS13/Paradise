@@ -157,5 +157,5 @@
 /obj/item/reagent_containers/food/pill/caffeine
 	name = "caffeine supplement"
 	desc = "For treating that caffeine addiction."
-	icon_state "pill9"
+	icon_state = "pill9"
 	list_reagents = list("caffeine" = 15)

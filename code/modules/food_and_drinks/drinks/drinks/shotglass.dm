@@ -51,7 +51,8 @@
 		if(A.volume >= 5 && A.alcohol_perc >= 0.35) //Only an approximation to if something's flammable but it will do
 			return TRUE
 	if(istype(R, /datum/reagent/consumable/ethanol))
-		if(A.volume >= 5)
+		var/datum/reagent/consumable/ethanol/B = R
+		if(B.volume >= 5)
 			return TRUE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)

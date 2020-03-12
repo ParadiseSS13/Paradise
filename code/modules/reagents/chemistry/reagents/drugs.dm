@@ -162,6 +162,7 @@
 	addiction_threshold = 10
 	minor_addiction = TRUE
 	heart_rate_increase = 1
+	taste_description = "stimulus"
 
 /datum/reagent/caffeine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

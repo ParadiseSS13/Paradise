@@ -11,7 +11,7 @@
 	taste_description = "liquid fire"
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
-	if(M.reagents.has_reagent('ethanol', 1) // don't want this activing along with your drink. but mutliple drinks, sure lets make it worse.
+	if(volume > 1) // don't want this activing along with your drink. but mutliple drinks, sure lets make it worse.
 		M.AdjustDrunk(1)
 		M.AdjustDizzy(3)
 	return ..()
@@ -44,19 +44,14 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
-	addiction_chance = 1
-	addiction_threshold = 10
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
-	var/contains_caffeine = FALSE //double the addictions double the fun.
 	taste_description = "liquid fire"
 
 /datum/reagent/consumable/alcoholic/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc)
 	M.AdjustDizzy(dizzy_adj)
 	M.reagents.add_reagent("ethanol", 0.4) //for all your ethanol addiction needs.
-	if(contains_caffeine)
-		M.reagents.add_reagent("caffeine", 0.4)
 	return ..()
 
 /datum/reagent/consumable/alcoholic/beer
@@ -292,9 +287,11 @@
 
 /datum/reagent/consumable/alcoholic/thirteenloko/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
+	M.AdjustDrowsy(-7)
+	update_flags |= M.AdjustSleeping(-2, FALSE)
 	if(M.bodytemperature > 310)
 		M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
-	M.reagents.add_reagent("caffeine", 0.4)
+	M.Jitter(5)
 	return ..() | update_flags
 
 
@@ -500,7 +497,6 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
-	contains_caffeine = TRUE
 	drink_icon = "bravebullglass"
 	drink_name = "Brave Bull"
 	drink_desc = "Tequila and Coffee liquor, brought together in a mouthwatering mixture. Drink up."
@@ -607,7 +603,6 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.3
-	contains_caffeine = TRUE
 	drink_icon = "b52glass"
 	drink_name = "B-52"
 	drink_desc = "Kahlua, Irish Cream, and congac. You will get bombed."
@@ -620,7 +615,6 @@
 	reagent_state = LIQUID
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
-	contains_caffeine = TRUE
 	drink_icon = "irishcoffeeglass"
 	drink_name = "Irish Coffee"
 	drink_desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
@@ -1069,7 +1063,6 @@
 	description = "A widely known, Mexican coffee-flavoured liqueur. In production since 1936!"
 	color = "#664300" // rgb: 102, 67, 0
 	alcohol_perc = 0.2
-	contains_caffeine = TRUE
 	drink_icon = "kahluaglass"
 	drink_name = "Glass of RR coffee Liquor"
 	drink_desc = "DAMN, THIS THING LOOKS ROBUST"
@@ -1080,7 +1073,7 @@
 	M.AdjustDizzy(-5)
 	M.AdjustDrowsy(-3)
 	update_flags |= (M.AdjustSleeping(-2) ? STATUS_UPDATE_STAT : STATUS_UPDATE_NONE)
-	M.reagents.add_reagent("caffeine", 0.4)
+	M.Jitter(5)
 	return ..() | update_flags
 
 /datum/reagent/ginsonic
