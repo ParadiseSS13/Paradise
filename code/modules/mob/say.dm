@@ -1,5 +1,5 @@
 
-#define ILLEGAL_CHARACTERS_LIST list("~" = "", "<" = "", ">" = "", "^" = "", \
+#define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", "^" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
 /mob/proc/say()
