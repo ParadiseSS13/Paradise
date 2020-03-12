@@ -25,4 +25,4 @@
 	new /obj/item/honey_frame(src)
 	new /obj/item/honey_frame(src)
 	new /obj/item/honey_frame(src)
-	new /obj/item/queen_bee(src)
+	new /obj/item/queen_bee/bought(src)
