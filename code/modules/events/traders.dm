@@ -18,6 +18,9 @@ var/global/list/unused_trade_stations = list("sol")
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
 		event_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
+		// if the docking request was refused, fire another major event in 60 seconds
+		var/list/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
+		EC.next_event_time = world.time + (60 * 10)
 		return
 
 	var/list/spawnlocs = list()
