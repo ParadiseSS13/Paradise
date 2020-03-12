@@ -68,9 +68,7 @@
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
 			if(H.dna && NO_BLOOD in H.dna.species.species_traits)
-				var/dam_zone = pick("l_arm", "l_hand", "r_arm", "r_hand")
-				var/obj/item/organ/external/affecting = H.get_organ(dam_zone)
-				H.apply_damage(5 - rune * 3, BRUTE, affecting)
+				H.cult_self_harm(3 - rune * 2)
 			else
 				H.bleed(20 - rune * 12)
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
@@ -394,9 +392,8 @@
 	. = ..()
 	if(invocation)
 		user.whisper(invocation)
-	if(health_cost && iscarbon(user))
-		var/mob/living/carbon/C = user
-		C.apply_damage(health_cost, BRUTE, pick("l_arm", "l_hand", "r_arm", "r_hand"))
+	if(health_cost && ishuman(user))
+		user.cult_self_harm(health_cost)
 	if(uses <= 0)
 		qdel(src)
 	else if(source)
@@ -638,10 +635,7 @@
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)
-			if(do_after(user, 50, target = user))
-				if(QDELETED(target))
-					channeling = FALSE
-					return
+			if(do_after(user, 50, target = target))
 				target.narsie_act(TRUE)
 				uses--
 				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")

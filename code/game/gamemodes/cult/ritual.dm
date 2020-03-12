@@ -134,10 +134,7 @@
 			return//don't do shit
 
 	var/mob/living/carbon/human/H = user
-	var/dam_zone = pick("l_arm", "l_hand", "r_arm", "r_hand")
-	var/obj/item/organ/external/affecting = H.get_organ(dam_zone)
-	user.visible_message("<span class='warning'>[user] cuts open [user.p_their()] [affecting.name] and begins writing in [user.p_their()] own blood!</span>", "<span class='cult'>You slice open your [affecting.name] and begin drawing a sigil of [SSticker.cultdat.entity_title3].</span>")
-	user.apply_damage(initial(rune_to_scribe.scribe_damage), BRUTE, affecting)
+	H.cult_self_harm(initial(rune_to_scribe.scribe_damage), TRUE)
 	if(!do_after(user, initial(rune_to_scribe.scribe_delay) * scribe_multiplier, target = get_turf(user)))
 		for(var/V in shields)
 			var/obj/machinery/shield/S = V
