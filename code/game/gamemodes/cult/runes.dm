@@ -230,18 +230,18 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
 		if(!iscultist(M) || (M.mind && is_sacrifice_target(M.mind)))
-			myriad_targets |= M
+			myriad_targets += M
 
 	for(var/obj/item/organ/external/head/head in T)
 		var/obj/item/organ/internal/brain/brain = locate(/obj/item/organ/internal/brain) in head
 		if(brain)
 			var/mob/living/carbon/brain/B = locate(/mob/living/carbon/brain) in brain
 			if(B.mind && is_sacrifice_target(B.mind))
-				myriad_targets |= B
+				myriad_targets += B
 	for(var/obj/item/organ/internal/brain/brain in T)
 		var/mob/living/carbon/brain/B = locate(/mob/living/carbon/brain) in brain
 		if(B.mind && is_sacrifice_target(B.mind))
-			myriad_targets |= B
+			myriad_targets += B
 
 	if(!myriad_targets.len)
 		fail_invoke()
@@ -598,7 +598,7 @@ var/list/teleport_runes = list()
 	density = !density
 	update_state()
 	if(density)
-		spread_density()
+		spread_invocation()
 	var/carbon_user = iscarbon(user)
 	user.visible_message("<span class='warning'>[user] [carbon_user ? "places [user.p_their()] hands on":"stares intently at"] [src], and [density ? "the air above it begins to shimmer" : "the shimmer above it fades"].</span>", \
 						 "<span class='cultitalic'>You channel [carbon_user ? "your life ":""]energy into [src], [density ? "temporarily preventing" : "allowing"] passage above it.</span>")
@@ -606,13 +606,13 @@ var/list/teleport_runes = list()
 		var/mob/living/carbon/C = user
 		C.apply_damage(2, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
-/obj/effect/rune/wall/proc/spread_density()
+/obj/effect/rune/wall/proc/spread_invocation()
 	for(var/R in GLOB.wall_runes)
 		var/obj/effect/rune/wall/W = R
 		if(W.z == z && get_dist(src, W) <= 2 && !W.density && !W.recharging)
 			W.density = TRUE
 			W.update_state()
-			W.spread_density()
+			W.spread_invocation()
 	density_timer = addtimer(CALLBACK(src, .proc/lose_density), 3000, TIMER_STOPPABLE)
 
 /obj/effect/rune/wall/proc/lose_density()
