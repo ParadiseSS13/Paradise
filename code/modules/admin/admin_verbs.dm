@@ -79,8 +79,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne,
-	/client/proc/toggle_panic_bunker_state,
-	/client/proc/toggle_panic_bunker_mode
+	/client/proc/set_server_capacity
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -145,7 +144,8 @@ var/list/admin_verbs_server = list(
 	/client/proc/toggle_antagHUD_use,
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
-	/client/proc/reset_ooc
+	/client/proc/reset_ooc,
+	/client/proc/set_server_capacity
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -1019,28 +1019,16 @@ var/list/admin_verbs_ticket = list(
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 
-/client/proc/toggle_panic_bunker_state()
-	set name = "Toggle Panic Bunker State"
+/client/proc/set_server_capacity()
+	set name = "Set Server Capacity"
 	set category = "Admin"
-	set desc = "Change panic bunker between Disabled and Enabled. Prevents new players connecting when Enabled."
+	set desc = "Prevent new players connecting when over capacity."
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled
+	var/capacity = input("Please input the new Server Capacity (player count)", "Set Server Capacity", 150) as num
+	config.panic_bunker_threshold = Clamp(capacity, 0, 500)
 
-	log_admin("[key_name(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
-	message_admins("[key_name_admin(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
-
-/client/proc/toggle_panic_bunker_mode()
-	set name = "Toggle Panic Bunker Mode"
-	set category = "Admin"
-	set desc = "Change panic bunker mode between Manual and Automatic."
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	GLOB.panic_bunker_automatic = !GLOB.panic_bunker_automatic
-
-	log_admin("[key_name(usr)] has set the panic bunker to [GLOB.panic_bunker_automatic  ? "automatic" : "manual"] mode.")
-	message_admins("[key_name(usr)] has set the panic bunker to [GLOB.panic_bunker_automatic  ? "automatic" : "manual"] mode.")
+	log_admin("[key_name(usr)] has set the Server Capacity to [capacity].")
+	message_admins("[key_name_admin(usr)] has set the Server Capacity to [capacity].")
