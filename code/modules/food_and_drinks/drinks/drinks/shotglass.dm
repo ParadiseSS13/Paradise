@@ -46,9 +46,12 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/proc/isShotFlammable()
 	var/datum/reagent/R = reagents.get_master_reagent()
-	if(istype(R, /datum/reagent/consumable/ethanol))
-		var/datum/reagent/consumable/ethanol/A = R
+	if(istype(R, /datum/reagent/consumable/alcoholic))
+		var/datum/reagent/consumable/alcoholic/A = R
 		if(A.volume >= 5 && A.alcohol_perc >= 0.35) //Only an approximation to if something's flammable but it will do
+			return TRUE
+	if(istype(R, /datum/reagent/consumable/ethanol))
+		if(A.volume >= 5)
 			return TRUE
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)

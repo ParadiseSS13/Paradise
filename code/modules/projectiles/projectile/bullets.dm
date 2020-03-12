@@ -22,7 +22,7 @@
 		M.AdjustConfused(20)
 		M.AdjustEyeBlurry(20)
 		M.AdjustDrowsy(20)
-		for(var/datum/reagent/consumable/ethanol/A in M.reagents.reagent_list)
+		for(var/datum/reagent/consumable/alcoholic/A in M.reagents.reagent_list)
 			M.AdjustParalysis(2)
 			M.AdjustDizzy(10)
 			M.AdjustSlur(10)

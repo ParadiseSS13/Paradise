@@ -42,7 +42,7 @@
 		if(damage >= min_bruised_damage)
 			for(var/datum/reagent/R in owner.reagents.reagent_list)
 				// Ethanol and all drinks are bad
-				if(istype(R, /datum/reagent/consumable/ethanol) || istype(R, /datum/reagent/consumable/alcohol))
+				if(istype(R, /datum/reagent/consumable/ethanol))
 					owner.adjustToxLoss(0.1 * PROCESS_ACCURACY)
 
 			// Can't cope with toxins at all
