@@ -559,6 +559,7 @@
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		user.create_attack_log("<font color='red'>attacked [name]</font>")
+		add_attack_logs(user, src, "Electrified")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 

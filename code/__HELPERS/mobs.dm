@@ -274,7 +274,7 @@ Proc for attack log creation, because really why not
 This is always put in the attack log.
 */
 
-/proc/add_attack_logs(mob/user, mob/target, what_done, custom_level)
+/proc/add_attack_logs(atom/user, atom/target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
 		for(var/mob/M in targets)
@@ -283,23 +283,27 @@ This is always put in the attack log.
 
 	var/user_str = key_name_log(user) + COORD(user)
 	var/target_str = key_name_log(target) + COORD(target)
-
-	if(istype(user))
-		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
-	if(istype(target))
-		target.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
+	var/mob/MU = user
+	var/mob/MT = target
+	if(istype(MU))
+		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
+		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
+	if(istype(MT))
+		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(user))
+		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
 
 	var/loglevel = ATKLOG_MOST
 	if(!isnull(custom_level))
 		loglevel = custom_level
-	else if(istype(target))
-		if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
-			loglevel = ATKLOG_ALL
-		else if(!user.ckey || !target.ckey || (user.ckey == target.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
-			loglevel = ATKLOG_ALMOSTALL
+	else if(istype(MT))
+		if(istype(MU))
+			if(!MU.ckey && !MT.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+				loglevel = ATKLOG_ALL
+			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
+				loglevel = ATKLOG_ALMOSTALL
 		else
-			var/area/A = get_area(target)
+			var/area/A = get_area(MT)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level

@@ -265,6 +265,7 @@
 		SSticker.mode.abductors -= abductor_mind
 		abductor_mind.special_role = null
 		abductor_mind.current.create_attack_log("<span class='danger'>No longer abductor</span>")
+		abductor_mind.current.create_log(CONVERSION_LOG, "No longer abductor")
 		if(issilicon(abductor_mind.current))
 			to_chat(abductor_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer an abductor.</span>")
 		else

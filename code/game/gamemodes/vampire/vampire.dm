@@ -348,6 +348,7 @@ You are weak to holy things and starlight. Don't go into space and avoid the Cha
 		SSticker.mode.vampires -= vampire_mind
 		vampire_mind.special_role = null
 		vampire_mind.current.create_attack_log("<span class='danger'>De-vampired</span>")
+		vampire_mind.current.create_log(CONVERSION_LOG, "De-vampired")
 		if(vampire_mind.vampire)
 			vampire_mind.vampire.remove_vampire_powers()
 			QDEL_NULL(vampire_mind.vampire)
