@@ -49820,12 +49820,12 @@
 	pixel_y = 21;
 	req_access_txt = "57"
 	},
-/obj/machinery/door_control{
+/obj/machinery/flasher_button{
 	id = "hopflash";
 	name = "HoP Flash Line";
 	pixel_x = -10;
 	pixel_y = 20;
-	req_one_access_txt = "57"
+	req_access_txt = "57"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
