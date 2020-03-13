@@ -576,6 +576,8 @@
 			to_chat(user, "<span class='cultitalic'>You are already invoking twisted construction!</span>")
 			return
 		var/turf/T = get_turf(target)
+
+		//Metal to construct shell
 		if(istype(target, /obj/item/stack/sheet/metal))
 			var/obj/item/stack/sheet/candidate = target
 			if(candidate.use(METAL_TO_CONSTRUCT_SHELL_CONVERSION))
@@ -586,6 +588,8 @@
 			else
 				to_chat(user, "<span class='warning'>You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!</span>")
 				return
+
+		//Plasteel to runed metal
 		else if(istype(target, /obj/item/stack/sheet/plasteel))
 			var/obj/item/stack/sheet/plasteel/candidate = target
 			var/quantity = candidate.amount
@@ -594,6 +598,8 @@
 				new /obj/item/stack/sheet/runed_metal(T, quantity)
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
 				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
+
+		//Cyborg to construct
 		else if(istype(target, /mob/living/silicon/robot))
 			var/mob/living/silicon/robot/candidate = target
 			if(candidate.mmi)
@@ -631,6 +637,8 @@
 				new /obj/structure/constructshell(T)
 				SEND_SOUND(user, sound('sound/magic/cult_spell.ogg', 0, 1, 25))
 				qdel(candidate)
+
+		//Airlock to cult airlock
 		else if(istype(target,/obj/machinery/door/airlock))
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
@@ -683,10 +691,14 @@
 	if(proximity)
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
+
+			//Healing a cultist
 			if(iscultist(H))
 				if(H.stat == DEAD)
 					to_chat(user,"<span class='warning'>Only a revive rune can bring back the dead!</span>")
 					return
+
+				//Blood restoration
 				if(H.dna && !(NO_BLOOD in H.dna.species.species_traits) && H.dna.species.exotic_blood == null)
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
@@ -699,6 +711,8 @@
 							H.blood_volume = BLOOD_VOLUME_SAFE
 							uses -= round(restore_blood / 2)
 							to_chat(user,"<span class='warning'>Your blood rites have restored [H == user ? "your" : "[H.p_their()]"] blood to safe levels!</span>")
+
+				//Damage healing
 				var/overall_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss() + H.getOxyLoss()
 				if(overall_damage == 0)
 					to_chat(user,"<span class='cult'>That cultist doesn't require healing!</span>")
@@ -724,6 +738,8 @@
 					playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25)
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					user.Beam(H,icon_state="sendbeam", time = 15)
+
+			//Draining blood from non-cultists
 			else
 				if(H.stat == DEAD)
 					to_chat(user,"<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
@@ -746,6 +762,8 @@
 				else
 					to_chat(user,"<span class='warning'>[H] does not have any usable blood!</span>")
 					return
+
+		//Healing constructs
 		if(isconstruct(target))
 			var/mob/living/simple_animal/M = target
 			var/missing = M.maxHealth - M.health
@@ -760,6 +778,8 @@
 					uses = 0
 				playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25)
 				user.Beam(M,icon_state="sendbeam",time=10)
+
+		//Draining blood on the floor
 		if(istype(target, /obj/effect/decal/cleanable/blood) || istype(target, /obj/effect/decal/cleanable/trail_holder))
 			blood_draw(target, user)
 		..()
