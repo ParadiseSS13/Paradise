@@ -48,7 +48,7 @@
 	desc = "An encryption key for a radio headset. To access the binary channel, use :+."
 	icon_state = "bin_cypherkey"
 	translate_binary = TRUE
-	origin_tech = "syndicate=3;engineering=4;bluespace=3"
+	origin_tech = "syndicate=1;engineering=4;bluespace=3"
 
 /obj/item/encryptionkey/headset_sec
 	name = "Security Radio Encryption Key"

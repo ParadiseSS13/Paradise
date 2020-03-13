@@ -18,7 +18,7 @@
 	name = "adrenal implant"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
-	origin_tech = "materials=2;biotech=4;combat=3;syndicate=4"
+	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
 	uses = 3
 
 /obj/item/implant/adrenalin/get_data()

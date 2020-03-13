@@ -25,17 +25,6 @@
 	locked = 1
 	category = list("Weapons")
 
-/datum/design/largecrossbow
-	name = "Energy Crossbow"
-	desc = "A reverse-engineered energy crossbow favored by syndicate infiltration teams and carp hunters."
-	id = "largecrossbow"
-	req_tech = list("combat" = 5, "engineering" = 3, "magnets" = 5, "syndicate" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
-	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
-	locked = 1
-	category = list("Weapons")
-
 /datum/design/flora_gun
 	name = "Floral Somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells. Harmless to other organic life."
@@ -216,16 +205,6 @@
 	build_path = /obj/item/gun/energy/temperature
 	category = list("Weapons")
 
-/datum/design/suppressor
-	name = "Universal Suppressor"
-	desc = "A reverse-engineered universal suppressor that fits on most small arms with threaded barrels."
-	id = "suppressor"
-	req_tech = list("combat" = 6, "engineering" = 5, "syndicate" = 3)
-	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
-	build_path = /obj/item/suppressor
-	category = list("Weapons")
-
 /datum/design/techshell
 	name = "Unloaded Technological Shotshell"
 	desc = "A high-tech shotgun shell which can be loaded with materials to produce unique effects."
@@ -257,3 +236,151 @@
 	build_path = /obj/item/gun/energy/immolator
 	locked = 1
 	category = list("Weapons")
+
+/////////////////////////////////////////
+////////////////ILLEGAL//////////////////
+/////////////////////////////////////////
+
+/datum/design/antimov_module
+	name = "Core AI Module (Antimov)"
+	desc = "Allows for the construction of a Antimov AI Core Module."
+	id = "antimov_module"
+	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
+	build_path = /obj/item/aiModule/antimov
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/tyrant_module
+	name = "Core AI Module (T.Y.R.A.N.T.)"
+	desc = "Allows for the construction of a T.Y.R.A.N.T. AI Module."
+	id = "tyrant_module"
+	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
+	build_path = /obj/item/aiModule/tyrant
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/largecrossbow
+	name = "Energy Crossbow"
+	desc = "A reverse-engineered energy crossbow favored by syndicate infiltration teams and carp hunters."
+	id = "largecrossbow"
+	req_tech = list("combat" = 5, "engineering" = 3, "magnets" = 5, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
+	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/suppressor
+	name = "Universal Suppressor"
+	desc = "A reverse-engineered universal suppressor that fits on most small arms with threaded barrels."
+	id = "suppressor"
+	req_tech = list("combat" = 6, "engineering" = 5, "syndicate" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_SILVER = 500)
+	build_path = /obj/item/suppressor
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/stechkin
+	name = "Stechkin pistol"
+	desc = "A reverse-engineered small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
+	id = "stechkin"
+	req_tech = list("combat" = 6, "engineering" = 6, "syndicate" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4500, MAT_SILVER = 1500, MAT_TITANIUM = 5000)
+	build_path = /obj/item/gun/projectile/automatic/pistol
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/chameleon_kit
+	name = "Chameleon kit"
+	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station." // "Набор хамелеона изученный с помощью реверс инженеринга."
+	id = "chameleon_kit"
+	req_tech = list("combat" = 4, "engineering" = 6, "syndicate" = 4, "magnets" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4500, MAT_GLASS = 3000, MAT_SILVER = 2000, MAT_DIAMOND = 1000)
+	build_path = /obj/item/storage/box/syndie_kit/chameleon
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/adrenaline
+	name = "Adrenaline implant"
+	desc = "A glass case containing an adrenaline implant." // "Кейс с адреналин имплантом, который позволяет игнорировать шокеры, в течение котороткого времени."
+	id = "implant_adrenaline"
+	req_tech = list("syndicate" = 2, "programming" = 3, "biotech"= 4, "materials" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 100, MAT_GLASS = 50,)
+	reagents_list = list("omnizine" = 10)
+	build_path = /obj/item/implantcase/adrenaline
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/Freedom
+	name = "Freedom implant"
+	desc = "A glass case containing a freedom implant." // "Кейс с имплантом, который позволяет освобождаться от наручников ограниченное количество раз."
+	id = "implant_freedom"
+	req_tech = list("syndicate" = 2, "programming" = 3, "biotech"= 4,"materials" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 10000, MAT_GLASS = 3000,)
+	build_path = /obj/item/implantcase/freedom
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/encryptionkey_binary
+	name = "Binary encryptionkey"
+	desc = "An encryption key for a radio headset. To access the binary channel, use :+." // "Ключ шифрования, на которой переговариваеются борги и ИИ."
+	id = "binarykey"
+	req_tech = list("engineering" = 4, "syndicate" = 3, "programming" = 4,"materials" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000,)
+	build_path = /obj/item/encryptionkey/binary
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/encryptionkey_syndicate
+	name = "Syndicate encryptionkey"
+	desc = "An encyption key for a radio headset. Contains syndicate cypherkeys." // "Ключ шифрования синдиката, позволяющий перехватывать другие зашифрованные радиоволны."
+	id = "syndicatekey"
+	req_tech = list("engineering" = 4, "syndicate" = 4, "programming" = 4,"materials" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000,)
+	build_path = /obj/item/encryptionkey/syndicate
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/aiModule_syndicate
+	name = "Hacked AI module"
+	desc = "A hacked AI law module"
+	id = "syndiaimodule"
+	req_tech = list("syndicate" = 6, "programming" = 5, "materials" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
+	build_path = /obj/item/aiModule/syndicate
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/incendiary_10mm
+	name = "pistol magazine 10mm incendiary"
+	desc = "A gun magazine. Loaded with rounds which ignite the target."
+	id = "10mminc"
+	req_tech = list("combat" = 4, "syndicate" = 2, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 100, MAT_PLASMA = 10,)
+	build_path = /obj/item/ammo_box/magazine/m10mm/fire
+	locked = 1
+	category = list("ILLEGAL")
+
+/datum/design/radio_jammer
+	name = "radio jammer"
+	desc = "Device used to disrupt nearby radio communication."
+	id = "jammer"
+	req_tech = list("engineering" = 4, "syndicate" = 3, "programming" = 3, "materials" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_SILVER = 500)
+	build_path = /obj/item/jammer
+	locked = 1
+	category = list("ILLEGAL")

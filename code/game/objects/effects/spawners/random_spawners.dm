@@ -249,7 +249,7 @@
 		/obj/item/jammer = 1,
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/storage/box/syndie_kit/bonerepair = 1,
-		/obj/item/gun/projectile/automatic/pistol = 1,
+		/obj/item/card/emag_broken = 2,
 		/obj/item/stock_parts/cell/bluespace = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/encryptionkey/binary = 1,

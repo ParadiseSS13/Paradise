@@ -543,6 +543,16 @@
 	build_path = /obj/item/implantcase/track
 	category = list("Medical")
 
+/datum/design/implant_mindshield
+	name = "Mindshield Implant Case"
+	desc = "A glass case containing an implant."
+	id = "implant_mindshield"
+	req_tech = list("materials" = 3, "biotech" = 5, "magnets" = 4, "programming" = 4)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/implantcase/mindshield
+	category = list("Medical")
+
 //Cybernetic organs
 
 /datum/design/cybernetic_eyes

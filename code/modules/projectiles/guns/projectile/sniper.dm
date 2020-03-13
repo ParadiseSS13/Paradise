@@ -63,7 +63,7 @@
 /obj/item/ammo_box/magazine/sniper_rounds
 	name = "sniper rounds (.50)"
 	icon_state = ".50mag"
-	origin_tech = "combat=6;syndicate=2"
+	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/point50
 	max_ammo = 6
 	caliber = ".50"
@@ -102,7 +102,7 @@
 	name = "sniper rounds (Zzzzz)"
 	desc = "Soporific sniper rounds, designed for happy days and dead quiet nights..."
 	icon_state = "soporific"
-	origin_tech = "combat=6;syndicate=3"
+	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/soporific
 	max_ammo = 3
 
@@ -164,7 +164,7 @@
 	name = "sniper rounds (penetrator)"
 	desc = "An extremely powerful round capable of passing straight through cover and anyone unfortunate enough to be behind it."
 	ammo_type = /obj/item/ammo_casing/penetrator
-	origin_tech = "combat=6;syndicate=3"
+	origin_tech = "combat=6"
 	max_ammo = 5
 
 /obj/item/ammo_casing/penetrator

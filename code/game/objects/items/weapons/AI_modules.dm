@@ -344,7 +344,7 @@ AI MODULES
 	name = "hacked AI module"
 	var/newFreeFormLaw = ""
 	desc = "A hacked AI law module: '<freeform>'"
-	origin_tech = "programming=5;materials=5;syndicate=5"
+	origin_tech = "programming=5;materials=5;syndicate=7"
 
 /obj/item/aiModule/syndicate/attack_self(var/mob/user as mob)
 	..()

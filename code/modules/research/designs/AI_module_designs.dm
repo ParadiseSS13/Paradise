@@ -82,16 +82,6 @@
 	build_path = /obj/item/aiModule/safeguard
 	category = list("AI Modules")
 
-/datum/design/antimov_module
-	name = "Core AI Module (Antimov)"
-	desc = "Allows for the construction of a Antimov AI Core Module."
-	id = "antimov_module"
-	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/antimov
-	category = list("AI Modules")
-
 /datum/design/asimov
 	name = "Core AI Module (Asimov)"
 	desc = "Allows for the construction of a Asimov AI Core Module."
@@ -142,12 +132,3 @@
 	build_path = /obj/item/aiModule/paladin
 	category = list("AI Modules")
 
-/datum/design/tyrant_module
-	name = "Core AI Module (T.Y.R.A.N.T.)"
-	desc = "Allows for the construction of a T.Y.R.A.N.T. AI Module."
-	id = "tyrant_module"
-	req_tech = list("programming" = 5, "syndicate" = 2, "materials" = 5)
-	build_type = IMPRINTER
-	materials = list(MAT_GLASS = 1000, MAT_DIAMOND = 100)
-	build_path = /obj/item/aiModule/tyrant
-	category = list("AI Modules")

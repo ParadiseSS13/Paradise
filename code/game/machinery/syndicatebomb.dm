@@ -329,7 +329,7 @@
 	icon_state = "bombcore"
 	item_state = "eshield0"
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "syndicate=5;combat=6"
+	origin_tech = "syndicate=3;combat=6"
 	resistance_flags = FLAMMABLE //Burnable (but the casing isn't)
 	var/adminlog = null
 	var/range_heavy = 3
