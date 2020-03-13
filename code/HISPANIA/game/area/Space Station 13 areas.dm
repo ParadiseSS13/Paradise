@@ -11,6 +11,6 @@
 
 */
 
-area/ship/tsf/longlost
+area/shuttle/tsf
 	name = "TSF Discovery"
 	icon_state = "shuttle"
