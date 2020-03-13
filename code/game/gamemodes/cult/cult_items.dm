@@ -74,7 +74,7 @@
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
-
+	magical = TRUE
 
 /obj/item/clothing/head/hooded/culthood/alt
 	icon_state = "cult_hoodalt"
@@ -91,6 +91,7 @@
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40, "energy" = 20, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDEJUMPSUIT
+	magical = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/alt
 	icon_state = "cultrobesalt"
@@ -103,6 +104,7 @@
 	icon_state = "cult_helmet"
 	item_state = "cult_helmet"
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	magical = TRUE
 
 /obj/item/clothing/suit/space/cult
 	name = "cult armor"
@@ -113,6 +115,7 @@
 	allowed = list(/obj/item/tome,/obj/item/melee/cultblade, /obj/item/tank)
 	slowdown = 1
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 30,"energy" = 15, "bomb" = 30, "bio" = 30, "rad" = 30, "fire" = 40, "acid" = 75)
+	magical = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist robe"
@@ -136,6 +139,7 @@
 	body_parts_covered = HEAD
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
+	magical = TRUE
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield/equipped(mob/living/user, slot)
 	..()
@@ -173,7 +177,6 @@
 	slowdown = -1
 	hoodtype = /obj/item/clothing/head/hooded/berserkerhood
 
-
 /obj/item/clothing/head/hooded/berserkerhood
 	name = "flagellant's robes"
 	desc = "Blood-soaked garb infused with dark magic; allows the user to move at inhuman speeds, but at the cost of increased damage."
@@ -181,6 +184,7 @@
 	flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	magical = TRUE
 
 /obj/item/whetstone/cult
 	name = "eldritch whetstone"
