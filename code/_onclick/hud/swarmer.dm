@@ -25,7 +25,7 @@
 
 /obj/screen/swarmer/Replicate
 	icon_state = "ui_replicate"
-	name = "Replicate (Costs 50 Resources)"
+	name = "Replicate (Costs 100 Resources)"
 	desc = "Creates a another of our kind."
 
 /obj/screen/swarmer/Replicate/Click()
