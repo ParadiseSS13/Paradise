@@ -416,31 +416,30 @@
 	var/mob/living/L = target
 	if(iscultist(target))
 		return
-	if(iscultist(user))
-		user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
+	user.visible_message("<span class='warning'>[user] holds up [user.p_their()] hand, which explodes in a flash of red light!</span>", \
 							"<span class='cultitalic'>You attempt to stun [L] with the spell!</span>")
 
-		user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
+	user.mob_light(_color = LIGHT_COLOR_BLOOD_MAGIC, _range = 3, _duration = 2)
 
-		var/obj/item/nullrod/N = locate() in target
-		if(N)
-			target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
-								   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
-		else
-			to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
-			L.Weaken(10)
-			L.Stun(10)
-			L.flash_eyes(1,1)
-			if(issilicon(target))
-				var/mob/living/silicon/S = L
-				S.emp_act(EMP_HEAVY)
-			else if(iscarbon(target))
-				var/mob/living/carbon/C = L
-				C.silent += 6
-				C.stuttering += 15
-				C.cultslurring += 15
-				C.Jitter(15)
-		uses--
+	var/obj/item/nullrod/N = locate() in target
+	if(N)
+		target.visible_message("<span class='warning'>[target]'s holy weapon absorbs the red light!</span>", \
+							   "<span class='userdanger'>Your holy weapon absorbs the blinding light!</span>")
+	else
+		to_chat(user, "<span class='cultitalic'>In a brilliant flash of red, [L] falls to the ground!</span>")
+		L.Weaken(10)
+		L.Stun(10)
+		L.flash_eyes(1,1)
+		if(issilicon(target))
+			var/mob/living/silicon/S = L
+			S.emp_act(EMP_HEAVY)
+		else if(iscarbon(target))
+			var/mob/living/carbon/C = L
+			C.silent += 6
+			C.stuttering += 15
+			C.cultslurring += 15
+			C.Jitter(15)
+	uses--
 	..()
 
 
@@ -458,50 +457,49 @@
 	if(!iscultist(target) || !proximity)
 		to_chat(user, "<span class='warning'>You can only teleport adjacent cultists with this spell!</span>")
 		return
-	if(iscultist(user))
-		for(var/R in teleport_runes)
-			var/obj/effect/rune/teleport/T = R
-			var/resultkey = T.listkey
-			if(resultkey in teleportnames)
-				duplicaterunecount[resultkey]++
-				resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
-			else
-				teleportnames.Add(resultkey)
-				duplicaterunecount[resultkey] = 1
-			potential_runes[resultkey] = T
-
-		if(!potential_runes.len)
-			to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
-			log_game("Teleport spell failed - no other teleport runes")
-			return
-
-		if(!is_level_reachable(user.z))
-			to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
-			log_game("Teleport spell failed - user in away mission")
-			return
-		var/mob/living/L = target
-		var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
-		var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
-		if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
-			return
-		uses--
-		var/turf/origin = get_turf(user)
-		var/turf/destination = get_turf(actual_selected_rune)
-		new /obj/effect/temp_visual/dir_setting/cult/phase/out(origin)
-		new /obj/effect/temp_visual/dir_setting/cult/phase(destination)
-		if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
-			actual_selected_rune.handle_portal("lava")
-		else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
-			actual_selected_rune.handle_portal("space", origin)
-		if(user == target)
-			target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
-							"<span class='cultitalic'>You speak the words and find yourself somewhere else!</span>")
+	for(var/R in teleport_runes)
+		var/obj/effect/rune/teleport/T = R
+		var/resultkey = T.listkey
+		if(resultkey in teleportnames)
+			duplicaterunecount[resultkey]++
+			resultkey = "[resultkey] ([duplicaterunecount[resultkey]])"
 		else
-			target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [target] disappears in a flash of red light!</span>", \
-						"<span class='cultitalic'>You suddenly find yourself somewhere else!</span>")
-		destination.visible_message("<span class='warning'>There is a boom of outrushing air as something appears above the rune!</span>", null, "<i>You hear a boom.</i>")
-		L.forceMove(destination)
-		return ..()
+			teleportnames.Add(resultkey)
+			duplicaterunecount[resultkey] = 1
+		potential_runes[resultkey] = T
+
+	if(!potential_runes.len)
+		to_chat(user, "<span class='warning'>There are no valid runes to teleport to!</span>")
+		log_game("Teleport spell failed - no other teleport runes")
+		return
+
+	if(!is_level_reachable(user.z))
+		to_chat(user, "<span class='cultitalic'>You are not in the right dimension!</span>")
+		log_game("Teleport spell failed - user in away mission")
+		return
+	var/mob/living/L = target
+	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
+	if(!src || QDELETED(src) || !user || user.l_hand != src && user.r_hand != src || user.incapacitated() || !actual_selected_rune)
+		return
+	uses--
+	var/turf/origin = get_turf(user)
+	var/turf/destination = get_turf(actual_selected_rune)
+	new /obj/effect/temp_visual/dir_setting/cult/phase/out(origin)
+	new /obj/effect/temp_visual/dir_setting/cult/phase(destination)
+	if(is_mining_level(user.z) && !is_mining_level(destination.z)) //No effect if you stay on lavaland
+		actual_selected_rune.handle_portal("lava")
+	else if(!is_station_level(user.z) || istype(get_area(user), /area/space))
+		actual_selected_rune.handle_portal("space", origin)
+	if(user == target)
+		target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [user.p_they()] disappear[user.p_s()] in a flash of red light!</span>", \
+						"<span class='cultitalic'>You speak the words and find yourself somewhere else!</span>")
+	else
+		target.visible_message("<span class='warning'>Dust flows from [user]'s hand, and [target] disappears in a flash of red light!</span>", \
+					"<span class='cultitalic'>You suddenly find yourself somewhere else!</span>")
+	destination.visible_message("<span class='warning'>There is a boom of outrushing air as something appears above the rune!</span>", null, "<i>You hear a boom.</i>")
+	L.forceMove(destination)
+	return ..()
 
 //Shackles
 /obj/item/melee/blood_magic/shackles
@@ -511,7 +509,7 @@
 	color = "#000000" // black
 
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(iscultist(user) && iscarbon(target) && proximity)
+	if(iscarbon(target) && proximity)
 		var/mob/living/carbon/C = target
 		if(C.canBeHandcuffed() || C.get_arm_ignore())
 			CuffAttack(C, user)
@@ -571,7 +569,7 @@
 	Airlocks into brittle runed airlocks after a delay (harm intent)"}
 
 /obj/item/melee/blood_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	if(proximity_flag && iscultist(user))
+	if(proximity_flag)
 		if(channeling)
 			to_chat(user, "<span class='cultitalic'>You are already invoking twisted construction!</span>")
 			return
@@ -806,40 +804,39 @@
 			uses += max(1, round(temp))
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
-	if(iscultist(user))
-		var/list/options = list("Blood Spear (150)", "Blood Bolt Barrage (300)")
-		var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
-		if(!choice)
-			to_chat(user, "<span class='cultitalic'>You decide against conducting a greater blood rite.</span>")
-			return
-		switch(choice)
-			if("Blood Spear (150)")
-				if(uses < BLOOD_SPEAR_COST)
-					to_chat(user, "<span class='cultitalic'>You need [BLOOD_SPEAR_COST] charges to perform this rite.</span>")
+	var/list/options = list("Blood Spear (150)", "Blood Bolt Barrage (300)")
+	var/choice = input(user, "Choose a greater blood rite...", "Greater Blood Rites") as null|anything in options
+	if(!choice)
+		to_chat(user, "<span class='cultitalic'>You decide against conducting a greater blood rite.</span>")
+		return
+	switch(choice)
+		if("Blood Spear (150)")
+			if(uses < BLOOD_SPEAR_COST)
+				to_chat(user, "<span class='cultitalic'>You need [BLOOD_SPEAR_COST] charges to perform this rite.</span>")
+			else
+				uses -= BLOOD_SPEAR_COST
+				var/turf/T = get_turf(user)
+				qdel(src)
+				var/datum/action/innate/cult/spear/S = new(user)
+				var/obj/item/twohanded/cult_spear/rite = new(T)
+				S.Grant(user, rite)
+				rite.spear_act = S
+				if(user.put_in_hands(rite))
+					to_chat(user, "<span class='cultitalic'>A [rite.name] appears in your hand!</span>")
 				else
-					uses -= BLOOD_SPEAR_COST
-					var/turf/T = get_turf(user)
-					qdel(src)
-					var/datum/action/innate/cult/spear/S = new(user)
-					var/obj/item/twohanded/cult_spear/rite = new(T)
-					S.Grant(user, rite)
-					rite.spear_act = S
-					if(user.put_in_hands(rite))
-						to_chat(user, "<span class='cultitalic'>A [rite.name] appears in your hand!</span>")
-					else
-						user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>", \
-							 "<span class='cultitalic'>A [rite.name] materializes at your feet.</span>")
-			if("Blood Bolt Barrage (300)")
-				if(uses < BLOOD_BARRAGE_COST)
-					to_chat(user, "<span class='cultitalic'>You need [BLOOD_BARRAGE_COST] charges to perform this rite.</span>")
+					user.visible_message("<span class='warning'>A [rite.name] appears at [user]'s feet!</span>", \
+						 "<span class='cultitalic'>A [rite.name] materializes at your feet.</span>")
+		if("Blood Bolt Barrage (300)")
+			if(uses < BLOOD_BARRAGE_COST)
+				to_chat(user, "<span class='cultitalic'>You need [BLOOD_BARRAGE_COST] charges to perform this rite.</span>")
+			else
+				var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
+				uses -= BLOOD_BARRAGE_COST
+				qdel(src)
+				user.swap_hand()
+				user.drop_item()
+				if(user.put_in_hands(rite))
+					to_chat(user, "<span class='cult'><b>Both of your hands glow with power!</b></span>")
 				else
-					var/obj/rite = new /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/blood()
-					uses -= BLOOD_BARRAGE_COST
-					qdel(src)
-					user.swap_hand()
-					user.drop_item()
-					if(user.put_in_hands(rite))
-						to_chat(user, "<span class='cult'><b>Both of your hands glow with power!</b></span>")
-					else
-						to_chat(user, "<span class='cultitalic'>You need a free hand for this rite!</span>")
-						qdel(rite)
+					to_chat(user, "<span class='cultitalic'>You need a free hand for this rite!</span>")
+					qdel(rite)
