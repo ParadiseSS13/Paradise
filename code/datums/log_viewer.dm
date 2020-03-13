@@ -32,11 +32,9 @@
 				var/start_index = get_earliest_log_index(logs)
 				if(!start_index)
 					continue
-				var/end_index
-				if(len_logs != start_index)
-					end_index = get_latest_log_index(logs)
-				else
-					end_index = len_logs
+				var/end_index = get_latest_log_index(logs)
+				if(!end_index)
+					continue
 				log_records.Add(logs.Copy(start_index, end_index + 1))
 
 	for(var/i in invalid_mobs)
@@ -70,17 +68,19 @@
 	var/end = length(logs)
 	var/start = 1
 	var/mid
-
+	var/max_time = time_to + 10
 	do
-		mid = round_down((end + start) / 2)
+		mid = round((end + start) / 2 + 0.5)
 		var/datum/log_record/L = logs[mid]
-		if(L.raw_time >= time_to + 10)
+		if(L.raw_time >= max_time)
 			end = mid
 		else
 			start = mid
 	while(end - start > 1)
-	
-	return start
+	var/datum/log_record/L = logs[start]
+	if(L.raw_time < max_time) // Check if there is atleast one valid log
+		return start
+	return 0
 
 /datum/log_viewer/proc/add_mob(mob/user, mob/M)
 	if(!M || !usr)
@@ -154,14 +154,23 @@
 		var/input = input(usr, "hh:mm:ss", "Start time", "00:00:00") as text|null
 		if(!input)
 			return
-		time_from = timeStampToNum(input)
+		var/res = timeStampToNum(input)
+		if(res < 0)
+			to_chat(usr, "<span class='warning'>'[input]' is an invalid input value.</span>")
+			return
+		time_from = res
 		show_ui(usr)
 		return
 	if(href_list["end_time"])
 		var/input = input(usr, "hh:mm:ss", "End time", "02:00:00") as text|null
 		if(!input)
 			return
-		time_to = timeStampToNum(input)
+		var/res = timeStampToNum(input)
+		if(res < 0)
+			to_chat(usr, "<span class='warning'>'[input]' is an invalid input value.</span>")
+			return
+		time_to = res
+		
 		show_ui(usr)
 		return
 	if(href_list["search"])
