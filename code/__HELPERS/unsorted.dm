@@ -1904,8 +1904,7 @@ var/mob/dview/dview_mob = new
 
 	for(var/mob/M in mobs)
 		if(skip_mindless && (!M.mind && !M.ckey))
-			if(!isbot(M) && !istype(M, /mob/camera/))
-				continue
+			continue
 		if(M.client && M.client.holder && M.client.holder.fakekey) //stealthmins
 			continue
 		var/name = M.name

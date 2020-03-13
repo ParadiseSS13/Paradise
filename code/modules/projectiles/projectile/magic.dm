@@ -265,6 +265,7 @@
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
 		add_attack_logs(null, M, "became [new_mob.real_name]")
 		new_mob.attack_log_old = M.attack_log_old
+		new_mob.logs = M.logs
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)

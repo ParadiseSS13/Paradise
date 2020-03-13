@@ -2,6 +2,5 @@
 #define DEFENSE_LOG		"defense log"
 #define CONVERSION_LOG	"conversion log"
 #define SAY_LOG			"say log"
-#define WHISPER_LOG		"whisper log"
 #define EMOTE_LOG		"emote log"
 #define MISC_LOG		"misc log"

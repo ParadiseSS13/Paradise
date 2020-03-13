@@ -1,4 +1,4 @@
-#define ALL_LOGS list(ATTACK_LOG, DEFENSE_LOG, CONVERSION_LOG, SAY_LOG, WHISPER_LOG, EMOTE_LOG, MISC_LOG)
+#define ALL_LOGS list(ATTACK_LOG, DEFENSE_LOG, CONVERSION_LOG, SAY_LOG, EMOTE_LOG, MISC_LOG)
 
 /datum/log_viewer
 	var/time_from = 0
@@ -27,11 +27,18 @@
 			continue
 		for(var/log_type in selected_log_types)
 			var/list/logs = M.logs[log_type]
-			if(length(logs))
+			var/len_logs = length(logs)
+			if(len_logs)
 				var/start_index = get_earliest_log_index(logs)
-				var/end_index = get_latest_log_index(logs)
-				log_records.Add(logs.Copy(start_index, end_index))
-	
+				if(!start_index)
+					continue
+				var/end_index
+				if(len_logs != start_index)
+					end_index = get_latest_log_index(logs)
+				else
+					end_index = len_logs
+				log_records.Add(logs.Copy(start_index, end_index + 1))
+
 	for(var/i in invalid_mobs)
 		selected_mobs -= i // Cleanup
 
@@ -42,37 +49,38 @@
 		return 1
 	var/start = 1
 	var/end = length(logs)
-	var/mid = round_down((end - 1) / 2)
+	var/mid
 	do
+		mid = round_down((end + start) / 2)
 		var/datum/log_record/L = logs[mid]
 		if(L.raw_time >= time_from)
 			end = mid
 		else
 			start = mid
-		mid = round_down((end - start) / 2)
-	while(end - start)
-
-	return mid
+	while(end - start > 1)
+	var/datum/log_record/L = logs[end]
+	if(L.raw_time >= time_from) // Check if there is atleast one valid log
+		return end
+	return 0
 
 /datum/log_viewer/proc/get_latest_log_index(list/logs)
-	var/end = length(logs)
-	var/datum/log_record/last_log = logs[end]
-	if(last_log.raw_time < world.time)
-		return end
+	if(world.time < time_to)
+		return length(logs)
 
-	var/mid = end / 2
+	var/end = length(logs)
 	var/start = 1
+	var/mid
 
 	do
+		mid = round_down((end + start) / 2)
 		var/datum/log_record/L = logs[mid]
-		if(L.raw_time >= time_to)
+		if(L.raw_time >= time_to + 10)
 			end = mid
 		else
 			start = mid
-		mid = round_down((end - start) / 2)
-	while(end - start)
-
-	return mid
+	while(end - start > 1)
+	
+	return start
 
 /datum/log_viewer/proc/add_mob(mob/user, mob/M)
 	if(!M || !usr)
@@ -83,72 +91,57 @@
 
 /datum/log_viewer/proc/show_ui(mob/user)
 	var/all_log_types	= ALL_LOGS
-	var/half_way_log_types = (length(all_log_types) + 1) / 2
+	//TODO fix styling
 	var/trStyleTop		= "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/trStyle			= "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/dat
-	dat += "<head><style>.adminticket{border:2px solid}</style></head>"
+	dat += "<head><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
 
-	// Options part
-	var/tdStyleTimeControl	= "border-top:2px solid; border-bottom:2px solid; width:200px; text-align:center;"
-	var/thStyleMobs			= "border-top:2px solid; border-bottom:2px solid; width:400px; text-align:center;"
-	var/tdStyleMobs			= "border-top:2px solid; border-bottom:2px solid; width:400px; text-align:center; max-height:100px; overflow:hidden; overflow-y:scroll;"
-	var/tdStyleLogs			= "border-top:2px solid; border-bottom:2px solid;"
-	var/tdStyleSearch		= "border-top:2px solid; border-bottom:2px solid; width:100px; text-align:center;"
-	dat += "<table style='width:100%; border: 3px solid;'>"
-	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTimeControl]'>Time</th><th style='[thStyleMobs]'>Mobs</th><th style='[tdStyleLogs]'>Log types</th><th style='[tdStyleSearch]'></th></tr>"
-	dat += "<tr style='[trStyle]'>"
-
-	dat += "<td style='[tdStyleTimeControl]'>"
-	dat += "<a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
-
-	dat += "<td style='[thStyleMobs]'>"
-	dat += "<a href='?src=[UID()];add_mob=1'>Add mob</a>"
-	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear mob</a>"
-	dat += "</td>"
-	dat += "<td style='[tdStyleLogs]'>"
-
-	for(var/i in 1 to half_way_log_types)
-		var/log_type = all_log_types[i]
-		var/text = (log_type in selected_log_types) ? "<b>[log_type]</b>" : log_type
-		dat += "<a href='?src=[UID()];toggle_log_type=[log_type]'>[text]</a>"
-	dat += "</td>"
-	dat += "<td style='[tdStyleSearch]'><a href='?src=[UID()];clear_all=1'>Clear all</a></td>"
-	dat += "</tr>"
-
-	dat += "<tr style='[trStyle]'>"
-
-	dat += "<td style='[tdStyleTimeControl]'>"
-	dat += "<a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
+	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
+	dat += " To: <a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
+	dat += "<BR>"
 	
-	dat += "<td style='[tdStyleMobs]'>"
+	dat += "<span>Mobs being used:</span>"
 	for(var/i in selected_mobs)
 		var/mob/M = i
-		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[M.name]</a><br>"
-	dat += "</td>"
-	dat += "<td style='[tdStyleLogs]'>"
-	for(var/i in half_way_log_types + 1 to length(all_log_types))
-		var/log_type = all_log_types[i]
-		var/text = (log_type in selected_log_types) ? "<b>[log_type]</b>" : log_type
-		dat += "<a href='?src=[UID()];toggle_log_type=[log_type]'>[text]</a>"
-	dat += "<td style='[tdStyleSearch]'><a href='?src=[UID()];search=1'>Search</a></td>"
-	dat += "</table>"
+		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[M.name]</a>"
+	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
+	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
+	dat += "<BR>"
+
+	dat += "<span>Log Types:</span>"
+	for(var/i in all_log_types)
+		var/log_type = i
+		var/enabled = (log_type in selected_log_types)
+		var/text
+		var/style
+		if(enabled)
+			text = "<b>[log_type]</b>"
+			style = "background: [get_logtype_color(i)]"
+		else
+			text = log_type
+		
+		dat += "<a href='?src=[UID()];toggle_log_type=[log_type]' style='[style]'>[text]</a>"
+
+	dat += "<BR>"
+	dat += "<a href='?src=[UID()];clear_all=1'>Clear All Settings</a>"
+	dat += "<a href='?src=[UID()];search=1'>Search</a>"
+
 
 	// Search results
-	var/tdStyleTime		= "border-top:2px solid; border-bottom:2px solid; width:100px; text-align:center;"
-	var/tdStyleType		= "border-top:2px solid; border-bottom:2px solid; width:100px; text-align:center;"
-	var/tdStyleWho		= "border-top:2px solid; border-bottom:2px solid; width:200px; text-align:center;"
-	var/tdStyleWhat 	= "border-top:2px solid; border-bottom:2px solid;"
-	var/tdStyleWhere	= "border-top:2px solid; border-bottom:2px solid; width:200px; text-align:center;"
+	var/tdStyleTime		= "width:80px; text-align:center;"
+	var/tdStyleType		= "width:80px; text-align:center;"
+	var/tdStyleWho		= "width:300px; text-align:center;"
+	var/tdStyleWhere	= "width:150px; text-align:center;"
 
 	dat += "<table style='width:100%; border: 1px solid;'>"
-	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>Time</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th style='[tdStyleWhat]'>What</th><th style='[tdStyleWho]'>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"
+	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>When</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th>What</th><th>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"
 	for(var/i in log_records)
 		var/datum/log_record/L = i
-		var/time = gameTimestamp(wtime = L.raw_time)
-		dat +="<tr style='[trStyle]'><td style='[tdStyleTime]'>[time]</td><td style='[tdStyleType]'>[L.log_type]</td>\
-		<td style='[tdStyleWho]'>[ADMIN_LOOKUPFLW(L.who)]</td><td style='[tdStyleWhat]'>[L.what]</td>\
-		<td style='[tdStyleWho]'>[ADMIN_LOOKUPFLW(L.target)]</td><td style='[tdStyleWhere]'>[ADMIN_COORDJMP(L.where)]</td></tr>"
+		var/time = gameTimestamp(wtime = L.raw_time - 9.99) // The time rounds up for some reason. Will result in weird filtering results
+		dat +="<tr style='[trStyle]'><td style='[tdStyleTime]'>[time]</td><td style='[tdStyleType]background: [get_logtype_color(L.log_type)]'>[L.log_type]</td>\
+		<td style='[tdStyleWho]'>[L.who ? key_name_admin(L.who) : ""]</td><td style='background: [get_logtype_color(L.log_type)];'>[L.what]</td>\
+		<td style='[tdStyleWho]'>[L.target ? key_name_admin(L.target) : ""]</td><td style='[tdStyleWhere]'>[ADMIN_COORDJMP(L.where)]</td></tr>"
 
 	dat += "</table>"
 
@@ -158,14 +151,14 @@
 
 /datum/log_viewer/Topic(href, href_list)
 	if(href_list["start_time"])
-		var/input = input(usr, "hh:mm:ss", "Start time", "00:00") as text|null
+		var/input = input(usr, "hh:mm:ss", "Start time", "00:00:00") as text|null
 		if(!input)
 			return
 		time_from = timeStampToNum(input)
 		show_ui(usr)
 		return
 	if(href_list["end_time"])
-		var/input = input(usr, "hh:mm:ss", "End time", "02:00") as text|null
+		var/input = input(usr, "hh:mm:ss", "End time", "02:00:00") as text|null
 		if(!input)
 			return
 		time_to = timeStampToNum(input)
@@ -202,3 +195,19 @@
 			selected_log_types += log_type
 		show_ui(usr)
 		return
+
+/datum/log_viewer/proc/get_logtype_color(log_type)
+	switch(log_type)
+		if(ATTACK_LOG)
+			return "darkred"
+		if(DEFENSE_LOG)
+			return "chocolate"
+		if(CONVERSION_LOG)
+			return "indigo"
+		if(SAY_LOG)
+			return "teal"
+		if(EMOTE_LOG)
+			return "deepskyblue"
+		if(MISC_LOG)
+			return "gray"
+	return "slategray"

@@ -274,6 +274,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	//Log of what we've said, plain message, no spans or junk
 	say_log += message
+	create_log(SAY_LOG, message) // TODO after #13047: Include the channel
 	log_say(message, src)
 	return 1
 
@@ -356,7 +357,7 @@ proc/get_radio_key_from_channel(var/channel)
 		return
 
 	log_whisper(multilingual_to_message(message_pieces), src)
-
+	create_log(SAY_LOG, "WHISPER: [multilingual_to_message(message_pieces)]")
 	var/message_range = 1
 	var/eavesdropping_range = 2
 	var/watching_range = 5
