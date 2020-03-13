@@ -80,6 +80,8 @@
 			return TRUE
 		if(isspacepod(L))
 			return TRUE
+		if(isashwalker(L))
+			return TRUE
 		if(ishuman(L)) //Are you immune?
 			var/mob/living/carbon/human/H = L
 			var/thermal_protection = H.get_thermal_protection()
