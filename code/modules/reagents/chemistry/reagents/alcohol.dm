@@ -11,9 +11,8 @@
 	taste_description = "liquid fire"
 
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/M)
-	if(volume > 1) // don't want this activing along with your drink. but mutliple drinks, sure lets make it worse.
-		M.AdjustDrunk(1)
-		M.AdjustDizzy(3)
+	M.AdjustDrunk(1)
+	M.AdjustDizzy(3)
 	return ..()
 
 /datum/reagent/consumable/ethanol/reaction_obj(obj/O, volume)
@@ -44,6 +43,9 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
+	addiction_chance = 1
+	addiction_threshold = 10
+	addiction_base_type = /datum/reagent/consumable/ethanol
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
@@ -51,7 +53,6 @@
 /datum/reagent/consumable/alcoholic/on_mob_life(mob/living/M)
 	M.AdjustDrunk(alcohol_perc)
 	M.AdjustDizzy(dizzy_adj)
-	M.reagents.add_reagent("ethanol", 0.4) //for all your ethanol addiction needs.
 	return ..()
 
 /datum/reagent/consumable/alcoholic/beer

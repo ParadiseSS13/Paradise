@@ -275,6 +275,13 @@
 	adj_drowsy = -3
 	adj_sleepy = -2
 	adj_temp_hot = 25
+	overdose_threshold = 45
+	addiction_chance = 2 // It's true.
+	addiction_chance_additional = 20
+	addiction_threshold = 10
+	addiction_base_type = /datum/reagent/caffeine
+	minor_addiction = TRUE
+	heart_rate_increase = 1
 	drink_icon = "glass_brown"
 	drink_name = "Glass of coffee"
 	drink_desc = "Don't drop it, or you'll send scalding liquid and glass shards everywhere."
@@ -284,8 +291,16 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(holder.has_reagent("frostoil"))
 		holder.remove_reagent("frostoil", 5)
-	M.reagents.add_reagent("caffeine", 0.4) //for all your caffeine addiction needs.
+	if(prob(50))
+		update_flags |= M.AdjustParalysis(-1, FALSE)
+		update_flags |= M.AdjustStunned(-1, FALSE)
+		update_flags |= M.AdjustWeakened(-1, FALSE)
 	return ..() | update_flags
+	
+/datum/reagent/consumable/drink/coffee/overdose_process(mob/living/M, severity)
+	if(volume > 45)
+		M.Jitter(5)
+	return list(0, STATUS_UPDATE_NONE)
 
 /datum/reagent/consumable/drink/coffee/icecoffee
 	name = "Iced Coffee"
@@ -356,6 +371,11 @@
 	adj_drowsy = -1
 	adj_sleepy = -3
 	adj_temp_hot = 20
+	addiction_chance = 1
+	addiction_chance_additional = 1
+	addiction_threshold = 10
+	addiction_base_type = /datum/reagent/caffeine
+	minor_addiction = TRUE
 	drink_icon = "glass_brown"
 	drink_name = "Glass of Tea"
 	drink_desc = "A glass of hot tea. Perhaps a cup with a handle would have been smarter?"
@@ -365,7 +385,6 @@
 	var/update_flags = STATUS_UPDATE_NONE
 	if(prob(20))
 		update_flags |= M.adjustToxLoss(-1, FALSE)
-	M.reagents.add_reagent("caffeine", 0.4) //for all your caffeine addiction needs.
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/tea/icetea

@@ -156,7 +156,7 @@
 	description = "Common nerve stimulant, helps keep you awake. often found in coffee and tea."
 	reagent_state = LIQUID
 	color = "#ffffff"
-	overdose_threshold = 35
+	overdose_threshold = 45
 	addiction_chance = 2 
 	addiction_chance_additional = 20
 	addiction_threshold = 10

@@ -299,7 +299,7 @@
 			if(R.addiction_stage < 5)
 				if(prob(5))
 					R.addiction_stage++
-			if(M.reagents.has_reagent(R.id))
+			if(M.reagents.has_addictive_substance(R.type))
 				R.last_addiction_dose = world.timeofday
 				R.addiction_stage = 1
 			else
@@ -337,6 +337,15 @@
 	if(update_flags & STATUS_UPDATE_DRUGGY)
 		M.update_druggy_effects()
 	update_total()
+
+/datum/reagents/proc/has_addictive_substance(addiction_type) //checks whether your using an addictive substance or a chem based off an addictive substance.
+	for(var/i in reagent_list)
+		var/datum/reagent/A = i
+		if(A.addiction_base_type == addiction_type)
+			return TRUE
+		else if(A.type == addiction_type)
+			return TRUE
+	return FALSE
 
 /datum/reagents/proc/death_metabolize(mob/living/M)
 	if(!M)
