@@ -91,12 +91,11 @@
 
 /datum/log_viewer/proc/show_ui(mob/user)
 	var/all_log_types	= ALL_LOGS
-	//TODO fix styling
 	var/trStyleTop		= "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/trStyle			= "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/dat
 	dat += "<head><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
-
+	dat += "<div style='height:15vh'>"
 	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
 	dat += " To: <a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
 	dat += "<BR>"
@@ -126,14 +125,14 @@
 	dat += "<BR>"
 	dat += "<a href='?src=[UID()];clear_all=1'>Clear All Settings</a>"
 	dat += "<a href='?src=[UID()];search=1'>Search</a>"
-
+	dat += "</div>"
 
 	// Search results
 	var/tdStyleTime		= "width:80px; text-align:center;"
 	var/tdStyleType		= "width:80px; text-align:center;"
 	var/tdStyleWho		= "width:300px; text-align:center;"
 	var/tdStyleWhere	= "width:150px; text-align:center;"
-
+	dat += "<div style='overflow-y: auto; max-height:76vh;'>"
 	dat += "<table style='width:100%; border: 1px solid;'>"
 	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>When</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th>What</th><th>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"
 	for(var/i in log_records)
@@ -144,6 +143,7 @@
 		<td style='[tdStyleWho]'>[L.target ? key_name_admin(L.target) : ""]</td><td style='[tdStyleWhere]'>[ADMIN_COORDJMP(L.where)]</td></tr>"
 
 	dat += "</table>"
+	dat += "</div>"
 
 	var/datum/browser/popup = new(user, "Log viewer", "Log viewer", 1400, 600)
 	popup.set_content(dat)
