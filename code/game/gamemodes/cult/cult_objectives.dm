@@ -47,7 +47,7 @@
 
 //Objectives
 
-/datum/objective/servecult //Given to cultists on conversion
+/datum/objective/servecult //Given to cultists on conversion/roundstart
 	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
 	completed = TRUE
 

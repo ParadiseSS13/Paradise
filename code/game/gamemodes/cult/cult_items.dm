@@ -419,7 +419,6 @@
 					var/mob/living/simple_animal/hostile/illusion/M = new(owner.loc)
 					M.faction = list("cult")
 					M.Copy_Parent(owner, 70, 10, 5)
-					//M.move_to_delay = owner.cached_multiplicative_slowdown
 				else
 					var/mob/living/simple_animal/hostile/illusion/escape/E = new(owner.loc)
 					E.Copy_Parent(owner, 70, 10)
@@ -432,7 +431,6 @@
 			H.Copy_Parent(owner, 100, 20, 5)
 			H.faction = list("cult")
 			H.GiveTarget(owner)
-		//	H.move_to_delay = owner.cached_multiplicative_slowdown
 			to_chat(owner, "<span class='danger'><b>[src] betrays you!</b></span>")
 		return FALSE
 
@@ -440,7 +438,7 @@
 	illusions++
 	if(illusions == initial(illusions) && isliving(loc))
 		var/mob/living/holder = loc
-		to_chat(holder, "<span class='cult italic'>The shield's illusions are back at full strength!</span>")
+		to_chat(holder, "<span class='cultitalic'>The shield's illusions are back at full strength!</span>")
 
 /obj/item/shield/mirror/IsReflect()
 	if(prob(block_chance))
@@ -517,14 +515,13 @@
 		..()
 
 /obj/item/twohanded/cult_spear/proc/break_spear(turf/T)
-	if(src)
-		if(!T)
-			T = get_turf(src)
-		if(T)
-			T.visible_message("<span class='warning'>[src] shatters and melts back into blood!</span>")
-			new /obj/effect/temp_visual/cult/sparks(T)
-			new /obj/effect/decal/cleanable/blood/splatter(T)
-			playsound(T, 'sound/effects/glassbr3.ogg', 100)
+	if(!T)
+		T = get_turf(src)
+	if(T)
+		T.visible_message("<span class='warning'>[src] shatters and melts back into blood!</span>")
+		new /obj/effect/temp_visual/cult/sparks(T)
+		new /obj/effect/decal/cleanable/blood/splatter(T)
+		playsound(T, 'sound/effects/glassbr3.ogg', 100)
 	qdel(src)
 
 /obj/item/twohanded/cult_spear/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
