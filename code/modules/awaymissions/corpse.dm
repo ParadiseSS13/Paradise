@@ -527,7 +527,7 @@
 	to take them to the station for revival or to do some light advertising for the resort.</b>"
 	assignedrole = "Resort Host"
 	id_job = "Resort Host"
-	id_access_list = list(access_bar, access_kitchen)
+	id_access_list = list(ACCESS_BAR, ACCESS_KITCHEN)
 	outfit = /datum/outfit/resort_host
 
 /datum/outfit/resort_host
