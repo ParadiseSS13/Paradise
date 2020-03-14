@@ -3,7 +3,7 @@
 
 	light_color = LIGHT_COLOR_DARKGREEN
 
-	req_access = list(access_tcomsat)
+	req_access = list(ACCESS_TCOMSAT)
 	circuit = /obj/item/circuitboard/comm_traffic
 
 	// NTTC

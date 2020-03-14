@@ -302,9 +302,9 @@
 
 				qdel(src)
 	else
-		try_to_crowbar(I, user)
+		try_to_crowbar(user, I)
 
-/obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/window/try_to_crowbar(mob/user, obj/item/I)
 	if(!hasPower())
 		if(density)
 			open(2)
@@ -334,7 +334,7 @@
 /obj/machinery/door/window/brigdoor/security/cell
 	name = "cell door"
 	desc = "For keeping in criminal scum."
-	req_access = list(access_brig)
+	req_access = list(ACCESS_BRIG)
 
 /obj/machinery/door/window/clockwork
 	name = "brass windoor"

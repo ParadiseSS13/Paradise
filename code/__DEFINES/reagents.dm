@@ -16,3 +16,6 @@
 
 // Is an open container for all intents and purposes.
 #define OPENCONTAINER 	(REFILLABLE | DRAINABLE | TRANSPARENT)
+
+#define REAGENT_TOUCH 1
+#define REAGENT_INGEST 2

@@ -22,7 +22,7 @@
 		if(/obj/item/gun/energy/laser/tag/blue)
 			eprojectile = /obj/item/gun/energy/laser/tag/blue
 			lasercolor = "b"
-			req_access = list(access_maint_tunnels, access_theatre)
+			req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
 			check_arrest = 0
 			check_records = 0
 			check_weapons = 1
@@ -33,7 +33,7 @@
 		if(/obj/item/gun/energy/laser/tag/red)
 			eprojectile = /obj/item/gun/energy/laser/tag/red
 			lasercolor = "r"
-			req_access = list(access_maint_tunnels, access_theatre)
+			req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
 			check_arrest = 0
 			check_records = 0
 			check_weapons = 1

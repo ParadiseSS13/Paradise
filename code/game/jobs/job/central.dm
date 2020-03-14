@@ -2,8 +2,8 @@
 // General-purpose CC official. Can hear out grievances, investigate cases, issue demotions, etc.
 /datum/job/ntnavyofficer
 	title = "Nanotrasen Navy Officer"
-	flag = CENTCOM
-	department_flag = CENTCOM
+	flag = JOB_CENTCOM
+	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the admins"
@@ -48,8 +48,8 @@
 // CC Officials who lead ERTs, Death Squads, etc.
 /datum/job/ntspecops
 	title = "Special Operations Officer"
-	flag = CENTCOM
-	department_flag = CENTCOM
+	flag = JOB_CENTCOM
+	department_flag = JOB_CENTCOM // This gets its job as its own flag because admin jobs dont have flags
 	total_positions = 5
 	spawn_positions = 5
 	supervisors = "the admins"
@@ -66,9 +66,9 @@
 /datum/outfit/job/ntspecops
 	name = "Special Operations Officer"
 	jobtype = /datum/job/ntspecops
-	uniform = /obj/item/clothing/under/rank/centcom_commander
+	uniform = /obj/item/clothing/under/rank/centcom/captain
 	suit = /obj/item/clothing/suit/space/deathsquad/officer
-	back = /obj/item/storage/backpack/security
+	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/military/assault
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/combat
