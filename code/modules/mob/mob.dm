@@ -1265,7 +1265,7 @@ var/list/slot_equipment_priority = list( \
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
 
-/mob/proc/create_log(log_type, what, atom/target = null, turf/where = get_turf(src))
+/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
 	LAZYINITLIST(logs[log_type])
 	var/list/log_list = logs[log_type]
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)

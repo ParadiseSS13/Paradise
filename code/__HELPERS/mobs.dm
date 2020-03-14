@@ -274,7 +274,7 @@ Proc for attack log creation, because really why not
 This is always put in the attack log.
 */
 
-/proc/add_attack_logs(atom/user, atom/target, what_done, custom_level)
+/proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
 		for(var/mob/M in targets)
@@ -282,14 +282,19 @@ This is always put in the attack log.
 		return
 
 	var/user_str = key_name_log(user) + COORD(user)
-	var/target_str = key_name_log(target) + COORD(target)
+	var/target_str
+	if(isatom(target))
+		var/atom/AT = target
+		target_str = key_name_log(AT) + COORD(AT)
+	else
+		target_str = target
 	var/mob/MU = user
 	var/mob/MT = target
 	if(istype(MU))
 		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
 		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
 	if(istype(MT))
-		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(user))
+		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(target))
 		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
 

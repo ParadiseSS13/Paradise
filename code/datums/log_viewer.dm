@@ -138,9 +138,12 @@
 	for(var/i in log_records)
 		var/datum/log_record/L = i
 		var/time = gameTimestamp(wtime = L.raw_time - 9.99) // The time rounds up for some reason. Will result in weird filtering results
+		var/who_text = get_subject_text(L.who)
+		var/target_text = get_subject_text(L.target)
+
 		dat +="<tr style='[trStyle]'><td style='[tdStyleTime]'>[time]</td><td style='[tdStyleType]background: [get_logtype_color(L.log_type)]'>[L.log_type]</td>\
-		<td style='[tdStyleWho]'>[L.who ? key_name_admin(L.who) : ""]</td><td style='background: [get_logtype_color(L.log_type)];'>[L.what]</td>\
-		<td style='[tdStyleWho]'>[L.target ? key_name_admin(L.target) : ""]</td><td style='[tdStyleWhere]'>[ADMIN_COORDJMP(L.where)]</td></tr>"
+		<td style='[tdStyleWho]'>[who_text]</td><td style='background: [get_logtype_color(L.log_type)];'>[L.what]</td>\
+		<td style='[tdStyleWho]'>[target_text]</td><td style='[tdStyleWhere]'>[ADMIN_COORDJMP(L.where)]</td></tr>"
 
 	dat += "</table>"
 	dat += "</div>"
@@ -204,6 +207,11 @@
 			selected_log_types += log_type
 		show_ui(usr)
 		return
+
+/datum/log_viewer/proc/get_subject_text(subject)
+	if(ismob(subject) || isclient(subject) || istype(subject, /datum/mind))
+		return key_name_admin(subject)
+	return subject // Let the code parse it itself
 
 /datum/log_viewer/proc/get_logtype_color(log_type)
 	switch(log_type)

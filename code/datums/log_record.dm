@@ -3,7 +3,7 @@
 	var/raw_time		// When did this happen?
 	var/what			// What happened
 	var/atom/who		// Who did it
-	var/atom/target		// Who/what was targeted
+	var/target			// Who/what was targeted (can be a string)
 	var/turf/where		// Where did it happen
 
 /datum/log_record/New(_log_type, _who, _what, _target, _where, _raw_time)

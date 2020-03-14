@@ -68,7 +68,6 @@
 	if(iscultist(user) && iscultist(M))
 		to_chat(user, "<span class='cultlarge'>\"Come now, do not capture your fellow's soul.\"</span>")
 		return ..()
-		add_attack_logs(user, M, "captured soul with [src.name]")
 
 	if(optional)
 		if(!M.ckey)
