@@ -495,6 +495,8 @@
 	var/stealth_icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 	var/stealth_overlays = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/stealth_opacity = TRUE
+	var/stealth_glass = FALSE
+	var/stealth_airlock_material = null
 
 /obj/machinery/door/airlock/cult/Initialize()
 	. = ..()
@@ -527,6 +529,8 @@
 	icon = stealth_icon
 	overlays_file = stealth_overlays
 	opacity = stealth_opacity
+	glass = stealth_glass
+	airlock_material = stealth_airlock_material
 	name = "airlock"
 	desc = "It opens and closes."
 	stealthy = TRUE
@@ -536,11 +540,12 @@
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
 	opacity = initial(opacity)
+	glass = initial(glass)
+	airlock_material = initial(airlock_material)
 	name = initial(name)
 	desc = initial(desc)
 	stealthy = initial(stealthy)
 	update_icon()
-
 
 /obj/machinery/door/airlock/cult/narsie_act()
 	return

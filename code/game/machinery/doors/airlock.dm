@@ -1375,6 +1375,8 @@ About the new airlock wires panel:
 	A.stealth_icon = icon
 	A.stealth_overlays = overlays_file
 	A.stealth_opacity = opacity
+	A.stealth_glass = glass
+	A.stealth_airlock_material = airlock_material
 	qdel(src)
 
 #undef AIRLOCK_CLOSED
