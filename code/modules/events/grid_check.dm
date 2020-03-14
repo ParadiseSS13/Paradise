@@ -3,6 +3,7 @@
 
 #define ANNOUNCE_AFTER_MC_TICKS 5
 #define APC_TOGGLE_OFF_PROBABILITY 25
+#define EVENT_FIXES_ITSELF_AT_END FALSE
 #define EVENT_MAX_LENGTH_MC_TICKS 150
 #define EVENT_MIN_LENGTH_MC_TICKS 60
 
@@ -25,7 +26,8 @@
 	event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
 
 /datum/event/grid_check/end()
-	power_restore()
+	if(EVENT_FIXES_ITSELF_AT_END)
+		power_restore()
 
 /proc/power_failure(var/announce = ANNOUNCE_NOW)
 	var/list/skipped_areas_apc = list(
@@ -84,5 +86,6 @@
 
 #undef ANNOUNCE_AFTER_MC_TICKS
 #undef APC_TOGGLE_OFF_PROBABILITY
+#undef EVENT_FIXES_ITSELF_AT_END
 #undef EVENT_MAX_LENGTH_MC_TICKS
 #undef EVENT_MIN_LENGTH_MC_TICKS
