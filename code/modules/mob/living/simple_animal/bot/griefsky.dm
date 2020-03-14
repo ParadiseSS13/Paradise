@@ -35,7 +35,7 @@
 	locked = 0
 
 /obj/machinery/bot_core/toy
-	req_access = list(access_maint_tunnels, access_theatre, access_robotics)
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 /mob/living/simple_animal/bot/secbot/griefsky/proc/spam_flag_false() //used for addtimer to not spam comms
 	spam_flag = 0

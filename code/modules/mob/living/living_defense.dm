@@ -223,7 +223,7 @@
 /mob/living/can_be_pulled(user, grab_state, force)
 	return ..() && !(buckled && buckled.buckle_prevents_pull)
 
-/mob/living/water_act(volume, temperature, source, method = TOUCH)
+/mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))
 

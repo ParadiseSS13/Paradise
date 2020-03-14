@@ -1,6 +1,6 @@
 //STRIKE TEAMS
 
-var/const/syndicate_commandos_possible = 6 //if more Commandos are needed in the future
+#define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 var/global/sent_syndicate_strike_team = 0
 /client/proc/syndicate_strike_team()
 	set category = "Event"
@@ -32,7 +32,7 @@ var/global/sent_syndicate_strike_team = 0
 		to_chat(src, "Looks like someone beat you to it.")
 		return
 
-	var/syndicate_commando_number = syndicate_commandos_possible //for selecting a leader
+	var/syndicate_commando_number = SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
 	// Find the nuclear auth code
@@ -45,7 +45,7 @@ var/global/sent_syndicate_strike_team = 0
 			break
 
 	// Find ghosts willing to be SST
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, syndicate_commandos_possible, "Join the Syndicate Strike Team?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
 	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
 		return
