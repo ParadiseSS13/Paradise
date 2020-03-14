@@ -15,7 +15,7 @@
 
 /obj/machinery/recharge_station/Destroy()
 	go_out()
-	. = ..()
+	return ..()
 
 /obj/machinery/recharge_station/New()
 	..()
