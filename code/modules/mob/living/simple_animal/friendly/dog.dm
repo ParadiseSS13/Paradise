@@ -727,6 +727,8 @@
 	//spark for no reason
 	if(prob(5))
 		do_sparks(3, 1, src)
+		if(prob(0.005))
+			new /mob/living/simple_animal/hostile/poison/fleas/borg(T)
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/handle_automated_action()
 	if(emagged && prob(25))
