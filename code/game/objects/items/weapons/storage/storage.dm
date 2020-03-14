@@ -83,7 +83,7 @@
 	return
 
 /obj/item/storage/AltClick(mob/user)
-	if(user.Adjacent(get_turf(src)))
+	if(Adjacent(user))
 		orient2hud(user)
 		if(user.s_active)
 			user.s_active.close(user)
