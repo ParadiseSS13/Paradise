@@ -165,6 +165,19 @@
 	icon_state = "wooden_chair_wings"
 	item_chair = /obj/item/chair/wood/wings
 
+/obj/structure/chair/beachchair
+	name = "beach chair"
+	desc = "Time to take a load off and relax."
+	icon_state = "beach_chair"
+	resistance_flags = FLAMMABLE
+	max_integrity = 50
+	buildstackamount = 3
+	buildstacktype = /obj/item/stack/sheet/wood
+	item_chair = null
+
+/obj/structure/chair/beachchair/red
+	icon_state = "beach_chair_red"
+
 /obj/structure/chair/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."

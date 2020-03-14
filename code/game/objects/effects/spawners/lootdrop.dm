@@ -402,3 +402,21 @@
 /obj/effect/spawner/lootdrop/three_course_meal/New()
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
 	. = ..()
+
+/obj/effect/spawner/lootdrop/brass_temple_spawner
+	name = "brass temple spawner"
+	lootdoubles = 0
+
+	loot = list(
+				/obj/item/clockwork/component/geis_capacitor/fallen_armor = 1, //you got lucky in a bad way
+				/obj/item/clockwork/alloy_shards/large = 1,
+				/obj/item/clockwork/alloy_shards/pinion_lock = 1,
+				/obj/item/clockwork/alloy_shards/clockgolem_remains = 1,
+				/obj/item/stack/tile/brass = 8, //general loot
+				/obj/item/stack/tile/brass/five =6,
+				/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/ocular_warden = 6, //your prize is a fight yay!
+				/obj/structure/clockwork/decorative/obelisk = 4,
+				/obj/item/stack/tile/brass/twenty =2, //jackpot
+				/obj/item/storage/toolbox/brass =2,
+				/obj/item/storage/toolbox/brass/prefilled = 1,
+				/obj/item/clockwork/weapon/ratvarian_spear = 1)

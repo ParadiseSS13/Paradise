@@ -2174,6 +2174,11 @@ var/list/ghostteleportlocs = list()
 	requires_power = FALSE
 	ambientsounds = list('sound/ambience/shore.ogg', 'sound/ambience/seag1.ogg','sound/ambience/seag2.ogg','sound/ambience/seag2.ogg')
 
+/area/awaymission/beach/boundry
+
+/area/awaymission/beach/offshore
+	name = "Offshore location"
+
 /area/awaymission/undersea
 	name = "Undersea"
 	icon_state = "undersea"

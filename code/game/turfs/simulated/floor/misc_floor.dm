@@ -42,13 +42,42 @@
 /turf/simulated/floor/beach
 	name = "beach"
 	icon = 'icons/misc/beach.dmi'
+	var/water_overlay_image = null
 
-/turf/simulated/floor/beach/pry_tile(obj/item/C, mob/user, silent = FALSE)
+/turf/simulated/floor/beach/crowbar_act()
 	return
 
 /turf/simulated/floor/beach/sand
 	name = "sand"
 	icon_state = "sand"
+
+/turf/simulated/floor/beach/roughsand
+	name = "Sand"
+	icon_state = "desert"
+
+/turf/simulated/floor/beach/roughsand/dense //made simulated versions to fix lighting issues
+	density = 1
+
+/turf/simulated/floor/beach/roughsand/New() //a simulated version of the unsimulated beach sand
+	icon_state = pick("desert", "desert0", "desert1", "desert2", "desert3", "desert4")
+	..()
+
+/turf/simulated/floor/beach/roughcoastline/New()
+	..()
+	if(water_overlay_image)
+		var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = water_overlay_image, layer = ABOVE_MOB_LAYER)
+		overlay_image.plane = GAME_PLANE
+		overlays += overlay_image
+
+/turf/simulated/floor/beach/roughcoastline
+	name = "Coastline"
+	//icon = 'icons/misc/beach2.dmi'
+	//icon_state = "sandwater"
+	icon_state = "beach"
+	water_overlay_image = "water_coast"
+
+/turf/simulated/floor/beach/roughcoastline/dense		//for boundary "walls"
+	density = 1
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
@@ -131,10 +160,11 @@
 /turf/simulated/floor/clockwork
 	name = "clockwork floor"
 	desc = "Tightly-pressed brass tiles. They emit minute vibration."
-	icon_state = "plating"
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "clockwork_floor"
 	baseturf = /turf/simulated/floor/clockwork
 	var/dropped_brass
-	var/uses_overlay = TRUE
+	var/uses_overlay = FALSE //disabled the overlay cause it doesn't remove itself
 	var/obj/effect/clockwork/overlay/floor/realappearence
 
 /turf/simulated/floor/clockwork/Initialize(mapload)

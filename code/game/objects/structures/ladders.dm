@@ -177,7 +177,7 @@
 
 /obj/structure/ladder/unbreakable/dive_point/buoy
 	name = "diving point buoy"
-	desc = "A buoy marking the location of an underwater dive area."
+	desc = "A buoy marking the location of an underwater dive area. <span class='notice'>You can pull people and objects along with you</span>" //the notice is because several people didn't know you could do this and I feel it's important people knew
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "buoy"
 	id = "dive"
@@ -187,7 +187,7 @@
 
 /obj/structure/ladder/unbreakable/dive_point/anchor
 	name = "diving point anchor"
-	desc = "An anchor tethered to the buoy at the surface, to keep the dive area marked."
+	desc = "An anchor tethered to the buoy at the surface, to keep the dive area marked. <span class='notice'>You can pull people and objects along with you</span>"
 	icon = 'icons/misc/beach.dmi'
 	icon_state = "anchor"
 	id = "dive"

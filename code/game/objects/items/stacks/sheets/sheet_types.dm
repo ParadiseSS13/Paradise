@@ -170,6 +170,9 @@ var/global/list/datum/stack_recipe/wood_recipes = list(
 	new /datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20),
 	new /datum/stack_recipe("wood table frame", /obj/structure/table_frame/wood, 2, time = 10), \
 	new /datum/stack_recipe("wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("beach chair, blue", /obj/structure/chair/beachchair, 3, time = 10, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("beach chair, red", /obj/structure/chair/beachchair/red, 3, time = 10, one_per_turf = 1, on_floor = 1),
+	new /datum/stack_recipe("wooden lounge chair", /obj/structure/bed/wooden_lounge_chair, 5, time = 15, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("bookcase", /obj/structure/bookcase, 5, time = 50, one_per_turf = 1, on_floor = 1),
 	new /datum/stack_recipe("dresser", /obj/structure/dresser, 30, time = 50, one_per_turf = 1, on_floor = 1),
@@ -408,6 +411,11 @@ var/global/list/datum/stack_recipe/brass_recipes = list (\
 	new/datum/stack_recipe/window("fulltile brass window", /obj/structure/window/reinforced/clockwork/fulltile, 2, time = 0, on_floor = TRUE, window_checks = TRUE), \
 	new/datum/stack_recipe("brass chair", /obj/structure/chair/brass, 1, time = 0, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, 1, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("prolonging prism", /obj/structure/clockwork/decorative/prolonging_prism, 3, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("mania motor", /obj/structure/clockwork/decorative/mania_motor, 3, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("brass obelisk", /obj/structure/clockwork/decorative/obelisk, 3, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("tinkerers cache", /obj/structure/clockwork/decorative/tinkerers_cache, 3, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("brass relay", /obj/structure/clockwork/decorative/relay, 3, time = 5, one_per_turf = TRUE, on_floor = TRUE), \
 	)
 
 /obj/item/stack/tile/brass
@@ -432,6 +440,12 @@ var/global/list/datum/stack_recipe/brass_recipes = list (\
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
+
+/obj/item/stack/tile/brass/five
+	amount = 5
+
+/obj/item/stack/tile/brass/twenty
+	amount = 20
 
 /obj/item/stack/tile/brass/fifty
 	amount = 50

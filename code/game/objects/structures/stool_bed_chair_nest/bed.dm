@@ -31,6 +31,20 @@
 	icon_state = "psychbed"
 	buildstackamount = 5
 
+/obj/structure/bed/wooden_lounge_chair
+	name = "wooden lounge chair"
+	desc = "Time to lay back and soak in the solar rays."
+	icon_state = "wooden_lounge_chair"
+	can_buckle = TRUE
+	anchored = TRUE
+	buckle_lying = TRUE
+	resistance_flags = FLAMMABLE
+	max_integrity = 100
+	integrity_failure = 30
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
+
+
 /obj/structure/bed/alien
 	name = "resting contraption"
 	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"

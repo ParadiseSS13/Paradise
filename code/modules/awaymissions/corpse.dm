@@ -150,7 +150,8 @@
 	var/suit = -1
 	var/shoes = -1
 	var/gloves = -1
-	var/ears = -1
+	var/l_ear = -1
+	var/r_ear = -1
 	var/glasses = -1
 	var/mask = -1
 	var/head = -1
@@ -221,7 +222,7 @@
 	H.update_dna()
 	H.regenerate_icons()
 	if(outfit)
-		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "ears", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
+		var/static/list/slots = list("uniform", "r_hand", "l_hand", "suit", "shoes", "gloves", "l_ear", "r_ear", "glasses", "mask", "head", "belt", "r_pocket", "l_pocket", "back", "id", "neck", "backpack_contents", "suit_store")
 		for(var/slot in slots)
 			var/T = vars[slot]
 			if(!isnum(T))
@@ -510,6 +511,42 @@
 	name = "Beach Bum"
 	glasses = /obj/item/clothing/glasses/sunglasses
 	uniform = /obj/item/clothing/under/shorts/red
+
+/obj/effect/mob_spawn/human/resort_host
+	death = FALSE
+	roundstart = FALSE
+	random = TRUE
+	allow_species_pick = TRUE
+	name = "Resort Sleeper"
+	mob_name = "Resort host"
+	desc = "A small sleeper with a palm tree logo on it. A well dressed humanoid occupant sleeps within."
+	icon = 'icons/obj/cryogenic2.dmi'
+	icon_state = "sleeper"
+	flavour_text = "<span class='big bold'>You are a beach resort host!</span><b> Your job is to man the resort and tend to the customers, handle riff raff, keep the resort clean \
+	and treating customer's injuries/recovering their bodies should they perish while exploring the ocean. Don't leave the resort unless it is to recover someone's body from the ocean \
+	to take them to the station for revival or to do some light advertising for the resort.</b>"
+	assignedrole = "Resort Host"
+	id_job = "Resort Host"
+	id_access_list = list(access_bar, access_kitchen)
+	outfit = /datum/outfit/resort_host
+
+/datum/outfit/resort_host
+	name = "Resort Host"
+	uniform = /obj/item/clothing/under/waiter
+	suit = /obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+	r_pocket = /obj/item/flash
+	belt = /obj/item/melee/classic_baton/telescopic
+	back = /obj/item/storage/backpack/satchel_norm
+	shoes = /obj/item/clothing/shoes/laceup
+	l_ear = /obj/item/radio/headset/headset_service
+	glasses = /obj/item/clothing/glasses/sunglasses/reagent
+	gloves = /obj/item/clothing/gloves/color/white
+	id = /obj/item/card/id
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/drinks/shaker = 1,
+		/obj/item/soap/deluxe = 1,
+		/obj/item/storage/firstaid/regular = 1, //in case people run off with the stuff to maintain the resort
+		/obj/item/radio/headset/headset_service = 1)//for some reason can't get things to appear on ears
 
 /////////////////Spooky Undead//////////////////////
 

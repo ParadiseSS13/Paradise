@@ -124,3 +124,13 @@
 		icon_state = "doorctrl-p"
 	else
 		icon_state = "doorctrl0"
+
+/obj/machinery/door_control/brass
+	name = "brass door-control"
+	desc = "A brass remote control-switch for a door."
+	icon = 'icons/obj/clockwork_objects.dmi'
+
+/obj/machinery/door_control/brass/beach_brass_temple_switch/Initialize()
+	. = ..()
+	id = pick(list("brassbeachtempledoor1", "brassbeachtempledoor2", "brassbeachtempledoor3", "brassbeachtempledoor4", "brassbeachtempledoor5", "brassbeachtempledoor6", "brassbeachtempledoor7", "brassbeachtempledoor8",
+	"brassbeachtempledoor9", "brassbeachtempledoor10", "brassbeachtempledoor11", "brassbeachtempledoor12", "brassbeachtempledoor13", "brassbeachtempledoor14", "brassbeachtempledoor15", "brassbeachtempledoor16"))

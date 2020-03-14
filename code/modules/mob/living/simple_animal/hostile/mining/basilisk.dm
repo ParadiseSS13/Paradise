@@ -120,6 +120,26 @@
 	crusher_loot = /obj/item/crusher_trophy/watcher_wing/ice_wing
 	crusher_drop_mod = 30
 
+/mob/living/simple_animal/hostile/asteroid/basilisk/watcher/ocular_warden
+	name = "ocular warden"
+	desc = "A construct made of brass. Acts as a guard to Rat'Var sites."
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "ocular_warden"
+	icon_living = "ocular_warden"
+	icon_aggro = "ocular_warden"
+	icon_dead = "blind_eye"
+	speak_emote = list("telepathically states")
+	pixel_x = 0
+	vision_range = 5
+	maxHealth = 100 //This is a gateway mission so no KA damage to help you here thus reduced the damage
+	health = 100
+	light_range = 3
+	light_power = 2.5
+	light_color = LIGHT_COLOR_LAVA
+	projectiletype = /obj/item/projectile/temp/basilisk/magmawing
+	crusher_loot = null
+	butcher_results = list(/obj/item/stack/tile/brass = 2)
+
 /obj/item/projectile/temp/basilisk/magmawing
 	name = "scorching blast"
 	icon_state = "lava"

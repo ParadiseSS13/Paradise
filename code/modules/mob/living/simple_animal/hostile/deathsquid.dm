@@ -15,7 +15,7 @@
 	pixel_y = -24
 
 	attacktext = "slices"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attack_sound = 'sound/weapons/whip.ogg'
 	armour_penetration = 25
 	melee_damage_lower = 10
 	melee_damage_upper = 100
@@ -30,8 +30,42 @@
 	mob_size = MOB_SIZE_LARGE
 	ventcrawler = 0
 	gold_core_spawnable = NO_SPAWN
+	loot = list(/obj/structure/closet/crate/deathsquid, /obj/item/toy/plushie/octopus)
 
 
+/obj/structure/closet/crate/deathsquid
+	name = "digested crate"
+	desc = "A half digested crate from the death squid's stomache. It's contents still seem intact."
+
+/obj/structure/closet/crate/deathsquid/New(add_loot = TRUE)
+	..()
+
+	if(!add_loot)
+		return
+
+	var/loot = rand(1, 20)
+	switch(loot)
+		if(1)
+			new /obj/item/guardiancreator/biological// bingo!
+		if(2)
+			new /obj/item/spellbook/oneuse/summonitem
+			new /obj/item/clothing/head/wizard/fake
+		if(3 to 5)
+			new /obj/item/teleportation_scroll
+		if(6 to 10)
+			new /obj/item/clothing/suit/space/hardsuit/syndi
+			new /obj/item/gun/projectile/automatic/pistol
+		if(11 to 14)
+			new /obj/item/storage/belt/utility/chief
+			new /obj/item/clothing/head/hardhat/white
+			new /obj/item/clothing/gloves/color/yellow
+		if(15 to 16)
+			new /obj/item/voodoo(src)
+			new /obj/item/bedsheet/cult(src)
+		if(17 to 18)
+			new /obj/item/wisp_lantern(src)
+		if(19 to 20)
+			new /obj/item/immortality_talisman(src)
 
 /mob/living/simple_animal/hostile/deathsquid/Process_Spacemove(var/movement_dir = 0)
 	return 1 //copypasta from carp code
@@ -49,3 +83,4 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	environment_smash = 2
+	loot = list()

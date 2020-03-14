@@ -124,3 +124,13 @@
 	icon = 'icons/obj/doors/1x2blast_hor.dmi'
 	width = 2
 	dir = EAST
+
+/obj/machinery/door/poddoor/brass
+	name = "brass blast door"
+	desc = "A great brass blast door. It looks like it can withstand a lot of punishment."
+	icon = 'icons/obj/doors/blastdoor_brass.dmi'
+
+/obj/machinery/door/poddoor/brass/beach_brass_temple/Initialize()
+	. = ..()
+	id_tag = pick(list("brassbeachtempledoor1", "brassbeachtempledoor2", "brassbeachtempledoor3", "brassbeachtempledoor4", "brassbeachtempledoor5", "brassbeachtempledoor6", "brassbeachtempledoor7", "brassbeachtempledoor8",
+	"brassbeachtempledoor9", "brassbeachtempledoor10", "brassbeachtempledoor11", "brassbeachtempledoor12", "brassbeachtempledoor13", "brassbeachtempledoor14", "brassbeachtempledoor15", "brassbeachtempledoor16"))
