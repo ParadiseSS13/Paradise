@@ -198,6 +198,7 @@
 #define isdiona(A) (is_species(A, /datum/species/diona))
 #define ismachine(A) (is_species(A, /datum/species/machine))
 #define isdrask(A) (is_species(A, /datum/species/drask))
+#define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
 
 #define isanimal(A)		(istype((A), /mob/living/simple_animal))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
