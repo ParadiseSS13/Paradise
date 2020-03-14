@@ -97,7 +97,7 @@
 		add_attack_logs(lastrigger, src, "rigged fuel tank exploded")
 		investigate_log("A fueltank, last rigged by [lastrigger], triggered at [COORD(loc)]", INVESTIGATE_BOMB)
 	if(log_attack)
-		add_attack_logs(usr, src, "blew up")
+		add_attack_logs(usr, src, "blew up", ATKLOG_FEW)
 	if(reagents)
 		reagents.set_reagent_temp(1000) //uh-oh
 	qdel(src)
