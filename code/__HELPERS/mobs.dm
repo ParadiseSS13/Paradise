@@ -294,7 +294,7 @@ This is always put in the attack log.
 		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
 		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
 	if(istype(MT))
-		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(target))
+		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
 		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
 
