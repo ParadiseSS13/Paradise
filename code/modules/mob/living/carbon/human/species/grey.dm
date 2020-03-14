@@ -36,10 +36,10 @@
 	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)
 	H.dna.default_blocks.Add(REMOTETALKBLOCK)
 
-/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = TOUCH)
+/datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 
-	if(method == TOUCH)
+	if(method == REAGENT_TOUCH)
 		if(H.wear_mask)
 			to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
 			return

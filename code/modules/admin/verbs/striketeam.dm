@@ -1,6 +1,6 @@
 //STRIKE TEAMS
 
-var/const/commandos_possible = 6 //if more Commandos are needed in the future
+#define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 var/global/sent_strike_team = 0
 
 /client/proc/strike_team()
@@ -37,7 +37,7 @@ var/global/sent_strike_team = 0
 			break
 
 	// Find ghosts willing to be DS
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, commandos_possible, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
 	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
@@ -45,7 +45,7 @@ var/global/sent_strike_team = 0
 	sent_strike_team = 1
 
 	// Spawns commandos and equips them.
-	var/commando_number = commandos_possible //for selecting a leader
+	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
 	for(var/obj/effect/landmark/L in GLOB.landmarks_list)

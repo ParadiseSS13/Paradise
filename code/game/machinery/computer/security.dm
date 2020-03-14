@@ -7,7 +7,7 @@
 	desc = "Used to view and edit personnel's security records."
 	icon_keyboard = "security_key"
 	icon_screen = "security"
-	req_one_access = list(access_security, access_forensics_lockers)
+	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/secure_data
 	var/obj/item/card/id/scan = null
 	var/authenticated = null

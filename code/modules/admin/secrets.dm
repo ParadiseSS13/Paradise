@@ -49,7 +49,7 @@
 					<B>Security Level Elevated</B><BR>
 					<BR>
 					<A href='?src=[UID()];secretscoder=maint_access_engiebrig'>Change all maintenance doors to engie/brig access only</A><BR>
-					<A href='?src=[UID()];secretscoder=maint_access_brig'>Change all maintenance doors to brig access only</A><BR>
+					<A href='?src=[UID()];secretscoder=maint_ACCESS_BRIG'>Change all maintenance doors to brig access only</A><BR>
 					<A href='?src=[UID()];secretscoder=infinite_sec'>Remove cap on security officers</A>&nbsp;&nbsp;
 					<BR>
 					<B>Coder Secrets</B><BR>

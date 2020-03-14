@@ -582,10 +582,10 @@ var/global/list/multiverse = list()
 			W.access = duplicated_id.access
 			W.icon_state = duplicated_id.icon_state
 		else
-			W.access += access_maint_tunnels
+			W.access += ACCESS_MAINT_TUNNELS
 			W.icon_state = "centcom"
 	else
-		W.access += access_maint_tunnels
+		W.access += ACCESS_MAINT_TUNNELS
 		W.icon_state = "centcom"
 	W.assignment = "Multiverse Traveller"
 	W.registered_name = M.real_name

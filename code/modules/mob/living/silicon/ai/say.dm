@@ -66,8 +66,8 @@
  */
 
 var/announcing_vox = 0 // Stores the time of the last announcement
-var/const/VOX_DELAY = 100
-var/const/VOX_PATH = "sound/vox_fem/"
+#define VOX_DELAY 100
+#define VOX_PATH "sound/vox_fem/"
 
 /mob/living/silicon/ai/verb/announcement_help()
 	set name = "Announcement Help"

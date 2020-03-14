@@ -31,7 +31,7 @@ Possible to do for anyone motivated enough:
 #define RANGE_BASED 0
 #define AREA_BASED 1
 
-var/const/HOLOPAD_MODE = RANGE_BASED
+#define HOLOPAD_MODE RANGE_BASED
 
 var/list/holopads = list()
 
