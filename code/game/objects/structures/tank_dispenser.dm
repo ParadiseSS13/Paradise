@@ -21,6 +21,17 @@
 	initialize_tanks()
 	update_icon()
 
+/obj/structure/dispenser/Destroy()
+	..()
+	remove_all_tanks()
+
+/obj/structure/dispenser/proc/remove_all_tanks()
+	for(var/P in stored_plasma_tanks)
+		qdel(P)
+
+	for(var/O in stored_oxygen_tanks)
+		qdel(O)
+
 /obj/structure/dispenser/proc/initialize_tanks()
 	for(var/I in 1 to starting_plasma_tanks)
 		var/obj/item/tank/plasma/P = new(src)
@@ -34,12 +45,17 @@
 	overlays.Cut()
 	var/oxy_tank_amount = stored_oxygen_tanks.len
 	switch(oxy_tank_amount)
-		if(1 to 3)	overlays += "oxygen-[oxy_tank_amount]"
-		if(4 to INFINITY) overlays += "oxygen-4"
+		if(1 to 3)
+			overlays += "oxygen-[oxy_tank_amount]"
+		if(4 to INFINITY)
+			overlays += "oxygen-4"
+
 	var/pla_tank_amount = stored_plasma_tanks.len
 	switch(pla_tank_amount)
-		if(1 to 4)	overlays += "plasma-[pla_tank_amount]"
-		if(5 to INFINITY) overlays += "plasma-5"
+		if(1 to 4)
+			overlays += "plasma-[pla_tank_amount]"
+		if(5 to INFINITY)
+			overlays += "plasma-5"
 
 /obj/structure/dispenser/attack_hand(mob/user)
 	if(..())
