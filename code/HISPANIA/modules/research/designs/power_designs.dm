@@ -5,7 +5,7 @@
 	build_type = PROTOLATHE | MECHFAB
 	req_tech = list("powerstorage" = 5, "materials" = 5, "engineering" = 5)
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000, MAT_SILVER=1000, MAT_GOLD = 1500)
-	build_path = /obj/item/inducer/sci
+	build_path = /obj/item/inducer
 	category = list("Misc","Power")
 
 /datum/design/xenobluecellmaker
