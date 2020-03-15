@@ -61,7 +61,7 @@
 	update_icon()
 
 /obj/item/inducer/proc/induce(obj/item/stock_parts/cell/target, coefficient)
-	powertransfer = max(mintransfer, (cell.maxcharge * ratio))
+	powertransfer = max(mintransfer, (target.maxcharge * ratio))
 	var/totransfer = min((cell.charge/coefficient), powertransfer)
 	var/transferred = target.give(totransfer)
 	cell.use(transferred * coefficient)
@@ -267,7 +267,7 @@
 	item_state = "inducer-engi"
 	lefthand_file = 'icons/hispania/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/hispania/mob/inhands/equipment/tools_righthand.dmi'
-	origin_tech = "powerstorage=4;materials=4;engineering=3"
+	origin_tech = "powerstorage=4;materials=3;engineering=3"
 	force = 7
 	flags =  CONDUCT
 	var/opened = FALSE
@@ -323,7 +323,6 @@
 		return
 	return ..()
 
-// Format a power value in W, kW, MW, or GW.
 /obj/item/inducerapc/proc/DisplayPower(powerused)
 		return "[powerused] kW"
 
@@ -347,7 +346,7 @@
 	target.update_icon()
 
 /obj/item/inducerapc/proc/invertinduce(obj/item/stock_parts/cell/target, coefficient)
-	powertransfer = max(mintransfer, (target.maxcharge * ratio))
+	powertransfer = max(mintransfer, (cell.maxcharge * ratio))
 	var/totransfer = min((target.charge/coefficient), powertransfer)
 	var/transferred = cell.give(totransfer)
 	target.use(transferred * coefficient)
