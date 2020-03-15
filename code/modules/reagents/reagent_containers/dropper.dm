@@ -48,14 +48,14 @@
 			if(safe_thing)
 				visible_message("<span class='danger'>[user] tries to drip something into [H]'s eyes, but fails!</span>")
 
-				reagents.reaction(safe_thing, TOUCH)
+				reagents.reaction(safe_thing, REAGENT_TOUCH)
 				to_transfer = reagents.remove_any(amount_per_transfer_from_this)
 
 				to_chat(user, "<span class='notice'>You transfer [to_transfer] units of the solution.</span>")
 				return
 
 		visible_message("<span class='danger'>[user] drips something into [C]'s eyes!</span>")
-		reagents.reaction(C, TOUCH)
+		reagents.reaction(C, REAGENT_TOUCH)
 
 		var/list/injected = list()
 		for(var/datum/reagent/R in reagents.reagent_list)
@@ -137,7 +137,7 @@
 					var/str = english_list(virList)
 					add_attack_logs(user, M, "Infected with [str].")
 
-				reagents.reaction(M, INGEST, reagents.total_volume)
+				reagents.reaction(M, REAGENT_INGEST, reagents.total_volume)
 				reagents.trans_to(M, 1)
 
 			var/contained = english_list(injected)
