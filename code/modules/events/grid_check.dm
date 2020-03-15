@@ -1,20 +1,20 @@
-#define ANNOUNCE_DELAYED FALSE
-#define ANNOUNCE_NOW TRUE
-
-#define ANNOUNCE_AFTER_MC_TICKS 5
-#define APC_TOGGLE_OFF_PROBABILITY 25
-#define EVENT_FIXES_ITSELF_AT_END FALSE
-#define EVENT_MAX_LENGTH_MC_TICKS 150
-#define EVENT_MIN_LENGTH_MC_TICKS 60
+#define APC_TOGGLE_OFF_PROBABILITY 25 // the percent chance for each APC to toggle off when the event starts
+#define APC_TOGGLE_ON_PROBABILITY 100 // the percent chance for each APC to toggle back on when the event ends
 
 /datum/event/grid_check
-	announceWhen = ANNOUNCE_AFTER_MC_TICKS
+	var/const/announce_after_mc_ticks		= 5
+	var/const/delayed						= FALSE
+	var/const/event_fixes_itself_at_end		= FALSE	// APCs do NOT get fixed when the event ends!
+	var/const/event_max_duration_mc_ticks	= 150
+	var/const/event_min_duration_mc_ticks	= 60
+
+	announceWhen = announce_after_mc_ticks
 
 /datum/event/grid_check/setup()
-	endWhen = rand(EVENT_MIN_LENGTH_MC_TICKS, EVENT_MAX_LENGTH_MC_TICKS)
+	endWhen = rand(event_min_duration_mc_ticks, event_max_duration_mc_ticks)
 
 /datum/event/grid_check/start()
-	power_failure(ANNOUNCE_DELAYED)
+	power_failure(announce=delayed)
 	var/sound/S = sound('sound/effects/powerloss.ogg')
 	for(var/mob/living/M in GLOB.player_list)
 		var/turf/T = get_turf(M)
@@ -26,10 +26,10 @@
 	event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
 
 /datum/event/grid_check/end()
-	if(EVENT_FIXES_ITSELF_AT_END)
+	if(event_fixes_itself_at_end)
 		power_restore()
 
-/proc/power_failure(var/announce = ANNOUNCE_NOW)
+/proc/power_failure(announce=TRUE)
 	var/list/skipped_areas_apc = list(
 		/area/engine/engineering,
 		/area/turret_protected/ai)
@@ -48,7 +48,7 @@
 		if(prob(APC_TOGGLE_OFF_PROBABILITY) && (C.operating))
 			C.toggle_breaker()
 
-/proc/power_restore(var/announce = ANNOUNCE_NOW)
+/proc/power_restore(announce=TRUE)
 	var/list/skipped_areas_apc = list(
 		/area/engine/engineering,
 		/area/turret_protected/ai)
@@ -56,17 +56,17 @@
 	if(announce)
 		event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 
-	// fix all of the APCs that the crew didn't fix
+	// fix APC_TOGGLE_ON_PROBABILITY% of all of the APCs that the crew didn't fix
 	for(var/obj/machinery/power/apc/C in GLOB.apcs)
 		// skip any APCs that were too critical to flip off
 		var/area/current_area = get_area(C)
 		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		// if it was operating before the event, turn it back on
-		if(C.last_operating && (C.operating == FALSE))
+		if(prob(APC_TOGGLE_ON_PROBABILITY) && C.last_operating && (C.operating == FALSE))
 			C.toggle_breaker()
 
-/proc/power_restore_quick(var/announce = ANNOUNCE_NOW)
+/proc/power_restore_quick(announce=TRUE)
 	if(announce)
 		event_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 
@@ -81,11 +81,5 @@
 		S.update_icon()
 		S.power_change()
 
-#undef ANNOUNCE_DELAYED
-#undef ANNOUNCE_NOW
-
-#undef ANNOUNCE_AFTER_MC_TICKS
 #undef APC_TOGGLE_OFF_PROBABILITY
-#undef EVENT_FIXES_ITSELF_AT_END
-#undef EVENT_MAX_LENGTH_MC_TICKS
-#undef EVENT_MIN_LENGTH_MC_TICKS
+#undef APC_TOGGLE_ON_PROBABILITY
