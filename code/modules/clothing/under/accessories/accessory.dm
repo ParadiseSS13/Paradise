@@ -215,35 +215,45 @@
 /obj/item/clothing/accessory/medal/silver/leadership
 	name = "medal of command"
 	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
+	icon_state = "silver_command"
 
 
 // BRONZE (awarded by heads of department, except for the bronze heart)
 
-
-
 /obj/item/clothing/accessory/medal/security
 	name = "robust security medal"
 	desc = "An award issued by the HoS to security staff who excel at upholding the law."
+	icon_state = "bronze_security"
 
 /obj/item/clothing/accessory/medal/science
 	name = "smart science medal"
 	desc = "An award issued by the RD to science staff who advance the frontiers of knowledge."
+	icon_state = "bronze_science"
 
 /obj/item/clothing/accessory/medal/engineering
 	name = "excellent engineering medal"
 	desc = "An award issued by the CE to engineering staff whose dedication keep the station running at its best."
+	icon_state = "bronze_engineering"
 
 /obj/item/clothing/accessory/medal/service
 	name = "superior service medal"
 	desc = "An award issued by the HoP to service staff who go above and beyond."
+	icon_state = "bronze_service"
+
+/obj/item/clothing/accessory/medal/cargo
+	name = "great cargo medal"
+	desc = "An award issued by the HoP to cargo staff for excelling in supplying the station."
+	icon_state = "bronze_cargo"
 
 /obj/item/clothing/accessory/medal/medical
 	name = "magnificient medical medal"
 	desc = "An award issued by the CMO to medical staff who excel at saving lives."
+	icon_state = "bronze_medical"
 
 /obj/item/clothing/accessory/medal/legal
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+	icon_state = "bronze_legal"
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
