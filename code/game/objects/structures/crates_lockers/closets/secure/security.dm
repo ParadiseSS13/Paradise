@@ -94,17 +94,8 @@
 		new /obj/item/storage/backpack/security(src)
 	else
 		new /obj/item/storage/backpack/satchel_sec(src)
+	new	/obj/item/radio/headset/heads/hos/alt(src)
 	new /obj/item/cartridge/hos(src)
-	new /obj/item/radio/headset/heads/hos/alt(src)
-	new /obj/item/clothing/under/rank/head_of_security(src)
-	new /obj/item/clothing/under/rank/head_of_security/formal(src)
-	new /obj/item/clothing/under/rank/head_of_security/corp(src)
-	new /obj/item/clothing/under/rank/head_of_security/skirt(src)
-	new /obj/item/clothing/suit/armor/hos(src)
-	new /obj/item/clothing/suit/armor/hos/alt(src)
-	new /obj/item/clothing/head/HoS(src)
-	new /obj/item/clothing/head/HoS/beret(src)
-	new /obj/item/clothing/suit/mantle/armor(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/storage/lockbox/mindshield(src)
 	new /obj/item/storage/box/flashbangs(src)
@@ -190,7 +181,7 @@
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
-	req_access = list(access_security)
+	req_access = list(access_medical)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"

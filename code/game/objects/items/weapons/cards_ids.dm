@@ -67,6 +67,7 @@
 	name = "cryptographic sequencer"
 	icon_state = "emag"
 	item_state = "card-id"
+	var/uses = 20 //Numero de usos posibles
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -78,7 +79,14 @@
 	var/atom/A = target
 	if(!proximity)
 		return
-	A.emag_act(user)
+	if(uses > 0)
+		--uses
+		A.emag_act(user)
+		if(uses == 1) //Si es nuestro ultimo uso avisa al usuario que deja de funcionar
+			to_chat(user, "<span class='userdanger'>[src] sparks and seems to stop working. </span>")
+	else
+		to_chat(user, "<span class='userdanger'>[src] its not working anymore. </span>")
+		return
 
 /obj/item/card/id
 	name = "identification card"
@@ -681,6 +689,7 @@
 
 /obj/item/card/id/prisoner/random
 /obj/item/card/id/prisoner/random/New()
+	..()
 	var/random_number = "#[rand(0, 99)]-[rand(0, 999)]"
 	name = "Prisoner [random_number]"
 	registered_name = name
@@ -811,7 +820,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(access_free_golems, access_robotics, access_clown, access_mime) //access to robots/mechs
+	access = list(access_free_golems, access_robotics, access_clown, access_mime, access_mechanic) //access to robots/mechs and spacepods
 	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)

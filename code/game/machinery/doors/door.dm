@@ -185,12 +185,12 @@
 /obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)
 	return get_dir(src, M) & unres_sides
 
-/obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
+/obj/machinery/door/proc/try_to_crowbar(mob/user, obj/item/I)
 	return
 
 /obj/machinery/door/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent != INTENT_HARM && istype(I, /obj/item/twohanded/fireaxe))
-		try_to_crowbar(I, user)
+		try_to_crowbar(user, I)
 		return 1
 	else if(!(I.flags & NOBLUDGEON) && user.a_intent != INTENT_HARM)
 		try_to_activate_door(user)
@@ -202,9 +202,11 @@
 	if(user.a_intent == INTENT_HARM)
 		return
 	. = TRUE
+	if(operating)
+		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	try_to_crowbar(I, user)
+	try_to_crowbar(user, I)
 
 /obj/machinery/door/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()

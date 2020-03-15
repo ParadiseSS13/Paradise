@@ -10,15 +10,11 @@
 	var/max_damage = 30
 	var/component_disabled = 0
 	var/mob/living/silicon/robot/owner
-
-// The actual device object that has to be installed for this.
-/datum/robot_component/var/external_type = null
-
-// The wrapped device(e.g. radio), only set if external_type isn't null
-/datum/robot_component/var/obj/item/wrapped = null
+	var/external_type = null // The actual device object that has to be installed for this.
+	var/obj/item/wrapped = null // The wrapped device(e.g. radio), only set if external_type isn't null
 
 /datum/robot_component/New(mob/living/silicon/robot/R)
-	src.owner = R
+	owner = R
 
 /datum/robot_component/proc/install()
 	go_online()
@@ -108,6 +104,13 @@
 /datum/robot_component/cell
 	name = "power cell"
 	max_damage = 50
+
+/datum/robot_component/cell/New(mob/living/silicon/robot/R)
+	. = ..()
+	// sets `external_type` to the borg's currently installed cell type
+	if(owner.cell)
+		var/obj/item/stock_parts/cell/C = owner.cell
+		external_type = C.type
 
 /datum/robot_component/cell/is_powered()
 	return ..() && owner.cell

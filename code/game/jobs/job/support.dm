@@ -86,7 +86,7 @@
 	selection_color = "#dddddd"
 	access = list(access_hydroponics, access_bar, access_kitchen, access_morgue)
 	minimal_access = list(access_hydroponics, access_morgue, access_maint_tunnels)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	alt_titles = list("Hydroponicist", "Botanical Researcher", "Beekeeper")
 	required_objectives = list(
 		/datum/job_objective/further_plants
 	)
@@ -218,7 +218,7 @@
 		/obj/item/kitchen/knife/combat/survival=1,
 		/obj/item/mining_voucher=1,
 		/obj/item/t_scanner/adv_mining_scanner/lesser=1,
-		/obj/item/gun/energy/kinetic_accelerator=1,\
+///	/obj/item/gun/energy/kinetic_accelerator=1,\  //Genera Runtime Error al dar un KA a un muerto en Ruina.
 		/obj/item/stack/marker_beacon/ten=1
 	)
 

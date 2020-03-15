@@ -25,7 +25,7 @@
 				/obj/item/stack/rods = 20,
 				/obj/item/stack/sheet/metal = 10,
 		        /obj/item/stack/cable_coil = 30)
-	tools = list(/obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_MISC
 
  ////////////////
@@ -64,5 +64,16 @@
 	category = CAT_DECORATIONS
 	subcategory = CAT_HOLIDAY
 
+///Wooden Sword///
 
+/datum/crafting_recipe/woodensword
+	name = "wooden sword"
+	result = /obj/item/melee/woodensword
+	time = 15
+	reqs = list(/obj/item/stack/sheet/wood = 3,
+				/obj/item/stack/tape_roll = 1)
+	tools = list(TOOL_SCREWDRIVER,
+				TOOL_WIRECUTTER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
 

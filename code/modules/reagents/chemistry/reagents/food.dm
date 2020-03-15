@@ -149,6 +149,10 @@
 	description = "This is what makes chilis hot."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
+	addiction_chance = 1
+	addiction_chance_additional = 10
+	addiction_threshold = 2
+	minor_addiction = TRUE
 	taste_description = "<span class='warning'>HOTNESS</span>"
 	taste_mult = 1.5
 
@@ -655,6 +659,10 @@
 	reagent_state = LIQUID
 	color = "#B2B139"
 	overdose_threshold = 50
+	addiction_chance = 2
+	addiction_chance_additional = 10
+	addiction_threshold = 5
+	minor_addiction = TRUE
 	harmless = FALSE
 	taste_description = "cheese?"
 
@@ -671,7 +679,10 @@
 	description = "Hell, I don't even know if this IS cheese. Whatever it is, it ain't normal. If you want to, pour it out to make it solid."
 	reagent_state = SOLID
 	color = "#50FF00"
-	addiction_chance = 5
+	addiction_chance = 1
+	addiction_chance_additional = 10
+	addiction_threshold = 5
+	minor_addiction = TRUE
 	taste_description = "cheeeeeese...?"
 
 /datum/reagent/consumable/weird_cheese/on_mob_life(mob/living/M)
