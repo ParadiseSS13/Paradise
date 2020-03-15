@@ -22,6 +22,7 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
+	logs.Cut()
 	..()
 	return QDEL_HINT_HARDDEL
 

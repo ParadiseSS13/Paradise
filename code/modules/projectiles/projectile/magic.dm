@@ -264,13 +264,13 @@
 
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
 		add_attack_logs(null, M, "became [new_mob.real_name]")
-		new_mob.attack_log_old = M.attack_log_old
-		new_mob.logs = M.logs
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
 			M.mind.transfer_to(new_mob)
 		else
+			new_mob.attack_log_old = M.attack_log_old.Copy()
+			new_mob.logs = M.logs.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
