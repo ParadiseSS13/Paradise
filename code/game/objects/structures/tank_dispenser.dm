@@ -23,14 +23,8 @@
 
 /obj/structure/dispenser/Destroy()
 	..()
-	remove_all_tanks()
-
-/obj/structure/dispenser/proc/remove_all_tanks()
-	for(var/P in stored_plasma_tanks)
-		qdel(P)
-
-	for(var/O in stored_oxygen_tanks)
-		qdel(O)
+	QDEL_LIST(stored_plasma_tanks)
+	QDEL_LIST(stored_oxygen_tanks)
 
 /obj/structure/dispenser/proc/initialize_tanks()
 	for(var/I in 1 to starting_plasma_tanks)
