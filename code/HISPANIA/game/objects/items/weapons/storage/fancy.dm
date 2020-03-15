@@ -9,7 +9,7 @@
 	desc = "A heart-shaped box for holding tiny chocolates."
 	icon = 'icons/hispania/obj/food/containers.dmi'
 	item_state = "chocolatebox"
-	icon_state = "chocolatebox"
+	icon_state = "chocolatebox8"
 	icon_type = "chocolate"
 	lefthand_file = 'icons/hispania/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'

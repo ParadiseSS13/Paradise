@@ -16,6 +16,7 @@
 	righthand_file = 'icons/hispania/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS = 800)
 	self_recharge = 1 // Infused slime cores self-recharge, over time
+	rating = 1.1
 	chargerate = 600
 	overaynull = TRUE
 

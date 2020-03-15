@@ -123,6 +123,12 @@ To add a crossbreed:
 	list_reagents = list("blood" = 50)
 	container_type = DRAWABLE
 
+/obj/item/slimecrossbeaker/pax //5u synthpax.
+	name = "peace-inducing extract"
+	desc = "A small blob of synthetic pax."
+	color = "#FFCCCC"
+	list_reagents = list("pax_borg" = 5)
+
 /obj/item/slimecrossbeaker/omnizine //15u omnizine.
 	name = "healing extract"
 	desc = "A gelatinous extract of pure omnizine."
