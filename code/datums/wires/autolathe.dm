@@ -2,9 +2,9 @@
 	holder_type = /obj/machinery/autolathe
 	wire_count = 10
 
-var/const/AUTOLATHE_HACK_WIRE = 1
-var/const/AUTOLATHE_SHOCK_WIRE = 2
-var/const/AUTOLATHE_DISABLE_WIRE = 4
+#define AUTOLATHE_HACK_WIRE 1
+#define AUTOLATHE_SHOCK_WIRE 2
+#define AUTOLATHE_DISABLE_WIRE 4
 
 /datum/wires/autolathe/GetWireName(index)
 	switch(index)

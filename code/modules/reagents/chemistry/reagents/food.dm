@@ -191,8 +191,8 @@
 		M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
 	return ..()
 
-/datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
 			var/mouth_covered = 0
@@ -552,8 +552,8 @@
 	color = "#c0c9a0"
 	taste_description = "pungency"
 
-/datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		if(!M.is_mouth_covered() && !M.is_eyes_covered())
 			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
 				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
@@ -817,8 +817,8 @@
 	color = "#AC7E67"
 	taste_description = "pepperoni"
 
-/datum/reagent/consumable/pepperoni/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == TOUCH)
+/datum/reagent/consumable/pepperoni/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_TOUCH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 
@@ -849,8 +849,8 @@
 	color = "#63DE63"
 	taste_description = "burned food"
 
-/datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = TOUCH, volume)
-	if(istype(H) && method == INGEST)
+/datum/reagent/questionmark/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
+	if(istype(H) && method == REAGENT_INGEST)
 		if(H.dna.species.taste_sensitivity < TASTE_SENSITIVITY_NO_TASTE) // If you can taste it, then you know how awful it is.
 			H.Stun(2, FALSE)
 			H.Weaken(2, FALSE)
@@ -912,8 +912,8 @@
 	color = "#C87D28"
 	taste_description = "mold"
 
-/datum/reagent/fungus/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/fungus/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		var/ranchance = rand(1,10)
 		if(ranchance == 1)
 			to_chat(M, "<span class='warning'>You feel very sick.</span>")
@@ -939,8 +939,8 @@
 		to_chat(M, "<span class='warning'>[spooky_message]</span>")
 	return ..()
 
-/datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/ectoplasm/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		var/spooky_eat = pick("Ugh, why did you eat that? Your mouth feels haunted. Haunted with bad flavors.", "Ugh, why did you eat that? It has the texture of ham aspic.  From the 1950s.  Left out in the sun.", "Ugh, why did you eat that? It tastes like a ghost fart.", "Ugh, why did you eat that? It tastes like flavor died.")
 		to_chat(M, "<span class='warning'>[spooky_eat]</span>")
 

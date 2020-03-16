@@ -10,7 +10,7 @@
 	armor = list("melee" = -20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
 	max_temperature = 25000
 	infra_luminosity = 5
-	operation_req_access = list(access_clown)
+	operation_req_access = list(ACCESS_CLOWN)
 	wreckage = /obj/structure/mecha_wreckage/honker
 	add_req_access = 0
 	max_equip = 3
@@ -64,8 +64,8 @@
 						.hidden {display: none;}
 						</style>
 						<script language='javascript' type='text/javascript'>
-						[js_byjax]
-						[js_dropdowns]
+						[JS_BYJAX]
+						[JS_DROPDOWNS]
 						function ticker() {
 						    setInterval(function(){
 						        window.location='byond://?src=[UID()]&update_content=1';

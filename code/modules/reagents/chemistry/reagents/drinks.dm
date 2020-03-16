@@ -106,8 +106,8 @@
 	drink_desc = "As colorful and healthy as it is delicious."
 	taste_description = "citrus juice"
 
-/datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		M.adjustToxLoss(-rand(1,2))
 
 /datum/reagent/consumable/drink/berryjuice
