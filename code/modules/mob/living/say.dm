@@ -355,8 +355,10 @@ proc/get_radio_key_from_channel(var/channel)
 			to_chat(src, "<span class='danger'>You're muzzled and cannot speak!</span>")
 		return
 
-	log_whisper(multilingual_to_message(message_pieces), src)
+	var/message = multilingual_to_message(message_pieces)
 
+	say_log += "whisper: [message]"
+	log_whisper(message, src)
 	var/message_range = 1
 	var/eavesdropping_range = 2
 	var/watching_range = 5
@@ -439,7 +441,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	//now mobs
 	var/list/speech_bubble_recipients = list()
-	var/speech_bubble_test = say_test(multilingual_to_message(message_pieces))
+	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
 		M.hear_say(message_pieces, verb, italics, src)

@@ -194,6 +194,11 @@
 	desc = "Contains calomel, which be used to purge impurities, but is highly toxic itself."
 	list_reagents = list("calomel" = 15)
 
+/obj/item/reagent_containers/syringe/heparin
+	name = "Syringe (heparin)"
+	desc = "Contains heparin, a blood anticoagulant."
+	list_reagents = list("heparin" = 15)
+
 /obj/item/reagent_containers/syringe/bioterror
 	name = "bioterror syringe"
 	desc = "Contains several paralyzing reagents."
