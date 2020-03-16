@@ -442,7 +442,7 @@
 		if(!emagged)
 			var/obj/item/card/id/id = W
 			for(var/a in id.access)
-				if(a == access_hos || a == access_captain)
+				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
 					if(secureprotocols)
 						secureprotocols = FALSE
 						to_chat(user, "<span class='notice'>You disable the security protocols</span>")

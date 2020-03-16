@@ -188,7 +188,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(!emagged)
 			var/obj/item/card/id/id = D
 			for(var/a in id.access)
-				if(a == access_hos || a == access_captain)
+				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
 					if(secureprotocols)
 						secureprotocols = FALSE
 						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
