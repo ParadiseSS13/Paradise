@@ -1,5 +1,6 @@
 /datum/game_mode
 	var/list/datum/mind/wizards = list()
+	var/list/datum/mind/apprentices = list()
 
 /datum/game_mode/wizard
 	name = "wizard"
@@ -161,7 +162,7 @@
 // Checks if the game should end due to all wizards and apprentices being dead, or MMI'd/Borged
 /datum/game_mode/wizard/check_finished()
 	var/wizards_alive = 0
-	var/traitors_alive = 0
+	var/apprentices_alive = 0
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
@@ -173,18 +174,18 @@
 			continue
 		wizards_alive++
 
-	// Apprentices - classified as "traitors"
+	// Apprentices
 	if(!wizards_alive)
-		for(var/datum/mind/traitor in traitors)
-			if(!istype(traitor.current,/mob/living/carbon))
+		for(var/datum/mind/apprentice in apprentices)
+			if(!istype(apprentice.current,/mob/living/carbon))
 				continue
-			if(traitor.current.stat==DEAD)
+			if(apprentice.current.stat==DEAD)
 				continue
-			if(istype(traitor.current, /obj/item/mmi)) // apprentice is in an MMI, don't count them as alive
+			if(istype(apprentice.current, /obj/item/mmi)) // apprentice is in an MMI, don't count them as alive
 				continue
-			traitors_alive++
+			apprentices_alive++
 
-	if(wizards_alive || traitors_alive || but_wait_theres_more)
+	if(wizards_alive || apprentices_alive || but_wait_theres_more)
 		return ..()
 	else
 		finished = 1
@@ -279,4 +280,4 @@ Made a proc so this is not repeated 14 (or more) times.*/
 		return 1
 
 /proc/iswizard(mob/living/M as mob)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.wizards)
+	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))

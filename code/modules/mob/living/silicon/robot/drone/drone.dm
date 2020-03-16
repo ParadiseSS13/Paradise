@@ -13,7 +13,7 @@
 	braintype = "Robot"
 	lawupdate = 0
 	density = 0
-	req_one_access = list(access_engine, access_robotics)
+	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = 2
 	magpulse = 1
 	mob_size = MOB_SIZE_SMALL
@@ -47,7 +47,7 @@
 
 	// Disable the microphone wire on Drones
 	if(radio)
-		radio.wires.CutWireIndex(WIRE_TRANSMIT)
+		radio.wires.CutWireIndex(RADIO_WIRE_TRANSMIT)
 
 	if(camera && "Robots" in camera.network)
 		camera.network.Add("Engineering")

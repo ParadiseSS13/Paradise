@@ -1,8 +1,8 @@
 var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 /datum/job/captain
 	title = "Captain"
-	flag = CAPTAIN
-	department_flag = ENGSEC
+	flag = JOB_CAPTAIN
+	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Nanotrasen officials"
@@ -57,8 +57,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 
 /datum/job/hop
 	title = "Head of Personnel"
-	flag = HOP
-	department_flag = SUPPORT
+	flag = JOB_HOP
+	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the captain"
@@ -66,17 +66,19 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	selection_color = "#ddddff"
 	req_admin_notify = 1
 	is_command = 1
-	minimal_player_age = 15
+	minimal_player_age = 21
 	exp_requirements = 1440
-	exp_type = EXP_TYPE_CREW
-	access = list(access_sec_doors, access_court, access_change_ids, access_eva, access_heads, access_all_personal_lockers, access_maint_tunnels, access_bar,
-						access_janitor, access_morgue, access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm,
-						access_hydroponics, access_lawyer, access_theatre, access_chapel_office, access_library, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_mineral_storeroom)
-	minimal_access = list(access_sec_doors, access_court, access_change_ids, access_eva, access_heads, access_all_personal_lockers, access_maint_tunnels, access_bar,
-						access_janitor, access_morgue, access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm,
-						access_hydroponics, access_lawyer, access_theatre, access_chapel_office, access_library, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_mineral_storeroom)
+	exp_type = EXP_TYPE_COMMAND
+	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
+	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/hop
 
 /datum/outfit/job/hop
@@ -99,8 +101,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 
 /datum/job/nanotrasenrep
 	title = "Nanotrasen Representative"
-	flag = NANO
-	department_flag = KARMA
+	flag = JOB_NANO
+	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the command staff"
@@ -111,18 +113,18 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_player_age = 21
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_COMMAND
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
-			            access_medical, access_engine, access_change_ids, access_eva, access_heads,
-			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
-			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
-			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_ntrep)
-	minimal_access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
-			            access_medical, access_engine, access_eva, access_heads,
-			            access_all_personal_lockers, access_maint_tunnels, access_bar, access_janitor, access_construction, access_morgue,
-			            access_crematorium, access_kitchen, access_cargo, access_cargo_bot, access_mailsorting, access_qm, access_hydroponics, access_lawyer,
-			            access_theatre, access_chapel_office, access_library, access_research, access_mining, access_heads_vault, access_mining_station,
-			            access_clown, access_mime, access_hop, access_RC_announce, access_keycard_auth, access_gateway, access_weapons, access_ntrep)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_NTREP)
 	outfit = /datum/outfit/job/nanotrasenrep
 
 /datum/outfit/job/nanotrasenrep
@@ -144,8 +146,8 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 
 /datum/job/blueshield
 	title = "Blueshield"
-	flag = BLUESHIELD
-	department_flag = KARMA
+	flag = JOB_BLUESHIELD
+	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Nanotrasen representative"
@@ -156,13 +158,14 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_player_age = 21
 	exp_requirements = 2160
 	exp_type = EXP_TYPE_CREW
-	access = list(access_security, access_sec_doors, access_brig, access_court, access_forensics_lockers,
-			            access_medical, access_engine, access_eva, access_heads, access_all_personal_lockers,
-						access_maint_tunnels, access_construction, access_lawyer, access_theatre, access_library,
-						access_research, access_heads_vault, access_hop, access_RC_announce, access_keycard_auth,
-						access_gateway, access_weapons, access_blueshield)
-	minimal_access = list(access_forensics_lockers, access_sec_doors, access_medical, access_construction, access_engine, access_maint_tunnels, access_research,
-			            access_RC_announce, access_keycard_auth, access_heads, access_blueshield, access_weapons)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_BLUESHIELD)
+	minimal_access = list(ACCESS_FORENSICS_LOCKERS, ACCESS_SEC_DOORS, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_ENGINE, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH,
+			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS, ACCESS_BLUESHIELD, ACCESS_WEAPONS)
 	outfit = /datum/outfit/job/blueshield
 
 /datum/outfit/job/blueshield
@@ -181,15 +184,15 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 		/obj/item/gun/energy/gun/blueshield = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
-	backpack = /obj/item/storage/backpack/security
-	satchel = /obj/item/storage/backpack/satchel_sec
-	dufflebag = /obj/item/storage/backpack/duffel/security
+	backpack = /obj/item/storage/backpack/blueshield
+	satchel = /obj/item/storage/backpack/satchel_blueshield
+	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
 
 /datum/job/judge
 	title = "Magistrate"
-	flag = JUDGE
-	department_flag = KARMA
+	flag = JOB_JUDGE
+	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the Nanotrasen Supreme Court"
@@ -200,10 +203,13 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 	minimal_player_age = 30
 	exp_requirements = 2880
 	exp_type = EXP_TYPE_SECURITY
-	access = list(access_security, access_sec_doors, access_court, access_forensics_lockers,
-			            access_medical, access_engine, access_brig, access_change_ids, access_eva, access_heads,
-			            access_all_personal_lockers, access_morgue, access_lawyer, access_theatre, access_RC_announce, access_keycard_auth, access_gateway, access_magistrate)
-	minimal_access = list(access_security, access_sec_doors, access_court, access_maint_tunnels, access_lawyer, access_magistrate, access_heads)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_FORENSICS_LOCKERS,
+			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_EVA, ACCESS_HEADS,
+			            ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_MAINT_TUNNELS, ACCESS_BAR, ACCESS_JANITOR, ACCESS_CONSTRUCTION, ACCESS_MORGUE,
+			            ACCESS_CREMATORIUM, ACCESS_KITCHEN, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_QM, ACCESS_HYDROPONICS, ACCESS_LAWYER,
+			            ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_MINING, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
+			            ACCESS_CLOWN, ACCESS_MIME, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_MAGISTRATE)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS)
 	outfit = /datum/outfit/job/judge
 
 /datum/outfit/job/judge
@@ -231,16 +237,16 @@ var/datum/announcement/minor/captain_announcement = new(do_newscast = 0)
 //var/global/lawyer = 0//Checks for another lawyer //This changed clothes on 2nd lawyer, both IA get the same dreds.
 /datum/job/lawyer
 	title = "Internal Affairs Agent"
-	flag = LAWYER
-	department_flag = SUPPORT
+	flag = JOB_LAWYER
+	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
 	is_legal = 1
 	supervisors = "the magistrate"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
-	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
-	minimal_access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels, access_research, access_medical, access_construction, access_mailsorting)
+	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
+	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	alt_titles = list("Human Resources Agent", "Lawyer", "Prosecutor")	//Nombre Alterno a IAA
 	minimal_player_age = 30
 	exp_requirements = 600

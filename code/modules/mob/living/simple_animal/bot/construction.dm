@@ -340,7 +340,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "firstaid_arm"
 	w_class = WEIGHT_CLASS_NORMAL
-	req_one_access = list(access_medical, access_robotics)
+	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 	var/build_step = 0
 	var/created_name = "Medibot" //To preserve the name if it's a unique medbot I guess
 	var/skin = null //Same as medbot, set to tox or ointment for the respective kits.
@@ -593,7 +593,7 @@ var/robot_arm = /obj/item/robot_parts/l_arm
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "honkbot_arm"
 	w_class = WEIGHT_CLASS_NORMAL
-	req_one_access = list(access_clown, access_robotics, access_mime)
+	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 	var/build_step = 0
 	var/created_name = "Honkbot" //To preserve the name if it's a unique medbot I guess
 

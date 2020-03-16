@@ -1,7 +1,7 @@
 /datum/job/ai
 	title = "AI"
-	flag = AI
-	department_flag = ENGSEC
+	flag = JOB_AI
+	department_flag = JOBCAT_ENGSEC
 	total_positions = 0 // Not used for AI, see is_position_available below and modules/mob/living/silicon/ai/latejoin.dm
 	spawn_positions = 1
 	selection_color = "#ccffcc"
@@ -22,9 +22,9 @@
 
 /datum/job/cyborg
 	title = "Cyborg"
-	flag = CYBORG
-	department_flag = ENGSEC
-	total_positions = 2
+	flag = JOB_CYBORG
+	department_flag = JOBCAT_ENGSEC
+	total_positions = 1
 	spawn_positions = 1
 	supervisors = "your laws and the AI"	//Nodrak
 	department_head = list("AI")

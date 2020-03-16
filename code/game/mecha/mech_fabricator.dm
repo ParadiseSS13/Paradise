@@ -321,7 +321,7 @@
 				h1 {font-size: 18px; margin: 5px 0px;}
 				</style>
 				<script language='javascript' type='text/javascript'>
-				[js_byjax]
+				[JS_BYJAX]
 				</script>
 
 				<table style='width: 100%;'>
@@ -442,7 +442,7 @@
 		if(!emagged)
 			var/obj/item/card/id/id = W
 			for(var/a in id.access)
-				if(a == access_hos || a == access_captain)
+				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
 					if(secureprotocols)
 						secureprotocols = FALSE
 						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
@@ -480,7 +480,7 @@
 								"Pod_Parts",
 								"Pod_Frame",
 								"Misc")
-	req_access = list(access_mechanic)
+	req_access = list(ACCESS_MECHANIC)
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	..()

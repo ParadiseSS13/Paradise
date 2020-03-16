@@ -3,7 +3,7 @@
 	filedesc = "ID card modification program"
 	program_icon_state = "id"
 	extended_desc = "Program for programming employee ID cards to access parts of the station."
-	transfer_access = access_change_ids
+	transfer_access = ACCESS_CHANGE_IDS
 	requires_ntnet = 0
 	size = 8
 	var/is_centcom = 0
@@ -57,7 +57,7 @@
 	return 0
 
 /datum/computer_file/program/card_mod/proc/check_access(obj/item/I)
-	if(access_change_ids in I.GetAccess())
+	if(ACCESS_CHANGE_IDS in I.GetAccess())
 		return 1
 	return 0
 

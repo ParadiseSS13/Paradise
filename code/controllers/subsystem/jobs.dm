@@ -389,8 +389,11 @@ SUBSYSTEM_DEF(jobs)
 	// Antags, who have to get in, come first
 	for(var/mob/new_player/player in unassigned)
 		if(player.mind.special_role)
-			GiveRandomJob(player)
-			if(player in unassigned)
+			if(player.client.prefs.alternate_option != BE_ASSISTANT)
+				GiveRandomJob(player)
+				if(player in unassigned)
+					AssignRole(player, "Civilian")
+			else
 				AssignRole(player, "Civilian")
 
 	// Then we assign what we can to everyone else.

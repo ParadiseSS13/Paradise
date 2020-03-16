@@ -65,7 +65,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/id = 0			//ID of the computer (for server restrictions).
 	var/sync = 1		//If sync = 0, it doesn't show up on Server Control Console
 	var/secureprotocols = TRUE
-	req_access = list(access_tox)	//Data and setting manipulation requires scientist access.
+	req_access = list(ACCESS_TOX)	//Data and setting manipulation requires scientist access.
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
@@ -188,7 +188,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(!emagged)
 			var/obj/item/card/id/id = D
 			for(var/a in id.access)
-				if(a == access_hos || a == access_captain)
+				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
 					if(secureprotocols)
 						secureprotocols = FALSE
 						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
@@ -933,7 +933,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "robotics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 2
-	req_access = list(access_robotics)
+	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/rdconsole/robotics
 
 /obj/machinery/computer/rdconsole/experiment
@@ -946,7 +946,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	name = "mechanics R&D console"
 	desc = "A console used to interface with R&D tools."
 	id = 4
-	req_access = list(access_mechanic)
+	req_access = list(ACCESS_MECHANIC)
 	circuit = /obj/item/circuitboard/rdconsole/mechanics
 
 /obj/machinery/computer/rdconsole/public

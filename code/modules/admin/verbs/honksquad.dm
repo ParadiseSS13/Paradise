@@ -1,6 +1,6 @@
 //HONKsquad
 
-var/const/honksquad_possible = 6 //if more Commandos are needed in the future
+#define HONKSQUAD_POSSIBLE 6 //if more Commandos are needed in the future
 var/global/sent_honksquad = 0
 
 /client/proc/honksquad()
@@ -31,7 +31,7 @@ var/global/sent_honksquad = 0
 	sent_honksquad = 1
 
 
-	var/honksquad_number = honksquad_possible //for selecting a leader
+	var/honksquad_number = HONKSQUAD_POSSIBLE //for selecting a leader
 	var/honk_leader_selected = 0 //when the leader is chosen. The last person spawned.
 
 
@@ -42,7 +42,7 @@ var/global/sent_honksquad = 0
 		if(!G.client.holder && !G.client.is_afk())	//Whoever called/has the proc won't be added to the list.
 			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
 				candidates += G.key
-	for(var/i=honksquad_possible,(i>0&&candidates.len),i--)//Decrease with every commando selected.
+	for(var/i=HONKSQUAD_POSSIBLE,(i>0&&candidates.len),i--)//Decrease with every commando selected.
 		var/candidate = input("Pick characters to spawn as the HONKsquad. This will go on until there either no more ghosts to pick from or the slots are full.", "Active Players") as null|anything in candidates	//It will auto-pick a person when there is only one candidate.
 		candidates -= candidate		//Subtract from candidates.
 		commandos += candidate//Add their ghost to commandos.
@@ -132,7 +132,7 @@ var/global/sent_honksquad = 0
 	var/obj/item/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card"
 	W.icon_state = "centcom_old"
-	W.access = list(access_clown)//They get full station access.
+	W.access = list(ACCESS_CLOWN)//They get full station access.
 	W.assignment = "HONKsquad"
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)

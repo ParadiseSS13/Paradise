@@ -30,7 +30,7 @@
 		for(var/obj/effect/O in A)
 			if(is_cleanable(O))
 				qdel(O)
-	reagents.reaction(A, TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
+	reagents.reaction(A, REAGENT_TOUCH, 10)	//10 is the multiplier for the reaction effect. probably needed to wet the floor properly.
 	reagents.remove_any(1)			//reaction() doesn't use up the reagents
 
 /obj/item/mop/afterattack(atom/A, mob/user, proximity)
