@@ -14,7 +14,7 @@ z7 = empty
 
 #if !defined(USING_MAP_DATUM)
 	#include "map_files\hispania\hispania.dmm"
-	#include "map_files\cyberiad\z2.dmm"
+	#include "map_files\hispania\z2.dmm"
 	#include "map_files\cyberiad\z3.dmm"
 	#include "map_files\cyberiad\z4.dmm"
 	#include "map_files\hispania\Lavaland.dmm"

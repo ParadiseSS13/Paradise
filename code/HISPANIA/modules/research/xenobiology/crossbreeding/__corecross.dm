@@ -95,6 +95,7 @@ To add a crossbreed:
 	desc = "You shouldn't see this."
 	icon = 'icons/hispania/obj/slimecrossing.dmi'
 	icon_state = "base"
+	container_type = DRAWABLE | INJECTABLE
 	var/del_on_empty = TRUE
 	var/list/list_reagents
 
@@ -121,7 +122,12 @@ To add a crossbreed:
 	desc = "A sphere of liquid blood, somehow managing to stay together."
 	color = "#FF0000"
 	list_reagents = list("blood" = 50)
-	container_type = DRAWABLE
+
+/obj/item/slimecrossbeaker/pax //5u synthpax.
+	name = "peace-inducing extract"
+	desc = "A small blob of synthetic pax."
+	color = "#FFCCCC"
+	list_reagents = list("pax_borg" = 5)
 
 /obj/item/slimecrossbeaker/omnizine //15u omnizine.
 	name = "healing extract"
@@ -132,6 +138,7 @@ To add a crossbreed:
 /obj/item/slimecrossbeaker/autoinjector //As with the above, but automatically injects whomever it is used on with contents.
 	var/ignore_flags = FALSE
 	var/self_use_only = FALSE
+	container_type = DRAWABLE
 
 /obj/item/slimecrossbeaker/autoinjector/Initialize()
 	. = ..()
