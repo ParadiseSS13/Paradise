@@ -4,7 +4,7 @@
 	contains = list(/obj/item/inducerapc, /obj/item/inducerapc)
 	containername = "inducer crate"
 	containertype = /obj/structure/closet/crate/secure/engineering
-	access = access_engine
+	access = ACCESS_ENGINE
 
 //Med//
 

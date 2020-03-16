@@ -340,7 +340,7 @@
 						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
 					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
 					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
-					R.reaction(target, INGEST)
+					R.reaction(target, REAGENT_INGEST)
 
 	else if(current_type == "finish")
 		if(affected && affected.encased)
@@ -410,7 +410,7 @@
 			I.receive_damage(rand(4,8),0)
 
 		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
-		R.reaction(target, INGEST)
+		R.reaction(target, REAGENT_INGEST)
 
 		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>", \
 		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>")

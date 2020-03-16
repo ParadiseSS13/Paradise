@@ -11,7 +11,8 @@ SUBSYSTEM_DEF(chat)
 /datum/controller/subsystem/chat/fire()
 	for(var/i in payload)
 		var/client/C = i
-		C << output(payload[C], "browseroutput:output")
+		if(C)
+			C << output(payload[C], "browseroutput:output")
 		payload -= C
 
 		if(MC_TICK_CHECK)
