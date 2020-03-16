@@ -80,8 +80,8 @@
 	spread_text = "The patient is having a cardiac emergency"
 	max_stages = 3
 	spread_flags = SPECIAL
-	cure_text = "Atropine or Epinephrine"
-	cures = list("atropine", "epinephrine")
+	cure_text = "Atropine, Epinephrine, or Heparin"
+	cures = list("atropine", "epinephrine", "heparin")
 	cure_chance = 10
 	needs_all_cures = FALSE
 	viable_mobtypes = list(/mob/living/carbon/human)

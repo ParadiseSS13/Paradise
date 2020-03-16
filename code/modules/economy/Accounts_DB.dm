@@ -5,7 +5,7 @@ var/global/current_date_string
 	desc = "Access transaction logs, account data and all kinds of other financial records."
 	icon_screen = "accounts"
 	density = 1
-	req_one_access = list(access_hop, access_captain, access_cent_commander)
+	req_one_access = list(ACCESS_HOP, ACCESS_CAPTAIN, ACCESS_CENT_COMMANDER)
 	var/receipt_num
 	var/machine_id = ""
 	var/obj/item/card/id/held_card
@@ -38,11 +38,11 @@ var/global/current_date_string
 		return 2
 	if(!held_card)
 		return 0
-	if(access_cent_commander in held_card.access)
+	if(ACCESS_CENT_COMMANDER in held_card.access)
 		return 2
 	else
 		for(var/a in held_card.access)
-			if(a == access_hop || a == access_captain)
+			if(a == ACCESS_HOP || a == ACCESS_CAPTAIN)
 				return 1
 
 /obj/machinery/computer/account_database/proc/accounting_letterhead(report_name)

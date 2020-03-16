@@ -117,7 +117,7 @@
 	color = "#D0D0D0" // rgb: 208, 208, 208
 	taste_description = "sub-par bling"
 
-/datum/reagent/silver/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/silver/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(M.has_bane(BANE_SILVER))
 		M.reagents.add_reagent("toxin", volume)
 	. = ..()
@@ -164,7 +164,7 @@
 				H.blood_volume += 0.8
 	return ..()
 
-/datum/reagent/iron/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/iron/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(M.has_bane(BANE_IRON) && holder && holder.chem_temp < 150) //If the target is weak to cold iron, then poison them.
 		M.reagents.add_reagent("toxin", volume)
 	..()
@@ -304,7 +304,7 @@
 			H.dna.species.blood_color = "#[num2hex(rand(0, 255))][num2hex(rand(0, 255))][num2hex(rand(0, 255))]"
 	return ..()
 
-/datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=TOUCH, volume)
+/datum/reagent/colorful_reagent/reaction_mob(mob/living/simple_animal/M, method=REAGENT_TOUCH, volume)
     if(isanimal(M))
         M.color = pick(random_color_list)
     ..()
@@ -431,7 +431,7 @@
 	M.can_change_intents = TRUE
 	..()
 
-/datum/reagent/love/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/love/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	to_chat(M, "<span class='notice'>You feel loved!</span>")
 
 /datum/reagent/jestosterone //Formerly known as Nitrogen tungstide hypochlorite before NT fired the chemists for trying to be funny
@@ -668,13 +668,13 @@
 	overdose_threshold = 11 //Slightly more than one un-nozzled spraybottle.
 	taste_description = "sour oranges"
 
-/datum/reagent/spraytan/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+/datum/reagent/spraytan/reaction_mob(mob/living/M, method=REAGENT_TOUCH, reac_volume, show_message = 1)
 	if(ishuman(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			var/mob/living/carbon/human/N = M
 			set_skin_color(N)
 
-		if(method == INGEST)
+		if(method == REAGENT_INGEST)
 			if(show_message)
 				to_chat(M, "<span class='notice'>That tasted horrible.</span>")
 	..()

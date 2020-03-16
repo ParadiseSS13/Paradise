@@ -413,9 +413,16 @@
 		if(M.client)
 			playercount += 1
 
-	if(playercount >= 150 && GLOB.panic_bunker_enabled == 0)
-		GLOB.panic_bunker_enabled = 1
-		message_admins("Panic bunker has been automatically enabled due to playercount surpassing 150")
+	// Update the state of the panic bunker based on current playercount
+	var/threshold = config.panic_bunker_threshold
+
+	if((playercount > threshold) && (GLOB.panic_bunker_enabled == FALSE))
+		GLOB.panic_bunker_enabled = TRUE
+		message_admins("Panic bunker has been automatically enabled due to playercount rising above [threshold]")
+
+	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
+		GLOB.panic_bunker_enabled = FALSE
+		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
@@ -548,8 +555,8 @@
 
 		// Check new peeps for panic bunker
 		if(GLOB.panic_bunker_enabled)
-			message_admins("<span class='adminnotice'>Failed Login: [key] - New account attempting to connect during panic bunker</span>")
-			src << "Sorry but the server is currently not accepting connections from never before seen players. Please try again later."
+			var/threshold = config.panic_bunker_threshold
+			src << "Server is not accepting connections from never-before-seen players until player count is less than [threshold]. Please try again later."
 			del(src)
 			return // Dont insert or they can just go in again
 

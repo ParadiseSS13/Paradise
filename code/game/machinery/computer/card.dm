@@ -7,7 +7,7 @@ var/time_last_changed_position = 0
 	desc = "Terminal for programming Nanotrasen employee ID cards to access parts of the station."
 	icon_keyboard = "id_key"
 	icon_screen = "id"
-	req_access = list(access_change_ids)
+	req_access = list(ACCESS_CHANGE_IDS)
 	circuit = /obj/item/circuitboard/card
 	light_color = LIGHT_COLOR_LIGHTBLUE
 	var/obj/item/card/id/scan = null
@@ -133,7 +133,7 @@ var/time_last_changed_position = 0
 	if(!istype(id_card))
 		return ..()
 
-	if(!scan && access_change_ids in id_card.access)
+	if(!scan && ACCESS_CHANGE_IDS in id_card.access)
 		user.drop_item()
 		id_card.loc = src
 		scan = id_card
@@ -200,7 +200,7 @@ var/time_last_changed_position = 0
 		return 1
 	if(!scan.assignment)
 		return 0
-	if(access_captain in scan.access)
+	if(ACCESS_CAPTAIN in scan.access)
 		return 1
 	if(!targetjob || !targetjob.title)
 		return 0
@@ -604,7 +604,7 @@ var/time_last_changed_position = 0
 /obj/machinery/computer/card/centcom
 	name = "\improper CentComm identification computer"
 	circuit = /obj/item/circuitboard/card/centcom
-	req_access = list(access_cent_commander)
+	req_access = list(ACCESS_CENT_COMMANDER)
 	change_position_cooldown = -1
 	blacklisted_full = list()
 	blacklisted_partial = list()
@@ -621,14 +621,14 @@ var/time_last_changed_position = 0
 	target_dept = TARGET_DEPT_SEC
 	icon_screen = "idhos"
 	light_color = LIGHT_COLOR_RED
-	req_access = list(access_hos)
+	req_access = list(ACCESS_HOS)
 	circuit = /obj/item/circuitboard/card/minor/hos
 
 /obj/machinery/computer/card/minor/cmo
 	name = "medical management console"
 	target_dept = TARGET_DEPT_MED
 	icon_screen = "idcmo"
-	req_access = list(access_cmo)
+	req_access = list(ACCESS_CMO)
 	circuit = /obj/item/circuitboard/card/minor/cmo
 
 /obj/machinery/computer/card/minor/rd
@@ -636,7 +636,7 @@ var/time_last_changed_position = 0
 	target_dept = TARGET_DEPT_SCI
 	icon_screen = "idrd"
 	light_color = LIGHT_COLOR_PINK
-	req_access = list(access_rd)
+	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/card/minor/rd
 
 /obj/machinery/computer/card/minor/ce
@@ -644,5 +644,5 @@ var/time_last_changed_position = 0
 	target_dept = TARGET_DEPT_ENG
 	icon_screen = "idce"
 	light_color = COLOR_YELLOW
-	req_access = list(access_ce)
+	req_access = list(ACCESS_CE)
 	circuit = /obj/item/circuitboard/card/minor/ce

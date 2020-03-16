@@ -13,7 +13,7 @@
 	desc = "This can be used for various important functions. Still under developement."
 	icon_keyboard = "tech_key"
 	icon_screen = "comm"
-	req_access = list(access_heads)
+	req_access = list(ACCESS_HEADS)
 	circuit = /obj/item/circuitboard/communications
 	var/prints_intercept = 1
 	var/authenticated = COMM_AUTHENTICATION_NONE
@@ -87,7 +87,7 @@
 		if(allowed(usr))
 			authenticated = COMM_AUTHENTICATION_MIN
 
-		if(access_captain in access)
+		if(ACCESS_CAPTAIN in access)
 			authenticated = COMM_AUTHENTICATION_MAX
 			var/mob/living/carbon/human/H = usr
 			var/obj/item/card/id = H.get_idcard(TRUE)
@@ -132,7 +132,7 @@
 				var/obj/item/pda/pda = I
 				I = pda.id
 			if(I && istype(I))
-				if(access_heads in I.access)
+				if(ACCESS_CAPTAIN in I.access)
 					change_security_level(text2num(href_list["level"]))
 				else
 					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")

@@ -55,7 +55,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
-	req_access = list(access_engine_equip)
+	req_access = list(ACCESS_ENGINE_EQUIP)
 	siemens_strength = 1
 	damage_deflection = 10
 	var/area/area
@@ -130,7 +130,7 @@
 	report_power_alarm = FALSE
 
 /obj/machinery/power/apc/syndicate //general syndicate access
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
 /obj/item/apc_electronics

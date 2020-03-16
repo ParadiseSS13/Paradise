@@ -875,7 +875,7 @@
 
 /obj/machinery/computer/shuttle/admin
 	name = "admin shuttle console"
-	req_access = list(access_cent_general)
+	req_access = list(ACCESS_CENT_GENERAL)
 	shuttleId = "admin"
 	possible_destinations = "admin_home;admin_away;admin_custom"
 	resistance_flags = INDESTRUCTIBLE
@@ -900,7 +900,7 @@
 	resistance_flags = INDESTRUCTIBLE
 
 /obj/machinery/computer/shuttle/trade/sol
-	req_access = list(access_trade_sol)
+	req_access = list(ACCESS_TRADE_SOL)
 	possible_destinations = "trade_sol_base;trade_dock"
 	shuttleId = "trade_sol"
 
