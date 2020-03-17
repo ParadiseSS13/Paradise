@@ -53382,15 +53382,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bUu" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = 0;
@@ -53400,8 +53391,17 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/structure/table/tray,
+/obj/structure/surgicalcart,
 /obj/item/scalpel,
+/obj/item/FixOVein{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/cautery,
+/obj/item/bonegel{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
@@ -60650,15 +60650,6 @@
 	},
 /area/medical/surgery2)
 "cfM" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -60668,8 +60659,17 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/structure/table/tray,
+/obj/structure/surgicalcart,
 /obj/item/scalpel,
+/obj/item/FixOVein{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/cautery,
+/obj/item/bonegel{
+	pixel_x = 6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
