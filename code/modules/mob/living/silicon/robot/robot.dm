@@ -1414,14 +1414,14 @@ var/list/robot_verbs_default = list(
 	designation = "Destroyer"
 	lawupdate = 0
 	scrambledcodes = 1
-	req_one_access = list(access_cent_specops)
+	req_one_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
 	magpulse = 1
 	pdahide = 1
 	eye_protection = 2 // Immunity to flashes and the visual part of flashbangs
 	ear_protection = 1 // Immunity to the audio part of flashbangs
 	emp_protection = TRUE // Immunity to EMP, due to heavy shielding
-	damage_protection = 20 // Reduce all incoming damage by this number. High in the case of /destroyer borgs, since it replaces old energy shield mechanic.
+	damage_protection = 20 // Reduce all incoming damage by this number. Very high in the case of /destroyer borgs, since it is an admin-only borg.
 	xeno_disarm_chance = 10
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
 
