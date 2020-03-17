@@ -866,7 +866,7 @@ About the new airlock wires panel:
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
 		cable.plugin(src, user)
-	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
+	else if((istype(C, /obj/item/paper) && !istype(C, /obj/item/paper/talisman)) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
@@ -1348,7 +1348,7 @@ About the new airlock wires panel:
 		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
-		note.forceMove(get_turf(user))
+		user.put_in_hands(note)
 		note = null
 		update_icon()
 		return TRUE
