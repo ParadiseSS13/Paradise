@@ -435,9 +435,9 @@
 			S.emp_act(EMP_HEAVY)
 		else if(iscarbon(target))
 			var/mob/living/carbon/C = L
-			C.silent += 6
-			C.stuttering += 15
-			C.cultslurring += 15
+			C.Silence(6)
+			C.Stuttering(15)
+			C.CultSlur(20)
 			C.Jitter(15)
 	uses--
 	..()
@@ -504,7 +504,7 @@
 //Shackles
 /obj/item/melee/blood_magic/shackles
 	name = "Shackling Aura"
-	desc = "Will start handcuffing a victim on contact, and mute them if successful."
+	desc = "Will start handcuffing a victim on contact, and mute them for a short duration if successful."
 	invocation = "In'totum Lig'abis!"
 	color = "#000000" // black
 
@@ -527,7 +527,7 @@
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
 				C.update_handcuffed()
-				C.silent += 5
+				C.Silence(6)
 				to_chat(user, "<span class='notice'>You shackle [C].</span>")
 				add_attack_logs(user, C, "shackled")
 				uses--
