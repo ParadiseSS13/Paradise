@@ -50,7 +50,7 @@ jobs:
       before_script: skip
       script:
         - shopt -s globstar
-        - (! grep 'step_[xy]' _maps/map_files/**/*.dmm)
+        - python3 tools/travis/check_line_endings.py
         - (num=$(grep -Ern '\\(red|blue|green|black|italic|bold|b|i[^mc])' code/ | wc -l); echo "$num BYOND text macros (expecting ${BYOND_MACRO_COUNT} or fewer)"; [ $num -le ${BYOND_MACRO_COUNT} ])
         - md5sum -c - <<< "6dc1b6bf583f3bd4176b6df494caa5f1 *html/changelogs/example.yml"
         - python tools/ss13_genchangelog.py html/changelog.html html/changelogs
