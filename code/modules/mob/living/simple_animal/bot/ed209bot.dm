@@ -59,7 +59,7 @@
 		check_records = 0//Don't actively target people set to arrest
 		arrest_type = 1//Don't even try to cuff
 		declare_arrests = 0 // Don't spam sec
-		bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
+		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")
@@ -384,15 +384,15 @@
 
 	if(!lasercolor)
 		var/obj/item/gun/energy/gun/advtaser/G = new /obj/item/gun/energy/gun/advtaser(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "b")
 		var/obj/item/gun/energy/laser/tag/blue/G = new /obj/item/gun/energy/laser/tag/blue(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 	else if(lasercolor == "r")
 		var/obj/item/gun/energy/laser/tag/red/G = new /obj/item/gun/energy/laser/tag/red(Tsec)
-		G.power_supply.charge = 0
+		G.cell.charge = 0
 		G.update_icon()
 
 	if(prob(50))

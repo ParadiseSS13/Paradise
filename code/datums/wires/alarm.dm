@@ -3,11 +3,11 @@
 	holder_type = /obj/machinery/alarm
 	wire_count = 5
 
-var/const/AALARM_WIRE_IDSCAN = 1
-var/const/AALARM_WIRE_POWER = 2
-var/const/AALARM_WIRE_SYPHON = 4
-var/const/AALARM_WIRE_AI_CONTROL = 8
-var/const/AALARM_WIRE_AALARM = 16
+#define AALARM_WIRE_IDSCAN 1
+#define AALARM_WIRE_POWER 2
+#define AALARM_WIRE_SYPHON 4
+#define AALARM_WIRE_AI_CONTROL 8
+#define AALARM_WIRE_AALARM 16
 
 /datum/wires/alarm/GetWireName(index)
 	switch(index)
@@ -54,8 +54,7 @@ var/const/AALARM_WIRE_AALARM = 16
 //			to_chat(world, "Power wire cut")
 
 		if(AALARM_WIRE_AI_CONTROL)
-			if(A.aidisabled == !mended)
-				A.aidisabled = mended
+			A.aidisabled = !mended
 //				to_chat(world, "AI Control Wire Cut")
 
 		if(AALARM_WIRE_SYPHON)

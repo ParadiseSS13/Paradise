@@ -344,6 +344,8 @@
 	return SetSleeping(max(sleeping, amount), updating, no_alert)
 
 /mob/living/SetSleeping(amount, updating = 1, no_alert = FALSE)
+	if(frozen) // If the mob has been admin frozen, sleeping should not be changeable
+		return
 	. = STATUS_UPDATE_STAT
 	if((!!amount) == (!!sleeping)) // We're not changing from + to 0 or vice versa
 		updating = FALSE

@@ -2,8 +2,6 @@
 
 var/list/list_symptoms = subtypesof(/datum/symptom)
 
-var/global/const/SYMPTOM_ACTIVATION_PROB = 3
-
 /datum/symptom
 	// Buffs/Debuffs the symptom has to the overall engineered disease.
 	var/name = ""

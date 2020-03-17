@@ -584,7 +584,7 @@
 
 		return
 	if(stat != DEAD)
-		if(weakened)
+		if(IsWeakened())
 			visible_message("<span class='warning'>[src] looks to be in pain!</span>")
 			adjustBrainLoss(60)
 		else

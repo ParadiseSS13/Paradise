@@ -7,7 +7,7 @@
 	faction = list("syndicate")
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\
@@ -17,8 +17,7 @@
 
 /mob/living/silicon/robot/syndicate/New(loc)
 	..()
-	cell.maxcharge = 25000
-	cell.charge = 25000
+	cell = new /obj/item/stock_parts/cell/hyper(src)
 
 /mob/living/silicon/robot/syndicate/init()
 	laws = new /datum/ai_laws/syndicate_override

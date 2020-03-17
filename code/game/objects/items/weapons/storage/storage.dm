@@ -82,6 +82,12 @@
 			return
 	return
 
+/obj/item/storage/AltClick(mob/user)
+	if(Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
+		orient2hud(user)
+		if(user.s_active)
+			user.s_active.close(user)
+		show_to(user)
 
 /obj/item/storage/proc/return_inv()
 
@@ -459,7 +465,7 @@
 	boxes.plane = HUD_PLANE
 	closer = new /obj/screen/close(  )
 	closer.master = src
-	closer.icon_state = "x"
+	closer.icon_state = "backpack_close"
 	closer.layer = ABOVE_HUD_LAYER
 	closer.plane = ABOVE_HUD_PLANE
 	orient2hud()

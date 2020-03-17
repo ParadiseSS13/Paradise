@@ -33,6 +33,7 @@
 	name = "'Yellow' secret documents"
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\"."
 	icon_state = "docs_yellow"
+	resistance_flags = NONE
 
 /obj/item/documents/syndicate/yellow/trapped
 	desc = "\"Top Secret\" documents printed on special copy-protected paper. It details sensitive Syndicate operational intelligence. These documents are marked \"Yellow\", and have a thin film of clear material covering their surface."

@@ -26,40 +26,47 @@
 		if(istype(M))
 			to_chat(user, "<span class='warning'>His Grace [flags & NODROP ? "releases from" : "binds to"] your hand!</span>")
 			flags ^= NODROP
+	else if(!activated && loc == user)
+		if(link_user(user))
+			to_chat(user, "<span class='notice'>Call to His Grace again if you wish it bound to your hand!</span>")
 	else
 		to_chat(user, "<span class='warning'>You can't seem to understand what this does.</span>")
 
 
 /obj/item/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
-	if(loc == user)
-		if(!activated)
-			if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
-				activated = TRUE
-				user.ForceContractDisease(new /datum/disease/memetic_madness(0))
-				for(var/datum/disease/memetic_madness/DD in user.viruses)
-					DD.progenitor = src
-					servantlinks.Add(DD)
-					break
-				force += 4
-				throwforce += 4
-				SEND_SOUND(user, 'sound/goonstation/effects/screech.ogg')
-				shake_camera(user, 20, 1)
-				var/acount = 0
-				var/amax = rand(10, 15)
-				var/up_and_down
-				var/asize = 1
-				while(acount <= amax)
-					up_and_down += "<font size=[asize]>a</font>"
-					if(acount > (amax * 0.5))
-						asize--
-					else
-						asize++
-					acount++
-				to_chat(user, "<span class='warning'>[up_and_down]</span>")
-				to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
-				original_owner = user
-				return
+	if(!activated && loc == user)
+		link_user(user)
+		return
 	..()
+
+/obj/item/storage/toolbox/green/memetic/proc/link_user(mob/living/carbon/user)
+	if(ishuman(user) && !user.HasDisease(new /datum/disease/memetic_madness(0)))
+		activated = TRUE
+		user.ForceContractDisease(new /datum/disease/memetic_madness(0))
+		for(var/datum/disease/memetic_madness/DD in user.viruses)
+			DD.progenitor = src
+			servantlinks.Add(DD)
+			break
+		force += 4
+		throwforce += 4
+		SEND_SOUND(user, 'sound/goonstation/effects/screech.ogg')
+		shake_camera(user, 20, 1)
+		var/acount = 0
+		var/amax = rand(10, 15)
+		var/up_and_down
+		var/asize = 1
+		while(acount <= amax)
+			up_and_down += "<font size=[asize]>a</font>"
+			if(acount > (amax * 0.5))
+				asize--
+			else
+				asize++
+			acount++
+		to_chat(user, "<span class='warning'>[up_and_down]</span>")
+		to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
+		original_owner = user
+		return TRUE
+	return FALSE
 
 /obj/item/storage/toolbox/green/memetic/attackby(obj/item/I, mob/user)
 	if(activated)
@@ -71,7 +78,7 @@
 				return
 			if(!victim)
 				return
-			if(!victim.stat && !victim.restrained() && !victim.weakened)
+			if(!victim.stat && !victim.restrained() && !victim.IsWeakened())
 				to_chat(user, "<span class='warning'>They're moving too much to feed to His Grace!</span>")
 				return
 			user.visible_message("<span class='userdanger'>[user] is trying to feed [victim] to [src]!</span>")

@@ -16,7 +16,7 @@
 	density = 1
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_0"
-	req_access = list(access_genetics) //For premature unlocking.
+	req_access = list(ACCESS_GENETICS) //For premature unlocking.
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
@@ -126,6 +126,7 @@
 	read_only = 1
 
 /obj/item/disk/data/demo/New()
+	..()
 	initialize()
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
@@ -145,6 +146,7 @@
 	read_only = 1
 
 /obj/item/disk/data/monkey/New()
+	..()
 	initialize()
 	buf.types=DNA2_BUF_SE
 	var/list/new_SE=list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)
@@ -363,14 +365,7 @@
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(!(occupant || mess))
-		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I))
-			return
-
 	if(exchange_parts(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
 		return
 
 	if(I.GetID())
@@ -392,28 +387,41 @@
 			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
 			biomass += BIOMASS_MEAT_AMOUNT
 			qdel(I)
-	else if(iswrench(I))
-		if(occupant)
-			to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
-		else
-			if(anchored)
-				anchored = FALSE
-				connected.pods -= src
-				connected = null
-			else
-				anchored = TRUE
-			playsound(loc, I.usesound, 100, 1)
-			if(anchored)
-				user.visible_message("[user] secures [src] to the floor.", "You secure [src] to the floor.")
-			else
-				user.visible_message("[user] unsecures [src] from the floor.", "You unsecure [src] from the floor.")
-	else if(ismultitool(I))
-		var/obj/item/multitool/M = I
-		M.buffer = src
-		to_chat(user, "<span class='notice'>You load connection data from [src] to [M].</span>")
-		return
 	else
 		return ..()
+
+/obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/clonepod/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	M.set_multitool_buffer(user, src)
+
+/obj/machinery/clonepod/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]", I)
+
+/obj/machinery/clonepod/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(occupant)
+		to_chat(user, "<span class='warning'>Can not do that while [src] is in use.</span>")
+		return
+	if(anchored)
+		WRENCH_UNANCHOR_MESSAGE
+		anchored = FALSE
+		connected.pods -= src
+		connected = null
+	else
+		WRENCH_ANCHOR_MESSAGE
+		anchored = TRUE
 
 /obj/machinery/clonepod/emag_act(user)
 	if(isnull(occupant))

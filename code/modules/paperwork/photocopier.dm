@@ -167,10 +167,6 @@
 			updateUsrDialog()
 		else
 			to_chat(user, "<span class='notice'>This cartridge is not yet ready for replacement! Use up the rest of the toner.</span>")
-	else if(istype(O, /obj/item/wrench))
-		playsound(loc, O.usesound, 50, 1)
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "wrench" : "unwrench"] \the [src].</span>")
 	else if(istype(O, /obj/item/grab)) //For ass-copying.
 		var/obj/item/grab/G = O
 		if(ismob(G.affecting) && G.affecting != ass)
@@ -185,6 +181,10 @@
 	else
 		return ..()
 
+/obj/machinery/photocopier/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+	
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
 	c.info = copy.info
@@ -317,7 +317,7 @@
 	src.add_fingerprint(user)
 	if(target == user && !user.incapacitated())
 		visible_message("<span class='warning'>[usr] jumps onto [src]!</span>")
-	else if(target != user && !user.restrained() && !user.stat && !user.weakened && !user.stunned && !user.paralysis)
+	else if(target != user && !user.restrained() && !user.stat && !user.IsWeakened() && !user.stunned && !user.paralysis)
 		if(target.anchored) return
 		if(!ishuman(user)) return
 		visible_message("<span class='warning'>[usr] drags [target.name] onto [src]!</span>")

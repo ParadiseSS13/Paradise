@@ -126,29 +126,31 @@
 			src.holding = T
 			update_icon()
 		return
-	else if(istype(W, /obj/item/wrench))
-		if(connected_port)
-			disconnect()
-			to_chat(user, "<span class='notice'>You disconnect [name] from the port.</span>")
-			update_icon()
-			return
-		else
-			var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
-			if(possible_port)
-				if(connect(possible_port))
-					to_chat(user, "<span class='notice'>You connect [name] to the port.</span>")
-					update_icon()
-					return
-				else
-					to_chat(user, "<span class='notice'>[name] failed to connect to the port.</span>")
-					return
-			else
-				to_chat(user, "<span class='notice'>Nothing happens.</span>")
-		return
 	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
 		atmosanalyzer_scan(air_contents, user)
 		return
 	return ..()
+
+/obj/machinery/portable_atmospherics/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(connected_port)
+		disconnect()
+		to_chat(user, "<span class='notice'>You disconnect [name] from the port.</span>")
+		update_icon()
+	else
+		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
+		if(possible_port)
+			if(connect(possible_port))
+				to_chat(user, "<span class='notice'>You connect [src] to the port.</span>")
+				update_icon()
+				return
+			else
+				to_chat(user, "<span class='notice'>[src] failed to connect to the port.</span>")
+				return
+		else
+			to_chat(user, "<span class='notice'>Nothing happens.</span>")
 
 /obj/machinery/portable_atmospherics/attacked_by(obj/item/I, mob/user)
 	if(I.force < 10 && !(stat & BROKEN))

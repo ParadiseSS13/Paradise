@@ -75,13 +75,14 @@
 	return 0
 
 /datum/martial_art/krav_maga/proc/leg_sweep(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(D.stat || D.weakened)
+	if(D.stat || D.IsWeakened())
 		return 0
 	D.visible_message("<span class='warning'>[A] leg sweeps [D]!</span>", \
 					  	"<span class='userdanger'>[A] leg sweeps you!</span>")
 	playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
 	D.apply_damage(5, BRUTE)
 	D.Weaken(2)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Leg Sweep", ATKLOG_ALL)
 	return 1
 
 /datum/martial_art/krav_maga/proc/quick_choke(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)//is actually lung punch
@@ -90,6 +91,7 @@
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.AdjustLoseBreath(5)
 	D.adjustOxyLoss(10)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Lung Punch", ATKLOG_ALL)
 	return 1
 
 /datum/martial_art/krav_maga/proc/neck_chop(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -98,6 +100,7 @@
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	D.apply_damage(5, BRUTE)
 	D.AdjustSilence(10)
+	add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Neck Chop", ATKLOG_ALL)
 	return 1
 
 datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
@@ -111,7 +114,7 @@ datum/martial_art/krav_maga/grab_act(var/mob/living/carbon/human/A, var/mob/livi
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	var/picked_hit_type = pick("punches", "kicks")
 	var/bonus_damage = 10
-	if(D.weakened || D.resting || D.lying)
+	if(D.IsWeakened() || D.resting || D.lying)
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
 	D.apply_damage(bonus_damage, BRUTE)

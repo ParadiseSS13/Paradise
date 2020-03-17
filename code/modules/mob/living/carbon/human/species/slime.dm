@@ -72,6 +72,7 @@
 	grow.Grant(H)
 	recolor = new()
 	recolor.Grant(H)
+	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -79,6 +80,7 @@
 		grow.Remove(H)
 	if(recolor)
 		recolor.Remove(H)
+	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents

@@ -39,8 +39,8 @@
 /obj/item/gun/energy/gun/mini/New()
 	gun_light = new /obj/item/flashlight/seclite(src)
 	..()
-	power_supply.maxcharge = 600
-	power_supply.charge = 600
+	cell.maxcharge = 600
+	cell.charge = 600
 
 /obj/item/gun/energy/gun/mini/update_icon()
 	..()

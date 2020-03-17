@@ -35,11 +35,12 @@
 	return 0
 
 /datum/martial_art/the_sleeping_carp/proc/wristWrench(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.stunned && !D.weakened)
+	if(!D.stat && !D.stunned && !D.IsWeakened())
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.visible_message("<span class='warning'>[A] grabs [D]'s wrist and wrenches it sideways!</span>", \
 						  "<span class='userdanger'>[A] grabs your wrist and violently wrenches it to the side!</span>")
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Wrist Wrench", ATKLOG_ALL)
 		if(prob(60))
 			A.say(pick("WRISTY TWIRLY!", "WE FIGHT LIKE MEN!", "YOU DISHONOR YOURSELF!", "POHYAH!", "WHERE IS YOUR BATON NOW?", "SAY UNCLE!"))
 		D.emote("scream")
@@ -50,20 +51,21 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/backKick(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(A.dir == D.dir && !D.stat && !D.weakened)
+	if(A.dir == D.dir && !D.stat && !D.IsWeakened())
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.visible_message("<span class='warning'>[A] kicks [D] in the back!</span>", \
 						  "<span class='userdanger'>[A] kicks you in the back, making you stumble and fall!</span>")
 		step_to(D,get_step(D,D.dir),1)
 		D.Weaken(4)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Back Kick", ATKLOG_ALL)
 		if(prob(80))
 			A.say(pick("SURRPRIZU!","BACK STRIKE!","WOPAH!", "WATAAH", "ZOTA!", "Never turn your back to the enemy!"))
 		return 1
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/kneeStomach(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.weakened)
+	if(!D.stat && !D.IsWeakened())
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.visible_message("<span class='warning'>[A] knees [D] in the stomach!</span>", \
 						  "<span class='userdanger'>[A] winds you with a knee in the stomach!</span>")
@@ -71,19 +73,21 @@
 		D.AdjustLoseBreath(3)
 		D.Stun(2)
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Stomach Knee", ATKLOG_ALL)
 		if(prob(80))
 			A.say(pick("HWOP!", "KUH!", "YAKUUH!", "KYUH!", "KNEESTRIKE!"))
 		return 1
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/headKick(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(!D.stat && !D.weakened)
+	if(!D.stat && !D.IsWeakened())
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.visible_message("<span class='warning'>[A] kicks [D] in the head!</span>", \
 						  "<span class='userdanger'>[A] kicks you in the jaw!</span>")
 		D.apply_damage(20, BRUTE, "head")
 		D.drop_item()
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 50, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Head Kick", ATKLOG_ALL)
 		if(prob(60))
 			A.say(pick("OOHYOO!", "OOPYAH!", "HYOOAA!", "WOOAAA!", "SHURYUKICK!", "HIYAH!"))
 		D.Stun(4)
@@ -91,7 +95,7 @@
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/elbowDrop(var/mob/living/carbon/human/A, var/mob/living/carbon/human/D)
-	if(D.weakened || D.resting || D.stat)
+	if(D.IsWeakened() || D.resting || D.stat)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.visible_message("<span class='warning'>[A] elbow drops [D]!</span>", \
 						  "<span class='userdanger'>[A] piledrives you with [A.p_their()] elbow!</span>")
@@ -99,6 +103,7 @@
 			D.death() //FINISH HIM!
 		D.apply_damage(50, BRUTE, "chest")
 		playsound(get_turf(D), 'sound/weapons/punch1.ogg', 75, 1, -1)
+		add_attack_logs(A, D, "Melee attacked with martial-art [src] :  Elbow Drop", ATKLOG_ALL)
 		if(prob(80))
 			A.say(pick("BANZAIII!", "KIYAAAA!", "OMAE WA MOU SHINDEIRU!", "YOU CAN'T SEE ME!", "MY TIME IS NOW!", "COWABUNGA"))
 		return 1

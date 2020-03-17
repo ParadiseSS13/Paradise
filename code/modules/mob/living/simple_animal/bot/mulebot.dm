@@ -59,12 +59,11 @@
 	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
 	access_card.access = J.get_access()
 	prev_access = access_card.access
-	cell = new(src)
-	cell.charge = 2000
-	cell.maxcharge = 2000
+	cell = new /obj/item/stock_parts/cell/upgraded(src)
 
 	mulebot_count++
 	set_suffix(suffix ? suffix : "#[mulebot_count]")
+	RegisterSignal(src, COMSIG_CROSSED_MOVABLE, .proc/human_squish_check)
 
 /mob/living/simple_animal/bot/mulebot/Destroy()
 	unload(0)
@@ -868,9 +867,14 @@
 	else
 		..()
 
+/mob/living/simple_animal/bot/mulebot/proc/human_squish_check(src, atom/movable/AM)
+	if(!ishuman(AM))
+		return
+	RunOver(AM)
+
 #undef SIGH
 #undef ANNOYED
 #undef DELIGHT
 
 /obj/machinery/bot_core/mulebot
-	req_access = list(access_cargo)
+	req_access = list(ACCESS_CARGO)

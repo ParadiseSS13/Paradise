@@ -194,25 +194,18 @@ var/global/list/breach_burn_descriptors = list(
 			repair_breaches(BURN, ( istype(P,/obj/item/stack/sheet/plastic) ? 3 : 5), user)
 		return
 
-	else if(istype(W, /obj/item/weldingtool))
 
-		if(istype(src.loc,/mob/living))
-			to_chat(user, "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>")
-			return
-
-		if(!damage || ! brute_damage)
-			to_chat(user, "There is no structural damage on \the [src] to repair.")
-			return
-
-		var/obj/item/weldingtool/WT = W
-		if(!WT.remove_fuel(5))
-			to_chat(user, "<span class='warning'>You need more welding fuel to repair this suit.</span>")
-			return
-
-		repair_breaches(BRUTE, 3, user)
+/obj/item/clothing/suit/space/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(istype(src.loc,/mob/living))
+		to_chat(user, "<span class='warning'>How do you intend to patch a hardsuit while someone is wearing it?</span>")
 		return
-
-	..()
+	if(!damage || ! brute_damage)
+		to_chat(user, "There is no structural damage on \the [src] to repair.")
+		return
+	if(!I.use_tool(src, user, amount = 5, volume = I.tool_volume))
+		return
+	repair_breaches(BRUTE, 3, user)
 
 /obj/item/clothing/suit/space/examine(mob/user)
 	. = ..()

@@ -181,7 +181,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	armor = list(melee = 30, bullet = 20, laser = 20, energy = 20, bomb = 20, bio = 20, rad = 20, fire = 100, acid = 100)
-	actions_types = null //No inbuilt light
+	actions_types = list() //No inbuilt light
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 

@@ -115,6 +115,10 @@
 	var/scream_verb = "screams"
 	var/male_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
 	var/female_scream_sound = 'sound/goonstation/voice/female_scream.ogg'
+	var/list/death_sounds = list('sound/goonstation/voice/deathgasp_1.ogg', 'sound/goonstation/voice/deathgasp_2.ogg')
+	var/list/male_dying_gasp_sounds = list('sound/goonstation/voice/male_dying_gasp_1.ogg', 'sound/goonstation/voice/male_dying_gasp_2.ogg', 'sound/goonstation/voice/male_dying_gasp_3.ogg', 'sound/goonstation/voice/male_dying_gasp_4.ogg', 'sound/goonstation/voice/male_dying_gasp_5.ogg')
+	var/list/female_dying_gasp_sounds = list('sound/goonstation/voice/female_dying_gasp_1.ogg', 'sound/goonstation/voice/female_dying_gasp_2.ogg', 'sound/goonstation/voice/female_dying_gasp_3.ogg', 'sound/goonstation/voice/female_dying_gasp_4.ogg', 'sound/goonstation/voice/female_dying_gasp_5.ogg')
+	var/gasp_sound = 'sound/goonstation/voice/gasp.ogg'
 	var/male_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
 	var/female_cough_sounds = list('sound/effects/mob_effects/f_cougha.ogg','sound/effects/mob_effects/f_coughb.ogg')
 	var/male_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg'
@@ -246,7 +250,7 @@
 		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
 			. += H.r_hand.slowdown
 
-		var/health_deficiency = (H.maxHealth - H.health + H.staminaloss)
+		var/health_deficiency = max(H.maxHealth - H.health, H.staminaloss)
 		var/hungry = (500 - H.nutrition)/5 // So overeat would be 100 and default level would be 80
 		if(H.reagents)
 			for(var/datum/reagent/R in H.reagents.reagent_list)
@@ -751,7 +755,7 @@
 	return FALSE //Unsupported slot
 
 /datum/species/proc/get_perceived_trauma(mob/living/carbon/human/H)
-	return H.health - H.getStaminaLoss()
+	return min(H.health, H.maxHealth - H.getStaminaLoss())
 
 /datum/species/proc/handle_hud_icons(mob/living/carbon/human/H)
 	if(!H.client)
@@ -950,7 +954,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	H.sync_lighting_plane_alpha()
 
-/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = TOUCH)
+/datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
 		M.bodytemperature = (temperature + M.bodytemperature) * 0.5 // Approximation for gradual heating or cooling.
 

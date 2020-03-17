@@ -110,6 +110,9 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
+		if(NO_DNA in H.dna.species.species_traits)
+			to_chat(user, "<span class='notice'>This humanoid doesn't have DNA.</span>")
+			return
 		if(dna[H.dna.uni_identity])
 			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.</span>")
 			return

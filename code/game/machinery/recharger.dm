@@ -29,16 +29,6 @@
 		recharge_coeff = C.rating
 
 /obj/machinery/recharger/attackby(obj/item/G, mob/user, params)
-	if(iswrench(G))
-		if(charging)
-			to_chat(user, "<span class='notice'>Remove the charging item first!</span>")
-			return
-		anchored = !anchored
-		power_change()
-		to_chat(user, "<span class='notice'>You [anchored ? "attached" : "detached"] [src].</span>")
-		playsound(loc, G.usesound, 75, 1)
-		return
-
 	var/allowed = is_type_in_list(G, allowed_devices)
 
 	if(allowed)
@@ -67,16 +57,29 @@
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
-		
-	if(anchored && !charging)
-		if(default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", G))
-			return
-
-		if(panel_open && istype(G, /obj/item/crowbar))
-			default_deconstruction_crowbar(G)
-			return
-
 	return ..()
+
+
+/obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
+	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/recharger/screwdriver_act(mob/user, obj/item/I)
+	if(anchored && !charging && default_deconstruction_screwdriver(user, "rechargeropen", "recharger0", I))
+		return TRUE
+
+/obj/machinery/recharger/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(charging)
+		to_chat(user, "<span class='warning'>Remove the charging item first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/recharger/attack_hand(mob/user)
 	if(issilicon(user))
@@ -107,8 +110,8 @@
 	if(charging)
 		if(istype(charging, /obj/item/gun/energy))
 			var/obj/item/gun/energy/E = charging
-			if(E.power_supply.charge < E.power_supply.maxcharge)
-				E.power_supply.give(E.power_supply.chargerate * recharge_coeff)
+			if(E.cell.charge < E.cell.maxcharge)
+				E.cell.give(E.cell.chargerate * recharge_coeff)
 				E.on_recharge()
 				use_power(250)
 				using_power = TRUE
@@ -116,8 +119,8 @@
 
 		if(istype(charging, /obj/item/melee/baton))
 			var/obj/item/melee/baton/B = charging
-			if(B.bcell)
-				if(B.bcell.give(B.bcell.chargerate))
+			if(B.cell)
+				if(B.cell.give(B.cell.chargerate))
 					use_power(200)
 					using_power = TRUE
 
@@ -141,8 +144,8 @@
 
 		if(istype(charging, /obj/item/bodyanalyzer))
 			var/obj/item/bodyanalyzer/B = charging
-			if(B.power_supply)
-				if(B.power_supply.give(B.power_supply.chargerate))
+			if(B.cell)
+				if(B.cell.give(B.cell.chargerate))
 					use_power(200)
 					using_power = TRUE
 
@@ -155,13 +158,13 @@
 
 	if(istype(charging,  /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = charging
-		if(E.power_supply)
-			E.power_supply.emp_act(severity)
+		if(E.cell)
+			E.cell.emp_act(severity)
 
 	else if(istype(charging, /obj/item/melee/baton))
 		var/obj/item/melee/baton/B = charging
-		if(B.bcell)
-			B.bcell.charge = 0
+		if(B.cell)
+			B.cell.charge = 0
 	..(severity)
 
 /obj/machinery/recharger/update_icon(using_power = FALSE)	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.
