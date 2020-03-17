@@ -94,7 +94,7 @@
 
 /datum/deepfryer_special/proc/validate(obj/item/I)
 	return istype(I, input)
-	
+
 /datum/deepfryer_special/shrimp
 	input = /obj/item/reagent_containers/food/snacks/shrimp
 	output = /obj/item/reagent_containers/food/snacks/fried_shrimp
