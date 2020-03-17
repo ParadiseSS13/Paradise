@@ -37,7 +37,7 @@
 	playsound(src, yelp_sound, 75, TRUE)
 
 /mob/living/simple_animal/pet/dog/emote(act, m_type = 1, message = null, force)
-	if(!incapacitated())
+	if(incapacitated())
 		return
 
 	var/on_CD = 0

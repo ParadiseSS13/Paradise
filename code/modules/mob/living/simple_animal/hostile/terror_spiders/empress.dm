@@ -5,7 +5,7 @@
 // -------------: AI: none - this is strictly adminspawn-only and intended for RP events, coder testing, and teaching people 'how to queen'
 // -------------: SPECIAL: Lay Eggs ability that allows laying queen-level eggs.
 // -------------: TO FIGHT IT: run away screaming?
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/empress
 	name = "Empress of Terror"

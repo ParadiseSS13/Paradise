@@ -85,8 +85,8 @@
 	can_synth = FALSE
 	taste_description = "slime"
 
-/datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method != TOUCH)
+/datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method != REAGENT_TOUCH)
 		M.ForceContractDisease(new /datum/disease/transformation/slime(0))
 
 
@@ -165,12 +165,12 @@
 	taste_mult = 0.9
 	taste_description = "slime"
 
-/datum/reagent/mutagen/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/mutagen/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(!..())
 		return
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	if((method==TOUCH && prob(33)) || method==INGEST)
+	if((method==REAGENT_TOUCH && prob(33)) || method==REAGENT_INGEST)
 		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
@@ -232,7 +232,7 @@
 	can_synth = FALSE
 	taste_description = "CAAAARL"
 
-/datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H, method = TOUCH, volume)
+/datum/reagent/romerol/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(!istype(H))
 		return
 	// Silently add the zombie infection organ to be activated upon death
@@ -297,10 +297,10 @@
 	update_flags |= M.adjustFireLoss(1, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/acid/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/acid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(ishuman(M) && !isgrey(M))
 		var/mob/living/carbon/human/H = M
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			if(volume > 25)
 				if(H.wear_mask)
 					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
@@ -350,10 +350,10 @@
 	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/acid/facid/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			if(volume > 9)
 				if(!H.wear_mask && !H.head)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -382,6 +382,36 @@
 			H.emote("scream")
 			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
 		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+
+/datum/reagent/acetic_acid
+	name = "acetic acid"
+	id = "acetic_acid"
+	description = "A weak acid that is the main component of vinegar and bad hangovers."
+	color = "#0080ff"
+	reagent_state = LIQUID
+	taste_description = "vinegar"
+
+/datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(method == REAGENT_TOUCH)
+			if(H.wear_mask || H.head)
+				return
+			if(volume >= 50 && prob(75))
+				var/obj/item/organ/external/affecting = H.get_organ("head")
+				if(affecting)
+					affecting.disfigure()
+				H.adjustBruteLoss(5)
+				H.adjustFireLoss(15)
+				H.emote("scream")
+			else
+				H.adjustBruteLoss(min(5, volume * 0.25))
+		else
+			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			if(volume >= 25)
+				H.adjustBruteLoss(2)
+				H.emote("scream")
+
 
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"
@@ -419,7 +449,7 @@
 	color = "#9ACD32"
 	taste_description = "bitterness"
 
-/datum/reagent/spores/on_mob_life(mob/living/M)
+/datum/reagent/spore/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.adjustToxLoss(1, FALSE)
 	M.damageoverlaytemp = 60
@@ -473,9 +503,9 @@
 	overdose_threshold = 40
 	taste_mult = 0
 
-/datum/reagent/histamine/reaction_mob(mob/living/M, method=TOUCH, volume) //dumping histamine on someone is VERY mean.
+/datum/reagent/histamine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			M.reagents.add_reagent("histamine",10)
 		else
 			to_chat(M, "<span class='danger'>You feel a burning sensation in your throat...</span>")
@@ -546,7 +576,7 @@
 	id = "formaldehyde"
 	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
-	color = "#DED6D0"
+	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "bitterness"
 
@@ -555,6 +585,20 @@
 	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(10))
 		M.reagents.add_reagent("histamine",rand(5,15))
+	return ..() | update_flags
+
+/datum/reagent/acetaldehyde
+	name = "Acetaldehyde"
+	id = "acetaldehyde"
+	description = "Acetaldehyde is a common industrial chemical. It is a severe irritant."
+	reagent_state = LIQUID
+	color = "#B44B00"
+	penetrates_skin = TRUE
+	taste_description = "apples"
+
+/datum/reagent/acetaldehyde/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/venom
@@ -924,23 +968,6 @@
 				M.AdjustLoseBreath(1)
 	return ..() | update_flags
 
-/datum/reagent/heparin //Based on a real-life anticoagulant.
-	name = "Heparin"
-	id = "heparin"
-	description = "A powerful anticoagulant. Victims will bleed uncontrollably and suffer scaling bruising."
-	reagent_state = LIQUID
-	color = "#C8C8C8" //RGB: 200, 200, 200
-	metabolization_rate = 0.2 * REAGENTS_METABOLISM
-	taste_mult = 0
-
-/datum/reagent/heparin/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		H.bleed_rate = min(H.bleed_rate + 2, 8)
-		update_flags |= H.adjustBruteLoss(1, FALSE)
-	return ..() | update_flags
-
 /datum/reagent/sarin
 	name = "Sarin"
 	id = "sarin"
@@ -1030,7 +1057,7 @@
 		var/obj/structure/spacevine/SV = O
 		SV.on_chem_effect(src)
 
-/datum/reagent/glyphosate/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/glyphosate/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
@@ -1071,7 +1098,7 @@
 		O.visible_message("<span class='warning'>The ants die.</span>")
 		qdel(O)
 
-/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/pestkiller/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(!C.wear_mask) // If not wearing a mask
@@ -1161,12 +1188,12 @@
 	color = "#00FD00"
 	taste_description = "slime"
 
-/datum/reagent/glowing_slurry/reaction_mob(mob/living/M, method=TOUCH, volume) //same as mutagen
+/datum/reagent/glowing_slurry/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //same as mutagen
 	if(!..())
 		return
 	if(!M.dna)
 		return //No robots, AIs, aliens, Ians or other mobs should be affected by this.
-	if((method==TOUCH && prob(50)) || method==INGEST)
+	if((method==REAGENT_TOUCH && prob(50)) || method==REAGENT_INGEST)
 		randmutb(M)
 		domutcheck(M, null)
 		M.UpdateAppearance()
@@ -1201,9 +1228,9 @@
 	update_flags |= M.adjustBruteLoss(2, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/ants/reaction_mob(mob/living/M, method=TOUCH, volume) //NOT THE ANTS
+/datum/reagent/ants/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //NOT THE ANTS
 	if(iscarbon(M))
-		if(method == TOUCH || method==INGEST)
+		if(method == REAGENT_TOUCH || method==REAGENT_INGEST)
 			to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
 			M.emote("scream")
 			M.adjustBruteLoss(4)
@@ -1235,5 +1262,5 @@
 	color = "#5EFF3B" //RGB: 94, 255, 59
 	taste_description = "decay"
 
-/datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=TOUCH, reac_volume)
+/datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)
 	L.ForceContractDisease(new /datum/disease/transformation/morph())

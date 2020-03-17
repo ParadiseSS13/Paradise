@@ -10,7 +10,7 @@
 	icon_screen = "medlaptop"
 	density = 0
 	light_color = LIGHT_COLOR_GREEN
-	req_one_access = list(access_heads)
+	req_one_access = list(ACCESS_HEADS)
 	circuit = /obj/item/circuitboard/skills
 	var/obj/item/card/id/scan = null
 	var/authenticated = null

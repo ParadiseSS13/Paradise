@@ -8,7 +8,7 @@
     active_power_usage = 500
     circuit = /obj/item/circuitboard/brigcells
     light_color = LIGHT_COLOR_DARKRED
-    req_access = list(access_brig)
+    req_access = list(ACCESS_BRIG)
 
 /obj/machinery/computer/brigcells/attack_ai(mob/user)
     attack_hand(user)

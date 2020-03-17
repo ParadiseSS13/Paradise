@@ -167,7 +167,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 80
 	category = CAT_MISC
 
@@ -177,7 +177,7 @@
 	reqs = list(/obj/item/stack/sheet/wood = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 80
 	category = CAT_MISC
 
@@ -187,6 +187,6 @@
 	reqs = list(/obj/item/stack/sheet/metal = 5,
 				/obj/item/stack/cable_coil = 6,
 				/obj/item/stack/tape_roll = 5)
-	tools = list(/obj/item/screwdriver, /obj/item/wirecutters)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 80
 	category = CAT_MISC

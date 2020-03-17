@@ -186,6 +186,12 @@
 	default_cartridge = /obj/item/cartridge/centcom
 	icon_state = "pda-h"
 
+/obj/item/pda/centcom/New()
+	..()
+	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
+	if(M)
+		M.m_hidden = 1
+		
 //Some spare PDAs in a box
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"
@@ -194,16 +200,16 @@
 	icon_state = "pdabox"
 
 /obj/item/storage/box/PDAs/New()
-		..()
-		new /obj/item/pda(src)
-		new /obj/item/pda(src)
-		new /obj/item/pda(src)
-		new /obj/item/pda(src)
-		new /obj/item/cartridge/head(src)
+	..()
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/cartridge/head(src)
 
-		var/newcart = pick(	/obj/item/cartridge/engineering,
-							/obj/item/cartridge/security,
-							/obj/item/cartridge/medical,
-							/obj/item/cartridge/signal/toxins,
-							/obj/item/cartridge/quartermaster)
-		new newcart(src)
+	var/newcart = pick(	/obj/item/cartridge/engineering,
+						/obj/item/cartridge/security,
+						/obj/item/cartridge/medical,
+						/obj/item/cartridge/signal/toxins,
+						/obj/item/cartridge/quartermaster)
+	new newcart(src)

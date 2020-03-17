@@ -243,6 +243,14 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
+	
+/obj/item/reagent_containers/food/snacks/fried_vox
+	name = "Kentucky Fried Vox"
+	desc = "Bucket of voxxy, yaya!"
+	icon_state = "fried_vox"
+	trash = /obj/item/trash/fried_vox
+	list_reagents = list("nutriment" = 3, "protein" = 5)
+	tastes = list("quills" = 1, "the shoal" = 1)
 
 //////////////////////
 //		Cubes		//
@@ -259,7 +267,7 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("the jungle" = 1, "bananas" = 1)
 
-/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = TOUCH)
+/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume >= 1)
 		return Expand()
@@ -286,7 +294,7 @@
 		if(faction)
 			creature.faction = faction
 		if(LAZYLEN(fingerprintshidden))
-			creature.fingerprintshidden = fingerprintshidden.Copy()
+			creature.fingerprintshidden = fingerprintshidden
 		creature.set_species(monkey_type)
 		SSmobs.cubemonkeys += creature
 		qdel(src)
@@ -329,7 +337,7 @@
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/egg_smudge(T)
 	if(reagents)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/W, mob/user, params)

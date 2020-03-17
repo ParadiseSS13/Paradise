@@ -100,8 +100,10 @@ var/global/nologevent = 0
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;appearanceban=[M.UID()];dbbanaddckey=[M.ckey]'>Appearance Ban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
+		if(config.forum_playerinfo_url)
+			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)
-		if(M.client.check_watchlist(M.client.ckey))
+		if(check_watchlist(M.client.ckey))
 			body += "<A href='?_src_=holder;watchremove=[M.ckey]'>Remove from Watchlist</A> | "
 			body += "<A href='?_src_=holder;watchedit=[M.ckey]'>Edit Watchlist Reason</A> "
 		else

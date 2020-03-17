@@ -38,6 +38,7 @@
 	item_state = "balloon-empty"
 
 /obj/item/toy/balloon/New()
+	..()
 	create_reagents(10)
 
 /obj/item/toy/balloon/attack(mob/living/carbon/human/M as mob, mob/user as mob)
@@ -799,6 +800,7 @@ obj/item/toy/cards/deck/syndicate/black
 	resistance_flags = FLAMMABLE
 
 /obj/item/toy/therapy/New()
+	..()
 	if(item_color)
 		name = "[item_color] therapy doll"
 		desc += " This one is [item_color]."
@@ -1068,6 +1070,22 @@ obj/item/toy/cards/deck/syndicate/black
 /obj/item/toy/plushie/tuxedo_cat
 	name = "tuxedo cat plushie"
 	icon_state = "tuxedocat"
+
+/obj/item/toy/plushie/voxplushie
+	name = "vox plushie"
+	desc = "A stitched-together vox, fresh from the skipjack. Press its belly to hear it skree!"
+	icon_state = "plushie_vox"
+	item_state = "plushie_vox"
+	var/cooldown = 0
+
+/obj/item/toy/plushie/voxplushie/attack_self(mob/user)
+	if(!cooldown)
+		playsound(user, 'sound/voice/shriek1.ogg', 10, 0)
+		visible_message("<span class='danger'>Skreee!</span>")
+		cooldown = 1
+		spawn(30) cooldown = 0
+		return
+	..()
 
 //New generation TG plushies
 

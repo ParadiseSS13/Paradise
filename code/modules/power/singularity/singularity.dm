@@ -110,8 +110,12 @@
 
 
 /obj/singularity/process()
-	if(current_size >= STAGE_TWO)
+	if(allowed_size >= STAGE_TWO)
+		// Start moving even before we reach "true" stage two.
+		// If we are stage one and are sufficiently energetic to be allowed to 2,
+		//  it might mean we are stuck in a corner somewere. So move around to try to expand. 
 		move()
+	if(current_size >= STAGE_TWO)
 		pulse()
 		if(prob(event_chance))//Chance for it to run a special event TODO:Come up with one or two more that fit
 			event()
