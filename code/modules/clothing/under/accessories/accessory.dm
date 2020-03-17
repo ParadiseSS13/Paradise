@@ -241,7 +241,7 @@
 	icon_state = "bronze_service"
 
 /obj/item/clothing/accessory/medal/cargo
-	name = "great cargo medal"
+	name = "commendable cargo medal"
 	desc = "An award issued by the HoP to cargo staff for excelling in supplying the station."
 	icon_state = "bronze_cargo"
 
