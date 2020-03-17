@@ -118,7 +118,7 @@
 			src.flipped = 1
 
 		var/obj/machinery/atmospherics/binary/circulator/circP = make_from
-		if(istype(circP) && circP.side == circP.CIRC_RIGHT)
+		if(istype(circP) && circP.side == CIRC_RIGHT)
 			src.flipped = 1
 
 	else
@@ -157,7 +157,7 @@
 	if(istype(triP) && triP.flipped)
 		icon_state = "m_[icon_state]"
 	var/obj/machinery/atmospherics/binary/circulator/circP = make_from
-	if(istype(circP) && circP.side == circP.CIRC_RIGHT)
+	if(istype(circP) && circP.side == CIRC_RIGHT)
 		icon_state = "m_[icon_state]"
 	if(istype(make_from, /obj/machinery/atmospherics/pipe/simple/heat_exchanging))
 		resistance_flags |= FIRE_PROOF | LAVA_PROOF
@@ -436,7 +436,7 @@
 		if(PIPE_CIRCULATOR) //circulator
 			var/obj/machinery/atmospherics/binary/circulator/C = new(src.loc)
 			if(flipped)
-				C.side = C.CIRC_RIGHT
+				C.side = CIRC_RIGHT
 			if(pipename)
 				C.name = pipename
 			C.on_construction(C.dir, C.initialize_directions, color)

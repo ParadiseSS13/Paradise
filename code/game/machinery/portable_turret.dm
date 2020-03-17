@@ -79,7 +79,7 @@
 	health = 200
 	enabled = 1
 	lethal = 1
-	req_access = list(access_cent_commander)
+	req_access = list(ACCESS_CENT_COMMANDER)
 	installation = /obj/item/gun/energy/pulse/turret
 
 /obj/machinery/porta_turret/stationary
@@ -91,7 +91,7 @@
 	..()
 	if(req_access && req_access.len)
 		req_access.Cut()
-	req_one_access = list(access_security, access_heads)
+	req_one_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 	one_access = 1
 
 	//Sets up a spark system
@@ -109,7 +109,7 @@
 	..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
-	req_access = list(access_cent_specops)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
@@ -1019,7 +1019,7 @@ var/list/turret_icons
 	..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	one_access = 0
 
 /obj/machinery/porta_turret/syndicate/update_icon()

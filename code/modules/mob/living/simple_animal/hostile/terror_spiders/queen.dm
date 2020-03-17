@@ -335,8 +335,8 @@
 	damage_type = TOX
 	var/bonus_tox = 30
 
-/obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target)
-	if(ismob(target))
+/obj/item/projectile/terrorqueenspit/on_hit(mob/living/carbon/target, blocked = 0, hit_zone)
+	if(ismob(target) && blocked < 100)
 		var/mob/living/L = target
 		if(L.reagents)
 			if(L.can_inject(null, FALSE, "chest", FALSE))

@@ -291,7 +291,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), name)
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 
 /datum/outfit/admin/pirate/first_mate
 	name = "Space Pirate First Mate"
@@ -375,7 +375,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_clown, access_theatre, access_maint_tunnels), "Tunnel Clown")
+		apply_to_card(I, H, list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Tunnel Clown")
 
 /datum/outfit/admin/mime_assassin
 	name = "Mime Assassin"
@@ -424,7 +424,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_mime, access_theatre, access_maint_tunnels), "Mime")
+		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Mime")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/greytide
@@ -450,7 +450,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Greytide")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide")
 
 /datum/outfit/admin/greytide/leader
 	name = "Greytide Leader"
@@ -471,7 +471,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Greytide Leader")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide Leader")
 
 /datum/outfit/admin/greytide/xeno
 	name = "Greytide Xeno"
@@ -499,7 +499,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Legit Xenomorph")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Legit Xenomorph")
 
 
 
@@ -534,7 +534,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Bard")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Bard")
 
 	var/obj/item/clothing/ears/headphones/P = r_ear
 	if(istype(P))
@@ -555,7 +555,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), name)
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
@@ -719,7 +719,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_trade_sol, access_maint_tunnels, access_external_airlocks), name)
+		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
@@ -907,7 +907,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Survivor")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Survivor")
 
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
@@ -942,7 +942,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Masked Killer", "syndie")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Masked Killer", "syndie")
 
 /datum/outfit/admin/singuloth_knight
 	name = "Singuloth Knight"
