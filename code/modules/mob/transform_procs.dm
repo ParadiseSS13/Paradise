@@ -298,4 +298,7 @@
 	if(ispath(MP, /mob/living/simple_animal/diona) && !jobban_isbanned(src, ROLE_NYMPH))
 		return 1
 
+	if(ispath(MP, /mob/living/simple_animal/friendly/owl))
+		return 1
+
 	return 0
