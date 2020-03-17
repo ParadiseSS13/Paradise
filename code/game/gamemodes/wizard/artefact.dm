@@ -99,7 +99,7 @@
 				new_objective:target = H:mind
 				new_objective.explanation_text = "Protect [H.real_name], the wizard."
 				M.mind.objectives += new_objective
-				SSticker.mode.traitors += M.mind
+				SSticker.mode.apprentices += M.mind
 				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				SSticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
