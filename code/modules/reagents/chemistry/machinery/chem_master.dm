@@ -77,30 +77,12 @@
 	update_icon()
 
 /obj/machinery/chem_master/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
-		if(beaker)
-			beaker.forceMove(get_turf(src))
-			beaker = null
-			reagents.clear_reagents()
-		if(loaded_pill_bottle)
-			loaded_pill_bottle.forceMove(get_turf(src))
-			loaded_pill_bottle = null
-		return
-
 	if(exchange_parts(user, I))
 		return
 
 	if(panel_open)
-		if(iscrowbar(I))
-			default_deconstruction_crowbar(I)
-			return TRUE
-		else
-			to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
-			return TRUE
-
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
+		to_chat(user, "<span class='warning'>You can't use the [name] while it's panel is opened!</span>")
+		return TRUE
 
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
@@ -130,6 +112,35 @@
 		SSnanoui.update_uis(src)
 	else
 		return ..()
+
+
+
+
+
+/obj/machinery/chem_master/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		return TRUE
+
+/obj/machinery/chem_master/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(default_deconstruction_screwdriver(user, "mixer0_nopower", "mixer0", I))
+		if(beaker)
+			beaker.forceMove(get_turf(src))
+			beaker = null
+			reagents.clear_reagents()
+		if(loaded_pill_bottle)
+			loaded_pill_bottle.forceMove(get_turf(src))
+			loaded_pill_bottle = null
+		return TRUE
+
+/obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
+	if(panel_open)
+		return
+	if(default_unfasten_wrench(user, I))
+		power_change()
+		return TRUE
 
 /obj/machinery/chem_master/Topic(href, href_list)
 	if(..())

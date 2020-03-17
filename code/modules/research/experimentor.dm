@@ -125,7 +125,7 @@
 		return
 
 	if(panel_open && istype(O, /obj/item/crowbar))
-		default_deconstruction_crowbar(O)
+		default_deconstruction_crowbar(user, O)
 		return
 
 	if(!checkCircumstances(O))
@@ -157,7 +157,7 @@
 
 	return
 
-/obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(obj/item/O)
+/obj/machinery/r_n_d/experimentor/default_deconstruction_crowbar(user, obj/item/O)
 	ejectItem()
 	..(O)
 
@@ -618,6 +618,7 @@
 	var/floof
 
 /obj/item/relic/New()
+	..()
 	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","suspicious tech","gear")]"
 	floof = pick(/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/dog/fox, /mob/living/simple_animal/mouse, /mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/lizard, /mob/living/simple_animal/diona, /mob/living/simple_animal/butterfly, /mob/living/carbon/human/monkey)

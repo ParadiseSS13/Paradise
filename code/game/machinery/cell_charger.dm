@@ -68,16 +68,21 @@
 			user.visible_message("[user] inserts a cell into the charger.", "<span class='notice'>You insert a cell into the charger.</span>")
 			chargelevel = -1
 			updateicon()
-	else if(iswrench(I))
-		if(charging)
-			to_chat(user, "<span class='warning'>Remove the cell first!</span>")
-			return
-
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "attach" : "detach"] the cell charger [anchored ? "to" : "from"] the ground</span>")
-		playsound(src.loc, I.usesound, 75, 1)
 	else
 		return ..()
+
+/obj/machinery/cell_charger/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(charging)
+		to_chat(user, "<span class='warning'>Remove the cell first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(anchored)
+		WRENCH_ANCHOR_MESSAGE
+	else
+		WRENCH_UNANCHOR_MESSAGE
 
 
 /obj/machinery/cell_charger/proc/removecell()

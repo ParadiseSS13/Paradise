@@ -78,8 +78,7 @@ var/list/admin_verbs_admin = list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
-	/client/proc/spawn_floor_cluwne,
-	/client/proc/toggle_panic_bunker
+	/client/proc/spawn_floor_cluwne
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -1017,16 +1016,3 @@ var/list/admin_verbs_ticket = list(
 
 	log_admin("[key_name(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
 	message_admins("[key_name_admin(usr)] has [advanced_admin_interaction ? "activated" : "deactivated"] their advanced admin interaction.")
-
-/client/proc/toggle_panic_bunker()
-	set name = "Toggle Panic Bunker"
-	set category = "Admin"
-	set desc = "Disables new players connecting."
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	GLOB.panic_bunker_enabled = !GLOB.panic_bunker_enabled
-
-	log_admin("[key_name(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")
-	message_admins("[key_name_admin(usr)] has [GLOB.panic_bunker_enabled  ? "activated" : "deactivated"] the panic bunker.")

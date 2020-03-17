@@ -33,7 +33,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/tiles_in_y_direction = 1
 	var/id_to_link
 	var/radio_frequency = 1379
-	var/required_access = list(access_external_airlocks)
+	var/required_access = list(ACCESS_EXTERNAL_AIRLOCKS)
 	var/door_name = "external access"
 	var/door_type = /obj/machinery/door/airlock/external/glass
 	var/one_door_interior //For square airlocks, if you set this then a) only one door will spawn, and b) you can choose if the door should go opposite to how it normally goes. Please use the define
@@ -285,19 +285,19 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	required_access = null
 
 /obj/effect/spawner/airlock/engineer
-	required_access = list(access_engine)
+	required_access = list(ACCESS_ENGINE)
 	door_name = "engineering external access"
 /obj/effect/spawner/airlock/e_to_w/engineer
-	required_access = list(access_engine)
+	required_access = list(ACCESS_ENGINE)
 	door_name = "engineering external access"
 /obj/effect/spawner/airlock/s_to_n/engineer
-	required_access = list(access_engine)
+	required_access = list(ACCESS_ENGINE)
 	door_name = "engineering external access"
 /obj/effect/spawner/airlock/long/engineer
-	required_access = list(access_engine)
+	required_access = list(ACCESS_ENGINE)
 	door_name = "engineering external access"
 /obj/effect/spawner/airlock/long/square/engine
-	required_access = list(access_engine)
+	required_access = list(ACCESS_ENGINE)
 	door_name = "engine external access"
 	icon_state = "2x2_N_to_S_leftdoors"
 	door_type = /obj/machinery/door/airlock/external
@@ -310,17 +310,17 @@ This spawner places pipe leading up to the interior door, you will need to finis
 
 /obj/effect/spawner/airlock/w_to_e/long/square/wide/mining
 	door_name = "mining external access"
-	required_access = list(access_mining)
+	required_access = list(ACCESS_MINING)
 /obj/effect/spawner/airlock/long/square/wide/mining
 	door_name = "mining external access"
-	required_access = list(access_mining)
+	required_access = list(ACCESS_MINING)
 
 /obj/effect/spawner/airlock/e_to_w/minisat
 	door_name = "minisat external access"
-	required_access = list(access_minisat)
+	required_access = list(ACCESS_MINISAT)
 /obj/effect/spawner/airlock/long/square/e_to_s/telecoms
 	door_name = "telecoms external access"
-	required_access = list(access_tcomsat, access_external_airlocks)
+	required_access = list(ACCESS_TCOMSAT, ACCESS_EXTERNAL_AIRLOCKS)
 	door_type = /obj/machinery/door/airlock/external
 
 /obj/effect/spawner/airlock/long/square/three/syndicate
@@ -329,7 +329,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	interior_direction = WEST
 	exterior_direction = NORTH
 	door_name = "ship external access"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	door_type = /obj/machinery/door/airlock/external
 
 #undef HALF_X

@@ -35,7 +35,8 @@
 	reagent_state = LIQUID
 	color = "#9087A2"
 	metabolization_rate = 0.2
-	addiction_chance = 65
+	addiction_chance = 15
+	addiction_threshold = 10
 	heart_rate_decrease = 1
 	taste_description = "a synthetic high"
 
@@ -88,7 +89,9 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 35
-	addiction_chance = 70
+	addiction_chance = 15
+	addiction_threshold = 10
+	minor_addiction = TRUE
 	heart_rate_increase = 1
 	taste_description = "calm"
 
@@ -154,7 +157,8 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 5
 	taste_description = "bitterness"
 
 /datum/reagent/crank/on_mob_life(mob/living/M)
@@ -227,7 +231,8 @@
 	reagent_state = LIQUID
 	color = "#0264B4"
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 10
 	taste_description = "very poor life choices"
 
 
@@ -299,7 +304,8 @@
 	reagent_state = LIQUID
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
-	addiction_chance = 60
+	addiction_chance = 10
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	heart_rate_increase = 1
 	taste_description = "speed"
@@ -360,7 +366,8 @@
 	reagent_state = SOLID
 	color = "#FAFAFA"
 	overdose_threshold = 20
-	addiction_chance = 80
+	addiction_chance = 15
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	taste_description = "WAAAAGH"
 
@@ -397,8 +404,8 @@
 		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
 	return ..() | update_flags
 
-/datum/reagent/bath_salts/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
 		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
@@ -460,7 +467,8 @@
 	description = "Jenkem is a prison drug made from fermenting feces in a solution of urine. Extremely disgusting."
 	reagent_state = LIQUID
 	color = "#644600"
-	addiction_chance = 30
+	addiction_chance = 5
+	addiction_threshold = 5
 	taste_description = "the inside of a toilet... or worse"
 
 /datum/reagent/jenkem/on_mob_life(mob/living/M)
@@ -517,6 +525,32 @@
 			M.Drowsy(10)
 	return ..()
 
+/datum/reagent/cbd
+	name = "Cannabidiol"
+	id = "cbd"
+	description = "A non-psychoactive phytocannabinoid extracted from the cannabis plant."
+	reagent_state = LIQUID
+	color = "#00e100"
+	taste_description = "relaxation"
+
+/datum/reagent/cbd/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(prob(5))
+		M.emote(pick("hsigh", "yawn"))
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[pick("You feel peaceful.", "You breathe softly.", "You feel chill.", "You vibe.")]</span>")
+	if(prob(10))
+		M.AdjustConfused(-5)
+		update_flags |= M.SetWeakened(0, FALSE)
+	if(volume >= 70 && prob(25))
+		if(M.reagents.has_reagent("thc") <= 20)
+			M.Drowsy(10)
+	if(prob(25))
+		update_flags |= M.adjustBruteLoss(-2, FALSE)
+		update_flags |= M.adjustFireLoss(-2, FALSE)
+	return ..() | update_flags
+
+
 /datum/reagent/fliptonium
 	name = "Fliptonium"
 	id = "fliptonium"
@@ -526,7 +560,9 @@
 	metabolization_rate = 0.2
 	overdose_threshold = 15
 	process_flags = ORGANIC | SYNTHETIC		//Flipping for everyone!
-	addiction_chance = 10
+	addiction_chance = 1
+	addiction_chance_additional = 20
+	addiction_threshold = 10
 	taste_description = "flips"
 
 /datum/reagent/fliptonium/on_mob_life(mob/living/M)
@@ -556,8 +592,8 @@
 	update_flags |= M.SetSleeping(0, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST || method == TOUCH)
+/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
 	..()
 
@@ -631,7 +667,8 @@
 	color = "#1BB1FF"
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_chance = 60
+	addiction_chance = 10
+	addiction_threshold = 5
 	metabolization_rate = 0.6
 	taste_description = "wiper fluid"
 
@@ -684,7 +721,8 @@
 
 	process_flags = SYNTHETIC
 	overdose_threshold = 20
-	addiction_chance = 50
+	addiction_chance = 10
+	addiction_threshold = 5
 	taste_description = "silicon"
 
 

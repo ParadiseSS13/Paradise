@@ -15,7 +15,7 @@ var/global/list/fax_blacklist = list()
 	var/syndie_restricted = FALSE //is it a syndicate base fax restricted from contacting NT assets?
 
 	var/long_range_enabled = 0 // Can we send messages off the station?
-	req_one_access = list(access_lawyer, access_heads, access_armory)
+	req_one_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 30
@@ -50,7 +50,7 @@ var/global/list/fax_blacklist = list()
 	name = "syndicate long range fax machine"
 	emagged = TRUE
 	syndie_restricted = TRUE
-	req_one_access = list(access_syndicate)
+	req_one_access = list(ACCESS_SYNDICATE)
 	//No point setting fax network, being emagged overrides that anyway.
 
 /obj/machinery/photocopier/faxmachine/longrange/syndie/update_network()
