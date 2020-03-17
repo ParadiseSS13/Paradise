@@ -1250,7 +1250,7 @@
 	req_access_txt = "1"
 	products = list(/obj/item/restraints/handcuffs = 12,/obj/item/grenade/flashbang = 8,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/taperoll/police = 8,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 5,/obj/item/restraints/legcuffs/bola/energy = 10,
-					/obj/item/clothing/mask/muzzle/safety = 5)
+					/obj/item/clothing/mask/muzzle/safety = 5, /obj/item/device/binoculars/security = 2)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
