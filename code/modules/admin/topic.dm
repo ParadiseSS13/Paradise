@@ -1551,13 +1551,12 @@
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservefollow"])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-
-		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
-
 		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
+				return
+			C.admin_ghost()
+		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
 		var/mob/dead/observer/A = C.mob
 		sleep(2)
 		A.ManualFollow(M)
