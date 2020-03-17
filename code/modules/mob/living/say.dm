@@ -100,9 +100,10 @@ proc/get_radio_key_from_channel(var/channel)
 	return 0
 
 /mob/living/proc/handle_speech_sound()
-	var/list/returns[2]
+	var/list/returns[3]
 	returns[1] = null
 	returns[2] = null
+	returns[3] = null
 	return returns
 
 
@@ -180,6 +181,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/list/handle_v = handle_speech_sound()
 	var/sound/speech_sound = handle_v[1]
 	var/sound_vol = handle_v[2]
+	var/sound_frequency = handle_v[3]
 
 	var/italics = 0
 	var/message_range = world.view
@@ -249,7 +251,7 @@ proc/get_radio_key_from_channel(var/channel)
 				if(message_range < world.view && (get_dist(T, M) <= world.view))
 					listening |= M
 					continue
-				
+
 			if(get_turf(M) in hearturfs)
 				listening |= M
 
@@ -257,7 +259,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 	spawn(0)

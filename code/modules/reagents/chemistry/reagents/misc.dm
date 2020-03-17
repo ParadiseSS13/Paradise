@@ -130,7 +130,6 @@
 	color = "#A8A8A8" // rgb: 168, 168, 168
 	taste_description = "metal"
 
-
 /datum/reagent/silicon
 	name = "Silicon"
 	id = "silicon"
@@ -147,6 +146,12 @@
 	color = "#6E3B08" // rgb: 110, 59, 8
 	taste_description = "copper"
 
+/datum/reagent/chromium
+	name = "Chromium"
+	id = "chromium"
+	description = "A catalytic chemical element."
+	color = "#DCDCDC"
+	taste_description = "bitterness"
 
 /datum/reagent/iron
 	name = "Iron"
