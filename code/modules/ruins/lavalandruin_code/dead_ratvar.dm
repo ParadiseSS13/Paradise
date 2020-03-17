@@ -258,3 +258,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	var/bonus_burn = 5
+
+/obj/item/clockwork/weapon/ratvarian_spear/attack(mob/living/M, mob/living/user, def_zone)
+	. = ..()
+	if(isliving(M))
+		M.apply_damage(bonus_burn, BURN, def_zone, used_weapon = src)
