@@ -4,11 +4,12 @@
 	name = "syndicate shuttle terminal"
 	icon_screen = "syndishuttle"
 	icon_keyboard = "syndie_key"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate
 	shuttleId = "syndicate"
 	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	flags = NODECONSTRUCT
 	var/challenge = FALSE
 	var/moved = FALSE
 
@@ -29,7 +30,7 @@
 	name = "syndicate assault pod control"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "dorm_available"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate/drop_pod
 	shuttleId = "steel_rain"
 	possible_destinations = null
@@ -46,7 +47,7 @@
 	desc = "Used to call and send the SST shuttle."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	shuttleId = "sst"
 	possible_destinations = "sst_home;sst_away;sst_custom"
 	resistance_flags = INDESTRUCTIBLE
@@ -56,7 +57,7 @@
 	desc = "Used to call and send the SIT shuttle."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	shuttleId = "sit"
 	possible_destinations = "sit_arrivals;sit_engshuttle;sit_away;sit_custom"
 	resistance_flags = INDESTRUCTIBLE

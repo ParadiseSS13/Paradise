@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
-	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, amount*10)
+	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, amount*10)
 	qdel(src)
 
 /obj/item/stack/sheet/mineral/gold

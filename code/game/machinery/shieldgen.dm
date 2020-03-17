@@ -133,7 +133,7 @@
 	opacity = FALSE
 	anchored = 0
 	pressure_resistance = 2*ONE_ATMOSPHERE
-	req_access = list(access_engine)
+	req_access = list(ACCESS_ENGINE)
 	var/const/max_health = 100
 	var/health = max_health
 	var/active = 0
@@ -309,7 +309,7 @@
 		icon_state = "Shield_Gen"
 		anchored = 0
 		density = 1
-		req_access = list(access_teleporter)
+		req_access = list(ACCESS_TELEPORTER)
 		var/active = 0
 		var/power = 0
 		var/state = 0
