@@ -262,7 +262,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	rune_in_use = FALSE
 
 /obj/effect/rune/convert/proc/do_convert(mob/living/convertee, list/invokers)
-	if(invokers.len < 1)
+	if(invokers.len < 2)
 		fail_invoke()
 		for(var/I in invokers)
 			to_chat(I, "<span class='warning'>You need at least two invokers to convert!</span>")

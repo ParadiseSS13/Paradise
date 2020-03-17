@@ -38,9 +38,10 @@
 	if(spells.len >= limit)
 		if(rune)
 			to_chat(owner, "<span class='cultitalic'>You cannot store more than [MAX_BLOODCHARGE] spells. <b>Pick a spell to remove.</b></span>")
+			remove_spell("You cannot store more than [MAX_BLOODCHARGE] spells, pick a spell to remove.")
 		else
 			to_chat(owner, "<span class='cultitalic'><b><u>You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spells without an empowering rune! Pick a spell to remove.</b></u></span>")
-		remove_spell()
+			remove_spell("You cannot store more than [RUNELESS_MAX_BLOODCHARGE] spells without an empowering rune, pick a spell to remove.")
 		return
 	var/entered_spell_name
 	var/datum/action/innate/cult/blood_spell/BS
@@ -78,8 +79,8 @@
 		to_chat(owner, "<span class='warning'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
 	channeling = FALSE
 
-/datum/action/innate/cult/blood_magic/proc/remove_spell()
-	var/nullify_spell = input(owner, "Choose a spell to remove.", "Current Spells") as null|anything in spells
+/datum/action/innate/cult/blood_magic/proc/remove_spell(var/message = "Pick a spell to remove.")
+	var/nullify_spell = input(owner, message, "Current Spells") as null|anything in spells
 	if(nullify_spell)
 		qdel(nullify_spell)
 

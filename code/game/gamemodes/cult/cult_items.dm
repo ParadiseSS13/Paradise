@@ -53,7 +53,7 @@
 
 /obj/item/restraints/legcuffs/bola/cult
 	name = "runed bola"
-	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Phases through fellow cultists."
+	desc = "A strong bola, bound with dark magic. Throw it to trip and slow your victim. Will not hit fellow cultists."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "bola_cult"
 	breakouttime = 45

@@ -3,7 +3,6 @@ var/global/list/all_cults = list()
 /datum/game_mode
 	var/list/datum/mind/cult = list()
 	var/datum/cult_objectives/cult_objs = new
-	var/cultist_count = 0
 	var/cult_risen = FALSE
 	var/cult_ascendent = FALSE
 
@@ -141,12 +140,11 @@ var/global/list/all_cults = list()
 		var/datum/objective/servecult/obj = new
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
-		cultist_count++
 		if(cult_risen)
 			rise(cult_mind.current)
 			if(cult_ascendent)
 				ascend(cult_mind.current)
-		check_cult_size(cultist_count)
+		check_cult_size()
 		return TRUE
 
 /datum/game_mode/proc/check_cult_size()
@@ -210,8 +208,7 @@ var/global/list/all_cults = list()
 		H.update_eyes()
 		H.remove_overlay(MISC_LAYER)
 		H.update_body()
-		cultist_count--
-		check_cult_size(cultist_count)
+		check_cult_size()
 		if(show_message)
 			for(var/mob/M in viewers(cult_mind.current))
 				to_chat(M, "<FONT size = 3>[cult_mind.current] looks like [cult_mind.current.p_they()] just reverted to [cult_mind.current.p_their()] old faith!</FONT>")
