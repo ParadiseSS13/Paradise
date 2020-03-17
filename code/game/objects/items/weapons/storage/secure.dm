@@ -83,13 +83,21 @@
 			to_chat(user, "You short out the lock on [src].")
 		return
 
+/obj/item/storage/secure/AltClick(mob/user)
+	if(!try_to_open())
+		return FALSE
+	return ..()
 
 /obj/item/storage/secure/MouseDrop(over_object, src_location, over_location)
+	if(!try_to_open())
+		return FALSE
+	return ..()
+
+/obj/item/storage/secure/proc/try_to_open()
 	if(locked)
 		add_fingerprint(usr)
 		to_chat(usr, "<span class='warning'>It's locked!</span>")
-		return 0
-	..()
+		return FALSE
 
 /obj/item/storage/secure/attack_self(mob/user as mob)
 	user.set_machine(src)
