@@ -136,8 +136,7 @@
 	Radio.config(list("Security" = 0))
 	Radio.follow_target = src
 
-	pixel_x = ((dir & 3)? (0) : (dir == 4 ? 32 : -32))
-	pixel_y = ((dir & 3)? (dir ==1 ? 32 : -32) : (0))
+	set_pixel_offsets_from_dir(32, -32, 32, -32)
 
 	spawn(20)
 		for(var/obj/machinery/door/window/brigdoor/M in GLOB.airlocks)

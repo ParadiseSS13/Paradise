@@ -68,7 +68,7 @@
 	..()
 	internal_channels = list(
 		num2text(PUB_FREQ) = list(),
-		num2text(SEC_I_FREQ) = list(access_security)
+		num2text(SEC_I_FREQ) = list(ACCESS_SECURITY)
 	)
 
 /obj/item/radio/intercom/syndicate
@@ -80,7 +80,7 @@
 
 /obj/item/radio/intercom/syndicate/New()
 	..()
-	internal_channels[num2text(SYND_FREQ)] = list(access_syndicate)
+	internal_channels[num2text(SYND_FREQ)] = list(ACCESS_SYNDICATE)
 
 /obj/item/radio/intercom/pirate
 	name = "pirate radio intercom"

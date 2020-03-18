@@ -83,7 +83,7 @@
 	idle_power_usage = 4
 	active_power_usage = 8
 	power_channel = ENVIRON
-	req_one_access = list(access_atmospherics, access_engine_equip)
+	req_one_access = list(ACCESS_ATMOSPHERICS, ACCESS_ENGINE_EQUIP)
 	max_integrity = 250
 	integrity_failure = 80
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30)
@@ -132,7 +132,7 @@
 /obj/machinery/alarm/syndicate //general syndicate access
 	report_danger_level = FALSE
 	remote_control = FALSE
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	req_one_access = list()
 
 /obj/machinery/alarm/monitor/server
