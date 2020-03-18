@@ -604,7 +604,7 @@
 		if(!istype(L, /mob/living/simple_animal/hostile/swarmer))
 			playsound(loc,'sound/effects/snap.ogg',50, 1, -1)
 			L.electrocute_act(0, src, 1, TRUE, TRUE)
-			if(isrobot(L) || L.isSynthetic())
+			if(L.isSynthetic())
 				L.Weaken(5)
 			qdel(src)
 	..()

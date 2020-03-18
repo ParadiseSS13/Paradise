@@ -61,7 +61,7 @@ proc/get_radio_key_from_channel(var/channel)
 	return default_language
 
 /mob/living/proc/handle_speech_problems(list/message_pieces, var/verb)
-	var/robot = isSynthetic()
+	var/robot = ismachine()
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		if(S.speaking && S.speaking.flags & NO_STUTTER)
 			continue

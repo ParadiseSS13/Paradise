@@ -13,12 +13,15 @@
 	return 0
 
 /mob/proc/isSynthetic()
-	return 0
+	return FALSE
 
 /mob/living/carbon/human/isSynthetic()
 	if(ismachine(src))
 		return TRUE
 	return FALSE
+
+mob/living/silicon/isSynthetic()
+	return TRUE
 
 /mob/proc/get_screen_colour()
 
