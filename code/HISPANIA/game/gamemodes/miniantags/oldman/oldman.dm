@@ -57,10 +57,14 @@
 	..()
 	remove_from_all_data_huds()
 	last_meal = world.time
-	sleep(100)
+
+	addtimer(CALLBACK(src, .proc/giveObjective), 15 SECONDS)
+
+
+/mob/living/simple_animal/hostile/oldman/proc/giveObjective()
 	if(mind)
 		mind.wipe_memory()
-		SEND_SOUND(src, 'sound/hispania/effects/oldman/oldlaugh.ogg')
+		SEND_SOUND(src, 'sound/hispania/effects/oldman/oldlaugh1.ogg')
 		to_chat(src, "<B>You are the Old Man, an ancient entity who has been hunting humanity for centuries and still hungers for more.</B>")
 		to_chat(src, "<B>You are slow, but very durable. Your attacks slows and corrode your victims.</B>")
 		to_chat(src, "<B>You may Click on walls to travel through them, appearing and disappearing from the station at will.</B>")
@@ -98,6 +102,9 @@
 	if(dimension)
 		return
 	if(isliving(target) && (!client || a_intent == INTENT_HARM))
+		if(istype(loc, /turf/simulated/wall/rust) || istype(loc, /turf/simulated/wall/r_wall/rust))
+			to_chat(src, "<span class ='warning'>You cannot reach them!</span>")
+			return
 		var/attack = pick(list('sound/hispania/effects/oldman/gasp1.ogg','sound/hispania/effects/oldman/gasp2.ogg','sound/hispania/effects/oldman/sludge.ogg'))
 		attack_sound = attack
 		var/mob/living/carbon/human/L = target
@@ -108,6 +115,9 @@
 				P.germ_level = INFECTION_LEVEL_ONE
 		..()
 	else
+		if(istype(target, /obj/machinery/power/apc))
+			to_chat(src, "<span class ='warning'>That is not a prey!</span>")
+			return
 		..()
 
 /mob/living/simple_animal/hostile/oldman/hitby(atom/movable/AM, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
