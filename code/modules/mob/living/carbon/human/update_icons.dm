@@ -1290,15 +1290,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 	apply_overlay(MISC_LAYER)
 
-/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
-	apply_overlay(FROZEN_LAYER)
-
-/mob/living/carbon/human/admin_unFreeze(client/admin, skip_overlays = TRUE)
-	. = ..()
-	remove_overlay(FROZEN_LAYER)
-
+/mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
+	if(..())
+		overlays_standing[FROZEN_LAYER] = mutable_appearance(frozen, layer = -FROZEN_LAYER)
+		apply_overlay(FROZEN_LAYER)
+	else
+		remove_overlay(FROZEN_LAYER)
 
 /mob/living/carbon/human/proc/force_update_limbs()
 	for(var/obj/item/organ/external/O in bodyparts)
