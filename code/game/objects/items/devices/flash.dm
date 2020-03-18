@@ -104,7 +104,7 @@
 				to_chat(user, "<span class='warning'>You fail to blind [M] with the flash!</span>")
 				to_chat(M, "<span class='danger'>[user] fails to blind you with the flash!</span>")
 			return
-	
+
 	if(M.flash_eyes())
 		M.AdjustConfused(power)
 

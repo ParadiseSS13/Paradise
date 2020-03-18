@@ -144,7 +144,7 @@ var/list/robot_verbs_default = list(
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new /obj/item/stock_parts/cell/high(src)
-	
+
 	initialize_components()
 	//if(!unfinished)
 	// Create all the robot parts.

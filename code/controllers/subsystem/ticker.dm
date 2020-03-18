@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(ticker)
 
 			// This is so we dont have sleeps in controllers, because that is a bad, bad thing
 			if(!delay_end)
-				pregame_timeleft = max(0,round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed			
+				pregame_timeleft = max(0,round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
 			else
 				pregame_timeleft = max(0,pregame_timeleft - 20) // If roundstart was delayed, we should resume the countdown where it left off
 
