@@ -80,7 +80,7 @@ Filter types:
 
 /obj/machinery/atmospherics/trinary/filter/update_icon()
 	..()
-	
+
 	if(flipped)
 		icon_state = "m"
 	else
