@@ -6,7 +6,7 @@
 	item_state = "binoculars"
 	force = 5
 	w_class	= WEIGHT_CLASS_TINY
-	throwforce = 5.0
+	throwforce = 5
 	throw_range = 15
 	throw_speed = 3
 		//Var de zoom
