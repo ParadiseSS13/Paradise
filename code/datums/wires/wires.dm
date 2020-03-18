@@ -202,20 +202,20 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 // Example of use:
 /*
 
-var/const/BOLTED= 1
-var/const/SHOCKED = 2
-var/const/SAFETY = 4
-var/const/POWER = 8
+#define NAME_WIRE_BOLTED 1
+#define NAME_WIRE_SHOCKED 2
+#define NAME_WIRE_SAFETY 4
+#define NAME_WIRE_POWER 8
 
 /datum/wires/door/UpdateCut(var/index, var/mended)
 	var/obj/machinery/door/airlock/A = holder
 	switch(index)
-		if(BOLTED)
+		if(NAME_WIRE_BOLTED)
 		if(!mended)
 			A.bolt()
-	if(SHOCKED)
+	if(NAME_WIRE_SHOCKED)
 		A.shock()
-	if(SAFETY )
+	if(NAME_WIRE_SAFETY)
 		A.safety()
 
 */
