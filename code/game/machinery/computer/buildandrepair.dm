@@ -244,7 +244,7 @@
 	name = "Circuit Board (RD Console)"
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
 	build_path = /obj/machinery/computer/rdconsole/core
-	req_access = list(access_tox) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
+	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
 	var/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
 	id = 1
 /obj/item/circuitboard/rdconsole/robotics
@@ -454,17 +454,6 @@
 					anchored = 1
 					state = 1
 				return
-			if(istype(P, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = P
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "<span class='warning'>The welding tool must be on to complete this task.</span>")
-					return
-				playsound(loc, WT.usesound, 50, 1)
-				if(do_after(user, 20 * WT.toolspeed, target = src))
-					if(!src || !WT.isOn()) return
-					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					deconstruct(TRUE)
-				return
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)
@@ -573,6 +562,18 @@
 		return ..()
 
 
+/obj/structure/computerframe/welder_act(mob/user, obj/item/I)
+	if(state)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_SLICING_MESSAGE
+	if(I.use_tool(src, user, 50, volume = I.tool_volume) && !state)
+		to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
+		deconstruct(TRUE)
+
+
 
 /obj/structure/computerframe/HONKputer
 	name = "Bananium Computer-frame"
@@ -588,17 +589,6 @@
 					to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
 					anchored = 1
 					state = 1
-			if(istype(P, /obj/item/weldingtool))
-				var/obj/item/weldingtool/WT = P
-				if(!WT.remove_fuel(0, user))
-					to_chat(user, "<span class='warning'>The welding tool must be on to complete this task.</span>")
-					return
-				playsound(loc, WT.usesound, 50, 1)
-				if(do_after(user, 20 * WT.toolspeed, target = src))
-					if(!src || !WT.isOn()) return
-					to_chat(user, "<span class='notice'>You deconstruct the frame.</span>")
-					deconstruct(TRUE)
-			return
 		if(1)
 			if(istype(P, /obj/item/wrench))
 				playsound(loc, P.usesound, 50, 1)

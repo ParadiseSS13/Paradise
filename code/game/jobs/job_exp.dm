@@ -263,8 +263,11 @@ var/global/list/role_playtime_requirements = list(
 			myrole = mob.mind.playtime_role
 		else if(mob.mind.assigned_role)
 			myrole = mob.mind.assigned_role
+	var/added_living = 0
+	var/added_ghost = 0
 	if(mob.stat == CONSCIOUS && myrole)
 		play_records[EXP_TYPE_LIVING] += minutes
+		added_living += minutes
 		if(announce_changes)
 			to_chat(mob,"<span class='notice'>You got: [minutes] Living EXP!")
 		for(var/category in exp_jobsmap)
@@ -279,6 +282,7 @@ var/global/list/role_playtime_requirements = list(
 				to_chat(mob,"<span class='notice'>You got: [minutes] Special EXP!")
 	else if(isobserver(mob))
 		play_records[EXP_TYPE_GHOST] += minutes
+		added_ghost += minutes
 		if(announce_changes)
 			to_chat(mob,"<span class='notice'>You got: [minutes] Ghost EXP!")
 	else
@@ -286,9 +290,15 @@ var/global/list/role_playtime_requirements = list(
 	var/new_exp = list2params(play_records)
 	prefs.exp = new_exp
 	new_exp = sanitizeSQL(new_exp)
-	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]' WHERE ckey='[ckey]'")
+	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]',lastseen = Now() WHERE ckey='[ckey]'")
 	if(!update_query.Execute())
 		var/err = update_query.ErrorMsg()
-		log_game("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
-		message_admins("SQL ERROR during exp_update_client write. Error : \[[err]\]\n")
+		log_game("SQL ERROR during exp_update_client write 1. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during exp_update_client write 1. Error : \[[err]\]\n")
+		return
+	var/DBQuery/update_query_history = dbcon.NewQuery("INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost) VALUES ('[ckey]',CURDATE(),[added_living],[added_ghost]) ON DUPLICATE KEY UPDATE time_living=time_living+VALUES(time_living),time_ghost=time_ghost+VALUES(time_ghost)")
+	if(!update_query_history.Execute())
+		var/err = update_query_history.ErrorMsg()
+		log_game("SQL ERROR during exp_update_client write 2. Error : \[[err]\]\n")
+		message_admins("SQL ERROR during exp_update_client write 2. Error : \[[err]\]\n")
 		return

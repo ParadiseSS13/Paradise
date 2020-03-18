@@ -16,7 +16,7 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "A remote control for a door."
-	req_access = list(access_brig)
+	req_access = list(ACCESS_BRIG)
 	anchored = 1    		// can't pick it up
 	density = 0       		// can walk through it.
 	var/id = null     		// id of door it controls.
@@ -444,7 +444,7 @@
 //Stolen from status_display
 /obj/machinery/door_timer/proc/texticon(tn, px = 0, py = 0)
 	var/image/I = image('icons/obj/status_display.dmi', "blank")
-	var/len = lentext(tn)
+	var/len = length(tn)
 
 	for(var/d = 1 to len)
 		var/char = copytext(tn, len-d+1, len-d+2)

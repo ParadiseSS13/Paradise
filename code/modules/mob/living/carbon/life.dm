@@ -13,13 +13,13 @@
 		for(var/obj/item/organ/internal/O in internal_organs)
 			O.on_life()
 
+	handle_changeling()
 	handle_wetness(times_fired)
 
 	// Increase germ_level regularly
 	if(germ_level < GERM_LEVEL_AMBIENT && prob(30))	//if you're just standing there, you shouldn't get more germs beyond an ambient level
 		germ_level++
 
-	SEND_SIGNAL(src, COMSIG_CARBON_LIFE, seconds, times_fired)
 
 ///////////////
 // BREATHING //

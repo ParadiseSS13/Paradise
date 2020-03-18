@@ -527,7 +527,7 @@ BLIND     // can't see anything
 																							end up with a suffix of _open_open if adjusted twice, since their initial state is _open. */
 					item_state = copytext(item_state, 1, findtext(item_state, "_open"))
 					if(adjust_flavour)
-						flavour = "[copytext(adjust_flavour, 3, lentext(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
+						flavour = "[copytext(adjust_flavour, 3, length(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
 					to_chat(user, "You [flavour] \the [src].")
 					suit_adjusted = 0 //Suit is no longer adjusted.
 					for(var/X in actions)

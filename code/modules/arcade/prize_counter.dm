@@ -52,7 +52,7 @@
 		if(component_parts && istype(O, /obj/item/crowbar))
 			if(tickets)		//save the tickets!
 				print_tickets()
-			default_deconstruction_crowbar(O)
+			default_deconstruction_crowbar(user, O)
 		return
 	return ..()
 

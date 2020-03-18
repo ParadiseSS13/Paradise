@@ -53,7 +53,7 @@
 				continue
 			if(reagents.total_volume)
 				var/fraction = 5 / reagents.total_volume
-				reagents.reaction(A, TOUCH, fraction)
+				reagents.reaction(A, REAGENT_TOUCH, fraction)
 	return ..()
 
 /obj/effect/particle_effect/foam/process()
@@ -108,7 +108,7 @@
 						M.reagents.add_reagent(reagent_id, min(round(amount / 2), 15))
 				if(reagents.total_volume)
 					var/fraction = 5 / reagents.total_volume
-					reagents.reaction(M, TOUCH, fraction)
+					reagents.reaction(M, REAGENT_TOUCH, fraction)
 
 /datum/effect_system/foam_spread
 	effect_type = /obj/effect/particle_effect/foam
