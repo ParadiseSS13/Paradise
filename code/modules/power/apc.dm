@@ -765,11 +765,11 @@
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return FALSE
-	
+
 	// Only if they're a traitor OR they have the malf picker from the combat module
 	if(!malf.mind.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
 		return FALSE
-	
+
 	if(malfai == (malf.parent || malf))
 		if(occupier == malf)
 			return APC_MALF_SHUNTED_HERE
