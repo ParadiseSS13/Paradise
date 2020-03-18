@@ -248,7 +248,7 @@ proc/age2agedescription(age)
 		if("none")
 			status = "None"
 		if("execute")
-			if((access_magistrate in authcard_access) || (access_armory in authcard_access))
+			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = "*Execute*"
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 			else
