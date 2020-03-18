@@ -274,6 +274,11 @@
 	see_in_dark = 0
 	flash_protect = 0
 	tint = 0
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/species/grey/eyes.dmi'
+		)
 
 /obj/item/clothing/glasses/sunglasses/noir
 	name = "noir sunglasses"

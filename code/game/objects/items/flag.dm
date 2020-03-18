@@ -197,7 +197,7 @@
 	name = "Chameleon flag"
 	desc = "A poor recreation of the official NT flag. It seems to shimmer a little."
 	icon_state = "ntflag"
-	origin_tech = "syndicate=4;magnets=4"
+	origin_tech = "syndicate=1;magnets=4"
 	var/updated_icon_state = null
 	var/used = FALSE
 	var/obj/item/grenade/boobytrap = null
@@ -245,22 +245,25 @@
 			message_admins("[key_name_admin(user)] has hidden [I] in the [src] ready for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 			log_game("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 			investigate_log("[key_name(user)] has hidden [I] in the [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
-	else if(isscrewdriver(I) && boobytrap && user == trapper)
-		to_chat(user, "<span class='notice'>You remove [boobytrap] from the [src].</span>")
-		boobytrap.forceMove(get_turf(src))
-		boobytrap = null
-		trapper = null
-	else
-		return ..()
-
-/obj/item/flag/chameleon/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
+	else if(is_hot(I) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		message_admins("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[A.name] (JMP)</a>.")
 		log_game("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 		investigate_log("[key_name_admin(user)] has lit the [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
-	return ..()
+	else
+		return ..()
+
+/obj/item/flag/chameleon/screwdriver_act(mob/user, obj/item/I)
+	if(!boobytrap || user != trapper)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You remove [boobytrap] from [src].</span>")
+	boobytrap.forceMove(get_turf(src))
+	boobytrap = null
+	trapper = null
 
 /obj/item/flag/chameleon/burn()
 	if(boobytrap)

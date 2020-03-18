@@ -27,7 +27,7 @@
 /obj/item/reagent_containers/glass/rag/attack(atom/target as obj|turf|area, mob/user as mob , flag)
 	if(ismob(target) && target.reagents && reagents.total_volume)
 		user.visible_message("<span class='danger'>[user] has smothered \the [target] with \the [src]!</span>", "<span class='danger'>You smother \the [target] with \the [src]!</span>", "You hear some struggling and muffled cries of surprise")
-		src.reagents.reaction(target, TOUCH)
+		src.reagents.reaction(target, REAGENT_TOUCH)
 		src.reagents.clear_reagents()
 		return
 	else

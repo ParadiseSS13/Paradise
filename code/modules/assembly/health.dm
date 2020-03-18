@@ -28,17 +28,16 @@
 	update_icon()
 	return secured
 
-/obj/item/assembly/health/attackby(obj/item/W, mob/user)
-	if(ismultitool(W))
-		if(alarm_health == 0)
-			alarm_health = -90
-			user.show_message("You toggle [src] to \"detect death\" mode.")
-		else
-			alarm_health = 0
-			user.show_message("You toggle [src] to \"detect critical state\" mode.")
+/obj/item/assembly/health/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
+	if(alarm_health == 0)
+		alarm_health = -90
+		user.show_message("You toggle [src] to \"detect death\" mode.")
 	else
-		return ..()
+		alarm_health = 0
+		user.show_message("You toggle [src] to \"detect critical state\" mode.")
 
 /obj/item/assembly/health/process()
 	if(!scanning || !secured)
