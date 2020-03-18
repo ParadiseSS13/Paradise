@@ -192,10 +192,10 @@
 			else
 				user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
 					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
-			
-			R.reaction(target, INGEST, R.total_volume / C.amount_per_transfer_from_this)
+
+			R.reaction(target, REAGENT_INGEST, R.total_volume / C.amount_per_transfer_from_this)
 			R.trans_to(target, C.amount_per_transfer_from_this)
-			
+
 			if(mito_trans)
 				mito_tot -= mito_trans
 				if(I.is_robotic()) // Get out cyborg people
@@ -204,7 +204,7 @@
 					I.rejuvenate() // Just like splashing it onto it
 				else
 					to_chat(user, "<span class='warning'>[I] does not seem to respond to the amount of mitocholide inside the injection. Try injecting more next time.</span>")
-				
+
 	return SURGERY_SUCCESS
 
 /datum/surgery_step/internal/manipulate_organs/clean/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -225,7 +225,7 @@
 		I.receive_damage(rand(4,8),0)
 
 	R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
-	R.reaction(target, INGEST)
+	R.reaction(target, REAGENT_INGEST)
 
 	user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target][affected ? "'s [affected.name]" : ""] incision!</span>", \
 		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target][affected ? "'s [affected.name]" : ""] incision!</span>")

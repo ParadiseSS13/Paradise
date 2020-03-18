@@ -5,6 +5,7 @@
 	materials = list(MAT_METAL=100)
 	origin_tech = "combat=1;materials=2;engineering=1"
 	var/armed = FALSE
+
 	bomb_name = "contact mine"
 
 /obj/item/assembly/mousetrap/examine(mob/user)
