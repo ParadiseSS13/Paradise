@@ -97,7 +97,7 @@
 /obj/item/flamethrower/proc/default_ignite(turf/target, amount)
 	var/turf/simulated/target_turf = target
 	if(istype(target_turf))
-		target_turf.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C, amount) //amount of plasma spawned based on flame intensity
+		target_turf.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C, amount) //amount of plasma spawned based on flame intensity
 	target.hotspot_expose(1000,500)
 	SSair.add_to_active(target, 0)
 
