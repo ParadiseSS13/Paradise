@@ -10,11 +10,12 @@
 	interact_offline = 1
 	max_integrity = 350
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 30, "acid" = 30)
-	var/on = 0
+	var/on = FALSE
 	var/temperature_archived
 	var/mob/living/carbon/occupant = null
 	var/obj/item/reagent_containers/glass/beaker = null
-	var/autoeject = 0
+	var/autoeject_healthy = FALSE
+	var/autoeject_dead = FALSE
 
 	var/next_trans = 0
 	var/current_heat_capacity = 50
@@ -139,18 +140,18 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/process()
 	..()
-	if(autoeject)
-		if(occupant)
-			if(!occupant.has_organic_damage() && !occupant.has_mutated_organs())
-				on = 0
-				go_out()
-				playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+	if(occupant)
+		if(autoeject_dead && occupant.is_dead())
+			auto_eject(null, TRUE)
+			return
+		else if(autoeject_healthy && !occupant.has_organic_damage() && !occupant.has_mutated_organs())
+			auto_eject(TRUE)
+			return
 
-	if(air_contents)
-		if(occupant)
+		if(air_contents)
 			process_occupant()
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
 	..()
@@ -208,7 +209,7 @@
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 420)
+		ui = new(user, src, ui_key, "cryo.tmpl", "Cryo Cell Control System", 520, 480)
 		// open the new ui window
 		ui.open()
 		// auto update every Master Controller tick
@@ -249,7 +250,8 @@
 			for(var/datum/reagent/R in beaker.reagents.reagent_list)
 				data["beakerVolume"] += R.volume
 
-	data["autoeject"] = autoeject
+	data["autoeject_healthy"] = autoeject_healthy
+	data["autoeject_dead"] = autoeject_dead
 	return data
 
 /obj/machinery/atmospherics/unary/cryo_cell/Topic(href, href_list)
@@ -260,18 +262,24 @@
 		return 0 // don't update UIs attached to this object
 
 	if(href_list["switchOn"])
-		on = 1
+		on = TRUE
 		update_icon()
 
 	if(href_list["switchOff"])
-		on = 0
+		on = FALSE
 		update_icon()
 
-	if(href_list["autoejectOn"])
-		autoeject = 1
+	if(href_list["autoeject_healthy_on"])
+		autoeject_healthy = TRUE
 
-	if(href_list["autoejectOff"])
-		autoeject = 0
+	if(href_list["autoeject_healthy_off"])
+		autoeject_healthy = FALSE
+
+	if(href_list["autoeject_dead_on"])
+		autoeject_dead = TRUE
+
+	if(href_list["autoeject_dead_off"])
+		autoeject_dead = FALSE
 
 	if(href_list["ejectBeaker"])
 		if(beaker)
@@ -429,6 +437,14 @@
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(get_step(loc, SOUTH))
+
+/obj/machinery/atmospherics/unary/cryo_cell/proc/auto_eject(eject_healthy, eject_dead)
+	on = FALSE
+	go_out()
+	if(eject_healthy)
+		playsound(loc, 'sound/machines/ding.ogg', 50, 1)
+	else if(eject_dead)
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
 	if(!istype(M))
