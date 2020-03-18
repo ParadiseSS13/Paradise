@@ -16,7 +16,7 @@
 	density = 1
 	icon = 'icons/obj/cloning.dmi'
 	icon_state = "pod_0"
-	req_access = list(access_genetics) //For premature unlocking.
+	req_access = list(ACCESS_GENETICS) //For premature unlocking.
 	var/mob/living/carbon/human/occupant
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected = null //So we remember the connected clone machine.
@@ -126,6 +126,7 @@
 	read_only = 1
 
 /obj/item/disk/data/demo/New()
+	..()
 	initialize()
 	buf.types=DNA2_BUF_UE|DNA2_BUF_UI
 	//data = "066000033000000000AF00330660FF4DB002690"
@@ -145,6 +146,7 @@
 	read_only = 1
 
 /obj/item/disk/data/monkey/New()
+	..()
 	initialize()
 	buf.types=DNA2_BUF_SE
 	var/list/new_SE=list(0x098,0x3E8,0x403,0x44C,0x39F,0x4B0,0x59D,0x514,0x5FC,0x578,0x5DC,0x640,0x6A4)

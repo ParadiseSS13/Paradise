@@ -27,7 +27,7 @@
 	var/flush_count = 0 //this var adds 1 once per tick. When it reaches flush_every_ticks it resets and tries to flush.
 	var/last_sound = 0
 	var/required_mode_to_deconstruct = -1
-	var/deconstructs_to = PIPE_DISPOSALS_CHUTE
+	var/deconstructs_to = PIPE_DISPOSALS_BIN
 	active_power_usage = 600
 	idle_power_usage = 100
 
@@ -98,21 +98,7 @@
 		return
 
 	src.add_fingerprint(user)
-	if(mode<=0) // It's off
-		if(istype(I, /obj/item/screwdriver))
-			if(contents.len > 0)
-				to_chat(user, "Eject the items first!")
-				return
-			if(mode==0) // It's off but still not unscrewed
-				mode=-1 // Set it to doubleoff l0l
-				playsound(src.loc, I.usesound, 50, 1)
-				to_chat(user, "You remove the screws around the power connection.")
-				return
-			else if(mode==-1)
-				mode=0
-				playsound(src.loc, I.usesound, 50, 1)
-				to_chat(user, "You attach the screws around the power connection.")
-				return
+
 	if(istype(I, /obj/item/melee/energy/blade))
 		to_chat(user, "You can't place that item inside the disposal unit.")
 		return
@@ -157,6 +143,24 @@
 		M.show_message("[user.name] places \the [I] into the [src].", 3)
 
 	update()
+
+
+
+
+/obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
+	if(mode>0) // It's on
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(contents.len > 0)
+		to_chat(user, "Eject the items first!")
+		return
+	if(mode==0) // It's off but still not unscrewed
+		mode=-1 // Set it to doubleoff l0l
+	else if(mode==-1)
+		mode=0
+	to_chat(user, "You [mode ? "unfasten": "fasten"] the screws around the power connection.")
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
 	. = TRUE

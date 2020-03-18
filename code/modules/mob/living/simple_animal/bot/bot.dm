@@ -143,7 +143,7 @@
 	icon_dead = icon_state
 	access_card = new /obj/item/card/id(src)
 //This access is so bots can be immediately set to patrol and leave Robotics, instead of having to be let out first.
-	access_card.access += access_robotics
+	access_card.access += ACCESS_ROBOTICS
 	set_custom_texts()
 	Radio = new/obj/item/radio/headset/bot(src)
 	Radio.follow_target = src

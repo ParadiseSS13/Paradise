@@ -15,7 +15,7 @@
 	throw_speed = 2
 	throw_range = 8
 	var/empty = 0
-	req_one_access =list(access_medical, access_robotics) //Access and treatment are utilized for medbots.
+	req_one_access =list(ACCESS_MEDICAL, ACCESS_ROBOTICS) //Access and treatment are utilized for medbots.
 	var/treatment_brute = "salglu_solution"
 	var/treatment_oxy = "salbutamol"
 	var/treatment_fire = "salglu_solution"
@@ -189,7 +189,7 @@
 	treatment_brute = "bicaridine"
 	treatment_fire = "kelotane"
 	treatment_tox = "charcoal"
-	req_one_access =list(access_syndicate)
+	req_one_access =list(ACCESS_SYNDICATE)
 	med_bot_skin = "bezerk"
 	syndicate_aligned = TRUE
 

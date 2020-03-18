@@ -4,9 +4,6 @@
 #define CONSTRUCTION_GUTTED 3 //Wires are removed, circuit ready to remove
 #define CONSTRUCTION_NOCIRCUIT 4 //Circuit board removed, can safely weld apart
 
-/var/const/FD_OPEN = 1
-/var/const/FD_CLOSED = 2
-
 /obj/machinery/door/firedoor
 	name = "firelock"
 	desc = "Apply crowbar."
@@ -360,6 +357,7 @@
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
 				return
+		if(CONSTRUCTION_NOCIRCUIT)
 			if(istype(C, /obj/item/firelock_electronics))
 				user.visible_message("<span class='notice'>[user] starts adding [C] to [src]...</span>", \
 									 "<span class='notice'>You begin adding a circuit board to [src]...</span>")

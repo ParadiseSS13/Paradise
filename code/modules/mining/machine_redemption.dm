@@ -10,10 +10,10 @@
 	anchored = TRUE
 	input_dir = NORTH
 	output_dir = SOUTH
-	req_access = list(access_mineral_storeroom)
+	req_access = list(ACCESS_MINERAL_STOREROOM)
 	speed_process = TRUE
 	layer = BELOW_OBJ_LAYER
-	var/req_access_reclaim = access_mining_station
+	var/req_access_reclaim = ACCESS_MINING_STATION
 	var/obj/item/card/id/inserted_id
 	var/points = 0
 	var/ore_pickup_rate = 15
@@ -51,8 +51,8 @@
 	RefreshParts()
 
 /obj/machinery/mineral/ore_redemption/golem
-	req_access = list(access_free_golems)
-	req_access_reclaim = access_free_golems
+	req_access = list(ACCESS_FREE_GOLEMS)
+	req_access_reclaim = ACCESS_FREE_GOLEMS
 
 /obj/machinery/mineral/ore_redemption/golem/New()
 	..()
