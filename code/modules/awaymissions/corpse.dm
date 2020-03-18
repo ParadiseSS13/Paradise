@@ -460,7 +460,7 @@
 	name = "Space Bartender"
 	mob_name = "Bartender"
 	id_job = "Bartender"
-	id_access_list = list(access_bar)
+	id_access_list = list(ACCESS_BAR)
 	outfit = /datum/outfit/spacebartender
 
 /obj/effect/mob_spawn/human/bartender/alive

@@ -22,7 +22,7 @@
 	active_power_usage = 6
 	power_channel = ENVIRON
 
-	req_access = list(access_keycard_auth)
+	req_access = list(ACCESS_KEYCARD_AUTH)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
@@ -99,7 +99,7 @@
 	if(href_list["reset"])
 		reset()
 	if(href_list["ert"])
-		ert_reason = input(usr, "Reason for ERT Call:", "", "")
+		ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
 
 	SSnanoui.update_uis(src)
 	add_fingerprint(usr)
@@ -165,9 +165,10 @@
 			feedback_inc("alert_keycard_auth_stationRevoke",1)
 		if("Emergency Response Team")
 			if(is_ert_blocked())
-				to_chat(usr, "<span class='warning'>All Emergency Response Teams are dispatched and can not be called at this time.</span>")
+				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
-			to_chat(usr, "<span class = 'notice'>ERT request transmitted.</span>")
+			atom_say("ERT request transmitted!")
+			command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
 			var/fullmin_count = 0

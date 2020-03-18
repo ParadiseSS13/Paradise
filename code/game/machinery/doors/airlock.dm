@@ -866,7 +866,7 @@ About the new airlock wires panel:
 	else if(istype(C, /obj/item/pai_cable))	// -- TLE
 		var/obj/item/pai_cable/cable = C
 		cable.plugin(src, user)
-	else if(istype(C, /obj/item/paper) || istype(C, /obj/item/photo))
+	else if((istype(C, /obj/item/paper) && !istype(C, /obj/item/paper/talisman)) || istype(C, /obj/item/photo))
 		if(note)
 			to_chat(user, "<span class='warning'>There's already something pinned to this airlock! Use wirecutters or your hands to remove it.</span>")
 			return
@@ -1034,6 +1034,17 @@ About the new airlock wires panel:
 /obj/machinery/door/airlock/try_to_crowbar(mob/living/user, obj/item/I)	//*scream
 	if(operating)
 		return
+	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
+		var/obj/item/twohanded/fireaxe/F = I
+		if(F.wielded)
+			spawn(0)
+				if(density)
+					open(1)
+				else
+					close(1)
+		else
+			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
+		return
 	var/beingcrowbarred = FALSE
 	if(I.tool_behaviour == TOOL_CROWBAR && I.tool_use_check(user, 0))
 		beingcrowbarred = TRUE
@@ -1049,17 +1060,6 @@ About the new airlock wires panel:
 	if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
 		return
-	if(istype(I, /obj/item/twohanded/fireaxe)) //let's make this more specific //FUCK YOU
-		var/obj/item/twohanded/fireaxe/F = I
-		if(F.wielded)
-			spawn(0)
-				if(density)
-					open(1)
-				else
-					close(1)
-		else
-			to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
-			return
 	else if(!arePowerSystemsOn())
 		spawn(0)
 			if(density)
@@ -1348,7 +1348,7 @@ About the new airlock wires panel:
 		else
 			user.visible_message("<span class='notice'>[user] cuts down [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/wirecutter.ogg', 50, 1)
-		note.forceMove(get_turf(user))
+		user.put_in_hands(note)
 		note = null
 		update_icon()
 		return TRUE

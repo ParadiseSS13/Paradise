@@ -8,7 +8,6 @@
 	smooth = SMOOTH_MORE | SMOOTH_BORDER
 	canSmoothWith = null
 	baseturf = /turf/simulated/floor/plating/asteroid/airless
-	temperature = 2.7
 	opacity = 1
 	density = TRUE
 	blocks_air = TRUE

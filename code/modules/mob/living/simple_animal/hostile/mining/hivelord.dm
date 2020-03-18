@@ -141,7 +141,7 @@
 	volume = min(volume, reagents.total_volume)
 
 	var/fraction = min(volume/reagents.total_volume, 1)
-	reagents.reaction(C, INGEST, fraction)
+	reagents.reaction(C, REAGENT_INGEST, fraction)
 	reagents.trans_to(C, volume)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/C)

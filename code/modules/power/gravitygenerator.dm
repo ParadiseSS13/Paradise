@@ -5,14 +5,14 @@
 
 var/list/gravity_generators = list() // We will keep track of this by adding new gravity generators to the list, and keying it with the z level.
 
-var/const/POWER_IDLE = 0
-var/const/POWER_UP = 1
-var/const/POWER_DOWN = 2
+#define GRAV_POWER_IDLE 0
+#define GRAV_POWER_UP 1
+#define GRAV_POWER_DOWN 2
 
-var/const/GRAV_NEEDS_SCREWDRIVER = 0
-var/const/GRAV_NEEDS_WELDING = 1
-var/const/GRAV_NEEDS_PLASTEEL = 2
-var/const/GRAV_NEEDS_WRENCH = 3
+#define GRAV_NEEDS_SCREWDRIVER 0
+#define GRAV_NEEDS_WELDING 1
+#define GRAV_NEEDS_PLASTEEL 2
+#define GRAV_NEEDS_WRENCH 3
 
 //
 // Abstract Generator
@@ -111,7 +111,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	var/breaker = 1
 	var/list/parts = list()
 	var/obj/middle = null
-	var/charging_state = POWER_IDLE
+	var/charging_state = GRAV_POWER_IDLE
 	var/charge_count = 100
 	var/current_overlay = null
 	var/broken_state = 0
@@ -238,8 +238,8 @@ var/const/GRAV_NEEDS_WRENCH = 3
 		dat += "<A href='?src=[UID()];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
-	if(charging_state != POWER_IDLE)
-		dat += "<font class='bad'>WARNING</font> Radiation Detected. <br>[charging_state == POWER_UP ? "Charging..." : "Discharging..."]"
+	if(charging_state != GRAV_POWER_IDLE)
+		dat += "<font class='bad'>WARNING</font> Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
 	else if(on)
 		dat += "Powered."
 	else
@@ -272,7 +272,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 /obj/machinery/gravity_generator/main/get_status()
 	if(stat & BROKEN)
 		return "fix[min(broken_state, 3)]"
-	return on || charging_state != POWER_IDLE ? "on" : "off"
+	return on || charging_state != GRAV_POWER_IDLE ? "on" : "off"
 
 /obj/machinery/gravity_generator/main/update_icon()
 	..()
@@ -287,13 +287,13 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	else if(breaker)
 		new_state = 1
 
-	charging_state = new_state ? POWER_UP : POWER_DOWN // Startup sequence animation.
-	investigate_log("is now [charging_state == POWER_UP ? "charging" : "discharging"].", "gravity")
+	charging_state = new_state ? GRAV_POWER_UP : GRAV_POWER_DOWN // Startup sequence animation.
+	investigate_log("is now [charging_state == GRAV_POWER_UP ? "charging" : "discharging"].", "gravity")
 	update_icon()
 
 // Set the state of the gravity.
 /obj/machinery/gravity_generator/main/proc/set_state(var/new_state)
-	charging_state = POWER_IDLE
+	charging_state = GRAV_POWER_IDLE
 	on = new_state
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	// Sound the alert if gravity was just enabled or disabled.
@@ -327,15 +327,15 @@ var/const/GRAV_NEEDS_WRENCH = 3
 /obj/machinery/gravity_generator/main/process()
 	if(stat & BROKEN)
 		return
-	if(charging_state != POWER_IDLE)
-		if(charging_state == POWER_UP && charge_count >= 100)
+	if(charging_state != GRAV_POWER_IDLE)
+		if(charging_state == GRAV_POWER_UP && charge_count >= 100)
 			set_state(1)
-		else if(charging_state == POWER_DOWN && charge_count <= 0)
+		else if(charging_state == GRAV_POWER_DOWN && charge_count <= 0)
 			set_state(0)
 		else
-			if(charging_state == POWER_UP)
+			if(charging_state == GRAV_POWER_UP)
 				charge_count += 2
-			else if(charging_state == POWER_DOWN)
+			else if(charging_state == GRAV_POWER_DOWN)
 				charge_count -= 2
 
 			if(charge_count % 4 == 0 && prob(75)) // Let them know it is charging/discharging.
