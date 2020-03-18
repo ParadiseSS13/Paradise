@@ -21,6 +21,13 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
+	damage_coeff = list(BRUTE = 1, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
+	obj_damage = 5
+	melee_damage_lower = 7
+	melee_damage_upper = 7
+	attacktext = "scratch"
+	attack_sound = 'sound/weapons/pierce.ogg'
+
 /mob/living/simple_animal/friendly/owl/emote(act, m_type = 1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
