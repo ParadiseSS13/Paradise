@@ -115,9 +115,6 @@
 				P.germ_level = INFECTION_LEVEL_ONE
 		..()
 	else
-		if(istype(target, /obj/machinery/power/apc))
-			to_chat(src, "<span class ='warning'>That is not a prey!</span>")
-			return
 		..()
 
 /mob/living/simple_animal/hostile/oldman/hitby(atom/movable/AM, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
