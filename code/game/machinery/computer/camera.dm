@@ -18,27 +18,27 @@
 	..()
 
 /obj/machinery/computer/security/proc/generate_network_access()
-	available_networks["SS13"] =              list(access_hos,access_captain)
-	available_networks["Telecomms"] =         list(access_hos,access_captain)
-	available_networks["Research Outpost"] =  list(access_rd,access_hos,access_captain)
-	available_networks["Mining Outpost"] =    list(access_qm,access_hop,access_hos,access_captain)
-	available_networks["Research"] =          list(access_rd,access_hos,access_captain)
-	available_networks["Prison"] =            list(access_hos,access_captain)
-	available_networks["Labor Camp"] =        list(access_hos,access_captain)
-	available_networks["Interrogation"] =     list(access_hos,access_captain)
-	available_networks["Atmosphere Alarms"] = list(access_ce,access_hos,access_captain)
-	available_networks["Fire Alarms"] =       list(access_ce,access_hos,access_captain)
-	available_networks["Power Alarms"] =      list(access_ce,access_hos,access_captain)
-	available_networks["Supermatter"] =       list(access_ce,access_hos,access_captain)
-	available_networks["MiniSat"] =           list(access_rd,access_hos,access_captain)
-	available_networks["Singularity"] =       list(access_ce,access_hos,access_captain)
-	available_networks["Anomaly Isolation"] = list(access_rd,access_hos,access_captain)
-	available_networks["Toxins"] =            list(access_rd,access_hos,access_captain)
-	available_networks["Telepad"] =           list(access_rd,access_hos,access_captain)
-	available_networks["TestChamber"] =       list(access_rd,access_hos,access_captain)
-	available_networks["ERT"] =               list(access_cent_specops_commander,access_cent_commander)
-	available_networks["CentComm"] =          list(access_cent_security,access_cent_commander)
-	available_networks["Thunderdome"] =       list(access_cent_thunder,access_cent_commander)
+	available_networks["SS13"] =              list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Telecomms"] =         list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Research Outpost"] =  list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Mining Outpost"] =    list(ACCESS_QM,ACCESS_HOP,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Research"] =          list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Prison"] =            list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Labor Camp"] =        list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Interrogation"] =     list(ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Atmosphere Alarms"] = list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Fire Alarms"] =       list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Power Alarms"] =      list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Supermatter"] =       list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["MiniSat"] =           list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Singularity"] =       list(ACCESS_CE,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Anomaly Isolation"] = list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Toxins"] =            list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["Telepad"] =           list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["TestChamber"] =       list(ACCESS_RD,ACCESS_HOS,ACCESS_CAPTAIN)
+	available_networks["ERT"] =               list(ACCESS_CENT_SPECOPS_COMMANDER,ACCESS_CENT_COMMANDER)
+	available_networks["CentComm"] =          list(ACCESS_CENT_SECURITY,ACCESS_CENT_COMMANDER)
+	available_networks["Thunderdome"] =       list(ACCESS_CENT_THUNDER,ACCESS_CENT_COMMANDER)
 
 /obj/machinery/computer/security/Destroy()
 	if(watchers.len)
@@ -79,24 +79,24 @@
 
 	ui_interact(user)
 
-/obj/machinery/computer/security/telescreen/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
-		if(!direction || !Adjacent(user))
-			return
-		pixel_x = 0
-		pixel_y = 0
-		switch(direction)
-			if("North")
-				pixel_y = 32
-			if("East")
-				pixel_x = 32
-			if("South")
-				pixel_y = -32
-			if("West")
-				pixel_x = -32
-	else
-		return ..()
+/obj/machinery/computer/security/telescreen/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	var/direction = input(user, "Which direction?", "Select direction!") as null|anything in list("North", "East", "South", "West", "Centre")
+	if(!direction || !Adjacent(user))
+		return
+	pixel_x = 0
+	pixel_y = 0
+	switch(direction)
+		if("North")
+			pixel_y = 32
+		if("East")
+			pixel_x = 32
+		if("South")
+			pixel_y = -32
+		if("West")
+			pixel_x = -32
 
 /obj/machinery/computer/security/emag_act(user as mob)
 	if(!emagged)

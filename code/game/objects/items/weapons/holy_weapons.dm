@@ -556,6 +556,7 @@
 	var/faith = 99	//a conversion requires 100 faith to attempt. faith recharges over time while you are wearing missionary robes that have been linked to the staff.
 
 /obj/item/nullrod/missionary_staff/New()
+	..()
 	team_color = pick("red", "blue")
 	icon_state = "godstaff-[team_color]"
 	item_state = "godstaff-[team_color]"

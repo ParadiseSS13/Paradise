@@ -42,8 +42,8 @@
 
 	if(control_disabled || stat)
 		return
-
-	var/turf/pixel_turf = get_turf_pixel(A)
+	
+	var/turf/pixel_turf = isturf(A) ? A : get_turf_pixel(A)
 	if(isnull(pixel_turf))
 		return
 	if(!can_see(A))

@@ -37,23 +37,28 @@
 	efficiency = E
 
 /obj/machinery/telepad/attackby(obj/item/I, mob/user, params)
-	if(default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I))
-		return
-
-	if(panel_open)
-		if(istype(I, /obj/item/multitool))
-			var/obj/item/multitool/M = I
-			M.buffer = src
-			to_chat(user, "<span class = 'caution'>You save the data in the [I.name]'s buffer.</span>")
-		return
-
 	if(exchange_parts(user, I))
-		return
-
-	if(default_deconstruction_crowbar(I))
 		return
 	return ..()
 
+/obj/machinery/telepad/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I)
+
+/obj/machinery/telepad/multitool_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!I.multitool_check_buffer(user))
+		return
+	var/obj/item/multitool/M = I
+	M.set_multitool_buffer(user, src)
+
+/obj/machinery/telepad/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
 
 //CARGO TELEPAD//
 /obj/machinery/telepad_cargo
@@ -67,32 +72,23 @@
 	active_power_usage = 500
 	var/stage = 0
 
-/obj/machinery/telepad_cargo/attackby(obj/item/I, mob/user, params)
-	if(iswrench(I))
-		playsound(src, I.usesound, 50, 1)
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class = 'caution'> The [src] can now be moved.</span>")
-		else if(!anchored)
-			anchored = TRUE
-			to_chat(user, "<span class = 'caution'> The [src] is now secured.</span>")
+/obj/machinery/telepad_cargo/crowbar_act(mob/living/user, obj/item/I)
+	if(stage != 1)
 		return
-	if(isscrewdriver(I))
-		if(stage == 0)
-			playsound(src, I.usesound, 50, 1)
-			to_chat(user, "<span class = 'caution'> You unscrew the telepad's tracking beacon.</span>")
-			stage = 1
-		else if(stage == 1)
-			playsound(src, I.usesound, 50, 1)
-			to_chat(user, "<span class = 'caution'> You screw in the telepad's tracking beacon.</span>")
-			stage = 0
+	. = TRUE
+	default_deconstruction_crowbar(user, I)
+
+/obj/machinery/telepad_cargo/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(iswelder(I) && stage == 1)
-		playsound(src, I.usesound, 50, 1)
-		to_chat(user, "<span class = 'caution'> You disassemble the telepad.</span>")
-		deconstruct(TRUE)
-		return
-	return ..()
+	to_chat(user, "<span class = 'caution'> You [stage ? "screw in" : "unscrew"] the telepad's tracking beacon.</span>")
+	stage = !stage
+
+/obj/machinery/telepad_cargo/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	default_unfasten_wrench(user, I)
+	
 
 /obj/machinery/telepad_cargo/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

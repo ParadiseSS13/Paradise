@@ -30,6 +30,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	var/obj/item/stack/tile/builtin_tile = null //needed for performance reasons when the singularity rips off floor tiles
 	var/list/broken_states = list("damaged1", "damaged2", "damaged3", "damaged4", "damaged5")
 	var/list/burnt_states = list("floorscorched1", "floorscorched2")
+	var/list/prying_tool_list = list(TOOL_CROWBAR) //What tool/s can we use to pry up the tile?
 
 /turf/simulated/floor/New()
 	..()
@@ -144,10 +145,6 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 	if(..())
 		return TRUE
 
-	if(intact && iscrowbar(C))
-		pry_tile(C, user)
-		return TRUE
-
 	if(intact && istype(C, /obj/item/stack/tile))
 		try_replace_tile(C, user, params)
 
@@ -178,21 +175,28 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 			return TRUE
 	return FALSE
 
+/turf/simulated/floor/crowbar_act(mob/user, obj/item/I)
+	if(!intact)
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	pry_tile(I, user, TRUE)
+
 /turf/simulated/floor/proc/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
 	if(T.turf_type == type)
 		return
-	var/obj/item/crowbar/CB
-	if(iscrowbar(user.get_inactive_hand()))
-		CB = user.get_inactive_hand()
-	if(!CB)
+	var/obj/item/thing = user.get_inactive_hand()
+	if(!prying_tool_list.Find(thing.tool_behaviour))
 		return
-	var/turf/simulated/floor/plating/P = pry_tile(CB, user, TRUE)
+	var/turf/simulated/floor/plating/P = pry_tile(thing, user, TRUE)
 	if(!istype(P))
 		return
 	P.attackby(T, user, params)
 
 /turf/simulated/floor/proc/pry_tile(obj/item/C, mob/user, silent = FALSE)
-	playsound(src, C.usesound, 80, 1)
+	if(!silent)
+		playsound(src, C.usesound, 80, 1)
 	return remove_tile(user, silent)
 
 /turf/simulated/floor/proc/remove_tile(mob/user, silent = FALSE, make_tile = TRUE)

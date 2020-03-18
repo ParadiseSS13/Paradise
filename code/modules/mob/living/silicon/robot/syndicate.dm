@@ -7,7 +7,7 @@
 	faction = list("syndicate")
 	designation = "Syndicate Assault"
 	modtype = "Syndicate"
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
 	lawchannel = "State"
 	var/playstyle_string = "<span class='userdanger'>You are a Syndicate assault cyborg!</span><br>\

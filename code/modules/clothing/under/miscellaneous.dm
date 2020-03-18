@@ -96,38 +96,35 @@
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
-	name = "\improper Nanotrasen Officers Uniform"
-	icon_state = "officer"
-	item_state = "g_suit"
-	item_color = "officer"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Officer Uniform"
+	icon_state = "navy_gold"
+	item_state = "navy_gold"
+	item_color = "navy_gold"
 	displays_id = 0
 	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.C.V. Fearless CV-286\" on the left shoulder."
-	name = "\improper Nanotrasen Captains Uniform"
-	icon_state = "centcom"
-	item_state = "dg_suit"
-	item_color = "centcom"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "\improper Nanotrasen Naval Captain Uniform"
+	icon_state = "navy_gold"
+	item_state = "navy_gold"
+	item_color = "navy_gold"
 	displays_id = 0
+	flags_size = ONESIZEFITSALL
 
 /obj/item/clothing/under/rank/centcom/blueshield
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Nanotrasen Navy Uniform"
+	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder."
+	name = "\improper Formal Nanotrasen Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
 	flags_size = ONESIZEFITSALL
 
-/obj/item/clothing/under/rank/centcom/blueshield/New()
-	..()
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant\" and bears [station_name()] on the left shoulder."
-
 /obj/item/clothing/under/rank/centcom/representative
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Nanotrasen Navy Uniform"
+	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
+	name = "\improper Formal Nanotrasen Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -136,11 +133,11 @@
 
 /obj/item/clothing/under/rank/centcom/representative/New()
 	..()
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Ensign\" and bears [station_name()] on the left shoulder."
+	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Nanotrasen Navy Uniform"
+	name = "\improper Formal Nanotrasen Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -161,7 +158,7 @@
 
 /obj/item/clothing/under/rank/blueshield
 	name = "blueshield uniform"
-	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants. Standard issue to Blueshield officers."
+	desc = "A short-sleeved black uniform, paired with grey digital-camo cargo pants. Standard issue to Blueshields."
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
@@ -169,7 +166,7 @@
 
 /obj/item/clothing/under/rank/blueshield/skirt
 	name = "blueshield skirt"
-	desc = "A short, black and grey with blue markings skirted uniform. For the feminine Blueshield officers."
+	desc = "A short, black and grey with blue markings skirted uniform. For the feminine Blueshield."
 	icon_state = "blueshieldf"
 	item_state = "blueshieldf"
 	item_color = "blueshieldf"
