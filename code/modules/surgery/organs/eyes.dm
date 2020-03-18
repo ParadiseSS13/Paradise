@@ -5,7 +5,7 @@
 	organ_tag = "eyes"
 	parent_organ = "head"
 	slot = "eyes"
-	var/eye_colour = "#000000"
+	var/eye_colour = "#000000" // Should never be null
 	var/list/colourmatrix = null
 	var/list/colourblind_matrix = MATRIX_GREYSCALE //Special colourblindness parameters. By default, it's black-and-white.
 	var/list/replace_colours = LIST_GREYSCALE_REPLACE

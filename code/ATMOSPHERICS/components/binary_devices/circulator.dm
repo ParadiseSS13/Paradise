@@ -1,5 +1,8 @@
 //node1, air1, network1 correspond to input
 //node2, air2, network2 correspond to output
+#define CIRC_LEFT WEST
+#define CIRC_RIGHT EAST
+
 /obj/machinery/atmospherics/binary/circulator
 	name = "circulator/heat exchanger"
 	desc = "A gas circulator pump and heat exchanger. Its input port is on the south side, and its output port is on the north side."
@@ -7,9 +10,6 @@
 	icon_state = "circ1-off"
 
 	var/side = CIRC_LEFT
-
-	var/global/const/CIRC_LEFT = WEST
-	var/global/const/CIRC_RIGHT = EAST
 
 	var/last_pressure_delta = 0
 
@@ -98,16 +98,16 @@
 		else
 			return "South"
 
-/obj/machinery/atmospherics/binary/circulator/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(ismultitool(W))
-		if(side_inverted == 0)
-			side_inverted = 1
-		else
-			side_inverted = 0
-		to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
-		desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
+/obj/machinery/atmospherics/binary/circulator/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!side_inverted)
+		side_inverted = TRUE
 	else
-		return ..()
+		side_inverted = FALSE
+	to_chat(user, "<span class='notice'>You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side.</span>")
+	desc = "A gas circulator pump and heat exchanger. Its input port is on the [get_inlet_side(dir)] side, and its output port is on the [get_outlet_side(dir)] side."
 
 /obj/machinery/atmospherics/binary/circulator/update_icon()
 	..()

@@ -182,7 +182,7 @@ var/global/list/all_cults = list()
 	if(!istype(cult_mind))
 		return 0
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
+	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()

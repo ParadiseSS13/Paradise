@@ -62,5 +62,5 @@
 		ignore_use = FALSE
 
 /obj/structure/closet/secure_closet/syndicate/depot/armory
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	is_armory = TRUE

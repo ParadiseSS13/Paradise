@@ -325,23 +325,6 @@
 		qdel(src)
 		return
 
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(!WT.isOn())
-			to_chat(user, "<span class='warning'>\The [W] is off.</span>")
-			return
-
-		if(obj_integrity == max_integrity)
-			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
-			return
-
-		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
-		var/dmg = round(max_integrity - obj_integrity)
-		if(WT.remove_fuel(round(dmg/75)) && do_after(usr, dmg/10))
-			obj_integrity = max_integrity
-			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
-		return
-
 	if(istype(W, /obj/item/screwdriver))
 		if(!all_components.len)
 			to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
@@ -368,6 +351,12 @@
 		return
 
 	..()
+
+/obj/item/modular_computer/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_welder_repair(user, I)
 
 // Used by processor to relay qdel() to machinery type.
 /obj/item/modular_computer/proc/relay_qdel()

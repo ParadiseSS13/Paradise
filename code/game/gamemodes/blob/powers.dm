@@ -336,7 +336,7 @@
 		if(ROLE_BLOB in L.faction) //no friendly/dead fire
 			continue
 		var/mob_protection = L.get_permeability_protection()
-		blob_reagent_datum.reaction_mob(L, TOUCH, 25, 1, mob_protection)
+		blob_reagent_datum.reaction_mob(L, REAGENT_TOUCH, 25, 1, mob_protection)
 		blob_reagent_datum.send_message(L)
 	OB.color = blob_reagent_datum.color
 	return
