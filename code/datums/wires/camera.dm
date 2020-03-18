@@ -17,8 +17,8 @@
 		return FALSE
 	return TRUE
 
-var/const/CAMERA_WIRE_FOCUS = 1
-var/const/CAMERA_WIRE_POWER = 2
+#define CAMERA_WIRE_FOCUS 1
+#define CAMERA_WIRE_POWER 2
 
 /datum/wires/camera/GetWireName(index)
 	switch(index)

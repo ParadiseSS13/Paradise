@@ -403,7 +403,7 @@
 			var/proportion = 10 * min(1/beaker.volume, 1)
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
-			beaker.reagents.reaction(occupant, TOUCH, proportion)
+			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
 	next_trans++
 	if(next_trans == 17)

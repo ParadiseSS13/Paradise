@@ -55,8 +55,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return max(0, days - C.player_age)
 	return 0
 
-#define MAX_SAVE_SLOTS 20 // Save slots for regular players
-#define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
+#define MAX_SAVE_SLOTS 30 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
@@ -651,7 +651,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			var/available_in_days = job.available_in_days(user.client)
 			HTML += "<del>[rank]</del></td><td> \[IN [(available_in_days)] DAYS]</td></tr>"
 			continue
-		if((job_support_low & CIVILIAN) && (rank != "Civilian"))
+		if((job_support_low & JOB_CIVILIAN) && (rank != "Civilian"))
 			HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 			continue
 		if((rank in command_positions) || (rank == "AI"))//Bold head jobs
@@ -693,7 +693,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 //			HTML += "<a href='?_src_=prefs;preference=job;task=input;text=[rank]'>"
 
 		if(rank == "Civilian")//Civilian is special
-			if(job_support_low & CIVILIAN)
+			if(job_support_low & JOB_CIVILIAN)
 				HTML += " <font color=green>\[Yes]</font></a>"
 			else
 				HTML += " <font color=red>\[No]</font></a>"
@@ -760,7 +760,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		job_medsci_high = 0
 		job_karma_high = 0
 
-	if(job.department_flag == SUPPORT)
+	if(job.department_flag == JOBCAT_SUPPORT)
 		job_support_low &= ~job.flag
 		job_support_med &= ~job.flag
 		job_support_high &= ~job.flag
@@ -774,7 +774,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				job_support_low |= job.flag
 
 		return 1
-	else if(job.department_flag == ENGSEC)
+	else if(job.department_flag == JOBCAT_ENGSEC)
 		job_engsec_low &= ~job.flag
 		job_engsec_med &= ~job.flag
 		job_engsec_high &= ~job.flag
@@ -788,7 +788,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				job_engsec_low |= job.flag
 
 		return 1
-	else if(job.department_flag == MEDSCI)
+	else if(job.department_flag == JOBCAT_MEDSCI)
 		job_medsci_low &= ~job.flag
 		job_medsci_med &= ~job.flag
 		job_medsci_high &= ~job.flag
@@ -802,7 +802,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				job_medsci_low |= job.flag
 
 		return 1
-	else if(job.department_flag == KARMA)
+	else if(job.department_flag == JOBCAT_KARMA)
 		job_karma_low &= ~job.flag
 		job_karma_med &= ~job.flag
 		job_karma_high &= ~job.flag
@@ -973,7 +973,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 /datum/preferences/proc/GetJobDepartment(var/datum/job/job, var/level)
 	if(!job || !level)	return 0
 	switch(job.department_flag)
-		if(SUPPORT)
+		if(JOBCAT_SUPPORT)
 			switch(level)
 				if(1)
 					return job_support_high
@@ -981,7 +981,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					return job_support_med
 				if(3)
 					return job_support_low
-		if(MEDSCI)
+		if(JOBCAT_MEDSCI)
 			switch(level)
 				if(1)
 					return job_medsci_high
@@ -989,7 +989,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					return job_medsci_med
 				if(3)
 					return job_medsci_low
-		if(ENGSEC)
+		if(JOBCAT_ENGSEC)
 			switch(level)
 				if(1)
 					return job_engsec_high
@@ -997,7 +997,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					return job_engsec_med
 				if(3)
 					return job_engsec_low
-		if(KARMA)
+		if(JOBCAT_KARMA)
 			switch(level)
 				if(1)
 					return job_karma_high
@@ -1027,7 +1027,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			job_karma_high = 0
 
 	switch(job.department_flag)
-		if(SUPPORT)
+		if(JOBCAT_SUPPORT)
 			switch(level)
 				if(2)
 					job_support_high = job.flag
@@ -1037,7 +1037,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					job_support_low &= ~job.flag
 				else
 					job_support_low |= job.flag
-		if(MEDSCI)
+		if(JOBCAT_MEDSCI)
 			switch(level)
 				if(2)
 					job_medsci_high = job.flag
@@ -1047,7 +1047,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					job_medsci_low &= ~job.flag
 				else
 					job_medsci_low |= job.flag
-		if(ENGSEC)
+		if(JOBCAT_ENGSEC)
 			switch(level)
 				if(2)
 					job_engsec_high = job.flag
@@ -1057,7 +1057,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					job_engsec_low &= ~job.flag
 				else
 					job_engsec_low |= job.flag
-		if(KARMA)
+		if(JOBCAT_KARMA)
 			switch(level)
 				if(2)
 					job_karma_high = job.flag

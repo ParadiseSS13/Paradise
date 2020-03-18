@@ -193,6 +193,12 @@
 	icon_state = "viropack"
 	item_state = "viropack"
 
+/obj/item/storage/backpack/blueshield
+	name = "blueshield backpack"
+	desc = "A robust backpack issued to Nanotrasen's finest."
+	icon_state = "blueshieldpack"
+	item_state = "blueshieldpack"
+
 /*
  * Satchel Types
  */
@@ -286,6 +292,11 @@
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
 	resistance_flags = FIRE_PROOF
+
+/obj/item/storage/backpack/satchel_blueshield
+	name = "blueshield satchel"
+	desc = "A robust satchel issued to Nanotrasen's finest."
+	icon_state = "satchel-blueshield"
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -531,12 +542,19 @@
 	icon_state = "duffel-clown"
 	item_state = "duffel-clown"
 
+obj/item/storage/backpack/duffel/blueshield
+	name = "blueshield duffelbag"
+	desc = "A robust duffelbag issued to Nanotrasen's finest."
+	icon_state = "duffel-blueshield"
+	item_state = "duffel-blueshield"
+
 //ERT backpacks.
 /obj/item/storage/backpack/ert
 	name = "emergency response team backpack"
 	desc = "A spacious backpack with lots of pockets, used by members of the Nanotrasen Emergency Response Team."
 	icon_state = "ert_commander"
 	item_state = "backpack"
+	max_combined_w_class = 30
 	resistance_flags = FIRE_PROOF
 
 //Commander

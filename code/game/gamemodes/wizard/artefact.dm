@@ -99,7 +99,7 @@
 				new_objective:target = H:mind
 				new_objective.explanation_text = "Protect [H.real_name], the wizard."
 				M.mind.objectives += new_objective
-				SSticker.mode.traitors += M.mind
+				SSticker.mode.apprentices += M.mind
 				M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 				SSticker.mode.update_wiz_icons_added(M.mind)
 				M.faction = list("wizard")
@@ -582,10 +582,10 @@ var/global/list/multiverse = list()
 			W.access = duplicated_id.access
 			W.icon_state = duplicated_id.icon_state
 		else
-			W.access += access_maint_tunnels
+			W.access += ACCESS_MAINT_TUNNELS
 			W.icon_state = "centcom"
 	else
-		W.access += access_maint_tunnels
+		W.access += ACCESS_MAINT_TUNNELS
 		W.icon_state = "centcom"
 	W.assignment = "Multiverse Traveller"
 	W.registered_name = M.real_name

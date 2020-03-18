@@ -66,8 +66,8 @@
  */
 
 var/announcing_vox = 0 // Stores the time of the last announcement
-var/const/VOX_DELAY = 100
-var/const/VOX_PATH = "sound/vox_fem/"
+#define VOX_DELAY 100
+#define VOX_PATH "sound/vox_fem/"
 
 /mob/living/silicon/ai/verb/announcement_help()
 	set name = "Announcement Help"
@@ -135,6 +135,22 @@ var/const/VOX_PATH = "sound/vox_fem/"
 	for(var/word in words)
 		play_vox_word(word, src.z, null)
 
+	ai_voice_announcement_to_text(words)
+
+
+/mob/living/silicon/ai/proc/ai_voice_announcement_to_text(words)
+	var/words_string = jointext(words, " ")
+	var/formatted_message = "<h1 class='alert'>A.I. Announcement</h1>"
+	formatted_message += "<br><span class='alert'>[words_string]</span>"
+	formatted_message += "<br><span class='alert'> -[src]</span>"
+
+	for(var/player in GLOB.player_list)
+		var/mob/M = player
+		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
+			var/turf/T = get_turf(M)
+			if(T && T.z == z && M.can_hear())
+				SEND_SOUND(M, 'sound/misc/notice2.ogg')
+				to_chat(M, formatted_message)
 
 /proc/play_vox_word(word, z_level, mob/only_listener)
 
@@ -150,7 +166,7 @@ var/const/VOX_PATH = "sound/vox_fem/"
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)
-				if(M.client)
+				if(M.client && M.client.prefs.sound & SOUND_AI_VOICE)
 					var/turf/T = get_turf(M)
 					if(T && T.z == z_level && M.can_hear())
 						M << voice

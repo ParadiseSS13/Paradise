@@ -2,10 +2,10 @@
 	holder_type = /obj/machinery/suit_storage_unit
 	wire_count = 8
 
-var/const/SSU_WIRE_ID = 1
-var/const/SSU_WIRE_SHOCK = 2
-var/const/SSU_WIRE_SAFETY = 4
-var/const/SSU_WIRE_UV = 8
+#define SSU_WIRE_ID 1
+#define SSU_WIRE_SHOCK 2
+#define SSU_WIRE_SAFETY 4
+#define SSU_WIRE_UV 8
 
 
 /datum/wires/suitstorage/GetWireName(index)
