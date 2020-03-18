@@ -281,6 +281,9 @@
 
 /proc/init_construct(mob/living/simple_animal/hostile/construct/C, mob/living/simple_animal/shade/SH, obj/item/soulstone/SS, obj/structure/constructshell/T)
 	SH.mind.transfer_to(C)
+	if(iscultist(C))
+		var/datum/action/innate/cultcomm/CC = new()
+			CC.Grant(C) //We have to grant the cult comms again because they're lost during the mind transfer.
 	qdel(T)
 	qdel(SH)
 	to_chat(C, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")

@@ -143,13 +143,18 @@
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
+	else
+		return ..()
 
-	else if(iswirecutter(W))
-		if(cell)
-			to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
-			cell.forceMove(get_turf(loc))
-			cell = null
-			update_icon()
+/obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(cell)
+		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
+		cell.forceMove(get_turf(loc))
+		cell = null
+		update_icon()
 
 /obj/item/clothing/gloves/fingerless/rapid
 	name = "Gloves of the North Star"

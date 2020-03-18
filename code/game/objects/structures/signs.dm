@@ -17,19 +17,22 @@
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, TRUE)
 
-/obj/structure/sign/attackby(obj/item/tool as obj, mob/user as mob)	//deconstruction
-	if(istype(tool, /obj/item/screwdriver) && !istype(src, /obj/structure/sign/double))
-		to_chat(user, "You unfasten the sign with your [tool].")
-		var/obj/item/sign/S = new(src.loc)
-		S.name = name
-		S.desc = desc
-		S.icon_state = icon_state
-		//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
-		//S.icon = I.Scale(24, 24)
-		S.sign_state = icon_state
-		qdel(src)
-	else
-		return ..()
+/obj/structure/sign/screwdriver_act(mob/user, obj/item/I)
+	if(istype(src, /obj/structure/sign/double))
+		return
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "You unfasten the sign with [I].")
+	var/obj/item/sign/S = new(src.loc)
+	S.name = name
+	S.desc = desc
+	S.icon_state = icon_state
+	//var/icon/I = icon('icons/obj/decals.dmi', icon_state)
+	//S.icon = I.Scale(24, 24)
+	S.sign_state = icon_state
+	qdel(src)
+
 
 /obj/item/sign
 	name = "sign"

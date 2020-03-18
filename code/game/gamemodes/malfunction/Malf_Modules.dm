@@ -244,6 +244,7 @@
 	anchored = 1
 	density = 1
 	atom_say_verb = "blares"
+	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
 	var/timing = 0
 	var/default_timer = 4500
 	var/detonation_timer

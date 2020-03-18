@@ -155,17 +155,15 @@
 	for(var/obj/structure/lattice/L in src)
 		L.ratvar_act()
 
-/turf/simulated/floor/clockwork/attackby(obj/item/I, mob/living/user, params)
-	if(iscrowbar(I))
-		user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
-		playsound(src, I.usesound, 20, 1)
-		if(!do_after(user, 70 * I.toolspeed, target = src))
-			return 0
-		user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
-		playsound(src, I.usesound, 80, 1)
-		make_plating()
-		return 1
-	return ..()
+/turf/simulated/floor/clockwork/crowbar_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	user.visible_message("<span class='notice'>[user] begins slowly prying up [src]...</span>", "<span class='notice'>You begin painstakingly prying up [src]...</span>")
+	if(!I.use_tool(src, user, 70, volume = I.tool_volume))
+		return
+	user.visible_message("<span class='notice'>[user] pries up [src]!</span>", "<span class='notice'>You pry up [src]!</span>")
+	make_plating()
 
 /turf/simulated/floor/clockwork/make_plating()
 	if(!dropped_brass)

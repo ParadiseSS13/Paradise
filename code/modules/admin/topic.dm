@@ -1551,13 +1551,12 @@
 		show_player_panel(M)
 
 	else if(href_list["adminplayerobservefollow"])
-		if(!check_rights(R_ADMIN|R_MOD))
-			return
-
-		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
-
 		var/client/C = usr.client
-		if(!isobserver(usr))	C.admin_ghost()
+		if(!isobserver(usr))
+			if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
+				return
+			C.admin_ghost()
+		var/mob/M = locateUID(href_list["adminplayerobservefollow"])
 		var/mob/dead/observer/A = C.mob
 		sleep(2)
 		A.ManualFollow(M)
@@ -1760,7 +1759,7 @@
 		P.faxmachineid = fax.UID()
 		P.loc = fax.loc // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
+			to_chat(H, "<span class = 'specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
@@ -2096,7 +2095,7 @@
 		P.update_icon()
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, "Your headset pings, notifying you that a reply to your fax has arrived.")
+			to_chat(H, "<span class = 'specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
@@ -2138,7 +2137,7 @@
 			ert_request_answered = TRUE
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.")
 			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "You hear something crackle in your headset for a moment before a voice speaks.  \"Your ERT request has been denied for the following reasons: [input].  Message ends.\"")
+			to_chat(H, "<span class = 'specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class = 'specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
 		else
 			src.owner.response_team()
 
@@ -2164,7 +2163,7 @@
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 
-			usr << browse(data, "window=[B.name]")
+			usr << browse(data, "window=PaperBundle[B.UID()]")
 		else
 			to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>")
 
@@ -2324,7 +2323,7 @@
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
 			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-				to_chat(sender, "Your headset pings, notifying you that a reply to your fax has arrived.")
+				to_chat(sender, "<span class = 'specialnoticebold'>Your headset pings, notifying you that a reply to your fax has arrived.</span>")
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
 			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).", 1)
@@ -2667,7 +2666,7 @@
 					if(H.wear_id)
 						var/obj/item/card/id/id = H.get_idcard()
 						for(var/A in id.access)
-							if(A == access_security)
+							if(A == ACCESS_SECURITY)
 								security++
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
@@ -2723,15 +2722,15 @@
 				if(newBombCap > 128)
 					newBombCap = 128
 
-				MAX_EX_DEVESTATION_RANGE = round(newBombCap/4)
+				MAX_EX_DEVASTATION_RANGE = round(newBombCap/4)
 				MAX_EX_HEAVY_RANGE = round(newBombCap/2)
 				MAX_EX_LIGHT_RANGE = newBombCap
 				//I don't know why these are their own variables, but fuck it, they are.
 				MAX_EX_FLASH_RANGE = newBombCap
 				MAX_EX_FLAME_RANGE = newBombCap
 
-				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</span>")
-				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVESTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
+				message_admins("<span class='boldannounce'>[key_name_admin(usr)] changed the bomb cap to [MAX_EX_DEVASTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]</span>")
+				log_admin("[key_name(usr)] changed the bomb cap to [MAX_EX_DEVASTATION_RANGE], [MAX_EX_HEAVY_RANGE], [MAX_EX_LIGHT_RANGE]")
 
 			if("flicklights")
 				feedback_inc("admin_secrets_fun_used",1)
@@ -3052,16 +3051,16 @@
 				if(!admin_log.len)
 					dat += "No-one has done anything this round!"
 				usr << browse(dat, "window=admin_log")
-			if("maint_access_brig")
+			if("maint_ACCESS_BRIG")
 				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-					if(access_maint_tunnels in M.req_access)
-						M.req_access = list(access_brig)
+					if(ACCESS_MAINT_TUNNELS in M.req_access)
+						M.req_access = list(ACCESS_BRIG)
 				message_admins("[key_name_admin(usr)] made all maint doors brig access-only.")
 			if("maint_access_engiebrig")
 				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-					if(access_maint_tunnels in M.req_access)
+					if(ACCESS_MAINT_TUNNELS in M.req_access)
 						M.req_access = list()
-						M.req_one_access = list(access_brig,access_engine)
+						M.req_one_access = list(ACCESS_BRIG,ACCESS_ENGINE)
 				message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
 			if("infinite_sec")
 				var/datum/job/J = SSjobs.GetJob("Security Officer")
