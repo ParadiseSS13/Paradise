@@ -29,6 +29,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 		if(!SA)
+			log_debug("idlenpcpool encountered an invalid entry, resumed: [resumed], SA [SA], type of SA [SA?.type], null [SA == null], qdelled [QDELETED(SA)], SA in AI_IDLE list: [SA in GLOB.simple_animals[AI_IDLE]]")
 			GLOB.simple_animals[AI_IDLE] -= SA
 			continue
 

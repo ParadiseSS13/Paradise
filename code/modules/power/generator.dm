@@ -158,34 +158,37 @@
 		return
 	interact(user)
 
-/obj/machinery/power/generator/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/wrench))
-		anchored = !anchored
-		if(!anchored)
-			disconnect()
-			power_change()
-		else
-			connect()
-		playsound(loc, W.usesound, 50, 1)
-		to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
-	else if(ismultitool(W))
-		if(cold_dir == WEST)
-			cold_dir = EAST
-			hot_dir = WEST
-		else if(cold_dir == NORTH)
-			cold_dir = SOUTH
-			hot_dir = NORTH
-		else if(cold_dir == EAST)
-			cold_dir = WEST
-			hot_dir = EAST
-		else
-			cold_dir = NORTH
-			hot_dir = SOUTH
-		connect()
-		to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
-		update_desc()
+/obj/machinery/power/generator/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(cold_dir == WEST)
+		cold_dir = EAST
+		hot_dir = WEST
+	else if(cold_dir == NORTH)
+		cold_dir = SOUTH
+		hot_dir = NORTH
+	else if(cold_dir == EAST)
+		cold_dir = WEST
+		hot_dir = EAST
 	else
-		return ..()
+		cold_dir = NORTH
+		hot_dir = SOUTH
+	connect()
+	to_chat(user, "<span class='notice'>You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side.</span>")
+	update_desc()
+
+/obj/machinery/power/generator/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	anchored = !anchored
+	if(!anchored)
+		disconnect()
+		power_change()
+	else
+		connect()
+	to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
 
 /obj/machinery/power/generator/proc/get_menu(include_link = 1)
 	var/t = ""

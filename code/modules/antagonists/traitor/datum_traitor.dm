@@ -152,8 +152,7 @@
 	var/objective_count = 0
 	var/try_again = TRUE
 
-	if(prob(30))
-		objective_count += forge_single_objective()
+	objective_count += forge_single_objective()
 
 	for(var/i = objective_count, i < config.traitor_objectives_amount)
 		var/datum/objective/assassinate/kill_objective = new
@@ -236,28 +235,9 @@
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	. = 1
-	var/special_pick = rand(1,2)
-	switch(special_pick)
-		if(1) // AI hijack
-			var/datum/objective/block/block_objective = new
-			block_objective.owner = owner
-			add_objective(block_objective)
-		if(2) // Protect and strand a target
-			var/datum/objective/protect/yandere_one = new	
-			yandere_one.owner = owner
-			yandere_one.find_target()
-
-			if("[yandere_one.target]" in assigned_targets)
-				return 0
-			else if(yandere_one.target)
-				assigned_targets.Add("[yandere_one.target]")
-
-			add_objective(yandere_one)
-			var/datum/objective/maroon/yandere_two = new
-			yandere_two.owner = owner
-			yandere_two.target = yandere_one.target
-			yandere_two.explanation_text = "Prevent [yandere_one.target], the [yandere_one.target.assigned_role] from escaping alive."
-			add_objective(yandere_two)
+	var/datum/objective/block/block_objective = new
+	block_objective.owner = owner
+	add_objective(block_objective)
 
 
 /datum/antagonist/traitor/greet()

@@ -59,7 +59,7 @@
 		check_records = 0//Don't actively target people set to arrest
 		arrest_type = 1//Don't even try to cuff
 		declare_arrests = 0 // Don't spam sec
-		bot_core.req_access = list(access_maint_tunnels, access_theatre, access_robotics)
+		bot_core.req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")

@@ -454,12 +454,6 @@
 	popup.set_content(dat)
 	popup.open()
 
-
-/mob/living/carbon/human/Crossed(atom/movable/AM, oldloc)
-	var/mob/living/simple_animal/bot/mulebot/MB = AM
-	if(istype(MB))
-		MB.RunOver(src)
-
 // Get rank from ID, ID inside PDA, PDA, ID in wallet, etc.
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
 	var/obj/item/pda/pda = wear_id
@@ -665,7 +659,7 @@
 					if(place_item)
 						usr.unEquip(place_item)
 						equip_to_slot_if_possible(place_item, pocket_id, 0, 1)
-						add_attack_logs(usr, src, "Equipped with [pocket_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
+						add_attack_logs(usr, src, "Equipped with [place_item]", isLivingSSD(src) ? null : ATKLOG_ALL)
 
 				// Update strip window
 				if(usr.machine == src && in_range(src, usr))
@@ -1546,7 +1540,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	//Check for weapons
 	if(judgebot.weaponscheck)
-		if(!idcard || !(access_weapons in idcard.access))
+		if(!idcard || !(ACCESS_WEAPONS in idcard.access))
 			if(judgebot.check_for_weapons(l_hand))
 				threatcount += 4
 			if(judgebot.check_for_weapons(r_hand))

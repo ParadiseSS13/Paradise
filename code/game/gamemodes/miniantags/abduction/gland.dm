@@ -346,5 +346,5 @@
 		owner.visible_message("<span class='danger'>[owner] vomits a cloud of plasma!</span>")
 		var/turf/simulated/T = get_turf(owner)
 		if(istype(T))
-			T.atmos_spawn_air(SPAWN_TOXINS|SPAWN_20C,50)
+			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,50)
 		owner.vomit()
