@@ -251,7 +251,7 @@ proc/get_radio_key_from_channel(var/channel)
 				if(message_range < world.view && (get_dist(T, M) <= world.view))
 					listening |= M
 					continue
-				
+
 			if(get_turf(M) in hearturfs)
 				listening |= M
 

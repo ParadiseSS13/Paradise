@@ -1173,7 +1173,7 @@
 					remove_antag_datum(/datum/antagonist/traitor)
 					log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
-					
+
 			if("traitor")
 				if(!(has_antag_datum(/datum/antagonist/traitor)))
 					var/datum/antagonist/traitor/T = new()
@@ -1667,7 +1667,7 @@
 	SSticker.mode.implanter[missionary.mind] = implanters
 	SSticker.mode.traitors += src
 
-	
+
 	var/datum/objective/protect/zealot_objective = new
 	zealot_objective.target = missionary.mind
 	zealot_objective.owner = src

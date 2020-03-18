@@ -350,7 +350,7 @@
 
 /obj/item/soulstone/proc/get_shade_type()
 	return /mob/living/simple_animal/shade/cult
-	
+
 /obj/item/soulstone/anybody/get_shade_type()
 	return /mob/living/simple_animal/shade
 
