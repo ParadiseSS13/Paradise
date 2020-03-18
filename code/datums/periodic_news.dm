@@ -1,6 +1,7 @@
 // This system defines news that will be displayed in the course of a round.
 // Uses BYOND's type system to put everything into a nice format
 
+// THIS ISNT PROPERLY PATHED AND I AM GOING TO FUCKING SCREAM AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 /datum/news_announcement
 	var
 		round_time // time of the round at which this should be announced, in seconds
@@ -114,13 +115,13 @@
 			the riots. More on this at 6."}
 			round_time = 60 * 60
 
-
-var/global/list/newscaster_standard_feeds = list(/datum/news_announcement/bluespace_research, /datum/news_announcement/lotus_tree, /datum/news_announcement/random_junk,  /datum/news_announcement/food_riots)
+GLOBAL_LIST_INIT(newscaster_standard_feeds, list(/datum/news_announcement/bluespace_research, /datum/news_announcement/lotus_tree, /datum/news_announcement/random_junk,  /datum/news_announcement/food_riots))
 
 proc/process_newscaster()
 	check_for_newscaster_updates(SSticker.mode.newscaster_announcements)
 
-var/global/tmp/announced_news_types = list()
+GLOBAL_LIST_EMPTY(announced_news_types)
+
 proc/check_for_newscaster_updates(type)
 	for(var/subtype in subtypesof(type))
 		var/datum/news_announcement/news = new subtype()

@@ -1,8 +1,8 @@
-var/global/normal_ooc_colour = "#002eb8"
-var/global/member_ooc_colour = "#035417"
-var/global/mentor_ooc_colour = "#0099cc"
-var/global/moderator_ooc_colour = "#184880"
-var/global/admin_ooc_colour = "#b82e00"
+GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
+GLOBAL_VAR_INIT(member_ooc_colour, "#035417")
+GLOBAL_VAR_INIT(mentor_ooc_colour, "#0099cc")
+GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
+GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 //Checks if the client already has a text input open
 /client/proc/checkTyping()

@@ -6,7 +6,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 
 */
 
-var/list/world_uplinks = list()
+GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink
 	var/welcome 			// Welcoming menu message

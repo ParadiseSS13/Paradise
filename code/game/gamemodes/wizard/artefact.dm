@@ -226,7 +226,7 @@
 	user.ghostize(1)
 
 /////////////////////Multiverse Blade////////////////////
-var/global/list/multiverse = list()
+GLOBAL_LIST_EMPTY(multiverse)
 
 /obj/item/multisword
 	name = "multiverse sword"

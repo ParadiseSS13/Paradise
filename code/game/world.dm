@@ -1,6 +1,6 @@
 #define RECOMMENDED_VERSION 510
 
-var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
+GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
 	SetupLogs()
@@ -47,8 +47,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 //		to_chat(world, "End of Topic() call.")
 //		..()
 
-var/world_topic_spam_protect_ip = "0.0.0.0"
-var/world_topic_spam_protect_time = world.timeofday
+GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
+GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 /world/Topic(T, addr, master, key)
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
@@ -400,8 +400,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	return s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
-var/failed_db_connections = 0
-var/failed_old_db_connections = 0
+GLOBAL_VAR_INIT(failed_db_connections, 0)
+GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"

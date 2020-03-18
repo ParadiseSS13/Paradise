@@ -39,6 +39,21 @@
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
 
+	//Lists of things
+	var/list/mainmenu = list(
+		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
+		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
+		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "rotate-right"),
+		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "exchange"),
+		list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
+	var/list/pipemenu = list(
+		list("category" = "Normal", "pipemode" = RPD_ATMOS_PIPING),
+		list("category" = "Supply", "pipemode" = RPD_SUPPLY_PIPING),
+		list("category" = "Scrubber", "pipemode" = RPD_SCRUBBERS_PIPING),
+		list("category" = "Devices", "pipemode" = RPD_DEVICES),
+		list("category" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
+
+
 /obj/item/rpd/New()
 	..()
 	spark_system = new /datum/effect_system/spark_spread()
@@ -149,21 +164,6 @@
 	to_chat(user, "<span class='notice'>[src] sucks up [P].</span>")
 	QDEL_NULL(P)
 	activate_rpd()
-
-//Lists of things
-
-var/list/mainmenu = list(
-	list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
-	list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
-	list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "rotate-right"),
-	list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "exchange"),
-	list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
-var/list/pipemenu = list(
-	list("category" = "Normal", "pipemode" = RPD_ATMOS_PIPING),
-	list("category" = "Supply", "pipemode" = RPD_SUPPLY_PIPING),
-	list("category" = "Scrubber", "pipemode" = RPD_SCRUBBERS_PIPING),
-	list("category" = "Devices", "pipemode" = RPD_DEVICES),
-	list("category" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
 
 //NanoUI stuff
 

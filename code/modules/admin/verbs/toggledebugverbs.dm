@@ -1,4 +1,4 @@
-var/list/admin_verbs_show_debug_verbs = list(
+GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	/client/proc/camera_view,
 	/client/proc/sec_camera_report,
 	/client/proc/intercom_view,
@@ -22,7 +22,7 @@ var/list/admin_verbs_show_debug_verbs = list(
 	/client/proc/admin_redo_space_transitions,
 	/client/proc/make_turf_space_map,
 	/client/proc/vv_by_ref
-)
+))
 
 // Would be nice to make this a permanent admin pref so we don't need to click it each time
 /client/proc/enable_debug_verbs()

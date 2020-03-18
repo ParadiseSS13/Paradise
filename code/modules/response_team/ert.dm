@@ -7,11 +7,11 @@
 /datum/game_mode
 	var/list/datum/mind/ert = list()
 
-var/list/response_team_members = list()
-var/responseteam_age = 21 // Minimum account age to play as an ERT member
-var/datum/response_team/active_team = null
-var/send_emergency_team = FALSE
-var/ert_request_answered = FALSE
+GLOBAL_LIST_EMPTY(response_team_members)
+GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT member
+GLOBAL_DATUM(active_team, /datum/response_team)
+GLOBAL_VAR_INIT(send_emergency_team, FALSE)
+GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"

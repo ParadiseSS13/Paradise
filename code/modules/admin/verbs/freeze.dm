@@ -5,7 +5,7 @@
 //////Allows admin's to right click on any mob/mech and freeze them in place.///
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-var/global/list/frozen_mob_list = list()
+GLOBAL_LIST_EMPTY(frozen_mob_list)
 /client/proc/freeze(var/mob/living/M as mob in GLOB.mob_list)
 	set name = "Freeze"
 	set category = null

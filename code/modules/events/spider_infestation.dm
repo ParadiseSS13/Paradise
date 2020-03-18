@@ -1,4 +1,4 @@
-/var/global/sent_spiders_to_station = 0
+GLOBAL_VAR_INIT(sent_spiders_to_station, 0)
 
 /datum/event/spider_infestation
 	announceWhen	= 400

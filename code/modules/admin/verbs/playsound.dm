@@ -1,4 +1,4 @@
-var/list/sounds_cache = list()
+GLOBAL_LIST_EMPTY(sounds_cache)
 
 /client/proc/stop_global_admin_sounds()
 	set category = "Event"

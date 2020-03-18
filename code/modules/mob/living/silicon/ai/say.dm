@@ -65,7 +65,7 @@
  * AI VOX Announcements
  */
 
-var/announcing_vox = 0 // Stores the time of the last announcement
+GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 #define VOX_DELAY 100
 #define VOX_PATH "sound/vox_fem/"
 

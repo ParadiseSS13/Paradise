@@ -1,5 +1,5 @@
-var/list/ai_list = list()
-var/list/ai_verbs_default = list(
+GLOBAL_LIST_EMPTY(ai_list)
+GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/announcement,
 	/mob/living/silicon/ai/proc/ai_announcement_text,
 	/mob/living/silicon/ai/proc/ai_call_shuttle,
@@ -21,7 +21,7 @@ var/list/ai_verbs_default = list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message
-)
+))
 
 //Not sure why this is necessary...
 /proc/AutoUpdateAI(obj/subject)

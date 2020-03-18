@@ -1,6 +1,5 @@
 //Cactus, Speedbird, Dynasty, oh my
-
-var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
+GLOBAL_DATUM_INIT(atc, /datum/lore/atc_controller, new)
 
 /datum/lore/atc_controller
 	var/delay_max = 10 MINUTES			//Maximum amount of tiem between ATC messages.  Default is 10 mins.

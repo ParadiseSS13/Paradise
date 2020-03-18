@@ -16,7 +16,7 @@ job objectives = good stock market, shitty job objective completion = shitty eco
 Goal for now is to get the store itself working, however.
 */
 
-var/global/datum/store/centcomm_store=new
+GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 
 /datum/store
 	var/list/datum/storeitem/items=list()

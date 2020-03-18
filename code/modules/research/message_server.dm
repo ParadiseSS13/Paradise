@@ -1,4 +1,4 @@
-var/global/list/obj/machinery/message_server/message_servers = list()
+GLOBAL_LIST_EMPTY(message_servers)
 
 /datum/data_pda_msg
 	var/recipient = "Unspecified" //name of the person
@@ -190,7 +190,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /datum/feedback_variable/proc/get_parsed()
 	return list(variable,value,details)
 
-var/obj/machinery/blackbox_recorder/blackbox
+GLOBAL_DATUM(blackbox, /obj/machinery/blackbox_recorder)
 
 //TODO: kill whoever designed this cancer
 /obj/machinery/blackbox_recorder

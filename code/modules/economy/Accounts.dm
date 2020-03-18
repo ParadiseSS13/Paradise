@@ -4,13 +4,13 @@
 #define STATION_SOURCE_TERMINAL "Biesel GalaxyNet Terminal #227"
 #define DEPARTMENT_START_CASH 5000
 
-var/global/num_financial_terminals = 1
-var/global/datum/money_account/station_account
-var/global/list/datum/money_account/department_accounts = list()
-var/global/next_account_number = 0
-var/global/obj/machinery/computer/account_database/centcomm_account_db
-var/global/datum/money_account/vendor_account
-var/global/list/all_money_accounts = list()
+GLOBAL_VAR_INIT(num_financial_terminals, 1)
+GLOBAL_DATUM(station_account, /datum/money_account)
+GLOBAL_LIST_EMPTY(department_accounts)
+GLOBAL_VAR_INIT(next_account_number, 0)
+GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // this being an object hurts me deeply on the inside
+GLOBAL_DATUM(vendor_account, /datum/money_account)
+GLOBAL_LIST_EMPTY(all_money_accounts)
 
 /proc/create_station_account()
 	if(!station_account)

@@ -1,4 +1,4 @@
-var/global/list/all_cults = list()
+GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode
 	var/list/datum/mind/cult = list()

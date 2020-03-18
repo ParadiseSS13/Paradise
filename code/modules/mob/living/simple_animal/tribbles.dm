@@ -1,4 +1,4 @@
-var/global/totaltribbles = 0   //global variable so it updates for all tribbles, not just the new one being made.
+GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all tribbles, not just the new one being made.
 
 
 /mob/living/simple_animal/tribble

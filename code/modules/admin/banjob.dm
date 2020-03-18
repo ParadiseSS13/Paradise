@@ -1,9 +1,9 @@
-var/jobban_runonce			// Updates legacy bans with new info
-var/jobban_keylist[0]		// Linear list of jobban strings, kept around for the legacy system
-var/jobban_assoclist[0] // Associative list, for efficiency
+GLOBAL_VAR(jobban_runonce)			// Updates legacy bans with new info
+GLOBAL_VAR(jobban_keylist)		// Linear list of jobban strings, kept around for the legacy system
+GLOBAL_VAR(jobban_assoclist) // Associative list, for efficiency
 
 // Matches string-based jobbans into ckey, rank, and reason groups
-var/regex/jobban_regex = regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## (.+))?")
+GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## (.+))?"))
 
 /proc/jobban_assoc_insert(ckey, rank, reason)
 	if(!ckey || !rank)

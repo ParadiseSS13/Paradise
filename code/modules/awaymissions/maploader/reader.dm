@@ -4,8 +4,8 @@
 
 //As of 3.6.2016
 //global datum that will preload variables on atoms instanciation
-var/global/use_preloader = FALSE
-var/global/dmm_suite/preloader/_preloader = new
+GLOBAL_VAR_INIT(use_preloader, FALSE)
+GLOBAL_DATUM_INIT(_preloader, /dmm_suite/preloader, new())
 
 /dmm_suite
 	// These regexes are global - meaning that starting the maploader again mid-load will

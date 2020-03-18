@@ -1,5 +1,5 @@
-var/create_object_html = null
-var/list/create_object_forms = list(/obj, /obj/structure, /obj/machinery, /obj/effect, /obj/item, /obj/mecha, /obj/item/clothing, /obj/item/stack, /obj/item/reagent_containers, /obj/item/gun)
+GLOBAL_VAR(create_object_html)
+GLOBAL_LIST_INIT(create_object_forms, list(/obj, /obj/structure, /obj/machinery, /obj/effect, /obj/item, /obj/mecha, /obj/item/clothing, /obj/item/stack, /obj/item/reagent_containers, /obj/item/gun))
 
 /datum/admins/proc/create_object(var/mob/user)
 	if(!create_object_html)

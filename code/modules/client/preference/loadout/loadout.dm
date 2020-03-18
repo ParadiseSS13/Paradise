@@ -1,5 +1,5 @@
-var/list/loadout_categories = list()
-var/list/gear_datums = list()
+GLOBAL_LIST_EMPTY(loadout_categories)
+GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/loadout_category
 	var/category = ""

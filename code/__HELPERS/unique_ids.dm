@@ -14,7 +14,7 @@
 //   var/myUID = mydatum.UID()
 //   var/datum/D = locateUID(myUID)
 
-var/global/next_unique_datum_id = 1
+GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 
 // /client/var/tmp/unique_datum_id = null
 

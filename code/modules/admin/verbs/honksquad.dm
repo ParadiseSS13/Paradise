@@ -1,7 +1,7 @@
 //HONKsquad
 
 #define HONKSQUAD_POSSIBLE 6 //if more Commandos are needed in the future
-var/global/sent_honksquad = 0
+GLOBAL_VAR_INIT(sent_honksquad, 0)
 
 /client/proc/honksquad()
 	if(!SSticker)

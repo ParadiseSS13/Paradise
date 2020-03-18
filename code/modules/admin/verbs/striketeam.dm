@@ -1,7 +1,7 @@
 //STRIKE TEAMS
 
 #define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
-var/global/sent_strike_team = 0
+GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /client/proc/strike_team()
 	if(!SSticker)

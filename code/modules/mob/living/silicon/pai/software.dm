@@ -1,4 +1,4 @@
-var/list/pai_emotions = list(
+GLOBAL_LIST_INIT(pai_emotions, list(
 		"Happy" = 1,
 		"Cat" = 2,
 		"Extremely Happy" = 3,
@@ -8,11 +8,11 @@ var/list/pai_emotions = list(
 		"Sad" = 7,
 		"Angry" = 8,
 		"What" = 9
-	)
+))
 
 
-var/global/list/pai_software_by_key = list()
-var/global/list/default_pai_software = list()
+GLOBAL_LIST_EMPTY(pai_software_by_key)
+GLOBAL_LIST_EMPTY(default_pai_software)
 /hook/startup/proc/populate_pai_software_list()
 	var/r = 1 // I would use ., but it'd sacrifice runtime detection
 	for(var/type in subtypesof(/datum/pai_software))

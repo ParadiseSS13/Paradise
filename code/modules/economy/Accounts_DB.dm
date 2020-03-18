@@ -1,4 +1,4 @@
-var/global/current_date_string
+GLOBAL_VAR(current_date_string)
 
 /obj/machinery/computer/account_database
 	name = "Accounts Uplink Terminal"

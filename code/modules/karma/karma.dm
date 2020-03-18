@@ -49,7 +49,7 @@ proc/sql_report_karma(var/mob/spender, var/mob/receiver)
 				var/err = query.ErrorMsg()
 				log_game("SQL ERROR during karmatotal logging (updating existing entry). Error : \[[err]\]\n")
 
-var/list/karma_spenders = list()
+GLOBAL_LIST_EMPTY(karma_spenders)
 
 // Returns TRUE if mob can give karma at all; if not, tells them why
 /mob/proc/can_give_karma()

@@ -1,4 +1,4 @@
-/var/global/datum/topic_state/default/default_state = new()
+GLOBAL_DATUM_INIT(default_state, /datum/topic/default, new())
 
 /datum/topic_state/default/href_list(var/mob/user)
 	return list()

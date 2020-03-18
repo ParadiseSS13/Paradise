@@ -189,8 +189,8 @@
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled
 
-var/global/maint_all_access = 0
-var/global/station_all_access = 0
+GLOBAL_VAR_INIT(maint_all_access, 0)
+GLOBAL_VAR_INIT(station_all_access, 0)
 
 /proc/make_maint_all_access()
 	for(var/area/maintenance/A in world)

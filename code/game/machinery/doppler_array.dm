@@ -1,4 +1,4 @@
-var/list/doppler_arrays = list()
+GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array
 	name = "tachyon-doppler array"

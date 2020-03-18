@@ -1,4 +1,4 @@
-var/global/ntnet_card_uid = 1
+GLOBAL_VAR_INIT(ntnet_card_uid, 1)
 
 /obj/item/computer_hardware/network_card
 	name = "network card"

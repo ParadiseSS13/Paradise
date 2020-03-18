@@ -1,4 +1,5 @@
-var/list/admin_datums = list()
+GLOBAL_LIST_EMPTY(admin_datums)
+GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people making their own admin ranks, for obvious reasons
 
 /datum/admins
 	var/rank			= "Temporary Admin"

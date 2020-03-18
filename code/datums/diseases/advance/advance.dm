@@ -6,16 +6,15 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
-
-var/list/archive_diseases = list()
+GLOBAL_LIST_EMPTY(archive_diseases)
 
 // The order goes from easy to cure to hard to cure.
-var/list/advance_cures = 	list(
+GLOBAL_LIST_INIT(advance_cures, list(
 									"sodiumchloride", "sugar", "orangejuice",
 									"spaceacillin", "salglu_solution", "ethanol",
 									"teporone", "diphenhydramine", "lipolicide",
 									"silver", "gold"
-								)
+))
 
 /*
 

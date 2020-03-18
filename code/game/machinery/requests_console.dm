@@ -27,10 +27,10 @@
 #define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
 #define SCI_ROLES list("Robotics","Science","Research Director's Desk")
 
-var/req_console_assistance = list()
-var/req_console_supplies = list()
-var/req_console_information = list()
-var/list/obj/machinery/requests_console/allConsoles = list()
+GLOBAL_LIST_EMPTY(req_console_assistance)
+GLOBAL_LIST_EMPTY(req_console_supplies)
+GLOBAL_LIST_EMPTY(req_console_information)
+GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console
 	name = "Requests Console"

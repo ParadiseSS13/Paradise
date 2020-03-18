@@ -1,5 +1,5 @@
-var/global/list/priority_air_alarms = list()
-var/global/list/minor_air_alarms = list()
+GLOBAL_LIST_EMPTY(priority_air_alarms)
+GLOBAL_LIST_EMPTY(minor_air_alarms)
 
 
 /obj/machinery/computer/atmos_alert
@@ -71,8 +71,7 @@ var/global/list/minor_air_alarms = list()
 					update_icon()
 		return 1
 
-
-var/datum/topic_state/air_alarm_topic/air_alarm_topic = new()
+GLOBAL_DATUM_INIT(air_alarm_topic, /datum/topic_state/air_alarm_topic, new)
 
 /datum/topic_state/air_alarm_topic/href_list(var/mob/user)
 	var/list/extra_href = list()

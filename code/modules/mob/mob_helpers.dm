@@ -358,7 +358,7 @@ proc/muffledspeech(phrase)
 	return 0
 
 //converts intent-strings into numbers and back
-var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
+GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM))
 /proc/intent_numeric(argument)
 	if(istext(argument))
 		switch(argument)

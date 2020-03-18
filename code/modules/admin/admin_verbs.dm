@@ -1,13 +1,13 @@
 //admin verb groups - They can overlap if you so wish. Only one of each verb will exist in the verbs list regardless
-var/list/admin_verbs_default = list(
+GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
 	/client/proc/toggleadminhelpsound,
 	/client/proc/togglementorhelpsound,
 	/client/proc/cmd_mentor_check_new_players,
 	/client/proc/cmd_mentor_check_player_exp /* shows players by playtime */
-	)
-var/list/admin_verbs_admin = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/check_antagonists,		/*shows all antags*/
 	/datum/admins/proc/show_player_panel,
 	/client/proc/player_panel,			/*shows an interface for all players, with links to various panels (old style)*/
@@ -79,20 +79,20 @@ var/list/admin_verbs_admin = list(
 	/client/proc/list_ssds_afks,
 	/client/proc/cmd_admin_headset_message,
 	/client/proc/spawn_floor_cluwne
-)
-var/list/admin_verbs_ban = list(
+))
+GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/unban_panel,
 	/client/proc/jobbans,
 	/client/proc/stickybanpanel
-	)
-var/list/admin_verbs_sounds = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 	/client/proc/play_local_sound,
 	/client/proc/play_sound,
 	/client/proc/play_server_sound,
 	/client/proc/play_intercomm_sound,
 	/client/proc/stop_global_admin_sounds
-	)
-var/list/admin_verbs_event = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
@@ -117,14 +117,14 @@ var/list/admin_verbs_event = list(
 	/client/proc/event_manager_panel,
 	/client/proc/modify_goals,
 	/client/proc/outfit_manager
-	)
+	))
 
-var/list/admin_verbs_spawn = list(
+GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize
-	)
-var/list/admin_verbs_server = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/ToRban,
 	/client/proc/Set_Holiday,
 	/datum/admins/proc/startnow,
@@ -144,8 +144,8 @@ var/list/admin_verbs_server = list(
 	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_ooc,
 	/client/proc/reset_ooc
-	)
-var/list/admin_verbs_debug = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
 	/client/proc/cmd_debug_make_powernets,
@@ -172,21 +172,21 @@ var/list/admin_verbs_debug = list(
 	/client/proc/admin_serialize,
 	/client/proc/jump_to_ruin,
 	/client/proc/toggle_medal_disable,
-	)
-var/list/admin_verbs_possess = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
 	/proc/release
-	)
-var/list/admin_verbs_permissions = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_permissions, list(
 	/client/proc/edit_admin_permissions,
 	/client/proc/create_poll,
 	/client/proc/big_brother
-	)
-var/list/admin_verbs_rejuv = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_rejuv, list(
 	/client/proc/respawn_character,
 	/client/proc/cmd_admin_rejuvenate
-	)
-var/list/admin_verbs_mod = list(
+	))
+GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
@@ -199,8 +199,8 @@ var/list/admin_verbs_mod = list(
 	/datum/admins/proc/show_player_panel,
 	/client/proc/jobbans,
 	/client/proc/debug_variables		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
-)
-var/list/admin_verbs_mentor = list(
+))
+GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
@@ -208,20 +208,20 @@ var/list/admin_verbs_mentor = list(
 	/client/proc/toggleMentorTicketLogs,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
-)
-var/list/admin_verbs_proccall = list(
+))
+GLOBAL_LIST_INIT(admin_verbs_proccall, list(
 	/client/proc/callproc,
 	/client/proc/callproc_datum,
 	/client/proc/SDQL2_query
-)
-var/list/admin_verbs_ticket = list(
+))
+GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	/client/proc/openAdminTicketUI,
 	/client/proc/toggleticketlogs,
 	/client/proc/openMentorTicketUI,
 	/client/proc/toggleMentorTicketLogs,
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets
-)
+))
 
 /client/proc/on_holder_add()
 	if(chatOutput && chatOutput.loaded)

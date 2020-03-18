@@ -1,6 +1,6 @@
 // Playtime requirements for special roles (hours)
 
-var/global/list/role_playtime_requirements = list(
+GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
@@ -35,7 +35,7 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_RAIDER = 10,
 	ROLE_ALIEN = 10,
 	ROLE_ABDUCTOR = 10,
-)
+))
 
 // Client Verbs
 

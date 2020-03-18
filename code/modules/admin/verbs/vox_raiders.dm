@@ -1,4 +1,4 @@
-var/global/vox_tick = 1
+GLOBAL_VAR_INIT(vox_tick, 1)
 
 /mob/living/carbon/human/proc/equip_vox_raider()
 

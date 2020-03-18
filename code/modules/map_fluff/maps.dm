@@ -1,4 +1,4 @@
-var/datum/map/using_map = new USING_MAP_DATUM
+GLOBAL_DATUM_INIT(using_map, /datum/map, new USING_MAP_DATUM)
 
 /datum/map
 	var/name = "Unnamed Map"

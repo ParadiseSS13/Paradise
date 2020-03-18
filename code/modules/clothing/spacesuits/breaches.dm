@@ -23,23 +23,23 @@
 	..()
 	base_name = "[name]"
 
-//Some simple descriptors for breaches. Global because lazy, TODO: work out a better way to do this.
+//Some simple descriptors for breaches. Global because lazy, TODO: work out a better way to do this. | 6 years late, but atleast they are proper globals now
 
-var/global/list/breach_brute_descriptors = list(
+GLOBAL_LIST_INIT(breach_brute_descriptors, list(
 	"tiny puncture",
 	"ragged tear",
 	"large split",
 	"huge tear",
 	"gaping wound"
-	)
+	))
 
-var/global/list/breach_burn_descriptors = list(
+GLOBAL_LIST_INIT(breach_burn_descriptors, list(
 	"small burn",
 	"melted patch",
 	"sizable burn",
 	"large scorched area",
 	"huge scorched area"
-	)
+	))
 
 /datum/breach/proc/update_descriptor()
 

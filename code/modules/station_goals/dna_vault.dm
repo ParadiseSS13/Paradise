@@ -74,7 +74,7 @@
 	plants = list()
 	dna = list()
 
-var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien))
+GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
 
 /obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
 	..()

@@ -1,7 +1,7 @@
-var/global/list/all_robolimbs = list()
-var/global/list/chargen_robolimbs = list()
-var/global/list/selectable_robolimbs = list()
-var/global/datum/robolimb/basic_robolimb
+GLOBAL_LIST_EMPTY(all_robolimbs)
+GLOBAL_LIST_EMPTY(chargen_robolimbs)
+GLOBAL_LIST_EMPTY(selectable_robolimbs)
+GLOBAL_DATUM(basic_robolimb, /datum/robolimb)
 
 /proc/populate_robolimb_list()
 	basic_robolimb = new()

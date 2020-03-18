@@ -11,7 +11,7 @@
 	Look at radio.dm for the prequel to this code.
 */
 
-var/global/list/obj/machinery/telecomms/telecomms_list = list()
+GLOBAL_LIST_EMPTY(telecomms_list)
 
 /obj/machinery/telecomms
 	var/list/links = list() // list of machines this machine is linked to

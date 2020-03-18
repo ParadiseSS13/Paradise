@@ -1,4 +1,4 @@
-var/global/list/unused_trade_stations = list("sol")
+GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 // Traders event.
 // Heavily copy-pasted from "heist" gamemode.

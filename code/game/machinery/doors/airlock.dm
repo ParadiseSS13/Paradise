@@ -38,7 +38,7 @@
 #define AIRLOCK_DAMAGE_DEFLECTION_N  21  // Normal airlock damage deflection
 #define AIRLOCK_DAMAGE_DEFLECTION_R  30  // Reinforced airlock damage deflection
 
-var/list/airlock_overlays = list()
+GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock
 	name = "airlock"

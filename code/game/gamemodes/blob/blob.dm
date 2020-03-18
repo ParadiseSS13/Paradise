@@ -1,7 +1,7 @@
 //Few global vars to track the blob
-var/list/blobs = list()
-var/list/blob_cores = list()
-var/list/blob_nodes = list()
+GLOBAL_LIST_EMPTY(blobs)
+GLOBAL_LIST_EMPTY(blob_cores)
+GLOBAL_LIST_EMPTY(blob_nodes)
 
 /datum/game_mode
 	var/list/blob_overminds = list()

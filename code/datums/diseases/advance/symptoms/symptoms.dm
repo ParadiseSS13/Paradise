@@ -1,6 +1,6 @@
 // Symptoms are the effects that engineered advanced diseases do.
 
-var/list/list_symptoms = subtypesof(/datum/symptom)
+GLOBAL_LIST_INIT(list_symptoms, subtypesof(/datum/symptom))
 
 /datum/symptom
 	// Buffs/Debuffs the symptom has to the overall engineered disease.

@@ -1,6 +1,7 @@
-var/list/preferences_datums = list()
+GLOBAL_LIST_EMPTY(preferences_datums)
+GLOBAL_PROTECT(preferences_datums) // These feel like something that shouldnt be fucked with
 
-var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
+GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 0,
 	ROLE_GUARDIAN = 0,
@@ -24,7 +25,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
 	ROLE_DEVIL = 14
-)
+))
 
 /proc/player_old_enough_antag(client/C, role)
 	if(available_in_days_antag(C, role))

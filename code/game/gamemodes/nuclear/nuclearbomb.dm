@@ -5,7 +5,7 @@
 #define NUKE_UNWRENCHED 4
 #define NUKE_MOBILE 5
 
-var/bomb_set
+GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb
 	name = "\improper Nuclear Fission Explosive"

@@ -55,9 +55,9 @@
 	var/list/datum/feed_channel/network_channels = list()
 	var/datum/feed_message/wanted_issue
 
-var/datum/feed_network/news_network = new /datum/feed_network     //The global news-network, which is coincidentally a global list.
+GLOBAL_DATUM_INIT(news_network, /datum/feed_network, new())     //The global news-network, which is coincidentally a global list.
 
-var/list/obj/machinery/newscaster/allCasters = list() //Global list that will contain reference to all newscasters in existence.
+GLOBAL_LIST_EMPTY(allNewscasters) //Global list that will contain reference to all newscasters in existence.
 
 #define NEWSCASTER_MAIN			0	// Main menu
 #define NEWSCASTER_FC_LIST		1	// Feed channel list

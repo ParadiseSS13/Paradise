@@ -13,8 +13,8 @@
 
 #define DEVILRESURRECTTIME 600
 
-var/global/list/allDevils = list()
-var/global/list/lawlorify = list (
+GLOBAL_LIST_EMPTY(allDevils)
+GLOBAL_LIST_INIT(lawlorify, list (
 		LORE = list(
 			OBLIGATION_FOOD = "This devil seems to always offer it's victims food before slaughtering them.",
 			OBLIGATION_FIDDLE = "This devil will never turn down a musical challenge.",
@@ -77,7 +77,7 @@ var/global/list/lawlorify = list (
 			BANISH_DESTRUCTION = "If your corpse is destroyed, you will be unable to resurrect.",
 			BANISH_FUNERAL_GARB = "If your corpse is clad in funeral garments, you will be unable to resurrect."
 		)
-	)
+	))
 
 /datum/devilinfo
 	var/datum/mind/owner = null

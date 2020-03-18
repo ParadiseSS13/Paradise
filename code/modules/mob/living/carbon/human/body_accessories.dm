@@ -1,5 +1,5 @@
 
-var/global/list/body_accessory_by_name = list("None" = null)
+GLOBAL_LIST_INIT(body_accessory_by_name, list("None" = null))
 
 /hook/startup/proc/initalize_body_accessories()
 
@@ -12,7 +12,7 @@ var/global/list/body_accessory_by_name = list("None" = null)
 
 	return FALSE //fail if no bodies are found
 
-var/global/list/body_accessory_by_species = list("None" = null)
+GLOBAL_LIST_INIT(body_accessory_by_species, list("None" = null))
 
 /proc/initialize_body_accessory_by_species()
 	for(var/B in body_accessory_by_name)

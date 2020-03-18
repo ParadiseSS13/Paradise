@@ -1,12 +1,12 @@
-var/global/list/ts_ckey_blacklist = list()
-var/global/ts_count_dead = 0
-var/global/ts_count_alive_awaymission = 0
-var/global/ts_count_alive_station = 0
-var/global/ts_death_last = 0
-var/global/ts_death_window = 9000 // 15 minutes
-var/global/list/ts_spiderlist = list()
-var/global/list/ts_egg_list = list()
-var/global/list/ts_spiderling_list = list()
+GLOBAL_LIST_EMPTY(ts_ckey_blacklist)
+GLOBAL_VAR_INIT(ts_count_dead, 0)
+GLOBAL_VAR_INIT(ts_count_alive_awaymission, 0)
+GLOBAL_VAR_INIT(ts_count_alive_station, 0)
+GLOBAL_VAR_INIT(ts_death_last, 0)
+GLOBAL_VAR_INIT(ts_death_window, 9000) // 15 minutes
+GLOBAL_LIST_EMPTY(ts_spiderlist)
+GLOBAL_LIST_EMPTY(ts_egg_list)
+GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: DEFAULTS ---------------------------------

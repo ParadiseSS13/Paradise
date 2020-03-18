@@ -1,5 +1,5 @@
-var/list/sacrificed = list()
-var/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
+GLOBAL_LIST_EMPTY(sacrified)
+GLOBAL_LIST_INIT(non_revealed_runes, (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed))
 
 /*
 This file contains runes.
@@ -255,7 +255,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	qdel(paper_to_imbue)
 	rune_in_use = 0
 
-var/list/teleport_runes = list()
+GLOBAL_LIST_EMPTY(teleport_runes)
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
 	cultist_desc = "warps everything above it to another chosen teleport rune."
@@ -349,7 +349,7 @@ var/list/teleport_runes = list()
 	req_cultists = 1
 	allow_excess_invokers = TRUE
 	rune_in_use = FALSE
-	
+
 /obj/effect/rune/convert/do_invoke_glow()
 	return
 

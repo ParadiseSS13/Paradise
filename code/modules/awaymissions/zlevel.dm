@@ -1,4 +1,4 @@
-var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away_mission_config.txt")
+GLOBAL_LINIT_INIT(potentialRandomZlevels, generateMapList(filename = "config/away_mission_config.txt"))
 
 // Call this before you remove the last dirt on a z level - that way, all objects
 // will have proper atmos and other important enviro things

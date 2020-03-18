@@ -1,7 +1,7 @@
-var/church_name = null
+GLOBAL_VAR(church_name)
 /proc/church_name()
-	if(church_name)
-		return church_name
+	if(GLOB.church_name)
+		return GLOB.church_name
 
 	var/name = ""
 
@@ -15,7 +15,7 @@ var/church_name = null
 
 	return name
 
-var/command_name = null
+GLOBAL_VAR(command_name)
 /proc/command_name()
 	return using_map.dock_name
 
@@ -80,7 +80,7 @@ var/religion_name = null
 			new_station_name += pick("13","XIII","Thirteen")
 	return new_station_name
 
-var/syndicate_name = null
+GLOBAL_VAR(syndicate_name)
 /proc/syndicate_name()
 	if(syndicate_name)
 		return syndicate_name

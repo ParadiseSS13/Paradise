@@ -84,13 +84,13 @@
 			parent.updateUsrDialog()
 			return 1
 
-var/global/list/gas_labels=list(
+GLOBAL_LIST_INIT(gas_labels, list(
 	"co2" = "CO<sub>2</sub>",
 	"tox" = "Plasma",
 	"n2o" = "N<sub>2</sub>O",
 	"o2"  = "O<sub>2</sub>",
 	"n2"  = "N<sub>2</sub>"
-)
+))
 /datum/automation/set_scrubber_gasses
 	name="Scrubber: Gasses"
 

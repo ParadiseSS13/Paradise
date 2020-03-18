@@ -1,5 +1,6 @@
 //Bot Construction
-var/robot_arm = /obj/item/robot_parts/l_arm
+#warn This thing still exists you dingus
+//	var/robot_arm = /obj/item/robot_parts/l_arm
 
 //Cleanbot assembly
 /obj/item/bucket_sensor

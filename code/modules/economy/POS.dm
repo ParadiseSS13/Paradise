@@ -11,8 +11,8 @@
 	var/price = 0 // Per unit
 	var/units = 0
 
-var/global/current_pos_id = 1
-var/global/pos_sales = 0
+GLOBAL_VAR_INIT(current_pos_id, 1)
+GLOBAL_VAR_INIT(pos_sales, 0)
 
 #define RECEIPT_HEADER {"<html>
 	<head>

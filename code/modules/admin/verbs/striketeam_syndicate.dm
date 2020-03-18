@@ -1,7 +1,7 @@
 //STRIKE TEAMS
 
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
-var/global/sent_syndicate_strike_team = 0
+GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /client/proc/syndicate_strike_team()
 	set category = "Event"
 	set name = "Spawn Syndicate Strike Team"

@@ -1,4 +1,5 @@
-var/list/admin_ranks = list()								//list of all ranks with associated rights
+GLOBAL_LIST_EMPTY(admin_ranks)								//list of all ranks with associated rights
+GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 //load our rank - > rights associations
 /proc/load_admin_ranks()

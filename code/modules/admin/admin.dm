@@ -1,5 +1,5 @@
-var/global/BSACooldown = 0
-var/global/nologevent = 0
+GLOBAL_VAR_INIT(BSACooldown, 0)
+GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////
 /proc/message_admins(var/msg)
@@ -954,7 +954,7 @@ var/global/nologevent = 0
 //ALL DONE
 //*********************************************************************************************************
 
-var/gamma_ship_location = 1 // 0 = station , 1 = space
+GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 /proc/move_gamma_ship()
 	var/area/fromArea

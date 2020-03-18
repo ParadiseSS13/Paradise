@@ -1,9 +1,8 @@
 /*
 VOX HEIST ROUNDTYPE
 */
-
-var/global/list/raider_spawn = list()
-var/global/list/obj/cortical_stacks = list() //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
+GLOBAL_LIST_EMPTY(raider_spawn)
+GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective. Clumsy, rewrite sometime.
 
 /datum/game_mode/
 	var/list/datum/mind/raiders = list()  //Antags.

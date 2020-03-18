@@ -2,7 +2,7 @@
 #define TRACKS_CRUSTIFY_TIME   50
 
 // color-dir-dry
-var/global/list/image/fluidtrack_cache = list()
+GLOBAL_LIST_EMPTY(fluidtrack_cache)
 
 // Footprints, tire trails...
 /obj/effect/decal/cleanable/blood/tracks
@@ -55,7 +55,7 @@ var/global/list/image/fluidtrack_cache = list()
 			if(!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
 				update_icon()
-				
+
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
 	..()
 	if(ishuman(O))

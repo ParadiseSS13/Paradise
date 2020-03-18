@@ -1,4 +1,4 @@
-var/global/file_uid = 0
+GLOBAL_VAR_INIT(file_uid, 0)
 
 /datum/computer_file
 	var/filename = "NewFile" 								// Placeholder. No spacebars

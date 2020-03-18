@@ -1,4 +1,4 @@
-/var/claw_game_html = null
+GLOBAL_VAR(claw_game_html)
 
 /obj/machinery/arcade/claw
 	name = "Claw Game"

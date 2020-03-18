@@ -1,7 +1,7 @@
 //ban people from using custom names and appearances. that'll show 'em.
 
-var/appearanceban_runonce	//Updates legacy bans with new info
-var/appearance_keylist[0]	//to store the keys
+GLOBAL_VAR(appearanceban_runonce)	//Updates legacy bans with new info
+GLOBAL_VAR(appearance_keylist)	//to store the keys
 
 /proc/appearance_fullban(mob/M, reason)
 	if(!M || !M.key) return

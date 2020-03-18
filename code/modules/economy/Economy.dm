@@ -63,7 +63,7 @@
 //Destroyers are medium sized vessels, often used for escorting larger ships but able to go toe-to-toe with them if need be.
 //Frigates are medium sized vessels, often used for escorting larger ships. They will rapidly find themselves outclassed if forced to face heavy warships head on.
 
-var/setup_economy = 0
+GLOBAL_VAR_INIT(setup_economy, 0)
 /proc/setup_economy()
 	if(setup_economy)
 		return

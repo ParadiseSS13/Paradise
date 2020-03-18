@@ -33,7 +33,7 @@ Possible to do for anyone motivated enough:
 
 #define HOLOPAD_MODE RANGE_BASED
 
-var/list/holopads = list()
+GLOBAL_LIST_EMPTY(holopads)
 
 /obj/machinery/hologram/holopad
 	name = "holopad"

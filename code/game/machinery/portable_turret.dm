@@ -161,7 +161,7 @@
 			eprojectile = /obj/item/projectile/beam/pulse
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
-var/list/turret_icons
+GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/update_icon()
 	if(!turret_icons)
 		turret_icons = list()

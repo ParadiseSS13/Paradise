@@ -10,7 +10,7 @@
 #define INGR_ICE 10
 #define MUCK 11
 
-var/list/ingredients_source = list(
+GLOBAL_LIST_INIT(ingredients_source, list(
 "berryjuice" = FLAVOUR_STRAWBERRY,\
 "cocoa" = FLAVOUR_CHOCOLATE,\
 "singulo" = FLAVOUR_BLUE,\
@@ -19,7 +19,7 @@ var/list/ingredients_source = list(
 "ice" = INGR_ICE,\
 "flour" = INGR_FLOUR,\
 "sugar" = INGR_SUGAR,\
-)
+))
 
 /proc/get_icecream_flavour_string(var/flavour_type)
 	switch(flavour_type)

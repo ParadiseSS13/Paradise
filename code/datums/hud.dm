@@ -1,8 +1,8 @@
 /* HUD DATUMS */
-var/global/list/all_huds = list()
+GLOBAL_LIST_EMPTY(all_huds)
 
 ///GLOBAL HUD LIST
-var/datum/atom_hud/huds = list( \
+GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_SECURITY_BASIC = new/datum/atom_hud/data/human/security/basic(), \
 	DATA_HUD_SECURITY_ADVANCED = new/datum/atom_hud/data/human/security/advanced(), \
 	DATA_HUD_MEDICAL_BASIC = new/datum/atom_hud/data/human/medical/basic(), \
@@ -24,7 +24,7 @@ var/datum/atom_hud/huds = list( \
 	ANTAG_HUD_DEVIL = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_EVENTMISC = new/datum/atom_hud/antag/hidden(),\
 	ANTAG_HUD_BLOB = new/datum/atom_hud/antag/hidden()\
- 	)
+))
 
 /datum/atom_hud
 	var/list/atom/hudatoms = list() //list of all atoms which display this hud

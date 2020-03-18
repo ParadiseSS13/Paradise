@@ -1,5 +1,5 @@
-var/CMinutes = null
-var/savefile/Banlist
+GLOBAL_VAR(CMinutes)
+GLOBAL_DATUM(banlist_savefile, /savefile)
 
 
 /proc/CheckBan(var/ckey, var/id, var/address)

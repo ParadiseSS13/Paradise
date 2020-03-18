@@ -388,7 +388,7 @@
 	dna = newDNA
 
 
-var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber)
+GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
 /mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))

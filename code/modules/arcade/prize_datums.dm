@@ -1,5 +1,4 @@
-
-var/global/datum/prizes/global_prizes = new
+GLOBAL_DATUM_INIT(global_prizees, /datum/prizes, new())
 
 /datum/prizes
 	var/list/prizes = list()

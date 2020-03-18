@@ -1,4 +1,4 @@
-var/list/sting_paths
+GLOBAL_LIST_EMPTY(sting_paths)
 // totally stolen from the new player panel.  YAYY
 
 /datum/action/changeling/evolution_menu

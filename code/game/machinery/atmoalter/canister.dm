@@ -40,8 +40,7 @@
 			list("name" = "High temperature canister", "icon" = "hot"),
 			list("name" = "Plasma containing canister", "icon" = "plasma")
 		)
-
-var/datum/canister_icons/canister_icon_container = new()
+GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"

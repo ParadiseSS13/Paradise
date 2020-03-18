@@ -8,10 +8,10 @@
 //   right here:
 
 #ifdef DEBUG
-var/global/datum/ErrorViewer/ErrorCache/error_cache = new()
+GLOBAL_DATUM_INIT(error_cache, /datum/ErrorViewer/ErrorCache, new())
 #else
 // If debugging is disabled, there's nothing useful to log, so don't bother.
-var/global/datum/ErrorViewer/ErrorCache/error_cache = null
+GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 #endif
 
 // - ErrorSource datums exist for each line (of code) that generates an error,

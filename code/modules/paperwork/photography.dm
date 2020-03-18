@@ -179,7 +179,7 @@
 		qdel(C)
 
 
-var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2")
+GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2"))
 
 /obj/item/camera/spooky
 	name = "camera obscura"

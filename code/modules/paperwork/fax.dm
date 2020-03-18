@@ -1,6 +1,6 @@
 // Fax datum - holds all faxes sent during the round
-var/list/faxes = list()
-var/list/adminfaxes = list()
+GLOBAL_LIST_EMPTY(faxes)
+GLOBAL_LIST_EMPTY(adminfaxes)
 
 /datum/fax
 	var/name = "fax"

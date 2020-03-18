@@ -4,7 +4,7 @@
 	TODO: Proper documentation
 	icon_key is [species.race_key][g][husk][fat][hulk][skeleton][s_tone]
 */
-var/global/list/human_icon_cache = list()
+GLOBAL_LIST_EMPTY(human_icon_cache)
 
 	///////////////////////
 	//UPDATE_ICONS SYSTEM//
@@ -120,7 +120,7 @@ Please contact me on #coderbus IRC. ~Carn x
 		overlays_standing[cache_index] = null
 
 
-var/global/list/damage_icon_parts = list()
+GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 //DAMAGE OVERLAYS
 //constructs damage icon for each organ from mask * damage field and saves it in our overlays_ lists

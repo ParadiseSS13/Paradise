@@ -19,8 +19,8 @@
 //- Identify how hard it is to break into the area and where the weak points are
 //- Check if the area has too much empty space. If so, make it smaller and replace the rest with maintenance tunnels.
 
-var/camera_range_display_status = 0
-var/intercom_range_display_status = 0
+GLOBAL_VAR_INIT(camera_range_display_status, 0)
+GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 /obj/effect/debugging/camera_range
 	icon = 'icons/480x480.dmi'

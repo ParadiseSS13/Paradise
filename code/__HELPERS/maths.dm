@@ -77,7 +77,7 @@
 //68% chance that the number is within 1stddev
 //95% chance that the number is within 2stddev
 //98% chance that the number is within 3stddev...etc
-var/gaussian_next
+GLOBAL_VAR(guassian_next)
 #define ACCURACY 10000
 /proc/gaussian(mean, stddev)
 	var/R1;var/R2;var/working

@@ -683,7 +683,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, O), 300)
 	return
 
-var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_box/a357,\
+GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/item/ammo_box/a357,\
 	/obj/item/gun/energy/kinetic_accelerator/crossbow,\
 	/obj/item/storage/box/syndicate, /obj/item/storage/box/emps,\
 	/obj/item/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
@@ -697,7 +697,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 	/obj/item/hand_tele, /obj/item/rcd, /obj/item/tank/jetpack,\
 	/obj/item/clothing/under/rank/captain, /obj/item/aicard,\
 	/obj/item/clothing/shoes/magboots, /obj/item/areaeditor/blueprints, /obj/item/disk/nuclear,\
-	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank)
+	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank))
 
 /obj/effect/hallucination/bolts
 	var/list/doors = list()

@@ -1129,9 +1129,9 @@ proc/get_mob_with_client_list()
 
 //For objects that should embed, but make no sense being is_sharp or is_pointed()
 //e.g: rods
-var/list/can_embed_types = typecacheof(list(
+GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	/obj/item/stack/rods,
-	/obj/item/pipe))
+	/obj/item/pipe)))
 
 /proc/can_embed(obj/item/W)
 	if(is_sharp(W))
@@ -1221,14 +1221,14 @@ var/list/can_embed_types = typecacheof(list(
 /*
 Checks if that loc and dir has a item on the wall
 */
-var/list/static/global/wall_items = typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
+GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/machinery/alarm,
 	/obj/item/radio/intercom, /obj/structure/extinguisher_cabinet, /obj/structure/reagent_dispensers/peppertank,
 	/obj/machinery/status_display, /obj/machinery/requests_console, /obj/machinery/light_switch, /obj/structure/sign,
 	/obj/machinery/newscaster, /obj/machinery/firealarm, /obj/structure/noticeboard, /obj/machinery/door_control,
 	/obj/machinery/computer/security/telescreen, /obj/machinery/embedded_controller/radio/airlock,
 	/obj/item/storage/secure/safe, /obj/machinery/door_timer, /obj/machinery/flasher, /obj/machinery/keycard_auth,
 	/obj/structure/mirror, /obj/structure/closet/fireaxecabinet, /obj/machinery/computer/security/telescreen/entertainment,
-	/obj/structure/sign))
+	/obj/structure/sign)))
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
@@ -1415,7 +1415,7 @@ atom/proc/GetTypeInAllContents(typepath)
 
 	return locate(dest_x,dest_y,dest_z)
 
-var/mob/dview/dview_mob = new
+GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 //Version of view() which ignores darkness, because BYOND doesn't have it.
 /proc/dview(var/range = world.view, var/center, var/invis_flags = 0)

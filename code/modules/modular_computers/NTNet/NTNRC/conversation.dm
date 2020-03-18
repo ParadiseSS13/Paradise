@@ -1,4 +1,4 @@
-var/global/static/ntnrc_uid = 0
+GLOBAL_VAR_INIT(ntnrc_uid, 0)
 
 /datum/ntnet_conversation
 	var/id = null

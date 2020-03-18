@@ -1,4 +1,4 @@
-var/global/datum/zlev_manager/space_manager = new
+GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 /datum/zlev_manager
 	// A list of z-levels

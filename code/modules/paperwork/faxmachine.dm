@@ -1,9 +1,9 @@
-var/list/obj/machinery/photocopier/faxmachine/allfaxes = list()
-var/list/admin_departments = list("Central Command")
-var/list/hidden_admin_departments = list("Syndicate")
-var/list/alldepartments = list()
-var/list/hidden_departments = list()
-var/global/list/fax_blacklist = list()
+GLOBAL_LIST_EMPTY(allfaxes)
+GLOBAL_LIST_INIT(admin_departments, list("Central Command"))
+GLOBAL_LIST_INIT(hidden_admin_departments, list("Syndicate"))
+GLOBAL_LIST_EMPTY(alldepartments)
+GLOBAL_LIST_EMPTY(hidden_departments)
+GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine
 	name = "fax machine"

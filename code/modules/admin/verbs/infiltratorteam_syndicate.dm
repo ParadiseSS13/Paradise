@@ -1,7 +1,7 @@
 // Syndicate Infiltration Team (SIT)
 // A little like Syndicate Strike Team (SST) but geared towards stealthy team missions rather than murderbone.
 
-var/global/sent_syndicate_infiltration_team = 0
+GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /client/proc/syndicate_infiltration_team()
 	set category = "Event"

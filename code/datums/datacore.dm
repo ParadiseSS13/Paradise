@@ -133,7 +133,7 @@ we'll only update it when it changes.  The PDA_Manifest global list is zeroed ou
 using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 */
 
-var/global/list/PDA_Manifest = list()
+GLOBAL_LIST_EMPTY(PDA_manifest)
 
 /datum/datacore/proc/get_manifest_json()
 	if(PDA_Manifest.len)
@@ -250,7 +250,7 @@ var/global/list/PDA_Manifest = list()
 		foundrecord.fields["rank"] = assignment
 		foundrecord.fields["real_rank"] = real_title
 
-var/record_id_num = 1001
+GLOBAL_VAR_INIT(record_id_num, 1001)
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
 	if(PDA_Manifest.len)
 		PDA_Manifest.Cut()

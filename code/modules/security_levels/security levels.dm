@@ -1,4 +1,4 @@
-/var/security_level = 0
+GLOBAL_VAR_INIT(security_level, 0)
 //0 = code green
 //1 = code blue
 //2 = code red
@@ -7,8 +7,8 @@
 //5 = code delta
 
 //config.alert_desc_blue_downto
-/var/datum/announcement/priority/security/security_announcement_up = new(do_log = 0, do_newscast = 0, new_sound = sound('sound/misc/notice1.ogg'))
-/var/datum/announcement/priority/security/security_announcement_down = new(do_log = 0, do_newscast = 0)
+GLOBAL_DATUM_INIT(security_announcement_up, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0, new_sound = sound('sound/misc/notice1.ogg')))
+GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/security, new(do_log = 0, do_newscast = 0))
 
 /proc/set_security_level(var/level)
 	switch(level)

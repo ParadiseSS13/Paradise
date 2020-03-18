@@ -36,7 +36,7 @@
 		secure = (z == level_name_to_num(CENTCOMM))
 	return secure
 
-var/list/default_map_traits = MAP_TRANSITION_CONFIG
+GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 
 /proc/check_level_trait(z, trait)
 	if(!z)

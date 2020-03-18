@@ -143,9 +143,9 @@
 	D.register()
 	D.forceMove(locate(200, 200, zpos))
 
-var/list/atmos_machine_typecache = typecacheof(/obj/machinery/atmospherics)
-var/list/cable_typecache = typecacheof(/obj/structure/cable)
-var/list/maploader_typecache = typecacheof(/obj/effect/landmark/map_loader)
+GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
+GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
+GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loader))
 
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
