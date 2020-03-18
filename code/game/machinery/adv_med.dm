@@ -479,7 +479,7 @@
 			if(i.status & ORGAN_DEAD)
 				dead = "DEAD:"
 			switch(i.germ_level)
-				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
+				if(1 to INFECTION_LEVEL_ONE + 200)
 					infection = "Mild Infection:"
 				if(INFECTION_LEVEL_ONE + 200 to INFECTION_LEVEL_ONE + 300)
 					infection = "Mild Infection+:"
