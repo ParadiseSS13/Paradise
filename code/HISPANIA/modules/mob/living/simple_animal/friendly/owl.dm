@@ -23,8 +23,8 @@
 
 	damage_coeff = list(BRUTE = 1, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	obj_damage = 5
-	melee_damage_lower = 7
-	melee_damage_upper = 7
+	melee_damage_lower = 0
+	melee_damage_upper = 2
 	attacktext = "scratch"
 	attack_sound = 'sound/weapons/pierce.ogg'
 
