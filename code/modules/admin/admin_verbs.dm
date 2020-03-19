@@ -229,62 +229,62 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 /client/proc/add_admin_verbs()
 	if(holder)
-		verbs += admin_verbs_default
+		verbs += GLOB.admin_verbs_default
 		if(holder.rights & R_BUILDMODE)
 			verbs += /client/proc/togglebuildmodeself
 		if(holder.rights & R_ADMIN)
-			verbs += admin_verbs_admin
-			verbs += admin_verbs_ticket
+			verbs += GLOB.admin_verbs_admin
+			verbs += GLOB.admin_verbs_ticket
 			spawn(1)
 				control_freak = 0
 		if(holder.rights & R_BAN)
-			verbs += admin_verbs_ban
+			verbs += GLOB.admin_verbs_ban
 		if(holder.rights & R_EVENT)
-			verbs += admin_verbs_event
+			verbs += GLOB.admin_verbs_event
 		if(holder.rights & R_SERVER)
-			verbs += admin_verbs_server
+			verbs += GLOB.admin_verbs_server
 		if(holder.rights & R_DEBUG)
-			verbs += admin_verbs_debug
+			verbs += GLOB.admin_verbs_debug
 		if(holder.rights & R_POSSESS)
-			verbs += admin_verbs_possess
+			verbs += GLOB.admin_verbs_possess
 		if(holder.rights & R_PERMISSIONS)
-			verbs += admin_verbs_permissions
+			verbs += GLOB.admin_verbs_permissions
 		if(holder.rights & R_STEALTH)
 			verbs += /client/proc/stealth
 		if(holder.rights & R_REJUVINATE)
-			verbs += admin_verbs_rejuv
+			verbs += GLOB.admin_verbs_rejuv
 		if(holder.rights & R_SOUNDS)
-			verbs += admin_verbs_sounds
+			verbs += GLOB.admin_verbs_sounds
 		if(holder.rights & R_SPAWN)
-			verbs += admin_verbs_spawn
+			verbs += GLOB.admin_verbs_spawn
 		if(holder.rights & R_MOD)
-			verbs += admin_verbs_mod
+			verbs += GLOB.admin_verbs_mod
 		if(holder.rights & R_MENTOR)
-			verbs += admin_verbs_mentor
+			verbs += GLOB.admin_verbs_mentor
 		if(holder.rights & R_PROCCALL)
-			verbs += admin_verbs_proccall
+			verbs += GLOB.admin_verbs_proccall
 
 /client/proc/remove_admin_verbs()
 	verbs.Remove(
-		admin_verbs_default,
+		GLOB.admin_verbs_default,
 		/client/proc/togglebuildmodeself,
-		admin_verbs_admin,
-		admin_verbs_ban,
-		admin_verbs_event,
-		admin_verbs_server,
-		admin_verbs_debug,
-		admin_verbs_possess,
-		admin_verbs_permissions,
+		GLOB.admin_verbs_admin,
+		GLOB.admin_verbs_ban,
+		GLOB.admin_verbs_event,
+		GLOB.admin_verbs_server,
+		GLOB.admin_verbs_debug,
+		GLOB.admin_verbs_possess,
+		GLOB.admin_verbs_permissions,
 		/client/proc/stealth,
-		admin_verbs_rejuv,
-		admin_verbs_sounds,
-		admin_verbs_spawn,
-		admin_verbs_mod,
-		admin_verbs_mentor,
-		admin_verbs_proccall,
-		admin_verbs_show_debug_verbs,
+		GLOB.admin_verbs_rejuv,
+		GLOB.admin_verbs_sounds,
+		GLOB.admin_verbs_spawn,
+		GLOB.admin_verbs_mod,
+		GLOB.admin_verbs_mentor,
+		GLOB.admin_verbs_proccall,
+		GLOB.admin_verbs_show_debug_verbs,
 		/client/proc/readmin,
-		admin_verbs_ticket
+		GLOB.admin_verbs_ticket
 	)
 
 /client/proc/hide_verbs()
@@ -514,14 +514,14 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 		return
 
 	if(!warned_ckey || !istext(warned_ckey))	return
-	if(warned_ckey in admin_datums)
+	if(warned_ckey in GLOB.admin_datums)
 		to_chat(usr, "<font color='red'>Error: warn(): You can't warn admins.</font>")
 		return
 
 	var/datum/preferences/D
 	var/client/C = GLOB.directory[warned_ckey]
 	if(C)	D = C.prefs
-	else	D = preferences_datums[warned_ckey]
+	else	D = GLOB.preferences_datums[warned_ckey]
 
 	if(!D)
 		to_chat(src, "<font color='red'>Error: warn(): No such ckey found.</font>")
@@ -601,7 +601,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 
 	var/list/spell_list = list()
 	var/type_length = length("/obj/effect/proc_holder/spell") + 2
-	for(var/A in spells)
+	for(var/A in GLOB.spells)
 		spell_list[copytext("[A]", type_length)] = A
 	var/obj/effect/proc_holder/spell/S = input("Choose the spell to give to that guy", "ABRAKADABRA") as null|anything in spell_list
 	if(!S)
@@ -620,7 +620,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set category = "Event"
 	set name = "Give Disease"
 	set desc = "Gives a Disease to a mob."
-	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in diseases
+	var/datum/disease/D = input("Choose the disease to give to that guy", "ACHOO") as null|anything in GLOB.diseases
 	if(!D) return
 	T.ForceContractDisease(new D)
 	feedback_add_details("admin_verb","GD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -694,7 +694,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	set category = "Admin"
 	set desc = "Regain your admin powers."
 
-	var/datum/admins/D = admin_datums[ckey]
+	var/datum/admins/D = GLOB.admin_datums[ckey]
 	var/rank = null
 	if(config.admin_legacy_system)
 		//load text from file
@@ -707,26 +707,26 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 				break
 			continue
 	else
-		if(!dbcon.IsConnected())
+		if(!GLOB.dbcon.IsConnected())
 			message_admins("Warning, MySQL database is not connected.")
 			to_chat(src, "Warning, MYSQL database is not connected.")
 			return
 		var/sql_ckey = sanitizeSQL(ckey)
-		var/DBQuery/query = dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT rank FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
 		query.Execute()
 		while(query.NextRow())
 			rank = ckeyEx(query.item[1])
 	if(!D)
 		if(config.admin_legacy_system)
-			if(admin_ranks[rank] == null)
+			if(GLOB.admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
 				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.")
 				return
 
-			D = new(rank, admin_ranks[rank], ckey)
+			D = new(rank, GLOB.admin_ranks[rank], ckey)
 		else
 			var/sql_ckey = sanitizeSQL(ckey)
-			var/DBQuery/query = dbcon.NewQuery("SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
+			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT ckey, rank, flags FROM [format_table_name("admin")] WHERE ckey = '[sql_ckey]'")
 			query.Execute()
 			while(query.NextRow())
 				var/admin_ckey = query.item[1]
@@ -791,7 +791,7 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 	if(!S) return
 
 	var/datum/nano_module/law_manager/L = new(S)
-	L.ui_interact(usr, state = admin_state)
+	L.ui_interact(usr, state = GLOB.admin_state)
 	log_and_message_admins("has opened [S]'s law manager.")
 	feedback_add_details("admin_verb","MSL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

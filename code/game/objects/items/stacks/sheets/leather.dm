@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	))
 
 /obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
-	recipes = human_recipes
+	recipes = GLOB.human_recipes
 	return ..()
 
 /obj/item/stack/sheet/animalhide/generic
@@ -137,7 +137,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	))
 
 /obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
-	recipes = sinew_recipes
+	recipes = GLOB.sinew_recipes
 	return ..()
 
 /obj/item/stack/sheet/animalhide/goliath_hide

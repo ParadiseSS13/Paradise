@@ -56,7 +56,7 @@ GLOBAL_LIST_INIT(automation_types, subtypesof(/datum/automation))
 	if(isnull(cData) || !("type" in cData))
 		return null
 	var/Atype=text2path(cData["type"])
-	if(!(Atype in automation_types))
+	if(!(Atype in GLOB.automation_types))
 		return null
 	var/datum/automation/A = new Atype(parent)
 	A.Import(cData)
@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(automation_types, subtypesof(/datum/automation))
 				. += null
 				continue
 			var/Atype=text2path(cData["type"])
-			if(!(Atype in automation_types))
+			if(!(Atype in GLOB.automation_types))
 				continue
 			var/datum/automation/A = new Atype(parent)
 			A.Import(cData)

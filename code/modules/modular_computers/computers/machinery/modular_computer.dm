@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(global_modular_computers)
 	..()
 	cpu = new(src)
 	cpu.physical = src
-	global_modular_computers.Add(src)
+	GLOB.global_modular_computers.Add(src)
 
 /obj/machinery/modular_computer/Destroy()
 	QDEL_NULL(cpu)

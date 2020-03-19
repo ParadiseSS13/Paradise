@@ -12,12 +12,12 @@ GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_co
 // This is probably not the way I should be doing this, but I don't know how to do it right!
 proc/create_global_announcer()
   spawn(0)
-    global_announcer = new(null)
+    GLOB.global_announcer = new(null)
   return
 
 proc/create_command_announcer()
   spawn(0)
-    command_announcer = new(null)
+    GLOB.command_announcer = new(null)
   return
 
 GLOBAL_LIST_INIT(paper_tag_whitelist, list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\

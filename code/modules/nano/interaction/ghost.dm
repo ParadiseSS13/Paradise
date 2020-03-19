@@ -3,7 +3,7 @@
 	We don't want any living people somehow getting the menu open and reincarnating while alive
 */
 
-GLOBAL_DATUM_INIT(ghost_state, /datum/topic/ghost_state, new())
+GLOBAL_DATUM_INIT(ghost_state, /datum/topic_state/ghost_state, new())
 
 /datum/topic_state/ghost_state/can_use_topic(var/src_object, var/mob/user)
 	if(user.stat == DEAD)

@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/New(loc, amount=null)
 	..()
-	recipes = rod_recipes
+	recipes = GLOB.rod_recipes
 	update_icon()
 
 /obj/item/stack/rods/update_icon()

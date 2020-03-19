@@ -131,7 +131,7 @@ GLOBAL_LIST_INIT(gas_labels, list(
 	GetText()
 		var/txt = "Set Scrubber <a href=\"?src=[UID()];set_scrubber=1\">[fmtString(scrubber)]</a> to scrub "
 		for(var/gas in gasses)
-			txt += " [gas_labels[gas]] (<a href=\"?src=[UID()];tog_gas=[gas]\">[gasses[gas] ? "on" : "off"]</a>),"
+			txt += " [GLOB.gas_labels[gas]] (<a href=\"?src=[UID()];tog_gas=[gas]\">[gasses[gas] ? "on" : "off"]</a>),"
 		return txt
 
 	Topic(href,href_list)

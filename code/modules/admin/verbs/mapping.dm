@@ -50,16 +50,16 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(camera_range_display_status)
-		camera_range_display_status = 0
+	if(GLOB.camera_range_display_status)
+		GLOB.camera_range_display_status = 0
 	else
-		camera_range_display_status = 1
+		GLOB.camera_range_display_status = 1
 
 	for(var/obj/effect/debugging/camera_range/C in world)
 		qdel(C)
 
-	if(camera_range_display_status)
-		for(var/obj/machinery/camera/C in cameranet.cameras)
+	if(GLOB.camera_range_display_status)
+		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			new/obj/effect/debugging/camera_range(C.loc)
 	feedback_add_details("admin_verb","mCRD") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -72,7 +72,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 
 	var/list/obj/machinery/camera/CL = list()
 
-	for(var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		CL += C
 
 	var/output = {"<B>CAMERA ANOMALIES REPORT</B><HR>
@@ -109,15 +109,15 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(intercom_range_display_status)
-		intercom_range_display_status = 0
+	if(GLOB.intercom_range_display_status)
+		GLOB.intercom_range_display_status = 0
 	else
-		intercom_range_display_status = 1
+		GLOB.intercom_range_display_status = 1
 
 	for(var/obj/effect/debugging/marker/M in world)
 		qdel(M)
 
-	if(intercom_range_display_status)
+	if(GLOB.intercom_range_display_status)
 		for(var/obj/item/radio/intercom/I in world)
 			for(var/turf/T in orange(7,I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)

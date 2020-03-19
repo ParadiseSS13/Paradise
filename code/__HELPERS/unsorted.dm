@@ -1139,7 +1139,7 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	if(is_pointed(W))
 		return 1
 
-	if(is_type_in_typecache(W, can_embed_types))
+	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return 1
 
 /proc/is_hot(obj/item/W as obj)
@@ -1232,7 +1232,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 
 /proc/gotwallitem(loc, dir)
 	for(var/obj/O in loc)
-		if(is_type_in_typecache(O, wall_items))
+		if(is_type_in_typecache(O, GLOB.wall_items))
 			//Direction works sometimes
 			if(O.dir == dir)
 				return 1
@@ -1254,7 +1254,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 
 	//Some stuff is placed directly on the wallturf (signs)
 	for(var/obj/O in get_step(loc, dir))
-		if(is_type_in_typecache(O, wall_items))
+		if(is_type_in_typecache(O, GLOB.wall_items))
 			if(abs(O.pixel_x) <= 10 && abs(O.pixel_y) <= 10)
 				return 1
 	return 0
@@ -1381,7 +1381,7 @@ atom/proc/GetTypeInAllContents(typepath)
 	var/initial_chance = chance
 	while(steps > 0)
 		if(prob(chance))
-			step(AM, pick(alldirs))
+			step(AM, pick(GLOB.alldirs))
 		chance = max(chance - (initial_chance / steps), 0)
 		steps--
 
@@ -1422,12 +1422,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!center)
 		return
 
-	dview_mob.loc = center
+	GLOB.dview_mob.loc = center
 
-	dview_mob.see_invisible = invis_flags
+	GLOB.dview_mob.see_invisible = invis_flags
 
-	. = view(range, dview_mob)
-	dview_mob.loc = null
+	. = view(range, GLOB.dview_mob)
+	GLOB.dview_mob.loc = null
 
 /mob/dview
 	invisibility = 101

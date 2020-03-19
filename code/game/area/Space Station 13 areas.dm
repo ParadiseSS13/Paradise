@@ -19,26 +19,26 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /hook/startup/proc/process_teleport_locs()
 	for(var/area/AR in world)
 		if(AR.no_teleportlocs) continue
-		if(teleportlocs.Find(AR.name)) continue
+		if(GLOB.teleportlocs.Find(AR.name)) continue
 		var/turf/picked = safepick(get_area_turfs(AR.type))
 		if(picked && is_station_level(picked.z))
-			teleportlocs += AR.name
-			teleportlocs[AR.name] = AR
+			GLOB.teleportlocs += AR.name
+			GLOB.teleportlocs[AR.name] = AR
 
-	teleportlocs = sortAssoc(teleportlocs)
+	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
 
 	return 1
 
 GLOBAL_LIST_EMPTY(ghostteleportlocs)
 /hook/startup/proc/process_ghost_teleport_locs()
 	for(var/area/AR in world)
-		if(ghostteleportlocs.Find(AR.name)) continue
+		if(GLOB.ghostteleportlocs.Find(AR.name)) continue
 		var/list/turfs = get_area_turfs(AR.type)
 		if(turfs.len)
-			ghostteleportlocs += AR.name
-			ghostteleportlocs[AR.name] = AR
+			GLOB.ghostteleportlocs += AR.name
+			GLOB.ghostteleportlocs[AR.name] = AR
 
-	ghostteleportlocs = sortAssoc(ghostteleportlocs)
+	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
 
 	return 1
 

@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 
 
 /proc/guest_jobbans(var/job)
-	return (job in whitelisted_positions)
+	return (job in GLOB.whitelisted_positions)
 
 /proc/get_job_datums()
 	var/list/occupations = list()

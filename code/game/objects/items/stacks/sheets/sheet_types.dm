@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	qdel(src)
 
 /obj/item/stack/sheet/metal/New(var/loc, var/amount=null)
-	recipes = metal_recipes
+	recipes = GLOB.metal_recipes
 	return ..()
 
 /*
@@ -159,7 +159,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	point_value = 23
 
 /obj/item/stack/sheet/plasteel/New(var/loc, var/amount=null)
-	recipes = plasteel_recipes
+	recipes = GLOB.plasteel_recipes
 	return ..()
 
 /*
@@ -203,7 +203,7 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
-	recipes = wood_recipes
+	recipes = GLOB.wood_recipes
 	return ..()
 
 /*
@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/cloth
 
 /obj/item/stack/sheet/cloth/New(loc, amount=null)
-	recipes = cloth_recipes
+	recipes = GLOB.cloth_recipes
 	..()
 
 /obj/item/stack/sheet/cloth/ten
@@ -336,14 +336,14 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	merge_type = /obj/item/stack/sheet/cardboard
 
 /obj/item/stack/sheet/cardboard/New(var/loc, var/amt = null)
-	recipes = cardboard_recipes
+	recipes = GLOB.cardboard_recipes
 	return ..()
 
 /*
  * Runed Metal
  */
 
-GLOBAL_LIST_INIT(cult, list ( \
+GLOBAL_LIST_INIT(cult_recipes, list ( \
 	new/datum/stack_recipe/cult("runed door", /obj/machinery/door/airlock/cult, 1, time = 50, one_per_turf = 1, on_floor = 1),
 	new/datum/stack_recipe/cult("runed girder", /obj/structure/girder/cult, 1, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe/cult("pylon", /obj/structure/cult/functional/pylon, 3, time = 40, one_per_turf = 1, on_floor = 1), \
@@ -393,7 +393,7 @@ GLOBAL_LIST_INIT(cult, list ( \
 	amount = 50
 
 /obj/item/stack/sheet/runed_metal/New(var/loc, var/amount=null)
-	recipes = cult
+	recipes = GLOB.cult_recipes
 	return ..()
 
 /*
@@ -428,7 +428,7 @@ GLOBAL_LIST_INIT(brass_recipes, list (\
 	qdel(src)
 
 /obj/item/stack/tile/brass/New(loc, amount=null)
-	recipes = brass_recipes
+	recipes = GLOB.brass_recipes
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0

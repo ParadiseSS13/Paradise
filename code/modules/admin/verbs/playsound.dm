@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	var/sound/uploaded_sound = sound(S, repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
 	uploaded_sound.priority = 250
 
-	sounds_cache += S
+	GLOB.sounds_cache += S
 
 	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
 		return
@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(!check_rights(R_SOUNDS))	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt");
-	sounds += sounds_cache
+	sounds += GLOB.sounds_cache
 
 	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
@@ -72,7 +72,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	if(A != "Yep")	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt");
-	sounds += sounds_cache
+	sounds += GLOB.sounds_cache
 
 	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return

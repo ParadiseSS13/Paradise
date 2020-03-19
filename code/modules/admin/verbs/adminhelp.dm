@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown","the","a","an","of","mo
 	for(var/original_word in msglist)
 		var/word = ckey(original_word)
 		if(word)
-			if(!(word in adminhelp_ignored_words))
+			if(!(word in GLOB.adminhelp_ignored_words))
 				if(word == "ai")
 					ai_found = 1
 				else

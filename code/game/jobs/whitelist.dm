@@ -8,8 +8,8 @@ GLOBAL_LIST_EMPTY(whitelist)
 	return 1
 
 /proc/load_whitelist()
-	whitelist = file2list(WHITELISTFILE)
-	if(!whitelist.len)	whitelist = null
+	GLOB.whitelist = file2list(WHITELISTFILE)
+	if(!GLOB.whitelist.len)	GLOB.whitelist = null
 /*
 /proc/check_whitelist(mob/M, var/rank)
 	if(!whitelist)
@@ -25,11 +25,11 @@ GLOBAL_LIST_EMPTY(whitelist)
 			return 1
 		if(check_rights(R_ADMIN, 0, M))
 			return 1
-		if(!dbcon.IsConnected())
+		if(!GLOB.dbcon.IsConnected())
 			to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
 			return 0
 		else
-			var/DBQuery/query = dbcon.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
+			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT job FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
 			query.Execute()
 
 
@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 	if(!text)
 		log_config("Failed to load config/alienwhitelist.txt\n")
 	else
-		alien_whitelist = splittext(text, "\n")
+		GLOB.alien_whitelist = splittext(text, "\n")
 
 //todo: admin aliens
 /proc/is_alien_whitelisted(mob/M, var/species)
@@ -70,13 +70,13 @@ GLOBAL_LIST_EMPTY(alien_whitelist)
 		return 1
 	if(check_rights(R_ADMIN, 0))
 		return 1
-	if(!alien_whitelist)
+	if(!GLOB.alien_whitelist)
 		return 0
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		to_chat(usr, "<span class='warning'>Unable to connect to whitelist database. Please try again later.<br></span>")
 		return 0
 	else
-		var/DBQuery/query = dbcon.NewQuery("SELECT species FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT species FROM [format_table_name("whitelist")] WHERE ckey='[M.ckey]'")
 		query.Execute()
 
 		while(query.NextRow())

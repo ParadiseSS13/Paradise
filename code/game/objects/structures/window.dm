@@ -13,11 +13,11 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/area/A = T.loc
 
 	if(is_type_in_list(A,wcBarAreas))
-		newcolor = wcBar
+		newcolor = GLOB.wcBar
 	else if(is_type_in_list(A,wcBrigAreas))
-		newcolor = wcBrig
+		newcolor = GLOB.wcBrig
 	else
-		newcolor = wcCommon
+		newcolor = GLOB.wcCommon
 
 	return newcolor
 

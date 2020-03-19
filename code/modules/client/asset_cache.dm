@@ -151,12 +151,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 //get a assetdatum or make a new one
 /proc/get_asset_datum(var/type)
-	if(!(type in asset_datums))
+	if(!(type in GLOB.asset_datums))
 		return new type()
-	return asset_datums[type]
+	return GLOB.asset_datums[type]
 
 /datum/asset/New()
-	asset_datums[type] = src
+	GLOB.asset_datums[type] = src
 
 /datum/asset/proc/register()
 	return
@@ -313,14 +313,14 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		if(!(state in list("cap", "connector", "dtvalve", "dual-port vent", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
 			continue
 		if(state in list("he", "simple"))
-			for(var/D in alldirs)
+			for(var/D in GLOB.alldirs)
 				assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipe-item.dmi', state, D)
 	for(var/state in icon_states('icons/obj/pipes/disposal.dmi'))
 		if(!(state in list("pipe-c", "pipe-j1", "pipe-s", "pipe-t", "pipe-y", "intake", "outlet", "pipe-j1s"))) //Pipes we want sprites for
 			continue
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			assets["[state]-[dir2text(D)].png"] = icon('icons/obj/pipes/disposal.dmi', state, D)
 	for(var/asset_name in assets)
 		register_asset(asset_name, assets[asset_name])

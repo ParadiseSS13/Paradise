@@ -12,8 +12,8 @@ GLOBAL_LIST_EMPTY(sting_paths)
 		return
 	var/datum/changeling/changeling = usr.mind.changeling
 
-	if(!sting_paths)
-		sting_paths = init_subtypes(/datum/action/changeling)
+	if(!GLOB.sting_paths)
+		GLOB.sting_paths = init_subtypes(/datum/action/changeling)
 
 	var/dat = create_menu(changeling)
 	usr << browse(dat, "window=powers;size=600x700")//900x480
@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(sting_paths)
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable_data'>"}
 
 	var/i = 1
-	for(var/datum/action/changeling/cling_power in sting_paths)
+	for(var/datum/action/changeling/cling_power in GLOB.sting_paths)
 
 		if(cling_power.dna_cost <= 0) //Let's skip the crap we start with. Keeps the evolution menu uncluttered.
 			continue

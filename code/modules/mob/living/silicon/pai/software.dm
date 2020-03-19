@@ -17,19 +17,19 @@ GLOBAL_LIST_EMPTY(default_pai_software)
 	var/r = 1 // I would use ., but it'd sacrifice runtime detection
 	for(var/type in subtypesof(/datum/pai_software))
 		var/datum/pai_software/P = new type()
-		if(pai_software_by_key[P.id])
-			var/datum/pai_software/O = pai_software_by_key[P.id]
+		if(GLOB.pai_software_by_key[P.id])
+			var/datum/pai_software/O = GLOB.pai_software_by_key[P.id]
 			to_chat(world, "<span class='warning'>pAI software module [P.name] has the same key as [O.name]!</span>")
 			r = 0
 			continue
-		pai_software_by_key[P.id] = P
+		GLOB.pai_software_by_key[P.id] = P
 		if(P.default)
-			default_pai_software[P.id] = P
+			GLOB.default_pai_software[P.id] = P
 	return r
 
 /mob/living/silicon/pai/New()
 	..()
-	software = default_pai_software.Copy()
+	software = GLOB.default_pai_software.Copy()
 
 /mob/living/silicon/pai/verb/paiInterface()
 	set category = "pAI Commands"
@@ -37,7 +37,7 @@ GLOBAL_LIST_EMPTY(default_pai_software)
 
 	ui_interact(src)
 
-/mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = self_state)
+/mob/living/silicon/pai/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = GLOB.self_state)
 	if(ui_key != "main")
 		var/datum/pai_software/S = software[ui_key]
 		if(S && !S.toggle)
@@ -58,7 +58,7 @@ GLOBAL_LIST_EMPTY(default_pai_software)
 		ui.open()
 		ui.set_auto_update(1)
 
-/mob/living/silicon/pai/ui_data(mob/user, ui_key = "main", datum/topic_state/state = self_state)
+/mob/living/silicon/pai/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.self_state)
 	var/data[0]
 
 	if(ui_key != "main")
@@ -72,8 +72,8 @@ GLOBAL_LIST_EMPTY(default_pai_software)
 	// Software we have not bought
 	var/not_bought_software[0]
 
-	for(var/key in pai_software_by_key)
-		var/datum/pai_software/S = pai_software_by_key[key]
+	for(var/key in GLOB.pai_software_by_key)
+		var/datum/pai_software/S = GLOB.pai_software_by_key[key]
 		var/software_data[0]
 		software_data["name"] = S.name
 		software_data["id"] = S.id
@@ -90,10 +90,10 @@ GLOBAL_LIST_EMPTY(default_pai_software)
 
 	// Emotions
 	var/emotions[0]
-	for(var/name in pai_emotions)
+	for(var/name in GLOB.pai_emotions)
 		var/emote[0]
 		emote["name"] = name
-		emote["id"] = pai_emotions[name]
+		emote["id"] = GLOB.pai_emotions[name]
 		emotions[++emotions.len] = emote
 
 	data["emotions"] = emotions
@@ -122,7 +122,7 @@ GLOBAL_LIST_EMPTY(default_pai_software)
 
 	else if(href_list["purchase"])
 		var/soft = href_list["purchase"]
-		var/datum/pai_software/S = pai_software_by_key[soft]
+		var/datum/pai_software/S = GLOB.pai_software_by_key[soft]
 		if(S && (ram >= S.ram_cost))
 			ram -= S.ram_cost
 			software[S.id] = S

@@ -33,14 +33,14 @@ GLOBAL_LIST_INIT(huds, list( \
 
 
 /datum/atom_hud/New()
-	all_huds += src
+	GLOB.all_huds += src
 
 /datum/atom_hud/Destroy()
 	for(var/v in hudusers)
 		remove_hud_from(v)
 	for(var/v in hudatoms)
 		remove_from_hud(v)
-	all_huds -= src
+	GLOB.all_huds -= src
 	return ..()
 
 /datum/atom_hud/proc/remove_hud_from(mob/M)
@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(huds, list( \
 			serv_huds += serv.thrallhud
 
 
-	for(var/datum/atom_hud/hud in (all_huds|serv_huds))//|gang_huds))
+	for(var/datum/atom_hud/hud in (GLOB.all_huds|serv_huds))//|gang_huds))
 		if(src in hud.hudusers)
 			hud.add_hud_to(src)
 

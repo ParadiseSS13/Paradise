@@ -80,7 +80,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 
 /datum/ErrorViewer/ErrorCache/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
 	var/html = buildHeader(null, linear, refreshable=1)
-	html += "[total_runtimes] runtimes, [total_runtimes_skipped] skipped<br><br>"
+	html += "[GLOB.total_runtimes] runtimes, [GLOB.total_runtimes_skipped] skipped<br><br>"
 	if(!linear)
 		html += "organized | [makeLink("linear", null, 1)]<hr>"
 		var/datum/ErrorViewer/ErrorSource/error_source
@@ -130,7 +130,7 @@ GLOBAL_DATUM(error_cache, /datum/ErrorViewer/ErrorCache)
 
 /datum/ErrorViewer/ErrorSource/showTo(var/user, var/datum/ErrorViewer/back_to, var/linear)
 	if(!istype(back_to))
-		back_to = error_cache
+		back_to = GLOB.error_cache
 	var/html = buildHeader(back_to, refreshable=1)
 	for(var/datum/ErrorViewer/ErrorEntry/error_entry in errors)
 		html += "<p class='runtime_list'>[error_entry.makeLink(null, src)]<br></p>"

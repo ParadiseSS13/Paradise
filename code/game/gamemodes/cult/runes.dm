@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(sacrified)
+GLOBAL_LIST_EMPTY(sacrificed)
 GLOBAL_LIST_INIT(non_revealed_runes, (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed))
 
 /*
@@ -270,10 +270,10 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	var/area/A = get_area(src)
 	var/locname = initial(A.name)
 	listkey = set_keyword ? "[set_keyword] [locname]":"[locname]"
-	teleport_runes += src
+	GLOB.teleport_runes += src
 
 /obj/effect/rune/teleport/Destroy()
-	teleport_runes -= src
+	GLOB.teleport_runes -= src
 	return ..()
 
 /obj/effect/rune/teleport/invoke(var/list/invokers)
@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	var/list/potential_runes = list()
 	var/list/teleportnames = list()
 	var/list/duplicaterunecount = list()
-	for(var/R in teleport_runes)
+	for(var/R in GLOB.teleport_runes)
 		var/obj/effect/rune/teleport/T = R
 		var/resultkey = T.listkey
 		if(resultkey in teleportnames)
@@ -410,7 +410,7 @@ GLOBAL_LIST_EMPTY(teleport_runes)
 	var/sacrifice_fulfilled
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
 	if(offering.mind)
-		sacrificed.Add(offering.mind)
+		GLOB.sacrificed.Add(offering.mind)
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
 	new /obj/effect/temp_visual/cult/sac(loc)

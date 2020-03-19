@@ -40,7 +40,7 @@ GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 	T.target_name = "[command_name()] Merchandising"
 	T.purpose = "Purchase of [item.name]"
 	T.amount = -amount
-	T.date = current_date_string
+	T.date = GLOB.current_date_string
 	T.time = station_time_timestamp()
 	T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
 	mind.initial_account.transaction_log.Add(T)

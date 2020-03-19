@@ -16,20 +16,20 @@ GLOBAL_DATUM(typing_indicator, /image)
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.disabilities & MUTE || H.silent)
-			overlays -= typing_indicator
+			overlays -= GLOB.typing_indicator
 			return
 
 	if(client)
 		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
-			overlays -= typing_indicator
+			overlays -= GLOB.typing_indicator
 		else
 			if(state)
 				if(!typing)
-					overlays += typing_indicator
+					overlays += GLOB.typing_indicator
 					typing = 1
 			else
 				if(typing)
-					overlays -= typing_indicator
+					overlays -= GLOB.typing_indicator
 					typing = 0
 			return state
 

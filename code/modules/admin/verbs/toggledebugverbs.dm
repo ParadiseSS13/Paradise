@@ -32,6 +32,6 @@ GLOBAL_LIST_INIT(admin_verbs_show_debug_verbs, list(
 	if(!check_rights(R_DEBUG))
 		return
 
-	verbs += admin_verbs_show_debug_verbs
+	verbs += GLOB.admin_verbs_show_debug_verbs
 
 	feedback_add_details("admin_verb","mDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

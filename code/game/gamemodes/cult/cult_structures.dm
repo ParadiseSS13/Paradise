@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
 			if(istype(T, /turf/simulated/floor/engine/cult))
 				cultturfs |= T
 				continue
-			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
+			if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
 				continue
 			else
 				validturfs |= T

@@ -359,7 +359,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/loop=50
 	while(!steal_target && loop > 0)
 		loop--
-		var/thefttype = pick(potential_theft_objectives)
+		var/thefttype = pick(GLOB.potential_theft_objectives)
 		var/datum/theft_objective/O = new thefttype
 		if(owner.assigned_role in O.protected_jobs)
 			continue
@@ -377,7 +377,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = potential_theft_objectives+"custom"
+	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target) return
 	if(new_target == "custom")

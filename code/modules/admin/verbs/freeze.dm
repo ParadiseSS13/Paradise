@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(frozen_mob_list)
 	if(!istype(M))
 		return
 
-	if(M in frozen_mob_list)
+	if(M in GLOB.frozen_mob_list)
 		M.admin_unFreeze(src)
 	else
 		M.admin_Freeze(src)
@@ -41,8 +41,8 @@ GLOBAL_LIST_EMPTY(frozen_mob_list)
 	admin_prev_sleeping = sleeping
 	AdjustSleeping(20000)
 	frozen = AO
-	if(!(src in frozen_mob_list))
-		frozen_mob_list += src
+	if(!(src in GLOB.frozen_mob_list))
+		GLOB.frozen_mob_list += src
 
 /mob/living/proc/admin_unFreeze(client/admin, skip_overlays = FALSE)
 	if(istype(admin))
@@ -58,8 +58,8 @@ GLOBAL_LIST_EMPTY(frozen_mob_list)
 	frozen = null
 	SetSleeping(admin_prev_sleeping)
 	admin_prev_sleeping = null
-	if(src in frozen_mob_list)
-		frozen_mob_list -= src
+	if(src in GLOB.frozen_mob_list)
+		GLOB.frozen_mob_list -= src
 
 	update_icons()
 

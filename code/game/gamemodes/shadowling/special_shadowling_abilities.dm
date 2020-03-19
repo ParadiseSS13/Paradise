@@ -66,8 +66,8 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.status_flags = temp_flags
 				sleep(10)
 				playsound(H.loc, 'sound/effects/ghost.ogg', 100, 1)
-				var/newNameId = pick(possibleShadowlingNames)
-				possibleShadowlingNames.Remove(newNameId)
+				var/newNameId = pick(GLOB.possibleShadowlingNames)
+				GLOB.possibleShadowlingNames.Remove(newNameId)
 				H.real_name = newNameId
 				H.name = user.real_name
 				H.SetStunned(0)

@@ -26,8 +26,8 @@ GLOBAL_VAR_INIT(cult_rune_style, "rune") // Style of run the cult is using (fire
 		GLOB.cult_rune_style = "death-rune"
 
 
-	if(lookup in rune_cache)
-		return rune_cache[lookup]
+	if(lookup in GLOB.cult_rune_cache)
+		return GLOB.cult_rune_cache[lookup]
 
 	var/icon/I = icon('icons/effects/uristrunes.dmi', "[GLOB.cult_rune_style]-179")
 
@@ -90,6 +90,6 @@ GLOBAL_VAR_INIT(cult_rune_style, "rune") // Style of run the cult is using (fire
 		result.Insert(I3, "", frame = 7, delay = 2)
 		result.Insert(I2, "", frame = 8, delay = 2)
 
-	rune_cache[lookup] = result
+	GLOB.cult_rune_cache[lookup] = result
 
 	return result

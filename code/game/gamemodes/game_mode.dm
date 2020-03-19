@@ -80,8 +80,8 @@
 //		feedback_set_details("revision","[revdata.revision]")
 	feedback_set_details("server_ip","[world.internet_address]:[world.port]")
 	generate_station_goals()
-	start_state = new /datum/station_state()
-	start_state.count()
+	GLOB.start_state = new /datum/station_state()
+	GLOB.start_state.count()
 	return 1
 
 ///process()
@@ -92,15 +92,15 @@
 //Called by the gameticker
 /datum/game_mode/proc/process_job_tasks()
 	var/obj/machinery/message_server/useMS = null
-	if(message_servers)
-		for(var/obj/machinery/message_server/MS in message_servers)
+	if(GLOB.message_servers)
+		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
 			if(MS.active)
 				useMS = MS
 				break
 	for(var/mob/M in GLOB.player_list)
 		if(M.mind)
 			var/obj/item/pda/P=null
-			for(var/obj/item/pda/check_pda in PDAs)
+			for(var/obj/item/pda/check_pda in GLOB.PDAs)
 				if(check_pda.owner==M.name)
 					P=check_pda
 					break
@@ -292,7 +292,7 @@
 /datum/game_mode/proc/get_living_heads()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -303,7 +303,7 @@
 /datum/game_mode/proc/get_all_heads()
 	. = list()
 	for(var/mob/player in GLOB.mob_list)
-		var/list/real_command_positions = command_positions.Copy() - "Nanotrasen Representative"
+		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
@@ -313,7 +313,7 @@
 /datum/game_mode/proc/get_living_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in security_positions))
+		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
 ////////////////////////////////////////
@@ -322,14 +322,14 @@
 /datum/game_mode/proc/get_all_sec()
 	. = list()
 	for(var/mob/living/carbon/human/player in GLOB.mob_list)
-		if(player.mind && (player.mind.assigned_role in security_positions))
+		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
 	return 0
 
 /datum/game_mode/New()
-	newscaster_announcements = pick(newscaster_standard_feeds)
+	newscaster_announcements = pick(GLOB.newscaster_standard_feeds)
 
 //////////////////////////
 //Reports player logouts//
@@ -512,11 +512,11 @@ proc/display_roundstart_logout_report()
 		G.print_result()
 
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.join_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, "hudevent")
 
 /datum/game_mode/proc/update_eventmisc_icons_removed(datum/mind/mob_mind)
-	var/datum/atom_hud/antag/antaghud = huds[ANTAG_HUD_EVENTMISC]
+	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)

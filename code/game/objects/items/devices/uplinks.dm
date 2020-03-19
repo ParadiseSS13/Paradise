@@ -35,10 +35,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	uses = SSticker.mode.uplink_uses
 	uplink_items = get_uplink_items()
 
-	world_uplinks += src
+	GLOB.world_uplinks += src
 
 /obj/item/uplink/Destroy()
-	world_uplinks -= src
+	GLOB.world_uplinks -= src
 	return ..()
 
 /obj/item/uplink/proc/generate_items(mob/user as mob)
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /*
 	NANO UI FOR UPLINK WOOP WOOP
 */
-/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/uplink/hidden/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
 	var/title = "Remote Uplink"
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		// open the new ui window
 		ui.open()
 
-/obj/item/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/uplink/hidden/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
 	var/data[0]
 
 	data["welcome"] = welcome
@@ -277,14 +277,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/proc/update_nano_data(var/id)
 	if(nanoui_menu == 1)
 		var/permanentData[0]
-		for(var/datum/data/record/L in sortRecord(data_core.general))
+		for(var/datum/data/record/L in sortRecord(GLOB.data_core.general))
 			permanentData[++permanentData.len] = list(Name = sanitize(L.fields["name"]),"id" = L.fields["id"])
 		nanoui_data["exploit_records"] = permanentData
 
 	if(nanoui_menu == 11)
 		nanoui_data["exploit_exists"] = 0
 
-		for(var/datum/data/record/L in data_core.general)
+		for(var/datum/data/record/L in GLOB.data_core.general)
 			if(L.fields["id"] == id)
 				nanoui_data["exploit"] = list()  // Setting this to equal L.fields passes it's variables that are lists as reference instead of value.
 				nanoui_data["exploit"]["name"] =  html_encode(L.fields["name"])

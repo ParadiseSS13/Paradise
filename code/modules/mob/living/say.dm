@@ -39,15 +39,15 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 proc/get_radio_key_from_channel(var/channel)
-	var/key = channel_to_radio_key[channel]
+	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
-		for(var/radio_key in department_radio_keys)
-			if(department_radio_keys[radio_key] == channel)
+		for(var/radio_key in GLOB.department_radio_keys)
+			if(GLOB.department_radio_keys[radio_key] == channel)
 				key = radio_key
 				break
 		if(!key)
 			key = ""
-		channel_to_radio_key[channel] = key
+		GLOB.channel_to_radio_key[channel] = key
 
 	return key
 

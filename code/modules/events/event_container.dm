@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 
 		new next_event.event_type(next_event)	// Events are added and removed from the processing queue in their New/kill procs
 
-		log_debug("Starting event '[next_event.name]' of severity [severity_to_string[severity]].")
+		log_debug("Starting event '[next_event.name]' of severity [GLOB.severity_to_string[severity]].")
 		next_event = null						// When set to null, a random event will be selected next time
 	else
 		// If not, wait for one minute, instead of one tick, before checking again.
@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 			possible_events[EM] = event_weight
 
 	for(var/event_meta in last_event_time) if(possible_events[event_meta])
-		var/time_passed = world.time - event_last_fired[event_meta]
+		var/time_passed = world.time - GLOB.event_last_fired[event_meta]
 		var/weight_modifier = max(0, (config.expected_round_length - time_passed) / 300)
 		var/new_weight = max(possible_events[event_meta] - weight_modifier, 0)
 
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		var/event_delay = rand(config.event_delay_lower[severity], config.event_delay_upper[severity]) * playercount_modifier
 		next_event_time = world.time + event_delay
 
-	log_debug("Next event of severity [severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")
+	log_debug("Next event of severity [GLOB.severity_to_string[severity]] in [(next_event_time - world.time)/600] minutes.")
 
 /datum/event_container/proc/SelectEvent()
 	var/datum/event_meta/EM = input("Select an event to queue up.", "Event Selection", null) as null|anything in available_events

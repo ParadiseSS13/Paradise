@@ -135,7 +135,7 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 
 /obj/item/stack/sheet/mineral/sandstone/New()
 	..()
-	recipes = sandstone_recipes
+	recipes = GLOB.sandstone_recipes
 
 /*
  * Sandbags
@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/diamond/New()
 	..()
-	recipes = diamond_recipes
+	recipes = GLOB.diamond_recipes
 
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/uranium/New()
 	..()
-	recipes = uranium_recipes
+	recipes = GLOB.uranium_recipes
 
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
@@ -214,7 +214,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/plasma/New()
 	..()
-	recipes = plasma_recipes
+	recipes = GLOB.plasma_recipes
 
 /obj/item/stack/sheet/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/gold/New()
 	..()
-	recipes = gold_recipes
+	recipes = GLOB.gold_recipes
 
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/silver/New()
 	..()
-	recipes = silver_recipes
+	recipes = GLOB.silver_recipes
 
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
@@ -265,7 +265,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/bananium/New(loc, amount=null)
 	..()
-	recipes = bananium_recipes
+	recipes = GLOB.bananium_recipes
 
 /obj/item/stack/sheet/mineral/tranquillite
 	name = "tranquillite"
@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 
 /obj/item/stack/sheet/mineral/tranquillite/New(loc, amount=null)
 	..()
-	recipes = tranquillite_recipes
+	recipes = GLOB.tranquillite_recipes
 
 /*
  * Titanium
@@ -356,7 +356,7 @@ var/global/list/datum/stack_recipe/plastitanium_recipes = list (
 	sheettype = "abductor"
 
 /obj/item/stack/sheet/mineral/abductor/New(loc, amount=null)
-	recipes = abductor_recipes
+	recipes = GLOB.abductor_recipes
 	..()
 
 /obj/item/stack/sheet/mineral/adamantine
@@ -369,7 +369,7 @@ var/global/list/datum/stack_recipe/plastitanium_recipes = list (
 	wall_allowed = FALSE
 
 /obj/item/stack/sheet/mineral/adamantine/New(loc, amount = null)
-	recipes = adamantine_recipes
+	recipes = GLOB.adamantine_recipes
 	..()
 
 /*
@@ -385,5 +385,5 @@ var/global/list/datum/stack_recipe/plastitanium_recipes = list (
 	merge_type = /obj/item/stack/sheet/mineral/snow
 
 /obj/item/stack/sheet/mineral/snow/New(loc, amount = null)
-	recipes = snow_recipes
+	recipes = GLOB.snow_recipes
 	..()

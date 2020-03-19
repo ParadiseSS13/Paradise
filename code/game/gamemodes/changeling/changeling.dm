@@ -162,12 +162,12 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		update_change_icons_removed(changeling_mind)
 
 /datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
-	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
+	var/datum/atom_hud/antag/linghud = GLOB.huds[ANTAG_HUD_CHANGELING]
 	linghud.join_hud(changeling.current)
 	set_antag_hud(changeling.current, "hudchangeling")
 
 /datum/game_mode/proc/update_change_icons_removed(datum/mind/changeling)
-	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
+	var/datum/atom_hud/antag/linghud = GLOB.huds[ANTAG_HUD_CHANGELING]
 	linghud.leave_hud(changeling.current)
 	set_antag_hud(changeling.current, null)
 
@@ -253,9 +253,9 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		honorific = "Ms."
 	else
 		honorific = "Mr."
-	if(possible_changeling_IDs.len)
-		changelingID = pick(possible_changeling_IDs)
-		possible_changeling_IDs -= changelingID
+	if(GLOB.possible_changeling_IDs.len)
+		changelingID = pick(GLOB.possible_changeling_IDs)
+		GLOB.possible_changeling_IDs -= changelingID
 		changelingID = "[honorific] [changelingID]"
 	else
 		changelingID = "[honorific] [rand(1,999)]"

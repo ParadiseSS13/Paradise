@@ -69,7 +69,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	..()
 	wires = new(src)
 
-	internal_channels = default_internal_channels.Copy()
+	internal_channels = GLOB.default_internal_channels.Copy()
 	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
@@ -116,7 +116,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/radio/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting
@@ -448,12 +448,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	  //#### Sending the signal to all subspace receivers ####//
 
-		for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
+		for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
 			spawn(0)
 				R.receive_signal(signal)
 
 		// Allinone can act as receivers.
-		for(var/obj/machinery/telecomms/allinone/R in telecomms_list)
+		for(var/obj/machinery/telecomms/allinone/R in GLOB.telecomms_list)
 			spawn(0)
 				R.receive_signal(signal)
 
@@ -503,7 +503,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	)
 	signal.frequency = connection.frequency // Quick frequency set
 
-	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
+	for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
 		spawn(0)
 			R.receive_signal(signal)
 
@@ -812,7 +812,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/radio/borg/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/borg/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting
@@ -863,4 +863,4 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/phone/medbay/New()
 	..()
-	internal_channels = default_medbay_channels.Copy()
+	internal_channels = GLOB.default_medbay_channels.Copy()

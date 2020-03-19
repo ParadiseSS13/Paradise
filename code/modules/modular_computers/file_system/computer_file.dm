@@ -12,8 +12,8 @@ GLOBAL_VAR_INIT(file_uid, 0)
 
 /datum/computer_file/New()
 	..()
-	uid = file_uid
-	file_uid++
+	uid = GLOB.file_uid
+	GLOB.file_uid++
 
 /datum/computer_file/Destroy()
 	if(!holder)

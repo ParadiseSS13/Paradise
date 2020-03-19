@@ -93,30 +93,30 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	announcement.newscast = 0
 
 	name = "[department] Requests Console"
-	allConsoles += src
+	GLOB.allRequestConsoles += src
 	if(departmentType & RC_ASSIST)
-		req_console_assistance |= department
+		GLOB.req_console_assistance |= department
 	if(departmentType & RC_SUPPLY)
-		req_console_supplies |= department
+		GLOB.req_console_supplies |= department
 	if(departmentType & RC_INFO)
-		req_console_information |= department
+		GLOB.req_console_information |= department
 
 	set_light(1)
 
 /obj/machinery/requests_console/Destroy()
-	allConsoles -= src
+	GLOB.allRequestConsoles -= src
 	var/lastDeptRC = 1
-	for(var/obj/machinery/requests_console/Console in allConsoles)
+	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 		if(Console.department == department)
 			lastDeptRC = 0
 			break
 	if(lastDeptRC)
 		if(departmentType & RC_ASSIST)
-			req_console_assistance -= department
+			GLOB.req_console_assistance -= department
 		if(departmentType & RC_SUPPLY)
-			req_console_supplies -= department
+			GLOB.req_console_supplies -= department
 		if(departmentType & RC_INFO)
-			req_console_information -= department
+			GLOB.req_console_information -= department
 	QDEL_NULL(Radio)
 	return ..()
 
@@ -138,7 +138,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/requests_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/requests_console/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["department"] = department
@@ -148,9 +148,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	data["silent"] = silent
 	data["announcementConsole"] = announcementConsole
 
-	data["assist_dept"] = req_console_assistance
-	data["supply_dept"] = req_console_supplies
-	data["info_dept"]   = req_console_information
+	data["assist_dept"] = GLOB.req_console_assistance
+	data["supply_dept"] = GLOB.req_console_supplies
+	data["info_dept"]   = GLOB.req_console_information
 	data["ship_dept"]	= GLOB.TAGGERLOCATIONS
 
 	data["message"] = message
@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(tempScreen == RCS_ANNOUNCE && !announcementConsole)
 			return
 		if(tempScreen == RCS_VIEWMSGS)
-			for(var/obj/machinery/requests_console/Console in allConsoles)
+			for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 				if(Console.department == department)
 					Console.newmessagepriority = 0
 					Console.icon_state = "req_comp0"

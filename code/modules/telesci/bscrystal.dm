@@ -70,6 +70,6 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 
 /obj/item/stack/sheet/bluespace_crystal/New()
 	..()
-	recipes = bluespace_crystal_recipes
+	recipes = GLOB.bluespace_crystal_recipes
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4

@@ -75,10 +75,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	ghostimage.appearance_flags |= KEEP_TOGETHER
 	ghostimage.alpha = alpha
 	appearance_flags |= KEEP_TOGETHER
-	ghost_images |= ghostimage
+	GLOB.ghost_images |= ghostimage
 	updateallghostimages()
 	if(!T)
-		T = pick(latejoin)			//Safety in case we cannot find the body's position
+		T = pick(GLOB.latejoin)			//Safety in case we cannot find the body's position
 	forceMove(T)
 
 	if(!name)							//To prevent nameless ghosts
@@ -95,7 +95,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		M.following_mobs -= src
 	following = null
 	if(ghostimage)
-		ghost_images -= ghostimage
+		GLOB.ghost_images -= ghostimage
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	return ..()
@@ -319,11 +319,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		src << sound(sound)
 
 /mob/dead/observer/proc/show_me_the_hud(hud_index)
-	var/datum/atom_hud/H = huds[hud_index]
+	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	H.add_hud_to(src)
 
 /mob/dead/observer/proc/remove_the_hud(hud_index) //remove old huds
-	var/datum/atom_hud/H = huds[hud_index]
+	var/datum/atom_hud/H = GLOB.huds[hud_index]
 	H.remove_hud_from(src)
 
 /mob/dead/observer/verb/toggle_medHUD()
@@ -386,7 +386,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//var/datum/atom_hud/A = huds[DATA_HUD_SECURITY_ADVANCED]
 	//var/adding_hud = (usr in A.hudusers) ? 0 : 1
 
-	for(var/datum/atom_hud/antag/H in (huds))
+	for(var/datum/atom_hud/antag/H in (GLOB.huds))
 		if(!M.antagHUD)
 			H.add_hud_to(usr)
 		else
@@ -407,7 +407,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(usr, "Not when you're not dead!")
 		return
 
-	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", ghostteleportlocs)
+	var/datum/async_input/A = input_autocomplete_async(usr, "Area to jump to: ", GLOB.ghostteleportlocs)
 	A.on_close(CALLBACK(src, .proc/teleport))
 
 /mob/dead/observer/proc/teleport(area/thearea)
@@ -616,7 +616,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/dat
 	dat += "<h4>Crew Manifest</h4>"
-	dat += data_core.get_manifest()
+	dat += GLOB.data_core.get_manifest()
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
@@ -743,10 +743,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!client)
 		return
 	if(seedarkness || !ghostvision)
-		client.images -= ghost_images
+		client.images -= GLOB.ghost_images
 	else
 		//add images for the 60inv things ghosts can normally see when darkness is enabled so they can see them now
-		client.images |= ghost_images
+		client.images |= GLOB.ghost_images
 		if(ghostimage)
 			client.images -= ghostimage //remove ourself
 
