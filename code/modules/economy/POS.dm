@@ -14,7 +14,7 @@
 var/global/current_pos_id = 1
 var/global/pos_sales = 0
 
-var/const/RECEIPT_HEADER = {"<html>
+#define RECEIPT_HEADER {"<html>
 	<head>
 		<style type="text/css">
 			html {
@@ -61,7 +61,7 @@ var/const/RECEIPT_HEADER = {"<html>
 	</head>
 	<body>
 "}
-var/const/POS_HEADER = {"<html>
+#define POS_HEADER {"<html>
 	<head>
 		<style type="text/css">
 			* {
