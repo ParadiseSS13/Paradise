@@ -290,10 +290,10 @@
 		if(5)
 			msg += "[p_they(TRUE)] looks absolutely soaked.\n"
 
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
+		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
 		else
 			msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"

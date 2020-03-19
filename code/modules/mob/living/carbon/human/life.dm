@@ -631,6 +631,10 @@
 				else
 					overeatduration -= 2
 
+		if(!ismachine(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
+			ForceContractDisease(D)
+
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)
 			metabolism_efficiency = 1
