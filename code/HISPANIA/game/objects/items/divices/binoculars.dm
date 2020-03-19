@@ -36,7 +36,7 @@
 ///Funciones de Binoculares
 
 /obj/item/device/binoculars/attack_self(mob/user)
-	if(zoomed == FALSE)
+	if(!zoomed)
 		zoom(user, TRUE)
 	else
 		zoom(user, FALSE)

@@ -1292,6 +1292,7 @@
 #include "code\HISPANIA\modules\reagents\reagent_containers\patch.dm"
 #include "code\HISPANIA\modules\research\circuitprinter.dm"
 #include "code\HISPANIA\modules\research\rdconsole.dm"
+#include "code\HISPANIA\modules\research\designs\autolathe_designs.dm"
 #include "code\HISPANIA\modules\research\designs\bluespace_designs.dm"
 #include "code\HISPANIA\modules\research\designs\comp_board_designs.dm"
 #include "code\HISPANIA\modules\research\designs\equipment_designs.dm"
