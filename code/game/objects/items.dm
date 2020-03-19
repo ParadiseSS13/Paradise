@@ -113,6 +113,8 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 	var/in_inventory = FALSE //is this item equipped into an inventory slot or hand of a mob?
 	var/tip_timer = 0
 
+	pull_slowdown = FALSE
+
 /obj/item/New()
 	..()
 	for(var/path in actions_types)

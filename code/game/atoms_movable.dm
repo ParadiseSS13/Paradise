@@ -29,6 +29,8 @@
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/list/client_mobs_in_contents
 	var/area/areaMaster
+	
+	var/pull_slowdown = SLOWDOWN_SMALL
 
 /atom/movable/New()
 	. = ..()

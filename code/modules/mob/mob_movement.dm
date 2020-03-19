@@ -190,9 +190,9 @@
 	. = ..()
 
 	//face pulled thing
-	if(mob.pulling)
+	if(mob.pulling && !mob.buckled)
 		direct = get_dir(mob, mob.pulling)
-		delay = mob.movement_delay() * 1.2
+		delay = mob.movement_delay()
 	mob.setDir(direct)
 
 	for(var/obj/item/grab/G in mob)

@@ -435,3 +435,9 @@
 #define LINDA_SPAWN_N2O 64
 
 #define LINDA_SPAWN_AIR 256
+
+//Pull slowdown speeds
+
+#define SLOWDOWN_SMALL 1
+#define SLOWDOWN_MEDIUM 1.5
+#define SLOWDOWN_LARGE 2
