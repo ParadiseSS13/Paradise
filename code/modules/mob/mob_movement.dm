@@ -188,6 +188,12 @@
 			n = get_step(mob, direct)
 
 	. = ..()
+
+	//face pulled thing
+	if(mob.pulling)
+		message_admins("a")
+		direct = get_dir(mob, mob.pulling)
+		delay = mob.movement_delay() * 1.2
 	mob.setDir(direct)
 
 	for(var/obj/item/grab/G in mob)

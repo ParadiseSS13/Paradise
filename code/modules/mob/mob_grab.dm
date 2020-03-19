@@ -232,6 +232,7 @@
 			animate(affecting, pixel_x = shift, pixel_y = 0, 5, 1, LINEAR_EASING)
 		if(EAST)
 			animate(affecting, pixel_x =-shift, pixel_y = 0, 5, 1, LINEAR_EASING)
+	assailant.setDir(get_dir(assailant, affecting)) //make them face the person they are holding
 
 /obj/item/grab/proc/s_click(obj/screen/S)
 	if(!affecting)

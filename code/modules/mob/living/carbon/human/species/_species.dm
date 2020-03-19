@@ -274,6 +274,8 @@
 			. -= 1
 		if(H.status_flags & GOTTAGOFAST_METH)
 			. -= 1
+		if(H.pulling)
+			.+= 1
 	return .
 
 /datum/species/proc/on_species_gain(mob/living/carbon/human/H) //Handles anything not already covered by basic species assignment.
