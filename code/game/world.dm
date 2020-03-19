@@ -4,6 +4,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 /world/New()
 	SetupLogs()
+	enable_debugger() // Enable the extools debugger
 	log_world("World loaded at [time_stamp()]")
 	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
 
@@ -468,3 +469,10 @@ proc/establish_db_connection()
 		return 1
 
 #undef FAILED_DB_CONNECTION_CUTOFF
+
+// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
+// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
+/world/proc/enable_debugger()
+    var/dll = world.GetConfig("env", "EXTOOLS_DLL")
+    if (dll)
+        call(dll, "debug_initialize")()

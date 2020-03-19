@@ -61,6 +61,7 @@
 	var/allow_ai = 1					// allow ai job
 	var/respawn = 0
 	var/guest_jobban = 1
+	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
@@ -509,6 +510,9 @@
 
 				if("guest_ban")
 					guests_allowed = 0
+
+				if("panic_bunker_threshold")
+					config.panic_bunker_threshold = text2num(value)
 
 				if("usewhitelist")
 					config.usewhitelist = 1

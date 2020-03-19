@@ -2170,7 +2170,7 @@
 				var/obj/pageobj = B.contents[page]
 				data += "<A href='?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[B]'>Page [page] - [pageobj.name]</A><BR>"
 
-			usr << browse(data, "window=[B.name]")
+			usr << browse(data, "window=PaperBundle[B.UID()]")
 		else
 			to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>")
 
@@ -2673,7 +2673,7 @@
 					if(H.wear_id)
 						var/obj/item/card/id/id = H.get_idcard()
 						for(var/A in id.access)
-							if(A == access_security)
+							if(A == ACCESS_SECURITY)
 								security++
 					if(!security)
 						//strip their stuff before they teleport into a cell :downs:
@@ -3112,16 +3112,16 @@
 				if(!admin_log.len)
 					dat += "No-one has done anything this round!"
 				usr << browse(dat, "window=admin_log")
-			if("maint_access_brig")
+			if("maint_ACCESS_BRIG")
 				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-					if(access_maint_tunnels in M.req_access)
-						M.req_access = list(access_brig)
+					if(ACCESS_MAINT_TUNNELS in M.req_access)
+						M.req_access = list(ACCESS_BRIG)
 				message_admins("[key_name_admin(usr)] made all maint doors brig access-only.")
 			if("maint_access_engiebrig")
 				for(var/obj/machinery/door/airlock/maintenance/M in GLOB.airlocks)
-					if(access_maint_tunnels in M.req_access)
+					if(ACCESS_MAINT_TUNNELS in M.req_access)
 						M.req_access = list()
-						M.req_one_access = list(access_brig,access_engine)
+						M.req_one_access = list(ACCESS_BRIG,ACCESS_ENGINE)
 				message_admins("[key_name_admin(usr)] made all maint doors engineering and brig access-only.")
 			if("infinite_sec")
 				var/datum/job/J = SSjobs.GetJob("Security Officer")

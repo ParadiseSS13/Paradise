@@ -2,7 +2,7 @@
 //
 // The datum containing all the chunks.
 
-var/const/CHUNK_SIZE = 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
+#define CHUNK_SIZE 16 // Only chunk sizes that are to the power of 2. E.g: 2, 4, 8, 16, etc..
 
 var/datum/cameranet/cameranet = new()
 

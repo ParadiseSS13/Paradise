@@ -46,7 +46,7 @@
 /datum/superheroes/proc/assign_id(var/mob/living/carbon/human/H)
 	var/obj/item/card/id/syndicate/W = new(H)
 	W.registered_name = H.real_name
-	W.access = list(access_maint_tunnels)
+	W.access = list(ACCESS_MAINT_TUNNELS)
 	if(class == "Superhero")
 		W.assignment = "Superhero"
 		W.rank = "Superhero"
@@ -234,7 +234,7 @@
 		target.equip_to_slot_or_del(new /obj/item/radio/headset(target), slot_l_ear)
 		var/obj/item/card/id/syndicate/W = new(target)
 		W.icon_state = "lifetimeid"
-		W.access = list(access_maint_tunnels)
+		W.access = list(ACCESS_MAINT_TUNNELS)
 		W.assignment = "Greyshirt"
 		W.rank = "Greyshirt"
 		W.flags |= NODROP

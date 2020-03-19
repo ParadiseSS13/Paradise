@@ -19,7 +19,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/machinery/vending/walldrobe/cap
 	name = "\improper Captain's WallDrobe"
-	req_access = list(access_captain)
+	req_access = list(ACCESS_CAPTAIN)
 	products = list(/obj/item/clothing/under/rank/command/captain/formal/light = 1,
 					/obj/item/clothing/under/rank/command/captain/formal/dark = 1,
 					/obj/item/clothing/head/caphat/dark = 1,
@@ -42,7 +42,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/machinery/vending/walldrobe/rd
 	name = "\improper Research Director's WallDrobe"
-	req_access = list(access_rd)
+	req_access = list(ACCESS_RD)
 	products = list(/obj/item/clothing/suit/storage/labcoat/rdlargedark = 1,
 					/obj/item/clothing/suit/storage/labcoat/rdlargeroundcutdark = 1,
 					/obj/item/clothing/suit/bio_suit/scientist = 1,
@@ -56,7 +56,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/machinery/vending/walldrobe/hos
 	name = "\improper Head of Security's Walldrobe"
-	req_access = list(access_hos)
+	req_access = list(ACCESS_HOS)
 	products = list(/obj/item/clothing/under/rank/head_of_security = 1,
 					/obj/item/clothing/under/rank/head_of_security/formal = 1,
 					/obj/item/clothing/under/rank/head_of_security/corp = 1,
@@ -70,7 +70,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/machinery/vending/walldrobe/ce
 	name = "\improper Chief Enginner's Walldrobe"
-	req_access = list(access_ce)
+	req_access = list(ACCESS_CE)
 	products = list(/obj/item/clothing/under/rank/chief_engineer = 1,
 					/obj/item/clothing/under/rank/chief_engineer/skirt = 1,
 					/obj/item/clothing/suit/mantle/chief_engineer = 1,
@@ -82,7 +82,7 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/machinery/vending/walldrobe/cmo
 	name = "\improper Chief Medical Officer's Walldrobe"
-	req_access = list(access_cmo)
+	req_access = list(ACCESS_CMO)
 	products = list(/obj/item/clothing/shoes/white = 1,
 					/obj/item/clothing/under/rank/medical/blue = 1,
 					/obj/item/clothing/head/surgery/blue = 1,

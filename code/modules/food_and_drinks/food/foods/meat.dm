@@ -259,7 +259,7 @@
 	list_reagents = list("nutriment" = 2)
 	tastes = list("the jungle" = 1, "bananas" = 1)
 
-/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = TOUCH)
+/obj/item/reagent_containers/food/snacks/monkeycube/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	if(volume >= 1)
 		return Expand()
@@ -329,7 +329,7 @@
 	var/turf/T = get_turf(hit_atom)
 	new/obj/effect/decal/cleanable/egg_smudge(T)
 	if(reagents)
-		reagents.reaction(hit_atom, TOUCH)
+		reagents.reaction(hit_atom, REAGENT_TOUCH)
 	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/egg/attackby(obj/item/W, mob/user, params)

@@ -20,14 +20,20 @@
 
 /datum/gear/radio_back
 	display_name = "radio-bag , backpack"
+	slot = slot_r_hand
+	cost = 3
 	path = /obj/item/storage/backpack/fluff/krich_back
 
 /datum/gear/cat_back
 	display_name = "cat-bag , backpack"
+	slot = slot_r_hand
+	cost = 3
 	path = /obj/item/storage/backpack/fluff/ssscratches_back
 
 /datum/gear/beer_back
 	display_name = "beer-bag , dufflebag"
+	slot = slot_r_hand
+	cost = 3
 	path = /obj/item/storage/backpack/duffel/fluff/thebrew
 
 /datum/gear/limited_sheet

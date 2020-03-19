@@ -422,7 +422,7 @@
 		visible_message("<span class='warning'>The mutated core shudders, and collapses into a puddle, unable to maintain its form.</span>")
 	qdel(src)
 
-/mob/living/simple_animal/slime/water_act(volume, temperature, source, method = TOUCH)
+/mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	var/water_damage = rand(10, 15) * volume
 	adjustBruteLoss(water_damage)

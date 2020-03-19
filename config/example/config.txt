@@ -195,6 +195,9 @@ GUEST_JOBBAN
 ## Uncomment this to stop people connecting to your server without a registered ckey. (i.e. guest-* are all blocked from connecting)
 GUEST_BAN
 
+## above this player count threshold, never-before-seen players are blocked from connecting
+PANIC_BUNKER_THRESHOLD 150
+
 ### IPINTEL:
 ### This allows you to detect likely proxies by checking ips against getipintel.net
 ## Rating to warn at: (0.90 is good, 1 is 100% likely to be a spammer/proxy, 0.8 is 80%, etc) anything equal to or higher then this number triggers an admin warning

@@ -4,7 +4,7 @@
 	icon_keyboard = "rd_key"
 	icon_screen = "ai-fixer"
 	circuit = /obj/item/circuitboard/aifixer
-	req_access = list(access_captain, access_robotics, access_heads)
+	req_access = list(ACCESS_CAPTAIN, ACCESS_ROBOTICS, ACCESS_HEADS)
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
 

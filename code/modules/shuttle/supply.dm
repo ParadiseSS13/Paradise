@@ -386,7 +386,7 @@
 	name = "Supply Shuttle Console"
 	desc = "Used to order supplies."
 	icon_screen = "supply"
-	req_access = list(access_cargo)
+	req_access = list(ACCESS_CARGO)
 	circuit = /obj/item/circuitboard/supplycomp
 	var/temp = null
 	var/reqtime = 0
@@ -425,7 +425,6 @@
 	for(var/category in all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
 	data["categories"] = category_list
-
 	var/cat = text2num(last_viewed_group)
 	var/packs_list[0]
 	for(var/set_name in SSshuttle.supply_packs)
@@ -452,7 +451,6 @@
 				owned = 1
 			requests_list.Add(list(list("ordernum" = SO.ordernum, "supply_type" = SO.object.name, "orderedby" = SO.orderedby, "owned" = owned, "command1" = list("rreq" = SO.ordernum))))
 	data["requests"] = requests_list
-
 	var/orders_list[0]
 	for(var/set_name in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = set_name
@@ -466,7 +464,6 @@
 	data["moving"] = SSshuttle.supply.mode != SHUTTLE_IDLE
 	data["at_station"] = SSshuttle.supply.getDockedId() == "supply_home"
 	data["timeleft"] = SSshuttle.supply.timeLeft(600)
-
 	return data
 
 /obj/machinery/computer/ordercomp/Topic(href, href_list)

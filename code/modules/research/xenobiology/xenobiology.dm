@@ -276,7 +276,7 @@
 	being_used = 1
 
 	var/ghostmsg = "Play as [SM.name], pet of [user.name]?"
-	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 0, 100)
+	var/list/candidates = pollCandidates(ghostmsg, ROLE_SENTIENT, 0, 300)
 
 	if(!src)
 		return
