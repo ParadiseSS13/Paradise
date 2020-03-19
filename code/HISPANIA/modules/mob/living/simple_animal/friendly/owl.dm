@@ -4,7 +4,7 @@
 	gender = MALE
 	health = 25
 	maxHealth = 25
-	density = 1
+	density = TRUE
 	icon = 'icons/hispania/mob/animals.dmi'
 	icon_state = "owl"
 	icon_living = "owl"
@@ -17,11 +17,9 @@
 	speak_chance = 1
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	turns_per_move = 10
-	can_collar = 0
+	can_collar = FALSE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
-
-	damage_coeff = list(BRUTE = 1, BURN = 0, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	obj_damage = 5
 	melee_damage_lower = 0
 	melee_damage_upper = 2

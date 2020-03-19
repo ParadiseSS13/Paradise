@@ -299,6 +299,6 @@
 		return 1
 
 	if(ispath(MP, /mob/living/simple_animal/friendly/owl))
-		return 1
+		return TRUE
 
 	return 0
