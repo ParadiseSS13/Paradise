@@ -3,7 +3,7 @@ SUBSYSTEM_DEF(jobs)
 	init_order = INIT_ORDER_JOBS // 12
 	wait = 5 MINUTES // Dont ever make this a super low value since EXP updates are calculated from this value
 	runlevels = RUNLEVEL_GAME
-	offline_implications = "Job playtime hours will no longer be logged. No immediate action is needed."
+	offline_implications = "Время игры на профессиях больше не будет сохраняться. Немедленных действий не требуется."
 
 	//List of all jobs
 	var/list/occupations = list()
@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Error setting up jobs, no job datums found</span>")
+		to_chat(world, "<span class='warning'>Ошибка выдачи профессий, датумы профессий не найдены</span>")
 		return 0
 
 	for(var/J in all_jobs)
@@ -439,27 +439,27 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	to_chat(H, "<B>You are the [alt_title ? alt_title : rank].</B>")
-	to_chat(H, "<b>As the [alt_title ? alt_title : rank] you answer directly to [job.supervisors]. Special circumstances may change this.</b>")
-	to_chat(H, "<b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a></b>")
+	to_chat(H, "<B>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</B>")
+	to_chat(H, "<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
+	to_chat(H, "<b>Для получения дополнительной информации о работе на станции, см. <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
-		to_chat(H, "<b>As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
 	if(job.is_supply)
-		to_chat(H, "<b>As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Будучи работником отдела Снабжения, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">СРП своего отдела</a></b>")
 	if(job.is_command)
-		to_chat(H, "<b>As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Будучи важным членом Командования, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">СРП своего отдела</a></b>")
 	if(job.is_legal)
-		to_chat(H, "<b>Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>")
+		to_chat(H, "<b>Ваша должность требует полного знания <a href=\"http://rv666.asuscomm.com/wiki/index.php/Space_Law\">Космического Закона</a> и <a href=\"http://rv666.asuscomm.com/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых Стандартных Рабочих Процедур</a></b>")
 	if(job.is_engineering)
-		to_chat(H, "<b>As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Будучи работником Инженерного отдела, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">СРП своего отдела</a></b>")
 	if(job.is_medical)
-		to_chat(H, "<b>As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Будучи работником Медицинского отдела, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">СРП своего отдела</a></b>")
 	if(job.is_science)
-		to_chat(H, "<b>As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Будучи работником Научного отдела, убедитесь что прочли <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">СРП своего отдела</a></b>")
 	if(job.is_security)
-		to_chat(H, "<b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a></b>")
+		to_chat(H, "<b>Будучи работником Службы Безопасности, вам необходимо знание <a href=\"http://rv666.asuscomm.com/wiki/index.php/Space_Law\">Космического Закона</a>, <a href=\"http://rv666.asuscomm.com/wiki/index.php/Legal_Standard_Operating_Procedure\">Правовых СРП</a>, а также <a href=\"http://rv666.asuscomm.com/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">СРП своего отдела</a></b>")
 	if(job.req_admin_notify)
-		to_chat(H, "<b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b>")
+		to_chat(H, "<b>Вы играете на важной для игрового процесса должности. Если вам необходимо покинуть игру, пожалуйста, используйте крио и проинформируйте командование. Если вы не можете это сделать, пожалуйста, проинформируйте админов через админхэлп.</b>")
 
 	return H
 /datum/controller/subsystem/jobs/proc/EquipRank(mob/living/carbon/human/H, rank, joined_late = 0) // Equip and put them in an area
@@ -615,13 +615,13 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/money_account/M = create_account(H.real_name, rand(50,500)*10, null)
 	var/remembered_info = ""
 
-	remembered_info += "<b>Your account number is:</b> #[M.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [M.remote_access_pin]<br>"
-	remembered_info += "<b>Your account funds are:</b> $[M.money]<br>"
+	remembered_info += "<b>Номер вашего аккаунта:</b> #[M.account_number]<br>"
+	remembered_info += "<b>ПИН вашего аккаунта:</b> [M.remote_access_pin]<br>"
+	remembered_info += "<b>Баланс вашего аккаунта:</b> $[M.money]<br>"
 
 	if(M.transaction_log.len)
 		var/datum/transaction/T = M.transaction_log[1]
-		remembered_info += "<b>Your account was created:</b> [T.time], [T.date] at [T.source_terminal]<br>"
+		remembered_info += "<b>Ваш аккаунт был создан:</b> [T.time], [T.date] на [T.source_terminal]<br>"
 	H.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
@@ -630,16 +630,16 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 
 		if(department_account)
-			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
-			remembered_info += "<b>Your department's account pin is:</b> [department_account.remote_access_pin]<br>"
-			remembered_info += "<b>Your department's account funds are:</b> $[department_account.money]<br>"
+			remembered_info += "<b>Номер аккаунта вашего отдела:</b> #[department_account.account_number]<br>"
+			remembered_info += "<b>ПИН аккаунта вашего отдела:</b> [department_account.remote_access_pin]<br>"
+			remembered_info += "<b>Баланс аккаунта вашего отдела:</b> $[department_account.money]<br>"
 
 		H.mind.store_memory(remembered_info)
 
 	H.mind.initial_account = M
 
 	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Your account number is: [M.account_number], your account pin is: [M.remote_access_pin]</span>")
+		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
@@ -702,7 +702,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/notify_by_name(target_name, antext)
 	// Used to notify a specific crew member based on their real_name
@@ -717,7 +717,7 @@ SUBSYSTEM_DEF(jobs)
 		return
 	var/datum/data/pda/app/messenger/PM = target_pda.find_program(/datum/data/pda/app/messenger)
 	if(PM && PM.can_receive())
-		PM.notify("<b>Automated Notification: </b>\"[antext]\" (Unable to Reply)", 0) // the 0 means don't make the PDA flash
+		PM.notify("<b>Автоматическое Оповещение: </b>\"[antext]\" (Невозможно Ответить)", 0) // the 0 means don't make the PDA flash
 
 /datum/controller/subsystem/jobs/proc/format_job_change_records(centcom)
 	var/list/formatted = list()

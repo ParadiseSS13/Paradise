@@ -9,17 +9,17 @@
 
 
 /obj/item/book/manual/engineering_construction
-	name = "Station Repairs and Construction"
+	name = "Руководство по Ремонту и Строительству"
 	icon_state ="bookEngineering"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	title = "Station Repairs and Construction"
+	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	title = "Руководство по Ремонту и Строительству"
 	dat = {"
 
 		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Construction&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Руководство_по_строительству" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -27,146 +27,53 @@
 		"}
 
 /obj/item/book/manual/engineering_particle_accelerator
-	name = "Particle Accelerator User's Guide"
+	name = "Тесла Двигатель: Руководство Пользователя"
 	icon_state ="bookParticleAccelerator"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	title = "Particle Accelerator User's Guide"
-//big pile of shit below.
-
-	dat = {"<html>
-				<meta charset="UTF-8">
-				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-
-				<h3>Experienced user's guide</h3>
-
-				<h4>Setting up</h4>
-
-				<ol>
-					<li><b>Wrench</b> all pieces to the floor</li>
-					<li>Add <b>wires</b> to all the pieces</li>
-					<li>Close all the panels with your <b>screwdriver</b></li>
-				</ol>
-
-				<h4>Use</h4>
-
-				<ol>
-					<li>Open the control panel</li>
-					<li>Set the speed to 2</li>
-					<li>Start firing at the singularity generator</li>
-					<li><font color='red'><b>When the singularity reaches a large enough size so it starts moving on it's own set the speed down to 0, but don't shut it off</b></font></li>
-					<li>Remember to wear a radiation suit when working with this machine... we did tell you that at the start, right?</li>
-				</ol>
-
-				</body>
-				</html>"}
-
-
-/obj/item/book/manual/supermatter_engine
-	name = "Supermatter Engine User's Guide"
-	icon_state = "bookParticleAccelerator"   //TEMP FIXME
-	author = "Waleed Asad"
-	title = "Supermatter Engine User's Guide"
-
-	dat = {"Engineering notes on single-stage Supermatter engine,</br>
-			-Waleed Asad</br>
-
-			A word of caution, do not enter the engine room, for any reason, without radiation protection and mesons on. The status of the engine may be unpredictable even when you believe it is .off.. This is an important level of personal protection.</br></br>
-
-			The engine has two basic modes of functionality. He has observed that it is capable of both a safe level of operation and a modified, high output mode.</br></br>
-
-			<center><b>Notes on starting the basic function mode, dubbed .Heat-Primary Mode..</b></center></br></br>
-
-			1. Prepare collector arrays. This is done standard to any text on their function by wrenching them down, filling six plasma tanks with a plasma canister, and inserting the tank into the collectors one by one. Finally, initialize each collector.</br></br>
-
-			2. Prepare gas system. Before introducing any gas to the Supermatter engine room, it is important to remember the small but vital steps to preparing this section. First, set the input gas pump and output gas flow pump to 4500, or maximum flow. Second, switch the digital switching valve into the .up. position, in order to circulate the gas back toward the coolers and collectors.</br></br>
-
-			3. Apply N2 gas. Retrieve the two N2 canisters from storage and bring them to the engine room. Attach one of them to the input section of the engine gas system located next to the collectors. Keep it attached until the N2 pressure is low enough to turn the canister light red. Replace it with the second canister to keep N2 pressure at optimal levels.</br></br>
-
-			4. Begin primary emitter burst series. This means firing a single emitter for its first four shots. It is important to move to this step quickly. The onboard SMES units may not have enough power to run the emitters if left alone too long on-station. This engine can produce enough power on its own to run the entire station, ignoring the SMES units completely, and is wired to do so.</br></br>
-
-			5. Switch SMES units to primary settings. Maximize input and set the devices to automatically charge, additionally turn their outputs on if they are off unless power is to be saved (Which can be useful in case of later failures.)</br></br>
-
-			6. Begin secondary emitter burst series. Before firing the emitter again, check the power in the line with a multimeter (Do not forget electrical gloves.) The engine is running at high efficiency when the value exceeds 200,000 power units.</br></br>
-
-			7. Maintain engine power. When power in the lines gets low, add an additional emitter burst series to bring power to normal levels.</br></br></br>
-
-
-
-			<center>The second mode for running the engine uses a gas mix to produce a reaction within the Supermatter. This mode requires CE or Atmospheric help to setup. <b>This has been dubbed the .O2-Reaction Mode..</b></center></br></br>
-
-			<b><u>THIS MODE CAN CAUSE A RUNAWAY REACTION, LEADING TO CATASTROPHIC FAILURE IF NOT MAINTAINED. NEVER FORGET ABOUT THE ENGINE IN THIS MODE.</u></b></br></br>
-
-			Additionally, this mode can be used for what is called a .Cold Start.. If the station has no power in the SMES to run the emitters, using this mode will allow enough power output to run them, and quickly reach an acceptable level of power output.</br></br>
-
-			1. Prepare collector arrays. This is done standard to any text on their function by wrenching them down, filling six plasma tanks with a plasma canister, and inserting the tank into the collectors one by one. Finally, initialize each collector.</br></br>
-
-			2. Prepare gas system. Before introducing any gas to the Supermatter engine room, it is important to remember the small but vital steps to preparing this section. First, set the input gas pump and output gas flow pump to 4500, or maximum flow. Second, switch the digital switching valve into the .up. position, in order to circulate the gas back toward the coolers and collectors.</br></br>
-
-			3. Modify the engine room filters. Unlike the Heat-Primary Mode, it is important to change the filters attached to the gas system to stop filtering O2, and start filtering Carbon Molecules. O2-Reaction Mode produces far more plasma than Heat-Primary, therefor filtering it off is essential.</br></br>
-
-			4. Switch SMES units to primary settings. Maximize input and set the devices to automatically charge, additionally turn their outputs on if they are off unless power is to be saved (Which can be useful in case of later failures.) If you check the power in the system lines at this point you will find that it is constantly going up. Indeed, with just the addition of O2 to the Supermatter, it will begin outputting power.</br></br>
-
-			5. Begin primary emitter burst series. Fire a single emitter for a series of four pulses, or a single series, and turn it off. Do not over power the Supermatter. The reaction is self sustaining and propagating. As long as O2 is in the chamber, it will continue outputting MORE power.</br></br>
-
-			6. Maintain follow up operations. Remember to check the temp of the core gas and switch to the Heat-Primary function, or vent the core room when problems begin if required.</br></br>
-
-			Notes on Supermatter Reaction Function and Drawbacks-</br></br>
-
-			After several hours of observation an interesting phenomenon was witnessed. The Supermatter undergoes a constant self-sustaining reaction when given an extremely high O2 concentration. Anything about 80% or higher typically will cause this reaction. The Supermatter will continue to react whenever this gas mix is in the same room as the Supermatter.</br></br>
-
-			To understand why O2-Reaction mode is dangerous, the core principle of the Supermatter must be understood. The Supermatter emits three things when .not safe,. that is any time it is giving off power. These things are:</br></br>
-
-			*Radiation (which is converted into power by the collectors,)</br>
-			*Heat (which is removed via the gas exchange system and coolers,)</br>
-			*External gas (in the form of plasma and O2.)</br>
-
-			When in Heat-Primary mode, far more heat and plasma are produced than radiation. In O2-Reaction mode, very little heat and only moderate amounts of plasma are produced, however HUGE amounts of energy leaving the Supermatter is in the form of radiation.</br></br>
-
-			The O2-Reaction engine mode has a single drawback which has been eluded to more than once so far and that is very simple. The engine room will continue to grow hotter as the constant reaction continues. Eventually, there will be what he calls the .critical gas mix.. This is the point at which the constant adding of plasma to the mix of air around the Supermatter changes the gas concentration to below the tolerance. When this happens, two things occur. First, the Supermatter switches to its primary mode of operation where in huge amounts of heat are produced by the engine rather than low amounts with high power output. Second, an uncontrollable increase in heat within the Supermatter chamber will occur. This will lead to a spark-up, igniting the plasma in the Supermatter chamber, wildly increasing both pressure and temperature.</br></br>
-
-			While the O2-Reaction mode is dangerous, it does produce heavy amounts of energy. Consider using this mode only in short amounts to fill the SMES, and switch back later in the shift to keep things flowing normally.</br></br>
-
-
-			Notes on Supermatter Containment and Emergency Procedures-</br></br>
-
-			While a constant vigil on the Supermatter is not required, regular checkups are important. Verify the temp of gas leaving the Supermatter chamber for unsafe levels, and ensure that the plasma in the chamber is at a safe concentration. Of course, also make sure the chamber is not on fire. A fire in the core chamber is very difficult to put out. As any Toxin scientist can tell you, even low amounts of plasma can burn at very high temperatures. This burning creates a huge increase in pressure and more importantly, temperature of the crystal itself.</br></br>
-
-			The Supermatter is strong, but not invincible. When the Supermatter is heated too much, its crystal structure will attempt to liquify. The change in atomic structure of the Supermatter leads to a single reaction, a massive explosion. The computer chip attached to the Supermatter core will warn the station when stability is threatened. It will then offer a second warning, when things have become dangerously close to total destruction of the core.</br></br>
-
-			Located both within the supermatter monitoring room and engine room is the vent control button. This button allows the Core Vent Controls to be accessed, venting the room to space. Remember however, that this process takes time. If a fire is raging, and the pressure is higher than fathomable, it will take a great deal of time to vent the room. Also located in the supermatter monitoring room is the emergency core eject button. A new core can be ordered from cargo. It is often not worth the lives of the crew to hold on to it, not to mention the structural damage. However, if by some mistake the Supermatter is pushed off or removed from the mass ejector it sits on, manual reposition will be required. Which is very dangerous and often leads to death.</br></br>
-
-			The Supermatter is extremely dangerous. More dangerous than people give it credit for. It can destroy you in an instant, without hesitation, reducing you to a pile of dust. When working closely with Supermatter it is.. suggested to get a genetic backup and do not wear any items of value to you. The Supermatter core can be pulled if grabbed properly by the base, but <b>pushing is not possible.</b></br></br></br>
-
-
-			In Closing-</br></br>
-
-			Remember that the Supermatter is dangerous, and the core is dangerous still. Venting the core room is always an option if you are even remotely worried, utilizing Atmospherics to properly ready the room once more for core function. It is always a good idea to check up regularly on the temperature of gas leaving the chamber, as well as the power in the system lines. Lastly, once again remember, never touch the Supermatter with anything. Ever.</br></br>
-
-			-Waleed Asad, Senior Engine Technician."}
-
-/obj/item/book/manual/engineering_hacking
-	name = "Hacking"
-	icon_state ="bookHacking"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	title = "Hacking"
-//big pile of shit below.
-
+	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	title = "Тесла Двигатель: Руководство Пользователя"
 	dat = {"
 
 		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Hacking&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Тесла-двигатель" frameborder="0" id="main_frame"></iframe>
+		</body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/supermatter_engine
+	name = "Двигатель на Суперматерии: Руководство Пользователя"
+	icon_state = "bookParticleAccelerator"   //TEMP FIXME
+	author = "Инженерная Энциклопедия"
+	title = "Двигатель на Суперматерии: Руководство Пользователя"
+	dat = {"
+
+		<html><meta charset="UTF-8"><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Двигатель_Суперматерии" frameborder="0" id="main_frame"></iframe>
+		</body>
+
+		</html>
+
+		"}
+
+/obj/item/book/manual/engineering_hacking
+	name = "Взлом"
+	icon_state ="bookHacking"
+	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	title = "Взлом"
+	dat = {"
+
+		<html><meta charset="UTF-8"><head>
+		</head>
+
+		<body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Руководство_по_взлому" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -174,53 +81,22 @@
 		"}
 
 /obj/item/book/manual/engineering_singularity_safety
-	name = "Singularity Safety in Special Circumstances"
+	name = "Сингулярный Двигатель: Руководство Пользователя"
 	icon_state ="bookEngineeringSingularitySafety"
-	author = "Engineering Encyclopedia"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
-	title = "Singularity Safety in Special Circumstances"
-//big pile of shit below.
+	author = "Инженерная Энциклопедия"		 // Who wrote the thing, can be changed by pen or PC. It is not automatically assigned
+	title = "Сингулярный Двигатель: Руководство Пользователя"
+	dat = {"
 
-	dat = {"<html>
-				<meta charset="UTF-8">
-				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
-				<h3>Singularity Safety in Special Circumstances</h3>
+		<html><meta charset="UTF-8"><head>
+		</head>
 
-				<h4>Power outage</h4>
+		<body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Сингулярный_двигатель" frameborder="0" id="main_frame"></iframe>
+		</body>
 
-				A power problem has made the entire station loose power? Could be station-wide wiring problems or syndicate power sinks. In any case follow these steps:
-				<p>
-				<b>Step one:</b> <b><font color='red'>PANIC!</font></b><br>
-				<b>Step two:</b> Get your ass over to engineering! <b>QUICKLY!!!</b><br>
-				<b>Step three:</b> Get to the <b>Area Power Controller</b> which controls the power to the emitters.<br>
-				<b>Step four:</b> Swipe it with your <b>ID card</b> - if it doesn't unlock, continue with step 15.<br>
-				<b>Step five:</b> Open the console and disengage the cover lock.<br>
-				<b>Step six:</b> Pry open the APC with a <b>Crowbar.</b><br>
-				<b>Step seven:</b> Take out the empty <b>power cell.</b><br>
-				<b>Step eight:</b> Put in the new, <b>full power cell</b> - if you don't have one, continue with step 15.<br>
-				<b>Step nine:</b> Quickly put on a <b>Radiation suit.</b><br>
-				<b>Step ten:</b> Check if the <b>singularity field generators</b> withstood the down-time - if they didn't, continue with step 15.<br>
-				<b>Step eleven:</b> Since disaster was averted you now have to ensure it doesn't repeat. If it was a powersink which caused it and if the engineering apc is wired to the same powernet, which the powersink is on, you have to remove the piece of wire which links the apc to the powernet. If it wasn't a powersink which caused it, then skip to step 14.<br>
-				<b>Step twelve:</b> Grab your crowbar and pry away the tile closest to the APC.<br>
-				<b>Step thirteen:</b> Use the wirecutters to cut the wire which is conecting the grid to the terminal. <br>
-				<b>Step fourteen:</b> Go to the bar and tell the guys how you saved them all. Stop reading this guide here.<br>
-				<b>Step fifteen:</b> <b>GET THE FUCK OUT OF THERE!!!</b><br>
-				</p>
+		</html>
 
-				<h4>Shields get damaged</h4>
-
-				Step one: <b>GET THE FUCK OUT OF THERE!!! FORGET THE WOMEN AND CHILDREN, SAVE YOURSELF!!!</b><br>
-				</body>
-				</html>
-				"}
+		"}
 
 /obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
@@ -802,42 +678,42 @@
 		"}
 
 /obj/item/book/manual/security_space_law
-	name = "Space Law"
-	desc = "A set of Nanotrasen guidelines for keeping law and order on their space stations."
+	name = "Космический Закон"
+	desc = "Свод корпоративных правил Nanotrasen для поддержания закона и порядка на своих космических станциях."
 	icon_state = "bookSpaceLaw"
 	force = 4 //advanced magistrate tactics
 	author = "Nanotrasen"
-	title = "Space Law"
+	title = "Космический Закон"
 	dat = {"
 
 		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Space_law&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Космический_Закон" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/security_space_law/black
-	name = "Space Law - Limited Edition"
-	desc = "A leather-bound, immaculately-written copy of JUSTICE."
+	name = "Космический Закон - Ограниченное Издание"
+	desc = "Кожаный переплет и безукоризненное качество исполнения - превосходня копия ПРАВОСУДИЯ."
 	icon_state = "bookSpaceLawblack"
-	title = "Space Law - Limited Edition"
+	title = "Космический Закон - Ограниченное Издание"
 
 /obj/item/book/manual/engineering_guide
-	name = "Engineering Textbook"
+	name = "Руководство по Инженерии"
 	icon_state ="bookEngineering2"
-	author = "Engineering Encyclopedia"
-	title = "Engineering Textbook"
+	author = "Инженерная Энциклопедия"
+	title = "Руководство по Инженерии"
 	dat = {"
 
 		<html><meta charset="UTF-8"><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Engineering&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Guide_to_Engineering" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
@@ -845,75 +721,38 @@
 
 
 /obj/item/book/manual/chef_recipes
-    name = "Chef Recipes"
-    icon_state = "cooked_book"
-    author = "NanoTrasen"
-    title = "Chef Recipes"
-    dat = {"
+	name = "Рецепты от шеф-повара"
+	icon_state = "cooked_book"
+	author = "NanoTrasen"
+	title = "Рецепты от шеф-повара"
+	dat = {"
 
-        <html><head>
-        </head>
+		<html><head>
+		</head>
 
-        <body>
-        <iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Guide_to_Food_and_Drinks#Food&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>        </body>
+		<body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам#.D0.95.D0.B4.D0.B0" frameborder="0" id="main_frame"></iframe>        </body>
 
-        </html>
+		</html>
 
-        "}
+		"}
 
 /obj/item/book/manual/barman_recipes
-	name = "Barman Recipes"
+	name = "Рецепты Бармена"
 	icon_state = "barbook"
-	author = "Sir John Rose"
-	title = "Barman Recipes"
-	dat = {"<html>
-				<meta charset="UTF-8">
-				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
-				</style>
-				</head>
-				<body>
+	author = "Сэр Джон Роуз"
+	title = "Рецепты Бармена"
+	dat = {"
 
-				<h1>Drinks for dummies</h1>
-				Heres a guide for some basic drinks.
+		<html><head>
+		</head>
 
-				<h2>Manly Dorf:</h2>
-				Mix ale and beer into a glass.
+		<body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Руководство_по_еде_и_напиткам#.D0.9D.D0.B0.D0.BF.D0.B8.D1.82.D0.BA.D0.B8" frameborder="0" id="main_frame"></iframe>        </body>
 
-				<h2>Grog:</h2>
-				Mix rum and water into a glass.
+		</html>
 
-				<h2>Black Russian:</h2>
-				Mix vodka and kahlua into a glass.
-
-				<h2>Irish Cream:</h2>
-				Mix cream and whiskey into a glass.
-
-				<h2>Screwdriver:</h2>
-				Mix vodka and orange juice into a glass.
-
-				<h2>Cafe Latte:</h2>
-				Mix milk and coffee into a glass.
-
-				<h2>Mead:</h2>
-				Mix Enzyme, water and sugar into a glass.
-
-				<h2>Gin Tonic:</h2>
-				Mix gin and tonic into a glass.
-
-				<h2>Classic Martini:</h2>
-				Mix vermouth and gin into a glass.
-
-
-				</body>
-				</html>
-			"}
-
+		"}
 
 /obj/item/book/manual/detective
 	name = "The Film Noir: Proper Procedures for Investigations"
@@ -1222,162 +1061,162 @@
 		"}
 
 /obj/item/book/manual/sop_science
-	name = "Science Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all scientific activities."
+	name = "Стандартные Рабочие Процедуры Научного Отдела"
+	desc = "Свод правил, направленных на безопасное ведение любой научной деятельности."
 	icon_state = "sop_science"
 	author = "Nanotrasen"
-	title = "Science Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры Научного Отдела"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Science)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Science)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_medical
-	name = "Medical Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all medical activities."
+	name = "Стандартные Рабочие Процедуры Медицинского Отдела"
+	desc = "Свод правил, направленных на безопасное ведение любой медицинской деятельности."
 	icon_state = "sop_medical"
 	author = "Nanotrasen"
-	title = "Medical Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры Медицинского Отдела"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Medical)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Medical)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_engineering
-	name = "Engineering Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all engineering activities."
+	name = "Стандартные Рабочие Процедуры Инженерного Отдела"
+	desc = "Свод правил, направленных на безопасное ведение любой инженерной деятельности."
 	icon_state = "sop_engineering"
 	author = "Nanotrasen"
-	title = "Engineering Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры Инженерного Отдела"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Engineering)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Engineering)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_service
-	name = "Service Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all service activities."
+	name = "Стандартные Рабочие Процедуры Отдела Обслуживания"
+	desc = "Свод правил, направленных на безопасное ведение любой обслуживающей деятельности."
 	icon_state = "sop_service"
 	author = "Nanotrasen"
-	title = "Service Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры Отдела Обслуживания"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Service)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Service)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_supply
-	name = "Supply Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all supply activities."
+	name = "Стандартные Рабочие Процедуры Отдела Снабжения"
+	desc = "Свод правил, направленных на безопасное ведение любой снабженческой деятельности."
 	icon_state = "sop_cargo"
 	author = "Nanotrasen"
-	title = "Supply Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры Отдела Снабжения"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Supply)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Supply)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_security
-	name = "Security Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all security activities."
+	name = "Стандартные Рабочие Процедуры Службы Безопасности"
+	desc = "Свод правил, направленных на безопасное ведение любой охранной деятельности."
 	icon_state = "sop_security"
 	author = "Nanotrasen"
-	title = "Security Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры Службы Безопасности"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Security)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Security)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_legal
-	name = "Legal Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all legal activities."
+	name = "Правовые Стандартные Рабочие Процедуры"
+	desc = "Свод правил, направленных на безопасное ведение любой правовой деятельности."
 	icon_state = "sop_legal"
 	author = "Nanotrasen"
-	title = "Legal Standard Operating Procedures"
+	title = "Правовые Стандартные Рабочие Процедуры"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Legal_Standard_Operating_Procedure&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Legal_Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_general
-	name = "Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all station activities."
+	name = "Стандартные Рабочие Процедуры"
+	desc = "Свод правил, направленных на безопасное ведение любой станционной деятельности."
 	icon_state = "sop"
 	author = "Nanotrasen"
-	title = "Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
 		"}
 
 /obj/item/book/manual/sop_command
-	name = "Command Standard Operating Procedures"
-	desc = "A set of guidelines aiming at the safe conduct of all Command activities."
+	name = "Стандартные Рабочие Процедуры Коммандования"
+	desc = "Свод правил, направленных на безопасное ведение любой Коммандной деятельности."
 	icon_state = "sop_command"
 	author = "Nanotrasen"
-	title = "Command Standard Operating Procedures"
+	title = "Стандартные Рабочие Процедуры Коммандования"
 	dat = {"
 
 		<html><head>
 		</head>
 
 		<body>
-		<iframe width='100%' height='97%' src="https://www.paradisestation.org/wiki/index.php?title=Standard_Operating_Procedure_(Command)&printable=yes&remove_links=1" frameborder="0" id="main_frame"></iframe>		</body>
+		<iframe width='100%' height='97%' src="http://rv666.asuscomm.com/wiki/index.php?printable=yes&remove_links=1&title=Standard_Operating_Procedure_(Command)" frameborder="0" id="main_frame"></iframe>		</body>
 
 		</html>
 
