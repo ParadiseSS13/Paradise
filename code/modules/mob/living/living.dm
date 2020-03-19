@@ -954,7 +954,6 @@
 			M.LAssailant = usr
 	//make them face the direction of the thing. this doesn't keep mob facing the direction when moving, that is handled in mob_movement.dm
 	setDir(get_dir(src, AM))
-	client.move_delay = client.move_delay + 5
 
 /mob/living/proc/check_pull()
 	if(pulling && !(pulling in orange(1)))
