@@ -18,7 +18,6 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	turns_per_move = 10
 	can_collar = FALSE
-	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	obj_damage = 5
 	melee_damage_lower = 0
