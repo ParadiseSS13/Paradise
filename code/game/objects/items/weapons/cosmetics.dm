@@ -48,6 +48,7 @@
 	name = "lipstick"
 
 /obj/item/lipstick/random/New()
+	..()
 	var/lscolor = pick(lipstick_colors)//A random color is picked from the var defined initially in a new var.
 	colour = lipstick_colors[lscolor]//The color of the lipstick is pulled from the new variable (right hand side, HTML & Hex RGB)
 	name = "[lscolor] lipstick"//The new variable is also used to match the name to the color of the lipstick. Kudos to Desolate & Lemon
