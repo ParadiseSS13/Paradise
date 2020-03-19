@@ -88,6 +88,7 @@
 	name = "advanced pinpointer"
 	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
 	var/mode = 0  // Mode 0 locates disk, mode 1 locates coordinates.
+	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
 	var/obj/target = null
 
@@ -119,6 +120,10 @@
 	set src in usr
 
 	if(usr.stat || usr.restrained())
+		return
+
+	if(modelocked)
+		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
 	active = 0

@@ -1905,11 +1905,13 @@
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
+			ptypes += "Dust"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
 		var/logmsg = null
 		switch(punishment)
+			// These smiting types are valid for all living mobs
 			if("Lightning bolt")
 				M.electrocute_act(5, "Lightning Bolt", safety = TRUE, override = TRUE)
 				playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
@@ -1927,6 +1929,7 @@
 				M.gib(FALSE)
 				logmsg = "gibbed."
 
+			// These smiting types are only valid for ishuman() mobs
 			if("Brain Damage")
 				H.adjustBrainLoss(75)
 				logmsg = "75 brain damage."
@@ -1974,38 +1977,34 @@
 				logmsg = "hunter."
 			if("Crew Traitor")
 				if(!H.mind)
-					to_chat(usr, "<span class='warning'><i>This mob has no mind!</i></span>")
+					to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>")
 					return
-
 				var/list/possible_traitors = list()
 				for(var/mob/living/player in GLOB.living_mob_list)
 					if(player.client && player.mind && player.stat != DEAD && player != H)
 						if(ishuman(player) && !player.mind.special_role)
 							if(player.client && (ROLE_TRAITOR in player.client.prefs.be_special) && !jobban_isbanned(player, ROLE_TRAITOR) && !jobban_isbanned(player, "Syndicate"))
 								possible_traitors += player.mind
-
 				for(var/datum/mind/player in possible_traitors)
 					if(player.current)
 						if(ismindshielded(player.current))
 							possible_traitors -= player
-
 				if(possible_traitors.len)
 					var/datum/mind/newtraitormind = pick(possible_traitors)
 					var/datum/objective/assassinate/kill_objective = new()
 					kill_objective.target = H.mind
 					kill_objective.owner = newtraitormind
-					kill_objective.explanation_text = "Assassinate [H.mind], the [H.mind.assigned_role]"
-					H.mind.objectives += kill_objective
+					kill_objective.explanation_text = "Assassinate [H.mind.name], the [H.mind.assigned_role]"
+					newtraitormind.objectives += kill_objective
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
-					to_chat(newtraitormind, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-					to_chat(newtraitormind, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
+					to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+					to_chat(newtraitormind.current, "<B>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</B>")
 					newtraitormind.add_antag_datum(T)
 				else
-					to_chat(usr, "ERROR: Failed to create a traitor.")
+					to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>")
 					return
 				logmsg = "crew traitor."
-
 			if("Floor Cluwne")
 				var/turf/T = get_turf(M)
 				var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(T)
@@ -2018,6 +2017,9 @@
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, slot_head)
 				logmsg = "shamebrero"
+			if("Dust")
+				H.dust()
+				logmsg = "dust"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
@@ -3450,6 +3452,7 @@
 	N.mode = 2
 	N.target = H
 	N.point_at(N.target)
+	N.modelocked = TRUE
 	if(!locate(/obj/item/implant/dust, hunter_mob))
 		var/obj/item/implant/dust/D = new /obj/item/implant/dust(hunter_mob)
 		D.implant(hunter_mob)
