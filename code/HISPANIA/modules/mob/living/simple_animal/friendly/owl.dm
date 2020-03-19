@@ -19,7 +19,6 @@
 	turns_per_move = 10
 	can_collar = FALSE
 	unique_pet = TRUE
-	obj_damage = 5
 	melee_damage_lower = 0
 	melee_damage_upper = 2
 	attacktext = "scratch"
