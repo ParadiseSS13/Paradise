@@ -902,18 +902,15 @@
 	else if(href_list["boot2"])
 		var/mob/M = locateUID(href_list["boot2"])
 		if(ismob(M))
-			switch(alert("Kick [M.ckey]?",,"Yes","No"))
-				if("Yes")
-					if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
-						to_chat(usr, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
-						return
-					to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
-					log_admin("[key_name(usr)] booted [key_name(M)].")
-					message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(M)].</span>", 1)
-					//M.client = null
-					del(M.client)
-				else
+			if(alert("Kick [M.ckey]?",,"Yes","No") == "Yes")
+				if(M.client && M.client.holder && (M.client.holder.rights & R_BAN))
+					to_chat(usr, "<span class='warning'>[key_name_admin(M)] cannot be kicked from the server.</span>")
 					return
+				to_chat(M, "<span class='warning'>You have been kicked from the server</span>")
+				log_admin("[key_name(usr)] booted [key_name(M)].")
+				message_admins("<span class='notice'>[key_name_admin(usr)] booted [key_name_admin(M)].</span>", 1)
+				//M.client = null
+				del(M.client)
 
 	//Player Notes
 	else if(href_list["addnote"])
