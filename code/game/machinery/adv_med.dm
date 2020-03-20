@@ -457,9 +457,9 @@
 					infected = "Acute Infection:"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
 					infected = "Acute Infection+:"
-				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
+				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
 					infected = "Acute Infection++:"
-				if(INFECTION_LEVEL_THREE to INFINITY)
+				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infected = "Septic:"
 
 			var/unknown_body = 0
@@ -489,9 +489,9 @@
 					infection = "Acute Infection:"
 				if(INFECTION_LEVEL_TWO + 200 to INFECTION_LEVEL_TWO + 300)
 					infection = "Acute Infection+:"
-				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 400)
+				if(INFECTION_LEVEL_TWO + 300 to INFECTION_LEVEL_TWO + 399)
 					infection = "Acute Infection++:"
-				if(INFECTION_LEVEL_THREE to INFINITY)
+				if(INFECTION_LEVEL_TWO + 400 to INFINITY)
 					infection = "Septic:"
 
 			dat += "<tr>"
