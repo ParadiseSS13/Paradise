@@ -2202,7 +2202,7 @@
 			if("Syndicate")
 				P = new /obj/item/paper/syndicate(null)
 			if("No")
-				P = new/obj/item/paper(null)
+				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = alldepartments + hidden_departments + "All Departments"
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions

@@ -10,7 +10,7 @@
 	pressure_resistance = 8
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
-	var/obj/item/paper/letterhead
+	var/letterhead_type
 	
 /obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
@@ -72,8 +72,8 @@
 			P = papers[papers.len]
 			papers.Remove(P)
 		else
-			if(letterhead && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
-				P = new letterhead
+			if(letterhead_type && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
+				P = new letterhead_type
 			else
 				P = new /obj/item/paper
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
@@ -147,11 +147,9 @@
 
 /obj/item/paper_bin/nanotrasen
 	name = "nanotrasen paper bin"
-	icon_state = "paper_bin1"
-	letterhead = /obj/item/paper/nanotrasen
+	letterhead_type = /obj/item/paper/nanotrasen
 
 /obj/item/paper_bin/syndicate
 	name = "syndicate paper bin"
-	icon_state = "paper_bin1"
-	letterhead = /obj/item/paper/syndicate
+	letterhead_type = /obj/item/paper/syndicate
 
