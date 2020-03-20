@@ -174,7 +174,7 @@
 				L.close()
 			if(!L.locked)
 				L.locked = !L.locked
-			L.req_access = list(access_syndicate_leader)
+			L.req_access = list(ACCESS_SYNDICATE_LEADER)
 			L.update_icon()
 	else
 		log_game("Depot visit: ended")
@@ -182,7 +182,7 @@
 		for(var/mob/living/simple_animal/hostile/syndicate/N in src)
 			N.a_intent = INTENT_HARM
 		for(var/obj/machinery/door/airlock/A in src)
-			A.req_access_txt = "[access_syndicate_leader]"
+			A.req_access_txt = "[ACCESS_SYNDICATE_LEADER]"
 		for(var/obj/structure/closet/secure_closet/syndicate/depot/L in src)
 			if(L.locked)
 				L.locked = !L.locked

@@ -303,7 +303,7 @@ a {
 		return TRUE
 	return FALSE
 
-/obj/water_act(volume, temperature, source, method = TOUCH)
+/obj/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	extinguish()
 	acid_level = 0

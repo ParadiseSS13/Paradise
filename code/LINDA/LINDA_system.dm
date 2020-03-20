@@ -142,44 +142,33 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 		return
 	T.atmos_spawn_air(text, amount)
 
-var/const/SPAWN_HEAT = 1
-var/const/SPAWN_20C = 2
-var/const/SPAWN_TOXINS = 4
-var/const/SPAWN_OXYGEN = 8
-var/const/SPAWN_CO2 = 16
-var/const/SPAWN_NITROGEN = 32
-
-var/const/SPAWN_N2O = 64
-
-var/const/SPAWN_AIR = 256
-
 /turf/simulated/proc/atmos_spawn_air(var/flag, var/amount)
 	if(!text || !amount || !air)
 		return
 
 	var/datum/gas_mixture/G = new
 
-	if(flag & SPAWN_20C)
+	if(flag & LINDA_SPAWN_20C)
 		G.temperature = T20C
 
-	if(flag & SPAWN_HEAT)
+	if(flag & LINDA_SPAWN_HEAT)
 		G.temperature += 1000
 
-	if(flag & SPAWN_TOXINS)
+	if(flag & LINDA_SPAWN_TOXINS)
 		G.toxins += amount
-	if(flag & SPAWN_OXYGEN)
+	if(flag & LINDA_SPAWN_OXYGEN)
 		G.oxygen += amount
-	if(flag & SPAWN_CO2)
+	if(flag & LINDA_SPAWN_CO2)
 		G.carbon_dioxide += amount
-	if(flag & SPAWN_NITROGEN)
+	if(flag & LINDA_SPAWN_NITROGEN)
 		G.nitrogen += amount
 
-	if(flag & SPAWN_N2O)
+	if(flag & LINDA_SPAWN_N2O)
 		var/datum/gas/sleeping_agent/T = new
 		T.moles += amount
 		G.trace_gases += T
 
-	if(flag & SPAWN_AIR)
+	if(flag & LINDA_SPAWN_AIR)
 		G.oxygen += MOLES_O2STANDARD * amount
 		G.nitrogen += MOLES_N2STANDARD * amount
 

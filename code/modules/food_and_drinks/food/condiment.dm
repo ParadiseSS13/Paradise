@@ -47,7 +47,7 @@
 		add_attack_logs(user, M, "Fed [src] containing [reagents.log_list()]", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 	var/fraction = min(10/reagents.total_volume, 1)
-	reagents.reaction(M, INGEST, fraction)
+	reagents.reaction(M, REAGENT_INGEST, fraction)
 	reagents.trans_to(M, 10)
 	playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 	return 1
