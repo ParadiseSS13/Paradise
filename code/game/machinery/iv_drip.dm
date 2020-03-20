@@ -8,6 +8,7 @@
 	anchored = FALSE
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 	var/obj/item/reagent_containers/iv_bag/bag = null
+	pull_slowdown = FALSE
 
 /obj/machinery/iv_drip/update_icon()
 	cut_overlays()
