@@ -10,7 +10,8 @@
 	pressure_resistance = 8
 	var/amount = 30					//How much paper is in the bin.
 	var/list/papers = list()	//List of papers put in the bin for reference.
-
+	var/obj/item/paper/letterhead
+	
 /obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(amount)
 		amount = 0
@@ -71,7 +72,10 @@
 			P = papers[papers.len]
 			papers.Remove(P)
 		else
-			P = new /obj/item/paper
+			if(letterhead && alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
+				P = new letterhead
+			else
+				P = new /obj/item/paper
 			if(SSholiday.holidays && SSholiday.holidays[APRIL_FOOLS])
 				if(prob(30))
 					P.info = "<font face=\"[P.crayonfont]\" color=\"red\"><b>HONK HONK HONK HONK HONK HONK HONK<br>HOOOOOOOOOOOOOOOOOOOOOONK<br>APRIL FOOLS</b></font>"
@@ -144,57 +148,10 @@
 /obj/item/paper_bin/nanotrasen
 	name = "nanotrasen paper bin"
 	icon_state = "paper_bin1"
-
-/obj/item/paper_bin/nanotrasen/attack_hand(mob/user as mob)
-	if(amount >= 1)
-		amount--
-		if(amount==0)
-			update_icon()
-
-		var/obj/item/paper/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
-			papers.Remove(P)
-		else
-			if(alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
-				P = new /obj/item/paper/nanotrasen
-			else
-				P = new /obj/item/paper
-		P.loc = user.loc
-		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
-	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
-
-	add_fingerprint(user)
-	return
+	letterhead = /obj/item/paper/nanotrasen
 
 /obj/item/paper_bin/syndicate
 	name = "syndicate paper bin"
 	icon_state = "paper_bin1"
-
-/obj/item/paper_bin/syndicate/attack_hand(mob/user as mob)
-	if(amount >= 1)
-		amount--
-		if(amount==0)
-			update_icon()
-
-		var/obj/item/paper/P
-		if(papers.len > 0)	//If there's any custom paper on the stack, use that instead of creating a new paper.
-			P = papers[papers.len]
-			papers.Remove(P)
-		else
-			if(alert("Choose a style",,"Letterhead","Blank")=="Letterhead")
-				P = new /obj/item/paper/syndicate
-			else
-				P = new /obj/item/paper
-		P.loc = user.loc
-		user.put_in_hands(P)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
-	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
-
-	add_fingerprint(user)
-	return
-
+	letterhead = /obj/item/paper/syndicate
 
