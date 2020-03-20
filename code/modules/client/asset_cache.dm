@@ -195,7 +195,8 @@ You can set verify to TRUE if you want send() to sleep until the client has the 
 		"large_stamp-rep.png"	    = 'icons/paper_icons/large_stamp-rep.png',
 		"large_stamp-magistrate.png"= 'icons/paper_icons/large_stamp-magistrate.png',
 		"talisman.png"              = 'icons/paper_icons/talisman.png',
-		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png'
+		"ntlogo.png"                = 'icons/paper_icons/ntlogo.png',
+		"syndielogo.png"		='icons/paper_icons/syndielogo.png'
 	)
 
 /datum/asset/simple/chess

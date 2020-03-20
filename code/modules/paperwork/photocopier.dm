@@ -187,7 +187,9 @@
 	
 /obj/machinery/photocopier/proc/copy(var/obj/item/paper/copy)
 	var/obj/item/paper/c = new /obj/item/paper (loc)
+	c.header = copy.header
 	c.info = copy.info
+	c.footer = copy.footer
 	c.name = copy.name // -- Doohl
 	c.fields = copy.fields
 	c.stamps = copy.stamps
