@@ -9,6 +9,7 @@
 	throwforce = 5
 	throw_range = 15
 	throw_speed = 3
+	materials = list(MAT_METAL = 750, MAT_GLASS = 400)
 		//Var de zoom
 	var/zoomed = FALSE //Pregunta si esta activo
 	var/zoom_amt = 3 //Distancia del zoom
@@ -18,12 +19,14 @@
 	desc = "To spot how many aliens are on that tendril without getting kill"
 	icon_state = "binosup"
 	item_state = "binosup"
+	materials = list(MAT_METAL=750, MAT_GLASS=300, MAT_SILVER=50, MAT_TITANIUM=25)
 	zoom_amt = 7
 
 /obj/item/device/binoculars/security
 	name = "security binoculars"
 	icon_state = "binosec"
 	item_state = "binosec"
+	materials = list(MAT_METAL = 750, MAT_GLASS = 800)
 	zoom_amt = 10
 
 /obj/item/device/binoculars/bluespace
@@ -32,6 +35,8 @@
 	icon_state = "binoblue"
 	item_state = "binoblue"
 	zoom_amt = 20  //MIS OJOS!
+	materials = list(MAT_METAL = 950, MAT_GLASS = 900, MAT_BLUESPACE = 1000)
+	origin_tech = "engineering=5;materials=6;bluespace=5"
 
 ///Funciones de Binoculares
 
@@ -43,6 +48,7 @@
 
 /obj/item/device/binoculars/dropped(mob/user)
 	zoom(user,FALSE)
+	..()
 
 /obj/item/device/binoculars/proc/zoom(mob/living/user, forced_zoom)
 	if(!user || !user.client)
