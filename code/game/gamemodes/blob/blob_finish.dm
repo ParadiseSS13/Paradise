@@ -1,15 +1,15 @@
 /datum/game_mode/blob/check_finished()
 	if(infected_crew.len > burst)//Some blobs have yet to burst
 		return 0
-	if(blobwincount <= blobs.len)//Blob took over
+	if(blobwincount <= GLOB.blobs.len)//Blob took over
 		return 1
-	if(!blob_cores.len) // blob is dead
+	if(!GLOB.blob_cores.len) // blob is dead
 		return 1
 	return ..()
 
 
 /datum/game_mode/blob/declare_completion()
-	if(blobwincount <= blobs.len)
+	if(blobwincount <= GLOB.blobs.len)
 		feedback_set_details("round_end_result","blob win - blob took over")
 		to_chat(world, "<FONT size = 3><B>The blob has taken over the station!</B></FONT>")
 		to_chat(world, "<B>The entire station was eaten by the Blob</B>")
@@ -21,7 +21,7 @@
 		to_chat(world, "<B>Directive 7-12 has been successfully carried out preventing the Blob from spreading.</B>")
 		log_game("Blob mode completed with a tie (station destroyed).")
 
-	else if(!blob_cores.len)
+	else if(!GLOB.blob_cores.len)
 		feedback_set_details("round_end_result","blob loss - blob eliminated")
 		to_chat(world, "<FONT size = 3><B>The staff has won!</B></FONT>")
 		to_chat(world, "<B>The alien organism has been eradicated from the station</B>")

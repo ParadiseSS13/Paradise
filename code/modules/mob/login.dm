@@ -52,7 +52,7 @@
 		verbs += /client/proc/readmin
 
 	//Clear ability list and update from mob.
-	client.verbs -= ability_verbs
+	client.verbs -= GLOB.ability_verbs
 
 	if(abilities)
 		client.verbs |= abilities
