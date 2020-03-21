@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/proc/Text2Icon(text)
 	switch(text)
 		if("FIX")
-			return "<span style='color: #28a745;'><i title='Fix' class='fas fa-tools'></i></span>" // Fixes are green because its a good thing
+			return "<i title='Fix' class='fas fa-tools'></i></span>" // Fixes are white because while they are good, they have no negative coutnerpart
 		if("WIP")
 			return "<span style='color: #fd7e14;'><i title='Work In Progress' class='fas fa-hard-hat'></i></span>" // WIP stuff is orange because new code is good but its not done yet
 		if("TWEAK")
