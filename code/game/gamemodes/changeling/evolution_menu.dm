@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(sting_paths)
 		return
 	var/datum/changeling/changeling = usr.mind.changeling
 
-	if(!GLOB.sting_paths?.len)
+	if(!GLOB.sting_paths || !GLOB.sting_paths.len)
 		GLOB.sting_paths = init_subtypes(/datum/action/changeling)
 
 	var/dat = create_menu(changeling)
