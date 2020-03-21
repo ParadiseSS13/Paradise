@@ -133,7 +133,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(!istype(id_card))
 		return ..()
 
-	if(!scan && ACCESS_CHANGE_IDS in id_card.access)
+	if(!scan && (ACCESS_CHANGE_IDS in id_card.access))
 		user.drop_item()
 		id_card.loc = src
 		scan = id_card

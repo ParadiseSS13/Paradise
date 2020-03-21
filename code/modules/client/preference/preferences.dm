@@ -1194,7 +1194,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		else if(href_list["select_category"])
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
-			gear.Cut()
+			gear = null
 
 		ShowChoices(user)
 		return

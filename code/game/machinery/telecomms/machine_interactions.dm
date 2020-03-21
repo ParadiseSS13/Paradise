@@ -166,7 +166,7 @@
 	return istype(O,/obj/machinery/telecomms)
 
 /obj/machinery/telecomms/isLinkedWith(var/obj/O)
-	return O != null && O in links
+	return O != null && (O in links)
 
 /obj/machinery/telecomms/getLink(var/idx)
 	return (idx >= 1 && idx <= links.len) ? links[idx] : null
@@ -363,11 +363,13 @@
 
 		if(P)
 			if(P.buffer && P.buffer != src)
-				if(!(src in P.buffer:links))
-					P.buffer:links.Add(src)
+				if(istype(P, /obj/machinery/telecomms))
+					var/obj/machinery/telecomms/TCM = P.buffer
+					if(!(src in TCM.links))
+						TCM.links.Add(src)
 
-				if(!(P.buffer in src.links))
-					src.links.Add(P.buffer)
+					if(!(P.buffer in src.links))
+						src.links.Add(P.buffer)
 
 				temp = "<font color = #666633>-% Successfully linked with \ref[P.buffer] [P.buffer.name] %-</font>"
 

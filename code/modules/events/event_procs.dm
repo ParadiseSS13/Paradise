@@ -80,18 +80,23 @@
 		if(!M.mind || !M.client || M.client.inactivity > 10 * 10 * 60) // longer than 10 minutes AFK counts them as inactive
 			continue
 
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "engineering robot module")
-			active_with_role["Engineer"]++
+		if(istype(M, /mob/living/silicon/robot))
+			var/mob/living/silicon/robot/R
+			if(R.module && (R.module.name == "engineering robot module"))
+				active_with_role["Engineer"]++
+
+			if(R.module && (R.module.name == "medical robot module"))
+				active_with_role["Medical"]++
+
+			if(R.module && (R.module.name == "security robot module"))
+				active_with_role["Security"]++
+
 		if(M.mind.assigned_role in list("Chief Engineer", "Station Engineer"))
 			active_with_role["Engineer"]++
 
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "medical robot module")
-			active_with_role["Medical"]++
 		if(M.mind.assigned_role in list("Chief Medical Officer", "Medical Doctor"))
 			active_with_role["Medical"]++
 
-		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "security robot module")
-			active_with_role["Security"]++
 		if(M.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
