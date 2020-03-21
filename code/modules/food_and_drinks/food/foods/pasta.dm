@@ -47,6 +47,11 @@
 	list_reagents = list("nutriment" = 6, "tomatojuice" = 10, "vitamin" = 4)
 	tastes = list("pasta" = 1, "tomato" = 1)
 
+/obj/item/reagent_containers/food/snacks/pastatomato/singulo
+	name = "singularity spaghetti"
+	desc = "Spaghetti and crushed... something. You're fairly sure that's not tomato"
+	antable = FALSE
+
 /obj/item/reagent_containers/food/snacks/meatballspaghetti
 	name = "spaghetti & meatballs"
 	desc = "Now thats a nice'a meatball!"
