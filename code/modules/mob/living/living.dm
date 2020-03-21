@@ -1,6 +1,6 @@
 /mob/living/Initialize()
 	. = ..()
-	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
 
@@ -270,6 +270,13 @@
 	take_organ_damage(acidpwr * min(1, acid_volume * 0.1))
 	return 1
 
+/mob/living/welder_act(mob/user, obj/item/I)
+	if(!I.tool_use_check(null, 0)) //Don't need the message, just if it succeeded
+		return
+	if(IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(src)] on fire with [I]")
+		log_game("[key_name(user)] set [key_name(src)] on fire with [I]")
+
 /mob/living/proc/updatehealth(reason = "none given")
 	if(status_flags & GODMODE)
 		health = maxHealth
@@ -397,6 +404,7 @@
 		if(C.reagents)
 			C.reagents.clear_reagents()
 			QDEL_LIST(C.reagents.addiction_list)
+			C.reagents.addiction_threshold_accumulated.Cut()
 
 // rejuvenate: Called by `revive` to get the mob into a revivable state
 // the admin "rejuvenate" command calls `revive`, not this proc.
@@ -572,7 +580,7 @@
 						newdir = NORTH
 					else if(newdir == 12) //E + W
 						newdir = EAST
-				if((newdir in cardinal) && (prob(50)))
+				if((newdir in GLOB.cardinal) && (prob(50)))
 					newdir = turn(get_dir(T, loc), 180)
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(loc)

@@ -344,27 +344,6 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, TRUE)
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/weldingtool))
-		var/obj/item/weldingtool/WT = W
-		if(WT.remove_fuel(0,user))
-			to_chat(user, "<span class='notice'>Now welding the vent.</span>")
-			if(do_after(user, 20 * WT.toolspeed, target = src))
-				if(!src || !WT.isOn()) return
-				playsound(src.loc, WT.usesound, 50, 1)
-				if(!welded)
-					user.visible_message("[user] welds the vent shut.", "You weld the vent shut.", "You hear welding.")
-					welded = 1
-					update_icon()
-				else
-					user.visible_message("[user] unwelds the vent.", "You unweld the vent.", "You hear welding.")
-					welded = 0
-					update_icon()
-			else
-				to_chat(user, "<span class='notice'>The welding tool needs to be on to start this task.</span>")
-			return 1
-		else
-			to_chat(user, "<span class='notice'>You need more welding fuel to complete this task.</span>")
-			return 1
 	if(istype(W, /obj/item/screwdriver))
 		if(!welded)
 			if(open)
@@ -399,6 +378,23 @@
 			return 1
 
 	return ..()
+
+/obj/machinery/atmospherics/unary/vent_pump/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	WELDER_ATTEMPT_WELD_MESSAGE
+	if(I.use_tool(src, user, 20, volume = I.tool_volume))
+		if(!welded)
+			welded = TRUE
+			visible_message("<span class='notice'>[user] welds [src] shut!</span>",\
+				"<span class='notice'>You weld [src] shut!</span>")
+		else
+			welded = FALSE
+			visible_message("<span class='notice'>[user] unwelds [src]!</span>",\
+				"<span class='notice'>You unweld [src]!</span>")
+		update_icon()
+
 
 /obj/machinery/atmospherics/unary/vent_pump/attack_hand()
 	if(!welded)

@@ -27,8 +27,8 @@
 						<B>Bombs</b><br>
 						[check_rights(R_SERVER, 0) ? "&nbsp;&nbsp;<A href='?src=[UID()];secretsfun=togglebombcap'>Toggle bomb cap</A><br>" : "<br>"]
 						<B>Lists</b><br>
-						<A href='?src=[UID()];secretsadmin=list_signalers'>Show last [length(lastsignalers)] signalers</A>&nbsp;&nbsp;
-						<A href='?src=[UID()];secretsadmin=list_lawchanges'>Show last [length(lawchanges)] law changes</A><BR>
+						<A href='?src=[UID()];secretsadmin=list_signalers'>Show last [length(GLOB.lastsignalers)] signalers</A>&nbsp;&nbsp;
+						<A href='?src=[UID()];secretsadmin=list_lawchanges'>Show last [length(GLOB.lawchanges)] law changes</A><BR>
 						<A href='?src=[UID()];secretsadmin=DNA'>List DNA (Blood)</A>&nbsp;&nbsp;
 						<A href='?src=[UID()];secretsadmin=fingerprints'>List Fingerprints</A><BR>
 						<B>Power</b><br>
@@ -49,7 +49,7 @@
 					<B>Security Level Elevated</B><BR>
 					<BR>
 					<A href='?src=[UID()];secretscoder=maint_access_engiebrig'>Change all maintenance doors to engie/brig access only</A><BR>
-					<A href='?src=[UID()];secretscoder=maint_access_brig'>Change all maintenance doors to brig access only</A><BR>
+					<A href='?src=[UID()];secretscoder=maint_ACCESS_BRIG'>Change all maintenance doors to brig access only</A><BR>
 					<A href='?src=[UID()];secretscoder=infinite_sec'>Remove cap on security officers</A>&nbsp;&nbsp;
 					<BR>
 					<B>Coder Secrets</B><BR>

@@ -80,7 +80,7 @@
 	else
 		data = "<div id='markdown'>[infolinks ? info_links : info]</div>[stamps]"
 	if(view)
-		var/datum/browser/popup = new(user, name, , paper_width, paper_height)
+		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
 		popup.stylesheets = list()
 		popup.set_content(data)
 		if(!stars)
@@ -677,10 +677,10 @@
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()
 			else if(myeffect == "Demote")
-				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 			else if(myeffect == "Demote with Bot")
-				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
-				for(var/datum/data/record/R in sortRecord(data_core.security))
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = "*Arrest*"
 				update_all_mob_security_hud()
@@ -689,7 +689,7 @@
 					new /obj/effect/portal(T)
 					new /mob/living/simple_animal/bot/secbot(T)
 			else if(myeffect == "Revoke Fax Access")
-				fax_blacklist += target.real_name
+				GLOB.fax_blacklist += target.real_name
 				if(fax)
 					fax.authenticated = 0
 			else if(myeffect == "Angry Fax Machine")
@@ -720,6 +720,7 @@
 	origin_tech = "combat=4;materials=4;engineering=4;biotech=4"
 
 /obj/item/paper/researchnotes/New()
+	..()
 	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)

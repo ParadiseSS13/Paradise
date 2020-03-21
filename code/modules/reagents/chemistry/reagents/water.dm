@@ -21,7 +21,7 @@
 	drink_desc = "The father of all refreshments."
 	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
 
-/datum/reagent/water/reaction_mob(mob/living/M, method = TOUCH, volume)
+/datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	M.water_act(volume, water_temperature, src, method)
 
 /datum/reagent/water/reaction_turf(turf/T, volume)
@@ -82,7 +82,7 @@
 		for(var/mob/living/simple_animal/slime/M in T)
 			M.adjustToxLoss(rand(5, 10))
 
-/datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(ishuman(M))
@@ -128,7 +128,7 @@
 	taste_description = "<span class='warning'>blood</span>"
 	taste_mult = 1.3
 
-/datum/reagent/blood/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(data && data["viruses"])
 		for(var/thing in data["viruses"])
 			var/datum/disease/D = thing
@@ -136,12 +136,12 @@
 			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
 				continue
 
-			if(method == TOUCH)
+			if(method == REAGENT_TOUCH)
 				M.ContractDisease(D)
 			else //ingest, patch or inject
 				M.ForceContractDisease(D)
 
-	if(method == INGEST && iscarbon(M))
+	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(C.get_blood_id() == "blood")
 			if((!data || !(data["blood_type"] in get_safe_blood(C.dna.blood_type))))
@@ -210,8 +210,8 @@
 	color = "#C81040" // rgb: 200, 16, 64
 	taste_description = "antibodies"
 
-/datum/reagent/vaccine/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(islist(data) && (method == INGEST))
+/datum/reagent/vaccine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(islist(data) && (method == REAGENT_INGEST))
 		for(var/thing in M.viruses)
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
@@ -230,8 +230,8 @@
 	color = "#757547"
 	taste_description = "puke"
 
-/datum/reagent/fishwater/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		to_chat(M, "Oh god, why did you drink that?")
 
 /datum/reagent/fishwater/on_mob_life(mob/living/M)
@@ -250,7 +250,7 @@
 	color = "#757547"
 	taste_description = "the inside of a toilet... or worse"
 
-/datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=TOUCH, volume) //For shennanigans
+/datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
 	return
 
 /datum/reagent/holywater
@@ -334,11 +334,11 @@
 	return ..() | update_flags
 
 
-/datum/reagent/holywater/reaction_mob(mob/living/M, method=TOUCH, volume)
+/datum/reagent/holywater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
 	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
 		var/mob/living/carbon/human/H=M
-		if(method == TOUCH)
+		if(method == REAGENT_TOUCH)
 			if(H.wear_mask)
 				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
 				return

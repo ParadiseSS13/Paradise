@@ -1,4 +1,4 @@
-var/global/list/all_cults = list()
+GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode
 	var/list/datum/mind/cult = list()
@@ -110,11 +110,11 @@ var/global/list/all_cults = list()
 	modePlayer += cult
 	acolytes_needed = acolytes_needed + round((num_players_started() / 10))
 
-	if(!summon_spots.len)
-		while(summon_spots.len < SUMMON_POSSIBILITIES)
-			var/area/summon = pick(return_sorted_areas() - summon_spots)
+	if(!GLOB.summon_spots.len)
+		while(GLOB.summon_spots.len < SUMMON_POSSIBILITIES)
+			var/area/summon = pick(return_sorted_areas() - GLOB.summon_spots)
 			if(summon && is_station_level(summon.z) && summon.valid_territory)
-				summon_spots += summon
+				GLOB.summon_spots += summon
 
 	for(var/datum/mind/cult_mind in cult)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
@@ -146,7 +146,7 @@ var/global/list/all_cults = list()
 				else
 					explanation = "Free objective."
 			if("eldergod")
-				explanation = "Summon [SSticker.cultdat.entity_name] by invoking the 'Tear Reality' rune.<b>The summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
+				explanation = "Summon [SSticker.cultdat.entity_name] by invoking the 'Tear Reality' rune.<b>The summoning can only be accomplished in [english_list(GLOB.summon_spots)] - where the veil is weak enough for the ritual to begin.</b>"
 		to_chat(cult_mind.current, "<B>Objective #[obj_count]</B>: [explanation]")
 		cult_mind.memory += "<B>Objective #[obj_count]</B>: [explanation]<BR>"
 
@@ -182,7 +182,7 @@ var/global/list/all_cults = list()
 	if(!istype(cult_mind))
 		return 0
 	var/datum/game_mode/cult/cult_mode = SSticker.mode
-	if(!(cult_mind in cult) && is_convertable_to_cult(cult_mind))
+	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
 		var/datum/action/innate/cultcomm/C = new()
@@ -213,13 +213,13 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
-	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
+	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
 	culthud.join_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, "hudcultist")
 
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
-	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
+	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
 	culthud.leave_hud(cult_mind.current)
 	set_antag_hud(cult_mind.current, null)
 
@@ -262,7 +262,7 @@ var/global/list/all_cults = list()
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind.current && cult_mind.current.stat!=2)
 			var/area/A = get_area(cult_mind.current )
-			if( is_type_in_list(A, centcom_areas))
+			if( is_type_in_list(A, GLOB.centcom_areas))
 				acolytes_survived++
 			else if(A == SSshuttle.emergency.areaInstance && SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)  //snowflaked into objectives because shitty bay shuttles had areas to auto-determine this
 				acolytes_survived++

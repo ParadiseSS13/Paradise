@@ -19,7 +19,7 @@
 		return null
 	if(!istext(t))
 		t = "[t]" // Just quietly assume any non-texts are supposed to be text
-	var/sqltext = dbcon.Quote(t);
+	var/sqltext = GLOB.dbcon.Quote(t);
 	return copytext(sqltext, 2, length(sqltext));//Quote() adds quotes around input, we already do that
 
 /proc/format_table_name(table as text)
@@ -108,11 +108,10 @@
 
 // Used to get a sanitized input.
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
-	var/name = input(user, message, title, default) as text|null
-	if(no_trim)
-		return copytext(html_encode(name), 1, max_length)
-	else
-		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+	var/name = html_encode(input(user, message, title, default) as text|null)
+	if(!no_trim)
+		name = trim(name) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+	return copytext(name, 1, max_length)
 
 // Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
@@ -208,7 +207,7 @@ proc/checkhtml(var/t)
 				tag = copytext(t,start, p)
 				p++
 			tag = copytext(t,start+1, p)
-			if(!(tag in paper_tag_whitelist))	//if it's unkown tag, disarming it
+			if(!(tag in GLOB.paper_tag_whitelist))	//if it's unkown tag, disarming it
 				t = copytext(t,1,start-1) + "&lt;" + copytext(t,start+1)
 		p = findtext(t,"<",p)
 	return t

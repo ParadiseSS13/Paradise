@@ -362,7 +362,7 @@
 		object_overlays += item_overlay
 		add_overlay(object_overlays)
 
-/obj/screen/inventory/Click()
+/obj/screen/inventory/Click(location, control, params)
 	// At this point in client Click() code we have passed the 1/10 sec check and little else
 	// We don't even know if it's a middle click
 	if(world.time <= usr.next_move)
@@ -371,6 +371,12 @@
 		return 1
 	if(istype(usr.loc,/obj/mecha)) // stops inventory actions in a mech
 		return 1
+	
+	if(hud?.mymob && slot_id)
+		var/obj/item/inv_item = hud.mymob.get_item_by_slot(slot_id)
+		if(inv_item)
+			return inv_item.Click(location, control, params)
+
 	if(usr.attack_ui(slot_id))
 		usr.update_inv_l_hand(0)
 		usr.update_inv_r_hand(0)

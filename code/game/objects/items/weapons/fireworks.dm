@@ -7,7 +7,7 @@ obj/item/firework
 obj/item/firework/attackby(obj/item/W,mob/user, params)
 	if(litzor)
 		return
-	if(istype(W, /obj/item/weldingtool) && W:welding || istype(W,/obj/item/lighter) && W:lit)
+	if(is_hot(W))
 		for(var/mob/M in viewers(user))
 			to_chat(M, "[user] lits \the [src]")
 		litzor = 1
@@ -29,7 +29,7 @@ obj/item/sparkler
 obj/item/sparkler/attackby(obj/item/W,mob/user, params)
 	if(litzor)
 		return
-	if(istype(W, /obj/item/weldingtool) && W:welding || istype(W,/obj/item/lighter) && W:lit)
+	if(is_hot(W))
 		for(var/mob/M in viewers(user))
 			to_chat(M, "[user] lits \the [src]")
 		litzor = 1

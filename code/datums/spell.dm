@@ -13,7 +13,7 @@
 /obj/effect/proc_holder/singularity_pull()
 	return
 
-var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin verb for now
+GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/living/user, params, atom/A)
 	if(user.ranged_ability != src)

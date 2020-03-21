@@ -72,40 +72,37 @@
 			to_chat(user, "<span class='warning'>This section is too damaged to support a tile! Use a welder to fix the damage.</span>")
 		return TRUE
 
-	else if(isscrewdriver(C))
-		var/obj/item/screwdriver/screwdriver = C
-		to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
-		playsound(src, screwdriver.usesound, 50, 1)
-		if(do_after(user, 20 * screwdriver.toolspeed, target = src) && screwdriver)
-			to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
-			unfastened = !unfastened
-		return TRUE
+/turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	to_chat(user, "<span class='notice'>You start [unfastened ? "fastening" : "unfastening"] [src].</span>")
+	. = TRUE
+	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You [unfastened ? "fasten" : "unfasten"] [src].</span>")
+	unfastened = !unfastened
 
-	else if(iswelder(C))
-		var/obj/item/weldingtool/welder = C
-		if(welder.isOn())
-			if(!welder.remove_fuel(0, user))
-				to_chat(user, "<span class='warning'>You need more welding fuel to complete this task.</span>")
-				return TRUE
-
-			if(broken || burnt)
-				to_chat(user, "<span class='danger'>You fix some dents on the broken plating.</span>")
-				playsound(src, welder.usesound, 80, 1)
-				overlays -= current_overlay
-				current_overlay = null
-				burnt = FALSE
-				broken = FALSE
-				update_icon()
-			if(unfastened)
-				to_chat(user, "<span class='warning'>You start removing [src] exposing space after you're done!</span>")
-				playsound(src, welder.usesound, 100, 1)
-				if(do_after(user, 50 * welder.toolspeed, target = src) && welder && welder.isOn())
-					to_chat(user, "<span class='notice'>You remove [src].</span>")
-					new /obj/item/stack/tile/plasteel(get_turf(src))
-					remove_plating(user)
-					return TRUE
-
-			return TRUE
+/turf/simulated/floor/plating/welder_act(mob/user, obj/item/I)
+	if(!broken && !burnt && !unfastened)
+		return
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	if(unfastened)
+		to_chat(user, "<span class='warning'>You start removing [src], exposing space after you're done!</span>")
+		if(!I.use_tool(src, user, 50, volume = I.tool_volume * 2)) //extra loud to let people know something's going down
+			return
+		new /obj/item/stack/tile/plasteel(get_turf(src))
+		remove_plating(user)
+		return
+	if(I.use_tool(src, user, volume = I.tool_volume)) //If we got this far, something needs fixing
+		to_chat(user, "<span class='notice'>You fix some dents on the broken plating.</span>")
+		overlays -= current_overlay
+		current_overlay = null
+		burnt = FALSE
+		broken = FALSE
+		update_icon()
 
 /turf/simulated/floor/plating/proc/remove_plating(mob/user)
 	if(baseturf == /turf/space)

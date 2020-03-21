@@ -6,6 +6,8 @@
 	reagent_state = LIQUID
 	nutriment_factor = 0 //So alcohol can fill you up! If they want to.
 	color = "#404030" // rgb: 64, 64, 48
+	addiction_chance = 1
+	addiction_threshold = 10
 	var/dizzy_adj = 3
 	var/alcohol_perc = 1 //percentage of ethanol in a beverage 0.0 - 1.0
 	taste_description = "liquid fire"
@@ -31,8 +33,8 @@
 		else
 			to_chat(usr, "It wasn't enough...")
 
-/datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
-	if(method == TOUCH)
+/datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
+	if(method == REAGENT_TOUCH)
 		M.adjust_fire_stacks(volume / 15)
 
 
@@ -1140,8 +1142,8 @@
 	can_synth = FALSE
 	taste_description = "<span class='userdanger'>LIQUID FUCKING DEATH OH GOD WHAT THE FUCK</span>"
 
-/datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST && prob(20))
+/datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST && prob(20))
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
@@ -1190,17 +1192,18 @@
 	taste_description = "motor oil"
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
-	if(!M.isSynthetic())
+	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
 		holder.remove_reagent(id, 3.6) //gets removed from organics very fast
 		if(prob(25))
 			holder.remove_reagent(id, 15)
 			M.fakevomit()
+
 	return ..()
 
-/datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(M.isSynthetic())
+/datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(M.dna.species.reagent_tag & PROCESS_SYN)
 		return
-	if(method == INGEST)
+	if(method == REAGENT_INGEST)
 		to_chat(M, pick("<span class = 'danger'>That was awful!</span>", "<span class = 'danger'>Yuck!</span>"))
 
 /datum/reagent/consumable/ethanol/synthanol/robottears

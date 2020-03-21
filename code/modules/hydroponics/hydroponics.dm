@@ -34,7 +34,7 @@
 
 /obj/machinery/hydroponics/New()
 	..()
-	var/datum/atom_hud/data/hydroponic/hydro_hud = huds[DATA_HUD_HYDROPONIC]
+	var/datum/atom_hud/data/hydroponic/hydro_hud = GLOB.huds[DATA_HUD_HYDROPONIC]
 	prepare_huds()
 	hydro_hud.add_to_hud(src)
 	plant_hud_set_nutrient()
@@ -85,13 +85,16 @@
 	if(exchange_parts(user, I))
 		return
 
-	if(iscrowbar(I))
-		if(using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-		else if(default_deconstruction_crowbar(I, 1))
-			return
 	else
 		return ..()
+
+/obj/machinery/hydroponics/constructable/crowbar_act(mob/user, obj/item/I)
+
+	if(using_irrigation)
+		to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+		return TRUE
+	if(default_deconstruction_crowbar(user, I, 1))
+		return TRUE
 
 /obj/machinery/hydroponics/proc/FindConnected()
 	var/list/connected = list()
@@ -99,7 +102,7 @@
 
 	while(processing_atoms.len)
 		var/atom/a = processing_atoms[1]
-		for(var/step_dir in cardinal)
+		for(var/step_dir in GLOB.cardinal)
 			var/obj/machinery/hydroponics/h = locate() in get_step(a, step_dir)
 			// Soil plots aren't dense
 			if(h && h.using_irrigation && h.density && !(h in connected) && !(h in processing_atoms))
@@ -303,7 +306,7 @@
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
 	var/n = 0
-	for(var/Dir in cardinal)
+	for(var/Dir in GLOB.cardinal)
 		var/obj/machinery/hydroponics/t = locate() in get_step(src,Dir)
 		if(t && t.using_irrigation && using_irrigation)
 			n += Dir
@@ -847,39 +850,6 @@
 				return
 			S.handle_item_insertion(G, 1)
 
-	else if(iswrench(O) && wrenchable)
-		if(using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-			return
-
-		if(!anchored && !isinspace())
-			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
-			playsound(loc, O.usesound, 50, 1)
-			if (do_after(user, 20 * O.toolspeed, target = src))
-				if(anchored)
-					return
-				anchored = 1
-				user.visible_message("[user] wrenches [src] into place.", \
-									"<span class='notice'>You wrench [src] in place.</span>")
-		else if(anchored)
-			user.visible_message("[user] begins to unwrench [src].", \
-								"<span class='notice'>You begin to unwrench [src]...</span>")
-			playsound(loc, O.usesound, 50, 1)
-			if (do_after(user, 20 * O.toolspeed, target = src))
-				if(!anchored)
-					return
-				anchored = 0
-				user.visible_message("[user] unwrenches [src].", \
-									"<span class='notice'>You unwrench [src].</span>")
-
-	else if(iswirecutter(O) && wrenchable)
-		using_irrigation = !using_irrigation
-		playsound(src, O.usesound, 50, 1)
-		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
-		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
-		for(var/obj/machinery/hydroponics/h in range(1,src))
-			h.update_icon()
-
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
 			to_chat(user, "<span class='warning'>[src] doesn't have any plants or weeds!</span>")
@@ -904,6 +874,44 @@
 
 	else
 		return ..()
+
+/obj/machinery/hydroponics/wirecutter_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	else if(wrenchable)
+		using_irrigation = !using_irrigation
+		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
+		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
+		for(var/obj/machinery/hydroponics/h in range(1,src))
+			h.update_icon()
+
+/obj/machinery/hydroponics/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_start_check(user, 0))
+		return
+	if(wrenchable)
+		if(using_irrigation)
+			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
+			return
+
+		if(!anchored && !isinspace())
+			user.visible_message("[user] begins to wrench [src] into place.", "<span class='notice'>You begin to wrench [src] in place...</span>")
+			if(I.use_tool(src, user, 20, volume = I.tool_volume))
+				if(anchored)
+					return
+				anchored = TRUE
+				user.visible_message("[user] wrenches [src] into place.", \
+									"<span class='notice'>You wrench [src] in place.</span>")
+		else if(anchored)
+			user.visible_message("[user] begins to unwrench [src].", \
+								"<span class='notice'>You begin to unwrench [src]...</span>")
+			if(I.use_tool(src, user, 20, volume = I.tool_volume))
+				if(!anchored)
+					return
+				anchored = FALSE
+				user.visible_message("[user] unwrenches [src].", \
+									"<span class='notice'>You unwrench [src].</span>")
 
 /obj/machinery/hydroponics/attack_hand(mob/user)
 	if(issilicon(user)) //How does AI know what plant is?

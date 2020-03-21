@@ -320,7 +320,7 @@
 				h1 {font-size: 18px; margin: 5px 0px;}
 				</style>
 				<script language='javascript' type='text/javascript'>
-				[js_byjax]
+				[JS_BYJAX]
 				</script>
 
 				<table style='width: 100%;'>
@@ -434,7 +434,7 @@
 	if(exchange_parts(user, W))
 		return
 
-	if(default_deconstruction_crowbar(W))
+	if(default_deconstruction_crowbar(user, W))
 		return TRUE
 
 	else
@@ -462,7 +462,7 @@
 								"Pod_Parts",
 								"Pod_Frame",
 								"Misc")
-	req_access = list(access_mechanic)
+	req_access = list(ACCESS_MECHANIC)
 
 /obj/machinery/mecha_part_fabricator/spacepod/New()
 	..()

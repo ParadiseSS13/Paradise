@@ -19,7 +19,7 @@
 	var/image/icon_beaker = null //cached overlay
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
-	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver")
+	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
 	var/list/upgrade_reagents = list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel")
 	var/list/hacked_reagents = list("toxin")
 	var/hack_message = "You disable the safety safeguards, enabling the \"Mad Scientist\" mode."
@@ -155,7 +155,7 @@
 		// open the new ui window
 		ui.open()
 
-/obj/machinery/chem_dispenser/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_dispenser/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["amount"] = amount
@@ -242,45 +242,9 @@
 	return TRUE // update UIs attached to this object
 
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
-	if(ismultitool(I))
-		if(!hackedcheck)
-			to_chat(user, hack_message)
-			dispensable_reagents += hacked_reagents
-			hackedcheck = TRUE
-		else
-			to_chat(user, unhack_message)
-			dispensable_reagents -= hacked_reagents
-			hackedcheck = FALSE
-		SSnanoui.update_uis(src)
-		return
-
-	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
-		return
-
 	if(exchange_parts(user, I))
 		SSnanoui.update_uis(src)
 		return
-
-	if(iswrench(I))
-		playsound(src, I.usesound, 50, 1)
-		if(anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='caution'>[src] can now be moved.</span>")
-		else if(!anchored)
-			anchored = TRUE
-			to_chat(user, "<span class='caution'>[src] is now secured.</span>")
-		return
-
-	if(panel_open)
-		if(iscrowbar(I))
-			if(beaker)
-				beaker.forceMove(loc)
-				beaker = null
-			if(cell)
-				cell.forceMove(loc)
-				cell = null
-			default_deconstruction_crowbar(I)
-			return TRUE
 
 	if(isrobot(user))
 		return
@@ -307,6 +271,48 @@
 		return
 	return ..()
 
+/obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
+	if(!panel_open)
+		return
+	if(default_deconstruction_crowbar(user, I))
+		if(beaker)
+			beaker.forceMove(loc)
+			beaker = null
+		if(cell)
+			cell.forceMove(loc)
+			cell = null
+		return TRUE
+
+
+/obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(!hackedcheck)
+		to_chat(user, hack_message)
+		dispensable_reagents += hacked_reagents
+		hackedcheck = TRUE
+	else
+		to_chat(user, unhack_message)
+		dispensable_reagents -= hacked_reagents
+		hackedcheck = FALSE
+	SSnanoui.update_uis(src)
+
+
+/obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
+	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
+		return TRUE
+
+/obj/machinery/chem_dispenser/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(anchored)
+		anchored = FALSE
+		WRENCH_UNANCHOR_MESSAGE
+	else if(!anchored)
+		anchored = TRUE
+		WRENCH_ANCHOR_MESSAGE
 
 /obj/machinery/chem_dispenser/attack_ai(mob/user)
 	return attack_hand(user)

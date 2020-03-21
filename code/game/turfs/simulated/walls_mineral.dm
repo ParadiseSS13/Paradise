@@ -101,10 +101,20 @@
 		return
 	..()
 
+/turf/simulated/wall/mineral/plasma/welder_act(mob/user, obj/item/I)
+	if(I.tool_enabled)
+		ignite(2500) //The number's big enough
+		user.visible_message("<span class='danger'>[user] sets [src] on fire!</span>",\
+							"<span class='danger'>[src] disintegrates into a cloud of plasma!</span>",\
+							"<span class='warning'>You hear a 'whoompf' and a roar.</span>")
+		message_admins("Plasma wall ignited by [key_name_admin(user)] in ([x], [y], [z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma wall ignited by [key_name(user)] in ([x], [y], [z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+
 /turf/simulated/wall/mineral/plasma/proc/PlasmaBurn(temperature)
 	new girder_type(src)
 	ChangeTurf(/turf/simulated/floor)
-	atmos_spawn_air(SPAWN_HEAT | SPAWN_TOXINS, 400)
+	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 
 /turf/simulated/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
 	..()
