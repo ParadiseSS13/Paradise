@@ -13,7 +13,7 @@
 SUBSYSTEM_DEF(changelog)
 	name = "Changelog"
 	flags = SS_NO_FIRE
-	var/current_cl_timestamp = "0" // Timestamp is seconds since UNIX epoch (1st January 1970)
+	var/current_cl_timestamp = "0" // Timestamp is seconds since UNIX epoch (1st January 1970). ITs also a string because BYOND doesnt like big numbers.
 	var/ss_ready = FALSE // Is the SS ready? We dont want to run procs if we have not generated yet
 	var/list/startup_clients_button = list() // Clients who connected before initialization who need their button color updating
 	var/list/startup_clients_open = list() // Clients who connected before initialization who need the CL opening
@@ -21,10 +21,10 @@ SUBSYSTEM_DEF(changelog)
 
 /datum/controller/subsystem/changelog/Initialize()
 	// This entire subsystem relies on SQL being here.
-	if(!config.sql_enabled)
-		return ..() 
-	
-	var/DBQuery/latest_cl_date = dbcon.NewQuery("SELECT UNIX_TIMESTAMP(date_merged) AS ut FROM [format_table_name("changelog")] ORDER BY date_merged DESC LIMIT 1")
+	if(!GLOB.dbcon.IsConnected())
+		return ..()
+
+	var/DBQuery/latest_cl_date = GLOB.dbcon.NewQuery("SELECT UNIX_TIMESTAMP(date_merged) AS ut FROM [format_table_name("changelog")] ORDER BY date_merged DESC LIMIT 1")
 	if(!latest_cl_date.Execute())
 		var/err = latest_cl_date.ErrorMsg()
 		log_game("SQL ERROR during SSchangelog initialization L24. Error: \[[err]\]\n")
@@ -51,17 +51,17 @@ SUBSYSTEM_DEF(changelog)
 
 	return ..()
 
-	
+
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogDate(client/C)
 	if(!ss_ready)
 		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
 	// Technically this is only for the date but we can also do the UI button at the same time
-	if(preferences_datums[C.ckey].toggles & UI_DARKMODE)
+	if(GLOB.preferences_datums[C.ckey].toggles & UI_DARKMODE)
 		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
 	else
 		winset(C, "rpane.changelog", "background-color=none;font-style=none")
 	C.prefs.lastchangelog = current_cl_timestamp
-	var/DBQuery/updatePlayerCLTime = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[sanitizeSQL(current_cl_timestamp)]' WHERE ckey='[C.ckey]'")
+	var/DBQuery/updatePlayerCLTime = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastchangelog='[sanitizeSQL(current_cl_timestamp)]' WHERE ckey='[C.ckey]'")
 	if(!updatePlayerCLTime.Execute())
 		var/err = updatePlayerCLTime.ErrorMsg()
 		log_game("SQL ERROR during lastchangelog updating. Error: \[[err]\]\n")
@@ -72,7 +72,7 @@ SUBSYSTEM_DEF(changelog)
 
 /datum/controller/subsystem/changelog/proc/UpdatePlayerChangelogButton(client/C)
 	// If SQL aint even enabled, just set the button to default style
-	if(!config.sql_enabled)
+	if(!GLOB.dbcon.IsConnected())
 		if(C.prefs.toggles & UI_DARKMODE)
 			winset(C, "rpane.changelog", "background-color=#40628a;text-color=#FFFFFF")
 		else
@@ -100,6 +100,11 @@ SUBSYSTEM_DEF(changelog)
 
 
 /datum/controller/subsystem/changelog/proc/OpenChangelog(client/C)
+	// If SQL isnt enabled, dont even queue them, just tell them it wont work
+	if(!GLOB.dbcon.IsConnected())
+		to_chat(C, "<span class='notice'>This server is not running with an SQL backend. Changelog is unavailable.</span>")
+		return
+
 	// If SQL is enabled but we aint ready, queue them up
 	if(!ss_ready)
 		startup_clients_open |= C
@@ -121,32 +126,34 @@ SUBSYSTEM_DEF(changelog)
 	SSchangelog.OpenChangelog(src)
 
 // Helper to turn CL types into a fontawesome icon instead of an image
+// The colors are #28a745 for green, #fd7e14 for orange, and #dc3545 for red.
+// These colours are from bootstrap and look good with black and white
 /datum/controller/subsystem/changelog/proc/Text2Icon(text)
 	switch(text)
 		if("FIX")
-			return "<i class='fas fa-tools'></i>"
+			return "<span style='color: #28a745;'><i title='Fix' class='fas fa-tools'></i></span>" // Fixes are green because its a good thing
 		if("WIP")
-			return "<i class='fas fa-hard-hat'></i>"
+			return "<span style='color: #fd7e14;'><i title='Work In Progress' class='fas fa-hard-hat'></i></span>" // WIP stuff is orange because new code is good but its not done yet
 		if("TWEAK")
-			return "<i class='fas fa-sliders-h'></i>"
+			return "<i title='Tweak' class='fas fa-sliders-h'></i>" // Tweaks are white because they could be good or bad, and theres no specific add or remove
 		if("SOUNDADD")
-			return "<i class='fas fa-volume-up'></i>"
+			return "<span style='color: #28a745;'><i title='Sound Added' class='fas fa-volume-up'></i></span>" // Sound additions are green because its something new
 		if("SOUNDDEL")
-			return "<i class='fas fa-volume-mute'></i>"
+			return "<span style='color: #dc3545;'><i title='Sound Removed' class='fas fa-volume-mute'></i></span>" // Sound removals are red because something has been removed
 		if("CODEADD")
-			return "<i class='fas fa-plus'></i>"
+			return "<span style='color: #28a745;'><i title='Code Addition' class='fas fa-plus'></i></span>" // Code additions are green because its something new
 		if("CODEDEL")
-			return "<i class='fas fa-minus'></i>"
+			return "<span style='color: #dc3545;'><i title='Code Removal' class='fas fa-minus'></i></span>" // Code removals are red becuase someting has been removed
 		if("IMAGEADD")
-			return "<i class='fas fa-folder-plus'></i>"
+			return "<span style='color: #28a745;'><i title='Image/Sprite Addition' class='fas fa-folder-plus'></i></span>" // Image additions are green because something has been added
 		if("IMAGEDEL")
-			return "<i class='fas fa-folder-minus'></i>"
+			return "<span style='color: #dc3545;'><i title='Image/Sprite Removal' class='fas fa-folder-minus'></i></span>" // Image removals are red because something has been removed
 		if("SPELLCHECK")
-			return "<i class='fas fa-font'></i>"
+			return "<i title='Spelling/Grammar Fix' class='fas fa-font'></i>" // Spellcheck is white because theres no dedicated negative to it, so theres no red for it to collate with
 		if("EXPERIMENT")
-			return "<i class='fas fa-exclamation-triangle'></i>"
+			return "<span style='color: #fd7e14;'><i title='Experimental' class='fas fa-exclamation-triangle'></i></span>" // Experimental stuff is orange because while its a new feature, its unstable
 		else // Just incase the DB somehow breaks
-			return "<i class='fas fa-plus'></i>"
+			return "<span style='color: #28a745;'><i title='Code Addition' class='fas fa-plus'></i></span>" // Same here
 
 // This proc is the star of the show
 /datum/controller/subsystem/changelog/proc/GenerateChangelogHTML()
@@ -164,16 +171,16 @@ SUBSYSTEM_DEF(changelog)
 
 	var/list/prs_to_process = list()
 	// Grab all from last 30 days
-	var/DBQuery/pr_list_query = dbcon.NewQuery("SELECT DISTINCT pr_number FROM changelog WHERE date_merged BETWEEN NOW() - INTERVAL 30 DAY AND NOW()")
+	var/DBQuery/pr_list_query = GLOB.dbcon.NewQuery("SELECT DISTINCT pr_number FROM changelog WHERE date_merged BETWEEN NOW() - INTERVAL 30 DAY AND NOW()")
 	if(!pr_list_query.Execute())
 		var/err = pr_list_query.ErrorMsg()
 		log_game("SQL ERROR during CL generation L143. Error: \[[err]\]\n")
 		message_admins("SQL ERROR during CL generation L143. Error: \[[err]\]\n")
 		return FALSE
-	
+
 	while(pr_list_query.NextRow())
 		prs_to_process += text2num(pr_list_query.item[1])
-	
+
 	// Load in the header
 	changelogHTML += changelog_header
 
@@ -183,10 +190,10 @@ SUBSYSTEM_DEF(changelog)
 		var/pr_block = "" // HTML for the changelog section
 		var/author = "" // Author of the PR
 		var/merge_date = "" // Timestamp of when the PR was merged
-		
+
 		// Now we gather the data from the DB
 		// Also we probably dont need to sanitize the PR number but you never know
-		var/DBQuery/pr_meta = dbcon.NewQuery("SELECT author,DATE(date_merged) AS date FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)] LIMIT 1")
+		var/DBQuery/pr_meta = GLOB.dbcon.NewQuery("SELECT author,DATE(date_merged) AS date FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)] LIMIT 1")
 		if(!pr_meta.Execute())
 			var/err = pr_meta.ErrorMsg()
 			log_game("SQL ERROR during CL generation L190. Error: \[[err]\]\n")
@@ -198,7 +205,7 @@ SUBSYSTEM_DEF(changelog)
 			merge_date = pr_meta.item[2]
 
 		// Now for each actual entry
-		var/DBQuery/db_entries = dbcon.NewQuery("SELECT cl_type, cl_entry FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)]")
+		var/DBQuery/db_entries = GLOB.dbcon.NewQuery("SELECT cl_type, cl_entry FROM changelog WHERE pr_number = [sanitizeSQL(pr_number)]")
 		if(!db_entries.Execute())
 			var/err = db_entries.ErrorMsg()
 			log_game("SQL ERROR during CL generation L204. Error: \[[err]\]\n")
