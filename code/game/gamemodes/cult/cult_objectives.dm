@@ -114,10 +114,10 @@
 
 	if(prob(40))//split the chance of this
 		objectives += "eldergod"
-		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
+		explanation = "Summon [SSticker.cultdat.entity_name] on the Station via the use of the Tear Reality rune. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
 	else
 		objectives += "slaughter"
-		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(summon_spots)] for the ritual to begin."
+		explanation = "Bring the Slaughter via the rune 'Bring forth the slaughter'. The veil is weak enough in [english_list(GLOB.summon_spots)] for the ritual to begin."
 
 	for(var/datum/mind/cult_mind in cult)
 		if(cult_mind)
@@ -174,7 +174,7 @@
 			updated_memory = replacetext("[cult_mind.memory]", "[previous_target]", "[sacrifice_target]")
 			updated_memory = replacetext("[updated_memory]", "[previous_role]", "[sacrifice_target.assigned_role]")
 			cult_mind.memory = updated_memory
-			
+
 
 /datum/game_mode/cult/proc/pick_objective()
 	var/list/possible_objectives = list()
@@ -254,7 +254,7 @@
 			for(var/mob/living/L in GLOB.player_list)
 				if(L.stat != DEAD && !(L.mind in cult))
 					var/area/A = get_area(L)
-					if(is_type_in_list(A.loc, centcom_areas))
+					if(is_type_in_list(A.loc, GLOB.centcom_areas))
 						escaped_shuttle++
 			if(!escaped_shuttle)
 				bonus = 1

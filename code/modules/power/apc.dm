@@ -55,7 +55,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	resistance_flags = FIRE_PROOF
-	req_access = list(access_engine_equip)
+	req_access = list(ACCESS_ENGINE_EQUIP)
 	siemens_strength = 1
 	damage_deflection = 10
 	var/area/area
@@ -128,7 +128,7 @@
 	report_power_alarm = FALSE
 
 /obj/machinery/power/apc/syndicate //general syndicate access
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	report_power_alarm = FALSE
 
 /obj/item/apc_electronics
@@ -765,11 +765,11 @@
 /obj/machinery/power/apc/proc/get_malf_status(mob/living/silicon/ai/malf)
 	if(!istype(malf))
 		return FALSE
-	
+
 	// Only if they're a traitor OR they have the malf picker from the combat module
 	if(!malf.mind.has_antag_datum(/datum/antagonist/traitor) && !malf.malf_picker)
 		return FALSE
-	
+
 	if(malfai == (malf.parent || malf))
 		if(occupier == malf)
 			return APC_MALF_SHUNTED_HERE
@@ -793,7 +793,7 @@
 		// Auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/power/apc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/power/apc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["locked"] = is_locked(user)
 	data["isOperating"] = operating
@@ -1079,7 +1079,7 @@
 		qdel(occupier)
 		if(seclevel2num(get_security_level()) == SEC_LEVEL_DELTA)
 			for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
-				for(var/mob/living/silicon/ai/A in ai_list)
+				for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 					if((A.stat != DEAD) && A.nuking)
 						point.the_disk = A //The pinpointer tracks the AI back into its core.
 	else

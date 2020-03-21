@@ -8,6 +8,7 @@
 	use_power = IDLE_POWER_USE
 	current_heat_capacity = 1000
 	layer = 3
+	plane = GAME_PLANE
 	max_integrity = 300
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 30)
 
@@ -117,7 +118,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/unary/cold_sink/freezer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["on"] = on ? 1 : 0
 	data["gasPressure"] = round(air_contents.return_pressure())
@@ -286,7 +287,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["on"] = on ? 1 : 0
 	data["gasPressure"] = round(air_contents.return_pressure())

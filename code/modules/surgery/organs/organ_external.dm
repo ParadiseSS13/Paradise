@@ -515,7 +515,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(!clean)
 				// Throw limb around.
 				if(src && istype(loc,/turf))
-					dropped_part.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
+					dropped_part.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),30)
 				dir = 2
 			brute_dam = 0
 			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applied when then limb is re-attached
@@ -663,7 +663,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/set_company(var/company)
 	model = company
-	var/datum/robolimb/R = all_robolimbs[company]
+	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
 		force_icon = R.icon
 		name = "[R.company] [initial(name)]"

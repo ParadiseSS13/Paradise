@@ -141,7 +141,7 @@
 	volume = min(volume, reagents.total_volume)
 
 	var/fraction = min(volume/reagents.total_volume, 1)
-	reagents.reaction(C, INGEST, fraction)
+	reagents.reaction(C, REAGENT_INGEST, fraction)
 	reagents.trans_to(C, volume)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/C)
@@ -327,9 +327,9 @@
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H)
 	. = ..()
-	H.dna.SetSEState(SMALLSIZEBLOCK, 1, 1)
+	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
 	H.mutations.Add(DWARF)
-	genemutcheck(H, SMALLSIZEBLOCK, null, MUTCHK_FORCED)
+	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
 	H.update_mutations()
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)

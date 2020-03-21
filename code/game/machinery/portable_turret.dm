@@ -79,7 +79,7 @@
 	health = 200
 	enabled = 1
 	lethal = 1
-	req_access = list(access_cent_commander)
+	req_access = list(ACCESS_CENT_COMMANDER)
 	installation = /obj/item/gun/energy/pulse/turret
 
 /obj/machinery/porta_turret/stationary
@@ -91,7 +91,7 @@
 	..()
 	if(req_access && req_access.len)
 		req_access.Cut()
-	req_one_access = list(access_security, access_heads)
+	req_one_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 	one_access = 1
 
 	//Sets up a spark system
@@ -109,7 +109,7 @@
 	..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
-	req_access = list(access_cent_specops)
+	req_access = list(ACCESS_CENT_SPECOPS)
 	one_access = 0
 
 /obj/machinery/porta_turret/proc/setup()
@@ -161,14 +161,14 @@
 			eprojectile = /obj/item/projectile/beam/pulse
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
-var/list/turret_icons
+GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/update_icon()
-	if(!turret_icons)
-		turret_icons = list()
-		turret_icons["open"] = image(icon, "openTurretCover")
+	if(!GLOB.turret_icons)
+		GLOB.turret_icons = list()
+		GLOB.turret_icons["open"] = image(icon, "openTurretCover")
 
 	underlays.Cut()
-	underlays += turret_icons["open"]
+	underlays += GLOB.turret_icons["open"]
 
 	if(stat & BROKEN)
 		icon_state = "destroyed_target_prism"
@@ -218,7 +218,7 @@ var/list/turret_icons
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/porta_turret/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/porta_turret/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["access"] = !isLocked(user)
 	data["screen"] = screen
@@ -1019,7 +1019,7 @@ var/list/turret_icons
 	..()
 	if(req_one_access && req_one_access.len)
 		req_one_access.Cut()
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	one_access = 0
 
 /obj/machinery/porta_turret/syndicate/update_icon()

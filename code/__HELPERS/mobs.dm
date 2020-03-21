@@ -59,7 +59,7 @@ proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohea
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
-				robohead = all_robolimbs["Morpheus Cyberkinetics"]
+				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
@@ -88,7 +88,7 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
-				robohead = all_robolimbs["Morpheus Cyberkinetics"]
+				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
@@ -142,7 +142,7 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...
 				if(!robohead)
-					robohead = all_robolimbs["Morpheus Cyberkinetics"]
+					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(alt_head && alt_head != "None") //If the user's got an alt head, validate markings for that head.
@@ -161,8 +161,8 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 proc/random_body_accessory(species = "Vulpkanin")
 	var/body_accessory = null
 	var/list/valid_body_accessories = list()
-	for(var/B in body_accessory_by_name)
-		var/datum/body_accessory/A = body_accessory_by_name[B]
+	for(var/B in GLOB.body_accessory_by_name)
+		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
 		if(!istype(A))
 			valid_body_accessories += "None" //The only null entry should be the "None" option.
 			continue
@@ -248,7 +248,7 @@ proc/age2agedescription(age)
 		if("none")
 			status = "None"
 		if("execute")
-			if((access_magistrate in authcard_access) || (access_armory in authcard_access))
+			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = "*Execute*"
 				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
 			else
@@ -261,7 +261,7 @@ proc/age2agedescription(age)
 			status = "Released"
 	target_records.fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
-	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [current_date_string] [station_time_timestamp()], comment: [comment]"
+	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
 	return 1
 
