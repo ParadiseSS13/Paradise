@@ -1895,7 +1895,14 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 #undef DELTA_CALC
 
-// This proc gets a list of all "points of interest" (poi's) that can be used by admins to track valuable mobs or atoms (such as the nuke disk).
+/*
+ * This proc gets a list of all "points of interest" (poi's) that can be used by admins to track valuable mobs or atoms (such as the nuke disk).
+ * @param mobs_only if set to TRUE it won't include locations to the returned list
+ * @param skip_mindless if set to TRUE it will skip mindless mobs
+ * @param force_include_bots if set to TRUE it will include bots even if skip_mindless is set to TRUE
+ * @param force_include_cameras if set to TRUE it will include camera eyes even if skip_mindless is set to TRUE
+ * @return returns a list with the found points of interest
+*/
 /proc/getpois(mobs_only = FALSE, skip_mindless = FALSE, force_include_bots = FALSE, force_include_cameras = FALSE)
 	var/list/mobs = sortmobs()
 	var/list/names = list()
