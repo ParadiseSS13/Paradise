@@ -2,7 +2,7 @@
 
 /datum/log_viewer
 	var/time_from = 0
-	var/time_to = 2 HOURS // Full range
+	var/time_to = 4 HOURS					// 4 Hours should be enough. INFINITY would screw the UI up
 	var/list/selected_mobs = list()			// The mobs in question
 	var/list/selected_log_types = list()	// The log types being searched for
 
@@ -21,27 +21,32 @@
 	var/list/invalid_mobs = list()
 	for(var/i in selected_mobs)
 		var/mob/M = i
-		if(!M)
+		if(!M || QDELETED(M))
 			invalid_mobs |= M
-			to_chat(usr, "<span class='warning'>Mob '[M]' is invalid. Removing from the search criteria.</span>")
 			continue
 		for(var/log_type in selected_log_types)
 			var/list/logs = M.logs[log_type]
 			var/len_logs = length(logs)
 			if(len_logs)
 				var/start_index = get_earliest_log_index(logs)
-				if(!start_index)
+				if(!start_index) // No log found that matches the starting time criteria
 					continue
 				var/end_index = get_latest_log_index(logs)
-				if(!end_index)
+				if(!end_index) // No log found that matches the end time criteria
 					continue
 				log_records.Add(logs.Copy(start_index, end_index + 1))
 
-	for(var/i in invalid_mobs)
-		selected_mobs -= i // Cleanup
+	if(invalid_mobs.len)
+		to_chat(usr, "<span class='warning'>The search criteria contained invalid mobs. They have been removed from the criteria.</span>")
+		for(var/i in invalid_mobs)
+			selected_mobs -= i // Cleanup
 
 	log_records = sortTim(log_records, /proc/compare_log_record)
 
+/** Binary search like implementation to find the earliest log
+ * Returns the index of the earliest log using the time_from value for the given list of logs.
+ * It will return 0 if no log after time_from is found
+*/
 /datum/log_viewer/proc/get_earliest_log_index(list/logs)
 	if(!time_from)
 		return 1
@@ -61,6 +66,10 @@
 		return end
 	return 0
 
+/** Binary search like implementation to find the latest log
+ * Returns the index of the latest log using the time_to value (1 second is added to prevent rounding weirdness) for the given list of logs.
+ * It will return 0 if no log before time_to + 10 is found
+*/
 /datum/log_viewer/proc/get_latest_log_index(list/logs)
 	if(world.time < time_to)
 		return length(logs)
@@ -83,7 +92,7 @@
 	return 0
 
 /datum/log_viewer/proc/add_mob(mob/user, mob/M)
-	if(!M || !usr)
+	if(!M || !user)
 		return
 	selected_mobs |= M
 
@@ -99,7 +108,7 @@
 	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
 	dat += " To: <a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
 	dat += "<BR>"
-	
+
 	dat += "<span>Mobs being used:</span>"
 	for(var/i in selected_mobs)
 		var/mob/M = i
@@ -119,7 +128,7 @@
 			style = "background: [get_logtype_color(i)]"
 		else
 			text = log_type
-		
+
 		dat += "<a href='?src=[UID()];toggle_log_type=[log_type]' style='[style]'>[text]</a>"
 
 	dat += "<BR>"
@@ -163,7 +172,7 @@
 		show_ui(usr)
 		return
 	if(href_list["end_time"])
-		var/input = input(usr, "hh:mm:ss", "End time", "02:00:00") as text|null
+		var/input = input(usr, "hh:mm:ss", "End time", "04:00:00") as text|null
 		if(!input)
 			return
 		var/res = timeStampToNum(input)
@@ -171,7 +180,7 @@
 			to_chat(usr, "<span class='warning'>'[input]' is an invalid input value.</span>")
 			return
 		time_to = res
-		
+
 		show_ui(usr)
 		return
 	if(href_list["search"])

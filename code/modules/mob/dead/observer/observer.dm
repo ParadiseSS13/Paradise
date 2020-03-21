@@ -432,7 +432,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Orbit" // "Haunt"
 	set desc = "Follow and orbit a mob."
 
-	var/list/mobs = getpois(skip_mindless=1)
+	var/list/mobs = getpois(FALSE, TRUE, TRUE, TRUE)
 	var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
 	A.on_close(CALLBACK(src, .proc/ManualFollow))
 
@@ -507,7 +507,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set desc = "Teleport to a mob"
 
 	if(isobserver(usr)) //Make sure they're an observer!
-		var/list/dest = getpois(mobs_only=1) //Fill list, prompt user with list
+		var/list/dest = getpois(mobs_only=TRUE) //Fill list, prompt user with list
 		var/datum/async_input/A = input_autocomplete_async(usr, "Enter a mob name: ", dest)
 		A.on_close(CALLBACK(src, .proc/jump_to_mob))
 
