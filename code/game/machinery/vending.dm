@@ -222,7 +222,7 @@
 		..()
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
-	if(currently_vending && vendor_account && !vendor_account.suspended)
+	if(currently_vending && GLOB.vendor_account && !GLOB.vendor_account.suspended)
 		var/paid = 0
 		var/handled = 0
 		if(istype(I, /obj/item/card/id))
@@ -452,8 +452,8 @@
 		return 0
 	else
 		// Okay to move the money at this point
-		var/paid = customer_account.charge(currently_vending.price, vendor_account,
-			"Purchase of [currently_vending.name]", name, vendor_account.owner_name,
+		var/paid = customer_account.charge(currently_vending.price, GLOB.vendor_account,
+			"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
 			"Sale of [currently_vending.name]", customer_account.owner_name)
 
 		if(paid)
@@ -469,8 +469,8 @@
  *  Called after the money has already been taken from the customer.
  */
 /obj/machinery/vending/proc/credit_purchase(var/target as text)
-	vendor_account.money += currently_vending.price
-	vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
+	GLOB.vendor_account.money += currently_vending.price
+	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
 	name, target)
 
 /obj/machinery/vending/attack_ai(mob/user)
@@ -503,7 +503,7 @@
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.open()
 
-/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/list/data = list()
 	if(currently_vending)
 		data["mode"] = 1
@@ -573,7 +573,7 @@
 		eject_item(usr)
 
 	if(href_list["pay"])
-		if(currently_vending && vendor_account && !vendor_account.suspended)
+		if(currently_vending && GLOB.vendor_account && !GLOB.vendor_account.suspended)
 			var/paid = 0
 			var/handled = 0
 			var/datum/money_account/A = usr.get_worn_id_account()
@@ -621,7 +621,7 @@
 			vend(R, usr)
 		else
 			currently_vending = R
-			if(!vendor_account || vendor_account.suspended)
+			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				status_message = "This machine is currently unable to process payments due to problems with the associated account."
 				status_error = 1
 			else
@@ -770,7 +770,7 @@
 					continue
 
 				var/obj/O = new dump_path(loc)
-				step(O, pick(alldirs))
+				step(O, pick(GLOB.alldirs))
 				found_anything = TRUE
 				dump_amount++
 				if(dump_amount >= 16)

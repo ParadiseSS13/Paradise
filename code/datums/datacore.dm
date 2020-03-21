@@ -1,5 +1,5 @@
 /hook/startup/proc/createDatacore()
-	data_core = new /datum/datacore()
+	GLOB.data_core = new /datum/datacore()
 	return 1
 
 /datum/datacore
@@ -34,7 +34,7 @@
 	"}
 	var/even = 0
 	// sort mobs
-	for(var/datum/data/record/t in data_core.general)
+	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = t.fields["name"]
 		var/rank = t.fields["rank"]
 		var/real_rank = t.fields["real_rank"]
@@ -48,28 +48,28 @@
 		else
 			isactive[name] = t.fields["p_stat"]
 		var/department = 0
-		if(real_rank in command_positions)
+		if(real_rank in GLOB.command_positions)
 			heads[name] = rank
 			department = 1
-		if(real_rank in security_positions)
+		if(real_rank in GLOB.security_positions)
 			sec[name] = rank
 			department = 1
-		if(real_rank in engineering_positions)
+		if(real_rank in GLOB.engineering_positions)
 			eng[name] = rank
 			department = 1
-		if(real_rank in medical_positions)
+		if(real_rank in GLOB.medical_positions)
 			med[name] = rank
 			department = 1
-		if(real_rank in science_positions)
+		if(real_rank in GLOB.science_positions)
 			sci[name] = rank
 			department = 1
-		if(real_rank in service_positions)
+		if(real_rank in GLOB.service_positions)
 			ser[name] = rank
 			department = 1
-		if(real_rank in supply_positions)
+		if(real_rank in GLOB.supply_positions)
 			sup[name] = rank
 			department = 1
-		if(real_rank in nonhuman_positions)
+		if(real_rank in GLOB.nonhuman_positions)
 			bot[name] = rank
 			department = 1
 		if(!department && !(name in heads))
@@ -133,10 +133,10 @@ we'll only update it when it changes.  The PDA_Manifest global list is zeroed ou
 using /datum/datacore/proc/manifest_inject(), or manifest_insert()
 */
 
-var/global/list/PDA_Manifest = list()
+GLOBAL_LIST_EMPTY(PDA_Manifest)
 
 /datum/datacore/proc/get_manifest_json()
-	if(PDA_Manifest.len)
+	if(GLOB.PDA_Manifest.len)
 		return
 	var/heads[0]
 	var/sec[0]
@@ -147,7 +147,7 @@ var/global/list/PDA_Manifest = list()
 	var/sup[0]
 	var/bot[0]
 	var/misc[0]
-	for(var/datum/data/record/t in data_core.general)
+	for(var/datum/data/record/t in GLOB.data_core.general)
 		var/name = sanitize(t.fields["name"])
 		var/rank = sanitize(t.fields["rank"])
 		var/real_rank = t.fields["real_rank"]
@@ -155,50 +155,50 @@ var/global/list/PDA_Manifest = list()
 		var/isactive = t.fields["p_stat"]
 		var/department = 0
 		var/depthead = 0 			// Department Heads will be placed at the top of their lists.
-		if(real_rank in command_positions)
+		if(real_rank in GLOB.command_positions)
 			heads[++heads.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			depthead = 1
 			if(rank == "Captain" && heads.len != 1)
 				heads.Swap(1,  heads.len)
 
-		if(real_rank in security_positions)
+		if(real_rank in GLOB.security_positions)
 			sec[++sec.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && sec.len != 1)
 				sec.Swap(1, sec.len)
 
-		if(real_rank in engineering_positions)
+		if(real_rank in GLOB.engineering_positions)
 			eng[++eng.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && eng.len != 1)
 				eng.Swap(1, eng.len)
 
-		if(real_rank in medical_positions)
+		if(real_rank in GLOB.medical_positions)
 			med[++med.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && med.len != 1)
 				med.Swap(1, med.len)
 
-		if(real_rank in science_positions)
+		if(real_rank in GLOB.science_positions)
 			sci[++sci.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && sci.len != 1)
 				sci.Swap(1, sci.len)
 
-		if(real_rank in service_positions)
+		if(real_rank in GLOB.service_positions)
 			ser[++ser.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && ser.len != 1)
 				ser.Swap(1, ser.len)
 
-		if(real_rank in supply_positions)
+		if(real_rank in GLOB.supply_positions)
 			sup[++sup.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 			if(depthead && sup.len != 1)
 				sup.Swap(1, sup.len)
 
-		if(real_rank in nonhuman_positions)
+		if(real_rank in GLOB.nonhuman_positions)
 			bot[++bot.len] = list("name" = name, "rank" = rank, "active" = isactive)
 			department = 1
 
@@ -206,7 +206,7 @@ var/global/list/PDA_Manifest = list()
 			misc[++misc.len] = list("name" = name, "rank" = rank, "active" = isactive)
 
 
-	PDA_Manifest = list(\
+	GLOB.PDA_Manifest = list(\
 		"heads" = heads,\
 		"sec" = sec,\
 		"eng" = eng,\
@@ -226,12 +226,12 @@ var/global/list/PDA_Manifest = list()
 		manifest_inject(H)
 
 /datum/datacore/proc/manifest_modify(name, assignment)
-	if(PDA_Manifest.len)
-		PDA_Manifest.Cut()
+	if(GLOB.PDA_Manifest.len)
+		GLOB.PDA_Manifest.Cut()
 	var/datum/data/record/foundrecord
 	var/real_title = assignment
 
-	for(var/datum/data/record/t in data_core.general)
+	for(var/datum/data/record/t in GLOB.data_core.general)
 		if(t)
 			if(t.fields["name"] == name)
 				foundrecord = t
@@ -250,10 +250,10 @@ var/global/list/PDA_Manifest = list()
 		foundrecord.fields["rank"] = assignment
 		foundrecord.fields["real_rank"] = real_title
 
-var/record_id_num = 1001
+GLOBAL_VAR_INIT(record_id_num, 1001)
 /datum/datacore/proc/manifest_inject(mob/living/carbon/human/H)
-	if(PDA_Manifest.len)
-		PDA_Manifest.Cut()
+	if(GLOB.PDA_Manifest.len)
+		GLOB.PDA_Manifest.Cut()
 
 	if(H.mind && (H.mind.assigned_role != H.mind.special_role))
 		var/assignment
@@ -266,7 +266,7 @@ var/record_id_num = 1001
 		else
 			assignment = "Unassigned"
 
-		var/id = num2hex(record_id_num++, 6)
+		var/id = num2hex(GLOB.record_id_num++, 6)
 
 
 		//General Record

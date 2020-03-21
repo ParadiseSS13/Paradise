@@ -1,28 +1,28 @@
-var/list/error_last_seen = list()
+GLOBAL_LIST_EMPTY(error_last_seen)
 // error_cooldown items will either be positive (cooldown time) or negative (silenced error)
 //  If negative, starts at -1, and goes down by 1 each time that error gets skipped
-var/list/error_cooldown = list()
-var/total_runtimes = 0
-var/total_runtimes_skipped = 0
+GLOBAL_LIST_EMPTY(error_cooldown)
+GLOBAL_VAR_INIT(total_runtimes, 0)
+GLOBAL_VAR_INIT(total_runtimes_skipped, 0)
 // The ifdef needs to be down here, since the error viewer references total_runtimes
 #ifdef DEBUG
 /world/Error(var/exception/e, var/datum/e_src)
 	if(!istype(e)) // Something threw an unusual exception
 		log_world("\[[time_stamp()]] Uncaught exception: [e]")
 		return ..()
-	if(!error_last_seen) // A runtime is occurring too early in start-up initialization
+	if(!GLOB.error_last_seen) // A runtime is occurring too early in start-up initialization
 		return ..()
-	total_runtimes++
+	GLOB.total_runtimes++
 
 	var/erroruid = "[e.file][e.line]"
-	var/last_seen = error_last_seen[erroruid]
-	var/cooldown = error_cooldown[erroruid] || 0
+	var/last_seen = GLOB.error_last_seen[erroruid]
+	var/cooldown = GLOB.error_cooldown[erroruid] || 0
 	if(last_seen == null) // A new error!
-		error_last_seen[erroruid] = world.time
+		GLOB.error_last_seen[erroruid] = world.time
 		last_seen = world.time
 	if(cooldown < 0)
-		error_cooldown[erroruid]-- // Used to keep track of skip count for this error
-		total_runtimes_skipped++
+		GLOB.error_cooldown[erroruid]-- // Used to keep track of skip count for this error
+		GLOB.total_runtimes_skipped++
 		return // Error is currently silenced, skip handling it
 
 	// Handle cooldowns and silencing spammy errors
@@ -36,17 +36,17 @@ var/total_runtimes_skipped = 0
 		spawn(0)
 			usr = null
 			sleep(ERROR_SILENCE_TIME)
-			var/skipcount = abs(error_cooldown[erroruid]) - 1
-			error_cooldown[erroruid] = 0
+			var/skipcount = abs(GLOB.error_cooldown[erroruid]) - 1
+			GLOB.error_cooldown[erroruid] = 0
 			if(skipcount > 0)
 				log_world("\[[time_stamp()]] Skipped [skipcount] runtimes in [e.file],[e.line].")
-				error_cache.logError(e, skipCount = skipcount)
-	error_last_seen[erroruid] = world.time
-	error_cooldown[erroruid] = cooldown
+				GLOB.error_cache.logError(e, skipCount = skipcount)
+	GLOB.error_last_seen[erroruid] = world.time
+	GLOB.error_cooldown[erroruid] = cooldown
 
 	// This line will log a runtime summary to a file which can be publicly distributed without sending player data
 	log_runtime_summary("Runtime in [e.file],[e.line]: [e]")
-	
+
 	// The detailed error info needs some tweaking to make it look nice
 	var/list/srcinfo = null
 	var/list/usrinfo = null
@@ -103,8 +103,8 @@ var/total_runtimes_skipped = 0
 	for(var/line in desclines)
 		log_world(line)
 		log_runtime_txt(line)
-	if(error_cache)
-		error_cache.logError(e, desclines, e_src = e_src)
+	if(GLOB.error_cache)
+		GLOB.error_cache.logError(e, desclines, e_src = e_src)
 #endif
 
 /proc/log_runtime(exception/e, datum/e_src, extra_info)
