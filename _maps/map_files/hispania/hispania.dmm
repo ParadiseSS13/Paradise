@@ -97326,6 +97326,11 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"puu" = (
+/obj/structure/bed/dogbed/garronte,
+/mob/living/simple_animal/friendly/owl,
+/turf/simulated/floor/carpet/black,
+/area/chapel/office)
 "pwN" = (
 /obj/machinery/door_control{
 	id = "adminshuttleblast";
@@ -144277,7 +144282,7 @@ aXd
 baz
 bcw
 bet
-bcx
+puu
 biw
 baz
 aYP
