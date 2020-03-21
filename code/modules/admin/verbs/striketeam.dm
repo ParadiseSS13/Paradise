@@ -1,13 +1,13 @@
 //STRIKE TEAMS
 
 #define COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
-var/global/sent_strike_team = 0
+GLOBAL_VAR_INIT(sent_strike_team, 0)
 
 /client/proc/strike_team()
 	if(!SSticker)
 		to_chat(usr, "<span class='userdanger'>The game hasn't started yet!</span>")
 		return
-	if(sent_strike_team == 1)
+	if(GLOB.sent_strike_team == 1)
 		to_chat(usr, "<span class='userdanger'>CentComm is already sending a team.</span>")
 		return
 	if(alert("Do you want to send in the CentComm death squad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
@@ -23,7 +23,7 @@ var/global/sent_strike_team = 0
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
 
-	if(sent_strike_team)
+	if(GLOB.sent_strike_team)
 		to_chat(usr, "Looks like someone beat you to it.")
 		return
 
@@ -37,12 +37,12 @@ var/global/sent_strike_team = 0
 			break
 
 	// Find ghosts willing to be DS
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 600, 1, role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
+	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, COMMANDOS_POSSIBLE, "Join the DeathSquad?",, 21, 600, 1, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE)
 	if(!commando_ghosts.len)
 		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the DeathSquad.</span>")
 		return
 
-	sent_strike_team = 1
+	GLOB.sent_strike_team = 1
 
 	// Spawns commandos and equips them.
 	var/commando_number = COMMANDOS_POSSIBLE //for selecting a leader

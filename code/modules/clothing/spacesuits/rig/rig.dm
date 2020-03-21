@@ -522,7 +522,7 @@
 	cell.use(cost*10)
 	return 1
 
-/obj/item/rig/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/rig/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
 	if(!user)
 		return
 
@@ -532,7 +532,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/rig/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/rig/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
 	var/data[0]
 
 	data["primarysystem"] = null
@@ -982,7 +982,7 @@
 			return 0
 
 	if(malfunctioning)
-		direction = pick(cardinal)
+		direction = pick(GLOB.cardinal)
 
 	// Inside an object, tell it we moved.
 	if(isobj(wearer.loc) || ismob(wearer.loc))

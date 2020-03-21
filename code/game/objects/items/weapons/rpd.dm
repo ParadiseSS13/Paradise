@@ -39,6 +39,21 @@
 	var/primary_sound = 'sound/machines/click.ogg'
 	var/alt_sound = null
 
+	//Lists of things
+	var/list/mainmenu = list(
+		list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
+		list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
+		list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "rotate-right"),
+		list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "exchange"),
+		list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
+	var/list/pipemenu = list(
+		list("category" = "Normal", "pipemode" = RPD_ATMOS_PIPING),
+		list("category" = "Supply", "pipemode" = RPD_SUPPLY_PIPING),
+		list("category" = "Scrubber", "pipemode" = RPD_SCRUBBERS_PIPING),
+		list("category" = "Devices", "pipemode" = RPD_DEVICES),
+		list("category" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
+
+
 /obj/item/rpd/New()
 	..()
 	spark_system = new /datum/effect_system/spark_spread()
@@ -150,27 +165,12 @@
 	QDEL_NULL(P)
 	activate_rpd()
 
-//Lists of things
-
-var/list/mainmenu = list(
-	list("category" = "Atmospherics", "mode" = RPD_ATMOS_MODE, "icon" = "wrench"),
-	list("category" = "Disposals", "mode" = RPD_DISPOSALS_MODE, "icon" = "recycle"),
-	list("category" = "Rotate", "mode" = RPD_ROTATE_MODE, "icon" = "rotate-right"),
-	list("category" = "Flip", "mode" = RPD_FLIP_MODE, "icon" = "exchange"),
-	list("category" = "Recycle", "mode" = RPD_DELETE_MODE, "icon" = "trash"))
-var/list/pipemenu = list(
-	list("category" = "Normal", "pipemode" = RPD_ATMOS_PIPING),
-	list("category" = "Supply", "pipemode" = RPD_SUPPLY_PIPING),
-	list("category" = "Scrubber", "pipemode" = RPD_SCRUBBERS_PIPING),
-	list("category" = "Devices", "pipemode" = RPD_DEVICES),
-	list("category" = "Heat exchange", "pipemode" = RPD_HEAT_PIPING))
-
 //NanoUI stuff
 
 /obj/item/rpd/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/rpd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rpd.tmpl", "[name]", 400, 650, state = state)
@@ -180,7 +180,7 @@ var/list/pipemenu = list(
 /obj/item/rpd/AltClick(mob/user)
 	radial_menu(user)
 
-/obj/item/rpd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/rpd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
 	var/data[0]
 	data["iconrotation"] = iconrotation
 	data["mainmenu"] = mainmenu
