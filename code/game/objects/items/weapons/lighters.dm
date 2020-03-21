@@ -14,6 +14,7 @@
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
+	var/light_chance = 75
 
 /obj/item/lighter/random/New()
 	..()
@@ -39,7 +40,7 @@
 	hitsound = 'sound/items/welder.ogg'
 	attack_verb = list("burnt", "singed")
 
-	if(prob(75) || issilicon(user)) // Robots can never fail to light it.
+	if(prob(light_chance) || issilicon(user)) // Robots can never fail to light it.
 		to_chat(user, "<span class='notice'>You light [src].</span>")
 	else
 		var/mob/living/carbon/human/H = user
@@ -98,6 +99,7 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
+	light_chance = 100
 	var/next_on_message
 	var/next_off_message
 
