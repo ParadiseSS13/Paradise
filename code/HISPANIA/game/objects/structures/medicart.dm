@@ -7,7 +7,9 @@
 	density = 1
 	buckle_offset = 0
 	can_buckle = 1
+	max_integrity = 200
 	buckle_lying = 0
+	var/material_drop_type = /obj/item/stack/sheet/mineral/titanium
 	var/obj/item/reagent_containers/syringe/mysyringe = null
 	var/obj/item/stack/medical/bruise_pack/advanced/mymbruise = null
 	var/obj/item/surgicaldrill/mydrill = null
@@ -33,6 +35,17 @@
 	QDEL_NULL(myscal)
 	QDEL_NULL(mycaute)
 	return ..()
+
+/obj/structure/surgicalcart/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, 40, volume = I.tool_volume))
+		WELDER_SLICING_SUCCESS_MESSAGE
+		deconstruct(TRUE)
+
+/obj/structure/surgicalcart/deconstruct(disassembled = TRUE)
+	if(!(flags & NODECONSTRUCT))
+		var/drop_amt = 5
+		new material_drop_type(get_turf(src), drop_amt)
+	qdel(src)
 
 /obj/structure/surgicalcart/proc/put_in_cart(obj/item/I, mob/user)
 	user.drop_item()
