@@ -13,6 +13,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	sharp = FALSE
 
+	var/throwfoldedforce = 12
 	var/foldedforce = 12
 	var/open = FALSE
 	var/takes_colour = TRUE
@@ -48,7 +49,7 @@
 	if(open)
 		sharp = 1
 		force = (foldedforce)
-		throwforce = 15
+		throwforce = (throwfoldedforce)
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		w_class = WEIGHT_CLASS_NORMAL
 		attack_verb = list("slashed", "stabbed")
@@ -131,6 +132,8 @@
 	hardware_closed = "tacticool_hardware_closed"
 	hardware_open = "tacticool_hardware"
 	handle_icon = "tacticool_handle"
+	foldedforce = 18
+	throwfoldedforce = 18
 	valid_colors = list("#0f0f2a", "#2a0f0f", "#0f2a0f", COLOR_GRAY20, COLOR_DARK_GUNMETAL, COLOR_WHITE)
 
 /obj/item/kitchen/knife/folding/combat/tacticool/New()
@@ -147,7 +150,7 @@
 	name = "the concept of a fighting knife in which the blade can be stowed in its own handle"
 	desc = "This is a master item - berate the admin or mapper who spawned this"
 	foldedforce = 20
-	throwforce = 20
+	throwfoldedforce = 20
 	origin_tech = "materials=3;combat=4"
 
 /obj/item/kitchen/knife/folding/butterfly
