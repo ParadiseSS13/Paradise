@@ -22,6 +22,7 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
+	logs.Cut()
 	..()
 	return QDEL_HINT_HARDDEL
 
@@ -1257,13 +1258,19 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return list() //must return list or IGNORE_ACCESS
 
 /mob/proc/create_attack_log(text, collapse = TRUE)
-	LAZYINITLIST(attack_log)
-	create_log_in_list(attack_log, text, collapse, last_log)
+	LAZYINITLIST(attack_log_old)
+	create_log_in_list(attack_log_old, text, collapse, last_log)
 	last_log = world.timeofday
 
 /mob/proc/create_debug_log(text, collapse = TRUE)
 	LAZYINITLIST(debug_log)
 	create_log_in_list(debug_log, text, collapse, world.timeofday)
+
+/mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
+	LAZYINITLIST(logs[log_type])
+	var/list/log_list = logs[log_type]
+	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
+	log_list.Add(record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."

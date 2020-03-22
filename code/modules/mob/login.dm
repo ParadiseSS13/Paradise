@@ -5,6 +5,7 @@
 	computer_id	= client.computer_id
 	log_access_in(client)
 	create_attack_log("<font color='red'>Logged in at [atom_loc_line(get_turf(src))]</font>")
+	create_log(MISC_LOG, "Logged in")
 	if(config.log_access)
 		for(var/mob/M in GLOB.player_list)
 			if(M == src)	continue

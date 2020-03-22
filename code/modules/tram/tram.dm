@@ -243,6 +243,7 @@
 		qdel(src)
 	src.visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
 	M.create_attack_log("<font color='red'>attacked [src.name]</font>")
+	add_attack_logs(M, src, "attacked")
 
 /obj/tram/bullet_act(var/obj/item/projectile/proj)
 	if(prob(proj.damage))
