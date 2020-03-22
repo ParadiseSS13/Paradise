@@ -126,17 +126,18 @@
 	options["Lighter Gray"] = color = COLOR_WHITE
 	options["Cancel"] = null
 
-/obj/item/kitchen/knife/folding/combat/tacticool
+/obj/item/kitchen/knife/folding/combat
 	name = "tactical folding knife"
-	desc = "A small folding knife with a polymer handle and a blackened steel blade. These are typically marketed for self defense purposes."
+	desc = "A small folding knife with a polymer handle and a blackened steel blade. A military combat utility survival knife."
 	hardware_closed = "tacticool_hardware_closed"
 	hardware_open = "tacticool_hardware"
 	handle_icon = "tacticool_handle"
 	foldedforce = 18
 	throwfoldedforce = 18
 	valid_colors = list("#0f0f2a", "#2a0f0f", "#0f2a0f", COLOR_GRAY20, COLOR_DARK_GUNMETAL, COLOR_WHITE)
+	origin_tech = "materials=3;combat=4"
 
-/obj/item/kitchen/knife/folding/combat/tacticool/New()
+/obj/item/kitchen/knife/folding/combat/New()
 	..()
 	options["Blue Gray"] = color = "#0f0f2a"
 	options["Red Gray"] = color = "#2a0f0f"
@@ -145,13 +146,6 @@
 	options["Gray"] = color = COLOR_DARK_GUNMETAL
 	options["Lighter Gray"] = color = COLOR_WHITE
 	options["Cancel"] = null
-
-/obj/item/kitchen/knife/folding/combat //master obj
-	name = "the concept of a fighting knife in which the blade can be stowed in its own handle"
-	desc = "This is a master item - berate the admin or mapper who spawned this"
-	foldedforce = 20
-	throwfoldedforce = 20
-	origin_tech = "materials=3;combat=4"
 
 /obj/item/kitchen/knife/folding/butterfly
 	name = "butterfly knife"
@@ -177,6 +171,8 @@
 	hardware_closed = "switch_hardware_closed"
 	hardware_open = "switch_hardware"
 	handle_icon = "switch_handle"
+	foldedforce = 20
+	throwfoldedforce = 20
 	valid_colors = list(COLOR_WHITE, COLOR_GOLD, COLOR_GRAY20)
 
 /obj/item/kitchen/knife/folding/combat/gangsta/New()
