@@ -136,7 +136,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/chemist
 	name = "chemistry plasma envirosuit helmet"
-	desc = "A plasmaman envirohelmet designed for chemists, two orange stripes going down it's face."
+	desc = "A plasmaman envirohelmet designed for chemists, two orange stripes going down its face."
 	icon_state = "chemist_envirohelm"
 	item_state = "chemist_envirohelm"
 
@@ -218,7 +218,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany
 	name = "botany plasma envirosuit helmet"
-	desc = "A green and blue envirohelmet designating it's wearer as a botanist. While not specially designed for it, it would protect against minor plant-related injuries."
+	desc = "A green and blue envirohelmet designating its wearer as a botanist. While not specially designed for it, it would protect against minor plant-related injuries."
 	icon_state = "botany_envirohelm"
 	item_state = "botany_envirohelm"
 
