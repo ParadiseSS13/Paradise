@@ -96567,6 +96567,12 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"vct" = (
+/obj/effect/landmark/start{
+	name = "Bouncer"
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "vup" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 10
@@ -132227,7 +132233,7 @@ aRL
 beF
 bot
 bjm
-bmq
+vct
 brW
 btq
 bmq
