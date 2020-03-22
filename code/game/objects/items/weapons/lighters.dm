@@ -14,7 +14,6 @@
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
-	var/light_chance = 75
 
 /obj/item/lighter/random/New()
 	..()
@@ -40,7 +39,12 @@
 	hitsound = 'sound/items/welder.ogg'
 	attack_verb = list("burnt", "singed")
 
-	if(prob(light_chance) || issilicon(user)) // Robots can never fail to light it.
+	attempt_light(user)
+	set_light(2)
+	START_PROCESSING(SSobj, src)
+
+/obj/item/lighter/proc/attempt_light(mob/living/user)
+	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
 		to_chat(user, "<span class='notice'>You light [src].</span>")
 	else
 		var/mob/living/carbon/human/H = user
@@ -48,9 +52,6 @@
 		if(affecting.receive_damage( 0, 5 ))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
-
-	set_light(2)
-	START_PROCESSING(SSobj, src)
 
 /obj/item/lighter/proc/turn_off_lighter(mob/living/user)
 	lit = FALSE
@@ -61,9 +62,12 @@
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
 
-	to_chat(user, "<span class='notice'>You shut off [src].")
+	show_off_message(user)
 	set_light(0)
 	STOP_PROCESSING(SSobj, src)
+
+/obj/item/lighter/proc/show_off_message(mob/living/user)
+	to_chat(user, "<span class='notice'>You shut off [src].")
 
 /obj/item/lighter/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	if(!isliving(M))
@@ -99,7 +103,6 @@
 	item_state = "zippo"
 	icon_on = "zippoon"
 	icon_off = "zippo"
-	light_chance = 100
 	var/next_on_message
 	var/next_off_message
 
@@ -109,6 +112,8 @@
 		user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
+	else
+		to_chat(user, "<span class='notice'>You light [src].</span>")
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
@@ -116,6 +121,14 @@
 		user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
+	else
+		to_chat(user, "<span class='notice'>You shut off [src].")
+
+/obj/item/lighter/zippo/show_off_message(mob/living/user)
+	return
+
+/obj/item/lighter/zippo/attempt_light(mob/living/user)
+	return
 
 //EXTRA LIGHTERS
 /obj/item/lighter/zippo/nt_rep
