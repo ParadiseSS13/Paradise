@@ -77,13 +77,13 @@
 //68% chance that the number is within 1stddev
 //95% chance that the number is within 2stddev
 //98% chance that the number is within 3stddev...etc
-var/gaussian_next
+GLOBAL_VAR(gaussian_next)
 #define ACCURACY 10000
 /proc/gaussian(mean, stddev)
 	var/R1;var/R2;var/working
-	if(gaussian_next != null)
-		R1 = gaussian_next
-		gaussian_next = null
+	if(GLOB.gaussian_next != null)
+		R1 = GLOB.gaussian_next
+		GLOB.gaussian_next = null
 	else
 		do
 			R1 = rand(-ACCURACY,ACCURACY)/ACCURACY
@@ -92,7 +92,7 @@ var/gaussian_next
 		while(working >= 1 || working==0)
 		working = sqrt(-2 * log(working) / working)
 		R1 *= working
-		gaussian_next = R2 * working
+		GLOB.gaussian_next = R2 * working
 	return (mean + stddev * R1)
 #undef ACCURACY
 

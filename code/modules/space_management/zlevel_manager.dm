@@ -1,4 +1,4 @@
-var/global/datum/zlev_manager/space_manager = new
+GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 
 /datum/zlev_manager
 	// A list of z-levels
@@ -17,11 +17,11 @@ var/global/datum/zlev_manager/space_manager = new
 // Populate our space level list
 // and prepare space transitions
 /datum/zlev_manager/proc/initialize()
-	var/num_official_z_levels = map_transition_config.len
+	var/num_official_z_levels = GLOB.map_transition_config.len
 	var/k = 1
 
 	// First take care of "Official" z levels, without visiting levels outside of the list
-	for(var/list/features in map_transition_config)
+	for(var/list/features in GLOB.map_transition_config)
 		if(k > world.maxz)
 			CRASH("More map attributes pre-defined than existent z levels - [num_official_z_levels]")
 		var/name = features["name"]

@@ -16,11 +16,11 @@
 		var/datum/callback/tool_check = CALLBACK(src, .proc/tool_check_callback, user, target, amount, extra_checks)
 
 		if(ismob(target))
-			if(!do_mob(user, target, delay, extra_checks=tool_check))
+			if(!do_mob(user, target, delay, extra_checks = list(tool_check)))
 				return
 
 		else
-			if(!do_after(user, delay, target=target, extra_checks=tool_check))
+			if(!do_after(user, delay, target=target, extra_checks = list(tool_check)))
 				return
 	else
 		// Invoke the extra checks once, just in case.

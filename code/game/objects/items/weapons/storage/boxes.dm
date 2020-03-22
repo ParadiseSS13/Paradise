@@ -1059,6 +1059,7 @@
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
+	var/robot_arm // This exists for bot construction
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"

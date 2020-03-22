@@ -5,9 +5,9 @@
 
 #define MAX_FLAG 65535
 
-var/list/same_wires = list()
+GLOBAL_LIST_EMPTY(same_wires)
 // 12 colours, if you're adding more than 12 wires then add more colours here
-var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", "gold", "gray", "cyan", "navy", "purple", "pink")
+GLOBAL_LIST_INIT(wireColours, list("red", "blue", "green", "black", "orange", "brown", "gold", "gray", "cyan", "navy", "purple", "pink"))
 
 /datum/wires
 
@@ -39,11 +39,11 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	// Get the same wires
 	else
 		// We don't have any wires to copy yet, generate some and then copy it.
-		if(!same_wires[holder_type])
+		if(!GLOB.same_wires[holder_type])
 			GenerateWires()
-			same_wires[holder_type] = src.wires.Copy()
+			GLOB.same_wires[holder_type] = src.wires.Copy()
 		else
-			var/list/wires = same_wires[holder_type]
+			var/list/wires = GLOB.same_wires[holder_type]
 			src.wires = wires // Reference the wires list.
 
 /datum/wires/Destroy()
@@ -51,7 +51,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 	return ..()
 
 /datum/wires/proc/GenerateWires()
-	var/list/colours_to_pick = wireColours.Copy() // Get a copy, not a reference.
+	var/list/colours_to_pick = GLOB.wireColours.Copy() // Get a copy, not a reference.
 	var/list/indexes_to_pick = list()
 	//Generate our indexes
 	for(var/i = 1; i < MAX_FLAG && i < (1 << wire_count); i += i)
@@ -81,7 +81,7 @@ var/list/wireColours = list("red", "blue", "green", "black", "orange", "brown", 
 		ui = new(user, src, ui_key, "wires.tmpl", holder.name, window_x, window_y)
 		ui.open()
 
-/datum/wires/ui_data(mob/user, ui_key = "main", datum/topic_state/state = physical_state)
+/datum/wires/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.physical_state)
 	var/data[0]
 	var/list/replace_colours = null
 	if(ishuman(user))

@@ -155,7 +155,7 @@
 		// open the new ui window
 		ui.open()
 
-/obj/machinery/chem_dispenser/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_dispenser/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["amount"] = amount
