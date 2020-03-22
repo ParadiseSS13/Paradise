@@ -290,10 +290,10 @@
 		if(5)
 			msg += "[p_they(TRUE)] looks absolutely soaked.\n"
 
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
+		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
 		else
 			msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
@@ -305,10 +305,7 @@
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
 		var/bleed_message = !isSynthetic() ? "bleeding" : "leaking"
-		if(reagents.has_reagent("heparin"))
-			msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message] uncontrollably!</B>\n"
-		else
-			msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
+		msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
@@ -348,9 +345,9 @@
 		var/criminal = "None"
 
 		if(perpname)
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
 			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
@@ -361,9 +358,9 @@
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
 
-		for(var/datum/data/record/E in data_core.general)
+		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == perpname)
-				for(var/datum/data/record/R in data_core.general)
+				for(var/datum/data/record/R in GLOB.data_core.general)
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
@@ -376,7 +373,7 @@
 
 	msg += "*---------*</span>"
 	if(pose)
-		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
+		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 

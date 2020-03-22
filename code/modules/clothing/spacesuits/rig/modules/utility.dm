@@ -465,18 +465,12 @@
 	else
 		to_chat(holder.wearer, "<span class='notice'>You need to have a welding tool in one of your hands to dispense fuel.</span>")
 
-/obj/item/rig_module/welding_tank/proc/fill_welder(var/obj/item/weldingtool/W)
+/obj/item/rig_module/welding_tank/proc/fill_welder(obj/item/weldingtool/W)
 	if(!istype(W))
-		return 0
-
-	if(reagents)
-		if(get_fuel() >= W.max_fuel)
-			reagents.trans_to(W, W.max_fuel)
-			to_chat(holder.wearer, "<span class='notice'>Your [holder] dispenses some of the contents of the welding fuel tank into \the [W].</span>")
-		else
-			reagents.trans_to(W, W.max_fuel)
-			to_chat(holder.wearer, "<span class='notice'>You hear a faint dripping as your hardsuit welding tank completely empties.</span>")
-		W.update_icon()
+		return
+	W.refill(holder.wearer, src, W.maximum_fuel)
+	if(!reagents.get_reagent_amount("fuel"))
+		to_chat(holder.wearer, "<span class='notice'>You hear a faint dripping as your hardsuit welding tank completely empties.</span>")
 
 /obj/item/rig_module/welding_tank/proc/get_fuel()
 	return reagents.get_reagent_amount("fuel")

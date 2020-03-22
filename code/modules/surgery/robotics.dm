@@ -225,9 +225,8 @@
 		if(!(affected.brute_dam > 0 || affected.disfigured))
 			to_chat(user, "<span class='warning'>The [affected] does not require welding repair!</span>")
 			return -1
-		if(istype(tool,/obj/item/weldingtool))
-			var/obj/item/weldingtool/welder = tool
-			if(!welder.isOn() || !welder.remove_fuel(1,user))
+		if(tool.tool_behaviour == TOOL_WELDER)
+			if(!tool.use(1))
 				return -1
 		user.visible_message("[user] begins to patch damage to [target]'s [affected.name]'s support structure with \the [tool]." , \
 		"You begin to patch damage to [target]'s [affected.name]'s support structure with \the [tool].")
@@ -576,7 +575,7 @@
 	..()
 
 /datum/surgery_step/robotics/external/customize_appearance/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in selectable_robolimbs
+	var/chosen_appearance = input(user, "Select the company appearance for this limb.", "Limb Company Selection") as null|anything in GLOB.selectable_robolimbs
 	if(!chosen_appearance)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

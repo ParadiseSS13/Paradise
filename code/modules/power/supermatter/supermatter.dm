@@ -344,7 +344,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/power/supermatter_shard/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["integrity_percentage"] = round(get_integrity())
@@ -366,7 +366,7 @@
 	return data
 
 /obj/machinery/power/supermatter_shard/proc/transfer_energy()
-	for(var/obj/machinery/power/rad_collector/R in rad_collectors)
+	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)
 		if(get_dist(R, src) <= 15) // Better than using orange() every process
 			R.receive_pulse(power/10)
 	return

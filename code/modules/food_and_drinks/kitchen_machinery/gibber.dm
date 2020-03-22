@@ -108,7 +108,7 @@
 	if(default_unfasten_wrench(user, P))
 		return
 
-	if(default_deconstruction_crowbar(P))
+	if(default_deconstruction_crowbar(user, P))
 		return
 	return ..()
 
@@ -285,6 +285,7 @@
 
 	else //this looks ugly but it's better than a copy-pasted startgibbing proc override
 		occupant.create_attack_log("Was gibbed by <b>an autogibber (\the [src])</b>")
+		add_attack_logs(src, occupant, "gibbed")
 
 	occupant.emote("scream")
 	playsound(get_turf(src), 'sound/goonstation/effects/gib.ogg', 50, 1)

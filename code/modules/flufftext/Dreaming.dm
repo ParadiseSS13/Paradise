@@ -44,7 +44,7 @@
 		if(ishuman(src))
 			if(prob(10))
 				custom_emote(1,"writhes in [p_their()] sleep.")
-				dir = pick(cardinal)
+				dir = pick(GLOB.cardinal)
 
 /mob/living/carbon/proc/experience_dream(dream_image, isNightmare)
 	dreaming--

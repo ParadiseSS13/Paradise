@@ -12,7 +12,7 @@
 	icon_keyboard = "syndie_key"
 	icon_screen = "tcboss"
 	light_color = LIGHT_COLOR_PURE_CYAN
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	var/security_lockout = FALSE
 	var/sound_yes = 'sound/machines/twobeep.ogg'
 	var/sound_no = 'sound/machines/buzz-sigh.ogg'
@@ -186,7 +186,7 @@
 /obj/machinery/computer/syndicate_depot/shieldcontrol
 	name = "shield control computer"
 	icon_screen = "accelerator"
-	req_access = list(access_syndicate_leader)
+	req_access = list(ACCESS_SYNDICATE_LEADER)
 	alerts_when_broken = TRUE
 	var/area/syndicate_depot/perimeter/perimeterarea
 
