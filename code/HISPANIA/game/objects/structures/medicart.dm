@@ -1,8 +1,8 @@
 /obj/structure/surgicalcart
 	name = "surgical cart"
 	desc = "A small metal tray with wheels for your surgical tools."
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "tray"
+	icon = 'icons/hispania/obj/tools.dmi'
+	icon_state = "medicart"
 	anchored = 0
 	density = 1
 	buckle_offset = 0
@@ -60,53 +60,62 @@
 			if(!mydrill)
 				put_in_cart(I, user)
 				mydrill=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/circular_saw))
 			if(!mysaw)
 				put_in_cart(I, user)
 				mysaw=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/bonesetter))
 			if(!mybones)
 				put_in_cart(I, user)
 				mybones=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/FixOVein))
 			if(!myvein)
 				put_in_cart(I, user)
 				myvein=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/bonegel))
 			if(!mygel)
 				put_in_cart(I, user)
 				mygel=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/hemostat))
 			if(!myhemo)
 				put_in_cart(I, user)
 				myhemo=I
+				update_icon()
 			else
 		else if(istype(I, /obj/item/retractor))
 			if(!myretra)
 				put_in_cart(I, user)
 				myretra=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/scalpel))
 			if(!myscal)
 				put_in_cart(I, user)
 				myscal=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/cautery))
 			if(!mycaute)
 				put_in_cart(I, user)
 				mycaute=I
+				update_icon()
 			else
 				to_chat(user, fail_msg)
 		else if(istype(I, /obj/item/wrench))
@@ -218,3 +227,25 @@
 			to_chat(user, "<span class='notice'>You take [mycaute] from [src].</span>")
 			mycaute = null
 	updateUsrDialog()
+	update_icon()
+
+/obj/structure/surgicalcart/update_icon()
+	overlays.Cut()
+	if(mydrill)
+		overlays += "mydrill"
+	if(mysaw)
+		overlays += "mysaw"
+	if(mybones)
+		overlays += "mysetter"
+	if(myvein)
+		overlays += "myfix"
+	if(mygel)
+		overlays += "mybone"
+	if(myhemo)
+		overlays += "myhemo"
+	if(myretra)
+		overlays += "my_retractor"
+	if(mycaute)
+		overlays += "my_cautery"
+	if(myscal)
+		overlays += "myscalpel"
