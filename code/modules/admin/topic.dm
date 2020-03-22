@@ -2196,9 +2196,15 @@
 		var/reply_to = locate(href_list["replyto"])
 		var/destination
 		var/notify
-
-		var/obj/item/paper/P = new /obj/item/paper(null) //hopefully the null loc won't cause trouble for us
-
+		var/obj/item/paper/P
+		var/use_letterheard = alert("Use letterhead? If so, do not add your own header or a footer. Type and format only your actual message.",,"Nanotrasen","Syndicate", "No")
+		switch(use_letterheard)
+			if("Nanotrasen")
+				P = new /obj/item/paper/central_command(null)
+			if("Syndicate")
+				P = new /obj/item/paper/syndicate(null)
+			if("No")
+				P = new /obj/item/paper(null)
 		if(!fax)
 			var/list/departmentoptions = GLOB.alldepartments + GLOB.hidden_departments + "All Departments"
 			destination = input(usr, "To which department?", "Choose a department", "") as null|anything in departmentoptions
