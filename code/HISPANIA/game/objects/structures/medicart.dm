@@ -146,6 +146,8 @@
 					"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
 					"You hear ratchet.")
 				anchored = 0
+		else
+			to_chat(usr, "<span class='warning'>You cannot put that on [src]!</span>")
 	else
 		to_chat(usr, "<span class='warning'>You cannot interface your modules [src]!</span>")
 
