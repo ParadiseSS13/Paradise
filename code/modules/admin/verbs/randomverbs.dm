@@ -885,7 +885,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	to_chat(usr, text("<span class='danger'>Attack Log for []</span>", mob))
-	for(var/t in M.attack_log)
+	for(var/t in M.attack_log_old)
 		to_chat(usr, t)
 	feedback_add_details("admin_verb","ATTL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 

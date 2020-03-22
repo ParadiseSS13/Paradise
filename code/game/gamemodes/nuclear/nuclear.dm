@@ -68,6 +68,7 @@ proc/issyndicate(mob/living/M as mob)
 		for(var/datum/objective/nuclear/O in operative_mind.objectives)
 			operative_mind.objectives -= O
 		operative_mind.current.create_attack_log("<span class='danger'>No longer nuclear operative</span>")
+		operative_mind.current.create_log(CONVERSION_LOG, "No longer nuclear operative")
 		if(issilicon(operative_mind.current))
 			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
 		else
