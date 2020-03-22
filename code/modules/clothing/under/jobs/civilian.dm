@@ -237,3 +237,10 @@
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
+
+/obj/item/clothing/under/bouncer
+	name = "bouncer's jumpsuit"
+	desc = "A slick, intimidating, stain-resistant jumpsuit worn by bouncers."
+	icon_state = "black"
+	item_state = "bl_suit"
+	item_color = "black"

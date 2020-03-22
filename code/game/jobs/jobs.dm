@@ -59,7 +59,8 @@ var/list/support_positions = list(
 	"Barber",
 	"Magistrate",
 	"Nanotrasen Representative",
-	"Blueshield"
+	"Blueshield",
+	"Bouncer"
 )
 
 var/list/supply_positions = list(
@@ -102,6 +103,7 @@ var/list/whitelisted_positions = list(
 	"Brig Physician",
 	"Magistrate",
 	"Security Pod Pilot",
+	"Bouncer"
 )
 
 

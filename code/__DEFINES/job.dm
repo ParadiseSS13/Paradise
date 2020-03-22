@@ -62,3 +62,4 @@
 #define JOB_BRIGDOC			(1<<5)
 #define JOB_JUDGE				(1<<6)
 #define JOB_PILOT				(1<<7)
+#define JOB_BOUNCER		(1<<8)

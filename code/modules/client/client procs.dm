@@ -127,6 +127,8 @@
 							karma_purchase(karma,45,"job","Magistrate")
 						if("9")
 							karma_purchase(karma,30,"job","Security Pod Pilot")
+						if("10")
+							karma_purchase(karma, 5, "job", "Bouncer")
 					return
 				if(href_list["KarmaBuy2"])
 					var/karma=verify_karma()
