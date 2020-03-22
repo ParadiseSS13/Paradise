@@ -78,6 +78,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += " \[<A href='?_src_=holder;revive=[M.UID()]'>Heal</A>\] "
 
 	body += "<br><br>\[ "
+	body += "<a href='?_src_=holder;open_logging_view=[M.UID()];'>LOGS</a> - "
 	body += "<a href='?_src_=vars;Vars=[M.UID()]'>VV</a> - "
 	body += "[ADMIN_TP(M,"TP")] - "
 	if(M.client)

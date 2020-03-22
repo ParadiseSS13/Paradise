@@ -4,13 +4,13 @@
 	var/time_from = 0
 	var/time_to = 4 HOURS					// 4 Hours should be enough. INFINITY would screw the UI up
 	var/list/selected_mobs = list()			// The mobs in question
-	var/list/selected_log_types = list()	// The log types being searched for
+	var/list/selected_log_types = ALL_LOGS	// The log types being searched for
 
 	var/list/log_records = list()			// Found and sorted records
 
 /datum/log_viewer/proc/clear_all()
 	selected_mobs.Cut()
-	selected_log_types.Cut()
+	selected_log_types = ALL_LOGS
 	time_from = initial(time_from)
 	time_to = initial(time_to)
 	log_records.Cut()
@@ -91,6 +91,14 @@
 		return start
 	return 0
 
+/datum/log_viewer/proc/add_mobs(list/mob/mobs)
+	if(!mobs?.len)
+		return
+	for(var/i in mobs)
+		var/mob/M = i
+		if(istype(M))
+			selected_mobs |= M
+
 /datum/log_viewer/proc/add_mob(mob/user, mob/M)
 	if(!M || !user)
 		return
@@ -114,6 +122,7 @@
 		var/mob/M = i
 		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[M.name]</a>"
 	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
+	dat += "<a href='?src=[UID()];add_mob_ckey=1'>Add Mob(via CKEY)</a>"
 	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<BR>"
 
@@ -198,6 +207,11 @@
 	if(href_list["add_mob"])
 		var/list/mobs = getpois(TRUE, TRUE)
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
+		A.on_close(CALLBACK(src, .proc/add_mob, usr))
+		return
+	if(href_list["add_mob_ckey"])
+		var/list/mobs = get_assoc_mob_list_by_ckey()
+		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", mobs)
 		A.on_close(CALLBACK(src, .proc/add_mob, usr))
 		return
 	if(href_list["remove_mob"])
