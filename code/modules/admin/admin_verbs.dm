@@ -1,3 +1,4 @@
+//admin verb groups - They can overlap if you so wish. Only one of each verb will exist in the verbs list regardless
 GLOBAL_LIST_INIT(admin_verbs_default, list(
 	/client/proc/deadmin_self,			/*destroys our own admin datum so we can play as a regular player*/
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
