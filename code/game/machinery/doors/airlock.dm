@@ -1003,7 +1003,7 @@ About the new airlock wires panel:
 					"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 					"<span class='italics'>You hear welding.</span>")
 
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = list(CALLBACK(src, .proc/weld_checks, I, user))))
 					if(!density && !welded)
 						return
 					welded = !welded
@@ -1014,7 +1014,7 @@ About the new airlock wires panel:
 				user.visible_message("[user] is welding the airlock.", \
 					"<span class='notice'>You begin repairing the airlock...</span>", \
 					"<span class='italics'>You hear welding.</span>")
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = list(CALLBACK(src, .proc/weld_checks, I, user))))
 					obj_integrity = max_integrity
 					stat &= ~BROKEN
 					user.visible_message("[user.name] has repaired [src].", \
