@@ -179,7 +179,7 @@
 		return 1
 	return ..()
 
-var/list/blacklisted_pylon_turfs = typecacheof(list(
+GLOBAL_LIST_INIT(blacklisted_pylon_turfs, typecacheof(list(
     /turf/simulated/floor/engine/cult,
     /turf/space,
     /turf/simulated/floor/plating/lava,
@@ -187,7 +187,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
     /turf/simulated/wall/cult,
     /turf/simulated/wall/cult/artificer,
     /turf/unsimulated/wall
-	))
+	)))
 
 /obj/structure/cult/functional/pylon
 	name = "pylon"
@@ -251,7 +251,7 @@ var/list/blacklisted_pylon_turfs = typecacheof(list(
 			if(istype(T, /turf/simulated/floor/engine/cult))
 				cultturfs |= T
 				continue
-			if(is_type_in_typecache(T, blacklisted_pylon_turfs))
+			if(is_type_in_typecache(T, GLOB.blacklisted_pylon_turfs))
 				continue
 			else
 				validturfs |= T

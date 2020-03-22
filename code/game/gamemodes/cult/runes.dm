@@ -1,6 +1,5 @@
 GLOBAL_LIST_EMPTY(sacrificed) //a mixed list of minds and mobs
 GLOBAL_LIST_EMPTY(wall_runes)
-var/list/non_revealed_runes = (subtypesof(/obj/effect/rune) - /obj/effect/rune/malformed)
 
 /*
 This file contains runes.
@@ -210,7 +209,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return N
 	return 0
 
-//Rite of Enlightenment: Converts a normal crewmember to the cult. Faster for every cultist nearby.
+//Rite of Enlightenment: Converts a normal crewmember to the cult, or offer them as sacrifice if cant be converted.
 /obj/effect/rune/convert
 	cultist_name = "Offer"
 	cultist_desc = "offers non-cultists on top of it to the Dark One, either converting or sacrificing them."
@@ -316,7 +315,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/sacrifice_fulfilled
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(offering.mind)
-		GLOB.sacrificed += offering.mind
+		GLOB.sacrificed.Add(offering.mind)
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
 			gamemode.cult_objs.succesful_sacrifice()

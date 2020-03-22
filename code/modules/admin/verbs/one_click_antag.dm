@@ -373,7 +373,7 @@ client/proc/one_click_antag()
 	if(!G_found || !G_found.key)	return
 
 	//First we spawn a dude.
-	var/mob/living/carbon/human/new_character = new(pick(latejoin))//The mob being spawned.
+	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))//The mob being spawned.
 
 	var/datum/preferences/A = new(G_found.client)
 	A.copy_to(new_character)
@@ -507,7 +507,7 @@ client/proc/one_click_antag()
 	//Now apply cortical stack.
 	var/obj/item/implant/cortical/I = new(new_vox)
 	I.implant(new_vox)
-	cortical_stacks += I
+	GLOB.cortical_stacks += I
 
 	new_vox.equip_vox_raider()
 	new_vox.regenerate_icons()

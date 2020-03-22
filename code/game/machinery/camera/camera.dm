@@ -43,8 +43,8 @@
 	assembly.anchored = 1
 	assembly.update_icon()
 
-	cameranet.cameras += src
-	cameranet.addCamera(src)
+	GLOB.cameranet.cameras += src
+	GLOB.cameranet.addCamera(src)
 
 /obj/machinery/camera/Initialize()
 	..()
@@ -61,8 +61,8 @@
 			bug.current = null
 		bug = null
 	QDEL_NULL(wires)
-	cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
-	cameranet.cameras -= src
+	GLOB.cameranet.removeCamera(src) //Will handle removal from the camera network and the chunks, so we don't need to worry about that
+	GLOB.cameranet.cameras -= src
 	var/area/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncamera = null
@@ -77,7 +77,7 @@
 			update_icon()
 			var/list/previous_network = network
 			network = list()
-			cameranet.removeCamera(src)
+			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
@@ -91,7 +91,7 @@
 						stat &= ~EMPED
 						update_icon()
 						if(can_use())
-							cameranet.addCamera(src)
+							GLOB.cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
 						spawn(100)
 							if(!QDELETED(src))
@@ -116,7 +116,7 @@
 
 /obj/machinery/camera/proc/setViewRange(num = 7)
 	view_range = num
-	cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.updateVisibility(src, 0)
 
 /obj/machinery/camera/singularity_pull(S, current_size)
 	if (status && current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects and the camera is still active, turn off the camera as it gets ripped off the wall.
@@ -285,11 +285,11 @@
 /obj/machinery/camera/proc/toggle_cam(mob/user, displaymessage = TRUE)
 	status = !status
 	if(can_use())
-		cameranet.addCamera(src)
+		GLOB.cameranet.addCamera(src)
 	else
 		set_light(0)
-		cameranet.removeCamera(src)
-	cameranet.updateChunk(x, y, z)
+		GLOB.cameranet.removeCamera(src)
+	GLOB.cameranet.updateChunk(x, y, z)
 	var/change_msg = "deactivates"
 	if(status)
 		change_msg = "reactivates"
@@ -376,7 +376,7 @@
 	return null
 
 /obj/machinery/camera/proc/Togglelight(on = FALSE)
-	for(var/mob/living/silicon/ai/A in ai_list)
+	for(var/mob/living/silicon/ai/A in GLOB.ai_list)
 		for(var/obj/machinery/camera/cam in A.lit_cameras)
 			if(cam == src)
 				return
@@ -428,6 +428,6 @@
 	assembly.update_icon()
 
 /obj/machinery/camera/portable/process() //Updates whenever the camera is moved.
-	if(cameranet && get_turf(src) != prev_turf)
-		cameranet.updatePortableCamera(src)
+	if(GLOB.cameranet && get_turf(src) != prev_turf)
+		GLOB.cameranet.updatePortableCamera(src)
 		prev_turf = get_turf(src)

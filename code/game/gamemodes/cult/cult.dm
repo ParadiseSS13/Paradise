@@ -1,4 +1,4 @@
-var/global/list/all_cults = list()
+GLOBAL_LIST_EMPTY(all_cults)
 
 /datum/game_mode
 	var/list/datum/mind/cult = list()
@@ -131,6 +131,7 @@ var/global/list/all_cults = list()
 			A.Grant(cult_mind.current)
 		SEND_SOUND(cult_mind.current, 'sound/ambience/antag/bloodcult.ogg')
 		cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
+		cult_mind.current.create_log(CONVERSION_LOG, "converted to the cult")
 		if(jobban_isbanned(cult_mind.current, ROLE_CULTIST) || jobban_isbanned(cult_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(cult_mind.current, ROLE_CULTIST)
 		if(!cult_objs.status)
@@ -215,13 +216,13 @@ var/global/list/all_cults = list()
 
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
-	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
+	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
 	if(cult_mind.current)
 		culthud.join_hud(cult_mind.current)
 		set_antag_hud(cult_mind.current, "hudcultist")
 
 /datum/game_mode/proc/update_cult_icons_removed(datum/mind/cult_mind)
-	var/datum/atom_hud/antag/culthud = huds[ANTAG_HUD_CULT]
+	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
 	if(cult_mind.current)
 		culthud.leave_hud(cult_mind.current)
 		set_antag_hud(cult_mind.current, null)
