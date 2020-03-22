@@ -439,6 +439,7 @@
 /*
  * Premade paper
  */
+ //Use New() if you want to add vars or procs to the info/header/footer etc
 /obj/item/paper/Court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
@@ -501,9 +502,7 @@
 /obj/item/paper/fortune/update_icon()
 	..()
 	icon_state = initial(icon_state)
-/*
- * Premade paper
- */
+
 /obj/item/paper/Court
 	name = "Judgement"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
@@ -600,6 +599,14 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
 	info =  ""
 	
+/obj/item/paper/nanotrasen/nuke_code
+	name = "CLASSIFIED: Directive 7-12"
+	
+//New because we cant use vars or procs on compile
+/obj/item/paper/nanotrasen/nuke_code/New()
+	info = "<b>FOR YOUR EYES ONLY.</b> <br><br> To be used only as a last resort where any other option is inviable/failed and failure to contain shall cause more harm to Nanotrasen assets across the galaxy. <br> The nuclear code is: [get_nuke_code()] <br> Remember it, and destroy this paper."
+	update_icon()
+
 /obj/item/paper/central_command
 	name = "paper"
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"

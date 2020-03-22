@@ -139,7 +139,8 @@ GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newsca
 	l_pocket = /obj/item/lighter/zippo/nt_rep
 	pda = /obj/item/pda/heads/ntrep
 	backpack_contents = list(
-		/obj/item/melee/classic_baton/ntcane = 1
+		/obj/item/melee/classic_baton/ntcane = 1,
+		/obj/item/paper/nanotrasen/nuke_code = 1
 	)
 	implants = list(/obj/item/implant/mindshield)
 
