@@ -6,12 +6,17 @@
 	if(prob(stage_prob))
 		stage = min(stage + 1, max_stages)
 
+	if(has_cure())
+		cure()
+		return FALSE
+	return TRUE
+
+/datum/disease/critical/has_cure()
 	for(var/C_id in cures)
 		if(affected_mob.reagents.has_reagent(C_id))
 			if(prob(cure_chance))
-				cure()
-				return FALSE
-	return TRUE
+				return TRUE
+	return FALSE
 
 /datum/disease/critical/shock
 	name = "Shock"
@@ -31,7 +36,7 @@
 
 /datum/disease/critical/shock/stage_act()
 	if(..())
-		if(affected_mob.health >= 25)
+		if(affected_mob.health >= 25 && affected_mob.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
 			to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
 			cure()
 			return
@@ -134,3 +139,64 @@
 				if(prob(5) && ishuman(affected_mob))
 					var/mob/living/carbon/human/H = affected_mob
 					H.set_heartattack(TRUE)
+
+/datum/disease/critical/hypoglycemia
+	name = "Hypoglycemia"
+	form = "Medical Emergency"
+	max_stages = 3
+	spread_flags = SPECIAL
+	spread_text = "The patient has low blood sugar."
+	cure_text = "Eating or administration of vitamins or nutrients"
+	viable_mobtypes = list(/mob/living/carbon/human)
+	stage_prob = 1
+	severity = DANGEROUS
+	disease_flags = CURABLE
+	bypasses_immunity = TRUE
+	virus_heal_resistant = TRUE
+
+/datum/disease/critical/hypoglycemia/has_cure()
+	if(ishuman(affected_mob))
+		var/mob/living/carbon/human/H = affected_mob
+		if(NO_HUNGER in H.dna.species.species_traits)
+			return TRUE
+		if(ismachine(H))
+			return TRUE
+	return ..()
+
+/datum/disease/critical/hypoglycemia/stage_act()
+	if(..())
+		if(affected_mob.nutrition > NUTRITION_LEVEL_HYPOGLYCEMIA)
+			to_chat(affected_mob, "<span class='notice'>You feel a lot better!</span>")
+			cure()
+			return
+		switch(stage)
+			if(1)
+				if(prob(4))
+					to_chat(affected_mob, "<span class='warning'>You feel hungry!</span>")
+				if(prob(2))
+					to_chat(affected_mob, "<span class='warning'>You have a headache!</span>")
+				if(prob(2))
+					to_chat(affected_mob, "<span class='warning'>You feel [pick("anxious", "depressed")]!</span>")
+			if(2)
+				if(prob(4))
+					to_chat(affected_mob, "<span class='warning'>You feel like everything is wrong with your life!</span>")
+				if(prob(5))
+					affected_mob.Slowed(rand(4, 16))
+					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
+				if(prob(5))
+					affected_mob.Weaken(6)
+					affected_mob.Stuttering(10)
+					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
+					affected_mob.emote("collapse")
+			if(3)
+				if(prob(8))
+					var/datum/disease/D = new /datum/disease/critical/shock
+					affected_mob.ForceContractDisease(D)
+				if(prob(12))
+					affected_mob.Weaken(6)
+					affected_mob.Stuttering(10)
+					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
+					affected_mob.emote("collapse")
+				if(prob(12))
+					to_chat(affected_mob, "<span class='warning'>You feel [pick("tired", "exhausted", "sluggish")].</span>")
+					affected_mob.Slowed(rand(4, 16))
