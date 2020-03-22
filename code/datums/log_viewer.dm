@@ -120,9 +120,9 @@
 	dat += "<span>Mobs being used:</span>"
 	for(var/i in selected_mobs)
 		var/mob/M = i
-		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[M.name]</a>"
+		dat += "<a href='?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
 	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
-	dat += "<a href='?src=[UID()];add_mob_ckey=1'>Add Mob(via CKEY)</a>"
+	dat += "<a href='?src=[UID()];add_mob_ckey=1'>Add Mob (by ckey)</a>"
 	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
 	dat += "<BR>"
 
@@ -244,3 +244,11 @@
 		if(MISC_LOG)
 			return "gray"
 	return "slategray"
+
+/datum/log_viewer/proc/get_display_name(mob/M)
+	var/name = M.name
+	if(M.name != M.real_name)
+		name = "[name] ([M.real_name])"
+	if(isobserver(M))
+		name = "[name] (DEAD)"
+	return name
