@@ -459,7 +459,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/ammo_box/magazine/wt550m9,)
 	cost = 30
 	containername = "auto rifle ammo crate"
+	
+/datum/supply_packs/security/armory/enforcer
+	name = "Enforcer Pistol Crate"
+	contains = list(/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+					/obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
+					/obj/item/gun/projectile/automatic/pistol/enforcer/lethal)
+	cost = 25
 
+/datum/supply_packs/security/armory/enforcerammo
+	name = "Enforcer Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/enforcer/lethal,
+					/obj/item/ammo_box/magazine/enforcer/lethal,
+					/obj/item/ammo_box/magazine/enforcer/lethal,
+					/obj/item/ammo_box/magazine/enforcer/lethal,
+					/obj/item/ammo_box/magazine/enforcer/lethal,
+					/obj/item/ammo_box/magazine/enforcer/lethal,
+					/obj/item/ammo_box/magazine/enforcer/lethal)
+	cost = 15
 /////// Implants & etc
 
 /datum/supply_packs/security/armory/mindshield
