@@ -335,7 +335,7 @@ obj/item/reagent_containers/food/snacks/pancake/update_icon()
 //Toast//
 /obj/item/reagent_containers/food/snacks/toast
 	name = "toast"
-	desc = "Is a slice of bread but toasted."
+	desc = "It's a slice of bread but toasted."
 	icon = 'icons/hispania/obj/food/food.dmi'
 	icon_state = "toast"
 	filling_color = "#D2691E"
