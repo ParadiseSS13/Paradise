@@ -79,7 +79,7 @@
 	pass_flags = 0
 	dimension = FALSE
 
-	var/list/voice = list('sound/hispania/effects/oldman/oldlaugh.ogg','sound/hispania/effects/oldman/oldgrowl.ogg')
+	var/list/voice = list('sound/hispania/effects/oldman/oldlaugh2.ogg','sound/hispania/effects/oldman/oldgrowl.ogg')
 	playsound(get_turf(src), pick(voice),50, 1, -1)
 	visible_message("<span class='warning'><B>\The [src] emerges out of \the [T]!</B>")
 	return
