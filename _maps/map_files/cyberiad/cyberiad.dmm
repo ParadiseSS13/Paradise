@@ -96420,6 +96420,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"kYb" = (
+/obj/effect/landmark/start{
+	name = "Bouncer"
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "lLC" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -132200,7 +132206,7 @@ aRL
 beF
 bot
 bjm
-bmq
+kYb
 brW
 btq
 bmq
