@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/job = new J()
 		if(!job)
 			continue
-		if(!(job.faction in faction))
+		if((!job.faction) in faction)
 			continue
 		occupations += job
 		name_occupations[job.title] = job
