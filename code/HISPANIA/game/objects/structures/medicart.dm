@@ -3,8 +3,8 @@
 	desc = "A small metal tray with wheels for your surgical tools."
 	icon = 'icons/hispania/obj/tools.dmi'
 	icon_state = "medicart"
-	anchored = 0
-	density = 1
+	anchored = FALSE
+	density = TRUE
 	buckle_offset = 0
 	can_buckle = 1
 	max_integrity = 200
