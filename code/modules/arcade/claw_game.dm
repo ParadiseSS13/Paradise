@@ -1,4 +1,4 @@
-/var/claw_game_html = null
+GLOBAL_VAR(claw_game_html)
 
 /obj/machinery/arcade/claw
 	name = "Claw Game"
@@ -30,8 +30,8 @@
 	component_parts += new /obj/item/stack/sheet/glass(null, 1)
 	RefreshParts()
 
-	if(!claw_game_html)
-		claw_game_html = file2text('code/modules/arcade/crane.html')
+	if(!GLOB.claw_game_html)
+		GLOB.claw_game_html = file2text('code/modules/arcade/crane.html')
 
 /obj/machinery/arcade/claw/RefreshParts()
 	var/bin_upgrades = 0
@@ -65,7 +65,7 @@
 	user << browse_rsc('page.css')
 	for(var/i in 1 to img_resources.len)
 		user << browse_rsc(img_resources[i])
-	var/my_game_html = replacetext(claw_game_html, "/* ref src */", UID())
+	var/my_game_html = replacetext(GLOB.claw_game_html, "/* ref src */", UID())
 	user << browse(my_game_html, "window=[window_name];size=915x600;can_resize=0")
 
 /obj/machinery/arcade/claw/Topic(href, list/href_list)

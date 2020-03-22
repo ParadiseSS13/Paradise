@@ -1,4 +1,4 @@
-var/global/list/unused_trade_stations = list("sol")
+GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 // Traders event.
 // Heavily copy-pasted from "heist" gamemode.
@@ -10,14 +10,14 @@ var/global/list/unused_trade_stations = list("sol")
 	var/list/trader_objectives = list()
 
 /datum/event/traders/setup()
-	if(unused_trade_stations.len)
-		station = pick_n_take(unused_trade_stations)
+	if(GLOB.unused_trade_stations.len)
+		station = pick_n_take(GLOB.unused_trade_stations)
 
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
-		event_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
+		GLOB.event_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
 		// if the docking request was refused, fire another major event in 60 seconds
 		var/list/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
 		EC.next_event_time = world.time + (60 * 10)
@@ -54,9 +54,9 @@ var/global/list/unused_trade_stations = list("sol")
 				greet_trader(M)
 				success_spawn = 1
 		if(success_spawn)
-			event_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
+			GLOB.event_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
 		else
-			unused_trade_stations += station // Return the station to the list of usable stations.
+			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
 	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")

@@ -116,7 +116,7 @@
 		to_chat(H, "<span class='warning'>Where's your head at? Can't change your monitor/display without one.</span>")
 		return
 
-	var/datum/robolimb/robohead = all_robolimbs[head_organ.model]
+	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!

@@ -23,7 +23,7 @@
 		SEND_SOUND(M, S)
 
 /datum/event/grid_check/announce()
-	event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
+	GLOB.event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Automated Grid Check", new_sound = 'sound/AI/poweroff.ogg')
 
 /datum/event/grid_check/end()
 	if(event_fixes_itself_at_end)
@@ -35,7 +35,7 @@
 		/area/turret_protected/ai)
 
 	if(announce)
-		event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", new_sound = 'sound/AI/poweroff.ogg')
+		GLOB.event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure", new_sound = 'sound/AI/poweroff.ogg')
 
 	// break APC_TOGGLE_OFF_PROBABILITY% of all of the APCs on the station
 	for(var/obj/machinery/power/apc/C in GLOB.apcs)
@@ -54,7 +54,7 @@
 		/area/turret_protected/ai)
 
 	if(announce)
-		event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+		GLOB.event_announcement.Announce("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 
 	// fix APC_TOGGLE_ON_PROBABILITY% of all of the APCs that the crew didn't fix
 	for(var/obj/machinery/power/apc/C in GLOB.apcs)
@@ -68,7 +68,7 @@
 
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)
-		event_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
+		GLOB.event_announcement.Announce("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal", new_sound = 'sound/AI/poweron.ogg')
 
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in GLOB.machines)
