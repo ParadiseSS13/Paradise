@@ -276,7 +276,7 @@ About the new airlock wires panel:
 		if(usr)
 			shockedby += text("\[[time_stamp()]\] - [usr](ckey:[usr.ckey])")
 			usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
-			add_attack_logs(usr, src, "Electrified")
+			add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
@@ -764,7 +764,7 @@ About the new airlock wires panel:
 			else if(activate)	//electrify door for 30 seconds
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
-				add_attack_logs(usr, src, "Electrified")
+				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 				to_chat(usr, "The door is now electrified for thirty seconds.")
 				electrify(30)
 		if("electrify_permanently")
@@ -776,7 +776,7 @@ About the new airlock wires panel:
 			else if(activate)
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
-				add_attack_logs(usr, src, "Electrified")
+				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 				to_chat(usr, "The door is now electrified.")
 				electrify(-1)
 		if("open")
@@ -1003,7 +1003,7 @@ About the new airlock wires panel:
 					"<span class='notice'>You begin [welded ? "unwelding":"welding"] the airlock...</span>", \
 					"<span class='italics'>You hear welding.</span>")
 
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = list(CALLBACK(src, .proc/weld_checks, I, user))))
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
 					if(!density && !welded)
 						return
 					welded = !welded
@@ -1014,7 +1014,7 @@ About the new airlock wires panel:
 				user.visible_message("[user] is welding the airlock.", \
 					"<span class='notice'>You begin repairing the airlock...</span>", \
 					"<span class='italics'>You hear welding.</span>")
-				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = list(CALLBACK(src, .proc/weld_checks, I, user))))
+				if(I.use_tool(src, user, 40, volume = I.tool_volume, extra_checks = CALLBACK(src, .proc/weld_checks, I, user)))
 					obj_integrity = max_integrity
 					stat &= ~BROKEN
 					user.visible_message("[user.name] has repaired [src].", \
