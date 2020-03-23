@@ -96673,22 +96673,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
-"hHX" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/mining)
-"hMH" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/mining)
 "iaC" = (
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
@@ -116824,9 +116808,9 @@ aaa
 aaa
 iAO
 cgF
-hMH
+ceY
 cgF
-hMH
+ceY
 cgF
 xAQ
 aaa
@@ -117593,7 +117577,7 @@ dcY
 bKB
 aaa
 aaa
-hHX
+ceY
 cgB
 cin
 cim
