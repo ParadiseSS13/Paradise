@@ -299,21 +299,17 @@
 			if(R.addiction_stage < 5)
 				if(prob(5))
 					R.addiction_stage++
-			if(M.reagents.has_reagent(R.id))
-				R.last_addiction_dose = world.timeofday
-				R.addiction_stage = 1
-			else
-				switch(R.addiction_stage)
-					if(1)
-						update_flags |= R.addiction_act_stage1(M)
-					if(2)
-						update_flags |= R.addiction_act_stage2(M)
-					if(3)
-						update_flags |= R.addiction_act_stage3(M)
-					if(4)
-						update_flags |= R.addiction_act_stage4(M)
-					if(5)
-						update_flags |= R.addiction_act_stage5(M)
+			switch(R.addiction_stage)
+				if(1)
+					update_flags |= R.addiction_act_stage1(M)
+				if(2)
+					update_flags |= R.addiction_act_stage2(M)
+				if(3)
+					update_flags |= R.addiction_act_stage3(M)
+				if(4)
+					update_flags |= R.addiction_act_stage4(M)
+				if(5)
+					update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + ADDICTION_TIME))) //Each addiction lasts 8 minutes before it can end
 				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
 				addiction_list.Remove(R)
