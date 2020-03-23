@@ -206,6 +206,7 @@
 	brainmob.stat = CONSCIOUS
 	brainmob.SetSilence(0)
 	brainmob.dna = new(brainmob)
+	brainmob.dna.species = new /datum/species/machine() // Else it will default to human. And we don't want to clone IRC humans now do we?
 	brainmob.dna.ResetSE()
 	brainmob.dna.ResetUI()
 	GLOB.dead_mob_list -= brainmob
