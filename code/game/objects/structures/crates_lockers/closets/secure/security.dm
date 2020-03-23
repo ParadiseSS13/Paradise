@@ -195,7 +195,7 @@
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_BRIG)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
