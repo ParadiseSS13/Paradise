@@ -155,7 +155,7 @@
 	var/static_power_used = 0
 	var/brightness_range = 8	// luminosity when on, also used in power calculation
 	var/brightness_power = 1
-	var/brightness_color = "#FFFFFF"
+	var/brightness_color
 	var/status = LIGHT_OK		// LIGHT_OK, _EMPTY, _BURNED or _BROKEN
 	var/flickering = 0
 	var/light_type = /obj/item/light/tube		// the type of light item
@@ -257,7 +257,7 @@
 	if(on)
 		var/BR = nightshift_enabled ? nightshift_light_range : brightness_range
 		var/PO = nightshift_enabled ? nightshift_light_power : brightness_power
-		var/CO = nightshift_enabled ? nightshift_light_color : brightness_color
+		var/CO = nightshift_enabled && (brightness_color == "#a0a080" || !brightness_color) ? nightshift_light_color : brightness_color
 		var/matching = light_range == BR && light_power == PO && light_color == CO
 		if(!matching)
 			switchcount++
@@ -336,6 +336,7 @@
 				brightness_color = L.brightness_color
 				lightmaterials = L.materials
 				on = has_power()
+				color = brightness_color
 				update()
 
 				user.drop_item()	//drop the item to update overlays and such
@@ -510,7 +511,7 @@
 		to_chat(user, "You remove the light [fitting].")
 	// create a light tube/bulb item and put it in the user's hand
 	drop_light_tube(user)
-
+	color = null
 // break the light and make sparks if was on
 
 /obj/machinery/light/proc/drop_light_tube(mob/user)
@@ -521,6 +522,7 @@
 	L.brightness_power = brightness_power
 	L.brightness_color = brightness_color
 	L.materials = lightmaterials
+	L.color = color
 
 	// light item inherits the switchcount, then zero it
 	L.switchcount = switchcount
@@ -614,11 +616,31 @@
 	var/rigged = 0		// true if rigged to explode
 	var/brightness_range = 2 //how much light it gives off
 	var/brightness_power = 1
-	var/brightness_color = null
+	var/brightness_color
+	var/time_to_paint = 30  //amount of time it takes to paint a light
+	var/time_to_clean = 40 //amount of time it takes to clean a light
 
 /obj/item/light/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/caltrop, force)
+
+/obj/item/light/attackby(obj/item/O, mob/M)
+	..()
+	//color the light with a spraycan
+	if(istype(O, /obj/item/toy/crayon/spraycan) && do_after(M, time_to_paint, target = src))
+		var/obj/item/toy/crayon/spraycan/S = O
+		brightness_color =  S.colour
+		color = S.colour
+		visible_message("<span class='warning'>[M] paints the [src]!</span>")
+		update()
+		M.do_attack_animation(src)
+	//clean the light
+	else if(istype(O, /obj/item/soap) && do_after(M, time_to_clean, target = src))
+		brightness_color = null
+		color = null
+		visible_message("<span class='warning'>[M] cleans the [src]!</span>")
+		update()
+		M.do_attack_animation(src)
 
 /obj/item/light/Crossed(mob/living/L)
 	if(istype(L) && has_gravity(loc))
