@@ -106,9 +106,18 @@
 		radio_action.ApplyIcon()
 
 /obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/H)
+	if(!H)
+		return FALSE
+
+	var/had_dna = TRUE
+	if(!brainmob.dna)
+		had_dna = FALSE
+		brainmob.dna = H.dna.Clone() // Take the new targets dna to ensure the created holder has the correct DNA
 	if(..())
 		if(imprinted_master)
 			to_chat(H, "<span class='biggerdanger'>You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost.</span>")
+	else if(!had_dna)
+		brainmob.dna = null // Reset it for next use
 
 
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
