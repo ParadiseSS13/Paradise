@@ -191,7 +191,7 @@
 					to_chat(affected_mob, "<span class='warning'>You feel [pick("numb", "confused", "dizzy", "lightheaded")].</span>")
 					affected_mob.emote("collapse")
 			if(3)
-				if(prob(8))
+				if(prob(1))
 					var/datum/disease/D = new /datum/disease/critical/shock
 					affected_mob.ForceContractDisease(D)
 				if(prob(12))
