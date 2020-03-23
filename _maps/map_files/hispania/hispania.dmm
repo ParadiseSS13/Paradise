@@ -54417,9 +54417,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -97037,6 +97034,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"lND" = (
+/obj/machinery/computer/cryopod/robot{
+	pixel_x = 63;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/medical/research{
+	name = "Research Division"
+	})
 "lVn" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
@@ -141227,7 +141233,7 @@ bLU
 bNE
 bQz
 bRy
-bRy
+lND
 cbd
 ccV
 chb
