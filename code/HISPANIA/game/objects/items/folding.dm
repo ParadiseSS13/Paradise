@@ -47,7 +47,7 @@
 
 /obj/item/kitchen/knife/folding/proc/update_force()
 	if(open)
-		sharp = 1
+		sharp = TRUE
 		force = (foldedforce)
 		throwforce = (throwfoldedforce)
 		hitsound = 'sound/weapons/bladeslice.ogg'
