@@ -580,7 +580,7 @@ world
 	var/B =	RGB[2]
 
 	var/Y = (0.2126 * R) + (0.7152 * G) + (0.0722 * B)
-	return clamp((Y * 0.01), 0, 1)) //Returns the brightness of a color in decimal percentage format. Can multiply light_power by this to receive 100% brightness or a lower brightness. Not a higher brightness.
+	return clamp((Y * 0.01), 0, 1) //Returns the brightness of a color in decimal percentage format. Can multiply light_power by this to receive 100% brightness or a lower brightness. Not a higher brightness.
 
 /proc/HueToAngle(hue)
 	// normalize hsv in case anything is screwy
