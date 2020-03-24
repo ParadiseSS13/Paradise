@@ -10,8 +10,8 @@ proc/issyndicate(mob/living/M as mob)
 	name = "nuclear emergency"
 	config_tag = "nuclear"
 	required_players = 20	// 30 players - 5 players to be the nuke ops = 25 players remaining
-	required_enemies = 5
-	recommended_enemies = 5
+	required_enemies = 3
+	recommended_enemies = 4
 
 	var/const/agents_possible = 2 //If we ever need more syndicate agents.
 

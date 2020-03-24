@@ -34,7 +34,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/changeling_amount = 4
+	var/changeling_amount = 2
 
 /datum/game_mode/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Changeling!</B>")
@@ -46,7 +46,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
-	changeling_amount = 1 + round(num_players() / 10)
+	changeling_amount = 1 + round(num_players() / 15)
 
 	if(possible_changelings.len>0)
 		for(var/i = 0, i < changeling_amount, i++)
