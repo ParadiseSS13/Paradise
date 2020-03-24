@@ -7,9 +7,7 @@
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	throw_range = 7
-	materials = list(MAT_METAL = 300, MAT_GLASS = 300)
-	origin_tech = "magnets=2;combat=1"
+	throw_range = 4
 	var/activated = FALSE
 	var/list/colors = list()
 	var/list/choices = list("Toggle Power", "Add a color", "Remove a color", "Set Range", "Set Brightness")
