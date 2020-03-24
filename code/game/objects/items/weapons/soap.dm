@@ -45,6 +45,14 @@
 		if(do_after(user, cleanspeed, target = target))
 			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")
 			clean_turf(target)
+	else if(istype(target, /obj/item/light))
+		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
+		if(do_after(user, cleanspeed, target = target) && target)	
+			to_chat(user, "<span class='notice'>You clean \the [target.name].</span>")		
+			var/obj/item/light/L = target
+			L.brightness_color = null
+			L.color = null
+			L.update()
 	else
 		user.visible_message("<span class='warning'>[user] begins to clean \the [target.name] with [src].</span>")
 		if(do_after(user, cleanspeed, target = target))

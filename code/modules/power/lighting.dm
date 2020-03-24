@@ -618,7 +618,6 @@
 	var/brightness_power = 1
 	var/brightness_color
 	var/time_to_paint = 30  //amount of time it takes to paint a light
-	var/time_to_clean = 40 //amount of time it takes to clean a light
 
 /obj/item/light/ComponentInitialize()
 	. = ..()
@@ -631,16 +630,10 @@
 		var/obj/item/toy/crayon/spraycan/S = O
 		brightness_color =  S.colour
 		color = S.colour
-		visible_message("<span class='warning'>[M] paints the [src]!</span>")
+		visible_message("<span class='notice'>[M] paints the [src]!</span>")
 		update()
 		M.do_attack_animation(src)
-	//clean the light
-	else if(istype(O, /obj/item/soap) && do_after(M, time_to_clean, target = src))
-		brightness_color = null
-		color = null
-		visible_message("<span class='warning'>[M] cleans the [src]!</span>")
-		update()
-		M.do_attack_animation(src)
+	//cleaning is handled in soap.dm
 
 /obj/item/light/Crossed(mob/living/L)
 	if(istype(L) && has_gravity(loc))
