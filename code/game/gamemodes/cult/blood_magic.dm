@@ -139,14 +139,14 @@
 	name = "Stun"
 	desc = "Empowers your hand to stun and mute a victim on contact."
 	button_icon_state = "stun"
-	magic_path = "/obj/item/melee/blood_magic/stun"
+	magic_path = /obj/item/melee/blood_magic/stun
 	health_cost = 10
 
 /datum/action/innate/cult/blood_spell/teleport
 	name = "Teleport"
 	desc = "Empowers your hand to teleport yourself or another cultist to a teleport rune on contact."
 	button_icon_state = "teleport"
-	magic_path = "/obj/item/melee/blood_magic/teleport"
+	magic_path = /obj/item/melee/blood_magic/teleport
 	health_cost = 7
 
 /datum/action/innate/cult/blood_spell/emp
@@ -188,7 +188,7 @@
 	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
 	button_icon_state = "shackles"
 	charges = 4
-	magic_path = "/obj/item/melee/blood_magic/shackles"
+	magic_path = /obj/item/melee/blood_magic/shackles
 
 /datum/action/innate/cult/blood_spell/construction
 	name = "Twisted Construction"
@@ -228,7 +228,7 @@
 	name = "Summon Equipment"
 	desc = "Allows you to empower your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
 	button_icon_state = "equip"
-	magic_path = "/obj/item/melee/blood_magic/armor"
+	magic_path = /obj/item/melee/blood_magic/armor
 
 /datum/action/innate/cult/blood_spell/horror
 	name = "Hallucinations"
@@ -336,7 +336,7 @@
 	invocation = "Fel'th Dol Ab'orod!"
 	button_icon_state = "manip"
 	charges = 5
-	magic_path = "/obj/item/melee/blood_magic/manipulator"
+	magic_path = /obj/item/melee/blood_magic/manipulator
 
 // The "magic hand" items
 /obj/item/melee/blood_magic
@@ -756,10 +756,10 @@
 						to_chat(user, "<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
 						new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 					else
-						to_chat(user,"<span class='warning'>[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!</span>")
+						to_chat(user, "<span class='warning'>[H.p_theyre(TRUE)] missing too much blood - you cannot drain [H.p_them()] further!</span>")
 						return
 				else
-					to_chat(user,"<span class='warning'>[H] does not have any usable blood!</span>")
+					to_chat(user, "<span class='warning'>[H] does not have any usable blood!</span>")
 					return
 
 		//Healing constructs
@@ -798,11 +798,12 @@
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))
 			qdel(TH)
 		if(temp)
-			user.Beam(T,icon_state="drainbeam", time = 15)
+			user.Beam(T, icon_state="drainbeam", time = 15)
 			new /obj/effect/temp_visual/cult/sparks(get_turf(user))
 			playsound(T, 'sound/misc/enter_blood.ogg', 50)
-			to_chat(user, "<span class='cultitalic'>Your blood rite has gained [round(temp)] charge\s from blood sources around you!</span>")
-			uses += max(1, round(temp))
+			temp = round(temp)
+			to_chat(user, "<span class='cultitalic'>Your blood rite has gained [temp] charge\s from blood sources around you!</span>")
+			uses += max(1, temp)
 
 /obj/item/melee/blood_magic/manipulator/attack_self(mob/living/user)
 	var/list/options = list("Blood Spear (150)", "Blood Bolt Barrage (300)")

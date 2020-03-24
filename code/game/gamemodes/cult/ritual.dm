@@ -15,7 +15,7 @@
 
 /obj/item/melee/cultblade/dagger/adminbus
 	name = "ritual dagger of scribing, +1"
-	desc = "very fast cultist scribing at incredible hihg speed"
+	desc = "VERY fast culto scribing at incredible hihg speed"
 	force = 16
 	scribe_multiplier = 0.1
 
@@ -64,11 +64,12 @@
 		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
 	var/confirm_final = alert(user, "This is the FINAL step to summon your deities power, it is a long, painful ritual and the crew will be alerted to your presence AND your location!", "Are you prepared for the final battle?", "My life for [SSticker.cultdat.entity_name]!", "No")
-	if(confirm_final == "No" || confirm_final == null)
-		to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
-		return FALSE
-	else
-		return TRUE
+	if(user)
+		if(confirm_final == "No" || confirm_final == null)
+			to_chat(user, "<span class='cult'>You decide to prepare further before scribing the rune.</span>")
+			return FALSE
+		else
+			return TRUE
 
 /obj/item/melee/cultblade/dagger/proc/scribe_rune(mob/living/user)
 	var/turf/runeturf = get_turf(user)

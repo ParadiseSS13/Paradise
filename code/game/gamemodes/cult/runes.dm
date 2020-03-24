@@ -172,15 +172,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		animate(src, color = rgb(255, 0, 0), time = 0)
 		animate(src, color = rune_blood_color, time = 5)
 
-/obj/effect/rune/proc/fizzle()
-	if(istype(src, /obj/effect/rune))
-		usr.say(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
-	else
-		usr.whisper(pick("Hakkrutju gopoenjim.", "Nherasai pivroiashan.", "Firjji prhiv mazenhor.", "Tanah eh wakantahe.", "Obliyae na oraie.", "Miyf hon vnor'c.", "Wakabai hij fen juswix."))
-	for (var/mob/V in viewers(src))
-		V.show_message("<span class='warning'>The markings pulse with a small burst of light, then fall dark.</span>", 3, "<span class='warning'>You hear a faint fizzle.</span>", 2)
-	return
-
 /obj/effect/rune/proc/check_icon()
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		var/bits = make_bit_triplet()

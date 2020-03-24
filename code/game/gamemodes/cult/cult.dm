@@ -100,21 +100,21 @@ GLOBAL_LIST_EMPTY(all_cults)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
 	to_chat(H, "<span class='cultitalic'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
 
-/datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/mob)
+/datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
 		"backpack" = slot_in_backpack,
 		"left pocket" = slot_l_store,
 		"right pocket" = slot_r_store,
 	)
 
-	var/T = new item_path(mob)
+	var/T = new item_path(H)
 	var/item_name = initial(item_path.name)
-	var/where = mob.equip_in_one_of_slots(T, slots)
+	var/where = H.equip_in_one_of_slots(T, slots)
 	if(!where)
-		to_chat(mob, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
+		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
 		return FALSE
 	else
-		to_chat(mob, "<span class='danger'>You have a [item_name] in your [where].</span>")
+		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
 		return TRUE
 
 /datum/game_mode/proc/add_cultist(datum/mind/cult_mind)

@@ -1341,7 +1341,7 @@ About the new airlock wires panel:
 		return "photo"
 
 //Removes the current note on the door if any. Returns if a note is removed
-/obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used=TRUE)
+/obj/machinery/door/airlock/proc/remove_airlock_note(mob/user, wirecutters_used = TRUE)
 	if(note)
 		if(!wirecutters_used)
 			if (ishuman(user) && user.a_intent == INTENT_GRAB)//grab that note
@@ -1357,7 +1357,7 @@ About the new airlock wires panel:
 		return TRUE
 	return FALSE
 
-/obj/machinery/door/airlock/narsie_act(var/weak = FALSE)
+/obj/machinery/door/airlock/narsie_act(weak = FALSE)
 	var/turf/T = get_turf(src)
 	var/runed = prob(20)
 	var/obj/machinery/door/airlock/cult/A

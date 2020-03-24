@@ -93,12 +93,12 @@
 		return
 	if(istype(A, /turf/simulated/floor))
 		to_chat(user, "<span class='notice'>You hit the floor with the bible.</span>")
-		if(user.mind && (user.mind.isholy))
+		if(user.mind && user.mind.isholy)
 			for(var/obj/O in A)
 				O.cult_reveal()
 	if(istype(A, /obj/machinery/door/airlock))
 		to_chat(user, "<span class='notice'>You hit the airlock with the bible.</span>")
-		if(user.mind && (user.mind.isholy))
+		if(user.mind && user.mind.isholy)
 			var/obj/airlock = A
 			airlock.cult_reveal()
 	if(user.mind && (user.mind.isholy))
