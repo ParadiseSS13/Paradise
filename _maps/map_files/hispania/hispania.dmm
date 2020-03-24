@@ -97554,6 +97554,12 @@
 	},
 /turf/space,
 /area/shuttle/administration)
+"rWK" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -21
+	},
+/turf/simulated/floor/wood,
+/area/blueshield)
 "rYq" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -123766,7 +123772,7 @@ cgS
 ciA
 clR
 col
-clR
+rWK
 coY
 cqR
 csy
