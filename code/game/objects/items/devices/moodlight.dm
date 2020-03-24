@@ -17,6 +17,7 @@
 	var/i = 1 //Iteration. Example: Shifting from color 1 to color 2, then shifting from color 2 to color 3. That would be 2 iterations.
 	var/range = 4
 	var/brightness = 2
+	var/amount_to_shift = 0.02
 
 /obj/item/moodlight/attack_self(mob/user)
 	var/choice = input(user, "What do you want to do?") as null|anything in sortTim(choices, /proc/cmp_text_asc)
@@ -71,9 +72,9 @@
 		color = colors[1]
 		return
 	if(active)
-		START_PROCESSING(SSfastprocess, src)
+		START_PROCESSING(SSprocessing, src)
 	else
-		STOP_PROCESSING(SSfastprocess, src)
+		STOP_PROCESSING(SSprocessing, src)
 		set_light(0)
 		color = null
 
@@ -85,7 +86,7 @@
 	if(!activated)
 		return
 
-	amount_shifted = amount_shifted + 0.005 //The smaller the number the smoother the shift, but the longer it will take to shift.
+	amount_shifted = amount_shifted + amount_to_shift //The smaller the number the smoother the shift, but the longer it will take to shift.
 
 	if(amount_shifted >= 1) //Step to the next color because we have already shifted 100% of our current shift.
 		amount_shifted = 0
