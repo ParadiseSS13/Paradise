@@ -45,7 +45,7 @@
 
 	var/list/datum/mind/possible_vampires = get_players_for_role(ROLE_VAMPIRE)
 
-	vampire_amount = 1 + round(num_players() / 15)
+	vampire_amount = 1 + round(num_players() / 12)
 
 	if(possible_vampires.len>0)
 		for(var/i = 0, i < vampire_amount, i++)

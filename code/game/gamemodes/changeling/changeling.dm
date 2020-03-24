@@ -15,7 +15,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	protected_species = list("Machine")
 	required_players = 10
 	required_enemies = 1
-	recommended_enemies = 3
+	recommended_enemies = 2
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -46,7 +46,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
-	changeling_amount = 1 + round(num_players() / 15)
+	changeling_amount = 1 + round(num_players() / 12)
 
 	if(possible_changelings.len>0)
 		for(var/i = 0, i < changeling_amount, i++)
