@@ -54520,12 +54520,6 @@
 /turf/simulated/wall/r_wall,
 /area/medical/genetics)
 "bWj" = (
-/obj/machinery/camera{
-	c_tag = "Research Server Room";
-	dir = 2;
-	network = list("Research","SS13");
-	pixel_x = 22
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -57137,6 +57131,12 @@
 	},
 /obj/machinery/portable_atmospherics/canister/nitrogen{
 	anchored = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Research Server Room";
+	dir = 2;
+	network = list("Research","SS13");
+	pixel_x = 22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
