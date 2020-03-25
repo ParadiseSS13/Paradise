@@ -48,14 +48,14 @@
 			"[user] tightens \the [src]'s casters.", \
 			"<span class='notice'> You have tightened \the [src]'s casters.</span>", \
 			"You hear ratchet.")
-		anchored = 1
-		if(anchored)
-			playsound(src.loc, I.usesound, 50, 1)
-			user.visible_message( \
-				"[user] loosens \the [src]'s casters.", \
-				"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
-				"You hear ratchet.")
-			anchored = 0
+		anchored = TRUE
+	else
+		playsound(src.loc, I.usesound, 50, 1)
+		user.visible_message( \
+			"[user] loosens \the [src]'s casters.", \
+			"<span class='notice'> You have loosened \the [src]'s casters.</span>", \
+			"You hear ratchet.")
+		anchored = FALSE
 
 /obj/structure/surgicalcart/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))
@@ -147,6 +147,7 @@
 				update_icon()
 			else
 				to_chat(user, fail_msg)
+		else if(istype(I, /obj/item/wrench))
 		else
 			to_chat(usr, "<span class='warning'>You cannot put that on [src]!</span>")
 	else
