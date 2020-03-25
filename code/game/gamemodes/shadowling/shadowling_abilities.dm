@@ -18,80 +18,91 @@
 	return 0
 
 
-/obj/effect/proc_holder/spell/targeted/glare //Stuns and mutes a human target, depending on the distance relative to the shadowling
+/obj/effect/proc_holder/spell/glare //Stuns and mutes a human target, depending on the distance relative to the shadowling
 	name = "Glare"
 	desc = "Stuns and mutes a target for a decent duration. Duration depends on the proximity to the target."
 	panel = "Shadowling Abilities"
 	charge_max = 300
-	clothes_req = 0
+	clothes_req = FALSE
 	range = 10	//has no effect beyond this range, so setting this makes invalid/useless targets not show up in popup
 	action_icon_state = "glare"
-	humans_only = 1	//useless since we override chose_targets, but might be used for other code later??? Might remove, idk
+	active = FALSE
 
-/obj/effect/proc_holder/spell/targeted/glare/choose_targets(mob/user)
-	var/list/possible_targets = list()
-	for(var/mob/living/carbon/human/target in view_or_range(range, user, "view"))
-		if(target.stat)
-			continue
-		if(is_shadow_or_thrall(target))
-			continue
-		possible_targets += target
-	var/mob/living/carbon/human/M
-	var/list/targets = list()
-	if(possible_targets.len == 1)//no choice involved
-		targets = possible_targets
-	else
-		M = input("Choose the target for the spell.", "Targeting") as mob in possible_targets
-		if(M in view_or_range(range, user, "view"))
-			targets += M
-
-
-	if(!targets.len) //doesn't waste the spell
-		revert_cast(user)
+/obj/effect/proc_holder/spell/glare/Click()
+	var/mob/living/user = usr
+	if(!istype(user))
 		return
 
+	var/msg
+
+	if(active)
+		msg = "<span class='notice'>Your eyes relax... for now.</span>"
+		remove_ranged_ability(user, msg)
+	else
+		msg = "<span class='notice'>Your prepare to your eyes for a stunning glare! <B>Left-click to cast at a target!</B></span>"
+		add_ranged_ability(user, msg)
+
+/obj/effect/proc_holder/spell/glare/InterceptClickOn(mob/living/user, params, atom/A)
+	if(..())
+		return FALSE
+
+	if(!shadowling_check(user))
+		return FALSE
+
+	var/mob/living/target
+	if(valid_target(A, user))
+		target = A
+	else
+		for(var/mob/living/carbon/human/H in range(1, A))
+			if(valid_target(H, user))
+				target = H
+				break
+
+	if(!target)
+		to_chat(user, "<span class='warning'>No suitable target found!</span>")
+		return FALSE
+
+	var/list/targets = list(target)
 	perform(targets, user = user)
-	return
+	return TRUE
 
+/obj/effect/proc_holder/spell/glare/proc/valid_target(target, user)
+	var/mob/living/carbon/human/H = target
+	if(!istype(H))
+		return FALSE
+	return H != user && !H.stat && !is_shadow_or_thrall(H)
 
-/obj/effect/proc_holder/spell/targeted/glare/cast(list/targets, mob/user = usr)
-	for(var/mob/living/carbon/human/target in targets)
-		if(!ishuman(target))
-			to_chat(user, "<span class='warning'>You may only glare at humans!</span>")
-			charge_counter = charge_max
-			return
-		if(!shadowling_check(user))
-			charge_counter = charge_max
-			return
-		if(target.stat)
-			to_chat(user, "<span class='warning'>[target] must be conscious!</span>")
-			charge_counter = charge_max
-			return
-		if(is_shadow_or_thrall(target))
-			to_chat(user, "<span class='danger'>You don't see why you would want to paralyze an ally.</span>")
-			charge_counter = charge_max
-			return
-		var/mob/living/carbon/human/M = target
+/obj/effect/proc_holder/spell/glare/cast(list/targets, mob/living/user = usr)
+	for(var/target in targets)
+		var/mob/living/carbon/human/H = target
 		user.visible_message("<span class='warning'><b>[user]'s eyes flash a blinding red!</b></span>")
-		var/distance = get_dist(target, user)
+		var/distance = get_dist(H, user)
 		if (distance <= 1) //Melee glare
-			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
-			to_chat(target, "<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
-			target.Stun(10)
-			M.AdjustSilence(10)
+			H.visible_message("<span class='danger'>[H] freezes in place, [H.p_their()] eyes glazing over...</span>", \
+				"<span class='userdanger'>Your gaze is forcibly drawn into [user]'s eyes, and you are mesmerized by [user.p_their()] heavenly beauty...</span>")
+			H.Stun(10)
+			H.AdjustSilence(10)
 		else //Distant glare
 			var/loss = 10 - distance
 			var/duration = 10 - loss
 			if(loss <= 0)
 				to_chat(user, "<span class='danger'>Your glare had no effect over a such long distance!</span>")
 				return
-			target.slowed = duration
-			M.AdjustSilence(10)
-			to_chat(target, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
-			sleep(duration*10)
-			target.Stun(loss)
-			target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>")
-			to_chat(target, "<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
+			H.slowed = duration
+			H.AdjustSilence(10)
+			to_chat(H, "<span class='userdanger'>A red light flashes across your vision, and your mind tries to resist them.. you are exhausted.. you are not able to speak..</span>")
+			addtimer(CALLBACK(src, .proc/do_stun, target, user, loss), duration SECONDS)
+
+	remove_ranged_ability(user)
+	charge_counter = 0
+	return TRUE
+
+/obj/effect/proc_holder/spell/glare/proc/do_stun(mob/living/carbon/human/target, user, stun_time)
+	if(!istype(target) || !target.stat)
+		return
+	target.Stun(stun_time)
+	target.visible_message("<span class='danger'>[target] freezes in place, [target.p_their()] eyes glazing over...</span>"\
+		"<span class='userdanger'>Red lights suddenly dance in your vision, and you are mesmerized by the heavenly lights...</span>")
 
 /obj/effect/proc_holder/spell/aoe_turf/veil
 	name = "Veil"
@@ -634,7 +645,7 @@
 											    darkness but wither slowly in light. In addition, you now have glare and true shadow walk.</b></span>")
 				thrallToRevive.set_species(/datum/species/shadow/ling/lesser)
 				thrallToRevive.mind.RemoveSpell(/obj/effect/proc_holder/spell/targeted/lesser_shadow_walk)
-				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
+				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/glare(null))
 				thrallToRevive.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
 			if("Revive")
 				if(!is_thrall(thrallToRevive))

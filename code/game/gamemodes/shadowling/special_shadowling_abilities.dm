@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 				H.ExtinguishMob()
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_vision(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/enthrall(null))
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/glare(null))
+				H.mind.AddSpell(new /obj/effect/proc_holder/spell/glare(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/veil(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shadow_walk(null))
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flashfreeze(null))
