@@ -6,7 +6,7 @@
 	anchored = FALSE
 	density = TRUE
 	buckle_offset = 0
-	can_buckle = 1
+	can_buckle = TRUE
 	max_integrity = 200
 	buckle_lying = 0
 	var/material_drop_type = /obj/item/stack/sheet/mineral/titanium
