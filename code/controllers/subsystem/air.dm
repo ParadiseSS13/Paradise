@@ -275,7 +275,7 @@ SUBSYSTEM_DEF(air)
 		if(blockchanges && T.excited_group)
 			T.excited_group.garbage_collect()
 	else
-		for(var/direction in cardinal)
+		for(var/direction in GLOB.cardinal)
 			if(!(T.atmos_adjacent_turfs & direction))
 				continue
 			var/turf/simulated/S = get_step(T, direction)
@@ -360,21 +360,21 @@ SUBSYSTEM_DEF(air)
 	return count
 
 /datum/controller/subsystem/air/proc/setup_overlays()
-	plmaster = new /obj/effect/overlay()
-	plmaster.icon = 'icons/effects/tile_effects.dmi'
-	plmaster.icon_state = "plasma"
-	plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
-	plmaster.layer = FLY_LAYER
-	plmaster.appearance_flags = TILE_BOUND
+	GLOB.plmaster = new /obj/effect/overlay()
+	GLOB.plmaster.icon = 'icons/effects/tile_effects.dmi'
+	GLOB.plmaster.icon_state = "plasma"
+	GLOB.plmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	GLOB.plmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
+	GLOB.plmaster.layer = FLY_LAYER
+	GLOB.plmaster.appearance_flags = TILE_BOUND
 
-	slmaster = new /obj/effect/overlay()
-	slmaster.icon = 'icons/effects/tile_effects.dmi'
-	slmaster.icon_state = "sleeping_agent"
-	slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	slmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
-	slmaster.layer = FLY_LAYER
-	slmaster.appearance_flags = TILE_BOUND
+	GLOB.slmaster = new /obj/effect/overlay()
+	GLOB.slmaster.icon = 'icons/effects/tile_effects.dmi'
+	GLOB.slmaster.icon_state = "sleeping_agent"
+	GLOB.slmaster.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	GLOB.slmaster.anchored = TRUE  // should only appear in vis_contents, but to be safe
+	GLOB.slmaster.layer = FLY_LAYER
+	GLOB.slmaster.appearance_flags = TILE_BOUND
 
 #undef SSAIR_PIPENETS
 #undef SSAIR_ATMOSMACHINERY

@@ -1,15 +1,15 @@
 /client/proc/create_poll()
 	set name = "Create Server Poll"
 	set category = "Server"
-	if(!check_rights(R_SERVER))	
+	if(!check_rights(R_SERVER))
 		return
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		to_chat(src, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	create_poll_window()
 
 /client/proc/create_poll_window(var/errormessage = "")
-	if(!check_rights(R_SERVER))	
+	if(!check_rights(R_SERVER))
 		return
 	var/output={"<!DOCTYPE html>
 <html>
@@ -75,7 +75,7 @@ function onload() {
 	<form name='createpoll' action='byond://' method='post' style='padding-left:30px;padding-right:30px;padding-top:10px'>
 		<input type='hidden' name='createpollnumoptions' id='createpollnumoptions' value='0'>
 		<table><tr><td style='width:50%' style="vertical-align:top"><div id='polloptions'><div id='polloptionsinner'>
-		
+
 		</div>
 		<input type='button' onclick='add_option()' value="Add Option"></input>
 		<input type='button' onclick='del_option()' value="Delete Option"></input>
@@ -99,7 +99,7 @@ function onload() {
 	src << browse(output, "window=createplayerpoll;size=950x500")
 
 /client/proc/create_poll_function(href_list)
-	if(!check_rights(R_SERVER))	
+	if(!check_rights(R_SERVER))
 		return
 	var/polltype = href_list["createpoll"]
 	if(polltype != POLLTYPE_OPTION && polltype != POLLTYPE_TEXT && polltype != POLLTYPE_RATING && polltype != POLLTYPE_MULTI)
@@ -122,15 +122,15 @@ function onload() {
 		create_poll_window("<font color='red'>Question cannot be blank.</font>")
 		return
 	question = sanitizeSQL(question)
-	
+
 	var/starttime
 	var/endtime
-	var/DBQuery/query = dbcon.NewQuery("SELECT Now() AS starttime, ADDDATE(Now(), INTERVAL [poll_len] DAY) AS endtime")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT Now() AS starttime, ADDDATE(Now(), INTERVAL [poll_len] DAY) AS endtime")
 	query.Execute()
 	while(query.NextRow())
 		starttime = query.item[1]
 		endtime = query.item[2]
-	
+
 	var/pollquery = "INSERT INTO [format_table_name("poll_question")] (polltype, starttime, endtime, question, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip) VALUES ('[polltype]', '[starttime]', '[endtime]', '[question]', '[adminonly]', '[choice_amount]', '[sql_ckey]', '[address]')"
 	var/idquery = "SELECT id FROM [format_table_name("poll_question")] WHERE question = '[question]' AND starttime = '[starttime]' AND endtime = '[endtime]' AND createdby_ckey = '[sql_ckey]' AND createdby_ip = '[address]'"
 	var/list/option_queries = list()
@@ -175,15 +175,15 @@ function onload() {
 				if(descmax)
 					descmax = sanitizeSQL(descmax)
 			option_queries += "INSERT INTO [format_table_name("poll_option")] (pollid, text, percentagecalc, minval, maxval, descmin, descmid, descmax) VALUES ('{POLLID}', '[option]', '[percentagecalc]', '[minval]', '[maxval]', '[descmin]', '[descmid]', '[descmax]')"
-	
-	query = dbcon.NewQuery(pollquery)
+
+	query = GLOB.dbcon.NewQuery(pollquery)
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")
 		log_game("SQL ERROR adding new poll question to table. Error : \[[err]\]\n")
 		return
 	var/pollid = 0
-	query = dbcon.NewQuery(idquery)
+	query = GLOB.dbcon.NewQuery(idquery)
 	if(!query.Execute())
 		var/err = query.ErrorMsg()
 		create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")
@@ -192,7 +192,7 @@ function onload() {
 	if(query.NextRow())
 		pollid = text2num(query.item[1])
 	for(var/querytext in option_queries)
-		query = dbcon.NewQuery(replacetext(idquery, "{POLLID}", pollid))
+		query = GLOB.dbcon.NewQuery(replacetext(idquery, "{POLLID}", pollid))
 		if(!query.Execute())
 			var/err = query.ErrorMsg()
 			create_poll_window("<font color='red'>An SQL error has occured while creating your poll</font>")

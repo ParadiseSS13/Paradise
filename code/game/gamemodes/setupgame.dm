@@ -5,11 +5,11 @@
 	var/assigned = pick(blocksLeft)
 	blocksLeft.Remove(assigned)
 	if(good)
-		good_blocks += assigned
+		GLOB.good_blocks += assigned
 	else
-		bad_blocks += assigned
-	assigned_blocks[assigned]=name
-	dna_activity_bounds[assigned]=activity_bounds
+		GLOB.bad_blocks += assigned
+	GLOB.assigned_blocks[assigned]=name
+	GLOB.dna_activity_bounds[assigned]=activity_bounds
 	//Debug message_admins("[name] assigned to block #[assigned].")
 //	testing("[name] assigned to block #[assigned].")
 	return assigned
@@ -17,9 +17,9 @@
 /proc/setupgenetics()
 
 	if(prob(50))
-		BLOCKADD = rand(-300,300)
+		GLOB.blockadd = rand(-300,300)
 	if(prob(75))
-		DIFFMUT = rand(0,20)
+		GLOB.diffmut = rand(0,20)
 
 
 //Thanks to nexis for the fancy code
@@ -34,70 +34,70 @@
 	//message_admins("Assigning DNA blocks:")
 
 	// Standard muts
-	BLINDBLOCK         = getAssignedBlock("BLIND",         numsToAssign)
-	COLOURBLINDBLOCK   = getAssignedBlock("COLOURBLIND",   numsToAssign)
-	DEAFBLOCK          = getAssignedBlock("DEAF",          numsToAssign)
-	HULKBLOCK          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
-	TELEBLOCK          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
-	FIREBLOCK          = getAssignedBlock("FIRE",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	XRAYBLOCK          = getAssignedBlock("XRAY",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	CLUMSYBLOCK        = getAssignedBlock("CLUMSY",        numsToAssign)
-	FAKEBLOCK          = getAssignedBlock("FAKE",          numsToAssign)
-	COUGHBLOCK         = getAssignedBlock("COUGH",         numsToAssign)
-	GLASSESBLOCK       = getAssignedBlock("GLASSES",       numsToAssign)
-	EPILEPSYBLOCK      = getAssignedBlock("EPILEPSY",      numsToAssign)
-	TWITCHBLOCK        = getAssignedBlock("TWITCH",        numsToAssign)
-	NERVOUSBLOCK       = getAssignedBlock("NERVOUS",       numsToAssign)
-	WINGDINGSBLOCK     = getAssignedBlock("WINGDINGS",     numsToAssign)
+	GLOB.blindblock         = getAssignedBlock("BLIND",         numsToAssign)
+	GLOB.colourblindblock   = getAssignedBlock("COLOURBLIND",   numsToAssign)
+	GLOB.deafblock          = getAssignedBlock("DEAF",          numsToAssign)
+	GLOB.hulkblock          = getAssignedBlock("HULK",          numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.teleblock          = getAssignedBlock("TELE",          numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.fireblock          = getAssignedBlock("FIRE",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.xrayblock          = getAssignedBlock("XRAY",          numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.clumsyblock        = getAssignedBlock("CLUMSY",        numsToAssign)
+	GLOB.fakeblock          = getAssignedBlock("FAKE",          numsToAssign)
+	GLOB.coughblock         = getAssignedBlock("COUGH",         numsToAssign)
+	GLOB.glassesblock       = getAssignedBlock("GLASSES",       numsToAssign)
+	GLOB.epilepsyblock      = getAssignedBlock("EPILEPSY",      numsToAssign)
+	GLOB.twitchblock        = getAssignedBlock("TWITCH",        numsToAssign)
+	GLOB.nervousblock       = getAssignedBlock("NERVOUS",       numsToAssign)
+	GLOB.wingdingsblock     = getAssignedBlock("WINGDINGS",     numsToAssign)
 
 	// Bay muts
-	BREATHLESSBLOCK    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
-	REMOTEVIEWBLOCK    = getAssignedBlock("REMOTEVIEW",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	REGENERATEBLOCK    = getAssignedBlock("REGENERATE",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	INCREASERUNBLOCK   = getAssignedBlock("INCREASERUN",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	REMOTETALKBLOCK    = getAssignedBlock("REMOTETALK",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	MORPHBLOCK         = getAssignedBlock("MORPH",         numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	COLDBLOCK          = getAssignedBlock("COLD",          numsToAssign, good=1)
-	HALLUCINATIONBLOCK = getAssignedBlock("HALLUCINATION", numsToAssign)
-	NOPRINTSBLOCK      = getAssignedBlock("NOPRINTS",      numsToAssign, DNA_HARD_BOUNDS, good=1)
-	SHOCKIMMUNITYBLOCK = getAssignedBlock("SHOCKIMMUNITY", numsToAssign, good=1)
-	SMALLSIZEBLOCK     = getAssignedBlock("SMALLSIZE",     numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.breathlessblock    = getAssignedBlock("BREATHLESS",    numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.remoteviewblock    = getAssignedBlock("REMOTEVIEW",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.regenerateblock    = getAssignedBlock("REGENERATE",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.increaserunblock   = getAssignedBlock("INCREASERUN",   numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.remotetalkblock    = getAssignedBlock("REMOTETALK",    numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.morphblock         = getAssignedBlock("MORPH",         numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.coldblock          = getAssignedBlock("COLD",          numsToAssign, good=1)
+	GLOB.hallucinationblock = getAssignedBlock("HALLUCINATION", numsToAssign)
+	GLOB.noprintsblock      = getAssignedBlock("NOPRINTS",      numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.shockimmunityblock = getAssignedBlock("SHOCKIMMUNITY", numsToAssign, good=1)
+	GLOB.smallsizeblock     = getAssignedBlock("SMALLSIZE",     numsToAssign, DNA_HARD_BOUNDS, good=1)
 
 	//
 	// Goon muts
 	/////////////////////////////////////////////
 
 	// Disabilities
-	LISPBLOCK      = getAssignedBlock("LISP",       numsToAssign)
-	MUTEBLOCK      = getAssignedBlock("MUTE",       numsToAssign)
-	RADBLOCK       = getAssignedBlock("RAD",        numsToAssign)
-	FATBLOCK       = getAssignedBlock("FAT",        numsToAssign)
-	CHAVBLOCK      = getAssignedBlock("CHAV",       numsToAssign)
-	SWEDEBLOCK     = getAssignedBlock("SWEDE",      numsToAssign)
-	SCRAMBLEBLOCK  = getAssignedBlock("SCRAMBLE",   numsToAssign)
-	STRONGBLOCK    = getAssignedBlock("STRONG",     numsToAssign, good=1)
-	HORNSBLOCK     = getAssignedBlock("HORNS",      numsToAssign)
-	COMICBLOCK     = getAssignedBlock("COMIC",      numsToAssign)
+	GLOB.lispblock      = getAssignedBlock("LISP",       numsToAssign)
+	GLOB.muteblock      = getAssignedBlock("MUTE",       numsToAssign)
+	GLOB.radblock       = getAssignedBlock("RAD",        numsToAssign)
+	GLOB.fatblock       = getAssignedBlock("FAT",        numsToAssign)
+	GLOB.chavblock      = getAssignedBlock("CHAV",       numsToAssign)
+	GLOB.swedeblock     = getAssignedBlock("SWEDE",      numsToAssign)
+	GLOB.scrambleblock  = getAssignedBlock("SCRAMBLE",   numsToAssign)
+	GLOB.strongblock    = getAssignedBlock("STRONG",     numsToAssign, good=1)
+	GLOB.hornsblock     = getAssignedBlock("HORNS",      numsToAssign)
+	GLOB.comicblock     = getAssignedBlock("COMIC",      numsToAssign)
 
 	// Powers
-	SOBERBLOCK     = getAssignedBlock("SOBER",      numsToAssign, good=1)
-	PSYRESISTBLOCK = getAssignedBlock("PSYRESIST",  numsToAssign, DNA_HARD_BOUNDS, good=1)
-	SHADOWBLOCK    = getAssignedBlock("SHADOW",     numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	CHAMELEONBLOCK = getAssignedBlock("CHAMELEON",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
-	CRYOBLOCK      = getAssignedBlock("CRYO",       numsToAssign, DNA_HARD_BOUNDS, good=1)
-	EATBLOCK       = getAssignedBlock("EAT",        numsToAssign, DNA_HARD_BOUNDS, good=1)
-	JUMPBLOCK      = getAssignedBlock("JUMP",       numsToAssign, DNA_HARD_BOUNDS, good=1)
-	IMMOLATEBLOCK  = getAssignedBlock("IMMOLATE",   numsToAssign)
-	EMPATHBLOCK    = getAssignedBlock("EMPATH",     numsToAssign, DNA_HARD_BOUNDS, good=1)
-	POLYMORPHBLOCK = getAssignedBlock("POLYMORPH",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.soberblock     = getAssignedBlock("SOBER",      numsToAssign, good=1)
+	GLOB.psyresistblock = getAssignedBlock("PSYRESIST",  numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.shadowblock    = getAssignedBlock("SHADOW",     numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.chameleonblock = getAssignedBlock("CHAMELEON",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
+	GLOB.cryoblock      = getAssignedBlock("CRYO",       numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.eatblock       = getAssignedBlock("EAT",        numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.jumpblock      = getAssignedBlock("JUMP",       numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.immolateblock  = getAssignedBlock("IMMOLATE",   numsToAssign)
+	GLOB.empathblock    = getAssignedBlock("EMPATH",     numsToAssign, DNA_HARD_BOUNDS, good=1)
+	GLOB.polymorphblock = getAssignedBlock("POLYMORPH",  numsToAssign, DNA_HARDER_BOUNDS, good=1)
 
 	//
 	// /vg/ Blocks
 	/////////////////////////////////////////////
 
 	// Disabilities
-	LOUDBLOCK      = getAssignedBlock("LOUD",       numsToAssign)
-	DIZZYBLOCK     = getAssignedBlock("DIZZY",      numsToAssign)
+	GLOB.loudblock      = getAssignedBlock("LOUD",       numsToAssign)
+	GLOB.dizzyblock     = getAssignedBlock("DIZZY",      numsToAssign)
 
 
 	//
@@ -105,7 +105,7 @@
 	/////////////////////////////////////////////.
 
 	// Monkeyblock is always last.
-	MONKEYBLOCK = DNA_SE_LENGTH
+	GLOB.monkeyblock = DNA_SE_LENGTH
 
 	// And the genes that actually do the work. (domutcheck improvements)
 	var/list/blocks_assigned[DNA_SE_LENGTH]
@@ -114,7 +114,7 @@
 		if(G.block)
 			if(G.block in blocks_assigned)
 				warning("DNA2: Gene [G.name] trying to use already-assigned block [G.block] (used by [english_list(blocks_assigned[G.block])])")
-			dna_genes.Add(G)
+			GLOB.dna_genes.Add(G)
 			var/list/assignedToBlock[0]
 			if(blocks_assigned[G.block])
 				assignedToBlock=blocks_assigned[G.block]
@@ -124,12 +124,12 @@
 
 	// I WILL HAVE A LIST OF GENES THAT MATCHES THE RANDOMIZED BLOCKS GODDAMNIT!
 	for(var/block=1;block<=DNA_SE_LENGTH;block++)
-		var/name = assigned_blocks[block]
-		for(var/datum/dna/gene/gene in dna_genes)
+		var/name = GLOB.assigned_blocks[block]
+		for(var/datum/dna/gene/gene in GLOB.dna_genes)
 			if(gene.name == name || gene.block == block)
-				if(gene.block in assigned_gene_blocks)
-					warning("DNA2: Gene [gene.name] trying to add to already assigned gene block list (used by [english_list(assigned_gene_blocks[block])])")
-				assigned_gene_blocks[block] = gene
+				if(gene.block in GLOB.assigned_gene_blocks)
+					warning("DNA2: Gene [gene.name] trying to add to already assigned gene block list (used by [english_list(GLOB.assigned_gene_blocks[block])])")
+				GLOB.assigned_gene_blocks[block] = gene
 
 	//testing("DNA2: [numsToAssign.len] blocks are unused: [english_list(numsToAssign)]")
 

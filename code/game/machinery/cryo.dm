@@ -68,7 +68,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
 	if(node) return
-	for(var/cdir in cardinal)
+	for(var/cdir in GLOB.cardinal)
 		node = findConnecting(cdir)
 		if(node)
 			break
@@ -214,7 +214,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? 1 : 0
