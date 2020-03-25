@@ -500,6 +500,16 @@
 		return spell.can_cast(owner)
 	return 0
 
+/datum/action/spell_action/UpdateButtonIcon()
+	if(button && !..())
+		var/obj/effect/proc_holder/spell/S = target
+		if(!istype(S))
+			return
+		var/progress = S.get_availability_percentage()
+		var/col_val_high = 72 * progress + 128
+		var/col_val_low = 200 * progress
+		button.color = rgb(col_val_high, col_val_low, col_val_low, col_val_high)
+
 /*
 /datum/action/spell_action/alien
 
