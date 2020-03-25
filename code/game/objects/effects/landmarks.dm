@@ -13,80 +13,80 @@
 
 	switch(name)			//some of these are probably obsolete
 		if("start")
-			newplayer_start += loc
+			GLOB.newplayer_start += loc
 			qdel(src)
 
 		if("wizard")
-			wizardstart += loc
+			GLOB.wizardstart += loc
 			qdel(src)
 
 		if("JoinLate")
-			latejoin += loc
+			GLOB.latejoin += loc
 			qdel(src)
 
 		if("JoinLateGateway")
-			latejoin_gateway += loc
+			GLOB.latejoin_gateway += loc
 			qdel(src)
 
 		if("JoinLateCryo")
-			latejoin_cryo += loc
+			GLOB.latejoin_cryo += loc
 			qdel(src)
 
 		if("JoinLateCyborg")
-			latejoin_cyborg += loc
+			GLOB.latejoin_cyborg += loc
 			qdel(src)
 
 		if("prisonwarp")
-			prisonwarp += loc
+			GLOB.prisonwarp += loc
 			qdel(src)
 
 		if("prisonsecuritywarp")
-			prisonsecuritywarp += loc
+			GLOB.prisonsecuritywarp += loc
 			qdel(src)
 
 		if("tdome1")
-			tdome1	+= loc
+			GLOB.tdome1	+= loc
 
 		if("tdome2")
-			tdome2 += loc
+			GLOB.tdome2 += loc
 
 		if("tdomeadmin")
-			tdomeadmin	+= loc
+			GLOB.tdomeadmin	+= loc
 
 		if("tdomeobserve")
-			tdomeobserve += loc
+			GLOB.tdomeobserve += loc
 
 		if("aroomwarp")
-			aroomwarp += loc
+			GLOB.aroomwarp += loc
 
 		if("blobstart")
-			blobstart += loc
+			GLOB.blobstart += loc
 			qdel(src)
 
 		if("xeno_spawn")
-			xeno_spawn += loc
+			GLOB.xeno_spawn += loc
 			qdel(src)
 
 		if("ninjastart")
-			ninjastart += loc
+			GLOB.ninjastart += loc
 			qdel(src)
 
 		if("carpspawn")
-			carplist += loc
+			GLOB.carplist += loc
 
 		if("voxstart")
-			raider_spawn += loc
+			GLOB.raider_spawn += loc
 
 		if("ERT Director")
-			ertdirector += loc
+			GLOB.ertdirector += loc
 			qdel(src)
 
 		if("Response Team")
-			emergencyresponseteamspawn += loc
+			GLOB.emergencyresponseteamspawn += loc
 			qdel(src)
 
 		if("Syndicate Officer")
-			syndicateofficer += loc
+			GLOB.syndicateofficer += loc
 			qdel(src)
 
 	GLOB.landmarks_list += src

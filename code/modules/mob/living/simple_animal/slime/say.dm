@@ -9,7 +9,7 @@
 
 	return verb
 
-/mob/living/simple_animal/slime/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol)
+/mob/living/simple_animal/slime/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency)
 	if(speaker != src && !stat)
 		if(speaker in Friends)
 			speech_buffer = list()

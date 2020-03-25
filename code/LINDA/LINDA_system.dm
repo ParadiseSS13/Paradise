@@ -62,7 +62,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 
 /turf/proc/CalculateAdjacentTurfs()
 	atmos_adjacent_turfs_amount = 0
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		var/turf/T = get_step(src, direction)
 		if(!istype(T))
 			continue
@@ -89,7 +89,7 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 	var/adjacent_turfs = list()
 
 	var/turf/simulated/curloc = src
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if(!(curloc.atmos_adjacent_turfs & direction))
 			continue
 
@@ -99,11 +99,11 @@ turf/CanPass(atom/movable/mover, turf/target, height=1.5)
 	if(!alldir)
 		return adjacent_turfs
 
-	for(var/direction in diagonals)
+	for(var/direction in GLOB.diagonals)
 		var/matchingDirections = 0
 		var/turf/simulated/S = get_step(curloc, direction)
 
-		for(var/checkDirection in cardinal)
+		for(var/checkDirection in GLOB.cardinal)
 			if(!(S.atmos_adjacent_turfs & checkDirection))
 				continue
 			var/turf/simulated/checkTurf = get_step(S, checkDirection)

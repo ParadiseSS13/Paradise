@@ -413,12 +413,12 @@
 		ui = new(user, src, ui_key, "order_console.tmpl", name, ORDER_SCREEN_WIDTH, ORDER_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/ordercomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
 	var/category_list[0]
-	for(var/category in all_supply_groups)
+	for(var/category in GLOB.all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
 	data["categories"] = category_list
 	var/cat = text2num(last_viewed_group)
@@ -559,12 +559,12 @@
 		ui = new(user, src, ui_key, "supply_console.tmpl", name, SUPPLY_SCREEN_WIDTH, SUPPLY_SCREEN_HEIGHT)
 		ui.open()
 
-/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/supplycomp/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["last_viewed_group"] = last_viewed_group
 
 	var/category_list[0]
-	for(var/category in all_supply_groups)
+	for(var/category in GLOB.all_supply_groups)
 		category_list.Add(list(list("name" = get_supply_group_name(category), "category" = category)))
 	data["categories"] = category_list
 

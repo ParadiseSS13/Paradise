@@ -54,16 +54,16 @@
 
 /obj/machinery/computer/communications/proc/change_security_level(var/new_level)
 	tmp_alertlevel = new_level
-	var/old_level = security_level
+	var/old_level = GLOB.security_level
 	if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
 	if(tmp_alertlevel < SEC_LEVEL_GREEN) tmp_alertlevel = SEC_LEVEL_GREEN
 	if(tmp_alertlevel > SEC_LEVEL_BLUE) tmp_alertlevel = SEC_LEVEL_BLUE //Cannot engage delta with this
 	set_security_level(tmp_alertlevel)
-	if(security_level != old_level)
+	if(GLOB.security_level != old_level)
 		//Only notify the admins if an actual change happened
 		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
-		switch(security_level)
+		switch(GLOB.security_level)
 			if(SEC_LEVEL_GREEN)
 				feedback_inc("alert_comms_green",1)
 			if(SEC_LEVEL_BLUE)
@@ -237,7 +237,7 @@
 				Nuke_request(input, usr)
 				to_chat(usr, "<span class='notice'>Request sent.</span>")
 				log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
-				priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+				GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = 1
 				spawn(6000)//10 minute cooldown
 					centcomm_message_cooldown = 0
@@ -299,8 +299,8 @@
 				to_chat(usr, "<span class='danger'>Nano-Mob Hunter GO! game server is offline for extended maintenance. Contact your Central Command administrators for more info if desired.</span>")
 
 		if("ToggleATC")
-			atc.squelched = !atc.squelched
-			to_chat(usr, "<span class='notice'>ATC traffic is now: [atc.squelched ? "Disabled" : "Enabled"].</span>")
+			GLOB.atc.squelched = !GLOB.atc.squelched
+			to_chat(usr, "<span class='notice'>ATC traffic is now: [GLOB.atc.squelched ? "Disabled" : "Enabled"].</span>")
 
 	SSnanoui.update_uis(src)
 	return 1
@@ -337,7 +337,7 @@
 		// open the new ui window
 		ui.open()
 
-/obj/machinery/computer/communications/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/communications/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["is_ai"]         = isAI(user) || isrobot(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
@@ -364,7 +364,7 @@
 		)
 	)
 
-	data["security_level"] =     security_level
+	data["security_level"] =     GLOB.security_level
 	data["str_security_level"] = capitalize(get_security_level())
 	data["levels"] = list(
 		list("id" = SEC_LEVEL_GREEN, "name" = "Green"),
@@ -395,7 +395,7 @@
 
 	data["shuttle"] = shuttle
 
-	data["atcSquelched"] = atc.squelched
+	data["atcSquelched"] = GLOB.atc.squelched
 
 	return data
 
@@ -427,7 +427,7 @@
 /proc/enable_prison_shuttle(var/mob/user);
 
 /proc/call_shuttle_proc(var/mob/user, var/reason)
-	if(sent_strike_team == 1)
+	if(GLOB.sent_strike_team == 1)
 		to_chat(user, "<span class='warning'>Central Command will not allow the shuttle to be called. Consider all contracts terminated.</span>")
 		return
 
@@ -456,7 +456,7 @@
 			to_chat(user, "Central Command does not currently have a shuttle available in your sector. Please try again later.")
 			return
 
-		if(sent_strike_team == 1)
+		if(GLOB.sent_strike_team == 1)
 			to_chat(user, "Central Command will not allow the shuttle to be called. Consider all contracts terminated.")
 			return
 
