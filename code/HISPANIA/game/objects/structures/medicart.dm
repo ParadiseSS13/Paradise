@@ -264,3 +264,16 @@
 		overlays += "my_cautery"
 	if(myscal)
 		overlays += "myscalpel"
+
+/obj/structure/surgicalcart/full/New()
+	mysyringe = new /obj/item/reagent_containers/syringe/antiviral(src) ///Esto es spacellin, le juro no son nanomachines
+	mymbruise = new /obj/item/stack/medical/bruise_pack/advanced(src)
+	mydrill = new /obj/item/circular_saw(src)
+	mysaw = new /obj/item/bonesetter(src)
+	mybones = new /obj/item/FixOVein(src)
+	mygel = new /obj/item/bonegel(src)
+	myhemo = new /obj/item/hemostat(src)
+	myretra = new /obj/item/retractor(src)
+	myscal = new /obj/item/scalpel(src)
+	mycaute = new /obj/item/cautery(src)
+	update_icon()
