@@ -22,6 +22,8 @@
 /obj/item/moodlight/attack_self(mob/user)
 	var/choice = input(user, "What do you want to do?") as null|anything in sortTim(choices, /proc/cmp_text_asc)
 	switch(choice)
+		if(null) //they cancelled
+			return
 		if("Toggle Power")
 			if(length(colors) == 0)
 				to_chat(user, "<span class = 'warning'>Select some colors first!</span>")
@@ -67,11 +69,12 @@
 	icon_state = "moodlight_[active ? "on" : "off"]"
 	item_state = "moodlight_[active ? "on" : "off"]"
 	activated = active
-	if(length(colors) == 1) //If there is only 1 color we dont need to process anything
-		set_light(range, brightness, colors[1])
-		color = colors[1]
-		return
+
 	if(active)
+		if(length(colors) == 1)  //If there is only 1 color we dont need to process anything
+			set_light(range, brightness, colors[1])
+			color = colors[1]
+			return
 		START_PROCESSING(SSprocessing, src)
 	else
 		STOP_PROCESSING(SSprocessing, src)
