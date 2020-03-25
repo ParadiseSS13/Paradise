@@ -27,10 +27,6 @@ GLOBAL_DATUM_INIT(security_announcement_down, /datum/announcement/priority/secur
 
 	//Will not be announced if you try to set to the same level as it already is
 	if(level >= SEC_LEVEL_GREEN && level <= SEC_LEVEL_DELTA && level != GLOB.security_level)
-		if(level >= SEC_LEVEL_RED && GLOB.security_level < SEC_LEVEL_RED)
-			// Mark down this time to prevent shuttle cheese
-			SSshuttle.emergency_sec_level_time = world.time
-
 		// Reset gamma borgs if the new security level is lower than Gamma.
 		if(level < SEC_LEVEL_GAMMA)
 			for(var/M in GLOB.silicon_mob_list)
