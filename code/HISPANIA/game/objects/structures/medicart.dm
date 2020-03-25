@@ -147,7 +147,6 @@
 				update_icon()
 			else
 				to_chat(user, fail_msg)
-		else if(istype(I, /obj/item/wrench))
 		else
 			to_chat(usr, "<span class='warning'>You cannot put that on [src]!</span>")
 	else
