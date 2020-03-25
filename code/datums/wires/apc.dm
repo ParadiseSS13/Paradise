@@ -92,3 +92,8 @@
 				if(A.aidisabled == 1)
 					A.aidisabled = 0
 	..()
+
+#undef APC_WIRE_IDSCAN
+#undef APC_WIRE_MAIN_POWER1
+#undef APC_WIRE_MAIN_POWER2
+#undef APC_WIRE_AI_CONTROL
