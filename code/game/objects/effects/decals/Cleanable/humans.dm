@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	bloodiness = BLOOD_AMOUNT_PER_DECAL
 	var/basecolor = "#A10808" // Color when wet.
 	var/amount = 5
-	var/dry_timer = 0
+	var/dry_timer
 	var/off_floor = FALSE
 
 
@@ -50,6 +50,8 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	if(!.)
 		dry_timer = addtimer(CALLBACK(src, .proc/dry), DRYING_TIME * (amount+1), TIMER_STOPPABLE)
 
+	RegisterSignal(src, COMSIG_MOVABLE_CROSSED, .proc/BloodySlip)
+
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(GAMEMODE_IS_CULT)
 		var/datum/game_mode/cult/mode_ticker = SSticker.mode
@@ -61,6 +63,12 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 		deltimer(dry_timer)
 	return ..()
 
+/obj/effect/decal/cleanable/blood/proc/BloodySlip(datum/source, mob/living/carbon/human/H)
+	if(!istype(H))
+		return
+	var/mob/living/carbon/human/slipper = H
+	slipper.slip("the blood", 3, 2, tilesSlipped = 0, walkSafely = 1)
+
 /obj/effect/decal/cleanable/blood/update_icon()
 	if(basecolor == "rainbow")
 		basecolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
@@ -71,6 +79,7 @@ GLOBAL_LIST_EMPTY(splatter_cache)
 	desc = drydesc
 	color = adjust_brightness(color, -50)
 	amount = 0
+	UnregisterSignal(src, COMSIG_MOVABLE_CROSSED)
 
 /obj/effect/decal/cleanable/blood/attack_hand(mob/living/carbon/human/user)
 	..()
