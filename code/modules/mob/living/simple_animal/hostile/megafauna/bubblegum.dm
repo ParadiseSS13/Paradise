@@ -144,19 +144,19 @@ Difficulty: Hard
 			surround_with_hallucinations()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/triple_charge()
+	charge(delay = 9)
 	charge(delay = 6)
-	charge(delay = 4)
-	charge(delay = 2)
+	charge(delay = 3)
 	SetRecoveryTime(15)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge()
 	if(!BUBBLEGUM_SMASH || prob(33))
-		hallucination_charge_around(times = 6, delay = 8)
+		hallucination_charge_around(times = 6, delay = 12)
 		SetRecoveryTime(10)
 	else
-		hallucination_charge_around(times = 4, delay = 9)
-		hallucination_charge_around(times = 4, delay = 8)
-		hallucination_charge_around(times = 4, delay = 7)
+		hallucination_charge_around(times = 4, delay = 14)
+		hallucination_charge_around(times = 4, delay = 12)
+		hallucination_charge_around(times = 4, delay = 11)
 		triple_charge()
 		SetRecoveryTime(20)
 
@@ -164,12 +164,12 @@ Difficulty: Hard
 	for(var/i = 1 to 5)
 		INVOKE_ASYNC(src, .proc/hallucination_charge_around, 2, 8, 2, 0, 4)
 		if(ismob(target))
-			charge(delay = 6)
+			charge(delay = 9)
 		else
 			SLEEP_CHECK_DEATH(6)
 	SetRecoveryTime(20)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge(atom/chargeat = target, delay = 3, chargepast = 2)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	if(!chargeat)
 		return
 	var/chargeturf = get_turf(chargeat)
@@ -337,7 +337,7 @@ Difficulty: Hard
 		return FALSE
 	enrage_till = world.time + enrage_time
 	update_approach()
-	change_move_delay(3.75)
+	change_move_delay(5)
 	var/newcolor = rgb(149, 10, 10)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	var/datum/callback/cb = CALLBACK(src, .proc/blood_enrage_end)
@@ -365,7 +365,7 @@ Difficulty: Hard
 /obj/effect/decal/cleanable/blood/bubblegum/can_bloodcrawl_in()
 	return TRUE
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge_around(times = 4, delay = 6, chargepast = 0, useoriginal = 1, radius)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge_around(times = 4, delay = 9, chargepast = 0, useoriginal = 1, radius)
 	var/startingangle = rand(1, 360)
 	if(!target)
 		return
@@ -478,7 +478,7 @@ Difficulty: Hard
 	..()
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum
-	duration = 10
+	duration = 15
 
 /obj/effect/temp_visual/bubblegum_hands
 	icon = 'icons/effects/bubblegum.dmi'
@@ -522,7 +522,7 @@ Difficulty: Hard
 	. = ..()
 	toggle_ai(AI_OFF)
 
-/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge(atom/chargeat = target, delay = 3, chargepast = 2)
+/mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge(atom/chargeat = target, delay = 5, chargepast = 2)
 	..()
 	qdel(src)
 
