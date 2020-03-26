@@ -60,7 +60,7 @@
 			target.visible_message("<span class='danger'>[chassis] squeezes [target].</span>", \
 								"<span class='userdanger'>[chassis] squeezes [target].</span>",\
 								"<span class='italics'>You hear something crack.</span>")
-			add_attack_logs(chassis.occupant, M, "Squeezed with [src] (INTENT: [uppertext(chassis.occupant.a_intent)]) (DAMTYE: [uppertext(damtype)])")
+			add_attack_logs(chassis.occupant, M, "Squeezed with [src] ([uppertext(chassis.occupant.a_intent)]) ([uppertext(damtype)])")
 			start_cooldown()
 		else
 			step_away(M,chassis)
