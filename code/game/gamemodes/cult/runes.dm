@@ -285,6 +285,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			for(var/datum/disease/critical/crit in H.viruses) // cure all crit conditions
 				crit.cure()
 			H.uncuff()
+			H.Silence(6) //Prevent "HALP MAINT CULT" before you realise you're converted
 			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
 			if(H.equip_to_slot_if_possible(D, slot_in_backpack, FALSE, TRUE))
 				to_chat(H, "<span class='cultlarge'>You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding. </span>")
