@@ -104,5 +104,4 @@
 
 	smoke.start()
 	src.uses -= 1
-	for(var/datum/action/act in user.actions) //Update action buttons as some spells might now be castable
-		act.UpdateButtonIcon()
+	user.update_action_buttons_icon()  //Update action buttons as some spells might now be castable
