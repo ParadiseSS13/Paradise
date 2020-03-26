@@ -47,7 +47,7 @@
 	destroy_spellbook = TRUE
 
 /obj/effect/proc_holder/spell/targeted/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), slot_wear_suit)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), slot_w_uniform)

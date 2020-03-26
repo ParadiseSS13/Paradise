@@ -135,14 +135,14 @@
 	qdel(wizard_mob.r_store)
 	qdel(wizard_mob.l_store)
 
-	if(!isplasmaman(wizard_mob))
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
-		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
-	else
+	if(isplasmaman(wizard_mob))
 		wizard_mob.equipOutfit(new /datum/outfit/plasmaman/wizard)
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
+	else
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
+		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
 	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
