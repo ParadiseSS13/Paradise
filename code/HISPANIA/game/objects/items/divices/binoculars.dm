@@ -57,8 +57,10 @@
 	switch(forced_zoom)
 		if(FALSE)
 			zoomed = FALSE
+			to_chat(viewers(user), "<span class='notice'>[user] stops watching through [src]</span>")
 		if(TRUE)
 			zoomed = TRUE
+			to_chat(viewers(user), "<span class='notice'>[user] sees trought [src]</span>")
 		else
 			zoomed = !zoomed
 
