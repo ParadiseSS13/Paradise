@@ -29,8 +29,8 @@
 	var/valid_colors = list(COLOR_DARK_GRAY, COLOR_RED_GRAY, COLOR_BLUE_GRAY, COLOR_DARK_BLUE_GRAY, COLOR_GREEN_GRAY, COLOR_DARK_GREEN_GRAY, COLOR_WHITE)
 
 /obj/item/kitchen/knife/folding/Initialize()
-	color = pick(valid_colors)
 	icon_state = handle_icon
+	color = pick(valid_colors)
 	update_icon()
 	. = ..()
 
@@ -72,22 +72,22 @@
 		overlays += overlay_image(icon, hardware_closed, flags=RESET_COLOR)
 		item_state = initial(item_state)
 
-/obj/item/kitchen/knife/folding/AltClick(mob/user)
+/obj/item/kitchen/knife/folding/attackby(obj/item/O, mob/M)
 	..()
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(unique_reskin && !reskin_used && loc == user)
-		reskin_foldingknife(user)
+	if(istype(O, /obj/item/toy/crayon/spraycan))
+		if(unique_reskin && !reskin_used)
+			reskin_foldingknife(M)
+		else
+			to_chat(M, "<span class='warning'>There's already dry paint on the folding knife, You can't re-skin it anymore!")
 
 /obj/item/kitchen/knife/folding/proc/reskin_foldingknife(mob/M)
-	var/choice = input(M,"Warning, you can only reskin your folding knife once!","Reskin Folding Knife") in options
+	var/choice = input(M,"Warning, you can only re-skin your folding knife once!","Reskin Folding Knife") in options
 
 	if(src && choice && !reskin_used && !M.incapacitated() && in_range(M,src))
 		if(options[choice] == null)
 			return
 		color = options[choice]
-		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
+		to_chat(M, "Your folding knife is now skinned as [choice]. Say hello to your new friend.")
 		reskin_used = TRUE
 		update_icon()
 
@@ -153,6 +153,7 @@
 	hardware_closed = "bfly_hardware_closed"
 	hardware_open = "bfly_hardware"
 	handle_icon = "bfly_handle"
+	valid_colors = list(COLOR_DARK_GRAY, COLOR_RED_GRAY, COLOR_BLUE_GRAY,COLOR_DARK_BLUE_GRAY,COLOR_GREEN_GRAY,COLOR_DARK_GREEN_GRAY,COLOR_WHITE)
 
 /obj/item/kitchen/knife/folding/butterfly/New()
 	..()
