@@ -79,6 +79,9 @@
 			target.forceMove(pick(L))
 			playsound(get_turf(user), sound2, 50,1)
 
+		for(var/datum/action/act in user.actions) //Update action buttons as some spells might now be castable
+			act.UpdateButtonIcon()
+
 	return
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/invocation(area/chosenarea = null)
