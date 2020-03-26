@@ -69,8 +69,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	body += "<body>Options panel for <b>[M]</b>"
 	if(M.client)
 
-		if(check_watchlist(M.ckey) || TRUE)
-			body += " played by <a style = 'color: #FF0000;' href = '?_src_=holder;watchsearch=[M.ckey];'><b>[M.client]</b></a> "
+		if(check_watchlist(M.ckey)
+			body += " played by <a style = 'color: #db9737;' href = '?_src_=holder;watchsearch=[M.ckey];'><b>[M.client]</b></a> "
 		else
 			body += " played by <a href = '?_src_=holder;watchsearch=[M.ckey];'><b>[M.client]</b></a> "
 

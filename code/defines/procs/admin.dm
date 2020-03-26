@@ -51,7 +51,7 @@
 		else
 			if(include_link && C)
 				if(watchlisted)
-					. += "<a style='color: #FF0000;' href='?priv_msg=[C.UID()];type=[type]'>"
+					. += "<a style='color: #db9737;' href='?priv_msg=[C.UID()];type=[type]'>"
 				else
 					. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
 			. += key
