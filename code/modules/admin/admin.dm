@@ -72,7 +72,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(check_watchlist(M.ckey)
 			body += " played by <a style = 'color: #db9737;' href = '?_src_=holder;watchsearch=[M.ckey];'><b>[M.client]</b></a> "
 		else
-			body += " played by <a href = '?_src_=holder;watchsearch=[M.ckey];'><b>[M.client]</b></a> "
+			body += " played by <b>[M.client]</b> "
 
 		body += "\[<A href='?_src_=holder;editrights=rank;ckey=[M.ckey]'>[M.client.holder ? M.client.holder.rank : "Player"]</A>\] "
 		body += "\[<A href='?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
