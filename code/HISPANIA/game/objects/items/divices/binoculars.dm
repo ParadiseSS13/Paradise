@@ -43,8 +43,10 @@
 /obj/item/device/binoculars/attack_self(mob/user)
 	if(!zoomed)
 		zoom(user, TRUE)
+		to_chat(viewers(user), "<span class='notice'>[user] sees trought [src]</span>")
 	else
 		zoom(user, FALSE)
+		to_chat(viewers(user), "<span class='notice'>[user] stops watching through [src]</span>")
 
 /obj/item/device/binoculars/dropped(mob/user)
 	zoom(user,FALSE)
@@ -57,10 +59,8 @@
 	switch(forced_zoom)
 		if(FALSE)
 			zoomed = FALSE
-			to_chat(viewers(user), "<span class='notice'>[user] stops watching through [src]</span>")
 		if(TRUE)
 			zoomed = TRUE
-			to_chat(viewers(user), "<span class='notice'>[user] sees trought [src]</span>")
 		else
 			zoomed = !zoomed
 
