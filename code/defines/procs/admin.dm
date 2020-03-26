@@ -12,6 +12,7 @@
 	var/mob/M
 	var/client/C
 	var/key
+	var/watchlisted = FALSE
 
 	if(!whom)
 		return "INVALID/(INVALID)"
@@ -39,6 +40,9 @@
 
 	. = ""
 
+	if(check_watchlist(key) && is_admin(src))
+		watchlisted = TRUE
+
 	if(key)
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			if(include_link)
@@ -46,7 +50,10 @@
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
+				if(watchlisted)
+					. += "<a style='color: #FF0000;' href='?priv_msg=[C.UID()];type=[type]'>"
+				else
+					. += "<a href='?priv_msg=[C.UID()];type=[type]'>"
 			. += key
 
 		if(include_link)
