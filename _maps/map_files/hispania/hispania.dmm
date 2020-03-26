@@ -4728,8 +4728,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/table,
-/obj/item/circular_saw,
+/obj/structure/surgicalcart/full,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aiL" = (
@@ -53382,15 +53381,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bUu" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = 0;
@@ -53400,8 +53390,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/structure/surgicalcart/full,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
@@ -58560,14 +58549,6 @@
 	})
 "cck" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/machinery/firealarm{
 	dir = 2;
 	pixel_y = 24
@@ -60459,12 +60440,6 @@
 /area/hallway/primary/central/south)
 "cfw" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
@@ -60524,17 +60499,9 @@
 /area/hallway/primary/central/se)
 "cfC" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/alarm{
 	pixel_y = 25
 	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
@@ -60635,27 +60602,12 @@
 /area/medical/surgery2)
 "cfL" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
 "cfM" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -60665,8 +60617,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/structure/surgicalcart/full,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
@@ -97411,6 +97362,12 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"qoQ" = (
+/obj/structure/surgicalcart/full,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
 "qth" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -109015,7 +108972,7 @@ abV
 abV
 agF
 ahg
-abV
+qoQ
 ahy
 ahP
 aaa
