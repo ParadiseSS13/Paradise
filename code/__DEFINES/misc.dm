@@ -130,6 +130,7 @@
 
 //Turf locational stuff
 #define get_turf(A) (get_step(A, 0))
+#define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
 #define NORTH_OF_TURF(T)	locate(T.x, T.y + 1, T.z)
 #define EAST_OF_TURF(T)		locate(T.x + 1, T.y, T.z)
 #define SOUTH_OF_TURF(T)	locate(T.x, T.y - 1, T.z)

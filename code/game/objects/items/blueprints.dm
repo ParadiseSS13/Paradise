@@ -55,7 +55,7 @@
 
 /obj/item/areaeditor/permit/attack_self(mob/user)
 	. = ..()
-	var/area/A = get_area()
+	var/area/A = get_area(user)
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
@@ -77,7 +77,7 @@
 
 /obj/item/areaeditor/golem/attack_self(mob/user)
 	. = ..()
-	var/area/A = get_area()
+	var/area/A = get_area(user)
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 	var/datum/browser/popup = new(user, "blueprints", "[src]", 700, 500)
@@ -104,7 +104,7 @@
 
 /obj/item/areaeditor/blueprints/attack_self(mob/user)
 	. = ..()
-	var/area/A = get_area()
+	var/area/A = get_area(user)
 	if(get_area_type() == AREA_STATION)
 		. += "<p>According to the [src], you are now in <b>\"[sanitize(A.name)]\"</b>.</p>"
 		. += "<p>You may <a href='?src=[UID()];edit_area=1'> move an amendment</a> to the drawing.</p>"
@@ -163,13 +163,9 @@
 	..()
 	clear_viewer()
 
-/obj/item/areaeditor/proc/get_area()
-	var/turf/T = get_turf(usr)
-	var/area/A = T.loc
-	return A
-
-
-/obj/item/areaeditor/proc/get_area_type(var/area/A = get_area())
+/obj/item/areaeditor/proc/get_area_type(area/A)
+	if (!A)
+		A = get_area(usr)
 	if(A.outdoors)
 		return AREA_SPACE
 	var/list/SPECIALS = list(
@@ -232,7 +228,7 @@
 	return area_created
 
 /obj/item/areaeditor/proc/edit_area()
-	var/area/A = get_area()
+	var/area/A = get_area(usr)
 	var/prevname = "[sanitize(A.name)]"
 	var/str = trim(stripped_input(usr,"New area name:", "Blueprint Editing", prevname, MAX_NAME_LEN))
 	if(!str || !length(str) || str==prevname) //cancel

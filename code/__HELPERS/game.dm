@@ -1,9 +1,9 @@
-/proc/get_area(atom/A)
-	RETURN_TYPE(/area)
-	if(isarea(A))
-		return A
-	var/turf/T = get_turf(A)
-	return T ? T.loc : null
+///proc/get_area(atom/A)
+//	RETURN_TYPE(/area)
+//	if(isarea(A))
+//		return A
+//	var/turf/T = get_turf(A)
+//	return T ? T.loc : null
 
 /proc/get_area_name(atom/X, format_text = FALSE)
 	var/area/A = isarea(X) ? X : get_area(X)
