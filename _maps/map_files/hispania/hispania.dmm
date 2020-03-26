@@ -4728,8 +4728,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/table,
-/obj/item/circular_saw,
+/obj/structure/surgicalcart/full,
 /turf/simulated/shuttle/floor4/vox,
 /area/shuttle/vox)
 "aiL" = (
@@ -53382,15 +53381,6 @@
 /turf/simulated/floor/plasteel,
 /area/engine/gravitygenerator)
 "bUu" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/status_display{
 	layer = 4;
 	pixel_x = 0;
@@ -53400,8 +53390,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/structure/surgicalcart/full,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
@@ -54417,9 +54406,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/structure/sign/poster/random{
-	pixel_x = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -54523,12 +54509,6 @@
 /turf/simulated/wall/r_wall,
 /area/medical/genetics)
 "bWj" = (
-/obj/machinery/camera{
-	c_tag = "Research Server Room";
-	dir = 2;
-	network = list("Research","SS13");
-	pixel_x = 22
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -57141,6 +57121,12 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen{
 	anchored = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Research Server Room";
+	dir = 2;
+	network = list("Research","SS13");
+	pixel_x = 22
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -58563,14 +58549,6 @@
 	})
 "cck" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/machinery/firealarm{
 	dir = 2;
 	pixel_y = 24
@@ -60462,12 +60440,6 @@
 /area/hallway/primary/central/south)
 "cfw" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "whiteblue";
@@ -60527,17 +60499,9 @@
 /area/hallway/primary/central/se)
 "cfC" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/alarm{
 	pixel_y = 25
 	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
@@ -60638,27 +60602,12 @@
 /area/medical/surgery2)
 "cfL" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
 	},
 /area/medical/surgery2)
 "cfM" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
@@ -60668,8 +60617,7 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/structure/surgicalcart/full,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue";
 	icon_state = "whiteblue"
@@ -96676,22 +96624,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
-"hHX" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall12";
-	dir = 2
-	},
-/area/shuttle/mining)
-"hMH" = (
-/obj/structure/window/full/shuttle,
-/obj/structure/grille,
-/turf/simulated/shuttle/wall{
-	icon_state = "swall3";
-	dir = 2
-	},
-/area/shuttle/mining)
 "iaC" = (
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
@@ -97037,6 +96969,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos)
+"lND" = (
+/obj/machinery/computer/cryopod/robot{
+	pixel_x = 63;
+	pixel_y = 0
+	},
+/turf/simulated/floor/plasteel,
+/area/medical/research{
+	name = "Research Division"
+	})
 "lVn" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay";
@@ -97421,6 +97362,12 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"qoQ" = (
+/obj/structure/surgicalcart/full,
+/turf/simulated/shuttle/floor{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
 "qth" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -97548,6 +97495,12 @@
 	},
 /turf/space,
 /area/shuttle/administration)
+"rWK" = (
+/obj/machinery/recharger/wallcharger{
+	pixel_x = -21
+	},
+/turf/simulated/floor/wood,
+/area/blueshield)
 "rYq" = (
 /obj/machinery/door/airlock/centcom{
 	id_tag = "adminshuttle";
@@ -109019,7 +108972,7 @@ abV
 abV
 agF
 ahg
-abV
+qoQ
 ahy
 ahP
 aaa
@@ -116818,9 +116771,9 @@ aaa
 aaa
 iAO
 cgF
-hMH
+ceY
 cgF
-hMH
+ceY
 cgF
 xAQ
 aaa
@@ -117587,7 +117540,7 @@ dcY
 bKB
 aaa
 aaa
-hHX
+ceY
 cgB
 cin
 cim
@@ -123760,7 +123713,7 @@ cgS
 ciA
 clR
 col
-clR
+rWK
 coY
 cqR
 csy
@@ -141227,7 +141180,7 @@ bLU
 bNE
 bQz
 bRy
-bRy
+lND
 cbd
 ccV
 chb
