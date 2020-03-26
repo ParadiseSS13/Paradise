@@ -1,7 +1,7 @@
 /obj/item/device/binoculars
 	name = "binoculars"
 	desc = "A pair of binoculars, hopefully you can avoid dangers and spot people on the act with these."
-	icon = 'icons/hispania/obj/tools.dmi'
+	icon = 'icons/hispania/obj/bino.dmi'
 	icon_state = "binoculars"
 	item_state = "binoculars"
 	force = 5
