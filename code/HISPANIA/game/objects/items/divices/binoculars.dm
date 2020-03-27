@@ -48,6 +48,10 @@
 		zoom(user, FALSE)
 		to_chat(viewers(user), "<span class='notice'>[user] stops watching through [src]</span>")
 
+/obj/item/device/binoculars/equipped(mob/user)
+	..()
+	zoom(user, FALSE)
+
 /obj/item/device/binoculars/dropped(mob/user)
 	zoom(user,FALSE)
 	..()
