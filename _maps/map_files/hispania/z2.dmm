@@ -788,7 +788,7 @@
 "ph" = (/obj/item/radio/intercom/specops{pixel_y = 25},/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "pi" = (/obj/effect/decal/warning_stripes/south,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "pj" = (/obj/structure/closet/secure_closet/guncabinet,/obj/item/ammo_casing/rocket,/obj/item/ammo_casing/rocket,/obj/item/ammo_casing/rocket,/obj/item/gun/rocketlauncher,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
-"pk" = (/obj/structure/table/reinforced,/obj/item/grenade/clusterbuster,/obj/item/grenade/chem_grenade/incendiary{name = "Incendiary Grenade"},/obj/item/kitchen/knife/combat,/obj/item/kitchen/knife/combat,/obj/item/kitchen/knife/combat,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
+"pk" = (/obj/structure/table/reinforced,/obj/item/grenade/clusterbuster,/obj/item/grenade/chem_grenade/incendiary{name = "Incendiary Grenade"},/obj/item/kitchen/knife/combat,/obj/item/kitchen/knife/combat,/obj/item/kitchen/knife/combat,/obj/item/kitchen/knife/folding/combat,/obj/item/kitchen/knife/folding/combat,/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
 "pl" = (/obj/machinery/door/airlock/shuttle{req_access_txt = "0"},/turf/simulated/shuttle/floor{icon_state = "floor4"},/area/shuttle/gamma/space)
 "pm" = (/obj/machinery/door/poddoor{id_tag = "CCGAMMA"; name = "Gamma Security"},/obj/machinery/door/airlock/centcom{name = "Gamma Armory"; opacity = 1; req_access_txt = "114"},/turf/simulated/floor/plasteel{icon_state = "dark"},/area/centcom/gamma)
 "pn" = (/turf/simulated/floor/plasteel{icon_state = "red"; dir = 10},/area/centcom/gamma)
