@@ -49336,13 +49336,12 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "bNN" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
 /obj/item/radio/intercom{
 	frequency = 1459;
 	name = "station intercom (General)";
 	pixel_x = 28
 	},
+/obj/structure/closet/secure_closet/roboticist,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -50386,6 +50385,7 @@
 	pixel_y = -14
 	},
 /obj/item/storage/belt/utility,
+/obj/machinery/cell_charger,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -53492,12 +53492,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
-"bUH" = (
-/obj/structure/closet/wardrobe/robotics_black,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
 "bUI" = (
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -54437,12 +54431,6 @@
 "bWd" = (
 /turf/simulated/wall,
 /area/medical/genetics_cloning)
-"bWe" = (
-/obj/structure/closet/secure_closet/roboticist,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/assembly/robotics)
 "bWf" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
@@ -142939,7 +142927,7 @@ bRz
 ygr
 bId
 bId
-bWe
+bId
 bLI
 cau
 ccg
@@ -143453,7 +143441,7 @@ bNN
 bPy
 bRm
 bSY
-bUH
+bId
 bLI
 cav
 cch
