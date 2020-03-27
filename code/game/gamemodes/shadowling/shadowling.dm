@@ -89,7 +89,7 @@ Made by Xhuis
 	if(!possible_shadowlings.len)
 		return 0
 
-	var/shadowlings = max(3, round(num_players()/14))
+	var/shadowlings = max(2, round(num_players()/14))
 
 	while(shadowlings)
 		var/datum/mind/shadow = pick(possible_shadowlings)
