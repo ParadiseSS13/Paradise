@@ -304,7 +304,7 @@
 			hungry = 1
 
 		if(hungry == 2 && !client) // if a slime is starving, it starts losing its friends
-			if(Friends.len > 0 && prob(1))
+			if(Friends.len && prob(1))
 				var/mob/nofriend = pick(Friends)
 				--Friends[nofriend]
 
@@ -338,7 +338,7 @@
 
 					targets += L // Possible target found!
 
-				if(targets.len > 0)
+				if(targets.len)
 					if(attacked || rabid || hungry == 2)
 						Target = targets[1] // I am attacked and am fighting back or so hungry I don't even care
 					else
@@ -412,7 +412,7 @@
 /mob/living/simple_animal/slime/proc/handle_speech()
 	//Speech understanding starts here
 	var/to_say
-	if(speech_buffer.len > 0)
+	if(speech_buffer.len)
 		var/who = speech_buffer[1] // Who said it?
 		var/phrase = speech_buffer[2] // What did they say?
 		if((findtext(phrase, num2text(number)) || findtext(phrase, "slimes"))) // Talking to us

@@ -612,7 +612,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(targets.len && last_target && (last_target in targets) && target(last_target))
 		return 1
 
-	while(targets.len > 0)
+	while(targets.len)
 		var/mob/living/M = pick(targets)
 		targets -= M
 		if(target(M))

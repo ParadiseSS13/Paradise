@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/proc/autosay(message, from, channel, role = "Unknown") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
-	if(channel && channels && channels.len > 0)
+	if(channel && channels && channels.len)
 		if(channel == "department")
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
@@ -332,7 +332,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		return radio_connection
 
 	// Otherwise, if a channel is specified, look for it.
-	if(channels && channels.len > 0)
+	if(channels && channels.len)
 		if(message_mode == "department") // Department radio shortcut
 			message_mode = channels[1]
 

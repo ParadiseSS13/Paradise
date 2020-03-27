@@ -354,7 +354,7 @@
 			if(!path.len) //Do not chase a patient we cannot reach.
 				soft_reset()
 
-	if(path.len > 0 && patient)
+	if(path.len && patient)
 		if(!bot_move(path[path.len]))
 			oldpatient = patient
 			soft_reset()

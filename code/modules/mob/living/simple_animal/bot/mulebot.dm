@@ -495,7 +495,7 @@
 				at_target()
 				return
 
-			else if(path.len > 0 && target) // valid path
+			else if(path.len && target) // valid path
 				var/turf/next = path[1]
 				reached_target = 0
 				if(next == loc)
@@ -532,7 +532,7 @@
 							blockcount = 0
 							spawn(20)
 								calc_path(avoid=next)
-								if(path.len > 0)
+								if(path.len)
 									buzz(DELIGHT)
 								mode = BOT_BLOCKED
 							return
@@ -553,7 +553,7 @@
 			spawn(0)
 				calc_path()
 
-				if(path.len > 0)
+				if(path.len)
 					blockcount = 0
 					mode = BOT_BLOCKED
 					buzz(DELIGHT)

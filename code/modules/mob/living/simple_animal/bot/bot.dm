@@ -631,7 +631,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 			find_patrol_target() //If it fails, look for the nearest one instead.
 		return
 
-	else if(path.len > 0 && patrol_target)		// valid path
+	else if(path.len && patrol_target)		// valid path
 		var/turf/next = path[1]
 		if(next == loc)
 			increment_path()
@@ -809,7 +809,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		bot_reset()
 		return
 
-	else if(path.len > 0 && summon_target)		//Proper path acquired!
+	else if(path.len && summon_target)		//Proper path acquired!
 		var/turf/next = path[1]
 		if(next == loc)
 			increment_path()
