@@ -5598,7 +5598,7 @@
 	},
 /area/syndicate_depot/outer)
 "lZ" = (
-/obj/item/reagent_containers/food/snacks/spiderleg,
+/obj/item/reagent_containers/food/snacks/meat/spiderleg,
 /obj/structure/spider,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

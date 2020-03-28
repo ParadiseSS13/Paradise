@@ -112,7 +112,7 @@
 /datum/recipe/grill/wingfangchu
 	reagents = list("soysauce" = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/xenomeat,
+		/obj/item/reagent_containers/food/snacks/meat/xenomeat,
 	)
 	result = /obj/item/reagent_containers/food/snacks/wingfangchu
 
@@ -229,10 +229,10 @@
 
 /datum/recipe/grill/goliath
 	items = list(
-/obj/item/reagent_containers/food/snacks/goliath
+/obj/item/reagent_containers/food/snacks/meat/goliath
 	)
 	result = /obj/item/reagent_containers/food/snacks/goliath_steak
-	
+
 /datum/recipe/grill/shrimp_skewer
 	items = list(
 		/obj/item/reagent_containers/food/snacks/shrimp,
