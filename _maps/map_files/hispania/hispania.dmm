@@ -4592,6 +4592,8 @@
 	icon_state = "alarm0";
 	pixel_x = 24
 	},
+/obj/structure/rack,
+/obj/item/twohanded/required/ram,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner";
 	dir = 4
