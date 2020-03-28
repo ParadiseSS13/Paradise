@@ -47817,12 +47817,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/assembly/chargebay)
-"bLn" = (
-/obj/machinery/computer/cryopod/robot{
-	pixel_x = -32
-	},
-/turf/simulated/floor/mech_bay_recharge_floor,
-/area/assembly/chargebay)
 "bLo" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -140357,7 +140351,7 @@ bLN
 bNg
 bOZ
 bQK
-bLn
+bLE
 bLE
 bWi
 bWi
