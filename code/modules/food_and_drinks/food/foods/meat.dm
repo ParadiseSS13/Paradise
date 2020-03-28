@@ -8,21 +8,16 @@
 	desc = "A slab of meat"
 	icon_state = "meat"
 	filling_color = "#FF1C1C"
-	var/makes_cutlet = TRUE // Some meat cannot be cut into ordinary cutlets, but is accepted by the cloning pod.
-							// i.e. this is set to FALSE for most monster meat.
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
-		if(!makes_cutlet)
-			to_chat(user, "<span class ='notice'>You can't quite figure out how to make [src] into cutlets.</span>")
-			return
 		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
 		new /obj/item/reagent_containers/food/snacks/rawcutlet(src)
-		to_chat(user, "You cut the meat into thin strips.")
+		to_chat(user, "You cut the meat in thin strips.")
 		qdel(src)
 	else
 		..()
@@ -82,47 +77,45 @@
 		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/meat/bearmeat
+/obj/item/reagent_containers/food/snacks/bearmeat
 	name = "bear meat"
 	desc = "A very manly slab of meat."
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
-	makes_cutlet = FALSE
+	bitesize = 3
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
-/obj/item/reagent_containers/food/snacks/meat/xenomeat
+/obj/item/reagent_containers/food/snacks/xenomeat
 	name = "meat"
 	desc = "A slab of meat. It's green!"
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
-	makes_cutlet = FALSE
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 1)
 	tastes = list("meat" = 1, "acid" = 1)
 
-/obj/item/reagent_containers/food/snacks/meat/spidermeat
+/obj/item/reagent_containers/food/snacks/spidermeat
 	name = "spider meat"
 	desc = "A slab of spider meat. Not very appetizing."
 	icon_state = "spidermeat"
-	makes_cutlet = FALSE
+	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
 	tastes = list("cobwebs" = 1)
 
-/obj/item/reagent_containers/food/snacks/meat/lizardmeat
+/obj/item/reagent_containers/food/snacks/lizardmeat
 	name = "mutant lizard meat"
 	desc = "A peculiar slab of meat. It looks scaly and radioactive."
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
-	makes_cutlet = FALSE
+	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3)
 	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/meat/spiderleg
+/obj/item/reagent_containers/food/snacks/spiderleg
 	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
 	icon_state = "spiderleg"
-	makes_cutlet = FALSE
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "creepy motion" = 1)
 
@@ -140,15 +133,14 @@
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "spider juice" = 1)
 
-/obj/item/reagent_containers/food/snacks/meat/goliath
+/obj/item/reagent_containers/food/snacks/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
-	makes_cutlet = FALSE
 	list_reagents = list("protein" = 3, "toxin" = 5)
 	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/meat/goliath/burn()
+/obj/item/reagent_containers/food/snacks/goliath/burn()
 	visible_message("<span class='notice'>[src] finishes cooking!</span>")
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
@@ -251,7 +243,7 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
-
+	
 /obj/item/reagent_containers/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
 	desc = "Bucket of voxxy, yaya!"
