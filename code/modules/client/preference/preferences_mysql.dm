@@ -259,7 +259,7 @@
 		//socks
 		socks = query.item[49]
 		body_accessory = query.item[50]
-		gear = params2list(query.item[51])
+		loadout_gear = params2list(query.item[51])
 		autohiss_mode = text2num(query.item[52])
 
 	//Sanitize
@@ -318,7 +318,7 @@
 	if(!player_alt_titles) player_alt_titles = new()
 	if(!organ_data) src.organ_data = list()
 	if(!rlimb_data) src.rlimb_data = list()
-	if(!gear) gear = list()
+	if(!loadout_gear) loadout_gear = list()
 
 	return 1
 
@@ -336,8 +336,8 @@
 		rlimblist = list2params(rlimb_data)
 	if(!isemptylist(player_alt_titles))
 		playertitlelist = list2params(player_alt_titles)
-	if(!isemptylist(gear))
-		gearlist = list2params(gear)
+	if(!isemptylist(loadout_gear))
+		gearlist = list2params(loadout_gear)
 
 	var/DBQuery/firstquery = GLOB.dbcon.NewQuery("SELECT slot FROM [format_table_name("characters")] WHERE ckey='[C.ckey]' ORDER BY slot")
 	firstquery.Execute()
