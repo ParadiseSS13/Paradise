@@ -429,6 +429,60 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	return
 
+/obj/effect/proc_holder/spell/targeted/click
+	var/click_radius = 1			// How big the radius around the clicked atom is to find a suitable target. -1 is only the selected atom is considered
+	var/selection_activated_message = "<span class='notice'>Click on a target to cast the spell.</span>"
+	var/selection_deactivated_message = "<span class='notice'>You choose to not cast this spell.</span>"
+	var/allowed_type = /mob/living	// Which type the targets have to be
+
+/obj/effect/proc_holder/spell/targeted/click/Click()
+	var/mob/living/user = usr
+	if(!istype(user))
+		return
+
+	if(active)
+		remove_ranged_ability(user, selection_deactivated_message)
+	else
+		if(cast_check(TRUE, user))
+			add_ranged_ability(user, selection_activated_message)
+		else
+			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
+
+/obj/effect/proc_holder/spell/targeted/click/InterceptClickOn(mob/living/user, params, atom/A)
+	if(..() || cast_check(FALSE, user))
+		revert_cast(user)
+		return TRUE
+
+	var/list/targets = list()
+	if(valid_target(A, user))
+		targets.Add(A)
+
+	if((!max_targets || max_targets > targets.len) && range >= 0)
+		var/list/found_others = list()
+		for(var/atom/target in view_or_range(range, user, selection_type))
+			if(valid_target(target, user))
+				found_others |= target
+		if(!max_targets)
+			targets.Add(found_others)
+		else
+			do // Add the others
+				targets.Add(pick_n_take(found_others))
+			while(targets.len < max_targets || !found_others.len)
+
+	if(!targets.len)
+		to_chat(user, "<span class='warning'>No suitable target found.</span>")
+		return FALSE
+
+	perform(targets, user = user)
+	return TRUE
+
+
+/obj/effect/proc_holder/spell/targeted/click/proc/valid_target(target, user)
+	return istype(target, allowed_type) && (!include_user || target == user)
+
+/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/user) // Not used
+	return
+
 /obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
 	var/list/targets = list()
 
