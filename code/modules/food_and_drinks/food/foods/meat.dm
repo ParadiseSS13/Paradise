@@ -11,6 +11,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 3)
 	tastes = list("meat" = 1)
+	var/BIOMASSABLE = TRUE // Can be fed into the cloning pod as biomass
 
 /obj/item/reagent_containers/food/snacks/meat/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/kitchen/knife) || istype(W, /obj/item/scalpel))
@@ -77,8 +78,22 @@
 		new /obj/item/reagent_containers/food/snacks/raw_bacon(loc)
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/bearmeat
-	name = "bear meat"
+//////////////////////////
+//		Monster Meat	//
+//////////////////////////
+
+// Cannot be used in the usual meat-based food recipies but can be used as cloning pod biomass.
+
+/obj/item/reagent_containers/food/snacks/monstermeat
+	// Abstract object used for inheritance. I don't see why you would want one.
+	// It's just a convenience to set all monstermeats' BIOMASSABLE vars.
+	// DOES NOT SPAWN NATURALLY!
+	name = "abstract monster meat"
+	desc = "A slab of abstract monster meat. This shouldn't exist, contact a coder about this if you are seeing it in-game."
+	icon_state = "bearmeat"
+	var/BIOMASSABLE = TRUE // Can be fed into the cloning pod as biomass
+
+/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat	name = "bear meat"
 	desc = "A very manly slab of meat."
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
@@ -86,8 +101,7 @@
 	list_reagents = list("protein" = 12, "morphine" = 5, "vitamin" = 2)
 	tastes = list("meat" = 1, "salmon" = 1)
 
-/obj/item/reagent_containers/food/snacks/xenomeat
-	name = "meat"
+/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat	name = "meat"
 	desc = "A slab of meat. It's green!"
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
@@ -95,16 +109,14 @@
 	list_reagents = list("protein" = 3, "vitamin" = 1)
 	tastes = list("meat" = 1, "acid" = 1)
 
-/obj/item/reagent_containers/food/snacks/spidermeat
-	name = "spider meat"
+/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat	name = "spider meat"
 	desc = "A slab of spider meat. Not very appetizing."
 	icon_state = "spidermeat"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
 	tastes = list("cobwebs" = 1)
 
-/obj/item/reagent_containers/food/snacks/lizardmeat
-	name = "mutant lizard meat"
+/obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat	name = "mutant lizard meat"
 	desc = "A peculiar slab of meat. It looks scaly and radioactive."
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
@@ -112,8 +124,7 @@
 	list_reagents = list("protein" = 3, "toxin" = 3)
 	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/spiderleg
-	name = "spider leg"
+/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
@@ -126,21 +137,19 @@
 	list_reagents = list("nutriment" = 1, "porktonium" = 10)
 	tastes = list("bacon" = 1)
 
-/obj/item/reagent_containers/food/snacks/spidereggs
-	name = "spider eggs"
+/obj/item/reagent_containers/food/snacks/monstermeat/spidereggs	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you don't care about your health."
 	icon_state = "spidereggs"
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "spider juice" = 1)
 
-/obj/item/reagent_containers/food/snacks/goliath
-	name = "goliath meat"
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
 	icon_state = "goliathmeat"
 	list_reagents = list("protein" = 3, "toxin" = 5)
 	tastes = list("tough meat" = 1)
 
-/obj/item/reagent_containers/food/snacks/goliath/burn()
+/obj/item/reagent_containers/food/snacks/monstermeat/goliath/burn()
 	visible_message("<span class='notice'>[src] finishes cooking!</span>")
 	new /obj/item/reagent_containers/food/snacks/goliath_steak(loc)
 	qdel(src)
@@ -243,7 +252,7 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
-	
+
 /obj/item/reagent_containers/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
 	desc = "Bucket of voxxy, yaya!"
