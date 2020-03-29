@@ -36,7 +36,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /datum/click_intercept/proc_holder/quit()
 	spell.remove_ranged_ability(spell.ranged_ability_user)
-	. = ..()
+	return ..()
 
 /obj/effect/proc_holder/proc/add_ranged_ability(mob/living/user, var/msg)
 	if(!user || !user.client)
