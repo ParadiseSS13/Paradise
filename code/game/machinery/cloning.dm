@@ -317,12 +317,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 //Grow clones to maturity then kick them out. FREELOADERS
 /obj/machinery/clonepod/process()
-	var/show_message = 0
+	var/show_message = FALSE
 	for(var/obj/item/item in range(1, src))
 		if(is_type_in_list(item, GLOB.cloner_biomass_items))
 			qdel(item)
 			biomass += BIOMASS_BASE_AMOUNT
-			show_message = 1
+			show_message = TRUE
 	if(show_message)
 		visible_message("[src] sucks in and processes the nearby biomass.")
 
@@ -378,12 +378,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		use_power(200)
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/item, mob/user, params)
-	if(exchange_parts(user, item))
+/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
+	if(exchange_parts(user, I))
 		return
 
-	if(item.GetID())
-		if(!check_access(item))
+	if(I.GetID())
+		if(!check_access(I))
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
 			return
 		if(!(occupant || mess))
@@ -396,11 +396,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			go_out()
 
 // A user can feed in biomass sources manually.
-	else if(is_type_in_list(item, GLOB.cloner_biomass_items))
+	else if(is_type_in_list(I, GLOB.cloner_biomass_items))
 		if(user.drop_item())
-			to_chat(user, "<span class='notice'>[src] processes [item].</span>")
+			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
 			biomass += BIOMASS_BASE_AMOUNT
-			qdel(item)
+			qdel(I)
 	else
 		return ..()
 
