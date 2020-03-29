@@ -219,7 +219,7 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/enthrall/can_cast(mob/user)
+/obj/effect/proc_holder/spell/targeted/click/enthrall/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(enthralling || !shadowling_check(user))
 		return FALSE
 	return ..()
@@ -545,7 +545,7 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/reviveThrall/can_cast(mob/user)
+/obj/effect/proc_holder/spell/targeted/click/reviveThrall/can_cast(mob/user = usr)
 	if(!shadowling_check(user))
 		return FALSE
 	return ..()
@@ -635,14 +635,16 @@
 	action_icon_state = "extend_shuttle"
 	var/global/extendlimit = 0
 
-/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/user)
+/obj/effect/proc_holder/spell/targeted/click/shadowling_extend_shuttle/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!shadowling_check(user))
 		return FALSE
 	if(extendlimit == 1)
-		to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>Shuttle was already delayed.</span>")
 		return FALSE
 	if(SSshuttle.emergency.mode != SHUTTLE_CALL)
-		to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>The shuttle must be inbound only to the station.</span>")
 		return FALSE
 	return ..()
 
@@ -729,11 +731,12 @@
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/hypnosis/can_cast(mob/living/simple_animal/ascendant_shadowling/user)
+/obj/effect/proc_holder/spell/targeted/click/hypnosis/can_cast(mob/living/simple_animal/ascendant_shadowling/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(!istype(user))
 		return FALSE
 	if(user.phasing)
-		to_chat(user, "<span class='warning'>You are not in the same plane of existence. Unphase first.</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>You are not in the same plane of existence. Unphase first.</span>")
 		return FALSE
 	return ..()
 

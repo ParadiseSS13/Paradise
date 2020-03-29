@@ -159,12 +159,14 @@
 	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
 	allowed_type = /mob/living/carbon/human
 
-/obj/effect/proc_holder/spell/targeted/click/recruit/can_cast(mob/user)
+/obj/effect/proc_holder/spell/targeted/click/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(SSticker.mode.greyshirts.len >= 3)
-		to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
+		if(show_message)
+			to_chat(user, "<span class='warning'>You have already recruited the maximum number of henchmen.</span>")
 		return FALSE
 	if(recruiting)
-		to_chat(user, "<span class='danger'>You are already recruiting!</span>")
+		if(show_message)
+			to_chat(user, "<span class='danger'>You are already recruiting!</span>")
 		return FALSE
 	return ..()
 
