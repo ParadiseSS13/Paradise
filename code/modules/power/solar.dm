@@ -12,6 +12,7 @@
 	active_power_usage = 0
 	max_integrity = 150
 	integrity_failure = 50
+	process_start_flag = START_PROCESSING_MANUALLY
 	var/id = 0
 	var/obscured = 0
 	var/sunfrac = 0
@@ -23,6 +24,7 @@
 /obj/machinery/power/solar/Initialize(mapload, obj/item/solar_assembly/S)
 	. = ..()
 	Make(S)
+	RegisterSignal(src, COMSIG_MACHINERY_BROKEN, .proc/end_processing)
 	connect_to_network()
 
 /obj/machinery/power/solar/Destroy()
@@ -30,11 +32,12 @@
 	return ..()
 
 //set the control of the panel to a given computer if closer than SOLAR_MAX_DIST
-/obj/machinery/power/solar/proc/set_control(var/obj/machinery/power/solar_control/SC)
+/obj/machinery/power/solar/proc/set_control(obj/machinery/power/solar_control/SC)
 	if(!SC || (get_dist(src, SC) > SOLAR_MAX_DIST))
 		return 0
 	control = SC
 	SC.connected_panels |= src
+	begin_processing()
 	return 1
 
 //set the control of the panel to null and removes it from the control list of the previous control computer if needed
@@ -42,8 +45,9 @@
 	if(control)
 		control.connected_panels.Remove(src)
 	control = null
+	end_processing()
 
-/obj/machinery/power/solar/proc/Make(var/obj/item/solar_assembly/S)
+/obj/machinery/power/solar/proc/Make(obj/item/solar_assembly/S)
 	if(!S)
 		S = new /obj/item/solar_assembly(src)
 		S.glass_type = /obj/item/stack/sheet/glass
@@ -76,9 +80,8 @@
 			playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/power/solar/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
+	if(..())
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
-		stat |= BROKEN
 		unset_control()
 		update_icon()
 
@@ -121,27 +124,18 @@
 	sunfrac = cos(p_angle) ** 2
 	//isn't the power received from the incoming light proportionnal to cos(p_angle) (Lambert's cosine law) rather than cos(p_angle)^2 ?
 
+/obj/machinery/power/solar/begin_processing()
+	// If the panel is wired, not obscured, and is linked to a solar_control computer
+	if(powernet && !obscured && control)
+		return ..()
+
 /obj/machinery/power/solar/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
-	if(stat & BROKEN)
-		return
-	if(!control) //if there's no sun or the panel is not linked to a solar control computer, no need to proceed
-		return
-
-	if(powernet)
-		if(powernet == control.powernet)//check if the panel is still connected to the computer
-			if(obscured) //get no light from the sun, so don't generate power
-				return
-			var/sgen = SOLARGENRATE * sunfrac
-			add_avail(sgen)
-			control.gen += sgen
-		else //if we're no longer on the same powernet, remove from control computer
-			unset_control()
-
-/obj/machinery/power/solar/proc/broken()
-	. = (!(stat & BROKEN))
-	stat |= BROKEN
-	unset_control()
-	update_icon()
+	if(powernet == control.powernet)//check if the panel is still connected to the computer
+		var/sgen = SOLARGENRATE * sunfrac
+		add_avail(sgen)
+		control.gen += sgen
+	else //if we're no longer on the same powernet, remove from control computer
+		unset_control()
 
 /obj/machinery/power/solar/fake/New(var/turf/loc, var/obj/item/solar_assembly/S)
 	..(loc, S, 0)
@@ -170,9 +164,11 @@
 
 		if(T.density)			// if we hit a solid turf, panel is obscured
 			obscured = 1
+			end_processing()
 			return
 
 	obscured = 0		// if hit the edge or stepped 20 times, not obscured
+	begin_processing()
 	update_solar_exposure()
 
 

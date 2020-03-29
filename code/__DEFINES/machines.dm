@@ -12,6 +12,15 @@
 #define IDLE_POWER_USE 1
 #define ACTIVE_POWER_USE 2
 
+// These aren't just used for machines, all /obj can use these if they want to process.
+/// Bitflags for a object's preferences on when it should start processing. For use with an object's `process_start_flags` var.
+#define START_PROCESSING_ON_INIT	(1<<1) /// Indicates the machine will automatically start processing right after it's `Initialize()` is ran.
+#define START_PROCESSING_MANUALLY	(1<<2) /// Machines with this flag will not start processing when it's spawned. Use this if you want to manually control when a machine starts processing.
+
+/// Bitflags for a object's preferences on processing speed (subsystem) it should use. For use with an object's `process_speed_flags` var.
+#define NORMAL_PROCESS_SPEED	(1<<0) /// Uses a slow speed: `process()` will run roughly every 2 seconds. Used with SSmachines and SSobj
+#define FAST_PROCESS_SPEED		(1<<1) /// Uses a fast speed: `process()` will run roughly every 0.2 seconds. Used with SSfastprocess
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
  #define PROG_CRASH      1  // Generic crash
  #define MISSING_PERIPHERAL  2  // Missing hardware

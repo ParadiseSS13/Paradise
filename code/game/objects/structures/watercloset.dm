@@ -248,6 +248,7 @@
 	density = 0
 	anchored = 1
 	use_power = NO_POWER_USE
+	process_start_flag = START_PROCESSING_MANUALLY
 	var/on = 0
 	var/obj/effect/mist/mymist = null
 	var/ismist = 0				//needs a var so we can make it linger~
@@ -288,6 +289,7 @@
 	on = !on
 	update_icon()
 	if(on)
+		begin_processing()
 		soundloop.start()
 		if(M.loc == loc)
 			wash(M)
@@ -297,6 +299,7 @@
 			G.clean_blood()
 			G.water_act(100, convertHeat(), src)
 	else
+		end_processing()
 		soundloop.stop()
 
 /obj/machinery/shower/attackby(obj/item/I as obj, mob/user as mob, params)
@@ -373,6 +376,8 @@
 	if(ismob(O))
 		mobpresent += 1
 		check_heat(O)
+	if(on)
+		begin_processing()
 
 /obj/machinery/shower/Uncrossed(atom/movable/O)
 	if(ismob(O))
@@ -482,6 +487,7 @@
 
 /obj/machinery/shower/process()
 	if(!on || !mobpresent)
+		end_processing()
 		return
 	for(var/mob/living/carbon/C in loc)
 		if(prob(33))

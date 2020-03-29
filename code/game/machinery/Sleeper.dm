@@ -12,6 +12,11 @@
 	density = 1
 	anchored = 1
 	dir = WEST
+	idle_power_usage = 1250
+	active_power_usage = 2500
+	light_color = LIGHT_COLOR_CYAN
+	process_start_flag = START_PROCESSING_MANUALLY
+	use_machinery_signals = TRUE
 	var/orient = "LEFT" // "RIGHT" changes the dir suffix to "-r"
 	var/mob/living/carbon/human/occupant = null
 	var/possible_chems = list("ephedrine", "salglu_solution", "salbutamol", "charcoal")
@@ -27,14 +32,13 @@
 	idle_power_usage = 1250
 	active_power_usage = 2500
 
-	light_color = LIGHT_COLOR_CYAN
+/obj/machinery/sleeper/on_power_gain()
+	. = ..()
+	set_light(2)
 
-/obj/machinery/sleeper/power_change()
-	..()
-	if(!(stat & (BROKEN|NOPOWER)))
-		set_light(2)
-	else
-		set_light(0)
+/obj/machinery/sleeper/on_power_loss()
+	. = ..()
+	set_light(0)
 
 /obj/machinery/sleeper/New()
 	..()
@@ -82,43 +86,36 @@
 	go_out()
 
 /obj/machinery/sleeper/process()
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
-		if(M == occupant)
-			continue
-		else
-			M.forceMove(loc)
+	if(!occupant)
+		end_processing()
+		return
 
-	if(occupant)
-		if(auto_eject_dead && occupant.stat == DEAD)
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 40)
-			go_out()
-			return
+	if(filtering <= 0 || !beaker)
+		return
 
-		if(filtering > 0 && beaker)
-			// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
-			if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
-				filtering = 0
-				return
+	// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
+	if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
+		filtering = 0
+		return
 
-			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
-				occupant.transfer_blood_to(beaker, 1)
-				for(var/datum/reagent/x in occupant.reagents.reagent_list)
-					occupant.reagents.trans_to(beaker, 3)
-					occupant.transfer_blood_to(beaker, 1)
+	if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
+		occupant.transfer_blood_to(beaker, 1)
+		for(var/datum/reagent/x in occupant.reagents.reagent_list)
+			occupant.reagents.trans_to(beaker, 3)
+			occupant.transfer_blood_to(beaker, 1)
 
-		for(var/A in occupant.reagents.addiction_list)
-			var/datum/reagent/R = A
+	for(var/A in occupant.reagents.addiction_list)
+		var/datum/reagent/R = A
 
-			var/addiction_removal_chance = 5
-			if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
-				addiction_removal_chance = 10
-			if(prob(addiction_removal_chance))
-				to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
-				occupant.reagents.addiction_list.Remove(R)
-				qdel(R)
+		var/addiction_removal_chance = 5
+		if(world.timeofday > (R.last_addiction_dose + ADDICTION_SPEEDUP_TIME)) // 2.5 minutes
+			addiction_removal_chance = 10
+		if(prob(addiction_removal_chance))
+			to_chat(occupant, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+			occupant.reagents.addiction_list.Remove(R)
+			qdel(R)
 
 	updateDialog()
-	return
 
 
 /obj/machinery/sleeper/attack_ai(mob/user)
@@ -406,6 +403,7 @@
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	end_processing()
 	icon_state = "[base_icon]-open"
 	// eject trash the occupant dropped
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
@@ -485,6 +483,9 @@
 	var/mob/living/L = O
 	if(!istype(L) || L.buckled)
 		return
+	if(L.is_grabbing()) // If the user has another mob in a grab
+		to_chat(L, "<span class='warning'>Only one lifeform is allowed in [src] at a time!</span>")
+		return
 	if(L.abiotic())
 		to_chat(user, "<span class='boldnotice'>Subject cannot have abiotic items on.</span>")
 		return
@@ -503,6 +504,7 @@
 		if(!L) return
 		L.forceMove(src)
 		occupant = L
+		begin_processing()
 		icon_state = "[base_icon]"
 		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
 		add_fingerprint(user)
@@ -539,6 +541,7 @@
 		usr.stop_pulling()
 		usr.forceMove(src)
 		occupant = usr
+		begin_processing()
 		icon_state = "[base_icon]"
 
 		for(var/obj/O in src)

@@ -47,6 +47,7 @@
 	#define EXAMINE_POSITION_BEFORE 2
 	//End positions
 	#define COMPONENT_EXNAME_CHANGED 1
+#define COMSIG_ATOM_CREATED "atom_created"						///from base of atom/proc/Initialize(): sent any time a new atom is created
 #define COMSIG_ATOM_ENTERED "atom_entered"                      //from base of atom/Entered(): (atom/movable/entering, /atom)
 #define COMSIG_ATOM_EXITED "atom_exited"						//from base of atom/Exited(): (atom/movable/exiting, atom/newloc)
 #define COMSIG_ATOM_EXIT "atom_exit"							//from base of atom/Exit(): (/atom/movable/exiting, /atom/newloc)
@@ -83,8 +84,6 @@
 	#define COMPONENT_NO_ATTACK_HAND 1							//works on all 3.
 /////////////////
 
-#define COMSIG_ENTER_AREA "enter_area" 						//from base of area/Entered(): (/area)
-#define COMSIG_EXIT_AREA "exit_area" 							//from base of area/Exited(): (/area)
 
 #define COMSIG_CLICK "atom_click"								//from base of atom/Click(): (location, control, params, mob/user)
 #define COMSIG_CLICK_SHIFT "shift_click"						//from base of atom/ShiftClick(): (/mob)
@@ -96,8 +95,11 @@
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"			//from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 
 // /area signals
+#define COMSIG_AREA_POWER_CHANGE "area_power_change"			///from base of area/proc/power_change()
 #define COMSIG_AREA_ENTERED "area_entered" 						//from base of area/Entered(): (atom/movable/M)
-#define COMSIG_AREA_EXITED "area_exited" 							//from base of area/Exited(): (atom/movable/M)
+#define COMSIG_AREA_EXITED "area_exited" 						//from base of area/Exited(): (atom/movable/M)
+#define COMSIG_ENTER_AREA "enter_area" 							//from base of area/Entered(): (/area)
+#define COMSIG_EXIT_AREA "exit_area" 							//from base of area/Exited(): (/area)
 
 // /turf signals
 #define COMSIG_TURF_CHANGE "turf_change"						//from base of turf/ChangeTurf(): (path, list/new_baseturfs, flags, list/transferring_comps)
@@ -160,6 +162,11 @@
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK 1
+
+// /obj/machinery signals
+#define COMSIG_MACHINERY_BROKEN "machinery_broken"					///from base of /obj/machinery/obj_break(): (damage_flags)
+#define COMSIG_MACHINERY_POWER_LOST "machinery_power_lost"			///from base of /obj/machinery/proc/power_change()
+#define COMSIG_MACHINERY_POWER_RESTORED "machinery_power_restored"	///from base of /obj/machinery/proc/power_change()
 
 // /obj signals
 #define COMSIG_OBJ_DECONSTRUCT "obj_deconstruct"				//from base of obj/deconstruct(): (disassembled)

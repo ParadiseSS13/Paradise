@@ -13,13 +13,11 @@
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
 	resistance_flags = ACID_PROOF
+	process_start_flag = START_PROCESSING_MANUALLY
+	process_speed_flag = FAST_PROCESS_SPEED
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
-
-/obj/item/reagent_containers/iv_bag/Destroy()
-	end_processing()
-	return ..()
 
 /obj/item/reagent_containers/iv_bag/on_reagent_change()
 	update_icon()
@@ -40,14 +38,6 @@
 /obj/item/reagent_containers/iv_bag/attack_hand()
 	..()
 	update_icon()
-
-/obj/item/reagent_containers/iv_bag/proc/begin_processing(mob/target)
-	injection_target = target
-	START_PROCESSING(SSobj, src)
-
-/obj/item/reagent_containers/iv_bag/proc/end_processing()
-	injection_target = null
-	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/process()
 	if(!injection_target)
@@ -100,6 +90,7 @@
 					return
 			L.visible_message("<span class='danger'>[user] removes [src]'s needle from [L]'s arm!</span>", \
 								"<span class='userdanger'>[user] removes [src]'s needle from [L]'s arm!</span>")
+			injection_target = null
 			end_processing()
 		else // Inserting the needle
 			if(!L.can_inject(user, TRUE))
@@ -114,7 +105,8 @@
 					return
 			L.visible_message("<span class='danger'>[user] inserts [src]'s needle into [L]'s arm!</span>", \
 									"<span class='userdanger'>[user] inserts [src]'s needle into [L]'s arm!</span>")
-			begin_processing(L)
+			injection_target = L
+			begin_processing()
 
 	else if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)

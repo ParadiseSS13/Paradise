@@ -197,6 +197,7 @@
 	anchored = 1
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
+	process_start_flag = START_PROCESSING_MANUALLY
 	var/base_icon_state = "body_scanner_0"
 	var/occupied_icon_state = "body_scanner_1"
 	var/on_store_message = "has entered long-term storage."
@@ -298,21 +299,25 @@
 
 //Lifted from Unity stasis.dm and refactored. ~Zuhayr
 /obj/machinery/cryopod/process()
-	if(occupant)
-		// Eject dead people
-		if(occupant.stat == DEAD)
-			go_out()
+	if(!occupant)
+		end_processing()
+		return
 
-		// Allow a gap between entering the pod and actually despawning.
-		if(world.time - time_entered < time_till_despawn)
-			return
+	// Eject dead people
+	if(occupant.stat == DEAD)
+		go_out()
+		return
 
-		if(!occupant.client && occupant.stat<2) //Occupant is living and has no client.
-			if(!control_computer)
-				if(!find_control_computer(urgent=1))
-					return
+	// Allow a gap between entering the pod and actually despawning.
+	if(world.time - time_entered < time_till_despawn)
+		return
 
-			despawn_occupant()
+	if(!occupant.client && occupant.stat<2) //Occupant is living and has no client.
+		if(!control_computer)
+			if(!find_control_computer(urgent=1))
+				return
+
+		despawn_occupant()
 
 #define CRYO_DESTROY 0
 #define CRYO_PRESERVE 1
@@ -467,6 +472,7 @@
 			occupant.ghostize(1)
 	QDEL_NULL(occupant)
 	name = initial(name)
+	end_processing()
 
 #undef CRYO_DESTROY
 #undef CRYO_PRESERVE
@@ -604,6 +610,7 @@
 	if(!E)
 		return
 	E.forceMove(src)
+	begin_processing()
 	time_till_despawn = initial(time_till_despawn) / willing_factor
 	if(orient_right)
 		icon_state = "[occupied_icon_state]-r"
@@ -695,6 +702,7 @@
 		to_chat(usr, "<span class='notice'>[on_enter_occupant_message]</span>")
 		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
 		occupant = usr
+		begin_processing()
 		time_entered = world.time
 
 		add_fingerprint(usr)
@@ -708,6 +716,7 @@
 
 	occupant.forceMove(get_turf(src))
 	occupant = null
+	end_processing()
 
 	if(orient_right)
 		icon_state = "[base_icon_state]-r"

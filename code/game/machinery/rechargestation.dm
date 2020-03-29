@@ -7,6 +7,8 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 1000
+	process_start_flag = START_PROCESSING_MANUALLY
+	use_machinery_signals = TRUE
 	var/mob/occupant = null
 	var/circuitboard = /obj/item/circuitboard/cyborgrecharger
 	var/recharge_speed
@@ -53,18 +55,11 @@
 		recharge_speed_nutrition *= multiplier
 
 /obj/machinery/recharge_station/process()
-	if(!(NOPOWER|BROKEN))
+	if(!occupant)
+		end_processing()
 		return
 
-	if(src.occupant)
-		process_occupant()
-
-	for(var/mob/M as mob in src) // makes sure that simple mobs don't get stuck inside a sleeper when they resist out of occupant's grasp
-		if(M == occupant)
-			continue
-		else
-			M.forceMove(src.loc)
-	return 1
+	process_occupant()
 
 /obj/machinery/recharge_station/ex_act(severity)
 	if(occupant)
@@ -132,26 +127,26 @@
 		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(src.occupant)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
-			restock_modules()
-			if(repairs)
-				R.heal_overall_damage(repairs, repairs)
-			if(R.cell)
-				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(istype(occupant, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = occupant
-			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
-				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
-			if(repairs)
-				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+	if(istype(occupant, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/R = occupant
+		restock_modules()
+		if(repairs)
+			R.heal_overall_damage(repairs, repairs)
+		if(R.cell)
+			R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+	else if(istype(occupant, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = occupant
+		if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
+			H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
+		if(repairs)
+			H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out()
 	if(!occupant)
 		return
 	occupant.forceMove(loc)
 	occupant = null
+	end_processing()
 	build_icon()
 	use_power = IDLE_POWER_USE
 	return
@@ -274,6 +269,9 @@
 		if(occupant)
 			to_chat(H, "<span class='warning'>The cell is already occupied!</span>")
 			return
+		if(H.is_grabbing()) // If the user has another mob in a grab
+			to_chat(H, "<span class='warning'>Only one lifeform is allowed in [src] at a time!</span>")
+			return
 		if(!H.get_int_organ(/obj/item/organ/internal/cell))
 			return
 		can_accept_user = 1
@@ -286,6 +284,7 @@
 	user.forceMove(src)
 	occupant = user
 
+	begin_processing()
 	add_fingerprint(user)
 	build_icon()
 	update_use_power(1)

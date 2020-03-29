@@ -615,6 +615,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		return FALSE
 	return TRUE
 
+/mob/living/carbon/is_grabbing()
+	if(locate(/obj/item/grab) in contents)
+		return TRUE
+	return FALSE
+
 /mob/living/carbon/restrained()
 	if(get_restraining_item())
 		return TRUE

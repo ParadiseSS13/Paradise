@@ -34,6 +34,14 @@
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
 
+/**
+	Helper proc to check if this mob has another mob in an grab. If they do, an `/obj/item/grab` will be in their contents.
+	Only works on mobs with hands such as /carbon or /carbon/human.
+	Defined here so we don't have to cast mobs to carbon, or human, or silicon to be able to call the proc on them. Just override as needed.
+*/
+/mob/living/proc/is_grabbing()
+	return
+
 /mob/living/proc/OpenCraftingMenu()
 	return
 

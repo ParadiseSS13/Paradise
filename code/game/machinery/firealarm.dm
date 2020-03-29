@@ -11,11 +11,6 @@ FIRE ALARM
 	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire0"
-	var/detecting = 1.0
-	var/working = 1.0
-	var/time = 10.0
-	var/timing = 0.0
-	var/lockdownbyai = 0
 	anchored = 1.0
 	max_integrity = 250
 	integrity_failure = 100
@@ -25,10 +20,16 @@ FIRE ALARM
 	active_power_usage = 6
 	power_channel = ENVIRON
 	resistance_flags = FIRE_PROOF
+	process_start_flag = START_PROCESSING_MANUALLY
+	use_machinery_signals = TRUE
+	var/detecting = 1.0
+	var/working = 1.0
+	var/time = 10.0
+	var/timing = 0.0
+	var/lockdownbyai = 0
 	var/last_process = 0
 	var/wiresexposed = 0
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
-
 	var/report_fire_alarms = TRUE // Should triggered fire alarms also trigger an actual alarm?
 	var/show_alert_level = TRUE // Should fire alarms display the current alert level?
 
@@ -203,29 +204,29 @@ FIRE ALARM
 		new /obj/item/stack/cable_coil(loc, 3)
 	qdel(src)
 
-/obj/machinery/firealarm/process()//Note: this processing was mostly phased out due to other code, and only runs when needed
-	if(stat & (NOPOWER|BROKEN))
+/obj/machinery/firealarm/process()
+	if(!timing)
+		end_processing()
 		return
 
-	if(timing)
-		if(time > 0)
-			time = time - ((world.timeofday - last_process)/10)
-		else
-			alarm()
-			time = 0
-			timing = 0
-			STOP_PROCESSING(SSobj, src)
-		updateDialog()
+	if(time > 0)
+		time = time - ((world.timeofday - last_process)/10)
+	else
+		alarm()
+		time = 0
+		timing = 0
+		end_processing()
+
+	updateDialog()
 	last_process = world.timeofday
 
-/obj/machinery/firealarm/power_change()
-	if(powered(ENVIRON))
-		stat &= ~NOPOWER
-		update_icon()
-	else
-		spawn(rand(0,15))
-			stat |= NOPOWER
-			update_icon()
+/obj/machinery/firealarm/on_power_gain()
+	. = ..()
+	update_icon()
+
+/obj/machinery/firealarm/on_power_loss()
+	. = ..()
+	update_icon()
 
 /obj/machinery/firealarm/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN) || buildstage != 2)
@@ -277,9 +278,9 @@ FIRE ALARM
 		last_process = world.timeofday
 		if(oldTiming != timing)
 			if(timing)
-				START_PROCESSING(SSobj, src)
+				begin_processing()
 			else
-				STOP_PROCESSING(SSobj, src)
+				end_processing()
 	else if(href_list["tp"])
 		var/tp = text2num(href_list["tp"])
 		time += tp

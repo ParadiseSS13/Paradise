@@ -99,6 +99,9 @@ Class Procs:
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
+	process_start_flag = START_PROCESSING_ON_INIT /// All machines will start processing on `Initialize()` by default
+	process_speed_flag = NORMAL_PROCESS_SPEED /// The machine will use SSmachines by default
+	atom_say_verb = "beeps"
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -118,8 +121,8 @@ Class Procs:
 	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
 	var/use_log = list()
 	var/list/settagwhitelist = list()//WHITELIST OF VARIABLES THAT THE set_tag HREF CAN MODIFY, DON'T PUT SHIT YOU DON'T NEED ON HERE, AND IF YOU'RE GONNA USE set_tag (format_tag() proc), ADD TO THIS LIST.
-	atom_say_verb = "beeps"
 	var/siemens_strength = 0.7 // how badly will it shock you?
+	var/use_machinery_signals = FALSE // used to determine if the machine will register for power/stat change signals. when all machines are converted to using manual processing, this wont be needed.
 
 /obj/machinery/Initialize(mapload)
 	if(!armor)
@@ -129,38 +132,70 @@ Class Procs:
 
 	if(use_power)
 		myArea = get_area(src)
-	if(!speed_process)
-		START_PROCESSING(SSmachines, src)
-	else
-		START_PROCESSING(SSfastprocess, src)
+
+	// If the machine has this flag, it wants to immediately start processing.
+	if(process_start_flag & START_PROCESSING_ON_INIT)
+		begin_processing()
 
 	power_change()
 
-// gotta go fast
-/obj/machinery/makeSpeedProcess()
-	if(speed_process)
-		return
-	speed_process = TRUE
-	STOP_PROCESSING(SSmachines, src)
-	START_PROCESSING(SSfastprocess, src)
-
-// gotta go slow
-/obj/machinery/makeNormalProcess()
-	if(!speed_process)
-		return
-	speed_process = FALSE
-	STOP_PROCESSING(SSfastprocess, src)
-	START_PROCESSING(SSmachines, src)
+	// Eventually, when all machines start and stop processing on power/stat change, this check shouldn't be here, and the var should be removed
+	if(use_machinery_signals)
+		RegisterSignal(src, COMSIG_MACHINERY_BROKEN, .proc/end_processing)
+		RegisterSignal(src, COMSIG_MACHINERY_POWER_LOST, .proc/on_power_loss)
+		RegisterSignal(src, COMSIG_MACHINERY_POWER_RESTORED, .proc/on_power_gain)
 
 /obj/machinery/Destroy()
 	if(myArea)
 		myArea = null
 	GLOB.machines.Remove(src)
-	if(!speed_process)
+	return ..()
+
+/obj/machinery/begin_processing()
+	if(process_speed_flag & NORMAL_PROCESS_SPEED)
+		START_PROCESSING(SSmachines, src)
+	else
+		START_PROCESSING(SSfastprocess, src)
+
+/obj/machinery/end_processing()
+	if(process_speed_flag & NORMAL_PROCESS_SPEED)
 		STOP_PROCESSING(SSmachines, src)
 	else
 		STOP_PROCESSING(SSfastprocess, src)
-	return ..()
+
+/// Stops processing on SSmachines and starts processing on SSfastprocess
+/obj/machinery/makeSpeedProcess()
+	if(!(process_speed_flag & FAST_PROCESS_SPEED))
+		swap_to_fast_process_flag()
+		STOP_PROCESSING(SSmachines, src)
+		START_PROCESSING(SSfastprocess, src)
+
+/// Stops processing on SSfastprocess and starts processing on SSmachines
+/obj/machinery/makeNormalProcess()
+	if(!(process_speed_flag & NORMAL_PROCESS_SPEED))
+		swap_to_normal_process_flag()
+		STOP_PROCESSING(SSfastprocess, src)
+		START_PROCESSING(SSmachines, src)
+
+/// Behavior you want the machine to do whenever it loses power. By default, it only tells the machine to begin processing.
+/obj/machinery/proc/on_power_gain()
+	begin_processing()
+
+/// Behavior you want the machine to do whenever it gains power. By default, it only tells the machine to stop processing.
+/obj/machinery/proc/on_power_loss()
+	end_processing()
+
+/**
+	If you register your machine for the `COMSIG_OBJ_SETANCOHRED` signal, this proc will be called anytime the machine is successfully (un)anchored.
+
+	This is a templace proc. Override for your specific machine if you want custom behavior.
+
+	Arugments:
+	* source - the `src` object this proc is called on.
+	* new_anchored - the new value of the source's `anchored` var.
+*/
+/obj/machinery/proc/on_set_anchored(datum/source, new_anchored)
+	return
 
 /obj/machinery/proc/locate_machinery()
 	return
@@ -176,9 +211,9 @@ Class Procs:
 		use_power(7500/severity)
 		new /obj/effect/temp_visual/emp(loc)
 	..()
+
 /obj/machinery/default_welder_repair(mob/user, obj/item/I)
-	. = ..()
-	if(.)
+	if(..())
 		stat &= ~BROKEN
 
 //sets the use_power var and then forces an area power update
@@ -396,8 +431,9 @@ Class Procs:
 	M.icon_state = "box_1"
 
 /obj/machinery/obj_break(damage_flag)
-	if(!(flags & NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
+		SEND_SIGNAL(src, COMSIG_MACHINERY_BROKEN)
 
 /obj/machinery/proc/default_deconstruction_crowbar(user, obj/item/I, ignore_panel = 0)
 	if(I.tool_behaviour != TOOL_CROWBAR)

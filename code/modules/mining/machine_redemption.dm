@@ -11,24 +11,25 @@
 	input_dir = NORTH
 	output_dir = SOUTH
 	req_access = list(ACCESS_MINERAL_STOREROOM)
-	speed_process = TRUE
+	needs_item_input = TRUE
 	layer = BELOW_OBJ_LAYER
+	use_machinery_signals = TRUE
 	var/req_access_reclaim = ACCESS_MINING_STATION
 	var/obj/item/card/id/inserted_id
 	var/points = 0
-	var/ore_pickup_rate = 15
 	var/sheet_per_ore = 1
 	var/point_upgrade = 1
 	var/list/ore_values = list("sand" = 1, "iron" = 1, "plasma" = 15, "silver" = 16, "gold" = 18, "titanium" = 30, "uranium" = 30, "diamond" = 50, "bluespace crystal" = 50, "bananium" = 60, "tranquillite" = 60)
-	var/message_sent = FALSE
-	var/list/ore_buffer = list()
+	/// Variable that holds a timer which is used for callbacks to `send_console_message()`. Used for preventing multiple calls to this proc while the ORM is eating a stack of ores.
+	var/console_notify_timer
+	var/datum/component/material_container/materials
 	var/datum/research/files
 	var/obj/item/disk/design_disk/inserted_disk
 	var/list/supply_consoles = list("Science", "Robotics", "Research Director's Desk", "Mechanic", "Engineering" = list("metal", "glass", "plasma"), "Chief Engineer's Desk" = list("metal", "glass", "plasma"), "Atmospherics" = list("metal", "glass", "plasma"), "Bar" = list("uranium", "plasma"), "Virology" = list("plasma", "uranium", "gold"))
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack)
+	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, FALSE, /obj/item/stack)
 	files = new /datum/research/smelter(src)
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/ore_redemption(null)
@@ -67,32 +68,23 @@
 
 /obj/machinery/mineral/ore_redemption/Destroy()
 	QDEL_NULL(files)
-	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/ore_pickup_rate_temp = 15
 	var/point_upgrade_temp = 1
 	var/sheet_per_ore_temp = 1
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
 		sheet_per_ore_temp = 0.65 + (0.35 * B.rating)
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		ore_pickup_rate_temp = 15 * M.rating
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
 		point_upgrade_temp = 0.65 + (0.35 * L.rating)
-	ore_pickup_rate = ore_pickup_rate_temp
 	point_upgrade = point_upgrade_temp
 	sheet_per_ore = sheet_per_ore_temp
 
 /obj/machinery/mineral/ore_redemption/proc/smelt_ore(obj/item/stack/ore/O)
-
-	ore_buffer -= O
-
 	if(O && O.refined_type)
 		points += O.points * point_upgrade * O.amount
 
-	GET_COMPONENT(materials, /datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(O)
 
 	if(!material_amount)
@@ -111,7 +103,6 @@
 
 	var/build_amount = 0
 
-	GET_COMPONENT(materials, /datum/component/material_container)
 	for(var/mat_id in D.materials)
 		var/M = D.materials[mat_id]
 		var/datum/material/redemption_mat = materials.materials[mat_id]
@@ -132,22 +123,18 @@
 	return build_amount
 
 /obj/machinery/mineral/ore_redemption/proc/process_ores(list/ores_to_process)
-	var/current_amount = 0
 	for(var/ore in ores_to_process)
-		if(current_amount >= ore_pickup_rate)
-			break
 		smelt_ore(ore)
 
 /obj/machinery/mineral/ore_redemption/proc/send_console_message()
+	console_notify_timer = null
 	if(!is_station_level(z))
 		return
-	message_sent = TRUE
 	var/area/A = get_area(src)
 	var/msg = "Now available in [A]:<br>"
 
 	var/has_minerals = FALSE
 	var/mineral_name = null
-	GET_COMPONENT(materials, /datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		var/mineral_amount = M.amount / MINERAL_MATERIAL_AMOUNT
@@ -164,26 +151,20 @@
 			if(supply_consoles[D.department] == null || (mineral_name in supply_consoles[D.department]))
 				D.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1)
 
-/obj/machinery/mineral/ore_redemption/process()
+/obj/machinery/mineral/ore_redemption/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
 	if(panel_open || !powered())
 		return
-	var/atom/input = get_step(src, input_dir)
-	var/obj/structure/ore_box/OB = locate() in input
-	if(OB)
-		input = OB
 
-	for(var/obj/item/stack/ore/O in input)
-		if(QDELETED(O))
-			continue
-		ore_buffer |= O
-		O.forceMove(src)
-		CHECK_TICK
+	if(istype(target, /obj/structure/ore_box))
+		process_ores(target.contents)
+	else if(istype(target, /obj/item/stack/ore))
+		addtimer(CALLBACK(src, .proc/smelt_ore, target), 2)
+	else
+		return
 
-	if(LAZYLEN(ore_buffer))
-		message_sent = FALSE
-		process_ores(ore_buffer)
-	else if(!message_sent)
-		send_console_message()
+	if(!console_notify_timer)
+		// gives 5 seconds for a load of ores to be sucked up by the ORM before it sends out request console notifications. This should be enough time for most deposits that people make
+		console_notify_timer = addtimer(CALLBACK(src, .proc/send_console_message), 5 SECONDS)
 
 /obj/machinery/mineral/ore_redemption/attackby(obj/item/W, mob/user, params)
 	if(exchange_parts(user, W))
@@ -223,8 +204,16 @@
 		return
 	if(!I.tool_start_check(user, 0))
 		return
+
+	// Unregister from the old unused turf, turn the input_dir and register on the new turf. Try to pick up any items that are on the new input_turf.
+	unregister_input_turf()
 	input_dir = turn(input_dir, -90)
+	register_input_turf()
+
+	// Rotate and set the new output_turf
 	output_dir = turn(output_dir, -90)
+	output_turf = get_step(src, output_dir)
+
 	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
 
 /obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
@@ -235,6 +224,14 @@
 /obj/machinery/mineral/ore_redemption/wrench_act(mob/user, obj/item/I)
 	if(default_unfasten_wrench(user, I))
 		return TRUE
+
+/obj/machinery/mineral/ore_redemption/on_set_anchored(datum/source, new_anchored)
+	if(new_anchored) // We just got anchored
+		register_input_turf()
+		output_turf = get_step(src, output_dir)
+	else // We just got un-anchored
+		unregister_input_turf()
+		output_turf = null
 
 /obj/machinery/mineral/ore_redemption/attack_hand(mob/user)
 	if(..())
@@ -251,7 +248,6 @@
 	else
 		dat += "No ID inserted.  <A href='?src=[UID()];insert_id=1'>Insert ID.</A><br><br>"
 
-	GET_COMPONENT(materials, /datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		if(M.amount)
@@ -302,7 +298,6 @@
 /obj/machinery/mineral/ore_redemption/Topic(href, href_list)
 	if(..())
 		return
-	GET_COMPONENT(materials, /datum/component/material_container)
 	if(href_list["eject_id"])
 		usr.put_in_hands(inserted_id)
 		inserted_id = null
@@ -386,9 +381,11 @@
 	..()
 
 /obj/machinery/mineral/ore_redemption/power_change()
-	..()
+	. = ..()
 	update_icon()
-	if(inserted_id && !powered())
+
+/obj/machinery/mineral/ore_redemption/on_power_loss()
+	if(inserted_id)
 		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
 		inserted_id.forceMove(loc)
 

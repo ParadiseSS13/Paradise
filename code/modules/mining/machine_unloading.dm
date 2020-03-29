@@ -9,24 +9,12 @@
 	anchored = 1.0
 	input_dir = WEST
 	output_dir = EAST
-	speed_process = 1
+	needs_item_input = TRUE
+	use_machinery_signals = TRUE
 
-/obj/machinery/mineral/unloading_machine/process()
-	var/turf/T = get_step(src,input_dir)
-	if(T)
-		var/limit
-		for(var/obj/structure/ore_box/B in T)
-			for(var/obj/item/stack/ore/O in B)
-				B.contents -= O
-				unload_mineral(O)
-				limit++
-				if(limit>=10)
-					return
-				CHECK_TICK
-			CHECK_TICK
-		for(var/obj/item/I in T)
-			unload_mineral(I)
-			limit++
-			if(limit>=10)
-				return
-			CHECK_TICK
+/obj/machinery/mineral/unloading_machine/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
+	if(istype(target, /obj/structure/ore_box))
+		for(var/ore in target)
+			addtimer(CALLBACK(src, .proc/unload_mineral, ore), 2)
+	else if(istype(target, /obj/item/stack/ore))
+		addtimer(CALLBACK(src, .proc/unload_mineral, target), 2)

@@ -7,6 +7,7 @@
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
 	max_integrity = 250
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 10)
+	process_start_flag = START_PROCESSING_MANUALLY
 	var/obj/item/stock_parts/cell/cell
 	var/on = 0
 	var/open = 0
@@ -90,7 +91,7 @@
 	src.add_fingerprint(user)
 	interact(user)
 
-/obj/machinery/space_heater/interact(mob/user as mob)
+/obj/machinery/space_heater/interact(mob/user)
 	if(open)
 		var/dat
 		dat = "Power cell: "
@@ -114,6 +115,10 @@
 
 	else
 		on = !on
+		if(on)
+			begin_processing()
+		else
+			end_processing()
 		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
 		update_icon()
 	return
@@ -162,27 +167,34 @@
 
 
 /obj/machinery/space_heater/process()
-	if(on)
-		if(cell && cell.charge > 0)
-			var/turf/simulated/L = loc
-			if(istype(L))
-				var/datum/gas_mixture/env = L.return_air()
-				if(env.temperature != set_temperature + T0C)
-					var/transfer_moles = 0.25 * env.total_moles()
+	if(!cell || cell.charge <= 0)
+		on = 0
+		end_processing()
+		update_icon()
+		return
 
-					var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	var/turf/simulated/L = loc
+	if(!istype(L))
+		return
 
-					if(removed)
-						var/heat_capacity = removed.heat_capacity()
+	var/datum/gas_mixture/env = L.return_air()
+	if(env.temperature == set_temperature + T0C)
+		return
 
-						if(heat_capacity) // Added check to avoid divide by zero (oshi-) runtime errors -- TLE
-							if(removed.temperature < set_temperature + T0C)
-								removed.temperature = min(removed.temperature + heating_power/heat_capacity, 1000) // Added min() check to try and avoid wacky superheating issues in low gas scenarios -- TLE
-							else
-								removed.temperature = max(removed.temperature - heating_power/heat_capacity, TCMB)
-							cell.use(heating_power/20000)
-					env.merge(removed)
-					air_update_turf()
-		else
-			on = 0
-			update_icon()
+	var/transfer_moles = 0.25 * env.total_moles()
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(!removed)
+		return
+
+	var/heat_capacity = removed.heat_capacity()
+	if(!heat_capacity) // Added check to avoid divide by zero (oshi-) runtime errors -- TLE
+		return
+
+	if(removed.temperature < set_temperature + T0C)
+		removed.temperature = min(removed.temperature + heating_power/heat_capacity, 1000) // Added min() check to try and avoid wacky superheating issues in low gas scenarios -- TLE
+	else
+		removed.temperature = max(removed.temperature - heating_power/heat_capacity, TCMB)
+
+	cell.use(heating_power/20000)
+	env.merge(removed)
+	air_update_turf()

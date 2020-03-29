@@ -8,6 +8,8 @@
 	idle_power_usage = 4
 	active_power_usage = 200
 	pass_flags = PASSTABLE
+	process_start_flag = START_PROCESSING_MANUALLY
+	use_machinery_signals = TRUE
 	var/obj/item/charging = null
 	var/using_power = FALSE
 	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton, /obj/item/modular_computer, /obj/item/rcs, /obj/item/bodyanalyzer)
@@ -23,6 +25,7 @@
 	component_parts += new /obj/item/circuitboard/recharger(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
+	RegisterSignal(src, COMSIG_OBJ_SETANCHORED, .proc/on_set_anchored)
 
 /obj/machinery/recharger/RefreshParts()
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -53,12 +56,18 @@
 			G.forceMove(src)
 			charging = G
 			use_power = ACTIVE_POWER_USE
+			begin_processing()
 			update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] isn't connected to anything!</span>")
 		return 1
 	return ..()
 
+/obj/machinery/recharger/on_set_anchored(datum/source, new_anchored)
+	if(new_anchored && charging)
+		begin_processing() // Charger just got anchored. If we already have an item wanting to be charged, begin processing.
+	else
+		end_processing() // Shouldn't process and recharge things while the recharger is un-anchored.
 
 /obj/machinery/recharger/crowbar_act(mob/user, obj/item/I)
 	if(panel_open && !charging && default_deconstruction_crowbar(user, I))
@@ -92,6 +101,7 @@
 		user.put_in_hands(charging)
 		charging = null
 		use_power = IDLE_POWER_USE
+		end_processing()
 		update_icon()
 
 /obj/machinery/recharger/attack_tk(mob/user)
@@ -102,52 +112,56 @@
 		use_power = IDLE_POWER_USE
 		update_icon()
 
+/obj/machinery/recharger/on_power_loss()
+	. = ..()
+	update_icon(FALSE) // So the recharger isn't still blinking green/yellow while its out of power.
+
 /obj/machinery/recharger/process()
-	if(stat & (NOPOWER|BROKEN) || !anchored)
+	using_power = FALSE
+	if(!charging)
+		end_processing()
 		return
 
-	using_power = FALSE
-	if(charging)
-		if(istype(charging, /obj/item/gun/energy))
-			var/obj/item/gun/energy/E = charging
-			if(E.cell.charge < E.cell.maxcharge)
-				E.cell.give(E.cell.chargerate * recharge_coeff)
-				E.on_recharge()
-				use_power(250)
+	if(istype(charging, /obj/item/gun/energy))
+		var/obj/item/gun/energy/E = charging
+		if(E.cell.charge < E.cell.maxcharge)
+			E.cell.give(E.cell.chargerate * recharge_coeff)
+			E.on_recharge()
+			use_power(250)
+			using_power = TRUE
+
+
+	if(istype(charging, /obj/item/melee/baton))
+		var/obj/item/melee/baton/B = charging
+		if(B.cell)
+			if(B.cell.give(B.cell.chargerate))
+				use_power(200)
 				using_power = TRUE
 
-
-		if(istype(charging, /obj/item/melee/baton))
-			var/obj/item/melee/baton/B = charging
-			if(B.cell)
-				if(B.cell.give(B.cell.chargerate))
+	if(istype(charging, /obj/item/modular_computer))
+		var/obj/item/modular_computer/C = charging
+		var/obj/item/computer_hardware/battery/battery_module = C.all_components[MC_CELL]
+		if(battery_module)
+			var/obj/item/computer_hardware/battery/B = battery_module
+			if(B.battery)
+				if(B.battery.charge < B.battery.maxcharge)
+					B.battery.give(B.battery.chargerate)
 					use_power(200)
 					using_power = TRUE
 
-		if(istype(charging, /obj/item/modular_computer))
-			var/obj/item/modular_computer/C = charging
-			var/obj/item/computer_hardware/battery/battery_module = C.all_components[MC_CELL]
-			if(battery_module)
-				var/obj/item/computer_hardware/battery/B = battery_module
-				if(B.battery)
-					if(B.battery.charge < B.battery.maxcharge)
-						B.battery.give(B.battery.chargerate)
-						use_power(200)
-						using_power = TRUE
+	if(istype(charging, /obj/item/rcs))
+		var/obj/item/rcs/R = charging
+		if(R.rcell)
+			if(R.rcell.give(R.rcell.chargerate))
+				use_power(200)
+				using_power = TRUE
 
-		if(istype(charging, /obj/item/rcs))
-			var/obj/item/rcs/R = charging
-			if(R.rcell)
-				if(R.rcell.give(R.rcell.chargerate))
-					use_power(200)
-					using_power = TRUE
-
-		if(istype(charging, /obj/item/bodyanalyzer))
-			var/obj/item/bodyanalyzer/B = charging
-			if(B.cell)
-				if(B.cell.give(B.cell.chargerate))
-					use_power(200)
-					using_power = TRUE
+	if(istype(charging, /obj/item/bodyanalyzer))
+		var/obj/item/bodyanalyzer/B = charging
+		if(B.cell)
+			if(B.cell.give(B.cell.chargerate))
+				use_power(200)
+				using_power = TRUE
 
 	update_icon(using_power)
 

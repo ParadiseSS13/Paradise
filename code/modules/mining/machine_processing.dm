@@ -3,14 +3,76 @@
 /**********************Mineral processing unit console**************************/
 
 /obj/machinery/mineral
-	var/input_dir = NORTH
-	var/output_dir = SOUTH
+	process_start_flag = START_PROCESSING_MANUALLY
+	process_speed_flag = FAST_PROCESS_SPEED
+	use_machinery_signals = TRUE
 
-/obj/machinery/mineral/proc/unload_mineral(atom/movable/S)
-	S.forceMove(drop_location())
-	var/turf/T = get_step(src,output_dir)
-	if(T)
-		S.forceMove(T)
+	/// The current direction of `input_turf`, in relation to the machine.
+	var/input_dir = NORTH
+	/// The current direction of `output_turf`, in relation to the machine.
+	var/output_dir = SOUTH
+	/// The turf the machine listens to for items to pick up. Calls the `pickup_item()` proc.
+	var/turf/input_turf = null
+	/// The turf that the machine will output items onto, either with the `unload_mineral` proc, or some other custom defined one.
+	var/turf/output_turf = null
+	/// Determines if this machine needs to pick up items. Used to avoid needlessly registering signals.
+	var/needs_item_input = FALSE
+
+/obj/machinery/mineral/Initialize(mapload)
+	. = ..()
+	if(needs_item_input)
+		register_input_turf()
+		RegisterSignal(src, COMSIG_OBJ_SETANCHORED, .proc/on_set_anchored)
+		RegisterSignal(src, COMSIG_MACHINERY_BROKEN, .proc/unregister_input_turf, TRUE)
+		output_turf = get_step(src, output_dir)
+
+/// The machine regained power, start listening for signals again.
+/obj/machinery/mineral/on_power_gain()
+	RegisterSignal(src, COMSIG_MACHINERY_POWER_RESTORED, .proc/register_input_turf, TRUE)
+
+/// If the there's no power to this machine, there's no reason to listen for signals.
+/obj/machinery/mineral/on_power_loss()
+	UnregisterSignal(src, COMSIG_MACHINERY_POWER_LOST, .proc/unregister_input_turf, TRUE)
+
+/// Gets the turf in the `input_dir` direction adjacent to the machine, and registers signals for ATOM_ENTERED and ATOM_CREATED. Calls the `pickup_item()` proc when it recieves these signals.
+/obj/machinery/mineral/proc/register_input_turf()
+	if(!anchored || input_turf) // If we already have an input_turf or we are not anchored, return.
+		return
+	input_turf = get_step(src, input_dir)
+	RegisterSignal(input_turf, list(COMSIG_ATOM_CREATED, COMSIG_ATOM_ENTERED), .proc/pickup_item)
+	try_pickup_all_items() // Get any items that may already be on the input turf.
+
+/// Unregisters signals that are registered to the machine's input turf, if it has one.
+/obj/machinery/mineral/proc/unregister_input_turf()
+	if(input_turf)
+		UnregisterSignal(input_turf, list(COMSIG_ATOM_ENTERED, COMSIG_ATOM_CREATED))
+		input_turf = null
+
+/**
+	Base proc for all `/mineral` subtype machines to use. Place your item pickup behavior in this proc when you override it for your specific machine.
+
+	Called when the `input_turf` recieves the COMSIG_ATOM_ENTERED or COMSIG_ATOM_CREATED signals.
+
+	Arguments:
+	* source - the turf that is listening for the signals.
+	* target - the atom that just moved onto the `source` turf.
+	* oldLoc - the old location that `target` was at before moving onto `source`.
+*/
+/obj/machinery/mineral/proc/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
+	return
+
+/// Tries to pickup any valid item inside the input turf. Usually called when the machine regains power, or has it's input turf changed.
+/obj/machinery/mineral/proc/try_pickup_all_items()
+	if(!input_turf)
+		return
+	for(var/atom/movable/AM in input_turf)
+		pickup_item(loc, AM)
+
+/// Generic unloading proc. Takes an atom as an argument and forceMove's it onto the `output_turf`.
+/obj/machinery/mineral/proc/unload_mineral(atom/movable/AM)
+	AM.forceMove(drop_location())
+	if(output_turf)
+		AM.forceMove(output_turf)
 
 /obj/machinery/mineral/processing_unit_console
 	name = "production machine console"
@@ -20,7 +82,6 @@
 	anchored = TRUE
 	var/obj/machinery/mineral/processing_unit/machine = null
 	var/machinedir = EAST
-	speed_process = TRUE
 
 /obj/machinery/mineral/processing_unit_console/Initialize(mapload)
 	. = ..()
@@ -67,6 +128,7 @@
 
 	if(href_list["set_on"])
 		machine.on = (href_list["set_on"] == "on")
+		machine.begin_processing()
 
 	updateUsrDialog()
 	return TRUE
@@ -83,32 +145,31 @@
 	icon_state = "furnace"
 	density = TRUE
 	anchored = TRUE
+	needs_item_input = TRUE
 	var/obj/machinery/mineral/CONSOLE = null
 	var/on = FALSE
 	var/selected_material = MAT_METAL
 	var/selected_alloy = null
 	var/datum/research/files
-	speed_process = TRUE
+	var/datum/component/material_container/materials
 
 /obj/machinery/mineral/processing_unit/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, TRUE, /obj/item/stack)
+	materials = AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, TRUE, /obj/item/stack)
 	files = new /datum/research/smelter(src)
 
 /obj/machinery/mineral/processing_unit/Destroy()
 	CONSOLE = null
 	QDEL_NULL(files)
-	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.retrieve_all()
 	return ..()
 
-/obj/machinery/mineral/processing_unit/process()
-	var/turf/T = get_step(src, input_dir)
-	if(T)
-		for(var/obj/item/stack/ore/O in T)
-			process_ore(O)
-			CHECK_TICK
+/obj/machinery/mineral/processing_unit/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
+	if(istype(target, /obj/item/stack/ore))
+		addtimer(CALLBACK(src, .proc/process_ore, target), 2)
 
+/obj/machinery/mineral/processing_unit/process()
+	. = ..()
 	if(on)
 		if(selected_material)
 			smelt_ore()
@@ -118,9 +179,10 @@
 
 		if(CONSOLE)
 			CONSOLE.updateUsrDialog()
+	else
+		end_processing()
 
 /obj/machinery/mineral/processing_unit/proc/process_ore(obj/item/stack/ore/O)
-	GET_COMPONENT(materials, /datum/component/material_container)
 	var/material_amount = materials.get_item_material_amount(O)
 	if(!materials.has_space(material_amount))
 		unload_mineral(O)
@@ -132,7 +194,6 @@
 
 /obj/machinery/mineral/processing_unit/proc/get_machine_data()
 	var/dat = "<b>Smelter control console</b><br><br>"
-	GET_COMPONENT(materials, /datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
 		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] cm&sup3;"
@@ -165,7 +226,6 @@
 	return dat
 
 /obj/machinery/mineral/processing_unit/proc/smelt_ore()
-	GET_COMPONENT(materials, /datum/component/material_container)
 	var/datum/material/mat = materials.materials[selected_material]
 	if(mat)
 		var/sheets_to_remove = (mat.amount >= (MINERAL_MATERIAL_AMOUNT * SMELT_AMOUNT) ) ? SMELT_AMOUNT : round(mat.amount /  MINERAL_MATERIAL_AMOUNT)
@@ -187,7 +247,6 @@
 		on = FALSE
 		return
 
-	GET_COMPONENT(materials, /datum/component/material_container)
 	materials.use_amount(alloy.materials, amount)
 
 	generate_mineral(alloy.build_path)
@@ -197,8 +256,6 @@
 		return FALSE
 
 	var/build_amount = SMELT_AMOUNT
-
-	GET_COMPONENT(materials, /datum/component/material_container)
 
 	for(var/mat_id in D.materials)
 		var/M = D.materials[mat_id]

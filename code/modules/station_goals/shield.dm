@@ -124,9 +124,11 @@
 		to_chat(user, "<span class='notice'>You [active ? "deactivate": "activate"] the [src]</span>")
 	active = !active
 	if(active)
+		begin_processing()
 		animate(src, pixel_y = 2, time = 10, loop = -1)
 		anchored = 1
 	else
+		end_processing()
 		animate(src, pixel_y = 0, time = 10)
 		anchored = 0
 	update_icon()
@@ -144,7 +146,8 @@
 	name = "Meteor Shield Satellite"
 	desc = "Meteor Point Defense Satellite"
 	mode = "M-SHIELD"
-	speed_process = TRUE
+	process_start_flag = START_PROCESSING_MANUALLY
+	process_speed_flag = FAST_PROCESS_SPEED
 	var/kill_range = 14
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
@@ -155,6 +158,7 @@
 
 /obj/machinery/satellite/meteor_shield/process()
 	if(!active)
+		end_processing()
 		return
 	for(var/obj/effect/meteor/M in GLOB.meteor_list)
 		if(M.z != z)

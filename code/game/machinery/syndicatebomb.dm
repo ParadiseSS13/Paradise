@@ -11,6 +11,8 @@
 	density = 0
 	layer = BELOW_MOB_LAYER //so people can't hide it and it's REALLY OBVIOUS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	process_start_flag = START_PROCESSING_MANUALLY
+	process_speed_flag = FAST_PROCESS_SPEED
 
 	var/datum/wires/syndicatebomb/wires = null
 	var/minimum_timer = 90
@@ -47,7 +49,7 @@
 
 /obj/machinery/syndicatebomb/process()
 	if(!active)
-		STOP_PROCESSING(SSfastprocess, src)
+		end_processing()
 		detonation_timer = null
 		next_beep = null
 		countdown.stop()
@@ -81,7 +83,7 @@
 		if(defused && (payload in src))
 			payload.defuse()
 			countdown.stop()
-			STOP_PROCESSING(SSfastprocess, src)
+			end_processing()
 
 /obj/machinery/syndicatebomb/New()
 	wires 	= new(src)
@@ -94,7 +96,6 @@
 /obj/machinery/syndicatebomb/Destroy()
 	QDEL_NULL(wires)
 	QDEL_NULL(countdown)
-	STOP_PROCESSING(SSfastprocess, src)
 	return ..()
 
 /obj/machinery/syndicatebomb/examine(mob/user)
@@ -235,7 +236,7 @@
 
 /obj/machinery/syndicatebomb/proc/activate()
 	active = TRUE
-	START_PROCESSING(SSfastprocess, src)
+	begin_processing()
 	countdown.start()
 	next_beep = world.time + 10
 	detonation_timer = world.time + (timer_set * 10)

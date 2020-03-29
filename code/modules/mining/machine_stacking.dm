@@ -7,6 +7,8 @@
 	desc = "Controls a stacking machine... in theory."
 	density = FALSE
 	anchored = TRUE
+	process_start_flag = START_PROCESSING_MANUALLY
+	use_machinery_signals = TRUE
 	var/obj/machinery/mineral/stacking_machine/machine = null
 	var/machinedir = SOUTHEAST
 
@@ -60,21 +62,18 @@
 	desc = "A machine that automatically stacks acquired materials. Controlled by a nearby console."
 	density = TRUE
 	anchored = TRUE
+	needs_item_input = TRUE
+	input_dir = EAST
+	output_dir = WEST
 	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
 	var/stk_types = list()
 	var/stk_amt   = list()
 	var/stack_list[0] //Key: Type.  Value: Instance of type.
 	var/stack_amt = 50; //ammount to stack before releassing
-	input_dir = EAST
-	output_dir = WEST
-	speed_process = TRUE
 
-/obj/machinery/mineral/stacking_machine/process()
-	var/turf/T = get_step(src, input_dir)
-	if(T)
-		for(var/obj/item/stack/sheet/S in T)
-			process_sheet(S)
-			CHECK_TICK
+/obj/machinery/mineral/stacking_machine/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
+	if(istype(target, /obj/item/stack/sheet))
+		addtimer(CALLBACK(src, .proc/process_sheet, target), 2)
 
 /obj/machinery/mineral/stacking_machine/proc/process_sheet(obj/item/stack/sheet/inp)
 	if(!(inp.type in stack_list)) //It's the first of this sheet added

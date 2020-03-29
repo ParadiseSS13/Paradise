@@ -1,7 +1,6 @@
 #define DIRECTION_FORWARDS	1
 #define DIRECTION_OFF		0
 #define DIRECTION_REVERSED	-1
-#define IS_OPERATING		(operating && can_conveyor_run())
 
 GLOBAL_LIST_INIT(conveyor_belts, list()) //Saves us having to look through the entire machines list for our things
 GLOBAL_LIST_INIT(conveyor_switches, list())
@@ -17,11 +16,13 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	layer = CONVEYOR_LAYER 		// so they appear under stuff but not below stuff like vents
 	anchored = TRUE
 	move_force = MOVE_FORCE_DEFAULT
+	process_start_flag = START_PROCESSING_MANUALLY
+	process_speed_flag = FAST_PROCESS_SPEED // Belts will start on fast SSfastprocess, but if there's nothing to move it will switch to SSmachines.
+	use_machinery_signals = TRUE
 	var/operating = FALSE	//NB: this can be TRUE while the belt doesn't go
 	var/forwards			// The direction the conveyor sends you in
 	var/backwards			// hopefully self-explanatory
 	var/clockwise = TRUE	// For corner pieces - do we go clockwise or counterclockwise?
-	var/operable = TRUE		// Can this belt actually go?
 	var/list/affecting		// the list of all items that will be moved this ptick
 	var/reversed = FALSE	// set to TRUE to have the conveyor belt be reversed
 	var/id					//ID of the connected lever
@@ -92,7 +93,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 
 /obj/machinery/conveyor/update_icon()
 	..()
-	if(IS_OPERATING)
+	if(operating && !(stat & (BROKEN|NOPOWER)))
 		icon_state = "conveyor_started_[clockwise ? "cw" : "ccw"]"
 		if(reversed)
 			icon_state += "_r"
@@ -168,10 +169,21 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	..()
 	update_icon()
 
+// When the belt regains power, it should only start processing if one of its parent switches are in the forward or reverse position (1), and not neutral (0).
+/obj/machinery/conveyor/on_power_gain()
+	for(var/I in GLOB.conveyor_switches)
+		var/obj/machinery/conveyor_switch/S = I
+		if(id == S.id && abs(S.position))
+			return ..()
+
+/obj/machinery/conveyor/end_processing()
+	. = ..()
+	// We always want belts to start on fast process to get idle items moving quickly.
+	swap_to_fast_process_flag()
+
 /obj/machinery/conveyor/process()
-	if(!IS_OPERATING)
-		return
 	use_power(100)
+
 	affecting = loc.contents - src // moved items will be all in loc
 	var/still_stuff_to_move = FALSE
 	for(var/atom/movable/AM in affecting)
@@ -180,13 +192,14 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		still_stuff_to_move = TRUE
 		addtimer(CALLBACK(src, .proc/move_thing, AM), 1)
 		CHECK_TICK
-	if(!still_stuff_to_move && speed_process)
-		makeNormalProcess()
-	else if(still_stuff_to_move && !speed_process)
+
+	if(still_stuff_to_move)
 		makeSpeedProcess()
+	else
+		makeNormalProcess()
 
 /obj/machinery/conveyor/Crossed(atom/movable/AM, oldloc)
-	if(!speed_process && !AM.anchored)
+	if(operating)
 		makeSpeedProcess()
 	..()
 
@@ -195,37 +208,6 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return FALSE
 	if(!AM.anchored && AM.loc == loc)
 		step(AM, forwards)
-
-
-/obj/machinery/conveyor/proc/can_conveyor_run()
-	if(stat & BROKEN)
-		return FALSE
-	else if(stat & NOPOWER)
-		return FALSE
-	else if(!operable)
-		return FALSE
-	return TRUE
-
-// make the conveyor broken and propagate inoperability to any connected conveyor with the same conveyor datum
-/obj/machinery/conveyor/proc/make_broken()
-	stat |= BROKEN
-	operable = FALSE
-	update_icon()
-	var/obj/machinery/conveyor/C = locate() in get_step(src, forwards)
-	if(C)
-		C.set_operable(TRUE, id, FALSE)
-	C = locate() in get_step(src, backwards)
-	if(C)
-		C.set_operable(FALSE, id, FALSE)
-
-/obj/machinery/conveyor/proc/set_operable(propagate_forwards, match_id, op) //Sets a conveyor inoperable if ID matches it, and propagates forwards / backwards
-	if(id != match_id)
-		return
-	operable = op
-	update_icon()
-	var/obj/machinery/conveyor/C = locate() in get_step(src, propagate_forwards ? forwards : backwards)
-	if(C)
-		C.set_operable(propagate_forwards ? TRUE : FALSE, id, op)
 
 // the conveyor control switch
 
@@ -288,20 +270,35 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	if(!allowed(user) && !user.can_advanced_admin_interact()) //this is in Para but not TG. I don't think there's any which are set anyway.
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
+
+	update_position()
+	update_icon()
+	update_linked_conveyors()
+	update_linked_switches()
+
+/obj/machinery/conveyor_switch/proc/update_position()
 	if(position)
 		position = DIRECTION_OFF
 	else
 		reversed = one_way ? FALSE : !reversed
 		position = reversed ? DIRECTION_REVERSED : DIRECTION_FORWARDS
-	update_icon()
+
+/obj/machinery/conveyor_switch/proc/update_linked_conveyors()
 	for(var/obj/machinery/conveyor/C in conveyors)
 		C.operating = abs(position)
+		if(C.operating)
+			C.begin_processing()
+		else
+			C.end_processing()
+
 		if(C.reversed != reversed)
 			C.reversed = reversed
 			C.update_move_direction()
 		else
 			C.update_icon()
 		CHECK_TICK
+
+/obj/machinery/conveyor_switch/proc/update_linked_switches()
 	for(var/I in GLOB.conveyor_switches) // find any switches with same id as this one, and set their positions to match us
 		var/obj/machinery/conveyor_switch/S = I
 		if(S == src || S.id != id)
@@ -489,4 +486,3 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 #undef DIRECTION_FORWARDS
 #undef DIRECTION_OFF
 #undef DIRECTION_REVERSED
-#undef IS_OPERATING

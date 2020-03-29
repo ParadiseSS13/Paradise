@@ -25,11 +25,14 @@
 	var/Mtoollink = 0 // variable to decide if an object should show the multitool menu linking menu, not all objects use it
 
 	var/being_shocked = 0
-	var/speed_process = FALSE
 
 	var/on_blueprints = FALSE //Are we visible on the station blueprints at roundstart?
 	var/force_blueprints = FALSE //forces the obj to be on the blueprints, regardless of when it was created.
 	var/suicidal_hands = FALSE // Does it requires you to hold it to commit suicide with it?
+	/// Viable flags to go here are START_PROCESSING_ON_INIT, or START_PROCESSING_MANUALLY. See `code\__DEFINES\machines.dm` for more information on these flags.
+	var/process_start_flag = 0
+	/// Viable flags to go here are NORMAL_PROCESS_SPEED, or FAST_PROCESS_SPEED. See `code\__DEFINES\machines.dm` for more information on these flags.
+	var/process_speed_flag = 0
 
 /obj/New()
 	..()
@@ -66,13 +69,47 @@
 	// Nada
 
 /obj/Destroy()
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
+	end_processing()
 	SSnanoui.close_uis(src)
 	return ..()
+
+/// Helper proc for telling an object to start processing based on which flag is in it's `process_speed_flag` var.
+/obj/proc/begin_processing()
+	if(process_speed_flag & NORMAL_PROCESS_SPEED)
+		START_PROCESSING(SSobj, src)
+	else
+		START_PROCESSING(SSfastprocess, src)
+
+/// Helper proc for telling an object to stop processing based on which flag is in it's `process_speed_flag` var.
+/obj/proc/end_processing()
+	if(process_speed_flag & NORMAL_PROCESS_SPEED)
+		STOP_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSfastprocess, src)
+
+/// Stops processing on SSobj and starts processing on SSfastprocess.
+/obj/proc/makeSpeedProcess()
+	if(!(process_speed_flag & FAST_PROCESS_SPEED))
+		swap_to_fast_process_flag()
+		STOP_PROCESSING(SSobj, src)
+		START_PROCESSING(SSfastprocess, src)
+
+/// Stops processing on SSfastprocess and starts processing on SSobj.
+/obj/proc/makeNormalProcess()
+	if(!(process_speed_flag & NORMAL_PROCESS_SPEED))
+		swap_to_normal_process_flag()
+		STOP_PROCESSING(SSfastprocess, src)
+		START_PROCESSING(SSobj, src)
+
+/// Removes the normal speed flag and adds the fast speed flag.
+obj/proc/swap_to_fast_process_flag()
+	process_speed_flag &= ~NORMAL_PROCESS_SPEED
+	process_speed_flag |= FAST_PROCESS_SPEED
+
+/// Removes the fast speed flag and adds the normal speed flag.
+obj/proc/swap_to_normal_process_flag()
+	process_speed_flag &= ~FAST_PROCESS_SPEED
+	process_speed_flag |= NORMAL_PROCESS_SPEED
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -300,6 +337,7 @@ a {
 		if(I.use_tool(src, user, time, volume = I.tool_volume))
 			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
 			anchored = !anchored
+			SEND_SIGNAL(src, COMSIG_OBJ_SETANCHORED, anchored)
 		return TRUE
 	return FALSE
 
@@ -322,24 +360,10 @@ a {
 /obj/proc/on_mob_move(dir, mob/user)
 	return
 
-/obj/proc/makeSpeedProcess()
-	if(speed_process)
-		return
-	speed_process = TRUE
-	STOP_PROCESSING(SSobj, src)
-	START_PROCESSING(SSfastprocess, src)
-
-/obj/proc/makeNormalProcess()
-	if(!speed_process)
-		return
-	speed_process = FALSE
-	START_PROCESSING(SSobj, src)
-	STOP_PROCESSING(SSfastprocess, src)
-
 /obj/vv_get_dropdown()
 	. = ..()
 	.["Delete all of type"] = "?_src_=vars;delall=[UID()]"
-	if(!speed_process)
+	if(!(process_speed_flag & FAST_PROCESS_SPEED))
 		.["Make speed process"] = "?_src_=vars;makespeedy=[UID()]"
 	else
 		.["Make normal process"] = "?_src_=vars;makenormalspeed=[UID()]"

@@ -159,13 +159,13 @@
 /datum/holocall/proc/Check()
 	for(var/I in dialed_holopads)
 		var/obj/machinery/hologram/holopad/H = I
-		if((H.stat & NOPOWER) || !H.anchored)
+		if(!H.anchored)
 			ConnectionFailure(H)
 
 	if(QDELETED(src))
 		return FALSE
 
-	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && !(calling_holopad.stat & NOPOWER) && user.loc == calling_holopad.loc
+	. = (user.loc == calling_holopad.loc) && !user.incapacitated() && !QDELETED(user) && !QDELETED(calling_holopad)
 
 	if(.)
 		if(!connected_holopad)
@@ -174,7 +174,7 @@
 				calling_holopad.atom_say("No answer received.")
 				calling_holopad.temp = ""
 
-	else if(!.)
+	if(!.)
 		qdel(src)
 
 /datum/action/innate/end_holocall

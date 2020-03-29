@@ -47,12 +47,14 @@ GLOBAL_LIST_EMPTY(holopads)
 	plane = FLOOR_PLANE
 	max_integrity = 300
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 0)
+	process_start_flag = START_PROCESSING_MANUALLY
+	use_machinery_signals = TRUE
 	var/list/masters = list()//List of living mobs that use the holopad
 	var/list/holorays = list()//Holoray-mob link.
+	var/list/holo_calls	= list() // This is a list of incoming calls from other holopads calling this one. Everything inside should be a `/datum/holocalls` type
 	var/last_request = 0 //to prevent request spam. ~Carn
 	var/holo_range = 5 // Change to change how far the AI can move away from the holopad before deactivating.
 	var/temp = ""
-	var/list/holo_calls	//array of /datum/holocalls
 	var/datum/holocall/outgoing_call	//do not modify the datums only check and call the public procs
 	var/static/force_answer_call = FALSE	//Calls will be automatically answered after a couple rings, here for debugging
 	var/obj/effect/overlay/holoray/ray
@@ -80,13 +82,19 @@ GLOBAL_LIST_EMPTY(holopads)
 	GLOB.holopads -= src
 	return ..()
 
-/obj/machinery/hologram/holopad/power_change()
-	if(powered())
-		stat &= ~NOPOWER
-	else
-		stat |= NOPOWER
-		if(outgoing_call)
-			outgoing_call.ConnectionFailure(src)
+/obj/machinery/hologram/holopad/on_power_gain()
+	return
+
+/// When the pad loses power, kill all incoming calls, outgoing calls, and AI holograms.
+/obj/machinery/hologram/holopad/on_power_loss()
+	. = ..()
+	hangup_all_calls()
+
+	for(var/I in masters)
+		clear_holo(I)
+
+	if(outgoing_call)
+		outgoing_call.ConnectionFailure(src)
 
 /obj/machinery/hologram/holopad/obj_break()
 	. = ..()
@@ -227,6 +235,10 @@ GLOBAL_LIST_EMPTY(holopads)
 				temp += "<a href='?src=[UID()];mainmenu=1'>Main Menu</a>"
 				new /datum/holocall(usr, src, callnames[result])
 
+				begin_processing() // begin processing the calling pad
+				var/obj/machinery/hologram/holopad/receiving_pad = callnames[result][1]
+				receiving_pad.begin_processing() // begin processing the receiving pad
+
 	else if(href_list["connectcall"])
 		var/datum/holocall/call_to_connect = locateUID(href_list["connectcall"])
 		if(!QDELETED(call_to_connect) && (call_to_connect in holo_calls))
@@ -242,7 +254,7 @@ GLOBAL_LIST_EMPTY(holopads)
 	else if(href_list["mainmenu"])
 		temp = ""
 		if(outgoing_call)
-			outgoing_call.Disconnect()
+			outgoing_call.Disconnect(src)
 
 	updateDialog()
 
@@ -259,41 +271,62 @@ GLOBAL_LIST_EMPTY(holopads)
 		user.eyeobj.setLoc(get_turf(src))
 	else if(!LAZYLEN(masters) || !masters[user])//If there is no hologram, possibly make one.
 		activate_holo(user, 1)
+		begin_processing()
 	else//If there is a hologram, remove it.
 		clear_holo(user)
 
 /obj/machinery/hologram/holopad/process()
-	for(var/I in masters)
-		var/mob/living/master = I
-		if((stat & NOPOWER) || !validate_user(master) || !anchored)
-			clear_holo(master)
+	. = FALSE
+	if(masters?.len)
+		. = TRUE
+		process_masters()
 
 	if(outgoing_call)
+		. = TRUE
 		outgoing_call.Check()
 
-	ringing = FALSE
+	if(holo_calls?.len)
+		. = TRUE
+		process_holo_calls()
 
+	else if(ringing)
+		ringing = FALSE
+		update_icon()
+
+	if(!.) // if an AI is not projecting to the pad, and the pad is not being used for calls, no reason to be processing.
+		end_processing()
+
+/obj/machinery/hologram/holopad/proc/process_masters()
+	for(var/I in masters)
+		var/mob/living/master = I
+		if(!validate_user(master) || !anchored)
+			clear_holo(master)
+
+/obj/machinery/hologram/holopad/proc/process_holo_calls()
+	ringing = FALSE
 	for(var/I in holo_calls)
 		var/datum/holocall/HC = I
 		//Sanity check and skip if no longer valid call
 		if(!HC.Check())
 			atom_say("Call was terminated at remote terminal.")
 			continue
-
-		if(HC.connected_holopad != src)
-			if(force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
-				HC.Answer(src)
-				break
-			if(outgoing_call)
-				HC.Disconnect(src)//can't answer calls while calling
-			else
-				playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
-				ringing = TRUE
+		if(HC.connected_holopad == src)
+			continue
+		if(force_answer_call && world.time > (HC.call_start_time + (HOLOPAD_MAX_DIAL_TIME / 2)))
+			HC.Answer(src)
+			break
+		if(outgoing_call)
+			HC.Disconnect(src)//can't answer calls while calling
+		else
+			playsound(src, 'sound/machines/twobeep.ogg', 100)	//bring, bring!
+			ringing = TRUE
 
 	update_icon()
 
-
-//Try to transfer hologram to another pad that can project on T
+/**
+	Attempts to find another valid pad in range, which can project the hologram at that location.
+	Returns TRUE if it found a valid pad, returns FALSE if it couldn't find one
+*/
 /obj/machinery/hologram/holopad/proc/transfer_to_nearby_pad(turf/T, mob/holo_owner)
 	if(!isAI(holo_owner))
 		return
@@ -305,6 +338,7 @@ GLOBAL_LIST_EMPTY(holopads)
 			var/obj/effect/overlay/holo_pad_hologram/h = masters[holo_owner]
 			unset_holo(holo_owner)
 			another.set_holo(holo_owner, h)
+			another.begin_processing() // tell the new holopad to start processing. The old pad will stop processing on its next pass of `process()`, given its not in use by something else
 			return TRUE
 	return FALSE
 

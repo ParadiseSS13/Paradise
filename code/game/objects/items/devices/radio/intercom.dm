@@ -6,11 +6,13 @@
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
 	flags = CONDUCT
+	dog_fashion = null
+	process_start_flag = START_PROCESSING_MANUALLY
 	var/number = 0
 	var/circuitry_installed = 1
 	var/last_tick //used to delay the powercheck
 	var/buildstage = 0
-	dog_fashion = null
+	var/area/current_area /// The area the intercom is in.
 
 /obj/item/radio/intercom/custom
 	name = "station intercom (Custom)"
@@ -48,9 +50,11 @@
 
 /obj/item/radio/intercom/New(turf/loc, ndir, building = 3)
 	..()
+	current_area = get_area(src)
+	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/on_area_power_change)
 	buildstage = building
 	if(buildstage)
-		START_PROCESSING(SSobj, src)
+		on_area_power_change()
 	else
 		if(ndir)
 			pixel_x = (ndir & EAST|WEST) ? (ndir == EAST ? 28 : -28) : 0
@@ -180,12 +184,11 @@
 	if(!I.use_tool(src, user, 10, volume = I.tool_volume) || buildstage != 2)
 		return
 	update_icon()
-	on = 1
+	on_area_power_change()
 	b_stat = 0
 	buildstage = 3
 	to_chat(user, "<span class='notice'>You secure the electronics!</span>")
 	update_icon()
-	START_PROCESSING(SSobj, src)
 	for(var/i, i<= 5, i++)
 		wires.UpdateCut(i,1)
 
@@ -197,11 +200,10 @@
 		return
 	WIRECUTTER_SNIP_MESSAGE
 	new /obj/item/stack/cable_coil(get_turf(src),5)
-	on = 0
+	on_area_power_change()
 	b_stat = 1
 	buildstage = 1
 	update_icon()
-	STOP_PROCESSING(SSobj, src)
 
 /obj/item/radio/intercom/welder_act(mob/user, obj/item/I)
 	if(!buildstage)
@@ -221,19 +223,10 @@
 		return
 	icon_state = "intercom[!on?"-p":""][b_stat ? "-open":""]"
 
-/obj/item/radio/intercom/process()
-	if(((world.timeofday - last_tick) > 30) || ((world.timeofday - last_tick) < 0))
-		last_tick = world.timeofday
-
-
-		if(!src.loc)
-			on = 0
-		else
-			var/area/A = get_area(src)
-			if(!A)
-				on = 0
-			else
-				on = A.powered(EQUIP) // set "on" to the power status
+/// Usually called when the intercom's area power settings changed. Can also be called during construction steps to verify if the intercom's `on` var should equal TRUE, or FALSE.
+/obj/item/radio/intercom/proc/on_area_power_change()
+	if(current_area && loc) // Sanity check because certain bits of code like to make new intercoms in nullspace, and do stuff with it.
+		on = current_area.powered(EQUIP) // set "on" to the power status
 		update_icon()
 
 /obj/item/intercom_electronics
