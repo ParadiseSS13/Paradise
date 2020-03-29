@@ -1,4 +1,4 @@
-/datum/job/rd
+/datum/job/rd //Ciencas mejor departamento.
 	title = "Research Director"
 	flag = JOB_RD
 	department_flag = JOBCAT_MEDSCI
