@@ -4,9 +4,10 @@
 //Malf Picker
 /obj/item/malf_upgrade
 	name = "combat software upgrade"
-	desc = "A highly illegal, highly dangerous upgrade for artificial intelligence units, granting them a variety of powers as well as the ability to hack APCs."
+	desc = "A highly illegal, highly dangerous upgrade for artificial intelligence units, granting them a variety of powers as well as the ability to hack APCs. Will announce the upgrade to the entire station."
 	icon = 'icons/obj/module.dmi'
 	icon_state = "datadisk3"
+	var/announce_installation = TRUE
 
 
 /obj/item/malf_upgrade/afterattack(mob/living/silicon/ai/AI, mob/user)
@@ -18,10 +19,18 @@
 	else
 		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with combat software!</span>")
 		AI.add_malf_picker()
-		GLOB.minor_announcement.Announce("ERROR ER0RR $R-  [AI] has been upgraded with combat software. Thank you for your- 0RRO$!R41.%%!!(%$^^__+ @#F0E4.")
+		if(announce_installation)
+			GLOB.minor_announcement.Announce("ERROR ER0RR $R-  [AI] has been upgraded with combat software. Thank you for your- 0RRO$!R41.%%!!(%$^^__+ @#F0E4.")
 	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
 	qdel(src)
 
+/obj/item/malf_upgrade/examine(mob/user)
+	. = ..()
+	if(isAntag(user))
+		if(announce_installation)
+			. += "<span class='warning'>You're familiar with this kind of illegal tech. You think you can disable the installation announcement by reprogramming \the [src] on an AI system integrity restorer console.</span>"
+		else
+			. += "<span class='warning'>The installation announcement on \the [src] was disabled.</span>"
 
 //Lipreading
 /obj/item/surveillance_upgrade

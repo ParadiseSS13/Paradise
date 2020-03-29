@@ -10,7 +10,7 @@
 
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/machinery/computer/aifixer/attackby(I as obj, user as mob, params)
+/obj/machinery/computer/aifixer/attackby(obj/item/I, mob/user, params)
 	if(occupant && istype(I, /obj/item/screwdriver))
 		if(stat & BROKEN)
 			..()
@@ -18,6 +18,14 @@
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge.</span>")
 		else
 			to_chat(user, "<span class='warning'>The screws on [name]'s screen won't budge and it emits a warning beep!.</span>")
+	else if(istype(I, /obj/item/malf_upgrade) && isAntag(user)) //Allow antags to override the announcing of the malf upgrade installation, if they can pull it off without being noticed, they deserve it.
+		var/obj/item/malf_upgrade/M = I
+		if(M.announce_installation)
+			M.announce_installation = FALSE
+			to_chat(user, "<span class='warning'>You disable the installation announcement on \the [M].</span>")
+		else
+			to_chat(user, "<span class='warning'>The installation announcement on \the [M] is already disabled!</span>")
+			return ..() //Allows you to whack the console with the disk like non-antags would, to avoid people meta-ing "Oh, you're not an antag? Then hit the console with this disk".
 	else
 		return ..()
 
