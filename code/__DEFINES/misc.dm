@@ -345,7 +345,7 @@
 #define MOUSE_OPACITY_OPAQUE 2
 
 // Defib stats
-#define DEFIB_TIME_LIMIT 120
+#define DEFIB_TIME_LIMIT 300
 #define DEFIB_TIME_LOSS 60
 
 //different types of atom colorations
