@@ -4,7 +4,19 @@
 //Potential replacement for genetics revives or something I dunno (?)
 
 #define CLONE_BIOMASS 150
+
 #define BIOMASS_BASE_AMOUNT 50 // How much biomass a BIOMASSABLE item gives the cloning pod
+
+// Not a comprehensive list: Further PRs should add appropriate items here.
+// Meat as usual, monstermeat covers goliath, xeno, spider, bear meat
+GLOBAL_LIST_INIT(cloner_biomass_items, list(\
+/obj/item/reagent_containers/food/snacks/meat,\
+/obj/item/reagent_containers/food/snacks/monstermeat,
+/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/reagent_containers/food/snacks/salmonmeat,
+/obj/item/reagent_containers/food/snacks/catfishmeat,
+/obj/item/reagent_containers/food/snacks/tofurkey))
+
 #define MINIMUM_HEAL_LEVEL 40
 #define CLONE_INITIAL_DAMAGE 190
 #define BRAIN_INITIAL_DAMAGE 90 // our minds are too feeble for 190
@@ -307,7 +319,7 @@
 /obj/machinery/clonepod/process()
 	var/show_message = 0
 	for(var/obj/item/item in range(1, src))
-		if (item.BIOMASSABLE)
+		if(is_type_in_list(item, GLOB.cloner_biomass_items))
 			qdel(item)
 			biomass += BIOMASS_BASE_AMOUNT
 			show_message = 1
@@ -366,12 +378,12 @@
 		use_power(200)
 
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
-/obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
-	if(exchange_parts(user, I))
+/obj/machinery/clonepod/attackby(obj/item/item, mob/user, params)
+	if(exchange_parts(user, item))
 		return
 
-	if(I.GetID())
-		if(!check_access(I))
+	if(item.GetID())
+		if(!check_access(item))
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
 			return
 		if(!(occupant || mess))
@@ -384,11 +396,11 @@
 			go_out()
 
 // A user can feed in biomass sources manually.
-	else if(I.BIOMASSABLE)
+	else if(is_type_in_list(item, GLOB.cloner_biomass_items))
 		if(user.drop_item())
-			to_chat(user, "<span class='notice'>[src] processes [I].</span>")
+			to_chat(user, "<span class='notice'>[src] processes [item].</span>")
 			biomass += BIOMASS_BASE_AMOUNT
-			qdel(I)
+			qdel(item)
 	else
 		return ..()
 

@@ -40,9 +40,9 @@
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
 		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,

@@ -8,7 +8,6 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "carpotoxin" = 2, "vitamin" = 2)
 	tastes = list("white fish" = 1)
-	var/BIOMASSABLE = TRUE
 
 /obj/item/reagent_containers/food/snacks/salmonmeat
 	name = "raw salmon"
@@ -19,7 +18,6 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 	tastes = list("raw salmon" = 1)
-	var/BIOMASSABLE = TRUE
 
 /obj/item/reagent_containers/food/snacks/salmonsteak
 	name = "salmon steak"
@@ -41,7 +39,6 @@
 	bitesize = 6
 	list_reagents = list("protein" = 3, "vitamin" = 2)
 	tastes = list("catfish" = 1)
-	var/BIOMASSABLE = TRUE
 
 /obj/item/reagent_containers/food/snacks/fishfingers
 	name = "fish fingers"
