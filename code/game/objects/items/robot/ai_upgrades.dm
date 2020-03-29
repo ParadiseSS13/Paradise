@@ -18,6 +18,7 @@
 	else
 		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with combat software!</span>")
 		AI.add_malf_picker()
+		GLOB.minor_announcement.Announce("ERROR ER0RR $R-  [AI] has been upgraded with combat software. Thank you for your- 0RRO$!R41.%%!!(%$^^__+ @#F0E4.")
 	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")
 	qdel(src)
 
