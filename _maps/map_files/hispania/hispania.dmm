@@ -37639,6 +37639,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
+"brg" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/portable_atmospherics/pump,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "brh" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder{
@@ -42452,7 +42457,6 @@
 "bBb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/robot,
-/obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "bBc" = (
@@ -96912,10 +96916,6 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
-"lVq" = (
-/obj/machinery/portable_atmospherics/scrubber,
-/turf/simulated/floor/plating,
-/area/maintenance/port)
 "mek" = (
 /obj/machinery/floodlight,
 /turf/simulated/shuttle/floor{
@@ -97620,6 +97620,10 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/syndicate_sit)
+"sWy" = (
+/obj/machinery/portable_atmospherics/scrubber,
+/turf/simulated/floor/plating,
+/area/maintenance/fpmaint)
 "tjN" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/condiment/peppermill{
@@ -113717,7 +113721,7 @@ btL
 bvq
 bvy
 bwZ
-lVq
+uPj
 vjP
 blQ
 bIP
@@ -113974,7 +113978,7 @@ dnG
 bvr
 bwK
 bye
-uPj
+bnK
 bBb
 blQ
 bJw
@@ -124744,7 +124748,7 @@ aNJ
 aJc
 aPC
 aEl
-aPi
+sWy
 aVD
 aRw
 baj
@@ -126286,7 +126290,7 @@ aNP
 aBn
 aBn
 aEl
-aGb
+brg
 aVD
 aYh
 bal
