@@ -11,7 +11,7 @@
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/perform(list/targets, recharge = 1, mob/living/user = usr)
 	var/thearea = before_cast(targets)
-	if(!thearea || !cast_check(1))
+	if(!thearea || !cast_check(TRUE, FALSE, user))
 		revert_cast()
 		return
 	invocation(thearea)

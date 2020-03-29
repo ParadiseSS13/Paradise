@@ -15,7 +15,7 @@
 	if(!gain_desc)
 		gain_desc = "You have gained \the [src] ability."
 
-/obj/effect/proc_holder/spell/vampire/cast_check(skipcharge = 0, mob/living/user = usr)
+/obj/effect/proc_holder/spell/vampire/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr)
 	if(!user.mind)
 		return 0
 	if(!ishuman(user))

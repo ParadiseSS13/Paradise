@@ -24,6 +24,20 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	user.face_atom(A)
 	return FALSE
 
+/datum/click_intercept/proc_holder
+	var/obj/effect/proc_holder/spell
+
+/datum/click_intercept/proc_holder/New(client/C, obj/effect/proc_holder/spell_to_cast)
+	. = ..()
+	spell = spell_to_cast
+
+/datum/click_intercept/proc_holder/InterceptClickOn(user, params, atom/object)
+	spell.InterceptClickOn(user, params, object)
+
+/datum/click_intercept/proc_holder/quit()
+	spell.remove_ranged_ability(spell.ranged_ability_user)
+	. = ..()
+
 /obj/effect/proc_holder/proc/add_ranged_ability(mob/living/user, var/msg)
 	if(!user || !user.client)
 		return
@@ -32,7 +46,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		user.ranged_ability.remove_ranged_ability(user)
 	user.ranged_ability = src
 	ranged_ability_user = user
-	user.client.click_intercept = user.ranged_ability
+	user.client.click_intercept = new /datum/click_intercept/proc_holder(user.client, user.ranged_ability)
 	add_mousepointer(user.client)
 	active = TRUE
 	if(msg)
@@ -48,15 +62,17 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		C.mouse_pointer_icon = initial(C.mouse_pointer_icon)
 
 /obj/effect/proc_holder/proc/remove_ranged_ability(mob/living/user, var/msg)
-	if(!user || !user.client || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
+	if(!user || (user.ranged_ability && user.ranged_ability != src)) //To avoid removing the wrong ability
 		return
 	user.ranged_ability = null
 	ranged_ability_user = null
-	user.client.click_intercept = null
-	remove_mousepointer(user.client)
 	active = FALSE
-	if(msg)
-		to_chat(user, msg)
+	if(user.client)
+		qdel(user.client.click_intercept)
+		user.client.click_intercept = null
+		remove_mousepointer(user.client)
+		if(msg)
+			to_chat(user, msg)
 	update_icon()
 
 /obj/effect/proc_holder/spell
@@ -114,10 +130,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	var/sound = null //The sound the spell makes when it is cast
 
-/obj/effect/proc_holder/spell/proc/cast_check(skipcharge = 0, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
-	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
-		to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
-		return 0
+/* Checks if the user can cast the spell
+ * @param charge_check If the proc should do the cooldown check
+ * @param start_recharge If the proc should set the cooldown
+ * @param user The caster of the spell
+*/
+/obj/effect/proc_holder/spell/proc/cast_check(charge_check = TRUE, start_recharge = TRUE, mob/living/user = usr) //checks if the spell can be cast based on its settings; skipcharge is used when an additional cast_check is called inside the spell
+	if(!can_cast(user, charge_check, TRUE))
+		return FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
@@ -126,49 +146,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			caster.reset_perspective(0)
 			return 0
 
-	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
-		return 0
-
-	if(!skipcharge)
-		switch(charge_type)
-			if("recharge")
-				if(charge_counter < charge_max)
-					to_chat(user, still_recharging_msg)
-					return 0
-			if("charges")
-				if(!charge_counter)
-					to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
-					return 0
-
-	if(!ghost)
-		if(user.stat && !stat_allowed)
-			to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
-			return 0
-		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
-			to_chat(user, "Mmmf mrrfff!")
-			return 0
-
-	var/obj/effect/proc_holder/spell/noclothes/clothes_spell = locate() in (user.mob_spell_list | (user.mind ? user.mind.spell_list : list()))
-	if((ishuman(user) && clothes_req) && !istype(clothes_spell))//clothes check
-		var/mob/living/carbon/human/H = user
-		var/obj/item/clothing/robe = H.wear_suit
-		var/obj/item/clothing/hat = H.head
-		var/obj/item/clothing/shoes = H.shoes
-		if(!robe || !hat || !shoes)
-			to_chat(user, "<span class='notice'>Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals.</span>")
-			return 0
-		if(!robe.magical || !hat.magical || !shoes.magical)
-			to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
-			return 0
-	else if(!ishuman(user))
-		if(clothes_req || human_req)
-			to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
-			return 0
-		if(nonabstract_req && (isbrain(user) || ispAI(user)))
-			to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
-			return 0
-
-	if(!skipcharge)
+	if(start_recharge)
 		switch(charge_type)
 			if("recharge")
 				charge_counter = 0 //doesn't start recharging until the targets selecting ends
@@ -431,8 +409,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/targeted/click
 	var/click_radius = 1			// How big the radius around the clicked atom is to find a suitable target. -1 is only the selected atom is considered
-	var/selection_activated_message = "<span class='notice'>Click on a target to cast the spell.</span>"
-	var/selection_deactivated_message = "<span class='notice'>You choose to not cast this spell.</span>"
+	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
+	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
 	var/allowed_type = /mob/living	// Which type the targets have to be
 
 /obj/effect/proc_holder/spell/targeted/click/Click()
@@ -443,13 +421,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(active)
 		remove_ranged_ability(user, selection_deactivated_message)
 	else
-		if(cast_check(TRUE, user))
+		if(cast_check(TRUE, FALSE, user))
 			add_ranged_ability(user, selection_activated_message)
 		else
 			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
 
 /obj/effect/proc_holder/spell/targeted/click/InterceptClickOn(mob/living/user, params, atom/A)
-	if(..() || cast_check(FALSE, user))
+	if(..() || !cast_check(TRUE, TRUE, user))
+		remove_ranged_ability(user)
 		revert_cast(user)
 		return TRUE
 
@@ -457,28 +436,34 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(valid_target(A, user))
 		targets.Add(A)
 
-	if((!max_targets || max_targets > targets.len) && range >= 0)
+	if((!max_targets || max_targets > targets.len) && click_radius >= 0)
 		var/list/found_others = list()
-		for(var/atom/target in view_or_range(range, user, selection_type))
+		for(var/atom/target in range(click_radius, A))
 			if(valid_target(target, user))
 				found_others |= target
 		if(!max_targets)
 			targets.Add(found_others)
 		else
-			do // Add the others
+			while(targets.len < max_targets && found_others.len) // Add the others
 				targets.Add(pick_n_take(found_others))
-			while(targets.len < max_targets || !found_others.len)
 
 	if(!targets.len)
 		to_chat(user, "<span class='warning'>No suitable target found.</span>")
+		revert_cast(user)
 		return FALSE
 
 	perform(targets, user = user)
+	remove_ranged_ability(user)
 	return TRUE
 
-
+/* Checks if a target is valid
+ * Should not include to_chats or other types of messages since this is used often on tons of targets.
+ * @param target The target to check
+ * @param user The user of the spell
+*/
 /obj/effect/proc_holder/spell/targeted/click/proc/valid_target(target, user)
-	return istype(target, allowed_type) && (!include_user || target == user)
+	return istype(target, allowed_type) && (include_user || target != user) && \
+		(target in view_or_range(range, user, selection_type))
 
 /obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/user) // Not used
 	return
@@ -511,30 +496,39 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	qdel(dummy)
 	return 1
 
-/obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr)
+/obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(((!user.mind) || !(src in user.mind.spell_list)) && !(src in user.mob_spell_list))
+		if(show_message)
+			to_chat(user, "<span class='warning'>You shouldn't have this spell! Something's wrong.</span>")
 		return 0
 
 	if(is_admin_level(user.z) && !centcom_cancast) //Certain spells are not allowed on the centcom zlevel
 		return 0
 
-	switch(charge_type)
-		if("recharge")
-			if(charge_counter < charge_max)
-				return 0
-		if("charges")
-			if(!charge_counter)
-				return 0
-
-	if(user.stat && !stat_allowed)
-		return 0
+	if(charge_check)
+		switch(charge_type)
+			if("recharge")
+				if(charge_counter < charge_max)
+					if(show_message)
+						to_chat(user, still_recharging_msg)
+					return 0
+			if("charges")
+				if(!charge_counter)
+					if(show_message)
+						to_chat(user, "<span class='notice'>[name] has no charges left.</span>")
+					return 0
+	if(!ghost)
+		if(user.stat && !stat_allowed)
+			if(show_message)
+				to_chat(user, "<span class='notice'>You can't cast this spell while incapacitated.</span>")
+			return 0
+		if(ishuman(user) && (invocation_type == "whisper" || invocation_type == "shout") && user.is_muzzled())
+			if(show_message)
+				to_chat(user, "Mmmf mrrfff!")
+			return 0
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-
-		if((invocation_type == "whisper" || invocation_type == "shout") && H.is_muzzled())
-			return 0
-
 		var/clothcheck = locate(/obj/effect/proc_holder/spell/noclothes) in user.mob_spell_list
 		var/clothcheck2 = user.mind && (locate(/obj/effect/proc_holder/spell/noclothes) in user.mind.spell_list)
 		if(clothes_req && !clothcheck && !clothcheck2) //clothes check
@@ -542,12 +536,20 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			var/obj/item/clothing/hat = H.head
 			var/obj/item/clothing/shoes = H.shoes
 			if(!robe || !hat || !shoes)
+				if(show_message)
+					to_chat(user, "<span class='notice'>Your outfit isn't complete, you should put on your robe and wizard hat, as well as sandals.</span>")
 				return 0
 			if(!robe.magical || !hat.magical || !shoes.magical)
+				if(show_message)
+					to_chat(user, "<span class='notice'>Your outfit isn't magical enough, you should put on your robe and wizard hat, as well as your sandals.</span>")
 				return 0
 	else
 		if(clothes_req  || human_req)
+			if(show_message)
+				to_chat(user, "<span class='notice'>This spell can only be cast by humans!</span>")
 			return 0
 		if(nonabstract_req && (isbrain(user) || ispAI(user)))
+			if(show_message)
+				to_chat(user, "<span class='notice'>This spell can only be cast by physical beings!</span>")
 			return 0
 	return 1
