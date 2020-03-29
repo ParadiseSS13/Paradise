@@ -85,12 +85,12 @@
 
 /obj/item/reagent_containers/food/snacks/monstermeat
 	// Abstract object used for inheritance. I don't see why you would want one.
-	// It's just a convenience to set all monstermeats' BIOMASSABLE vars.
+	// It's just a convenience to set all monstermeats as biomass-able at once,
+	// in the GLOB.cloner_biomass_items list.
 	// DOES NOT SPAWN NATURALLY!
 	name = "abstract monster meat"
 	desc = "A slab of abstract monster meat. This shouldn't exist, contact a coder about this if you are seeing it in-game."
 	icon_state = "bearmeat"
-	var/BIOMASSABLE = TRUE // Can be fed into the cloning pod as biomass
 
 /obj/item/reagent_containers/food/snacks/monstermeat/bearmeat
 	name = "bear meat"

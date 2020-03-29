@@ -273,6 +273,8 @@
 //		reagents.add_reagent("nutriment", 2)							//	this line of code for all the contents.
 //		bitesize = 3													//This is the amount each bite consumes.
 
+// Remember to add anything that should be accepted as biomass by the cloning pods into the GLOB.cloner_biomass_items list.
+// E.g: raw meat and other sources of protein.
 
 /obj/item/reagent_containers/food/snacks/badrecipe
 	name = "burned mess"
