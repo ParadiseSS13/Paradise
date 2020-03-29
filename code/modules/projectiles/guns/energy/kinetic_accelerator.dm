@@ -109,6 +109,8 @@
 		empty()
 
 /obj/item/gun/energy/kinetic_accelerator/proc/empty()
+	if(!cell)
+		return
 	cell.use(500)
 	update_icon()
 
