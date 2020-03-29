@@ -444,8 +444,23 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		if(!max_targets)
 			targets.Add(found_others)
 		else
-			while(targets.len < max_targets && found_others.len) // Add the others
-				targets.Add(pick_n_take(found_others))
+			if(max_targets <= found_others.len + targets.len)
+				targets.Add(found_others)
+			else
+				switch(random_target_priority) //Add in the rest
+					if(TARGET_RANDOM)
+						while(targets.len < max_targets && found_others.len) // Add the others
+							targets.Add(pick_n_take(found_others))
+					if(TARGET_CLOSEST)
+						var/list/distances = list()
+						for(var/target in found_others)
+							distances[target] = get_dist(user, target)
+						sortTim(distances, /proc/cmp_numeric_asc, TRUE) // Sort on distance
+						for(var/target in distances)
+							targets.Add(target)
+							if(targets.len >= max_targets)
+								break
+
 
 	if(!targets.len)
 		to_chat(user, "<span class='warning'>No suitable target found.</span>")
