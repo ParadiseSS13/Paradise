@@ -347,6 +347,10 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
 	if(timing == -1.0)
 		return
+	if(timing)	//boom
+		spawn
+			explode()
+		return
 	qdel(src)
 
 /obj/machinery/nuclearbomb/tesla_act(power, explosive)
