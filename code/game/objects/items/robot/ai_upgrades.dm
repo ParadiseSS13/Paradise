@@ -28,9 +28,9 @@
 	. = ..()
 	if(isAntag(user))
 		if(announce_installation)
-			. += "<span class='warning'>You're familiar with this kind of illegal tech. You think you can disable the installation announcement by reprogramming \the [src] on an AI system integrity restorer console.</span>"
+			. += "<span class='notice'>You're familiar with this kind of illegal tech. You think you can disable the installation announcement by reprogramming \the [src] on an AI system integrity restorer console.</span>"
 		else
-			. += "<span class='warning'>The installation announcement on \the [src] was disabled.</span>"
+			. += "<span class='notice'>The installation announcement on \the [src] is disabled.</span>"
 
 //Lipreading
 /obj/item/surveillance_upgrade
