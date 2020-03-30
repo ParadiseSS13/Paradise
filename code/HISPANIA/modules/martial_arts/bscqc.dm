@@ -61,14 +61,6 @@
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with blue-art [src] : [picked_hit_type]", ATKLOG_ALL)
-	if(A.resting && !D.stat && !D.weakened)
-		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
-							"<span class='userdanger'>[A] leg sweeps you!</span>")
-		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-		D.apply_damage(5, BRUTE)
-		D.Weaken(3)
-		add_attack_logs(A, D, "Melee attacked with blue-art [src] : Leg sweep", ATKLOG_ALL)
-	return TRUE
 
 /datum/martial_art/bscqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
