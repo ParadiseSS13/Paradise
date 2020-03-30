@@ -139,7 +139,7 @@
 	P.setAngle(new_angle_s)
 	return TRUE
 
-/turf/simulated/wall/proc/dismantle_wall(devastated = 0, explode = 0)
+/turf/simulated/wall/dismantle_wall(devastated = FALSE, explode = FALSE)
 	if(devastated)
 		devastate_wall()
 	else
