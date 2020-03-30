@@ -317,6 +317,7 @@
 	clothes_req = FALSE
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
+	auto_target_single = FALSE // Having this true won't ever find a single target and is just lost processing power
 	range = 20
 	cooldown_min = 20 //10 deciseconds reduction per rank
 

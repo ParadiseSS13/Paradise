@@ -30,6 +30,7 @@
 	selection_deactivated_message = "<span class='notice'>You archive the contract for later use.</span>"
 	include_user = FALSE
 	range = 5
+	auto_target_single = FALSE	// Prevent an accidental contract from summoning
 	click_radius = -1 // Precision clicking required
 	allowed_type = /mob/living/carbon
 	clothes_req = FALSE

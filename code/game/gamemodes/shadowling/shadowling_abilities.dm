@@ -626,7 +626,7 @@
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	panel = "Shadowling Abilities"
 	range = 1
-	clothes_req = 0
+	clothes_req = FALSE
 	charge_max = 600
 	click_radius = -1 // Precision baby
 	selection_activated_message		= "<span class='notice'>You start gathering destructive powers to delay the shuttle. <B>Left-click to cast at a target!</B></span>"

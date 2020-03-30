@@ -412,6 +412,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/selection_activated_message		= "<span class='notice'>Click on a target to cast the spell.</span>"
 	var/selection_deactivated_message	= "<span class='notice'>You choose to not cast this spell.</span>"
 	var/allowed_type = /mob/living	// Which type the targets have to be
+	var/auto_target_single = TRUE	// If the spell should auto select a target if only one is found
 
 /obj/effect/proc_holder/spell/targeted/click/Click()
 	var/mob/living/user = usr
@@ -422,9 +423,26 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		remove_ranged_ability(user, selection_deactivated_message)
 	else
 		if(cast_check(TRUE, FALSE, user))
+			if(auto_target_single && attempt_auto_target(user))
+				return
+
 			add_ranged_ability(user, selection_activated_message)
 		else
 			to_chat(user, "<span class='warning'>[src] is not ready to be used yet.</span>")
+
+/obj/effect/proc_holder/spell/targeted/click/proc/attempt_auto_target(mob/user)
+	var/atom/target
+	for(var/atom/A in view_or_range(range, user, selection_type))
+		if(valid_target(A, user))
+			if(target)
+				return FALSE // Two targets found. ABORT
+			target = A
+
+	if(target && cast_check(TRUE, TRUE, user)) // Singular target found. Cast it instantly
+		to_chat(user, "<span class='warning'>Only one target found. Casting [src] on [target]!</span>")
+		perform(list(target), user = user)
+		return TRUE
+	return FALSE
 
 /obj/effect/proc_holder/spell/targeted/click/InterceptClickOn(mob/living/user, params, atom/A)
 	if(..() || !cast_check(TRUE, TRUE, user))
@@ -480,7 +498,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return istype(target, allowed_type) && (include_user || target != user) && \
 		(target in view_or_range(range, user, selection_type))
 
-/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/user) // Not used
+// Checks if there is one target
+/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/living/user, atom/A)
 	return
 
 /obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
