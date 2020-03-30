@@ -64,11 +64,9 @@
 		return
 	if(time == null)
 		time =	rand(790, 820)
-	addtimer(CALLBACK(src, /turf/simulated./proc/MakeDry, wet_setting), time)
+	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
 
-/turf/simulated/proc/MakeDry(wet_setting = TURF_WET_WATER)
-	if(!istype(src, /turf/simulated)) //Because turfs don't get deleted, they change, adapt, transform, evolve and deform. they are one and they are all.
-		return
+/turf/simulated/MakeDry(wet_setting = TURF_WET_WATER)
 	if(wet > wet_setting)
 		return
 	wet = TURF_DRY
