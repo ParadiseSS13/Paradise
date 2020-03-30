@@ -498,8 +498,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	return istype(target, allowed_type) && (include_user || target != user) && \
 		(target in view_or_range(range, user, selection_type))
 
-// Checks if there is one target
-/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/living/user, atom/A)
+/obj/effect/proc_holder/spell/targeted/click/choose_targets(mob/living/user, atom/A) // Not used
 	return
 
 /obj/effect/proc_holder/spell/aoe_turf/choose_targets(mob/user = usr)
