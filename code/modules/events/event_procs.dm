@@ -81,7 +81,7 @@
 			continue
 
 		if(istype(M, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R
+			var/mob/living/silicon/robot/R = M
 			if(R.module && (R.module.name == "engineering robot module"))
 				active_with_role["Engineer"]++
 
