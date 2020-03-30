@@ -61,7 +61,6 @@
 	D.visible_message("<span class='danger'>[A] [picked_hit_type] [D]!</span>", \
 					  "<span class='userdanger'>[A] [picked_hit_type] you!</span>")
 	add_attack_logs(A, D, "Melee attacked with blue-art [src] : [picked_hit_type]", ATKLOG_ALL)
-	if(A.resting && !D.stat && !D.weakened)
 
 /datum/martial_art/bscqc/disarm_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
