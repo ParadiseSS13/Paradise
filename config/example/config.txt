@@ -505,3 +505,6 @@ RESPAWN_DELAY 20
 
 ## Respawn delay in minutes before one may respawn as a drone.
 RESPAWN_DELAY_DRONE 10
+
+## Force restrict maint access. 0 - Disabled, 1 - Engie/Brig, 2 - Brig only.
+#RESTRICT_MAINT 0
