@@ -45,7 +45,7 @@
 					antable = FALSE
 					desc += " It appears to be infested with ants. Yuck!"
 					reagents.add_reagent("ants", 1) // Don't eat things with ants in i you weirdo.
-					if(prob(5))
+					if(prob(1))
 						new /mob/living/simple_animal/hostile/poison/fleas(T)
 					if(ant_timer)
 						deltimer(ant_timer)
