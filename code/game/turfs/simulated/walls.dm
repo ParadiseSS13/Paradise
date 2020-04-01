@@ -156,6 +156,7 @@
 			O.forceMove(src)
 
 	ChangeTurf(/turf/simulated/floor/plating)
+	return TRUE
 
 /turf/simulated/wall/proc/break_wall()
 	new sheet_type(src, sheet_amount)
