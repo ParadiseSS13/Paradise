@@ -300,15 +300,23 @@
 	..()
 	wires.CutAll()
 
+// NOTICE: The bomb has been deactivated codewise due to it causing instabilities to the server in combination with the current syndicate base.
 /obj/machinery/syndicatebomb/self_destruct
 	name = "self destruct device"
-	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age."
+	desc = "Do not taunt. Warranty invalid if exposed to high temperature. Not suitable for agents under 3 years of age. This bomb does not seem to be working!"
 	req_access = list(ACCESS_SYNDICATE)
 	payload = /obj/item/bombcore/large
 	can_unanchor = FALSE
 	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE // If set, this bomb will also cause explosive walls in the same group to explode
 
+
+
+/obj/machinery/syndicatebomb/self_destruct/interact(mob/user)
+	to_chat(user, "<span class='warning'>The bomb seems to be broken!</span>")
+	to_chat(user, "<span class='notice'>Instabilities of the server lead to the deactivation of this bomb.</span>")
+
 /obj/machinery/syndicatebomb/self_destruct/try_detonate(ignore_active = FALSE)
+	return FALSE // Temporarily disable the bomb till the instabilities due to it are fixed
 	. = ..()
 	if(. && explosive_wall_group)
 		for(var/wall in GLOB.explosive_walls)
