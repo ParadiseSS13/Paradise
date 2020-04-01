@@ -300,6 +300,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	//the actual loop.
 
 	while(1)
+		MC_LOOP_TICK_CHECK
 		tickdrift = max(0, MC_AVERAGE_FAST(tickdrift, (((REALTIMEOFDAY - init_timeofday) - (world.time - init_time)) / world.tick_lag)))
 		var/starting_tick_usage = TICK_USAGE
 		if(processing <= 0)
