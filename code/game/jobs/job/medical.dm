@@ -50,7 +50,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Surgeon","Nurse")
 	minimal_player_age = 3
@@ -85,7 +85,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -149,7 +149,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pharmacist","Pharmacologist")
 	minimal_player_age = 7
@@ -183,7 +183,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_RESEARCH, ACCESS_MAINT_TUNNELS)
 	minimal_player_age = 3
 	exp_requirements = 180
@@ -216,7 +216,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Pathologist","Microbiologist")
 	minimal_player_age = 7
@@ -251,7 +251,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Psychologist","Therapist")
 	outfit = /datum/outfit/job/psychiatrist
@@ -289,7 +289,7 @@
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
+	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY)
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE)
 	minimal_player_age = 3
 	exp_requirements = 180
