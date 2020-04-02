@@ -4,3 +4,5 @@
 #define SAY_LOG			"Say"
 #define EMOTE_LOG		"Emote"
 #define MISC_LOG		"Misc"
+
+#define ALL_LOGS list(ATTACK_LOG, DEFENSE_LOG, CONVERSION_LOG, SAY_LOG, EMOTE_LOG, MISC_LOG)

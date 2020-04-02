@@ -1,11 +1,9 @@
-#define ALL_LOGS list(ATTACK_LOG, DEFENSE_LOG, CONVERSION_LOG, SAY_LOG, EMOTE_LOG, MISC_LOG)
-
 /datum/log_viewer
 	var/time_from = 0
 	var/time_to = 4 HOURS					// 4 Hours should be enough. INFINITY would screw the UI up
-	var/list/selected_mobs = list()			// The mobs in question
+	var/list/selected_mobs = list()			// The mobs in question.
+	var/list/selected_ckeys = list()		// The ckeys selected to search for. Will show all mobs the ckey is attached to
 	var/list/selected_log_types = ALL_LOGS	// The log types being searched for
-
 	var/list/log_records = list()			// Found and sorted records
 
 /datum/log_viewer/proc/clear_all()
@@ -19,13 +17,17 @@
 /datum/log_viewer/proc/search()
 	log_records.Cut() // Empty the old results
 	var/list/invalid_mobs = list()
+	var/list/ckeys = selected_ckeys.Copy()
 	for(var/i in selected_mobs)
 		var/mob/M = i
-		if(!M || QDELETED(M))
+		if(!M || QDELETED(M) || !M.last_known_ckey)
 			invalid_mobs |= M
 			continue
+		ckeys |= M.last_known_ckey
+
+	for(var/ckey in ckeys)
 		for(var/log_type in selected_log_types)
-			var/list/logs = M.logs[log_type]
+			var/list/logs = SSlogging.get_logs_by_type(ckey, log_type)
 			var/len_logs = length(logs)
 			if(len_logs)
 				var/start_index = get_earliest_log_index(logs)
@@ -95,13 +97,22 @@
 	if(!mobs?.len)
 		return
 	for(var/i in mobs)
-		var/mob/M = i
-		if(istype(M))
-			selected_mobs |= M
+		add_mob(usr, i, FALSE)
 
-/datum/log_viewer/proc/add_mob(mob/user, mob/M)
+/datum/log_viewer/proc/add_ckey(mob/user, ckey)
+	if(!user || !user)
+		return
+	selected_ckeys |= ckey
+	show_ui(user)
+
+/datum/log_viewer/proc/add_mob(mob/user, mob/M, show_the_ui = TRUE)
 	if(!M || !user)
 		return
+	if(!M.ckey)
+		if(alert(user, "No ckey found on the mob [M]. Use the last known ckey? This will add the ckey to the list of ckeys.", "No ckey bound to mob", "Yes", "No") == "Yes")
+			add_ckey(user, M.last_known_ckey)
+		return
+
 	selected_mobs |= M
 
 	show_ui(user)
@@ -112,7 +123,7 @@
 	var/trStyle			= "border-top:1px solid; border-bottom:1px solid; padding-top: 5px; padding-bottom: 5px;"
 	var/dat
 	dat += "<head><meta http-equiv='X-UA-Compatible' content='IE=edge'><style>.adminticket{border:2px solid} td{border:1px solid grey;} th{border:1px solid grey;} span{float:left;width:150px;}</style></head>"
-	dat += "<div style='min-height:95px'>"
+	dat += "<div style='min-height:120px'>"
 	dat += "<span>Time Search Range:</span> <a href='?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
 	dat += " To: <a href='?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
 	dat += "<BR>"
@@ -124,6 +135,13 @@
 	dat += "<a href='?src=[UID()];add_mob=1'>Add Mob</a>"
 	dat += "<a href='?src=[UID()];add_mob_ckey=1'>Add Mob (by ckey)</a>"
 	dat += "<a href='?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
+	dat += "<BR>"
+
+	dat += "<span>Ckeys being used:</span>"
+	for(var/ckey in selected_ckeys)
+		dat += "<a href='?src=[UID()];remove_ckey=[ckey]'>[ckey]</a>"
+	dat += "<a href='?src=[UID()];add_ckey=1'>Add ckey</a>"
+	dat += "<a href='?src=[UID()];clear_ckeys=1'>Clear All ckeys</a>"
 	dat += "<BR>"
 
 	dat += "<span>Log Types:</span>"
@@ -150,7 +168,7 @@
 	var/tdStyleType		= "width:80px; text-align:center;"
 	var/tdStyleWho		= "width:400px; text-align:center;"
 	var/tdStyleWhere	= "width:150px; text-align:center;"
-	dat += "<div style='overflow-y: auto; max-height:calc(100vh - 145px);'>"
+	dat += "<div style='overflow-y: auto; max-height:calc(100vh - 170px);'>"
 	dat += "<table style='width:100%; border: 1px solid;'>"
 	dat += "<tr style='[trStyleTop]'><th style='[tdStyleTime]'>When</th><th style='[tdStyleType]'>Type</th><th style='[tdStyleWho]'>Who</th><th>What</th><th>Target</th><th style='[tdStyleWhere]'>Where</th></tr>"
 	for(var/i in log_records)
@@ -204,6 +222,10 @@
 		selected_mobs.Cut()
 		show_ui(usr)
 		return
+	if(href_list["clear_ckeys"])
+		selected_ckeys.Cut()
+		show_ui(usr)
+		return
 	if(href_list["add_mob"])
 		var/list/mobs = getpois(TRUE, TRUE)
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a mob: ", mobs)
@@ -214,10 +236,19 @@
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", mobs)
 		A.on_close(CALLBACK(src, .proc/add_mob, usr))
 		return
+	if(href_list["add_ckey"])
+		var/list/ckeys = SSlogging.get_ckeys_logged()
+		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", ckeys)
+		A.on_close(CALLBACK(src, .proc/add_ckey, usr))
+		return
 	if(href_list["remove_mob"])
 		var/mob/M = locate(href_list["remove_mob"])
 		if(M)
 			selected_mobs -= M
+		show_ui(usr)
+		return
+	if(href_list["remove_ckey"])
+		selected_ckeys -= href_list["remove_ckey"]
 		show_ui(usr)
 		return
 	if(href_list["toggle_log_type"])
