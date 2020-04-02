@@ -1585,7 +1585,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			. = 100
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)
-	var/list/directions_left = alldirs.Copy()
+	var/list/directions_left = GLOB.alldirs.Copy()
 	for(var/i in 1 to rand(3, 5))
 		var/obj/item/reagent_containers/food/snacks/pastatomato/singulo/spaghet = new(loc)
 		spaghet.throw_at(get_edge_target_turf(src, pick_n_take(directions_left)), rand(1,3), 5)
