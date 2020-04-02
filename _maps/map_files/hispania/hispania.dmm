@@ -32664,11 +32664,6 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/camera{
-	c_tag = "Dormitories Toilets";
-	dir = 1;
-	network = list("SS13")
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -35908,11 +35903,6 @@
 	dir = 2;
 	pixel_y = 24
 	},
-/obj/machinery/camera{
-	c_tag = "Central Hallway North-West";
-	dir = 2;
-	network = list("SS13")
-	},
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/locker)
 "bns" = (
@@ -37918,8 +37908,11 @@
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "brN" = (
+/obj/machinery/door/window/northleft{
+	name = "Locker Beds"
+	},
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "brO" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "swall12";
@@ -38171,7 +38164,7 @@
 	},
 /obj/item/bedsheet,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bsu" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -38867,7 +38860,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/purple,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bub" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/portable_atmospherics/canister/air,
@@ -40268,11 +40261,14 @@
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "bwT" = (
+/obj/machinery/door/window/northleft{
+	name = "Locker Beds"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bwU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -41035,7 +41031,10 @@
 /turf/simulated/floor/wood,
 /area/security/vacantoffice)
 "byj" = (
-/obj/machinery/camera,
+/obj/machinery/camera{
+	c_tag = "Vacant Office";
+	dir = 1
+	},
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /turf/simulated/floor/wood,
@@ -41724,7 +41723,7 @@
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bzz" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin{
@@ -41735,7 +41734,7 @@
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bzA" = (
 /obj/machinery/washing_machine,
 /obj/structure/window/reinforced{
@@ -41746,7 +41745,7 @@
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bzB" = (
 /obj/structure/rack{
 	dir = 8;
@@ -42835,7 +42834,7 @@
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bBR" = (
 /obj/structure/grille,
 /obj/structure/window/full/shuttle{
@@ -42868,7 +42867,7 @@
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bBV" = (
 /obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;
@@ -43792,7 +43791,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/wall,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "bDQ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -96460,7 +96459,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "gVl" = (
 /turf/simulated/shuttle/wall{
 	dir = 4;
@@ -96471,7 +96470,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "hek" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
@@ -96522,7 +96521,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/yellow,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "iaC" = (
 /obj/item/flashlight/flare,
 /obj/item/flashlight/flare,
@@ -96646,7 +96645,7 @@
 	},
 /obj/machinery/light,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "iZL" = (
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
@@ -97215,7 +97214,7 @@
 	},
 /obj/structure/coatrack,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "puu" = (
 /obj/structure/bed/dogbed/garronte,
 /mob/living/simple_animal/friendly/owl,
@@ -97350,7 +97349,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/red,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "qIy" = (
 /turf/simulated/shuttle/wall{
 	icon_state = "wall3"
@@ -97366,7 +97365,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/green,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "qOQ" = (
 /obj/structure/barricade/wooden/crude,
 /turf/simulated/shuttle/floor{
@@ -97380,11 +97379,6 @@
 "qXN" = (
 /obj/effect/landmark{
 	name = "blobstart"
-	},
-/obj/machinery/camera{
-	c_tag = "Locker Room Toilets";
-	dir = 8;
-	network = list("SS13")
 	},
 /obj/machinery/light/small{
 	tag = "icon-bulb1 (EAST)";
@@ -97416,6 +97410,9 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"rgm" = (
+/turf/simulated/floor/carpet,
+/area/maintenance/port)
 "rnE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack{
@@ -97535,7 +97532,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
 /turf/simulated/floor/carpet,
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "suH" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/vomit,
@@ -97945,16 +97942,11 @@
 	},
 /area/shuttle/tsf)
 "wvO" = (
-/obj/machinery/camera{
-	c_tag = "Brig Prison Hallway East";
-	dir = 4;
-	network = list("Prison","SS13")
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "barber"
 	},
-/area/crew_quarters/locker)
+/area/maintenance/port)
 "wCG" = (
 /obj/structure/ore_box,
 /turf/simulated/shuttle/floor{
@@ -116029,7 +116021,7 @@ bzU
 bBQ
 wvO
 bzz
-blM
+blQ
 bCo
 iye
 bKt
@@ -116284,9 +116276,9 @@ bsg
 bvW
 bnD
 bwT
-bwT
+wvO
 bzy
-blM
+blQ
 bCo
 qXN
 bKr
@@ -116541,10 +116533,10 @@ brv
 bwb
 eGR
 bBU
-bwT
+wvO
 bzA
-blM
-bvs
+blQ
+blQ
 bvs
 nOc
 bGW
@@ -116798,11 +116790,11 @@ bqx
 bwa
 bnD
 pcs
-brN
+rgm
 qNu
 hQN
 gWh
-blM
+blQ
 bKu
 bHb
 bMg
@@ -117055,9 +117047,9 @@ vLg
 mjb
 bAb
 brN
-brN
-brN
-brN
+rgm
+rgm
+rgm
 iYl
 bDP
 bKE
@@ -117316,7 +117308,7 @@ gVi
 ssS
 bua
 qCx
-ivG
+bvH
 bKy
 bxb
 bxb
