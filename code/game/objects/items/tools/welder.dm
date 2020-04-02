@@ -29,7 +29,7 @@
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
 	var/light_intensity = 2
 	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
-	var/progress_flash_divisor = 10 //Length of time between each "eye flash"
+	var/progress_flash_divisor = 25 //Length of time between each "eye flash".
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()
@@ -122,8 +122,8 @@
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
 	if(. && user)
-		if(progress_flash_divisor == 0)
-			user.flash_eyes(min(light_intensity, 1))
+		if(progress_flash_divisor <= 0)
+			user.add_flash_overlay(min(light_intensity, 1))
 			progress_flash_divisor = initial(progress_flash_divisor)
 		else
 			progress_flash_divisor--
