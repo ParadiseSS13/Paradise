@@ -153,7 +153,7 @@
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	//new /obj/item/healthanalyzer( src )
+	new /obj/item/healthanalyzer( src )  //Unicamente por ser un medikit especifico
 
 /obj/item/storage/firstaid/adv/empty
 	empty = 1
