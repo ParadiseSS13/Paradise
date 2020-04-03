@@ -181,7 +181,7 @@
 	if(can_fire)
 		title = "\[[state_letter()]][title]"
 
-	stat(title, statclick.update(msg))
+	stat(title, "[state_colour()][statclick.update(msg)]</font>")
 
 /datum/controller/subsystem/proc/state_letter()
 	switch(state)
@@ -196,6 +196,18 @@
 		if(SS_IDLE)
 			. = "  "
 
+/datum/controller/subsystem/proc/state_colour()
+	switch(state)
+		if(SS_RUNNING) // If its actively processing, colour it green
+			. = "<font color='#32a852'>"
+		if(SS_QUEUED) // If its in the running queue, but delayed, colour it orange
+			. = "<font color='#fcba03'>"
+		if(SS_PAUSED, SS_PAUSING) // If its being paused due to lag, colour it red
+			. = "<font color='#eb4034'>"
+		if(SS_SLEEPING) // If fire() slept, colour it blue
+			. = "<font color='#4287f5'>"
+		if(SS_IDLE) // Leave it default if the SS is idle
+			. = "<font>"
 //could be used to postpone a costly subsystem for (default one) var/cycles, cycles
 //for instance, during cpu intensive operations like explosions
 /datum/controller/subsystem/proc/postpone(cycles = 1)
