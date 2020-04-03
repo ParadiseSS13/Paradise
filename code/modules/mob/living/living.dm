@@ -755,15 +755,16 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
+#define EYE_FLASH_DURATION	25
 //called when the mob receives a bright flash
-/mob/living/proc/flash_eyes(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
+/mob/living/proc/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
 	return add_flash_overlay(intensity, override_blindness_check, affect_silicon, visual, type)
 
 //called in proc/flash_eyes(). Makes it so that the mob's screen goes white for the duration of welding, but eye damage and such is handled in flash_eyes()
-/mob/living/proc/add_flash_overlay(intensity, override_blindness_check, affect_silicon, visual, type = /obj/screen/fullscreen/flash)
+/mob/living/proc/add_flash_overlay(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /obj/screen/fullscreen/flash)
 	if(check_eye_prot() < intensity && (override_blindness_check || !(disabilities & BLIND)))
 		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 25)
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), EYE_FLASH_DURATION)
 		return TRUE
 
 /mob/living/proc/check_eye_prot()
