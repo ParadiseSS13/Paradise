@@ -31,6 +31,7 @@
 			if(prob(5))
 				to_chat(affected_mob, "<span class='danger'>You feel something moving in your throat.</span>")
 			if(prob(1))
+				affected_mob.emote("cough")
 				affected_mob.visible_message("<span class='danger'>[affected_mob] coughs up an angry space carp!</span>", \
 													"<span class='userdanger'>You cough up an angry space carp!</span>")
 				new /mob/living/simple_animal/hostile/carp(affected_mob.loc)
