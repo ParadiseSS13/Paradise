@@ -5,9 +5,9 @@
 	reagent_state = LIQUID
 	color = "#f80000"
 
-/datum/reagent/blackdeath_blood/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/blackdeath_blood/on_mob_life(mob/living/carbon/human/M)
 	if(volume > 2)
-		M.ForceContractDisease(new /datum/disease/black_death(0))
+		M.ForceContractDisease(new /datum/disease/black_death())
 	return ..()
 
 //Reagent for the drake steak//
