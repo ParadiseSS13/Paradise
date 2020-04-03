@@ -305,6 +305,7 @@
 #include "code\datums\diseases\beesease.dm"
 #include "code\datums\diseases\berserker.dm"
 #include "code\datums\diseases\brainrot.dm"
+#include "code\datums\diseases\carpcough.dm"
 #include "code\datums\diseases\cold.dm"
 #include "code\datums\diseases\cold9.dm"
 #include "code\datums\diseases\critical.dm"
