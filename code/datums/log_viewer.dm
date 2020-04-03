@@ -36,7 +36,7 @@ if(!result || result.ckey != __ckey){\
 
 	for(var/ckey in ckeys)
 		for(var/log_type in selected_log_types)
-			var/list/logs = SSlogging.get_logs_by_type(ckey, log_type)
+			var/list/logs = GLOB.logging.get_logs_by_type(ckey, log_type)
 			var/len_logs = length(logs)
 			if(len_logs)
 				var/start_index = get_earliest_log_index(logs)
@@ -237,7 +237,7 @@ if(!result || result.ckey != __ckey){\
 		A.on_close(CALLBACK(src, .proc/add_mob, usr))
 		return
 	if(href_list["add_ckey"])
-		var/list/ckeys = SSlogging.get_ckeys_logged()
+		var/list/ckeys = GLOB.logging.get_ckeys_logged()
 		var/datum/async_input/A = input_autocomplete_async(usr, "Please, select a ckey: ", ckeys)
 		A.on_close(CALLBACK(src, .proc/add_ckey, usr))
 		return

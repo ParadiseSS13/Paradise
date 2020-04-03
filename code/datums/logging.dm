@@ -1,12 +1,9 @@
-SUBSYSTEM_DEF(logging)
-	name = "Logging"
-	priority = INIT_ORDER_LOGGING
-	flags = SS_NO_FIRE
+/datum/logging
 	var/list/datum/log_record/logs = list()	// Assoc list of assoc lists (ckey, (log_type, list/logs))
 
-/datum/controller/subsystem/logging/proc/add_log(ckey, datum/log_record/log)
+/datum/logging/proc/add_log(ckey, datum/log_record/log)
 	if(!ckey)
-		log_debug("SSLogging.add_log called with an invalid ckey")
+		log_debug("GLOB.logging.add_log called with an invalid ckey")
 		return
 
 	if(!logs[ckey])
@@ -20,7 +17,7 @@ SUBSYSTEM_DEF(logging)
 	var/list/datum/log_record/log_records = log_types_list[log.log_type]
 	log_records.Add(log)
 
-/datum/controller/subsystem/logging/proc/get_ckeys_logged()
+/datum/logging/proc/get_ckeys_logged()
 	var/list/ckeys = list()
 	for(var/ckey in logs)
 		ckeys.Add(ckey)
@@ -29,12 +26,12 @@ SUBSYSTEM_DEF(logging)
 /* Returns the logs of a given ckey and log_type
  * If no logs exist it will return an empty list
 */
-/datum/controller/subsystem/logging/proc/get_logs_by_type(ckey, log_type)
+/datum/logging/proc/get_logs_by_type(ckey, log_type)
 	if(!ckey)
-		log_debug("SSLogging.get_logs_by_type called with an invalid ckey")
+		log_debug("GLOB.logging.get_logs_by_type called with an invalid ckey")
 		return
 	if(!log_type || !(log_type in ALL_LOGS))
-		log_debug("SSLogging.get_logs_by_type called with an invalid log_type '[log_type]'")
+		log_debug("GLOB.logging.get_logs_by_type called with an invalid log_type '[log_type]'")
 		return
 
 	var/list/log_types_list = logs[ckey]
