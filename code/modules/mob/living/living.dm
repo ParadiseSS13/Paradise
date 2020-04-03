@@ -755,7 +755,6 @@
 /mob/living/proc/can_use_vents()
 	return "You can't fit into that vent."
 
-#define EYE_FLASH_DURATION	25
 //called when the mob receives a bright flash
 /mob/living/proc/flash_eyes(intensity, override_blindness_check, affect_silicon, visual, type)
 	return add_flash_overlay(intensity, override_blindness_check, affect_silicon, visual, type)

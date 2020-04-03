@@ -172,6 +172,8 @@
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
 
+#define EYE_FLASH_DURATION  25 //How long an eye flash (due to welders, explosions etc.) should last for
+
 //Human sub-species
 #define isshadowling(A) (is_species(A, /datum/species/shadow/ling))
 #define isshadowlinglesser(A) (is_species(A, /datum/species/shadow/ling/lesser))
