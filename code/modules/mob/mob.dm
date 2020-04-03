@@ -1268,8 +1268,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/create_log(log_type, what, target = null, turf/where = get_turf(src))
 	if(!ckey)
 		return
+	var/real_ckey = ckey
+	if(ckey[1] == "@") // Admin aghosting will do this
+		real_ckey = copytext(ckey, 2)
 	var/datum/log_record/record = new(log_type, src, what, target, where, world.time)
-	SSlogging.add_log(ckey, record)
+	SSlogging.add_log(real_ckey, record)
 
 /proc/create_log_in_list(list/target, text, collapse = TRUE, last_log)//forgive me code gods for this shitcode proc
 	//this proc enables lovely stuff like an attack log that looks like this: "[18:20:29-18:20:45]21x John Smith attacked Andrew Jackson with a crowbar."
