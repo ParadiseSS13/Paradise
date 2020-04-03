@@ -2,18 +2,12 @@ SUBSYSTEM_DEF(logging)
 	name = "Logging"
 	priority = INIT_ORDER_LOGGING
 	flags = SS_NO_FIRE
-	var/list/datum/log_record/logs	// Assoc list of assoc lists (ckey, (log_type, list/logs))
-
-/datum/controller/subsystem/logging/Initialize()
-	LAZYINITLIST(logs)
-	return ..()
+	var/list/datum/log_record/logs = list()	// Assoc list of assoc lists (ckey, (log_type, list/logs))
 
 /datum/controller/subsystem/logging/proc/add_log(ckey, datum/log_record/log)
 	if(!ckey)
 		log_debug("SSLogging.add_log called with an invalid ckey")
 		return
-
-	LAZYINITLIST(logs)
 
 	if(!logs[ckey])
 		logs[ckey] = list()
@@ -43,7 +37,6 @@ SUBSYSTEM_DEF(logging)
 		log_debug("SSLogging.get_logs_by_type called with an invalid log_type '[log_type]'")
 		return
 
-	LAZYINITLIST(logs)
 	var/list/log_types_list = logs[ckey]
 	// Check if logs exist for the ckey
 	if(!log_types_list?.len)
