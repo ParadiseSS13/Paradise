@@ -274,8 +274,10 @@ if(!result || result.ckey != __ckey){\
 			return "deepskyblue"
 		if(MISC_LOG)
 			return "gray"
-		if(DEAD_CHAT_LOG)
+		if(DEADCHAT_LOG)
 			return "#cc00c6"
+		if(OOC_LOG)
+			return "#002eb8"
 	return "slategray"
 
 /datum/log_viewer/proc/get_display_name(mob/M)
