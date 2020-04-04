@@ -278,6 +278,8 @@ if(!result || result.ckey != __ckey){\
 			return "#cc00c6"
 		if(OOC_LOG)
 			return "#002eb8"
+		if(LOOC_LOG)
+			return "#6699CC"
 	return "slategray"
 
 /datum/log_viewer/proc/get_display_name(mob/M)

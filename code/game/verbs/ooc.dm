@@ -206,7 +206,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			return
 
 	log_looc(msg, src)
-
+	mob.create_log(LOOC_LOG, msg)
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
 
