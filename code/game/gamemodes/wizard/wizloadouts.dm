@@ -33,6 +33,24 @@
 		/obj/effect/proc_holder/spell/aoe_turf/repulse, /obj/effect/proc_holder/spell/targeted/touch/disintegrate)
 
 //Unique loadouts, which are more gimmicky. Should contain some unique spell or item that separates it from just buying standard wiz spells, and be balanced around a 10 spell point cost.
+/datum/spellbook_entry/loadout/mimewiz
+	name = "Silencio"
+	desc = "...<br><br> \
+		</i>Provides Finger Gun and Invisible Greater Wall manuals, Mime Robes, a Cane and Duct Tape, Ethereal Jaunt, Blink, Teleport, Mime Malaise, Knock, and Stop Time.<i>"
+	log_name = "SHH"
+	items_path = list(/obj/item/spellbook/oneuse/mime/fingergun, /obj/item/spellbook/oneuse/mime/greaterwall, /obj/item/clothing/suit/wizrobe/mime, /obj/item/clothing/head/wizard/mime, \
+		/obj/item/clothing/mask/gas/mime/wizard, /obj/item/clothing/shoes/sandal/marisa, /obj/item/cane, /obj/item/stack/tape_roll)
+	spells_path = list(/obj/effect/proc_holder/spell/targeted/ethereal_jaunt, /obj/effect/proc_holder/spell/targeted/turf_teleport/blink, /obj/effect/proc_holder/spell/targeted/area_teleport/teleport, \
+		/obj/effect/proc_holder/spell/targeted/touch/mime_malaise, /obj/effect/proc_holder/spell/aoe_turf/knock, /obj/effect/proc_holder/spell/aoe_turf/conjure/timestop)
+	category = "Unique"
+	destroy_spellbook = TRUE
+
+/datum/spellbook_entry/loadout/clownwiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(user.mind)
+		user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
+		user.mind.miming = TRUE
+	..()
+
 /datum/spellbook_entry/loadout/gunreaper
 	name = "Gunslinging Reaper"
 	desc = "Cloned over and over, the souls aboard this station yearn for a deserved rest.<br> \
