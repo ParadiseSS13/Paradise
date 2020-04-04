@@ -1,4 +1,4 @@
-#define APC_DISABLE_PROBABILITY 100 // the probability that a given APC will be disabled
+#define APC_DISABLE_PROBABILITY 25 // the probability that a given APC will be disabled
 
 /datum/event/grid_check
 	var/const/announce_after_mc_ticks     = 5
