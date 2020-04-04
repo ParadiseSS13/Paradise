@@ -27591,14 +27591,11 @@
 	},
 /area/hallway/primary/fore)
 "aYd" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6;
 	level = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "aYf" = (
@@ -34356,6 +34353,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bkP" = (
@@ -34364,6 +34362,7 @@
 	dir = 4
 	},
 /obj/item/deck/cards,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bkQ" = (
@@ -35365,6 +35364,9 @@
 /area/hallway/secondary/exit)
 "bmM" = (
 /obj/machinery/hologram/holopad,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bmN" = (
@@ -35650,11 +35652,10 @@
 	icon_state = "1-8";
 	tag = ""
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j1";
-	tag = "icon-pipe-j1 (EAST)"
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -35874,6 +35875,7 @@
 /area/hallway/primary/central/nw)
 "bnQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bnR" = (
@@ -37170,6 +37172,9 @@
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -95916,6 +95921,14 @@
 	},
 /turf/space,
 /area/space/nearstation)
+"eaa" = (
+/obj/structure/disposalpipe/junction{
+	tag = "icon-pipe-j2 (EAST)";
+	icon_state = "pipe-j2";
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "eAA" = (
 /obj/machinery/gameboard,
 /obj/machinery/firealarm{
@@ -95995,6 +96008,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -96100,6 +96116,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "jKj" = (
@@ -96161,6 +96178,13 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
+"lpS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "lqH" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -96367,6 +96391,9 @@
 	name = "Bar Privacy Shutters";
 	opacity = 0
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -96382,6 +96409,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
+/area/crew_quarters/bar)
+"qMB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "qOl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -96463,6 +96497,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "rSv" = (
@@ -96489,6 +96526,14 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/administration)
+"srd" = (
+/obj/structure/chair/wood/wings,
+/obj/effect/landmark/start{
+	name = "Civilian"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "sUK" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -96587,6 +96632,9 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "wiV" = (
@@ -96650,6 +96698,10 @@
 "xiB" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "xxW" = (
@@ -130997,11 +131049,11 @@ aGY
 aGY
 aUS
 bfs
-btq
-bja
+qMB
+srd
 bkP
 jwq
-bmq
+lpS
 btg
 wNz
 wNz
@@ -131258,7 +131310,7 @@ aYd
 bnQ
 bkO
 xiB
-bmq
+btq
 brg
 mZb
 brg
@@ -131515,7 +131567,7 @@ aZR
 brT
 brT
 rIY
-bmq
+btq
 brg
 brg
 oGR
@@ -132029,12 +132081,12 @@ aUS
 aUS
 aUS
 iqt
-bmq
-bmq
-bmq
-bmq
-bmq
-btq
+qMB
+aZV
+aZV
+aZV
+aZV
+eaa
 bmq
 bze
 bAk
