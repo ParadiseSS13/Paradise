@@ -118,7 +118,8 @@
 	var/obj/item/gripper/G = get_active_hand()
 	if(istype(G))
 		G.drop_gripped_item(silent = TRUE)
-	return TRUE
+		return TRUE // The gripper is special because it has a normal item inside that we can drop.
+	return FALSE // All robot inventory items have NODROP, so they should return FALSE.
 
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.

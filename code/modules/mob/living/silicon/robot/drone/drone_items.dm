@@ -35,16 +35,6 @@
 	//Item currently being held.
 	var/obj/item/gripped_item = null
 
-/obj/item/gripper/paperwork
-	name = "paperwork gripper"
-	desc = "A simple grasping tool for clerical work."
-
-	can_hold = list(
-		/obj/item/clipboard,
-		/obj/item/paper,
-		/obj/item/card/id
-	)
-
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "A grasping tool used to help patients up once surgery is complete."
@@ -74,6 +64,13 @@
 	..()
 	can_hold = typecacheof(can_hold)
 
+/obj/item/gripper/verb/drop_item()
+	set name = "Drop Gripped Item"
+	set desc = "Release an item from your magnetic gripper."
+	set category = "Drone"
+
+	drop_gripped_item()
+
 /obj/item/gripper/attack_self(mob/user)
 	if(gripped_item)
 		gripped_item.attack_self(user)
@@ -88,6 +85,10 @@
 		gripped_item = null
 
 /obj/item/gripper/attack(mob/living/carbon/M, mob/living/carbon/user)
+	return
+
+/// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_item())` checks done in certain attackby's.
+/obj/item/gripper/forceMove(atom/destination)
 	return
 
 /obj/item/gripper/afterattack(atom/target, mob/living/user, proximity, params)
