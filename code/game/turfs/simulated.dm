@@ -62,7 +62,7 @@
 		overlays += wet_overlay
 	if(time == INFINITY)
 		return
-	if(time == null)
+	if(!time)
 		time =	rand(790, 820)
 	addtimer(CALLBACK(src, .proc/MakeDry, wet_setting), time)
 
