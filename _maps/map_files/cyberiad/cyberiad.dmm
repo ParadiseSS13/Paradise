@@ -23538,6 +23538,11 @@
 /area/crew_quarters/dorms)
 "aQs" = (
 /obj/structure/closet/crate/can,
+/obj/machinery/camera{
+	c_tag = "Starboard Primary Hallway 2";
+	dir = 2;
+	network = list("SS13")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitecorner"
@@ -24349,9 +24354,6 @@
 	c_tag = "Bar Storage";
 	network = list("SS13")
 	},
-/obj/machinery/alarm{
-	pixel_y = 23
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -24359,6 +24361,13 @@
 	dir = 0;
 	name = "station intercom (General)";
 	pixel_x = -28
+	},
+/obj/machinery/requests_console{
+	department = "Bar";
+	name = "Bar Requests Console";
+	departmentType = 2;
+	pixel_x = 0;
+	pixel_y = 30
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -24383,6 +24392,11 @@
 /obj/machinery/firealarm{
 	dir = 2;
 	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10;
+	initialize_directions = 10;
+	level = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -31022,13 +31036,6 @@
 	icon_state = "black";
 	name = "formal wardrobe"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	name = "standard air scrubber";
-	on = 1;
-	scrub_N2O = 1;
-	scrub_Toxins = 1
-	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "beG" = (
@@ -31369,9 +31376,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -31382,6 +31386,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bfm" = (
@@ -31603,6 +31608,10 @@
 "bfC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1;
+	level = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -32496,6 +32505,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 0;
+	pixel_y = 32
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bhs" = (
@@ -32845,13 +32858,16 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
 	initialize_directions = 11;
 	level = 1
 	},
 /obj/structure/kitchenspike,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5;
+	level = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -32863,6 +32879,9 @@
 	on = 1;
 	scrub_N2O = 1;
 	scrub_Toxins = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -33377,6 +33396,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -33391,11 +33413,6 @@
 	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8;
-	initialize_directions = 11;
-	level = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -33743,6 +33760,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/gun/projectile/revolver/doublebarrel,
+/obj/machinery/light,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "bjL" = (
@@ -35074,13 +35092,6 @@
 	name = "Kitchen";
 	req_access_txt = "25;28"
 	},
-/obj/machinery/requests_console{
-	department = "Bar";
-	name = "Bar Requests Console";
-	departmentType = 2;
-	pixel_x = 0;
-	pixel_y = 30
-	},
 /obj/item/storage/toolbox/mechanical{
 	pixel_x = -2;
 	pixel_y = -1
@@ -36288,10 +36299,10 @@
 	dir = 1;
 	pixel_y = -24
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
 /obj/structure/closet/crate/freezer,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -37004,7 +37015,14 @@
 /area/crew_quarters/locker)
 "bqi" = (
 /obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/west,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "bar";
+	name = "Bar Privacy Shutters";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -37448,6 +37466,10 @@
 	c_tag = "Medbay Corridor West";
 	dir = 4;
 	network = list("SS13")
+	},
+/obj/machinery/newscaster{
+	pixel_x = -27;
+	pixel_y = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -41425,17 +41447,6 @@
 	icon_state = "whitecorner"
 	},
 /area/hallway/primary/starboard/west)
-"bzh" = (
-/obj/machinery/camera{
-	c_tag = "Starboard Primary Hallway 2";
-	dir = 2;
-	network = list("SS13")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whitecorner"
-	},
-/area/hallway/primary/starboard/west)
 "bzi" = (
 /obj/item/radio/intercom{
 	pixel_y = 25
@@ -42042,13 +42053,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/port)
-"bAv" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Diner"
-	},
-/turf/simulated/floor/plasteel,
-/area/crew_quarters/bar)
 "bAw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -43085,6 +43089,20 @@
 	network = list("SS13")
 	},
 /obj/structure/reagent_dispensers/beerkeg,
+/obj/machinery/door_control{
+	id = "bar";
+	name = "Bar Shutters Control";
+	pixel_x = -6;
+	pixel_y = -24;
+	req_access_txt = "28"
+	},
+/obj/machinery/door_control{
+	id = "bariso";
+	name = "Bar Seclusion Button";
+	pixel_x = 6;
+	pixel_y = -24;
+	req_access_txt = "28"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -46840,10 +46858,6 @@
 	dir = 6
 	},
 /area/medical/reception)
-"bJQ" = (
-/obj/machinery/light,
-/turf/simulated/floor/wood,
-/area/crew_quarters/bar)
 "bJR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -50340,6 +50354,14 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen";
 	req_access_txt = "28"
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 2;
+	icon_state = "open";
+	id_tag = "bariso";
+	name = "Bar Privacy Shutters";
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -91668,6 +91690,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5;
+	level = 1
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "djl" = (
@@ -92505,7 +92531,6 @@
 	dir = 5;
 	level = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -92514,6 +92539,13 @@
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
@@ -95941,6 +95973,13 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
+"gWZ" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/machinery/light,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "hsy" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
 	dir = 4
@@ -96007,6 +96046,13 @@
 /area/toxins/launch{
 	name = "Toxins Launch Room"
 	})
+"iXm" = (
+/obj/machinery/door/airlock/public/glass{
+	name = "Diner"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel,
+/area/crew_quarters/bar)
 "jml" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -96176,6 +96222,31 @@
 /obj/item/taperecorder,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
+"nAM" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	pixel_x = 0;
+	tag = ""
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5;
+	level = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/crew_quarters/kitchen)
 "nMi" = (
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 9
@@ -96233,7 +96304,14 @@
 	pixel_x = -1;
 	pixel_y = 1
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "bar";
+	name = "Bar Privacy Shutters";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -96282,7 +96360,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 25
 	},
-/obj/effect/decal/warning_stripes/west,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -96295,6 +96372,14 @@
 	icon_state = "4-8";
 	pixel_x = 0;
 	tag = ""
+	},
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "bar";
+	name = "Bar Privacy Shutters";
+	opacity = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -96332,9 +96417,6 @@
 /turf/space,
 /area/space/nearstation)
 "qWH" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
@@ -96352,6 +96434,9 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/light_switch{
+	pixel_x = 27
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "qXP" = (
@@ -96365,7 +96450,14 @@
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/machinery/door/poddoor/shutters{
+	density = 0;
+	dir = 8;
+	icon_state = "open";
+	id_tag = "bar";
+	name = "Bar Privacy Shutters";
+	opacity = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -96528,9 +96620,6 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "wHV" = (
-/obj/machinery/light_switch{
-	pixel_x = 27
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -96539,6 +96628,11 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/alarm{
+	dir = 8;
+	icon_state = "alarm0";
+	pixel_x = 24
+	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
 "wNz" = (
@@ -130927,7 +131021,7 @@ wNz
 wNz
 wNz
 bAH
-btm
+gWZ
 aUS
 cMK
 bHy
@@ -131184,8 +131278,8 @@ mZb
 brg
 brg
 bAV
-bJQ
-aUS
+bmq
+iXm
 bAk
 bHy
 bCZ
@@ -131440,9 +131534,9 @@ brg
 brg
 oGR
 brg
-bmq
-bmq
-bAv
+lNC
+bzn
+bsN
 bAk
 bHy
 bAk
@@ -131697,9 +131791,9 @@ btm
 btm
 btm
 buQ
-lNC
-bzn
-bsN
+btq
+bmq
+iXm
 bAk
 bHy
 bDA
@@ -131956,7 +132050,7 @@ bmq
 bmq
 btq
 bmq
-bAv
+bze
 bAk
 bHy
 bDb
@@ -132213,7 +132307,7 @@ bmq
 jml
 tsw
 bzo
-bze
+aUS
 bAk
 bHy
 bDb
@@ -134001,7 +134095,7 @@ bbh
 bdT
 bdM
 bhX
-biU
+nAM
 boS
 bdT
 bmt
@@ -135811,7 +135905,7 @@ bro
 bro
 bwp
 ufg
-bzh
+bzf
 bAk
 bHA
 bJb
