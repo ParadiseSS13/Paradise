@@ -45,7 +45,7 @@
 	category = "Unique"
 	destroy_spellbook = TRUE
 
-/datum/spellbook_entry/loadout/clownwiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+/datum/spellbook_entry/loadout/mimewiz/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(user.mind)
 		user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/mime/speak(null))
 		user.mind.miming = TRUE
