@@ -115,9 +115,6 @@
 	var/nightshift_lights = FALSE
 	var/last_nightshift_switch = 0
 
-	// holders for grid_check (power outage) event
-	var/last_operating = FALSE
-
 /obj/machinery/power/apc/worn_out
 	name = "\improper Worn out APC"
 	keep_preset_name = 1

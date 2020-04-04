@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/mundane
 	severity = EVENT_LEVEL_MUNDANE
 	available_events = list(
-		// Severity level, event name, even type, base weight, role weights, one shot, min weight, max weight. Last two only used if set and non-zero
+		// Severity level, event name, event type, base weight, role weights, one shot, min weight, max weight. Last two only used if set and non-zero
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Nothing",			/datum/event/nothing,			1100),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "PDA Spam",			/datum/event/pda_spam, 			0, 		list(ASSIGNMENT_ANY = 4), 0, 25, 50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Money Lotto",		/datum/event/money_lotto, 		0, 		list(ASSIGNMENT_ANY = 1), 1, 5,  15),
@@ -191,6 +191,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Nothing",			/datum/event/nothing,			1320),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Carp Migration",	/datum/event/carp_migration,	0,						list(ASSIGNMENT_SECURITY =  3), 1),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
+		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "APC Overload",	/datum/event/apc_overload,		90,						list(ASSIGNMENT_ENGINEER = 60)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",			/datum/event/blob, 				0,						list(ASSIGNMENT_ENGINEER = 30), 1),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",		/datum/event/meteor_wave,		0,						list(ASSIGNMENT_ENGINEER =  5),	1),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Abductor Visit",	/datum/event/abductor, 		    80, is_one_shot = 1),

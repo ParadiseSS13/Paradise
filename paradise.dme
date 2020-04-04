@@ -1483,6 +1483,7 @@
 #include "code\modules\events\event_procs.dm"
 #include "code\modules\events\false_alarm.dm"
 #include "code\modules\events\floorcluwne.dm"
+#include "code\modules\events\apc_overload.dm"
 #include "code\modules\events\grid_check.dm"
 #include "code\modules\events\headcrabs.dm"
 #include "code\modules\events\immovable_rod.dm"
