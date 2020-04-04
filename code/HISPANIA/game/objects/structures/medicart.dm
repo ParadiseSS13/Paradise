@@ -177,7 +177,7 @@
 		dat += "<a href='?src=[UID()];scalpel=1'>[myscal.name]</a><br>"
 	if(mycaute)
 		dat += "<a href='?src=[UID()];cautery=1'>[mycaute.name]</a><br>"
-	var/datum/browser/popup = new(user, "medicart", name, 240, 160)
+	var/datum/browser/popup = new(user, "medicart", name, 340, 360)
 	popup.set_content(dat)
 	popup.open()
 
@@ -269,9 +269,10 @@
 /obj/structure/surgicalcart/full/New()
 	mysyringe = new /obj/item/reagent_containers/syringe/antiviral(src) ///Esto es spacellin, le juro no son nanomachines
 	mymbruise = new /obj/item/stack/medical/bruise_pack/advanced(src)
-	mydrill = new /obj/item/circular_saw(src)
-	mysaw = new /obj/item/bonesetter(src)
-	mybones = new /obj/item/FixOVein(src)
+	mydrill = new /obj/item/surgicaldrill(src)
+	mysaw = new /obj/item/circular_saw(src)
+	mybones = new /obj/item/bonesetter(src)
+	myvein = new /obj/item/FixOVein(src)
 	mygel = new /obj/item/bonegel(src)
 	myhemo = new /obj/item/hemostat(src)
 	myretra = new /obj/item/retractor(src)
