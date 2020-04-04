@@ -28934,18 +28934,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
-"baM" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/fsmaint2)
 "baN" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/mechanical,
@@ -131439,7 +131427,7 @@ bcy
 bfj
 aOI
 aGY
-baM
+bkN
 aGY
 aUS
 bfk
@@ -131696,7 +131684,7 @@ aSD
 bfi
 aOI
 aOI
-baM
+bkN
 aGY
 aUS
 dji
