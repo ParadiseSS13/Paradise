@@ -42103,7 +42103,7 @@
 /area/bridge/meeting_room)
 "bzT" = (
 /obj/structure/table,
-/obj/item/aiModule/quarantine,
+/obj/item/aiModule/crewsimov,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43351,8 +43351,8 @@
 	base_state = "right";
 	dir = 4;
 	icon_state = "right";
-	name = "Core Modules";
-	req_access_txt = "20"
+	name = "Medium Risk";
+	req_access_txt = "30"
 	},
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -43361,11 +43361,10 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/aiModule/crewsimov,
-/obj/item/aiModule/freeformcore,
-/obj/item/aiModule/corp,
 /obj/item/aiModule/paladin,
 /obj/item/aiModule/robocop,
+/obj/item/aiModule/quarantine,
+/obj/item/aiModule/purge,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bCI" = (
@@ -44055,7 +44054,6 @@
 /area/turret_protected/ai_upload)
 "bEb" = (
 /obj/structure/table,
-/obj/item/aiModule/protectStation,
 /obj/item/aiModule/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -44500,7 +44498,7 @@
 /area/maintenance/port)
 "bFe" = (
 /obj/structure/table,
-/obj/item/aiModule/freeform,
+/obj/item/aiModule/corp,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46497,7 +46495,7 @@
 	base_state = "left";
 	dir = 8;
 	icon_state = "left";
-	name = "High-Risk Modules";
+	name = "High-Risk";
 	req_access_txt = "20"
 	},
 /obj/structure/window/reinforced,
@@ -46509,8 +46507,10 @@
 	},
 /obj/item/aiModule/oxygen,
 /obj/item/aiModule/oneCrewMember,
-/obj/item/aiModule/purge,
 /obj/item/aiModule/antimov,
+/obj/item/aiModule/freeform,
+/obj/item/aiModule/freeformcore,
+/obj/item/aiModule/protectStation,
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bIN" = (
