@@ -30,7 +30,7 @@
         ui.open()
         ui.set_auto_update(1)
 
-/obj/machinery/computer/brigcells/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/brigcells/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
     var/data[0]
     var/list/timers = list()
     for(var/obj/machinery/door_timer/T in GLOB.celltimers_list)

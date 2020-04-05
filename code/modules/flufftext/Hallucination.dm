@@ -160,7 +160,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 /obj/effect/hallucination/fake_flood/proc/Expand()
 	for(var/turf/FT in flood_turfs)
-		for(var/dir in cardinal)
+		for(var/dir in GLOB.cardinal)
 			var/turf/T = get_step(FT, dir)
 			if((T in flood_turfs) || !FT.CanAtmosPass(T))
 				continue
@@ -340,7 +340,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 /obj/effect/hallucination/singularity_scare/New(loc, mob/living/carbon/T)
 	target = T
 	var/turf/start = get_turf(T)
-	var/screen_border = pick(cardinal)
+	var/screen_border = pick(GLOB.cardinal)
 	for(var/i in 0 to 10)
 		start = get_step(start, screen_border)
 	s = new(start,target)
@@ -550,11 +550,11 @@ Gunshots/explosions/opening doors/less rare audio (done)
 
 	var/obj/effect/fake_attacker/F = new/obj/effect/fake_attacker(get_turf(target),target)
 	if(clone.l_hand)
-		if(!(locate(clone.l_hand) in non_fakeattack_weapons))
+		if(!(locate(clone.l_hand) in GLOB.non_fakeattack_weapons))
 			clone_weapon = clone.l_hand.name
 			F.weap = clone.l_hand
 	else if(clone.r_hand)
-		if(!(locate(clone.r_hand) in non_fakeattack_weapons))
+		if(!(locate(clone.r_hand) in GLOB.non_fakeattack_weapons))
 			clone_weapon = clone.r_hand.name
 			F.weap = clone.r_hand
 
@@ -683,7 +683,7 @@ Gunshots/explosions/opening doors/less rare audio (done)
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, O), 300)
 	return
 
-var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_box/a357,\
+GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/item/ammo_box/a357,\
 	/obj/item/gun/energy/kinetic_accelerator/crossbow,\
 	/obj/item/storage/box/syndicate, /obj/item/storage/box/emps,\
 	/obj/item/cartridge/syndicate, /obj/item/clothing/under/chameleon,\
@@ -697,7 +697,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 	/obj/item/hand_tele, /obj/item/rcd, /obj/item/tank/jetpack,\
 	/obj/item/clothing/under/rank/captain, /obj/item/aicard,\
 	/obj/item/clothing/shoes/magboots, /obj/item/areaeditor/blueprints, /obj/item/disk/nuclear,\
-	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank)
+	/obj/item/clothing/suit/space/nasavoid, /obj/item/tank))
 
 /obj/effect/hallucination/bolts
 	var/list/doors = list()
@@ -729,7 +729,7 @@ var/list/non_fakeattack_weapons = list(/obj/item/gun/projectile, /obj/item/ammo_
 /obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
 	target = T
 	var/speak_messages = list("I'm watching you...","[target.name]!","Get out!","Kchck-Chkck? Kchchck!","Did you hear that?","What did you do ?","Why?","Give me that!","Honk!","HELP!!", "EI NATH!!", "RUN!!", "Kill me!","O bidai nabora se'sma!")
-	var/radio_messages = list("Xenos!","Singularity loose!","Comms down!","They are arming the nuke!","They butchered Ian!","H-help!","[pick("Cult", "Wizard", "Ling", "Ops", "Revenant", "Murderer", "Harm", "I hear flashing", "Help")] in [pick(teleportlocs)][prob(50)?"!":"!!"]","Where's [target.name]?","Call the shuttle!","AI rogue!!")
+	var/radio_messages = list("Xenos!","Singularity loose!","Comms down!","They are arming the nuke!","They butchered Ian!","H-help!","[pick("Cult", "Wizard", "Ling", "Ops", "Revenant", "Murderer", "Harm", "I hear flashing", "Help")] in [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Where's [target.name]?","Call the shuttle!","AI rogue!!")
 
 	var/list/mob/living/carbon/people = list()
 	var/list/mob/living/carbon/person = null

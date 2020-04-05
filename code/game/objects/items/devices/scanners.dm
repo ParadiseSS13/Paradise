@@ -47,16 +47,14 @@ REAGENT SCANNER
 
 
 /obj/item/t_scanner/process()
-	var/mob/user = loc
 	if(!on)
 		STOP_PROCESSING(SSobj, src)
 		return null
-	t_ray_scan(user, scan_range, pulse_duration)
+	scan()
 
-/obj/item/proc/t_ray_scan(var/mob/viewer, var/scan_range = 1, var/pulse_duration = 10)
-	if(!ismob(viewer) || !viewer.client)
-		return
-	for(var/turf/T in range(scan_range, viewer.loc) )
+/obj/item/t_scanner/proc/scan()
+
+	for(var/turf/T in range(scan_range, src.loc) )
 
 		if(!T.intact)
 			continue

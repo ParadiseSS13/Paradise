@@ -22,7 +22,7 @@
 	else
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("ERT")
-		cameranet.removeCamera(camera)
+		GLOB.cameranet.removeCamera(camera)
 		camera.c_tag = user.name
 		to_chat(user, "<span class='notice'>User scanned as [camera.c_tag]. Camera activated.</span>")
 

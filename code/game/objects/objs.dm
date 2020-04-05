@@ -46,7 +46,7 @@
 		else
 			T.add_blueprints_preround(src)
 
-/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
 		return 1

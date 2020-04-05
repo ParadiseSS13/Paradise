@@ -6,7 +6,7 @@
 		qdel(src)
 	owner = new_owner
 
-/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = FALSE, datum/topic_state/state = ghost_state, datum/nanoui/master_ui = null)
+/datum/spawners_menu/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = FALSE, datum/topic_state/state = GLOB.ghost_state, datum/nanoui/master_ui = null)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "spawners_menu.tmpl", "Spawners Menu", 700, 600, master_ui, state = state)

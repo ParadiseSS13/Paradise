@@ -5,31 +5,31 @@ mob/var/typing
 mob/var/last_typed
 mob/var/last_typed_time
 
-var/global/image/typing_indicator
+GLOBAL_DATUM(typing_indicator, /image)
 
 /mob/proc/set_typing_indicator(var/state)
 
-	if(!typing_indicator)
-		typing_indicator = image('icons/mob/talk.dmi', null, "typing", MOB_LAYER + 1)
-		typing_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+	if(!GLOB.typing_indicator)
+		GLOB.typing_indicator = image('icons/mob/talk.dmi', null, "typing", MOB_LAYER + 1)
+		GLOB.typing_indicator.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(H.disabilities & MUTE || H.silent)
-			overlays -= typing_indicator
+			overlays -= GLOB.typing_indicator
 			return
 
 	if(client)
 		if((client.prefs.toggles & SHOW_TYPING) || stat != CONSCIOUS || is_muzzled())
-			overlays -= typing_indicator
+			overlays -= GLOB.typing_indicator
 		else
 			if(state)
 				if(!typing)
-					overlays += typing_indicator
+					overlays += GLOB.typing_indicator
 					typing = 1
 			else
 				if(typing)
-					overlays -= typing_indicator
+					overlays -= GLOB.typing_indicator
 					typing = 0
 			return state
 
@@ -49,7 +49,7 @@ var/global/image/typing_indicator
 	set name = ".Me"
 	set hidden = 1
 
-	
+
 	set_typing_indicator(1)
 	hud_typing = 1
 	var/message = typing_input(src, "", "me (text)")

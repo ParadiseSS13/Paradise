@@ -383,6 +383,36 @@
 			H.adjustFireLoss(min(max(8, (volume - 5) * 3), 75))
 		to_chat(H, "<span class='warning'>The blueish acidic substance stings[volume < 5 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 
+/datum/reagent/acetic_acid
+	name = "acetic acid"
+	id = "acetic_acid"
+	description = "A weak acid that is the main component of vinegar and bad hangovers."
+	color = "#0080ff"
+	reagent_state = LIQUID
+	taste_description = "vinegar"
+
+/datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(method == REAGENT_TOUCH)
+			if(H.wear_mask || H.head)
+				return
+			if(volume >= 50 && prob(75))
+				var/obj/item/organ/external/affecting = H.get_organ("head")
+				if(affecting)
+					affecting.disfigure()
+				H.adjustBruteLoss(5)
+				H.adjustFireLoss(15)
+				H.emote("scream")
+			else
+				H.adjustBruteLoss(min(5, volume * 0.25))
+		else
+			to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
+			if(volume >= 25)
+				H.adjustBruteLoss(2)
+				H.emote("scream")
+
+
 /datum/reagent/carpotoxin
 	name = "Carpotoxin"
 	id = "carpotoxin"
@@ -546,7 +576,7 @@
 	id = "formaldehyde"
 	description = "Formaldehyde is a common industrial chemical and is used to preserve corpses and medical samples. It is highly toxic and irritating."
 	reagent_state = LIQUID
-	color = "#DED6D0"
+	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "bitterness"
 
@@ -555,6 +585,20 @@
 	update_flags |= M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	if(prob(10))
 		M.reagents.add_reagent("histamine",rand(5,15))
+	return ..() | update_flags
+
+/datum/reagent/acetaldehyde
+	name = "Acetaldehyde"
+	id = "acetaldehyde"
+	description = "Acetaldehyde is a common industrial chemical. It is a severe irritant."
+	reagent_state = LIQUID
+	color = "#B44B00"
+	penetrates_skin = TRUE
+	taste_description = "apples"
+
+/datum/reagent/acetaldehyde/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustFireLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/venom

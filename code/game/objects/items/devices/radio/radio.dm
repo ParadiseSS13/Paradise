@@ -1,4 +1,4 @@
-var/global/list/default_internal_channels = list(
+GLOBAL_LIST_INIT(default_internal_channels, list(
 	num2text(PUB_FREQ) = list(),
 	num2text(AI_FREQ)  = list(ACCESS_CAPTAIN),
 	num2text(ERT_FREQ) = list(ACCESS_CENT_SPECOPS),
@@ -11,13 +11,13 @@ var/global/list/default_internal_channels = list(
 	num2text(SCI_FREQ) = list(ACCESS_RESEARCH),
 	num2text(SUP_FREQ) = list(ACCESS_CARGO),
 	num2text(SRV_FREQ) = list(ACCESS_HOP, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_HYDROPONICS, ACCESS_JANITOR, ACCESS_CLOWN, ACCESS_MIME)
-)
+))
 
-var/global/list/default_medbay_channels = list(
+GLOBAL_LIST_INIT(default_medbay_channels, list(
 	num2text(PUB_FREQ) = list(),
 	num2text(MED_FREQ) = list(ACCESS_MEDICAL),
 	num2text(MED_I_FREQ) = list(ACCESS_MEDICAL)
-)
+))
 
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
@@ -40,7 +40,6 @@ var/global/list/default_medbay_channels = list(
 	var/obj/item/encryptionkey/syndicate/syndiekey = null //Holder for the syndicate encryption key if present
 	var/disable_timer = 0 //How many times this is disabled by EMPs
 	var/syndie = FALSE
-
 	var/is_special = 0 //For electropacks mostly, skips Topic() checks
 
 	flags = CONDUCT
@@ -70,7 +69,7 @@ var/global/list/default_medbay_channels = list(
 	..()
 	wires = new(src)
 
-	internal_channels = default_internal_channels.Copy()
+	internal_channels = GLOB.default_internal_channels.Copy()
 	GLOB.global_radios |= src
 
 /obj/item/radio/Destroy()
@@ -117,7 +116,7 @@ var/global/list/default_medbay_channels = list(
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/radio/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting
@@ -449,12 +448,12 @@ var/global/list/default_medbay_channels = list(
 
 	  //#### Sending the signal to all subspace receivers ####//
 
-		for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
+		for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
 			spawn(0)
 				R.receive_signal(signal)
 
 		// Allinone can act as receivers.
-		for(var/obj/machinery/telecomms/allinone/R in telecomms_list)
+		for(var/obj/machinery/telecomms/allinone/R in GLOB.telecomms_list)
 			spawn(0)
 				R.receive_signal(signal)
 
@@ -504,7 +503,7 @@ var/global/list/default_medbay_channels = list(
 	)
 	signal.frequency = connection.frequency // Quick frequency set
 
-	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
+	for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
 		spawn(0)
 			R.receive_signal(signal)
 
@@ -813,7 +812,7 @@ var/global/list/default_medbay_channels = list(
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/radio/borg/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/radio/borg/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["mic_status"] = broadcasting
@@ -864,4 +863,4 @@ var/global/list/default_medbay_channels = list(
 
 /obj/item/radio/phone/medbay/New()
 	..()
-	internal_channels = default_medbay_channels.Copy()
+	internal_channels = GLOB.default_medbay_channels.Copy()

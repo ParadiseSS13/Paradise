@@ -153,7 +153,7 @@
 	for(var/i=new_SE.len;i<=DNA_SE_LENGTH;i++)
 		new_SE += rand(1,1024)
 	buf.dna.SE=new_SE
-	buf.dna.SetSEValueRange(MONKEYBLOCK,0xDAC, 0xFFF)
+	buf.dna.SetSEValueRange(GLOB.monkeyblock,0xDAC, 0xFFF)
 
 //Disk stuff.
 /obj/item/disk/data/New()

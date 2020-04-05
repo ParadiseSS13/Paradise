@@ -13,7 +13,7 @@
 /obj/effect/proc_holder/singularity_pull()
 	return
 
-var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin verb for now
+GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/living/user, params, atom/A)
 	if(user.ranged_ability != src)
@@ -241,7 +241,7 @@ var/list/spells = typesof(/obj/effect/proc_holder/spell) //needed for the badmin
 	before_cast(targets)
 	invocation()
 	if(user && user.ckey)
-		user.create_attack_log("<font color='red'>[key_name(user)] cast the spell [name].</font>")
+		add_attack_logs(user, null, "cast the spell [name]", ATKLOG_ALL)
 	spawn(0)
 		if(charge_type == "recharge" && recharge)
 			start_recharge()

@@ -1,6 +1,6 @@
 // Playtime requirements for special roles (hours)
 
-var/global/list/role_playtime_requirements = list(
+GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
@@ -35,7 +35,7 @@ var/global/list/role_playtime_requirements = list(
 	ROLE_RAIDER = 10,
 	ROLE_ALIEN = 10,
 	ROLE_ABDUCTOR = 10,
-)
+))
 
 // Client Verbs
 
@@ -113,7 +113,7 @@ var/global/list/role_playtime_requirements = list(
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
 	if(isexempt)
 		return 0
-	var/minimal_player_hrs = role_playtime_requirements[role]
+	var/minimal_player_hrs = GLOB.role_playtime_requirements[role]
 	if(!minimal_player_hrs)
 		return 0
 	var/req_mins = minimal_player_hrs * 60
@@ -163,7 +163,7 @@ var/global/list/role_playtime_requirements = list(
 		return "[key] has no records."
 	var/return_text = "<UL>"
 	var/list/exp_data = list()
-	for(var/category in exp_jobsmap)
+	for(var/category in GLOB.exp_jobsmap)
 		if(text2num(play_records[category]))
 			exp_data[category] = text2num(play_records[category])
 		else
@@ -238,7 +238,7 @@ var/global/list/role_playtime_requirements = list(
 /client/proc/update_exp_client(var/minutes, var/announce_changes = 0)
 	if(!src ||!ckey)
 		return
-	var/DBQuery/exp_read = dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[ckey]'")
+	var/DBQuery/exp_read = GLOB.dbcon.NewQuery("SELECT exp FROM [format_table_name("player")] WHERE ckey='[ckey]'")
 	if(!exp_read.Execute())
 		var/err = exp_read.ErrorMsg()
 		log_game("SQL ERROR during exp_update_client read. Error : \[[err]\]\n")
@@ -252,7 +252,7 @@ var/global/list/role_playtime_requirements = list(
 	if(!hasread)
 		return
 	var/list/play_records = list()
-	for(var/rtype in exp_jobsmap)
+	for(var/rtype in GLOB.exp_jobsmap)
 		if(text2num(read_records[rtype]))
 			play_records[rtype] = text2num(read_records[rtype])
 		else
@@ -270,9 +270,9 @@ var/global/list/role_playtime_requirements = list(
 		added_living += minutes
 		if(announce_changes)
 			to_chat(mob,"<span class='notice'>You got: [minutes] Living EXP!")
-		for(var/category in exp_jobsmap)
-			if(exp_jobsmap[category]["titles"])
-				if(myrole in exp_jobsmap[category]["titles"])
+		for(var/category in GLOB.exp_jobsmap)
+			if(GLOB.exp_jobsmap[category]["titles"])
+				if(myrole in GLOB.exp_jobsmap[category]["titles"])
 					play_records[category] += minutes
 					if(announce_changes)
 						to_chat(mob,"<span class='notice'>You got: [minutes] [category] EXP!")
@@ -290,13 +290,13 @@ var/global/list/role_playtime_requirements = list(
 	var/new_exp = list2params(play_records)
 	prefs.exp = new_exp
 	new_exp = sanitizeSQL(new_exp)
-	var/DBQuery/update_query = dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]',lastseen = Now() WHERE ckey='[ckey]'")
+	var/DBQuery/update_query = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET exp = '[new_exp]',lastseen = Now() WHERE ckey='[ckey]'")
 	if(!update_query.Execute())
 		var/err = update_query.ErrorMsg()
 		log_game("SQL ERROR during exp_update_client write 1. Error : \[[err]\]\n")
 		message_admins("SQL ERROR during exp_update_client write 1. Error : \[[err]\]\n")
 		return
-	var/DBQuery/update_query_history = dbcon.NewQuery("INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost) VALUES ('[ckey]',CURDATE(),[added_living],[added_ghost]) ON DUPLICATE KEY UPDATE time_living=time_living+VALUES(time_living),time_ghost=time_ghost+VALUES(time_ghost)")
+	var/DBQuery/update_query_history = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("playtime_history")] (ckey, date, time_living, time_ghost) VALUES ('[ckey]',CURDATE(),[added_living],[added_ghost]) ON DUPLICATE KEY UPDATE time_living=time_living+VALUES(time_living),time_ghost=time_ghost+VALUES(time_ghost)")
 	if(!update_query_history.Execute())
 		var/err = update_query_history.ErrorMsg()
 		log_game("SQL ERROR during exp_update_client write 2. Error : \[[err]\]\n")

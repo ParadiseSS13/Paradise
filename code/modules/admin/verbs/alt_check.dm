@@ -6,7 +6,7 @@
 				<br>Additionally make an attempt to introduce new players to the server
 				<HR>"}
 
-	if(dbcon.IsConnected())
+	if(GLOB.dbcon.IsConnected())
 		for(var/client/C in GLOB.clients)
 			dat += "<p>[C.ckey] (Player Age: <font color = 'red'>[C.player_age]</font>) - <b>[C.computer_id]</b> / <b>[C.address]</b><br>"
 			if(C.related_accounts_cid.len)

@@ -63,7 +63,7 @@
 		if(S.id == id && atoms_share_level(src, S))
 			S.toggle()
 
-/obj/machinery/computer/sat_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/sat_control/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/list/data = list()
 
 	data["satellites"] = list()

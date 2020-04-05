@@ -25,7 +25,7 @@
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/structure/lavaland/ash_walker/deconstruct(disassembled)
-	new /obj/item/assembly/signaler/anomaly(get_step(loc, pick(alldirs)))
+	new /obj/item/assembly/signaler/anomaly(get_step(loc, pick(GLOB.alldirs)))
 	new	/obj/effect/collapse(loc)
 	return ..()
 
@@ -50,7 +50,7 @@
 
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
-		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(alldirs)))
+		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
 		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 

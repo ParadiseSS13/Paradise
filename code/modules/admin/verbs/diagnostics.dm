@@ -19,8 +19,8 @@
 	for(var/datum/gas/trace_gas in GM.trace_gases)
 		to_chat(usr, "[trace_gas.type]: [trace_gas.moles]")
 
-	message_admins("[key_name_admin(usr)] has checked the air status of [T]")
-	log_admin("[key_name(usr)] has checked the air status of [T]")
+	message_admins("[key_name_admin(usr)] has checked the air status of [target]")
+	log_admin("[key_name(usr)] has checked the air status of [target]")
 
 	feedback_add_details("admin_verb","DAST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -131,7 +131,7 @@
 		return
 
 	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in jobban_keylist)
+	for(var/t in GLOB.jobban_keylist)
 		to_chat(usr, "[t]")
 
 	message_admins("[key_name_admin(usr)] has printed the jobban log")
@@ -150,7 +150,7 @@
 		return
 
 	to_chat(usr, "<b>Jobbans active in this round.</b>")
-	for(var/t in jobban_keylist)
+	for(var/t in GLOB.jobban_keylist)
 		if(findtext(t, filter))
 			to_chat(usr, "[t]")
 

@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/monkeyize()
 	var/mob/H = src
-	H.dna.SetSEState(MONKEYBLOCK,1)
-	genemutcheck(H,MONKEYBLOCK,null,MUTCHK_FORCED)
+	H.dna.SetSEState(GLOB.monkeyblock,1)
+	genemutcheck(H,GLOB.monkeyblock,null,MUTCHK_FORCED)
 
 /mob/new_player/AIize()
 	spawning = 1

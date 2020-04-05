@@ -38,7 +38,7 @@
 #define AIRLOCK_DAMAGE_DEFLECTION_N  21  // Normal airlock damage deflection
 #define AIRLOCK_DAMAGE_DEFLECTION_R  30  // Reinforced airlock damage deflection
 
-var/list/airlock_overlays = list()
+GLOBAL_LIST_EMPTY(airlock_overlays)
 
 /obj/machinery/door/airlock
 	name = "airlock"
@@ -276,6 +276,7 @@ About the new airlock wires panel:
 		if(usr)
 			shockedby += text("\[[time_stamp()]\] - [usr](ckey:[usr.ckey])")
 			usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+			add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 		else
 			shockedby += text("\[[time_stamp()]\] - EMP)")
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
@@ -483,10 +484,10 @@ About the new airlock wires panel:
 
 /proc/get_airlock_overlay(icon_state, icon_file)
 	var/iconkey = "[icon_state][icon_file]"
-	if(airlock_overlays[iconkey])
-		return airlock_overlays[iconkey]
-	airlock_overlays[iconkey] = image(icon_file, icon_state)
-	return airlock_overlays[iconkey]
+	if(GLOB.airlock_overlays[iconkey])
+		return GLOB.airlock_overlays[iconkey]
+	GLOB.airlock_overlays[iconkey] = image(icon_file, icon_state)
+	return GLOB.airlock_overlays[iconkey]
 
 /obj/machinery/door/airlock/do_animate(animation)
 	switch(animation)
@@ -550,7 +551,7 @@ About the new airlock wires panel:
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/door/airlock/ui_data(mob/user, datum/topic_state/state = default_state)
+/obj/machinery/door/airlock/ui_data(mob/user, datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["main_power_loss"]		= round(main_power_lost_until 	> 0 ? max(main_power_lost_until - world.time,	0) / 10 : main_power_lost_until,	1)
@@ -762,6 +763,7 @@ About the new airlock wires panel:
 			else if(activate)	//electrify door for 30 seconds
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 				to_chat(usr, "The door is now electrified for thirty seconds.")
 				electrify(30)
 		if("electrify_permanently")
@@ -773,6 +775,7 @@ About the new airlock wires panel:
 			else if(activate)
 				shockedby += text("\[[time_stamp()]\][usr](ckey:[usr.ckey])")
 				usr.create_attack_log("<font color='red'>Electrified the [name] at [x] [y] [z]</font>")
+				add_attack_logs(usr, src, "Electrified", ATKLOG_ALL)
 				to_chat(usr, "The door is now electrified.")
 				electrify(-1)
 		if("open")

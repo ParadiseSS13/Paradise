@@ -53,6 +53,7 @@
 	var/exp_type = ""
 
 	var/disabilities_allowed = 1
+	var/transfer_allowed = TRUE // If false, ID computer will always discourage transfers to this job, even if player is eligible
 
 	var/admin_only = 0
 	var/spawn_ert = 0
@@ -173,7 +174,7 @@
 
 	if(allow_loadout && H.client && (H.client.prefs.gear && H.client.prefs.gear.len))
 		for(var/gear in H.client.prefs.gear)
-			var/datum/gear/G = gear_datums[gear]
+			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
 				var/permitted = FALSE
 
@@ -265,6 +266,8 @@
 		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
 
 /datum/job/proc/would_accept_job_transfer_from_player(mob/player)
+	if(!transfer_allowed)
+		return FALSE
 	if(!guest_jobbans(title)) // actually checks if job is a whitelisted position
 		return TRUE
 	if(!istype(player))

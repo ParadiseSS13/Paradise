@@ -5,7 +5,7 @@
 #define NUKE_UNWRENCHED 4
 #define NUKE_MOBILE 5
 
-var/bomb_set
+GLOBAL_VAR(bomb_set)
 
 /obj/machinery/nuclearbomb
 	name = "\improper Nuclear Fission Explosive"
@@ -48,7 +48,7 @@ var/bomb_set
 
 /obj/machinery/nuclearbomb/process()
 	if(timing)
-		bomb_set = 1 //So long as there is one nuke timing, it means one nuke is armed.
+		GLOB.bomb_set = 1 //So long as there is one nuke timing, it means one nuke is armed.
 		timeleft = max(timeleft - 2, 0) // 2 seconds per process()
 		if(timeleft <= 0)
 			spawn
@@ -195,7 +195,7 @@ var/bomb_set
 /obj/machinery/nuclearbomb/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = physical_state)
+		ui = new(user, src, ui_key, "nuclear_bomb.tmpl", "Nuke Control Panel", 450, 550, state = GLOB.physical_state)
 		ui.open()
 		ui.set_auto_update(1)
 
@@ -310,13 +310,13 @@ var/bomb_set
 						message_admins("[key_name_admin(usr)] engaged a nuclear bomb (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 						if(!is_syndicate)
 							set_security_level("delta")
-						bomb_set = 1 //There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke/N
+						GLOB.bomb_set = 1 //There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke/N
 					else
-						bomb_set = 0
+						GLOB.bomb_set = 0
 				else
 					if(!is_syndicate)
 						set_security_level(previous_level)
-					bomb_set = 0
+					GLOB.bomb_set = 0
 					if(!lighthack)
 						icon_state = "nuclearbomb1"
 			if(href_list["safety"])
@@ -325,7 +325,7 @@ var/bomb_set
 					if(!is_syndicate)
 						set_security_level(previous_level)
 					timing = 0
-					bomb_set = 0
+					GLOB.bomb_set = 0
 			if(href_list["anchor"])
 				if(removal_stage == NUKE_MOBILE)
 					anchored = 0
@@ -369,7 +369,7 @@ var/bomb_set
 		SSticker.mode.explosion_in_progress = 1
 	sleep(100)
 
-	enter_allowed = 0
+	GLOB.enter_allowed = 0
 
 	var/off_station = 0
 	var/turf/bomb_location = get_turf(src)
@@ -453,9 +453,9 @@ var/bomb_set
 		STOP_PROCESSING(SSobj, src)
 		return ..()
 
-	if(blobstart.len > 0)
+	if(GLOB.blobstart.len > 0)
 		GLOB.poi_list.Remove(src)
-		var/obj/item/disk/nuclear/NEWDISK = new(pick(blobstart))
+		var/obj/item/disk/nuclear/NEWDISK = new(pick(GLOB.blobstart))
 		transfer_fingerprints_to(NEWDISK)
 		message_admins("[src] has been destroyed at ([diskturf.x], [diskturf.y], [diskturf.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[diskturf.x];Y=[diskturf.y];Z=[diskturf.z]'>JMP</a>). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[NEWDISK.x];Y=[NEWDISK.y];Z=[NEWDISK.z]'>JMP</a>).")
 		log_game("[src] has been destroyed in ([diskturf.x], [diskturf.y], [diskturf.z]). Moving it to ([NEWDISK.x], [NEWDISK.y], [NEWDISK.z]).")

@@ -54,7 +54,7 @@
 
 // Polycrystals, aka stacks
 
-var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/stack/ore/bluespace_crystal/refined, 1))
+GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdown into bluespace crystal", /obj/item/stack/ore/bluespace_crystal/refined, 1)))
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"
@@ -70,6 +70,6 @@ var/global/list/datum/stack_recipe/bluespace_crystal_recipes = list(new/datum/st
 
 /obj/item/stack/sheet/bluespace_crystal/New()
 	..()
-	recipes = bluespace_crystal_recipes
+	recipes = GLOB.bluespace_crystal_recipes
 	pixel_x = rand(0,4)-4
 	pixel_y = rand(0,4)-4

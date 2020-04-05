@@ -118,7 +118,7 @@
 
 
 	var/objective_amount = config.traitor_objectives_amount
-	
+
 	if(is_hijacker && objective_count <= objective_amount) //Don't assign hijack if it would exceed the number of objectives set in config.traitor_objectives_amount
 		if (!(locate(/datum/objective/hijack) in objectives))
 			var/datum/objective/hijack/hijack_objective = new
@@ -187,7 +187,7 @@
 			destroy_objective.owner = owner
 			destroy_objective.find_target()
 			if("[destroy_objective]" in assigned_targets)	        // Is this target already in their list of assigned targets? If so, don't add this objective and return
-				return 0										 
+				return 0
 			else if(destroy_objective.target)					    // Is the target a real one and not null? If so, add it to our list of targets to avoid duplicate targets
 				assigned_targets.Add("[destroy_objective.target]")	// This logic is applied to all traitor objectives including steal objectives
 			add_objective(destroy_objective)
@@ -221,7 +221,7 @@
 			else if(kill_objective.target)
 				assigned_targets.Add("[kill_objective.target]")
 			add_objective(kill_objective)
-		
+
 	else
 		var/datum/objective/steal/steal_objective = new
 		steal_objective.owner = owner
@@ -231,7 +231,7 @@
 		else if(steal_objective.steal_target)
 			assigned_targets.Add("[steal_objective.steal_target]")
 		add_objective(steal_objective)
-		
+
 
 /datum/antagonist/traitor/proc/forge_single_AI_objective()
 	. = 1
@@ -251,13 +251,13 @@
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_added(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.join_hud(owner.current, null)
 	set_antag_hud(owner.current, "hudsyndicate")
 
 
 /datum/antagonist/traitor/proc/update_traitor_icons_removed(datum/mind/traitor_mind)
-	var/datum/atom_hud/antag/traitorhud = huds[ANTAG_HUD_TRAITOR]
+	var/datum/atom_hud/antag/traitorhud = GLOB.huds[ANTAG_HUD_TRAITOR]
 	traitorhud.leave_hud(owner.current, null)
 	set_antag_hud(owner.current, null)
 
@@ -273,7 +273,7 @@
 			if(should_equip)
 				equip_traitor()
 			owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
-	
+
 
 /datum/antagonist/traitor/proc/give_codewords()
 	if(!owner.current)
@@ -309,7 +309,7 @@
 
 	if(traitor_kind == TRAITOR_HUMAN)
 		var/mob/living/carbon/human/traitor_mob = owner.current
-		
+
 		// find a radio! toolbox(es), backpack, belt, headset
 		var/obj/item/R = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 		if(!R)

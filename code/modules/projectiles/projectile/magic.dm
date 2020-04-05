@@ -263,12 +263,14 @@
 				return
 
 		M.create_attack_log("<font color='orange'>[key_name(M)] became [new_mob.real_name].</font>")
-		new_mob.attack_log = M.attack_log
+		add_attack_logs(null, M, "became [new_mob.real_name]", ATKLOG_ALL)
 
 		new_mob.a_intent = INTENT_HARM
 		if(M.mind)
 			M.mind.transfer_to(new_mob)
 		else
+			new_mob.attack_log_old = M.attack_log_old.Copy()
+			new_mob.logs = M.logs.Copy()
 			new_mob.key = M.key
 
 		to_chat(new_mob, "<B>Your form morphs into that of a [randomize].</B>")
@@ -283,7 +285,7 @@
 
 /obj/item/projectile/magic/animate/Bump(var/atom/change)
 	..()
-	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, protected_objects))
+	if(istype(change, /obj/item) || istype(change, /obj/structure) && !is_type_in_list(change, GLOB.protected_objects))
 		if(istype(change, /obj/structure/closet/statue))
 			for(var/mob/living/carbon/human/H in change.contents)
 				var/mob/living/simple_animal/hostile/statue/S = new /mob/living/simple_animal/hostile/statue(change.loc, firer)

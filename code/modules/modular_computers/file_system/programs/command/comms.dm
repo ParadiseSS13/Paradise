@@ -50,7 +50,7 @@
 
 /datum/computer_file/program/comm/proc/change_security_level(mob/user, new_level)
 	tmp_alertlevel = new_level
-	var/old_level = security_level
+	var/old_level = GLOB.security_level
 	if(!tmp_alertlevel)
 		tmp_alertlevel = SEC_LEVEL_GREEN
 	if(tmp_alertlevel < SEC_LEVEL_GREEN)
@@ -58,10 +58,10 @@
 	if(tmp_alertlevel > SEC_LEVEL_BLUE)
 		tmp_alertlevel = SEC_LEVEL_BLUE //Cannot engage delta with this
 	set_security_level(tmp_alertlevel)
-	if(security_level != old_level)
+	if(GLOB.security_level != old_level)
 		log_game("[key_name(user)] has changed the security level to [get_security_level()].")
 		message_admins("[key_name_admin(user)] has changed the security level to [get_security_level()].")
-		switch(security_level)
+		switch(GLOB.security_level)
 			if(SEC_LEVEL_GREEN)
 				feedback_inc("alert_comms_green", 1)
 			if(SEC_LEVEL_BLUE)
@@ -101,7 +101,7 @@
 		ui.set_layout_key("program")
 		ui.open()
 
-/datum/computer_file/program/comm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/datum/computer_file/program/comm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/list/data = get_header_data()
 	data["is_ai"]         = isAI(user) || isrobot(user)
 	data["menu_state"]    = data["is_ai"] ? ai_menu_state : menu_state
@@ -128,7 +128,7 @@
 		)
 	)
 
-	data["security_level"] =     security_level
+	data["security_level"] =     GLOB.security_level
 	data["str_security_level"] = capitalize(get_security_level())
 	data["levels"] = list(
 		list("id" = SEC_LEVEL_GREEN, "name" = "Green"),
@@ -326,7 +326,7 @@
 					Nuke_request(input, usr)
 					to_chat(usr, "<span class='notice'>Request sent.</span>")
 					log_game("[key_name(usr)] has requested the nuclear codes from Centcomm")
-					priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
+					GLOB.priority_announcement.Announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self Destruct Codes Requested",'sound/AI/commandreport.ogg')
 					centcomm_message_cooldown = 1
 					spawn(6000)//10 minute cooldown
 						centcomm_message_cooldown = 0

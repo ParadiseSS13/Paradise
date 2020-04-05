@@ -31,11 +31,11 @@
 
 /datum/space_level/Destroy()
 	if(linkage == CROSSLINKED)
-		if(space_manager.linkage_map)
-			remove_from_space_network(space_manager.linkage_map)
+		if(GLOB.space_manager.linkage_map)
+			remove_from_space_network(GLOB.space_manager.linkage_map)
 
-	space_manager.unbuilt_space_transitions -= src
-	space_manager.z_list -= "[zpos]"
+	GLOB.space_manager.unbuilt_space_transitions -= src
+	GLOB.space_manager.z_list -= "[zpos]"
 	return ..()
 
 /datum/space_level/proc/build_space_destination_arrays()
@@ -95,7 +95,7 @@
 		transit_east -= S
 
 /datum/space_level/proc/apply_transition(turf/space/S)
-	if(src in space_manager.unbuilt_space_transitions)
+	if(src in GLOB.space_manager.unbuilt_space_transitions)
 		return // Let the space manager handle this one
 	switch(linkage)
 		if(UNAFFECTED)
@@ -124,10 +124,10 @@
 		return
 	// Remove ourselves from the linkage map if we were cross-linked
 	if(linkage == CROSSLINKED)
-		if(space_manager.linkage_map)
-			remove_from_space_network(space_manager.linkage_map)
+		if(GLOB.space_manager.linkage_map)
+			remove_from_space_network(GLOB.space_manager.linkage_map)
 
-	space_manager.unbuilt_space_transitions |= src
+	GLOB.space_manager.unbuilt_space_transitions |= src
 	linkage = transition_type
 	switch(transition_type)
 		if(UNAFFECTED)
@@ -143,9 +143,9 @@
 	D.register()
 	D.forceMove(locate(200, 200, zpos))
 
-var/list/atmos_machine_typecache = typecacheof(/obj/machinery/atmospherics)
-var/list/cable_typecache = typecacheof(/obj/structure/cable)
-var/list/maploader_typecache = typecacheof(/obj/effect/landmark/map_loader)
+GLOBAL_LIST_INIT(atmos_machine_typecache, typecacheof(/obj/machinery/atmospherics))
+GLOBAL_LIST_INIT(cable_typecache, typecacheof(/obj/structure/cable))
+GLOBAL_LIST_INIT(maploader_typecache, typecacheof(/obj/effect/landmark/map_loader))
 
 /datum/space_level/proc/resume_init()
 	if(dirt_count > 0)
@@ -156,9 +156,9 @@ var/list/maploader_typecache = typecacheof(/obj/effect/landmark/map_loader)
 	init_list = list()
 	var/watch = start_watch()
 	listclearnulls(our_atoms)
-	var/list/late_maps = typecache_filter_list(our_atoms, maploader_typecache)
-	var/list/pipes = typecache_filter_list(our_atoms, atmos_machine_typecache)
-	var/list/cables = typecache_filter_list(our_atoms, cable_typecache)
+	var/list/late_maps = typecache_filter_list(our_atoms, GLOB.maploader_typecache)
+	var/list/pipes = typecache_filter_list(our_atoms, GLOB.atmos_machine_typecache)
+	var/list/cables = typecache_filter_list(our_atoms, GLOB.cable_typecache)
 	// If we don't carefully add dirt around the map templates, bad stuff happens
 	// so we separate them out here
 	our_atoms -= late_maps
@@ -193,9 +193,9 @@ var/list/maploader_typecache = typecacheof(/obj/effect/landmark/map_loader)
 /datum/space_level/proc/do_late_maps(list/late_maps)
 	var/watch = start_watch()
 	log_debug("Loading map templates on z-level '[zpos]'!")
-	space_manager.add_dirt(zpos) // Let's not repeatedly resume init for each template
+	GLOB.space_manager.add_dirt(zpos) // Let's not repeatedly resume init for each template
 	for(var/atom/movable/AM in late_maps)
 		AM.Initialize()
 	late_maps.Cut()
-	space_manager.remove_dirt(zpos)
+	GLOB.space_manager.remove_dirt(zpos)
 	log_debug("Took [stop_watch(watch)]s")

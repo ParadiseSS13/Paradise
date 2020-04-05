@@ -100,7 +100,7 @@
 		// auto update every Master Controller tick
 		//ui.set_auto_update(1)
 
-/obj/item/transfer_valve/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/transfer_valve/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["attachmentOne"] = tank_one ? tank_one.name : null

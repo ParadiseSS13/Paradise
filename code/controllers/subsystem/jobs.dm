@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(jobs)
 
 
 /datum/controller/subsystem/jobs/proc/Debug(var/text)
-	if(!Debug2)
+	if(!GLOB.debug2)
 		return 0
 	job_debug.Add(text)
 	return 1
@@ -155,10 +155,10 @@ SUBSYSTEM_DEF(jobs)
 		if(istype(job, GetJob("Civilian"))) // We don't want to give him assistant, that's boring!
 			continue
 
-		if(job.title in command_positions) //If you want a command position, select it!
+		if(job.title in GLOB.command_positions) //If you want a command position, select it!
 			continue
 
-		if(job.title in whitelisted_positions) // No random whitelisted job, sorry!
+		if(job.title in GLOB.whitelisted_positions) // No random whitelisted job, sorry!
 			continue
 
 		if(job.admin_only) // No admin positions either.
@@ -203,7 +203,7 @@ SUBSYSTEM_DEF(jobs)
 ///This proc is called before the level loop of DivideOccupations() and will try to select a head, ignoring ALL non-head preferences for every level until it locates a head or runs out of levels to check
 /datum/controller/subsystem/jobs/proc/FillHeadPosition()
 	for(var/level = 1 to 3)
-		for(var/command_position in command_positions)
+		for(var/command_position in GLOB.command_positions)
 			var/datum/job/job = GetJob(command_position)
 			if(!job)
 				continue
@@ -231,7 +231,7 @@ SUBSYSTEM_DEF(jobs)
 
 ///This proc is called at the start of the level loop of DivideOccupations() and will cause head jobs to be checked before any other jobs of the same level
 /datum/controller/subsystem/jobs/proc/CheckHeadPositions(var/level)
-	for(var/command_position in command_positions)
+	for(var/command_position in GLOB.command_positions)
 		var/datum/job/job = GetJob(command_position)
 		if(!job)
 			continue
@@ -600,7 +600,7 @@ SUBSYSTEM_DEF(jobs)
 	// If they're head, give them the account info for their department
 	if(job && job.head_position)
 		remembered_info = ""
-		var/datum/money_account/department_account = department_accounts[job.department]
+		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 
 		if(department_account)
 			remembered_info += "<b>Your department's account number is:</b> #[department_account.account_number]<br>"
@@ -638,7 +638,7 @@ SUBSYSTEM_DEF(jobs)
 	var/datum/job/oldjobdatum = SSjobs.GetJob(oldtitle)
 	var/datum/job/newjobdatum = SSjobs.GetJob(newtitle)
 	if(istype(oldjobdatum) && oldjobdatum.current_positions > 0 && istype(newjobdatum))
-		if(!(oldjobdatum.title in command_positions) && !(newjobdatum.title in command_positions))
+		if(!(oldjobdatum.title in GLOB.command_positions) && !(newjobdatum.title in GLOB.command_positions))
 			oldjobdatum.current_positions--
 			newjobdatum.current_positions++
 

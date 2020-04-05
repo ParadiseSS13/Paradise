@@ -114,6 +114,3 @@
 
 #define SPLASHSCREEN_LAYER 23
 #define SPLASHSCREEN_PLANE 23
-
-atom/proc/reset_layer()
-	layer = initial(layer)

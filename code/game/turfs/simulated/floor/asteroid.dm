@@ -205,7 +205,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 		length = set_length
 
 	// Get our directiosn
-	forward_cave_dir = pick(alldirs - exclude_dir)
+	forward_cave_dir = pick(GLOB.alldirs - exclude_dir)
 	// Get the opposite direction of our facing direction
 	backward_cave_dir = angle2dir(dir2angle(forward_cave_dir) + 180)
 

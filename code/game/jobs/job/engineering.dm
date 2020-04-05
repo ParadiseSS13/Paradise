@@ -25,6 +25,7 @@
 		/datum/job_objective/make_station_goal
 	)
 
+
 /datum/outfit/job/chief_engineer
 	name = "Chief Engineer"
 	jobtype = /datum/job/chief_engineer
@@ -101,7 +102,6 @@
 	exp_type = EXP_TYPE_CREW
 	outfit = /datum/outfit/job/atmos
 
-
 /datum/outfit/job/atmos
 	name = "Life Support Specialist"
 	jobtype = /datum/job/atmos
@@ -134,6 +134,7 @@
 	required_objectives = list(
 		/datum/job_objective/make_pod
 	)
+
 
 /datum/outfit/job/mechanic
 	name = "Mechanic"

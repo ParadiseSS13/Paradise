@@ -42,7 +42,7 @@
 
 	if(control_disabled || stat)
 		return
-	
+
 	var/turf/pixel_turf = isturf(A) ? A : get_turf_pixel(A)
 	if(isnull(pixel_turf))
 		return
@@ -57,7 +57,7 @@
 
 	var/turf_visible
 	if(pixel_turf)
-		turf_visible = cameranet.checkTurfVis(pixel_turf)
+		turf_visible = GLOB.cameranet.checkTurfVis(pixel_turf)
 		if(!turf_visible)
 			if(istype(loc, /obj/item/aicard) && (pixel_turf in view(client.view, loc)))
 				turf_visible = TRUE
@@ -228,4 +228,4 @@
 //
 
 /mob/living/silicon/ai/TurfAdjacent(var/turf/T)
-	return (cameranet && cameranet.checkTurfVis(T))
+	return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T))

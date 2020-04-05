@@ -167,7 +167,7 @@
 			return SOUTH
 		if(225.6 to 315.5)
 			return WEST
-			
+
 //returns the north-zero clockwise angle in degrees, given a direction
 
 /proc/dir2angle(var/D)
@@ -212,6 +212,7 @@
 	if(rights & R_PROCCALL)		. += "[seperator]+PROCCALL"
 	if(rights & R_MOD)			. += "[seperator]+MODERATOR"
 	if(rights & R_MENTOR)		. += "[seperator]+MENTOR"
+	if(rights & R_VIEWRUNTIMES)	. += "[seperator]+VIEWRUNTIMES"
 	return .
 
 /proc/ui_style2icon(ui_style)

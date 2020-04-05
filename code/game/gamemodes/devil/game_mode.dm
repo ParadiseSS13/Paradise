@@ -34,7 +34,7 @@
 	var/trueName= randomDevilName()
 	devil_mind.devilinfo = devilInfo(trueName, 1)
 	devil_mind.devilinfo.ascendable = ascendable
-	devil_mind.store_memory("Your diabolical true name is [devil_mind.devilinfo.truename]<br>[lawlorify[LAW][devil_mind.devilinfo.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[lawlorify[LAW][devil_mind.devilinfo.bane]]<br>[lawlorify[LAW][devil_mind.devilinfo.obligation]]<br>[lawlorify[LAW][devil_mind.devilinfo.banish]]<br>")
+	devil_mind.store_memory("Your diabolical true name is [devil_mind.devilinfo.truename]<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.ban]]<br>You may not use violence to coerce someone into selling their soul.<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.bane]]<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.obligation]]<br>[GLOB.lawlorify[LAW][devil_mind.devilinfo.banish]]<br>")
 	devil_mind.devilinfo.link_with_mob(devil_mind.current)
 	if(devil_mind.assigned_role == "Clown")
 		to_chat(devil_mind.current, "Your infernal nature allows you to wield weapons without harming yourself.")
@@ -47,8 +47,8 @@
 		var/mob/living/silicon/S = devil_mind.current
 		S.laws.set_sixsixsix_law("You may not use violence to coerce someone into selling their soul.")
 		S.laws.set_sixsixsix_law("You may not directly and knowingly physically harm a devil, other than yourself.")
-		S.laws.set_sixsixsix_law("[lawlorify[LAW][devil_mind.devilinfo.ban]]")
-		S.laws.set_sixsixsix_law("[lawlorify[LAW][devil_mind.devilinfo.obligation]]")
+		S.laws.set_sixsixsix_law("[GLOB.lawlorify[LAW][devil_mind.devilinfo.ban]]")
+		S.laws.set_sixsixsix_law("[GLOB.lawlorify[LAW][devil_mind.devilinfo.obligation]]")
 		S.laws.set_sixsixsix_law("Accomplish your objectives at all costs.")
 
 // unsure about the second "quantity" arg and how it fits with the antag refactor
@@ -76,18 +76,18 @@
 		return "Target is not a devil."
 	var/text = "</br>The devil's true name is: [ply.devilinfo.truename]</br>"
 	text += "The devil's bans were:</br>"
-	text += "	[lawlorify[LORE][ply.devilinfo.ban]]</br>"
-	text += "	[lawlorify[LORE][ply.devilinfo.bane]]</br>"
-	text += "	[lawlorify[LORE][ply.devilinfo.obligation]]</br>"
-	text += "	[lawlorify[LORE][ply.devilinfo.banish]]</br></br>"
+	text += "	[GLOB.lawlorify[LORE][ply.devilinfo.ban]]</br>"
+	text += "	[GLOB.lawlorify[LORE][ply.devilinfo.bane]]</br>"
+	text += "	[GLOB.lawlorify[LORE][ply.devilinfo.obligation]]</br>"
+	text += "	[GLOB.lawlorify[LORE][ply.devilinfo.banish]]</br></br>"
 	return text
 
 /datum/game_mode/proc/update_devil_icons_added(datum/mind/devil_mind)
-	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_DEVIL]
+	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_DEVIL]
 	hud.join_hud(devil_mind.current)
 	set_antag_hud(devil_mind.current, "huddevil")
 
 /datum/game_mode/proc/update_devil_icons_removed(datum/mind/devil_mind)
-	var/datum/atom_hud/antag/hud = huds[ANTAG_HUD_DEVIL]
+	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_DEVIL]
 	hud.leave_hud(devil_mind.current)
 	set_antag_hud(devil_mind.current, null)

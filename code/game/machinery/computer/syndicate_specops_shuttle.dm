@@ -3,12 +3,12 @@
 #define SYNDICATE_ELITE_STATION_AREATYPE "/area/shuttle/syndicate_elite/station" //Type of the spec ops shuttle area for station
 #define SYNDICATE_ELITE_DOCK_AREATYPE "/area/shuttle/syndicate_elite/mothership"	//Type of the spec ops shuttle area for dock
 
-var/syndicate_elite_shuttle_moving_to_station = 0
-var/syndicate_elite_shuttle_moving_to_mothership = 0
-var/syndicate_elite_shuttle_at_station = 0
-var/syndicate_elite_shuttle_can_send = 1
-var/syndicate_elite_shuttle_time = 0
-var/syndicate_elite_shuttle_timeleft = 0
+GLOBAL_VAR_INIT(syndicate_elite_shuttle_moving_to_station, 0)
+GLOBAL_VAR_INIT(syndicate_elite_shuttle_moving_to_mothership, 0)
+GLOBAL_VAR_INIT(syndicate_elite_shuttle_at_station, 0)
+GLOBAL_VAR_INIT(syndicate_elite_shuttle_can_send, 1)
+GLOBAL_VAR_INIT(syndicate_elite_shuttle_time, 0)
+GLOBAL_VAR_INIT(syndicate_elite_shuttle_timeleft, 0)
 
 /obj/machinery/computer/syndicate_elite_shuttle
 	name = "\improper Elite Syndicate Squad shuttle console"
@@ -33,16 +33,16 @@ var/syndicate_elite_shuttle_timeleft = 0
 	//	message = "ARMORED SQUAD TAKE YOUR POSITION ON GRAVITY LAUNCH PAD"
 	//	announcer.say(message)
 
-	while(syndicate_elite_shuttle_time - world.timeofday > 0)
-		var/ticksleft = syndicate_elite_shuttle_time - world.timeofday
+	while(GLOB.syndicate_elite_shuttle_time - world.timeofday > 0)
+		var/ticksleft = GLOB.syndicate_elite_shuttle_time - world.timeofday
 
 		if(ticksleft > 1e5)
-			syndicate_elite_shuttle_time = world.timeofday	// midnight rollover
-		syndicate_elite_shuttle_timeleft = (ticksleft / 10)
+			GLOB.syndicate_elite_shuttle_time = world.timeofday	// midnight rollover
+		GLOB.syndicate_elite_shuttle_timeleft = (ticksleft / 10)
 
 		//All this does is announce the time before launch.
 		if(announcer)
-			var/rounded_time_left = round(syndicate_elite_shuttle_timeleft)//Round time so that it will report only once, not in fractions.
+			var/rounded_time_left = round(GLOB.syndicate_elite_shuttle_timeleft)//Round time so that it will report only once, not in fractions.
 			if(rounded_time_left in message_tracker)//If that time is in the list for message announce.
 				message = "ALERT: [rounded_time_left] SECOND[(rounded_time_left!=1)?"S":""] REMAIN"
 				if(rounded_time_left==0)
@@ -53,11 +53,11 @@ var/syndicate_elite_shuttle_timeleft = 0
 
 		sleep(5)
 
-	syndicate_elite_shuttle_moving_to_station = 0
-	syndicate_elite_shuttle_moving_to_mothership = 0
+	GLOB.syndicate_elite_shuttle_moving_to_station = 0
+	GLOB.syndicate_elite_shuttle_moving_to_mothership = 0
 
-	syndicate_elite_shuttle_at_station = 1
-	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
+	GLOB.syndicate_elite_shuttle_at_station = 1
+	if(GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership) return
 
 	if(!syndicate_elite_can_move())
 		to_chat(usr, "<span class='warning'>The Syndicate Elite shuttle is unable to leave.</span>")
@@ -174,7 +174,7 @@ var/syndicate_elite_shuttle_timeleft = 0
 		to_chat(M, "<span class='warning'>You have arrived to [station_name()]. Commence operation!</span>")
 
 /proc/syndicate_elite_can_move()
-	if(syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return 0
+	if(GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership) return 0
 	else return 1
 
 /obj/machinery/computer/syndicate_elite_shuttle/attack_ai(var/mob/user as mob)
@@ -205,8 +205,8 @@ var/syndicate_elite_shuttle_timeleft = 0
 		dat = temp
 	else
 		dat  = {"<BR><B>Special Operations Shuttle</B><HR>
-		\nLocation: [syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership ? "Departing for [station_name()] in ([syndicate_elite_shuttle_timeleft] seconds.)":syndicate_elite_shuttle_at_station ? "Station":"Dock"]<BR>
-		[syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership ? "\n*The Syndicate Elite shuttle is already leaving.*<BR>\n<BR>":syndicate_elite_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle Offline</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name()]</A><BR>\n<BR>"]
+		\nLocation: [GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership ? "Departing for [station_name()] in ([GLOB.syndicate_elite_shuttle_timeleft] seconds.)":GLOB.syndicate_elite_shuttle_at_station ? "Station":"Dock"]<BR>
+		[GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership ? "\n*The Syndicate Elite shuttle is already leaving.*<BR>\n<BR>":GLOB.syndicate_elite_shuttle_at_station ? "\n<A href='?src=[UID()];sendtodock=1'>Shuttle Offline</A><BR>\n<BR>":"\n<A href='?src=[UID()];sendtostation=1'>Depart to [station_name()]</A><BR>\n<BR>"]
 		\n<A href='?src=[user.UID()];mach_close=computer'>Close</A>"}
 
 	user << browse(dat, "window=computer;size=575x450")
@@ -221,13 +221,13 @@ var/syndicate_elite_shuttle_timeleft = 0
 		usr.set_machine(src)
 
 	if(href_list["sendtodock"])
-		if(!syndicate_elite_shuttle_at_station|| syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
+		if(!GLOB.syndicate_elite_shuttle_at_station|| GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership) return
 
 		to_chat(usr, "<span class='notice'>The Syndicate will not allow the Elite Squad shuttle to return.</span>")
 		return
 
 	else if(href_list["sendtostation"])
-		if(syndicate_elite_shuttle_at_station || syndicate_elite_shuttle_moving_to_station || syndicate_elite_shuttle_moving_to_mothership) return
+		if(GLOB.syndicate_elite_shuttle_at_station || GLOB.syndicate_elite_shuttle_moving_to_station || GLOB.syndicate_elite_shuttle_moving_to_mothership) return
 
 		if(!specops_can_move())
 			to_chat(usr, "<span class='warning'>The Syndicate Elite shuttle is unable to leave.</span>")
@@ -241,9 +241,9 @@ var/syndicate_elite_shuttle_timeleft = 0
 		var/area/syndicate_mothership/elite_squad/elite_squad = locate()
 		if(elite_squad)
 			elite_squad.readyalert()//Trigger alarm for the spec ops area.
-		syndicate_elite_shuttle_moving_to_station = 1
+		GLOB.syndicate_elite_shuttle_moving_to_station = 1
 
-		syndicate_elite_shuttle_time = world.timeofday + SYNDICATE_ELITE_MOVETIME
+		GLOB.syndicate_elite_shuttle_time = world.timeofday + SYNDICATE_ELITE_MOVETIME
 		spawn(0)
 			syndicate_elite_process()
 

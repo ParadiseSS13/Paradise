@@ -716,7 +716,7 @@
 		if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 			var/more_minutes = 6000
 			var/timer = SSshuttle.emergency.timeLeft(1) + more_minutes
-			event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
+			GLOB.event_announcement.Announce("Major system failure aboard the emergency shuttle. This will extend its arrival time by approximately 10 minutes and the shuttle is unable to be recalled.", "System Failure", 'sound/misc/notice1.ogg')
 			SSshuttle.emergency.setTimer(timer)
 			SSshuttle.emergency.canRecall = FALSE
 		user.mind.spell_list.Remove(src) //Can only be used once!

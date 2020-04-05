@@ -145,7 +145,7 @@
 /datum/game_mode/wizard/raginmages/proc/makeBody(var/mob/dead/observer/G)
 	if(!G || !G.key)
 		return // Let's not steal someone's soul here
-	var/mob/living/carbon/human/new_character = new(pick(latejoin))
+	var/mob/living/carbon/human/new_character = new(pick(GLOB.latejoin))
 	G.client.prefs.copy_to(new_character)
 	new_character.key = G.key
 	return new_character

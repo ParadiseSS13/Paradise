@@ -216,6 +216,7 @@
 		deal_damage(damage)
 		visible_message("<span class='danger'>[user]</span> [user.attacktext] [src]!")
 		user.create_attack_log("<font color='red'>attacked [src.name]</font>")
+		add_attack_logs(user, src, "attacked")
 		return TRUE
 
 /obj/spacepod/attack_alien(mob/user)

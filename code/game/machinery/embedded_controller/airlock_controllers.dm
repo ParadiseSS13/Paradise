@@ -27,7 +27,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/embedded_controller/radio/airlock/advanced_airlock_controller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data = list(
@@ -98,7 +98,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/embedded_controller/radio/airlock/airlock_controller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data = list(
@@ -160,7 +160,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/embedded_controller/radio/airlock/access_controller/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data = list(

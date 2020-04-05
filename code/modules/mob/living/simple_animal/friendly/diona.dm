@@ -144,7 +144,7 @@
 	if((stat != CONSCIOUS) || !isdiona(loc))
 		return FALSE
 	var/mob/living/carbon/human/D = loc
-	T = get_turf(src)
+	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
 	to_chat(loc, "You feel a pang of loss as [src] splits away from your biomass.")

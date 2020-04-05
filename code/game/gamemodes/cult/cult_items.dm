@@ -269,7 +269,7 @@
 			"The shuttle dispatcher was found dead with bloody symbols carved into their flesh. The shuttle will be delayed by two minutes.",
 			"Steve repeatedly touched a lightbulb until his hands fell off. The shuttle will be delayed by two minutes.")
 		var/message = pick(curses)
-		command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
+		GLOB.command_announcement.Announce("[message]", "System Failure", 'sound/misc/notice1.ogg')
 
 /obj/item/cult_shift
 	name = "veil shifter"
@@ -298,7 +298,7 @@
 		return
 	if(!iscultist(user))
 		user.unEquip(src, 1)
-		step(src, pick(alldirs))
+		step(src, pick(GLOB.alldirs))
 		to_chat(user, "<span class='warning'>\The [src] flickers out of your hands, too eager to move!</span>")
 		return
 

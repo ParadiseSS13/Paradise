@@ -1405,9 +1405,9 @@
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ssscratches_backpack"
 
-/obj/item/storage/backpack/duffel/fluff/thebrew //Greey: Korala Ice
+/obj/item/storage/backpack/fluff/thebrew //Greey: Korala Ice
 	name = "The Brew"
-	desc = "Amber colored duffle bag resembling a long lost friend, a spirit long forgotten."
+	desc = "Amber colored backpack resembling a long lost friend, a spirit long forgotten."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "greeyfluff"
 	item_state = "greeyfluff"

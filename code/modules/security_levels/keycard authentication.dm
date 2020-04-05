@@ -78,7 +78,7 @@
 		ui = new(user, src, ui_key, "keycard_auth.tmpl", "Keycard Authentication Device UI", 540, 320)
 		ui.open()
 
-/obj/machinery/keycard_auth/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/keycard_auth/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["screen"] = screen
 	data["event"] = event
@@ -168,7 +168,7 @@
 				atom_say("All Emergency Response Teams are dispatched and can not be called at this time.")
 				return
 			atom_say("ERT request transmitted!")
-			command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
+			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
 
 			var/fullmin_count = 0
@@ -176,12 +176,12 @@
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(fullmin_count)
-				ert_request_answered = TRUE
+				GLOB.ert_request_answered = TRUE
 				ERT_Announce(ert_reason , event_triggered_by, 0)
 				ert_reason = "Reason for ERT"
 				feedback_inc("alert_keycard_auth_ert",1)
 				spawn(3000)
-					if(!ert_request_answered)
+					if(!GLOB.ert_request_answered)
 						ERT_Announce(ert_reason , event_triggered_by, 1)
 			else
 				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
@@ -189,37 +189,37 @@
 /obj/machinery/keycard_auth/proc/is_ert_blocked()
 	return SSticker.mode && SSticker.mode.ert_disabled
 
-var/global/maint_all_access = 0
-var/global/station_all_access = 0
+GLOBAL_VAR_INIT(maint_all_access, 0)
+GLOBAL_VAR_INIT(station_all_access, 0)
 
 /proc/make_maint_all_access()
 	for(var/area/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon(0)
-	minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
-	maint_all_access = 1
+	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been removed.")
+	GLOB.maint_all_access = 1
 
 /proc/revoke_maint_all_access()
 	for(var/area/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon(0)
-	minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
-	maint_all_access = 0
+	GLOB.minor_announcement.Announce("Access restrictions on maintenance and external airlocks have been re-added.")
+	GLOB.maint_all_access = 0
 
 /proc/make_station_all_access()
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 1
 			D.update_icon(0)
-	minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
-	station_all_access = 1
+	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been removed due to an ongoing crisis. Trespassing laws still apply unless ordered otherwise by Command staff.")
+	GLOB.station_all_access = 1
 
 /proc/revoke_station_all_access()
 	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
 		if(is_station_level(D.z))
 			D.emergency = 0
 			D.update_icon(0)
-	minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
-	station_all_access = 0
+	GLOB.minor_announcement.Announce("Access restrictions on all station airlocks have been re-added. Seek station AI or a colleague's assistance if you are stuck.")
+	GLOB.station_all_access = 0

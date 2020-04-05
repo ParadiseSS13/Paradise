@@ -1,6 +1,6 @@
 /mob/living/Initialize()
 	. = ..()
-	var/datum/atom_hud/data/human/medical/advanced/medhud = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_to_hud(src)
 	faction += "\ref[src]"
 
@@ -247,6 +247,7 @@
 	set hidden = 1
 	if(InCritical())
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
+		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 		// super check for weird mobs, including ones that adjust hp
 		// we don't want to go overboard and gib them, though
@@ -580,7 +581,7 @@
 						newdir = NORTH
 					else if(newdir == 12) //E + W
 						newdir = EAST
-				if((newdir in cardinal) && (prob(50)))
+				if((newdir in GLOB.cardinal) && (prob(50)))
 					newdir = turn(get_dir(T, loc), 180)
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(loc)

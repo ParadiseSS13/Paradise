@@ -79,7 +79,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	linked = list()	//clear the list
 	var/turf/T = loc
 
-	for(var/i in alldirs)
+	for(var/i in GLOB.alldirs)
 		T = get_step(loc, i)
 		var/obj/machinery/gateway/G = locate(/obj/machinery/gateway) in T
 		if(G)
@@ -150,7 +150,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 		M.dir = SOUTH
 		return
 	else
-		var/obj/effect/landmark/dest = pick(awaydestinations)
+		var/obj/effect/landmark/dest = pick(GLOB.awaydestinations)
 		if(dest)
 			M.forceMove(dest.loc)
 			M.dir = SOUTH
@@ -197,7 +197,7 @@ var/obj/machinery/gateway/centerstation/the_gateway = null
 	linked = list()	//clear the list
 	var/turf/T = loc
 
-	for(var/i in alldirs)
+	for(var/i in GLOB.alldirs)
 		T = get_step(loc, i)
 		var/obj/machinery/gateway/G = locate(/obj/machinery/gateway) in T
 		if(G)

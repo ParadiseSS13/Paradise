@@ -84,7 +84,7 @@
 			last_played_rail = RT
 			return
 		stored_rail = RT
-	for(var/cdir in cardinal)
+	for(var/cdir in GLOB.cardinal)
 		for(var/obj/tram/rail/R in get_step(src,cdir))
 			if(!istype(R))	continue
 			if(R != last_played_rail)
@@ -99,7 +99,7 @@
 	if(!T)	return
 	var/obj/tram/floor/TTF = locate(/obj/tram/floor) in T
 	if(istype(TTF))	add_floor(TTF) //Find and link floor on controller turf
-	for(var/cdir in cardinal)
+	for(var/cdir in GLOB.cardinal)
 		var/turf/T2 = get_step(T,cdir)
 		var/obj/tram/floor/TF = locate(/obj/tram/floor) in T2
 		if(istype(TF))
@@ -115,7 +115,7 @@
 	var/obj/tram/floor/TTW = locate(/obj/tram/wall) in T //Find and link wall on controller turf
 	if(istype(TTW))	add_wall(TTW)
 	for(var/obj/tram/floor/TF in tram_floors)
-		for(var/cdir in cardinal)
+		for(var/cdir in GLOB.cardinal)
 			var/obj/tram/wall/TW = locate(/obj/tram/wall) in get_step(TF,cdir)
 			if(istype(TW))
 				if(TW in tram_walls)	continue
@@ -201,7 +201,7 @@
 	collide_list.Cut()
 	var/list/collisions = list()
 	for(var/obj/tram/wall/W in tram_walls)
-		for(var/cdir in cardinal)
+		for(var/cdir in GLOB.cardinal)
 			var/turf/T = get_step(W, cdir)
 			if(istype(T))
 				if(T.density)
@@ -212,7 +212,7 @@
 							if(tram.Find(A))	continue
 							collisions += cdir
 	for(var/obj/tram/floor/F in tram_floors)
-		for(var/cdir in cardinal)
+		for(var/cdir in GLOB.cardinal)
 			var/turf/T = get_step(F, cdir)
 			if(istype(T))
 				if(T.density)
@@ -243,6 +243,7 @@
 		qdel(src)
 	src.visible_message("<span class='danger'>[M] has [M.attacktext] [src]!</span>")
 	M.create_attack_log("<font color='red'>attacked [src.name]</font>")
+	add_attack_logs(M, src, "attacked")
 
 /obj/tram/bullet_act(var/obj/item/projectile/proj)
 	if(prob(proj.damage))

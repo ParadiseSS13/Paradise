@@ -59,7 +59,7 @@ proc/random_hair_style(var/gender, species = "Human", var/datum/robolimb/robohea
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
-				robohead = all_robolimbs["Morpheus Cyberkinetics"]
+				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 			else
@@ -88,7 +88,7 @@ proc/random_facial_hair_style(var/gender, species = "Human", var/datum/robolimb/
 			continue
 		if(species == "Machine") //If the user is a species who can have a robotic head...
 			if(!robohead)
-				robohead = all_robolimbs["Morpheus Cyberkinetics"]
+				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 				valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 			else
@@ -142,7 +142,7 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 			var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[S.name]
 			if(species == "Machine")//If the user is a species that can have a robotic head...
 				if(!robohead)
-					robohead = all_robolimbs["Morpheus Cyberkinetics"]
+					robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
 				if(!(S.models_allowed && (robohead.company in S.models_allowed))) //Make sure they don't get markings incompatible with their head.
 					continue
 			else if(alt_head && alt_head != "None") //If the user's got an alt head, validate markings for that head.
@@ -161,8 +161,8 @@ proc/random_marking_style(var/location = "body", species = "Human", var/datum/ro
 proc/random_body_accessory(species = "Vulpkanin")
 	var/body_accessory = null
 	var/list/valid_body_accessories = list()
-	for(var/B in body_accessory_by_name)
-		var/datum/body_accessory/A = body_accessory_by_name[B]
+	for(var/B in GLOB.body_accessory_by_name)
+		var/datum/body_accessory/A = GLOB.body_accessory_by_name[B]
 		if(!istype(A))
 			valid_body_accessories += "None" //The only null entry should be the "None" option.
 			continue
@@ -261,7 +261,7 @@ proc/age2agedescription(age)
 			status = "Released"
 	target_records.fields["criminal"] = status
 	log_admin("[key_name_admin(user)] set secstatus of [their_rank] [their_name] to [status], comment: [comment]")
-	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [current_date_string] [station_time_timestamp()], comment: [comment]"
+	target_records.fields["comments"] += "Set to [status] by [user.name] ([user_rank]) on [GLOB.current_date_string] [station_time_timestamp()], comment: [comment]"
 	update_all_mob_security_hud()
 	return 1
 
@@ -274,7 +274,7 @@ Proc for attack log creation, because really why not
 This is always put in the attack log.
 */
 
-/proc/add_attack_logs(mob/user, mob/target, what_done, custom_level)
+/proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
 		for(var/mob/M in targets)
@@ -282,24 +282,33 @@ This is always put in the attack log.
 		return
 
 	var/user_str = key_name_log(user) + COORD(user)
-	var/target_str = key_name_log(target) + COORD(target)
-
-	if(istype(user))
-		user.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
-	if(istype(target))
-		target.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
+	var/target_str
+	if(isatom(target))
+		var/atom/AT = target
+		target_str = key_name_log(AT) + COORD(AT)
+	else
+		target_str = target
+	var/mob/MU = user
+	var/mob/MT = target
+	if(istype(MU))
+		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
+		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
+	if(istype(MT))
+		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
+		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	log_attack(user_str, target_str, what_done)
 
 	var/loglevel = ATKLOG_MOST
 	if(!isnull(custom_level))
 		loglevel = custom_level
-	else if(istype(target))
-		if(istype(user) && !user.ckey && !target.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
-			loglevel = ATKLOG_ALL
-		else if(!user.ckey || !target.ckey || (user.ckey == target.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
-			loglevel = ATKLOG_ALMOSTALL
+	else if(istype(MT))
+		if(istype(MU))
+			if(!MU.ckey && !MT.ckey) // Attacks between NPCs are only shown to admins with ATKLOG_ALL
+				loglevel = ATKLOG_ALL
+			else if(!MU.ckey || !MT.ckey || (MU.ckey == MT.ckey)) // Player v NPC combat is de-prioritized. Also no self-harm, nobody cares
+				loglevel = ATKLOG_ALMOSTALL
 		else
-			var/area/A = get_area(target)
+			var/area/A = get_area(MT)
 			if(A && A.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	if(isLivingSSD(target))  // Attacks on SSDs are shown to admins with any log level except ATKLOG_NONE. Overrides custom level
@@ -307,7 +316,7 @@ This is always put in the attack log.
 
 	msg_admin_attack("[key_name_admin(user)] vs [key_name_admin(target)]: [what_done]", loglevel)
 
-/proc/do_mob(var/mob/user, var/mob/target, var/time = 30, var/uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
+/proc/do_mob(mob/user, mob/target, time = 30, uninterruptible = 0, progress = 1, list/extra_checks = list())
 	if(!user || !target)
 		return 0
 	var/user_loc = user.loc
@@ -340,30 +349,41 @@ This is always put in the attack log.
 			drifting = 0
 			user_loc = user.loc
 
-		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || (extra_checks && !extra_checks.Invoke()))
+		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_hand() != holding || user.incapacitated() || user.lying || check_for_true_callbacks(extra_checks))
 			. = 0
 			break
 	if(progress)
 		qdel(progbar)
 
-/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
+/*	Use this proc when you want to have code under it execute after a delay, and ensure certain conditions are met during that delay...
+ *	Such as the user not being interrupted via getting stunned or by moving off the tile they're currently on.
+ *
+ *	Example usage:
+ *
+ *	if(do_after(user, 50, target = sometarget, extra_checks = list(callback_check1, callback_check2)))
+ *		do_stuff()
+ *
+ *	This will create progress bar that lasts for 5 seconds. If the user doesn't move or otherwise do something that would cause the checks to fail in those 5 seconds, do_stuff() would execute.
+ *	The Proc returns TRUE upon success (the progress bar reached the end), or FALSE upon failure (the user moved or some other check failed)
+ */
+/proc/do_after(mob/user, delay, needhand = 1, atom/target = null, progress = 1, list/extra_checks = list(), use_default_checks = TRUE)
 	if(!user)
-		return 0
+		return FALSE
 	var/atom/Tloc = null
 	if(target)
 		Tloc = target.loc
 
 	var/atom/Uloc = user.loc
 
-	var/drifting = 0
+	var/drifting = FALSE
 	if(!user.Process_Spacemove(0) && user.inertia_dir)
-		drifting = 1
+		drifting = TRUE
 
 	var/holding = user.get_active_hand()
 
-	var/holdingnull = 1 //User's hand started out empty, check for an empty hand
+	var/holdingnull = TRUE //User's hand started out empty, check for an empty hand
 	if(holding)
-		holdingnull = 0 //Users hand started holding something, check to see if it's still holding that
+		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
 
 	var/datum/progressbar/progbar
 	if(progress)
@@ -371,22 +391,29 @@ This is always put in the attack log.
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
-	. = 1
+	. = TRUE
+
+	// By default, checks for weakness and stunned get added to the extra_checks list.
+	// Setting `use_default_checks` to FALSE means that you don't want the do_after to check for these statuses, or that you will be supplying your own checks.
+	if(use_default_checks)
+		extra_checks += CALLBACK(user, /mob.proc/IsWeakened)
+		extra_checks += CALLBACK(user, /mob.proc/IsStunned)
+
 	while(world.time < endtime)
 		sleep(1)
 		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(drifting && !user.inertia_dir)
-			drifting = 0
+			drifting = FALSE
 			Uloc = user.loc
 
-		if(!user || user.stat || user.IsWeakened() || user.stunned  || (!drifting && user.loc != Uloc)|| (extra_checks && !extra_checks.Invoke()))
-			. = 0
+		if(!user || user.stat || (!drifting && user.loc != Uloc) || check_for_true_callbacks(extra_checks))
+			. = FALSE
 			break
 
 		if(Tloc && (!target || Tloc != target.loc))
-			. = 0
+			. = FALSE
 			break
 
 		if(needhand)
@@ -394,13 +421,20 @@ This is always put in the attack log.
 			//i.e the hand is used to pull some item/tool out of the construction
 			if(!holdingnull)
 				if(!holding)
-					. = 0
+					. = FALSE
 					break
 			if(user.get_active_hand() != holding)
-				. = 0
+				. = FALSE
 				break
 	if(progress)
 		qdel(progbar)
+
+// Upon any of the callbacks in the list returning TRUE, the proc will return TRUE.
+/proc/check_for_true_callbacks(list/extra_checks)
+	for(var/datum/callback/CB in extra_checks)
+		if(CB.Invoke())
+			return TRUE
+	return FALSE
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_INIT(do_after_once_tracker, list())
@@ -414,7 +448,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
 		return FALSE
 	GLOB.do_after_once_tracker[cache_key] = TRUE
-	. = do_after(user, delay, needhand, target, progress, extra_checks = CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key))
+	. = do_after(user, delay, needhand, target, progress, extra_checks = list(CALLBACK(GLOBAL_PROC, .proc/do_after_once_checks, cache_key)))
 	GLOB.do_after_once_tracker[cache_key] = FALSE
 
 /proc/do_after_once_checks(cache_key)

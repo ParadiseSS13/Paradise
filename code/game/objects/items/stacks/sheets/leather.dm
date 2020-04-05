@@ -9,13 +9,13 @@
 	singular_name = "human skin piece"
 	icon_state = "sheet-hide"
 
-var/global/list/datum/stack_recipe/human_recipes = list( \
+GLOBAL_LIST_INIT(human_recipes, list( \
 	new/datum/stack_recipe("bloated human costume", /obj/item/clothing/suit/bloated_human, 5, on_floor = 1), \
 	new/datum/stack_recipe("bloated human costume head", /obj/item/clothing/head/human_head, 5, on_floor = 1), \
-	)
+	))
 
 /obj/item/stack/sheet/animalhide/human/New(var/loc, var/amount=null)
-	recipes = human_recipes
+	recipes = GLOB.human_recipes
 	return ..()
 
 /obj/item/stack/sheet/animalhide/generic
@@ -132,12 +132,12 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	icon_state = "sinew"
 	origin_tech = "biotech=4"
 
-var/global/list/datum/stack_recipe/sinew_recipes = list ( \
+GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	new/datum/stack_recipe("sinew restraints", /obj/item/restraints/handcuffs/sinew, 1, on_floor = 1), \
-	)
+	))
 
 /obj/item/stack/sheet/sinew/New(var/loc, var/amount=null)
-	recipes = sinew_recipes
+	recipes = GLOB.sinew_recipes
 	return ..()
 
 /obj/item/stack/sheet/animalhide/goliath_hide

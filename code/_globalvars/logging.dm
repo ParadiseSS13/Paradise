@@ -1,3 +1,4 @@
+// Everything in this file should be protected
 GLOBAL_VAR(log_directory)
 GLOBAL_PROTECT(log_directory)
 GLOBAL_VAR(world_game_log)
@@ -15,14 +16,20 @@ GLOBAL_PROTECT(world_asset_log)
 GLOBAL_VAR(runtime_summary_log)
 GLOBAL_PROTECT(runtime_summary_log)
 
-var/list/jobMax = list()
-var/list/admin_log = list (  )
-var/list/lastsignalers = list(	)	//keeps last 100 signals here in format: "[src] used \ref[src] @ location [src.loc]: [freq]/[code]"
-var/list/lawchanges = list(  ) //Stores who uploaded laws to which silicon-based lifeform, and what the law was
+GLOBAL_LIST_EMPTY(jobMax)
+GLOBAL_PROTECT(jobMax)
+GLOBAL_LIST_EMPTY(admin_log)
+GLOBAL_PROTECT(admin_log)
+GLOBAL_LIST_EMPTY(lastsignalers)
+GLOBAL_PROTECT(lastsignalers)
+GLOBAL_LIST_EMPTY(lawchanges)
+GLOBAL_PROTECT(lawchanges)
 
-var/list/combatlog = list()
-var/list/IClog = list()
-var/list/OOClog = list()
-var/list/adminlog = list()
+GLOBAL_LIST_EMPTY(combatlog)
+GLOBAL_PROTECT(combatlog)
+GLOBAL_LIST_EMPTY(IClog)
+GLOBAL_PROTECT(IClog)
+GLOBAL_LIST_EMPTY(OOClog)
+GLOBAL_PROTECT(OOClog)
 
-var/list/investigate_log_subjects = list("notes", "watchlist", "hrefs")
+GLOBAL_LIST_INIT(investigate_log_subjects, list("notes", "watchlist", "hrefs"))

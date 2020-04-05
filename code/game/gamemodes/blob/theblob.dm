@@ -18,8 +18,8 @@
 
 /obj/structure/blob/New(loc)
 	..()
-	blobs += src
-	setDir(pick(cardinal))
+	GLOB.blobs += src
+	setDir(pick(GLOB.cardinal))
 	update_icon()
 	if(atmosblock)
 		air_update_turf(1)
@@ -29,7 +29,7 @@
 	if(atmosblock)
 		atmosblock = FALSE
 		air_update_turf(1)
-	blobs -= src
+	GLOB.blobs -= src
 	if(isturf(loc)) //Necessary because Expand() is retarded and spawns a blob and then deletes it
 		playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	return ..()

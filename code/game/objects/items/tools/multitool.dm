@@ -73,13 +73,13 @@
 
 /obj/item/multitool/ai_detect/proc/multitool_detect()
 	var/turf/our_turf = get_turf(src)
-	for(var/mob/living/silicon/ai/AI in ai_list)
+	for(var/mob/living/silicon/ai/AI in GLOB.ai_list)
 		if(AI.cameraFollow == src)
 			detect_state = PROXIMITY_ON_SCREEN
 			break
 
-	if(!detect_state && cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z))
-		var/datum/camerachunk/chunk = cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
+	if(!detect_state && GLOB.cameranet.chunkGenerated(our_turf.x, our_turf.y, our_turf.z))
+		var/datum/camerachunk/chunk = GLOB.cameranet.getCameraChunk(our_turf.x, our_turf.y, our_turf.z)
 		if(chunk)
 			if(chunk.seenby.len)
 				for(var/mob/camera/aiEye/A in chunk.seenby)

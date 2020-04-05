@@ -29,12 +29,12 @@
 	t1 += "<B> Unrestricted Access Settings</B><br>"
 
 	var/list/Directions = list("North","South",,"East",,,,"West")
-	for(var/direction in cardinal)
+	for(var/direction in GLOB.cardinal)
 		if (unres_direction && unres_direction == direction)
 			t1 += "<a style='color: red' href='?src=[UID()];unres_direction=[direction]'>[Directions[direction]]</a><br>"
 		else
 			t1 += "<a href='?src=[UID()];unres_direction=[direction]'>[Directions[direction]]</a><br>"
-	
+
 	t1 += "<hr>"
 	t1 += "Access requirement is set to "
 	t1 += one_access ? "<a style='color: green' href='?src=[UID()];one_access=1'>ONE</a><hr>" : "<a style='color: red' href='?src=[UID()];one_access=1'>ALL</a><hr>"
@@ -74,7 +74,7 @@
 
 	if(href_list["access"])
 		toggle_access(href_list["access"])
-	
+
 	if(href_list["unres_direction"])
 		unres_direction = text2num(href_list["unres_direction"])
 		if (unres_sides == unres_direction)

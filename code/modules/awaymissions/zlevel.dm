@@ -1,4 +1,4 @@
-var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away_mission_config.txt")
+GLOBAL_LIST_INIT(potentialRandomZlevels, generateMapList(filename = "config/away_mission_config.txt"))
 
 // Call this before you remove the last dirt on a z level - that way, all objects
 // will have proper atmos and other important enviro things
@@ -39,27 +39,27 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 		T.ChangeTurf(T.baseturf)
 
 /proc/createRandomZlevel()
-	if(awaydestinations.len)	//crude, but it saves another var!
+	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
 		return
 
-	if(potentialRandomZlevels && potentialRandomZlevels.len)
+	if(GLOB.potentialRandomZlevels && GLOB.potentialRandomZlevels.len)
 		var/watch = start_watch()
 		log_startup_progress("Loading away mission...")
 
-		var/map = pick(potentialRandomZlevels)
+		var/map = pick(GLOB.potentialRandomZlevels)
 		var/file = file(map)
 		if(isfile(file))
-			var/zlev = space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
-			space_manager.add_dirt(zlev)
-			maploader.load_map(file, z_offset = zlev)
+			var/zlev = GLOB.space_manager.add_new_zlevel(AWAY_MISSION, linkage = UNAFFECTED, traits = list(AWAY_LEVEL,BLOCK_TELEPORT))
+			GLOB.space_manager.add_dirt(zlev)
+			GLOB.maploader.load_map(file, z_offset = zlev)
 			late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-			space_manager.remove_dirt(zlev)
+			GLOB.space_manager.remove_dirt(zlev)
 			log_world("  Away mission loaded: [map]")
 
 		for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 			if(L.name != "awaystart")
 				continue
-			awaydestinations.Add(L)
+			GLOB.awaydestinations.Add(L)
 
 		log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 
@@ -69,22 +69,22 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 
 
 /proc/createALLZlevels()
-	if(awaydestinations.len)	//crude, but it saves another var!
+	if(GLOB.awaydestinations.len)	//crude, but it saves another var!
 		return
 
-	if(potentialRandomZlevels && potentialRandomZlevels.len)
+	if(GLOB.potentialRandomZlevels && GLOB.potentialRandomZlevels.len)
 		var/watch = start_watch()
 		log_startup_progress("Loading away missions...")
 
-		for(var/map in potentialRandomZlevels)
+		for(var/map in GLOB.potentialRandomZlevels)
 			var/file = file(map)
 			if(isfile(file))
 				log_startup_progress("Loading away mission: [map]")
-				var/zlev = space_manager.add_new_zlevel()
-				space_manager.add_dirt(zlev)
-				maploader.load_map(file, z_offset = zlev)
+				var/zlev = GLOB.space_manager.add_new_zlevel()
+				GLOB.space_manager.add_dirt(zlev)
+				GLOB.maploader.load_map(file, z_offset = zlev)
 				late_setup_level(block(locate(1, 1, zlev), locate(world.maxx, world.maxy, zlev)))
-				space_manager.remove_dirt(zlev)
+				GLOB.space_manager.remove_dirt(zlev)
 				log_world("  Away mission loaded: [map]")
 
 			//map_transition_config.Add(AWAY_MISSION_LIST)
@@ -92,7 +92,7 @@ var/global/list/potentialRandomZlevels = generateMapList(filename = "config/away
 			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name != "awaystart")
 					continue
-				awaydestinations.Add(L)
+				GLOB.awaydestinations.Add(L)
 
 			log_startup_progress("  Away mission loaded in [stop_watch(watch)]s.")
 			watch = start_watch()

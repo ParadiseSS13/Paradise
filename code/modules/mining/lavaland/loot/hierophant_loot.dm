@@ -254,7 +254,7 @@
 	var/obj/effect/temp_visual/hierophant/blast/B = new(T, user, friendly_fire_check)
 	B.damage = HIEROPHANT_CLUB_CARDINAL_DAMAGE
 	B.monster_damage_boost = FALSE
-	for(var/d in cardinal)
+	for(var/d in GLOB.cardinal)
 		INVOKE_ASYNC(src, .proc/blast_wall, T, d, user)
 
 /obj/item/hierophant_club/proc/blast_wall(turf/T, dir, mob/living/user) //make a wall of blasts blast_range tiles long

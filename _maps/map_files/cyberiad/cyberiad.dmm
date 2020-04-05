@@ -1619,15 +1619,12 @@
 /area/security/range)
 "adH" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/pen/multi,
 /obj/machinery/light{
 	dir = 1;
 	on = 1
 	},
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16077,16 +16074,13 @@
 /area/lawoffice)
 "aAI" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/pen,
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 25;
 	pixel_y = 0
 	},
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";
@@ -16863,11 +16857,8 @@
 /area/magistrateoffice)
 "aCj" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/stamp/magistrate,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
 "aCk" = (
@@ -21875,11 +21866,8 @@
 /area/maintenance/fpmaint2)
 "aMO" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/pen,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	tag = "icon-cult";
 	icon_state = "cult";
@@ -27795,16 +27783,13 @@
 /obj/item/folder/yellow,
 /obj/item/stamp/ce,
 /obj/item/book/manual/sop_engineering,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/storage/fancy/cigarettes,
 /obj/item/lighter/zippo,
 /obj/item/pen/multi,
 /obj/item/enginepicker{
 	layer = 3.1
 	},
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"
@@ -43355,12 +43340,9 @@
 	},
 /area/hallway/primary/central/west)
 "bCG" = (
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/pen,
 /obj/structure/table/wood,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/bridge/meeting_room)
 "bCH" = (
@@ -47113,10 +47095,6 @@
 /area/shuttle/constructionsite)
 "bJN" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 10
-	},
 /obj/item/pen/multi/fountain,
 /obj/machinery/door_control{
 	id = "captainofficedoor";
@@ -47129,6 +47107,7 @@
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/wood,
 /area/crew_quarters/captain)
 "bJO" = (
@@ -50576,15 +50555,12 @@
 	},
 /area/toxins/lab)
 "bPE" = (
-/obj/item/paper_bin{
-	pixel_x = 1;
-	pixel_y = 9
-	},
 /obj/structure/table/glass,
 /obj/item/pen/multi,
 /obj/item/book/manual/sop_science{
 	pixel_y = -14
 	},
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -54151,10 +54127,6 @@
 /area/hallway/primary/central/se)
 "bVy" = (
 /obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/item/pen/multi,
 /obj/item/pen/multi,
 /obj/item/megaphone,
@@ -55112,6 +55084,7 @@
 /obj/item/book/manual/sop_service,
 /obj/item/book/manual/sop_supply,
 /obj/item/book/manual/sop_command,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel,
 /area/crew_quarters/heads)
 "bXa" = (
@@ -60880,7 +60853,6 @@
 /area/medical/cmo)
 "cfW" = (
 /obj/structure/table/glass,
-/obj/item/paper_bin,
 /obj/item/pen/multi,
 /obj/item/folder/white{
 	pixel_y = 7
@@ -60890,6 +60862,7 @@
 	pixel_x = 32;
 	pixel_y = 0
 	},
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -67468,12 +67441,12 @@
 /area/blueshield)
 "cqS" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
 /obj/item/flashlight/lamp/green{
 	pixel_x = -5;
 	pixel_y = 12
 	},
 /obj/item/paper/ntrep,
+/obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/ntrep)
 "cqT" = (

@@ -119,9 +119,9 @@
 
 /obj/structure/filingcabinet/security/proc/populate()
 	if(virgin)
-		for(var/datum/data/record/G in data_core.general)
+		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/S
-			for(var/datum/data/record/R in data_core.security)
+			for(var/datum/data/record/R in GLOB.data_core.security)
 				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
 					S = R
 					break
@@ -153,9 +153,9 @@
 
 /obj/structure/filingcabinet/medical/proc/populate()
 	if(virgin)
-		for(var/datum/data/record/G in data_core.general)
+		for(var/datum/data/record/G in GLOB.data_core.general)
 			var/datum/data/record/M
-			for(var/datum/data/record/R in data_core.medical)
+			for(var/datum/data/record/R in GLOB.data_core.medical)
 				if(R.fields["name"] == G.fields["name"] || R.fields["id"] == G.fields["id"])
 					M = R
 					break
@@ -183,7 +183,7 @@
  * Employment contract Cabinets
  */
 
-var/list/employmentCabinets = list()
+GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment
 	var/cooldown = 0
@@ -191,16 +191,16 @@ var/list/employmentCabinets = list()
 	var/virgin = 1
 
 /obj/structure/filingcabinet/employment/New()
-	employmentCabinets += src
+	GLOB.employmentCabinets += src
 	return ..()
 
 /obj/structure/filingcabinet/employment/Destroy()
-	employmentCabinets -= src
+	GLOB.employmentCabinets -= src
 	return ..()
 
 /obj/structure/filingcabinet/employment/proc/fillCurrent()
 	//This proc fills the cabinet with the current crew.
-	for(var/record in data_core.locked)
+	for(var/record in GLOB.data_core.locked)
 		var/datum/data/record/G = record
 		if(!G)
 			continue

@@ -69,7 +69,7 @@
 	active = 0
 	if(initial(uses) == 1)
 		uses = initial(uses)
-	var/datum/atom_hud/abductor/hud = huds[DATA_HUD_ABDUCTOR]
+	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	hud.remove_from_hud(owner)
 	clear_mind_control()
 	. = ..()
@@ -78,7 +78,7 @@
 	..()
 	if(special != 2 && uses) // Special 2 means abductor surgery
 		Start()
-	var/datum/atom_hud/abductor/hud = huds[DATA_HUD_ABDUCTOR]
+	var/datum/atom_hud/abductor/hud = GLOB.huds[DATA_HUD_ABDUCTOR]
 	hud.add_to_hud(owner)
 	update_gland_hud()
 
@@ -277,14 +277,14 @@
 	..()
 	if(ishuman(owner))
 		owner.gene_stability += GENE_INSTABILITY_MODERATE // give them this gene for free
-		owner.dna.SetSEState(SHOCKIMMUNITYBLOCK, TRUE)
-		genemutcheck(owner, SHOCKIMMUNITYBLOCK,  null, MUTCHK_FORCED)
+		owner.dna.SetSEState(GLOB.shockimmunityblock, TRUE)
+		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
 
 /obj/item/organ/internal/heart/gland/electric/remove(mob/living/carbon/M, special = 0)
 	if(ishuman(owner))
 		owner.gene_stability -= GENE_INSTABILITY_MODERATE // but return it to normal once it's removed
-		owner.dna.SetSEState(SHOCKIMMUNITYBLOCK, FALSE)
-		genemutcheck(owner, SHOCKIMMUNITYBLOCK,  null, MUTCHK_FORCED)
+		owner.dna.SetSEState(GLOB.shockimmunityblock, FALSE)
+		genemutcheck(owner, GLOB.shockimmunityblock,  null, MUTCHK_FORCED)
 	return ..()
 
 /obj/item/organ/internal/heart/gland/electric/activate()

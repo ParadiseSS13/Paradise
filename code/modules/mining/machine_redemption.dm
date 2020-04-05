@@ -159,7 +159,7 @@
 	if(!has_minerals)
 		return
 
-	for(var/obj/machinery/requests_console/D in allConsoles)
+	for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 		if(D.department in src.supply_consoles)
 			if(supply_consoles[D.department] == null || (mineral_name in supply_consoles[D.department]))
 				D.createMessage("Ore Redemption Machine", "New Minerals Available!", msg, 1)

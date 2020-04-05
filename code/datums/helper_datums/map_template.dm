@@ -17,7 +17,7 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path)
-	var/bounds = maploader.load_map(file(path), 1, 1, 1, cropMap = 0, measureOnly = 1)
+	var/bounds = GLOB.maploader.load_map(file(path), 1, 1, 1, cropMap = 0, measureOnly = 1)
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1
 		height = bounds[MAP_MAXY]
@@ -48,8 +48,8 @@
 	// This system will metaphorically snap in half (not postpone init everywhere)
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
-	space_manager.add_dirt(placement.z)
-	var/list/bounds = maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
+	GLOB.space_manager.add_dirt(placement.z)
+	var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, cropMap = 1)
 	if(!bounds)
 		return 0
 	if(bot_left == null || top_right == null)
@@ -58,7 +58,7 @@
 	if(ST_bot_left == null || ST_top_right == null)
 		log_runtime(EXCEPTION("One of the smoothing corners is bust"), src)
 
-	space_manager.remove_dirt(placement.z)
+	GLOB.space_manager.remove_dirt(placement.z)
 	late_setup_level(
 		block(bot_left, top_right),
 		block(ST_bot_left, ST_top_right))
@@ -108,7 +108,7 @@
 	for(var/map in flist(path))
 		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
-			map_templates[T.name] = T
+			GLOB.map_templates[T.name] = T
 
 	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
@@ -134,13 +134,13 @@
 		if(banned.Find(R.mappath))
 			continue
 
-		map_templates[R.name] = R
-		ruins_templates[R.name] = R
+		GLOB.map_templates[R.name] = R
+		GLOB.ruins_templates[R.name] = R
 
 		if(istype(R, /datum/map_template/ruin/lavaland))
-			lava_ruins_templates[R.name] = R
+			GLOB.lava_ruins_templates[R.name] = R
 		if(istype(R, /datum/map_template/ruin/space))
-			space_ruins_templates[R.name] = R
+			GLOB.space_ruins_templates[R.name] = R
 
 /proc/preloadShelterTemplates()
 	for(var/item in subtypesof(/datum/map_template/shelter))
@@ -149,8 +149,8 @@
 			continue
 		var/datum/map_template/shelter/S = new shelter_type()
 
-		shelter_templates[S.shelter_id] = S
-		map_templates[S.shelter_id] = S
+		GLOB.shelter_templates[S.shelter_id] = S
+		GLOB.map_templates[S.shelter_id] = S
 
 /proc/preloadShuttleTemplates()
 	for(var/item in subtypesof(/datum/map_template/shuttle))
@@ -160,5 +160,5 @@
 
 		var/datum/map_template/shuttle/S = new shuttle_type()
 
-		shuttle_templates[S.shuttle_id] = S
-		map_templates[S.shuttle_id] = S
+		GLOB.shuttle_templates[S.shuttle_id] = S
+		GLOB.map_templates[S.shuttle_id] = S

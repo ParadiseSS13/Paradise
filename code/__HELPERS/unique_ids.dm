@@ -14,7 +14,7 @@
 //   var/myUID = mydatum.UID()
 //   var/datum/D = locateUID(myUID)
 
-var/global/next_unique_datum_id = 1
+GLOBAL_VAR_INIT(next_unique_datum_id, 1)
 
 // /client/var/tmp/unique_datum_id = null
 
@@ -22,7 +22,7 @@ var/global/next_unique_datum_id = 1
 	if(!unique_datum_id)
 		var/tag_backup = tag
 		tag = null // Grab the raw ref, not the tag
-		unique_datum_id = "\ref[src]_[next_unique_datum_id++]"
+		unique_datum_id = "\ref[src]_[GLOB.next_unique_datum_id++]"
 		tag = tag_backup
 	return unique_datum_id
 

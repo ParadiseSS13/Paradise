@@ -45,7 +45,7 @@
 
 	var/list/event_areas = list()
 
-	for(var/areapath in the_station_areas)
+	for(var/areapath in GLOB.the_station_areas)
 		event_areas += typesof(areapath)
 	for(var/areapath in safe_areas)
 		event_areas -= typesof(areapath)
@@ -92,7 +92,7 @@
 
 		if(istype(M, /mob/living/silicon/robot) && M:module && M:module.name == "security robot module")
 			active_with_role["Security"]++
-		if(M.mind.assigned_role in security_positions)
+		if(M.mind.assigned_role in GLOB.security_positions)
 			active_with_role["Security"]++
 
 		if(M.mind.assigned_role in list("Research Director", "Scientist"))

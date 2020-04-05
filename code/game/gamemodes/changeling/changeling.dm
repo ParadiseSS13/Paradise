@@ -2,7 +2,7 @@
 #define LING_DEAD_GENETICDAMAGE_HEAL_CAP	50	//The lowest value of geneticdamage handle_changeling() can take it to while dead.
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
-var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega")
+GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
 
 /datum/game_mode
 	var/list/datum/mind/changelings = list()
@@ -13,9 +13,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Blueshield", "Nanotrasen Representative", "Security Pod Pilot", "Magistrate", "Brig Physician", "Internal Affairs Agent", "Nanotrasen Navy Officer", "Special Operations Officer", "Syndicate Officer")
 	protected_species = list("Machine")
-	required_players = 10
+	required_players = 15
 	required_enemies = 1
-	recommended_enemies = 2
+	recommended_enemies = 4
 
 	var/const/prob_int_murder_target = 50 // intercept names the assassination target half the time
 	var/const/prob_right_murder_target_l = 25 // lower bound on probability of naming right assassination target
@@ -34,7 +34,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 	var/const/prob_right_objective_l = 25 //lower bound on probability of determining the objective correctly
 	var/const/prob_right_objective_h = 50 //upper bound on probability of determining the objective correctly
 
-	var/changeling_amount = 2
+	var/changeling_amount = 4
 
 /datum/game_mode/changeling/announce()
 	to_chat(world, "<B>The current game mode is - Changeling!</B>")
@@ -46,7 +46,7 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 
 	var/list/datum/mind/possible_changelings = get_players_for_role(ROLE_CHANGELING)
 
-	changeling_amount = 1 + round(num_players() / 12)
+	changeling_amount = 1 + round(num_players() / 10)
 
 	if(possible_changelings.len>0)
 		for(var/i = 0, i < changeling_amount, i++)
@@ -162,12 +162,12 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		update_change_icons_removed(changeling_mind)
 
 /datum/game_mode/proc/update_change_icons_added(datum/mind/changeling)
-	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
+	var/datum/atom_hud/antag/linghud = GLOB.huds[ANTAG_HUD_CHANGELING]
 	linghud.join_hud(changeling.current)
 	set_antag_hud(changeling.current, "hudchangeling")
 
 /datum/game_mode/proc/update_change_icons_removed(datum/mind/changeling)
-	var/datum/atom_hud/antag/linghud = huds[ANTAG_HUD_CHANGELING]
+	var/datum/atom_hud/antag/linghud = GLOB.huds[ANTAG_HUD_CHANGELING]
 	linghud.leave_hud(changeling.current)
 	set_antag_hud(changeling.current, null)
 
@@ -253,9 +253,9 @@ var/list/possible_changeling_IDs = list("Alpha","Beta","Gamma","Delta","Epsilon"
 		honorific = "Ms."
 	else
 		honorific = "Mr."
-	if(possible_changeling_IDs.len)
-		changelingID = pick(possible_changeling_IDs)
-		possible_changeling_IDs -= changelingID
+	if(GLOB.possible_changeling_IDs.len)
+		changelingID = pick(GLOB.possible_changeling_IDs)
+		GLOB.possible_changeling_IDs -= changelingID
 		changelingID = "[honorific] [changelingID]"
 	else
 		changelingID = "[honorific] [rand(1,999)]"

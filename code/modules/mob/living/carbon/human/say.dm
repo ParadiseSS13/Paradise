@@ -161,7 +161,7 @@
 				verb = pick("whinnies", "neighs", "says")
 
 		if(dna)
-			for(var/datum/dna/gene/gene in dna_genes)
+			for(var/datum/dna/gene/gene in GLOB.dna_genes)
 				if(!gene.block)
 					continue
 				if(gene.is_active(src))
@@ -238,10 +238,11 @@
 						return
 
 /mob/living/carbon/human/handle_speech_sound()
-	var/list/returns[2]
+	var/list/returns[3]
 	if(dna.species.speech_sounds && prob(dna.species.speech_chance))
 		returns[1] = sound(pick(dna.species.speech_sounds))
 		returns[2] = 50
+		returns[3] = get_age_pitch()
 	return returns
 
 /mob/living/carbon/human/binarycheck()

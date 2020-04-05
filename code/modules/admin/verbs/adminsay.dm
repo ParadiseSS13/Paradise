@@ -20,7 +20,7 @@
 /client/proc/get_admin_say()
 	var/msg = input(src, null, "asay \"text\"") as text|null
 	cmd_admin_say(msg)
-	
+
 /client/proc/cmd_mentor_say(msg as text)
 	set category = "Admin"
 	set name = "Msay"
@@ -59,12 +59,12 @@
 	var/enabling
 	var/msay = /client/proc/cmd_mentor_say
 
-	if(msay in admin_verbs_mentor)
+	if(msay in GLOB.admin_verbs_mentor)
 		enabling = FALSE
-		admin_verbs_mentor -= msay
+		GLOB.admin_verbs_mentor -= msay
 	else
 		enabling = TRUE
-		admin_verbs_mentor += msay
+		GLOB.admin_verbs_mentor += msay
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))

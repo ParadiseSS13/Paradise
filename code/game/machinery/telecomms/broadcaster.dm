@@ -5,8 +5,8 @@
 	They receive their message from a server after the message has been logged.
 */
 
-var/list/recentmessages = list() // global list of recent messages broadcasted : used to circumvent massive radio spam
-var/message_delay = 0 // To make sure restarting the recentmessages list is kept in sync
+GLOBAL_LIST_EMPTY(recentmessages) // global list of recent messages broadcasted : used to circumvent massive radio spam
+GLOBAL_VAR_INIT(message_delay, 0) // To make sure restarting the recentmessages list is kept in sync
 
 /obj/machinery/telecomms/broadcaster
 	name = "Subspace Broadcaster"
@@ -37,9 +37,9 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 			original.data["level"] = signal.data["level"]
 
 		var/signal_message = "[signal.frequency]:[signal.data["message"]]:[signal.data["realname"]]"
-		if(signal_message in recentmessages)
+		if(signal_message in GLOB.recentmessages)
 			return
-		recentmessages.Add(signal_message)
+		GLOB.recentmessages.Add(signal_message)
 
 		if(signal.data["slow"] > 0)
 			sleep(signal.data["slow"]) // simulate the network lag if necessary
@@ -85,19 +85,19 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 							  signal.data["realname"], signal.data["vname"], 4, signal.data["compression"], signal.data["level"], signal.frequency,
 							  signal.data["verb"])
 
-		if(!message_delay)
-			message_delay = 1
+		if(!GLOB.message_delay)
+			GLOB.message_delay = 1
 			spawn(10)
-				message_delay = 0
-				recentmessages = list()
+				GLOB.message_delay = 0
+				GLOB.recentmessages = list()
 
 		/* --- Do a snazzy animation! --- */
 		flick("broadcaster_send", src)
 
 /obj/machinery/telecomms/broadcaster/Destroy()
 	// In case message_delay is left on 1, otherwise it won't reset the list and people can't say the same thing twice anymore.
-	if(message_delay)
-		message_delay = 0
+	if(GLOB.message_delay)
+		GLOB.message_delay = 0
 	return ..()
 
 
@@ -377,32 +377,32 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		//var/blackbox_admin_msg = "[part_a][M.name] (Real name: [M.real_name])[part_blackbox_b][quotedmsg][part_c]"
 
 		//BR.messages_admin += blackbox_admin_msg
-		if(istype(blackbox))
+		if(istype(GLOB.blackbox))
 			switch(display_freq)
 				if(PUB_FREQ)
-					blackbox.msg_common += blackbox_msg
+					GLOB.blackbox.msg_common += blackbox_msg
 				if(SCI_FREQ)
-					blackbox.msg_science += blackbox_msg
+					GLOB.blackbox.msg_science += blackbox_msg
 				if(COMM_FREQ)
-					blackbox.msg_command += blackbox_msg
+					GLOB.blackbox.msg_command += blackbox_msg
 				if(MED_FREQ)
-					blackbox.msg_medical += blackbox_msg
+					GLOB.blackbox.msg_medical += blackbox_msg
 				if(ENG_FREQ)
-					blackbox.msg_engineering += blackbox_msg
+					GLOB.blackbox.msg_engineering += blackbox_msg
 				if(SEC_FREQ)
-					blackbox.msg_security += blackbox_msg
+					GLOB.blackbox.msg_security += blackbox_msg
 				if(DTH_FREQ)
-					blackbox.msg_deathsquad += blackbox_msg
+					GLOB.blackbox.msg_deathsquad += blackbox_msg
 				if(SYND_FREQ)
-					blackbox.msg_syndicate += blackbox_msg
+					GLOB.blackbox.msg_syndicate += blackbox_msg
 				if(SYNDTEAM_FREQ)
-					blackbox.msg_syndteam += blackbox_msg
+					GLOB.blackbox.msg_syndteam += blackbox_msg
 				if(SUP_FREQ)
-					blackbox.msg_cargo += blackbox_msg
+					GLOB.blackbox.msg_cargo += blackbox_msg
 				if(SRV_FREQ)
-					blackbox.msg_service += blackbox_msg
+					GLOB.blackbox.msg_service += blackbox_msg
 				else
-					blackbox.messages += blackbox_msg
+					GLOB.blackbox.messages += blackbox_msg
 
 		//End of research and feedback code.
 
@@ -561,32 +561,32 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 		var/blackbox_msg = "[part_a][source][part_blackbox_b]\"[text]\"[part_c]"
 
 		//BR.messages_admin += blackbox_admin_msg
-		if(istype(blackbox))
+		if(istype(GLOB.blackbox))
 			switch(display_freq)
 				if(PUB_FREQ)
-					blackbox.msg_common += blackbox_msg
+					GLOB.blackbox.msg_common += blackbox_msg
 				if(SCI_FREQ)
-					blackbox.msg_science += blackbox_msg
+					GLOB.blackbox.msg_science += blackbox_msg
 				if(COMM_FREQ)
-					blackbox.msg_command += blackbox_msg
+					GLOB.blackbox.msg_command += blackbox_msg
 				if(MED_FREQ)
-					blackbox.msg_medical += blackbox_msg
+					GLOB.blackbox.msg_medical += blackbox_msg
 				if(ENG_FREQ)
-					blackbox.msg_engineering += blackbox_msg
+					GLOB.blackbox.msg_engineering += blackbox_msg
 				if(SEC_FREQ)
-					blackbox.msg_security += blackbox_msg
+					GLOB.blackbox.msg_security += blackbox_msg
 				if(DTH_FREQ)
-					blackbox.msg_deathsquad += blackbox_msg
+					GLOB.blackbox.msg_deathsquad += blackbox_msg
 				if(SYND_FREQ)
-					blackbox.msg_syndicate += blackbox_msg
+					GLOB.blackbox.msg_syndicate += blackbox_msg
 				if(SYNDTEAM_FREQ)
-					blackbox.msg_syndteam += blackbox_msg
+					GLOB.blackbox.msg_syndteam += blackbox_msg
 				if(SUP_FREQ)
-					blackbox.msg_cargo += blackbox_msg
+					GLOB.blackbox.msg_cargo += blackbox_msg
 				if(SRV_FREQ)
-					blackbox.msg_service += blackbox_msg
+					GLOB.blackbox.msg_service += blackbox_msg
 				else
-					blackbox.messages += blackbox_msg
+					GLOB.blackbox.messages += blackbox_msg
 
 		//End of research and feedback code.
 
@@ -653,7 +653,7 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 	signal.frequency = PUB_FREQ// Common channel
 
   //#### Sending the signal to all subspace receivers ####//
-	for(var/obj/machinery/telecomms/receiver/R in telecomms_list)
+	for(var/obj/machinery/telecomms/receiver/R in GLOB.telecomms_list)
 		spawn(0)
 			R.receive_signal(signal)
 

@@ -212,7 +212,7 @@
 /obj/structure/closet/crate/proc/notifyRecipient(var/destination)
 	var/msg = "[capitalize(name)] has arrived at [destination]."
 	if(destination in announce_beacons)
-		for(var/obj/machinery/requests_console/D in allConsoles)
+		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 			if(D.department in src.announce_beacons[destination])
 				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
 

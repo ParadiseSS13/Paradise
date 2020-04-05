@@ -80,7 +80,7 @@ Thus, the two variables affect pump operation are set in New():
 
 /obj/machinery/atmospherics/binary/pump/update_icon()
 	..()
-	
+
 	if(!powered())
 		icon_state = "off"
 	else
@@ -197,7 +197,7 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/pump/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/binary/pump/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
 	user.set_machine(src)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)

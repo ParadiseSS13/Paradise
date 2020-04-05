@@ -87,7 +87,7 @@
 			Jitter(1000)
 
 	// If we have the gene for being crazy, have random events.
-	if(dna.GetSEState(HALLUCINATIONBLOCK))
+	if(dna.GetSEState(GLOB.hallucinationblock))
 		if(prob(1))
 			Hallucinate(20)
 
@@ -102,7 +102,7 @@
 				if(1)
 					emote("twitch")
 				if(2 to 3)
-					var/tourettes = pick("MIERDA", "PUTA", "ZORRA", "COMUNISMO", "WHITELIST", "PIS", "GILIPOLLAS", "¡KE!", "PUTOS", "LIBERAL", "OOF", "IMBÉCIL")
+					var/tourettes = pick("MIERDA", "PUTA", "ZORRA", "COMUNISMO", "WHITELIST", "PIS", "GILIPOLLAS", "ï¿½KE!", "PUTOS", "LIBERAL", "OOF", "IMBï¿½CIL")
 					say("[prob(50) ? ";" : ""][tourettes]")
 			var/x_offset = pixel_x + rand(-2,2) //Should probably be moved into the twitch emote at some point.
 			var/y_offset = pixel_y + rand(-1,1)
@@ -126,15 +126,15 @@
 							   "deja de girfiarme!!!!",
 							   "ALTO!",
 							   "AYUDA SIGURIDAD MAINT",
-							   "[src.name] llegar estación",
+							   "[src.name] llegar estaciï¿½n",
 							   "changling En maint!",
-							   "EL chEf pusto [pick("PROTEINA", "agua del INDORO", "Semen", "Einzymas","ARAÑAS","nuTrimentos","mUtaGeNO","TeSLium","sKrektonium", "amor")] en mi [pick("sopa","Bullito","ranburgeusa","sOilent GREEn","KoI Susish","yaya")]!",
+							   "EL chEf pusto [pick("PROTEINA", "agua del INDORO", "Semen", "Einzymas","ARAï¿½AS","nuTrimentos","mUtaGeNO","TeSLium","sKrektonium", "amor")] en mi [pick("sopa","Bullito","ranburgeusa","sOilent GREEn","KoI Susish","yaya")]!",
 							   "el mono tiene BRAZOS TASER!",
 							   "qM uso MIS pUntos en [pick("escopetas","GuanTEs iNsULadoS","LOTS MASSHEEN!")]",
 							   "EI'NATH!",
 							   "COmuniDAd de RoL AlteRNATIva",
 							   "baMOS a kedar un dia todos y entramos de [pick("FURries", "voxx", "tojARAN", "vuplKNIn")] y entramos a [pick("shittear", "chuPARNOS los PANES", "revolusion")]",
-							   "fue [pick("ermano menor!!","PRomEtida","amiGO","orFANATO","interes romántico","esposa","esposo","ñiños pequeños","gato","accidentalmente")]!",
+							   "fue [pick("ermano menor!!","PRomEtida","amiGO","orFANATO","interes romï¿½ntico","esposa","esposo","ï¿½iï¿½os pequeï¿½os","gato","accidentalmente")]!",
 							   "PAYSO ME GOLPPEEA MAINT")
 
 			var/list/s2 = list("FUS RO DAH",
@@ -169,7 +169,7 @@
 					emote("drool")
 
 /mob/living/carbon/human/handle_mutations_and_radiation()
-	for(var/datum/dna/gene/gene in dna_genes)
+	for(var/datum/dna/gene/gene in GLOB.dna_genes)
 		if(!gene.block)
 			continue
 		if(gene.is_active(src))
@@ -632,6 +632,10 @@
 					overeatduration -= 1 // Those with obesity gene take twice as long to unfat
 				else
 					overeatduration -= 2
+
+		if(!ismachine(src) && nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA) //Gosh damn snowflakey IPCs
+			var/datum/disease/D = new /datum/disease/critical/hypoglycemia
+			ForceContractDisease(D)
 
 		//metabolism change
 		if(nutrition > NUTRITION_LEVEL_FAT)

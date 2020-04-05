@@ -1,6 +1,5 @@
 //Cactus, Speedbird, Dynasty, oh my
-
-var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
+GLOBAL_DATUM_INIT(atc, /datum/lore/atc_controller, new)
 
 /datum/lore/atc_controller
 	var/delay_max = 120 MINUTES			//Maximum amount of tiem between ATC messages.  Default is 10 mins.
@@ -30,30 +29,30 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 
 /datum/lore/atc_controller/proc/msg(var/message,var/sender)
 	ASSERT(message)
-	global_announcer.autosay("[message]", sender ? sender : "[using_map.station_short] Space Control")
+	GLOB.global_announcer.autosay("[message]", sender ? sender : "[GLOB.using_map.station_short] Space Control")
 
 
 /datum/lore/atc_controller/proc/reroute_traffic(var/yes = 1)
 	if(yes)
 		if(!squelched)
-			msg("Rerouting traffic away from [using_map.station_name].")
+			msg("Rerouting traffic away from [GLOB.using_map.station_name].")
 		squelched = TRUE
 	else
 		if(squelched)
-			msg("Resuming normal traffic routing around [using_map.station_name].")
+			msg("Resuming normal traffic routing around [GLOB.using_map.station_name].")
 		squelched = FALSE
 
 /datum/lore/atc_controller/proc/shift_ending(var/evac = 0)
-	msg("Automated Shuttle departing [using_map.station_name] for [using_map.dock_name] on routine transfer route.", "NT Automated Shuttle")
+	msg("Automated Shuttle departing [GLOB.using_map.station_name] for [GLOB.using_map.dock_name] on routine transfer route.", "NT Automated Shuttle")
 	sleep(5 SECONDS)
-	msg("Automated Shuttle, cleared to complete routine transfer from [using_map.station_name] to [using_map.dock_name].")
+	msg("Automated Shuttle, cleared to complete routine transfer from [GLOB.using_map.station_name] to [GLOB.using_map.dock_name].")
 
 /datum/lore/atc_controller/proc/random_convo()
-	var/one = pick(loremaster.organizations) //These will pick an index, not an instance
-	var/two = pick(loremaster.organizations)
+	var/one = pick(GLOB.loremaster.organizations) //These will pick an index, not an instance
+	var/two = pick(GLOB.loremaster.organizations)
 
-	var/datum/lore/organization/source = loremaster.organizations[one] //Resolve to the instances
-	var/datum/lore/organization/dest = loremaster.organizations[two]
+	var/datum/lore/organization/source = GLOB.loremaster.organizations[one] //Resolve to the instances
+	var/datum/lore/organization/dest = GLOB.loremaster.organizations[two]
 
 	//Let's get some mission parameters
 	var/owner = source.short_name					//Use the short name
@@ -63,13 +62,13 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 	var/destname = pick(dest.destination_names)			//Pick a random holding from the destination
 
 	var/combined_name = "[owner] [prefix] [shipname]"
-	var/alt_atc_names = list("[using_map.station_short] TraCon", "[using_map.station_short] Control", "[using_map.station_short] STC", "[using_map.station_short] Airspace")
-	var/wrong_atc_names = list("Sol Command", "Orion Control", "[using_map.dock_name]")
+	var/alt_atc_names = list("[GLOB.using_map.station_short] TraCon", "[GLOB.using_map.station_short] Control", "[GLOB.using_map.station_short] STC", "[GLOB.using_map.station_short] Airspace")
+	var/wrong_atc_names = list("Sol Command", "Orion Control", "[GLOB.using_map.dock_name]")
 	var/mission_noun = list("flight", "mission", "route")
 	var/request_verb = list("requesting", "calling for", "asking for")
 
 	//First response is 'yes', second is 'no'
-	var/requests = list("[using_map.station_short] transit clearance" = list("cleared to transit", "unable to approve, contact regional on 953.5"),
+	var/requests = list("[GLOB.using_map.station_short] transit clearance" = list("cleared to transit", "unable to approve, contact regional on 953.5"),
 						"planetary flight rules" = list("cleared planetary flight rules", "unable to approve planetary flight rules due to traffic"),
 						"special flight rules" = list("cleared special flight rules", "unable to approve special flight rules for your traffic class"),
 						"current solar weather info" = list("sending you the relevant information via tightbeam", "cannot fulfill your request at the moment"),
@@ -105,20 +104,20 @@ var/datum/lore/atc_controller/atc = new/datum/lore/atc_controller
 		if("wrong_freq")
 			callname = pick(wrong_atc_names)
 			full_request = "[callname], this is [combined_name] on a [mission] [pick(mission_noun)] to [destname], [pick(request_verb)] [request]."
-			full_response = "[combined_name], this is [using_map.station_short] TraCon, wrong frequency. Switch to [rand(700,999)].[rand(1,9)]."
-			full_closure = "[using_map.station_short] TraCon, copy, apologies."
+			full_response = "[combined_name], this is [GLOB.using_map.station_short] TraCon, wrong frequency. Switch to [rand(700,999)].[rand(1,9)]."
+			full_closure = "[GLOB.using_map.station_short] TraCon, copy, apologies."
 		if("wrong_lang")
 			//Can't implement this until autosay has language support
 		if("emerg")
 			var/problem = pick("hull breaches on multiple decks","unknown life forms on board","a drive about to go critical","asteroids impacting the hull","a total loss of engine power","people trying to board the ship")
 			full_request = "Mayday, mayday, mayday, this is [combined_name] declaring an emergency! We have [problem]!"
 			var/rand_freq = "[rand(700,999)].[rand(1,9)]"
-			full_response = "[combined_name], this is [using_map.station_short] TraCon, copy. Switch to emergency responder channel [rand_freq]."
-			full_closure = "Roger, [using_map.station_short] TraCon, contacting [rand_freq]."
+			full_response = "[combined_name], this is [GLOB.using_map.station_short] TraCon, copy. Switch to emergency responder channel [rand_freq]."
+			full_closure = "Roger, [GLOB.using_map.station_short] TraCon, contacting [rand_freq]."
 		else
 			full_request = "[callname], this is [combined_name] on a [mission] [pick(mission_noun)] to [destname], [pick(request_verb)] [request]."
-			full_response = "[combined_name], this is [using_map.station_short] TraCon, [response]." //Station TraCon always calls themselves TraCon
-			full_closure = "[using_map.station_short] TraCon, [yes ? "thank you" : "copy"], good day." //They always copy what TraCon called themselves in the end when they realize they said it wrong
+			full_response = "[combined_name], this is [GLOB.using_map.station_short] TraCon, [response]." //Station TraCon always calls themselves TraCon
+			full_closure = "[GLOB.using_map.station_short] TraCon, [yes ? "thank you" : "copy"], good day." //They always copy what TraCon called themselves in the end when they realize they said it wrong
 
 	//Ship sends request to ATC
 	msg(full_request,"[prefix] [shipname]")

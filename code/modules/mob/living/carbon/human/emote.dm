@@ -141,76 +141,76 @@
 		if("howl", "howls")
 			var/M = handle_emote_param(param) //Check to see if the param is valid (mob with the param name is in view).
 			message = "<B>[src]</B> howls[M ? " at [M]" : ""]!"
-			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 0, 10)
+			playsound(loc, 'sound/goonstation/voice/howl.ogg', 100, 1, 10, frequency = get_age_pitch())
 			m_type = 2
 
 		if("growl", "growls")
 			var/M = handle_emote_param(param)
 			message = "<B>[src]</B> growls[M ? " at [M]" : ""]."
-			playsound(loc, "growls", 80, 0)
+			playsound(loc, "growls", 80, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("ping", "pings")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> pings[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+			playsound(loc, 'sound/machines/ping.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz2")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> emits an irritated buzzing sound[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-two.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("buzz", "buzzes")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> buzzes[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("beep", "beeps")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> beeps[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/twobeep.ogg', 50, 0)
+			playsound(loc, 'sound/machines/twobeep.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("drone", "drones", "hum", "hums", "rumble", "rumbles")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> [M ? "drones at [M]" : "rumbles"]."
-			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 0)
+			playsound(loc, 'sound/voice/drasktalk.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("squish", "squishes")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> squishes[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/slime_squish.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("clack", "clacks")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> clacks [p_their()] mandibles[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/Kidanclack.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("click", "clicks")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> clicks [p_their()] mandibles[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 0) //Credit to DrMinky (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/Kidanclack2.ogg', 50, 1, frequency = get_age_pitch()) //Credit to DrMinky (freesound.org) for the sound.
 			m_type = 2
 
 		if("creaks", "creak")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> creaks[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 0) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
+			playsound(loc, 'sound/voice/dionatalk1.ogg', 50, 1, frequency = get_age_pitch()) //Credit https://www.youtube.com/watch?v=ufnvlRjsOTI [0:13 - 0:16]
 			m_type = 2
 
 		if("hiss", "hisses")
@@ -218,7 +218,7 @@
 
 			if(!muzzled)
 				message = "<B>[src]</B> hisses[M ? " at [M]" : ""]."
-				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 0) //Credit to Jamius (freesound.org) for the sound.
+				playsound(loc, 'sound/effects/unathihiss.ogg', 50, 1, frequency = get_age_pitch()) //Credit to Jamius (freesound.org) for the sound.
 				m_type = 2
 			else
 				message = "<B>[src]</B> makes a weak hissing noise."
@@ -228,28 +228,28 @@
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> rustles [p_their()] quills[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 0) //Credit to sound-ideas (freesfx.co.uk) for the sound.
+			playsound(loc, 'sound/effects/voxrustle.ogg', 50, 1, frequency = get_age_pitch()) //Credit to sound-ideas (freesfx.co.uk) for the sound.
 			m_type = 2
 
 		if("warble", "warbles")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> warbles[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/effects/warble.ogg', 50, 0) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
+			playsound(loc, 'sound/effects/warble.ogg', 50, 1, frequency = get_age_pitch()) // Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 			m_type = 2
 
 		if("yes")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> emits an affirmative blip[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
+			playsound(loc, 'sound/machines/synth_yes.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("no")
 			var/M = handle_emote_param(param)
 
 			message = "<B>[src]</B> emits a negative blip[M ? " at [M]" : ""]."
-			playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
+			playsound(loc, 'sound/machines/synth_no.ogg', 50, 1, frequency = get_age_pitch())
 			m_type = 2
 
 		if("wag", "wags")
@@ -465,10 +465,10 @@
 					m_type = 2
 					if(gender == FEMALE)
 						if(dna.species.female_cough_sounds)
-							playsound(src, pick(dna.species.female_cough_sounds), 120)
+							playsound(src, pick(dna.species.female_cough_sounds), 120, 1, frequency = get_age_pitch())
 					else
 						if(dna.species.male_cough_sounds)
-							playsound(src, pick(dna.species.male_cough_sounds), 120)
+							playsound(src, pick(dna.species.male_cough_sounds), 120, 1, frequency = get_age_pitch())
 				else
 					message = "<B>[src]</B> makes a strong noise."
 					m_type = 2
@@ -734,9 +734,9 @@
 				if(!muzzled)
 					message = "<B>[src]</B> sneezes."
 					if(gender == FEMALE)
-						playsound(src, dna.species.female_sneeze_sound, 70)
+						playsound(src, dna.species.female_sneeze_sound, 70, 1, frequency = get_age_pitch())
 					else
-						playsound(src, dna.species.male_sneeze_sound, 70)
+						playsound(src, dna.species.male_sneeze_sound, 70, 1, frequency = get_age_pitch())
 					m_type = 2
 				else
 					message = "<B>[src]</B> makes a strange noise."

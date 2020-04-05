@@ -1,5 +1,5 @@
 //This is so damaged or burnt tiles or platings don't get remembered as the default tile
-var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","damaged4",
+GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","damaged3","damaged4",
 				"damaged5","panelscorched","floorscorched1","floorscorched2","platingdmg1","platingdmg2",
 				"platingdmg3","plating","light_on","light_on_flicker1","light_on_flicker2",
 				"warnplate", "warnplatecorner","metalfoam", "ironfoam",
@@ -11,7 +11,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 				"oldburning","light-on-r","light-on-y","light-on-g","light-on-b", "wood", "wood-broken", "carpet",
 				"carpetcorner", "carpetside", "carpet", "ironsand1", "ironsand2", "ironsand3", "ironsand4", "ironsand5",
 				"ironsand6", "ironsand7", "ironsand8", "ironsand9", "ironsand10", "ironsand11",
-				"ironsand12", "ironsand13", "ironsand14", "ironsand15")
+				"ironsand12", "ironsand13", "ironsand14", "ironsand15"))
 
 /turf/simulated/floor
 	name = "floor"
@@ -34,7 +34,7 @@ var/list/icons_to_ignore_at_floor_init = list("damaged1","damaged2","damaged3","
 
 /turf/simulated/floor/New()
 	..()
-	if(icon_state in icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
+	if(icon_state in GLOB.icons_to_ignore_at_floor_init) //so damaged/burned tiles or plating icons aren't saved as the default
 		icon_regular_floor = "floor"
 	else
 		icon_regular_floor = icon_state

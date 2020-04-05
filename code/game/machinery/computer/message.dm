@@ -18,7 +18,7 @@
 	var/noserver = "<span class='alert'>ALERT: No server detected.</span>"
 	var/incorrectkey = "<span class='warning'>ALERT: Incorrect decryption key!</span>"
 	var/defaultmsg = "<span class='notice'>Welcome. Please select an option.</span>"
-	var/rebootmsg = "<span class='warning'>%$&(£: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
+	var/rebootmsg = "<span class='warning'>%$&(ï¿½: Critical %$$@ Error // !RestArting! <lOadiNg backUp iNput ouTput> - ?pLeaSe wAit!</span>"
 	//Computer properties
 	var/screen = 0 		// 0 = Main menu, 1 = Message Logs, 2 = Hacked screen, 3 = Custom Message
 	var/hacking = 0		// Is it being hacked into by the AI/Cyborg
@@ -54,7 +54,7 @@
 			MK.loc = src.loc
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			// Will help make emagging the console not so easy to get away with.
-			MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
+			MK.info += "<br><br><font color='red'>ï¿½%@%(*$%&(ï¿½&?*(%&ï¿½/{}</font>"
 			update_icon()
 			spawn(100*length(src.linkedServer.decryptkey))
 				UnmagConsole()
@@ -75,8 +75,8 @@
 	..()
 	//Is the server isn't linked to a server, and there's a server available, default it to the first one in the list.
 	if(!linkedServer)
-		if(message_servers && message_servers.len > 0)
-			linkedServer = message_servers[1]
+		if(GLOB.message_servers && GLOB.message_servers.len > 0)
+			linkedServer = GLOB.message_servers[1]
 	return
 
 /obj/machinery/computer/message_monitor/attack_hand(var/mob/user as mob)
@@ -288,11 +288,11 @@
 			if(auth) linkedServer.active = !linkedServer.active
 		//Find a server
 		if(href_list["find"])
-			if(message_servers && message_servers.len > 1)
-				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in message_servers
+			if(GLOB.message_servers && GLOB.message_servers.len > 1)
+				src.linkedServer = input(usr,"Please select a server.", "Select a server.", null) as null|anything in GLOB.message_servers
 				message = "<span class='alert'>NOTICE: Server selected.</span>"
-			else if(message_servers && message_servers.len > 0)
-				linkedServer = message_servers[1]
+			else if(GLOB.message_servers && GLOB.message_servers.len > 0)
+				linkedServer = GLOB.message_servers[1]
 				message =  "<span class='notice'>NOTICE: Only Single Server Detected - Server selected.</span>"
 			else
 				message = noserver
@@ -396,13 +396,13 @@
 					if("Recepient")
 						//Get out list of viable PDAs
 						var/list/obj/item/pda/sendPDAs = list()
-						for(var/obj/item/pda/P in PDAs)
+						for(var/obj/item/pda/P in GLOB.PDAs)
 							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 							if(!PM || !PM.can_receive())
 								continue
 							sendPDAs += P
-						if(PDAs && PDAs.len > 0)
+						if(GLOB.PDAs && GLOB.PDAs.len > 0)
 							customrecepient = input(usr, "Select a PDA from the list.") as null|anything in sortAtom(sendPDAs)
 						else
 							customrecepient = null
@@ -436,7 +436,7 @@
 							return src.attack_hand(usr)
 
 						var/obj/item/pda/PDARec = null
-						for(var/obj/item/pda/P in PDAs)
+						for(var/obj/item/pda/P in GLOB.PDAs)
 							var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
 
 							if(!PM || !PM.can_receive())
@@ -486,8 +486,8 @@
 /obj/item/paper/monitorkey/New()
 	..()
 	spawn(10)
-		if(message_servers)
-			for(var/obj/machinery/message_server/server in message_servers)
+		if(GLOB.message_servers)
+			for(var/obj/machinery/message_server/server in GLOB.message_servers)
 				if(!isnull(server))
 					if(!isnull(server.decryptkey))
 						info = "<center><h2>Daily Key Reset</h2></center><br>The new message monitor key is '[server.decryptkey]'.<br>Please keep this a secret and away from the clown.<br>If necessary, change the password to a more secure one."

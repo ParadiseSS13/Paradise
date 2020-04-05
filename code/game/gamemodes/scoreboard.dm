@@ -22,12 +22,12 @@
 	// Who is alive/dead, who escaped
 	for(var/mob/living/silicon/ai/I in GLOB.mob_list)
 		if(I.stat == DEAD && is_station_level(I.z))
-			score_deadaipenalty++
-			score_deadcrew++
+			GLOB.score_deadaipenalty++
+			GLOB.score_deadcrew++
 
 	for(var/mob/living/carbon/human/I in GLOB.mob_list)
 		if(I.stat == DEAD && is_station_level(I.z))
-			score_deadcrew++
+			GLOB.score_deadcrew++
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
 		for(var/mob/living/player in GLOB.mob_list)
@@ -36,7 +36,7 @@
 					var/turf/location = get_turf(player.loc)
 					var/area/escape_zone = locate(/area/shuttle/escape)
 					if(location in escape_zone)
-						score_escapees++
+						GLOB.score_escapees++
 
 
 
@@ -53,18 +53,18 @@
 			if(E.stat != DEAD && location in escape_zone) // Escapee Scores
 				cash_score = get_score_container_worth(E)
 
-				if(cash_score > score_richestcash)
-					score_richestcash = cash_score
-					score_richestname = E.real_name
-					score_richestjob = E.job
-					score_richestkey = E.key
+				if(cash_score > GLOB.score_richestcash)
+					GLOB.score_richestcash = cash_score
+					GLOB.score_richestname = E.real_name
+					GLOB.score_richestjob = E.job
+					GLOB.score_richestkey = E.key
 
 				dmg_score = E.getBruteLoss() + E.getFireLoss() + E.getToxLoss() + E.getOxyLoss()
-				if(dmg_score > score_dmgestdamage)
-					score_dmgestdamage = dmg_score
-					score_dmgestname = E.real_name
-					score_dmgestjob = E.job
-					score_dmgestkey = E.key
+				if(dmg_score > GLOB.score_dmgestdamage)
+					GLOB.score_dmgestdamage = dmg_score
+					GLOB.score_dmgestname = E.real_name
+					GLOB.score_dmgestjob = E.job
+					GLOB.score_dmgestkey = E.key
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.set_scoreboard_gvars()
@@ -75,73 +75,73 @@
 		if(!is_station_level(A.z)) continue
 		for(var/obj/item/stock_parts/cell/C in A.contents)
 			if(C.charge < 2300)
-				score_powerloss++ //200 charge leeway
+				GLOB.score_powerloss++ //200 charge leeway
 
 
 	// Check how much uncleaned mess is on the station
 	for(var/obj/effect/decal/cleanable/M in world)
 		if(!is_station_level(M.z)) continue
 		if(istype(M, /obj/effect/decal/cleanable/blood/gibs))
-			score_mess += 3
+			GLOB.score_mess += 3
 
 		if(istype(M, /obj/effect/decal/cleanable/blood))
-			score_mess += 1
+			GLOB.score_mess += 1
 
 		if(istype(M, /obj/effect/decal/cleanable/vomit))
-			score_mess += 1
+			GLOB.score_mess += 1
 
 
 	// Bonus Modifiers
 	//var/traitorwins = score_traitorswon
-	var/deathpoints = score_deadcrew * 25 //done
-	var/researchpoints = score_researchdone * 30
-	var/eventpoints = score_eventsendured * 50
-	var/escapoints = score_escapees * 25 //done
-	var/harvests = score_stuffharvested * 5 //done
-	var/shipping = score_stuffshipped * 5
-	var/mining = score_oremined * 2 //done
-	var/meals = score_meals * 5 //done, but this only counts cooked meals, not drinks served
-	var/power = score_powerloss * 20
+	var/deathpoints = GLOB.score_deadcrew * 25 //done
+	var/researchpoints = GLOB.score_researchdone * 30
+	var/eventpoints = GLOB.score_eventsendured * 50
+	var/escapoints = GLOB.score_escapees * 25 //done
+	var/harvests = GLOB.score_stuffharvested * 5 //done
+	var/shipping = GLOB.score_stuffshipped * 5
+	var/mining = GLOB.score_oremined * 2 //done
+	var/meals = GLOB.score_meals * 5 //done, but this only counts cooked meals, not drinks served
+	var/power = GLOB.score_powerloss * 20
 	var/messpoints
-	if(score_mess != 0)
-		messpoints = score_mess //done
-	var/plaguepoints = score_disease * 30
+	if(GLOB.score_mess != 0)
+		messpoints = GLOB.score_mess //done
+	var/plaguepoints = GLOB.score_disease * 30
 
 
 	// Good Things
-	score_crewscore += shipping
-	score_crewscore += harvests
-	score_crewscore += mining
-	score_crewscore += researchpoints
-	score_crewscore += eventpoints
-	score_crewscore += escapoints
+	GLOB.score_crewscore += shipping
+	GLOB.score_crewscore += harvests
+	GLOB.score_crewscore += mining
+	GLOB.score_crewscore += researchpoints
+	GLOB.score_crewscore += eventpoints
+	GLOB.score_crewscore += escapoints
 
 	if(power == 0)
-		score_crewscore += 2500
-		score_powerbonus = 1
+		GLOB.score_crewscore += 2500
+		GLOB.score_powerbonus = 1
 
-	if(score_mess == 0)
-		score_crewscore += 3000
-		score_messbonus = 1
-
-
-	score_crewscore += meals
-	if(score_allarrested)
-		score_crewscore *= 3 // This needs to be here for the bonus to be applied properly
+	if(GLOB.score_mess == 0)
+		GLOB.score_crewscore += 3000
+		GLOB.score_messbonus = 1
 
 
-	score_crewscore -= deathpoints
-	if(score_deadaipenalty)
-		score_crewscore -= 250
-	score_crewscore -= power
+	GLOB.score_crewscore += meals
+	if(GLOB.score_allarrested)
+		GLOB.score_crewscore *= 3 // This needs to be here for the bonus to be applied properly
 
 
-	score_crewscore -= messpoints
-	score_crewscore -= plaguepoints
+	GLOB.score_crewscore -= deathpoints
+	if(GLOB.score_deadaipenalty)
+		GLOB.score_crewscore -= 250
+	GLOB.score_crewscore -= power
+
+
+	GLOB.score_crewscore -= messpoints
+	GLOB.score_crewscore -= plaguepoints
 
 	// Show the score - might add "ranks" later
 	to_chat(world, "<b>The crew's final score is:</b>")
-	to_chat(world, "<b><font size='4'>[score_crewscore]</font></b>")
+	to_chat(world, "<b><font size='4'>[GLOB.score_crewscore]</font></b>")
 	for(var/mob/E in GLOB.player_list)
 		if(E.client && !E.get_preference(DISABLE_SCOREBOARD))
 			E.scorestats()
@@ -178,30 +178,30 @@
 	<b><u>General Statistics</u></b><br>
 	<u>The Good:</u><br>
 
-	<b>Useful Items Shipped:</b> [score_stuffshipped] ([score_stuffshipped * 5] Points)<br>
-	<b>Hydroponics Harvests:</b> [score_stuffharvested] ([score_stuffharvested * 5] Points)<br>
-	<b>Ore Mined:</b> [score_oremined] ([score_oremined * 2] Points)<br>
-	<b>Refreshments Prepared:</b> [score_meals] ([score_meals * 5] Points)<br>
-	<b>Research Completed:</b> [score_researchdone] ([score_researchdone * 30] Points)<br>"}
-	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [score_escapees] ([score_escapees * 25] Points)<br>"
-	dat += {"<b>Random Events Endured:</b> [score_eventsendured] ([score_eventsendured * 50] Points)<br>
-	<b>Whole Station Powered:</b> [score_powerbonus ? "Yes" : "No"] ([score_powerbonus * 2500] Points)<br>
-	<b>Ultra-Clean Station:</b> [score_mess ? "No" : "Yes"] ([score_messbonus * 3000] Points)<br><br>
+	<b>Useful Items Shipped:</b> [GLOB.score_stuffshipped] ([GLOB.score_stuffshipped * 5] Points)<br>
+	<b>Hydroponics Harvests:</b> [GLOB.score_stuffharvested] ([GLOB.score_stuffharvested * 5] Points)<br>
+	<b>Ore Mined:</b> [GLOB.score_oremined] ([GLOB.score_oremined * 2] Points)<br>
+	<b>Refreshments Prepared:</b> [GLOB.score_meals] ([GLOB.score_meals * 5] Points)<br>
+	<b>Research Completed:</b> [GLOB.score_researchdone] ([GLOB.score_researchdone * 30] Points)<br>"}
+	if(SSshuttle.emergency.mode == SHUTTLE_ENDGAME) dat += "<b>Shuttle Escapees:</b> [GLOB.score_escapees] ([GLOB.score_escapees * 25] Points)<br>"
+	dat += {"<b>Random Events Endured:</b> [GLOB.score_eventsendured] ([GLOB.score_eventsendured * 50] Points)<br>
+	<b>Whole Station Powered:</b> [GLOB.score_powerbonus ? "Yes" : "No"] ([GLOB.score_powerbonus * 2500] Points)<br>
+	<b>Ultra-Clean Station:</b> [GLOB.score_mess ? "No" : "Yes"] ([GLOB.score_messbonus * 3000] Points)<br><br>
 	<U>The bad:</U><br>
 
-	<b>Dead bodies on Station:</b> [score_deadcrew] (-[score_deadcrew * 25] Points)<br>
-	<b>Uncleaned Messes:</b> [score_mess] (-[score_mess] Points)<br>
-	<b>Station Power Issues:</b> [score_powerloss] (-[score_powerloss * 20] Points)<br>
-	<b>Rampant Diseases:</b> [score_disease] (-[score_disease * 30] Points)<br>
-	<b>AI Destroyed:</b> [score_deadaipenalty ? "Yes" : "No"] (-[score_deadaipenalty * 250] Points)<br><br>
+	<b>Dead bodies on Station:</b> [GLOB.score_deadcrew] (-[GLOB.score_deadcrew * 25] Points)<br>
+	<b>Uncleaned Messes:</b> [GLOB.score_mess] (-[GLOB.score_mess] Points)<br>
+	<b>Station Power Issues:</b> [GLOB.score_powerloss] (-[GLOB.score_powerloss * 20] Points)<br>
+	<b>Rampant Diseases:</b> [GLOB.score_disease] (-[GLOB.score_disease * 30] Points)<br>
+	<b>AI Destroyed:</b> [GLOB.score_deadaipenalty ? "Yes" : "No"] (-[GLOB.score_deadaipenalty * 250] Points)<br><br>
 	<U>The Weird</U><br>
 
-	<b>Food Eaten:</b> [score_foodeaten] bites/sips<br>
-	<b>Times a Clown was Abused:</b> [score_clownabuse]<br><br>
+	<b>Food Eaten:</b> [GLOB.score_foodeaten] bites/sips<br>
+	<b>Times a Clown was Abused:</b> [GLOB.score_clownabuse]<br><br>
 	"}
-	if(score_escapees)
-		dat += {"<b>Richest Escapee:</b> [score_richestname], [score_richestjob]: $[num2text(score_richestcash,50)] ([score_richestkey])<br>
-		<b>Most Battered Escapee:</b> [score_dmgestname], [score_dmgestjob]: [score_dmgestdamage] damage ([score_dmgestkey])<br>"}
+	if(GLOB.score_escapees)
+		dat += {"<b>Richest Escapee:</b> [GLOB.score_richestname], [GLOB.score_richestjob]: $[num2text(GLOB.score_richestcash,50)] ([GLOB.score_richestkey])<br>
+		<b>Most Battered Escapee:</b> [GLOB.score_dmgestname], [GLOB.score_dmgestjob]: [GLOB.score_dmgestdamage] damage ([GLOB.score_dmgestkey])<br>"}
 	else
 		if(SSshuttle.emergency.mode <= SHUTTLE_STRANDED)
 			dat += "The station wasn't evacuated!<br>"
@@ -212,11 +212,11 @@
 
 	dat += {"
 	<hr><br>
-	<b><u>FINAL SCORE: [score_crewscore]</u></b><br>
+	<b><u>FINAL SCORE: [GLOB.score_crewscore]</u></b><br>
 	"}
 
 	var/score_rating = "The Aristocrats!"
-	switch(score_crewscore)
+	switch(GLOB.score_crewscore)
 		if(-99999 to -50000) score_rating = "Even the Singularity Deserves Better"
 		if(-49999 to -5000) score_rating = "Singularity Fodder"
 		if(-4999 to -1000) score_rating = "You're All Fired"

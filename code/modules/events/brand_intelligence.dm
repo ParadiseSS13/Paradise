@@ -14,7 +14,7 @@
 									 "You don't want to buy anything? Yeah, well I didn't want to buy your mom either.")
 
 /datum/event/brand_intelligence/announce()
-	event_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
+	GLOB.event_announcement.Announce("Rampant brand intelligence has been detected aboard [station_name()], please stand-by. The origin is believed to be \a [originMachine.name].", "Machine Learning Alert")
 
 /datum/event/brand_intelligence/start()
 	for(var/obj/machinery/vending/V in GLOB.machines)

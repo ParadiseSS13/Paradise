@@ -269,7 +269,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
@@ -837,7 +837,7 @@
 // remains : set to leave broken pipe pieces in place
 /obj/structure/disposalpipe/proc/broken(remains = 0)
 	if(remains)
-		for(var/D in cardinal)
+		for(var/D in GLOB.cardinal)
 			if(D & dpdir)
 				var/obj/structure/disposalpipe/broken/P = new(src.loc)
 				P.setDir(D)
@@ -1370,7 +1370,7 @@
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))
 	else
-		dirs = alldirs.Copy()
+		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)
 
@@ -1379,6 +1379,6 @@
 	if(direction)
 		dirs = list( direction, turn(direction, -45), turn(direction, 45))
 	else
-		dirs = alldirs.Copy()
+		dirs = GLOB.alldirs.Copy()
 
 	src.streak(dirs)

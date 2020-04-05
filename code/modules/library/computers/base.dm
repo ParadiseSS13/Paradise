@@ -47,7 +47,7 @@
 	var/sql = "SELECT id, author, title, category, ckey, flagged FROM [format_table_name("library")] [searchquery] LIMIT [(page_num - 1) * LIBRARY_BOOKS_PER_PAGE], [LIBRARY_BOOKS_PER_PAGE]"
 
 	// Pagination
-	var/DBQuery/_query = dbcon.NewQuery(sql)
+	var/DBQuery/_query = GLOB.dbcon.NewQuery(sql)
 	_query.Execute()
 	if(_query.ErrorMsg())
 		log_world(_query.ErrorMsg())
@@ -69,7 +69,7 @@
 /obj/machinery/computer/library/proc/get_num_results()
 	var/sql = "SELECT COUNT(*) FROM [format_table_name("library")]"
 
-	var/DBQuery/_query = dbcon.NewQuery(sql)
+	var/DBQuery/_query = GLOB.dbcon.NewQuery(sql)
 	_query.Execute()
 	while(_query.NextRow())
 		return text2num(_query.item[1])
@@ -90,4 +90,4 @@
 	return pagelist
 
 /obj/machinery/computer/library/proc/getBookByID(var/id as text)
-	return library_catalog.getBookByID(id)
+	return GLOB.library_catalog.getBookByID(id)

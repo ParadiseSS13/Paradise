@@ -97,9 +97,9 @@
 		var/obj/effect/particle_effect/smoke/S = new effect_type(location)
 		if(!direction)
 			if(cardinals)
-				S.direction = pick(cardinal)
+				S.direction = pick(GLOB.cardinal)
 			else
-				S.direction = pick(alldirs)
+				S.direction = pick(GLOB.alldirs)
 		else
 			S.direction = direction
 		S.steps = pick(0,1,1,1,2,2,2,3)

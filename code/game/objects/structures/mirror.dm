@@ -135,13 +135,13 @@
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")
-					voice_mutation = COMICBLOCK
+					voice_mutation = GLOB.comicblock
 				if("Wingdings")
-					voice_mutation = WINGDINGSBLOCK
+					voice_mutation = GLOB.wingdingsblock
 				if("Swedish")
-					voice_mutation = SWEDEBLOCK
+					voice_mutation = GLOB.swedeblock
 				if("Chav")
-					voice_mutation = CHAVBLOCK
+					voice_mutation = GLOB.chavblock
 			if(voice_mutation)
 				if(H.dna.GetSEState(voice_mutation))
 					H.dna.SetSEState(voice_mutation, FALSE)

@@ -32,9 +32,9 @@
 
 /datum/species/grey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
-	H.dna.SetSEState(REMOTETALKBLOCK, !remove, 1)
-	genemutcheck(H, REMOTETALKBLOCK, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(REMOTETALKBLOCK)
+	H.dna.SetSEState(GLOB.remotetalkblock, !remove, 1)
+	genemutcheck(H, GLOB.remotetalkblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.remotetalkblock)
 
 /datum/species/grey/water_act(mob/living/carbon/human/H, volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()

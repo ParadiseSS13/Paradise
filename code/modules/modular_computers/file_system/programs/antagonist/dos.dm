@@ -51,7 +51,7 @@
 		return 1
 	switch(href_list["action"])
 		if("PRG_target_relay")
-			for(var/obj/machinery/ntnet_relay/R in ntnet_global.relays)
+			for(var/obj/machinery/ntnet_relay/R in GLOB.ntnet_global.relays)
 				if("[R.uid]" == href_list["targid"])
 					target = R
 			return 1
@@ -66,14 +66,14 @@
 			if(target)
 				executed = 1
 				target.dos_sources.Add(src)
-				if(ntnet_global.intrusion_detection_enabled)
+				if(GLOB.ntnet_global.intrusion_detection_enabled)
 					var/obj/item/computer_hardware/network_card/network_card = computer.all_components[MC_NET]
-					ntnet_global.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
-					ntnet_global.intrusion_detection_alarm = 1
+					GLOB.ntnet_global.add_log("IDS WARNING - Excess traffic flood targeting relay [target.uid] detected from device: [network_card.get_network_tag()]")
+					GLOB.ntnet_global.intrusion_detection_alarm = 1
 			return 1
 
 /datum/computer_file/program/ntnet_dos/ui_data(mob/user)
-	if(!ntnet_global)
+	if(!GLOB.ntnet_global)
 		return
 
 	var/list/data = get_header_data()
@@ -96,7 +96,7 @@
 			data["dos_strings"] += list(list("nums" = string))
 	else
 		data["relays"] = list()
-		for(var/obj/machinery/ntnet_relay/R in ntnet_global.relays)
+		for(var/obj/machinery/ntnet_relay/R in GLOB.ntnet_global.relays)
 			data["relays"] += list(list("id" = R.uid))
 		data["focus"] = target ? target.uid : null
 

@@ -49,20 +49,20 @@
 					if(auth_need - authorized.len > 0)
 						message_admins("[key_name_admin(user)] has authorized early shuttle launch.")
 						log_game("[key_name(user)] has authorized early shuttle launch in ([x], [y], [z]).")
-						minor_announcement.Announce("[auth_need - authorized.len] more authorization(s) needed until shuttle is launched early")
+						GLOB.minor_announcement.Announce("[auth_need - authorized.len] more authorization(s) needed until shuttle is launched early")
 					else
 						message_admins("[key_name_admin(user)] has launched the emergency shuttle [seconds] seconds before launch.")
 						log_game("[key_name(user)] has launched the emergency shuttle in ([x], [y], [z]) [seconds] seconds before launch.")
-						minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
+						GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds")
 						SSshuttle.emergency.setTimer(100)
 
 			if("Repeal")
 				if(authorized.Remove(W:registered_name))
-					minor_announcement.Announce("[auth_need - authorized.len] authorizations needed until shuttle is launched early")
+					GLOB.minor_announcement.Announce("[auth_need - authorized.len] authorizations needed until shuttle is launched early")
 
 			if("Abort")
 				if(authorized.len)
-					minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
+					GLOB.minor_announcement.Announce("All authorizations to launch the shuttle early have been revoked.")
 					authorized.Cut()
 
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
@@ -70,7 +70,7 @@
 		var/time = SSshuttle.emergency.timeLeft()
 		message_admins("[key_name_admin(user)] has emagged the emergency shuttle: [time] seconds before launch.")
 		log_game("[key_name(user)] has emagged the emergency shuttle in ([x], [y], [z]): [time] seconds before launch.")
-		minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
+		GLOB.minor_announcement.Announce("The emergency shuttle will launch in 10 seconds", "SYSTEM ERROR:")
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1
 
@@ -151,9 +151,9 @@
 	emergency_shuttle_called.Announce("The emergency shuttle has been called. [redAlert ? "Red Alert state confirmed: Dispatching priority shuttle. " : "" ]It will arrive in [timeLeft(600)] minutes.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nCall signal traced. Results can be viewed on any communications console." : "" ]")
 
 	if(reason == "Automatic Crew Transfer" && signalOrigin == null) // Best way we have to check that it's actually a crew transfer and not just a player using the same message- any other calls to this proc should have a signalOrigin.
-		atc.shift_ending()
+		GLOB.atc.shift_ending()
 	else // Emergency shuttle call (probably)
-		atc.reroute_traffic(yes = TRUE)
+		GLOB.atc.reroute_traffic(yes = TRUE)
 
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -252,7 +252,7 @@
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
-				priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
+				GLOB.priority_announcement.Announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
@@ -272,9 +272,9 @@
 				enterTransit()
 				mode = SHUTTLE_ESCAPE
 				timer = world.time
-				priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
+				GLOB.priority_announcement.Announce("The Emergency Shuttle has left the station. Estimate [timeLeft(600)] minutes until the shuttle docks at Central Command.")
 				for(var/mob/M in GLOB.player_list)
-					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in karma_spenders) && !M.get_preference(DISABLE_KARMA_REMINDER))
+					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(DISABLE_KARMA_REMINDER))
 						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
@@ -291,7 +291,7 @@
 				var/destination_dock = "emergency_away"
 				if(is_hijacked())
 					destination_dock = "emergency_syndicate"
-					priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
+					GLOB.priority_announcement.Announce("Corruption detected in shuttle navigation protocols. Please contact your supervisor.")
 
 				dock_id(destination_dock)
 

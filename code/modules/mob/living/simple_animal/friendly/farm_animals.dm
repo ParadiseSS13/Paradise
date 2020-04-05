@@ -210,7 +210,7 @@
 			qdel(src)
 
 #define MAX_CHICKENS 50
-var/global/chicken_count = 0
+GLOBAL_VAR_INIT(chicken_count, 0)
 
 /mob/living/simple_animal/chicken
 	name = "\improper chicken"
@@ -258,14 +258,14 @@ var/global/chicken_count = 0
 	icon_dead = "[icon_prefix]_[body_color]_dead"
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
-	chicken_count += 1
+	GLOB.chicken_count += 1
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
 	if(!.)
 		return
-	chicken_count -= 1
+	GLOB.chicken_count -= 1
 
 /mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
 	if(istype(O, food_type)) //feedin' dem chickens
@@ -290,7 +290,7 @@ var/global/chicken_count = 0
 		E.pixel_x = rand(-6,6)
 		E.pixel_y = rand(-6,6)
 		if(eggsFertile)
-			if(chicken_count < MAX_CHICKENS && prob(25))
+			if(GLOB.chicken_count < MAX_CHICKENS && prob(25))
 				START_PROCESSING(SSobj, E)
 
 /obj/item/reagent_containers/food/snacks/egg/var/amount_grown = 0

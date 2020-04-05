@@ -43,6 +43,8 @@
 		return 1
 	if(istype(check, /obj/item/grab))
 		return special_attack(check, user)
+	if(has_specials && checkSpecials(check))
+		return TRUE
 	to_chat(user, "<span class ='notice'>You can only process food!</span>")
 	return 0
 

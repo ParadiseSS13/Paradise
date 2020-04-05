@@ -1,7 +1,7 @@
-var/list/VVlocked = list("vars", "var_edited", "client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content") // R_DEBUG
-var/list/VVicon_edit_lock = list("icon", "icon_state", "overlays", "underlays", "resize") // R_EVENT | R_DEBUG
-var/list/VVckey_edit = list("key", "ckey") // R_EVENT | R_DEBUG
-var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y") // R_DEBUG + warning
+GLOBAL_LIST_INIT(VVlocked, list("vars", "var_edited", "client", "firemut", "ishulk", "telekinesis", "xray", "ka", "virus", "viruses", "cuffed", "last_eaten", "unlock_content")) // R_DEBUG
+GLOBAL_LIST_INIT(VVicon_edit_lock, list("icon", "icon_state", "overlays", "underlays", "resize")) // R_EVENT | R_DEBUG
+GLOBAL_LIST_INIT(VVckey_edit, list("key", "ckey")) // R_EVENT | R_DEBUG
+GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y")) // R_DEBUG + warning
 /client/proc/vv_get_class(var/var_value)
 	if(isnull(var_value))
 		. = VV_NULL
@@ -517,16 +517,16 @@ var/list/VVpixelmovement = list("step_x", "step_y", "step_size", "bound_height",
 	message_admins("[key_name_admin(src)] modified [original_name]'s varlist [objectvar]: [original_var]=[new_var]")
 
 /proc/vv_varname_lockcheck(param_var_name)
-	if(param_var_name in VVlocked)
+	if(param_var_name in GLOB.VVlocked)
 		if(!check_rights(R_DEBUG))
 			return FALSE
-	if(param_var_name in VVckey_edit)
+	if(param_var_name in GLOB.VVckey_edit)
 		if(!check_rights(R_EVENT | R_DEBUG))
 			return FALSE
-	if(param_var_name in VVicon_edit_lock)
+	if(param_var_name in GLOB.VVicon_edit_lock)
 		if(!check_rights(R_EVENT | R_DEBUG))
 			return FALSE
-	if(param_var_name in VVpixelmovement)
+	if(param_var_name in GLOB.VVpixelmovement)
 		if(!check_rights(R_DEBUG))
 			return FALSE
 		var/prompt = alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")

@@ -131,7 +131,7 @@
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
-	var/list/pickable_species = list("Human", "Tajaran", "Unathi", "Skrell", "Diona")
+	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE

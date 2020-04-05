@@ -1,21 +1,21 @@
-var/jobban_runonce			// Updates legacy bans with new info
-var/jobban_keylist[0]		// Linear list of jobban strings, kept around for the legacy system
-var/jobban_assoclist[0] // Associative list, for efficiency
+GLOBAL_VAR(jobban_runonce)			// Updates legacy bans with new info
+GLOBAL_LIST_INIT(jobban_keylist, new())		// Linear list of jobban strings, kept around for the legacy system
+GLOBAL_LIST_INIT(jobban_assoclist, new())  // Associative list, for efficiency
 
 // Matches string-based jobbans into ckey, rank, and reason groups
-var/regex/jobban_regex = regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## (.+))?")
+GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## (.+))?"))
 
 /proc/jobban_assoc_insert(ckey, rank, reason)
 	if(!ckey || !rank)
 		return
-	if(!jobban_assoclist[ckey])
-		jobban_assoclist[ckey] = list()
-	jobban_assoclist[ckey][rank] = reason || "Reason Unspecified"
+	if(!GLOB.jobban_assoclist[ckey])
+		GLOB.jobban_assoclist[ckey] = list()
+	GLOB.jobban_assoclist[ckey][rank] = reason || "Reason Unspecified"
 
 /proc/jobban_fullban(mob/M, rank, reason)
 	if(!M || !M.key)
 		return
-	jobban_keylist.Add(text("[M.ckey] - [rank] ## [reason]"))
+	GLOB.jobban_keylist.Add(text("[M.ckey] - [rank] ## [reason]"))
 	jobban_assoc_insert(M.ckey, rank, reason)
 	if(config.ban_legacy_system)
 		jobban_savebanfile()
@@ -23,7 +23,7 @@ var/regex/jobban_regex = regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## (.+))?")
 /proc/jobban_client_fullban(ckey, rank)
 	if(!ckey || !rank)
 		return
-	jobban_keylist.Add(text("[ckey] - [rank]"))
+	GLOB.jobban_keylist.Add(text("[ckey] - [rank]"))
 	jobban_assoc_insert(ckey, rank)
 	if(config.ban_legacy_system)
 		jobban_savebanfile()
@@ -37,8 +37,8 @@ var/regex/jobban_regex = regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## (.+))?")
 		if(IsGuestKey(M.key))
 			return "Guest Job-ban"
 
-	if(jobban_assoclist[M.ckey])
-		return jobban_assoclist[M.ckey][rank]
+	if(GLOB.jobban_assoclist[M.ckey])
+		return GLOB.jobban_assoclist[M.ckey][rank]
 	else
 		return 0
 
@@ -63,17 +63,17 @@ DEBUG
 /proc/jobban_loadbanfile()
 	if(config.ban_legacy_system)
 		var/savefile/S=new("data/job_full.ban")
-		S["keys[0]"] >> jobban_keylist
+		S["keys[0]"] >> GLOB.jobban_keylist
 		log_admin("Loading jobban_rank")
-		S["runonce"] >> jobban_runonce
+		S["runonce"] >> GLOB.jobban_runonce
 
-		if(!length(jobban_keylist))
-			jobban_keylist=list()
+		if(!length(GLOB.jobban_keylist))
+			GLOB.jobban_keylist=list()
 			log_admin("jobban_keylist was empty")
 
-		for(var/s in jobban_keylist)
-			if(jobban_regex.Find(s))
-				jobban_assoc_insert(jobban_regex.group[1], jobban_regex.group[2], jobban_regex.group[3])
+		for(var/s in GLOB.jobban_keylist)
+			if(GLOB.jobban_regex.Find(s))
+				jobban_assoc_insert(GLOB.jobban_regex.group[1], GLOB.jobban_regex.group[2], GLOB.jobban_regex.group[3])
 			else
 				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
 	else
@@ -84,10 +84,10 @@ DEBUG
 			return
 
 		//Job permabans
-		var/DBQuery/permabans = dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
+		var/DBQuery/permabans = GLOB.dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_PERMABAN' AND isnull(unbanned)")
 		permabans.Execute()
 		// Job tempbans
-		var/DBQuery/tempbans = dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
+		var/DBQuery/tempbans = GLOB.dbcon.NewQuery("SELECT ckey, job FROM [format_table_name("ban")] WHERE bantype = 'JOB_TEMPBAN' AND isnull(unbanned) AND expiration_time > Now()")
 		tempbans.Execute()
 
 		while(TRUE)
@@ -102,12 +102,12 @@ DEBUG
 			else
 				break
 
-			jobban_keylist.Add("[ckey] - [job]")
+			GLOB.jobban_keylist.Add("[ckey] - [job]")
 			jobban_assoc_insert(ckey, job)
 
 /proc/jobban_savebanfile()
 	var/savefile/S=new("data/job_full.ban")
-	S["keys[0]"] << jobban_keylist
+	S["keys[0]"] << GLOB.jobban_keylist
 
 /proc/jobban_unban(mob/M, rank)
 	jobban_remove("[M.ckey] - [rank]")
@@ -120,19 +120,19 @@ DEBUG
 
 
 /proc/jobban_remove(X)
-	for(var/i = 1; i <= length(jobban_keylist); i++)
-		if( findtext(jobban_keylist[i], "[X]") )
+	for(var/i = 1; i <= length(GLOB.jobban_keylist); i++)
+		if( findtext(GLOB.jobban_keylist[i], "[X]") )
 			// This need to be here, instead of jobban_unban, due to direct calls to jobban_remove
-			if(jobban_regex.Find(X))
-				var/ckey = jobban_regex.group[1]
-				var/rank = jobban_regex.group[2]
-				if(jobban_assoclist[ckey] && jobban_assoclist[ckey][rank])
-					jobban_assoclist[ckey] -= rank
+			if(GLOB.jobban_regex.Find(X))
+				var/ckey = GLOB.jobban_regex.group[1]
+				var/rank = GLOB.jobban_regex.group[2]
+				if(GLOB.jobban_assoclist[ckey] && GLOB.jobban_assoclist[ckey][rank])
+					GLOB.jobban_assoclist[ckey] -= rank
 				else
 					log_runtime(EXCEPTION("Attempted to remove non-existent job ban: [X]"))
 			else
 				log_runtime(EXCEPTION("Failed to remove malformed job ban from associative list: [X]"))
-			jobban_keylist.Remove(jobban_keylist[i])
+			GLOB.jobban_keylist.Remove(GLOB.jobban_keylist[i])
 			if(config.ban_legacy_system)
 				jobban_savebanfile()
 			return 1
@@ -152,7 +152,7 @@ DEBUG
 	else
 		//using the SQL ban system
 		var/is_actually_banned = FALSE
-		var/DBQuery/select_query = dbcon.NewQuery("SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
+		var/DBQuery/select_query = GLOB.dbcon.NewQuery("SELECT bantime, bantype, reason, job, duration, expiration_time, a_ckey FROM [format_table_name("ban")] WHERE ckey like '[ckey]' AND ((bantype like 'JOB_TEMPBAN' AND expiration_time > Now()) OR (bantype like 'JOB_PERMABAN')) AND isnull(unbanned) ORDER BY bantime DESC LIMIT 100")
 		select_query.Execute()
 
 		while(select_query.NextRow())

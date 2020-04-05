@@ -17,7 +17,7 @@
 	if(tname)
 		template_name = tname
 	if(template_name)
-		template = map_templates[template_name]
+		template = GLOB.map_templates[template_name]
 
 /obj/effect/landmark/map_loader/Initialize()
 	. = ..()
@@ -47,5 +47,5 @@
 	..()
 	if(template_list)
 		template_name = safepick(splittext(template_list, ";"))
-		template = map_templates[template_name]
+		template = GLOB.map_templates[template_name]
 		load(template)

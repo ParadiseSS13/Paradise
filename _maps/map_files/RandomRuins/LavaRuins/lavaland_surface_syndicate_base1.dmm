@@ -1789,7 +1789,6 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ed" = (
 /obj/structure/table,
-/obj/item/paper_bin,
 /obj/item/pen,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1803,6 +1802,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "ef" = (
@@ -1898,7 +1898,6 @@
 "ep" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper_bin,
 /obj/item/pen,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1912,6 +1911,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "eq" = (
@@ -6790,8 +6790,8 @@
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ov" = (
 /obj/structure/table/reinforced,
-/obj/item/paper_bin,
 /obj/item/pen,
+/obj/item/paper_bin/syndicate,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "ox" = (

@@ -71,6 +71,7 @@
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/shoes/sandal/white(src)

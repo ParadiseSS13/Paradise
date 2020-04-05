@@ -74,7 +74,7 @@
 	plants = list()
 	dna = list()
 
-var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien))
+GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/monkey,/mob/living/carbon/alien)))
 
 /obj/item/dna_probe/afterattack(atom/target, mob/user, proximity)
 	..()
@@ -95,7 +95,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
 
 	//animals
-	if(isanimal(target) || is_type_in_typecache(target, non_simple_animals))
+	if(isanimal(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
@@ -220,7 +220,7 @@ var/list/non_simple_animals = typecacheof(list(/mob/living/carbon/human/monkey,/
 	L += pick_n_take(possible_powers)
 	power_lottery[user] = L
 
-/obj/machinery/dna_vault/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state) //TODO Make it % bars maybe
+/obj/machinery/dna_vault/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state) //TODO Make it % bars maybe
 	var/list/data = list()
 	data["plants"] = plants.len
 	data["plants_max"] = plants_max

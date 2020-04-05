@@ -1,5 +1,5 @@
 
-var/turf/T
+//	var/turf/T | This was made 14th September 2013, and has no use at all. Its being removed
 
 /obj/item/grenade/bananade
 	name = "bananade"

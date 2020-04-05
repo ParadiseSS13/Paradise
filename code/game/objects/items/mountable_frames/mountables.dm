@@ -20,7 +20,7 @@
 		return
 	if(proximity_flag != 1) //if we aren't next to the wall
 		return
-	if(!( get_dir(on_wall,user) in cardinal))
+	if(!( get_dir(on_wall,user) in GLOB.cardinal))
 		to_chat(user, "<span class='warning'>You need to be standing next to a wall to place \the [src].</span>")
 		return
 

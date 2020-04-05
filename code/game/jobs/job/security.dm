@@ -149,7 +149,7 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(SOBERBLOCK,1)
+	H.dna.SetSEState(GLOB.soberblock,1)
 	H.mutations += SOBER
 	H.check_mutations = 1
 

@@ -8,10 +8,10 @@
 	var/datum/trade_destination/affected_dest
 
 /datum/event/economic_event/start()
-	if(!setup_economy)
+	if(!GLOB.setup_economy)
 		setup_economy()
 
-	affected_dest = pickweight(weighted_randomevent_locations)
+	affected_dest = pickweight(GLOB.weighted_randomevent_locations)
 	if(affected_dest.viable_random_events.len)
 		endWhen = rand(60,300)
 		event_type = pick(affected_dest.viable_random_events)
@@ -94,11 +94,11 @@
 			if(FESTIVAL)
 				newMsg.body = "A [pick("festival","week long celebration","day of revelry","planet-wide holiday")] has been declared on [affected_dest.name] by [pick("Governor","Commissioner","General","Commandant","Administrator")] [random_name(pick(MALE,FEMALE))] to celebrate [pick("the birth of their [pick("son","daughter")]","coming of age of their [pick("son","daughter")]","the pacification of rogue military cell","the apprehension of a violent criminal who had been terrorising the planet")]. Massive stocks of food and meat have been bought driving up prices across the planet."
 
-	for(var/datum/feed_channel/FC in news_network.network_channels)
+	for(var/datum/feed_channel/FC in GLOB.news_network.network_channels)
 		if(FC.channel_name == "Nyx Daily")
 			FC.messages += newMsg
 			break
-	for(var/obj/machinery/newscaster/NEWSCASTER in allCasters)
+	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allNewscasters)
 		NEWSCASTER.newsAlert("Nyx Daily")
 
 /datum/event/economic_event/end()

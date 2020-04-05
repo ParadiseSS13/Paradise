@@ -197,14 +197,14 @@
 							var/transfered = D.cell.give(E.e_cost)
 							D.on_recharge()
 							D.update_icon()
-							use_power(transfered * 12)
+							use_power(transfered * 1.6)
 						else
 							D.charge_tick = 0
 					if(istype(O,/obj/item/melee/baton))
 						var/obj/item/melee/baton/B = O
 						if(B.cell)
 							var/transfered = B.cell.give(B.cell.chargerate)
-							use_power(transfered * 12)
+							use_power(transfered * 1.6)
 					//Service
 					if(istype(O,/obj/item/reagent_containers/food/condiment/enzyme))
 						if(O.reagents.get_reagent_amount("enzyme") < 50)

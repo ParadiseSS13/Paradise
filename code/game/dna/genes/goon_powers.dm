@@ -9,7 +9,7 @@
 	mutation=SOBER
 
 /datum/dna/gene/basic/sober/New()
-	block=SOBERBLOCK
+	block=GLOB.soberblock
 
 //WAS: /datum/bioEffect/psychic_resist
 /datum/dna/gene/basic/psychic_resist
@@ -21,7 +21,7 @@
 	mutation=PSY_RESIST
 
 /datum/dna/gene/basic/psychic_resist/New()
-	block=PSYRESISTBLOCK
+	block=GLOB.psyresistblock
 
 /////////////////////////
 // Stealth Enhancers
@@ -51,7 +51,7 @@
 	mutation = CLOAK
 
 /datum/dna/gene/basic/stealth/darkcloak/New()
-	block=SHADOWBLOCK
+	block=GLOB.shadowblock
 
 /datum/dna/gene/basic/stealth/darkcloak/OnMobLife(var/mob/M)
 	var/turf/simulated/T = get_turf(M)
@@ -73,7 +73,7 @@
 	mutation = CHAMELEON
 
 /datum/dna/gene/basic/stealth/chameleon/New()
-		block=CHAMELEONBLOCK
+		block=GLOB.chameleonblock
 
 /datum/dna/gene/basic/stealth/chameleon/OnMobLife(var/mob/M)
 	if((world.time - M.last_movement) >= 30 && !M.stat && M.canmove && !M.restrained())
@@ -123,7 +123,7 @@
 
 /datum/dna/gene/basic/grant_spell/cryo/New()
 	..()
-	block = CRYOBLOCK
+	block = GLOB.cryoblock
 
 /obj/effect/proc_holder/spell/targeted/cryokinesis
 	name = "Cryokinesis"
@@ -215,7 +215,7 @@
 
 /datum/dna/gene/basic/grant_spell/mattereater/New()
 	..()
-	block = EATBLOCK
+	block = GLOB.eatblock
 
 /obj/effect/proc_holder/spell/targeted/eat
 	name = "Eat"
@@ -368,7 +368,7 @@
 
 /datum/dna/gene/basic/grant_spell/jumpy/New()
 	..()
-	block = JUMPBLOCK
+	block = GLOB.jumpblock
 
 /obj/effect/proc_holder/spell/targeted/leap
 	name = "Jump"
@@ -463,7 +463,7 @@
 
 /datum/dna/gene/basic/grant_spell/polymorph/New()
 	..()
-	block = POLYMORPHBLOCK
+	block = GLOB.polymorphblock
 
 /obj/effect/proc_holder/spell/targeted/polymorph
 	name = "Polymorph"
@@ -512,7 +512,7 @@
 
 /datum/dna/gene/basic/grant_spell/empath/New()
 	..()
-	block = EMPATHBLOCK
+	block = GLOB.empathblock
 
 /obj/effect/proc_holder/spell/targeted/empath
 	name = "Read Mind"

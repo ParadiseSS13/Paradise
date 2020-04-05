@@ -123,7 +123,7 @@
 	..()
 	spawn(1) // BYOND shenanigans means using_map is not initialized yet.  Wait a tick.
 		// Get rid of the current map from the list, so ships flying in don't say they're coming to the current map.
-		var/string_to_test = "[using_map.station_name] in [using_map.starsys_name]"
+		var/string_to_test = "[GLOB.using_map.station_name] in [GLOB.using_map.starsys_name]"
 		if(string_to_test in destination_names)
 			destination_names.Remove(string_to_test)
 

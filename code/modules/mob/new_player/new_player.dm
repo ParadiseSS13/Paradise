@@ -27,11 +27,11 @@
 		return TRUE
 
 	establish_db_connection()
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		tos_consent = TRUE
 		return TRUE
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT * FROM [format_table_name("privacy")] WHERE ckey='[src.ckey]' AND consent=1")
 	query.Execute()
 	while(query.NextRow())
 		tos_consent = TRUE
@@ -80,11 +80,11 @@
 	if(!IsGuestKey(src.key))
 		establish_db_connection()
 
-		if(dbcon.IsConnected() && client.can_vote())
+		if(GLOB.dbcon.IsConnected() && client.can_vote())
 			var/isadmin = 0
 			if(src.client && src.client.holder)
 				isadmin = 1
-			var/DBQuery/query = dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
+			var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[ckey]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[ckey]\")")
 			query.Execute()
 			var/newpoll = 0
 			while(query.NextRow())
@@ -111,13 +111,13 @@
 			stat("Game Mode:", "Secret")
 		else
 			if(SSticker.hide_mode == 0)
-				stat("Game Mode:", "[master_mode]") // Old setting for showing the game mode
+				stat("Game Mode:", "[GLOB.master_mode]") // Old setting for showing the game mode
 			else
 				stat("Game Mode: ", "Secret")
 
-		if((SSticker.current_state == GAME_STATE_PREGAME) && going)
+		if((SSticker.current_state == GAME_STATE_PREGAME) && SSticker.ticker_going)
 			stat("Time To Start:", round(SSticker.pregame_timeleft/10))
-		if((SSticker.current_state == GAME_STATE_PREGAME) && !going)
+		if((SSticker.current_state == GAME_STATE_PREGAME) && !SSticker.ticker_going)
 			stat("Time To Start:", "DELAYED")
 
 		if(SSticker.current_state == GAME_STATE_PREGAME)
@@ -143,7 +143,7 @@
 
 	if(href_list["consent_signed"])
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 1)")
 		query.Execute()
 		src << browse(null, "window=privacy_consent")
 		tos_consent = 1
@@ -152,7 +152,7 @@
 		tos_consent = 0
 		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
 		var/sqltime = time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
-		var/DBQuery/query = dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
+		var/DBQuery/query = GLOB.dbcon.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES ('[ckey]', '[sqltime]', 0)")
 		query.Execute()
 
 	if(href_list["show_preferences"])
@@ -232,7 +232,7 @@
 
 	if(href_list["SelectedJob"])
 
-		if(!enter_allowed)
+		if(!GLOB.enter_allowed)
 			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 			return
 
@@ -259,7 +259,6 @@
 	if(!job.is_position_available()) return 0
 	if(jobban_isbanned(src,rank))	return 0
 	if(!is_job_whitelisted(src, rank))	 return 0
-	if(!is_heads_whitelisted(src, rank))	 return 0
 	if(!job.player_old_enough(client))	return 0
 	if(job.admin_only && !(check_rights(R_EVENT, 0))) return 0
 	if(job.available_in_playtime(client))
@@ -305,7 +304,7 @@
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
 		to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
 		return 0
-	if(!enter_allowed)
+	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
 		return 0
 	if(!IsJobAvailable(rank))
@@ -339,25 +338,25 @@
 
 	if(IsAdminJob(rank))
 		if(IsERTSpawnJob(rank))
-			character.loc = pick(ertdirector)
+			character.loc = pick(GLOB.ertdirector)
 		else if(IsSyndicateCommand(rank))
-			character.loc = pick(syndicateofficer)
+			character.loc = pick(GLOB.syndicateofficer)
 		else
-			character.forceMove(pick(aroomwarp))
+			character.forceMove(pick(GLOB.aroomwarp))
 		join_message = "has arrived"
 	else
 		if(spawning_at)
-			S = spawntypes[spawning_at]
+			S = GLOB.spawntypes[spawning_at]
 		if(S && istype(S))
 			if(S.check_job_spawning(rank))
 				character.forceMove(pick(S.turfs))
 				join_message = S.msg
 			else
 				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
-				character.forceMove(pick(latejoin))
+				character.forceMove(pick(GLOB.latejoin))
 				join_message = "has arrived on the station"
 		else
-			character.forceMove(pick(latejoin))
+			character.forceMove(pick(GLOB.latejoin))
 			join_message = "has arrived on the station"
 
 	character.lastarea = get_area(loc)
@@ -376,7 +375,7 @@
 	else
 		SSticker.minds += character.mind//Cyborgs and AIs handle this in the transform proc.	//TODO!!!!! ~Carn
 		if(!IsAdminJob(rank))
-			data_core.manifest_inject(character)
+			GLOB.data_core.manifest_inject(character)
 			AnnounceArrival(character, rank, join_message)
 			AddEmploymentContract(character)
 
@@ -413,12 +412,11 @@
 				if((character.mind.assigned_role != "Cyborg") && (character.mind.assigned_role != character.mind.special_role))
 					if(character.mind.role_alt_title)
 						rank = character.mind.role_alt_title
-					global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
-					call(/mob/new_player/proc/start_player)(character)
+					GLOB.global_announcer.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/AddEmploymentContract(mob/living/carbon/human/employee)
 	spawn(30)
-		for(var/C in employmentCabinets)
+		for(var/C in GLOB.employmentCabinets)
 			var/obj/structure/filingcabinet/employment/employmentCabinet = C
 			if(!employmentCabinet.virgin)
 				employmentCabinet.addFile(employee)
@@ -438,7 +436,7 @@
 			if(character.mind)
 				if(character.mind.assigned_role != character.mind.special_role)
 					// can't use their name here, since cyborg namepicking is done post-spawn, so we'll just say "A new Cyborg has arrived"/"A new Android has arrived"/etc.
-					global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
+					GLOB.global_announcer.autosay("A new[rank ? " [rank]" : " visitor" ] [join_message ? join_message : "has arrived on the station"].", "Arrivals Announcement Computer")
 
 /mob/new_player/proc/LateChoices()
 	var/mills = ROUND_TIME // 1/10 of a second, not real milliseconds but whatever
@@ -469,15 +467,15 @@
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
-		"Command" = list(jobs = list(), titles = command_positions, color = "#aac1ee"),
-		"Engineering" = list(jobs = list(), titles = engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = security_positions, color = "#ff9999"),
+		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
+		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
+		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
 		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
-		"Synthetic" = list(jobs = list(), titles = nonhuman_positions, color = "#ccffcc"),
-		"Support / Service" = list(jobs = list(), titles = service_positions, color = "#cccccc"),
-		"Medical" = list(jobs = list(), titles = medical_positions, color = "#99ffe6", colBreak = 1),
-		"Science" = list(jobs = list(), titles = science_positions, color = "#e6b3e6"),
-		"Supply" = list(jobs = list(), titles = supply_positions, color = "#ead4ae"),
+		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
+		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
+		"Medical" = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
+		"Science" = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
+		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
@@ -497,7 +495,7 @@
 						else
 							jobs += job
 					else // Put heads at top of non-command jobs
-						if(job.title in command_positions)
+						if(job.title in GLOB.command_positions)
 							jobs.Insert(1, job)
 						else
 							jobs += job
@@ -586,7 +584,7 @@
 /mob/new_player/proc/ViewManifest()
 	var/dat = "<html><body>"
 	dat += "<h4>Crew Manifest</h4>"
-	dat += data_core.get_manifest(OOC = 1)
+	dat += GLOB.data_core.get_manifest(OOC = 1)
 
 	src << browse(dat, "window=manifest;size=370x420;can_close=1")
 

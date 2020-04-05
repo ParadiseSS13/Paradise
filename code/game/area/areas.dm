@@ -33,7 +33,7 @@
 	var/static_equip
 	var/static_light = FALSE
 	var/static_environ
-	
+
 	var/has_gravity = TRUE
 	var/list/apc = list()
 	var/no_air = null
@@ -110,7 +110,7 @@
 
 /area/proc/reg_in_areas_in_z()
 	if(contents.len)
-		var/list/areas_in_z = space_manager.areas_in_z
+		var/list/areas_in_z = GLOB.space_manager.areas_in_z
 		var/z
 		for(var/i in 1 to contents.len)
 			var/atom/thing = contents[i]
@@ -155,9 +155,9 @@
 		for(var/obj/machinery/alarm/AA in src)
 			AA.update_icon()
 
-		air_alarm_repository.update_cache(src)
+		GLOB.air_alarm_repository.update_cache(src)
 		return 1
-	air_alarm_repository.update_cache(src)
+	GLOB.air_alarm_repository.update_cache(src)
 	return 0
 
 /area/proc/air_doors_close()

@@ -88,6 +88,7 @@
 	name = "advanced pinpointer"
 	desc = "A larger version of the normal pinpointer, this unit features a helpful quantum entanglement detection system to locate various objects that do not broadcast a locator signal."
 	var/mode = 0  // Mode 0 locates disk, mode 1 locates coordinates.
+	var/modelocked = FALSE // If true, user cannot change mode.
 	var/turf/location = null
 	var/obj/target = null
 
@@ -119,6 +120,10 @@
 	set src in usr
 
 	if(usr.stat || usr.restrained())
+		return
+
+	if(modelocked)
+		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
 	active = 0
@@ -156,7 +161,7 @@
 				if("Item")
 					var/list/item_names[0]
 					var/list/item_paths[0]
-					for(var/objective in potential_theft_objectives)
+					for(var/objective in GLOB.potential_theft_objectives)
 						var/datum/theft_objective/T = objective
 						var/name = initial(T.name)
 						item_names += name
@@ -215,7 +220,7 @@
 	if(mode)		//Check in case the mode changes while operating
 		worklocation()
 		return
-	if(bomb_set)	//If the bomb is set, lead to the shuttle
+	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
 		mode = 1	//Ensures worklocation() continues to work
 		worklocation()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
@@ -244,7 +249,7 @@
 	if(!mode)
 		workdisk()
 		return
-	if(!bomb_set)
+	if(!GLOB.bomb_set)
 		mode = 0
 		workdisk()
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)

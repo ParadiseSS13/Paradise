@@ -1,6 +1,7 @@
-var/list/preferences_datums = list()
+GLOBAL_LIST_EMPTY(preferences_datums)
+GLOBAL_PROTECT(preferences_datums) // These feel like something that shouldnt be fucked with
 
-var/global/list/special_role_times = list( //minimum age (in days) for accounts to play these roles
+GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts to play these roles
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 0,
 	ROLE_GUARDIAN = 0,
@@ -24,7 +25,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30,
 	ROLE_DEVIL = 14
-)
+))
 
 /proc/player_old_enough_antag(client/C, role)
 	if(available_in_days_antag(C, role))
@@ -42,7 +43,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return 0
 	if(!isnum(C.player_age))
 		return 0 //This is only a number if the db connection is established, otherwise it is text: "Requires database", meaning these restrictions cannot be enforced
-	var/minimal_player_age_antag = special_role_times[num2text(role)]
+	var/minimal_player_age_antag = GLOB.special_role_times[num2text(role)]
 	if(!isnum(minimal_player_age_antag))
 		return 0
 
@@ -55,8 +56,8 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		return max(0, days - C.player_age)
 	return 0
 
-#define MAX_SAVE_SLOTS 20 // Save slots for regular players
-#define MAX_SAVE_SLOTS_MEMBER 20 // Save slots for BYOND members
+#define MAX_SAVE_SLOTS 30 // Save slots for regular players
+#define MAX_SAVE_SLOTS_MEMBER 30 // Save slots for BYOND members
 
 #define TAB_CHAR 0
 #define TAB_GAME 1
@@ -343,11 +344,11 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				dat += "<b>Eyes:</b> "
 				dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Color</a> [color_square(e_colour)]<br>"
 
-			if((S.bodyflags & HAS_SKIN_COLOR) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
+			if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user)) //admins can always fuck with this, because they are admins
 				dat += "<b>Body Color:</b> "
 				dat += "<a href='?_src_=prefs;preference=skin;task=input'>Color</a> [color_square(s_colour)]<br>"
 
-			if(body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
+			if(GLOB.body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 				dat += "<b>Body Accessory:</b> "
 				dat += "<a href='?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
 
@@ -413,10 +414,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				switch(status)
 					if("cyborg")
 						var/datum/robolimb/R
-						if(rlimb_data[name] && all_robolimbs[rlimb_data[name]])
-							R = all_robolimbs[rlimb_data[name]]
+						if(rlimb_data[name] && GLOB.all_robolimbs[rlimb_data[name]])
+							R = GLOB.all_robolimbs[rlimb_data[name]]
 						else
-							R = basic_robolimb
+							R = GLOB.basic_robolimb
 						dat += "\t[R.company] [organ_name] prosthesis"
 					if("amputated")
 						dat += "\tAmputated [organ_name]"
@@ -461,7 +462,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<b>Ghost Sight:</b> <a href='?_src_=prefs;preference=ghost_sight'><b>[(toggles & CHAT_GHOSTSIGHT) ? "All Emotes" : "Nearest Creatures"]</b></a><br>"
 			dat += "<b>Ghost PDA:</b> <a href='?_src_=prefs;preference=ghost_pda'><b>[(toggles & CHAT_GHOSTPDA) ? "All PDA Messages" : "No PDA Messages"]</b></a><br>"
 			if(check_rights(R_ADMIN,0))
-				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
+				dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'><b>Change</b></a><br>"
 			if(config.allow_Metadata)
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
@@ -509,7 +510,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			var/list/type_blacklist = list()
 			if(gear && gear.len)
 				for(var/i = 1, i <= gear.len, i++)
-					var/datum/gear/G = gear_datums[gear[i]]
+					var/datum/gear/G = GLOB.gear_datums[gear[i]]
 					if(G)
 						if(!G.subtype_cost_overlap)
 							if(G.subtype_path in type_blacklist)
@@ -525,7 +526,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			dat += "<tr><td colspan=4><center><b>"
 
 			var/firstcat = 1
-			for(var/category in loadout_categories)
+			for(var/category in GLOB.loadout_categories)
 				if(firstcat)
 					firstcat = 0
 				else
@@ -536,7 +537,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					dat += " <a href='?_src_=prefs;preference=gear;select_category=[category]'>[category]</a> "
 			dat += "</b></center></td></tr>"
 
-			var/datum/loadout_category/LC = loadout_categories[gear_tab]
+			var/datum/loadout_category/LC = GLOB.loadout_categories[gear_tab]
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			dat += "<tr><td colspan=4><b><center>[LC.category]</center></b></td></tr>"
 			dat += "<tr><td colspan=4><hr></td></tr>"
@@ -654,7 +655,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		if((job_support_low & JOB_CIVILIAN) && (rank != "Civilian"))
 			HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 			continue
-		if((rank in command_positions) || (rank == "AI"))//Bold head jobs
+		if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
 			HTML += "<b><span class='dark'>[rank]</span></b>"
 		else
 			HTML += "<span class='dark'>[rank]</span>"
@@ -1160,14 +1161,14 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
-			var/datum/gear/TG = gear_datums[href_list["toggle_gear"]]
+			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
 			if(TG.display_name in gear)
 				gear -= TG.display_name
 			else
 				var/total_cost = 0
 				var/list/type_blacklist = list()
 				for(var/gear_name in gear)
-					var/datum/gear/G = gear_datums[gear_name]
+					var/datum/gear/G = GLOB.gear_datums[gear_name]
 					if(istype(G))
 						if(!G.subtype_cost_overlap)
 							if(G.subtype_path in type_blacklist)
@@ -1179,7 +1180,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 					gear += TG.display_name
 
 		else if(href_list["gear"] && href_list["tweak"])
-			var/datum/gear/gear = gear_datums[href_list["gear"]]
+			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
 			var/datum/gear_tweak/tweak = locate(href_list["tweak"])
 			if(!tweak || !istype(gear) || !(tweak in gear.gear_tweaks))
 				return
@@ -1200,7 +1201,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 			var/datum/robolimb/robohead
 			if(S.bodyflags & ALL_RPARTS)
 				var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
-				robohead = all_robolimbs[head_model]
+				robohead = GLOB.all_robolimbs[head_model]
 			switch(href_list["preference"])
 				if("name")
 					real_name = random_name(gender,species)
@@ -1318,7 +1319,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 						var/datum/robolimb/robohead
 						if(NS.bodyflags & ALL_RPARTS)
 							var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
-							robohead = all_robolimbs[head_model]
+							robohead = GLOB.all_robolimbs[head_model]
 						//grab one of the valid hair styles for the newly chosen species
 						h_style = random_hair_style(gender, species, robohead)
 
@@ -1451,7 +1452,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								head_model = "Morpheus Cyberkinetics"
 							else
 								head_model = rlimb_data["head"]
-							var/datum/robolimb/robohead = all_robolimbs[head_model]
+							var/datum/robolimb/robohead = GLOB.all_robolimbs[head_model]
 							if((species in SA.species_allowed) && robohead.is_monitor && ((SA.models_allowed && (robohead.company in SA.models_allowed)) || !SA.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 								valid_hairstyles += hairstyle //Give them their hairstyles if they do.
 							else
@@ -1534,7 +1535,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 									head_model = "Morpheus Cyberkinetics"
 								else
 									head_model = rlimb_data["head"]
-								var/datum/robolimb/robohead = all_robolimbs[head_model]
+								var/datum/robolimb/robohead = GLOB.all_robolimbs[head_model]
 								if(robohead.is_monitor && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
 									continue
 								else if(!robohead.is_monitor && M.name != "None") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
@@ -1611,10 +1612,10 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 				if("body_accessory")
 					var/list/possible_body_accessories = list()
 					if(check_rights(R_ADMIN, 1, user))
-						possible_body_accessories = body_accessory_by_name.Copy()
+						possible_body_accessories = GLOB.body_accessory_by_name.Copy()
 					else
-						for(var/B in body_accessory_by_name)
-							var/datum/body_accessory/accessory = body_accessory_by_name[B]
+						for(var/B in GLOB.body_accessory_by_name)
+							var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
 							if(!istype(accessory))
 								possible_body_accessories += "None" //the only null entry should be the "None" option
 								continue
@@ -1658,7 +1659,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 								head_model = "Morpheus Cyberkinetics"
 							else
 								head_model = rlimb_data["head"]
-							var/datum/robolimb/robohead = all_robolimbs[head_model]
+							var/datum/robolimb/robohead = GLOB.all_robolimbs[head_model]
 							if((species in SA.species_allowed) && robohead.is_monitor && ((SA.models_allowed && (robohead.company in SA.models_allowed)) || !SA.models_allowed)) //If this is a facial hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
 								valid_facial_hairstyles += facialhairstyle //Give them their facial hairstyles if they do.
 							else
@@ -1748,7 +1749,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							s_tone = max(min(round(skin_c), S.icon_skin_tones.len), 1)
 
 				if("skin")
-					if((S.bodyflags & HAS_SKIN_COLOR) || body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
+					if((S.bodyflags & HAS_SKIN_COLOR) || GLOB.body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 						var/new_skin = input(user, "Choose your character's skin colour: ", "Character Preference", s_colour) as color|null
 						if(new_skin)
 							s_colour = new_skin
@@ -1867,7 +1868,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 							if(!choice)
 								return
 							R.company = choice
-							R = all_robolimbs[R.company]
+							R = GLOB.all_robolimbs[R.company]
 							if(R.has_subtypes == 1) //If the company the user selected provides more than just one base model, lets handle it.
 								var/list/robolimb_models = list()
 								for(var/limb_type in typesof(R)) //Handling the different models of parts that manufacturers can provide.
@@ -2206,7 +2207,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 		character.m_styles = m_styles
 
 	if(body_accessory)
-		character.body_accessory = body_accessory_by_name["[body_accessory]"]
+		character.body_accessory = GLOB.body_accessory_by_name["[body_accessory]"]
 
 	character.backbag = backbag
 
@@ -2219,53 +2220,53 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 	character.change_eye_color(e_colour)
 
 	if(disabilities & DISABILITY_FLAG_FAT && (CAN_BE_FAT in character.dna.species.species_traits))
-		character.dna.SetSEState(FATBLOCK, TRUE, TRUE)
+		character.dna.SetSEState(GLOB.fatblock, TRUE, TRUE)
 		character.overeatduration = 600
-		character.dna.default_blocks.Add(FATBLOCK)
+		character.dna.default_blocks.Add(GLOB.fatblock)
 
 	if(disabilities & DISABILITY_FLAG_NEARSIGHTED)
-		character.dna.SetSEState(GLASSESBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(GLASSESBLOCK)
+		character.dna.SetSEState(GLOB.glassesblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.glassesblock)
 
 	if(disabilities & DISABILITY_FLAG_BLIND)
-		character.dna.SetSEState(BLINDBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(BLINDBLOCK)
+		character.dna.SetSEState(GLOB.blindblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.blindblock)
 
 	if(disabilities & DISABILITY_FLAG_DEAF)
-		character.dna.SetSEState(DEAFBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(DEAFBLOCK)
+		character.dna.SetSEState(GLOB.deafblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.deafblock)
 
 	if(disabilities & DISABILITY_FLAG_COLOURBLIND)
-		character.dna.SetSEState(COLOURBLINDBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(COLOURBLINDBLOCK)
+		character.dna.SetSEState(GLOB.colourblindblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.colourblindblock)
 
 	if(disabilities & DISABILITY_FLAG_MUTE)
-		character.dna.SetSEState(MUTEBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(MUTEBLOCK)
+		character.dna.SetSEState(GLOB.muteblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.muteblock)
 
 	if(disabilities & DISABILITY_FLAG_NERVOUS)
-		character.dna.SetSEState(NERVOUSBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(NERVOUSBLOCK)
+		character.dna.SetSEState(GLOB.nervousblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.nervousblock)
 
 	if(disabilities & DISABILITY_FLAG_SWEDISH)
-		character.dna.SetSEState(SWEDEBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(SWEDEBLOCK)
+		character.dna.SetSEState(GLOB.swedeblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.swedeblock)
 
 	if(disabilities & DISABILITY_FLAG_CHAV)
-		character.dna.SetSEState(CHAVBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(CHAVBLOCK)
+		character.dna.SetSEState(GLOB.chavblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.chavblock)
 
 	if(disabilities & DISABILITY_FLAG_LISP)
-		character.dna.SetSEState(LISPBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(LISPBLOCK)
+		character.dna.SetSEState(GLOB.lispblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.lispblock)
 
 	if(disabilities & DISABILITY_FLAG_DIZZY)
-		character.dna.SetSEState(DIZZYBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(DIZZYBLOCK)
+		character.dna.SetSEState(GLOB.dizzyblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.dizzyblock)
 
 	if(disabilities & DISABILITY_FLAG_WINGDINGS && (CAN_WINGDINGS in character.dna.species.species_traits))
-		character.dna.SetSEState(WINGDINGSBLOCK, TRUE, TRUE)
-		character.dna.default_blocks.Add(WINGDINGSBLOCK)
+		character.dna.SetSEState(GLOB.wingdingsblock, TRUE, TRUE)
+		character.dna.default_blocks.Add(GLOB.wingdingsblock)
 
 	character.dna.species.handle_dna(character)
 
@@ -2284,7 +2285,7 @@ var/global/list/special_role_times = list( //minimum age (in days) for accounts 
 
 /datum/preferences/proc/open_load_dialog(mob/user)
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT slot,real_name FROM [format_table_name("characters")] WHERE ckey='[user.ckey]' ORDER BY slot")
 	var/list/slotnames[max_save_slots]
 
 	if(!query.Execute())

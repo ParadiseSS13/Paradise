@@ -1,7 +1,7 @@
 //HONKsquad
 
 #define HONKSQUAD_POSSIBLE 6 //if more Commandos are needed in the future
-var/global/sent_honksquad = 0
+GLOBAL_VAR_INIT(sent_honksquad, 0)
 
 /client/proc/honksquad()
 	if(!SSticker)
@@ -10,7 +10,7 @@ var/global/sent_honksquad = 0
 	if(world.time < 6000)
 		to_chat(usr, "<font color='red'>There are [(6000-world.time)/10] seconds remaining before it may be called.</font>")
 		return
-	if(sent_honksquad == 1)
+	if(GLOB.sent_honksquad == 1)
 		to_chat(usr, "<font color='red'>Clown Planet has already dispatched a HONKsquad.</font>")
 		return
 	if(alert("Do you want to send in the HONKsquad? Once enabled, this is irreversible.",,"Yes","No")!="Yes")
@@ -24,11 +24,11 @@ var/global/sent_honksquad = 0
 			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
 				return
 
-	if(sent_honksquad)
+	if(GLOB.sent_honksquad)
 		to_chat(usr, "Looks like someone beat you to it. HONK.")
 		return
 
-	sent_honksquad = 1
+	GLOB.sent_honksquad = 1
 
 
 	var/honksquad_number = HONKSQUAD_POSSIBLE //for selecting a leader

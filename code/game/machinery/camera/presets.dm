@@ -74,7 +74,7 @@
 	assembly.upgrades.Add(new /obj/item/analyzer(assembly))
 	setPowerUsage()
 	//Update what it can see.
-	cameranet.updateVisibility(src, 0)
+	GLOB.cameranet.updateVisibility(src, 0)
 
 // If you are upgrading Motion, and it isn't in the camera's New(), add it to the machines list.
 /obj/machinery/camera/proc/upgradeMotion()

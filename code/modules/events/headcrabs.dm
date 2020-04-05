@@ -14,7 +14,7 @@
 /datum/event/headcrabs/start()
 	var/list/availableareas = list()
 	for(var/area/maintenance/A in world)
-		availableareas += A	
+		availableareas += A
 	var/area/randomarea = pick(availableareas)
 	var/list/turf/simulated/floor/turfs = list()
 	for(var/turf/simulated/floor/F in randomarea)
@@ -23,7 +23,7 @@
 	var/list/spawn_types = list()
 	var/max_number
 	headcrab_type = rand(0, 5)
-	switch(headcrab_type) 
+	switch(headcrab_type)
 		if(HEADCRAB_NORMAL)
 			spawn_types = list(/mob/living/simple_animal/hostile/headcrab)
 			max_number = 6
@@ -55,7 +55,7 @@
 
 
 /datum/event/headcrabs/announce()
-	event_announcement.Announce("Bioscans indicate that headcrabs have been breeding on the station. Clear them out, before this starts to affect productivity", "Lifesign Alert")
+	GLOB.event_announcement.Announce("Bioscans indicate that headcrabs have been breeding on the station. Clear them out, before this starts to affect productivity", "Lifesign Alert")
 
 #undef HEADCRAB_NORMAL
 #undef HEADCRAB_FASTMIX

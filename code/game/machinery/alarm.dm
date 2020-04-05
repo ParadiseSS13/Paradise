@@ -227,7 +227,7 @@
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
-	air_alarm_repository.update_cache(src)
+	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
 	if(alarm_area && alarm_area.master_air_alarm == src)
 		alarm_area.master_air_alarm = null
@@ -241,7 +241,7 @@
 	if(name == "alarm")
 		name = "[alarm_area.name] Air Alarm"
 	apply_preset(1) // Don't cycle.
-	air_alarm_repository.update_cache(src)
+	GLOB.air_alarm_repository.update_cache(src)
 
 /obj/machinery/alarm/Initialize()
 	..()
@@ -658,7 +658,7 @@
 	data["danger"] = danger
 	return data
 
-/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/alarm/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	var/list/href_list = state.href_list(user)
@@ -774,7 +774,7 @@
 
 	return thresholds
 
-/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = default_state)
+/obj/machinery/alarm/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, var/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "air_alarm.tmpl", name, 570, 410, state = state)

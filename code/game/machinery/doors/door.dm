@@ -352,8 +352,8 @@
 	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /obj/machinery/door/proc/update_freelook_sight()
-	if(!glass && cameranet)
-		cameranet.updateVisibility(src, 0)
+	if(!glass && GLOB.cameranet)
+		GLOB.cameranet.updateVisibility(src, 0)
 
 /obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
 	if(opacity || heat_proof)

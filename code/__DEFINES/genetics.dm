@@ -104,6 +104,7 @@
 #define NUTRITION_LEVEL_FED 350
 #define NUTRITION_LEVEL_HUNGRY 250
 #define NUTRITION_LEVEL_STARVING 150
+#define NUTRITION_LEVEL_HYPOGLYCEMIA 100
 #define NUTRITION_LEVEL_CURSED 0
 
 //Used as an upper limit for species that continuously gain nutriment

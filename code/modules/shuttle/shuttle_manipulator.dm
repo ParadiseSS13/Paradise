@@ -64,7 +64,7 @@
 	if(!ui)
 		// the ui does not exist, so we'll create a new() one
         // for a list of parameters and their descriptions see the code docs in \code\modules\nano\nanoui.dm
-		ui = new(user, src, ui_key, "shuttle_manipulator.tmpl", "Shuttle Manipulator", 660, 700, null, null, admin_state)
+		ui = new(user, src, ui_key, "shuttle_manipulator.tmpl", "Shuttle Manipulator", 660, 700, null, null, GLOB.admin_state)
 		// when the ui is first opened this is the data it will use
 		// open the new ui window
 		ui.open()
@@ -80,8 +80,8 @@
 	data["templates_tabs"] = list()
 	data["selected"] = null
 
-	for(var/shuttle_id in shuttle_templates)
-		var/datum/map_template/shuttle/S = shuttle_templates[shuttle_id]
+	for(var/shuttle_id in GLOB.shuttle_templates)
+		var/datum/map_template/shuttle/S = GLOB.shuttle_templates[shuttle_id]
 
 		if(!templates[S.port_id])
 			data["templates_tabs"] += S.port_id
@@ -138,7 +138,7 @@
 
 	// Preload some common parameters
 	var/shuttle_id = href_list["shuttle_id"]
-	var/datum/map_template/shuttle/S = shuttle_templates[shuttle_id]
+	var/datum/map_template/shuttle/S = GLOB.shuttle_templates[shuttle_id]
 
 
 	if(href_list["selectMenuKey"])

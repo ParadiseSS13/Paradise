@@ -179,7 +179,7 @@
 		qdel(C)
 
 
-var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2")
+GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","horror","shadow","ghostian2"))
 
 /obj/item/camera/spooky
 	name = "camera obscura"
@@ -240,7 +240,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 					if(O.following)
 						continue
 					if(user.mind && !(user.mind.assigned_role == "Chaplain"))
-						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(SpookyGhosts), 4, SOUTH))
+						atoms.Add(image('icons/mob/mob.dmi', O.loc, pick(GLOB.SpookyGhosts), 4, SOUTH))
 					else
 						atoms.Add(image('icons/mob/mob.dmi', O.loc, "ghost", 4, SOUTH))
 				else//its not a ghost
@@ -544,7 +544,7 @@ var/list/SpookyGhosts = list("ghost","shade","shade2","ghost-narsie","horror","s
 		src.icon_state = icon_on
 		camera = new /obj/machinery/camera(src)
 		camera.network = list("news")
-		cameranet.removeCamera(camera)
+		GLOB.cameranet.removeCamera(camera)
 		camera.c_tag = user.name
 	to_chat(user, "You switch the camera [on ? "on" : "off"].")
 

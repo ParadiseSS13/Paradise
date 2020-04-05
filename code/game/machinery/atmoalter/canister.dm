@@ -40,8 +40,7 @@
 			list("name" = "High temperature canister", "icon" = "hot"),
 			list("name" = "Plasma containing canister", "icon" = "plasma")
 		)
-
-var/datum/canister_icons/canister_icon_container = new()
+GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
@@ -97,19 +96,19 @@ var/datum/canister_icons/canister_icon_container = new()
 	//passed to the ui to render the color lists
 	colorcontainer = list(
 		"prim" = list(
-			"options" = canister_icon_container.possiblemaincolor,
+			"options" = GLOB.canister_icon_container.possiblemaincolor,
 			"name" = "Primary color",
 		),
 		"sec" = list(
-			"options" = canister_icon_container.possibleseccolor,
+			"options" = GLOB.canister_icon_container.possibleseccolor,
 			"name" = "Secondary color",
 		),
 		"ter" = list(
-			"options" = canister_icon_container.possibletertcolor,
+			"options" = GLOB.canister_icon_container.possibletertcolor,
 			"name" = "Tertiary color",
 		),
 		"quart" = list(
-			"options" = canister_icon_container.possiblequartcolor,
+			"options" = GLOB.canister_icon_container.possiblequartcolor,
 			"name" = "Quaternary color",
 		)
 	)
@@ -127,7 +126,7 @@ var/datum/canister_icons/canister_icon_container = new()
 	possibledecals = list()
 
 	var/i
-	var/list/L = canister_icon_container.possibledecals
+	var/list/L = GLOB.canister_icon_container.possibledecals
 	for(i=1;i<=L.len;i++)
 		var/list/LL = L[i]
 		LL = LL.Copy() //make sure we don't edit the datum list
@@ -220,25 +219,25 @@ update_flag
 //template modification exploit prevention, used in Topic()
 /obj/machinery/portable_atmospherics/canister/proc/is_a_color(var/inputVar, var/checkColor = "all")
 	if(checkColor == "prim" || checkColor == "all")
-		for(var/list/L in canister_icon_container.possiblemaincolor)
+		for(var/list/L in GLOB.canister_icon_container.possiblemaincolor)
 			if(L["icon"] == inputVar)
 				return 1
 	if(checkColor == "sec" || checkColor == "all")
-		for(var/list/L in canister_icon_container.possibleseccolor)
+		for(var/list/L in GLOB.canister_icon_container.possibleseccolor)
 			if(L["icon"] == inputVar)
 				return 1
 	if(checkColor == "ter" || checkColor == "all")
-		for(var/list/L in canister_icon_container.possibletertcolor)
+		for(var/list/L in GLOB.canister_icon_container.possibletertcolor)
 			if(L["icon"] == inputVar)
 				return 1
 	if(checkColor == "quart" || checkColor == "all")
-		for(var/list/L in canister_icon_container.possiblequartcolor)
+		for(var/list/L in GLOB.canister_icon_container.possiblequartcolor)
 			if(L["icon"] == inputVar)
 				return 1
 	return 0
 
 /obj/machinery/portable_atmospherics/canister/proc/is_a_decal(var/inputVar)
-	for(var/list/L in canister_icon_container.possibledecals)
+	for(var/list/L in GLOB.canister_icon_container.possibledecals)
 		if(L["icon"] == inputVar)
 			return 1
 	return 0
@@ -354,7 +353,7 @@ update_flag
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
 	return src.ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = physical_state)
+/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.physical_state)
 	if(src.destroyed)
 		return
 

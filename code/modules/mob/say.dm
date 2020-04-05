@@ -1,4 +1,7 @@
 
+#define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
+	"\[" = "", "]" = "", "{" = "", "}" = "")
+
 /mob/proc/say()
 	return
 
@@ -23,7 +26,7 @@
 		else if(response == "No")
 			return
 	*/
-
+	message = replace_characters(message, ILLEGAL_CHARACTERS_LIST)
 	set_typing_indicator(0)
 	usr.say(message)
 
@@ -128,7 +131,7 @@
 
 	if(length(message) >= 2)
 		var/channel_prefix = copytext(message, 1 ,3)
-		return department_radio_keys[channel_prefix]
+		return GLOB.department_radio_keys[channel_prefix]
 
 	return null
 
@@ -206,3 +209,5 @@
 	for(var/datum/multilingual_say_piece/S in message_pieces)
 		. += S.message + " "
 	. = trim_right(.)
+
+#undef ILLEGAL_CHARACTERS_LIST

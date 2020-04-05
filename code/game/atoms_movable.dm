@@ -36,8 +36,8 @@
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
-	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
-		space_manager.postpone_init(T.z, src)
+	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
+		GLOB.space_manager.postpone_init(T.z, src)
 		return
 	. = ..()
 

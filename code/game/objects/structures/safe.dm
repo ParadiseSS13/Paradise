@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(safes)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/structure/safe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/structure/safe/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/list/contents_names = list()
 	if(open)
