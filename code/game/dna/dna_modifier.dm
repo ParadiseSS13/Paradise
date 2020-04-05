@@ -127,7 +127,7 @@
 
 /obj/machinery/dna_scannernew/Destroy()
 	eject_occupant()
-	. = ..()
+	return ..()
 
 /obj/machinery/dna_scannernew/proc/eject_occupant()
 	src.go_out()
