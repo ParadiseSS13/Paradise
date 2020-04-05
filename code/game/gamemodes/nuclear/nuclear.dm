@@ -78,12 +78,12 @@ proc/issyndicate(mob/living/M as mob)
 ////////////////////////////////////////////////////////////////////////////////////////
 
 /datum/game_mode/proc/update_synd_icons_added(datum/mind/synd_mind)
-	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.join_hud(synd_mind.current)
 	set_antag_hud(synd_mind.current, "hudoperative")
 
 /datum/game_mode/proc/update_synd_icons_removed(datum/mind/synd_mind)
-	var/datum/atom_hud/antag/opshud = huds[ANTAG_HUD_OPS]
+	var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 	opshud.leave_hud(synd_mind.current)
 	set_antag_hud(synd_mind.current, null)
 
@@ -402,7 +402,7 @@ proc/issyndicate(mob/living/M as mob)
 			else
 				text += "body destroyed"
 			text += ")"
-			for(var/obj/item/uplink/H in world_uplinks)
+			for(var/obj/item/uplink/H in GLOB.world_uplinks)
 				if(H && H.uplink_owner && H.uplink_owner==syndicate.key)
 					TC_uses += H.used_TC
 					purchases += H.purchase_log

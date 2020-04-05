@@ -635,9 +635,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(!is_job_whitelisted(user, rank))
 			HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[KARMA]</b></font></td></tr>"
 			continue
-		if(!is_heads_whitelisted(user, rank))
-			HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[WHITELIST]</b></font></td></tr>"
-			continue
 		if(jobban_isbanned(user, rank))
 			HTML += "<del>[rank]</del></td><td><b> \[BANNED]</b></td></tr>"
 			continue
