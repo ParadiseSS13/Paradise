@@ -441,17 +441,17 @@
 	if(istype(W, /obj/item/card/id))
 		if(!emagged)
 			var/obj/item/card/id/id = W
-				for(var/a in id.access)
-					if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
-						if(secureprotocols)
-							secureprotocols = FALSE
-							to_chat(user, "<span class='notice'>You disable the security protocols</span>")
-							return
-						else
-							secureprotocols = TRUE
-							to_chat(user, "<span class='notice'>You enable the security protocols</span>")
-							return
-					to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
+			for(var/a in id.access)
+				if(a == ACCESS_HOS || a == ACCESS_CAPTAIN)
+					if(secureprotocols)
+						secureprotocols = FALSE
+						to_chat(user, "<span class='notice'>You disable the security protocols</span>")
+						return
+					else
+						secureprotocols = TRUE
+						to_chat(user, "<span class='notice'>You enable the security protocols</span>")
+						return
+				to_chat(user, "<span class='notice'>You don't have enough access to disable security protocols</span>")
 		else
 			to_chat(user, "<span class='warning'>The machine don't respond!</span>")
 			return
