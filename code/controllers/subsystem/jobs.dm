@@ -623,8 +623,8 @@ SUBSYSTEM_DEF(jobs)
 				jobs_to_formats[job.title] = "disabled" // the job they already have is pre-selected
 			else if(!job.would_accept_job_transfer_from_player(M))
 				jobs_to_formats[job.title] = "linkDiscourage" // jobs which are karma-locked and not unlocked for this player are discouraged
-			else if(istype(M) && M.client && job.available_in_playtime(M.client))
-				jobs_to_formats[job.title] = "linkDiscourage" // jobs which are playtime-locked and not unlocked for this player are discouraged
+			else if((job.title in GLOB.command_positions) && istype(M) && M.client && job.available_in_playtime(M.client))
+				jobs_to_formats[job.title] = "linkDiscourage" // command jobs which are playtime-locked and not unlocked for this player are discouraged
 			else if(job.total_positions && !job.current_positions && job.title != "Civilian")
 				jobs_to_formats[job.title] = "linkEncourage" // jobs with nobody doing them at all are encouraged
 			else if(job.total_positions >= 0 && job.current_positions >= job.total_positions)
