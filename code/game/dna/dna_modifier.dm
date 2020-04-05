@@ -125,6 +125,10 @@
 	add_fingerprint(usr)
 	return
 
+/obj/machinery/dna_scannernew/Destroy()
+	eject_occupant()
+	. = ..()
+
 /obj/machinery/dna_scannernew/proc/eject_occupant()
 	src.go_out()
 	for(var/obj/O in src)
