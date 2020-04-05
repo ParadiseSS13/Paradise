@@ -37,7 +37,7 @@
   *
   * @return nothing
   */
-/datum/proc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/nano_ui/master_ui = null, var/datum/topic_state/state = default_state)
+/datum/proc/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/nano_ui/master_ui = null, var/datum/topic_state/state = GLOB.default_state)
 	return
 
 /**
@@ -57,7 +57,7 @@
  *
  * @return list()
  */
-/datum/proc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/datum/proc/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	return list()
 
 // Used by the Nano UI Manager (/datum/nanomanager) to track UIs opened by this mob

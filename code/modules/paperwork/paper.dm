@@ -21,7 +21,9 @@
 	max_integrity = 50
 	attack_verb = list("bapped")
 	dog_fashion = /datum/dog_fashion/head
+	var/header //Above the main body, displayed at the top
 	var/info		//What's actually written on the paper.
+	var/footer 	//The bottom stuff before the stamp but after the body
 	var/info_links	//A different version of the paper which includes html links at fields and EOF
 	var/stamps		//The (text for the) stamps on the paper.
 	var/fields		//Amount of user created fields
@@ -76,9 +78,9 @@
 	var/data
 	var/stars = (!user.say_understands(null, GLOB.all_languages["Galactic Common"]) && !forceshow) || forcestars
 	if(stars) //assuming all paper is written in common is better than hardcoded type checks
-		data = "[stars(info)][stamps]"
+		data = "[header][stars(info)][footer][stamps]"
 	else
-		data = "<div id='markdown'>[infolinks ? info_links : info]</div>[stamps]"
+		data = "[header]<div id='markdown'>[infolinks ? info_links : info]</div>[footer][stamps]"
 	if(view)
 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
 		popup.stylesheets = list()
@@ -587,6 +589,23 @@
 /obj/item/paper/crumpled
 	name = "paper scrap"
 	icon_state = "scrap"
+	
+/obj/item/paper/syndicate
+	name = "paper"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='syndielogo.png' width='220' height='135' /></p><hr />"
+	info = ""
+	
+/obj/item/paper/nanotrasen
+	name = "paper"
+	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' width='220' height='135' /></p><hr />"
+	info =  ""
+	
+/obj/item/paper/central_command
+	name = "paper"
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
+	info = ""
+	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
+
 
 /obj/item/paper/crumpled/update_icon()
 	return
@@ -677,10 +696,10 @@
 					to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
 					H.makeCluwne()
 			else if(myeffect == "Demote")
-				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
 			else if(myeffect == "Demote with Bot")
-				event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
-				for(var/datum/data/record/R in sortRecord(data_core.security))
+				GLOB.event_announcement.Announce("[target.real_name] is hereby demoted to the rank of Civilian. Process this demotion immediately. Failure to comply with these orders is grounds for termination.","CC Demotion Order")
+				for(var/datum/data/record/R in sortRecord(GLOB.data_core.security))
 					if(R.fields["name"] == target.real_name)
 						R.fields["criminal"] = "*Arrest*"
 				update_all_mob_security_hud()
@@ -689,7 +708,7 @@
 					new /obj/effect/portal(T)
 					new /mob/living/simple_animal/bot/secbot(T)
 			else if(myeffect == "Revoke Fax Access")
-				fax_blacklist += target.real_name
+				GLOB.fax_blacklist += target.real_name
 				if(fax)
 					fax.authenticated = 0
 			else if(myeffect == "Angry Fax Machine")
