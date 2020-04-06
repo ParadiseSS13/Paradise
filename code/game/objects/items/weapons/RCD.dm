@@ -167,14 +167,14 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 /obj/item/rcd/attack_self_tk(mob/user)
 	radial_menu(user)
 
-/obj/item/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = inventory_state)
+/obj/item/rcd/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.inventory_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "rcd.tmpl", "[name]", 450, 400, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/item/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = inventory_state)
+/obj/item/rcd/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.inventory_state)
 	var/data[0]
 	data["mode"] = mode
 	data["door_type"] = door_type
@@ -374,7 +374,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 		QDEL_NULL(A)
 		for(var/obj/structure/window/W in T1.contents)
 			qdel(W)
-		for(var/cdir in cardinal)
+		for(var/cdir in GLOB.cardinal)
 			var/turf/T2 = get_step(T1, cdir)
 			if(locate(/obj/structure/window/full/shuttle) in T2)
 				continue // Shuttle windows? Nah. We don't need extra windows there.
@@ -408,7 +408,7 @@ GLOBAL_LIST_INIT(rcd_door_types, list(
 		new /obj/structure/grille(A)
 		for(var/obj/structure/window/W in A)
 			qdel(W)
-		for(var/cdir in cardinal)
+		for(var/cdir in GLOB.cardinal)
 			var/turf/T = get_step(A, cdir)
 			if(locate(/obj/structure/grille) in T)
 				for(var/obj/structure/window/W in T)

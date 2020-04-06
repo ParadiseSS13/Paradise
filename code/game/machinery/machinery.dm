@@ -290,7 +290,7 @@ Class Procs:
 			update_multitool_menu(usr)
 			return TRUE
 
-/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+/obj/machinery/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
 

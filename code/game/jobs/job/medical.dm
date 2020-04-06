@@ -125,9 +125,6 @@
 			if("Medical Doctor")
 				uniform = /obj/item/clothing/under/rank/medical
 			if("Nurse")
-				backpack_contents = list(
-			/*		/obj/item/clothing/head/helmet/paramedic */
-				)
 				if(H.gender == FEMALE)
 					if(prob(50))
 						uniform = /obj/item/clothing/under/rank/nursesuit

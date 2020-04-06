@@ -13,7 +13,7 @@
 
 
 	message_admins("[key_name_admin(usr)] re-assigned all space transitions")
-	space_manager.do_transition_setup()
+	GLOB.space_manager.do_transition_setup()
 	log_admin("[key_name(usr)] re-assigned all space transitions")
 
 	feedback_add_details("admin_verb","SPCRST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -37,5 +37,5 @@
 	message_admins("[key_name_admin(usr)] made a space map")
 
 
-	space_manager.map_as_turfs(get_turf(usr))
+	GLOB.space_manager.map_as_turfs(get_turf(usr))
 	log_admin("[key_name(usr)] made a space map")

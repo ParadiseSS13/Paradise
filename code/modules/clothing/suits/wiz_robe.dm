@@ -156,7 +156,7 @@
 
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	name = "battlemage armour"
-	desc = "Not all wizards are afraid of getting up close and personal."
+	desc = "Not all wizards are afraid of getting up close and personal. Not spaceproof despite its appearance."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
 	recharge_rate = 0
@@ -171,6 +171,15 @@
 	slowdown = 0
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch
+	desc = "For the arch wizard in need of additional protection."
+	recharge_rate = 1
+	recharge_cooldown = 0
+	max_charges = 15
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	name = "battlemage helmet"
@@ -187,6 +196,11 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/attack_self(mob/user)
 	return
+
+/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
+	desc = "A truly protective helmet."
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 
 /obj/item/wizard_armour_charge
 	name = "battlemage shield charges"

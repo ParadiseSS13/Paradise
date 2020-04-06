@@ -113,7 +113,7 @@
 		access = get_all_accesses() // Assume captain level access when emagged
 	else if(ishuman(user))
 		access = user.get_access()
-	else if((isAI(user) || isrobot(user)) && CanUseTopic(user, default_state) == STATUS_INTERACTIVE)
+	else if((isAI(user) || isrobot(user)) && CanUseTopic(user, GLOB.default_state) == STATUS_INTERACTIVE)
 		access = get_all_accesses() // Assume captain level access when AI
 	else if(user.can_admin_interact())
 		access = get_all_accesses()
@@ -131,11 +131,11 @@
 
 		ui.open()
 
-/obj/machinery/computer/security/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/security/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	var/list/cameras = list()
-	for(var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if(isCameraFarAway(C))
 			continue
 		if(!can_access_camera(C, user))
@@ -183,7 +183,7 @@
 		return 1
 
 	if(href_list["switchTo"])
-		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in cameranet.cameras
+		var/obj/machinery/camera/C = locate(href_list["switchTo"]) in GLOB.cameranet.cameras
 		if(!C)
 			return 1
 
@@ -209,7 +209,7 @@
 
 // Check if camera is accessible when jumping
 /obj/machinery/computer/security/proc/can_access_camera(var/obj/machinery/camera/C, var/mob/M)
-	if(CanUseTopic(M, default_state) != STATUS_INTERACTIVE || M.incapacitated() || !M.has_vision())
+	if(CanUseTopic(M, GLOB.default_state) != STATUS_INTERACTIVE || M.incapacitated() || !M.has_vision())
 		return 0
 
 	if(isrobot(M))

@@ -382,6 +382,8 @@ h1.alert, h2.alert			{color: #FFF;}
 .revenwarning				{color: #760fbb;	font-style: italic;}
 .revendanger				{color: #760fbb;	font-weight: bold; font-size: 120%;}
 
+.specialnotice				{color: #36525e; 	font-weight: bold; font-size: 120%;}
+
 /* /vg/ */
 .good					{color: green;}
 .average				{color: #FF8000;}

@@ -29,7 +29,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 
 		if(!team_toggle)
-			team_alpha += H
+			GLOB.team_alpha += H
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/red/dodgeball(H), slot_w_uniform)
 			var/obj/item/card/id/W = new(H)
@@ -42,7 +42,7 @@
 			H.equip_to_slot_or_del(W, slot_wear_id)
 
 		else
-			team_bravo += H
+			GLOB.team_bravo += H
 
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/color/blue/dodgeball(H), slot_w_uniform)
 			var/obj/item/card/id/W = new(H)
@@ -60,7 +60,7 @@
 
 	message_admins("[key_name_admin(usr)] used DODGEBAWWWWWWWL! -NO ATTACK LOGS WILL BE SENT TO ADMINS FROM THIS POINT FORTH-", 1)
 	log_admin("[key_name(usr)] used dodgeball.")
-	nologevent = 1
+	GLOB.nologevent = 1
 
 /obj/item/beach_ball/dodgeball
 	name = "dodgeball"
@@ -76,13 +76,13 @@
 		if(H.r_hand == src) return
 		if(H.l_hand == src) return
 		var/mob/A = H.LAssailant
-		if((H in team_alpha) && (A in team_alpha))
+		if((H in GLOB.team_alpha) && (A in GLOB.team_alpha))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
-		else if((H in team_bravo) && (A in team_bravo))
+		else if((H in GLOB.team_bravo) && (A in GLOB.team_bravo))
 			to_chat(A, "<span class='warning'>He's on your team!</span>")
 			return
-		else if(!A in team_alpha && !A in team_bravo)
+		else if(!A in GLOB.team_alpha && !A in GLOB.team_bravo)
 			to_chat(A, "<span class='warning'>You're not part of the dodgeball game, sorry!</span>")
 			return
 		else

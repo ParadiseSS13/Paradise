@@ -52,7 +52,7 @@
 	range = 4
 	cooldown = 50
 
-/obj/item/t_scanner/adv_mining_scanner/t_ray_scan()
+/obj/item/t_scanner/adv_mining_scanner/scan()
 	if(current_cooldown <= world.time)
 		current_cooldown = world.time + cooldown
 		var/turf/t = get_turf(src)

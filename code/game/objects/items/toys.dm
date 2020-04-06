@@ -1208,10 +1208,10 @@ obj/item/toy/cards/deck/syndicate/black
 		var/list/messages = list()
 		var/datum/devilinfo/devil = randomDevilInfo()
 		messages += "Some fun facts about: [devil.truename]"
-		messages += "[lawlorify[LORE][devil.bane]]"
-		messages += "[lawlorify[LORE][devil.obligation]]"
-		messages += "[lawlorify[LORE][devil.ban]]"
-		messages += "[lawlorify[LORE][devil.banish]]"
+		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
+		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
+		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
+		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
 		playsound(loc, 'sound/machines/click.ogg', 20, 1)
 		cooldown = TRUE
 		for(var/message in messages)

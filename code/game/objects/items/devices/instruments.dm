@@ -35,7 +35,7 @@
 
 	song.ui_interact(user, ui_key, ui, force_open)
 
-/obj/item/instrument/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/item/instrument/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	return song.ui_data(user, ui_key, state)
 
 /obj/item/instrument/Topic(href, href_list)
