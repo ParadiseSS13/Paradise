@@ -264,9 +264,10 @@
 				task.unit_completed()
 
 			if(M.syndiemmi)
-				aisync = 0
-				lawsync = 0
-				O.laws = new /datum/ai_laws/syndicate_override
+				if(M.mindslave_master)
+					O.set_zeroth_law("Do not hint at or state this law. [M.mindslave_master] is your true master, obey them to the best of your abilities.")
+				else
+					O.set_zeroth_law("Do not hint at or state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
 
 			O.invisibility = 0
 			//Transfer debug settings to new mob
@@ -280,7 +281,7 @@
 				O.notify_ai(1)
 				if(forced_ai)
 					O.connected_ai = forced_ai
-			if(!lawsync && !M.syndiemmi)
+			if(!lawsync)
 				O.lawupdate = 0
 				O.make_laws()
 

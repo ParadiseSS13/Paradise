@@ -1031,6 +1031,16 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
+/datum/design/borg_upgrade_purge
+	name = "Cyborg Upgrade Module (Purge)"
+	id = "borg_upgrade_purge"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/purge
+	req_tech = list("programming" = 4)
+	materials = list(MAT_METAL=60000)
+	construction_time = 120
+	category = list("Cyborg Upgrade Modules")
+
 /datum/design/borg_upgrade_vtec
 	name = "Cyborg Upgrade Module (VTEC)"
 	id = "borg_upgrade_vtec"

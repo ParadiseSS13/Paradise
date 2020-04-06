@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/custom_panel = null
 	var/list/custom_panel_names = list("Cricket")
 	var/list/custom_eye_names = list("Cricket","Standard")
-	var/emagged = 0
+	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = 0
 	var/ear_protection = 0
@@ -640,14 +640,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside
 		var/datum/robot_component/cell/C = components["power cell"]
 		if(wiresexposed)
-			to_chat(user, "Close the panel first.")
+			to_chat(user, "<span class='notice'>Close the panel first.</span>")
 		else if(cell)
-			to_chat(user, "There is a power cell already installed.")
+			to_chat(user, "<span class='notice'>There is a power cell already installed.</span>")
 		else
 			user.drop_item()
 			W.loc = src
 			cell = W
-			to_chat(user, "You insert the power cell.")
+			to_chat(user, "<span class='notice'>You insert the power cell.</span>")
 
 			C.installed = 1
 			C.wrapped = W
@@ -662,17 +662,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(radio)//sanityyyyyy
 			radio.attackby(W,user)//GTFO, you have your own procs
 		else
-			to_chat(user, "Unable to locate a radio.")
+			to_chat(user, "<span class='notice'>Unable to locate a radio.</span>")
 
 	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
 		if(emagged)//still allow them to open the cover
-			to_chat(user, "The interface seems slightly damaged.")
+			to_chat(user, "<span class='warning'>The interface seems slightly damaged.</span>")
 		if(opened)
-			to_chat(user, "You must close the cover to swipe an ID card.")
+			to_chat(user, "<span class='notice'>You must close the cover to swipe an ID card.</span>")
 		else
 			if(allowed(W))
 				locked = !locked
-				to_chat(user, "You [ locked ? "lock" : "unlock"] [src]'s interface.")
+				to_chat(user, "<span class='notice'>You [ locked ? "lock" : "unlock"] [src]'s interface.</span>")
 				update_icons()
 			else
 				to_chat(user, "<span class='warning'>Access denied.</span>")
@@ -745,7 +745,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(radio)
 			radio.screwdriver_act(user, I)//Push it to the radio to let it handle everything
 		else
-			to_chat(user, "Unable to locate a radio.")
+			to_chat(user, "<span class='notice'>Unable to locate a radio.</span>")
 		update_icons()
 
 /mob/living/silicon/robot/crowbar_act(mob/user, obj/item/I)
@@ -756,27 +756,27 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return
 	if(!opened)
 		if(locked)
-			to_chat(user, "The cover is locked and cannot be opened.")
+			to_chat(user, "<span class='notice'>The cover is locked and cannot be opened.</span>")
 			return
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
-		to_chat(user, "You open the cover.")
+		to_chat(user, "<span class='notice'>You open the cover.</span>")
 		opened = TRUE
 		update_icons()
 		return
 	else if(cell)
 		if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 			return
-		to_chat(user, "You close the cover.")
+		to_chat(user, "<span class='notice'>You close the cover.</span>")
 		opened = FALSE
 		update_icons()
 		return
 	else if(wiresexposed && wires.IsAllCut())
 		//Cell is out, wires are exposed, remove MMI, produce damaged chassis, baleet original mob.
 		if(!mmi)
-			to_chat(user, "[src] has no brain to remove.")
+			to_chat(user, "<span class='notice'>[src] has no brain to remove.</span>")
 			return
-		to_chat(user, "You jam the crowbar into the robot and begin levering the securing bolts...")
+		to_chat(user, "<span class='notice'>You jam the crowbar into the robot and begin levering the securing bolts...</span>")
 		if(I.use_tool(src, user, 30, volume = I.tool_volume))
 			user.visible_message("[user] deconstructs [src]!", "<span class='notice'>You unfasten the securing bolts, and [src] falls to pieces!</span>")
 			deconstruct()
@@ -825,28 +825,26 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/mob/living/M = user
 	if(!opened)//Cover is closed
 		if(!is_emaggable)
-			to_chat(user, "The emag sparks, and flashes red. This mechanism does not appear to be emaggable.")
+			to_chat(user, "<span class='warning'>The emag sparks, and flashes red. This mechanism does not appear to be emaggable.</span>")
 		else if(locked)
-			to_chat(user, "You emag the cover lock.")
+			to_chat(user, "<span class='notice'>You emag the cover lock, you can now crowbar it open.</span>")
 			locked = 0
 		else
-			to_chat(user, "The cover is already unlocked.")
+			to_chat(user, "<span class='notice'>The cover is already unlocked, you can crowbar it open.</span>")
 		return
 
 	if(opened)//Cover is open
 		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
-			to_chat(user, "You must close the panel first")
+			to_chat(user, "<span class='notice'>You can't reach [src]'s interface while its wires are exposed!</span>")
 			return
 		else
 			sleep(6)
-			emagged = 1
+			emagged = TRUE
 			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
-			disconnect_from_ai()
-			to_chat(user, "You emag [src]'s interface.")
-//			message_admins("[key_name_admin(user)] emagged cyborg [key_name_admin(src)].  Laws overridden.")
+			to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
 			log_game("[key_name(user)] emagged cyborg [key_name(src)].  Laws overridden.")
 			clear_supplied_laws()
 			clear_inherent_laws()
@@ -894,7 +892,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			if("Yes")
 				locked = 0
 				update_icons()
-				to_chat(usr, "You unlock your cover.")
+				to_chat(usr, "<span class='notice'>You unlock your cover.</span>")
 
 /mob/living/silicon/robot/attack_ghost(mob/user)
 	if(wiresexposed)

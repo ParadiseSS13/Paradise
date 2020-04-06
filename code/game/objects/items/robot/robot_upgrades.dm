@@ -35,6 +35,23 @@
 
 	return TRUE
 
+/obj/item/borg/upgrade/purge
+	name = "cyborg software purge board"
+	desc = "Purge a cyborg of any illegal modifications, and reset its module. Warning : Laws are not affected if unsynced to station AI!"
+	icon_state = "cyborg_upgrade1"
+	origin_tech = "programming=3"
+
+/obj/item/borg/upgrade/purge/action(mob/living/silicon/robot/R)
+	if(..())
+		return
+
+	R.emagged = FALSE
+	R.ignore_master_ai = FALSE
+	R.reset_module()
+	R.sync()
+
+	return TRUE
+
 /obj/item/borg/upgrade/rename
 	name = "cyborg reclassification board"
 	desc = "Used to rename a cyborg."
