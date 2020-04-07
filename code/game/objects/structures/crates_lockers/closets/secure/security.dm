@@ -23,6 +23,7 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cap(src)
 	new /obj/item/tank/emergency_oxygen/double(src)
+	new /obj/item/whistle(src)
 
 
 /obj/structure/closet/secure_closet/hop
@@ -50,6 +51,7 @@
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/reagent_containers/food/drinks/mug/hop(src)
 	new /obj/item/clothing/accessory/medal/service(src)
+	new /obj/item/whistle(src)
 
 /obj/structure/closet/secure_closet/hop2
 	name = "head of personnel's attire"

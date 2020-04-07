@@ -181,6 +181,7 @@
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/reagent_containers/food/drinks/mug/cmo(src)
 	new /obj/item/clothing/accessory/medal/medical(src)
+	new /obj/item/whistle(src)
 
 
 /obj/structure/closet/secure_closet/animal
