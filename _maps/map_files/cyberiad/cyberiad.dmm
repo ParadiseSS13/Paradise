@@ -36006,6 +36006,14 @@
 	name = "Kitchen";
 	req_access_txt = "28"
 	},
+/obj/machinery/door/window/southleft{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "Bar Shutters";
+	req_access_txt = "25";
+	tag = "icon-left (WEST)"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "cafeteria";
@@ -36817,6 +36825,14 @@
 	dir = 4;
 	name = "Kitchen";
 	req_access_txt = "28"
+	},
+/obj/machinery/door/window/southleft{
+	base_state = "left";
+	dir = 8;
+	icon_state = "left";
+	name = "Bar Shutters";
+	req_access_txt = "25";
+	tag = "icon-left (WEST)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 2;
@@ -96232,6 +96248,11 @@
 /obj/item/taperecorder,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar)
+"nax" = (
+/obj/structure/table/wood,
+/obj/item/clothing/head/cakehat,
+/turf/simulated/floor/wood,
+/area/crew_quarters/bar)
 "nAM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -131054,10 +131075,10 @@ srd
 bkP
 jwq
 lpS
-btg
-wNz
-wNz
-wNz
+bmq
+bmq
+bmq
+bmq
 bAH
 gWZ
 aUS
@@ -131311,10 +131332,10 @@ bnQ
 bkO
 xiB
 btq
-brg
-mZb
-brg
-brg
+wNz
+btg
+wNz
+wNz
 bAV
 bmq
 iXm
@@ -131568,8 +131589,8 @@ brT
 brT
 rIY
 btq
-brg
-brg
+nax
+mZb
 oGR
 brg
 lNC
