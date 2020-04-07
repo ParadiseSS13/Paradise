@@ -22,4 +22,3 @@
 	drink_name = "Uncle Git's Special Milk"
 	drink_desc = "It is sticky and has a strong chlorine smell."
 	taste_description = "someone else's child"
-

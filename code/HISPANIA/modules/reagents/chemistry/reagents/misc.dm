@@ -48,4 +48,3 @@
 	drink_name = "Glass of drake blood"
 	drink_desc = "The raw essence of a Drake RAAWR"
 	taste_description = "fresh blood."
-
