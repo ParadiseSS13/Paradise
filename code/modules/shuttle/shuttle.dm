@@ -774,7 +774,7 @@
 		ui = new(user, src, ui_key, "shuttle_console.tmpl", M ? M.name : "shuttle", 300, 200)
 		ui.open()
 
-/obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/shuttle/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttleId)
 	data["status"] = M ? M.getStatusText() : null

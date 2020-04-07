@@ -495,17 +495,17 @@
 						else if(department != "Civilian")
 							switch(department)
 								if("Engineering")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in engineering_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
 								if("Medical")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in medical_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
 								if("Science")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in science_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
 								if("Security")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in security_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
 								if("Support")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in support_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
 								if("Command")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in command_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
 
 						if(!Adjacent(user))
 							return
@@ -812,7 +812,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_MECHANIC) //access to robots/mechs and spacepods
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_MECHANIC) //access to robots/mechs
 	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)
