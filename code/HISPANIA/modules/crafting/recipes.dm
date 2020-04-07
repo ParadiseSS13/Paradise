@@ -76,3 +76,4 @@
 				TOOL_WIRECUTTER)
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
