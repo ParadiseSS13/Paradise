@@ -1,6 +1,6 @@
 //Keeps track of the time for the ID console. Having it as a global variable prevents people from dismantling/reassembling it to
 //increase the slots of many jobs.
-var/time_last_changed_position = 0
+GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card
 	name = "identification computer"
@@ -160,7 +160,7 @@ var/time_last_changed_position = 0
 	if(job)
 		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
 			if((job.total_positions <= GLOB.player_list.len * (max_relative_positions / 100)))
-				var/delta = (world.time / 10) - time_last_changed_position
+				var/delta = (world.time / 10) - GLOB.time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] < 0))
 					return 1
 				return -2
@@ -172,7 +172,7 @@ var/time_last_changed_position = 0
 	if(job)
 		if(!job_blacklisted_full(job) && !job_blacklisted_partial(job) && job_in_department(job, FALSE))
 			if(job.total_positions > job.current_positions && !(job in SSjobs.prioritized_jobs))
-				var/delta = (world.time / 10) - time_last_changed_position
+				var/delta = (world.time / 10) - GLOB.time_last_changed_position
 				if((change_position_cooldown < delta) || (opened_positions[job.title] > 0))
 					return 1
 				return -2
@@ -236,13 +236,13 @@ var/time_last_changed_position = 0
 		ui = new(user, src, ui_key, "identification_computer.tmpl", src.name, 775, 700)
 		ui.open()
 
-/obj/machinery/computer/card/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/computer/card/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["src"] = UID()
 	data["station_name"] = station_name()
 	data["mode"] = mode
 	data["printing"] = printing
-	data["manifest"] = data_core ? data_core.get_manifest(0) : null
+	data["manifest"] = GLOB.data_core ? GLOB.data_core.get_manifest(0) : null
 	data["target_name"] = modify ? modify.name : "-----"
 	data["target_owner"] = modify && modify.registered_name ? modify.registered_name : "-----"
 	data["target_rank"] = get_target_rank()
@@ -260,19 +260,19 @@ var/time_last_changed_position = 0
 	var/list/job_formats = SSjobs.format_jobs_for_id_computer(modify)
 
 	data["top_jobs"] = format_jobs(list("Captain", "Custom"), data["target_rank"], job_formats)
-	data["engineering_jobs"] = format_jobs(engineering_positions, data["target_rank"], job_formats)
-	data["medical_jobs"] = format_jobs(medical_positions, data["target_rank"], job_formats)
-	data["science_jobs"] = format_jobs(science_positions, data["target_rank"], job_formats)
-	data["security_jobs"] = format_jobs(security_positions, data["target_rank"], job_formats)
-	data["support_jobs"] = format_jobs(support_positions, data["target_rank"], job_formats)
-	data["civilian_jobs"] = format_jobs(civilian_positions, data["target_rank"], job_formats)
-	data["special_jobs"] = format_jobs(whitelisted_positions, data["target_rank"], job_formats)
+	data["engineering_jobs"] = format_jobs(GLOB.engineering_positions, data["target_rank"], job_formats)
+	data["medical_jobs"] = format_jobs(GLOB.medical_positions, data["target_rank"], job_formats)
+	data["science_jobs"] = format_jobs(GLOB.science_positions, data["target_rank"], job_formats)
+	data["security_jobs"] = format_jobs(GLOB.security_positions, data["target_rank"], job_formats)
+	data["support_jobs"] = format_jobs(GLOB.support_positions, data["target_rank"], job_formats)
+	data["civilian_jobs"] = format_jobs(GLOB.civilian_positions, data["target_rank"], job_formats)
+	data["special_jobs"] = format_jobs(GLOB.whitelisted_positions, data["target_rank"], job_formats)
 	data["centcom_jobs"] = format_jobs(get_all_centcom_jobs(), data["target_rank"], job_formats)
 	data["card_skins"] = format_card_skins(get_station_card_skins())
 
 	data["job_slots"] = format_job_slots()
 
-	var/time_to_wait = round(change_position_cooldown - ((world.time / 10) - time_last_changed_position), 1)
+	var/time_to_wait = round(change_position_cooldown - ((world.time / 10) - GLOB.time_last_changed_position), 1)
 	var/mins = round(time_to_wait / 60)
 	var/seconds = time_to_wait - (60*mins)
 	data["cooldown_mins"] = mins
@@ -321,7 +321,7 @@ var/time_last_changed_position = 0
 	switch(href_list["choice"])
 		if("modify")
 			if(modify)
-				data_core.manifest_modify(modify.registered_name, modify.assignment)
+				GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment)
 				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
 					modify.forceMove(get_turf(src))
@@ -486,7 +486,7 @@ var/time_last_changed_position = 0
 						P.name = "crew manifest ([station_time_timestamp()])"
 						P.info = {"<h4>Crew Manifest</h4>
 							<br>
-							[data_core ? data_core.get_manifest(0) : ""]
+							[GLOB.data_core ? GLOB.data_core.get_manifest(0) : ""]
 						"}
 					else if(modify && !mode)
 						P.name = "access report"
@@ -550,7 +550,7 @@ var/time_last_changed_position = 0
 				if(can_open_job(j) != 1)
 					return 0
 				if(opened_positions[edit_job_target] >= 0)
-					time_last_changed_position = world.time / 10
+					GLOB.time_last_changed_position = world.time / 10
 				j.total_positions++
 				opened_positions[edit_job_target]++
 				log_game("[key_name(usr)] has opened a job slot for job \"[j]\".")
@@ -570,7 +570,7 @@ var/time_last_changed_position = 0
 					return 0
 				//Allow instant closing without cooldown if a position has been opened before
 				if(opened_positions[edit_job_target] <= 0)
-					time_last_changed_position = world.time / 10
+					GLOB.time_last_changed_position = world.time / 10
 				j.total_positions--
 				opened_positions[edit_job_target]--
 				log_game("[key_name(usr)] has closed a job slot for job \"[j]\".")

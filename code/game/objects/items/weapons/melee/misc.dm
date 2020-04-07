@@ -57,7 +57,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("stabbed", "jabbed", "iced,", "drill")
+	attack_verb = list("stabbed", "jabbed", "iced,")
 
 /obj/item/melee/candy_sword
 	name = "candy cane sword"

@@ -33,9 +33,9 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(SOBERBLOCK,1)
-	genemutcheck(H, SOBERBLOCK, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(SOBERBLOCK)
+	H.dna.SetSEState(GLOB.soberblock,1)
+	genemutcheck(H, GLOB.soberblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.soberblock)
 	H.check_mutations = 1
 
 
@@ -151,7 +151,7 @@
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 	outfit = /datum/outfit/job/cargo_tech
 
@@ -177,7 +177,7 @@
 	supervisors = "the quartermaster"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list("Spelunker")
 	outfit = /datum/outfit/job/mining
@@ -291,13 +291,13 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	H.dna.SetSEState(CLUMSYBLOCK, TRUE)
-	genemutcheck(H, CLUMSYBLOCK, null, MUTCHK_FORCED)
-	H.dna.default_blocks.Add(CLUMSYBLOCK)
+	H.dna.SetSEState(GLOB.clumsyblock, TRUE)
+	genemutcheck(H, GLOB.clumsyblock, null, MUTCHK_FORCED)
+	H.dna.default_blocks.Add(GLOB.clumsyblock)
 	if(!ismachine(H))
-		H.dna.SetSEState(COMICBLOCK, TRUE)
-		genemutcheck(H, COMICBLOCK, null, MUTCHK_FORCED)
-		H.dna.default_blocks.Add(COMICBLOCK)
+		H.dna.SetSEState(GLOB.comicblock, TRUE)
+		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
+		H.dna.default_blocks.Add(GLOB.comicblock)
 	H.check_mutations = TRUE
 	H.add_language("Clownish")
 

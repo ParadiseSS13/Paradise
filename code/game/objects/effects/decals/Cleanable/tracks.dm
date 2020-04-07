@@ -2,7 +2,7 @@
 #define TRACKS_CRUSTIFY_TIME   50
 
 // color-dir-dry
-var/global/list/image/fluidtrack_cache = list()
+GLOBAL_LIST_EMPTY(fluidtrack_cache)
 
 // Footprints, tire trails...
 /obj/effect/decal/cleanable/blood/tracks
@@ -55,7 +55,7 @@ var/global/list/image/fluidtrack_cache = list()
 			if(!(entered_dirs & H.dir))
 				entered_dirs |= H.dir
 				update_icon()
-				
+
 /obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
 	..()
 	if(ishuman(O))
@@ -87,24 +87,24 @@ var/global/list/image/fluidtrack_cache = list()
 /obj/effect/decal/cleanable/blood/footprints/update_icon()
 	overlays.Cut()
 
-	for(var/Ddir in cardinal)
+	for(var/Ddir in GLOB.cardinal)
 		if(entered_dirs & Ddir)
 			var/image/I
-			if(fluidtrack_cache["entered-[blood_state]-[Ddir]"])
-				I = fluidtrack_cache["entered-[blood_state]-[Ddir]"]
+			if(GLOB.fluidtrack_cache["entered-[blood_state]-[Ddir]"])
+				I = GLOB.fluidtrack_cache["entered-[blood_state]-[Ddir]"]
 			else
 				I = image(icon,"[blood_state]1",dir = Ddir)
-				fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
+				GLOB.fluidtrack_cache["entered-[blood_state]-[Ddir]"] = I
 			if(I)
 				I.color = basecolor
 				overlays += I
 		if(exited_dirs & Ddir)
 			var/image/I
-			if(fluidtrack_cache["exited-[blood_state]-[Ddir]"])
-				I = fluidtrack_cache["exited-[blood_state]-[Ddir]"]
+			if(GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"])
+				I = GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"]
 			else
 				I = image(icon,"[blood_state]2",dir = Ddir)
-				fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
+				GLOB.fluidtrack_cache["exited-[blood_state]-[Ddir]"] = I
 			if(I)
 				I.color = basecolor
 				overlays += I

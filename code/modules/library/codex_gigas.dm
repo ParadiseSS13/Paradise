@@ -45,7 +45,7 @@
 			if(!prob(correctness))
 				usedName += "x"
 			var/datum/devilinfo/devil = devilInfo(usedName, 0)
-			user << browse("Information on [devilName]<br><br><br>[lawlorify[LORE][devil.ban]]<br>[lawlorify[LORE][devil.bane]]<br>[lawlorify[LORE][devil.obligation]]<br>[lawlorify[LORE][devil.banish]]", "window=book")
+			user << browse("Information on [devilName]<br><br><br>[GLOB.lawlorify[LORE][devil.ban]]<br>[GLOB.lawlorify[LORE][devil.bane]]<br>[GLOB.lawlorify[LORE][devil.obligation]]<br>[GLOB.lawlorify[LORE][devil.banish]]", "window=book")
 		inUse = 0
 		sleep(10)
 		if(!prob(willpower))

@@ -51,6 +51,7 @@
 	user.visible_message("<span class='danger'>[user] zaps [user.p_them()]self with [src].</span>")
 	playsound(user, fire_sound, 50, 1)
 	user.create_attack_log("<b>[key_name(user)]</b> zapped [user.p_them()]self with a <b>[src]</b>")
+	add_attack_logs(null, user, "zapped [user.p_them()]self with a [src]", ATKLOG_ALL)
 
 /////////////////////////////////////
 //WAND OF DEATH

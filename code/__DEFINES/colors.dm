@@ -100,3 +100,12 @@
 #define COLOR_ASSEMBLY_LBLUE   "#5D99BE"
 #define COLOR_ASSEMBLY_BLUE    "#38559E"
 #define COLOR_ASSEMBLY_PURPLE  "#6F6192"
+
+// Pipe colours
+#define	PIPE_COLOR_GREY		"#ffffff"	//yes white is grey
+#define	PIPE_COLOR_RED		"#ff0000"
+#define	PIPE_COLOR_BLUE		"#0000ff"
+#define	PIPE_COLOR_CYAN		"#00ffff"
+#define	PIPE_COLOR_GREEN	"#00ff00"
+#define	PIPE_COLOR_YELLOW	"#ffcc00"
+#define	PIPE_COLOR_PURPLE	"#5c1ec0"

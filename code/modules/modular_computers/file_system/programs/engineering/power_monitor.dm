@@ -43,6 +43,6 @@
 		data["poweravail"] = powernet.avail
 		data["powerload"] = powernet.viewload
 		data["powerdemand"] = powernet.load
-		data["apcs"] = apc_repository.apc_data(powernet)
+		data["apcs"] = GLOB.apc_repository.apc_data(powernet)
 
 	return data

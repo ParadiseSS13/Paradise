@@ -1,4 +1,4 @@
-var/list/GPS_list = list()
+GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps
 	name = "global positioning system"
 	desc = "Helping lost spacemen find their way through the planets since 2016."
@@ -15,12 +15,12 @@ var/list/GPS_list = list()
 
 /obj/item/gps/New()
 	..()
-	GPS_list.Add(src)
+	GLOB.GPS_list.Add(src)
 	name = "global positioning system ([gpstag])"
 	overlays += "working"
 
 /obj/item/gps/Destroy()
-	GPS_list.Remove(src)
+	GLOB.GPS_list.Remove(src)
 	return ..()
 
 /obj/item/gps/emp_act(severity)
@@ -35,7 +35,7 @@ var/list/GPS_list = list()
 	overlays += "working"
 
 /obj/item/gps/AltClick(mob/user)
-	if(CanUseTopic(user, inventory_state) != STATUS_INTERACTIVE)
+	if(CanUseTopic(user, GLOB.inventory_state) != STATUS_INTERACTIVE)
 		return 1 //user not valid to use gps
 	if(emped)
 		to_chat(user, "<span class='warning'>It's busted!</span>")
@@ -54,7 +54,7 @@ var/list/GPS_list = list()
 		return
 
 	var/obj/item/gps/t = ""
-	var/gps_window_height = 110 + GPS_list.len * 20 // Variable window height, depending on how many GPS units there are to show
+	var/gps_window_height = 110 + GLOB.GPS_list.len * 20 // Variable window height, depending on how many GPS units there are to show
 	if(emped)
 		t += "ERROR"
 	else
@@ -66,7 +66,7 @@ var/list/GPS_list = list()
 
 		var/turf/own_pos = get_turf(src)
 		var/own_z = own_pos.z
-		for(var/obj/item/gps/G in GPS_list)
+		for(var/obj/item/gps/G in GLOB.GPS_list)
 			var/turf/pos = get_turf(G)
 			var/area/gps_area = get_area(G)
 			var/tracked_gpstag = G.gpstag

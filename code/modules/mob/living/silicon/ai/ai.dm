@@ -1,5 +1,5 @@
-var/list/ai_list = list()
-var/list/ai_verbs_default = list(
+GLOBAL_LIST_EMPTY(ai_list)
+GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/announcement,
 	/mob/living/silicon/ai/proc/ai_announcement_text,
 	/mob/living/silicon/ai/proc/ai_call_shuttle,
@@ -21,13 +21,13 @@ var/list/ai_verbs_default = list(
 	/mob/living/silicon/ai/proc/toggle_camera_light,
 	/mob/living/silicon/ai/proc/botcall,
 	/mob/living/silicon/ai/proc/change_arrival_message
-)
+))
 
 //Not sure why this is necessary...
 /proc/AutoUpdateAI(obj/subject)
 	var/is_in_use = 0
 	if(subject!=null)
-		for(var/A in ai_list)
+		for(var/A in GLOB.ai_list)
 			var/mob/living/silicon/ai/M = A
 			if((M.client && M.machine == subject))
 				is_in_use = 1
@@ -115,11 +115,11 @@ var/list/ai_verbs_default = list(
 	var/max_multicams = 6
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
-	verbs |= ai_verbs_default
+	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems
 
 /mob/living/silicon/ai/proc/remove_ai_verbs()
-	verbs -= ai_verbs_default
+	verbs -= GLOB.ai_verbs_default
 	verbs -= silicon_subsystems
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
@@ -189,7 +189,6 @@ var/list/ai_verbs_default = list(
 	add_language("Chittin", 0)
 	add_language("Bubblish", 0)
 	add_language("Clownish", 0)
-	add_language("Yakar", 0)
 
 	if(!safety)//Only used by AIize() to successfully spawn an AI.
 		if(!B)//If there is no player/brain inside.
@@ -211,7 +210,7 @@ var/list/ai_verbs_default = list(
 	builtInCamera.c_tag = name
 	builtInCamera.network = list("SS13")
 
-	ai_list += src
+	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
 	..()
 
@@ -279,7 +278,7 @@ var/list/ai_verbs_default = list(
 	return TRUE
 
 /mob/living/silicon/ai/Destroy()
-	ai_list -= src
+	GLOB.ai_list -= src
 	GLOB.shuttle_caller_list -= src
 	SSshuttle.autoEvac()
 	QDEL_NULL(eyeobj) // No AI, no Eye
@@ -616,7 +615,7 @@ var/list/ai_verbs_default = list(
 		unset_machine()
 		src << browse(null, t1)
 	if(href_list["switchcamera"])
-		switchCamera(locate(href_list["switchcamera"])) in cameranet.cameras
+		switchCamera(locate(href_list["switchcamera"])) in GLOB.cameranet.cameras
 	if(href_list["showalerts"])
 		subsystem_alarm_monitor()
 	if(href_list["show_paper"])
@@ -688,7 +687,7 @@ var/list/ai_verbs_default = list(
 		if(controlled_mech)
 			to_chat(src, "<span class='warning'>You are already loaded into an onboard computer!</span>")
 			return
-		if(!cameranet.checkCameraVis(M))
+		if(!GLOB.cameranet.checkCameraVis(M))
 			to_chat(src, "<span class='warning'>Exosuit is no longer near active cameras.</span>")
 			return
 		if(lacks_power())
@@ -777,7 +776,7 @@ var/list/ai_verbs_default = list(
 		//The target must be in view of a camera or near the core.
 	if(turf_check in range(get_turf(src)))
 		call_bot(turf_check)
-	else if(cameranet && cameranet.checkTurfVis(turf_check))
+	else if(GLOB.cameranet && GLOB.cameranet.checkTurfVis(turf_check))
 		call_bot(turf_check)
 	else
 		to_chat(src, "<span class='danger'>Selected location is not visible.</span>")
@@ -828,7 +827,7 @@ var/list/ai_verbs_default = list(
 
 	var/mob/living/silicon/ai/U = usr
 
-	for(var/obj/machinery/camera/C in cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if(!C.can_use())
 			continue
 
@@ -849,7 +848,7 @@ var/list/ai_verbs_default = list(
 	if(isnull(network))
 		network = old_network // If nothing is selected
 	else
-		for(var/obj/machinery/camera/C in cameranet.cameras)
+		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
 			if(network in C.network)
@@ -925,7 +924,7 @@ var/list/ai_verbs_default = list(
 		if("Crew Member")
 			var/personnel_list[] = list()
 
-			for(var/datum/data/record/t in data_core.locked)//Look in data core locked.
+			for(var/datum/data/record/t in GLOB.data_core.locked)//Look in data core locked.
 				personnel_list["[t.fields["name"]]: [t.fields["rank"]]"] = t.fields["image"]//Pull names, rank, and image.
 
 			if(personnel_list.len)
@@ -1216,7 +1215,7 @@ var/list/ai_verbs_default = list(
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
 		var/turf/T = isturf(A) ? A : get_turf_pixel(A)
-		return (cameranet && cameranet.checkTurfVis(T)) || apc_override
+		return (GLOB.cameranet && GLOB.cameranet.checkTurfVis(T)) || apc_override
 	//AI is carded/shunted
 	//view(src) returns nothing for carded/shunted AIs and they have x-ray vision so just use get_dist
 	var/list/viewscale = getviewsize(client.view)
@@ -1293,7 +1292,7 @@ var/list/ai_verbs_default = list(
 		to_chat(src, "<span class='warning'>Target is not on or near any active cameras on the station.</span>")
 
 /mob/living/silicon/ai/proc/camera_visibility(mob/camera/aiEye/moved_eye)
-	cameranet.visibility(moved_eye, client, all_eyes)
+	GLOB.cameranet.visibility(moved_eye, client, all_eyes)
 
 /mob/living/silicon/ai/forceMove(atom/destination)
 	. = ..()

@@ -1,9 +1,9 @@
 /*
-	This checks that the user is a ghost or alternatively an admin. Used for the mob spawner. 
+	This checks that the user is a ghost or alternatively an admin. Used for the mob spawner.
 	We don't want any living people somehow getting the menu open and reincarnating while alive
 */
 
-/var/global/datum/topic_state/ghost_state/ghost_state = new()
+GLOBAL_DATUM_INIT(ghost_state, /datum/topic_state/ghost_state, new())
 
 /datum/topic_state/ghost_state/can_use_topic(var/src_object, var/mob/user)
 	if(user.stat == DEAD)

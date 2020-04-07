@@ -103,7 +103,7 @@
 				if(RC.is_drainable())
 					for(var/datum/reagent/A in RC.reagents.reagent_list)
 						.["other"][A.type] += A.volume
-			.["other"][I.type] += 1 
+			.["other"][I.type] += 1
 		.["toolsother"][I] += 1
 
 /datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
@@ -135,13 +135,13 @@
 /datum/personal_crafting/proc/check_pathtools(mob/user, datum/crafting_recipe/R, list/contents)
 	if(!R.pathtools.len) //does not run if no tools are needed
 		return TRUE
-	var/list/other_possible_tools = list() 
+	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
 		if(istype(I, /obj/item/storage))
 			for(var/obj/item/SI in I.contents)
 				other_possible_tools += SI.type	// filters type paths
 		other_possible_tools += I.type
-	
+
 	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
 		for(var/A in R.pathtools)
@@ -151,7 +151,7 @@
 			return FALSE
 	return TRUE
 
-/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R) 
+/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(user)
 	var/send_feedback = 1
 	if(check_contents(R, contents))
@@ -297,7 +297,7 @@
 		Deletion.Cut(Deletion.len)
 		qdel(DL)
 
-/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = not_incapacitated_turf_state)
+/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1, datum/topic_state/state = GLOB.not_incapacitated_turf_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "personal_crafting.tmpl", "Crafting Menu", 700, 800, state = state)

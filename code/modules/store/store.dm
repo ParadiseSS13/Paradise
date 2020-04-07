@@ -16,7 +16,7 @@ job objectives = good stock market, shitty job objective completion = shitty eco
 Goal for now is to get the store itself working, however.
 */
 
-var/global/datum/store/centcomm_store=new
+GLOBAL_DATUM_INIT(centcomm_store, /datum/store, new())
 
 /datum/store
 	var/list/datum/storeitem/items=list()
@@ -40,7 +40,7 @@ var/global/datum/store/centcomm_store=new
 	T.target_name = "[command_name()] Merchandising"
 	T.purpose = "Purchase of [item.name]"
 	T.amount = -amount
-	T.date = current_date_string
+	T.date = GLOB.current_date_string
 	T.time = station_time_timestamp()
 	T.source_terminal = "\[CLASSIFIED\] Terminal #[rand(111,333)]"
 	mind.initial_account.transaction_log.Add(T)
