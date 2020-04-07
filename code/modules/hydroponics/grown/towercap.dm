@@ -165,7 +165,7 @@
 
 /obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
 	if(burning)
-		add_attack_logs(src, AM, "burned by a bonfire (Lit by [lighter])", ATKLOG_FEW)
+		add_attack_logs(src, AM, "burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
 		Burn()
 
 /obj/structure/bonfire/proc/Burn()
