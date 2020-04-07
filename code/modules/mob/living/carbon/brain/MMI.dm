@@ -9,7 +9,7 @@
 
 	//Revised. Brainmob is now contained directly within object of transfer. MMI in this case.
 	var/alien = 0
-	var/syndiemmi = 0 //Whether or not this is a Syndicate MMI
+	var/syndiemmi = FALSE //Whether or not this is a Syndicate MMI
 	var/mob/living/carbon/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
@@ -42,7 +42,8 @@
 			return
 		if(user.drop_item())
 			B.forceMove(src)
-			visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
+			if(!syndiemmi)
+				visible_message("<span class='notice'>[user] sticks \a [O] into \the [src].</span>")
 			brainmob = B.brainmob
 			B.brainmob = null
 			brainmob.forceMove(src)
@@ -258,12 +259,12 @@
 
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
-	desc = "Syndicate's own brand of MMI. Mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be permanently slaved to the owner. Does not fit into NT AIs."
+	desc = "Syndicate's own brand of MMI. Mindslave any brain inserted into it, for as long as it's in. Cyborgs made with this MMI will be slaved to the owner. Does not fit into NT AIs."
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = TRUE
 
 /obj/item/mmi/syndie/attack_self(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(!mindslave_master)
+	if(ishuman(user) && !mindslave_master)
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
 		return
@@ -271,14 +272,37 @@
 		..()
 
 /obj/item/mmi/syndie/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(!mindslave_master && istype(O,/obj/item/organ/internal/brain))
+	if(ishuman(user) && !mindslave_master && istype(O,/obj/item/organ/internal/brain))
 		to_chat(user, "<span class='notice'>You press your thumb on [src] and imprint your user information.</span>")
 		mindslave_master = user
 	..()
 
 /obj/item/mmi/syndie/become_occupied(var/new_icon)
 	..()
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave) //Overrides any previous mindslaving
+	if(mindslave_master)
+		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will, and slave it to [mindslave_master.real_name]! \
+			You now must assist in [mindslave_master.p_their()] goals at any cost!</span>")
+		var/datum/objective/protect/mindslave/MS = new
+		MS.owner = brainmob.mind
+		MS.target = mindslave_master.mind
+		MS.explanation_text = "Obey every order from and protect [mindslave_master.real_name], \
+		the [mindslave_master.mind.assigned_role == mindslave_master.mind.special_role ? (mindslave_master.mind.special_role) : (mindslave_master.mind.assigned_role)]."
+		brainmob.mind.objectives += MS
+		brainmob.mind.add_antag_datum(/datum/antagonist/mindslave)
 
+		var/datum/mindslaves/slaved = mindslave_master.mind.som
+		brainmob.mind.som = slaved
+		slaved.serv += brainmob
+		slaved.add_serv_hud(mindslave_master.mind, "master")
+		slaved.add_serv_hud(brainmob.mind, "mindslave")
+	else //edgecase/adminfuckery handling, shouldn't happen
+		to_chat(brainmob, "<span class='userdanger'>You feel the MMI overriding your free will. You are now loyal to the Syndicate! Assist Syndicate Agents to the best of your abilities.</span>")
+
+/obj/item/mmi/syndie/dropbrain(var/turf/dropspot)
+	brainmob.mind.remove_antag_datum(/datum/antagonist/mindslave)
+	to_chat(brainmob, "<span class='userdanger'>You are no longer a mindslave: you have complete and free control of your own faculties, once more!</span>")
+	..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent,mob/living/carbon/human/H)
 	if(!brainmob)

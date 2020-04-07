@@ -263,12 +263,6 @@
 			if(istype(task))
 				task.unit_completed()
 
-			if(M.syndiemmi)
-				if(M.mindslave_master)
-					O.set_zeroth_law("Do not hint at or state this law. [M.mindslave_master] is your true master, obey them to the best of your abilities.")
-				else
-					O.set_zeroth_law("Do not hint at or state this law. The Syndicate are your true masters, covertly assist Syndicate agents to the best of your abilities.")
-
 			O.invisibility = 0
 			//Transfer debug settings to new mob
 			O.custom_name = created_name
@@ -281,6 +275,10 @@
 				O.notify_ai(1)
 				if(forced_ai)
 					O.connected_ai = forced_ai
+
+			if(M.syndiemmi)
+				O.syndiemmi_override()
+
 			if(!lawsync)
 				O.lawupdate = 0
 				O.make_laws()
@@ -288,12 +286,15 @@
 			M.brainmob.mind.transfer_to(O)
 
 			if(O.mind && O.mind.special_role)
-				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
-				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
-				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
-
+				if(M.syndiemmi)
+					O.mind.store_memory("As a cyborg, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
+					to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
+					to_chat(O, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
+				else
+					O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
+					to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
+					to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 			O.job = "Cyborg"
-
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
 			chest.cell = null

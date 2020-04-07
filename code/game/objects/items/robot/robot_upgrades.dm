@@ -37,7 +37,7 @@
 
 /obj/item/borg/upgrade/purge
 	name = "cyborg software purge board"
-	desc = "Purge a cyborg of any illegal modifications, and reset its module. Warning : Laws are not affected if unsynced to station AI!"
+	desc = "Purge a cyborg of any illegal modifications, clear its laws if unsynced to an AI, and reset its module."
 	icon_state = "cyborg_upgrade1"
 	origin_tech = "programming=3"
 
@@ -46,7 +46,12 @@
 		return
 
 	R.emagged = FALSE
-	R.ignore_master_ai = FALSE
+	if(!R.connected_ai)
+		if(!is_special_character(R))
+			R.clear_zeroth_law()
+		R.clear_supplied_laws()
+		R.clear_ion_laws()
+		R.clear_inherent_laws()
 	R.reset_module()
 	R.sync()
 

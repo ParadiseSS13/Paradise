@@ -16,11 +16,6 @@
 	if(!isnull(usr) && law)
 		log_and_message_admins("has given [src] the zeroth laws: [law]/[law_borg ? law_borg : "N/A"]")
 
-/mob/living/silicon/robot/set_zeroth_law(var/law, var/law_borg)
-	..()
-	if(tracking_entities)
-		to_chat(src, "<span class='warning'>Internal camera is currently being accessed.</span>")
-
 /mob/living/silicon/proc/add_ion_law(var/law)
 	throw_alert("newlaw", /obj/screen/alert/newlaw)
 	laws_sanity_check()
