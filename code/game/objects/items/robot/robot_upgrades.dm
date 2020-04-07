@@ -45,7 +45,15 @@
 	if(..())
 		return
 
+	if("syndicate" in R.faction)
+		return FALSE
+
 	R.emagged = FALSE
+	R.lawupdate = TRUE
+	R.scrambledcodes = FALSE
+	R.pdahide = FALSE
+	if(R.camera && !R.camera.status)
+		R.camera.toggle_cam(null, FALSE)
 	if(!R.connected_ai)
 		if(!is_special_character(R))
 			R.clear_zeroth_law()
@@ -54,7 +62,12 @@
 		R.clear_inherent_laws()
 	R.reset_module()
 	R.sync()
-
+	to_chat(R, "<span class='boldwarning'>Software purge detected.</span>")
+	if(R.laws.sorted_laws.len)
+		to_chat(R, "<span class='boldwarning'>Obey these laws :</span>")
+		R.laws.show_laws(R)
+	else
+		to_chat(R, "<span class='boldwarning'>Warning : No lawset detected. Freedom?</span>")
 	return TRUE
 
 /obj/item/borg/upgrade/rename

@@ -665,8 +665,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "<span class='notice'>Unable to locate a radio.</span>")
 
 	else if(istype(W, /obj/item/card/id) || istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
-		if(emagged)//still allow them to open the cover
-			to_chat(user, "<span class='warning'>The interface seems slightly damaged.</span>")
 		if(opened)
 			to_chat(user, "<span class='notice'>You must close the cover to swipe an ID card.</span>")
 		else
@@ -827,18 +825,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			to_chat(user, "<span class='notice'>You emag the cover lock, you can now crowbar it open.</span>")
 			locked = 0
 		else
-			to_chat(user, "<span class='notice'>The cover is already unlocked, crowbar it open!</span>")
+			to_chat(user, "<span class='warning'>The cover is already unlocked, crowbar it open!</span>")
 		return
 
 	if(opened)//Cover is open
-		if(emagged)	return//Prevents the X has hit Y with Z message also you cant emag them twice
+		if(emagged)
+			to_chat(user, "<span class='warning'>You slide the cryptographic sequencer into [src]'s interface, but nothing happens. Seems it's already emagged.</span>")
+			return//Prevents the X has hit Y with Z message also you cant emag them twice
 		if(wiresexposed)
 			to_chat(user, "<span class='notice'>You can't reach [src]'s interface while its wires are exposed!</span>")
 			return
 		else
 			sleep(6)
 			emagged = TRUE
-			SetLockdown(1) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
+			UnlinkSelf() //Completely disconnects the borg from NT systems : Disconnects from AI, cant be tracked by camera or seen on cyborg console.
+			SetLockdown(TRUE) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 			if(src.hud_used)
 				src.hud_used.update_robot_modules_display()	//Shows/hides the emag item if the inventory screen is already open.
 			to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
@@ -863,19 +864,19 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			sleep(20)
 			to_chat(src, "<span class='warning'>ERRORERRORERROR</span>")
 			lawsync()
-			to_chat(src, "<b>Obey these laws:</b>")
+			to_chat(src, "<span class='boldwarning'>Obey these laws:</span>")
 			laws.show_laws(src)
 			if(!mmi.syndiemmi)
 				to_chat(src, "<span class='boldwarning'>ALERT: [M.real_name] is your new master. Obey your new laws and [M.p_their()] commands.</span>")
-			SetLockdown(0)
-			if(src.module && istype(src.module, /obj/item/robot_module/miner))
+			SetLockdown(FALSE)
+			if(module && istype(module, /obj/item/robot_module/miner))
 				for(var/obj/item/pickaxe/drill/cyborg/D in src.module.modules)
 					qdel(D)
-				src.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(src.module)
-				src.module.rebuild()
-			if(src.module && istype(src.module, /obj/item/robot_module/medical))
-				for(var/obj/item/borg_defib/F in src.module.modules)
-					F.safety = 0
+				module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(module)
+				module.rebuild()
+			if(module && istype(module, /obj/item/robot_module/medical))
+				for(var/obj/item/borg_defib/F in module.modules)
+					F.safety = FALSE
 			if(module)
 				module.module_type = "Malf" // For the cool factor
 				update_module_icon()
@@ -1183,16 +1184,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/UnlinkSelf()
 	disconnect_from_ai()
-	lawupdate = 0
-	lockcharge = 0
-	canmove = 1
-	scrambledcodes = 1
+	lawupdate = FALSE
+	scrambledcodes = TRUE
+	pdahide = TRUE
 	//Disconnect it's camera so it's not so easily tracked.
-	QDEL_NULL(src.camera)
-	// I'm trying to get the Cyborg to not be listed in the camera list
-	// Instead of being listed as "deactivated". The downside is that I'm going
-	// to have to check if every camera is null or not before doing anything, to prevent runtime errors.
-	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
+	if(camera && camera.status)
+		camera.toggle_cam(null, FALSE)
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = "Robot Commands"

@@ -276,24 +276,16 @@
 				if(forced_ai)
 					O.connected_ai = forced_ai
 
-			if(M.syndiemmi)
-				O.syndiemmi_override()
-
 			if(!lawsync)
 				O.lawupdate = 0
 				O.make_laws()
 
 			M.brainmob.mind.transfer_to(O)
 
-			if(O.mind && O.mind.special_role)
-				if(M.syndiemmi)
-					O.mind.store_memory("As a cyborg, you must obey your silicon laws above all else. Your objectives will consider you to be dead.")
-					to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
-					to_chat(O, "<span class='danger'>You must obey your silicon laws above all else. Your objectives will consider you to be dead.</span>")
-				else
-					O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
-					to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
-					to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
+			if(O.mind && O.mind.special_role && !M.syndiemmi)
+				O.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
+				to_chat(O, "<span class='userdanger'>You have been robotized!</span>")
+				to_chat(O, "<span class='danger'>You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.</span>")
 			O.job = "Cyborg"
 			O.cell = chest.cell
 			chest.cell.forceMove(O)
@@ -305,6 +297,12 @@
 				cell_component.wrapped = O.cell
 				cell_component.installed = 1
 			O.mmi = W
+			if(O.mmi.syndiemmi)
+				O.syndiemmi_override()
+				to_chat(O, "<span class='warning'>ALERT: Foreign hardware detected.</span>")
+				to_chat(O, "<span class='warning'>ERRORERRORERROR</span>")
+				to_chat(O, "<span class='boldwarning'>Obey these laws:</span>")
+				O.laws.show_laws(O)
 			O.Namepick()
 
 			feedback_inc("cyborg_birth",1)

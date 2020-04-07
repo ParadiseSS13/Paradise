@@ -37,17 +37,18 @@
 	set category = "AI Commands"
 	set name = "Show Camera List"
 
-	if(src.stat == 2)
-		to_chat(src, "You can't list the cameras because you are dead!")
+	if(stat == DEAD)
+		to_chat(src, "<span class='warning'>You can't list the cameras because you are dead!</span>")
 		return
 
 	if(!camera || camera == "Cancel")
-		return 0
+		return
 
 	var/obj/machinery/camera/C = track.cameras[camera]
-	src.eyeobj.setLoc(C)
-
-	return
+	if(!C.status)
+		to_chat(src, "<span class'warning'>Error : Selected camera de-activated. Unable to locate.</span>")
+		return
+	eyeobj.setLoc(C)
 
 /mob/living/silicon/ai/proc/ai_store_location(loc as text)
 	set category = "AI Commands"
