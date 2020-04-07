@@ -12,6 +12,10 @@
 			if(istype(C, /obj/item/stock_parts/cell))
 				if(cell)
 					if(C.get_part_rating() > cell.get_part_rating())
+						if(C.charge > cell.charge)
+							var/tempcharge = cell.charge
+							cell.charge = C.charge
+							C.charge = tempcharge
 						cell.update_icon()
 						W.handle_item_insertion(cell, 1)
 						W.remove_from_storage(C, src)
@@ -22,7 +26,6 @@
 						charging = 0
 						chargecount = 0
 						shouldplaysound = TRUE
-						newcell = TRUE
 						break
 				if(!cell)
 					W.remove_from_storage(C, src)

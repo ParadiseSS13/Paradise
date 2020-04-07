@@ -41,7 +41,7 @@
 	if(H.stat != CONSCIOUS)
 		return
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
-		step(H, pick(cardinal))
+		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
 
@@ -57,8 +57,8 @@
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	if(!remove)
-		H.dna.SetSEState(MONKEYBLOCK, TRUE)
-		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
+		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
+		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"

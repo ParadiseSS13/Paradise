@@ -222,7 +222,7 @@
 		..()
 
 /obj/machinery/vending/attackby(obj/item/I, mob/user, params)
-	if(currently_vending && vendor_account && !vendor_account.suspended)
+	if(currently_vending && GLOB.vendor_account && !GLOB.vendor_account.suspended)
 		var/paid = 0
 		var/handled = 0
 		if(istype(I, /obj/item/card/id))
@@ -452,8 +452,8 @@
 		return 0
 	else
 		// Okay to move the money at this point
-		var/paid = customer_account.charge(currently_vending.price, vendor_account,
-			"Purchase of [currently_vending.name]", name, vendor_account.owner_name,
+		var/paid = customer_account.charge(currently_vending.price, GLOB.vendor_account,
+			"Purchase of [currently_vending.name]", name, GLOB.vendor_account.owner_name,
 			"Sale of [currently_vending.name]", customer_account.owner_name)
 
 		if(paid)
@@ -469,8 +469,8 @@
  *  Called after the money has already been taken from the customer.
  */
 /obj/machinery/vending/proc/credit_purchase(var/target as text)
-	vendor_account.money += currently_vending.price
-	vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
+	GLOB.vendor_account.money += currently_vending.price
+	GLOB.vendor_account.credit(currently_vending.price, "Sale of [currently_vending.name]",
 	name, target)
 
 /obj/machinery/vending/attack_ai(mob/user)
@@ -503,7 +503,7 @@
 		ui = new(user, src, ui_key, "vending_machine.tmpl", src.name, 440, 600)
 		ui.open()
 
-/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/vending/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/list/data = list()
 	if(currently_vending)
 		data["mode"] = 1
@@ -573,7 +573,7 @@
 		eject_item(usr)
 
 	if(href_list["pay"])
-		if(currently_vending && vendor_account && !vendor_account.suspended)
+		if(currently_vending && GLOB.vendor_account && !GLOB.vendor_account.suspended)
 			var/paid = 0
 			var/handled = 0
 			var/datum/money_account/A = usr.get_worn_id_account()
@@ -621,7 +621,7 @@
 			vend(R, usr)
 		else
 			currently_vending = R
-			if(!vendor_account || vendor_account.suspended)
+			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
 				status_message = "This machine is currently unable to process payments due to problems with the associated account."
 				status_error = 1
 			else
@@ -770,7 +770,7 @@
 					continue
 
 				var/obj/O = new dump_path(loc)
-				step(O, pick(alldirs))
+				step(O, pick(GLOB.alldirs))
 				found_anything = TRUE
 				dump_amount++
 				if(dump_amount >= 16)
@@ -1250,7 +1250,7 @@
 	req_access_txt = "1"
 	products = list(/obj/item/restraints/handcuffs = 12,/obj/item/grenade/flashbang = 8,/obj/item/flash = 5,
 					/obj/item/reagent_containers/food/snacks/donut = 12,/obj/item/taperoll/police = 8,/obj/item/storage/box/evidence = 6,/obj/item/flashlight/seclite = 5,/obj/item/restraints/legcuffs/bola/energy = 10,
-					/obj/item/clothing/mask/muzzle/safety = 5)
+					/obj/item/clothing/mask/muzzle/safety = 5, /obj/item/device/binoculars/security = 2)
 	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,/obj/item/storage/fancy/donut_box = 2,/obj/item/hailer = 5)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -1632,9 +1632,9 @@
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
 	req_access_txt = "29"
-	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 4,
-					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
-					/obj/item/scalpel = 2,/obj/item/circular_saw = 2,/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 5,
+	products = list(/obj/item/clothing/suit/storage/labcoat = 4,/obj/item/clothing/under/rank/roboticist = 4,/obj/item/stack/cable_coil = 4,/obj/item/flash = 6,
+					/obj/item/stock_parts/cell/high/plus = 6, /obj/item/assembly/prox_sensor = 6,/obj/item/assembly/signaler = 3,/obj/item/healthanalyzer = 3,
+					/obj/item/tank/anesthetic = 2,/obj/item/clothing/mask/breath/medical = 2,
 					/obj/item/screwdriver = 5,/obj/item/crowbar = 5)
 	refill_canister = /obj/item/vending_refill/robotics
 
@@ -1764,11 +1764,17 @@
 	products = list(/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/fedora = 1,
 					/obj/item/clothing/glasses/monocle = 1,
-					/obj/item/clothing/under/suit_jacket/navy = 2,
 					/obj/item/clothing/under/kilt = 1,
 					/obj/item/clothing/under/overalls = 1,
-					/obj/item/clothing/under/suit_jacket/really_black = 2,
 					/obj/item/clothing/suit/storage/lawyer/blackjacket = 2,
+					/obj/item/clothing/under/suit_jacket/navy = 2,
+					/obj/item/clothing/under/suit_jacket/really_black = 2,
+					/obj/item/clothing/under/suit_jacket = 2,
+					/obj/item/clothing/under/suit_jacket/red = 2,
+					/obj/item/clothing/under/suit_jacket/tan = 2,
+					/obj/item/clothing/under/suit_jacket/burgundy = 2,
+					/obj/item/clothing/under/suit_jacket/charcoal = 2,
+					/obj/item/clothing/under/suit_jacket/checkered = 2,
 					/obj/item/clothing/under/pants/jeans = 3,
 					/obj/item/clothing/under/pants/classicjeans = 2,
 					/obj/item/clothing/under/pants/camo = 1,

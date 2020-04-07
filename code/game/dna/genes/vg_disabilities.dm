@@ -8,7 +8,7 @@
 
 /datum/dna/gene/disability/speech/loud/New()
 	..()
-	block=LOUDBLOCK
+	block=GLOB.loudblock
 
 
 
@@ -28,7 +28,7 @@
 
 /datum/dna/gene/disability/dizzy/New()
 	..()
-	block=DIZZYBLOCK
+	block=GLOB.dizzyblock
 
 
 /datum/dna/gene/disability/dizzy/OnMobLife(var/mob/living/carbon/human/M)

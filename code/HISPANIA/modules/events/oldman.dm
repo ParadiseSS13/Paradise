@@ -5,7 +5,7 @@
 	var/key_of_oldman
 
 /datum/event/spawn_oldman/announce()
-	event_announcement.Announce("Unknown entity detected aboard [station_name()]. Please report any sightings to local authority.", "Bioscan Alert", 'sound/hispania/effects/oldman/alert.ogg')
+	GLOB.event_announcement.Announce("Unknown entity detected aboard [station_name()]. Please report any sightings to local authority.", "Bioscan Alert", 'sound/hispania/effects/oldman/alert.ogg')
 
 /datum/event/spawn_oldman/proc/get_oldman(var/end_if_fail = 0)
 	spawn()

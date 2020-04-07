@@ -68,7 +68,7 @@
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 	//SECHUD
-	var/datum/atom_hud/secsensor = huds[DATA_HUD_SECURITY_ADVANCED]
+	var/datum/atom_hud/secsensor = GLOB.huds[DATA_HUD_SECURITY_ADVANCED]
 	secsensor.add_hud_to(src)
 	permanent_huds |= secsensor
 
@@ -473,7 +473,7 @@
 		pulse2.icon_state = "empdisable"
 		pulse2.name = "emp sparks"
 		pulse2.anchored = 1
-		pulse2.dir = pick(cardinal)
+		pulse2.dir = pick(GLOB.cardinal)
 		spawn(10)
 			qdel(pulse2)
 		var/list/mob/living/carbon/targets = new

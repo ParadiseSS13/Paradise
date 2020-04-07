@@ -178,7 +178,7 @@
 	else if(mob.confused)
 		var/newdir = 0
 		if(mob.confused > 40)
-			newdir = pick(alldirs)
+			newdir = pick(GLOB.alldirs)
 		else if(prob(mob.confused * 1.5))
 			newdir = angle2dir(dir2angle(direct) + pick(90, -90))
 		else if(prob(mob.confused * 3))

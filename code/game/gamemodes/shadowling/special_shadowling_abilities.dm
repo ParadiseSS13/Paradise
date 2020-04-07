@@ -1,5 +1,5 @@
 //In here: Hatch and Ascendance
-var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "Noaey'gief", "Mii`mahza", "Amerziox", "Gyrg-mylin", "Kanet'pruunance", "Vigistaezian") //Unpronouncable 2: electric boogalo)
+GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-uae", "Noaey'gief", "Mii`mahza", "Amerziox", "Gyrg-mylin", "Kanet'pruunance", "Vigistaezian")) //Unpronouncable 2: electric boogalo)
 /obj/effect/proc_holder/spell/targeted/shadowling_hatch
 	name = "Hatch"
 	desc = "Casts off your disguise."
@@ -66,8 +66,8 @@ var/list/possibleShadowlingNames = list("U'ruan", "Y`shej", "Nex", "Hel-uae", "N
 				H.status_flags = temp_flags
 				sleep(10)
 				playsound(H.loc, 'sound/effects/ghost.ogg', 100, 1)
-				var/newNameId = pick(possibleShadowlingNames)
-				possibleShadowlingNames.Remove(newNameId)
+				var/newNameId = pick(GLOB.possibleShadowlingNames)
+				GLOB.possibleShadowlingNames.Remove(newNameId)
 				H.real_name = newNameId
 				H.name = user.real_name
 				H.SetStunned(0)
