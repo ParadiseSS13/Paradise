@@ -27,7 +27,7 @@
 			to_chat(src, "<b>No AI selected to sync laws with, disabling lawsync protocol.</b>")
 			lawupdate = 0
 
-	to_chat(who, "<b>Obey these laws:</b>")
+	to_chat(who, "<b>Obedece estas leyes:</b>")
 	laws.show_laws(who)
 	// TODO: Update to new antagonist system.
 	if (shell) //AI shell
