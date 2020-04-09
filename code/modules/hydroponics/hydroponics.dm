@@ -560,7 +560,7 @@
 	if(S.has_reagent("charcoal", 1))
 		adjustToxic(-round(S.get_reagent_amount("charcoal") * 2))
 
-	// NIGGA, YOU JUST WENT ON FULL RETARD.
+	// BRO, YOU JUST WENT ON FULL STUPID.
 	if(S.has_reagent("toxin", 1))
 		adjustToxic(round(S.get_reagent_amount("toxin") * 2))
 
