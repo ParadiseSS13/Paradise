@@ -196,11 +196,6 @@
 	else
 		new /obj/item/storage/backpack/satchel_med(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/storage/box/autoinjectors(src)
-	new /obj/item/handheld_defibrillator(src)
-	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/storage/pill_bottle( src )
-	new /obj/item/storage/pill_bottle/patch_pack(src)
 	new /obj/item/flash(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/fire(src)
