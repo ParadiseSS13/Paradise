@@ -181,7 +181,7 @@
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
-	req_access = list(ACCESS_SECURITY)
+	req_access = list(ACCESS_MEDICAL)
 	icon_state = "securemed1"
 	icon_closed = "securemed"
 	icon_locked = "securemed1"
@@ -196,6 +196,11 @@
 	else
 		new /obj/item/storage/backpack/satchel_med(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/storage/box/autoinjectors(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/storage/pill_bottle( src )
+	new /obj/item/storage/pill_bottle/patch_pack(src)
 	new /obj/item/flash(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/storage/firstaid/fire(src)

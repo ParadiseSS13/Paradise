@@ -2052,8 +2052,8 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "aep" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk,
+/obj/structure/bed,
+/obj/item/bedsheet/blue,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue (NORTHWEST)";
 	icon_state = "whiteblue";
@@ -2072,10 +2072,6 @@
 "aer" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/machinery/light{
-	dir = 1;
-	on = 1
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2257,11 +2253,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "aeJ" = (
-/obj/structure/table/glass,
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/adv,
-/obj/item/reagent_containers/syringe/charcoal,
-/obj/item/reagent_containers/glass/bottle/epinephrine,
+/obj/machinery/vending/medical,
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue (NORTHWEST)";
 	icon_state = "whiteblue";
@@ -2269,10 +2261,6 @@
 	},
 /area/security/medbay)
 "aeK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitebluecorner";
@@ -2280,16 +2268,6 @@
 	},
 /area/security/medbay)
 "aeL" = (
-/obj/structure/table/glass,
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/camera{
-	c_tag = "Brig Medbay";
-	dir = 2;
-	network = list("SS13")
-	},
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_y = 30
-	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue (NORTH)";
 	icon_state = "whiteblue";
@@ -2304,7 +2282,7 @@
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
+	dir = 4;
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
@@ -2314,9 +2292,6 @@
 	},
 /area/security/medbay)
 "aeN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2343,13 +2318,16 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/firealarm{
-	dir = 2;
-	pixel_y = 24
-	},
 /obj/structure/table/glass,
-/obj/item/clothing/accessory/stethoscope,
-/obj/item/storage/belt/medical,
+/obj/item/storage/firstaid/regular,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
+/obj/item/storage/belt/medical{
+	pixel_x = 3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue";
@@ -2408,8 +2386,8 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/sink{
-	pixel_y = 32
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	tag = "icon-whiteblue (NORTH)";
@@ -2706,14 +2684,15 @@
 /area/security/prisonershuttle)
 "afq" = (
 /obj/structure/table/glass,
-/obj/item/storage/box/masks{
-	pixel_x = 6;
-	pixel_y = 2
-	},
-/obj/item/storage/box/gloves,
 /obj/item/radio/intercom/department/security{
 	pixel_x = -28
 	},
+/obj/item/reagent_containers/spray/cleaner,
+/obj/item/clothing/suit/straight_jacket{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/storage/box/bodybags,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue";
@@ -2721,6 +2700,20 @@
 	},
 /area/security/medbay)
 "afr" = (
+/obj/structure/closet/crate/freezer,
+/obj/item/tank/emergency_oxygen/engi/empty,
+/obj/item/tank/emergency_oxygen/engi/empty,
+/obj/item/reagent_containers/iv_bag/blood/AMinus,
+/obj/item/reagent_containers/iv_bag/blood/APlus,
+/obj/item/reagent_containers/iv_bag/blood/BMinus,
+/obj/item/reagent_containers/iv_bag/blood/BPlus,
+/obj/item/reagent_containers/iv_bag/blood/OMinus,
+/obj/item/reagent_containers/iv_bag/blood/OPlus,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/item/reagent_containers/iv_bag/blood/random,
+/obj/machinery/iv_drip,
+/obj/item/reagent_containers/iv_bag/salglu,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -2767,14 +2760,6 @@
 /obj/structure/closet/secure_closet/brigdoc,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
-	},
-/area/security/medbay)
-"afw" = (
-/obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	dir = 2;
 	icon_state = "whiteblue";
 	tag = "icon-whitehall (WEST)"
 	},
@@ -8131,6 +8116,9 @@
 "aoi" = (
 /obj/effect/landmark/start{
 	name = "Brig Physician"
+	},
+/obj/structure/chair/office/dark{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -15386,7 +15374,6 @@
 	tag = ""
 	},
 /obj/structure/table,
-/obj/item/storage/box/bodybags,
 /obj/item/assembly/signaler{
 	code = 6;
 	frequency = 1445
@@ -52064,13 +52051,6 @@
 	tag = "icon-whitebluecorner"
 	},
 /area/medical/medbay2)
-"bSs" = (
-/obj/machinery/vending/medical,
-/turf/simulated/floor/plasteel{
-	tag = "icon-whiteblue";
-	icon_state = "whiteblue"
-	},
-/area/medical/reception)
 "bSt" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass{
@@ -96083,6 +96063,24 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"dVi" = (
+/obj/structure/table/glass,
+/obj/item/roller{
+	pixel_x = 5
+	},
+/obj/item/roller,
+/obj/item/clothing/accessory/stethoscope{
+	pixel_y = 3
+	},
+/obj/item/storage/box/masks{
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel{
+	dir = 2;
+	icon_state = "whiteblue";
+	tag = "icon-whitehall (WEST)"
+	},
+/area/security/medbay)
 "dVJ" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Arcade"
@@ -96649,6 +96647,21 @@
 	icon_state = "floor3"
 	},
 /area/shuttle/abandoned)
+"jkl" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_y = 30
+	},
+/obj/machinery/camera{
+	c_tag = "Brig Medbay";
+	dir = 2;
+	network = list("SS13")
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-whiteblue (NORTH)";
+	icon_state = "whiteblue";
+	dir = 1
+	},
+/area/security/medbay)
 "jnJ" = (
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (NORTH)";
@@ -97015,6 +97028,16 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
+"mWm" = (
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-whiteblue (NORTH)";
+	icon_state = "whiteblue";
+	dir = 1
+	},
+/area/security/medbay)
 "mZm" = (
 /obj/structure/lattice,
 /turf/simulated/shuttle/floor{
@@ -97141,6 +97164,18 @@
 	icon_state = "floor4"
 	},
 /area/shuttle/tsf)
+"ovu" = (
+/obj/structure/morgue,
+/obj/machinery/light{
+	dir = 1;
+	on = 1
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-whiteblue (NORTH)";
+	icon_state = "whiteblue";
+	dir = 1
+	},
+/area/security/medbay)
 "owE" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock{
@@ -97194,6 +97229,10 @@
 /obj/structure/coatrack,
 /turf/simulated/floor/carpet,
 /area/maintenance/port)
+"puj" = (
+/obj/structure/lattice,
+/turf/simulated/wall/r_wall,
+/area/security/medbay)
 "puu" = (
 /obj/structure/bed/dogbed/garronte,
 /mob/living/simple_animal/friendly/owl,
@@ -97903,6 +97942,22 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
+"wpx" = (
+/obj/machinery/firealarm{
+	dir = 2;
+	pixel_y = 24
+	},
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	tag = "icon-whiteblue (NORTH)";
+	icon_state = "whiteblue";
+	dir = 1
+	},
+/area/security/medbay)
 "wqX" = (
 /obj/effect/decal/cleanable/blood,
 /obj/machinery/computer/atmos_alert,
@@ -123394,8 +123449,8 @@ awB
 ada
 adt
 awB
-aab
-apF
+puj
+ovu
 aeJ
 afd
 afq
@@ -123652,10 +123707,10 @@ ahF
 ahF
 ahF
 apF
-apF
+jkl
 aeL
 aoi
-afs
+dVi
 aeh
 agr
 aig
@@ -124680,10 +124735,10 @@ ahF
 ahF
 ahF
 apF
-apF
+mWm
 aeT
 afj
-afw
+afs
 agj
 agr
 aig
@@ -124936,8 +124991,8 @@ ahF
 ahF
 ahF
 ahF
-aab
-apF
+puj
+wpx
 aeO
 afi
 afv
@@ -133484,7 +133539,7 @@ bJA
 bLv
 bTQ
 bDe
-bSs
+bGd
 bIq
 crA
 bZJ
