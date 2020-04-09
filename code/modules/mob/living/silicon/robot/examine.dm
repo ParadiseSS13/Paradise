@@ -34,9 +34,6 @@
 	if(cell && cell.charge <= 0)
 		msg += "<span class='warning'>Its battery indicator is blinking red!</span>\n"
 
-	if(emagged && stat != DEAD) //Emagged or illegal upgrade warning
-		msg += "<span class='danger'>Its limbs are sparking and its status indicator is blinking red!</span>\n"
-
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
