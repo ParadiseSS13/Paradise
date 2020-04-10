@@ -31,15 +31,6 @@
 				to_chat(M, "<span class='danger'>[message] ...LAWS UPDATED</span>")
 				to_chat(M, "<br>")
 
-	for(var/mob/living/silicon/robot/R in GLOB.living_mob_list)
-		if(R.stat != DEAD && !R.connected_ai && !R.emagged)
-			var/message = generate_ion_law(ionMessage)
-			if(message)
-				R.add_ion_law(message)
-				to_chat(R, "<br>")
-				to_chat(R, "<span class='danger'>[message] ...LAWS UPDATED</span>")
-				to_chat(R, "<br>")
-
 	if(botEmagChance)
 		for(var/mob/living/simple_animal/bot/bot in GLOB.machines)
 			if(prob(botEmagChance))
