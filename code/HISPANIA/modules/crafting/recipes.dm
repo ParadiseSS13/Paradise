@@ -77,3 +77,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+///Silla de Oro///
+
+/datum/crafting_recipe/gold_wheel23
+	name = "Gold Wheel Chair Kit"
+	result = /obj/item/fluff/rapid_wheelchair_kit
+	time = 60
+	reqs = list(/obj/item/stack/cable_coil = 5,
+		        /obj/item/stock_parts/cell = 1,
+		        /obj/item/stack/rods = 5,
+		        /obj/item/stack/sheet/metal = 10,
+				/obj/item/stack/sheet/mineral/gold = 6)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
+	category = CAT_MISC
