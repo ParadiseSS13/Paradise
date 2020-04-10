@@ -11,7 +11,6 @@
 	desc = "A variant of the old black plague, it is usually carried by space fleas that live with space ants."
 	severity = BIOHAZARD
 	virus_heal_resistant = TRUE
-	disease_flags = CURABLE|CAN_CARRY
 	needs_all_cures = TRUE
 	stage_prob = 1
 
@@ -20,13 +19,11 @@
 	switch(stage)
 		if(1)
 			visibility_flags = HIDDEN_SCANNER
-			affected_mob.bodytemperature += 1
 			if(prob(1))
 				to_chat(affected_mob, "<span class='danger'>You feel a headache.</span>")
 				affected_mob.adjustStaminaLoss(15)
 
 		if(2)
-			affected_mob.bodytemperature += 1
 			visibility_flags = HIDDEN_SCANNER
 			if(prob(4))
 				to_chat(affected_mob, "<span class='danger'>Some black lumps begin to appear in your body.</span>")
@@ -35,7 +32,6 @@
 				affected_mob.adjustStaminaLoss(15)
 
 		if(3)
-			affected_mob.bodytemperature += 2
 			visibility_flags = null
 			if(prob(10))
 				to_chat(affected_mob, "<span class='danger'>Some black lumps begin to appear in your body.</span>")
@@ -44,7 +40,6 @@
 				affected_mob.adjustStaminaLoss(15)
 
 		if(4)
-			affected_mob.bodytemperature += 2
 			visibility_flags = null
 			if(prob(15))
 				to_chat(affected_mob, "<span class='danger'>You feel a headache.</span>")
@@ -58,7 +53,6 @@
 				affected_mob.adjustBruteLoss(20)
 
 		if(5)
-			affected_mob.bodytemperature += 5
 			visibility_flags = null
 			if(prob(15))
 				to_chat(affected_mob, "<span class='danger'>You feel a sensation of hypersensitivity and muscular pain.</span>")
