@@ -62252,18 +62252,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/qm)
 "ciw" = (
-/obj/structure/table,
-/obj/item/coin/silver,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -4;
-	pixel_y = 7
-	},
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
-	pixel_x = 6;
-	pixel_y = 5
-	},
-/obj/item/megaphone,
+/obj/structure/closet/secure_closet/quartermaster,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "brown"
@@ -62280,6 +62269,8 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
+/obj/item/clipboard,
+/obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
 	dir = 2;
 	icon_state = "brown"
@@ -62303,8 +62294,16 @@
 	dir = 4;
 	icon_state = "tube1"
 	},
-/obj/item/clipboard,
-/obj/item/pen/multi,
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/cartridge/quartermaster,
+/obj/item/cartridge/quartermaster{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -64042,7 +64041,7 @@
 /obj/machinery/light_switch{
 	pixel_x = -27
 	},
-/obj/structure/closet/secure_closet/quartermaster,
+/obj/structure/closet,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
