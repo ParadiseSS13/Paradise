@@ -21,7 +21,7 @@
 		SEND_SOUND(M, S)
 
 /datum/event/grid_check/announce()
-	GLOB.event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Systems Power Failure", new_sound = 'sound/AI/poweroff.ogg')
+	GLOB.event_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair damaged APCs.", "Systems Power Failure", new_sound = 'sound/AI/poweroff.ogg')
 
 /datum/event/grid_check/end()
 	return TRUE
@@ -32,7 +32,7 @@
 		/area/turret_protected/ai)
 
 	if(announce)
-		GLOB.event_announcement.Announce("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Systems Power Failure", new_sound = 'sound/AI/poweroff.ogg')
+		GLOB.event_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please repair damaged APCs.", "Systems Power Failure", new_sound = 'sound/AI/poweroff.ogg')
 
 	// break APC_DISABLE_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
