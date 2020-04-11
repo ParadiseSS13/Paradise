@@ -144,7 +144,7 @@ var/list/robot_verbs_default = list(
 
 	if(!cell) // Make sure a new cell gets created *before* executing initialize_components(). The cell component needs an existing cell for it to get set up properly
 		cell = new /obj/item/stock_parts/cell/high(src)
-	
+
 	initialize_components()
 	//if(!unfinished)
 	// Create all the robot parts.
@@ -1472,3 +1472,12 @@ var/list/robot_verbs_default = list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+/// Used in `robot_bindings.dm` when the user presses "A" if on AZERTY mode, or "Q" on QWERTY mode.
+/mob/living/silicon/robot/proc/on_drop_hotkey_press()
+	var/obj/item/gripper/G = get_active_hand()
+	if(istype(G) && G.gripped_item)
+		G.drop_gripped_item() // if the active module is a gripper, try to drop its held item.
+	else
+		uneq_active() // else unequip the module and put it back into the robot's inventory.
+		return
