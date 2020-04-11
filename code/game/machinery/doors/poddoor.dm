@@ -59,16 +59,6 @@
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
  	return
 
-/obj/machinery/door/poddoor/crowbar_act(mob/user, obj/item/I)
-	if(user.a_intent == INTENT_HARM)
-		return
-	. = TRUE
-	if(operating)
-		return
-	if(!I.use_tool(src, user, 0, volume = 0))
-		return
-	try_to_crowbar(user, I)
-
 /obj/machinery/door/poddoor/try_to_crowbar(mob/user, obj/item/I)
 	if(!density)
 		return
