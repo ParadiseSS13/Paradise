@@ -286,6 +286,7 @@
 
 /obj/machinery/power/solar_control/Initialize()
 	SSsun.solars |= src
+	setup()
 	. = ..()
 
 /obj/machinery/power/solar_control/proc/setup()
