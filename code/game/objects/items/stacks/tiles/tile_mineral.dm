@@ -8,6 +8,16 @@
 	mineralType = "plasma"
 	materials = list(MAT_PLASMA=500)
 
+/obj/item/stack/tile/mineral/plasma/welder_act(mob/user, obj/item/I)
+	if(I.use_tool(src, user, volume = I.tool_volume))
+		atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5)
+		user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
+							"<span class='warning'>You set the plasma tiles on fire!</span>")
+		message_admins("Plasma tiles ignited by [key_name_admin(user)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) (<A HREF='?_src_=holder;adminplayerobservefollow=\ref[user]'>FLW</A>) in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("Plasma tiles ignited by [key_name(user)] in ([x],[y],[z])")
+		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
+		qdel(src)
+
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
 	singular_name = "uranium floor tile"
@@ -17,9 +27,9 @@
 	mineralType = "uranium"
 	materials = list(MAT_URANIUM=500)
 
-var/global/list/datum/stack_recipe/gold_tile_recipes = list ( \
+GLOBAL_LIST_INIT(gold_tile_recipes, list ( \
 	new/datum/stack_recipe("fancy gold tile", /obj/item/stack/tile/mineral/gold/fancy, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/gold
 	name = "gold tile"
@@ -32,11 +42,11 @@ var/global/list/datum/stack_recipe/gold_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/gold/New(loc, amount=null)
 	..()
-	recipes = gold_tile_recipes
+	recipes = GLOB.gold_tile_recipes
 
-var/global/list/datum/stack_recipe/goldfancy_tile_recipes = list ( \
+GLOBAL_LIST_INIT(goldfancy_tile_recipes, list ( \
 	new/datum/stack_recipe("regular gold tile", /obj/item/stack/tile/mineral/gold, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/gold/fancy
 	icon_state = "tile_goldfancy"
@@ -44,11 +54,11 @@ var/global/list/datum/stack_recipe/goldfancy_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/gold/fancy/New(loc, amount=null)
 	..()
-	recipes = goldfancy_tile_recipes
+	recipes = GLOB.goldfancy_tile_recipes
 
-var/global/list/datum/stack_recipe/silver_tile_recipes = list ( \
+GLOBAL_LIST_INIT(silver_tile_recipes, list ( \
 	new/datum/stack_recipe("fancy silver tile", /obj/item/stack/tile/mineral/silver/fancy, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/silver
 	name = "silver tile"
@@ -61,11 +71,11 @@ var/global/list/datum/stack_recipe/silver_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/silver/New(loc, amount=null)
 	..()
-	recipes = silver_tile_recipes
+	recipes = GLOB.silver_tile_recipes
 
-var/global/list/datum/stack_recipe/silverfancy_tile_recipes = list ( \
+GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 	new/datum/stack_recipe("regular silver tile", /obj/item/stack/tile/mineral/silver, max_res_amount = 20), \
-	)
+	))
 
 /obj/item/stack/tile/mineral/silver/fancy
 	icon_state = "tile_silverfancy"
@@ -73,7 +83,7 @@ var/global/list/datum/stack_recipe/silverfancy_tile_recipes = list ( \
 
 /obj/item/stack/tile/mineral/silver/fancy/New(loc, amount=null)
 	..()
-	recipes = silverfancy_tile_recipes
+	recipes = GLOB.silverfancy_tile_recipes
 
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"

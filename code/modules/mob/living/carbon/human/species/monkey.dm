@@ -41,7 +41,7 @@
 	if(H.stat != CONSCIOUS)
 		return
 	if(prob(33) && H.canmove && isturf(H.loc) && !H.pulledby) //won't move if being pulled
-		step(H, pick(cardinal))
+		step(H, pick(GLOB.cardinal))
 	if(prob(1))
 		H.emote(pick("scratch","jump","roll","tail"))
 
@@ -57,8 +57,8 @@
 /datum/species/monkey/handle_dna(mob/living/carbon/human/H, remove)
 	..()
 	if(!remove)
-		H.dna.SetSEState(MONKEYBLOCK, TRUE)
-		genemutcheck(H, MONKEYBLOCK, null, MUTCHK_FORCED)
+		H.dna.SetSEState(GLOB.monkeyblock, TRUE)
+		genemutcheck(H, GLOB.monkeyblock, null, MUTCHK_FORCED)
 
 /datum/species/monkey/tajaran
 	name = "Farwa"
@@ -131,6 +131,13 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/skrell //Tajara monkey-forms are uniquely colourblind and have excellent darksight, which is why they need a subtype of their greater-form's organ..
 		)
+/datum/species/monkey/skrell/on_species_gain(mob/living/carbon/human/H)
+	..()
+	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
+
+/datum/species/monkey/skrell/on_species_loss(mob/living/carbon/human/H)
+	..()
+	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/monkey/unathi
 	name = "Stok"

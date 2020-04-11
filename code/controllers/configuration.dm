@@ -57,6 +57,7 @@
 	var/allow_ai = 1					// allow ai job
 	var/respawn = 0
 	var/guest_jobban = 1
+	var/panic_bunker_threshold = 150	// above this player count threshold, never-before-seen players are blocked from connecting
 	var/usewhitelist = 0
 	var/mods_are_mentors = 0
 	var/load_jobs_from_txt = 0
@@ -79,7 +80,7 @@
 
 	var/auto_cryo_ssd_mins = 0
 	var/ssd_warning = 0
-	
+
 	var/list_afk_minimum = 5 // How long people have to be AFK before it's listed on the "List AFK players" verb
 
 	var/traitor_objectives_amount = 2
@@ -102,6 +103,7 @@
 	var/donationsurl = "http://example.org"
 	var/repositoryurl = "http://example.org"
 	var/discordurl = "http://example.org"
+	var/discordforumurl = "http://example.org"
 
 	var/overflow_server_url
 	var/forbid_singulo_possession = 0
@@ -144,6 +146,7 @@
 	var/ipintel_detailsurl = "https://iphub.info/?ip="
 
 	var/forum_link_url
+	var/forum_playerinfo_url
 
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
@@ -244,7 +247,7 @@
 
 	//cube monkey limit
 	var/cubemonkeycap = 20
-	
+
 	// Makes gamemodes respect player limits
 	var/enable_gamemode_player_limit = 0
 
@@ -353,6 +356,9 @@
 
 				if("forum_link_url")
 					config.forum_link_url = value
+
+				if("forum_playerinfo_url")
+					config.forum_playerinfo_url = value
 
 				if("log_ooc")
 					config.log_ooc = 1
@@ -483,6 +489,9 @@
 				if("discordurl")
 					config.discordurl = value
 
+				if("discordforumurl")
+					config.discordforumurl = value
+
 				if("donationsurl")
 					config.donationsurl = value
 
@@ -493,7 +502,10 @@
 					config.guest_jobban = 1
 
 				if("guest_ban")
-					guests_allowed = 0
+					GLOB.guests_allowed = 0
+
+				if("panic_bunker_threshold")
+					config.panic_bunker_threshold = text2num(value)
 
 				if("usewhitelist")
 					config.usewhitelist = 1
@@ -606,12 +618,12 @@
 
 				if("python_path")
 					if(value)
-						python_path = value
+						GLOB.python_path = value
 					else
 						if(world.system_type == UNIX)
-							python_path = "/usr/bin/env python2"
+							GLOB.python_path = "/usr/bin/env python2"
 						else //probably windows, if not this should work anyway
-							python_path = "pythonw"
+							GLOB.python_path = "pythonw"
 
 				if("assistant_limit")
 					config.assistantlimit = 1
@@ -704,7 +716,7 @@
 					config.shutdown_on_reboot = 1
 
 				if("shutdown_shell_command")
-					shutdown_shell_command = value
+					GLOB.shutdown_shell_command = value
 
 				if("disable_karma")
 					config.disable_karma = 1
@@ -777,11 +789,11 @@
 					if(BombCap > 128)
 						BombCap = 128
 
-					MAX_EX_DEVESTATION_RANGE = round(BombCap/4)
-					MAX_EX_HEAVY_RANGE = round(BombCap/2)
-					MAX_EX_LIGHT_RANGE = BombCap
-					MAX_EX_FLASH_RANGE = BombCap
-					MAX_EX_FLAME_RANGE = BombCap
+					GLOB.max_ex_devastation_range = round(BombCap/4)
+					GLOB.max_ex_heavy_range = round(BombCap/2)
+					GLOB.max_ex_light_range = BombCap
+					GLOB.max_ex_flash_range = BombCap
+					GLOB.max_ex_flame_range = BombCap
 				if("default_laws")
 					config.default_laws = text2num(value)
 				if("randomize_shift_time")
@@ -844,7 +856,7 @@
 		log_config("WARNING: DB_CONFIG DEFINITION MISMATCH!")
 		spawn(60)
 			if(SSticker.current_state == GAME_STATE_PREGAME)
-				going = 0
+				SSticker.ticker_going = FALSE
 				spawn(600)
 					to_chat(world, "<span class='alert'>DB_CONFIG MISMATCH, ROUND START DELAYED. <BR>Please check database version for recent upstream changes!</span>")
 

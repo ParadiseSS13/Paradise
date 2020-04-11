@@ -72,6 +72,7 @@
 	grow.Grant(H)
 	recolor = new()
 	recolor.Grant(H)
+	ADD_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/slime/on_species_loss(mob/living/carbon/human/H)
 	..()
@@ -79,6 +80,7 @@
 		grow.Remove(H)
 	if(recolor)
 		recolor.Remove(H)
+	REMOVE_TRAIT(H, TRAIT_WATERBREATH, "species")
 
 /datum/species/slime/handle_life(mob/living/carbon/human/H)
 	// Slowly shifting to the color of the reagents
@@ -144,11 +146,13 @@
 		return
 
 	var/limb_select = input(H, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
+	if(!limb_select) // If the user hit cancel on the popup, return
+		return
 	var/chosen_limb = missing_limbs[limb_select]
 
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on [H.p_their()] missing [limb_select]...</span>", "<span class='notice'>You begin to focus on regrowing your missing [limb_select]... (This will take [round(SLIMEPERSON_REGROWTHDELAY/10)] seconds, and you must hold still.)</span>")
-	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, needhand = 0, target = H))
-		if(H.incapacitated())
+	if(do_after(H, SLIMEPERSON_REGROWTHDELAY, FALSE, H, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
+		if(H.incapacitated(ignore_lying = TRUE, extra_checks = list(CALLBACK(H, /mob.proc/IsStunned)), use_default_checks = FALSE)) // Override the check for weakness, only check for stunned
 			to_chat(H, "<span class='warning'>You cannot regenerate missing limbs in your current state.</span>")
 			return
 

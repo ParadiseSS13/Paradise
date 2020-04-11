@@ -68,15 +68,23 @@
 		else
 			to_chat(user, "The hatch must be open to insert a power cell.")
 			return
-	else if(isscrewdriver(I))
-		open = !open
-		user.visible_message("<span class='notice'>[user] [open ? "opens" : "closes"] the hatch on [src].</span>", "<span class='notice'>You [open ? "open" : "close"] the hatch on [src].</span>")
-		update_icon()
-		if(!open && user.machine == src)
-			user << browse(null, "window=spaceheater")
-			user.unset_machine()
+
 	else
 		return ..()
+
+/obj/machinery/space_heater/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	open = !open
+	if(open)
+		SCREWDRIVER_OPEN_PANEL_MESSAGE
+	else
+		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	update_icon()
+	if(!open && user.machine == src)
+		user << browse(null, "window=spaceheater")
+		user.unset_machine()
 
 /obj/machinery/space_heater/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)

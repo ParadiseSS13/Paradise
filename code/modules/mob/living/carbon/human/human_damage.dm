@@ -22,7 +22,7 @@
 	med_hud_set_status()
 	handle_hud_icons_health()
 
-/mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE)
+/mob/living/carbon/human/adjustBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -30,7 +30,8 @@
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
-				amount = amount * dna.species.brain_mod
+				if(use_brain_mod)
+					amount = amount * dna.species.brain_mod
 			sponge.damage = Clamp(sponge.damage + amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")
@@ -39,7 +40,7 @@
 		update_stat("adjustBrainLoss")
 	return STATUS_UPDATE_STAT
 
-/mob/living/carbon/human/setBrainLoss(amount, updating = TRUE)
+/mob/living/carbon/human/setBrainLoss(amount, updating = TRUE, use_brain_mod = TRUE)
 	if(status_flags & GODMODE)
 		return STATUS_UPDATE_NONE	//godmode
 
@@ -47,7 +48,8 @@
 		var/obj/item/organ/internal/brain/sponge = get_int_organ(/obj/item/organ/internal/brain)
 		if(sponge)
 			if(dna.species && amount > 0)
-				amount = amount * dna.species.brain_mod
+				if(use_brain_mod)
+					amount = amount * dna.species.brain_mod
 			sponge.damage = Clamp(amount, 0, 120)
 			if(sponge.damage >= 120)
 				visible_message("<span class='alert'><B>[src]</B> goes limp, [p_their()] facial expression utterly blank.</span>")

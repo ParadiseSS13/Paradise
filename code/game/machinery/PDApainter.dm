@@ -75,26 +75,14 @@
 					P.forceMove(src)
 					P.add_fingerprint(user)
 					update_icon()
-	else if(iswelder(I) && user.a_intent != INTENT_HARM)
-		var/obj/item/weldingtool/WT = I
-		if(stat & BROKEN)
-			if(WT.remove_fuel(0,user))
-				user.visible_message("[user] is repairing [src].", \
-								"<span class='notice'>You begin repairing [src]...</span>", \
-								"<span class='italics'>You hear welding.</span>")
-				playsound(loc, WT.usesound, 40, 1)
-				if(do_after(user,40*WT.toolspeed, 1, target = src))
-					if(!WT.isOn() || !(stat & BROKEN))
-						return
-					to_chat(user, "<span class='notice'>You repair [src].</span>")
-					playsound(loc, 'sound/items/welder2.ogg', 50, 1)
-					stat &= ~BROKEN
-					obj_integrity = max_integrity
-					update_icon()
-		else
-			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 	else
 		return ..()
+
+/obj/machinery/pdapainter/welder_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.tool_use_check(user, 0))
+		return
+	default_welder_repair(user, I)
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
 	if(!(flags & NODECONSTRUCT))

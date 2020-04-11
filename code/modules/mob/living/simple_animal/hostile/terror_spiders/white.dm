@@ -5,7 +5,7 @@
 // -------------: AI: injects a venom that makes you grow spiders in your body, then retreats
 // -------------: SPECIAL: stuns you on first attack - vulnerable to groups while it does this
 // -------------: TO FIGHT IT: blast it before it can get away
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/white
 	name = "White Terror spider"

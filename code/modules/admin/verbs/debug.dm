@@ -5,12 +5,12 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	if(Debug2)
-		Debug2 = 0
+	if(GLOB.debug2)
+		GLOB.debug2 = 0
 		message_admins("[key_name_admin(src)] toggled debugging off.")
 		log_admin("[key_name(src)] toggled debugging off.")
 	else
-		Debug2 = 1
+		GLOB.debug2 = 1
 		message_admins("[key_name_admin(src)] toggled debugging on.")
 		log_admin("[key_name(src)] toggled debugging on.")
 
@@ -291,9 +291,9 @@ GLOBAL_PROTECT(AdminProcCaller)
 	pai.real_name = pai.name
 	pai.key = choice.key
 	card.setPersonality(pai)
-	for(var/datum/paiCandidate/candidate in paiController.pai_candidates)
+	for(var/datum/paiCandidate/candidate in GLOB.paiController.pai_candidates)
 		if(candidate.key == choice.key)
-			paiController.pai_candidates.Remove(candidate)
+			GLOB.paiController.pai_candidates.Remove(candidate)
 	feedback_add_details("admin_verb","MPAI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_alienize(var/mob/M in GLOB.mob_list)
@@ -806,7 +806,7 @@ GLOBAL_PROTECT(AdminProcCaller)
 		genemutcheck(M,block,null,MUTCHK_FORCED)
 		M.update_mutations()
 		var/state="[M.dna.GetSEState(block)?"on":"off"]"
-		var/blockname=assigned_blocks[block]
+		var/blockname=GLOB.assigned_blocks[block]
 		message_admins("[key_name_admin(src)] has toggled [M.key]'s [blockname] block [state]!")
 		log_admin("[key_name(src)] has toggled [M.key]'s [blockname] block [state]!")
 	else
@@ -832,10 +832,10 @@ GLOBAL_PROTECT(AdminProcCaller)
 	set name = "View Runtimes"
 	set desc = "Open the Runtime Viewer"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
-	error_cache.showTo(usr)
+	GLOB.error_cache.showTo(usr)
 
 /client/proc/jump_to_ruin()
 	set category = "Debug"

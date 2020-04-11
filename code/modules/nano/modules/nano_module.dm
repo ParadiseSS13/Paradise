@@ -12,5 +12,5 @@
 	if(host)
 		host.on_ui_close(user)
 
-/datum/nano_module/proc/can_still_topic(var/datum/topic_state/state = default_state)
+/datum/nano_module/proc/can_still_topic(var/datum/topic_state/state = GLOB.default_state)
 	return CanUseTopic(usr, state) == STATUS_INTERACTIVE

@@ -1,25 +1,25 @@
-var/list/chem_t1_reagents = list(
+GLOBAL_LIST_INIT(chem_t1_reagents, list(
 	"hydrogen", "oxygen", "silicon",
 	"phosphorus", "sulfur", "carbon",
 	"nitrogen", "water"
-)
+))
 
-var/list/chem_t2_reagents = list(
+GLOBAL_LIST_INIT(chem_t2_reagents, list(
 	"lithium", "copper", "mercury",
 	"sodium", "iodine", "bromine"
-) // "sugar", "sacid" removed because they are already in roundstart plants
+)) // "sugar", "sacid" removed because they are already in roundstart plants
 
-var/list/chem_t3_reagents = list(
+GLOBAL_LIST_INIT(chem_t3_reagents, list(
 	"ethanol", "chlorine", "potassium",
 	"aluminum", "radium", "fluorine",
 	"iron", "fuel",	"silver",
 	"stable_plasma"
-)
+))
 
-var/list/chem_t4_reagents = list(
+GLOBAL_LIST_INIT(chem_t4_reagents, list(
 	"oil", "ash", "acetone",
 	"saltpetre", "ammonia", "diethylamine"
-)
+))
 
 /obj/item/seeds/sample
 	name = "plant sample"

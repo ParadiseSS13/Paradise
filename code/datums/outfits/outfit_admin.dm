@@ -291,7 +291,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), name)
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 
 /datum/outfit/admin/pirate/first_mate
 	name = "Space Pirate First Mate"
@@ -375,7 +375,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_clown, access_theatre, access_maint_tunnels), "Tunnel Clown")
+		apply_to_card(I, H, list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Tunnel Clown")
 
 /datum/outfit/admin/mime_assassin
 	name = "Mime Assassin"
@@ -424,7 +424,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_mime, access_theatre, access_maint_tunnels), "Mime")
+		apply_to_card(I, H, list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS), "Mime")
 	H.sec_hud_set_ID()
 
 /datum/outfit/admin/greytide
@@ -450,7 +450,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Greytide")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide")
 
 /datum/outfit/admin/greytide/leader
 	name = "Greytide Leader"
@@ -471,7 +471,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Greytide Leader")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Greytide Leader")
 
 /datum/outfit/admin/greytide/xeno
 	name = "Greytide Xeno"
@@ -499,7 +499,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Legit Xenomorph")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Legit Xenomorph")
 
 
 
@@ -534,14 +534,14 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Bard")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Bard")
 
 	var/obj/item/clothing/ears/headphones/P = r_ear
 	if(istype(P))
 		P.attack_self(H) // activate them, display musical notes effect
 
 /datum/outfit/admin/soviet
-
+	name = "Soviet Generic"
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/soviet
 	back = /obj/item/storage/backpack/satchel
@@ -555,7 +555,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), name)
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), name)
 
 /datum/outfit/admin/soviet/tourist
 	name = "Soviet Tourist"
@@ -719,7 +719,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_trade_sol, access_maint_tunnels, access_external_airlocks), name)
+		apply_to_card(I, H, list(ACCESS_TRADE_SOL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS), name)
 
 /datum/outfit/admin/chrono
 	name = "Chrono Legionnaire"
@@ -771,6 +771,7 @@
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
 /datum/outfit/admin/hardsuit
+	name = "Hardsuit Generic"
 	back = /obj/item/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
@@ -823,6 +824,7 @@
 
 
 /datum/outfit/admin/tournament
+	name = "Tournament Generic"
 	suit = /obj/item/clothing/suit/armor/vest
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/helmet/thunderdome
@@ -907,7 +909,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Survivor")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Survivor")
 
 /datum/outfit/admin/masked_killer
 	name = "Masked Killer"
@@ -942,7 +944,7 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, list(access_maint_tunnels), "Masked Killer", "syndie")
+		apply_to_card(I, H, list(ACCESS_MAINT_TUNNELS), "Masked Killer", "syndie")
 
 /datum/outfit/admin/singuloth_knight
 	name = "Singuloth Knight"
@@ -1048,8 +1050,8 @@
 				to_chat(H, "You have gained the ability to shapeshift into lesser hellhound form. This is a combat form with different abilities, tough but not invincible. It can regenerate itself over time by resting.")
 				H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/raise_vampires)
 				to_chat(H, "You have gained the ability to Raise Vampires. This extremely powerful AOE ability affects all humans near you. Vampires/thralls are healed. Corpses are raised as vampires. Others are stunned, then brain damaged, then killed.")
-				H.dna.SetSEState(JUMPBLOCK, 1)
-				genemutcheck(H, JUMPBLOCK,  null, MUTCHK_FORCED)
+				H.dna.SetSEState(GLOB.jumpblock, 1)
+				genemutcheck(H, GLOB.jumpblock,  null, MUTCHK_FORCED)
 				H.update_mutations()
 				H.gene_stability = 100
 
@@ -1100,7 +1102,7 @@
 	l_hand = null
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 1,
+		/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
 		/obj/item/clothing/suit/wizrobe/red = 1,

@@ -16,7 +16,7 @@
 				AI.ai_actual_track(H)
 		return 1
 
-/datum/nano_module/crew_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+/datum/nano_module/crew_monitor/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "crew_monitor.tmpl", "Crew Monitoring Computer", 900, 800)
@@ -31,11 +31,11 @@
 		// should make the UI auto-update; doesn't seem to?
 		ui.set_auto_update(1)
 
-/datum/nano_module/crew_monitor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/datum/nano_module/crew_monitor/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	var/turf/T = get_turf(nano_host())
 
 	data["isAI"] = isAI(user)
-	data["crewmembers"] = crew_repository.health_data(T)
+	data["crewmembers"] = GLOB.crew_repository.health_data(T)
 
 	return data

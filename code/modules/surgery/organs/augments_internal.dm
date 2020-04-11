@@ -39,9 +39,9 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop
 	name = "Anti-drop implant"
 	desc = "This cybernetic brain implant will allow you to force your hand muscles to contract, preventing item dropping. Twitch ear to toggle."
-	var/active = 0
-	var/l_hand_ignore = 0
-	var/r_hand_ignore = 0
+	var/active = FALSE
+	var/l_hand_ignore = FALSE
+	var/r_hand_ignore = FALSE
 	var/obj/item/l_hand_obj = null
 	var/obj/item/r_hand_obj = null
 	implant_color = "#DE7E00"
@@ -56,17 +56,17 @@
 		r_hand_obj = owner.r_hand
 		if(l_hand_obj)
 			if(owner.l_hand.flags & NODROP)
-				l_hand_ignore = 1
+				l_hand_ignore = TRUE
 			else
 				owner.l_hand.flags |= NODROP
-				l_hand_ignore = 0
+				l_hand_ignore = FALSE
 
 		if(r_hand_obj)
 			if(owner.r_hand.flags & NODROP)
-				r_hand_ignore = 1
+				r_hand_ignore = TRUE
 			else
 				owner.r_hand.flags |= NODROP
-				r_hand_ignore = 0
+				r_hand_ignore = FALSE
 
 		if(!l_hand_obj && !r_hand_obj)
 			to_chat(owner, "<span class='notice'>You are not holding any items, your hands relax...</span>")
@@ -102,12 +102,15 @@
 		A = pick(oview(range))
 		L_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your left arm spasms and throws the [L_item.name]!</span>")
+		l_hand_obj = null
 	if(R_item)
 		A = pick(oview(range))
 		R_item.throw_at(A, range, 2)
 		to_chat(owner, "<span class='notice'>Your right arm spasms and throws the [R_item.name]!</span>")
+		r_hand_obj = null
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/proc/release_items()
+	active = FALSE
 	if(!l_hand_ignore && l_hand_obj in owner.contents)
 		l_hand_obj.flags ^= NODROP
 	if(!r_hand_ignore && r_hand_obj in owner.contents)

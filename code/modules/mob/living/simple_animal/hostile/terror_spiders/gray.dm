@@ -6,7 +6,7 @@
 // -------------: AI: hides in vents, emerges when prey is near to kill it, then hides again. Intended to scare normal crew.
 // -------------: SPECIAL: invisible when on top of a vent, emerges when prey approaches or gets trapped in webs.
 // -------------: TO FIGHT IT: shoot it through a window, or make it regret ambushing you
-// -------------: SPRITES FROM: FoS, http://nanotrasen.se/phpBB3/memberlist.php?mode=viewprofile&u=386
+// -------------: SPRITES FROM: FoS, https://www.paradisestation.org/forum/profile/335-fos
 
 /mob/living/simple_animal/hostile/poison/terror_spider/gray
 	name = "Gray Terror spider"

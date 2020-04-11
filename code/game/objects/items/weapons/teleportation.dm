@@ -70,9 +70,10 @@ Frequency:
 			for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
 				if(!T.implanted || !T.imp_in)
 					continue
+				var/turf/Tr = get_turf(T)
 
-				if(T && T.z == z)
-					temp += "[T.id]: [T.imp_in.x], [T.imp_in.y], [T.imp_in.z]<BR>"
+				if(Tr && Tr.z == sr.z)
+					temp += "[T.id]: [Tr.x], [Tr.y], [Tr.z]<BR>"
 
 			temp += "<B>You are at \[[sr.x],[sr.y],[sr.z]\]</B>."
 			temp += "<BR><BR><A href='byond://?src=[UID()];refresh=1'>Refresh</A><BR>"

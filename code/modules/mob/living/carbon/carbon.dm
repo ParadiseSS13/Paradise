@@ -126,7 +126,7 @@
 		if(isturf(loc))
 			I.remove(src)
 			I.forceMove(get_turf(src))
-			I.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),5)
+			I.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),5)
 
 	for(var/mob/M in src)
 		if(M in src.stomach_contents)
@@ -388,7 +388,7 @@
 	dna = newDNA
 
 
-var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber)
+GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/vent_pump, /obj/machinery/atmospherics/unary/vent_scrubber))
 
 /mob/living/handle_ventcrawl(var/atom/clicked_on) // -- TLE -- Merged by Carn
 	if(!Adjacent(clicked_on))
@@ -432,13 +432,8 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 
 	if(!vent_found)
 		for(var/obj/machinery/atmospherics/machine in range(1,src))
-			if(is_type_in_list(machine, ventcrawl_machinery))
+			if(is_type_in_list(machine, GLOB.ventcrawl_machinery) && machine.can_crawl_through())
 				vent_found = machine
-
-			if(!vent_found.can_crawl_through())
-				vent_found = null
-
-			if(vent_found)
 				break
 
 	if(vent_found)
@@ -615,10 +610,12 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 	return TRUE
 
 /mob/living/carbon/restrained()
-	if(handcuffed)
+	if(get_restraining_item())
 		return TRUE
-	return
+	return FALSE
 
+/mob/living/carbon/get_restraining_item()
+	return handcuffed
 
 /mob/living/carbon/unEquip(obj/item/I, force) //THIS PROC DID NOT CALL ..()
 	. = ..() //Sets the default return value to what the parent returns.
@@ -773,12 +770,15 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/resist_buckle()
 	spawn(0)
 		resist_muzzle()
-	if(restrained())
+	var/obj/item/I
+	if((I = get_restraining_item())) // If there is nothing to restrain him then he is not restrained
+		var/breakouttime = I.breakouttime
+		var/displaytime = breakouttime / 10
 		changeNext_move(CLICK_CD_BREAKOUT)
 		last_special = world.time + CLICK_CD_BREAKOUT
 		visible_message("<span class='warning'>[src] attempts to unbuckle [p_them()]self!</span>", \
-					"<span class='notice'>You attempt to unbuckle yourself... (This will take around one minute and you need to stay still.)</span>")
-		if(do_after(src, 600, 0, target = src))
+					"<span class='notice'>You attempt to unbuckle yourself... (This will take around [displaytime] seconds and you need to stay still.)</span>")
+		if(do_after(src, breakouttime, 0, target = src))
 			if(!buckled)
 				return
 			buckled.user_unbuckle_mob(src,src)
@@ -836,10 +836,10 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 /mob/living/carbon/proc/cuff_resist(obj/item/I, breakouttime = 600, cuff_break = 0)
 	breakouttime = I.breakouttime
 
-	var/displaytime = breakouttime / 600
+	var/displaytime = breakouttime / 10
 	if(!cuff_break)
 		visible_message("<span class='warning'>[src] attempts to remove [I]!</span>")
-		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [displaytime] minutes and you need to stand still.)</span>")
+		to_chat(src, "<span class='notice'>You attempt to remove [I]... (This will take around [displaytime] seconds and you need to stand still.)</span>")
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
@@ -1011,7 +1011,7 @@ var/list/ventcrawl_machinery = list(/obj/machinery/atmospherics/unary/vent_pump,
 		if(!forceFed(toEat, user, fullness))
 			return 0
 	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	score_foodeaten++
+	GLOB.score_foodeaten++
 	return 1
 
 /mob/living/carbon/proc/selfFeed(var/obj/item/reagent_containers/food/toEat, fullness)
@@ -1098,7 +1098,7 @@ so that different stomachs can handle things in different ways VB*/
 
 //to recalculate and update the mob's total tint from tinted equipment it's wearing.
 /mob/living/carbon/proc/update_tint()
-	if(!tinted_weldhelh)
+	if(!GLOB.tinted_weldhelh)
 		return
 	var/tinttotal = get_total_tint()
 	if(tinttotal >= TINT_BLIND)
