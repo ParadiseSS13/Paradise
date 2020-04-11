@@ -553,6 +553,7 @@ Class Procs:
 			threatcount += 4
 
 		if(R && R.fields["criminal"])
+		
 			switch(R.fields["criminal"])
 				if("*Execute*")
 					threatcount += 7

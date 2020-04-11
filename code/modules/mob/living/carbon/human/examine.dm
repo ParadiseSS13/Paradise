@@ -447,3 +447,4 @@
 			. = "left hand"
 		if("r_hand")
 			. = "right hand"
+			
