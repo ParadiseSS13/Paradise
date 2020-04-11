@@ -582,7 +582,6 @@
 	icon_screen = "seclaptop"
 	density = 0
 
-
 #undef SEC_DATA_R_LIST
 #undef SEC_DATA_MAINT
 #undef SEC_DATA_RECORD

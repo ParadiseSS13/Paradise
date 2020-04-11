@@ -239,7 +239,6 @@ proc/age2agedescription(age)
 		else				return "unknown"
 
 /proc/set_criminal_status(mob/living/user, datum/data/record/target_records , criminal_status, comment, user_rank, list/authcard_access = list())
-
 	var/status = criminal_status
 	var/their_name = target_records.fields["name"]
 	var/their_rank = target_records.fields["rank"]

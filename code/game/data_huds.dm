@@ -450,4 +450,3 @@
 		holder.icon_state = ""
 		return
 	holder.icon_state = "hudweed[RoundPlantBar(weedlevel/10)]"
-
