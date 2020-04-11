@@ -4,4 +4,4 @@
 
 /datum/recipe/mixer/mayonnaise
 	reagents = list("egg" = 30, "sodiumchloride" = 1, "cornoil" = 5)
-	result= /obj/item/reagent_containers/food/condiment/mayonnaise
+	result = /obj/item/reagent_containers/food/condiment/mayonnaise
