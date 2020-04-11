@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		ert_role_prefs.Add(input_ranked_async(M, "Please order ERT roles from most to least preferred (20 seconds):", GLOB.active_team.get_slot_list()))
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/dispatch_response_team, response_team_members, ert_gender_prefs, ert_role_prefs), 200)
 
-/proc/dispatch_response_team(list/response_team_members, list/ert_gender_prefs, list/ert_role_prefs)
+/proc/dispatch_response_team(list/response_team_members, list/datum/async_input/ert_gender_prefs, list/datum/async_input/ert_role_prefs)
 	var/spawn_index = 1
 
 	for(var/i = 1, i <= response_team_members.len, i++)
@@ -227,6 +227,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	return cyborg_unlock
 
 /datum/response_team/proc/get_slot_list()
+	RETURN_TYPE(/list)
 	var/list/slots_available = list()
 	for(var/role in slots)
 		if(slots[role])

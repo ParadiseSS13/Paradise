@@ -384,7 +384,7 @@
 			if(GLOB.summon_magic_triggered)
 				give_magic(character)
 
-	if(!thisjob.is_position_available() && thisjob in SSjobs.prioritized_jobs)
+	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
 
