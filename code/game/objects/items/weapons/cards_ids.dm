@@ -67,7 +67,6 @@
 	name = "cryptographic sequencer"
 	icon_state = "emag"
 	item_state = "card-id"
-	var/uses = 20 //Numero de usos posibles
 	origin_tech = "magnets=2;syndicate=2"
 	flags = NOBLUDGEON
 	flags_2 = NO_MAT_REDEMPTION_2
@@ -79,14 +78,7 @@
 	var/atom/A = target
 	if(!proximity)
 		return
-	if(uses > 0)
-		--uses
-		A.emag_act(user)
-		if(uses == 1) //Si es nuestro ultimo uso avisa al usuario que deja de funcionar
-			to_chat(user, "<span class='userdanger'>[src] sparks and seems to stop working. </span>")
-	else
-		to_chat(user, "<span class='userdanger'>[src] its not working anymore. </span>")
-		return
+	A.emag_act(user)
 
 /obj/item/card/id
 	name = "identification card"
@@ -503,17 +495,17 @@
 						else if(department != "Civilian")
 							switch(department)
 								if("Engineering")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in engineering_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
 								if("Medical")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in medical_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
 								if("Science")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in science_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
 								if("Security")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in security_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
 								if("Support")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in support_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
 								if("Command")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in command_positions
+									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
 
 						if(!Adjacent(user))
 							return
@@ -820,7 +812,7 @@
 	name = "Free Golem ID"
 	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
 	icon_state = "research"
-	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_MECHANIC) //access to robots/mechs and spacepods
+	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME, ACCESS_MECHANIC) //access to robots/mechs
 	var/registered = FALSE
 
 /obj/item/card/id/golem/attack_self(mob/user as mob)

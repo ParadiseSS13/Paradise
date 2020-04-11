@@ -27,7 +27,7 @@
 		ui.open()
 		ui.set_auto_update(1)
 
-/obj/machinery/slot_machine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/slot_machine/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["working"] = working
 	data["money"] = account ? account.money : null
@@ -52,18 +52,18 @@
 			icon_state = "slots-on"
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 			addtimer(CALLBACK(src, .proc/spin_slots, usr.name), 25)
-			
+
 /obj/machinery/slot_machine/proc/spin_slots(userName)
 	switch(rand(1,10000))
 		if(1) // 0.02%
 			atom_say("JACKPOT! [userName] has won a MILLION CREDITS!")
-			event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
+			GLOB.event_announcement.Announce("Congratulations to [userName] on winning the Jackpot of ONE MILLION CREDITS!", "Jackpot Winner")
 			result = "JACKPOT! You win one million credits!"
 			resultlvl = "highlight"
 			win_money(1000000, 'sound/goonstation/misc/airraid_loop.ogg')
 		if(2 to 4) // 0.03%
 			atom_say("Big Winner! [userName] has won a hundred thousand credits!")
-			event_announcement.Announce("Congratulations to [userName] on winning a hundred thousand credits!", "Big Winner")
+			GLOB.event_announcement.Announce("Congratulations to [userName] on winning a hundred thousand credits!", "Big Winner")
 			result = "Big Winner! You win a hundred thousand credits!"
 			resultlvl = "good"
 			win_money(100000, 'sound/goonstation/misc/klaxon.ogg')

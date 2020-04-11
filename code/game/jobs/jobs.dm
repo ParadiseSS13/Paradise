@@ -1,8 +1,7 @@
-var/list/assistant_occupations = list(
-)
+GLOBAL_LIST_EMPTY(assistant_occupations)
 
 
-var/list/command_positions = list(
+GLOBAL_LIST_INIT(command_positions, list(
 	"Captain",
 	"Head of Personnel",
 	"Head of Security",
@@ -10,18 +9,18 @@ var/list/command_positions = list(
 	"Research Director",
 	"Chief Medical Officer",
 	"Nanotrasen Representative"
-)
+))
 
 
-var/list/engineering_positions = list(
+GLOBAL_LIST_INIT(engineering_positions, list(
 	"Chief Engineer",
 	"Station Engineer",
 	"Life Support Specialist",
 	"Mechanic"
-)
+))
 
 
-var/list/medical_positions = list(
+GLOBAL_LIST_INIT(medical_positions, list(
 	"Chief Medical Officer",
 	"Medical Doctor",
 	"Geneticist",
@@ -30,17 +29,18 @@ var/list/medical_positions = list(
 	"Virologist",
 	"Paramedic",
 	"Coroner"
-)
+))
 
 
-var/list/science_positions = list(
+GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
 	"Scientist",
+	"Geneticist",	//Part of both medical and science
 	"Roboticist",
-)
+))
 
 //BS12 EDIT
-var/list/support_positions = list(
+GLOBAL_LIST_INIT(support_positions, list(
 	"Head of Personnel",
 	"Bartender",
 	"Botanist",
@@ -58,42 +58,41 @@ var/list/support_positions = list(
 	"Magistrate",
 	"Nanotrasen Representative",
 	"Blueshield"
-)
+))
 
-var/list/supply_positions = list(
+GLOBAL_LIST_INIT(supply_positions, list(
 	"Head of Personnel",
 	"Quartermaster",
 	"Cargo Technician",
 	"Shaft Miner"
-)
+))
 
-var/list/service_positions = support_positions - supply_positions + list("Head of Personnel")
+GLOBAL_LIST_INIT(service_positions, (support_positions - supply_positions + list("Head of Personnel")))
 
 
-var/list/security_positions = list(
+GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",
 	"Warden",
 	"Detective",
 	"Security Officer",
 	"Brig Physician",
 	"Security Pod Pilot",
-	"Magistrate",
-	"Forensic Specialist"
-)
+	"Magistrate"
+))
 
 
-var/list/civilian_positions = list(
+GLOBAL_LIST_INIT(civilian_positions, list(
 	"Civilian"
-)
+))
 
-var/list/nonhuman_positions = list(
+GLOBAL_LIST_INIT(nonhuman_positions, list(
 	"AI",
 	"Cyborg",
 	"Drone",
 	"pAI"
-)
+))
 
-var/list/whitelisted_positions = list(
+GLOBAL_LIST_INIT(whitelisted_positions, list(
 	"Blueshield",
 	"Nanotrasen Representative",
 	"Barber",
@@ -101,29 +100,11 @@ var/list/whitelisted_positions = list(
 	"Brig Physician",
 	"Magistrate",
 	"Security Pod Pilot",
-)
-
-var/list/hispa_whitelist = list (
-	"Captain",
-	"Head of Personnel",
-	"Head of Security",
-	"Chief Engineer",
-	"Research Director",
-	"Chief Medical Officer",
-	"Nanotrasen Representative",
-	"AI",
-	"Blueshield",
-	"Cyborg",
-	"Magistrate",
-	"Warden",
-)
+))
 
 
 /proc/guest_jobbans(var/job)
-	return (job in whitelisted_positions)
-
-/proc/heads_jobbans(var/job)
-	return (job in hispa_whitelist)
+	return (job in GLOB.whitelisted_positions)
 
 /proc/get_job_datums()
 	var/list/occupations = list()
@@ -147,7 +128,7 @@ var/list/hispa_whitelist = list (
 
 	return titles
 
-var/global/list/exp_jobsmap = list(
+GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_LIVING = list(), // all living mobs
 	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | civilian_positions | list("AI","Cyborg") | whitelisted_positions), // crew positions
 	EXP_TYPE_SPECIAL = list(), // antags, ERT, etc
@@ -162,4 +143,4 @@ var/global/list/exp_jobsmap = list(
 	EXP_TYPE_SILICON = list(titles = list("AI","Cyborg")),
 	EXP_TYPE_SERVICE = list(titles = service_positions),
 	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions) // karma-locked jobs
-)
+))

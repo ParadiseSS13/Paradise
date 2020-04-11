@@ -400,7 +400,7 @@
 	while(time)
 		sleep(speed)
 		for(var/i in 1 to speed)
-			M.setDir(pick(cardinal))
+			M.setDir(pick(GLOB.cardinal))
 			M.resting = !M.resting
 			M.update_canmove()
 		 time--

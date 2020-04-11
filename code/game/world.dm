@@ -1,6 +1,6 @@
 #define RECOMMENDED_VERSION 510
 
-var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
+GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
 	SetupLogs()
@@ -22,7 +22,7 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 
 	src.update_status()
 
-	space_manager.initialize() //Before the MC starts up
+	GLOB.space_manager.initialize() //Before the MC starts up
 
 	. = ..()
 
@@ -47,8 +47,8 @@ var/global/list/map_transition_config = MAP_TRANSITION_CONFIG
 //		to_chat(world, "End of Topic() call.")
 //		..()
 
-var/world_topic_spam_protect_ip = "0.0.0.0"
-var/world_topic_spam_protect_time = world.timeofday
+GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
+GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 /world/Topic(T, addr, master, key)
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
@@ -72,10 +72,10 @@ var/world_topic_spam_protect_time = world.timeofday
 	else if("status" in input)
 		var/list/s = list()
 		var/list/admins = list()
-		s["version"] = game_version
-		s["mode"] = master_mode
-		s["respawn"] = config ? abandon_allowed : 0
-		s["enter"] = enter_allowed
+		s["version"] = GLOB.game_version
+		s["mode"] = GLOB.master_mode
+		s["respawn"] = config ? GLOB.abandon_allowed : 0
+		s["enter"] = GLOB.enter_allowed
 		s["vote"] = config.allow_vote_mode
 		s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
@@ -123,18 +123,18 @@ var/world_topic_spam_protect_time = world.timeofday
 	else if("manifest" in input)
 		var/list/positions = list()
 		var/list/set_names = list(
-			"heads" = command_positions,
-			"sec" = security_positions,
-			"eng" = engineering_positions,
-			"med" = medical_positions,
-			"sci" = science_positions,
-			"car" = supply_positions,
-			"srv" = service_positions,
-			"civ" = civilian_positions,
-			"bot" = nonhuman_positions
+			"heads" = GLOB.command_positions,
+			"sec" = GLOB.security_positions,
+			"eng" = GLOB.engineering_positions,
+			"med" = GLOB.medical_positions,
+			"sci" = GLOB.science_positions,
+			"car" = GLOB.supply_positions,
+			"srv" = GLOB.service_positions,
+			"civ" = GLOB.civilian_positions,
+			"bot" = GLOB.nonhuman_positions
 		)
 
-		for(var/datum/data/record/t in data_core.general)
+		for(var/datum/data/record/t in GLOB.data_core.general)
 			var/name = t.fields["name"]
 			var/rank = t.fields["rank"]
 			var/real_rank = t.fields["real_rank"]
@@ -251,13 +251,13 @@ var/world_topic_spam_protect_time = world.timeofday
 			return "Set listed status to invisible."
 
 /proc/keySpamProtect(var/addr)
-	if(world_topic_spam_protect_ip == addr && abs(world_topic_spam_protect_time - world.time) < 50)
+	if(GLOB.world_topic_spam_protect_ip == addr && abs(GLOB.world_topic_spam_protect_time - world.time) < 50)
 		spawn(50)
-			world_topic_spam_protect_time = world.time
+			GLOB.world_topic_spam_protect_time = world.time
 			return "Bad Key (Throttled)"
 
-	world_topic_spam_protect_time = world.time
-	world_topic_spam_protect_ip = addr
+	GLOB.world_topic_spam_protect_time = world.time
+	GLOB.world_topic_spam_protect_ip = addr
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
@@ -270,8 +270,8 @@ var/world_topic_spam_protect_time = world.timeofday
 		shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 		if(config && config.shutdown_on_reboot)
 			sleep(0)
-			if(shutdown_shell_command)
-				shell(shutdown_shell_command)
+			if(GLOB.shutdown_shell_command)
+				shell(GLOB.shutdown_shell_command)
 			del(world)
 			return
 		else
@@ -294,8 +294,8 @@ var/world_topic_spam_protect_time = world.timeofday
 			if(!SSticker.delay_end)
 				world << round_end_sound
 	sleep(delay)
-	if(blackbox)
-		blackbox.save_all_data_to_sql()
+	if(GLOB.blackbox)
+		GLOB.blackbox.save_all_data_to_sql()
 	if(SSticker.delay_end)
 		to_chat(world, "<span class='boldannounce'>Reboot was cancelled by an admin.</span>")
 		return
@@ -304,7 +304,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	//kick_clients_in_lobby("<span class='boldannounce'>The round came to an end with you in the lobby.</span>", 1)
 
 	Master.Shutdown()	//run SS shutdowns
-	dbcon.Disconnect() // DCs cleanly from the database
+	GLOB.dbcon.Disconnect() // DCs cleanly from the database
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 
 	for(var/client/C in GLOB.clients)
@@ -313,8 +313,8 @@ var/world_topic_spam_protect_time = world.timeofday
 
 	if(config && config.shutdown_on_reboot)
 		sleep(0)
-		if(shutdown_shell_command)
-			shell(shutdown_shell_command)
+		if(GLOB.shutdown_shell_command)
+			shell(GLOB.shutdown_shell_command)
 		del(world)
 		return
 	else
@@ -329,8 +329,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	var/list/Lines = file2list("data/mode.txt")
 	if(Lines.len)
 		if(Lines[1])
-			master_mode = Lines[1]
-			log_game("Saved mode is '[master_mode]'")
+			GLOB.master_mode = Lines[1]
+			log_game("Saved mode is '[GLOB.master_mode]'")
 
 /world/proc/save_mode(var/the_mode)
 	var/F = file("data/mode.txt")
@@ -342,7 +342,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	return 1
 
 /world/proc/load_motd()
-	join_motd = file2text("config/motd.txt")
+	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
@@ -366,7 +366,7 @@ var/world_topic_spam_protect_time = world.timeofday
 		s += "<b>[config.server_name]</b> &#8212; "
 	s += "<b>[station_name()]</b> "
 	if(config && config.githuburl)
-		s+= "([game_version])"
+		s+= "([GLOB.game_version])"
 
 	if(config && config.server_tag_line)
 		s += "<br>[config.server_tag_line]"
@@ -379,7 +379,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	s += "<br>"
 	var/list/features = list()
 
-	if(!enter_allowed)
+	if(!GLOB.enter_allowed)
 		features += "closed"
 
 	if(config && config.server_extra_features)
@@ -391,7 +391,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	if(config && config.wikiurl)
 		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
 
-	if(abandon_allowed)
+	if(GLOB.abandon_allowed)
 		features += "respawn"
 
 	if(features)
@@ -400,8 +400,8 @@ var/world_topic_spam_protect_time = world.timeofday
 	return s
 
 #define FAILED_DB_CONNECTION_CUTOFF 5
-var/failed_db_connections = 0
-var/failed_old_db_connections = 0
+GLOBAL_VAR_INIT(failed_db_connections, 0)
+GLOBAL_VAR_INIT(failed_old_db_connections, 0)
 
 /world/proc/SetupLogs()
 	GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]"
@@ -436,11 +436,11 @@ var/failed_old_db_connections = 0
 
 /proc/setup_database_connection()
 
-	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
+	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
 		return 0
 
-	if(!dbcon)
-		dbcon = new()
+	if(!GLOB.dbcon)
+		GLOB.dbcon = new()
 
 	var/user = sqlfdbklogin
 	var/pass = sqlfdbkpass
@@ -448,22 +448,22 @@ var/failed_old_db_connections = 0
 	var/address = sqladdress
 	var/port = sqlport
 
-	dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
-	. = dbcon.IsConnected()
+	GLOB.dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
+	. = GLOB.dbcon.IsConnected()
 	if( . )
-		failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
+		GLOB.failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
 	else
-		failed_db_connections++		//If it failed, increase the failed connections counter.
-		log_world(dbcon.ErrorMsg())
+		GLOB.failed_db_connections++		//If it failed, increase the failed connections counter.
+		log_world(GLOB.dbcon.ErrorMsg())
 
 	return .
 
 //This proc ensures that the connection to the feedback database (global variable dbcon) is established
 proc/establish_db_connection()
-	if(failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
+	if(GLOB.failed_db_connections > FAILED_DB_CONNECTION_CUTOFF)
 		return 0
 
-	if(!dbcon || !dbcon.IsConnected())
+	if(!GLOB.dbcon || !GLOB.dbcon.IsConnected())
 		return setup_database_connection()
 	else
 		return 1

@@ -1,4 +1,4 @@
-	//Captain's space suit, not hardsuits because no flashlight!
+//Captain's space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/capspace
 	name = "captain's space helmet"
 	icon_state = "capspace"
@@ -285,5 +285,3 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/species/vox/suit.dmi')
 	sprite_sheets_obj = null
-
-

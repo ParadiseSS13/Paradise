@@ -5,7 +5,7 @@
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
-	required_players = 99
+	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
 	var/use_huds = 1
@@ -30,14 +30,14 @@
 	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
 	wizard.special_role = SPECIAL_ROLE_WIZARD
 	wizard.original = wizard.current
-	if(wizardstart.len == 0)
+	if(GLOB.wizardstart.len == 0)
 		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
 		return 0
 	return 1
 
 /datum/game_mode/wizard/pre_setup()
 	for(var/datum/mind/wiz in wizards)
-		wiz.current.loc = pick(wizardstart)
+		wiz.current.loc = pick(GLOB.wizardstart)
 	..()
 	return 1
 
@@ -59,6 +59,7 @@
 		SSticker.mode.wizards -= wizard_mind
 		wizard_mind.special_role = null
 		wizard_mind.current.create_attack_log("<span class='danger'>De-wizarded</span>")
+		wizard_mind.current.create_log(CONVERSION_LOG, "De-wizarded")
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
@@ -68,12 +69,12 @@
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
-	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
+	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
 	wizhud.join_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, ((wiz_mind in wizards) ? "hudwizard" : "apprentice"))
 
 /datum/game_mode/proc/update_wiz_icons_removed(datum/mind/wiz_mind)
-	var/datum/atom_hud/antag/wizhud = huds[ANTAG_HUD_WIZ]
+	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
 	wizhud.leave_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, null)
 

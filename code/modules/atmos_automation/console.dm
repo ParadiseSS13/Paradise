@@ -54,7 +54,7 @@
 
 /obj/machinery/computer/general_air_control/atmos_automation/proc/selectValidChildFor(datum/automation/parent, mob/user, list/valid_returntypes)
 	var/list/choices=list()
-	for(var/childtype in automation_types)
+	for(var/childtype in GLOB.automation_types)
 		var/datum/automation/A = new childtype(src)
 		if(A.returntype == null)
 			continue
@@ -217,7 +217,7 @@
 				testing("AAC: Null cData in root JS array.")
 				continue
 			var/Atype=text2path(cData["type"])
-			if(!(Atype in automation_types))
+			if(!(Atype in GLOB.automation_types))
 				testing("AAC: Unrecognized Atype [Atype].")
 				continue
 			var/datum/automation/A = new Atype(src)
