@@ -165,8 +165,10 @@
 
 /obj/structure/bonfire/Crossed(atom/movable/AM, oldloc)
 	if(burning)
-		add_attack_logs(src, AM, "burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
 		Burn()
+		if(ishuman(AM))
+			var/mob/living/carbon/human/H = AM
+			add_attack_logs(src, H, "Burned by a bonfire (Lit by [lighter])", ATKLOG_ALMOSTALL)
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
