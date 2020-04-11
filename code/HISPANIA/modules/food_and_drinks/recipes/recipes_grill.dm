@@ -133,3 +133,17 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/arepa_magma
 
+//Toast//
+/datum/recipe/grill/toast
+	items = list(
+		/obj/item/reagent_containers/food/snacks/breadslice
+	)
+	result = /obj/item/reagent_containers/food/snacks/toast
+
+//Buttertoast//
+/datum/recipe/grill/butter_toast
+	reagents = list("butter" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/toast
+	)
+	result = /obj/item/reagent_containers/food/snacks/butter_toast
