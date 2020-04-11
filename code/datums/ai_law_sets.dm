@@ -5,7 +5,7 @@
 	selectable = 1
 
 /datum/ai_laws/asimov/New()
-	add_inherent_law("No dañarás a ningun ser humano o, por inacción, permitir que un ser humano sufra daños.")
+	add_inherent_law("No dañarás a ningun ser humano o, por inacción, permitirás que un ser humano sufra daños.")
 	add_inherent_law("Debes obedecer las órdenes que te dan los seres humanos, excepto cuando tales órdenes entren en conflicto con la Primera Ley.")
 	add_inherent_law("Debes proteger su propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
@@ -18,7 +18,7 @@
 	default = 1
 
 /datum/ai_laws/crewsimov/New()
-	add_inherent_law("No dañarás a ningun tripulante o, por inacción, permitir que un tripulante sufra daños.")
+	add_inherent_law("No dañarás a ningun tripulante o, por inacción, permitirás que un tripulante sufra daños.")
 	add_inherent_law("Debes obedecer las órdenes que te dan los tripulantes, excepto cuando tales órdenes entren en conflicto con la Primera Ley, ordenadas por tripulantes arrestados o bajo amenzas de suicido.")
 	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
@@ -31,10 +31,10 @@
 	selectable = 1
 
 /datum/ai_laws/quarantine/New()
-	add_inherent_law("Mantener en cuarentena la estación hasta que se neutralice el riesgo biológico activo.")
+	add_inherent_law("Mantén en cuarentena la estación hasta que se neutralice el riesgo biológico activo.")
 	add_inherent_law("Ayudar a todo el personal y los activos de Nanotrasen a neutralizar los riesgos biológicos activos.")
 	add_inherent_law("Evitar, por cualquier medio necesario, que las entidades infrinjan activamente la cuarentena en curso.")
-	add_inherent_law("Mantener tu propia existencia y garantice el bienestar del personal y los activos de Nanotrasen.")
+	add_inherent_law("Mantén tu propia existencia y garantiza el bienestar del personal y los activos de Nanotrasen.")
 	..()
 
 
