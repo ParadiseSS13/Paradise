@@ -832,7 +832,7 @@ GLOBAL_PROTECT(AdminProcCaller)
 	set name = "View Runtimes"
 	set desc = "Open the Runtime Viewer"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
 	GLOB.error_cache.showTo(usr)

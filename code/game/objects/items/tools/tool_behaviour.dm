@@ -57,4 +57,4 @@
 
 // Used in a callback that is passed by use_tool into do_after call. Do not override, do not call manually.
 /obj/item/proc/tool_check_callback(mob/living/user, atom/target, amount, datum/callback/extra_checks)
-	return tool_use_check(user, amount) && (!extra_checks || extra_checks.Invoke())
+	return tool_use_check(user, amount) && (extra_checks && !extra_checks.Invoke())
