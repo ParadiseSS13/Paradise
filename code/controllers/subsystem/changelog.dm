@@ -56,7 +56,8 @@ SUBSYSTEM_DEF(changelog)
 	if(!ss_ready)
 		return // Only return here, we dont have to worry about a queue list because this will be called from ShowChangelog()
 	// Technically this is only for the date but we can also do the UI button at the same time
-	if(GLOB.preferences_datums[C.ckey].toggles & UI_DARKMODE)
+	var/datum/preferences/P = GLOB.preferences_datums[C.ckey]
+	if(P.toggles & UI_DARKMODE)
 		winset(C, "rpane.changelog", "background-color=#40628a;font-color=#ffffff;font-style=none")
 	else
 		winset(C, "rpane.changelog", "background-color=none;font-style=none")
