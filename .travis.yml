@@ -1,12 +1,12 @@
 #pretending we're C because otherwise ruby will initialize, even with "language: dm".
 language: generic
 dist: xenial
-sudo: false
+os: linux
 
 git:
   depth: 1
 
-matrix:
+jobs:
   include:
     - name: "Run Linters"
       addons:
