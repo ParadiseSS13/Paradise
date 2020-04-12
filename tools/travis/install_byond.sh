@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-source dependencies.sh
+source _build_dependencies.sh
 
 if [ -d "$HOME/BYOND/byond/bin" ] && grep -Fxq "${BYOND_MAJOR}.${BYOND_MINOR}" $HOME/BYOND/version.txt;
 then

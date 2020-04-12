@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-source dependencies.sh
+source _build_dependencies.sh
 
 source ~/.nvm/nvm.sh
 nvm install $NODE_VERSION
