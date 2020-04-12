@@ -4,7 +4,7 @@ var/list/chatResources = list(
 	"goon/browserassets/js/json2.min.js",
 	"goon/browserassets/js/twemoji.min.js",
 	"goon/browserassets/js/browserOutput.js",
-	"goon/browserassets/js/unicode_9_annotations.json",
+	"goon/browserassets/js/unicode_9_annotations.js",
 	"goon/browserassets/css/fonts/fontawesome-webfont.eot",
 	"goon/browserassets/css/fonts/fontawesome-webfont.svg",
 	"goon/browserassets/css/fonts/fontawesome-webfont.ttf",
