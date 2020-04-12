@@ -66,7 +66,8 @@
 		if(SSatoms.InitAtom(src, args))
 			// we were deleted
 			return
-
+		if(loc)
+			SEND_SIGNAL(loc, COMSIG_ATOM_CREATED, src) // Send a signal that a new atom was created at `loc`.
 
 //Called after New if the map is being loaded. mapload = TRUE
 //Called from base of New if the map is not being loaded. mapload = FALSE

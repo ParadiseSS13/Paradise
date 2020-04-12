@@ -165,7 +165,7 @@
 	if(QDELETED(src))
 		return FALSE
 
-	. = (user.loc == calling_holopad.loc) && !user.incapacitated() && !QDELETED(user) && !QDELETED(calling_holopad)
+	. = !QDELETED(user) && !QDELETED(calling_holopad) && (user.loc == calling_holopad.loc) && !user.incapacitated()
 
 	if(.)
 		if(!connected_holopad)
