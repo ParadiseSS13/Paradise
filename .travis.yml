@@ -1,4 +1,3 @@
-#pretending we're C because otherwise ruby will initialize, even with "language: dm".
 language: generic
 dist: xenial
 os: linux
