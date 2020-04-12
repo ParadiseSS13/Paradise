@@ -34,8 +34,8 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-/obj/machinery/camera/New()
-	..()
+/obj/machinery/camera/Initialize()
+	. = ..()
 	wires = new(src)
 	assembly = new(src)
 	assembly.state = 4
