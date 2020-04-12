@@ -19,3 +19,30 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 	desc = "A nice and formal hat made of silk, only for station captains. Made by D&N Corp."
 	icon_state = "caphat_light"
 	hispania_icon = TRUE
+
+//Private Sec Berets (Danaleja2005)
+
+/obj/item/clothing/head/beret/sec/private
+	name = "blue security beret"
+	icon_state = "secberetprivateofficer_blue"
+	hispania_icon = TRUE
+
+/obj/item/clothing/head/beret/sec/private/red
+	name = "red security beret"
+	icon_state = "secberetprivateofficer_red"
+	hispania_icon = TRUE
+
+/obj/item/clothing/head/officer/hat
+	name = "officer's blue hat"
+	desc = "A blue hat with a badge of Security Department."
+	icon_state = "sechat_blue"
+	item_state = "sechat_blue"
+	strip_delay = 80
+	hispania_icon = TRUE
+
+/obj/item/clothing/head/officer/hat/red
+	name = "officer's red hat"
+	desc = "A red hat with a badge of Security Department."
+	icon_state = "sechat_red"
+	item_state = "sechat_red"
+	hispania_icon = TRUE

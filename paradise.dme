@@ -1242,6 +1242,7 @@
 #include "code\HISPANIA\modules\clothing\suits\miscellaneous.dm"
 #include "code\HISPANIA\modules\clothing\suits\reactive_armour.dm"
 #include "code\HISPANIA\modules\clothing\under\jobs\civilian.dm"
+#include "code\HISPANIA\modules\clothing\under\jobs\security.dm"
 #include "code\HISPANIA\modules\crafting\recipes.dm"
 #include "code\HISPANIA\modules\crafting\tailoring.dm"
 #include "code\HISPANIA\modules\customitems\item_defines.dm"

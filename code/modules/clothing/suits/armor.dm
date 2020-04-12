@@ -22,6 +22,7 @@
 	blood_overlay_type = "armor"
 	flags_size = ONESIZEFITSALL
 	dog_fashion = /datum/dog_fashion/back
+	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/vest/jacket
 	name = "military jacket"
@@ -44,6 +45,7 @@
 	icon_state = "armor"
 	item_state = "armor"
 	var/obj/item/clothing/accessory/holobadge/attached_badge
+	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/vest/security/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(istype(W, /obj/item/clothing/accessory/holobadge))

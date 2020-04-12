@@ -2173,6 +2173,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
+/obj/machinery/vending/walldrobe/sec{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "aeB" = (
@@ -2188,6 +2191,9 @@
 	dir = 10;
 	initialize_directions = 10;
 	level = 1
+	},
+/obj/machinery/vending/walldrobe/sec{
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -5648,7 +5654,8 @@
 /obj/item/clothing/suit/jacket/pilot,
 /obj/item/clothing/head/beret/sec,
 /obj/machinery/light_switch{
-	pixel_x = -25
+	pixel_x = -25;
+	pixel_y = -12
 	},
 /obj/item/spacepod_key{
 	id = 100000
@@ -5656,6 +5663,9 @@
 /obj/item/gps,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/machinery/vending/walldrobe/sec/podpilot{
+	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7047,15 +7057,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
-"amq" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
-/turf/simulated/floor/plating,
-/area/security/main)
 "amr" = (
 /obj/structure/chair/comfy/black{
 	dir = 4
@@ -7843,12 +7844,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/seceqstorage)
 "anK" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Equipment Storage";
@@ -7920,12 +7915,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "anR" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
@@ -8383,11 +8372,6 @@
 /area/security/seceqstorage)
 "aoC" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8";
@@ -8490,11 +8474,6 @@
 	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -11966,13 +11945,7 @@
 	},
 /area/security/permabrig)
 "aui" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
-/turf/simulated/floor/plating,
+/turf/simulated/wall/r_wall,
 /area/security/seceqstorage)
 "auj" = (
 /obj/structure/cable{
@@ -131273,7 +131246,7 @@ anA
 anA
 anA
 anA
-amq
+anH
 anR
 aoL
 apm
