@@ -38,3 +38,11 @@ datum/supply_packs/security/spacesuit
 	containername = "emergency shield crate"
 	containertype = /obj/structure/closet/crate/secure/engineering
 	access = ACCESS_ENGINE
+
+/datum/supply_packs/emergency/panic_control
+	name = "Blackout Crate"
+	contains = list(/obj/item/storage/fancy/flare_box/full,
+					/obj/item/storage/fancy/flare_box/full
+					)
+	cost = 100
+	containername = "blackout shutdown"
