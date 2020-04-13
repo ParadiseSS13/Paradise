@@ -146,7 +146,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 
 	for(var/player in GLOB.player_list)
 		var/mob/M = player
-		if(M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
+		if(M && M.client && !(M.client.prefs.sound & SOUND_AI_VOICE))
 			var/turf/T = get_turf(M)
 			if(T && T.z == z && M.can_hear())
 				SEND_SOUND(M, 'sound/misc/notice2.ogg')
