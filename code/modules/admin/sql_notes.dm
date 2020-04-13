@@ -1,7 +1,7 @@
 /proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server, checkrights = 1)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 
@@ -13,7 +13,7 @@
 	else
 		target_ckey = ckey(target_ckey)
 
-	var/DBQuery/query_find_ckey = dbcon.NewQuery("SELECT ckey, exp FROM [format_table_name("player")] WHERE ckey = '[target_ckey]'")
+	var/DBQuery/query_find_ckey = GLOB.dbcon.NewQuery("SELECT ckey, exp FROM [format_table_name("player")] WHERE ckey = '[target_ckey]'")
 	if(!query_find_ckey.Execute())
 		var/err = query_find_ckey.ErrorMsg()
 		log_game("SQL ERROR obtaining ckey from player table. Error : \[[err]\]\n")
@@ -46,7 +46,7 @@
 		if(config && config.server_name)
 			server = config.server_name
 	server = sanitizeSQL(server)
-	var/DBQuery/query_noteadd = dbcon.NewQuery("INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime) VALUES ('[target_ckey]', '[timestamp]', '[notetext]', '[admin_sql_ckey]', '[server]', '[crew_number]')")
+	var/DBQuery/query_noteadd = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime) VALUES ('[target_ckey]', '[timestamp]', '[notetext]', '[admin_sql_ckey]', '[server]', '[crew_number]')")
 	if(!query_noteadd.Execute())
 		var/err = query_noteadd.ErrorMsg()
 		log_game("SQL ERROR adding new note to table. Error : \[[err]\]\n")
@@ -63,13 +63,13 @@
 	var/ckey
 	var/notetext
 	var/adminckey
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
 		return
 	note_id = text2num(note_id)
-	var/DBQuery/query_find_note_del = dbcon.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id = [note_id]")
+	var/DBQuery/query_find_note_del = GLOB.dbcon.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id = [note_id]")
 	if(!query_find_note_del.Execute())
 		var/err = query_find_note_del.ErrorMsg()
 		log_game("SQL ERROR obtaining ckey, notetext, adminckey from player table. Error : \[[err]\]\n")
@@ -78,7 +78,7 @@
 		ckey = query_find_note_del.item[1]
 		notetext = query_find_note_del.item[2]
 		adminckey = query_find_note_del.item[3]
-	var/DBQuery/query_del_note = dbcon.NewQuery("DELETE FROM [format_table_name("notes")] WHERE id = [note_id]")
+	var/DBQuery/query_del_note = GLOB.dbcon.NewQuery("DELETE FROM [format_table_name("notes")] WHERE id = [note_id]")
 	if(!query_del_note.Execute())
 		var/err = query_del_note.ErrorMsg()
 		log_game("SQL ERROR removing note from table. Error : \[[err]\]\n")
@@ -91,7 +91,7 @@
 /proc/edit_note(note_id)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
 	if(!note_id)
@@ -99,7 +99,7 @@
 	note_id = text2num(note_id)
 	var/target_ckey
 	var/sql_ckey = usr.ckey
-	var/DBQuery/query_find_note_edit = dbcon.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id = [note_id]")
+	var/DBQuery/query_find_note_edit = GLOB.dbcon.NewQuery("SELECT ckey, notetext, adminckey FROM [format_table_name("notes")] WHERE id = [note_id]")
 	if(!query_find_note_edit.Execute())
 		var/err = query_find_note_edit.ErrorMsg()
 		log_game("SQL ERROR obtaining notetext from notes table. Error : \[[err]\]\n")
@@ -114,7 +114,7 @@
 		new_note = sanitizeSQL(new_note)
 		var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from \"[old_note]\" to \"[new_note]\"<hr>"
 		edit_text = sanitizeSQL(edit_text)
-		var/DBQuery/query_update_note = dbcon.NewQuery("UPDATE [format_table_name("notes")] SET notetext = '[new_note]', last_editor = '[sql_ckey]', edits = CONCAT(IFNULL(edits,''),'[edit_text]') WHERE id = [note_id]")
+		var/DBQuery/query_update_note = GLOB.dbcon.NewQuery("UPDATE [format_table_name("notes")] SET notetext = '[new_note]', last_editor = '[sql_ckey]', edits = CONCAT(IFNULL(edits,''),'[edit_text]') WHERE id = [note_id]")
 		if(!query_update_note.Execute())
 			var/err = query_update_note.ErrorMsg()
 			log_game("SQL ERROR editing note. Error : \[[err]\]\n")
@@ -141,7 +141,7 @@
 		output = navbar
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
-		var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
+		var/DBQuery/query_get_notes = GLOB.dbcon.NewQuery("SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 		if(!query_get_notes.Execute())
 			var/err = query_get_notes.ErrorMsg()
 			log_game("SQL ERROR obtaining ckey, notetext, adminckey, last_editor, server, crew_playtime from notes table. Error : \[[err]\]\n")
@@ -183,7 +183,7 @@
 				search = "^\[^\[:alpha:\]\]"
 			else
 				search = "^[index]"
-		var/DBQuery/query_list_notes = dbcon.NewQuery("SELECT DISTINCT ckey FROM [format_table_name("notes")] WHERE ckey REGEXP '[search]' ORDER BY ckey")
+		var/DBQuery/query_list_notes = GLOB.dbcon.NewQuery("SELECT DISTINCT ckey FROM [format_table_name("notes")] WHERE ckey REGEXP '[search]' ORDER BY ckey")
 		if(!query_list_notes.Execute())
 			var/err = query_list_notes.ErrorMsg()
 			log_game("SQL ERROR obtaining ckey from notes table. Error : \[[err]\]\n")
@@ -198,7 +198,7 @@
 
 /proc/show_player_info_irc(var/key as text)
 	var/target_sql_ckey = ckey(key)
-	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
+	var/DBQuery/query_get_notes = GLOB.dbcon.NewQuery("SELECT timestamp, notetext, adminckey, server, crew_playtime FROM [format_table_name("notes")] WHERE ckey = '[target_sql_ckey]' ORDER BY timestamp")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
 		log_game("SQL ERROR obtaining timestamp, notetext, adminckey, server, crew_playtime from notes table. Error : \[[err]\]\n")

@@ -349,8 +349,8 @@
 	var/emagged = 0			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
 
-/obj/item/gun/energy/temperature/New()
-	..()
+/obj/item/gun/energy/temperature/Initialize(mapload, ...)
+	. = ..()
 	update_icon()
 	START_PROCESSING(SSobj, src)
 

@@ -149,7 +149,7 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(SOBERBLOCK,1)
+	H.dna.SetSEState(GLOB.soberblock,1)
 	H.mutations += SOBER
 	H.check_mutations = 1
 
@@ -201,7 +201,7 @@
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	outfit = /datum/outfit/job/brigdoc
 

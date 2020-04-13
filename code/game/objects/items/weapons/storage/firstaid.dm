@@ -23,6 +23,7 @@
 	var/treatment_virus = "spaceacillin"
 	var/med_bot_skin = null
 	var/syndicate_aligned = FALSE
+	var/robot_arm // This is for robot construction
 
 
 /obj/item/storage/firstaid/fire

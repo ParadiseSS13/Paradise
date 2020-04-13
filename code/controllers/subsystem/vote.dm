@@ -90,10 +90,10 @@ SUBSYSTEM_DEF(vote)
 				if(choices["Continue Playing"] >= greatest_votes)
 					greatest_votes = choices["Continue Playing"]
 			else if(mode == "gamemode")
-				if(master_mode in choices)
-					choices[master_mode] += non_voters
-					if(choices[master_mode] >= greatest_votes)
-						greatest_votes = choices[master_mode]
+				if(GLOB.master_mode in choices)
+					choices[GLOB.master_mode] += non_voters
+					if(choices[GLOB.master_mode] >= greatest_votes)
+						greatest_votes = choices[GLOB.master_mode]
 			else if(mode == "crew_transfer")
 				var/factor = 0.5
 				switch(world.time / (10 * 60)) // minutes
@@ -164,14 +164,14 @@ SUBSYSTEM_DEF(vote)
 				if(. == "Restart Round")
 					restart = 1
 			if("gamemode")
-				if(master_mode != .)
+				if(GLOB.master_mode != .)
 					world.save_mode(.)
 					if(SSticker && SSticker.mode)
 						restart = 1
 					else
-						master_mode = .
-				if(!going)
-					going = 1
+						GLOB.master_mode = .
+				if(!SSticker.ticker_going)
+					SSticker.ticker_going = TRUE
 					to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
 			if("crew_transfer")
 				if(. == "Initiate Crew Transfer")
@@ -253,8 +253,8 @@ SUBSYSTEM_DEF(vote)
 				world << sound('sound/ambience/alarm4.ogg')
 			if("custom")
 				world << sound('sound/ambience/alarm4.ogg')
-		if(mode == "gamemode" && going)
-			going = 0
+		if(mode == "gamemode" && SSticker.ticker_going)
+			SSticker.ticker_going = FALSE
 			to_chat(world, "<font color='red'><b>Round start has been delayed.</b></font>")
 		if(mode == "crew_transfer" && config.ooc_allowed)
 			auto_muted = 1

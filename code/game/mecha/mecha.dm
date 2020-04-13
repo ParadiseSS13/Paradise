@@ -112,7 +112,7 @@
 	log_message("[src] created.")
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
-	for(var/datum/atom_hud/data/diagnostic/diag_hud in huds)
+	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(src)
 	diag_hud_set_mechhealth()
 	diag_hud_set_mechcell()
@@ -559,6 +559,7 @@
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
 		user.create_attack_log("<font color='red'>attacked [name]</font>")
+		add_attack_logs(user, src, "Attacked")
 		attack_generic(user, animal_damage, user.melee_damage_type, "melee", play_soundeffect)
 		return TRUE
 
@@ -784,10 +785,10 @@
 		state = 2
 		to_chat(user, "You close the hatch to the power unit")
 	else
-			// Since having maint protocols available is controllable by the pilot, I see this as a consensual way to remove a pilot without destroying the mech
+		// Since having maint protocols available is controllable by the pilot, I see this as a consensual way to remove a pilot without destroying the mech
 		user.visible_message("[user] begins levering out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].", "You begin to lever out the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src].")
 		to_chat(occupant, "<span class='warning'>[user] is prying you out of the exosuit!</span>")
-		if(do_after(user, 80 * I.toolspeed, target=src))
+		if(I.use_tool(src, user, 80, volume = I.tool_volume))
 			user.visible_message("<span class='notice'>[user] pries the [pilot_is_mmi() ? "MMI" : "pilot"] out of the [src]!</span>", "<span class='notice'>You finish removing the [pilot_is_mmi() ? "MMI" : "pilot"] from the [src]!</span>")
 			go_out()
 

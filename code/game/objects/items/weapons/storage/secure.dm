@@ -98,6 +98,7 @@
 		add_fingerprint(usr)
 		to_chat(usr, "<span class='warning'>It's locked!</span>")
 		return FALSE
+	return TRUE
 
 /obj/item/storage/secure/attack_self(mob/user as mob)
 	user.set_machine(src)

@@ -1,6 +1,6 @@
-var/list/robot_verbs_default = list(
+GLOBAL_LIST_INIT(robot_verbs_default, list(
 	/mob/living/silicon/robot/proc/sensor_mode,
-)
+))
 
 /mob/living/silicon/robot
 	name = "Cyborg"
@@ -304,7 +304,7 @@ var/list/robot_verbs_default = list(
 	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
 	if(islist(force_modules) && force_modules.len)
 		modules = force_modules.Copy()
-	if(security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
+	if(GLOB.security_level == (SEC_LEVEL_GAMMA || SEC_LEVEL_EPSILON) || crisis)
 		to_chat(src, "<span class='warning'>Crisis mode active. The combat module is now available.</span>")
 		modules += "Combat"
 	if(mmi != null && mmi.alien)
@@ -575,11 +575,11 @@ var/list/robot_verbs_default = list(
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
-	src.verbs |= robot_verbs_default
+	src.verbs |= GLOB.robot_verbs_default
 	src.verbs |= silicon_subsystems
 
 /mob/living/silicon/robot/proc/remove_robot_verbs()
-	src.verbs -= robot_verbs_default
+	src.verbs -= GLOB.robot_verbs_default
 	src.verbs -= silicon_subsystems
 
 /mob/living/silicon/robot/proc/ionpulse()
@@ -925,7 +925,7 @@ var/list/robot_verbs_default = list(
 			clear_inherent_laws()
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
-			lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
+			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("Only [M.real_name] and people [M.p_they()] designate[M.p_s()] as being such are Syndicate Agents.")
 			to_chat(src, "<span class='warning'>ALERT: Foreign software detected.</span>")
 			sleep(5)
@@ -1207,7 +1207,7 @@ var/list/robot_verbs_default = list(
 				updating = 1
 				spawn(BORG_CAMERA_BUFFER)
 					if(oldLoc != src.loc)
-						cameranet.updatePortableCamera(src.camera)
+						GLOB.cameranet.updatePortableCamera(src.camera)
 					updating = 0
 	if(module)
 		if(module.type == /obj/item/robot_module/janitor)

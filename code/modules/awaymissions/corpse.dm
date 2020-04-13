@@ -131,7 +131,7 @@
 	//Human specific stuff.
 	var/mob_species = null		//Set species
 	var/allow_species_pick = FALSE
-	var/list/pickable_species = list("Human", "Tajaran", "Unathi", "Skrell", "Diona")
+	var/list/pickable_species = list("Human", "Vulpkanin", "Tajaran", "Unathi", "Skrell", "Diona")
 	var/datum/outfit/outfit = /datum/outfit	//If this is a path, it will be instanced in Initialize()
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
@@ -163,11 +163,11 @@
 	var/pda = -1
 	var/backpack_contents = -1
 	var/suit_store = -1
-
 	var/hair_style
 	var/facial_hair_style
 	var/skin_tone
 
+	var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 
 /obj/effect/mob_spawn/human/Initialize()
 	if(ispath(outfit))
@@ -227,7 +227,6 @@
 			if(!isnum(T))
 				outfit.vars[slot] = T
 		H.equipOutfit(outfit)
-		var/list/del_types = list(/obj/item/pda, /obj/item/radio/headset)
 		for(var/del_type in del_types)
 			var/obj/item/I = locate(del_type) in H
 			qdel(I)

@@ -20,7 +20,7 @@
 	G.fields["religion"]	= "Unknown"
 	G.fields["photo_front"]	= front
 	G.fields["photo_side"]	= side
-	data_core.general += G
+	GLOB.data_core.general += G
 
 	qdel(dummy)
 	return G
@@ -36,11 +36,11 @@
 	R.fields["ma_crim"] = "None"
 	R.fields["ma_crim_d"] = "No major crime convictions."
 	R.fields["notes"] = "No notes."
-	data_core.security += R
+	GLOB.data_core.security += R
 	return R
 
 /proc/find_security_record(field, value)
-	return find_record(field, value, data_core.security)
+	return find_record(field, value, GLOB.data_core.security)
 
 /proc/find_record(field, value, list/L)
 	for(var/datum/data/record/R in L)

@@ -140,7 +140,7 @@
 		ui = new(user, src, ui_key, "chem_heater.tmpl", "ChemHeater", 350, 270)
 		ui.open()
 
-/obj/machinery/chem_heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/chem_heater/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 
 	data["targetTemp"] = desired_temp

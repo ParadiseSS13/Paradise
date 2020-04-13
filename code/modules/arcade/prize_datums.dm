@@ -1,5 +1,4 @@
-
-var/global/datum/prizes/global_prizes = new
+GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prizes
 	var/list/prizes = list()
@@ -14,7 +13,7 @@ var/global/datum/prizes/global_prizes = new
 		return
 	if(!prize_counter)
 		return 0
-	var/datum/prize_item/item = global_prizes.prizes[itemID]
+	var/datum/prize_item/item = GLOB.global_prizes.prizes[itemID]
 	if(!item)
 		return 0
 	if(prize_counter.tickets >= item.cost)

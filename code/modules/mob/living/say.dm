@@ -1,4 +1,4 @@
-var/list/department_radio_keys = list(
+GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":r" = "right ear",	"#r" = "right ear",		".r" = "right ear",
 	  ":l" = "left ear",	"#l" = "left ear",		".l" = "left ear",
 	  ":i" = "intercom",	"#i" = "intercom",		".i" = "intercom",
@@ -34,20 +34,20 @@ var/list/department_radio_keys = list(
 	  ":-" = "Special Ops",	"#-" = "Special Ops",	".-" = "Special Ops",
 	  ":_" = "SyndTeam",	"#_" = "SyndTeam",		"._" = "SyndTeam",
 	  ":X" = "cords",		"#X" = "cords",			".X" = "cords"
-)
+))
 
+GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
-var/list/channel_to_radio_key = new
 proc/get_radio_key_from_channel(var/channel)
-	var/key = channel_to_radio_key[channel]
+	var/key = GLOB.channel_to_radio_key[channel]
 	if(!key)
-		for(var/radio_key in department_radio_keys)
-			if(department_radio_keys[radio_key] == channel)
+		for(var/radio_key in GLOB.department_radio_keys)
+			if(GLOB.department_radio_keys[radio_key] == channel)
 				key = radio_key
 				break
 		if(!key)
 			key = ""
-		channel_to_radio_key[channel] = key
+		GLOB.channel_to_radio_key[channel] = key
 
 	return key
 
@@ -100,9 +100,10 @@ proc/get_radio_key_from_channel(var/channel)
 	return 0
 
 /mob/living/proc/handle_speech_sound()
-	var/list/returns[2]
+	var/list/returns[3]
 	returns[1] = null
 	returns[2] = null
+	returns[3] = null
 	return returns
 
 
@@ -176,10 +177,17 @@ proc/get_radio_key_from_channel(var/channel)
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
 		return 1
 
+	// Log of what we've said, plain message, no spans or junk
+	// handle_message_mode should have logged this already if it handled it
+	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"
+	say_log += log_message
+	create_log(SAY_LOG, log_message) // TODO after #13047: Include the channel
+	log_say(log_message, src)
 
 	var/list/handle_v = handle_speech_sound()
 	var/sound/speech_sound = handle_v[1]
 	var/sound_vol = handle_v[2]
+	var/sound_frequency = handle_v[3]
 
 	var/italics = 0
 	var/message_range = world.view
@@ -249,7 +257,7 @@ proc/get_radio_key_from_channel(var/channel)
 				if(message_range < world.view && (get_dist(T, M) <= world.view))
 					listening |= M
 					continue
-				
+
 			if(get_turf(M) in hearturfs)
 				listening |= M
 
@@ -257,7 +265,7 @@ proc/get_radio_key_from_channel(var/channel)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 	spawn(0)
@@ -272,9 +280,6 @@ proc/get_radio_key_from_channel(var/channel)
 			if(O) //It's possible that it could be deleted in the meantime.
 				O.hear_talk(src, message_pieces, verb)
 
-	//Log of what we've said, plain message, no spans or junk
-	say_log += message
-	log_say(message, src)
 	return 1
 
 /obj/effect/speech_bubble
@@ -359,6 +364,7 @@ proc/get_radio_key_from_channel(var/channel)
 
 	say_log += "whisper: [message]"
 	log_whisper(message, src)
+	create_log(SAY_LOG, "WHISPER: [message]")
 	var/message_range = 1
 	var/eavesdropping_range = 2
 	var/watching_range = 5

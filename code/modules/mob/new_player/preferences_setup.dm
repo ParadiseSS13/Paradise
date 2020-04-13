@@ -9,7 +9,7 @@
 
 	if(S.bodyflags & ALL_RPARTS)
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
-		robohead = all_robolimbs[head_model]
+		robohead = GLOB.all_robolimbs[head_model]
 	if(gender_override)
 		gender = gender_override
 	else
@@ -17,7 +17,7 @@
 	underwear = random_underwear(gender, species)
 	undershirt = random_undershirt(gender, species)
 	socks = random_socks(gender, species)
-	if(body_accessory_by_species[species])
+	if(GLOB.body_accessory_by_species[species])
 		body_accessory = random_body_accessory(species)
 		if(body_accessory == "None") //Required to prevent a bug where the information/icons in the character preferences screen wouldn't update despite the data being changed.
 			body_accessory = null
@@ -253,8 +253,8 @@
 		if(organ_data[name] == "amputated") continue
 		if(organ_data[name] == "cyborg")
 			var/datum/robolimb/R
-			if(rlimb_data[name]) R = all_robolimbs[rlimb_data[name]]
-			if(!R) R = basic_robolimb
+			if(rlimb_data[name]) R = GLOB.all_robolimbs[rlimb_data[name]]
+			if(!R) R = GLOB.basic_robolimb
 			if(name == "chest")
 				name = "torso"
 			preview_icon.Blend(icon(R.icon, "[name]"), ICON_OVERLAY) // This doesn't check gendered_icon. Not an issue while only limbs can be robotic.
@@ -281,7 +281,7 @@
 		var/blend_mode = ICON_ADD
 
 		if(body_accessory)
-			var/datum/body_accessory/accessory = body_accessory_by_name[body_accessory]
+			var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[body_accessory]
 			tail_icon = accessory.icon
 			tail_icon_state = accessory.icon_state
 			if(accessory.blend_mode)

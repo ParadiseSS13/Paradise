@@ -1,14 +1,15 @@
+#define ION_NOANNOUNCEMENT -1
 #define ION_RANDOM 0
 #define ION_ANNOUNCE 1
 
 /datum/event/ion_storm
 	var/botEmagChance = 10
-	var/announceEvent = ION_RANDOM // -1 means don't announce, 0 means have it randomly announce, 1 means
+	var/announceEvent = ION_NOANNOUNCEMENT // -1 means don't announce, 0 means have it randomly announce, 1 means
 	var/ionMessage = null
 	var/ionAnnounceChance = 33
 	announceWhen	= 1
 
-/datum/event/ion_storm/New(var/botEmagChance = 10, var/announceEvent = ION_RANDOM, var/ionMessage = null, var/ionAnnounceChance = 33)
+/datum/event/ion_storm/New(var/botEmagChance = 10, var/announceEvent = ION_NOANNOUNCEMENT, var/ionMessage = null, var/ionAnnounceChance = 33)
 	src.botEmagChance = botEmagChance
 	src.announceEvent = announceEvent
 	src.ionMessage = ionMessage
@@ -17,13 +18,12 @@
 
 /datum/event/ion_storm/announce()
 	if(announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
-		event_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ionstorm.ogg')
-
+		GLOB.event_announcement.Announce("Ion storm detected near the station. Please check all AI-controlled equipment for errors.", "Anomaly Alert", 'sound/AI/ionstorm.ogg')
 
 /datum/event/ion_storm/start()
 	//AI laws
 	for(var/mob/living/silicon/ai/M in GLOB.living_mob_list)
-		if(M.stat != 2 && M.see_in_dark != 0)
+		if(M.stat != DEAD && M.see_in_dark != FALSE)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
 				M.add_ion_law(message)
@@ -556,5 +556,6 @@
 							"There will be a mandatory tea break every 30 minutes, with a duration of 5 minutes. Anyone caught working during a tea break must be sent a formal, but fairly polite, complaint about their actions, in writing.")
 	return pick(laws)
 
+#undef ION_NOANNOUNCEMENT
 #undef ION_RANDOM
 #undef ION_ANNOUNCE

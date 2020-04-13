@@ -107,7 +107,7 @@
 	if(needs_to_bleed)
 		var/turf/T = get_turf(owner)
 		new /obj/effect/temp_visual/bleed/explode(T)
-		for(var/d in alldirs)
+		for(var/d in GLOB.alldirs)
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(T, d)
 		playsound(T, "desceration", 200, 1, -1)
 		owner.adjustBruteLoss(bleed_damage)

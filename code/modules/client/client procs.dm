@@ -319,16 +319,16 @@
 	if(!config.disable_localhost_admin)
 		if(is_connecting_from_localhost())
 			new /datum/admins("!LOCALHOST!", R_HOST, ckey) // Makes localhost rank
-	holder = admin_datums[ckey]
+	holder = GLOB.admin_datums[ckey]
 	if(holder)
 		GLOB.admins += src
 		holder.owner = src
 
 	//preferences datum - also holds some persistant data for the client (because we may as well keep these datums to a minimum)
-	prefs = preferences_datums[ckey]
+	prefs = GLOB.preferences_datums[ckey]
 	if(!prefs)
 		prefs = new /datum/preferences(src)
-		preferences_datums[ckey] = prefs
+		GLOB.preferences_datums[ckey] = prefs
 	else
 		prefs.parent = src
 	prefs.last_ip = address				//these are gonna be used for banning
@@ -339,8 +339,8 @@
 	spawn() // Goonchat does some non-instant checks in start()
 		chatOutput.start()
 
-	if( (world.address == address || !address) && !host )
-		host = key
+	if( (world.address == address || !address) && !GLOB.host )
+		GLOB.host = key
 		world.update_status()
 
 	if(holder)
@@ -376,7 +376,7 @@
 		if(establish_db_connection())
 			activate_darkmode()
 
-	if(prefs.lastchangelog != changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
+	if(prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates. -CP
 		if(establish_db_connection())
 			to_chat(src, "<span class='info'>Changelog has changed since your last visit.</span>")
 			update_changelog_button()
@@ -393,10 +393,10 @@
 
 	check_forum_link()
 
-	if(custom_event_msg && custom_event_msg != "")
+	if(GLOB.custom_event_msg && GLOB.custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+		to_chat(src, "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>")
 		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
@@ -451,7 +451,7 @@
 		return
 
 	establish_db_connection()
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		return
 
 	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
@@ -460,7 +460,7 @@
 		return
 
 	//Donator stuff.
-	var/DBQuery/query_donor_select = dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
+	var/DBQuery/query_donor_select = GLOB.dbcon.NewQuery("SELECT ckey, tier, active FROM `[format_table_name("donators")]` WHERE ckey = '[ckey]'")
 	query_donor_select.Execute()
 	while(query_donor_select.NextRow())
 		if(!text2num(query_donor_select.item[3]))
@@ -481,11 +481,11 @@
 
 
 	establish_db_connection()
-	if(!dbcon.IsConnected())
+	if(!GLOB.dbcon.IsConnected())
 		return
 
 
-	var/DBQuery/query = dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
+	var/DBQuery/query = GLOB.dbcon.NewQuery("SELECT id, datediff(Now(),firstseen) as age FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 	query.Execute()
 	var/sql_id = 0
 	player_age = 0	// New players won't have an entry so knowing we have a connection we set this to zero to be updated if there is a record.
@@ -495,7 +495,7 @@
 		break
 
 
-	var/DBQuery/query_ip = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
+	var/DBQuery/query_ip = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ip = '[address]'")
 	query_ip.Execute()
 	related_accounts_ip = list()
 	while(query_ip.NextRow())
@@ -503,7 +503,7 @@
 			related_accounts_ip.Add("[query_ip.item[1]]")
 
 
-	var/DBQuery/query_cid = dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
+	var/DBQuery/query_cid = GLOB.dbcon.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE computerid = '[computer_id]'")
 	query_cid.Execute()
 	related_accounts_cid = list()
 	while(query_cid.NextRow())
@@ -545,7 +545,7 @@
 
 	if(sql_id)
 		//Player already identified previously, we need to just update the 'lastseen', 'ip' and 'computer_id' variables
-		var/DBQuery/query_update = dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
+		var/DBQuery/query_update = GLOB.dbcon.NewQuery("UPDATE [format_table_name("player")] SET lastseen = Now(), ip = '[sql_ip]', computerid = '[sql_computerid]', lastadminrank = '[sql_admin_rank]' WHERE id = [sql_id]")
 		if(!query_update.Execute())
 			var/err = query_update.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (update). Error : \[[err]\]\n")
@@ -560,14 +560,14 @@
 			del(src)
 			return // Dont insert or they can just go in again
 
-		var/DBQuery/query_insert = dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
+		var/DBQuery/query_insert = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, '[ckey]', Now(), Now(), '[sql_ip]', '[sql_computerid]', '[sql_admin_rank]')")
 		if(!query_insert.Execute())
 			var/err = query_insert.ErrorMsg()
 			log_game("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 			message_admins("SQL ERROR during log_client_to_db (insert). Error : \[[err]\]\n")
 
 	// Log player connections to DB
-	var/DBQuery/query_accesslog = dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
+	var/DBQuery/query_accesslog = GLOB.dbcon.NewQuery("INSERT INTO `[format_table_name("connection_log")]`(`datetime`,`ckey`,`ip`,`computerid`) VALUES(Now(),'[ckey]','[sql_ip]','[sql_computerid]');")
 	query_accesslog.Execute()
 
 /client/proc/check_ip_intel()
@@ -615,14 +615,14 @@
 	to_chat(src, "<B>You have no verified forum account. <a href='?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>")
 
 /client/proc/create_oauth_token()
-	var/DBQuery/query_find_token = dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
+	var/DBQuery/query_find_token = GLOB.dbcon.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_token.Execute())
 		log_debug("create_oauth_token: failed db read")
 		return
 	if(query_find_token.NextRow())
 		return query_find_token.item[1]
 	var/tokenstr = md5("[ckey][rand()]")
-	var/DBQuery/query_insert_token = dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
+	var/DBQuery/query_insert_token = GLOB.dbcon.NewQuery("INSERT INTO [format_table_name("oauth_tokens")] (ckey, token) VALUES('[ckey]','[tokenstr]')")
 	if(!query_insert_token.Execute())
 		return
 	return tokenstr
@@ -637,7 +637,7 @@
 		if(!fromban)
 			to_chat(src, "Your forum account is already set.")
 		return
-	var/DBQuery/query_find_link = dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
+	var/DBQuery/query_find_link = GLOB.dbcon.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey = '[ckey]' limit 1")
 	if(!query_find_link.Execute())
 		log_debug("link_forum_account: failed db read")
 		return
@@ -681,7 +681,7 @@
 	var/oldcid = cidcheck[ckey]
 
 	if(!oldcid)
-		var/DBQuery/query_cidcheck = dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
+		var/DBQuery/query_cidcheck = GLOB.dbcon.NewQuery("SELECT computerid FROM [format_table_name("player")] WHERE ckey = '[ckey]'")
 		query_cidcheck.Execute()
 
 		var/lastcid = computer_id
@@ -746,7 +746,7 @@
 	var/const/adminckey = "CID-Error"
 
 	// Check for notes in the last day - only 1 note per 24 hours
-	var/DBQuery/query_get_notes = dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
+	var/DBQuery/query_get_notes = GLOB.dbcon.NewQuery("SELECT id from [format_table_name("notes")] WHERE ckey = '[ckey]' AND adminckey = '[adminckey]' AND timestamp + INTERVAL 1 DAY < NOW()")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
 		log_game("SQL ERROR obtaining id from notes table. Error : \[[err]\]\n")
@@ -755,7 +755,7 @@
 		return
 
 	// Only add a note if their most recent note isn't from the randomizer blocker, either
-	query_get_notes = dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[ckey]' ORDER BY timestamp DESC LIMIT 1")
+	query_get_notes = GLOB.dbcon.NewQuery("SELECT adminckey FROM [format_table_name("notes")] WHERE ckey = '[ckey]' ORDER BY timestamp DESC LIMIT 1")
 	if(!query_get_notes.Execute())
 		var/err = query_get_notes.ErrorMsg()
 		log_game("SQL ERROR obtaining adminckey from notes table. Error : \[[err]\]\n")
@@ -889,7 +889,7 @@
 // Better changelog button handling
 /client/proc/update_changelog_button()
 	if(establish_db_connection())
-		if(prefs.lastchangelog != changelog_hash)
+		if(prefs.lastchangelog != GLOB.changelog_hash)
 			winset(src, "rpane.changelog", "background-color=#bb7700;text-color=#FFFFFF;font-style=bold")
 		else
 			if(prefs.toggles & UI_DARKMODE)
