@@ -606,9 +606,11 @@
 
 /obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
 	if(occupant)
+		to_chat(E, "<span class='boldnotice'>\The [src] is in use.</span>")
 		return
-	if(!E)
+	if(!E || E.is_grabbing())
 		return
+	E.stop_pulling()
 	E.forceMove(src)
 	begin_processing()
 	time_till_despawn = initial(time_till_despawn) / willing_factor
@@ -681,34 +683,7 @@
 	visible_message("[usr] starts climbing into [src].")
 
 	if(do_after(usr, 20, target = usr))
-
-		if(!usr || !usr.client)
-			return
-
-		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>\The [src] is in use.</span>")
-			return
-
-		usr.stop_pulling()
-		usr.forceMove(src)
-		occupant = usr
-		time_till_despawn = initial(time_till_despawn) / willing_time_divisor
-
-		if(orient_right)
-			icon_state = "[occupied_icon_state]-r"
-		else
-			icon_state = occupied_icon_state
-
-		to_chat(usr, "<span class='notice'>[on_enter_occupant_message]</span>")
-		to_chat(usr, "<span class='boldnotice'>If you ghost, log out or close your client now, your character will shortly be permanently removed from the round.</span>")
-		occupant = usr
-		begin_processing()
-		time_entered = world.time
-
-		add_fingerprint(usr)
-		name = "[name] ([usr.name])"
-
-	return
+		take_occupant(usr)
 
 /obj/machinery/cryopod/proc/go_out()
 	if(!occupant)

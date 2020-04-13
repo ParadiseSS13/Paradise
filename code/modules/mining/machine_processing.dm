@@ -23,16 +23,18 @@
 	if(needs_item_input)
 		register_input_turf()
 		RegisterSignal(src, COMSIG_OBJ_SETANCHORED, .proc/on_set_anchored)
-		RegisterSignal(src, COMSIG_MACHINERY_BROKEN, .proc/unregister_input_turf, TRUE)
+		RegisterSignal(src, list(COMSIG_MACHINERY_BROKEN, COMSIG_MACHINERY_POWER_LOST), .proc/unregister_input_turf, TRUE)
+		RegisterSignal(src, COMSIG_MACHINERY_POWER_RESTORED, .proc/register_input_turf, TRUE)
 		output_turf = get_step(src, output_dir)
 
 /// The machine regained power, start listening for signals again.
 /obj/machinery/mineral/on_power_gain()
-	RegisterSignal(src, COMSIG_MACHINERY_POWER_RESTORED, .proc/register_input_turf, TRUE)
+	if(needs_item_input)
+		register_input_turf()
 
 /// If the there's no power to this machine, there's no reason to listen for signals.
 /obj/machinery/mineral/on_power_loss()
-	UnregisterSignal(src, COMSIG_MACHINERY_POWER_LOST, .proc/unregister_input_turf, TRUE)
+	unregister_input_turf()
 
 /// Gets the turf in the `input_dir` direction adjacent to the machine, and registers signals for ATOM_ENTERED and ATOM_CREATED. Calls the `pickup_item()` proc when it recieves these signals.
 /obj/machinery/mineral/proc/register_input_turf()

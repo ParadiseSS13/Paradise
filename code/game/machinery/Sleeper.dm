@@ -90,15 +90,16 @@
 		end_processing()
 		return
 
-	if(filtering <= 0 || !beaker)
-		return
+	if((filtering > 0) && beaker)
+		// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
+		if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
+			filtering = 0
+			return
 
-	// To prevent runtimes from drawing blood from runtime, and to prevent getting IPC blood.
-	if(!istype(occupant) || !occupant.dna || (NO_BLOOD in occupant.dna.species.species_traits))
-		filtering = 0
-		return
+		// Beaker is full, we can't perform dialysis any more.
+		if(beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
+			return
 
-	if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 		occupant.transfer_blood_to(beaker, 1)
 		for(var/datum/reagent/x in occupant.reagents.reagent_list)
 			occupant.reagents.trans_to(beaker, 3)
@@ -409,6 +410,23 @@
 	for(var/atom/movable/A in contents - component_parts - list(beaker))
 		A.forceMove(loc)
 
+/// Try to get `target` to enter the sleeper. It's possible that `target` and `user` are the same mob, in the case of the "Enter Sleeper" verb.
+/obj/machinery/sleeper/proc/go_in(mob/living/carbon/human/target, mob/living/user)
+	if(!user || !target)
+		return
+	if(do_after(user, 20, target = target))
+		if(occupant)
+			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
+			return
+		target.forceMove(src)
+		occupant = target
+		begin_processing()
+		icon_state = "[base_icon]"
+		to_chat(target, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
+		add_fingerprint(user)
+		if(user.pulling == target)
+			user.stop_pulling()
+
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user as mob, chemical, amount)
 	if(!(chemical in possible_chems))
 		to_chat(user, "<span class='notice'>The sleeper does not offer that chemical!</span>")
@@ -496,22 +514,7 @@
 		visible_message("[user] starts climbing into the sleeper.")
 	else
 		visible_message("[user] starts putting [L.name] into the sleeper.")
-
-	if(do_after(user, 20, target = L))
-		if(occupant)
-			to_chat(user, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
-		if(!L) return
-		L.forceMove(src)
-		occupant = L
-		begin_processing()
-		icon_state = "[base_icon]"
-		to_chat(L, "<span class='boldnotice'>You feel cool air surround you. You go numb as your senses turn inward.</span>")
-		add_fingerprint(user)
-		if(user.pulling == L)
-			user.stop_pulling()
-		return
-	return
+	go_in(L, user)
 
 /obj/machinery/sleeper/AllowDrop()
 	return FALSE
@@ -534,21 +537,7 @@
 		to_chat(usr, "<span class='warning'>[usr] will not fit into [src] because [usr.p_they()] [usr.p_have()] a slime latched onto [usr.p_their()] head.</span>")
 		return
 	visible_message("[usr] starts climbing into the sleeper.")
-	if(do_after(usr, 20, target = usr))
-		if(occupant)
-			to_chat(usr, "<span class='boldnotice'>The sleeper is already occupied!</span>")
-			return
-		usr.stop_pulling()
-		usr.forceMove(src)
-		occupant = usr
-		begin_processing()
-		icon_state = "[base_icon]"
-
-		for(var/obj/O in src)
-			qdel(O)
-		add_fingerprint(usr)
-		return
-	return
+	go_in(usr, usr)
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s-open"

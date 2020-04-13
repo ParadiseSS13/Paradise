@@ -85,9 +85,6 @@
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
 
-	if(loc)
-		SEND_SIGNAL(loc, COMSIG_ATOM_CREATED, src) // Sends a signal that the new atom `src`, has been created at `loc`.
-
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 

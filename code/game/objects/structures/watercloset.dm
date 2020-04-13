@@ -376,8 +376,6 @@
 	if(ismob(O))
 		mobpresent += 1
 		check_heat(O)
-	if(on)
-		begin_processing()
 
 /obj/machinery/shower/Uncrossed(atom/movable/O)
 	if(ismob(O))
@@ -395,7 +393,8 @@
 
 //Yes, showers are super powerful as far as washing goes.
 /obj/machinery/shower/proc/wash(atom/movable/O as obj|mob)
-	if(!on) return
+	if(!on)
+		return
 
 	if(istype(O, /obj/item))
 		var/obj/item/I = O
@@ -487,7 +486,6 @@
 
 /obj/machinery/shower/process()
 	if(!on || !mobpresent)
-		end_processing()
 		return
 	for(var/mob/living/carbon/C in loc)
 		if(prob(33))
