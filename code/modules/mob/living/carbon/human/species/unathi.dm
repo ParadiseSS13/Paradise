@@ -36,7 +36,6 @@
 	default_headacc = "Simple"
 	default_headacc_colour = "#404040"
 	butt_sprite = "unathi"
-	brute_mod = 1.05
 
 	has_organ = list(
 		"heart" =    /obj/item/organ/internal/heart/unathi,
