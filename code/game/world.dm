@@ -3,6 +3,7 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 /world/New()
+	TgsNew(minimum_required_security_level = TGS_SECURITY_TRUSTED)
 	SetupLogs()
 	enable_debugger() // Enable the extools debugger
 	log_world("World loaded at [time_stamp()]")
@@ -30,6 +31,7 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 	populate_robolimb_list()
 
 	Master.Initialize(10, FALSE)
+	TgsInitializationComplete()
 
 
 #undef RECOMMENDED_VERSION
@@ -51,6 +53,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_ip, "0.0.0.0")
 GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 
 /world/Topic(T, addr, master, key)
+	TGS_TOPIC
 	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key]")
 
 	var/list/input = params2list(T)
@@ -261,6 +264,7 @@ GLOBAL_VAR_INIT(world_topic_spam_protect_time, world.timeofday)
 	return "Bad Key"
 
 /world/Reboot(var/reason, var/feedback_c, var/feedback_r, var/time)
+	TgsReboot()
 	if(reason == 1) //special reboot, do none of the normal stuff
 		if(usr)
 			message_admins("[key_name_admin(usr)] has requested an immediate world restart via client side debugging tools")
