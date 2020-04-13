@@ -183,11 +183,11 @@ function highlightTerms(el) {
 
 	if (regexHasError) return; //just stop right there ig the regex is gonna except
 
-	function highlightRecursor(element,term){ //recursor function to do the highlighting proper
-		var regex = new RegExp(term,"gi");
+	function highlightRecursor(element, term){ //recursor function to do the highlighting proper
+		var regex = new RegExp(term, "gi");
 
 		function replace(str) {
-			return str.replace(regex,'<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
+			return str.replace(regex, '<span class="highlight" style="background-color:'+opts.highlightColor+'">$&</span>');
 		}
 
 		var s = '';
@@ -198,7 +198,7 @@ function highlightTerms(el) {
 
 			var next_term = work.substring(ind).search(regex);
 			if(next_term != -1) next_term += ind;
-			var next_tag = work.indexOf('<',ind);
+			var next_tag = work.indexOf('<', ind);
 			if(next_tag == -1) {
 				s+=replace(work.substring(ind));
 				break;
@@ -208,12 +208,12 @@ function highlightTerms(el) {
 				break;
 			}
 			else if(next_tag < next_term) {
-				var temp = work.indexOf('>',next_tag);
+				var temp = work.indexOf('>', next_tag);
 				s += work.substring(ind,temp+1);
 				ind = temp+1;
 			}
 			else {
-				s += replace(work.substring(ind,next_tag));
+				s += replace(work.substring(ind, next_tag));
 				ind = next_tag;
 			}
 		}
@@ -231,9 +231,9 @@ function highlightTerms(el) {
 			}
 			else {
 				try{
-					new RegExp(opts.highlightTerms[i],"gmi"); // check to make sure the pattern wont cause issues
+					new RegExp(opts.highlightTerms[i], "gmi"); // check to make sure the pattern wont cause issues
 				} catch(e){
-					el.innerHTML += '<br/><span style="color:#000;background-color:#FFFF00;" class="bold"> Your highlight regex pattern - '+opts.highlightTerms[i]+' - is malformed.<br/>Your highlights have been disabled until they are next edited<br/>Thrown exception: '+e+'</span>';
+					el.innerHTML += '<br/><span style="color:#000;background-color:#FFFF00;" class="bold"> Your highlight regex pattern -- ' + opts.highlightTerms[i] + ' -- is malformed.<br/>Your highlights have been disabled until they are next edited<br/>Thrown exception: '+e+'</span>';
 					regexHasError = true;
 					return;
 				}
