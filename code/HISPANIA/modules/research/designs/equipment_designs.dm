@@ -44,7 +44,7 @@
 	desc = "A modular, compact set of thrusters designed to integrate with a hardsuit."
 	id = "jet_upgrade"
 	build_type = PROTOLATHE
-	req_tech = list("magnets" = 5, "engineering" = 6, "plasmatech" = 5)
+	req_tech = list("magnets" = 5, "engineering" = 7, "plasmatech" = 5)
 	materials = list(MAT_METAL = 10000, MAT_DIAMOND = 5000, MAT_SILVER = 4500, MAT_GOLD = 5000, MAT_PLASMA = 2500)
 	build_path = /obj/item/tank/jetpack/suit
 	category = list("Equipment")
