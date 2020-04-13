@@ -36,7 +36,7 @@
 				depotarea.armory_locker_looted()
 
 /obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
-	if(isanimal(M) && "syndicate" in M.faction)
+	if(isanimal(M) && ("syndicate" in M.faction))
 		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
 		return
 	return ..()
@@ -62,5 +62,5 @@
 		ignore_use = FALSE
 
 /obj/structure/closet/secure_closet/syndicate/depot/armory
-	req_access = list(access_syndicate)
+	req_access = list(ACCESS_SYNDICATE)
 	is_armory = TRUE

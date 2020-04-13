@@ -17,7 +17,7 @@
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
 		idiot_brain.insert(src, make_cluwne = 0)
 		idiot_brain.dna = dna.Clone()
-	setBrainLoss(80)
+	setBrainLoss(80, use_brain_mod = FALSE)
 	set_nutrition(9000)
 	overeatduration = 9000
 	Confused(30)
@@ -27,8 +27,8 @@
 	var/obj/item/organ/internal/honktumor/cursed/tumor = new
 	tumor.insert(src)
 	mutations.Add(NERVOUS)
-	dna.SetSEState(NERVOUSBLOCK, 1, 1)
-	genemutcheck(src, NERVOUSBLOCK, null, MUTCHK_FORCED)
+	dna.SetSEState(GLOB.nervousblock, 1, 1)
+	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
 
 	unEquip(w_uniform, 1)
@@ -56,14 +56,14 @@
 		tumor.remove(src)
 	else
 		mutations.Remove(CLUMSY)
-		mutations.Remove(COMICBLOCK)
-		dna.SetSEState(CLUMSYBLOCK,0)
-		dna.SetSEState(COMICBLOCK,0)
-		genemutcheck(src, CLUMSYBLOCK, null, MUTCHK_FORCED)
-		genemutcheck(src, COMICBLOCK, null, MUTCHK_FORCED)
+		mutations.Remove(GLOB.comicblock)
+		dna.SetSEState(GLOB.clumsyblock,0)
+		dna.SetSEState(GLOB.comicblock,0)
+		genemutcheck(src, GLOB.clumsyblock, null, MUTCHK_FORCED)
+		genemutcheck(src, GLOB.comicblock, null, MUTCHK_FORCED)
 	mutations.Remove(NERVOUS)
-	dna.SetSEState(NERVOUSBLOCK, 0)
-	genemutcheck(src, NERVOUSBLOCK, null, MUTCHK_FORCED)
+	dna.SetSEState(GLOB.nervousblock, 0)
+	genemutcheck(src, GLOB.nervousblock, null, MUTCHK_FORCED)
 
 	var/obj/item/clothing/under/U = w_uniform
 	unEquip(w_uniform, 1)

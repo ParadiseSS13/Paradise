@@ -8,7 +8,7 @@
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
-	var/apply_type = INGEST
+	var/apply_type = REAGENT_INGEST
 	var/apply_method = "swallow"
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay

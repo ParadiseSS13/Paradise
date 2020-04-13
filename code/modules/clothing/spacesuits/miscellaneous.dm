@@ -229,7 +229,6 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 100, rad = 20, fire = 50, acid = 65)
 	flash_protect = 0
 	species_restricted = list("exclude", "Wryn")
-
 	sprite_sheets = list(
 		"Tajaran" = 'icons/mob/species/tajaran/helmet.dmi',
 		"Unathi" = 'icons/mob/species/unathi/helmet.dmi',
@@ -249,8 +248,9 @@
 	desc = ". . ."
 	icon_state = "spacemimehelmet"
 	item_state = "spacemimehelmet"
-	species_restricted = list("exclude","Vox","Wryn")
-	sprite_sheets = null
+	species_restricted = list("exclude","Wryn")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi')
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/mime
@@ -259,8 +259,9 @@
 	desc = ". . ."
 	icon_state = "spacemime_suit"
 	item_state = "spacemime_items"
-	species_restricted = list("exclude","Vox","Wryn")
-	sprite_sheets = null
+	species_restricted = list("exclude","Wryn")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi')
 	sprite_sheets_obj = null
 
 /obj/item/clothing/head/helmet/space/eva/clown
@@ -269,8 +270,9 @@
 	desc = "An EVA helmet specifically designed for the clown. SPESSHONK!"
 	icon_state = "clownhelmet"
 	item_state = "clownhelmet"
-	species_restricted = list("exclude","Vox","Wryn")
-	sprite_sheets = null
+	species_restricted = list("exclude","Wryn")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/helmet.dmi')
 	sprite_sheets_obj = null
 
 /obj/item/clothing/suit/space/eva/clown
@@ -279,6 +281,7 @@
 	desc = "An EVA suit specifically designed for the clown. SPESSHONK!"
 	icon_state = "spaceclown_suit"
 	item_state = "spaceclown_items"
-	species_restricted = list("exclude","Vox","Wryn")
-	sprite_sheets = null
+	species_restricted = list("exclude","Wryn")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/species/vox/suit.dmi')
 	sprite_sheets_obj = null

@@ -33,7 +33,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/Life(seconds, times_fired)
 	..()
-	var/datum/atom_hud/medsensor = huds[DATA_HUD_MEDICAL_ADVANCED]
+	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
 
 /mob/living/simple_animal/hostile/guardian/healer/Stat()
@@ -51,7 +51,7 @@
 		if(iscarbon(target))
 			changeNext_move(CLICK_CD_MELEE)
 			if(heal_cooldown <= world.time && !stat)
-				var/mob/living/carbon/C = target
+				var/mob/living/carbon/human/C = target
 				C.adjustBruteLoss(-5, robotic=1)
 				C.adjustFireLoss(-5, robotic=1)
 				C.adjustOxyLoss(-5)

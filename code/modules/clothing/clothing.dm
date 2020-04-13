@@ -335,7 +335,6 @@ BLIND     // can't see anything
 	set category = "Object"
 	set src in usr
 	set_sensors(usr)
-	..()
 
 //Head
 /obj/item/clothing/head
@@ -527,7 +526,7 @@ BLIND     // can't see anything
 																							end up with a suffix of _open_open if adjusted twice, since their initial state is _open. */
 					item_state = copytext(item_state, 1, findtext(item_state, "_open"))
 					if(adjust_flavour)
-						flavour = "[copytext(adjust_flavour, 3, lentext(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
+						flavour = "[copytext(adjust_flavour, 3, length(adjust_flavour) + 1)] up" //Trims off the 'un' at the beginning of the word. unzip -> zip, unbutton->button.
 					to_chat(user, "You [flavour] \the [src].")
 					suit_adjusted = 0 //Suit is no longer adjusted.
 					for(var/X in actions)
@@ -563,7 +562,7 @@ BLIND     // can't see anything
 					return
 			user.update_inv_wear_suit()
 	else
-		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how retarded you are.</span>")
+		to_chat(user, "<span class='notice'>You attempt to button up the velcro on \the [src], before promptly realising how foolish you are.</span>")
 
 /obj/item/clothing/suit/equipped(var/mob/living/carbon/human/user, var/slot) //Handle tail-hiding on a by-species basis.
 	..()
@@ -601,12 +600,13 @@ BLIND     // can't see anything
 	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
-	species_restricted = list("exclude","Vox","Wryn")
+	species_restricted = list("exclude","Wryn")
 	flash_protect = 2
 	strip_delay = 50
 	put_on_delay = 50
 	resistance_flags = NONE
 	dog_fashion = null
+
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
@@ -630,7 +630,8 @@ BLIND     // can't see anything
 	put_on_delay = 80
 	resistance_flags = NONE
 	hide_tail_by_species = null
-	species_restricted = list("exclude","Vox","Wryn")
+	species_restricted = list("exclude","Wryn")
+
 
 //Under clothing
 /obj/item/clothing/under
@@ -737,7 +738,7 @@ BLIND     // can't see anything
 	if(!usr.incapacitated())
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
-		if(basecolor + "_d_s" in icon_states('icons/mob/uniform.dmi'))
+		if((basecolor + "_d_s") in icon_states('icons/mob/uniform.dmi'))
 			item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 			usr.update_inv_w_uniform()
 		else

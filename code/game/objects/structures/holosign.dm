@@ -57,7 +57,7 @@
 		return TRUE
 	if(iscarbon(mover))
 		var/mob/living/carbon/C = mover
-		if(allow_walk && C.m_intent == MOVE_INTENT_WALK)
+		if(allow_walk && (C.m_intent == MOVE_INTENT_WALK || (C.pulledby && C.pulledby.m_intent == MOVE_INTENT_WALK)))
 			return TRUE
 
 /obj/structure/holosign/barrier/engineering

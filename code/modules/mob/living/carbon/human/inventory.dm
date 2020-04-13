@@ -313,6 +313,11 @@
 /mob/living/carbon/human/put_in_hands(obj/item/I)
 	if(!I)
 		return FALSE
+	if(istype(I, /obj/item/stack))
+		var/obj/item/stack/S = I
+		if(S.amount == 0)
+			qdel(I)
+			return FALSE
 	if(put_in_active_hand(I))
 		return TRUE
 	else if(put_in_inactive_hand(I))

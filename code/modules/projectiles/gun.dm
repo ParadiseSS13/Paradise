@@ -301,21 +301,6 @@
 				if(loc == user)
 					A.Grant(user)
 
-	if(isscrewdriver(I))
-		if(gun_light && can_flashlight)
-			for(var/obj/item/flashlight/seclite/S in src)
-				to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-				gun_light = null
-				S.loc = get_turf(user)
-				update_gun_light(user)
-				S.update_brightness(user)
-				update_icon()
-				for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-					qdel(TGL)
-		else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-			bayonet.forceMove(get_turf(user))
-			clear_bayonet()
-
 	if(unique_rename)
 		if(istype(I, /obj/item/pen))
 			rename_gun(user)
@@ -338,6 +323,24 @@
 		overlays += knife_overlay
 	else
 		return ..()
+
+/obj/item/gun/screwdriver_act(mob/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(gun_light && can_flashlight)
+		for(var/obj/item/flashlight/seclite/S in src)
+			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
+			gun_light = null
+			S.loc = get_turf(user)
+			update_gun_light(user)
+			S.update_brightness(user)
+			update_icon()
+			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
+				qdel(TGL)
+	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
+		bayonet.forceMove(get_turf(user))
+		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
 	set name = "Toggle Gun Light"

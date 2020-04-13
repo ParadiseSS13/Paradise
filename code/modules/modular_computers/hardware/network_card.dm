@@ -1,4 +1,4 @@
-var/global/ntnet_card_uid = 1
+GLOBAL_VAR_INIT(ntnet_card_uid, 1)
 
 /obj/item/computer_hardware/network_card
 	name = "network card"
@@ -26,8 +26,8 @@ var/global/ntnet_card_uid = 1
 
 /obj/item/computer_hardware/network_card/New(var/l)
 	..(l)
-	identification_id = ntnet_card_uid
-	ntnet_card_uid++
+	identification_id = GLOB.ntnet_card_uid
+	GLOB.ntnet_card_uid++
 
 // Returns a string identifier of this network card
 /obj/item/computer_hardware/network_card/proc/get_network_tag()
@@ -44,7 +44,7 @@ var/global/ntnet_card_uid = 1
 	if(ethernet) // Computer is connected via wired connection.
 		return 3
 
-	if(!ntnet_global || !ntnet_global.check_function(specific_action)) // NTNet is down and we are not connected via wired connection. No signal.
+	if(!GLOB.ntnet_global || !GLOB.ntnet_global.check_function(specific_action)) // NTNet is down and we are not connected via wired connection. No signal.
 		return 0
 
 	if(holder)

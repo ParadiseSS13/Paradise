@@ -17,7 +17,7 @@
 	circuit = /obj/item/circuitboard/cryopodcontrol
 	density = 0
 	interact_offline = 1
-	req_one_access = list(access_heads, access_armory) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
+	req_one_access = list(ACCESS_HEADS, ACCESS_ARMORY) //Heads of staff or the warden can go here to claim recover items from their department that people went were cryodormed with.
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags = NODECONSTRUCT
 	var/mode = null
@@ -40,7 +40,7 @@
 
 /obj/machinery/computer/cryopod/New()
 	..()
-	for(var/T in potential_theft_objectives)
+	for(var/T in GLOB.potential_theft_objectives)
 		theft_cache += new T
 
 /obj/machinery/computer/cryopod/attack_ai()
@@ -380,7 +380,7 @@
 			cult_mode.bypass_phase()
 
 	//Update any existing objectives involving this mob.
-	for(var/datum/objective/O in all_objectives)
+	for(var/datum/objective/O in GLOB.all_objectives)
 		// We don't want revs to get objectives that aren't for heads of staff. Letting
 		// them win or lose based on cryo is silly so we remove the objective.
 		if(istype(O,/datum/objective/mutiny) && O.target == occupant.mind)
@@ -395,9 +395,10 @@
 					if(!O) return
 					O.find_target()
 					if(!(O.target))
-						all_objectives -= O
+						GLOB.all_objectives -= O
 						O.owner.objectives -= O
 						qdel(O)
+					O.owner.announce_objectives()
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
 		var/job = occupant.mind.assigned_role
@@ -415,15 +416,15 @@
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	if(PDA_Manifest.len)
-		PDA_Manifest.Cut()
-	for(var/datum/data/record/R in data_core.medical)
+	if(GLOB.PDA_Manifest.len)
+		GLOB.PDA_Manifest.Cut()
+	for(var/datum/data/record/R in GLOB.data_core.medical)
 		if((R.fields["name"] == occupant.real_name))
 			qdel(R)
-	for(var/datum/data/record/T in data_core.security)
+	for(var/datum/data/record/T in GLOB.data_core.security)
 		if((T.fields["name"] == occupant.real_name))
 			qdel(T)
-	for(var/datum/data/record/G in data_core.general)
+	for(var/datum/data/record/G in GLOB.data_core.general)
 		if((G.fields["name"] == occupant.real_name))
 			announce_rank = G.fields["rank"]
 			qdel(G)

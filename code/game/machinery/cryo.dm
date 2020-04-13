@@ -68,7 +68,7 @@
 /obj/machinery/atmospherics/unary/cryo_cell/atmos_init()
 	..()
 	if(node) return
-	for(var/cdir in cardinal)
+	for(var/cdir in GLOB.cardinal)
 		node = findConnecting(cdir)
 		if(node)
 			break
@@ -214,7 +214,7 @@
 		// auto update every Master Controller tick
 		ui.set_auto_update(1)
 
-/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/obj/machinery/atmospherics/unary/cryo_cell/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	var/data[0]
 	data["isOperating"] = on
 	data["hasOccupant"] = occupant ? 1 : 0
@@ -302,18 +302,7 @@
 		user.visible_message("[user] adds \a [B] to [src]!", "You add \a [B] to [src]!")
 		return
 
-
-	if(istype(G, /obj/item/screwdriver))
-		if(occupant || on)
-			to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
-			return
-		default_deconstruction_screwdriver(user, "pod0-o", "pod0", G)
-		return
-
 	if(exchange_parts(user, G))
-		return
-
-	if(default_deconstruction_crowbar(G))
 		return
 
 	if(istype(G, /obj/item/grab))
@@ -331,6 +320,17 @@
 			qdel(GG)
 		return
 	return ..()
+
+/obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
+	if(default_deconstruction_crowbar(user, I))
+		return
+
+/obj/machinery/atmospherics/unary/cryo_cell/screwdriver_act(mob/user, obj/item/I)
+	if(occupant || on)
+		to_chat(user, "<span class='notice'>The maintenance panel is locked.</span>")
+		return TRUE
+	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
+		return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon()
 	handle_update_icon()
@@ -403,7 +403,7 @@
 			var/proportion = 10 * min(1/beaker.volume, 1)
 			// Yes, this means you can get more bang for your buck with a beaker of SF vs a patch
 			// But it also means a giant beaker of SF won't heal people ridiculously fast 4 cheap
-			beaker.reagents.reaction(occupant, TOUCH, proportion)
+			beaker.reagents.reaction(occupant, REAGENT_TOUCH, proportion)
 			beaker.reagents.trans_to(occupant, 1, 10)
 	next_trans++
 	if(next_trans == 17)

@@ -44,7 +44,7 @@
 		else
 			T.add_blueprints_preround(src)
 
-/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = default_state)
+/obj/Topic(href, href_list, var/nowindow = 0, var/datum/topic_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
 		return 1
@@ -192,13 +192,13 @@
 /obj/proc/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
-/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
+/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/context)
 	return 0
 
 /obj/proc/unlinkFrom(var/mob/user, var/obj/buffer)
 	return 0
 
-/obj/proc/canLink(var/obj/O, var/link/context)
+/obj/proc/canLink(var/obj/O, var/context)
 	return 0
 
 /obj/proc/isLinkedWith(var/obj/O)
@@ -271,7 +271,39 @@ a {
 	user.set_machine(src)
 	onclose(user, "mtcomputer")
 
-/obj/water_act(volume, temperature, source, method = TOUCH)
+/obj/proc/default_welder_repair(mob/user, obj/item/I) //Returns TRUE if the object was successfully repaired. Fully repairs an object (setting BROKEN to FALSE), default repair time = 40
+	if(obj_integrity >= max_integrity)
+		to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
+		return
+	if(I.tool_behaviour != TOOL_WELDER)
+		return
+	if(!I.tool_use_check(user, 0))
+		return
+	var/time = max(50 * (1 - obj_integrity / max_integrity), 5)
+	WELDER_ATTEMPT_REPAIR_MESSAGE
+	if(I.use_tool(src, user, time, volume = I.tool_volume))
+		WELDER_REPAIR_SUCCESS_MESSAGE
+		obj_integrity = max_integrity
+		update_icon()
+	return TRUE
+
+/obj/proc/default_unfasten_wrench(mob/user, obj/item/I, time = 20)
+	if(!anchored && !isfloorturf(loc))
+		user.visible_message("<span class='warning'>A floor must be present to secure [src]!</span>")
+		return FALSE
+	if(I.tool_behaviour != TOOL_WRENCH)
+		return FALSE
+	if(!I.tool_use_check(user, 0))
+		return FALSE
+	if(!(flags & NODECONSTRUCT))
+		to_chat(user, "<span class='notice'>Now [anchored ? "un" : ""]securing [name].</span>")
+		if(I.use_tool(src, user, time, volume = I.tool_volume))
+			to_chat(user, "<span class='notice'>You've [anchored ? "un" : ""]secured [name].</span>")
+			anchored = !anchored
+		return TRUE
+	return FALSE
+
+/obj/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	extinguish()
 	acid_level = 0

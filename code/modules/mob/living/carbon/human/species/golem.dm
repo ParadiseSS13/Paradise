@@ -474,19 +474,9 @@
 		if(P.is_reflectable)
 			H.visible_message("<span class='danger'>The [P.name] gets reflected by [H]'s glass skin!</span>", \
 			"<span class='userdanger'>The [P.name] gets reflected by [H]'s glass skin!</span>")
-			if(P.starting)
-				var/new_x = P.starting.x + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/new_y = P.starting.y + pick(0, 0, 0, 0, 0, -1, 1, -2, 2)
-				var/turf/curloc = get_turf(H)
 
-				// redirect the projectile
-				P.firer = src
-				P.original = locate(new_x, new_y, P.z)
-				P.starting = curloc
-				P.current = curloc
-				P.yo = new_y - curloc.y
-				P.xo = new_x - curloc.x
-				P.Angle = null
+			P.reflect_back(H)
+
 			return FALSE
 	return TRUE
 
@@ -544,7 +534,7 @@
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
-/datum/species/golem/bluespace/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/golem/bluespace/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	..()
 	if(world.time > last_teleport + teleport_cooldown && user != H)
 		reactive_teleport(H)
@@ -664,7 +654,7 @@
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-/datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H)
+/datum/species/golem/bananium/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
 	..()
 	if(world.time > last_banana + banana_cooldown && user != H)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))

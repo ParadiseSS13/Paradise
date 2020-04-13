@@ -78,8 +78,8 @@
 	pixel_y = 8
 
 	if(is_type_in_typecache(get_area(loc), invalid_area_typecache))
-		var/area = pick(teleportlocs)
-		var/area/tp = teleportlocs[area]
+		var/area = pick(GLOB.teleportlocs)
+		var/area/tp = GLOB.teleportlocs[area]
 		forceMove(pick(get_area_turfs(tp.type)))
 
 	if((!current_victim && !admincluwne) || QDELETED(current_victim))
@@ -285,7 +285,7 @@
 
 			if(prob(6))
 				for(var/turf/simulated/floor/O in range(src, 6))
-					O.MakeSlippery(TURF_WET_WATER, 10)
+					O.MakeSlippery(TURF_WET_WATER, 10 SECONDS)
 					playsound(src, 'sound/effects/clownstep1.ogg', 30, 1)
 
 			if(prob(5))
@@ -323,7 +323,7 @@
 				if(!eating)
 					addtimer(CALLBACK(src, /mob/living/simple_animal/hostile/floor_cluwne/.proc/Grab, H), 70)
 					for(var/turf/simulated/floor/O in range(src, 6))
-						O.MakeSlippery(TURF_WET_LUBE, 20)
+						O.MakeSlippery(TURF_WET_LUBE, 20 SECONDS)
 						playsound(src, 'sound/effects/meteorimpact.ogg', 30, 1)
 
 				eating = TRUE

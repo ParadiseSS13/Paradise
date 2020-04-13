@@ -141,7 +141,7 @@
 
 // Brain is defined in brain_item.dm.
 
-/obj/item/organ/internal/robotize()
+/obj/item/organ/internal/robotize(make_tough)
 	if(!is_robotic())
 		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
 		if(slot == "heart" && ("[slot]-c-on" in states) && ("[slot]-c-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
@@ -231,11 +231,11 @@
 /obj/item/organ/internal/honktumor/insert(mob/living/carbon/M, special = 0)
 	..()
 	M.mutations.Add(CLUMSY)
-	M.mutations.Add(COMICBLOCK)
-	M.dna.SetSEState(CLUMSYBLOCK,1,1)
-	M.dna.SetSEState(COMICBLOCK,1,1)
-	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
-	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+	M.mutations.Add(GLOB.comicblock)
+	M.dna.SetSEState(GLOB.clumsyblock,1,1)
+	M.dna.SetSEState(GLOB.comicblock,1,1)
+	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
+	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
 	organhonked = world.time
 	waddle = M.AddComponent(/datum/component/waddling)
 	squeak = M.AddComponent(/datum/component/squeak, list('sound/items/bikehorn.ogg' = 1), 50)
@@ -244,11 +244,11 @@
 	. = ..()
 
 	M.mutations.Remove(CLUMSY)
-	M.mutations.Remove(COMICBLOCK)
-	M.dna.SetSEState(CLUMSYBLOCK,0)
-	M.dna.SetSEState(COMICBLOCK,0)
-	genemutcheck(M,CLUMSYBLOCK,null,MUTCHK_FORCED)
-	genemutcheck(M,COMICBLOCK,null,MUTCHK_FORCED)
+	M.mutations.Remove(GLOB.comicblock)
+	M.dna.SetSEState(GLOB.clumsyblock,0)
+	M.dna.SetSEState(GLOB.comicblock,0)
+	genemutcheck(M,GLOB.clumsyblock,null,MUTCHK_FORCED)
+	genemutcheck(M,GLOB.comicblock,null,MUTCHK_FORCED)
 	QDEL_NULL(waddle)
 	QDEL_NULL(squeak)
 	qdel(src)
@@ -283,7 +283,7 @@
 
 /obj/item/organ/internal/honktumor/cursed/on_life() //No matter what you do, no matter who you are, no matter where you go, you're always going to be a fat, stuttering dimwit.
 	..()
-	owner.setBrainLoss(80)
+	owner.setBrainLoss(80, use_brain_mod = FALSE)
 	owner.set_nutrition(9000)
 	owner.overeatduration = 9000
 

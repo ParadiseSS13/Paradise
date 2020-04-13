@@ -215,6 +215,12 @@
 				else if(E.status & ORGAN_SPLINTED)
 					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
 
+			if(E.open)
+				if(E.is_robotic())
+					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
+				else
+					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+
 			for(var/obj/item/I in E.embedded_objects)
 				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</B>\n"
 
@@ -284,10 +290,10 @@
 		if(5)
 			msg += "[p_they(TRUE)] looks absolutely soaked.\n"
 
-	if(nutrition < NUTRITION_LEVEL_STARVING - 50)
+	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		if(user.nutrition < NUTRITION_LEVEL_STARVING - 50)
+		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
 		else
 			msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
@@ -299,10 +305,7 @@
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
 		var/bleed_message = !isSynthetic() ? "bleeding" : "leaking"
-		if(reagents.has_reagent("heparin"))
-			msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message] uncontrollably!</B>\n"
-		else
-			msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
+		msg += "<B>[p_they(TRUE)] [p_are()] [bleed_message]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
@@ -342,9 +345,9 @@
 		var/criminal = "None"
 
 		if(perpname)
-			for(var/datum/data/record/E in data_core.general)
+			for(var/datum/data/record/E in GLOB.data_core.general)
 				if(E.fields["name"] == perpname)
-					for(var/datum/data/record/R in data_core.security)
+					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
 							criminal = R.fields["criminal"]
 			var/criminal_status = hasHUD(user, "read_only_security") ? "\[[criminal]\]" : "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>"
@@ -355,9 +358,9 @@
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
 
-		for(var/datum/data/record/E in data_core.general)
+		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == perpname)
-				for(var/datum/data/record/R in data_core.general)
+				for(var/datum/data/record/R in GLOB.data_core.general)
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
@@ -370,7 +373,7 @@
 
 	msg += "*---------*</span>"
 	if(pose)
-		if( findtext(pose,".",lentext(pose)) == 0 && findtext(pose,"!",lentext(pose)) == 0 && findtext(pose,"?",lentext(pose)) == 0 )
+		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
@@ -403,3 +406,29 @@
 				return 0
 	else
 		return 0
+
+// Ignores robotic limb branding prefixes like "Morpheus Cybernetics"
+/proc/ignore_limb_branding(limb_name)
+	switch(limb_name)
+		if("chest")
+			. = "upper body"
+		if("groin")
+			. = "lower body"
+		if("head")
+			. = "head"
+		if("l_arm")
+			. = "left arm"
+		if("r_arm")
+			. = "right arm"
+		if("l_leg")
+			. = "left leg"
+		if("r_leg")
+			. = "right leg"
+		if("l_foot")
+			. = "left foot"
+		if("r_foot")
+			. = "right foot"
+		if("l_hand")
+			. = "left hand"
+		if("r_hand")
+			. = "right hand"
