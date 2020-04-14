@@ -68,7 +68,7 @@
 	if(do_after(owner, 100 - rune * 60, target = owner))
 		if(ishuman(owner))
 			var/mob/living/carbon/human/H = owner
-			if(H.dna && NO_BLOOD in H.dna.species.species_traits)
+			if(H.dna && (NO_BLOOD in H.dna.species.species_traits))
 				H.cult_self_harm(3 - rune * 2)
 			else
 				H.bleed(20 - rune * 12)
