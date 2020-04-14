@@ -62,7 +62,6 @@ var/list/tape_roll_applications = list()
 	icon_state = "tape"
 	desc = "A length of police tape.  Do not cross."
 	max_integrity = 10
-	req_access = list(ACCESS_CENT_SPECOPS)
 	layer = ABOVE_DOOR_LAYER
 	anchored = TRUE
 	var/lifted = 0
@@ -82,7 +81,6 @@ var/list/tape_roll_applications = list()
 /obj/item/taper/engi
 	name = "engineering tape"
 	desc = "A length of engineering tape. Better not cross it."
-	req_access = list(ACCESS_CENT_SPECOPS)
 	color = COLOR_ORANGE
 
 /obj/item/taperoll/update_icon()
