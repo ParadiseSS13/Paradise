@@ -1497,7 +1497,7 @@
 					/obj/item/clothing/under/orangehawaiianshirt = 1)
 	contraband = list(/obj/item/clothing/suit/judgerobe = 1,
 					  /obj/item/clothing/head/powdered_wig = 1,
-					  /obj/item/gun/magic/wand = 1,
+					///	/obj/item/gun/magic/wand = 1,
 					  /obj/item/clothing/mask/balaclava=1,
 					  /obj/item/clothing/mask/horsehead = 2)
 	premium = list(/obj/item/clothing/suit/hgpirate = 1,
@@ -1820,7 +1820,7 @@
 	products = list(/obj/item/clothing/under/color/black = 10,/obj/item/clothing/under/color/blue = 10,/obj/item/clothing/under/color/green = 10,/obj/item/clothing/under/color/grey = 10,/obj/item/clothing/under/color/pink = 10,/obj/item/clothing/under/color/red = 10,
 					/obj/item/clothing/under/color/white = 10, /obj/item/clothing/under/color/yellow = 10,/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/aqua = 10,/obj/item/clothing/under/color/purple = 10,/obj/item/clothing/under/color/lightgreen = 10,
 					/obj/item/clothing/under/color/lightblue = 10,/obj/item/clothing/under/color/lightbrown = 10,/obj/item/clothing/under/color/brown = 10,/obj/item/clothing/under/color/yellowgreen = 10,/obj/item/clothing/under/color/darkblue = 10,/obj/item/clothing/under/color/lightred = 10, /obj/item/clothing/under/color/darkred = 10)
-	contraband = list(/obj/item/clothing/under/color/orange = 5)
+	contraband = list(/obj/item/clothing/under/color/orange = 5, /obj/item/clothing/under/soviet = 5)
 	prices = list(	/obj/item/clothing/under/color/black = 50,
 					/obj/item/clothing/under/color/blue = 50,
 					/obj/item/clothing/under/color/green = 50,
@@ -1859,7 +1859,7 @@
 	icon_state = "shoes"
 	product_ads = "Put your foot down!;One size fits all!;IM WALKING ON SUNSHINE!;No hobbits allowed.;NO PLEASE WILLY, DONT HURT ME- *BZZT*"
 	products = list(/obj/item/clothing/shoes/black = 10,/obj/item/clothing/shoes/brown = 10,/obj/item/clothing/shoes/blue = 10,/obj/item/clothing/shoes/green = 10,/obj/item/clothing/shoes/yellow = 10,/obj/item/clothing/shoes/purple = 10,/obj/item/clothing/shoes/red = 10,/obj/item/clothing/shoes/white = 10,/obj/item/clothing/shoes/sandal=10)
-	contraband = list(/obj/item/clothing/shoes/orange = 5)
+	contraband = list(/obj/item/clothing/shoes/orange = 5, /obj/item/clothing/shoes/jackboots = 5)
 	prices = list(	/obj/item/clothing/shoes/black = 150,
 					/obj/item/clothing/shoes/brown = 400,
 					/obj/item/clothing/shoes/blue = 150,
