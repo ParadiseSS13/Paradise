@@ -1245,13 +1245,6 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -1472,25 +1465,6 @@
 	level = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/security/armoury)
-"adw" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4;
-	level = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
 /area/security/armoury)
 "adx" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5088,24 +5062,6 @@
 	icon_state = "floorgrime"
 	},
 /area/security/armoury)
-"ajr" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
-	},
-/obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
-	},
-/area/security/armoury)
 "ajs" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -5760,10 +5716,6 @@
 "akt" = (
 /obj/structure/rack,
 /obj/item/ammo_box/magazine/wt550m9,
-/obj/item/ammo_box/magazine/wt550m9{
-	pixel_y = 3
-	},
-/obj/item/ammo_box/magazine/wt550m9,
 /obj/item/ammo_box/magazine/wt550m9,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/window/reinforced{
@@ -5788,12 +5740,6 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/beanbag{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/storage/box/beanbag,
-/obj/item/storage/box/beanbag,
 /obj/item/storage/box/tranquilizer{
 	pixel_x = 3;
 	pixel_y = -3
@@ -6333,11 +6279,6 @@
 	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -97697,18 +97638,6 @@
 	},
 /area/shuttle/tsf)
 "oOo" = (
-/obj/structure/cable{
-	icon_state = "0-2";
-	pixel_y = 1;
-	d2 = 2
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	pixel_y = 0;
-	tag = ""
-	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -128638,8 +128567,8 @@ vpQ
 ahV
 aiq
 acH
-ajr
-adw
+oOo
+afe
 aln
 ubK
 amG
