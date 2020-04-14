@@ -605,10 +605,13 @@
 			to_chat(user, "<span class='notice'>You stop [L == user ? "climbing into the cryo pod." : "putting [L] into the cryo pod."]</span>")
 
 /obj/machinery/cryopod/proc/take_occupant(var/mob/living/carbon/E, var/willing_factor = 1)
+	if(!E)
+		return
 	if(occupant)
 		to_chat(E, "<span class='boldnotice'>\The [src] is in use.</span>")
 		return
-	if(!E || E.is_grabbing())
+	if(E.is_grabbing())
+		to_chat(E, "<span class='warning'>Only one lifeform is allowed inside [src] at a time!</span")
 		return
 	E.stop_pulling()
 	E.forceMove(src)
