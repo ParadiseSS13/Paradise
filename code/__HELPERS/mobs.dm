@@ -277,8 +277,8 @@ This is always put in the attack log.
 /proc/add_attack_logs(atom/user, target, what_done, custom_level)
 	if(islist(target)) // Multi-victim adding
 		var/list/targets = target
-		for(var/mob/M in targets)
-			add_attack_logs(user, M, what_done, custom_level)
+		for(var/t in targets)
+			add_attack_logs(user, t, what_done, custom_level)
 		return
 
 	var/user_str = key_name_log(user) + COORD(user)
