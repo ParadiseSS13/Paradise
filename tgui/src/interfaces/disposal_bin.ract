@@ -1,0 +1,35 @@
+<ui-display>
+	<h1>Status</h1>
+	<ui-section label='Pump Status'>
+		{{#if data.mode == 2}}
+			<span class='good'>Ready</span>
+		{{else}}
+			{{#if data.mode <= 0}}
+				<span class='bad'>N/A</span>
+			{{else}}
+				{{#if data.mode == 1}}
+					<span class='average'>Pressurizing</span>
+				{{else}}
+					<span class='average'>Idle</span>
+				{{/if}}
+			{{/if}}
+		{{/if}}
+	</ui-section>
+	<ui-section label='Pressure'>
+		<span>{{Math.round(adata.pressure)}}%</span>
+	</ui-section>
+	<h1>Controls</h1>
+	<ui-section label='Diposal Handle'>
+		<ui-button icon='toggle-on' state='{{data.isSilicon ? 'disabled' : null}}' style='{{data.flushing ? "selected" : null }}' action='engageHandle'>Engaged</ui-button>
+		<ui-button icon='toggle-off' state='{{data.isSilicon ? 'disabled' : null}}' style='{{data.flushing ? null : "selected" }}' action='disengageHandle'>Disengaged</ui-button>
+		<br/>
+	</ui-section>
+	<ui-section label='Pump'>
+		<ui-button icon='toggle-on' state='{{data.mode == -1 ? 'disabled' : null}}' style='{{data.mode ? "selected" : null }}' action='pumpOn'>On</ui-button>
+		<ui-button icon='toggle-off' state='{{data.mode == -1 ? 'disabled' : null}}' style='{{data.mode ? null : "selected" }}' action='pumpOff'>Off</ui-button>
+		<br/>
+	</ui-section>
+	<ui-section label='Contents'>
+		<ui-button icon='sign-out' state='{{data.isSilicon ? 'disabled' : null}}' action='eject'>Eject Contents</ui-button><br/>
+	</ui-section>
+</ui-display>

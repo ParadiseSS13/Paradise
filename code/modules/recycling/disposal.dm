@@ -237,10 +237,10 @@
 // ai as human but can't flush
 /obj/machinery/disposal/attack_ai(mob/user as mob)
 	src.add_hiddenprint(user)
-	ui_interact(user)
+	tgui_interact(user)
 
 /obj/machinery/disposal/attack_ghost(mob/user as mob)
-	ui_interact(user)
+	tgui_interact(user)
 
 // human interact with machine
 /obj/machinery/disposal/attack_hand(mob/user as mob)
@@ -256,46 +256,36 @@
 
 	// Clumsy folks can only flush it.
 	if(user.IsAdvancedToolUser())
-		ui_interact(user)
+		tgui_interact(user)
 	else
 		flush = !flush
 		update()
 	return
 
-/obj/machinery/disposal/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1)
-	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/disposal/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "disposal_bin.tmpl", "Waste Disposal Unit", 395, 250)
+		ui = new(user, src, ui_key, "disposal_bin", name, 400, 250, master_ui, state)
 		ui.open()
-		ui.set_auto_update(1)
 
-/obj/machinery/disposal/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
-	var/data[0]
-
-	var/pressure = Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100)
-	var/pressure_round = round(pressure,1)
+/obj/machinery/disposal/tgui_data(mob/user)
+	var/list/data = list()
 
 	data["isAI"] = isAI(user)
 	data["flushing"] = flush
 	data["mode"] = mode
-	if(mode <= 0)
-		data["pumpstatus"] = "N/A"
-	else if(mode == 1)
-		data["pumpstatus"] = "Pressurizing"
-	else if(mode == 2)
-		data["pumpstatus"] = "Ready"
-	else
-		data["pumpstatus"] = "Idle"
-	data["pressure"] = pressure_round
+	data["pressure"] = round(Clamp(100* air_contents.return_pressure() / (SEND_PRESSURE), 0, 100),1)
 
 	return data
 
-/obj/machinery/disposal/Topic(href, href_list)
+/obj/machinery/disposal/tgui_act(action, params)
+	if(..())
+		return
 	if(usr.loc == src)
 		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
 		return
 
-	if(mode==-1 && !href_list["eject"]) // only allow ejecting if mode is -1
+	if(mode==-1 && action != "eject") // If the mode is -1, only allow ejection
 		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
 		return
 
@@ -311,19 +301,22 @@
 		return
 
 	if(istype(src.loc, /turf))
-		if(href_list["pump"])
-			if(text2num(href_list["pump"]))
-				mode = 1
-			else
-				mode = 0
+		if(action == "pumpOn")
+			mode = 1
+			update()
+		if(action == "pumpOff")
+			mode = 0
 			update()
 
-		if(!isAI(usr))
-			if(href_list["handle"])
-				flush = text2num(href_list["handle"])
+		if(!issilicon(usr))
+			if(action == "engageHandle")
+				flush = 1
+				update()
+			if(action == "disengageHandle")
+				flush = 0
 				update()
 
-			if(href_list["eject"])
+			if(action == "eject")
 				eject()
 	return
 
