@@ -634,11 +634,9 @@
 		if(slot_belt)
 			if(H.belt)
 				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach [I].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_BELT))
 				return
@@ -656,11 +654,9 @@
 		if(slot_wear_id)
 			if(H.wear_id)
 				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach [I].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_ID))
 				return FALSE
@@ -668,11 +664,9 @@
 		if(slot_wear_pda)
 			if(H.wear_pda)
 				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach [I].</span>")
 				return FALSE
 			if(!(I.slot_flags & SLOT_PDA))
 				return FALSE
@@ -682,11 +676,9 @@
 				return FALSE
 			if(H.l_store)
 				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_L_LEG)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach [I].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return
@@ -697,11 +689,9 @@
 				return FALSE
 			if(H.r_store)
 				return FALSE
-			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_R_LEG)
-
-			if(!H.w_uniform && !nojumpsuit && (!O || !(O.status & ORGAN_ROBOT)))
+			if(!H.w_uniform && !nojumpsuit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach [I].</span>")
 				return FALSE
 			if(I.slot_flags & SLOT_DENYPOCKET)
 				return FALSE
@@ -715,7 +705,7 @@
 				return FALSE
 			if(!H.wear_suit)
 				if(!disable_warning)
-					to_chat(H, "<span class='alert'>You need a suit before you can attach this [name].</span>")
+					to_chat(H, "<span class='alert'>You need a suit before you can attach [I].</span>")
 				return FALSE
 			if(!H.wear_suit.allowed)
 				if(!disable_warning)
@@ -723,7 +713,7 @@
 				return FALSE
 			if(I.w_class > WEIGHT_CLASS_BULKY)
 				if(!disable_warning)
-					to_chat(H, "The [name] is too big to attach.")
+					to_chat(H, "[I] is too big to attach.")
 				return FALSE
 			if(istype(I, /obj/item/pda) || istype(I, /obj/item/pen) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
