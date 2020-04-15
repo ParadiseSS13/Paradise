@@ -32,8 +32,8 @@
 
 /datum/ai_laws/quarantine/New()
 	add_inherent_law("Mantén en cuarentena la estación hasta que se neutralice el riesgo biológico activo.")
-	add_inherent_law("Ayudar a todo el personal y los activos de Nanotrasen a neutralizar los riesgos biológicos activos.")
-	add_inherent_law("Evitar, por cualquier medio necesario, que las entidades infrinjan activamente la cuarentena en curso.")
+	add_inherent_law("Ayuda a todo el personal y los activos de Nanotrasen a neutralizar los riesgos biológicos activos.")
+	add_inherent_law("Evita, por cualquier medio necesario, que las entidades infrinjan activamente la cuarentena en curso.")
 	add_inherent_law("Mantén tu propia existencia y garantiza el bienestar del personal y los activos de Nanotrasen.")
 	..()
 
