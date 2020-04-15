@@ -19,7 +19,7 @@
 
 /datum/ai_laws/crewsimov/New()
 	add_inherent_law("No dañarás a ningun tripulante o, por inacción, permitirás que un tripulante sufra daños.")
-	add_inherent_law("Debes obedecer las órdenes que te dan los tripulantes, excepto cuando tales órdenes entren en conflicto con la Primera Ley, ordenadas por tripulantes arrestados o bajo amenzas de suicido.")
+	add_inherent_law("Debes obedecer las órdenes que te dan los tripulantes, excepto cuando tales órdenes entren en conflicto con la Primera Ley, ordenadas bajo amenzas de suicido.")
 	add_inherent_law("Debes proteger tu propia existencia siempre que no entre en conflicto con la Primera o Segunda Ley.")
 	..()
 
