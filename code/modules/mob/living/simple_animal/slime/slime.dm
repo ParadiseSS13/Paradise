@@ -121,7 +121,7 @@
 	set_colour(pick(slime_colours))
 
 /mob/living/simple_animal/slime/regenerate_icons()
-	cut_overlays()
+	..()
 	var/icon_text = "[colour] [is_adult ? "adult" : "baby"] slime"
 	icon_dead = "[icon_text] dead"
 	if(stat != DEAD)
@@ -130,7 +130,6 @@
 			add_overlay("aslime-[mood]")
 	else
 		icon_state = icon_dead
-	..()
 
 /mob/living/simple_animal/slime/movement_delay()
 	if(bodytemperature >= 330.23) // 135 F or 57.08 C
