@@ -29,8 +29,8 @@
 	var/autoupdate = TRUE // Update the UI every MC tick.
 	var/initialized = FALSE // If the UI has been initialized yet.
 	var/list/initial_data // The data (and datastructure) used to initialize the UI.
-	var/status = UI_INTERACTIVE // The status/visibility of the UI.
-	var/datum/ui_state/state = null // Topic state used to determine status/interactability.
+	var/status = STATUS_INTERACTIVE // The status/visibility of the UI.
+	var/datum/tgui_state/state = null // Topic state used to determine status/interactability.
 	var/datum/tgui/master_ui // The parent UI.
 	var/list/datum/tgui/children = list() // Children of this UI.
 	var/titlebar = TRUE
@@ -54,11 +54,11 @@
   *
   * return datum/tgui The requested UI.
  **/
-/datum/tgui/New(mob/user, datum/src_object, ui_key, interface, title, width = 0, height = 0, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state, browser_id = null)
+/datum/tgui/New(mob/user, datum/src_object, ui_key, interface, title, width = 0, height = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state, browser_id = null)
 	src.user = user
 	src.src_object = src_object
 	src.ui_key = ui_key
-	src.window_id = browser_id ? browser_id : "[REF(src_object)]-[ui_key]"
+	src.window_id = browser_id ? browser_id : "[src_object.UID()]-[ui_key]"
 	src.custom_browser_id = browser_id ? TRUE : FALSE
 
 	set_interface(interface)
@@ -88,11 +88,11 @@
 		return // Bail if there is no client.
 
 	update_status(push = 0) // Update the window status.
-	if(status < UI_UPDATE)
+	if(status < STATUS_UPDATE)
 		return // Bail if we're not supposed to open.
 
 	if(!initial_data)
-		set_initial_data(src_object.ui_data(user)) // Get the UI data.
+		set_initial_data(src_object.tgui_data(user)) // Get the UI data.
 
 	var/window_size = ""
 	if(width && height) // If we have a width and height, use them.
@@ -101,7 +101,7 @@
 	var/debugable = check_rights_for(user.client, R_DEBUG)
 	user << browse(get_html(debugable), "window=[window_id];[window_size][list2params(window_options)]") // Open the window.
 	if (!custom_browser_id)
-		winset(user, window_id, "on-close=\"uiclose [REF(src)]\"") // Instruct the client to signal UI when the window is closed.
+		winset(user, window_id, "on-close=\"uiclose [UID()]\"") // Instruct the client to signal UI when the window is closed.
 	SStgui.on_open(src)
 
  /**
@@ -127,7 +127,7 @@
  **/
 /datum/tgui/proc/close()
 	user << browse(null, "window=[window_id]") // Close the window.
-	src_object.ui_close()
+	src_object.tgui_close()
 	SStgui.on_close(src)
 	for(var/datum/tgui/child in children) // Loop through and close all children.
 		child.close()
@@ -201,7 +201,7 @@
 	html = SStgui.basehtml
 
 	//Allow the src object to override the html if needed
-	html = src_object.ui_base_html(html)
+	html = src_object.tgui_base_html(html)
 	//Strip out any remaining custom tags that are used in ui_base_html
 	html = replacetext(html, "<!--customheadhtml-->", "")
 
@@ -211,7 +211,7 @@
 
 
 	//Setup for tgui stuff, including styles
-	html = replacetextEx(html, "\[ref]", "[REF(src)]")
+	html = replacetextEx(html, "\[ref]", "[UID()]")
 	html = replacetextEx(html, "\[style]", style)
 	return html
 
@@ -229,17 +229,16 @@
 			"screen"	= ui_screen,
 			"style"     = style,
 			"interface" = interface,
-			"fancy"     = user.client.prefs.tgui_fancy,
-			"locked"    = user.client.prefs.tgui_lock && !custom_browser_id,
+			"fancy"     = user.client.prefs.nanoui_fancy,
 			"window"    = window_id,
-			"ref"       = "[REF(src)]",
+			"ref"       = "[UID()]",
 			"user"      = list(
 				"name"  = user.name,
-				"ref"   = "[REF(user)]"
+				"ref"   = "[user.UID()]"
 			),
 			"srcObject" = list(
 				"name" = "[src_object]",
-				"ref"  = "[REF(src_object)]"
+				"ref"  = "[src_object.UID()]"
 			),
 			"titlebar" = titlebar
 		)
@@ -292,12 +291,12 @@
 		if("tgui:link")
 			user << link(params["url"])
 		if("tgui:fancy")
-			user.client.prefs.tgui_fancy = TRUE
+			user.client.prefs.nanoui_fancy = TRUE
 		if("tgui:nofrills")
-			user.client.prefs.tgui_fancy = FALSE
+			user.client.prefs.nanoui_fancy = FALSE
 		else
 			update_status(push = 0) // Update the window state.
-			if(src_object.ui_act(action, params, src, state)) // Call ui_act() on the src_object.
+			if(src_object.tgui_act(action, params, src, state)) // Call ui_act() on the src_object.
 				SStgui.update_uis(src_object) // Update if the object requested it.
 
  /**
@@ -309,7 +308,7 @@
   * optional force bool If the UI should be forced to update.
  **/
 /datum/tgui/process(force = 0)
-	var/datum/host = src_object.ui_host(user)
+	var/datum/host = src_object.tgui_host(user)
 	if(!src_object || !host || !user) // If the object or user died (or something else), abort.
 		close()
 		return
@@ -331,7 +330,7 @@
 	update_status(push = 0) // Update the window state.
 	if(!initialized)
 		return // Cannot update UI if it is not set up yet.
-	if(status <= UI_DISABLED && !force)
+	if(status <= STATUS_DISABLED && !force)
 		return // Cannot update UI, we have no visibility.
 
 	// Send the new JSON to the update() Javascript function.
@@ -346,7 +345,7 @@
   * optional force_open bool If force_open should be passed to ui_interact.
  **/
 /datum/tgui/proc/update(force_open = FALSE)
-	src_object.ui_interact(user, ui_key, src, force_open, master_ui, state)
+	src_object.tgui_interact(user, ui_key, src, force_open, master_ui, state)
 
  /**
   * private
@@ -356,12 +355,12 @@
   * optional push bool Push an update to the UI (an update is always sent for UI_DISABLED).
  **/
 /datum/tgui/proc/update_status(push = 0)
-	var/status = src_object.ui_status(user, state)
+	var/status = src_object.tgui_status(user, state)
 	if(master_ui)
 		status = min(status, master_ui.status)
 
 	set_status(status, push)
-	if(status == UI_CLOSE)
+	if(status == STATUS_CLOSE)
 		close()
 
  /**
@@ -374,13 +373,13 @@
  **/
 /datum/tgui/proc/set_status(status, push = 0)
 	if(src.status != status) // Only update if status has changed.
-		if(src.status == UI_DISABLED)
+		if(src.status == STATUS_DISABLED)
 			src.status = status
 			if(push)
 				update()
 		else
 			src.status = status
-			if(status == UI_DISABLED || push) // Update if the UI just because disabled, or a push is requested.
+			if(status == STATUS_DISABLED || push) // Update if the UI just because disabled, or a push is requested.
 				push_data(null, force = 1)
 
 /datum/tgui/proc/set_titlebar(value)

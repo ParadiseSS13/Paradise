@@ -41,12 +41,6 @@ component.exports = {
     })
   },
   oncomplete () {
-    // If the window starts off screen, pull it back.
-    if (this.get('config.locked')) {
-      let {x, y} = lock(window.screenLeft, window.screenTop)
-      winset(this.get('config.window'), 'pos', `${x},${y}`)
-    }
-
     // Give focus back to the map.
     winset('mapwindow.map', 'focus', true)
   }

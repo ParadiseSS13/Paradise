@@ -17,7 +17,7 @@
   * optional master_ui datum/tgui The parent UI.
   * optional state datum/ui_state The state used to determine status.
  **/
-/datum/proc/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/datum/proc/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	return FALSE // Not implemented.
 
  /**
@@ -30,7 +30,7 @@
   *
   * return list Data to be sent to the UI.
  **/
-/datum/proc/ui_data(mob/user)
+/datum/proc/tgui_data(mob/user)
 	return list() // Not implemented.
 
 
@@ -45,8 +45,8 @@
   *
   * return bool If the UI should be updated or not.
  **/
-/datum/proc/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(!ui || ui.status != UI_INTERACTIVE)
+/datum/proc/tgui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+	if(!ui || ui.status != STATUS_INTERACTIVE)
 		return 1 // If UI is not interactive or usr calling Topic is not the UI user, bail.
 
  /**
@@ -61,7 +61,7 @@
   * required html the html base text
   *
  **/
-/datum/proc/ui_base_html(html)
+/datum/proc/tgui_base_html(html)
 	return html
 
  /**
@@ -71,7 +71,7 @@
   * This allows modules/datums to have the UI attached to them,
   * and be a part of another object.
  **/
-/datum/proc/ui_host(mob/user)
+/datum/proc/tgui_host(mob/user)
 	return src // Default src.
 
  /**
@@ -79,7 +79,7 @@
   *
   * Used to track UIs for a mob.
  **/
-/mob/var/list/open_uis = list()
+/mob/var/list/open_tguis = list()
  /**
   * public
   *
