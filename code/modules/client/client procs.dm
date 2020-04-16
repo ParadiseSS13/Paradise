@@ -426,7 +426,7 @@
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1") // Adresses
-	if(!isnull(address) && address in localhost_addresses)
+	if(!isnull(address) && (address in localhost_addresses))
 		return TRUE
 	return FALSE
 

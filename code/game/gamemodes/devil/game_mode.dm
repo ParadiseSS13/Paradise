@@ -17,7 +17,7 @@
 	to_chat(world,text)
 
 /datum/game_mode/proc/auto_declare_completion_devils()
-	/var/text = ""
+	var/text = ""
 	if(devils.len)
 		text += "<br><span class='big'><b>The devils were:</b></span>"
 		for(var/D in devils)

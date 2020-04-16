@@ -10,7 +10,7 @@ SUBSYSTEM_DEF(jobs)
 	var/list/type_occupations = list()	//Dict of all jobs, keys are types
 	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
 	var/list/id_change_records = list() // List of all job transfer records
-	var/list/id_change_counter = 1
+	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
 	//Debug info
@@ -38,8 +38,6 @@ SUBSYSTEM_DEF(jobs)
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
 		if(!job)
-			continue
-		if(!job.faction in faction)
 			continue
 		occupations += job
 		name_occupations[job.title] = job
@@ -138,7 +136,7 @@ SUBSYSTEM_DEF(jobs)
 		if(flag && !(flag in player.client.prefs.be_special))
 			Debug("FOC flag failed, Player: [player], Flag: [flag], ")
 			continue
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("FOC incompatbile with antagonist role, Player: [player]")
 			continue
 		if(player.client.prefs.GetJobDepartment(job, level) & job.flag)
@@ -180,7 +178,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("GRJ player has disability rendering them ineligible for job, Player: [player]")
 			continue
 
-		if(player.mind && job.title in player.mind.restricted_roles)
+		if(player.mind && (job.title in player.mind.restricted_roles))
 			Debug("GRJ incompatible with antagonist role, Player: [player], Job: [job.title]")
 			continue
 
@@ -357,7 +355,7 @@ SUBSYSTEM_DEF(jobs)
 					Debug("DO player has disability rendering them ineligible for job, Player: [player], Job:[job.title]")
 					continue
 
-				if(player.mind && job.title in player.mind.restricted_roles)
+				if(player.mind && (job.title in player.mind.restricted_roles))
 					Debug("DO incompatible with antagonist role, Player: [player], Job:[job.title]")
 					continue
 

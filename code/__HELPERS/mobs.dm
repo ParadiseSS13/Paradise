@@ -454,8 +454,8 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 /proc/do_after_once_checks(cache_key)
 	if(GLOB.do_after_once_tracker[cache_key] && GLOB.do_after_once_tracker[cache_key] == DOAFTERONCE_MAGIC)
 		GLOB.do_after_once_tracker[cache_key] = FALSE
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /proc/is_species(A, species_datum)
 	. = FALSE
