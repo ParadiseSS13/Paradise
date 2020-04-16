@@ -1,4 +1,4 @@
-#define PRESSURE_COMBO "DG"
+#define PRESSURE_COMBO_BS "DG"
 
 /datum/martial_art/bscqc
 	name = "Blue Flame"
@@ -14,7 +14,7 @@
 /datum/martial_art/bscqc/proc/check_streak(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(!can_use(A))
 		return FALSE
-	if(findtext(streak, PRESSURE_COMBO))
+	if(findtext(streak, PRESSURE_COMBO_BS))
 		streak = ""
 		Pressure(A, D)
 		return TRUE

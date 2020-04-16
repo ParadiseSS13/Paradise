@@ -29,7 +29,7 @@ var/list/tape_roll_applications = list()
 			dir = tape_dir
 	icon_state = "[new_state]_[crumpled]"
 	if(detail_overlay)
-		var/image/I = image(icon, "[new_state]_[detail_overlay]", flags=RESET_COLOR)
+		var/image/I = image(icon, "[new_state]_[detail_overlay]", appearance_flags = RESET_COLOR)
 		I.color = detail_color
 		overlays |= I
 
