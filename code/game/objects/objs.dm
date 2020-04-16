@@ -194,13 +194,13 @@
 /obj/proc/multitool_menu(var/mob/user,var/obj/item/multitool/P)
 	return "<b>NO MULTITOOL_MENU!</b>"
 
-/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/link/context)
+/obj/proc/linkWith(var/mob/user, var/obj/buffer, var/context)
 	return 0
 
 /obj/proc/unlinkFrom(var/mob/user, var/obj/buffer)
 	return 0
 
-/obj/proc/canLink(var/obj/O, var/link/context)
+/obj/proc/canLink(var/obj/O, var/context)
 	return 0
 
 /obj/proc/isLinkedWith(var/obj/O)

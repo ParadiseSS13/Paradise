@@ -352,14 +352,14 @@
 		for(var/i in 1 to seed.growthstages)
 			if("[seed.icon_grow][i]" in states)
 				continue
-			log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_grow][i] icon!", src)
+			log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_grow][i] icon!")
 
 		if(!(seed.icon_dead in states))
-			log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_dead] icon!", src)
+			log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_dead] icon!")
 
 		if(seed.icon_harvest) // mushrooms have no grown sprites, same for items with no product
 			if(!(seed.icon_harvest in states))
-				log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!", src)
+				log_runtime("[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
 
 /obj/item/seeds/proc/randomize_stats()
 	set_lifespan(rand(25, 60))
