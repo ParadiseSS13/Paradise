@@ -23,6 +23,9 @@
 	return S
 
 /obj/item/organ/internal/body_egg/alien_embryo/on_life()
+	if(owner.stat == DEAD && stage < 5) //If larva is below stage 5, and host is dead, the larva also "dies"
+		return
+
 	switch(stage)
 		if(2, 3)
 			if(prob(2))
@@ -47,10 +50,14 @@
 				if(prob(20))
 					owner.adjustToxLoss(1)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach...</span>")
+			owner.visible_message("<span class='danger'>[owner]'s stomach begins to distend in a unnatural way!", \
+						"<span class='userdanger'>You feel something tearing its way out of your stomach...</span>")
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
+	if(owner.stat == DEAD && stage < 5) //If larva is below stage 5, and host is dead, the larva also "dies"
+		return
+
 	if(stage < 5 && prob(3))
 		stage++
 		spawn(0)
@@ -59,13 +66,13 @@
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
 			if(S.location == "chest" && istype(S.get_surgery_step(), /datum/surgery_step/internal/manipulate_organs))
-				AttemptGrow(0)
+				AttemptGrow(TRUE)
 				return
 		AttemptGrow()
 
 
 
-/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/gib_on_success = 1)
+/obj/item/organ/internal/body_egg/alien_embryo/proc/AttemptGrow(var/chest_not_open = TRUE)
 	if(!owner || polling)
 		return
 	polling = 1
@@ -100,11 +107,23 @@
 			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
 			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
 
-			if(gib_on_success)
-				owner.gib()
+			var/list/organs = owner.get_organs_zone("chest")
+
+			if(chest_not_open) //Whether or not the patient's chest is open, if not, massive internal trauma
+				for(var/obj/item/organ/internal/O in organs) //Slightly low chance for organs to get heavily damaged, otherwise, are destroyed
+					if(prob(60))
+						qdel(O)
+					else
+						O.receive_damage(rand(70, 90),0)
+
+				owner.adjustBruteLoss(rand(90, 140))
+				playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+
 			else
 				owner.adjustBruteLoss(40)
-				owner.overlays -= overlay
+
+			owner.overlays -= overlay
+			RemoveInfectionImages(owner)
 			qdel(src)
 
 /*----------------------------------------
