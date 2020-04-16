@@ -48,6 +48,7 @@
 	item_state = "utility"
 	use_item_overlays = 1
 	can_hold = list(
+		/obj/item/taperoll,
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
@@ -219,6 +220,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	use_item_overlays = 1
 	can_hold = list(
+		/obj/item/taperoll,
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
 		/obj/item/reagent_containers/spray/pepper,
