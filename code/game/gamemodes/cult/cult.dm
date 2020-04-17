@@ -34,11 +34,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	return TRUE
 
-/proc/is_sacrifice_target(datum/mind/mind)
-	if(SSticker.mode && mind == SSticker.mode.cult_objs.obj_sac.target)
-		return TRUE
-	return FALSE
-
 /datum/game_mode/cult
 	name = "cult"
 	config_tag = "cult"
@@ -264,11 +259,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	var/endtext
 	endtext += "<br><b>The cultists' objectives were:</b>"
-	endtext += "<br>[cult_objs.obj_sac.explanation_text] - "
-	if(!cult_objs.obj_sac.check_completion())
-		endtext += "<font color='red'>Fail.</font>"
-	else
-		endtext += "<font color='green'><B>Success!</B></font>"
+	for(var/datum/objective/obj in cult_objs.presummon_objs)
+		endtext += "<br>[obj.explanation_text] - "
+		if(!obj.check_completion())
+			endtext += "<font color='red'>Fail.</font>"
+		else
+			endtext += "<font color='green'><B>Success!</B></font>"
+	if(cult_objs.status >= NARSIE_NEEDS_SUMMONING)
 		endtext += "<br>[cult_objs.obj_summon.explanation_text] - "
 		if(!cult_objs.obj_summon.check_completion())
 			endtext+= "<font color='red'>Fail.</font>"

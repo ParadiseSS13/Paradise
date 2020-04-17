@@ -10,6 +10,8 @@
 #define RUNE_COLOR_EMP "#4D94FF"
 #define RUNE_COLOR_SUMMON "#00FF00"
 
+#define is_sacrifice_target(A) SSticker.mode && SSticker.mode.cult_objs.is_sac_target(A)
+
 //blood magic
 #define MAX_BLOODCHARGE 4
 #define RUNELESS_MAX_BLOODCHARGE 1

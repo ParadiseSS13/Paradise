@@ -367,14 +367,8 @@
 
 	// Find a new sacrifice target if needed, if unable allow summoning
 	if(is_sacrifice_target(occupant.mind))
-		var/datum/game_mode/gamemode = SSticker.mode
-		if(gamemode.cult_objs.obj_sac.find_target())
-			for(var/datum/mind/M in gamemode.cult)
-				if(M.current)
-					to_chat(M.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>[occupant] is beyond your reach. Sacrifice [gamemode.cult_objs.obj_sac.target] instead...</span></span>")
-					SEND_SOUND(M.current, 'sound/ambience/alarm4.ogg')
-		else
-			gamemode.cult_objs.succesful_sacrifice()
+		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
+			SSticker.mode.cult_objs.ready_to_summon()
 
 	//Update any existing objectives involving this mob.
 	for(var/datum/objective/O in GLOB.all_objectives)
