@@ -5,7 +5,7 @@ export const DisposalBin = props => {
   const { act, data } = useBackend(props);
   let stateColor;
   let stateText;
-  if (data.mode == 2) {
+  if (data.mode === 2) {
     stateColor = 'good';
     stateText = 'Ready';
   }
@@ -13,7 +13,7 @@ export const DisposalBin = props => {
     stateColor = 'bad';
     stateText = 'N/A';
   }
-  else if (data.mode == 1) {
+  else if (data.mode === 1) {
     stateColor = 'average';
     stateText = 'Pressurizing';
   }
@@ -37,7 +37,7 @@ export const DisposalBin = props => {
           <ProgressBar
             value={data.pressure}
             minValue={0}
-            maxValue={100}/>
+            maxValue={100} />
         </LabeledList.Item>
       </LabeledList>
       <Box bold m={1}>
@@ -47,31 +47,31 @@ export const DisposalBin = props => {
         <LabeledList.Item
           label="Handle">
           <Button
-            icon='toggle-off'
+            icon="toggle-off"
             disabled={data.isai || data.panel_open}
-            content='Disengaged'
-            selected={data.flushing ? null : "selected" }
+            content="Disengaged"
+            selected={data.flushing ? null : "selected"}
             onClick={() => act('disengageHandle')} />
           <Button
-            icon='toggle-on'
+            icon="toggle-on"
             disabled={data.isai || data.panel_open}
-            content='Engaged'
-            selected={data.flushing ? "selected" : null }
+            content="Engaged"
+            selected={data.flushing ? "selected" : null}
             onClick={() => act('engageHandle')} />
         </LabeledList.Item>
         <LabeledList.Item
           label="Power">
           <Button
-            icon='toggle-off'
-            disabled={data.mode == -1}
-            content='Off'
-            selected={data.mode ? null : "selected" }
+            icon="toggle-off"
+            disabled={data.mode === -1}
+            content="Off"
+            selected={data.mode ? null : "selected"}
             onClick={() => act('pumpOff')} />
           <Button
-            icon='toggle-on'
-            disabled={data.mode == -1}
-            content='On'
-            selected={data.mode ? "selected" : null }
+            icon="toggle-on"
+            disabled={data.mode === -1}
+            content="On"
+            selected={data.mode ? "selected" : null}
             onClick={() => act('pumpOn')} />
         </LabeledList.Item>
         <LabeledList.Item
