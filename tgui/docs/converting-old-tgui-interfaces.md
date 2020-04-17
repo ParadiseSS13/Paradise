@@ -2,12 +2,6 @@
 
 This guide is going to assume you already know roughly how tgui-next works, how to make new uis, etc. It's mostly aimed at helping translate concepts between tgui and tgui-next, and clarify some confusing parts of the transition.
 
-## Backend
-
-Backend in almost every case does not require any changes. In particularly heavy ui cases, something to be aware of is the new `ui_static_data()` proc. This proc allows you to split some data sent to the interface off into data that will only be sent on ui initialize and when manually updated by elsewhere in the code. Useful for things like cargo where you have a very large set of mostly identical code.
-
-Keep in mind that for uis where *all* data doesn't need to be live updating, you can just toggle off autoupdate for the ui instead of messing with static data.
-
 ## Frontend
 
 The very first thing to note is the name of the `ract` file containing the old interface. Whatever the name is (minus the extension) is going to be what the route key is going to be.
