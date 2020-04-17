@@ -72,5 +72,5 @@ jobs:
       before_script:
       script:
         - node node_modules/gulp/bin/gulp.js --require less-loader
-        - cd ../tgui
-        - node node_modules/gulp/bin/gulp.js --min
+        - cd ..
+        - tools/travis/build_tgui.sh
