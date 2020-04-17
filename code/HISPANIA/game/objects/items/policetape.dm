@@ -29,7 +29,8 @@ var/list/tape_roll_applications = list()
 			dir = tape_dir
 	icon_state = "[new_state]_[crumpled]"
 	if(detail_overlay)
-		var/image/I = image(icon, "[new_state]_[detail_overlay]", flags=RESET_COLOR)
+		var/image/I = image(icon, "[new_state]_[detail_overlay]")
+		I.appearance_flags = RESET_COLOR
 		I.color = detail_color
 		overlays |= I
 
@@ -272,7 +273,7 @@ var/list/tape_roll_applications = list()
 	else
 		return ..(mover)
 
-/obj/item/taper/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/taper/attackby(obj/item/W as obj, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
 		breaktape(user)
 
