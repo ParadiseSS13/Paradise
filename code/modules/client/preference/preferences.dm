@@ -200,7 +200,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/unlock_content = 0
 
 	//Gear stuff
-	var/list/gear = list()
+	var/list/loadout_gear = list()
 	var/gear_tab = "General"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
@@ -508,9 +508,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if(TAB_GEAR)
 			var/total_cost = 0
 			var/list/type_blacklist = list()
-			if(gear && gear.len)
-				for(var/i = 1, i <= gear.len, i++)
-					var/datum/gear/G = GLOB.gear_datums[gear[i]]
+			if(loadout_gear && loadout_gear.len)
+				for(var/i = 1, i <= loadout_gear.len, i++)
+					var/datum/gear/G = GLOB.gear_datums[loadout_gear[i]]
 					if(G)
 						if(!G.subtype_cost_overlap)
 							if(G.subtype_path in type_blacklist)
@@ -543,7 +543,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<tr><td colspan=4><hr></td></tr>"
 			for(var/gear_name in LC.gear)
 				var/datum/gear/G = LC.gear[gear_name]
-				var/ticked = (G.display_name in gear)
+				var/ticked = (G.display_name in loadout_gear)
 				dat += "<tr style='vertical-align:top;'><td width=15%><a style='white-space:normal;' [ticked ? "class='linkOn' " : ""]href='?_src_=prefs;preference=gear;toggle_gear=[G.display_name]'>[G.display_name]</a></td>"
 				dat += "<td width = 5% style='vertical-align:top'>[G.cost]</td><td>"
 				if(G.allowed_roles)
@@ -573,10 +573,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 
 /datum/preferences/proc/get_gear_metadata(var/datum/gear/G)
-	. = gear[G.display_name]
+	. = loadout_gear[G.display_name]
 	if(!.)
 		. = list()
-		gear[G.display_name] = .
+		loadout_gear[G.display_name] = .
 
 /datum/preferences/proc/get_tweak_metadata(var/datum/gear/G, var/datum/gear_tweak/tweak)
 	var/list/metadata = get_gear_metadata(G)
@@ -718,7 +718,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += "</td></tr>"
 
 	for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
-		HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
+		HTML += "<tr bgcolor='[lastJob ? lastJob.selection_color : "#ffffff"]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
 
 	HTML += "</td'></tr></table>"
 
@@ -1159,12 +1159,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(href_list["preference"] == "gear")
 		if(href_list["toggle_gear"])
 			var/datum/gear/TG = GLOB.gear_datums[href_list["toggle_gear"]]
-			if(TG.display_name in gear)
-				gear -= TG.display_name
+			if(TG.display_name in loadout_gear)
+				loadout_gear -= TG.display_name
 			else
 				var/total_cost = 0
 				var/list/type_blacklist = list()
-				for(var/gear_name in gear)
+				for(var/gear_name in loadout_gear)
 					var/datum/gear/G = GLOB.gear_datums[gear_name]
 					if(istype(G))
 						if(!G.subtype_cost_overlap)
@@ -1174,7 +1174,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						total_cost += G.cost
 
 				if((total_cost + TG.cost) <= max_gear_slots)
-					gear += TG.display_name
+					loadout_gear += TG.display_name
 
 		else if(href_list["gear"] && href_list["tweak"])
 			var/datum/gear/gear = GLOB.gear_datums[href_list["gear"]]
@@ -1188,7 +1188,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		else if(href_list["select_category"])
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
-			gear.Cut()
+			loadout_gear.Cut()
 
 		ShowChoices(user)
 		return

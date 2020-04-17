@@ -1,16 +1,3 @@
-/obj/item/taperoll
-	name = "tape roll"
-	icon = 'icons/hispania/obj/policetape.dmi'
-	icon_state = "tape"
-	w_class = WEIGHT_CLASS_SMALL
-	var/turf/start
-	var/turf/end
-	var/tape_type = /obj/item/taper
-	var/icon_base = "tape"
-	var/maxlengths = 7
-
-	var/apply_tape = FALSE
-
 /obj/item/taperoll/Initialize()
 	. = ..()
 	if(apply_tape)
@@ -25,19 +12,6 @@
 
 var/list/image/hazard_overlays
 var/list/tape_roll_applications = list()
-
-/obj/item/taper
-	name = "tape"
-	icon = 'icons/hispania/obj/policetape.dmi'
-	icon_state = "tape"
-	layer = ABOVE_DOOR_LAYER
-	anchored = TRUE
-	var/lifted = 0
-	var/crumpled = 0
-	var/tape_dir = 0
-	var/icon_base = "stripetape"
-	var/detail_overlay
-	var/detail_color
 
 /obj/item/taper/update_icon()
 	//Possible directional bitflags: 0 (AIRLOCK), 1 (NORTH), 2 (SOUTH), 4 (EAST), 8 (WEST), 3 (VERTICAL), 12 (HORIZONTAL)
@@ -55,7 +29,8 @@ var/list/tape_roll_applications = list()
 			dir = tape_dir
 	icon_state = "[new_state]_[crumpled]"
 	if(detail_overlay)
-		var/image/I = image(icon, "[new_state]_[detail_overlay]", flags=RESET_COLOR)
+		var/image/I = image(icon, "[new_state]_[detail_overlay]")
+		I.appearance_flags = RESET_COLOR
 		I.color = detail_color
 		overlays |= I
 
@@ -68,30 +43,45 @@ var/list/tape_roll_applications = list()
 		hazard_overlays["[SOUTH]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "S")
 		hazard_overlays["[WEST]"]	= new/image('icons/hispania/effects/hazard_tape.dmi', icon_state = "W")
 
-/obj/item/taperoll/police
+/obj/item/taperoll
 	name = "police tape"
+	icon = 'icons/hispania/obj/policetape.dmi'
+	icon_state = "tape"
 	desc = "A roll of police tape used to block off crime scenes from the public."
-	tape_type = /obj/item/taper/police
+	w_class = WEIGHT_CLASS_SMALL
+	var/turf/start
+	var/turf/end
+	var/tape_type = /obj/item/taper
+	var/icon_base = "tape"
+	var/maxlengths = 7
+	var/apply_tape = FALSE
 	color = COLOR_YELLOW
 
-/obj/item/taper/police
+/obj/item/taper
 	name = "police tape"
+	icon = 'icons/hispania/obj/policetape.dmi'
+	icon_state = "tape"
 	desc = "A length of police tape.  Do not cross."
 	max_integrity = 10
-	req_access = list(ACCESS_CENT_SPECOPS)
+	layer = ABOVE_DOOR_LAYER
+	anchored = TRUE
+	var/lifted = 0
+	var/crumpled = 0
+	var/tape_dir = 0
+	var/icon_base = "stripetape"
+	var/detail_overlay
+	var/detail_color
 	color = COLOR_YELLOW
 
-/obj/item/taperoll/engineering
+/obj/item/taperoll/engi
 	name = "engineering tape"
 	desc = "A roll of engineering tape used to block off working areas from the public."
-	tape_type = /obj/item/taper/engineering
+	tape_type = /obj/item/taper/engi
 	color = COLOR_ORANGE
 
-/obj/item/taper/engineering
+/obj/item/taper/engi
 	name = "engineering tape"
 	desc = "A length of engineering tape. Better not cross it."
-	max_integrity = 10
-	req_access = list(ACCESS_CENT_SPECOPS)
 	color = COLOR_ORANGE
 
 /obj/item/taperoll/update_icon()
@@ -283,7 +273,7 @@ var/list/tape_roll_applications = list()
 	else
 		return ..(mover)
 
-/obj/item/taper/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/taper/attackby(obj/item/W as obj, mob/user as mob)
 	if(user.a_intent == INTENT_HARM)
 		breaktape(user)
 

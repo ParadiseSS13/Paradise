@@ -1072,6 +1072,8 @@
 /area/shuttle/syndicate)
 "acK" = (
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/rack,
+/obj/item/twohanded/required/ram,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -1939,7 +1941,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
-	name = "Warden's Office";
+	name = "Armory";
 	req_access_txt = "3"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6638,13 +6640,15 @@
 /turf/simulated/floor/plating,
 /area/security/warden)
 "alV" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/turf/simulated/wall/r_wall,
+/turf/simulated/floor/plating,
 /area/security/armoury)
 "alW" = (
 /obj/effect/spawner/window/reinforced,
