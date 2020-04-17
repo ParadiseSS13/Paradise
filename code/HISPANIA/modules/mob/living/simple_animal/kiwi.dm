@@ -70,7 +70,7 @@
 	sleep(150)
 
 
-/mob/living/simple_animal/kiwi/emote(act, m_type=1, message = null)
+/mob/living/simple_animal/kiwi/emote(act, m_type=1, message = null, force)
 	if(stat != CONSCIOUS)
 		return
 
