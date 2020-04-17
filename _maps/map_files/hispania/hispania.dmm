@@ -4555,22 +4555,6 @@
 	icon_state = "dark"
 	},
 /area/security/brig)
-<<<<<<< HEAD
-"aiz" = (
-/obj/machinery/alarm{
-	dir = 8;
-	icon_state = "alarm0";
-	pixel_x = 24
-	},
-/obj/structure/rack,
-/obj/item/twohanded/required/ram,
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner";
-	dir = 4
-	},
-/area/security/armoury)
-=======
->>>>>>> fef59ba4e6f6de0bf44023b045ed5d1412ef19c6
 "aiA" = (
 /obj/structure/cable{
 	d1 = 1;
