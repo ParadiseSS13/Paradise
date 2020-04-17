@@ -78,7 +78,7 @@
 		try_detonate(TRUE)
 	//Counter terrorists win
 	else if(!active || defused)
-		if(defused && payload in src)
+		if(defused && (payload in src))
 			payload.defuse()
 			countdown.stop()
 			STOP_PROCESSING(SSfastprocess, src)
