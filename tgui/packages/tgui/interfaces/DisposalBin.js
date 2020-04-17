@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, ProgressBar, Section, Box } from '../components';
+import { Button, LabeledList, ProgressBar, Section, Box, AnimatedNumber } from '../components';
 
 export const DisposalBin = props => {
   const { act, data } = useBackend(props);
@@ -32,12 +32,8 @@ export const DisposalBin = props => {
           color={stateColor}>
           {stateText}
         </LabeledList.Item>
-        <LabeledList.Item
-          label="Pressure">
-          <ProgressBar
-            value={data.pressure}
-            minValue={0}
-            maxValue={100} />
+        <LabeledList.Item label="Pressure">
+          <AnimatedNumber value={data.pressure} />%
         </LabeledList.Item>
       </LabeledList>
       <Box bold m={1}>
@@ -48,13 +44,13 @@ export const DisposalBin = props => {
           label="Handle">
           <Button
             icon="toggle-off"
-            disabled={data.isai || data.panel_open}
+            disabled={data.isAI || data.panel_open}
             content="Disengaged"
             selected={data.flushing ? null : "selected"}
             onClick={() => act('disengageHandle')} />
           <Button
             icon="toggle-on"
-            disabled={data.isai || data.panel_open}
+            disabled={data.isAI || data.panel_open}
             content="Engaged"
             selected={data.flushing ? "selected" : null}
             onClick={() => act('engageHandle')} />
@@ -78,7 +74,7 @@ export const DisposalBin = props => {
           label="Eject">
           <Button
             icon="sign-out-alt"
-            disabled={data.isai}
+            disabled={data.isAI}
             content="Eject Contents"
             onClick={() => act('eject')} />
         </LabeledList.Item>

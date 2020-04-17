@@ -265,7 +265,7 @@
 /obj/machinery/disposal/tgui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = 0, datum/tgui/master_ui = null, datum/tgui_state/state = GLOB.tgui_default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "disposal_bin", name, 400, 250, master_ui, state)
+		ui = new(user, src, ui_key, "disposal_bin", name, 300, 250, master_ui, state)
 		ui.open()
 
 /obj/machinery/disposal/tgui_data(mob/user)
@@ -318,7 +318,8 @@
 
 			if(action == "eject")
 				eject()
-	return
+
+	return TRUE
 
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
