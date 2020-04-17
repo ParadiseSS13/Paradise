@@ -61,7 +61,7 @@ jobs:
     - stage: NanoUI
       language: node_js
       node_js:
-        - "9"
+        - "12"
       env:
       addons:
       before_install:
