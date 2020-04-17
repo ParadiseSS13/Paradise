@@ -1658,13 +1658,16 @@
 	desc = "A small platinum ring with a large light blue diamond. Engraved inside the band are the words: 'To my lovely Pristine Princess. Forever yours, Savinien.'"
 	icon_state = "benjaminfallout_ring"
 
-/obj/item/clothing/under/fluff/voxbodysuit //Gangelwaefre: Kikeri
-	name = "Vox Bodysuit"
-	desc = "A shimmering bodysuit custom-fit to a vox. Has shorts sewn in."
+
+/obj/item/clothing/under/fluff/kikeridress //Gangelwaefre: Kikeri
+	name = "Kikeri's Dress"
+	desc = "A simple black dress with a white undercoat, tied with a blue ribbon."
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
-	icon = 'icons/mob/inhands/fluff_righthand.dmi'
-	icon_state = "voxbodysuit"
-	item_state = "voxbodysuit"
-	item_color = "voxbodysuit"
-	body_parts_covered = HEAD|UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	sprite_sheets = list("Vox" = 'icons/mob/species/vox/uniform.dmi')
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "kikeridress"
+	item_state = "kikeridress"
+	item_color = "kikeridress"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	species_restricted = list("Vox")
