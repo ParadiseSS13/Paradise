@@ -463,6 +463,7 @@
 /datum/action/spell_action
 	check_flags = 0
 	background_icon_state = "bg_spell"
+	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/spell_action/New(Target)
 	..()
@@ -501,15 +502,17 @@
 	return 0
 
 /datum/action/spell_action/UpdateButtonIcon()
-	if(button && !..())
+	if(button && !(. = ..()))
 		var/obj/effect/proc_holder/spell/S = target
 		if(!istype(S))
 			return
 		var/progress = S.get_availability_percentage()
 		var/col_val_high = 72 * progress + 128
 		var/col_val_low = 200 * progress
+		button.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down((1-progress) * 100)]%</div>"
 		button.color = rgb(col_val_high, col_val_low, col_val_low, col_val_high)
-
+	else
+		button.maptext = null
 /*
 /datum/action/spell_action/alien
 
