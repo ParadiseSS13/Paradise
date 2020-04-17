@@ -53,7 +53,6 @@
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		w_class = WEIGHT_CLASS_NORMAL
 		attack_verb = list("slashed", "stabbed")
-		..()
 	else
 		throwforce = initial(throwforce)
 		force = initial(force)
