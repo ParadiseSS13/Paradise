@@ -1204,6 +1204,7 @@
 #include "code\HISPANIA\game\objects\items\toys\balloon.dm"
 #include "code\HISPANIA\game\objects\items\toys\uno.dm"
 #include "code\HISPANIA\game\objects\items\weapons\chronoeraser.dm"
+#include "code\HISPANIA\game\objects\items\weapons\holy_weapons.dm"
 #include "code\HISPANIA\game\objects\items\weapons\lighters.dm"
 #include "code\HISPANIA\game\objects\items\weapons\manuals.dm"
 #include "code\HISPANIA\game\objects\items\weapons\stock_parts.dm"
