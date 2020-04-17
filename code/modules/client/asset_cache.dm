@@ -179,14 +179,12 @@ GLOBAL_LIST_EMPTY(asset_datums)
 //DEFINITIONS FOR ASSET DATUMS START HERE.
 /datum/asset/simple/tgui
 	assets = list(
-		"tgui.css"	= 'tgui/assets/tgui.css',
-		"tgui.js"	= 'tgui/assets/tgui.js',
-		"font-awesome.min.css" = 'tgui/assets/font-awesome.min.css',
-		"fontawesome-webfont.eot" = 'tgui/assets/fonts/fontawesome-webfont.eot',
-		"fontawesome-webfont.woff2" = 'tgui/assets/fonts/fontawesome-webfont.woff2',
-		"fontawesome-webfont.woff" = 'tgui/assets/fonts/fontawesome-webfont.woff',
-		"fontawesome-webfont.ttf" = 'tgui/assets/fonts/fontawesome-webfont.ttf',
-		"fontawesome-webfont.svg" = 'tgui/assets/fonts/fontawesome-webfont.svg'
+		"tgui.bundle.js" = 'tgui/packages/tgui/public/tgui.bundle.js',
+		"tgui.bundle.css" = 'tgui/packages/tgui/public/tgui.bundle.css',
+		"shim-html5shiv.js" = 'tgui/packages/tgui/public/shim-html5shiv.js',
+		"shim-ie8.js" = 'tgui/packages/tgui/public/shim-ie8.js',
+		"shim-dom4.js" = 'tgui/packages/tgui/public/shim-dom4.js',
+		"shim-css-om.js" = 'tgui/packages/tgui/public/shim-css-om.js'
 )
 
 /datum/asset/simple/paper
@@ -356,3 +354,15 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/mob_hunt/send(client)
 	send_asset_list(client, assets, verify)
+
+// Fontawesome
+/datum/asset/simple/fontawesome
+	verify = FALSE
+	assets = list(
+		"fa-regular-400.eot"  = 'html/font-awesome/webfonts/fa-regular-400.eot',
+		"fa-regular-400.woff" = 'html/font-awesome/webfonts/fa-regular-400.woff',
+		"fa-solid-900.eot"    = 'html/font-awesome/webfonts/fa-solid-900.eot',
+		"fa-solid-900.woff"   = 'html/font-awesome/webfonts/fa-solid-900.woff',
+		"font-awesome.css"    = 'html/font-awesome/css/all.min.css',
+		"v4shim.css"          = 'html/font-awesome/css/v4-shims.min.css'
+	)

@@ -1,0 +1,18 @@
+.Flex {
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.Flex--inline {
+  display: inline-flex;
+}
+
+@for $i from 1 through 2 {
+  .Flex--spacing--#{$i} {
+    margin: 0 -3px * $i;
+
+    & > .Flex__item {
+      margin: 0 3px * $i;
+    }
+  }
+}

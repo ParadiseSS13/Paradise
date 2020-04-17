@@ -15,6 +15,8 @@ GLOBAL_VAR(world_asset_log)
 GLOBAL_PROTECT(world_asset_log)
 GLOBAL_VAR(runtime_summary_log)
 GLOBAL_PROTECT(runtime_summary_log)
+GLOBAL_VAR(tgui_log)
+GLOBAL_PROTECT(tgui_log)
 
 GLOBAL_LIST_EMPTY(jobMax)
 GLOBAL_PROTECT(jobMax)

@@ -15,15 +15,6 @@
 	var/window_id // The window_id for browse() and onclose().
 	var/width = 0 // The window width.
 	var/height = 0 // The window height
-	var/window_options = list( // Extra options to winset().
-	  "focus" = FALSE,
-	  "titlebar" = TRUE,
-	  "can_resize" = TRUE,
-	  "can_minimize" = TRUE,
-	  "can_maximize" = FALSE,
-	  "can_close" = TRUE,
-	  "auto_format" = FALSE
-	)
 	var/style = "nanotrasen" // The style to be used for this UI.
 	var/interface // The interface (template) to be used for this UI.
 	var/autoupdate = TRUE // Update the UI every MC tick.
@@ -75,8 +66,11 @@
 		master_ui.children += src
 	src.state = state
 
-	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/tgui)
-	assets.send(user)
+	var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
+	var/datum/asset/fa = get_asset_datum(/datum/asset/simple/fontawesome)
+	tgui_assets.send(user)
+	fa.send(user)
+
 
  /**
   * public
@@ -98,8 +92,22 @@
 	if(width && height) // If we have a width and height, use them.
 		window_size = "size=[width]x[height];"
 
-	var/debugable = check_rights_for(user.client, R_DEBUG)
-	user << browse(get_html(debugable), "window=[window_id];[window_size][list2params(window_options)]") // Open the window.
+	// Remove titlebar and resize handles for a fancy window
+	var/have_title_bar
+	if(user.client.prefs.nanoui_fancy)
+		have_title_bar = "titlebar=0;can_resize=0;"
+	else
+		have_title_bar = "titlebar=1;can_resize=1;"
+
+	// Generate page html
+	var/html
+	html = SStgui.basehtml
+	// Allow the src object to override the html if needed
+	html = src_object.tgui_base_html(html)
+	html = replacetextEx(html, "\[ref]", "[src.UID()]")
+	html = replacetextEx(html, "\[style]", style)
+
+	user << browse(html, "window=[window_id];can_minimize=0;auto_format=0;[window_size][have_title_bar]") // Open the window
 	if (!custom_browser_id)
 		winset(user, window_id, "on-close=\"uiclose [UID()]\"") // Instruct the client to signal UI when the window is closed.
 	SStgui.on_open(src)
@@ -135,16 +143,6 @@
 	state = null
 	master_ui = null
 	qdel(src)
-
- /**
-  * public
-  *
-  * Sets the browse() window options for this UI.
-  *
-  * required window_options list The window options to set.
- **/
-/datum/tgui/proc/set_window_options(list/window_options)
-	src.window_options = window_options
 
  /**
   * public
@@ -186,34 +184,6 @@
  **/
 /datum/tgui/proc/set_initial_data(list/data)
 	initial_data = data
-
- /**
-  * private
-  *
-  * Generate HTML for this UI.
-  *
-  * optional bool inline If the JSON should be inlined into the HTML (for debugging).
-  *
-  * return string UI HTML output.
- **/
-/datum/tgui/proc/get_html(var/inline)
-	var/html
-	html = SStgui.basehtml
-
-	//Allow the src object to override the html if needed
-	html = src_object.tgui_base_html(html)
-	//Strip out any remaining custom tags that are used in ui_base_html
-	html = replacetext(html, "<!--customheadhtml-->", "")
-
-	// Poplate HTML with JSON if we're supposed to inline.
-	if(inline)
-		html = replacetextEx(html, "{}", get_json(initial_data))
-
-
-	//Setup for tgui stuff, including styles
-	html = replacetextEx(html, "\[ref]", "[UID()]")
-	html = replacetextEx(html, "\[style]", style)
-	return html
 
  /**
   * private
@@ -288,6 +258,8 @@
 			if(params["screen"])
 				ui_screen = params["screen"]
 			SStgui.update_uis(src_object)
+		if("tgui:log")
+			log_message(params["log"])
 		if("tgui:link")
 			user << link(params["url"])
 		if("tgui:fancy")
@@ -384,3 +356,6 @@
 
 /datum/tgui/proc/set_titlebar(value)
 	titlebar = value
+
+/datum/tgui/proc/log_message(message)
+	log_tgui("[user] ([user.ckey]) using \"[title]\":\n[message]")
