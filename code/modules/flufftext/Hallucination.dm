@@ -732,7 +732,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	var/radio_messages = list("Xenos!","Singularity loose!","Comms down!","They are arming the nuke!","They butchered Ian!","H-help!","[pick("Cult", "Wizard", "Ling", "Ops", "Revenant", "Murderer", "Harm", "I hear flashing", "Help")] in [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Where's [target.name]?","Call the shuttle!","AI rogue!!")
 
 	var/list/mob/living/carbon/people = list()
-	var/list/mob/living/carbon/person = null
+	var/mob/living/carbon/person = null
 	for(var/mob/living/carbon/H in view(target))
 		if(H == target)
 			continue
