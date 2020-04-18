@@ -80,7 +80,7 @@
 ///Silla de Oro///
 
 /datum/crafting_recipe/gold_wheel23
-	name = "Gold Wheel Chair Kit"
+	name = "Gold Wheel Chair"
 	result = /obj/structure/chair/wheelchair/gold
 	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
