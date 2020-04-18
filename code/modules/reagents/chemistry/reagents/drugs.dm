@@ -9,7 +9,7 @@
 /datum/reagent/lithium/on_mob_life(mob/living/M)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())
-			step(M, pick(cardinal))
+			step(M, pick(GLOB.cardinal))
 	if(prob(5))
 		M.emote(pick("twitch","drool","moan"))
 	return ..()
@@ -45,7 +45,7 @@
 	update_flags |= M.Druggy(15, FALSE)
 	if(isturf(M.loc) && !istype(M.loc, /turf/space))
 		if(M.canmove && !M.restrained())
-			step(M, pick(cardinal))
+			step(M, pick(GLOB.cardinal))
 	if(prob(7))
 		M.emote(pick("twitch","drool","moan","giggle"))
 	return ..() | update_flags
@@ -404,8 +404,8 @@
 		to_chat(M, "<span class='userdanger'>THEY'RE GONNA GET YOU!</span>")
 	return ..() | update_flags
 
-/datum/reagent/bath_salts/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/bath_salts/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		to_chat(M, "<span class = 'danger'><font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>You feel FUCKED UP!!!!!!</font></span>")
 		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
@@ -592,8 +592,8 @@
 	update_flags |= M.SetSleeping(0, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST || method == TOUCH)
+/datum/reagent/fliptonium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST || method == REAGENT_TOUCH)
 		M.SpinAnimation(speed = 12, loops = -1)
 	..()
 

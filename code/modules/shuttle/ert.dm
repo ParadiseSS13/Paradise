@@ -1,6 +1,6 @@
 /obj/machinery/computer/shuttle/ert
 	name = "specops shuttle console"
-	req_access = list(access_cent_general)
+	req_access = list(ACCESS_CENT_GENERAL)
 	shuttleId = "specops"
 	possible_destinations = "specops_home;specops_away;specops_custom"
 	resistance_flags = INDESTRUCTIBLE

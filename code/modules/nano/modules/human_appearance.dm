@@ -25,7 +25,7 @@
 	src.whitelist = species_whitelist
 	src.blacklist = species_blacklist
 
-/datum/nano_module/appearance_changer/Topic(ref, href_list, var/nowindow, var/datum/topic_state/state = default_state)
+/datum/nano_module/appearance_changer/Topic(ref, href_list, var/nowindow, var/datum/topic_state/state = GLOB.default_state)
 	if(..())
 		return 1
 
@@ -173,14 +173,14 @@
 
 	return 0
 
-/datum/nano_module/appearance_changer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = default_state)
+/datum/nano_module/appearance_changer/ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = 1, var/datum/topic_state/state = GLOB.default_state)
 	ui = SSnanoui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "appearance_changer.tmpl", "[src]", 800, 450, state = state)
 		ui.open()
 		ui.set_auto_update(1)
 
-/datum/nano_module/appearance_changer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = default_state)
+/datum/nano_module/appearance_changer/ui_data(mob/user, ui_key = "main", datum/topic_state/state = GLOB.default_state)
 	generate_data(check_whitelist, whitelist, blacklist)
 	var/data[0]
 

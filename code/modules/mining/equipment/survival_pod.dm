@@ -19,7 +19,7 @@
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
 		return
-	template = shelter_templates[template_id]
+	template = GLOB.shelter_templates[template_id]
 	if(!template)
 		log_runtime("Shelter template ([template_id]) not found!", src)
 		qdel(src)

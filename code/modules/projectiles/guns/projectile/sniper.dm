@@ -43,7 +43,8 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/compact //holds very little ammo, lacks zooming, and bullets are primarily damage dealers, but the gun lacks the downsides of the full size rifle
 	name = "compact sniper rifle"
-	desc = "a compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
+	desc = "A compact, unscoped version of the standard issue syndicate sniper rifle. Still capable of sending people crying."
+	icon_state = "snipercompact"
 	recoil = 0
 	weapon_weight = WEAPON_LIGHT
 	fire_delay = 0
@@ -51,6 +52,12 @@
 	can_unsuppress = FALSE
 	can_suppress = FALSE
 	zoomable = FALSE
+
+/obj/item/gun/projectile/automatic/sniper_rifle/compact/update_icon()
+	if(magazine)
+		icon_state = "snipercompact-mag"
+	else
+		icon_state = "snipercompact"
 
 //Normal Boolets
 /obj/item/ammo_box/magazine/sniper_rounds

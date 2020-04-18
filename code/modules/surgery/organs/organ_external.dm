@@ -404,7 +404,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			fracture()
 
 /obj/item/organ/external/proc/check_for_internal_bleeding(damage)
-	if(owner && NO_BLOOD in owner.dna.species.species_traits)
+	if(owner && (NO_BLOOD in owner.dna.species.species_traits))
 		return
 	var/local_damage = brute_dam + damage
 	if(damage > 15 && local_damage > 30 && prob(damage) && !is_robotic())
@@ -515,7 +515,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 			if(!clean)
 				// Throw limb around.
 				if(src && istype(loc,/turf))
-					dropped_part.throw_at(get_edge_target_turf(src,pick(alldirs)),rand(1,3),30)
+					dropped_part.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1,3),30)
 				dir = 2
 			brute_dam = 0
 			burn_dam = 0  //Reset the damage on the limb; the damage should have transferred to the parent; we don't want extra damage being re-applied when then limb is re-attached
@@ -589,12 +589,12 @@ Note that amputating the affected organ does in fact remove the infection from t
 		holder = owner
 	if(!holder)
 		return
-	if(holder.handcuffed && body_part in list(ARM_LEFT, ARM_RIGHT, HAND_LEFT, HAND_RIGHT))
+	if(holder.handcuffed && (body_part in list(ARM_LEFT, ARM_RIGHT, HAND_LEFT, HAND_RIGHT)))
 		holder.visible_message(\
 			"\The [holder.handcuffed.name] falls off of [holder.name].",\
 			"\The [holder.handcuffed.name] falls off you.")
 		holder.unEquip(holder.handcuffed)
-	if(holder.legcuffed && body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT))
+	if(holder.legcuffed && (body_part in list(FOOT_LEFT, FOOT_RIGHT, LEG_LEFT, LEG_RIGHT)))
 		holder.visible_message(\
 			"\The [holder.legcuffed.name] falls off of [holder.name].",\
 			"\The [holder.legcuffed.name] falls off you.")
@@ -663,7 +663,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 /obj/item/organ/external/proc/set_company(var/company)
 	model = company
-	var/datum/robolimb/R = all_robolimbs[company]
+	var/datum/robolimb/R = GLOB.all_robolimbs[company]
 	if(R)
 		force_icon = R.icon
 		name = "[R.company] [initial(name)]"

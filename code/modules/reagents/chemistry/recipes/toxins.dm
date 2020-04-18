@@ -167,15 +167,6 @@
 	required_reagents = list("mutadone" = 3, "lithium" = 1)
 	result_amount = 4
 
-/datum/chemical_reaction/heparin
-	name = "Heparin"
-	id = "Heparin"
-	result = "heparin"
-	required_reagents = list("formaldehyde" = 1, "sodium" = 1, "chlorine" = 1, "lithium" = 1)
-	result_amount = 4
-	mix_message = "The mixture thins and loses all color."
-	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
-
 /datum/chemical_reaction/rotatium
 	name = "Rotatium"
 	id = "Rotatium"

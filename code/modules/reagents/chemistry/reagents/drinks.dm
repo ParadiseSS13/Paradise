@@ -106,8 +106,8 @@
 	drink_desc = "As colorful and healthy as it is delicious."
 	taste_description = "citrus juice"
 
-/datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=TOUCH, volume)
-	if(method == INGEST)
+/datum/reagent/consumable/drink/triple_citrus/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
 		M.adjustToxLoss(-rand(1,2))
 
 /datum/reagent/consumable/drink/berryjuice
@@ -178,7 +178,7 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
+	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -409,7 +409,7 @@
 
 /datum/reagent/consumable/drink/bananahonk/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if((ishuman(M) && COMIC in M.mutations) || issmall(M))
+	if((ishuman(M) && (COMIC in M.mutations)) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags
@@ -426,7 +426,7 @@
 
 /datum/reagent/consumable/drink/silencer/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(ishuman(M) && M.job in list("Mime"))
+	if(ishuman(M) && (M.job in list("Mime")))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
 	return ..() | update_flags

@@ -1,5 +1,4 @@
-var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire")
-
+GLOBAL_DATUM_INIT(fire_overlay, /image, image("icon" = 'icons/goonstation/effects/fire.dmi', "icon_state" = "fire"))
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
@@ -361,7 +360,7 @@ var/global/image/fire_overlay = image("icon" = 'icons/goonstation/effects/fire.d
 
 //Generic refill proc. Transfers something (e.g. fuel, charge) from an atom to our tool. returns TRUE if it was successful, FALSE otherwise
 //Not sure if there should be an argument that indicates what exactly is being refilled
-/obj/item/proc/refill(mob/user, atom/A, amount) 
+/obj/item/proc/refill(mob/user, atom/A, amount)
 	return FALSE
 
 /obj/item/proc/talk_into(mob/M, var/text, var/channel=null)

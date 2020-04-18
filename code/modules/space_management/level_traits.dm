@@ -36,28 +36,28 @@
 		secure = (z == level_name_to_num(CENTCOMM))
 	return secure
 
-var/list/default_map_traits = MAP_TRANSITION_CONFIG
+GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 
 /proc/check_level_trait(z, trait)
 	if(!z)
 		return 0 // If you're nowhere, you have no traits
 	var/list/trait_list
-	if(space_manager.initialized)
-		var/datum/space_level/S = space_manager.get_zlev(z)
+	if(GLOB.space_manager.initialized)
+		var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 		trait_list = S.flags
 	else
-		trait_list = default_map_traits[z]
+		trait_list = GLOB.default_map_traits[z]
 		trait_list = trait_list["attributes"]
 	return (trait in trait_list)
 
 /proc/levels_by_trait(trait)
 	var/list/result = list()
-	for(var/A in space_manager.z_list)
-		var/datum/space_level/S = space_manager.z_list[A]
+	for(var/A in GLOB.space_manager.z_list)
+		var/datum/space_level/S = GLOB.space_manager.z_list[A]
 		if(trait in S.flags)
 			result |= S.zpos
 	return result
 
 /proc/level_name_to_num(name)
-	var/datum/space_level/S = space_manager.get_zlev_by_name(name)
+	var/datum/space_level/S = GLOB.space_manager.get_zlev_by_name(name)
 	return S.zpos

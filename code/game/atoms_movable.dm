@@ -36,8 +36,8 @@
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
-	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && space_manager.is_zlevel_dirty(T.z))
-		space_manager.postpone_init(T.z, src)
+	if(T && SSatoms.initialized != INITIALIZATION_INSSATOMS && GLOB.space_manager.is_zlevel_dirty(T.z))
+		GLOB.space_manager.postpone_init(T.z, src)
 		return
 	. = ..()
 
@@ -425,7 +425,7 @@
 	if(master)
 		return master.attack_hand(a, b, c)
 
-/atom/movable/proc/water_act(volume, temperature, source, method = TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
+/atom/movable/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH) //amount of water acting : temperature of water in kelvin : object that called it (for shennagins)
 	return TRUE
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc,direct)
