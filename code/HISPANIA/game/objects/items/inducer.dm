@@ -154,8 +154,7 @@
 
 	if(istype(A, /obj))
 		if(istype(A, /obj/machinery/power/apc))
-			// power_use * coefficient = 20*100 > 1000 = CELLRATE -> los inducers no aumentan la cantidad de energia que hay en la estacion
-			coefficient = 1000
+			coefficient = 1000 * coefficient_base
 		O = A
 	if(C)
 		var/done_any = FALSE
