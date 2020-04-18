@@ -35,7 +35,7 @@
 		new /datum/track("Ambient",		"Tension Music - Nanostrasen",        			'sound/music/traitor.ogg',		3500,	5),
 		new /datum/track("Ambient",		"Thunderdome Song - Nanostrasen",        		'sound/music/thunderdome.ogg',	2020,	5),
 		new /datum/track("Spanish Rock",		"Lamento boliviano - Enanitos Verdes",        		'sound/hispania/hispaniabox/rock.ogg',	2220,	5),
-		new /datum/track("Salsa",		"Por qué será - Alvaro Ricardo",        		'sound/hispania/hispaniabox/salsa.ogg',	2560,	5),
+		new /datum/track("Salsa",		"Por que sera - Alvaro Ricardo",        		'sound/hispania/hispaniabox/salsa.ogg',	2560,	5),
 		new /datum/track("Cumbia",		"La Vida Es Un Carnaval - Celia Cruz",        		'sound/hispania/hispaniabox/cumbion.ogg',	2770,	5),
 		new /datum/track("Bachata",		"Propuesta Indecente - Romeo Santos",        		'sound/hispania/hispaniabox/bachata.ogg',	2320,	5),
 		)
