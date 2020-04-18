@@ -14,7 +14,7 @@
 	production = 7
 	potency = 30
 	weed_chance = 15 //Percentage chance per tray update to grow weeds
-	growing_icon = 'icons/hispania/obj/hydroponics/growing_fruits.dmi'
+	growing_icon = 'icons/hispania/obj/hydroponics/growing.dmi'
 
 //When it grows
 /obj/item/reagent_containers/food/snacks/grown/money
