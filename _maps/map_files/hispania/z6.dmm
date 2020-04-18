@@ -1090,7 +1090,7 @@
 "uX" = (/obj/effect/decal/cleanable/spiderling_remains,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/outer)
 "uY" = (/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/outer)
 "uZ" = (/obj/effect/decal/cleanable/cobweb2,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/outer)
-"va" = (/obj/item/reagent_containers/food/snacks/spiderleg,/obj/structure/spider,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/outer)
+"va" = (/obj/item/reagent_containers/food/snacks/monstermeat/spiderleg,/obj/structure/spider,/turf/simulated/floor/plasteel{icon_state = "dark"},/area/syndicate_depot/outer)
 "vb" = (/obj/effect/landmark{name = "syndi_depot_bot"},/turf/simulated/floor/plating/asteroid/airless,/area/syndicate_depot/outer)
 "vc" = (/obj/machinery/navbeacon/invisible{codes_txt = "patrol;next_patrol=SDNW"; invisibility = 100; location = "SDNE"},/turf/simulated/floor/plating/asteroid/airless,/area/syndicate_depot/outer)
 "vd" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion_r (NORTH)"; icon_state = "propulsion_r"; dir = 1},/turf/simulated/shuttle/plating,/area/space/nearstation)
