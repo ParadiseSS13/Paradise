@@ -509,7 +509,7 @@
 		var/progress = S.get_availability_percentage()
 		var/col_val_high = 72 * progress + 128
 		var/col_val_low = 200 * progress
-		button.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down((1-progress) * 100)]%</div>"
+		button.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[round_down(progress * 100)]%</div>"
 		button.color = rgb(col_val_high, col_val_low, col_val_low, col_val_high)
 	else
 		button.maptext = null
