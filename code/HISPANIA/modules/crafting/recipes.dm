@@ -81,7 +81,7 @@
 
 /datum/crafting_recipe/gold_wheel23
 	name = "Gold Wheel Chair Kit"
-	result = /obj/item/fluff/rapid_wheelchair_kit
+	result = /obj/structure/chair/wheelchair/gold
 	time = 60
 	reqs = list(/obj/item/stack/cable_coil = 5,
 		        /obj/item/stock_parts/cell = 1,
