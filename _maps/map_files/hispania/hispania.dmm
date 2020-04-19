@@ -5501,7 +5501,7 @@
 /obj/item/clothing/head/beret/sec,
 /obj/machinery/light_switch{
 	pixel_x = -25;
-	pixel_y = -12
+	pixel_y = 0
 	},
 /obj/item/spacepod_key{
 	id = 100000
@@ -5509,9 +5509,6 @@
 /obj/item/gps,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
-	},
-/obj/machinery/vending/walldrobe/sec/podpilot{
-	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11549,10 +11546,9 @@
 /obj/item/radio{
 	pixel_y = 6
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	icon_state = "alarm0";
-	pixel_y = -22
+/obj/machinery/vending/walldrobe/sec/podpilot{
+	pixel_x = 0;
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -11563,6 +11559,11 @@
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -24
+	},
+/obj/machinery/alarm{
+	dir = 1;
+	icon_state = "alarm0";
+	pixel_y = -22
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

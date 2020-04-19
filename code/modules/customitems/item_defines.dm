@@ -1369,6 +1369,7 @@
 	icon_state = "vest_black"
 	item_state = "vest_black"
 	sprite_sheets = null
+	hispania_icon = FALSE
 
 /obj/item/clothing/under/pants/fluff/combat
 	name = "combat pants"

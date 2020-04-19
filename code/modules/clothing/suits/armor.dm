@@ -30,6 +30,7 @@
 	icon_state = "militaryjacket"
 	item_state = "militaryjacket"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/vest/combat
 	name = "combat vest"
@@ -38,6 +39,7 @@
 	item_state = "bulletproof"
 	blood_overlay_type = "armor"
 	flags_size = ONESIZEFITSALL
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
@@ -88,6 +90,7 @@
 	desc = "An armored vest with the badge of a Blueshield Lieutenant."
 	icon_state = "blueshield"
 	item_state = "blueshield"
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/vest/bloody
 	name = "bloodied security armor"
@@ -95,6 +98,7 @@
 	icon_state = "bloody_armor"
 	item_state = "bloody_armor"
 	sprite_sheets = null
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/secjacket
 	name = "security jacket"
@@ -152,11 +156,13 @@
 	strip_delay = 70
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/vest/warden/alt
 	name = "warden's jacket"
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
+	hispania_icon = TRUE
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -167,6 +173,7 @@
 	armor = list("melee" = 50, "bullet" = 40, "laser" = 50, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 90)
 	dog_fashion = null
 	resistance_flags = FIRE_PROOF
+	hispania_icon = FALSE
 
 /obj/item/clothing/suit/armor/vest/capcarapace/alt
 	name = "captain's parade jacket"
@@ -271,6 +278,7 @@
 	allowed = list(/obj/item/tank/emergency_oxygen,/obj/item/reagent_containers/spray/pepper,/obj/item/flashlight,/obj/item/gun,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/storage/fancy/cigarettes,/obj/item/lighter,/obj/item/detective_scanner,/obj/item/taperecorder)
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	hispania_icon = FALSE
 
 //Reactive armor
 /obj/item/clothing/suit/armor/reactive
@@ -455,6 +463,7 @@
 	icon_state = "ertarmor_cmd"
 	item_state = "armor"
 	armor = list(melee = 30, bullet = 30, laser = 30, energy = 30, bomb = 20, bio = 0, rad = 0, fire = 50, acid = 50)
+	hispania_icon = FALSE
 
 //Commander
 /obj/item/clothing/suit/armor/vest/ert/command
