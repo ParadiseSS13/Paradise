@@ -24,17 +24,19 @@ deberan tener una linea de codigo demas para que funcionen "hispania_icon = TRUE
 
 /obj/item/clothing/head/beret/sec/private
 	name = "blue security beret"
+	desc = "A blue security beret, its have a badge of Security Department. Made by D&N Corp."
 	icon_state = "secberetprivateofficer_blue"
 	hispania_icon = TRUE
 
 /obj/item/clothing/head/beret/sec/private/red
 	name = "red security beret"
+	desc = "A red security beret, its have a badge of Security Department. Made by D&N Corp."
 	icon_state = "secberetprivateofficer_red"
 	hispania_icon = TRUE
 
 /obj/item/clothing/head/officer/hat
 	name = "officer's blue hat"
-	desc = "A blue hat with a badge of Security Department."
+	desc = "A blue hat with a badge of Security Department. Made by D&N Corp."
 	icon_state = "sechat_blue"
 	item_state = "sechat_blue"
 	strip_delay = 80
