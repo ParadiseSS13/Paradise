@@ -173,7 +173,7 @@
 /datum/job/geneticist
 	title = "Geneticist"
 	flag = JOB_GENETICIST
-	//department_flag = JOBCAT_MEDSCI
+	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 2
 	is_medical = 1
