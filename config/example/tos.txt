@@ -1,3 +1,0 @@
-<h1>Bienvenido a 13!</h1>
-
-Los terminos de servicio van aqui.

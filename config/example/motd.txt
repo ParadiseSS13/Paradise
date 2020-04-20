@@ -1,4 +1,0 @@
-<h1>Bienvenido a Space Station 13!</h1>
-
--<i>Este servidor corre en una version de <a href="https://www.paradisestation.org">Paradise</a> una modificacion de <a href="http://baystation12.net/">Baystation 12</a> y <a href="http://ss13.eu/">/tg/station13</a>.</i>
-<br><br>
