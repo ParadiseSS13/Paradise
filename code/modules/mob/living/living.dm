@@ -563,10 +563,11 @@
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity(src))
 		return
-	var/blood_exists = 0
+	var/blood_exists = FALSE
 
 	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
-		blood_exists = 1
+		blood_exists = TRUE
+		break
 	if(isturf(loc))
 		var/trail_type = getTrail()
 		if(trail_type)
@@ -583,18 +584,29 @@
 				if((newdir in GLOB.cardinal) && (prob(50)))
 					newdir = turn(get_dir(T, loc), 180)
 				if(!blood_exists)
-					new /obj/effect/decal/cleanable/trail_holder(loc)
-				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
-					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
-						TH.existing_dirs += newdir
-						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
+					var/obj/effect/decal/cleanable/trail_holder/TH = new /obj/effect/decal/cleanable/trail_holder(loc)
+					TH.existing_dirs += newdir
+					TH.dir = newdir
+					TH.icon_state = trail_type
+					TH.transfer_mob_blood_dna(src)
+					var/found_blood_col = "#A10808"
+					if(ishuman(src))
+						var/mob/living/carbon/human/H = src
+						if(H.dna.species.blood_color)
+							found_blood_col = H.dna.species.blood_color
+					TH.color = found_blood_col
+				else
+					for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
+						if(!(newdir in TH.existing_dirs) && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
+							TH.existing_dirs += newdir
+							TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
+						var/found_blood_col = "#A10808"
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
-							if(H.dna.species.blood_color)
-								TH.color = H.dna.species.blood_color
-						else
-							TH.color = "#A10808"
+							found_blood_col = H.dna.species.blood_color
+						if(found_blood_col)
+							TH.color = BlendRGB(TH.color, found_blood_col, TH.existing_dirs.len ? 1 / TH.existing_dirs.len : 1) // Add in some of the new blood color to the existing one
 
 /mob/living/carbon/human/makeTrail(turf/T)
 
