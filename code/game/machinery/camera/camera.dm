@@ -34,7 +34,6 @@
 	var/in_use_lights = 0 // TO BE IMPLEMENTED
 	var/toggle_sound = 'sound/items/wirecutter.ogg'
 
-
 /obj/machinery/camera/New()
 	..()
 	wires = new(src)
@@ -45,9 +44,6 @@
 
 	GLOB.cameranet.cameras += src
 	GLOB.cameranet.addCamera(src)
-
-/obj/machinery/camera/Initialize()
-	..()
 	if(is_station_level(z) && prob(3) && !start_active)
 		toggle_cam(null, FALSE)
 		wires.CutAll()

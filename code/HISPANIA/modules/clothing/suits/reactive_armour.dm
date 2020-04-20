@@ -48,6 +48,6 @@
 			if(A == owner || A.anchored || thrown_items[A])
 				continue
 			var/throwtarget = get_edge_target_turf(T, get_dir(T, get_step_away(A, T)))
-			A.throw_at(throwtarget, 10, 1, force = repulse_force)
+			A.throw_at(throwtarget, 10, 1, force)
 			thrown_items[A] = A
 		return TRUE

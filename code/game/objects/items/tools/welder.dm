@@ -36,7 +36,7 @@
 	create_reagents(maximum_fuel)
 	reagents.add_reagent("fuel", maximum_fuel)
 	if(refills_over_time)
-		reagents.reagents_generated_per_cycle += list("fuel" = 1)
+		reagents.reagents_generated_per_cycle += list("fuel" = 0.2)
 	update_icon()
 
 /obj/item/weldingtool/examine(mob/user)
@@ -50,7 +50,8 @@
 
 /obj/item/weldingtool/process()
 	var/turf/T = get_turf(src)
-	T.hotspot_expose(2500, 5)
+	if(T) // Implants for instance won't find a turf
+		T.hotspot_expose(2500, 5)
 	if(prob(5))
 		remove_fuel(1)
 	..()
@@ -60,7 +61,7 @@
 		to_chat(user, "<span class='notice'>You switch off [src].</span>")
 		toggle_welder()
 		return
-	else if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
+	else if(GET_FUEL > 1) //The welder is off, but we need to check if there is fuel in the tank
 		to_chat(user, "<span class='notice'>You switch on [src].</span>")
 		toggle_welder()
 	else //The welder is off and unfuelled
